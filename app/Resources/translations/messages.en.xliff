@@ -1,0 +1,148 @@
+<?xml version="1.0"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+    <file source-language="en" target-language="en" datatype="plaintext" original="file.ext">
+        <body>
+        	<trans-unit id="title.admin">
+                <source>title.admin</source>
+                <target>Admin panel</target>
+            </trans-unit>
+            <trans-unit id="title.home">
+                <source>title.home</source>
+                <target>Home</target>
+            </trans-unit>
+            <trans-unit id="title.magazine">
+                <source>title.magazine</source>
+                <target>Magazine</target>
+            </trans-unit>
+            <trans-unit id="title.office">
+                <source>title.office</source>
+                <target>Office</target>
+            </trans-unit>
+            <trans-unit id="title.branch">
+                <source>title.branch</source>
+                <target>Branch</target>
+            </trans-unit>
+            <trans-unit id="title.branches">
+                <source>title.branches</source>
+                <target>Branches</target>
+            </trans-unit>
+            <trans-unit id="title.brands">
+                <source>title.brands</source>
+                <target>Brands</target>
+            </trans-unit>
+            <trans-unit id="title.category">
+                <source>title.category</source>
+                <target>Category</target>
+            </trans-unit>
+            <trans-unit id="title.categories">
+                <source>title.categories</source>
+                <target>Categories</target>
+            </trans-unit>
+            <trans-unit id="title.segment">
+                <source>title.segment</source>
+                <target>Segment</target>
+            </trans-unit>
+            <trans-unit id="title.segments">
+                <source>title.segments</source>
+                <target>Segments</target>
+            </trans-unit>
+            <trans-unit id="title.product">
+                <source>title.product</source>
+                <target>Product</target>
+            </trans-unit>
+            <trans-unit id="title.products">
+                <source>title.products</source>
+                <target>Products</target>
+            </trans-unit>
+            
+            
+            
+            
+            <trans-unit id="label.categories">
+                <source>label.categories</source>
+                <target>Categories</target>
+            </trans-unit>
+            <trans-unit id="label.readMore">
+                <source>label.readMore</source>
+                <target>Read more...</target>
+            </trans-unit>
+            <trans-unit id="label.moreArticles">
+                <source>label.moreArticles</source>
+                <target>More news...</target>
+            </trans-unit>
+            
+            
+            
+			<trans-unit id="label.name">
+                <source>label.name</source>
+                <target>Name</target>
+            </trans-unit>
+            <trans-unit id="label.image">
+                <source>label.image</source>
+                <target>Image</target>
+            </trans-unit>
+            <trans-unit id="label.description">
+                <source>label.description</source>
+                <target>Description</target>
+            </trans-unit>
+            
+            
+            
+            <trans-unit id="label.list.name">
+                <source>label.list.name</source>
+                <target>Name</target>
+            </trans-unit>
+            <trans-unit id="label.list.image">
+                <source>label.list.image</source>
+                <target>Image</target>
+            </trans-unit>
+            <trans-unit id="label.list.actions">
+                <source>label.list.actions</source>
+                <target>Actions</target>
+            </trans-unit>
+            
+            
+            
+            <trans-unit id="action.show">
+                <source>action.show</source>
+                <target>Show</target>
+            </trans-unit>
+            <trans-unit id="action.new">
+                <source>action.new</source>
+                <target>New</target>
+            </trans-unit>
+            <trans-unit id="action.edit">
+                <source>action.edit</source>
+                <target>Edit</target>
+            </trans-unit>
+            <trans-unit id="action.copy">
+                <source>action.copy</source>
+                <target>Copy</target>
+            </trans-unit>
+            <trans-unit id="action.delete">
+                <source>action.delete</source>
+                <target>Delete</target>
+            </trans-unit>
+            <trans-unit id="action.delete_selected">
+                <source>action.delete_selected</source>
+                <target>Delete selected</target>
+            </trans-unit>
+            
+            
+            
+            
+            <trans-unit id="action.form.saveAndNew">
+                <source>action.form.saveAndNew</source>
+                <target>Save &amp; new</target>
+            </trans-unit>
+            <trans-unit id="action.form.saveAndCopy">
+                <source>action.form.saveAndCopy</source>
+                <target>Save &amp; copy</target>
+            </trans-unit>
+            <trans-unit id="action.form.saveAndQuit">
+                <source>action.form.saveAndQuit</source>
+                <target>Save &amp; quit</target>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>

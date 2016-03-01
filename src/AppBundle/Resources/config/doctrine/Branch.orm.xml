@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+        http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <entity name="AppBundle\Entity\Branch" 
+        table="branches"
+        repository-class="AppBundle\Repository\BranchRepository">
+        
+        <field name="content" type="text" nullable="true" />
+        
+        <field name="color" type="string" nullable="true" />
+        <field name="icon" type="string" nullable="true" />
+        
+    </entity>
+    
+</doctrine-mapping>

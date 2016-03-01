@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block body %}
+
+	{% block header %}
+		<div class="page-header">
+			<h1>{{ title }}</h1>
+			
+			<div>
+				<a href="{{ path('fos_user_security_logout') }}">{% trans %}title.logout{% endtrans %}</a>
+			</div>	
+		</div>
+	{% endblock %}
+	
+	{% block menu %}
+		<div>
+			<ul class="nav nav-tabs">
+				<li {% if mainPath == 'admin' %} class="active" {% endif %}><a href="{{ path('admin') }}">{% trans %}title.admin{% endtrans %}</a></li>
+				<li {% if mainPath == 'admin_branches' %} class="active" {% endif %}><a href="{{ path('admin_branches') }}">{% trans %}title.branches{% endtrans %}</a></li>
+				<li {% if mainPath == 'admin_categories' %} class="active" {% endif %}><a href="{{ path('admin_categories') }}">{% trans %}title.categories{% endtrans %}</a></li>
+				<li {% if mainPath == 'admin_segments' %} class="active" {% endif %}><a href="{{ path('admin_segments') }}">{% trans %}title.segments{% endtrans %}</a></li>
+				<li {% if mainPath == 'admin_products' %} class="active" {% endif %}><a href="{{ path('admin_products') }}">{% trans %}title.products{% endtrans %}</a></li>
+			</ul>
+		</div>
+	{% endblock %}
+	
+	{% block content %}
+	{% endblock %}
+{% endblock %}

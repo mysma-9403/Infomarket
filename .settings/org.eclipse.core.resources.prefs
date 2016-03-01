@@ -1,0 +1,6 @@
+eclipse.preferences.version=1
+encoding//app/Resources/views/admin/index.html.twig=UTF-8
+encoding//app/Resources/views/admin/list.html.twig=UTF-8
+encoding//app/Resources/views/admin/segment/editor.html.twig=UTF-8
+encoding//src/AppBundle/Controller/Admin/AdminController.php=UTF-8
+encoding/composer.json=UTF-8

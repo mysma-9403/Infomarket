@@ -1,0 +1,154 @@
+# App Routing
+app:
+    resource: "@AppBundle/Controller"
+    type:     annotation
+
+# Infoprodukt Routing
+infoprodukt:
+    path:      /
+    host:      infoprodukt.edu.loc
+    defaults:  { _controller: "AppBundle:Infoprodukt/Site:index" }
+    
+# Infomarket Routing
+infomarket_home:
+    path:      /       
+    defaults:  { _controller: "AppBundle:Infomarket/Home:index" }
+    
+infomarket_articles:
+    path:      /articles/{page}
+    defaults:  { _controller: "AppBundle:Infomarket/Article:index", page: 1 }
+
+infomarket_articles_show:
+    path:      /articles/show/{id}
+    defaults:  { _controller: "AppBundle:Infomarket/Article:show" }
+    
+infomarket_brands:
+    path:      /brands/{page}
+    defaults:  { _controller: "AppBundle:Infomarket/Brand:index", page: 1 }
+            
+infomarket_products:
+    path:      /products
+    defaults:  { _controller: "AppBundle:Infomarket/Product:index", page: 1 }
+
+infomarket_magazine:
+    path:      /magazine
+    defaults:  { _controller: "AppBundle:Infomarket/Magazine:index" }
+    
+infomarket_office:
+    path:      /office
+    defaults:  { _controller: "AppBundle:Infomarket/Office:index" }
+        
+# Admin Routing
+admin:
+    path:      /admin/
+    defaults:  { _controller: "AppBundle:Admin/Admin:index" }
+    
+admin_products:
+    path:      /admin/products
+    defaults:  { _controller: "AppBundle:Admin/Admin:index" }
+
+# Admin Branches Routing    
+admin_branches_show:
+    path:      /admin/branches/show/{id}
+    defaults:  { _controller: "AppBundle:Admin/Branch:show" }
+    
+admin_branches_new:
+    path:      /admin/branches/new/
+    defaults:  { _controller: "AppBundle:Admin/Branch:new" }
+    
+admin_branches_copy:
+    path:      /admin/branches/copy/{id}
+    defaults:  { _controller: "AppBundle:Admin/Branch:copy" }
+    
+admin_branches_edit:
+    path:      /admin/branches/edit/{id}
+    defaults:  { _controller: "AppBundle:Admin/Branch:edit" }
+    
+admin_branches_delete:
+    path:      /admin/branches/delete/{id}
+    defaults:  { _controller: "AppBundle:Admin/Branch:delete" }
+    
+admin_branches_publish:
+    path:      /admin/branches/punlish/{id}
+    defaults:  { _controller: "AppBundle:Admin/Branch:publish" }
+    
+admin_branches_unpublish:
+    path:      /admin/branches/unpunlish/{id}
+    defaults:  { _controller: "AppBundle:Admin/Branch:unpublish" }
+
+admin_branches:
+    path:      /admin/branches/{page}
+    defaults:  { _controller: "AppBundle:Admin/Branch:index", page: 1 }
+        
+
+# Admin Categories Routing    
+admin_categories_show:
+    path:      /admin/categories/show/{id}
+    defaults:  { _controller: "AppBundle:Admin/Category:show" }
+    
+admin_categories_new:
+    path:      /admin/categories/new/
+    defaults:  { _controller: "AppBundle:Admin/Category:new" }
+    
+admin_categories_copy:
+    path:      /admin/categories/copy/{id}
+    defaults:  { _controller: "AppBundle:Admin/Category:copy" }
+    
+admin_categories_edit:
+    path:      /admin/categories/edit/{id}
+    defaults:  { _controller: "AppBundle:Admin/Category:edit" }
+    
+admin_categories_delete:
+    path:      /admin/categories/delete/{id}
+    defaults:  { _controller: "AppBundle:Admin/Category:delete" }
+    
+admin_categories_publish:
+    path:      /admin/categories/punlish/{id}
+    defaults:  { _controller: "AppBundle:Admin/Category:publish" }
+    
+admin_categories_unpublish:
+    path:      /admin/categories/unpunlish/{id}
+    defaults:  { _controller: "AppBundle:Admin/Category:unpublish" }
+
+admin_categories:
+    path:      /admin/categories/{page}
+    defaults:  { _controller: "AppBundle:Admin/Category:index", page: 1 }
+    
+            
+        
+# Admin Segments Routing    
+admin_segments_show:
+    path:      /admin/segments/show/{id}
+    defaults:  { _controller: "AppBundle:Admin/Segment:show" }
+    
+admin_segments_new:
+    path:      /admin/segments/new/
+    defaults:  { _controller: "AppBundle:Admin/Segment:new" }
+    
+admin_segments_copy:
+    path:      /admin/segments/copy/{id}
+    defaults:  { _controller: "AppBundle:Admin/Segment:copy" }
+    
+admin_segments_edit:
+    path:      /admin/segments/edit/{id}
+    defaults:  { _controller: "AppBundle:Admin/Segment:edit" }
+    
+admin_segments_delete:
+    path:      /admin/segments/delete/{id}
+    defaults:  { _controller: "AppBundle:Admin/Segment:delete" }
+    
+admin_segments_publish:
+    path:      /admin/segments/punlish/{id}
+    defaults:  { _controller: "AppBundle:Admin/Segment:publish" }
+    
+admin_segments_unpublish:
+    path:      /admin/segments/unpunlish/{id}
+    defaults:  { _controller: "AppBundle:Admin/Segment:unpublish" }
+
+admin_segments:
+    path:      /admin/segments/{page}
+    defaults:  { _controller: "AppBundle:Admin/Segment:index", page: 1 }
+
+# Friends of Symfony Routing    
+fos_user:
+    resource: "@FOSUserBundle/Resources/config/routing/all.xml"

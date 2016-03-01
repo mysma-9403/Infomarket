@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+    xmlns:gedmo="http://gediminasm.org/schemas/orm/doctrine-extensions-mapping"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+        http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <mapped-superclass name="AppBundle\Entity\Base\Audit">
+        
+        <field name="published" type="boolean" default="false" />
+        
+		<field name="createdAt" type="datetime" nullable="true">
+            <gedmo:timestampable on="create"/>
+        </field>
+        <field name="updatedAt" type="datetime" nullable="true">
+            <gedmo:timestampable on="update"/>
+        </field>
+		<field name="publishedAt" type="datetime" nullable="true">
+            <gedmo:timestampable on="change" field="published" value="true"/>
+        </field>
+        
+        <many-to-one field="createdBy" target-entity="AppBundle\Entity\User">
+            <join-column name="created_by" referenced-column-name="id"/>
+            <gedmo:blameable on="create"/>
+        </many-to-one>
+        
+        <many-to-one field="updatedBy" target-entity="AppBundle\Entity\User">
+            <join-column name="updated_by" referenced-column-name="id"/>
+            <gedmo:blameable on="update"/>
+        </many-to-one>
+        
+        <many-to-one field="publishedBy" target-entity="AppBundle\Entity\User">
+            <join-column name="published_by" referenced-column-name="id"/>
+            <gedmo:blameable on="change" field="published" value="true"/>
+        </many-to-one>
+        
+    </mapped-superclass>
+    
+</doctrine-mapping>

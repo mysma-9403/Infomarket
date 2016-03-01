@@ -1,0 +1,11 @@
+{% extends 'admin/show.html.twig' %}
+
+{% set mainPath = 'admin_categories' %}
+{% set title = 'title.categories'|trans %}
+
+{% block aaa %}
+	<tr>
+		<th>{{ 'label.description'|trans }}</th>
+		<td>{{ entry.parent.name }}</td>
+	</tr>
+{% endblock %}

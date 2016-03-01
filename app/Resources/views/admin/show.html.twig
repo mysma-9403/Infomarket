@@ -1,0 +1,20 @@
+{% extends 'admin/index.html.twig' %}
+
+{% block content %}
+    <h1>{{ entry.name }}</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>{{ 'label.image'|trans }}</th>
+                <td><img src="{{ asset(entry.getImagePath()) }}" width = "160" height = "160"/></td>
+            </tr>
+            <tr>
+                <th>{{ 'label.content'|trans }}</th>
+                <td>{{ entry.content }}</td>
+            </tr>
+            {% block aaa %}
+            {% endblock %}
+        </tbody>
+    </table>
+{% endblock %}

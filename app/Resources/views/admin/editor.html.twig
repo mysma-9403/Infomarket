@@ -1,0 +1,28 @@
+{% extends 'admin/index.html.twig' %}
+
+{% block content %}
+	
+	{% block formBlock %}
+		{% form_theme form 'form/fields.html.twig' %}
+		
+		{{ form_start(form) }}
+		    {%  block mainFields1 %}
+		    {%  endblock %}
+		    
+		    {% block moreFields1 %}
+		    {%  endblock %}
+		    
+		    {%  block mainFields2 %}
+		    {%  endblock %}
+		    
+		    {% block moreFields2 %}
+		    {%  endblock %}
+		
+			{{ form_errors(form) }}
+		
+			{% block actions %}
+		    {% endblock %}
+		{{ form_end(form) }}
+	{% endblock %}
+	
+{% endblock %}

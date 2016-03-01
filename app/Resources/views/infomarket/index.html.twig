@@ -1,0 +1,237 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block body %}
+	
+	<div class="content">
+		{% block header %}
+			<div class="info-header">
+				<div class="container">
+					<div class="col-xs-12">
+						{% set brandImage = 'img/template/logo-home.png' %}
+						{% if branch and branch.image %}
+							{% set brandImage = branch.getImagePath() %}
+						{% endif %}
+						<img alt="Brand" class="img-responsive center-block" src="{{ asset(brandImage) }}">
+					</div>
+				</div>
+			</div>
+		{% endblock %}
+		
+		{% block navigationBar %}
+			<nav class="navbar navbar-default" id="nav">
+				<div class="container">
+					
+					<div class="col-xs-12">
+						{% block navigationHeader %}
+							<div class="navbar-header">
+								{% block navigationButton %}
+									{% if branch %}
+										<button type="button" class="navbar-toggle collapsed" 
+												data-toggle="collapse" 
+												data-target="#bs-example-navbar-collapse-1" 
+												aria-expanded="false">
+									        <span class="sr-only">Toggle navigation</span>
+									        <span class="icon-bar"></span>
+									        <span class="icon-bar"></span>
+									        <span class="icon-bar"></span>
+								      	</button>
+						      		{% endif %}
+					      		{% endblock %}
+					      		
+								<a class="navbar-brand" href="{{ path('infomarket_home') }}">
+									<img alt="Brand" src="{{ asset('img/template/brand-home.png') }}">
+								</a>
+					    	</div>
+				    	{% endblock %}
+				    	
+				    	{% block navigationList %}
+							<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+				      			<ul class="nav navbar-nav navbar-right">
+									{% block navigationMenu %}
+										{% if branch %}
+											<li class="{% if mainPath == 'home' or mainPath == 'articles' %}active{% endif %} branch-{{ branch.id }}">
+												<a href="{{ path('infomarket_home', {'branch': branch.name }) }}">
+													<span class="fa fa-home"></span> {{ 'title.home'|trans }}</a>
+											</li>
+											<li class="{% if mainPath == 'products' or mainPath == 'brands' %}active{% endif %} branch-{{ branch.id }}">
+												<a href="{{ path('infomarket_products', {'branch': branch.name }) }}">
+													<span class="fa fa-camera-retro"></span> {{ 'title.products'|trans }}</a>
+											</li>
+											<li class="{% if mainPath == 'magazine' %}active{% endif %} branch-{{ branch.id }}">
+												<a href="{{ path('infomarket_magazine', {'branch': branch.name }) }}">
+													<span class="fa fa-newspaper-o"></span> {{ 'title.magazine'|trans }}</a>
+											</li>
+											<li class="{% if mainPath == 'office' %}active{% endif %} branch-{{ branch.id }}">
+												<a href="{{ path('infomarket_office', {'branch': branch.name }) }}">
+													<span class="fa fa-building-o"></span> {{ 'title.office'|trans }}</a>
+											</li>
+										{% endif %}
+									{% endblock %}
+								</ul>
+							</div>
+						{% endblock %}
+					</div>
+			  	</div>
+			</nav>
+			
+			<script>
+				$('#nav').affix({
+				      offset: {
+				        top: 0
+				      }
+				});
+			</script>
+		{% endblock %}
+		
+		<div class="container">
+			{% if branch %}
+				{% block content %}
+					<div class="col-sm-3 col-sm-push-9">
+						{% block rightPanel %}
+							<div class="panel-group" id="accordion">
+								{% block rightPanelButton %}
+									<div class="btn-group btn-group-justified">
+										<a class="btn btn-primary toggle" data-toggle="collapse" data-parent="#accodrion" href="#rightPanelContent">
+											<i class="fa fa-filter"></i> {{ rightPanelButtonLabel }}
+										</a>
+									</div>
+								{% endblock %}
+								
+								<div class="col-xs-12 collapse" id="rightPanelContent">
+									{% block rightPanelContent %}
+									{% endblock %}	
+								</div>
+							</div>
+						{% endblock %}
+					</div>
+					
+					<div class="col-sm-9 col-sm-pull-3">
+						{% block mainPanelContent %}
+						{% endblock %}
+					</div>
+				{% endblock %}
+			{% else %}
+				<div class="row">
+					{% for entry in branches %}
+						<div class="col-xs-12 col-sm-6">
+							<div class="row home-link branch-{{ entry.id }}">
+								<a class="text-center" href="{{ path('infomarket_home', { 'branch': entry.name}) }}">
+									<p><i class="fa fa-4x {{ entry.icon }}"></i></p>
+									<h3>{{ entry.name }}</h3>
+								</a>
+							</div>
+						</div>
+					{% else %}
+						{{ 'label.noEntries'|trans }}
+					{% endfor %}
+				</div>
+			{% endif %}
+		</div>
+	</div>
+	
+	{% block footer %}
+		<div class="footer navbar-inverse">
+	  		<div class="container-fluid">
+		    	<div class="container">
+		      		<h4 class="text-xs-center"><strong>&copy; 2016 InfoMarket</strong></h4>
+		      		
+		      		{% if branch.name is defined %}
+			      		<div class="row">
+				      		<div class="col-sm-3">
+				      			<a href="{{ path('infomarket_home', { 'branch': branch.name}) }}">
+									<h4><strong>{{ 'title.home'|trans }}</strong></h4>
+								</a>
+								
+								<hr>
+								
+		      					{% for entry in article_categories %}
+									<a href="{{ path('infomarket_articles', { 'branch': branch.name, 'article_category': entry.name }) }}">
+									{{ entry.name }}
+									</a>
+									<br>
+								{% endfor %}
+				      		</div>
+				      		<div class="col-sm-3">
+				      			<a href="{{ path('infomarket_products', { 'branch': branch.name}) }}">
+									<h4><strong>{{ 'title.products'|trans }}</strong></h4>
+								</a>
+								
+								<hr>
+								
+								{% for entry in categories %}
+									{% include 'common/footer_entry.html.twig' with {'entry': entry } %}
+								{% endfor %}
+				      		</div>
+				      		<div class="col-sm-3">
+				      			<a href="{{ path('infomarket_magazine', { 'branch': branch.name}) }}">
+									<h4><strong>{{ 'title.magazine'|trans }}</strong></h4>
+								</a>
+								
+								<hr>
+				      		</div>
+				      		<div class="col-sm-3">
+				      			<a href="{{ path('infomarket_office', { 'branch': branch.name}) }}">
+									<h4><strong>{{ 'title.office'|trans }}</strong></h4>
+								</a>
+								
+								<hr>
+				      		</div>
+			      		</div>
+			      		
+			      		<div class="row">
+				      		<div class="col-sm-9"><hr></div>
+				      		<div class="col-sm-3"><hr></div>
+			      		</div>
+		      		{% endif %}
+		      		
+		      		<div class="row">
+			      		<div class="col-sm-9">
+			      			<h4><strong>Infomarket Sp. z o.o.</strong></h4>
+			      			<p>
+			      				ul. Trylogii 2/16a lok. 50, 01-982 Warszawa<br>
+			      				<strong>tel./fax: </strong>(22) 835 19 17<br>
+			      				<strong>e-mail: </strong><a href="mailto:redakcja@infomarket.edu.pl">redakcja@infomarket.edu.pl</a>
+		      				</p>
+			      		</div>
+			      		<div class="col-sm-3">
+		        			<a href="http://www.facebook.com/infomarket1"><i class="fa fa-facebook"></i></a>
+			        		<a href="#"><i class="fa fa-twitter"></i></a>
+			        		<a href="#"><i class="fa fa-pinterest"></i></a>
+			        		<a href="#"><i class="fa fa-instagram"></i></a>
+			      		</div>
+		      		</div>
+		    	</div>
+		  	</div>
+		</div>
+	{% endblock %}
+	
+	{% block branchBar %}
+		<nav class="navbar navbar-default navbar-fixed-bottom">
+			<div class="container-fluid">
+		    	
+		    	{% block branchBarList %}
+	      			<ul class="nav navbar-nav navbar-center nav-horizontal">
+						{% block branchMenu %}
+							{% for entry in branches %}
+								{% if branch != null and branch.name == entry.name %}
+									{% set active='active' %}
+								{% else %}
+									{% set active='' %}
+								{% endif %}
+									<li class="branch-{{ entry.id }} {{ active }}">
+										<a href="{{ path('infomarket_' ~ mainPath, { 'branch': entry.name}) }}">
+											<b><i class="fa {{ entry.icon }}"></i><span class="hidden-xs"> {{ entry.name }}</span></b>
+										</a>
+									</li>
+							{% else %}
+								{{ 'label.noEntries'|trans }}
+							{% endfor %}
+						{% endblock %}
+					</ul>
+				{% endblock %}
+		  	</div>
+		</nav>
+	{% endblock %}
+{% endblock %}

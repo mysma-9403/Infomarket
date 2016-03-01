@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+    	
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+        
+		{% block stylesheets %}
+			<link rel="stylesheet" href="{{ asset('css/app.min.css') }}">
+			<link rel="stylesheet" href="{{ asset('css/font-awesome.min.css') }}">
+		{% endblock %}
+		
+		{% if branches is defined %}
+			{% for entry in branches %}
+				<style>
+					<!--
+					.navbar-default .navbar-nav > .active.branch-{{ entry.id }} a {
+						color: {{ entry.color }};
+						background: transparent;
+					}
+					
+					.navbar-default .navbar-nav > .branch-{{ entry.id }} a:hover,
+					.navbar-default .navbar-nav > .branch-{{ entry.id }} a:focus {
+						color: {{ entry.color }};
+					}
+					
+					.active.branch-{{ entry.id }} a {
+						color: {{ entry.color }};
+					}
+					
+					
+					.home-link.branch-{{ entry.id }} a {
+						color: {{ entry.color }};
+					}
+					
+					.branch-color-{{ entry.id }} {
+						color: {{ entry.color }};
+					}
+					-->
+				</style>
+			{% endfor %}
+		{% endif %}
+
+    </head>
+    <body>
+    	{% block javascripts %}
+        	<script src="{{ asset('js/jquery.min.js') }}"></script>
+        	<script src="{{ asset('js/bootstrap.min.js') }}"></script>
+        	<script src="{{ asset('js/moment.min.js') }}"></script>
+        	<script src="{{ asset('js/bootstrap-datetimepicker.min.js') }}"></script>
+		{% endblock %}
+		
+		{% block body %}
+        {% endblock %}
+    </body>
+</html>

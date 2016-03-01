@@ -1,0 +1,72 @@
+{% extends 'infomarket/index.html.twig' %}
+
+{% set title = 'Articles' %}
+{% set mainPath = 'articles' %}
+		
+{% block content %}
+	<div class="col-sm-3 col-sm-push-9">
+		<div class="panel-group" id="accordion">
+			
+			<div class="btn-group btn-group-justified">
+				<a class="btn btn-primary toggle" data-toggle="collapse" data-parent="#accodrion" href="#articleCategories">
+					<i class="fa fa-filter"></i> {{ 'label.categories'|trans }}
+				</a>
+			</div>
+			
+			<div class="list-group list-group collapse" id="articleCategories">
+				{% for entry in article_categories %}
+					{% set active = '' %}
+					{% if article_category and article_category.name == entry.name %}
+						{% set active = 'active' %}
+					{% endif %}
+					
+					<a class="list-group-item {{ active }}"
+						href="{{ path('infomarket_articles', { 'branch': branch.name, 'article_category': entry.name }) }}">
+						{{ entry.name }}
+						<span class="badge">104</span>
+					</a>
+				{% endfor %}
+			</div>
+		</div>
+	</div>
+	
+	<div class="col-sm-9  col-sm-pull-3">
+		{% block articles %}
+			{% for entry in entries %}
+				<div class="row">
+		        	
+		        	<div class="col-sm-3">
+			        	<img class="img-responsive lowered" src="{{ asset(entry.getImagePath()) }}">
+		        	</div>
+		        	
+			        <div class="col-sm-9">
+			        	<h3 class="title">
+			        		<a class="text-primary" href="{{ path('infomarket_articles_show', { 'branch': branch.name, 'id': entry.id }) }}">{{ entry.name }}</a>
+						</h3>
+							
+						<p class="text-muted">
+							<span class="fa fa-calendar"></span> {{ branch.updatedAt|date("Y-m-d") }}
+							<span class="hr-space"></span>
+							<span class="fa fa-user"></span> {{ branch.updatedBy }}
+						</p>
+						
+			          	<p>{{ entry.intro }}</p>
+			          	<p >
+			          		<a class="branch-color-{{ branch.id }}" href="{{ path('infomarket_articles_show', { 'branch': branch.name, 'id': entry.id }) }}">
+			          			<strong>{{ 'label.readMore'|trans }}</strong>
+		          			</a>
+		          		</p>
+			          	
+			        </div>
+				</div>
+				<hr>
+			{% else %}
+				No entries found.
+			{% endfor %}
+		{% endblock %}
+	
+		{% block listPaginator %}
+	        {{ knp_pagination_render(entries) }}
+		{% endblock %}
+	</div>
+{% endblock %}
