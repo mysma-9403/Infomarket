@@ -26,6 +26,9 @@ class SimpleEntityController extends BaseEntityController
      */
     protected function getEntityFilter(Request $request)
     {
-    	return new SimpleEntityFilter();
+    	$filter = new SimpleEntityFilter();
+    	$filter->setPublished(true);
+    	
+    	return $filter;
     }
 }

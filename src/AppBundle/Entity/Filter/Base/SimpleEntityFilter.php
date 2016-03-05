@@ -104,6 +104,10 @@ class SimpleEntityFilter extends BaseEntityFilter {
 			$expressions[] = 'e.updatedAt < ' . $this->updatedBefore;
 		}
 		
+		if($this->published) {
+			$expressions[] = 'e.published = ' . $this->published;
+		}
+		
 		return $expressions;
 	}
 	
@@ -145,6 +149,11 @@ class SimpleEntityFilter extends BaseEntityFilter {
 	 * @var datetime
 	 */
 	protected $updatedBefore;
+	
+	/**
+	 * @var boolean
+	 */
+	protected $published;
 	
 	/**
 	 * Add id of selected entry
@@ -300,5 +309,29 @@ class SimpleEntityFilter extends BaseEntityFilter {
 	public function getUpdatedBefore()
 	{
 		return $this->updatedBefore;
+	}
+	
+	/**
+	 * Set published
+	 *
+	 * @param boolean $published
+	 *
+	 * @return SimpleEntityFilter
+	 */
+	public function setPublished($published)
+	{
+		$this->published = $published;
+	
+		return $this;
+	}
+	
+	/**
+	 * Is published
+	 *
+	 * @return boolean
+	 */
+	public function isPublished()
+	{
+		return $this->published;
 	}
 }

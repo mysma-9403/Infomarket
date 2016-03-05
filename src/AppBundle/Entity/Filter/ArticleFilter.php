@@ -13,13 +13,21 @@ class ArticleFilter extends SimpleEntityFilter {
 	 */
 	private $articleCategories;
 	
+	/**
+	 * @var boolean
+	 */
+	private $featured;
+	
 	protected function getWhereExpressions() {
 		$expressions = parent::getWhereExpressions();
 		
-		if($this->articleCategories)
-			$expressions[] = $this->getEqualArrayExpression('articleCategory', $this->articleCategories);
+		if($this->articleCategories) {
+			$expressions[] = $this->getEqualArrayExpression('e.articleCategory', $this->articleCategories);
+		}
 		
-		//$expressions[] = 'e.publishedAt IS NOT NULL';
+		if($this->featured) {
+			$expressions[] = 'e.featured = ' . $this->featured;
+		}
 		
 		return $expressions;
 	}
@@ -53,5 +61,29 @@ class ArticleFilter extends SimpleEntityFilter {
 	public function getArticleCategories()
 	{
 		return $this->articleCategories;
+	}
+	
+	/**
+	 * Set featured
+	 *
+	 * @param boolean $featured
+	 *
+	 * @return SimpleEntityFilter
+	 */
+	public function setFeatured($featured)
+	{
+		$this->featured = $featured;
+	
+		return $this;
+	}
+	
+	/**
+	 * Is featured
+	 *
+	 * @return boolean
+	 */
+	public function isFeatured()
+	{
+		return $this->featured;
 	}
 }

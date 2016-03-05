@@ -9,6 +9,6 @@ class AdminController extends Controller
 {
     public function indexAction(Request $request)
     {
-        return $this->render('admin/index.html.twig', array('title' => 'Panel administracyjny'));
+        return $this->render('admin/admin/index.html.twig');
     }
 }

@@ -9,6 +9,7 @@
         table="categories"
         repository-class="AppBundle\Repository\CategoryRepository">
         
+        <field name="featured" type="boolean" default="false" />
         <field name="content" type="text" nullable="true" />
         
         <many-to-one field="parent" target-entity="Category" nullable="true">

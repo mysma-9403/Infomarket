@@ -1,4 +1,10 @@
-{% extends 'admin/editor.html.twig' %}
+{% extends 'admin/image/editor.html.twig' %}
 
-{% set mainPath = 'admin_categories' %}
+{% set mainPath = 'category' %}
 {% set title = 'title.categories'|trans %}
+
+{%  block moreFields2 %}
+	{{ form_row(form.parent, { 'label': 'label.parent' }) }}
+	{{ form_row(form.featured, { 'label': 'label.featured' }) }}	
+    {{ form_row(form.content, { 'label': 'label.content' }) }}
+{%  endblock %}

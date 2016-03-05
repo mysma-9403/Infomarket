@@ -14,22 +14,38 @@ infomarket_home:
     path:      /       
     defaults:  { _controller: "AppBundle:Infomarket/Home:index" }
     
-infomarket_articles:
+infomarket_article:
     path:      /articles/{page}
     defaults:  { _controller: "AppBundle:Infomarket/Article:index", page: 1 }
 
-infomarket_articles_show:
+infomarket_article_show:
     path:      /articles/show/{id}
     defaults:  { _controller: "AppBundle:Infomarket/Article:show" }
     
-infomarket_brands:
+infomarket_brand:
     path:      /brands/{page}
     defaults:  { _controller: "AppBundle:Infomarket/Brand:index", page: 1 }
-            
-infomarket_products:
-    path:      /products
+
+infomarket_brand_show:
+    path:      /brands/show/{id}
+    defaults:  { _controller: "AppBundle:Infomarket/Brand:show" }
+                
+infomarket_product:
+    path:      /products/{page}
     defaults:  { _controller: "AppBundle:Infomarket/Product:index", page: 1 }
 
+infomarket_product_show:
+    path:      /products/show/{id}
+    defaults:  { _controller: "AppBundle:Infomarket/Product:show" }
+    
+infomarket_term:
+    path:      /terms/{page}
+    defaults:  { _controller: "AppBundle:Infomarket/Term:index", page: 1 }
+    
+infomarket_term_show:
+    path:      /terms/show/{id}
+    defaults:  { _controller: "AppBundle:Infomarket/Term:show" }
+        
 infomarket_magazine:
     path:      /magazine
     defaults:  { _controller: "AppBundle:Infomarket/Magazine:index" }
@@ -43,109 +59,186 @@ admin:
     path:      /admin/
     defaults:  { _controller: "AppBundle:Admin/Admin:index" }
     
-admin_products:
+admin_product:
     path:      /admin/products
     defaults:  { _controller: "AppBundle:Admin/Admin:index" }
 
+
+# Admin Articles Routing    
+admin_article_show:
+    path:      /admin/articles/show/{id}
+    defaults:  { _controller: "AppBundle:Admin/Article:show" }
+    
+admin_article_new:
+    path:      /admin/articles/new/
+    defaults:  { _controller: "AppBundle:Admin/Article:new" }
+    
+admin_article_copy:
+    path:      /admin/articles/copy/{id}
+    defaults:  { _controller: "AppBundle:Admin/Article:copy" }
+    
+admin_article_edit:
+    path:      /admin/articles/edit/{id}
+    defaults:  { _controller: "AppBundle:Admin/Article:edit" }
+    
+admin_article_delete:
+    path:      /admin/articles/delete/{id}
+    defaults:  { _controller: "AppBundle:Admin/Article:delete" }
+    
+admin_article_publish:
+    path:      /admin/articles/publish/{id}
+    defaults:  { _controller: "AppBundle:Admin/Article:publish" }
+    
+admin_article_unpublish:
+    path:      /admin/articles/unpublish/{id}
+    defaults:  { _controller: "AppBundle:Admin/Article:unpublish" }
+
+admin_article_setFeatured:
+    path:      /admin/articles/set_featured/{id}
+    defaults:  { _controller: "AppBundle:Admin/Article:setFeatured" }
+    
+admin_article:
+    path:      /admin/articles/{page}
+    defaults:  { _controller: "AppBundle:Admin/Article:index", page: 1 }
+    
+    
 # Admin Branches Routing    
-admin_branches_show:
+admin_branch_show:
     path:      /admin/branches/show/{id}
     defaults:  { _controller: "AppBundle:Admin/Branch:show" }
     
-admin_branches_new:
+admin_branch_new:
     path:      /admin/branches/new/
     defaults:  { _controller: "AppBundle:Admin/Branch:new" }
     
-admin_branches_copy:
+admin_branch_copy:
     path:      /admin/branches/copy/{id}
     defaults:  { _controller: "AppBundle:Admin/Branch:copy" }
     
-admin_branches_edit:
+admin_branch_edit:
     path:      /admin/branches/edit/{id}
     defaults:  { _controller: "AppBundle:Admin/Branch:edit" }
     
-admin_branches_delete:
+admin_branch_delete:
     path:      /admin/branches/delete/{id}
     defaults:  { _controller: "AppBundle:Admin/Branch:delete" }
     
-admin_branches_publish:
-    path:      /admin/branches/punlish/{id}
+admin_branch_publish:
+    path:      /admin/branches/publish/{id}
     defaults:  { _controller: "AppBundle:Admin/Branch:publish" }
     
-admin_branches_unpublish:
-    path:      /admin/branches/unpunlish/{id}
+admin_branch_unpublish:
+    path:      /admin/branches/unpublish/{id}
     defaults:  { _controller: "AppBundle:Admin/Branch:unpublish" }
 
-admin_branches:
+admin_branch:
     path:      /admin/branches/{page}
     defaults:  { _controller: "AppBundle:Admin/Branch:index", page: 1 }
         
 
+# Admin Brands Routing    
+admin_brand_show:
+    path:      /admin/brands/show/{id}
+    defaults:  { _controller: "AppBundle:Admin/Brand:show" }
+    
+admin_brand_new:
+    path:      /admin/brands/new/
+    defaults:  { _controller: "AppBundle:Admin/Brand:new" }
+    
+admin_brand_copy:
+    path:      /admin/brands/copy/{id}
+    defaults:  { _controller: "AppBundle:Admin/Brand:copy" }
+    
+admin_brand_edit:
+    path:      /admin/brands/edit/{id}
+    defaults:  { _controller: "AppBundle:Admin/Brand:edit" }
+    
+admin_brand_delete:
+    path:      /admin/brands/delete/{id}
+    defaults:  { _controller: "AppBundle:Admin/Brand:delete" }
+    
+admin_brand_publish:
+    path:      /admin/brands/publish/{id}
+    defaults:  { _controller: "AppBundle:Admin/Brand:publish" }
+    
+admin_brand_unpublish:
+    path:      /admin/brands/unpublish/{id}
+    defaults:  { _controller: "AppBundle:Admin/Brand:unpublish" }
+
+admin_brand:
+    path:      /admin/brands/{page}
+    defaults:  { _controller: "AppBundle:Admin/Brand:index", page: 1 }
+    
+    
 # Admin Categories Routing    
-admin_categories_show:
+admin_category_show:
     path:      /admin/categories/show/{id}
     defaults:  { _controller: "AppBundle:Admin/Category:show" }
     
-admin_categories_new:
+admin_category_new:
     path:      /admin/categories/new/
     defaults:  { _controller: "AppBundle:Admin/Category:new" }
     
-admin_categories_copy:
+admin_category_copy:
     path:      /admin/categories/copy/{id}
     defaults:  { _controller: "AppBundle:Admin/Category:copy" }
     
-admin_categories_edit:
+admin_category_edit:
     path:      /admin/categories/edit/{id}
     defaults:  { _controller: "AppBundle:Admin/Category:edit" }
     
-admin_categories_delete:
+admin_category_delete:
     path:      /admin/categories/delete/{id}
     defaults:  { _controller: "AppBundle:Admin/Category:delete" }
     
-admin_categories_publish:
-    path:      /admin/categories/punlish/{id}
+admin_category_publish:
+    path:      /admin/categories/publish/{id}
     defaults:  { _controller: "AppBundle:Admin/Category:publish" }
     
-admin_categories_unpublish:
-    path:      /admin/categories/unpunlish/{id}
+admin_category_unpublish:
+    path:      /admin/categories/unpublish/{id}
     defaults:  { _controller: "AppBundle:Admin/Category:unpublish" }
+    
+admin_category_setFeatured:
+    path:      /admin/categories/set_featured/{id}
+    defaults:  { _controller: "AppBundle:Admin/Category:setFeatured" }
 
-admin_categories:
+admin_category:
     path:      /admin/categories/{page}
     defaults:  { _controller: "AppBundle:Admin/Category:index", page: 1 }
     
             
         
 # Admin Segments Routing    
-admin_segments_show:
+admin_segment_show:
     path:      /admin/segments/show/{id}
     defaults:  { _controller: "AppBundle:Admin/Segment:show" }
     
-admin_segments_new:
+admin_segment_new:
     path:      /admin/segments/new/
     defaults:  { _controller: "AppBundle:Admin/Segment:new" }
     
-admin_segments_copy:
+admin_segment_copy:
     path:      /admin/segments/copy/{id}
     defaults:  { _controller: "AppBundle:Admin/Segment:copy" }
     
-admin_segments_edit:
+admin_segment_edit:
     path:      /admin/segments/edit/{id}
     defaults:  { _controller: "AppBundle:Admin/Segment:edit" }
     
-admin_segments_delete:
+admin_segment_delete:
     path:      /admin/segments/delete/{id}
     defaults:  { _controller: "AppBundle:Admin/Segment:delete" }
     
-admin_segments_publish:
-    path:      /admin/segments/punlish/{id}
+admin_segment_publish:
+    path:      /admin/segments/publish/{id}
     defaults:  { _controller: "AppBundle:Admin/Segment:publish" }
     
-admin_segments_unpublish:
-    path:      /admin/segments/unpunlish/{id}
+admin_segment_unpublish:
+    path:      /admin/segments/unpublish/{id}
     defaults:  { _controller: "AppBundle:Admin/Segment:unpublish" }
 
-admin_segments:
+admin_segment:
     path:      /admin/segments/{page}
     defaults:  { _controller: "AppBundle:Admin/Segment:index", page: 1 }
 

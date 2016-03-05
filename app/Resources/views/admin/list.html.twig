@@ -2,145 +2,112 @@
 
 {% block content %}
 	
-	{%  block filterMenu %}
+	{% block filterMenu %}
 		<div class="panel-group" id="accordion">
-			<a class="btn btn-primary toggle" data-toggle="collapse" data-parent="#accodrion" href="#filter">
-				<i class="fa fa-filter"></i>Filter
-			</a>
-			<div id="filter">
-				{{ form_start(filter) }}
-				<ul class="list-inline">
-{# 					<li>{{ form_row(filter.published, { 'label': 'label.filter.published' }) }}</li>#}
-					<li>{{ form_row(filter.name, { 'label': 'label.filter.name' }) }}</li>
+			<div id="filter" class="accordion-body collapse">
+			
+				{% block filterForm %}
+					{% form_theme filter 'form/fields.html.twig' %}
 					
-					<li>
-						<div class="btn-group">
-							{{ form_widget(filter.search, { 'label': 'action.filter.search', 'attr': {'class': 'btn btn-primary', 'type': 'button'} }) }}
-							{{ form_widget(filter.clear, { 'label': 'action.filter.clear', 'attr': {'class': 'btn btn-warning', 'type': 'button'} }) }}
-						</div>
-					</li>
-				</ul>			
-				{{ form_end(filter) }}
+					{{ form_start(filter) }}
+					<ul class="list-inline col-xs-12">
+						{% block filterMoreFields1 %}
+						{% endblock %}
+					
+						{% block filterMainFields1 %}
+						{% endblock %}
+						
+						{% block filterMoreFields2 %}
+						{% endblock %}
+						
+						{% block filterMainFields2 %}
+						{% endblock %}
+						
+						{% block filterActions %}
+						{% endblock %}
+					</ul>			
+					{{ form_end(filter) }}
+				{% endblock %}
 			</div>
 		</div>
+		
+		<script type="text/javascript">$("#filter").collapse("hide");</script>
 	{%  endblock %}
 	
-	{{ form_start(form) }}
-		{% block listMenu %}
-			<nav role="navigation" class="navbar navbar-default">
-			<ul class="list-inline">
-				{% if is_granted('ROLE_EDITOR') %}
-					<li>{{ form_widget(form.new, { 'label': 'action.form.new', 'attr': {'class': 'btn btn-success', 'type': 'button'} }) }}</li>
-				{% endif %}
-				{% if is_granted('ROLE_PUBLISHER') %}
-					<div class="btn-group">
-						{{ form_widget(form.selectAll, { 'label': 'action.form.selectAll', 'attr': {'class': 'btn btn-default', 'type': 'button'} }) }}
-						{{ form_widget(form.selectNone, { 'label': 'action.form.selectNone', 'attr': {'class': 'btn btn-warning', 'type': 'button'} }) }}
-					</div>
-					<div class="btn-group">
-						{{ form_widget(form.publishSelected, { 'label': 'action.form.publishSelected', 'attr': {'class': 'btn btn-success', 'type': 'button'} }) }}
-						{{ form_widget(form.unpublishSelected, { 'label': 'action.form.unpublishSelected', 'attr': {'class': 'btn btn-danger', 'type': 'button'} }) }}
-					</div>
-				{% endif %}
-				{% if is_granted('ROLE_ADMIN') %}
-					<li>{{ form_widget(form.deleteSelected, { 'label': 'action.form.deleteSelected', 'attr': {'class': 'btn btn-danger', 'type': 'button'} }) }}</li>
-				{% endif %}
-			</ul>
-			</nav>
-		{% endblock %}
-	    	
-    	{% block listTable %}
-			<table class="table table-striped">
-				<thead>
-					{% block listHeader %}
-						<th><i class="fa fa-check-square-o"></i>{{ 'label.list.selected'|trans }}</th>
-						<th><i class="fa fa-picture-o"></i>{{ 'label.list.image'|trans }}</th>
-						<th><i class="fa fa-tag"></i>{{ 'label.list.name'|trans }}</th>
-						<th><i class="fa fa-check"></i>{{ 'label.list.published'|trans }}</th>
-						<th><i class="fa fa-calendar-check-o"></i>{{ 'label.list.publishedTime'|trans }}</th>
-						<th><i class="fa fa-user"></i>{{ 'label.list.publishedBy'|trans }}</th>
-						<th><i class="fa fa-calendar-o"></i>{{ 'label.list.updatedTime'|trans }}</th>
-						<th><i class="fa fa-user"></i>{{ 'label.list.updatedBy'|trans }}</th>
-						<th><i class="fa fa-calendar-plus-o"></i>{{ 'label.list.createdTime'|trans }}</th>
-						<th><i class="fa fa-user"></i>{{ 'label.list.createdBy'|trans }}</th>
-						<th><i class="fa fa-play"></i>{{ 'label.list.actions'|trans }}</th>
+	{%  block listBlock %}
+		{% form_theme form 'form/fields.html.twig' %}
+	
+		{{ form_start(form) }}
+			{% block listActions %}
+				<ul class="list-inline">
+					{% block headerActions %}
 					{% endblock %}
-				</thead>
-				
-				{% for entry in form.entries%}
-				    {% set index = entry.vars.value %}{# get array index #}
-				    {% set item = form.entries.vars.choices[index].data %}{# get entity object #}
-				    <tr>
-				        <td>{{ form_widget(entry) }}</td>{# render checkbox #}
-				        <td><img src="{{ asset(item.getImagePath()) }}" class="img-circle" width="40" height="40"/></td>
-				        <td>{{ item.name }}</td>
-				        <td>
-				        	{% if item.published %}
-				        		<a href="{{ path(mainPath ~ '_unpublish', { id: item.id }) }}">
-				        			<i class="fa fa-check" data-toggle="tooltip" title="{{ 'label.published'|trans }}"></i>
-			        			</a>
-			        		{%  else %}
-			        			<a href="{{ path(mainPath ~ '_publish', { id: item.id }) }}">
-				        			<i class="fa fa-remove" data-toggle="tooltip" title="{{ 'label.unpublished'|trans }}"></i>
-			        			</a>
-			        		{% endif %}
-				        </td>
-				        
-				        <td>
-							{% if item.publishedAt > date("01-01-1900") %}
-							    {{ item.publishedAt|date('Y-m-d H:i:s') }}
-						    {% else %}
-						    	-
-							{% endif %}
-				        </td>
-				        <td>{{ item.publishedBy }}</td>
-				        
-				        <td>
-							{% if item.updatedAt > date("01-01-1900") %}
-							    {{ item.updatedAt|date('Y-m-d H:i:s') }}
-						    {% else %}
-						    	-
-							{% endif %}
-				        </td>
-				        <td>{{ item.updatedBy }}</td>
-				        
-				        <td>
-							{% if item.createdAt > date("01-01-1900") %}
-							    {{ item.createdAt|date('Y-m-d H:i:s') }}
-						    {% else %}
-						    	-
-							{% endif %}
-				        </td>
-				        <td>{{ item.createdBy }}</td>
-				        
-				        <td>
-							<a type="button" class="btn btn-sm btn-default" href="{{ path(mainPath ~ '_show', { id: item.id }) }}">
-								<i class="fa fa-eye"></i>{{ 'action.show'|trans }}
-							</a>
-							{% if is_granted('ROLE_EDITOR') %}
-								<div class="btn-group">
-									<a type="button" class="btn btn-sm btn-success" href="{{ path(mainPath ~ '_edit', { id: item.id }) }}">
-									<i class="fa fa-edit"></i>{{ 'action.edit'|trans }}
-									</a>
-									<a type="button" class="btn btn-sm btn-warning" href="{{ path(mainPath ~ '_copy', { id: item.id }) }}">
-									<i class="fa fa-copy"></i>{{ 'action.copy'|trans }}
-									</a>
-								</div>
-							{% endif %}
-							{% if is_granted('ROLE_ADMIN') %}
-								<a type="button" class="btn btn-sm btn-danger" href="{{ path(mainPath ~ '_delete', { id: item.id }) }}">
-								<i class="fa fa-trash"></i>{{ 'action.delete'|trans }}
-								</a>
-							{% endif %}
-						</td>
-				    </tr>
-				{% endfor %}
-			</table>
-		{% endblock %}
-	{{ form_end(form) }}
+					<li>
+						<a class="btn btn-primary toggle" data-toggle="collapse" data-parent="#accodrion" href="#filter">
+							<i class="fa fa-filter"></i>{{ 'action.filter'|trans }}
+						</a>
+					</li>
+				</ul>
+			{% endblock %}
+	    	
+    		{% block listTable %}
+	    		<table class="table table-striped">
+					<thead>
+						{% block tableHeader %}
+							<th><i class="fa fa-check-square-o"></i>{{ 'label.selected'|trans }}</th>
+							
+							{% block headerMoreFields1 %}
+							{% endblock %}
+						
+							{% block headerMainFields1 %}
+							{% endblock %}
+							
+							{% block headerMoreFields2 %}
+							{% endblock %}
+							
+							{% block headerMainFields2 %}
+							{% endblock %}
+						{% endblock %}
+					</thead>
+					<tbody>
+						{% block tableBody %}
+							{% for entry in form.entries%}
+							    {% set index = entry.vars.value %}{# get array index #}
+							    {% set item = form.entries.vars.choices[index].data %}{# get entity object #}
+							    {% block tableRow %}
+							    <tr>
+							    	{% block tableEntry %}
+							    		<td>{{ form_widget(entry) }}</td>
+							    		
+								    	{% block entryMoreFields1 %}
+										{% endblock %}
+									
+										{% block entryMainFields1 %}
+										{% endblock %}
+										
+										{% block entryMoreFields2 %}
+										{% endblock %}
+										
+										{% block entryMainFields2 %}
+										{% endblock %}
+										
+										{% block entryActions %}
+										{% endblock %}
+							    	{% endblock %}
+							    </tr>
+							    {% endblock %}
+						    {% endfor %}
+						{% endblock %}
+					</tbody>
+				</table>
+			{% endblock %}
+		{{ form_end(form) }}
+	{% endblock %}
 	
 	{% block listPaginator %}
-		<div>{{ knp_pagination_render(entries) }}</div>
+		<div>
+	        {{ knp_pagination_render(entries) }}
+	    </div>
     {% endblock %}
     
 {% endblock %}

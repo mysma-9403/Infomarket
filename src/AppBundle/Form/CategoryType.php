@@ -26,7 +26,10 @@ class CategoryType extends SimpleEntityType
 			->add('content', null, array(
 					'attr' => array('rows' => 20),
 					'required' => false
-			));
+			))
+			->add('featured', null, array(
+					'required' => true
+			))
 			;
 	}
 	

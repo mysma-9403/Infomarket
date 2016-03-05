@@ -10,7 +10,7 @@
 	    {{ form_widget(form.saveAndNew, { 'icon': 'fa-file-o', 'label': 'action.saveAndNew', 'attr': {'class': 'btn btn-success'} }) }}
 	    {{ form_widget(form.saveAndCopy, { 'icon': 'fa-copy', 'label': 'action.saveAndCopy', 'attr': {'class': 'btn btn-warning'} }) }}
 	    {{ form_widget(form.saveAndQuit, { 'icon': 'fa-save', 'label': 'action.saveAndQuit', 'attr': {'class': 'btn btn-success'} }) }}
-	    <a type="button" class="btn btn-primary" href="{{ path(mainPath) }}">
+	    <a type="button" class="btn btn-primary" href="{{ path('admin_' ~ mainPath) }}">
 	    	<i class="fa fa-close"></i>{{ 'action.back'|trans }}
 		</a>
     </div>

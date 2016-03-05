@@ -96,10 +96,10 @@ abstract class BaseEntityFilter {
 		if($size == 0) return null;
 	
 		if($size == 1) {
-			$expression = 'e.' . $name .' = ' . $entries[0]->getId();
+			$expression = $name .' = ' . $entries[0]->getId();
 		}
 		else {
-			$expression = 'e.' . $name .' in (' . $entries[0]->getId();
+			$expression = $name .' in (' . $entries[0]->getId();
 			for ($i = 1; $i < $size; $i++) {
 				$expression .= ', ' . $entries[$i]->getId();
 			}

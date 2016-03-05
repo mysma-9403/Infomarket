@@ -38,7 +38,7 @@ abstract class BaseEntityController extends Controller
 	 */
 	protected function showActionInternal(Request $request, $id)
 	{
-		$params = $this->initShowParams($request);
+		$params = $this->initShowParams($request, $id);
 	
 		$name = $this->getEntityName();
 		return $this->render('infomarket/' . $name . '/show.html.twig', $params);

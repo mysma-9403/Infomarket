@@ -2,74 +2,67 @@
 
 namespace AppBundle\Controller\Admin;
 
+use AppBundle\Controller\Admin\Base\ImageTreeController;
 use AppBundle\Controller\Admin\Base\SimpleEntityController;
 use AppBundle\Entity\Category;
-use AppBundle\Entity\Lists\CategoryList;
 use AppBundle\Form\CategoryType;
-use AppBundle\Form\CategoryListType;
+use Symfony\Component\HttpFoundation\Request;
 
-class CategoryController extends SimpleEntityController {
+class CategoryController extends ImageTreeController {
 	
-	/**
-	 * {@inheritDoc}
-	 */
-	protected function getEntityType() {
-		return 'AppBundle:Category';
+	public function setFeaturedAction(Request $request, $id)
+	{
+		$featured = $request->get('featured', false);
+		
+		$em = $this->getDoctrine()->getManager();
+	
+		//Make sure entity exists :)
+		$entry = $this->getEntry($id);
+		$entry->setFeatured($featured);
+		$em->persist($entry);
+		$em->flush();
+	
+		return $this->redirectToRoute($this->getIndexRoute());
 	}
 	
-	/**
-	 * {@inheritDoc}
-	 */
-	protected function getEntityClass() {
-		return Category::class;
-	}
+	//------------------------------------------------------------------------
+	// Entity creators
+	//------------------------------------------------------------------------
 	
 	/**
+	 * 
 	 * {@inheritDoc}
+	 * @see \AppBundle\Controller\Admin\Base\SimpleEntityController::createNewEntity()
 	 */
-	protected function getEntityListClass() {
-		return CategoryList::class;
-	}
-	
-	/**
-	 * {@inheritDoc}
-	 */
-	protected function getFormClass() {
-		return CategoryType::class;
-	}
-	
-	/**
-	 * {@inheritDoc}
-	 */
-	protected function getListFormClass() {
-		return CategoryListType::class;
-	}
-	
-	/**
-	 * {@inheritDoc}
-	 */
-	protected function getTwigName() {
-		return 'category';
-	}
-	
-	/**
-	 * {@inheritDoc}
-	 */
-	protected function createNewList() {
-		return new CategoryList();
-	}
-	
-	/**
-	 * {@inheritDoc}
-	 */
-	protected function createNewEntry() {
+	protected function createNewEntity(Request $request) {
 		return new Category();
 	}
 	
+	
+	//------------------------------------------------------------------------
+	// Entity types
+	//------------------------------------------------------------------------
+	
 	/**
+	 * 
 	 * {@inheritDoc}
+	 * @see \AppBundle\Controller\Admin\Base\SimpleEntityController::getEntityType()
 	 */
-	protected function getIndexRoute() {
-		return 'admin_categories';
+	protected function getEntityType() {
+		return Category::class;
+	}
+	
+	
+	//------------------------------------------------------------------------
+	// Form types
+	//------------------------------------------------------------------------
+	
+	/**
+	 * 
+	 * {@inheritDoc}
+	 * @see \AppBundle\Controller\Admin\Base\SimpleEntityController::getFormType()
+	 */
+	protected function getFormType() {
+		return CategoryType::class;
 	}
 }

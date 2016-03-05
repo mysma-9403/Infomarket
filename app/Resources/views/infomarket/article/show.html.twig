@@ -1,23 +1,9 @@
-{% extends 'infomarket/index.html.twig' %}
+{% extends 'infomarket/image/show.html.twig' %}
 
-{% set title = 'Articles' %}
-{% set mainPath = 'articles' %}
-		
-{% block content %}
-	<div class="row">
-		<div class="col-xs-12 col-sm-3">
-			<img src="{{ asset(entry.getImagePath()) }}" width="200" height="200" />
-		</div>
-		<div class="col-xs-12 col-sm-9 blue-link">
-			<div class="col-xs-11 col-xs-offset-1 red-link">
-				<a href="{{ path('infomarket_articles_show', { 'branch': branch.name, 'id': entry.id }) }}">{{ entry.name }}</a>
-			</div>
-		</div>
-		<div class="col-xs-12 col-sm-9">
-			<p><strong>{{ entry.intro }}</strong></p>
-		</div>
-	</div>
-	<div class="row">
-		<p>{{ entry.content }}</p>
-	</div>
+{% set title = 'title.articles'|trans %}
+{% set mainPath = 'article' %}
+
+{% block moreContent %}
+	<p><strong>{{ entry.intro }}</strong></p>
+	<p>{{ entry.content }}</p>
 {% endblock %}

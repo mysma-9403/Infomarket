@@ -1,7 +1,7 @@
 {% extends 'infomarket/index.html.twig' %}
 
-{% set title = 'Articles' %}
-{% set mainPath = 'articles' %}
+{% set title = 'title.articles'|trans %}
+{% set mainPath = 'article' %}
 		
 {% block content %}
 	<div class="col-sm-3 col-sm-push-9">
@@ -21,7 +21,7 @@
 					{% endif %}
 					
 					<a class="list-group-item {{ active }}"
-						href="{{ path('infomarket_articles', { 'branch': branch.name, 'article_category': entry.name }) }}">
+						href="{{ path('infomarket_article', { 'branch': branch.name, 'article_category': entry.name }) }}">
 						{{ entry.name }}
 						<span class="badge">104</span>
 					</a>
@@ -41,7 +41,7 @@
 		        	
 			        <div class="col-sm-9">
 			        	<h3 class="title">
-			        		<a class="text-primary" href="{{ path('infomarket_articles_show', { 'branch': branch.name, 'id': entry.id }) }}">{{ entry.name }}</a>
+			        		<a class="text-primary" href="{{ path('infomarket_' ~ mainPath ~ '_show', { 'branch': branch.name, 'id': entry.id }) }}">{{ entry.name }}</a>
 						</h3>
 							
 						<p class="text-muted">
@@ -52,8 +52,8 @@
 						
 			          	<p>{{ entry.intro }}</p>
 			          	<p >
-			          		<a class="branch-color-{{ branch.id }}" href="{{ path('infomarket_articles_show', { 'branch': branch.name, 'id': entry.id }) }}">
-			          			<strong>{{ 'label.readMore'|trans }}</strong>
+			          		<a class="branch-color-{{ branch.id }}" href="{{ path('infomarket_' ~ mainPath ~ '_show', { 'branch': branch.name, 'id': entry.id }) }}">
+			          			{{ 'label.readMore'|trans }}
 		          			</a>
 		          		</p>
 			          	

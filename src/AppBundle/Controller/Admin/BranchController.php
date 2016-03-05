@@ -4,72 +4,50 @@ namespace AppBundle\Controller\Admin;
 
 use AppBundle\Controller\Admin\Base\SimpleEntityController;
 use AppBundle\Entity\Branch;
-use AppBundle\Entity\Lists\BranchList;
 use AppBundle\Form\BranchType;
-use AppBundle\Form\BranchListType;
+use AppBundle\Controller\Admin\Base\ImageEntityController;
+use Symfony\Component\HttpFoundation\Request;
 
-class BranchController extends SimpleEntityController {
+class BranchController extends ImageEntityController {
+	
+	//------------------------------------------------------------------------
+	// Entity creators
+	//------------------------------------------------------------------------
 	
 	/**
+	 * 
 	 * {@inheritDoc}
+	 * @see \AppBundle\Controller\Admin\Base\SimpleEntityController::createNewEntity()
 	 */
-	protected function getEntityType() {
-		return 'AppBundle:Branch';
-	}
-	
-	/**
-	 * {@inheritDoc}
-	 */
-	protected function getEntityClass() {
-		return Branch::class;
-	}
-	
-	/**
-	 * {@inheritDoc}
-	 */
-	protected function getEntityListClass() {
-		return BranchList::class;
-	}
-	
-	/**
-	 * {@inheritDoc}
-	 */
-	protected function getFormClass() {
-		return BranchType::class;
-	}
-	
-	/**
-	 * {@inheritDoc}
-	 */
-	protected function getListFormClass() {
-		return BranchListType::class;
-	}
-	
-	/**
-	 * {@inheritDoc}
-	 */
-	protected function getTwigName() {
-		return 'branch';
-	}
-	
-	/**
-	 * {@inheritDoc}
-	 */
-	protected function createNewList() {
-		return new BranchList();
-	}
-	
-	/**
-	 * {@inheritDoc}
-	 */
-	protected function createNewEntry() {
+	protected function createNewEntity(Request $request) {
 		return new Branch();
 	}
 	
+	
+	//------------------------------------------------------------------------
+	// Entity types
+	//------------------------------------------------------------------------
+	
 	/**
+	 * 
 	 * {@inheritDoc}
+	 * @see \AppBundle\Controller\Admin\Base\SimpleEntityController::getEntityType()
 	 */
-	protected function getIndexRoute() {
-		return 'admin_branches';
+	protected function getEntityType() {
+		return Branch::class;
+	}
+	
+	
+	//------------------------------------------------------------------------
+	// Form types
+	//------------------------------------------------------------------------
+	
+	/**
+	 * 
+	 * {@inheritDoc}
+	 * @see \AppBundle\Controller\Admin\Base\SimpleEntityController::getFormType()
+	 */
+	protected function getFormType() {
+		return BranchType::class;
 	}
 }

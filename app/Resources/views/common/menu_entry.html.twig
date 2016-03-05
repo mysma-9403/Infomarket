@@ -8,5 +8,5 @@
 		</ul>
 	</li>
 {% else %}
-	<li><a href="{{ path('infomarket_products', { 'branches': branches, 'branch': branch.name, 'category': entry.name }) }}">{{ entry.name }}</a></li>
+	<li><a href="{{ path('infomarket_' ~ mainPath, { 'branches': branches, 'branch': branch.name, 'category': entry.name }) }}">{{ entry.name }}</a></li>
 {% endif %}

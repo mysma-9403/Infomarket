@@ -13,7 +13,7 @@
 {% block filterMainFields2 %}
 	<li class="col-xs-12 col-sm-6 col-md-4 col-lg-2">
 		<div class='input-group date' id='datetimepicker1'>
-			{{ form_widget(filter.updatedAfter) }}
+{# 			{{ form_widget(filter.updatedAfter) }}#}
 			<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 	    </div>
 	    <script type="text/javascript">
@@ -25,21 +25,21 @@
     
     <li class="col-xs-12 col-sm-6 col-md-4 col-lg-2">
 		<div class='input-group date' id='datetimepicker2'>
-			{{ form_widget(filter.updatedBefore) }}
+{# 			{{ form_widget(filter.updatedBefore) }}#}
 			<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 	    </div>
     </li>
     
     <li class="col-xs-12 col-sm-6 col-md-4 col-lg-2">
 		<div class='input-group date' id='datetimepicker3'>
-			{{ form_widget(filter.createdAfter) }}
+{# 			{{ form_widget(filter.createdAfter) }}#}
 			<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 	    </div>
     </li>
     
     <li class="col-xs-12 col-sm-6 col-md-4 col-lg-2">
 		<div class='input-group date' id='datetimepicker4'>
-			{{ form_widget(filter.createdBefore) }}
+{# 			{{ form_widget(filter.createdBefore) }}#}
 			<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 	    </div>
     </li>
@@ -63,6 +63,9 @@
 {% endblock %}
 
 {% block headerMainFields2 %}
+	<th><i class="fa fa-check"></i> {{ 'label.published'|trans }}</th>
+	<th><i class="fa fa-calendar-check"></i> {{ 'label.publishedAt'|trans }}</th>
+	<th><i class="fa fa-user"></i> {{ 'label.publishedBy'|trans }}</th>
 	<th><i class="fa fa-calendar-o"></i> {{ 'label.updatedAt'|trans }}</th>
 	<th><i class="fa fa-user"></i> {{ 'label.updatedBy'|trans }}</th>
 	<th><i class="fa fa-calendar-plus-o"></i> {{ 'label.createdAt'|trans }}</th>
@@ -79,6 +82,12 @@
 		<div class="btn-group">
 			{{ form_widget(form.selectAll, { 'icon': 'fa-check-square-o', 'label': 'action.selectAll', 'attr': {'class': 'btn btn-primary', 'type': 'button'} }) }}
 			{{ form_widget(form.selectNone, { 'icon': 'fa-square-o', 'label': 'action.selectNone', 'attr': {'class': 'btn btn-primary', 'type': 'button'} }) }}
+		</div>
+	</li>
+	<li>
+		<div class="btn-group">
+			{{ form_widget(form.publishSelected, { 'icon': 'fa-check-square-o', 'label': 'action.publishSelected', 'attr': {'class': 'btn btn-primary', 'type': 'button'} }) }}
+			{{ form_widget(form.unpublishSelected, { 'icon': 'fa-square-o', 'label': 'action.unpublishSelected', 'attr': {'class': 'btn btn-primary', 'type': 'button'} }) }}
 		</div>
 	</li>
 	<li>
@@ -103,6 +112,25 @@
 
 {% block entryMainFields2 %}	        
 	<td>
+		{% if item.published %}
+			<a href="{{ path('admin_' ~ mainPath ~ '_unpublish', { id: item.id }) }}">
+				<i class="fa fa-check" data-toggle="tooltip" title="{{ 'label.published'|trans }}"></i>
+			</a>
+		{%  else %}
+			<a href="{{ path('admin_' ~ mainPath ~ '_publish', { id: item.id }) }}">
+				<i class="fa fa-remove" data-toggle="tooltip" title="{{ 'label.unpublished'|trans }}"></i>
+			</a>
+		{% endif %}
+	</td>
+	
+	<td>
+		{% if item.publishedAt > date("01-01-1900") %}
+    		{{ item.publishedAt|date('Y-m-d H:i:s') }}
+		{% endif %}
+	</td>
+	<td>{{ item.publishedBy }}</td>
+	
+	<td>
 		{% if item.updatedAt > date("01-01-1900") %}
     		{{ item.updatedAt|date('Y-m-d H:i:s') }}
 		{% endif %}
@@ -119,14 +147,14 @@
 	 
 {% block entryActions %}
 	<td>
-		<a type="button" class="btn btn-sm btn-primary" href="{{ path(mainPath ~ '_show', { id: item.id }) }}">
+		<a type="button" class="btn btn-sm btn-primary" href="{{ path('admin_' ~ mainPath ~ '_show', { id: item.id }) }}">
 			<i class="fa fa-eye"></i>{{ 'action.show'|trans }}
 		</a>
 		<div class="btn-group">
-			<a type="button" class="btn btn-sm btn-success" href="{{ path(mainPath ~ '_edit', { id: item.id }) }}">
+			<a type="button" class="btn btn-sm btn-success" href="{{ path('admin_' ~ mainPath ~ '_edit', { id: item.id }) }}">
 				<i class="fa fa-edit"></i>{{ 'action.edit'|trans }}
 			</a>
-			<a type="button" class="btn btn-sm btn-warning" href="{{ path(mainPath ~ '_copy', { id: item.id }) }}">
+			<a type="button" class="btn btn-sm btn-warning" href="{{ path('admin_' ~ mainPath ~ '_copy', { id: item.id }) }}">
 				<i class="fa fa-copy"></i>{{ 'action.copy'|trans }}
 			</a>
 		</div>
@@ -135,7 +163,7 @@
 		{% if is_granted('ROLE_SUPER_ADMIN') %}
 			{% set hidden="" %}
 		{% endif %}
-		<a type="button" class="btn btn-sm btn-danger {{ hidden }}" href="{{ path(mainPath ~ '_delete', { id: item.id }) }}">
+		<a type="button" class="btn btn-sm btn-danger {{ hidden }}" href="{{ path('admin_' ~ mainPath ~ '_delete', { id: item.id }) }}">
 			<i class="fa fa-trash"></i>{{ 'action.delete'|trans }}
 		</a>
 	</td>

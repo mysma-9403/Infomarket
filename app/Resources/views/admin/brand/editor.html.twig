@@ -1,0 +1,8 @@
+{% extends 'admin/image/editor.html.twig' %}
+
+{% set mainPath = 'brand' %}
+{% set title = 'title.brands'|trans %}
+
+{%  block moreFields2 %}	
+    {{ form_row(form.content, { 'label': 'label.content' }) }}
+{%  endblock %}

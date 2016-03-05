@@ -4,6 +4,7 @@ namespace AppBundle\Repository\Base;
 
 use Doctrine\ORM\EntityRepository;
 use AppBundle\Entity\Filter\Base\BaseEntityFilter;
+use Doctrine\DBAL\Exception\InvalidArgumentException;
 
 abstract class BaseEntityRepository extends EntityRepository
 {

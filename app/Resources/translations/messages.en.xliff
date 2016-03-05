@@ -18,6 +18,11 @@
                 <source>title.office</source>
                 <target>Office</target>
             </trans-unit>
+            
+            <trans-unit id="title.articles">
+                <source>title.articles</source>
+                <target>News</target>
+            </trans-unit>
             <trans-unit id="title.branch">
                 <source>title.branch</source>
                 <target>Branch</target>
@@ -54,14 +59,27 @@
                 <source>title.products</source>
                 <target>Products</target>
             </trans-unit>
+            <trans-unit id="title.terms">
+                <source>title.terms</source>
+                <target>Terms</target>
+            </trans-unit>
             
             
             
             
+            <trans-unit id="label.filter">
+                <source>label.moreArticles</source>
+                <target>More news...</target>
+            </trans-unit>
             <trans-unit id="label.categories">
                 <source>label.categories</source>
                 <target>Categories</target>
             </trans-unit>
+            <trans-unit id="label.links">
+                <source>label.links</source>
+                <target>Links</target>
+            </trans-unit>
+            
             <trans-unit id="label.readMore">
                 <source>label.readMore</source>
                 <target>Read more...</target>
@@ -70,6 +88,15 @@
                 <source>label.moreArticles</source>
                 <target>More news...</target>
             </trans-unit>
+            <trans-unit id="label.back">
+                <source>label.back</source>
+                <target>Back</target>
+            </trans-unit>
+            <trans-unit id="label.top">
+                <source>label.top</source>
+                <target>Top of the page</target>
+            </trans-unit>
+            
             
             
             

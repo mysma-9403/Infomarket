@@ -20,7 +20,7 @@ class HomeController extends SimpleEntityController
 	 */
 	public function indexAction(Request $request)
 	{
-		return $this->indexActionInternal($request, 0);
+		return $this->indexActionInternal($request, 1);
 	}
 	
 	/**
@@ -52,9 +52,11 @@ class HomeController extends SimpleEntityController
      */
     protected function getEntityFilter(Request $request)
     {
-    	$articleCategory = $this->getParam($request, ArticleCategory::class);
-    	 
     	$filter = new ArticleFilter();
+    	$filter->setPublished(true);
+    	$filter->setFeatured(true);
+    	
+    	$articleCategory = $this->getParam($request, ArticleCategory::class);
     	if($articleCategory) {
     		$filter->setArticleCategories([$articleCategory]);
     	}

@@ -36,6 +36,11 @@ class Article extends ImageEntity
      * @var \AppBundle\Entity\ArticleCategory
      */
     private $articleCategory;
+    
+    /**
+     * @var boolean
+     */
+    private $featured;
 
 
     /**
@@ -132,5 +137,29 @@ class Article extends ImageEntity
     public function getArticleCategory()
     {
         return $this->articleCategory;
+    }
+
+    /**
+     * Set featured
+     *
+     * @param boolean $featured
+     *
+     * @return Article
+     */
+    public function setFeatured($featured)
+    {
+        $this->featured = $featured;
+
+        return $this;
+    }
+
+    /**
+     * Get featured
+     *
+     * @return boolean
+     */
+    public function getFeatured()
+    {
+        return $this->featured;
     }
 }

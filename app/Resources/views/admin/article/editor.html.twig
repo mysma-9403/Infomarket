@@ -1,0 +1,10 @@
+{% extends 'admin/image/editor.html.twig' %}
+
+{% set mainPath = 'article' %}
+{% set title = 'title.articles'|trans %}
+
+{%  block moreFields2 %}
+	{{ form_row(form.category, { 'label': 'label.category' }) }}
+	{{ form_row(form.featured, { 'label': 'label.featured' }) }}	
+    {{ form_row(form.content, { 'label': 'label.content' }) }}
+{%  endblock %}

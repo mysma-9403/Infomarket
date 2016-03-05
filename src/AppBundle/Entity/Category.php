@@ -33,6 +33,11 @@ class Category extends ImageTree
     private $parent;
 
     /**
+     * @var boolean
+     */
+    private $featured;
+    
+    /**
      * Constructor
      */
     public function __construct()
@@ -120,5 +125,29 @@ class Category extends ImageTree
     public function getParent()
     {
         return $this->parent;
+    }
+
+    /**
+     * Set featured
+     *
+     * @param boolean $featured
+     *
+     * @return Category
+     */
+    public function setFeatured($featured)
+    {
+        $this->featured = $featured;
+
+        return $this;
+    }
+
+    /**
+     * Get featured
+     *
+     * @return boolean
+     */
+    public function getFeatured()
+    {
+        return $this->featured;
     }
 }

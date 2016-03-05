@@ -1,12 +1,9 @@
-{% if entry.getChildren()|length > 0 %}
-	{% for child in entry.getChildren() %}
-		{% include 'common/footer_entry.html.twig' with {'entry': child } %} 
-	{% endfor %}
-{% else %}
-	{% if entry.published %}
-		<a href="{{ path('infomarket_products', { 'branches': branches, 'branch': branch, 'category': entry.id }) }}">
-			{{ entry.name }}
-		</a>
-		<br>
-	{% endif %}
+{% if entry.featured %}
+	<a href="{{ path('infomarket_product', { 'branches': branches, 'branch': branch, 'category': entry.id }) }}">
+		{{ entry.name }}
+	</a>
+	<br>
 {% endif %}
+{% for child in entry.getChildren() %}
+	{% include 'common/footer_entry.html.twig' with {'entry': child } %} 
+{% endfor %}
