@@ -24,9 +24,8 @@ abstract class BaseEntityController extends Controller
 	protected function indexActionInternal(Request $request, $page)
 	{
 		$params = $this->initIndexParams($request, $page);
-		 
-		$name = $this->getEntityName();
-		return $this->render('infomarket/' . $name . '/index.html.twig', $params);
+		
+		return $this->render($this->getIndexView(), $params);
 	}
 	
 	/**
@@ -40,8 +39,7 @@ abstract class BaseEntityController extends Controller
 	{
 		$params = $this->initShowParams($request, $id);
 	
-		$name = $this->getEntityName();
-		return $this->render('infomarket/' . $name . '/show.html.twig', $params);
+		return $this->render($this->getShowView(), $params);
 	}
 	
     /**
@@ -52,15 +50,16 @@ abstract class BaseEntityController extends Controller
     {
     	$params = $this->initParams($request);
     	
-    	$filter = $this->getEntityFilter($request);
+    	$entryFilter = $this->getEntityFilter($request);
     	
     	$repository = $this->getEntityRepository();
-    	$query = $repository->querySelected($filter);
+    	$query = $repository->querySelected($entryFilter);
     	 
     	$paginator = $this->get('knp_paginator');
     	$entries = $paginator->paginate($query, $page, $this->getPageEntries($request));
     	
     	$params['entries'] = $entries;
+    	$params['entryFilter'] = $entryFilter;
     	
     	return $params;
     }
@@ -89,44 +88,87 @@ abstract class BaseEntityController extends Controller
     {
     	$params = [];
     	
-    	// params
-    	$branch = $this->getParam($request, Branch::class);
-    	$category = $this->getParam($request, Category::class);
-    	$articleCategory = $this->getParam($request, ArticleCategory::class);
-    	
-    	$params['branch'] = $branch;
-    	$params['category'] = $category;
-    	$params['article_category'] = $articleCategory;
-    	
-    	// param lists
     	$branchFilter = new BranchFilter();
     	$branches = $this->getParamList(Branch::class, $branchFilter);
     	
+    	$branch = $this->initBranch($request, $branches);
+    	
+    	
     	$categoryFilter = new CategoryFilter();
+    	$categoryFilter->setPublished(true);
     	$categoryFilter->setBranch($branch);
+    	$categoryFilter->setRoot($this->showRootCategories());
+    	
+    	$categoryFilter->initValues($request); //TODO make it better :P
+    	
     	$categories = $this->getParamList(Category::class, $categoryFilter);
+    	
+    	$category = $this->getParam($request, Category::class, null);
+    	
+    	$pathCategories = array();
+    	
+    	if($category) {
+    		if(false) {//TODO $category->getBranchCategoryAssignment()->getBranch()->getId() != $branch->getId()) {
+    			$category = null;
+    		} else {
+    			$pathCategories = $this->addWithParent($pathCategories, $category);
+    		}
+    	}
     	
     	$articleCategoryFilter = new SimpleEntityFilter();
     	//$articleCategoryFilter->setBranch($branch);
     	$articleCategories = $this->getParamList(ArticleCategory::class, $articleCategoryFilter);
     	
+    	$articleCategory = $this->getParam($request, ArticleCategory::class, $articleCategories[0]->getName());
+    	
+    	
+    	
+    	$params['branch'] = $branch;
+    	$params['category'] = $category;
+    	$params['article_category'] = $articleCategory;
+    	
     	$params['branches'] = $branches;
     	$params['categories'] = $categories;
     	$params['article_categories'] = $articleCategories;
+    	
+    	$params['pathCategories'] = $pathCategories;
+    	
+    	$params['categoryFilter'] = $categoryFilter;
     	 
     	return $params;
+    }
+    
+    protected function initBranch(Request $request, $branches)
+    {
+    	return $this->getParam($request, Branch::class, $branches[0]->getName());
+    }
+    
+    protected function showRootCategories()
+    {
+    	return true;
+    }
+    
+    protected function addWithParent($list, $entry) {
+    	array_unshift($list, $entry);
+    	
+    	if($entry->getParent() != null) {
+    		$list = $this->addWithParent($list, $entry->getParent());
+    	}
+    	
+    	return $list;
     }
     
     /**
      * 
      * @param unknown $request
      * @param unknown $paramClass
+     * @param unknown $template
      */
-    protected function getParam($request, $paramClass)
+    protected function getParam($request, $paramClass, $template)
     {
     	$repository = $this->getDoctrine()->getRepository($paramClass);
     	$paramName = ClassUtils::getClassName($paramClass);
-    	$name = $request->get($paramName, null);
+    	$name = $request->get($paramName, $template);
     	return $repository->findOneBy(['name' => $name]);
     }
     
@@ -149,6 +191,17 @@ abstract class BaseEntityController extends Controller
     	return $this->getDoctrine()->getRepository($this->getEntityType());
     }
     
+    /**
+     * 
+     */
+    protected function getHomeName() 
+    {
+    	return 'infomarket';
+    }
+    
+    /**
+     * 
+     */
     protected function getEntityName()
     {
     	return ClassUtils::getClassName($this->getEntityType());
@@ -171,6 +224,26 @@ abstract class BaseEntityController extends Controller
      */
     protected function getPageEntries(Request $request) 
     {
-    	return 6;
+    	return 20;
+    }
+    
+    protected function getIndexView()
+    {
+    	return $this->getHomeName() . '/' . $this->getEntityName() . '/index.html.twig';
+    }
+    
+    protected function getShowView()
+    {
+    	return $this->getHomeName() . '/' . $this->getEntityName() . '/show.html.twig';
+    }
+    
+    protected function getIndexRoute()
+    {
+    	return $this->getHomeName() . '_' . $this->getEntityName();
+    }
+    
+    protected function getShowRoute()
+    {
+    	return $this->getIndexRoute() . '_show';
     }
 }

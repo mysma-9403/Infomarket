@@ -4,14 +4,14 @@ app:
     type:     annotation
 
 # Infoprodukt Routing
-infoprodukt:
-    path:      /
-    host:      infoprodukt.edu.loc
-    defaults:  { _controller: "AppBundle:Infoprodukt/Site:index" }
+infoprodukt_home:
+    path:      /{page}
+    host:      infoprodukt.loc
+    defaults:  { _controller: "AppBundle:Infoprodukt/Site:index", page: 1 }
     
 # Infomarket Routing
 infomarket_home:
-    path:      /       
+    path:      /
     defaults:  { _controller: "AppBundle:Infomarket/Home:index" }
     
 infomarket_article:
@@ -58,11 +58,6 @@ infomarket_office:
 admin:
     path:      /admin/
     defaults:  { _controller: "AppBundle:Admin/Admin:index" }
-    
-admin_product:
-    path:      /admin/products
-    defaults:  { _controller: "AppBundle:Admin/Admin:index" }
-
 
 # Admin Articles Routing    
 admin_article_show:
@@ -207,7 +202,42 @@ admin_category:
     path:      /admin/categories/{page}
     defaults:  { _controller: "AppBundle:Admin/Category:index", page: 1 }
     
-            
+
+
+# Admin Products Routing    
+admin_product_show:
+    path:      /admin/products/show/{id}
+    defaults:  { _controller: "AppBundle:Admin/Product:show" }
+    
+admin_product_new:
+    path:      /admin/products/new/
+    defaults:  { _controller: "AppBundle:Admin/Product:new" }
+    
+admin_product_copy:
+    path:      /admin/products/copy/{id}
+    defaults:  { _controller: "AppBundle:Admin/Product:copy" }
+    
+admin_product_edit:
+    path:      /admin/products/edit/{id}
+    defaults:  { _controller: "AppBundle:Admin/Product:edit" }
+    
+admin_product_delete:
+    path:      /admin/products/delete/{id}
+    defaults:  { _controller: "AppBundle:Admin/Product:delete" }
+    
+admin_product_publish:
+    path:      /admin/products/publish/{id}
+    defaults:  { _controller: "AppBundle:Admin/Product:publish" }
+    
+admin_product_unpublish:
+    path:      /admin/products/unpublish/{id}
+    defaults:  { _controller: "AppBundle:Admin/Product:unpublish" }
+
+admin_product:
+    path:      /admin/products/{page}
+    defaults:  { _controller: "AppBundle:Admin/Product:index", page: 1 }
+    
+                
         
 # Admin Segments Routing    
 admin_segment_show:

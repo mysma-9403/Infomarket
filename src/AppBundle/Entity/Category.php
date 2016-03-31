@@ -150,4 +150,72 @@ class Category extends ImageTree
     {
         return $this->featured;
     }
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $branches;
+
+
+    /**
+     * Add branch
+     *
+     * @param \AppBundle\Entity\BranchCategoryAssignment $branch
+     *
+     * @return Category
+     */
+    public function addBranch(\AppBundle\Entity\BranchCategoryAssignment $branch)
+    {
+        $this->branches[] = $branch;
+
+        return $this;
+    }
+
+    /**
+     * Remove branch
+     *
+     * @param \AppBundle\Entity\BranchCategoryAssignment $branch
+     */
+    public function removeBranch(\AppBundle\Entity\BranchCategoryAssignment $branch)
+    {
+        $this->branches->removeElement($branch);
+    }
+
+    /**
+     * Get branches
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getBranches()
+    {
+        return $this->branches;
+    }
+    /**
+     * @var string
+     */
+    private $icon;
+
+
+    /**
+     * Set icon
+     *
+     * @param string $icon
+     *
+     * @return Category
+     */
+    public function setIcon($icon)
+    {
+        $this->icon = $icon;
+
+        return $this;
+    }
+
+    /**
+     * Get icon
+     *
+     * @return string
+     */
+    public function getIcon()
+    {
+        return $this->icon;
+    }
 }

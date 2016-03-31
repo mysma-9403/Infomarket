@@ -3,13 +3,15 @@
 namespace AppBundle\Form;
 
 use AppBundle\Entity\Branch;
-use AppBundle\Form\Base\SimpleEntityType;
+use AppBundle\Form\Base\ImageEntityType;
 use Symfony\Component\Form\FormBuilderInterface;
 
-class BranchType extends SimpleEntityType
+class BranchType extends ImageEntityType
 {
 	/**
+	 * 
 	 * {@inheritDoc}
+	 * @see \AppBundle\Form\Base\BaseFormType::addMoreFields()
 	 */
 	protected function addMoreFields(FormBuilderInterface $builder, array $options) {
 		
@@ -28,16 +30,11 @@ class BranchType extends SimpleEntityType
 	}
 	
 	/**
-	 * {@inheritdoc}
+	 * 
+	 * {@inheritDoc}
+	 * @see \AppBundle\Form\Base\ImageEntityType::getEntityType()
 	 */
-	protected function getEntityClass() {
+	protected function getEntityType() {
 		return Branch::class;
-	}
-	
-	/**
-	 * {@inheritdoc}
-	 */
-	protected function getEntityName() {
-		return 'branch';
 	}
 }

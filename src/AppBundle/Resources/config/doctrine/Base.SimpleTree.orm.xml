@@ -20,7 +20,7 @@
         </field>
         
         <field name="treePath" type="string" length="1024" nullable="true">
-            <gedmo:tree-path separator="-" append-id="false" />
+            <gedmo:tree-path separator="/" append-id="false" />
         </field>
         
         <many-to-one field="parent" target-entity="SimpleTree" nullable="true">

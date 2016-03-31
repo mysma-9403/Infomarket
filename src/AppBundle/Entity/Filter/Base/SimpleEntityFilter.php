@@ -2,10 +2,21 @@
 
 namespace AppBundle\Entity\Filter\Base;
 
-use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Entity\Filter\Base\BaseEntityFilter;
+use Symfony\Component\HttpFoundation\Request;
 
 class SimpleEntityFilter extends BaseEntityFilter {
+	
+	const ALL_VALUES = 0;
+	const TRUE_VALUES = 1;
+	const FALSE_VALUES = 2;
+	
+	/**
+	 * 
+	 */
+	protected function getFilterName() {
+		return 'simple_filter_';
+	}
 	
 	/**
 	 * 
@@ -15,12 +26,15 @@ class SimpleEntityFilter extends BaseEntityFilter {
 	public function initValues(Request $request) {
 		//TODO replace selected with entry list - like stages in Song filter
 		$this->selected = $request->get('selected', array());
-		$this->name = $request->get('name', null);
 		
-		$this->createdAfter = $request->get('createdAfter', null);
-		$this->createdBefore = $request->get('createdBefore', null);
-		$this->updatedAfter = $request->get('updatedAfter', null);
-		$this->updatedBefore = $request->get('updatedBefore', null);
+		$this->name = $request->get($this->getFilterName() . 'name', null);
+		
+		$this->published = $request->get($this->getFilterName() . 'published', null);
+		
+		$this->createdAfter = $request->get($this->getFilterName() . 'createdAfter', null);
+		$this->createdBefore = $request->get($this->getFilterName() . 'createdBefore', null);
+		$this->updatedAfter = $request->get($this->getFilterName() . 'updatedAfter', null);
+		$this->updatedBefore = $request->get($this->getFilterName() . 'updatedBefore', null);
 		
 		$this->initMoreValues($request);
 		
@@ -41,6 +55,8 @@ class SimpleEntityFilter extends BaseEntityFilter {
 	public function clearQueryValues() {
 		$this->name = null;
 	
+		$this->published = null;
+		
 		$this->createdAfter = null;
 		$this->createdBefore = null;
 		$this->updatedAfter = null;
@@ -64,14 +80,17 @@ class SimpleEntityFilter extends BaseEntityFilter {
 	public function getValues() {
 		$values = array();
 		
-		$values['selected'] = $this->selected;
-		$values['name'] = $this->name;
+		$values[$this->getFilterName() . 'selected'] = $this->selected;
+		
+		$values[$this->getFilterName() . 'name'] = $this->name;
+		
+		$values[$this->getFilterName() . 'published'] = $this->published;
 		
 		//TODO get filter expressions
-		//$values['createdAfter'] = $this->createdAfter;
-		//$values['createdBefore'] = $this->createdBefore;
-		//$values['updatedAfter'] = $this->updatedAfter;
-		//$values['updatedBefore'] = $this->updatedBefore;
+		//$values[$this->getFilterName() . 'createdAfter'] = $this->createdAfter;
+		//$values[$this->getFilterName() . 'createdBefore'] = $this->createdBefore;
+		//$values[$this->getFilterName() . 'updatedAfter'] = $this->updatedAfter;
+		//$values[$this->getFilterName() . 'updatedBefore'] = $this->updatedBefore;
 		
 		return $values;
 	}
@@ -86,6 +105,13 @@ class SimpleEntityFilter extends BaseEntityFilter {
 		
 		if($this->name != '') {
 			$expressions[] = 'e.name like \'%' . $this->name . '%\'';
+		}
+		
+		if($this->published == $this::TRUE_VALUES) {
+			$expressions[] = 'e.published = true';
+		}
+		else if($this->published == $this::FALSE_VALUES) {
+			$expressions[] = 'e.published = false';
 		}
 		
 		if($this->createdAfter != null) {
@@ -104,10 +130,6 @@ class SimpleEntityFilter extends BaseEntityFilter {
 			$expressions[] = 'e.updatedAt < ' . $this->updatedBefore;
 		}
 		
-		if($this->published) {
-			$expressions[] = 'e.published = ' . $this->published;
-		}
-		
 		return $expressions;
 	}
 	
@@ -117,7 +139,7 @@ class SimpleEntityFilter extends BaseEntityFilter {
 	 * @see \AppBundle\Entity\Filter\Base\BaseEntityFilter::getOrderByExpression()
 	 */
 	public function getOrderByExpression() {
-		return ' ORDER BY e.name ASC ';
+		return 'ORDER BY e.name ASC';
 	}
 	
 	/**
@@ -129,6 +151,11 @@ class SimpleEntityFilter extends BaseEntityFilter {
 	 * @var string
 	 */
 	protected $name;
+	
+	/**
+	 * @var integer
+	 */
+	protected $published;
 	
 	/**
 	 * @var datetime
@@ -149,11 +176,6 @@ class SimpleEntityFilter extends BaseEntityFilter {
 	 * @var datetime
 	 */
 	protected $updatedBefore;
-	
-	/**
-	 * @var boolean
-	 */
-	protected $published;
 	
 	/**
 	 * Add id of selected entry
@@ -213,6 +235,30 @@ class SimpleEntityFilter extends BaseEntityFilter {
 	public function getName()
 	{
 		return $this->name;
+	}
+	
+	/**
+	 * Set published
+	 *
+	 * @param integer $published
+	 *
+	 * @return SimpleEntityFilter
+	 */
+	public function setPublished($published)
+	{
+		$this->published = $published;
+	
+		return $this;
+	}
+	
+	/**
+	 * Get published
+	 *
+	 * @return integer
+	 */
+	public function getPublished()
+	{
+		return $this->published;
 	}
 	
 	/**
@@ -309,29 +355,5 @@ class SimpleEntityFilter extends BaseEntityFilter {
 	public function getUpdatedBefore()
 	{
 		return $this->updatedBefore;
-	}
-	
-	/**
-	 * Set published
-	 *
-	 * @param boolean $published
-	 *
-	 * @return SimpleEntityFilter
-	 */
-	public function setPublished($published)
-	{
-		$this->published = $published;
-	
-		return $this;
-	}
-	
-	/**
-	 * Is published
-	 *
-	 * @return boolean
-	 */
-	public function isPublished()
-	{
-		return $this->published;
 	}
 }

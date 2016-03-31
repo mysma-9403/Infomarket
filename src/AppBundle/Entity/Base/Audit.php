@@ -39,6 +39,11 @@ class Audit
      */
     protected $publishedBy;
     
+    public function __construct()
+    {
+    	$this->published = false;
+    }
+    
     /**
      * Set createdAt
      *

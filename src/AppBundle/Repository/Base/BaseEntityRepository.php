@@ -2,9 +2,8 @@
 
 namespace AppBundle\Repository\Base;
 
-use Doctrine\ORM\EntityRepository;
 use AppBundle\Entity\Filter\Base\BaseEntityFilter;
-use Doctrine\DBAL\Exception\InvalidArgumentException;
+use Doctrine\ORM\EntityRepository;
 
 abstract class BaseEntityRepository extends EntityRepository
 {
@@ -26,11 +25,11 @@ abstract class BaseEntityRepository extends EntityRepository
 	 */
     public function querySelected(BaseEntityFilter $filter)
     {
-    	$query = 'SELECT e ';
-    	$query .= 'FROM ' . $this->getEntityType() . ' e ';
-    	$query .= $filter->getJoinExpression();
-    	$query .= $filter->getWhereExpression();
-    	$query .= $filter->getOrderByExpression();
+    	$query = 'SELECT e';
+    	$query .= ' FROM ' . $this->getEntityType() . ' e';
+    	$query .= ' ' . $filter->getJoinExpression();
+    	$query .= ' ' . $filter->getWhereExpression();
+    	$query .= ' ' . $filter->getOrderByExpression();
     	
         return $this->getEntityManager()->createQuery($query);
     }

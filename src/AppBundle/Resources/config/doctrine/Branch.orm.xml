@@ -13,6 +13,9 @@
         <field name="color" type="string" nullable="true" />
         <field name="icon" type="string" nullable="true" />
         
+        <one-to-many field="categories" target-entity="BranchCategoryAssignment" mapped-by="branch">
+        </one-to-many>
+        
     </entity>
     
 </doctrine-mapping>

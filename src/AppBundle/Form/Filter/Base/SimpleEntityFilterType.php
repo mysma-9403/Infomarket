@@ -2,46 +2,90 @@
 
 namespace AppBundle\Form\Filter\Base;
 
-use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use AppBundle\Entity\Filter\Base\SimpleEntityFilter;
+use AppBundle\Form\Base\BaseFormType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\FormBuilderInterface;
 
-class SimpleEntityFilterType extends AbstractType
+class SimpleEntityFilterType extends BaseFormType
 {
-	public function buildForm(FormBuilderInterface $builder, array $options)
-	{
-		$this->addMainFields($builder, $options);
-		$this->addMoreFields($builder, $options);
-		$this->addActions($builder, $options);
-	}
-	
+	/**
+	 *
+	 * {@inheritDoc}
+	 * @see \AppBundle\Form\Base\FormType::addMainFields()
+	 */
 	protected function addMainFields(FormBuilderInterface $builder, array $options) {
 		$publishChoices = array(
-				'Published' 	=> 1,
-				'Unpublished' 	=> 2
+				'All'			=> SimpleEntityFilter::ALL_VALUES,
+				'Published' 	=> SimpleEntityFilter::TRUE_VALUES,
+				'Unpublished' 	=> SimpleEntityFilter::FALSE_VALUES
 		);
 		
+		$builder->setMethod('POST');
+		
 		$builder
-// 			->add('published', ChoiceType::class, array(
-// 					'placeholder'	=> 'All',
-// 					'choices'		=> $publishChoices,
-// 					'expanded'      => false,
-// 					'multiple'      => false,
-// 					'required' 		=> false
-// 			))
 			->add('name', TextType::class, array(
 					'attr' => array('autofocus' => true),
 					'required' => false
-			));
+			))
+			->add('published', ChoiceType::class, array(
+					'placeholder'	=> 'All',
+					'choices'		=> $publishChoices,
+					'expanded'      => false,
+					'multiple'      => false,
+					'required' 		=> false
+			))
+			->add('updatedAfter', DateTimeType::class, array(
+					'widget' => 'single_text',
+					'format' => 'DD-MM-YYYY hh:mm',
+					'required' => false,
+					'attr' => [
+							'class' => 'form-control input-inline datetimepicker',
+							'data-provide' => 'datetimepicker',
+							'data-date-format' => 'DD-MM-YYYY hh:mm'
+					]
+			))
+			->add('updatedBefore', DateTimeType::class, array(
+					'widget' => 'single_text',
+					'format' => 'DD-MM-YYYY hh:mm',
+					'required' => false,
+					'attr' => [
+							'class' => 'form-control input-inline datetimepicker',
+							'data-provide' => 'datepicker',
+							'data-date-format' => 'DD-MM-YYYY hh:mm'
+					]
+			))
+			->add('createdAfter', DateTimeType::class, array(
+					'widget' => 'single_text',
+					'format' => 'DD-MM-YYYY hh:mm',
+					'required' => false,
+					'attr' => [
+							'class' => 'form-control input-inline datetimepicker',
+							'data-provide' => 'datepicker',
+							'data-date-format' => 'DD-MM-YYYY hh:mm'
+					]
+			))
+			->add('createdBefore', DateTimeType::class, array(
+					'widget' => 'single_text',
+					'format' => 'DD-MM-YYYY hh:mm',
+					'required' => false,
+					'attr' => [
+							'class' => 'form-control input-inline datetimepicker',
+							'data-provide' => 'datepicker',
+							'data-date-format' => 'DD-MM-YYYY hh:mm'
+					]
+			))
+		;
 	}
 	
-	protected function addMoreFields(FormBuilderInterface $builder, array $options) {
-	}
-	
+	/**
+	 *
+	 * {@inheritDoc}
+	 * @see \AppBundle\Form\Base\FormType::addActions()
+	 */
 	protected function addActions(FormBuilderInterface $builder, array $options) {
 		$builder
 			->add('search', SubmitType::class)
@@ -49,38 +93,11 @@ class SimpleEntityFilterType extends AbstractType
 	}
 	
 	/**
-	 * {@inheritdoc}
-	 */
-	public function configureOptions(OptionsResolver $resolver)
-	{
-		$resolver->setDefaults(array(
-				'data_class' => $this->getEntityFilterClass()
-		));
-	}
-	
-	/**
-	 * Get entity class (e.g <strong>SimpleEntityFilter::class</strong>)
 	 *
-	 * @return string
+	 * {@inheritDoc}
+	 * @see \AppBundle\Form\Base\FormType::getEntityType()
 	 */
-	protected function getEntityFilterClass() {
+	protected function getEntityType() {
 		return SimpleEntityFilter::class;
-	}
-	
-	/**
-	 * {@inheritdoc}
-	 */
-	public function getName()
-	{
-		return 'app_' . $this->getEntityFilterName();
-	}
-	
-	/**
-	 * Get entity name (e.g <strong>simple_entity_filter</strong>)
-	 *
-	 * @return string
-	 */
-	protected function getEntityFilterName() {
-		return 'simple_entity_filter';
 	}
 }

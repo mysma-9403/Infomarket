@@ -56,7 +56,7 @@ class HomeController extends SimpleEntityController
     	$filter->setPublished(true);
     	$filter->setFeatured(true);
     	
-    	$articleCategory = $this->getParam($request, ArticleCategory::class);
+    	$articleCategory = $this->getParam($request, ArticleCategory::class, null);
     	if($articleCategory) {
     		$filter->setArticleCategories([$articleCategory]);
     	}

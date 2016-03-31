@@ -9,6 +9,12 @@ use AppBundle\Entity\BranchCategoryAssignment;
 class CategoryFilter extends SimpleEntityFilter {
 
 	/**
+	 *
+	 * @var boolean
+	 */
+	private $root;
+	
+	/**
 	 * 
 	 * @var integer
 	 */
@@ -19,6 +25,15 @@ class CategoryFilter extends SimpleEntityFilter {
 	 * @var integer
 	 */
 	private $branch;
+	
+	/**
+	 * 
+	 * {@inheritDoc}
+	 * @see \AppBundle\Entity\Filter\Base\SimpleEntityFilter::getFilterName()
+	 */
+	protected function getFilterName() {
+		return 'category_filter_';
+	}
 	
 	protected function getJoinExpressions() {
 		$expressions = parent::getJoinExpressions();
@@ -32,10 +47,15 @@ class CategoryFilter extends SimpleEntityFilter {
 	protected function getWhereExpressions() {
 		$expressions = parent::getWhereExpressions();
 		
-		if($this->branch)
+		if($this->branch) {
 			$expressions[] = 'bca.branch = ' . $this->branch->getId();
+		}
 		
-		$expressions[] = 'e.parent IS NULL';
+		if($this->root) {
+			$expressions[] = 'e.parent IS NULL';
+		} else if($this->parent) {
+			$expressions[] = 'e.parent = ' . $this->parent->getId();
+		}
 		
 		return $expressions;
 	}
@@ -45,6 +65,30 @@ class CategoryFilter extends SimpleEntityFilter {
 	 */
 	public function getOrderByExpression() {
 		return ' ORDER BY e.treePath ASC ';
+	}
+	
+	/**
+	 * Set root
+	 *
+	 * @param boolean $root
+	 *
+	 * @return SimpleEntityFilter
+	 */
+	public function setRoot($root)
+	{
+		$this->root = $root;
+	
+		return $this;
+	}
+	
+	/**
+	 * Get root
+	 *
+	 * @return boolean
+	 */
+	public function getRoot()
+	{
+		return $this->root;
 	}
 	
 	/**

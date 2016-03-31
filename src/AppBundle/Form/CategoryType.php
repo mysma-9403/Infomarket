@@ -2,13 +2,13 @@
 
 namespace AppBundle\Form;
 
-use AppBundle\Form\Base\SimpleEntityType;
 use AppBundle\Entity\Category;
-use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use AppBundle\Form\Base\ImageEntityType;
 
-class CategoryType extends SimpleEntityType
+class CategoryType extends ImageEntityType
 {
 	/**
 	 * {@inheritDoc}

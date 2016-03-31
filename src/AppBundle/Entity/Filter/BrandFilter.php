@@ -14,6 +14,15 @@ class BrandFilter extends SimpleEntityFilter {
 	 */
 	private $categories;
 	
+	/**
+	 *
+	 * {@inheritDoc}
+	 * @see \AppBundle\Entity\Filter\Base\SimpleEntityFilter::getFilterName()
+	 */
+	protected function getFilterName() {
+		return 'brand_filter_';
+	}
+	
 	protected function getJoinExpressions() {
 		$expressions = parent::getJoinExpressions();
 	
@@ -30,13 +39,6 @@ class BrandFilter extends SimpleEntityFilter {
 			$expressions[] = $this->getEqualArrayExpression('bca.category', $this->categories);
 		
 		return $expressions;
-	}
-	
-	/**
-	 * {@inheritDoc}
-	 */
-	public function getOrderByExpression() {
-		return ' ORDER BY e.name ASC ';
 	}
 	
 	/**

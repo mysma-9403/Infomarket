@@ -2,16 +2,16 @@
 
 namespace AppBundle\Entity\Filter;
 
-use AppBundle\Entity\Filter\Base\SimpleEntityFilter;
 use AppBundle;
+use AppBundle\Entity\Filter\Base\ImageEntityFilter;
 
-class BranchFilter extends SimpleEntityFilter {
+class BranchFilter extends ImageEntityFilter {
 	
 	/**
 	 * {@inheritDoc}
 	 */
 	public function getOrderByExpression() {
-		return ' ORDER BY e.id ASC ';
+		return 'ORDER BY e.id ASC';
 	}
 	
 }

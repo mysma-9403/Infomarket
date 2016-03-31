@@ -1,0 +1,12 @@
+{% extends 'admin/image/editor.html.twig' %}
+
+{% set mainPath = 'product' %}
+{% set title = 'title.products'|trans %}
+
+{%  block moreFields2 %}	
+    {{ form_row(form.brand, { 'label': 'label.brand' }) }}
+    {{ form_row(form.category, { 'label': 'label.category' }) }}
+    
+    {{ form_row(form.price, { 'label': 'label.price' }) }}
+    {{ form_row(form.guarantee, { 'label': 'label.guarantee' }) }}
+{%  endblock %}

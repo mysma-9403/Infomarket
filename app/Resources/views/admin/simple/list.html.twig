@@ -7,13 +7,17 @@
 {% block filterMainFields1 %}
 	<li class="col-xs-12 col-sm-6 col-md-4 col-lg-2">
 		{{ form_widget(filter.name, { 'label': 'label.name' }) }}
-		</li>
+	</li>
+	
+	<li class="col-xs-12 col-sm-6 col-md-4 col-lg-2">
+		{{ form_widget(filter.published, { 'label': 'label.published' }) }}
+	</li>
 {% endblock %}
 
 {% block filterMainFields2 %}
 	<li class="col-xs-12 col-sm-6 col-md-4 col-lg-2">
 		<div class='input-group date' id='datetimepicker1'>
-{# 			{{ form_widget(filter.updatedAfter) }}#}
+			{{ form_widget(filter.updatedAfter) }}
 			<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 	    </div>
 	    <script type="text/javascript">
@@ -25,21 +29,21 @@
     
     <li class="col-xs-12 col-sm-6 col-md-4 col-lg-2">
 		<div class='input-group date' id='datetimepicker2'>
-{# 			{{ form_widget(filter.updatedBefore) }}#}
+			{{ form_widget(filter.updatedBefore) }}
 			<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 	    </div>
     </li>
     
     <li class="col-xs-12 col-sm-6 col-md-4 col-lg-2">
 		<div class='input-group date' id='datetimepicker3'>
-{# 			{{ form_widget(filter.createdAfter) }}#}
+			{{ form_widget(filter.createdAfter) }}
 			<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 	    </div>
     </li>
     
     <li class="col-xs-12 col-sm-6 col-md-4 col-lg-2">
 		<div class='input-group date' id='datetimepicker4'>
-{# 			{{ form_widget(filter.createdBefore) }}#}
+			{{ form_widget(filter.createdBefore) }}
 			<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 	    </div>
     </li>

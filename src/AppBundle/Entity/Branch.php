@@ -33,6 +33,11 @@ class Branch extends ImageEntity
     private $icon;
     
     /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $categories;
+    
+    /**
      * Set content
      *
      * @param string $content
@@ -102,5 +107,39 @@ class Branch extends ImageEntity
     public function getIcon()
     {
         return $this->icon;
+    }
+
+    /**
+     * Add category
+     *
+     * @param \AppBundle\Entity\Category $category
+     *
+     * @return Branch
+     */
+    public function addCategory(\AppBundle\Entity\Category $category)
+    {
+        $this->categories[] = $category;
+
+        return $this;
+    }
+
+    /**
+     * Remove category
+     *
+     * @param \AppBundle\Entity\Category $category
+     */
+    public function removeCategory(\AppBundle\Entity\Category $category)
+    {
+        $this->categories->removeElement($category);
+    }
+
+    /**
+     * Get categories
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getCategories()
+    {
+        return $this->categories;
     }
 }

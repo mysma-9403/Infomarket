@@ -46,13 +46,63 @@
   	.text-lg-justify { text-align: justify; }
 }
 
+@font-face {
+    font-family: 'Geometric231LtEU';
+    src: url('../fonts/1126EU27.ttf');
+}
+
+@font-face {
+    font-family: 'Geometric231NmEU';
+    src: url('../fonts/1127EU27.ttf');
+}
+
+@font-face {
+    font-family: 'Geometric231HvEU';
+    src: url('../fonts/1129EU27.ttf');
+}
+
+h1, h2, h3, h4, h5, h6 {
+	font-family: "Geometric231HvEU", "Calibri", Sans-serif;
+}
 
 
 
+
+
+
+h1.title {
+	margin-top: -10px;
+}
+
+.text-primary {
+    color: @brand-primary;
+}
+
+.text-red {
+    color: @red;
+}
+
+.text-white {
+    color: @white;
+}
+
+.no-padding {
+	margins: 0;
+	padding: 0;
+}
+
+.no-more-padding {
+	margin-right: 0;
+	padding-right: 0;
+	
+	margin-bottom: 0;
+	padding-bottom: 0;
+}
 
 
 body {
-	font-family: "Calibri", Sans-serif
+	font-family: "Geometric231NmEU", "Calibri", Sans-serif;
+	background: @brand-gray-light;
 }
 
 .hr-space {
@@ -64,9 +114,15 @@ body {
 	position: relative;
 }
 
+.nopadding {
+   padding: 0 !important;
+   margin: 0 !important;
+}
+
 .content {
+	margin-top: 50px;
 	margin-bottom: 50px;
-	min-height: 650px;
+	min-height: 600px;
 }
 
 .info-header {
@@ -87,18 +143,12 @@ body {
 
 .footer {
   	color: @white;
-  	background: @blue;
+  	background: @gray-darker;
   	padding-bottom: (@padding * 4px);
   	margin-top: 45px;
-  	margin-bottom: 10px;
+  	margin-bottom: 75px;
 }
 
-
-
-div .home-link > a:hover,
-div .home-link > a:focus {
-	color: @gray-light;
-}
 				
 				
 				
@@ -110,23 +160,33 @@ div .home-link > a:focus {
     margin: 0 auto;
     display: table;
     table-layout: fixed;
-    float:none;
+    float: none;
 }
 
-.navbar-default .navbar-nav > a {
-    color: @gray-dark;
-   	background: transparent;
+.navbar-fixed-top {
+	color: @gray-lighter;
+    background-color: @brand-primary;
+    border-bottom: 5px solid;
+}
+
+.navbar-fixed-bottom {
+	color: @gray-lighter;
+    background-color: @brand-primary;
+    border-top: 5px solid;
 }
 
 .navbar-default {
-	font-weight: bold;
-	color: @gray-darker;
-    background-color: @gray-lighter;
+	color: @gray-lighter;
+    background-color: @brand-primary;
+}
+
+.navbar-default .navbar-nav li > a {
+    color: @gray-lighter;
 }
 
 .navbar-inverse {
 	color: @gray-lighter;
-    background-color: @blue;
+    background-color: @gray;
 }
 
 .navbar-inverse a {
@@ -135,32 +195,59 @@ div .home-link > a:focus {
 
 .navbar-inverse a:hover,
 .navbar-inverse a:focus {
-    color: @gray-light;
+    color: @brand-primary;
 }
+
+
+
 
 
 .thumb {
     padding-bottom: 100%;
 }
 
-.thumb img {
+.thumb img,
+.thumb div {
 	width:100%;
 	
 	bottom: 0;
 	position: absolute;
-    
 }
 
 
 
 
-
-
-.text-primary {
-    color: @brand-primary;
-    font-weight: bold;
+.tile a {
+	color: @gray-lighter;
 }
 
+.tile a:hover,
+.tile a:focus {
+	color: @gray-darker;
+}
+
+.tile.branch-0 {
+	background-color: @gray-light;
+}
+
+div.tile .tile-heading {
+	background: rgba(0,0,0,0.4);
+}
+					
+.well {
+	margin-top: 25px;
+	background-color: @white;
+	border: transparent;
+	border-radius:0;
+}
+
+.panel {
+    border-radius:0;
+}
+
+.breadcrumb {
+	background-color: transparent;
+}
 
 
 
@@ -178,11 +265,11 @@ nav.sidebar .navbar-nav .open .dropdown-menu {
 }
 
 nav.sidebar .navbar-nav > li:first-child {
-      border-top: 5px @red solid;
+	border-top: 5px @red solid;
 }
 
 nav.sidebar .navbar-nav > li {
-  border-bottom: 5px @blue solid;
+	border-bottom: 5px @blue solid;
 }
 
 
@@ -191,76 +278,6 @@ nav.sidebar .navbar-nav > li {
 
 
 
-
-
-#hover-cap-4col .thumbnail {
-    position:relative;
-    overflow:hidden;  
-	list-style:none;  
-}
-  
-.caption {
-    display: none;
-    position: absolute;
-    top: 0;
-    left: 0;
-    bottom:0;
-    background: rgba(0,0,0,0.4);
-    width: 100%;
-    height: 100%;
- 
-	color:#fff !important;
-}
-
-ul.thumbnails, ul.thumbnails ul {
-	list-style: none;
-	margin-top:-3px;
-}
-
-ul.thumbnails ul, ul.thumbnails {
-	padding:0px;
-}
-
-ul.thumbnails li {
-	padding-right:0px;
-	padding-left:0px;
-}
-
-div.thumbnail {
-	margin-bottom:0px;
-	border:none;
-  	padding:0px;
-  	border-radius:0px;
-  	
-	padding-bottom: 75%;
-}
-
-div.thumbnail img {
-	position: absolute;
-	top: 0;
-    left: 0;
-    bottom:0;
-    
-    width: 100%;
-}
-
-li.small .thumbnail {
-	margin: 3px!important;
-}
-
-li.small .thumbnail img {
-    width: 100%;
-    vertical-align:middle;
-}
-
-ul li ul {
-	margin-top:-3px;
-}
-
-li.lead .thumbnail {
-	margin-bottom:0px!important;
-	background:#fdf;
-}
 
 
 

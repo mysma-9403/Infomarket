@@ -1,99 +1,210 @@
 {% extends 'infomarket/index.html.twig' %}
 
 {% set rightPanelButtonLabel = 'label.links'|trans %}		
-
-{% block rightPanelContent %}
-	{% block linksBlock %}
-		<ul class="nav nav-pills nav-stacked lowered">
-			<li class="{% if mainPath == 'product' %}active{% endif %} branch-{{ branch.id }}">
-				<a href="{{ path('infomarket_product', {'branch': branch.name }) }}">
-					<span class="fa fa-camera-retro"></span> {{ 'title.products'|trans }}</a>
-			</li>
-			<li class="{% if mainPath == 'brand' %}active{% endif %} branch-{{ branch.id }}">
-				<a href="{{ path('infomarket_brand', {'branch': branch.name }) }}">
-					<span class="fa fa-globe"></span> {{ 'title.brands'|trans }}</a>
-			</li>
-			<li class="{% if mainPath == 'term' %}active{% endif %} branch-{{ branch.id }}">
-				<a href="{{ path('infomarket_term', {'branch': branch.name }) }}">
-					<span class="fa fa-tags"></span> {{ 'title.terms'|trans }}</a>
-			</li>
-		</ul>
-	{% endblock %}
-		
-	{% block categories %}
-		{% if category.name is defined %} 
-			{{ category.name }}
-		{% endif %}
-		
-		<ul class="nav nav-list lowered">
-			{% for entry in categories %}
-				{% include 'common/menu_entry.html.twig' with {'entry': entry } %}
-			{% else %}
-				No entries found.
-			{% endfor %}
-		</ul>
-			
-		<script>
-			$('.tree-toggle').click(function () {
-				$(this).parent().children('ul.tree').toggle(200);
-			});
-		</script>
-	{% endblock %}
-{% endblock %}
 	
-{% block mainPanel %}
+{% block content %}
+	{% block parentCategoriesBar %}
+		<nav class="navbar">
+			<ul class="nav navbar-nav navbar-center nav-horizontal">
+				{% for entry in categories %}
+					{% if category != null and category.name == entry.name %}
+						{% set active='active' %}
+					{% else %}
+						{% set active='' %}
+					{% endif %}
+						<li class="branch-{{ entry.id }} {{ active }}">
+							<a href="{{ path('infomarket_' ~ mainPath, { 'branch': branch.name, 'category': entry.name }) }}">
+								<i class="fa fa-camera"></i><span class="hidden-xs"> {{ entry.name }}</span>
+							</a>
+						</li>
+				{% else %}
+					{{ 'label.noEntries'|trans }}
+				{% endfor %}
+			</ul>
+		</nav>
+	{% endblock %}
+	
+	{% block breadcrumbs %}
+		{% if pathCategories %}
+			<ol class="breadcrumb">
+				{% for entry in pathCategories %}
+			  		<li><a href="{{ path('infomarket_' ~ mainPath, { 'branch': branch.name, 'category': entry.name }) }}">{{ entry.name }}</a></li>
+		  		{% endfor %}
+			</ol>
+		{% endif %}
+	{% endblock %}
 	
 	<div class="row">
-		<div class="col-xs-12">
-			{% block mainPanelContent %}
-				<ul class="thumbnails" id="hover-cap-4col">
-					{% for entry in entries %}
-						<li class="col-sm-4 small">
-							<div class="thumbnail">
-								<img class="img-responsive" src="{{ asset(entry.getImagePath()) }}">
-								<div class="caption">
-									<div class="caption-inner">
-										<h4>{{ entry.name }}</h4>
-										<p>{{ entry.name }}</p>
-										<a role="button" class="btn btn-danger"
-											href="{{ path('infomarket_' ~ mainPath ~ '_show', {'branch': branch.name, 'id': entry.id }) }}">
-											{{ 'label.readMore'|trans }}
+		{% if not category %}
+			<div class="col-xs-12 well">
+				{% block allCategories %}
+					<h1>{{ 'title.categories'|trans }}</h1>
+					{% for entry in categories %}
+						{% if loop.index % 2 == 1 %}
+							{% set left = "" %}
+							{% set right = "" %}
+							{% set branchId = 3 %}
+						{% else %}
+							{% set left = "col-sm-push-6" %}
+							{% set right = "col-sm-pull-6" %}
+							{% set branchId = branch.id %}
+						{% endif %}
+						<div class="col-xs-6 nopadding tile branch-{{ branchId }}">
+							<div class="col-sm-6 nopadding {{ left }}">
+								{% if entry.getImagePath() and entry.getImagePath()|length > 0 %}
+									<img class="img-responsive" alt="{{ entry.name }}" src="{{ asset(entry.getImagePath()) }}">
+								{% else %}
+									<img class="img-responsive" alt="{{ entry.name }}" src="{{ asset('img/template/placeholder-1x1.png') }}">
+								{% endif %}
+							</div>
+							<div class="col-sm-6 {{ right }}">
+								<div class="row tile-heading">
+									<div class="col-xs-12">
+										<a class="tile-heading" href="{{ path('infomarket_' ~ mainPath, { 'branch': branch.name, 'category': entry.name }) }}">
+											<h4>{{ entry.name }}</h4>
 										</a>
 									</div>
 								</div>
+								
+								<ul>
+									{% for child in entry.children %}
+										{% if loop.index <= 10 %}
+											<a href="{{ path('infomarket_' ~ mainPath, { 'branch': branch.name, 'category': child.name }) }}">
+												<li>{{ child.name }}</li>
+											</a>
+										{% endif %}
+									{% else %}
+										{{ 'label.noEntries'|trans }}
+									{% endfor %}
+								</ul>
 							</div>
-						</li>
+						</div>
 					{% else %}
-						No entries found.
+						{{ 'label.noEntries'|trans }}
 					{% endfor %}
-				</ul>
+				{% endblock %}
+			</div>	
+		{% elseif category.children.count > 0 %}
+			<div class="col-xs-12 well">
+				{% block subCategories %}
+					<h1>{{ 'title.categories'|trans }}</h1>
+					{% for entry in category.children %}
+						{% if loop.index % 2 == 1 %}
+							{% set left = "" %}
+							{% set right = "" %}
+							{% set branchId = 3 %}
+						{% else %}
+							{% set left = "col-sm-push-6" %}
+							{% set right = "col-sm-pull-6" %}
+							{% set branchId = branch.id %}
+						{% endif %}
+						<div class="col-xs-6 nopadding tile branch-{{ branchId }}">
+							<div class="col-sm-6 nopadding {{ left }}">
+								{% if entry.getImagePath() and entry.getImagePath()|length > 0 %}
+									<img class="img-responsive" alt="{{ entry.name }}" src="{{ asset(entry.getImagePath()) }}">
+								{% else %}
+									<img class="img-responsive" alt="{{ entry.name }}" src="{{ asset('img/template/placeholder-1x1.png') }}">
+								{% endif %}
+							</div>
+							<div class="col-sm-6 {{ right }}">
+								<div class="row tile-heading">
+									<div class="col-xs-12">
+										<a class="tile-heading" href="{{ path('infomarket_' ~ mainPath, { 'branch': branch.name, 'category': entry.name }) }}">
+											<h4>{{ entry.name }}</h4>
+										</a>
+									</div>
+								</div>
+								
+								<ul>
+									{% for child in entry.children %}
+										{% if loop.index <= 10 %}
+											<a href="{{ path('infomarket_' ~ mainPath, { 'branch': branch.name, 'category': child.name }) }}">
+												<li>{{ child.name }}</li>
+											</a>
+										{% endif %}
+									{% else %}
+										{{ 'label.noEntries'|trans }}
+									{% endfor %}
+								</ul>
+							</div>
+						</div>
+					{% else %}
+						{{ 'label.noEntries'|trans }}
+					{% endfor %}
+				{% endblock %}
+			</div>
+		{% else %}
+			<div class="col-sm-9 well">
+				<div class="row">
+					<div class="col-xs-12">
+						{% block entries %}
+							<h1>{{ title }}</h1>
+							{% for entry in entries %}
+								{% if loop.index % 4 == 1 or loop.index % 4 == 2 %}
+									{% set left = "" %}
+									{% set right = "" %}
+									{% set branchId = 0 %}
+								{% else %}
+									{% set left = "" %}
+									{% set right = "" %}
+									{% set branchId = branch.id %}
+								{% endif %}
+								<div class="col-sm-6 nopadding tile branch-{{ branchId }}">
+									<div class="col-xs-12 tile-heading">
+										<div class="col-xs-12">
+											<a class="tile-heading" href="{{ path('infomarket_' ~ mainPath ~ '_show', { 'branch': entry.name, 'category': category.name, 'id': entry.id }) }}">
+												{% block entryHeader %}
+													<h4>{{ entry.name }}</h4>
+												{% endblock %}
+											</a>
+										</div>
+									</div>
+									<div class="col-xs-6 nopadding {{ left }}">
+										<img class="img-responsive" alt="{{ entry.name }}" src="{{ asset(entry.getImagePath()) }}">
+									</div>
+									<div class="col-xs-6 {{ right }}">
+										{% block entryContent %}
+										{% endblock %}
+									</div>
+								</div>
+							{% else %}
+								{{ 'label.noEntries'|trans }}
+							{% endfor %}
+						{% endblock %}
+					</div>
+				</div>
 				
-				<script>
-					$(document).ready(function(){
-						 
-					    $("[rel='tooltip']").tooltip();    
-					 
-					    $('#hover-cap-4col .thumbnail').hover(
-					        function(){
-					            $(this).find('.caption').slideDown(250);
-					        },
-					        function(){
-					            $(this).find('.caption').slideUp(250);
-					        }
-					    );    
-					 
-					});
-				</script>
-			{% endblock %}
-		</div>
-	</div>
-	
-	<div class="row">
-		<div class="col-xs-12">
-			{% block mainPanelPaginator %}
-		        {{ knp_pagination_render(entries) }}
-			{% endblock %}
-		</div>
+				<div class="row">
+					<div class="col-xs-12">
+						{% block paginator %}
+					        {{ knp_pagination_render(entries) }}
+						{% endblock %}
+					</div>
+				</div>
+			</div>
+			
+			<div class="col-sm-3 well">
+				<div class="row">
+					<div class="col-xs-12">
+						{% block segments %}
+							<h1>{{ 'title.segments'|trans }}</h1>
+							{% for entry in segments %}
+								{% if segment and segment.name == entry.name %}
+									{% set active = 'tile branch-' ~ branch.id %}
+								{% else %}
+									{% set active = '' %}
+								{% endif %}
+								<div class="col-xs-12 {{ active }}">
+									<a href="{{ path('infomarket_' ~ mainPath, { 'branch': branch.name, 'category': category.name, 'segment': entry.name }) }}">
+										<h6>{{ entry.name }}</h6>
+									</a>
+								</div>
+							{% endfor %}
+						{% endblock %}
+					</div>
+				</div>
+			</div>
+		{% endif %}
 	</div>
 	
 {% endblock %}

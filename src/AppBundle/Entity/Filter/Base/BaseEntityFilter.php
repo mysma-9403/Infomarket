@@ -31,8 +31,10 @@ abstract class BaseEntityFilter {
 	 */
 	protected function getIdValues($entries) {
 		$result = array();
-		foreach ($entries as $entry) {
-			$result[] = $entry->getId();
+		if($entries) {
+			foreach ($entries as $entry) {
+				$result[] = $entry->getId();
+			}
 		}
 		return $result;
 	}

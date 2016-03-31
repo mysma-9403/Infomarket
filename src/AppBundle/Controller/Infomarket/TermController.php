@@ -31,7 +31,7 @@ class TermController extends ProductController
     	$filter = new TermFilter();
     	$filter->setPublished(true);
     	
-    	$category = $this->getParam($request, Category::class);
+    	$category = $this->getParam($request, Category::class, null);
     	if($category) {
     		$filter->setCategories([$category]);
     	}

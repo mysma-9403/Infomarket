@@ -8,10 +8,12 @@
         table="products"
         repository-class="AppBundle\Repository\ProductRepository">
         
+        <many-to-one field="brand" target-entity="Brand" />
         <many-to-one field="category" target-entity="Category" />
+        <many-to-one field="segment" target-entity="Segment" />
         
-        <field name="intro" type="text" nullable="true" />
-        <field name="content" type="text" nullable="true" />
+        <field name="price" type="integer" nullable="true" />
+        <field name="guarantee" type="integer" nullable="true" />
         
     </entity>
     

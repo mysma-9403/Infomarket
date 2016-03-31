@@ -69,7 +69,7 @@ class ArticleController extends SimpleEntityController
     	$filter = new ArticleFilter();
     	$filter->setPublished(true);
     	
-    	$articleCategory = $this->getParam($request, ArticleCategory::class);
+    	$articleCategory = $this->getParam($request, ArticleCategory::class, null);
     	if($articleCategory) {
     		$filter->setArticleCategories([$articleCategory]);
     	}

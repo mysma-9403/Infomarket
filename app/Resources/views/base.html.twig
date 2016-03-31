@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta charset="UTF-8" />
+    	<meta http-equiv="Content-Type" content="text/html" charset=UTF-8 />
     	
         <title>{% block title %}Welcome!{% endblock %}</title>
         
@@ -18,16 +18,18 @@
 					<!--
 					.navbar-default .navbar-nav > .active.branch-{{ entry.id }} a {
 						color: {{ entry.color }};
-						background: transparent;
+						background: #f2f2f2;
 					}
 					
 					.navbar-default .navbar-nav > .branch-{{ entry.id }} a:hover,
 					.navbar-default .navbar-nav > .branch-{{ entry.id }} a:focus {
 						color: {{ entry.color }};
+						background: #f2f2f2;
 					}
 					
 					.active.branch-{{ entry.id }} a {
 						color: {{ entry.color }};
+						background: #f2f2f2;
 					}
 					
 					
@@ -37,7 +39,10 @@
 					
 					.branch-color-{{ entry.id }} {
 						color: {{ entry.color }};
-						font-weight: bold;
+					}
+					
+					.tile.branch-{{ entry.id }} {
+						background-color: {{ entry.color }};
 					}
 					-->
 				</style>

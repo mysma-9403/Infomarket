@@ -1,7 +1,71 @@
 {% extends 'base.html.twig' %}
 
+{% block title %}{{ title }}{% endblock %}
+
 {% block body %}
-    <div id="">
-    	<h1>Infoprodukt</h1>
-    </div>
+	
+	{% block navigationBar %}
+		<nav class="navbar navbar-default navbar-fixed-top">
+			<div class="container">
+				
+				<div class="row">
+					<div class="col-xs-12">
+						{% block navigationHeader %}
+							<div class="navbar-header">
+								{% block navigationButton %}
+									<button type="button" class="navbar-toggle collapsed" 
+											data-toggle="collapse" 
+											data-target="#bs-example-navbar-collapse-1" 
+											aria-expanded="false">
+								        <span class="sr-only">Toggle navigation</span>
+								        <span class="icon-bar"></span>
+								        <span class="icon-bar"></span>
+								        <span class="icon-bar"></span>
+							      	</button>
+					      		{% endblock %}
+					      		
+								<a class="navbar-brand" href="{{ path('infoprodukt_home') }}">
+	{# 								<img alt="Brand" src="{{ asset('img/template/brand-home.png') }}">#}
+									<h1 class="title"><span class="branch-color-1">Info</span><span class="text-white">Produkt</span></h1>
+								</a>
+					    	</div>
+				    	{% endblock %}
+					</div>
+				</div>
+		  	</div>
+		</nav>
+	{% endblock %}
+		
+	<div class="container content">
+		{% block content %}
+		{% endblock %}
+	</div>
+	
+	{% block footer %}
+		<div class="footer navbar-inverse">
+	  		<div class="container-fluid">
+		    	<div class="container">
+		      		<h4 class="text-xs-center">&copy; 2016 InfoMarket</h4>
+		      		
+		      		<div class="row">
+			      		<div class="col-sm-9">
+			      			<h4>Infomarket Sp. z o.o.</h4>
+			      			<p>
+			      				ul. Trylogii 2/16a lok. 50, 01-982 Warszawa<br>
+			      				tel./fax: (22) 835 19 17<br>
+			      				e-mail: <a href="mailto:redakcja@infomarket.edu.pl">redakcja@infomarket.edu.pl</a>
+		      				</p>
+			      		</div>
+			      		<div class="col-sm-3">
+		        			<a href="http://www.facebook.com/infomarket1"><i class="fa fa-facebook"></i></a>
+			        		<a href="#"><i class="fa fa-twitter"></i></a>
+			        		<a href="#"><i class="fa fa-pinterest"></i></a>
+			        		<a href="#"><i class="fa fa-instagram"></i></a>
+			      		</div>
+		      		</div>
+		    	</div>
+		  	</div>
+		</div>
+	{% endblock %}
+	
 {% endblock %}
