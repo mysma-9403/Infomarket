@@ -1,0 +1,13 @@
+{% extends 'infomarket/base/product/index2.html.twig' %}
+
+{% set title = 'title.products'|trans %}
+{% set mainPath = 'product2' %}
+
+{% block entryHeader %}
+	<h4>{{ entry.brand.name }} {{ entry.name }}</h4>
+{% endblock %}
+
+{% block entryContent %}
+	{{ 'label.product.price'|trans }}: {{ entry.price }}
+	{{ 'label.product.guarantee'|trans }}: {{ entry.guarantee }}
+{% endblock %}

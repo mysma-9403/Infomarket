@@ -33,6 +33,10 @@ infomarket_brand_show:
 infomarket_product:
     path:      /products/{page}
     defaults:  { _controller: "AppBundle:Infomarket/Product:index", page: 1 }
+    
+infomarket_product2: # TODO remove!!
+    path:      /products2/{page}
+    defaults:  { _controller: "AppBundle:Infomarket/Product2:index", page: 1 }
 
 infomarket_product_show:
     path:      /products/show/{id}
@@ -235,9 +239,7 @@ admin_product_unpublish:
 
 admin_product:
     path:      /admin/products/{page}
-    defaults:  { _controller: "AppBundle:Admin/Product:index", page: 1 }
-    
-                
+    defaults:  { _controller: "AppBundle:Admin/Product:index", page: 1 }                
         
 # Admin Segments Routing    
 admin_segment_show:

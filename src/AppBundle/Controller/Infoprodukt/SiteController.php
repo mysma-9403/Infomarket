@@ -37,13 +37,22 @@ class SiteController extends SimpleEntityController
 	 */
 	protected function indexActionInternal(Request $request, $page)
 	{
-		$logger = $this->get('logger');
-		$logger->info('[Infoprodukt] Index action.');
-		
+// 		$logger = $this->get('logger');
+// 		$logger->info('[Infoprodukt] Category: ' . $params['category']->getName());
 		
 		$params = $this->initIndexParams($request, $page);
 		
-		$filterParams = ['category' => 'asdasdasadasdas'];
+		$filterParams = [];
+		
+		if($params['category']) {
+			$filterParams['category'] = $params['category']->getName();
+		}
+		if($params['brand']) {
+			$filterParams['brand'] = $params['brand']->getName();
+		}
+		if($params['segment']) {
+			$filterParams['segment'] = $params['segment']->getName();
+		}
 		
 		
 		
@@ -122,7 +131,6 @@ class SiteController extends SimpleEntityController
 		$filterParams = array_merge($filterParams, $entryFilter->getValues());
 		$params['filterParams'] = $filterParams;
 		
-		$logger->info('[Infoprodukt] Before render.');
 		return $this->render($this->getIndexView(), $params);
 	}
 	

@@ -49,6 +49,10 @@
 											<a href="{{ path('infomarket_product', {'branch': branch.name }) }}">
 												<span class="fa fa-camera-retro"></span> {{ 'title.products'|trans }}</a>
 										</li>
+										<li class="{% if mainPath == 'product2' or mainPath == 'brand' %}active{% endif %} branch-{{ branch.id }}">
+											<a href="{{ path('infomarket_product2', {'branch': branch.name }) }}">
+												<span class="fa fa-camera-retro"></span> {{ 'title.products'|trans }}</a>
+										</li>
 										<li class="{% if mainPath == 'magazine' %}active{% endif %} branch-{{ branch.id }}">
 											<a href="{{ path('infomarket_magazine', {'branch': branch.name }) }}">
 												<span class="fa fa-newspaper-o"></span> {{ 'title.magazine'|trans }}</a>

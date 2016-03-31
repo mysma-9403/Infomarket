@@ -130,7 +130,7 @@
 							{% for entry in segments %}
 								{% if loop.index <= 12 %}
 									<div class="col-xs-4 col-sm-6 thumbnail">
-										<a href="{{ path('infoprodukt_home', filterParams|merge({'brand': entry.name})) }}"
+										<a href="{{ path('infoprodukt_home', filterParams|merge({'segment': entry.name})) }}"
 											data-toggle="tooltip" data-placement="bottom" title="{{ entry.name }}">
 											<img alt=" " src="{{ asset(entry.getImagePath()) }}">
 										</a>
