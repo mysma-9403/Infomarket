@@ -54,31 +54,31 @@
 						
 						{% block navigationSearch %}
 						<div class="navbar-form navbar-right" role="search">
-							{% form_theme categoryFilterForm 'form/fields.html.twig' %}
+							{% form_theme searchFilterForm 'form/fields.html.twig' %}
 						
-							{{ form_start(categoryFilterForm) }}
+							{{ form_start(searchFilterForm) }}
 								<ul class="list-inline col-xs-12">
 									<li>
 										<div class='input-group'>
-											{{ form_widget(categoryFilterForm.name, { 'label': 'label.name' }) }}
+											{{ form_widget(searchFilterForm.name, { 'label': 'label.name' }) }}
 											<span class="input-group-addon"><i class="fa fa-search"></i></span>
 										</div>
 									</li>
 									
 									<li class="hidden">
-										{{ form_widget(categoryFilterForm.search, { 'icon': 'fa-search', 'label': '', 'attr': {'class': 'btn btn-primary'} }) }}
+										{{ form_widget(searchFilterForm.search, { 'icon': 'fa-search', 'label': '', 'attr': {'class': 'btn btn-primary'} }) }}
 									</li>
 									
-									<li class="hidden"> {{ form_widget(categoryFilterForm.clear) }} </li>
+									<li class="hidden"> {{ form_widget(searchFilterForm.clear) }} </li>
 									
-									<li class="hidden"> {{ form_widget(categoryFilterForm.published) }} </li>
+									<li class="hidden"> {{ form_widget(searchFilterForm.published) }} </li>
 									
-									<li class="hidden"> {{ form_widget(categoryFilterForm.updatedAfter) }} </li>
-								    <li class="hidden"> {{ form_widget(categoryFilterForm.updatedBefore) }} </li>
-								    <li class="hidden"> {{ form_widget(categoryFilterForm.createdAfter) }} </li>
-								    <li class="hidden"> {{ form_widget(categoryFilterForm.createdBefore) }} </li>
+									<li class="hidden"> {{ form_widget(searchFilterForm.updatedAfter) }} </li>
+								    <li class="hidden"> {{ form_widget(searchFilterForm.updatedBefore) }} </li>
+								    <li class="hidden"> {{ form_widget(searchFilterForm.createdAfter) }} </li>
+								    <li class="hidden"> {{ form_widget(searchFilterForm.createdBefore) }} </li>
 								</ul>			
-							{{ form_end(categoryFilterForm) }}
+							{{ form_end(searchFilterForm) }}
 						</div>
 						{% endblock %}
 					</div>

@@ -2,97 +2,27 @@
 
 {% set title = 'InfoProduct' %}
 {% set mainPath = 'category' %}
-		
-{% block content %}
-	
-	{% if entry.preleaf %}
-	<div class="row">
-		<div class="rect-3x1">
-{# 			<img class="img-responsive div-center" src="{{ asset(entry.getImagePath()) }}">#}
-			<img class="img-responsive div-center" src="{{ asset('img/template/kino-domowe-2.jpg') }}">
-			
-			<div class="category-link">
-				<div class="col-xs-12 div-bottom bkg-black-50">
-					<div class="container">
-						<div class="row">
-							<div class="col-xs-12">
-								<h4>{{ entry.name }}</h4>
-								<p>{{ entry.content }}</p>
-							</div>
-						</div>
+
+{% block navigationBar %}
+	<nav class="navbar navbar-default navbar-fixed-top">
+		<div class="container">
+			<div class="row">
+				<div class="col-xs-1 col-md-3 col-lg-2">
+					<a class="navbar-brand" href="{{ path('infoprodukt_category') }}">
+						<h1 class="title visible-md visible-lg"><span class="branch-color-1">Info</span><span class="text-white">Produkt</span></h1>
+						<h1 class="title visible-xs visible-sm"><span class="branch-color-1">I</span><span class="text-white">P</span></h1>
+					</a>
+				</div>
+				<div class="col-xs-11 col-md-9 col-lg-10">
+					<div class="search-bar">
 					</div>
 				</div>
 			</div>
-		</div>
-	</div>
-
-	<div class="vr-space"></div>
-	
-	{% block categories %}
-	<h1 class="text-center">{{ 'title.categories'|trans }}</h1>
-	<div class="vr-space"></div>
-	
-	<div class="row no-padding">
-		{% include 'common/tile_list.html.twig' with {'entries': entry.children, 'entryPath': 'category', 'colSize': 2} %}
-	</div>
-	{% endblock %}
-	
-	<div class="vr-space"></div>
-	
-	{% block featuredNews %}
-	Tutaj bedzie karuzela
-	<div class="row">
-		<div class="rect-3x1">
-{# 			<img class="img-responsive div-center" src="{{ asset(entry.getImagePath()) }}">#}
-			<img class="img-responsive div-center" src="{{ asset('img/template/kino-domowe-2.jpg') }}">
-		</div>
-	</div>
-	{% endblock %}
-	
-	<div class="vr-space"></div>
-	
-	{% block news %}
-	<div class="container">
-		<div class="row">
-			<div class="col-xs-12">
-				<h1>Nowosci ze swiata</h1>
-				<div class="row no-padding">
-					{% include 'common/tile_list.html.twig' with {'entries': articles, 'entryPath': 'article', 'colSize': 3, 'limit': 4} %}
-				</div>
-				
-				<div class="row text-center lowered">
-					<a class="btn btn-primary">Czytaj wiecej...</a>
-				</div>
-			</div>
-			
-			<div class="col-xs-12">
-				<h1>Nowosci z kraju</h1>
-				<div class="row no-padding">
-					{% include 'common/tile_list.html.twig' with {'entries': articles, 'entryPath': 'article', 'colSize': 3, 'limit': 4} %}
-				</div>
-				
-				<div class="row text-center lowered">
-					<a class="btn btn-primary">Czytaj wiecej...</a>
-				</div>
-			</div>
-		</div>
-	</div>
-	{% endblock %}
-	
-	<div class="vr-space"></div>
-	
-	{% block ads %}
-	<div class="photo-container">
-{# 		<img class="photo-fixed" src="{{ asset('img/template/kino-domowe-2.jpg') }}">#}
-	</div>
-	{% endblock %}
-	
-	<div class="vr-space"></div>
-	
-	{% block promocje %}
-	{% endblock %}
-	{% else %}
-	
+	  	</div>
+	</nav>
+{% endblock %}
+		
+{% block content %}
 	<div class="container">
 		<div class="row">
 			<div class="col-xs-12 well">
@@ -220,7 +150,5 @@
 			</div>
 		</div>
 	</div>
-	
-	{% endif %}
 	
 {% endblock %}

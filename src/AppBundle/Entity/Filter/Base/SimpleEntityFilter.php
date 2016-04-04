@@ -12,10 +12,16 @@ class SimpleEntityFilter extends BaseEntityFilter {
 	const FALSE_VALUES = 2;
 	
 	/**
+	 *
+	 * @var string
+	 */
+	public $filterName = 'simple_filter_';
+	
+	/**
 	 * 
 	 */
 	protected function getFilterName() {
-		return 'simple_filter_';
+		return $this->filterName;
 	}
 	
 	/**

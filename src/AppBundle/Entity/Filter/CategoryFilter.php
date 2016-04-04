@@ -22,15 +22,6 @@ class CategoryFilter extends SimpleEntityFilter {
 	}
 	
 	/**
-	 *
-	 * {@inheritDoc}
-	 * @see \AppBundle\Entity\Filter\Base\SimpleEntityFilter::getFilterName()
-	 */
-	protected function getFilterName() {
-		return 'category_filter_';
-	}
-	
-	/**
 	 * @var BranchRepository
 	 */
 	protected $branchRepository;

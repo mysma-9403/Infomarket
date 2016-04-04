@@ -1,0 +1,9 @@
+{% for entry in entries %}
+	{% if limit is not defined or loop.index <= limit %}
+		<div class="col-sm-{{ colSize is defined ? colSize : '3' }}">
+			{% include 'common/tile.html.twig' with {'entry': entry, 'entryPath': entryPath} %}
+		</div>
+	{% endif %}
+{% else %}
+	<p>{{ 'label.noEntries'|trans }}</p>
+{% endfor %}

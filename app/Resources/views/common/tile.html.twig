@@ -1,0 +1,10 @@
+<div class="row">
+	<a class="category-link" href="{{ path('infoprodukt_' ~ entryPath ~ '_show', { 'id': entry.id }) }}">
+		<div class="rect">
+			<img class="img-responsive div-center" alt="{{ entry.name }}" src="{{ asset(entry.getImagePath()) }}">
+			<div class="col-xs-12 div-bottom bkg-black-50">
+				<h4>{{ entry.name }}</h4>
+			</div>
+		</div>
+	</a>
+</div>

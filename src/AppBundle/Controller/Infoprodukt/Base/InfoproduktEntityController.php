@@ -5,11 +5,11 @@ namespace AppBundle\Controller\Infoprodukt\Base;
 use AppBundle\Controller\Base\BaseEntityController;
 use AppBundle\Entity\Branch;
 use AppBundle\Entity\Category;
-use AppBundle\Entity\Filter\BranchFilter;
+use AppBundle\Entity\Filter\Base\SimpleEntityFilter;
 use AppBundle\Entity\Filter\CategoryFilter;
+use AppBundle\Form\Filter\Base\SimpleEntityFilterType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-use AppBundle\Form\Filter\CategoryFilterType;
 
 abstract class InfoproduktEntityController extends BaseEntityController
 {
@@ -20,46 +20,57 @@ abstract class InfoproduktEntityController extends BaseEntityController
 	 */
 	protected function indexActionInternal(Request $request, $page)
 	{
-		// 		$logger = $this->get('logger');
-		// 		$logger->info('[Infoprodukt] Category: ' . $params['category']->getName());
-	
 		$params = $this->getIndexParams($request, $page);
+		
+		
 	
+		$searchFilter = new SimpleEntityFilter();
+		$searchFilter->initValues($request);
 	
-	
-	
-		$branchRepository = $this->getDoctrine()->getRepository(Branch::class);
-		$categoryRepository = $this->getDoctrine()->getRepository(Category::class);
-		 
-		$categoryFilter = new CategoryFilter($branchRepository, $categoryRepository);
-		$categoryFilter->initValues($request);
-		 
-		$categoryFilterForm = $this->createForm(CategoryFilterType::class, $categoryFilter);
-		$categoryFilterForm->handleRequest($request);
-	
-		if ($categoryFilterForm->isSubmitted() && $categoryFilterForm->isValid()) {
-			if ($categoryFilterForm->get('search')->isClicked()) {
+		$searchFilterForm = $this->createForm(SimpleEntityFilterType::class, $searchFilter);
+		$searchFilterForm->handleRequest($request);
+
+		if ($searchFilterForm->isSubmitted() && $searchFilterForm->isValid()) {
+			if ($searchFilterForm->get('search')->isClicked()) {
 				$routingParams = $params['routingParams'];
-				$routingParams = array_merge($routingParams, $categoryFilter->getValues());
-	
-				return $this->redirectToRoute($this->getIndexRoute(), $routingParams);
+				$routingParams = array_merge($routingParams, $searchFilter->getValues());
+
+				return $this->redirectToRoute('infoprodukt_search', $routingParams);
 			}
 		}
-		$params['categoryFilterForm'] = $categoryFilterForm->createView();
+		$params['searchFilterForm'] = $searchFilterForm->createView();
 	
 		return $this->render($this->getIndexView(), $params);
+	}
+	
+	protected function showActionInternal(Request $request, $id)
+	{
+		$params = $this->getShowParams($request, $id);
+	
+	
+	
+		$searchFilter = new SimpleEntityFilter();
+		$searchFilter->initValues($request);
+	
+		$searchFilterForm = $this->createForm(SimpleEntityFilterType::class, $searchFilter);
+		$searchFilterForm->handleRequest($request);
+	
+		if ($searchFilterForm->isSubmitted() && $searchFilterForm->isValid()) {
+			if ($searchFilterForm->get('search')->isClicked()) {
+				$routingParams = $params['routingParams'];
+				$routingParams = array_merge($routingParams, $searchFilter->getValues());
+	
+				return $this->redirectToRoute('infoprodukt_search', $routingParams);
+			}
+		}
+		$params['searchFilterForm'] = $searchFilterForm->createView();
+	
+		return $this->render($this->getShowView(), $params);
 	}
 	
     protected function getParams(Request $request)
     {
     	$params = parent::getParams($request);
-    	
-    	$branchFilter = new BranchFilter();
-    	$branchFilter->initValues($request);
-    	$branchFilter->setPublished(true);
-    	
-    	$branches = $this->getParamList(Branch::class, $branchFilter);
-    	$params['branches'] = $branches;
     
     
     
@@ -67,7 +78,6 @@ abstract class InfoproduktEntityController extends BaseEntityController
     	$categoryRepository = $this->getDoctrine()->getRepository(Category::class);
     	
     	$categoryFilter = new CategoryFilter($branchRepository, $categoryRepository);
-    	$categoryFilter->initValues($request);
     	$categoryFilter->setPublished(true);
     	$categoryFilter->setPreleaf(true);
     

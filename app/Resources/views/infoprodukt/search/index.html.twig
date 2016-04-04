@@ -1,0 +1,84 @@
+{% extends 'infoprodukt/index.html.twig' %}
+
+{% set title = 'Kategorie' %}
+{% set mainPath = 'category' %}
+		
+{% block content %}
+	<div class="container">
+		<div class="col-xs-12 well">
+		
+			{% block categories %}
+			<div class="row">
+				<div class="col-xs-12">
+					<a href="{{ path('infoprodukt_category') }}">
+						<h1>Kategorie</h1>
+					</a>
+					
+					{% include 'common/tile_list.html.twig' with {'entries': entries, 'entryPath': 'category'} %}	
+				</div>
+			</div>
+			{% endblock %}
+			
+			
+			{% block products %}
+			<div class="row">
+				<div class="col-xs-12">
+					<a href="{{ path('infoprodukt_product') }}">
+						<h1>Produkty</h1>
+					</a>
+					
+					{% include 'common/tile_list.html.twig' with {'entries': products, 'entryPath': 'product'} %}	
+				</div>
+			</div>
+			{% endblock %}
+			
+			
+			{% block articles %}
+			<div class="row">
+				<div class="col-xs-12">
+					<a href="{{ path('infoprodukt_article') }}">
+						<h1>Artykuly</h1>
+					</a>
+					
+				{% include 'common/tile_list.html.twig' with {'entries': articles, 'entryPath': 'article'} %}		
+				</div>
+			</div>
+			{% endblock %}
+			
+			
+			{% block brands %}
+			<div class="row">
+				<div class="col-xs-12">
+					<a href="{{ path('infoprodukt_brand') }}">
+						<h1>Marki</h1>
+					</a>
+					
+					{% include 'common/tile_list.html.twig' with {'entries': brands, 'entryPath': 'brand'} %}	
+				</div>
+			</div>
+			{% endblock %}
+			
+			
+			{% block terms %}
+			<div class="row">
+				<div class="col-xs-12">
+					<a href="{{ path('infoprodukt_term') }}">
+						<h1>Leksykon pojec</h1>
+					</a>
+					
+					{% for entry in terms %}
+						<div class="col-sm-3">
+							<a href="{{ path('infoprodukt_term_show', { 'id': entry.id }) }}">
+								{{ entry.name }}
+							</a>
+						</div>
+					{% else %}
+						<p>{{ 'label.noEntries'|trans }}</p>
+					{% endfor %}		
+				</div>
+			</div>
+			{% endblock %}
+			
+		</div>
+	</div>
+{% endblock %}

@@ -16,6 +16,7 @@ use AppBundle\Entity\Segment;
 use AppBundle\Entity\Term;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Entity\Filter\BranchFilter;
 
 class CategoryController extends SimpleEntityController
 {
@@ -37,6 +38,25 @@ class CategoryController extends SimpleEntityController
 	public function showAction(Request $request, $id)
 	{
 		return $this->showActionInternal($request, $id);
+	}
+	
+	/**
+	 *
+	 * {@inheritDoc}
+	 * @see \AppBundle\Controller\Infomarket\Base\BaseEntityController::getShowParams()
+	 */
+	protected function getIndexParams(Request $request, $page)
+	{
+		$params = parent::getIndexParams($request, $page);
+	
+		$branchFilter = new BranchFilter();
+		$branchFilter->initValues($request);
+		$branchFilter->setPublished(true);
+		 
+		$branches = $this->getParamList(Branch::class, $branchFilter);
+		$params['branches'] = $branches;
+	
+		return $params;
 	}
 	
 	/**

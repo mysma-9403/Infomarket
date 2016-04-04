@@ -4,6 +4,26 @@ app:
     type:     annotation
 
 # Infoprodukt Routing
+infoprodukt_article:
+    path:      /articles/{page}
+    host:      infoprodukt.loc
+    defaults:  { _controller: "AppBundle:Infoprodukt/Brand:index", page: 1 }
+    
+infoprodukt_article_show:
+    path:      /articles/show/{id}
+    host:      infoprodukt.loc
+    defaults:  { _controller: "AppBundle:Infoprodukt/Brand:show" }
+    
+infoprodukt_brand:
+    path:      /brands/{page}
+    host:      infoprodukt.loc
+    defaults:  { _controller: "AppBundle:Infoprodukt/Brand:index", page: 1 }
+    
+infoprodukt_brand_show:
+    path:      /brands/show/{id}
+    host:      infoprodukt.loc
+    defaults:  { _controller: "AppBundle:Infoprodukt/Brand:show" }
+    
 infoprodukt_category:
     path:      /categories/{page}
     host:      infoprodukt.loc
@@ -13,6 +33,31 @@ infoprodukt_category_show:
     path:      /categories/show/{id}
     host:      infoprodukt.loc
     defaults:  { _controller: "AppBundle:Infoprodukt/Category:show" }
+
+infoprodukt_product:
+    path:      /products/{page}
+    host:      infoprodukt.loc
+    defaults:  { _controller: "AppBundle:Infoprodukt/Product:index", page: 1 }
+    
+infoprodukt_product_show:
+    path:      /products/show/{id}
+    host:      infoprodukt.loc
+    defaults:  { _controller: "AppBundle:Infoprodukt/Product:show" }
+        
+infoprodukt_term:
+    path:      /terms/{page}
+    host:      infoprodukt.loc
+    defaults:  { _controller: "AppBundle:Infoprodukt/Term:index", page: 1 }
+    
+infoprodukt_term_show:
+    path:      /terms/show/{id}
+    host:      infoprodukt.loc
+    defaults:  { _controller: "AppBundle:Infoprodukt/Term:show" }
+    
+infoprodukt_search:
+    path:      /search
+    host:      infoprodukt.loc
+    defaults:  { _controller: "AppBundle:Infoprodukt/Search:index" }
     
 infoprodukt_home:
     path:      /{page}

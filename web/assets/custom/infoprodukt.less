@@ -42,6 +42,37 @@
 
 
 
+.rect {
+	position: relative;
+	overflow: hidden;
+	width: 100%;
+	height: auto;
+	padding-top: 100%;
+}
+
+.rect-2x1 {
+	position: relative;
+	overflow: hidden;
+	width: 100%;
+	height: auto;
+	padding-top: 50%;
+}
+
+.rect-3x1 {
+	position: relative;
+	overflow: hidden;
+	width: 100%;
+	height: auto;
+	padding-top: 34%;
+}
+
+.rect-4x1 {
+	position: relative;
+	overflow: hidden;
+	width: 100%;
+	height: auto;
+	padding-top: 25%;
+}
 
 .circle {
 	position: relative;
@@ -49,7 +80,14 @@
 	width: 100%;
 	height: auto;
 	padding-top: 100%;
-	background: white;
+}
+
+.bkg-white {
+	background-color: white;
+}
+
+.bkg-black-50 {
+	background-color: rgba(0, 0, 0, 0.5);
 }
 
 .navbar {
@@ -173,10 +211,33 @@ nav.sidebar .navbar-nav > li {
     transform: translate(-50%,-50%);
 }
 
-.video-container {
-    height: 700px;
+.photo-container {
     position: relative;
     overflow: hidden;
+    height: 700px;
+}
+
+.photo-fixed {
+	position: fixed;
+    left: 50%;
+    top: 50%;
+    min-width: 100%;
+    min-height: 100%;
+    -webkit-transform: translate(-50%,-50%);
+    -moz-transform: translate(-50%,-50%);
+    -ms-transform: translate(-50%,-50%);
+    transform: translate(-50%,-50%);
+    z-index: -1;
+    background: center center no-repeat;
+    background-image: asset("img/template/kino-domowe-2.jpg");
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+.video-container {
+    position: relative;
+    overflow: hidden;
+    height: 700px;
 }
 
 video {
@@ -198,10 +259,6 @@ video {
 
 .category-link {
 	color: white
-}
-
-.category-link > div {
-	background-color: rgba(0, 0, 0, 0.6);
 }
 
 
