@@ -25,7 +25,7 @@ class SimpleEntityFilter extends BaseEntityFilter {
 	 */
 	public function initValues(Request $request) {
 		//TODO replace selected with entry list - like stages in Song filter
-		$this->selected = $request->get('selected', array());
+		$this->selected = $request->get($this->getFilterName() . 'selected', array());
 		
 		$this->name = $request->get($this->getFilterName() . 'name', null);
 		

@@ -1,0 +1,43 @@
+{% extends 'infoprodukt/index.html.twig' %}
+
+{% set title = 'Kategorie' %}
+{% set mainPath = 'category' %}
+		
+{% block content %}
+	<div class="container">
+		<div class="col-xs-12 well">
+			{% for entry in branches %}
+			<div class="row">
+				<div class="col-xs-12">
+					<h1>{{ entry.name }}</h1>
+					
+					{% for subentry in categories %}
+						{% set visible = false %}
+						{% for branch in subentry.branches %}
+							{% if branch.branch.id == entry.id %}
+								{% set visible = true %}
+							{% endif %}
+						{% endfor %}
+						
+						{% if visible %}
+							<div class="col-sm-3">
+								<div class="row">
+								<a class="category-link" href="{{ path('infoprodukt_' ~ mainPath ~ '_show', { 'id': subentry.id }) }}">
+	{# 								<img alt="{{ subentry.name }}" src="{{ asset(subentry.getImagePath()) }}">#}
+									<img class="img-responsive" alt="{{ subentry.name }}" src="{{ asset(subentry.getImagePath()) }}">
+									<div class="col-xs-12 div-bottom">
+										<h4>{{ subentry.name }}</h4>
+									</div>
+								</a>
+								</div>
+							</div>
+						{% endif %}
+					{% else %}
+						<p>{{ 'label.noEntries'|trans }}</p>
+					{% endfor %}		
+				</div>
+			</div>
+			{% endfor %}
+		</div>
+	</div>
+{% endblock %}

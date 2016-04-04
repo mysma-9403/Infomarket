@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{% extends 'infoprodukt/base.html.twig' %}
 
 {% block title %}{{ title }}{% endblock %}
 
@@ -11,38 +11,89 @@
 				<div class="row">
 					<div class="col-xs-12">
 						{% block navigationHeader %}
-							<div class="navbar-header">
-								{% block navigationButton %}
-									<button type="button" class="navbar-toggle collapsed" 
-											data-toggle="collapse" 
-											data-target="#bs-example-navbar-collapse-1" 
-											aria-expanded="false">
-								        <span class="sr-only">Toggle navigation</span>
-								        <span class="icon-bar"></span>
-								        <span class="icon-bar"></span>
-								        <span class="icon-bar"></span>
-							      	</button>
-					      		{% endblock %}
-					      		
-								<a class="navbar-brand" href="{{ path('infoprodukt_home') }}">
-	{# 								<img alt="Brand" src="{{ asset('img/template/brand-home.png') }}">#}
-									<h1 class="title"><span class="branch-color-1">Info</span><span class="text-white">Produkt</span></h1>
-								</a>
-					    	</div>
+						<div class="navbar-header">
+							{% block navigationButton %}
+								<button type="button" class="navbar-toggle collapsed" 
+										data-toggle="collapse" 
+										data-target="#bs-example-navbar-collapse-1" 
+										aria-expanded="false">
+							        <span class="sr-only">Toggle navigation</span>
+							        <span class="icon-bar"></span>
+							        <span class="icon-bar"></span>
+							        <span class="icon-bar"></span>
+						      	</button>
+				      		{% endblock %}
+				      		
+				      		{% block navigationBrand %}
+							<a class="navbar-brand" href="{{ path('infoprodukt_home') }}">
+{# 								<img alt="Brand" src="{{ asset('img/template/brand-home.png') }}">#}
+								<h1 class="title text-brand"><span class="text-red">Info</span><span>Produkt</span></h1>
+							</a>
+							{% endblock %}
+				    	</div>
 				    	{% endblock %}
+						
+				    	{% block navigationLinks %}
+						<ul class="nav navbar-nav navbar-left">
+							{% for entry in categories %}
+								{% if loop.index <= 4 %}
+									<li>
+										<a href="{{ path('infoprodukt_category_show', routingParams|merge({'id': entry.id})) }}">
+											{{ entry.name }}
+										</a>
+									</li>
+								{% endif %}
+							{% endfor %}
+							<li>
+								<a href="{{ path('infoprodukt_category') }}">
+									{{ 'label.other'|trans }}
+								</a>
+							</li>
+						</ul>
+						{% endblock %}
+						
+						{% block navigationSearch %}
+						<div class="navbar-form navbar-right" role="search">
+							{% form_theme categoryFilterForm 'form/fields.html.twig' %}
+						
+							{{ form_start(categoryFilterForm) }}
+								<ul class="list-inline col-xs-12">
+									<li>
+										<div class='input-group'>
+											{{ form_widget(categoryFilterForm.name, { 'label': 'label.name' }) }}
+											<span class="input-group-addon"><i class="fa fa-search"></i></span>
+										</div>
+									</li>
+									
+									<li class="hidden">
+										{{ form_widget(categoryFilterForm.search, { 'icon': 'fa-search', 'label': '', 'attr': {'class': 'btn btn-primary'} }) }}
+									</li>
+									
+									<li class="hidden"> {{ form_widget(categoryFilterForm.clear) }} </li>
+									
+									<li class="hidden"> {{ form_widget(categoryFilterForm.published) }} </li>
+									
+									<li class="hidden"> {{ form_widget(categoryFilterForm.updatedAfter) }} </li>
+								    <li class="hidden"> {{ form_widget(categoryFilterForm.updatedBefore) }} </li>
+								    <li class="hidden"> {{ form_widget(categoryFilterForm.createdAfter) }} </li>
+								    <li class="hidden"> {{ form_widget(categoryFilterForm.createdBefore) }} </li>
+								</ul>			
+							{{ form_end(categoryFilterForm) }}
+						</div>
+						{% endblock %}
 					</div>
 				</div>
 		  	</div>
 		</nav>
 	{% endblock %}
 		
-	<div class="container content">
+	<div class="container-fluid content">
 		{% block content %}
 		{% endblock %}
 	</div>
 	
 	{% block footer %}
-		<div class="footer navbar-inverse">
+		<div class="footer">
 	  		<div class="container-fluid">
 		    	<div class="container">
 		      		<h4 class="text-xs-center">&copy; 2016 InfoMarket</h4>

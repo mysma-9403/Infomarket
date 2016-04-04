@@ -2,8 +2,7 @@
 
 namespace AppBundle\Controller\Infoprodukt;
 
-use AppBundle\Controller\Infomarket\Base\SimpleEntityController;
-use AppBundle\Controller\Infomarket\HomeController;
+use AppBundle\Controller\Infoprodukt\Base\SimpleEntityController;
 use AppBundle\Entity\Branch;
 use AppBundle\Entity\Brand;
 use AppBundle\Entity\Category;
@@ -30,118 +29,118 @@ class SiteController extends SimpleEntityController
 		return $this->indexActionInternal($request, $page);
 	}
 	
-	/**
-	 * 
-	 * {@inheritDoc}
-	 * @see \AppBundle\Controller\Infomarket\Base\BaseEntityController::indexActionInternal()
-	 */
-	protected function indexActionInternal(Request $request, $page)
-	{
-// 		$logger = $this->get('logger');
-// 		$logger->info('[Infoprodukt] Category: ' . $params['category']->getName());
+// 	/**
+// 	 * 
+// 	 * {@inheritDoc}
+// 	 * @see \AppBundle\Controller\Infomarket\Base\BaseEntityController::indexActionInternal()
+// 	 */
+// 	protected function indexActionInternal(Request $request, $page)
+// 	{
+// // 		$logger = $this->get('logger');
+// // 		$logger->info('[Infoprodukt] Category: ' . $params['category']->getName());
 		
-		$params = $this->initIndexParams($request, $page);
+// 		$params = $this->getIndexParams($request, $page);
 		
-		$filterParams = [];
+// 		$filterParams = [];
 		
-		if($params['category']) {
-			$filterParams['category'] = $params['category']->getName();
-		}
-		if($params['brand']) {
-			$filterParams['brand'] = $params['brand']->getName();
-		}
-		if($params['segment']) {
-			$filterParams['segment'] = $params['segment']->getName();
-		}
-		
-		
-		
-		$categoryFilter = $params['categoryFilter'];
-		$categoryFilterForm = $this->createForm(CategoryFilterType::class, $categoryFilter);
-		
-		$brandFilter = $params['brandFilter'];
-		$brandFilterForm = $this->createForm(BrandFilterType::class, $brandFilter);
-		
-		$entryFilter = $params['entryFilter'];
-		$productFilterForm = $this->createForm(ProductFilterType::class, $entryFilter);
+// 		if($params['category']) {
+// 			$filterParams['category'] = $params['category']->getName();
+// 		}
+// 		if($params['brand']) {
+// 			$filterParams['brand'] = $params['brand']->getName();
+// 		}
+// 		if($params['segment']) {
+// 			$filterParams['segment'] = $params['segment']->getName();
+// 		}
 		
 		
 		
-		$categoryFilterForm->handleRequest($request);
+// 		$categoryFilter = $params['categoryFilter'];
+// 		$categoryFilterForm = $this->createForm(CategoryFilterType::class, $categoryFilter);
 		
-		if ($categoryFilterForm->isSubmitted() && $categoryFilterForm->isValid()) {
-			if ($categoryFilterForm->get('search')->isClicked()) {
-				$params = $categoryFilter->getValues();
-				$params = array_merge($params, $brandFilter->getValues());
-				$params = array_merge($params, $entryFilter->getValues());
-				$params = array_merge($params, $filterParams);
+// 		$brandFilter = $params['brandFilter'];
+// 		$brandFilterForm = $this->createForm(BrandFilterType::class, $brandFilter);
+		
+// 		$entryFilter = $params['entryFilter'];
+// 		$productFilterForm = $this->createForm(ProductFilterType::class, $entryFilter);
+		
+		
+		
+// 		$categoryFilterForm->handleRequest($request);
+		
+// 		if ($categoryFilterForm->isSubmitted() && $categoryFilterForm->isValid()) {
+// 			if ($categoryFilterForm->get('search')->isClicked()) {
+// 				$params = $categoryFilter->getValues();
+// 				$params = array_merge($params, $brandFilter->getValues());
+// 				$params = array_merge($params, $entryFilter->getValues());
+// 				$params = array_merge($params, $filterParams);
 				
-				$filterParams = array_merge($filterParams, $categoryFilter->getValues());
-				$filterParams = array_merge($filterParams, $brandFilter->getValues());
-				$filterParams = array_merge($filterParams, $entryFilter->getValues());
-				$params['filterParams'] = $filterParams; 
-				return $this->redirectToRoute($this->getIndexRoute(), $params);
-			}
-		}
-		$params['categoryFilterForm'] = $categoryFilterForm->createView();
+// 				$filterParams = array_merge($filterParams, $categoryFilter->getValues());
+// 				$filterParams = array_merge($filterParams, $brandFilter->getValues());
+// 				$filterParams = array_merge($filterParams, $entryFilter->getValues());
+// 				$params['filterParams'] = $filterParams; 
+// 				return $this->redirectToRoute($this->getIndexRoute(), $params);
+// 			}
+// 		}
+// 		$params['categoryFilterForm'] = $categoryFilterForm->createView();
 		
 		
 		
-		$brandFilterForm->handleRequest($request);
+// 		$brandFilterForm->handleRequest($request);
 		
-		if ($brandFilterForm->isSubmitted() && $brandFilterForm->isValid()) {
-			if ($brandFilterForm->get('search')->isClicked()) {
-				$params = $categoryFilter->getValues();
-				$params = array_merge($params, $brandFilter->getValues());
-				$params = array_merge($params, $entryFilter->getValues());
-				$params = array_merge($params, $filterParams);
+// 		if ($brandFilterForm->isSubmitted() && $brandFilterForm->isValid()) {
+// 			if ($brandFilterForm->get('search')->isClicked()) {
+// 				$params = $categoryFilter->getValues();
+// 				$params = array_merge($params, $brandFilter->getValues());
+// 				$params = array_merge($params, $entryFilter->getValues());
+// 				$params = array_merge($params, $filterParams);
 				
-				$filterParams = array_merge($filterParams, $categoryFilter->getValues());
-				$filterParams = array_merge($filterParams, $brandFilter->getValues());
-				$filterParams = array_merge($filterParams, $entryFilter->getValues());
-				$params['filterParams'] = $filterParams; 
-				return $this->redirectToRoute($this->getIndexRoute(), $params);
-			}
-		}
-		$params['brandFilterForm'] = $brandFilterForm->createView();
+// 				$filterParams = array_merge($filterParams, $categoryFilter->getValues());
+// 				$filterParams = array_merge($filterParams, $brandFilter->getValues());
+// 				$filterParams = array_merge($filterParams, $entryFilter->getValues());
+// 				$params['filterParams'] = $filterParams; 
+// 				return $this->redirectToRoute($this->getIndexRoute(), $params);
+// 			}
+// 		}
+// 		$params['brandFilterForm'] = $brandFilterForm->createView();
 		
 		
 		
-		$productFilterForm->handleRequest($request);
+// 		$productFilterForm->handleRequest($request);
 		
-		if ($productFilterForm->isSubmitted() && $productFilterForm->isValid()) {
-			if ($productFilterForm->get('search')->isClicked()) {
-				$params = $categoryFilter->getValues();
-				$params = array_merge($params, $brandFilter->getValues());
-				$params = array_merge($params, $entryFilter->getValues());
-				$params = array_merge($params, $filterParams);
+// 		if ($productFilterForm->isSubmitted() && $productFilterForm->isValid()) {
+// 			if ($productFilterForm->get('search')->isClicked()) {
+// 				$params = $categoryFilter->getValues();
+// 				$params = array_merge($params, $brandFilter->getValues());
+// 				$params = array_merge($params, $entryFilter->getValues());
+// 				$params = array_merge($params, $filterParams);
 				
-				$filterParams = array_merge($filterParams, $categoryFilter->getValues());
-				$filterParams = array_merge($filterParams, $brandFilter->getValues());
-				$filterParams = array_merge($filterParams, $entryFilter->getValues());
-				$params['filterParams'] = $filterParams; 
-				return $this->redirectToRoute($this->getIndexRoute(), $params);
-			}
-		}
-		$params['productFilterForm'] = $productFilterForm->createView();
+// 				$filterParams = array_merge($filterParams, $categoryFilter->getValues());
+// 				$filterParams = array_merge($filterParams, $brandFilter->getValues());
+// 				$filterParams = array_merge($filterParams, $entryFilter->getValues());
+// 				$params['filterParams'] = $filterParams; 
+// 				return $this->redirectToRoute($this->getIndexRoute(), $params);
+// 			}
+// 		}
+// 		$params['productFilterForm'] = $productFilterForm->createView();
 		
 		
-		$filterParams = array_merge($filterParams, $categoryFilter->getValues());
-		$filterParams = array_merge($filterParams, $brandFilter->getValues());
-		$filterParams = array_merge($filterParams, $entryFilter->getValues());
-		$params['filterParams'] = $filterParams;
+// 		$filterParams = array_merge($filterParams, $categoryFilter->getValues());
+// 		$filterParams = array_merge($filterParams, $brandFilter->getValues());
+// 		$filterParams = array_merge($filterParams, $entryFilter->getValues());
+// 		$params['filterParams'] = $filterParams;
 		
-		return $this->render($this->getIndexView(), $params);
-	}
+// 		return $this->render($this->getIndexView(), $params);
+// 	}
 	
 	/**
 	 * 
 	 * {@inheritDoc}
-	 * @see \AppBundle\Controller\Infomarket\Base\BaseEntityController::initIndexParams()
+	 * @see \AppBundle\Controller\Infomarket\Base\BaseEntityController::getIndexParams()
 	 */
-	protected function initIndexParams(Request $request, $page)
+	protected function getIndexParams(Request $request, $page)
 	{
-		$params = parent::initIndexParams($request, $page);
+		$params = parent::getIndexParams($request, $page);
 		
 		
 		
@@ -150,7 +149,7 @@ class SiteController extends SimpleEntityController
 		$brandFilter->setPublished(BrandFilter::TRUE_VALUES);
     	$brands = $this->getParamList(Brand::class, $brandFilter);
     	
-    	$brand = $this->getParam($request, Brand::class, null);
+    	$brand = $this->getParamByName($request, Brand::class, null);
     	
     	$params['brandFilter'] = $brandFilter;
     	$params['brands'] = $brands;
@@ -161,7 +160,7 @@ class SiteController extends SimpleEntityController
     	$segmentFilter = new SimpleEntityFilter();
     	$segments = $this->getParamList(Segment::class, $segmentFilter);
     	 
-    	$segment = $this->getParam($request, Segment::class, null);
+    	$segment = $this->getParamByName($request, Segment::class, null);
     	
     	$params['segments'] = $segments;
     	
@@ -191,17 +190,17 @@ class SiteController extends SimpleEntityController
 		$filter = new ProductFilter($categoryRepository, $brandRepository, $segmentRepository);
 		$filter->setPublished(true);
 		 
-		$category = $this->getParam($request, Category::class, null);
+		$category = $this->getParamByName($request, Category::class, null);
 		if($category) {
 			$filter->setCategories([$category]);
 		}
 		
-		$brand = $this->getParam($request, Brand::class, null);
+		$brand = $this->getParamByName($request, Brand::class, null);
 		if($brand) {
 			$filter->setBrands([$brand]);
 		}
 		
-		$segment = $this->getParam($request, Segment::class, null);
+		$segment = $this->getParamByName($request, Segment::class, null);
 		if($segment) {
 			$filter->setSegments([$segment]);
 		}
@@ -221,7 +220,7 @@ class SiteController extends SimpleEntityController
     
     protected function initBranch(Request $request, $branches)
     {
-    	return $this->getParam($request, Branch::class, null);
+    	return $this->getParamByName($request, Branch::class, null);
     }
     
     protected function showRootCategories()

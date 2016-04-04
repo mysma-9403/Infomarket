@@ -28,7 +28,7 @@
 		{% if pathCategories %}
 			<ol class="breadcrumb">
 				{% for entry in pathCategories %}
-			  		<li><a href="{{ path('infomarket_' ~ mainPath, { 'branch': branch.name, 'category': entry.name }) }}">{{ entry.name }}</a></li>
+			  		<li><a href="{{ path('infomarket_' ~ mainPath, { 'branch': branch.name, 'category': entry.id }) }}">{{ entry.name }}</a></li>
 		  		{% endfor %}
 			</ol>
 		{% endif %}

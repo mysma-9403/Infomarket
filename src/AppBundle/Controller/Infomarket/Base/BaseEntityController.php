@@ -89,21 +89,26 @@ abstract class BaseEntityController extends Controller
     	$params = [];
     	
     	$branchFilter = new BranchFilter();
+    	$branchFilter->setPublished(true);
     	$branches = $this->getParamList(Branch::class, $branchFilter);
     	
     	$branch = $this->initBranch($request, $branches);
     	
+    	$branchRepository = $this->getDoctrine()->getRepository(Branch::class);
+    	$categoryRepository = $this->getDoctrine()->getRepository(Category::class);
     	
-    	$categoryFilter = new CategoryFilter();
-    	$categoryFilter->setPublished(true);
-    	$categoryFilter->setBranch($branch);
-    	$categoryFilter->setRoot($this->showRootCategories());
+    	$categoryFilter = new CategoryFilter($branchRepository, $categoryRepository);
     	
     	$categoryFilter->initValues($request); //TODO make it better :P
     	
+    	$categoryFilter->setPublished(true);
+    	if($branch) $categoryFilter->setBranches([$branch]);
+    	$categoryFilter->setRoot($this->showRootCategories());
+    	$categoryFilter->setPreleaf($this->showPreleafCategories());
+    	
     	$categories = $this->getParamList(Category::class, $categoryFilter);
     	
-    	$category = $this->getParam($request, Category::class, null);
+    	$category = $this->getParamById($request, Category::class, null);
     	
     	$pathCategories = array();
     	
@@ -148,6 +153,11 @@ abstract class BaseEntityController extends Controller
     	return true;
     }
     
+    protected function showPreleafCategories()
+    {
+    	return false;
+    }    
+    
     protected function addWithParent($list, $entry) {
     	array_unshift($list, $entry);
     	
@@ -170,6 +180,14 @@ abstract class BaseEntityController extends Controller
     	$paramName = ClassUtils::getClassName($paramClass);
     	$name = $request->get($paramName, $template);
     	return $repository->findOneBy(['name' => $name]);
+    }
+    
+    protected function getParamById($request, $paramClass, $template)
+    {
+    	$repository = $this->getDoctrine()->getRepository($paramClass);
+    	$paramName = ClassUtils::getClassName($paramClass);
+    	$id = $request->get($paramName, $template);
+    	return $id ? $repository->find($id) : null;
     }
     
     /**

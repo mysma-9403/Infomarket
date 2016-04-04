@@ -218,4 +218,33 @@ class Category extends ImageTree
     {
         return $this->icon;
     }
+    /**
+     * @var boolean
+     */
+    private $preleaf;
+
+
+    /**
+     * Set preleaf
+     *
+     * @param boolean $preleaf
+     *
+     * @return Category
+     */
+    public function setPreleaf($preleaf)
+    {
+        $this->preleaf = $preleaf;
+
+        return $this;
+    }
+
+    /**
+     * Get preleaf
+     *
+     * @return boolean
+     */
+    public function getPreleaf()
+    {
+        return $this->preleaf;
+    }
 }

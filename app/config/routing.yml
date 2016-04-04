@@ -4,10 +4,20 @@ app:
     type:     annotation
 
 # Infoprodukt Routing
+infoprodukt_category:
+    path:      /categories/{page}
+    host:      infoprodukt.loc
+    defaults:  { _controller: "AppBundle:Infoprodukt/Category:index", page: 1 }
+    
+infoprodukt_category_show:
+    path:      /categories/show/{id}
+    host:      infoprodukt.loc
+    defaults:  { _controller: "AppBundle:Infoprodukt/Category:show" }
+    
 infoprodukt_home:
     path:      /{page}
     host:      infoprodukt.loc
-    defaults:  { _controller: "AppBundle:Infoprodukt/Site:index", page: 1 }
+    defaults:  { _controller: "AppBundle:Infoprodukt/Home:index", page: 1 }
     
 # Infomarket Routing
 infomarket_home:

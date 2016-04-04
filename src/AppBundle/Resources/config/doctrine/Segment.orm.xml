@@ -10,5 +10,8 @@
         
         <field name="content" type="text" nullable="true" />
         
+        <one-to-many field="products" target-entity="Product" mapped-by="segment">
+        </one-to-many>
+        
     </entity>
 </doctrine-mapping>

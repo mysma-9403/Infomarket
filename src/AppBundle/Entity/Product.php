@@ -105,6 +105,7 @@ class Product extends ImageEntity
     {
         return $this->category;
     }
+    
     /**
      * @var integer
      */
@@ -120,7 +121,11 @@ class Product extends ImageEntity
      */
     private $brand;
 
-
+    /**
+     * @var \AppBundle\Entity\Segment
+     */
+    private $segment;
+    
     /**
      * Set price
      *
@@ -192,11 +197,6 @@ class Product extends ImageEntity
     {
         return $this->brand;
     }
-    /**
-     * @var \AppBundle\Entity\Segment
-     */
-    private $segment;
-
 
     /**
      * Set segment
