@@ -14,7 +14,18 @@
 						<h1>Kategorie</h1>
 					</a>
 					
-					{% include 'common/tile_list.html.twig' with {'entries': entries, 'entryPath': 'category'} %}	
+					{% include 'common/tile_list.html.twig' with {'entries': entries, 'entryPath': 'category', 'limit': 12} %}
+					
+					{% if entries|length > 12 %}
+						<a class="btn btn-danger" href="{{ path('infoprodukt_category') }}">{{ 'label.readMore'|trans }}</a>
+					{% endif %}	
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-12 text-center lowered">					
+					{% if entries|length > 12 %}
+						<a class="btn btn-danger" href="{{ path('infoprodukt_category') }}">{{ 'label.readMore'|trans }}</a>
+					{% endif %}	
 				</div>
 			</div>
 			{% endblock %}
@@ -27,7 +38,14 @@
 						<h1>Produkty</h1>
 					</a>
 					
-					{% include 'common/tile_list.html.twig' with {'entries': products, 'entryPath': 'product'} %}	
+					{% include 'common/tile_list.html.twig' with {'entries': products, 'entryPath': 'product', 'limit': 12} %}
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-12 text-center lowered">
+					{% if products|length > 12 %}
+						<a class="btn btn-danger" href="{{ path('infoprodukt_product') }}">{{ 'label.readMore'|trans }}</a>
+					{% endif %}	
 				</div>
 			</div>
 			{% endblock %}
@@ -40,7 +58,14 @@
 						<h1>Artykuly</h1>
 					</a>
 					
-				{% include 'common/tile_list.html.twig' with {'entries': articles, 'entryPath': 'article'} %}		
+					{% include 'common/tile_list.html.twig' with {'entries': articles, 'entryPath': 'article', 'limit': 12} %}	
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-12 text-center lowered">
+					{% if articles|length > 12 %}
+						<a class="btn btn-danger" href="{{ path('infoprodukt_article') }}">{{ 'label.readMore'|trans }}</a>
+					{% endif %}
 				</div>
 			</div>
 			{% endblock %}
@@ -53,7 +78,14 @@
 						<h1>Marki</h1>
 					</a>
 					
-					{% include 'common/tile_list.html.twig' with {'entries': brands, 'entryPath': 'brand'} %}	
+					{% include 'common/tile_list.html.twig' with {'entries': brands, 'entryPath': 'brand', 'limit': 12} %}
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-12 text-center lowered">
+					{% if brands|length > 12 %}
+						<a class="btn btn-danger" href="{{ path('infoprodukt_brand') }}">{{ 'label.readMore'|trans }}</a>
+					{% endif %}	
 				</div>
 			</div>
 			{% endblock %}
@@ -67,14 +99,23 @@
 					</a>
 					
 					{% for entry in terms %}
-						<div class="col-sm-3">
-							<a href="{{ path('infoprodukt_term_show', { 'id': entry.id }) }}">
-								{{ entry.name }}
-							</a>
-						</div>
+						{% if loop.index <= 12 %}
+							<div class="col-sm-3">
+								<a href="{{ path('infoprodukt_term_show', { 'id': entry.id }) }}">
+									{{ entry.name }}
+								</a>
+							</div>
+						{% endif %}
 					{% else %}
 						<p>{{ 'label.noEntries'|trans }}</p>
 					{% endfor %}		
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-12 text-center lowered">
+					{% if terms|length > 12 %}
+						<a class="btn btn-danger" href="{{ path('infoprodukt_term') }}">{{ 'label.readMore'|trans }}</a>
+					{% endif %}			
 				</div>
 			</div>
 			{% endblock %}

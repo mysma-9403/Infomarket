@@ -2,6 +2,49 @@
 
 {% set title = entry.name %}
 {% set mainPath = 'category' %}
+
+{% block catbar %}
+<div class="row bkg-black-50">
+	<div class="col-xs-12" style="margin: 10px;">
+	{% for entry in categories %}
+		{% if loop.index <= 11 %}
+{# 						<div class="col-xs-3 col-sm-2 col-lg-1 no-bottom-padding">#}
+{# 							<a href="{{ path('infoprodukt_category_show', routingParams|merge({'id': entry.id})) }}"#}
+{# 								data-toggle="tooltip" data-placement="bottom" title="{{ entry.name }}"#}
+{# 								class="no-padding branch-color-{{ entry.branches.get(0).branch.id}}">#}
+{# 								<p class="text-center bkg-white"><i class="fa {{ entry.icon }} align-text-center"></i></p>#}
+{# 								<p class="text-center text-white tile branch-{{ entry.branches.get(0).branch.id}}">{{ entry.name }}</p>#}
+{# 							</a>#}
+{# 						</div>#}
+			<div class="col-xs-3 col-sm-2 col-lg-1 branch-white-{{ entry.branches.get(0).branch.id}}">
+				<a href="{{ path('infoprodukt_category_show', routingParams|merge({'id': entry.id})) }}"
+					data-toggle="tooltip" data-placement="bottom" title="{{ entry.name }}"
+					class="text-white">
+					<p class="text-center"><i class="fa {{ entry.icon }} align-text-center"></i></p>
+					<p class="text-center">{{ entry.name }}</p>
+				</a>
+			</div>
+		{% endif %}
+	{% else %}
+		{{ 'label.noEntries'|trans }}
+	{% endfor %}
+	
+	<div class="col-xs-3 col-sm-2 col-lg-1 branch-white-0">
+		<a href="{{ path('infoprodukt_category', routingParams) }}"
+			data-toggle="tooltip" data-placement="bottom" title="Inne"
+			class="text-white">
+			<p class="text-center"><i class="fa fa-question align-text-center"></i></p>
+			<p class="text-center">Inne</p>
+		</a>
+	</div>
+	
+	<script>
+	$(document).ready(function(){
+	    $('[data-toggle="tooltip"]').tooltip(); 
+	});
+	</script>
+</div>
+{% endblock %}
 		
 {% block content %}
 	
@@ -60,20 +103,62 @@
 		
 		<div class="vr-space-80"></div>
 		
-		{% block featuredNews %}
-		<div class="row">
-			<h1 class="text-center">Informacje</h1>
-			<div class="vr-space-20"></div>
+	{% block featuredNews %}
+	<div class="row">
+		<h1 class="text-center">Informacje</h1>
+		<div class="vr-space-20"></div>
+		
+		<div id="myCarousel" class="carousel slide" data-ride="carousel">
+			<ol class="carousel-indicators">
+		    	<li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+		    	<li data-target="#myCarousel" data-slide-to="1"></li>
+		  	</ol>
+		  	
+		  	<div class="carousel-inner" role="listbox">
+			    <div class="item active">
+			    	<img src="{{ asset('img/template/dummy-3x1.png') }}">
+			    	<img class="div-center" src="{{ asset('img/template/kategoria-1.jpg') }}">
+		      		<div class="carousel-caption">
+			      		<h1>Artykul pierwszy</h1>
+			      		<p>
+							InfoProdukt jest najlepszym magazynem na rynku wydawniczym. Zostalismy wyroznieni w dwoch konkursach rangi gmiennej i powiatowej (Przesnysz i Kolebki Dolne).
+							InfoProdukt jest najlepszym magazynem na rynku wydawniczym. Zostalismy wyroznieni w dwoch konkursach rangi gmiennej i powiatowej (Przesnysz i Kolebki Dolne).
+							InfoProdukt jest najlepszym magazynem na rynku wydawniczym. Zostalismy wyroznieni w dwoch konkursach rangi gmiennej i powiatowej (Przesnysz i Kolebki Dolne).
+							InfoProdukt jest najlepszym magazynem na rynku wydawniczym. Zostalismy wyroznieni w dwoch konkursach rangi gmiennej i powiatowej (Przesnysz i Kolebki Dolne).
+							InfoProdukt jest najlepszym magazynem na rynku wydawniczym. Zostalismy wyroznieni w dwoch konkursach rangi gmiennej i powiatowej (Przesnysz i Kolebki Dolne).
+							InfoProdukt jest najlepszym magazynem na rynku wydawniczym. Zostalismy wyroznieni w dwoch konkursach rangi gmiennej i powiatowej (Przesnysz i Kolebki Dolne). 
+						</p>
+					</div>
+			    </div>
 			
-			<div class="rect-3x1">
-	{# 			<img class="img-responsive div-center" src="{{ asset(entry.getImagePath()) }}">#}
-				<img class="img-responsive div-center" src="{{ asset('img/template/kategoria-2.jpg') }}">
-				<div class="div-center text-center">
-					<h1>Tutaj bedzie karuzela :)</h1>
-				</div>
-			</div>
+			    <div class="item">
+			      	<img src="{{ asset('img/template/dummy-3x1.png') }}">
+			      	<img class="div-center" src="{{ asset('img/template/kategoria-2.jpg') }}">
+		      		<div class="carousel-caption">
+			      		<h1>Artykul drugi</h1>
+			      		<p>
+							InfoProdukt jest najlepszym magazynem na rynku wydawniczym. Zostalismy wyroznieni w dwoch konkursach rangi gmiennej i powiatowej (Przesnysz i Kolebki Dolne).
+							InfoProdukt jest najlepszym magazynem na rynku wydawniczym. Zostalismy wyroznieni w dwoch konkursach rangi gmiennej i powiatowej (Przesnysz i Kolebki Dolne).
+							InfoProdukt jest najlepszym magazynem na rynku wydawniczym. Zostalismy wyroznieni w dwoch konkursach rangi gmiennej i powiatowej (Przesnysz i Kolebki Dolne).
+							InfoProdukt jest najlepszym magazynem na rynku wydawniczym. Zostalismy wyroznieni w dwoch konkursach rangi gmiennej i powiatowej (Przesnysz i Kolebki Dolne).
+							InfoProdukt jest najlepszym magazynem na rynku wydawniczym. Zostalismy wyroznieni w dwoch konkursach rangi gmiennej i powiatowej (Przesnysz i Kolebki Dolne).
+							InfoProdukt jest najlepszym magazynem na rynku wydawniczym. Zostalismy wyroznieni w dwoch konkursach rangi gmiennej i powiatowej (Przesnysz i Kolebki Dolne). 
+						</p>
+					</div>
+			    </div>
+		  	</div>
+		  	
+		  	<a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+		    	<span class="fa fa-chevron-left" aria-hidden="true"></span>
+		    	<span class="sr-only">Previous</span>
+		  	</a>
+		  	<a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+		    	<span class="fa fa-chevron-right" aria-hidden="true"></span>
+		    	<span class="sr-only">Next</span>
+		  	</a>
 		</div>
-		{% endblock %}
+	</div>
+	{% endblock %}
 		
 		<div class="vr-space-20"></div>
 		
