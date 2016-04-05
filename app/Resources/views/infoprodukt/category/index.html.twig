@@ -21,15 +21,7 @@
 						
 						{% if visible %}
 							<div class="col-sm-3">
-								<div class="row">
-								<a class="category-link" href="{{ path('infoprodukt_' ~ mainPath ~ '_show', { 'id': subentry.id }) }}">
-	{# 								<img alt="{{ subentry.name }}" src="{{ asset(subentry.getImagePath()) }}">#}
-									<img class="img-responsive" alt="{{ subentry.name }}" src="{{ asset(subentry.getImagePath()) }}">
-									<div class="col-xs-12 div-bottom">
-										<h4>{{ subentry.name }}</h4>
-									</div>
-								</a>
-								</div>
+								{% include 'common/tile.html.twig' with {'entry': subentry, 'entryPath': mainPath } %}
 							</div>
 						{% endif %}
 					{% else %}

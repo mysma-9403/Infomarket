@@ -1,56 +1,28 @@
 {% extends 'infoprodukt/base/show.html.twig' %}
 
-{% set title = 'title.brands'|trans %}
-{% set mainPath = 'brand' %}
+{% set title = entry.name %}
+{% set mainPath = 'article' %}
 		
 {% block mainContent %}
 	{% block header %}
 	<div class="row">
+		<div class="col-xs-12">
+			<h1>{{ entry.name }}</h1>
+		</div>
+		
 		{% block logo %}
-		<div class="col-sm-6">
-			<div class="rect-2x1">
+		<div class="col-sm-4">
+			<div class="rect">
 				<img class="img-responsive div-center" src="{{ asset(entry.getImagePath()) }}">
 			</div>	
 		</div>
 		{% endblock %}
 		
 		{% block summary %}
-		<div class="col-sm-6">
-			<h1>{{ entry.name }}</h1>
-			
+		<div class="col-sm-8">
 			<div class="row">
-				<div class="col-xs-4">
-					<p><strong>Producent: </strong></p>
-				</div>
-				<div class="col-xs-8">
-					<p>{{ entry.name }} Sp. z o.o.</p>
-				</div>
-			</div>
-			
-			<div class="row">
-				<div class="col-xs-4">
-					<p><strong>Rok zalozenia: </strong></p>
-				</div>
-				<div class="col-xs-8">
-					<p>1977</p>
-				</div>
-			</div>			
-			
-			<div class="row">
-				<div class="col-xs-4">
-					<p><strong>Kraj: </strong></p>
-				</div>
-				<div class="col-xs-8">
-					<p>Polska</p>
-				</div>
-			</div>	
-			
-			<div class="row">
-				<div class="col-xs-4">
-					<p><strong>Glowna siedziba: </strong></p>
-				</div>
-				<div class="col-xs-8">
-					<p>Warszawa</p>
+				<div class="col-xs-12">
+					<p><strong>{{ entry.intro }}</strong></p>
 				</div>
 			</div>
 		</div>

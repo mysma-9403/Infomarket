@@ -1,6 +1,19 @@
 @import "common.less";
 
 
+
+.text-black {
+	color: black
+}
+
+.text-gray-darker {
+	color: @gray-darker
+}
+
+.text-white {
+	color: white
+}
+
 .text-brand {
 	color: @brand-primary;
 }
@@ -10,6 +23,30 @@
 }
 
 
+
+.bkg-white {
+	background-color: white;
+}
+
+.bkg-white-50 {
+	background-color: rgba(255, 255, 255, 0.5);
+}
+
+.bkg-black {
+	background-color: black;
+}
+
+.bkg-black-50 {
+	background-color: rgba(0, 0, 0, 0.5);
+}
+
+.bkg-red {
+	background-color: @red;
+}
+
+.bkg-brand {
+	background-color: @brand-primary;
+}
 
 
 .content {
@@ -102,20 +139,28 @@
 	padding-top: 25%;
 }
 
+.rect-5x1 {
+	position: relative;
+	overflow: hidden;
+	width: 100%;
+	height: auto;
+	padding-top: 20%;
+}
+
+.rect-10x1 {
+	position: relative;
+	overflow: hidden;
+	width: 100%;
+	height: auto;
+	padding-top: 10%;
+}
+
 .circle {
 	position: relative;
 	border-radius: 50%;
 	width: 100%;
 	height: auto;
 	padding-top: 100%;
-}
-
-.bkg-white {
-	background-color: white;
-}
-
-.bkg-black-50 {
-	background-color: rgba(0, 0, 0, 0.5);
 }
 
 .navbar {
@@ -273,48 +318,15 @@ video {
 
 
 
-
-
-.category-link {
-	color: white
+.right.carousel-control, .left.carousel-control {
+    opacity: 0;
+    filter:alpha(opacity=0); /* IE support */
 }
 
-
-
-
-.home-blue {
-	background: @blue;
+.carousel-indicators.quotes li {
+	border-color: @gray-darker;
 }
 
-.home-gray-dark {
-	background: @brand-gray-dark;
-}
-
-.carousel {
-	height: 250px;
-	overflow: hidden;
-}
-
-.carousel-caption {
-    left: 40%;
-    bottom: 0;
-    
-    width: 60%;
-    height: 100%;
-    
-	text-align: left;
-	background: @brand-primary;
-}
-
-.item {
-	left: 0;
-    bottom: 0;
-    
-	width: 100%;
-    height: 250px;
-}
-
-.item img {
-	width: 40%;
-    height: auto;
+.carousel-indicators.quotes li.active {
+	background-color: @gray-darker;
 }

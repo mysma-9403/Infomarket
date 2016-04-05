@@ -7,12 +7,12 @@ app:
 infoprodukt_article:
     path:      /articles/{page}
     host:      infoprodukt.loc
-    defaults:  { _controller: "AppBundle:Infoprodukt/Brand:index", page: 1 }
+    defaults:  { _controller: "AppBundle:Infoprodukt/Article:index", page: 1 }
     
 infoprodukt_article_show:
     path:      /articles/show/{id}
     host:      infoprodukt.loc
-    defaults:  { _controller: "AppBundle:Infoprodukt/Brand:show" }
+    defaults:  { _controller: "AppBundle:Infoprodukt/Article:show" }
     
 infoprodukt_brand:
     path:      /brands/{page}

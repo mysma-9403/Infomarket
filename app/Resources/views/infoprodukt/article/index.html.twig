@@ -1,15 +1,39 @@
 {% extends 'infoprodukt/base/index.html.twig' %}
 
-{% set title = 'title.brands'|trans %}
-{% set mainPath = 'brand' %}
+{% set title = 'title.articles'|trans %}
+{% set mainPath = 'article' %}
 		
 {% block mainContent %}
-	{% block brands %}
+	{% block articles %}
 	<div class="row">
 		<div class="col-xs-12">
-			<h1>{{ 'title.brands'|trans }}</h1>
+			<h1>{{ 'title.articles'|trans }}</h1>
 			
-			{% include 'common/tile_list.html.twig' with {'entries': entries, 'entryPath': 'brand'} %}
+			{% for entry in entries%}
+				<div class="row">
+					<div class="panel">
+						<div class="panel-body">
+							<div class="col-sm-3">
+								<div class="rect">
+									<img class="img-responsive div-center" src="{{ asset(entry.getImagePath()) }}">
+								</div>
+							</div>
+							<div class="col-sm-9">
+								<a href="{{ path('infoprodukt_' ~ mainPath ~ '_show', { 'id': entry.id }) }}">
+									<h4>{{ entry.name }}</h4>
+								</a>
+								<p>{{ entry.intro }}</p>
+								<a class="btn btn-danger" href="{{ path('infoprodukt_' ~ mainPath ~ '_show', { 'id': entry.id }) }}">
+									{{ 'label.readMore'|trans }}
+								</a>
+								<div class="vr-space-20"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+			{% else %}
+				<p>{{ 'label.noEntries'|trans }}</p>
+			{% endfor %}
 		</div>
 	</div>
 	{% endblock %}

@@ -11,7 +11,7 @@
 	{# 			<img class="img-responsive div-center" src="{{ asset(entry.getImagePath()) }}">#}
 				<img class="img-responsive div-center" src="{{ asset('img/template/kategoria-1.jpg') }}">
 				
-				<div class="category-link">
+				<div class="text-white">
 					<div class="col-xs-12 div-bottom bkg-black-50">
 						<div class="container">
 							<div class="row">
@@ -29,16 +29,36 @@
 {# 		<div class="vr-space-80"></div>#}
 {# 		<div class="vr-space-80"></div>#}
 		
-		{% block categories %}
-		<h1 class="text-center">Podkategorie</h1>
+{# 		{% block categories %}#}
+{# 		<h1 class="text-center">Podkategorie</h1>#}
 {# 		<div class="vr-space-20"></div>#}
 		
-		<div class="row no-padding">
-			{% include 'common/tile_list.html.twig' with {'entries': entry.children, 'entryPath': 'category', 'colSize': 1} %}
+{# 		<div class="row no-padding">#}
+{# 			{% include 'common/tile_list.html.twig' with {'entries': entry.children, 'entryPath': 'category', 'colSize': 2} %}#}
+{# 		</div>#}
+{# 		{% endblock %}#}
+
+		<div class="vr-space-40"></div>
+		
+		{% block categories %}
+		<h1 class="text-center">Podkategorie</h1>
+		<div class="vr-space-20"></div>
+		
+		<div class="row no-padding bkg-black-50">
+			{% for subentry in entry.children %}
+				<div class="col-xs-3 col-sm-2 col-lg-1 branch-white-{{ subentry.branches.get(0).branch.id}}">
+					<a href="{{ path('infoprodukt_category_show', routingParams|merge({'id': subentry.id})) }}"
+						data-toggle="tooltip" data-placement="bottom" title="{{ subentry.name }}"
+						class="text-white">
+						<p class="text-center"><i class="fa {{ subentry.icon }} align-text-center"></i></p>
+						<p class="text-center">{{ subentry.name }}</p>
+					</a>
+				</div>
+			{% endfor %}
 		</div>
 		{% endblock %}
 		
-		<div class="vr-space-40"></div>
+		<div class="vr-space-80"></div>
 		
 		{% block featuredNews %}
 		<div class="row">
@@ -55,7 +75,7 @@
 		</div>
 		{% endblock %}
 		
-		<div class="vr-space-40"></div>
+		<div class="vr-space-20"></div>
 		
 		{% block news %}
 		<div class="container">
@@ -74,7 +94,7 @@
 		</div>
 		{% endblock %}
 		
-		<div class="vr-space-40"></div>
+		<div class="vr-space-80"></div>
 		
 		{% block ad %}
 		<div class="row">
@@ -89,7 +109,7 @@
 		</div>
 		{% endblock %}
 		
-		<div class="vr-space-40"></div>
+		<div class="vr-space-80"></div>
 		
 		{% block promocje %}
 		<div class="container">
@@ -141,7 +161,7 @@
 					
 					{% for entry in segments %}
 						<div class="row">
-							<div class=" col-sm-2 category-link">
+							<div class=" col-sm-2 text-white">
 								<div class="rect">
 									<img class="img-responsive div-center" alt="{{ entry.name }}" src="{{ asset(entry.getImagePath()) }}">
 									<div class="col-xs-12 div-bottom bkg-black-50">
@@ -152,7 +172,7 @@
 							{% set i = 1 %}
 							{% for product in products %}
 								{% if i <= 5 and product.segment.id == entry.id %}
-									<div class=" col-sm-2 category-link">
+									<div class=" col-sm-2 text-white">
 										<div class="rect">
 											<img class="img-responsive div-center" alt="{{ product.name }}" src="{{ asset(product.getImagePath()) }}">
 											<div class="col-xs-12 div-bottom bkg-black-50">
@@ -178,7 +198,7 @@
 					
 					{% for entry in segments %}
 						<div class="row">
-							<div class=" col-sm-2 category-link">
+							<div class=" col-sm-2 text-white">
 								<div class="rect">
 									<img class="img-responsive div-center" alt="{{ entry.name }}" src="{{ asset(entry.getImagePath()) }}">
 									<div class="col-xs-12 div-bottom bkg-black-50">
@@ -189,7 +209,7 @@
 							{% set i = 1 %}
 							{% for brand in brands %}
 								{% if i <= 5 %}
-									<div class=" col-sm-2 category-link">
+									<div class=" col-sm-2 text-white">
 										<div class="rect">
 											<img class="img-responsive div-center" alt="{{ brand.name }}" src="{{ asset(brand.getImagePath()) }}">
 											<div class="col-xs-12 div-bottom bkg-black-50">
