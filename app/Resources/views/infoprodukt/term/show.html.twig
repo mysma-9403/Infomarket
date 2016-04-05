@@ -1,0 +1,31 @@
+{% extends 'infoprodukt/base/show.html.twig' %}
+
+{% set title = entry.name %}
+{% set mainPath = 'term' %}
+		
+{% block mainContent %}
+	{% block header %}
+	<div class="row">
+		<div class="col-xs-12">
+			<h1>{{ entry.name }}</h1>
+		</div>
+	</div>
+	{% endblock %}
+	
+	{% block description %}
+	<div class="row">
+		<div class="col-xs-12">
+			<p>{{ entry.content }}</p>
+		</div>
+	</div>
+	{% endblock %}
+	
+	{% block back %}
+	<div class="row">
+		<div class="col-xs-12">
+			<a class="btn btn-primary fa fa-arrow-circle-o-left" href="{{ path('infoprodukt_' ~ mainPath) }}"></a>
+			<a class="btn btn-primary fa fa-arrow-circle-o-up pull-right" href="#"></a>
+		</div>
+	</div>	
+	{% endblock %}
+{% endblock %}

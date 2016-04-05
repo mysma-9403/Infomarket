@@ -1,6 +1,6 @@
 {% extends 'infoprodukt/index.html.twig' %}
 
-{% set title = 'InfoProduct' %}
+{% set title = 'InfoProdukt' %}
 {% set mainPath = 'home' %}
 		
 {% block content %}
@@ -19,52 +19,60 @@
 	</div>
 	{% endblock %}
 	
-	<div class="vr-space"></div>
+	<div class="vr-space-40"></div>
 	
 	{% block main %}
+	<div class="row">
+		<h1 class="text-center">
+			<span class="text-brand">Sam wybieraj najlepsze produkty.</span>
+			<span class="text-red">Kupuj glowa, nie cena.</span>
+		</h1>
+		<div class="vr-space-20"></div>
+	</div>
+			
 	<div class="container">
 		<div class="row">
-			<h1 class="text-center lowered">Najlepszy serwis informacyjny RTV i AGD w Polsce.</h1>
-			<div class="vr-space"></div>
-			
 			<div class="col-sm-4">
 				<div class="col-sm-2"></div>
 				<div class="col-sm-8">
-					<div class="circle">
+					<div class="circle bkg-white">
 						<span class="div-center fa fa-user fa-5x text-brand"></span>
 					</div>
 				</div>
 				<div class="col-sm-2"></div>
-				<h2 class="text-center text-brand">Opinie ekspertow</h2>
+				<h2 class="text-center text-red">Opinie ekspertow</h2>
 			</div>
 			<div class="col-sm-4">
 				<div class="col-sm-2"></div>
 				<div class="col-sm-8">
-					<div class="circle">
-						<span class="div-center fa fa-tablet fa-5x text-brand"></span>
-					</div>
-				</div>
-				<div class="col-sm-2"></div>
-				<h2 class="text-center text-brand">Polecane produkty</h2>
-			</div>
-			<div class="col-sm-4">
-				<div class="col-sm-2"></div>
-				<div class="col-sm-8">
-					<div class="circle">
+					<div class="circle bkg-white">
 						<span class="div-center fa fa-star-half-o fa-5x text-brand"></span>
 					</div>
 				</div>
 				<div class="col-sm-2"></div>
-				<h2 class="text-center text-brand">Rating marek</h2>
+				<h2 class="text-center text-red">Najlepsze produkty</h2>
+			</div>
+			<div class="col-sm-4">
+				<div class="col-sm-2"></div>
+				<div class="col-sm-8">
+					<div class="circle bkg-white">
+						<span class="div-center fa fa-tasks fa-5x text-brand"></span>
+					</div>
+				</div>
+				<div class="col-sm-2"></div>
+				<h2 class="text-center text-red">Rating marek</h2>
 			</div>
 		</div>
 	</div>
 	{% endblock %}
 	
-	<div class="vr-space"></div>
+	<div class="vr-space-40"></div>
 	
 	{% block categories %}
 	<div class="row no-padding">
+		<h1 class="text-center">Kategorie</h1>
+		<div class="vr-space-20"></div>
+		
 		{% for entry in categories %}
 			{% if loop.index < 6 %}
 			<div class="col-sm-2 no-padding">
@@ -88,16 +96,55 @@
 	</div>
 	{% endblock %}
 	
-	<div class="vr-space"></div>
+	<div class="vr-space-40"></div>
+	
+	{% block about %}
+	<div class="container">
+		<div class="row">
+			<h1 class="text-center">O nas</h1>
+			<div class="vr-space-20"></div>
+			
+			<p><i>
+				InfoProdukt jest najlepszym magazynem na rynku wydawniczym. Zostalismy wyroznieni w dwoch konkursach rangi gmiennej i powiatowej (Przesnysz i Kolebki Dolne).
+				InfoProdukt jest najlepszym magazynem na rynku wydawniczym. Zostalismy wyroznieni w dwoch konkursach rangi gmiennej i powiatowej (Przesnysz i Kolebki Dolne).
+				InfoProdukt jest najlepszym magazynem na rynku wydawniczym. Zostalismy wyroznieni w dwoch konkursach rangi gmiennej i powiatowej (Przesnysz i Kolebki Dolne).
+				InfoProdukt jest najlepszym magazynem na rynku wydawniczym. Zostalismy wyroznieni w dwoch konkursach rangi gmiennej i powiatowej (Przesnysz i Kolebki Dolne).
+				InfoProdukt jest najlepszym magazynem na rynku wydawniczym. Zostalismy wyroznieni w dwoch konkursach rangi gmiennej i powiatowej (Przesnysz i Kolebki Dolne).
+				InfoProdukt jest najlepszym magazynem na rynku wydawniczym. Zostalismy wyroznieni w dwoch konkursach rangi gmiennej i powiatowej (Przesnysz i Kolebki Dolne). 
+			</i></p>
+			<p><strong>Piotr Krakowiak</strong></p>
+		</div>
+	</div>
+	{% endblock %}
+	
+	<div class="vr-space-40"></div>
+	
+	{% block ad %}
+	<div class="row">
+		<div class="rect-3x1">
+{# 			<img class="img-responsive div-center" src="{{ asset(entry.getImagePath()) }}">#}
+			<img class="img-responsive div-center" src="{{ asset('img/template/kino-domowe-2.jpg') }}">
+			<div class="div-center text-center">
+				<h1>Tutaj bedzie reklama :)</h1>
+				<a class="btn btn-default" href="#">Kliknij!</a>
+			</div>
+		</div>
+	</div>
+	{% endblock %}
+	
+	<div class="vr-space-40"></div>
 	
 	{% block partners %}
 	<div class="container">
 		<div class="row">
 			<h1 class="text-center">Partnerzy</h1>
+			<div class="vr-space-20"></div>
 			
 			<div class="col-sm-4"></div>
 			<div class="col-sm-4">
-				<img class="img-responsive" src="img/template/placeholder-2x1.png">
+				<a href="http://infomarket.edu.loc:8000">
+					<img class="img-responsive" src="img/template/placeholder-2x1.png">
+				</a>
 			</div>
 			<div class="col-sm-4"></div>
 		</div>

@@ -9,11 +9,31 @@
 	color: @red;
 }
 
+
+
+
 .content {
 	margin-top: 50px;
 	margin-bottom: 0px;
 	min-height: 687px;
 }
+
+
+
+.vr-space-80 {
+	height: 80px;
+}
+
+.vr-space-40 {
+	height: 40px;
+}
+
+.vr-space-20 {
+	height: 20px;
+}
+
+
+
 
 #nav.affix {
     position: fixed;
@@ -48,6 +68,14 @@
 	width: 100%;
 	height: auto;
 	padding-top: 100%;
+}
+
+.rect-3x2 {
+	position: relative;
+	overflow: hidden;
+	width: 100%;
+	height: auto;
+	padding-top: 66%;
 }
 
 .rect-2x1 {
@@ -187,9 +215,7 @@ nav.sidebar .navbar-nav > li {
 
 
 
-.vr-space {
-	height: 80px;
-}
+
 
 .div-top {
 	position: absolute;
@@ -214,22 +240,14 @@ nav.sidebar .navbar-nav > li {
 .photo-container {
     position: relative;
     overflow: hidden;
-    height: 700px;
+    height: 750px;
 }
 
 .photo-fixed {
 	position: fixed;
-    left: 50%;
-    top: 50%;
-    min-width: 100%;
-    min-height: 100%;
-    -webkit-transform: translate(-50%,-50%);
-    -moz-transform: translate(-50%,-50%);
-    -ms-transform: translate(-50%,-50%);
-    transform: translate(-50%,-50%);
     z-index: -1;
-    background: center center no-repeat;
-    background-image: asset("img/template/kino-domowe-2.jpg");
+    
+    background: url('/img/template/kino-domowe-2.jpg') center center no-repeat;
     background-size: cover;
     background-attachment: fixed;
 }
@@ -237,7 +255,7 @@ nav.sidebar .navbar-nav > li {
 .video-container {
     position: relative;
     overflow: hidden;
-    height: 700px;
+    height: 750px;
 }
 
 video {

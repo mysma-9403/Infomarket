@@ -36,7 +36,7 @@
 				    	{% block navigationLinks %}
 						<ul class="nav navbar-nav navbar-left">
 							{% for entry in categories %}
-								{% if loop.index <= 4 %}
+								{% if loop.index <= 6 %}
 									<li>
 										<a href="{{ path('infoprodukt_category_show', routingParams|merge({'id': entry.id})) }}">
 											{{ entry.name }}
@@ -45,9 +45,7 @@
 								{% endif %}
 							{% endfor %}
 							<li>
-								<a href="{{ path('infoprodukt_category') }}">
-									{{ 'label.other'|trans }}
-								</a>
+								<a href="{{ path('infoprodukt_category') }}">Inne</a>
 							</li>
 						</ul>
 						{% endblock %}

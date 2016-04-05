@@ -1,0 +1,32 @@
+{% extends 'infoprodukt/base/index.html.twig' %}
+
+{% set title = 'title.terms'|trans %}
+{% set mainPath = 'term' %}
+		
+{% block mainContent %}
+	{% block terms %}
+	<div class="row">
+		<div class="col-xs-12">
+			<h1>{{ 'title.terms'|trans }}</h1>
+			
+			{% for entry in entries%}
+				<div class="col-xs-4">
+					<a href="{{ path('infoprodukt_' ~ mainPath ~ '_show', { 'id': entry.id }) }}">
+						{{ entry.name }}
+					</a>
+				</div>
+			{% else %}
+				<p>{{ 'label.noEntries'|trans }}</p>
+			{% endfor %}
+		</div>
+	</div>
+	{% endblock %}
+	
+	{% block paginator %}
+	<div class="row">
+		<div class="col-xs-12">
+	        {{ knp_pagination_render(entries) }}
+		</div>
+	</div>
+	{% endblock %}
+{% endblock %}

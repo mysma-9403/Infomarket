@@ -1,0 +1,24 @@
+{% extends 'infoprodukt/base/index.html.twig' %}
+
+{% set title = 'title.products'|trans %}
+{% set mainPath = 'product' %}
+		
+{% block mainContent %}
+	{% block products %}
+	<div class="row">
+		<div class="col-xs-12">
+			<h1>{{ 'title.products'|trans }}</h1>
+			
+			{% include 'common/tile_list.html.twig' with {'entries': entries, 'entryPath': 'product'} %}
+		</div>
+	</div>
+	{% endblock %}
+	
+	{% block paginator %}
+	<div class="row">
+		<div class="col-xs-12">
+	        {{ knp_pagination_render(entries) }}
+		</div>
+	</div>
+	{% endblock %}
+{% endblock %}
