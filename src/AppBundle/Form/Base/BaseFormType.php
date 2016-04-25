@@ -7,8 +7,9 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use AppBundle\Entity\Base\Audit;
 
-abstract class BaseFormType extends AbstractType
+class BaseFormType extends AbstractType
 {
 	/**
 	 * 
@@ -29,7 +30,13 @@ abstract class BaseFormType extends AbstractType
 	 * @param FormBuilderInterface $builder
 	 * @param array $options
 	 */
-	protected function addMainFields(FormBuilderInterface $builder, array $options) { }
+	protected function addMainFields(FormBuilderInterface $builder, array $options) { 
+		$builder
+			->add('published', null, array(
+					'required' => false
+			))
+		;
+	}
 	
 	/**
 	 * Add additional form fields.
@@ -45,11 +52,16 @@ abstract class BaseFormType extends AbstractType
 	 * @param FormBuilderInterface $builder
 	 * @param array $options
 	 */
+	/**
+	 *
+	 * {@inheritDoc}
+	 * @see \AppBundle\Form\Base\FormType::addActions()
+	 */
 	protected function addActions(FormBuilderInterface $builder, array $options) {
 		$builder
-			->add('search', SubmitType::class)
-			->add('clear', SubmitType::class)
-		;
+		->add('saveAndNew', SubmitType::class)
+		->add('saveAndCopy', SubmitType::class)
+		->add('saveAndQuit', SubmitType::class);
 	}
 	
 	/**
@@ -85,5 +97,7 @@ abstract class BaseFormType extends AbstractType
 	 *
 	 * @return mixed
 	 */
-	protected abstract function getEntityType();
+	protected function getEntityType() {
+		return Audit::class;
+	}
 }

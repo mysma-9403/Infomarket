@@ -247,4 +247,33 @@ class Category extends ImageTree
     {
         return $this->preleaf;
     }
+    /**
+     * @var string
+     */
+    private $subname;
+
+
+    /**
+     * Set subname
+     *
+     * @param string $subname
+     *
+     * @return Category
+     */
+    public function setSubname($subname)
+    {
+        $this->subname = $subname;
+
+        return $this;
+    }
+
+    /**
+     * Get subname
+     *
+     * @return string
+     */
+    public function getSubname()
+    {
+        return $this->subname;
+    }
 }

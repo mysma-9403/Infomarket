@@ -7,6 +7,10 @@
 
     <mapped-superclass name="AppBundle\Entity\Base\Audit">
         
+        <id name="id" type="integer">
+            <generator strategy="AUTO" />
+        </id>
+        
         <field name="published" type="boolean" default="false" />
         
 		<field name="createdAt" type="datetime" nullable="true">

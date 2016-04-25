@@ -7,19 +7,25 @@
 	{% block header %}
 	<div class="row">
 		<div class="col-xs-12">
-			<h1>{{ entry.name }}</h1>
+			<h2>
+				<span class="text-brand">{{ entry.name }}</span>
+				<span class="text-red">{{ entry.subname }}</span>
+			</h2>
 		</div>
-		
+	</div>
+	{% endblock %}
+	
+	<div class="col-xs-{{ entry.displaySided ? 6 : 12 }}"> 
 		{% block logo %}
-		<div class="col-sm-4">
+		<div class="col-sm-{{ entry.displaySided ? 12 : 4 }}">
 			<div class="rect">
-				<img class="img-responsive div-center" src="{{ asset(entry.getImagePath()) }}">
+				<img class="div-center" src="{{ asset(entry.getImagePath()) }}">
 			</div>	
 		</div>
 		{% endblock %}
 		
 		{% block summary %}
-		<div class="col-sm-8">
+		<div class="col-sm-{{ entry.displaySided ? 12 : 8 }}">
 			<div class="row">
 				<div class="col-xs-12">
 					<p><strong>{{ entry.intro }}</strong></p>
@@ -28,16 +34,57 @@
 		</div>
 		{% endblock %}
 		
-	</div>
-	{% endblock %}
-	
-	{% block description %}
-	<div class="row">
-		<div class="col-xs-12">
-			<p>{{ entry.content }}</p>
+		{% block description %}
+		<div class="row">
+			<div class="col-xs-12">
+				<p>{{ entry.content }}</p>
+			</div>
 		</div>
+		{% endblock %}
 	</div>
-	{% endblock %}
+	
+	<div class="col-xs-{{ entry.displaySided ? 6 : 12 }}"> 
+		{% block subarticles %}
+		<div class="row">
+			<div class="col-xs-12">
+				{% if entry.layout == constant('AppBundle\\Entity\\Article::DEFAULT_RIGHT_LAYOUT') %}
+					{% include 'infoprodukt/article/subarticles/default_right.html.twig' with { 'articles': entry.children } %}
+				{% elseif entry.layout == constant('AppBundle\\Entity\\Article::DEFAULT_ALTERNATE_LAYOUT') %}
+					{% include 'infoprodukt/article/subarticles/default_alternate.html.twig' with { 'articles': entry.children } %}
+				
+				{% elseif entry.layout == constant('AppBundle\\Entity\\Article::NARROW_LEFT_LAYOUT') %}
+					{% include 'infoprodukt/article/subarticles/narrow_left.html.twig' with { 'articles': entry.children } %}
+				{% elseif entry.layout == constant('AppBundle\\Entity\\Article::NARROW_RIGHT_LAYOUT') %}
+					{% include 'infoprodukt/article/subarticles/narrow_right.html.twig' with { 'articles': entry.children } %}
+				{% elseif entry.layout == constant('AppBundle\\Entity\\Article::NARROW_ALTERNATE_LAYOUT') %}
+					{% include 'infoprodukt/article/subarticles/narrow_alternate.html.twig' with { 'articles': entry.children } %}
+				
+				{% elseif entry.layout == constant('AppBundle\\Entity\\Article::WIDE_LAYOUT') %}
+					{% include 'infoprodukt/article/subarticles/wide.html.twig' with { 'articles': entry.children } %}
+				{% elseif entry.layout == constant('AppBundle\\Entity\\Article::WIDE_SMALL_IMAGE_LAYOUT') %}
+					{% include 'infoprodukt/article/subarticles/wide_small_image.html.twig' with { 'articles': entry.children } %}
+				
+				{% elseif entry.layout == constant('AppBundle\\Entity\\Article::COLUMN_2_LAYOUT') %}
+					{% include 'infoprodukt/article/subarticles/column.html.twig' with { 'articles': entry.children, 'cols': 6 } %}
+				{% elseif entry.layout == constant('AppBundle\\Entity\\Article::COLUMN_3_LAYOUT') %}
+					{% include 'infoprodukt/article/subarticles/column.html.twig' with { 'articles': entry.children, 'cols': 4 } %}
+				{% elseif entry.layout == constant('AppBundle\\Entity\\Article::COLUMN_4_LAYOUT') %}
+					{% include 'infoprodukt/article/subarticles/column.html.twig' with { 'articles': entry.children, 'cols': 3 } %}
+				
+				{% elseif entry.layout == constant('AppBundle\\Entity\\Article::GRID_2_LAYOUT') %}
+					{% include 'infoprodukt/article/subarticles/grid.html.twig' with { 'articles': entry.children, 'cols': 6 } %}
+				{% elseif entry.layout == constant('AppBundle\\Entity\\Article::GRID_3_LAYOUT') %}
+					{% include 'infoprodukt/article/subarticles/grid.html.twig' with { 'articles': entry.children, 'cols': 4 } %}
+				{% elseif entry.layout == constant('AppBundle\\Entity\\Article::GRID_4_LAYOUT') %}
+					{% include 'infoprodukt/article/subarticles/grid.html.twig' with { 'articles': entry.children, 'cols': 3 } %}
+				
+				{% else %}
+					{% include 'infoprodukt/article/subarticles/default_left.html.twig' with { 'articles': entry.children } %}
+				{% endif %}
+			</div>
+		</div>
+		{% endblock %}
+	</div>
 	
 	{% block back %}
 	<div class="row">

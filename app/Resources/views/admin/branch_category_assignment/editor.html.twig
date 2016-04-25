@@ -1,0 +1,12 @@
+{% extends 'admin/simple/editor.html.twig' %}
+
+{% set mainPath = 'branch_category_assignment' %}
+{% set title = 'title.branch_category_assignments'|trans %}
+
+{% block mainFields1 %}
+{% endblock %}
+
+{% block moreFields2 %}
+	{{ form_row(form.branch, { 'label': 'label.branch' }) }}
+	{{ form_row(form.category, { 'label': 'label.category' }) }}
+{% endblock %}

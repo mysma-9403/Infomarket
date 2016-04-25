@@ -3,8 +3,40 @@
 {% set mainPath = 'category' %}
 {% set title = 'title.categories'|trans %}
 
-{%  block moreFields2 %}
+{% block moreFields2 %}
+	{{ form_row(form.subname, { 'label': 'label.subname' }) }}
+	{{ form_row(form.icon, { 'label': 'label.icon' }) }}
+	
 	{{ form_row(form.parent, { 'label': 'label.parent' }) }}
-	{{ form_row(form.featured, { 'label': 'label.featured' }) }}	
-    {{ form_row(form.content, { 'label': 'label.content' }) }}
-{%  endblock %}
+	
+	{{ form_row(form.featured, { 'label': 'label.featured' }) }}
+	{{ form_row(form.published, { 'label': 'label.published' }) }}
+	{{ form_row(form.preleaf, { 'label': 'label.preleaf' }) }}	
+    
+	{{ form_row(form.content, { 'label': 'label.content' }) }}
+{% endblock %}
+
+{% block assignments %}
+	<h1>{{ 'title.branches'|trans }}</h1>
+	<a href="{{ path('admin_branch_category_assignment_new', { category: entry.id, route: 'admin_category_edit', routeParams: { id: entry.id } }) }}"
+		class="btn btn-success">
+		<span class="fa fa-plus"></span> 
+		{{ 'action.addBranch'|trans }} 
+	</a>
+	{% for branch in entry.branches %}
+		<div class="row">
+			<div class="col-xs-6">
+				<a href="{{ path('admin_branch_show', { id: branch.branch.id }) }}">
+					{{ branch.branch.name }}
+				</a>
+			</div>
+			<div class="col-xs-6">
+{# 				<a href="{{ path('admin_branch_category_assignment_delete', { category branch: branch.branch.id }) }}"#}
+{# 					class="btn btn-danger">#}
+{# 					<span class="fa fa-trash"></span> #}
+{# 					{{ 'action.delete'|trans }}#}
+{# 				</a>#}
+			</div>
+		</div>
+	{% endfor %}
+{% endblock %}

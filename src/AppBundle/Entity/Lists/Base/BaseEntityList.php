@@ -5,7 +5,7 @@ namespace AppBundle\Entity\Lists\Base;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 
-class SimpleEntityList
+class BaseEntityList
 {
 	protected $entries;
 
@@ -19,7 +19,7 @@ class SimpleEntityList
      *
      * @param $entry
      *
-     * @return SimpleEntityList
+     * @return BaseEntityList
      */
     public function addEntry($entry)
     {

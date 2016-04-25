@@ -1,7 +1,10 @@
 {% for entry in entries %}
+	{% if tile is not defined %}
+		{% set tile = 'default_tile' %}
+	{% endif %}
 	{% if limit is not defined or loop.index <= limit %}
 		<div class="col-sm-{{ colSize is defined ? colSize : '3' }}">
-			{% include 'common/tile.html.twig' with {'entry': entry, 'entryPath': entryPath} %}
+			{% include 'common/' ~ tile ~ '.html.twig' with {'entry': entry, 'entryPath': entryPath} %}
 		</div>
 	{% endif %}
 {% else %}

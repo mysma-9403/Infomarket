@@ -48,6 +48,9 @@ class CategoryFilter extends SimpleEntityFilter {
 		
 		$preleaf = $request->get($this->getFilterName() . 'preleaf', false);
 		$this->preleaf = $preleaf;
+		
+		$featured = $request->get($this->getFilterName() . 'featured', false);
+		$this->featured = $featured;
 	}
 	
 	/**
@@ -60,6 +63,7 @@ class CategoryFilter extends SimpleEntityFilter {
 		$this->parents = array();
 		$this->root = false;
 		$this->preleaf = false;
+		$this->featured = false;
 	}
 	
 	/**
@@ -85,6 +89,10 @@ class CategoryFilter extends SimpleEntityFilter {
 		if($this->preleaf) {
 			$values[$this->getFilterName() . 'preleaf'] = $this->preleaf;
 		}
+		
+		if($this->featured) {
+			$values[$this->getFilterName() . 'featured'] = $this->featured;
+		}
 	
 		return $values;
 	}
@@ -109,6 +117,10 @@ class CategoryFilter extends SimpleEntityFilter {
 		
 		if($this->preleaf) {
 			$expressions[] = 'e.preleaf = ' . $this->preleaf;
+		}
+		
+		if($this->featured) {
+			$expressions[] = 'e.featured = ' . $this->featured;
 		}
 	
 		return $expressions;
@@ -146,6 +158,12 @@ class CategoryFilter extends SimpleEntityFilter {
 	 * @var boolean
 	 */
 	private $preleaf;
+	
+	/**
+	 *
+	 * @var boolean
+	 */
+	private $featured;
 	
 	/**
 	 *
@@ -205,6 +223,30 @@ class CategoryFilter extends SimpleEntityFilter {
 	public function getPreleaf()
 	{
 		return $this->preleaf;
+	}
+	
+	/**
+	 * Set featured
+	 *
+	 * @param boolean $featured
+	 *
+	 * @return SimpleEntityFilter
+	 */
+	public function setFeatured($featured)
+	{
+		$this->featured = $featured;
+	
+		return $this;
+	}
+	
+	/**
+	 * Get featured
+	 *
+	 * @return boolean
+	 */
+	public function getFeatured()
+	{
+		return $this->featured;
 	}
 	
 	/**

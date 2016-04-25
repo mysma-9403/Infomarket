@@ -139,15 +139,11 @@ admin_article_delete:
     path:      /admin/articles/delete/{id}
     defaults:  { _controller: "AppBundle:Admin/Article:delete" }
     
-admin_article_publish:
+admin_article_set_published:
     path:      /admin/articles/publish/{id}
-    defaults:  { _controller: "AppBundle:Admin/Article:publish" }
-    
-admin_article_unpublish:
-    path:      /admin/articles/unpublish/{id}
-    defaults:  { _controller: "AppBundle:Admin/Article:unpublish" }
+    defaults:  { _controller: "AppBundle:Admin/Article:setPublished" }
 
-admin_article_setFeatured:
+admin_article_set_featured:
     path:      /admin/articles/set_featured/{id}
     defaults:  { _controller: "AppBundle:Admin/Article:setFeatured" }
     
@@ -155,7 +151,41 @@ admin_article:
     path:      /admin/articles/{page}
     defaults:  { _controller: "AppBundle:Admin/Article:index", page: 1 }
     
+
+# Admin ArticleCategories Routing    
+admin_article_category_show:
+    path:      /admin/articleCategories/show/{id}
+    defaults:  { _controller: "AppBundle:Admin/ArticleCategory:show" }
     
+admin_article_category_new:
+    path:      /admin/articleCategories/new/
+    defaults:  { _controller: "AppBundle:Admin/ArticleCategory:new" }
+    
+admin_article_category_copy:
+    path:      /admin/articleCategories/copy/{id}
+    defaults:  { _controller: "AppBundle:Admin/ArticleCategory:copy" }
+    
+admin_article_category_edit:
+    path:      /admin/articleCategories/edit/{id}
+    defaults:  { _controller: "AppBundle:Admin/ArticleCategory:edit" }
+    
+admin_article_category_delete:
+    path:      /admin/articleCategories/delete/{id}
+    defaults:  { _controller: "AppBundle:Admin/ArticleCategory:delete" }
+    
+admin_article_category_set_published:
+    path:      /admin/articleCategories/publish/{id}
+    defaults:  { _controller: "AppBundle:Admin/ArticleCategory:setPublished" }
+
+admin_article_category_set_featured:
+    path:      /admin/articleCategories/set_featured/{id}
+    defaults:  { _controller: "AppBundle:Admin/ArticleCategory:setFeatured" }
+    
+admin_article_category:
+    path:      /admin/articleCategories/{page}
+    defaults:  { _controller: "AppBundle:Admin/ArticleCategory:index", page: 1 }
+    
+        
 # Admin Branches Routing    
 admin_branch_show:
     path:      /admin/branches/show/{id}
@@ -177,18 +207,42 @@ admin_branch_delete:
     path:      /admin/branches/delete/{id}
     defaults:  { _controller: "AppBundle:Admin/Branch:delete" }
     
-admin_branch_publish:
+admin_branch_set_published:
     path:      /admin/branches/publish/{id}
-    defaults:  { _controller: "AppBundle:Admin/Branch:publish" }
-    
-admin_branch_unpublish:
-    path:      /admin/branches/unpublish/{id}
-    defaults:  { _controller: "AppBundle:Admin/Branch:unpublish" }
+    defaults:  { _controller: "AppBundle:Admin/Branch:setPublished" }
 
 admin_branch:
     path:      /admin/branches/{page}
     defaults:  { _controller: "AppBundle:Admin/Branch:index", page: 1 }
         
+# Admin BranchCategoryAssignments Routing    
+admin_branch_category_assignment_show:
+    path:      /admin/branchCategoryAssignments/show/{id}
+    defaults:  { _controller: "AppBundle:Admin/BranchCategoryAssignment:show" }
+    
+admin_branch_category_assignment_new:
+    path:      /admin/branchCategoryAssignments/new/
+    defaults:  { _controller: "AppBundle:Admin/BranchCategoryAssignment:new" }
+    
+admin_branch_category_assignment_copy:
+    path:      /admin/branchCategoryAssignments/copy/{id}
+    defaults:  { _controller: "AppBundle:Admin/BranchCategoryAssignment:copy" }
+    
+admin_branch_category_assignment_edit:
+    path:      /admin/branchCategoryAssignments/edit/{id}
+    defaults:  { _controller: "AppBundle:Admin/BranchCategoryAssignment:edit" }
+    
+admin_branch_category_assignment_delete:
+    path:      /admin/branchCategoryAssignments/delete/{id}
+    defaults:  { _controller: "AppBundle:Admin/BranchCategoryAssignment:delete" }
+    
+admin_branch_category_assignment_set_published:
+    path:      /admin/branchCategoryAssignments/publish/{id}
+    defaults:  { _controller: "AppBundle:Admin/BranchCategoryAssignment:setPublished" }
+
+admin_branch_category_assignment:
+    path:      /admin/branchCategoryAssignments/{page}
+    defaults:  { _controller: "AppBundle:Admin/BranchCategoryAssignment:index", page: 1 }
 
 # Admin Brands Routing    
 admin_brand_show:
@@ -211,13 +265,9 @@ admin_brand_delete:
     path:      /admin/brands/delete/{id}
     defaults:  { _controller: "AppBundle:Admin/Brand:delete" }
     
-admin_brand_publish:
+admin_brand_set_published:
     path:      /admin/brands/publish/{id}
-    defaults:  { _controller: "AppBundle:Admin/Brand:publish" }
-    
-admin_brand_unpublish:
-    path:      /admin/brands/unpublish/{id}
-    defaults:  { _controller: "AppBundle:Admin/Brand:unpublish" }
+    defaults:  { _controller: "AppBundle:Admin/Brand:setPublished" }
 
 admin_brand:
     path:      /admin/brands/{page}
@@ -245,15 +295,11 @@ admin_category_delete:
     path:      /admin/categories/delete/{id}
     defaults:  { _controller: "AppBundle:Admin/Category:delete" }
     
-admin_category_publish:
+admin_category_set_published:
     path:      /admin/categories/publish/{id}
-    defaults:  { _controller: "AppBundle:Admin/Category:publish" }
+    defaults:  { _controller: "AppBundle:Admin/Category:setPublished" }
     
-admin_category_unpublish:
-    path:      /admin/categories/unpublish/{id}
-    defaults:  { _controller: "AppBundle:Admin/Category:unpublish" }
-    
-admin_category_setFeatured:
+admin_category_set_featured:
     path:      /admin/categories/set_featured/{id}
     defaults:  { _controller: "AppBundle:Admin/Category:setFeatured" }
 
@@ -284,13 +330,9 @@ admin_product_delete:
     path:      /admin/products/delete/{id}
     defaults:  { _controller: "AppBundle:Admin/Product:delete" }
     
-admin_product_publish:
+admin_product_set_published:
     path:      /admin/products/publish/{id}
-    defaults:  { _controller: "AppBundle:Admin/Product:publish" }
-    
-admin_product_unpublish:
-    path:      /admin/products/unpublish/{id}
-    defaults:  { _controller: "AppBundle:Admin/Product:unpublish" }
+    defaults:  { _controller: "AppBundle:Admin/Product:setPublished" }
 
 admin_product:
     path:      /admin/products/{page}
@@ -317,13 +359,9 @@ admin_segment_delete:
     path:      /admin/segments/delete/{id}
     defaults:  { _controller: "AppBundle:Admin/Segment:delete" }
     
-admin_segment_publish:
+admin_segment_set_published:
     path:      /admin/segments/publish/{id}
-    defaults:  { _controller: "AppBundle:Admin/Segment:publish" }
-    
-admin_segment_unpublish:
-    path:      /admin/segments/unpublish/{id}
-    defaults:  { _controller: "AppBundle:Admin/Segment:unpublish" }
+    defaults:  { _controller: "AppBundle:Admin/Segment:setPublished" }
 
 admin_segment:
     path:      /admin/segments/{page}

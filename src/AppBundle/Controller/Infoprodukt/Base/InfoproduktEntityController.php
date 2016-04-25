@@ -22,8 +22,6 @@ abstract class InfoproduktEntityController extends BaseEntityController
 	{
 		$params = $this->getIndexParams($request, $page);
 		
-		
-	
 		$searchFilter = new SimpleEntityFilter();
 		$searchFilter->initValues($request);
 	
@@ -71,14 +69,13 @@ abstract class InfoproduktEntityController extends BaseEntityController
     protected function getParams(Request $request)
     {
     	$params = parent::getParams($request);
-    
-    
-    
+    	
     	$branchRepository = $this->getDoctrine()->getRepository(Branch::class);
     	$categoryRepository = $this->getDoctrine()->getRepository(Category::class);
     	
     	$categoryFilter = new CategoryFilter($branchRepository, $categoryRepository);
     	$categoryFilter->setPublished(true);
+    	$categoryFilter->setFeatured(true);
     	$categoryFilter->setPreleaf(true);
     
     	$categories = $this->getParamList(Category::class, $categoryFilter);

@@ -1,0 +1,22 @@
+{% extends 'admin/image/list.html.twig' %}
+
+{% set mainPath = 'article_category' %}
+{% set title = 'title.article_categories'|trans %}
+
+{% block headerMoreFields2 %}
+	<th><i class="fa fa-star"></i>{{ 'label.featured'|trans }}</th>
+{% endblock %}
+
+{% block entryMoreFields2 %}
+	<td>
+		{% if item.featured %}
+			<a href="{{ path('admin_' ~ mainPath ~ '_set_featured', { id: item.id, featured: false }) }}">
+				<i class="fa fa-star" data-toggle="tooltip" title="{{ 'label.featured'|trans }}"></i>
+			</a>
+		{%  else %}
+			<a href="{{ path('admin_' ~ mainPath ~ '_set_featured', { id: item.id, featured: true }) }}">
+				<i class="fa fa-star-o" data-toggle="tooltip" title="{{ 'label.unfeatured'|trans }}"></i>
+			</a>
+		{% endif %}
+	</td>
+{% endblock %}

@@ -2,167 +2,101 @@
 
 {% set title = entry.name %}
 {% set mainPath = 'category' %}
-
-{% block catbar %}
-	{% if entry.preleaf %}
-		<div class="row bkg-black-50">
-			<div class="col-xs-12" style="margin: 10px;">
-			{% for entry in categories %}
-				{% if loop.index <= 11 %}
-{# 								<div class="col-xs-3 col-sm-2 col-lg-1 no-bottom-padding">#}
-{# 									<a href="{{ path('infoprodukt_category_show', routingParams|merge({'id': entry.id})) }}"#}
-{# 										data-toggle="tooltip" data-placement="bottom" title="{{ entry.name }}"#}
-{# 										class="no-padding branch-color-{{ entry.branches.get(0).branch.id}}">#}
-{# 										<p class="text-center bkg-white"><i class="fa {{ entry.icon }} align-text-center"></i></p>#}
-{# 										<p class="text-center text-white tile branch-{{ entry.branches.get(0).branch.id}}">{{ entry.name }}</p>#}
-{# 									</a>#}
-{# 								</div>#}
-					<div class="col-xs-3 col-sm-2 col-lg-1 branch-white-{{ entry.branches.get(0).branch.id}}">
-						<a href="{{ path('infoprodukt_category_show', routingParams|merge({'id': entry.id})) }}"
-							data-toggle="tooltip" data-placement="bottom" title="{{ entry.name }}"
-							class="text-white">
-							<p class="text-center"><i class="fa {{ entry.icon }} align-text-center"></i></p>
-							<p class="text-center">{{ entry.name }}</p>
-						</a>
-					</div>
-				{% endif %}
-			{% else %}
-				{{ 'label.noEntries'|trans }}
-			{% endfor %}
-			
-			<div class="col-xs-3 col-sm-2 col-lg-1 branch-white-0">
-				<a href="{{ path('infoprodukt_category', routingParams) }}"
-					data-toggle="tooltip" data-placement="bottom" title="Inne"
-					class="text-white">
-					<p class="text-center"><i class="fa fa-question align-text-center"></i></p>
-					<p class="text-center">Inne</p>
-				</a>
-			</div>
-			
-			<script>
-			$(document).ready(function(){
-			    $('[data-toggle="tooltip"]').tooltip(); 
-			});
-			</script>
-		</div>
-	{% endif %}
-{% endblock %}
 		
 {% block content %}
 	
 	{% if entry.preleaf %}
 		<div class="row">
 			<div class="rect-3x1">
-	{# 			<img class="img-responsive div-center" src="{{ asset(entry.getImagePath()) }}">#}
-				<img class="img-responsive div-center" src="{{ asset('img/template/kategoria-1.jpg') }}">
+				<img class="img-responsive div-center" src="{{ asset(entry.getImagePath()) }}">
 				
-				<div class="text-white">
-					<div class="col-xs-12 div-bottom bkg-black-50">
-						<div class="container">
-							<div class="row">
-								<div class="col-xs-12">
-									<h4>{{ entry.name }}</h4>
-									<p>{{ entry.content }}</p>
-								</div>
+				<div class="col-xs-12 div-bottom bkg-black-50 text-white">
+					<div class="container lifted-bottom">
+						<div class="row">
+							<div class="col-xs-12">
+								<h4>{{ entry.name }}</h4>
+								<p>{{ entry.content }}</p>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-		</div>
-	
-{# 		<div class="vr-space-80"></div>#}
-{# 		<div class="vr-space-80"></div>#}
-		
-{# 		{% block categoriesaaa %}#}
-{# 		<h1 class="text-center">Podkategorie</h1>#}
-{# 		<div class="vr-space-20"></div>#}
-		
-{# 		<div class="row no-padding">#}
-{# 			{% include 'common/tile_list.html.twig' with {'entries': entry.children, 'entryPath': 'category', 'colSize': 1} %}#}
-{# 		</div>#}
-{# 		{% endblock %}#}
-
-		<div class="vr-space-40"></div>
-		
-		{% block categories %}
-		<h1 class="text-center">Podkategorie</h1>
-		<div class="vr-space-20"></div>
-		
-		<div class="row no-padding bkg-black-50">
-			{% for subentry in entry.children %}
-				<div class="col-xs-3 col-sm-2 col-lg-1 branch-white-{{ subentry.branches.get(0).branch.id}}">
-					<a href="{{ path('infoprodukt_category_show', routingParams|merge({'id': subentry.id})) }}"
-						data-toggle="tooltip" data-placement="bottom" title="{{ subentry.name }}"
-						class="text-white">
-						<p class="text-center"><i class="fa {{ subentry.icon }} align-text-center"></i></p>
-						<p class="text-center">{{ subentry.name }}</p>
-					</a>
+			
+			{% block categories %}
+			<div class="row lifted-top">
+				<div class="col-xs-12">
+				{% include 'common/tile_list.html.twig' with {'entries': entry.children, 'entryPath': 'article', 'colSize': 2, 'tile': 'bottom_rect_tile' } %}
 				</div>
-			{% endfor %}
+			</div>
+			{% endblock %}
 		</div>
-		{% endblock %}
 		
 		<div class="vr-space-80"></div>
 		
-	{% block featuredNews %}
-	<div class="row">
-		<h1 class="text-center">Informacje</h1>
-		<div class="vr-space-20"></div>
-		
-		<div id="myCarousel" class="carousel slide" data-ride="carousel">
-			<ol class="carousel-indicators">
-		    	<li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-		    	<li data-target="#myCarousel" data-slide-to="1"></li>
-		  	</ol>
-		  	
-		  	<div class="carousel-inner" role="listbox">
-			    <div class="item active">
-			    	<img src="{{ asset('img/template/dummy-3x1.png') }}">
-			    	<img class="div-center" src="{{ asset('img/template/kategoria-1.jpg') }}">
-		      		<div class="carousel-caption">
-			      		<h1>Artykul pierwszy</h1>
-			      		<p>
-							InfoProdukt jest najlepszym magazynem na rynku wydawniczym. Zostalismy wyroznieni w dwoch konkursach rangi gmiennej i powiatowej (Przesnysz i Kolebki Dolne).
-							InfoProdukt jest najlepszym magazynem na rynku wydawniczym. Zostalismy wyroznieni w dwoch konkursach rangi gmiennej i powiatowej (Przesnysz i Kolebki Dolne).
-							InfoProdukt jest najlepszym magazynem na rynku wydawniczym. Zostalismy wyroznieni w dwoch konkursach rangi gmiennej i powiatowej (Przesnysz i Kolebki Dolne).
-							InfoProdukt jest najlepszym magazynem na rynku wydawniczym. Zostalismy wyroznieni w dwoch konkursach rangi gmiennej i powiatowej (Przesnysz i Kolebki Dolne).
-							InfoProdukt jest najlepszym magazynem na rynku wydawniczym. Zostalismy wyroznieni w dwoch konkursach rangi gmiennej i powiatowej (Przesnysz i Kolebki Dolne).
-							InfoProdukt jest najlepszym magazynem na rynku wydawniczym. Zostalismy wyroznieni w dwoch konkursach rangi gmiennej i powiatowej (Przesnysz i Kolebki Dolne). 
-						</p>
-					</div>
-			    </div>
+		{% block featuredNews %}
+		<div class="row">
+			<div class="container">
+				<h1>
+					<span class="text-red">{{ 'header.articles'|trans }}</span> 
+					<span class="text-brand">{{ 'header.news'|trans }}</span>
+				</h1>
+			</div>
 			
-			    <div class="item">
-			      	<img src="{{ asset('img/template/dummy-3x1.png') }}">
-			      	<img class="div-center" src="{{ asset('img/template/kategoria-2.jpg') }}">
-		      		<div class="carousel-caption">
-			      		<h1>Artykul drugi</h1>
-			      		<p>
-							InfoProdukt jest najlepszym magazynem na rynku wydawniczym. Zostalismy wyroznieni w dwoch konkursach rangi gmiennej i powiatowej (Przesnysz i Kolebki Dolne).
-							InfoProdukt jest najlepszym magazynem na rynku wydawniczym. Zostalismy wyroznieni w dwoch konkursach rangi gmiennej i powiatowej (Przesnysz i Kolebki Dolne).
-							InfoProdukt jest najlepszym magazynem na rynku wydawniczym. Zostalismy wyroznieni w dwoch konkursach rangi gmiennej i powiatowej (Przesnysz i Kolebki Dolne).
-							InfoProdukt jest najlepszym magazynem na rynku wydawniczym. Zostalismy wyroznieni w dwoch konkursach rangi gmiennej i powiatowej (Przesnysz i Kolebki Dolne).
-							InfoProdukt jest najlepszym magazynem na rynku wydawniczym. Zostalismy wyroznieni w dwoch konkursach rangi gmiennej i powiatowej (Przesnysz i Kolebki Dolne).
-							InfoProdukt jest najlepszym magazynem na rynku wydawniczym. Zostalismy wyroznieni w dwoch konkursach rangi gmiennej i powiatowej (Przesnysz i Kolebki Dolne). 
-						</p>
-					</div>
-			    </div>
-		  	</div>
-		  	
-		  	<a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
-		    	<span class="fa fa-chevron-left" aria-hidden="true"></span>
-		    	<span class="sr-only">Previous</span>
-		  	</a>
-		  	<a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
-		    	<span class="fa fa-chevron-right" aria-hidden="true"></span>
-		    	<span class="sr-only">Next</span>
-		  	</a>
-		</div>
-	</div>
-	{% endblock %}
+			<div class="vr-space-20"></div>
+			
+				<div class="col-xs-12">
+					<div class="col-sm-9">
+						<div id="myCarousel" class="carousel slide" data-ride="carousel">
+							<ol class="carousel-indicators">
+						    	{% set count = 0 %}
+							    {% for article in articles %}
+							    	{% if count < 3 and article.featured %}
+							    		<li data-target="#myCarousel" data-slide-to="{{ count }}" class="{{ count < 1 ? 'active' : '' }}"></li>
+							    		{% set count = count+1 %}
+							    	{% endif %}
+							    {% endfor %}
+						  	</ol>
+						  	
+						  	<div class="carousel-inner" role="listbox">
+							    {% set count = 0 %}
+							    {% for article in articles %}
+							    	{% if count < 3 and article.featured %}
+							    		<div class="item rect-2x1 {{ count < 1 ? 'active' : '' }}">
+									    	<img src="{{ asset(article.getImagePath()) }}">
+								      		<div class="carousel-caption">
+								      			<a class="text-white" href="{{ path('infoprodukt_article_show', { id: article.id }) }}">
+									      			<h1>{{ article.name }}</h1>
+									      		</a>
+											</div>
+									    </div>
+							    		{% set count = count+1 %}
+							    	{% endif %}
+							    {% endfor %}
+						  	</div>
+						  	
+						  	<a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+						    	<span class="fa fa-chevron-left" aria-hidden="true"></span>
+						    	<span class="sr-only">Previous</span>
+						  	</a>
+						  	<a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+						    	<span class="fa fa-chevron-right" aria-hidden="true"></span>
+						    	<span class="sr-only">Next</span>
+						  	</a>
+					  	</div>
+				  	</div>
+				  	
+				  	<div class="col-sm-3">
+				  		<a href="#">
+				  			<div class="rect-1x2 bkg-white">
+				  				<img class="div-center img-responsive" src="{{ asset('img/template/magazyn-sluchawki.png') }}">
+				  			</div>
+				  		</a>
+				  	</div>
+			  	</div>
+			</div>
+		{% endblock %}
 		
-		<div class="vr-space-20"></div>
+		<div class="vr-space-80"></div>
 		
 		{% block news %}
 		<div class="container">
@@ -183,11 +117,25 @@
 		
 		<div class="vr-space-80"></div>
 		
+		{% block articleCategories %}
+		<div class="container">
+			<div class="row">
+				<div class="col-xs-12">
+					<div class="row no-padding">
+						{% include 'common/tile_list.html.twig' with {'entries': article_categories, 'entryPath': 'article', 'colSize': 3, 'limit': 4, 'tile': 'bottom_text_tile', 'alternate': true} %}
+					</div>
+				</div>
+			</div>
+		</div>
+		{% endblock %}
+		
+		<div class="vr-space-80"></div>
+		
 		{% block ad %}
 		<div class="row">
 			<div class="rect-3x1">
-	{# 			<img class="img-responsive div-center" src="{{ asset(entry.getImagePath()) }}">#}
-				<img class="img-responsive div-center" src="{{ asset('img/template/kino-domowe-2.jpg') }}">
+	{# 			<img class="div-center" src="{{ asset(entry.getImagePath()) }}">#}
+				<img class="div-center" src="{{ asset('img/template/some-img.jpg') }}">
 				<div class="div-center text-center">
 					<h1>Tutaj bedzie reklama :)</h1>
 					<a class="btn btn-default" href="#">Kliknij!</a>
@@ -202,15 +150,12 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-xs-12">
-					<h1 class="text-center">Promocje</h1>
-					<div class="vr-space-20"></div>
-					
 					<div class="row no-padding">
 						{% include 'common/tile_list.html.twig' with {'entries': articles, 'entryPath': 'article', 'colSize': 3, 'limit': 4} %}
 					</div>
 					
 					<div class="row text-center lowered">
-						<a class="btn btn-primary">Czytaj wiecej...</a>
+						<a class="btn btn-primary">Zobacz wiecej...</a>
 					</div>
 				</div>
 			</div>
@@ -224,7 +169,7 @@
 				<div class="col-xs-12 well">
 					<div class="col-sm-3">
 						<div class="rect">
-							<img class="img-responsive div-center" src="{{ asset(entry.getImagePath()) }}">
+							<img class="div-center" src="{{ asset(entry.getImagePath()) }}">
 						</div>
 					</div>
 					
@@ -250,7 +195,7 @@
 						<div class="row">
 							<div class=" col-sm-2 text-white">
 								<div class="rect">
-									<img class="img-responsive div-center" alt="{{ entry.name }}" src="{{ asset(entry.getImagePath()) }}">
+									<img class="div-center" alt="{{ entry.name }}" src="{{ asset(entry.getImagePath()) }}">
 									<div class="col-xs-12 div-bottom bkg-black-50">
 										<h5 class="text-center">{{ entry.name }}</h5>
 									</div>

@@ -7,6 +7,7 @@ use AppBundle\Entity\Article;
 use AppBundle\Entity\Filter\Base\SimpleEntityFilter;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Entity\Filter\ArticleFilter;
 
 class ArticleController extends SimpleEntityController
 {   
@@ -46,8 +47,9 @@ class ArticleController extends SimpleEntityController
      */
     protected function getEntityFilter(Request $request)
     {
-    	$filter = new SimpleEntityFilter();
-    	$filter->setPublished(true);
+    	$filter = new ArticleFilter();
+    	$filter->setPublished(SimpleEntityFilter::TRUE_VALUES);
+    	$filter->setMain(SimpleEntityFilter::TRUE_VALUES);
     	
     	return $filter;
     }

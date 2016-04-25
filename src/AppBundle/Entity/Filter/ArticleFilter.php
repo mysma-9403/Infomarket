@@ -6,17 +6,6 @@ use AppBundle\Entity\Filter\Base\SimpleEntityFilter;
 use AppBundle;
 
 class ArticleFilter extends SimpleEntityFilter {
-
-	/**
-	 * 
-	 * @var integer
-	 */
-	private $articleCategories;
-	
-	/**
-	 * @var boolean
-	 */
-	private $featured;
 	
 	protected function getWhereExpressions() {
 		$expressions = parent::getWhereExpressions();
@@ -29,6 +18,17 @@ class ArticleFilter extends SimpleEntityFilter {
 			$expressions[] = 'e.featured = ' . $this->featured;
 		}
 		
+		if($this->main === SimpleEntityFilter::TRUE_VALUES) {
+			$expressions[] = 'e.parent IS NULL';
+		} else {
+			if($this->main === SimpleEntityFilter::FALSE_VALUES) {
+				$expressions[] = 'e.parent IS NOT NULL';
+			}
+			if($this->parents) {
+				$expressions[] = $this->getEqualArrayExpression('e.parent', $this->parents);
+			}
+		}
+		
 		return $expressions;
 	}
 	
@@ -36,8 +36,29 @@ class ArticleFilter extends SimpleEntityFilter {
 	 * {@inheritDoc}
 	 */
 	public function getOrderByExpression() {
-		return ' ORDER BY e.name ASC ';
+		return ' ORDER BY e.orderNumber ASC, e.name ASC ';
 	}
+	
+	/**
+	 *
+	 * @var array
+	 */
+	private $articleCategories;
+	
+	/**
+	 * @var array
+	 */
+	private $parents;
+	
+	/**
+	 * @var boolean
+	 */
+	private $featured;
+	
+	/**
+	 * @var boolean
+	 */
+	private $main;
 	
 	/**
 	 * Set article categories
@@ -54,13 +75,37 @@ class ArticleFilter extends SimpleEntityFilter {
 	}
 	
 	/**
-	 * Get branch
+	 * Get article categories
 	 *
 	 * @return array
 	 */
 	public function getArticleCategories()
 	{
 		return $this->articleCategories;
+	}
+	
+	/**
+	 * Set article categories
+	 *
+	 * @param array $articleCategories
+	 *
+	 * @return ArticleFilter
+	 */
+	public function setParents($parents)
+	{
+		$this->parents = $parents;
+	
+		return $this;
+	}
+	
+	/**
+	 * Get article categories
+	 *
+	 * @return array
+	 */
+	public function getParents()
+	{
+		return $this->parents;
 	}
 	
 	/**
@@ -85,5 +130,29 @@ class ArticleFilter extends SimpleEntityFilter {
 	public function isFeatured()
 	{
 		return $this->featured;
+	}
+	
+	/**
+	 * Set main
+	 *
+	 * @param boolean $main
+	 *
+	 * @return SimpleEntityFilter
+	 */
+	public function setMain($main)
+	{
+		$this->main = $main;
+	
+		return $this;
+	}
+	
+	/**
+	 * Is main
+	 *
+	 * @return boolean
+	 */
+	public function isMain()
+	{
+		return $this->main;
 	}
 }

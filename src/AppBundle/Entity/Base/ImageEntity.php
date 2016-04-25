@@ -8,12 +8,7 @@ class ImageEntity extends Image
     /**
      * @var string
      */
-    protected $name;
-
-    /**
-     * @var integer
-     */
-    protected $id;
+    private $name;
 
 
     /**
@@ -38,15 +33,5 @@ class ImageEntity extends Image
     public function getName()
     {
         return $this->name;
-    }
-
-    /**
-     * Get id
-     *
-     * @return integer
-     */
-    public function getId()
-    {
-        return $this->id;
     }
 }

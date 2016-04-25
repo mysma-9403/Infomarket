@@ -14,7 +14,6 @@ class ImageEntityType extends SimpleEntityType
 	 * @see \AppBundle\Form\Base\SimpleEntityType::addMainFields()
 	 */
 	protected function addMainFields(FormBuilderInterface $builder, array $options) {
-		
 		parent::addMainFields($builder, $options);
 		
 		$builder

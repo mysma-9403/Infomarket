@@ -4,26 +4,20 @@ namespace AppBundle\Entity\Base;
 
 class ImageTree extends Image
 {
-    
     /**
      * @var string
      */
-    protected $name;
+    private $name;
 
     /**
      * @var integer
      */
-    protected $level;
+    private $level;
 
     /**
      * @var string
      */
-    protected $treePath;
-
-    /**
-     * @var integer
-     */
-    protected $id;
+    private $treePath;
 
 
     /**
@@ -96,15 +90,5 @@ class ImageTree extends Image
     public function getTreePath()
     {
         return $this->treePath;
-    }
-
-    /**
-     * Get id
-     *
-     * @return integer
-     */
-    public function getId()
-    {
-        return $this->id;
     }
 }

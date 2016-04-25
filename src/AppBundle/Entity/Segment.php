@@ -81,4 +81,12 @@ class Segment extends ImageEntity
     {
         return $this->products;
     }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->products = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
 }

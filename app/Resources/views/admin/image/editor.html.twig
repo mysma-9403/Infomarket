@@ -2,9 +2,12 @@
 
 {%  block mainFields1 %}	
     {{ form_row(form.name, { 'label': 'label.name' }) }}
+    {{ form_row(form.published, { 'label': 'label.published' }) }}
     
     <div class="row">
-		<img alt="{{ entry.name }}" src="{{ asset(entry.getImagePath()) }}" width="160" height="160" />
+	    <div class="col-xs-12">
+			<img alt="{{ entry.name }}" src="{{ asset(entry.getImagePath()) }}" width="160" height="160" />
+		</div>
 	</div>
 	
     {{ form_row(form.file, { 'label': 'label.image' }) }}

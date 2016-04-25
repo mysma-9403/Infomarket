@@ -3,8 +3,11 @@
 {% set mainPath = 'article' %}
 {% set title = 'title.articles'|trans %}
 
-{%  block moreFields2 %}
-	{{ form_row(form.category, { 'label': 'label.category' }) }}
-	{{ form_row(form.featured, { 'label': 'label.featured' }) }}	
+{% block moreFields2 %}
+	{{ form_row(form.subname, { 'label': 'label.subname' }) }}
+	{{ form_row(form.featured, { 'label': 'label.featured' }) }}
+	{{ form_row(form.parent, { 'label': 'label.parent' }) }}
+	{{ form_row(form.articleCategory, { 'label': 'label.articleCategory' }) }}
+	{{ form_row(form.intro, { 'label': 'label.intro' }) }}	
     {{ form_row(form.content, { 'label': 'label.content' }) }}
-{%  endblock %}
+{% endblock %}

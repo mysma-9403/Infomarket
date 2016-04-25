@@ -2,10 +2,12 @@
 
 namespace AppBundle\Entity;
 
+use AppBundle\Entity\Base\Audit;
+
 /**
  * BranchCategoryAssignment
  */
-class BranchCategoryAssignment
+class BranchCategoryAssignment extends Audit
 {
     /**
      * @var \AppBundle\Entity\Branch

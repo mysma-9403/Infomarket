@@ -1,9 +1,9 @@
-{% extends 'admin/show.html.twig' %}
+{% extends 'admin/simple/show.html.twig' %}
 
 {% set mainPath = 'category' %}
 {% set title = 'title.categories'|trans %}
 
-{% block aaa %}
+{% block mainFields2 %}
 	<tr>
 		<th>{{ 'label.description'|trans }} </th>
 		<td>{%if entry.parent.name is defined %}{{ entry.parent.name }} {% endif %}</td>

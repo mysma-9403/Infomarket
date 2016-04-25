@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller\Base;
 
+use AppBundle\Entity\Filter\Base\BaseEntityFilter;
 use AppBundle\Utils\ClassUtils;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -97,10 +98,22 @@ abstract class BaseEntityController extends Controller
      */
     protected function getRoutingParams(Request $request)
     {
-    	$params = [];
+    	$params = array();
+    	
+    	$params['page'] = $request->get('page', null);
+    	$params['route'] = $request->get('route', $this->getIndexRoute());
+    	$params['routeParams'] = $request->get('routeParams', []);
     	 
     	return $params;
     }
+    
+//     protected function redirectToRoute($route, array $parameters = array(), $status = 302) {
+// //     	if(array_key_exists('route', $parameters)) {
+// //     		return $this->redirectToRoute($parameters['route'], $parameters['routeParams']);
+// //     	} else {
+//     		return $this->redirectToRoute($route, $parameters);
+// //     	}
+//     }
     
     /**
      * 
@@ -171,7 +184,13 @@ abstract class BaseEntityController extends Controller
      * @param Request $request
      * @return object
      */
-    protected abstract function getEntityFilter(Request $request);
+	protected function getEntityFilter(Request $request)
+	{
+		$filter = new BaseEntityFilter();
+		$filter->setPublished(true);
+		 
+		return $filter;
+	}
     
     /**
      * 

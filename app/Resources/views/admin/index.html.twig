@@ -5,29 +5,66 @@
 {% block body %}
 
 	{% block header %}
-		<div class="page-header">
-			<h1>{{ title }}</h1>
-			
-			<div>
-				<a href="{{ path('fos_user_security_logout') }}">{% trans %}title.logout{% endtrans %}</a>
+		<div class="container-fluid page-header">
+			<div class="col-xs-12">
+				<h1>{{ title }}</h1>
+				
+				<div>
+					<a href="{{ path('fos_user_security_logout') }}">{% trans %}title.logout{% endtrans %}</a>
+				</div>
 			</div>	
 		</div>
 	{% endblock %}
 	
 	{% block menu %}
-		<div>
-			<ul class="nav nav-tabs">
+		<div class="container-fluid">
+{# 			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">#}
+      		<ul class="nav navbar-nav navbar-right">
+{# 			<ul class="nav nav-tabs">#}
+				
 				<li {% if mainPath == 'admin' %} class="active" {% endif %}><a href="{{ path('admin') }}">{% trans %}title.admin{% endtrans %}</a></li>
-				<li {% if mainPath == 'article' %} class="active" {% endif %}><a href="{{ path('admin_' ~ 'article') }}">{% trans %}title.articles{% endtrans %}</a></li>
+				<li {% if mainPath == 'article' %} class="active" {% endif %} class="dropdown">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+						<span class="txt-success fa fa-user"></span> {{ 'title.articles'|trans }} <span class="caret"></span>
+					</a>
+					<ul class="dropdown-menu">
+						<li>
+							<a href="{{ path('admin_' ~ 'article') }}">
+								{{ 'title.articles'|trans }}
+							</a>
+						</li>
+						<li>
+							<a href="{{ path('admin_' ~ 'article_category') }}">
+								{{ 'title.article_categories'|trans }}
+							</a>
+						</li>
+					</ul>
+				</li>
 				<li {% if mainPath == 'branch' %} class="active" {% endif %}><a href="{{ path('admin_' ~ 'branch') }}">{% trans %}title.branches{% endtrans %}</a></li>
 				<li {% if mainPath == 'brand' %} class="active" {% endif %}><a href="{{ path('admin_' ~ 'brand') }}">{% trans %}title.brands{% endtrans %}</a></li>
 				<li {% if mainPath == 'category' %} class="active" {% endif %}><a href="{{ path('admin_' ~ 'category') }}">{% trans %}title.categories{% endtrans %}</a></li>
 				<li {% if mainPath == 'segment' %} class="active" {% endif %}><a href="{{ path('admin_' ~ 'segment') }}">{% trans %}title.segments{% endtrans %}</a></li>
 				<li {% if mainPath == 'product' %} class="active" {% endif %}><a href="{{ path('admin_' ~ 'product') }}">{% trans %}title.products{% endtrans %}</a></li>
+				<li {% if 'assignment' in mainPath %} class="active" {% endif %} class="dropdown">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+						<span class="txt-success fa fa-user"></span> {{ 'title.assignments'|trans }} <span class="caret"></span>
+					</a>
+					<ul class="dropdown-menu">
+						<li>
+							<a href="{{ path('admin_' ~ 'branch_category_assignment') }}">
+								{{ 'title.branch_category_assignments'|trans }}
+							</a>
+						</li>
+					</ul>
+				</li>
 			</ul>
 		</div>
 	{% endblock %}
 	
-	{% block content %}
-	{% endblock %}
+	<div class="container-fluid">
+		<div class="col-xs-12">
+		{% block content %}
+		{% endblock %}
+		</div>
+	</div>
 {% endblock %}

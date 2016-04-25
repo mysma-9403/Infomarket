@@ -10,10 +10,10 @@
             
 {% block actions %}
     <div class="btn-group col-xs-12 col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3">
-	    <a type="button" class="btn btn-warning" href="{{ path(mainPath ~ '_edit', { id: entry.id }) }}">
+	    <a type="button" class="btn btn-warning" href="{{ path('admin_' ~ mainPath ~ '_edit', { id: entry.id }) }}">
 	    	<i class="fa fa-edit"></i>{{ 'action.edit'|trans }}
 		</a>
-		<a type="button" class="btn btn-primary" href="{{ path(mainPath, { id: entry.id }) }}">
+		<a type="button" class="btn btn-primary" href="{{ path(routingParams.route, routingParams.routeParams) }}">
 	    	<i class="fa fa-close"></i>{{ 'action.back'|trans }}
 		</a>
     </div>

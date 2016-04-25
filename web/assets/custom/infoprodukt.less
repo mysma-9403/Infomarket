@@ -11,7 +11,12 @@
 }
 
 .text-white {
-	color: white
+	color: @white;
+}
+
+a.text-white:focus,
+a.text-white:hover {
+	color: @gray;
 }
 
 .text-brand {
@@ -98,6 +103,23 @@
 
 
 
+.col-bottom { 
+	margin-bottom:20px; 
+}
+
+
+
+.rect-2x1 img,
+.rect img {
+	position: absolute;
+  	left: 50%;
+  	top: 50%;
+  	height: 100%;
+  	width: auto;
+  	-webkit-transform: translate(-50%,-50%);
+      	-ms-transform: translate(-50%,-50%);
+          	transform: translate(-50%,-50%);
+}
 
 .rect {
 	position: relative;
@@ -153,6 +175,22 @@
 	width: 100%;
 	height: auto;
 	padding-top: 10%;
+}
+
+.rect-1x2 {
+	position: relative;
+	overflow: hidden;
+	width: 100%;
+	height: auto;
+	padding-top: 150%;
+}
+
+.rect-2x3 {
+	position: relative;
+	overflow: hidden;
+	width: 100%;
+	height: auto;
+	padding-top: 166%;
 }
 
 .circle {
@@ -260,6 +298,28 @@ nav.sidebar .navbar-nav > li {
 
 
 
+.lifted-top {
+	margin-top: -100px;
+}
+
+.lifted-bottom {
+	margin-bottom: 100px;
+}
+
+.rect-title {
+	height: 50px;
+}
+
+.rect-subtitle {
+	height: 100px;
+}
+
+
+
+
+
+
+
 
 
 .div-top {
@@ -318,6 +378,11 @@ video {
 
 
 
+.right.carousel-control > span, 
+.left.carousel-control > span {
+    margin-top: 150%;
+}
+
 .right.carousel-control.quotes , 
 .left.carousel-control.quotes  {
     opacity: 0;
@@ -330,4 +395,68 @@ video {
 
 .carousel-indicators.quotes li.active {
 	background-color: @gray-darker;
+}
+
+
+
+
+
+.certificate {
+	position: fixed;
+	top: 80px;
+	left: 10px;
+}
+
+.social-menu {
+	position: fixed;
+	top: 80px;
+	right: 20px;
+}
+
+a .social-button {
+	position: relative;
+	width: 50px;
+	height: 50px;
+	border: solid 4px;
+}
+
+a .social-button {
+	color: @white;
+	border-color: @white;
+	background-color: @brand-primary;
+}
+
+a:focus .social-button,
+a:hover .social-button {	
+	color: @brand-primary;
+	border-color: @brand-primary;
+	background-color: @white;
+}
+
+a .social-button.red {
+	color: @white;
+	border-color: @white;
+	background-color: @red;
+}
+
+a:focus .social-button.red,
+a:hover .social-button.red {	
+	color: @red;
+	border-color: @red;
+	background-color: @white;
+}
+
+.social-button > h6 {
+	margin-top: 0px;
+	padding-top: 0px;
+}
+
+
+
+
+
+.input-sm {
+	font-size: 14px;
+   	line-height: 14px;
+	height: 28px;
 }

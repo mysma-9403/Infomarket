@@ -9,6 +9,8 @@
         table="article_categories"
         repository-class="AppBundle\Repository\ArticleCategoryRepository">
         
+        <field name="featured" type="boolean" default="false" />
+        
     </entity>
     
 </doctrine-mapping>

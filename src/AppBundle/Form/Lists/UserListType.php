@@ -2,11 +2,10 @@
 
 namespace AppBundle\Form\Lists;
 
-use AppBundle\Entity\Lists\Base\SimpleEntityList;
 use AppBundle\Entity\User;
+use AppBundle\Form\Lists\Base\SimpleEntityListType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\FormBuilderInterface;
-use AppBundle\Form\Lists\Base\SimpleEntityListType;
 
 class UserListType extends SimpleEntityListType
 {	
@@ -24,15 +23,6 @@ class UserListType extends SimpleEntityListType
 					'expanded'      => true,
 					'multiple'      => true
 			));
-	}
-	
-	/**
-	 * 
-	 * {@inheritDoc}
-	 * @see \AppBundle\Form\Base\FormType::getEntityType()
-	 */
-	protected function getEntityType() {
-		return SimpleEntityList::class;
 	}
 	
 	/**

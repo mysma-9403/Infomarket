@@ -4,30 +4,26 @@ namespace AppBundle\Entity\Base;
 
 class SimpleTree extends Audit
 {
+   
     /**
      * @var string
      */
-    protected $name;
+    private $name;
 
     /**
      * @var integer
      */
-    protected $level;
+    private $level;
 
     /**
      * @var string
      */
-    protected $treePath;
-
-    /**
-     * @var integer
-     */
-    protected $id;
+    private $treePath;
 
     /**
      * @var \AppBundle\Entity\Base\SimpleTree
      */
-    protected $parent;
+    private $parent;
 
 
     /**
@@ -100,16 +96,6 @@ class SimpleTree extends Audit
     public function getTreePath()
     {
         return $this->treePath;
-    }
-
-    /**
-     * Get id
-     *
-     * @return integer
-     */
-    public function getId()
-    {
-        return $this->id;
     }
 
     /**

@@ -117,11 +117,11 @@
 {% block entryMainFields2 %}	        
 	<td>
 		{% if item.published %}
-			<a href="{{ path('admin_' ~ mainPath ~ '_unpublish', { id: item.id }) }}">
+			<a href="{{ path('admin_' ~ mainPath ~ '_set_published', { id: item.id, published: false }) }}">
 				<i class="fa fa-check" data-toggle="tooltip" title="{{ 'label.published'|trans }}"></i>
 			</a>
 		{%  else %}
-			<a href="{{ path('admin_' ~ mainPath ~ '_publish', { id: item.id }) }}">
+			<a href="{{ path('admin_' ~ mainPath ~ '_set_published', { id: item.id, published: true }) }}">
 				<i class="fa fa-remove" data-toggle="tooltip" title="{{ 'label.unpublished'|trans }}"></i>
 			</a>
 		{% endif %}
@@ -129,21 +129,21 @@
 	
 	<td>
 		{% if item.publishedAt > date("01-01-1900") %}
-    		{{ item.publishedAt|date('Y-m-d H:i:s') }}
+    		{{ item.publishedAt|date('d.m.Y H:i:s') }}
 		{% endif %}
 	</td>
 	<td>{{ item.publishedBy }}</td>
 	
 	<td>
 		{% if item.updatedAt > date("01-01-1900") %}
-    		{{ item.updatedAt|date('Y-m-d H:i:s') }}
+    		{{ item.updatedAt|date('d.m.Y H:i:s') }}
 		{% endif %}
 	</td>
 	<td>{{ item.updatedBy }}</td>
 	        
 	<td>
 		{% if item.createdAt > date("01-01-1900") %}
-	    	{{ item.createdAt|date('Y-m-d H:i:s') }}
+	    	{{ item.createdAt|date('d.m.Y H:i:s') }}
 		{% endif %}
 	</td>
 	<td>{{ item.createdBy }}</td>
@@ -151,14 +151,14 @@
 	 
 {% block entryActions %}
 	<td>
-		<a type="button" class="btn btn-sm btn-primary" href="{{ path('admin_' ~ mainPath ~ '_show', { id: item.id }) }}">
+		<a type="button" class="btn btn-sm btn-primary" href="{{ path('admin_' ~ mainPath ~ '_show', { id: item.id, routeParams: { page: routingParams.page } }) }}">
 			<i class="fa fa-eye"></i>{{ 'action.show'|trans }}
 		</a>
 		<div class="btn-group">
-			<a type="button" class="btn btn-sm btn-success" href="{{ path('admin_' ~ mainPath ~ '_edit', { id: item.id }) }}">
+			<a type="button" class="btn btn-sm btn-success" href="{{ path('admin_' ~ mainPath ~ '_edit', { id: item.id, routeParams: { page: routingParams.page }  }) }}">
 				<i class="fa fa-edit"></i>{{ 'action.edit'|trans }}
 			</a>
-			<a type="button" class="btn btn-sm btn-warning" href="{{ path('admin_' ~ mainPath ~ '_copy', { id: item.id }) }}">
+			<a type="button" class="btn btn-sm btn-warning" href="{{ path('admin_' ~ mainPath ~ '_copy', { id: item.id, routeParams: { page: routingParams.page }  }) }}">
 				<i class="fa fa-copy"></i>{{ 'action.copy'|trans }}
 			</a>
 		</div>
@@ -167,7 +167,7 @@
 		{% if is_granted('ROLE_SUPER_ADMIN') %}
 			{% set hidden="" %}
 		{% endif %}
-		<a type="button" class="btn btn-sm btn-danger {{ hidden }}" href="{{ path('admin_' ~ mainPath ~ '_delete', { id: item.id }) }}">
+		<a type="button" class="btn btn-sm btn-danger {{ hidden }}" href="{{ path('admin_' ~ mainPath ~ '_delete', { id: item.id, routeParams: { page: routingParams.page }  }) }}">
 			<i class="fa fa-trash"></i>{{ 'action.delete'|trans }}
 		</a>
 	</td>

@@ -8,9 +8,6 @@
         table="branch_category_assignments"
         repository-class="AppBundle\Repository\BranchCategoryAssignmentRepository">
         
-        <id name="branch" association-key="true" />
-        <id name="category" association-key="true" />
-        
         <many-to-one field="branch" target-entity="Branch" />
         <many-to-one field="category" target-entity="Category" />
         

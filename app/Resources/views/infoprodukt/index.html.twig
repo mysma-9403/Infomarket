@@ -27,22 +27,27 @@
 				      		{% block navigationBrand %}
 							<a class="navbar-brand" href="{{ path('infoprodukt_home') }}">
 	{# 								<img alt="Brand" src="{{ asset('img/template/brand-home.png') }}">#}
-								<h1 class="title text-brand"><span class="text-red">Info</span><span>Produkt</span></h1>
+								<h2 class="title text-brand hidden-xs">
+									<span class="text-red">Info</span>Produkt
+								</h2>
+								<h2 class="title text-brand visible-xs">
+									<span class="text-red">I</span>P
+								</h2>
 							</a>
 							{% endblock %}
 				    	</div>
 				    	{% endblock %}
 						
 						{% block navigationSearch %}
-						<div class="navbar-form navbar-right" role="search">
+						<div class="navbar-form navbar-right navbar-input-group hidden-xs" role="search">
 							{% form_theme searchFilterForm 'form/fields.html.twig' %}
 						
 							{{ form_start(searchFilterForm) }}
-								<ul class="list-inline col-xs-12">
+								<ul class="list-inline">
 									<li>
-										<div class='input-group'>
-											{{ form_widget(searchFilterForm.name, { 'label': 'label.name' }) }}
-											<span class="input-group-addon"><i class="fa fa-search"></i></span>
+										<div class='input-group input-sm'>
+											{{ form_widget(searchFilterForm.name, { 'label': 'label.name', 'attr': { 'class': 'input-sm' }  }) }}
+											<span class="input-group-addon input-sm"><i class="fa fa-search"></i></span>
 										</div>
 									</li>
 									
@@ -76,7 +81,7 @@
 									{% endif %}
 								{% endfor %}
 								<li>
-									<a href="{{ path('infoprodukt_category') }}">Inne</a>
+									<a href="{{ path('infoprodukt_category') }}">{{ 'label.all' }}</a>
 								</li>
 							</ul>
 						</div>
@@ -85,9 +90,6 @@
 				</div>
 		  	</div>
 	  	</div>
-	  	
-	  	{% block catbar %}
-	  	{% endblock %}
 	</nav>
 	{% endblock %}
 		
@@ -121,6 +123,36 @@
 		    	</div>
 		  	</div>
 		</div>
+	{% endblock %}
+	
+	{% block certificate %}
+	<img class="certificate" alt="{{ 'label.certificate'|trans }}" src="{{ asset('img/template/certificate.jpg') }}">
+	{% endblock %}
+	
+	{% block socialMenu %}
+	<div class="social-menu">
+		<div class="row">
+			<a href="https://www.facebook.com/infomarket1">
+				<div class="social-button">
+					<span class="div-center fa fa-facebook"></span>
+				</div>
+			</a>
+		</div>
+		<div class="row">
+			<a href="https://www.youtube.com/channel/UCpH2PHKAxnNlX-zSgJXyjpA">
+				<div class="social-button red">
+				<span class="div-center fa fa-youtube"></span>
+				</div>
+			</a>
+		</div>
+		<div class="row">
+			<a href="http://infomarket.edu.loc:8000">
+				<div class="social-button">
+					<h6 class="div-center"><span class="text-red">I</span>M</h6>
+				</div>
+			</a>
+		</div>
+	</div>
 	{% endblock %}
 	
 {% endblock %}

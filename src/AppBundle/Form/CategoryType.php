@@ -15,6 +15,12 @@ class CategoryType extends ImageEntityType
 	 */
 	protected function addMoreFields(FormBuilderInterface $builder, array $options) {
 		$builder
+			->add('subname', null, array(
+					'required' => false
+			))
+			->add('icon', null, array(
+					'required' => false
+			))
 			->add('parent', EntityType::class, array(
 					'class'			=> $this->getEntityType(),
 					'choice_label' 	=> 'name',
@@ -23,12 +29,18 @@ class CategoryType extends ImageEntityType
 					'multiple'      => false,
 					'placeholder'	=> 'Choose parent'
 			))
-			->add('content', null, array(
-					'attr' => array('rows' => 20),
+			->add('published', null, array(
+					'required' => false
+			))
+			->add('preleaf', null, array(
 					'required' => false
 			))
 			->add('featured', null, array(
-					'required' => true
+					'required' => false
+			))
+			->add('content', null, array(
+					'attr' => array('rows' => 20),
+					'required' => false
 			))
 			;
 	}

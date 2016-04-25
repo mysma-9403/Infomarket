@@ -4,46 +4,72 @@ namespace AppBundle\Entity\Base;
 
 class Audit
 {
-	/**
-	 * @var boolean
-	 */
-	protected $published;
 	
     /**
-     * @var \DateTime
+     * @var boolean
      */
-    protected $createdAt;
+    private $published;
 
     /**
      * @var \DateTime
      */
-    protected $updatedAt;
-
-    /**
-     * @var \AppBundle\Entity\User
-     */
-    protected $createdBy;
-
-    /**
-     * @var \AppBundle\Entity\User
-     */
-    protected $updatedBy;
+    private $createdAt;
 
     /**
      * @var \DateTime
      */
-    protected $publishedAt;
-    
+    private $updatedAt;
+
+    /**
+     * @var \DateTime
+     */
+    private $publishedAt;
+
+    /**
+     * @var integer
+     */
+    private $id;
+
     /**
      * @var \AppBundle\Entity\User
      */
-    protected $publishedBy;
-    
-    public function __construct()
+    private $createdBy;
+
+    /**
+     * @var \AppBundle\Entity\User
+     */
+    private $updatedBy;
+
+    /**
+     * @var \AppBundle\Entity\User
+     */
+    private $publishedBy;
+
+
+    /**
+     * Set published
+     *
+     * @param boolean $published
+     *
+     * @return Audit
+     */
+    public function setPublished($published)
     {
-    	$this->published = false;
+        $this->published = $published;
+
+        return $this;
     }
-    
+
+    /**
+     * Get published
+     *
+     * @return boolean
+     */
+    public function getPublished()
+    {
+        return $this->published;
+    }
+
     /**
      * Set createdAt
      *
@@ -90,6 +116,40 @@ class Audit
     public function getUpdatedAt()
     {
         return $this->updatedAt;
+    }
+
+    /**
+     * Set publishedAt
+     *
+     * @param \DateTime $publishedAt
+     *
+     * @return Audit
+     */
+    public function setPublishedAt($publishedAt)
+    {
+        $this->publishedAt = $publishedAt;
+
+        return $this;
+    }
+
+    /**
+     * Get publishedAt
+     *
+     * @return \DateTime
+     */
+    public function getPublishedAt()
+    {
+        return $this->publishedAt;
+    }
+
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
     }
 
     /**
@@ -141,30 +201,6 @@ class Audit
     }
 
     /**
-     * Set publishedAt
-     *
-     * @param \DateTime $publishedAt
-     *
-     * @return Audit
-     */
-    public function setPublishedAt($publishedAt)
-    {
-        $this->publishedAt = $publishedAt;
-
-        return $this;
-    }
-
-    /**
-     * Get publishedAt
-     *
-     * @return \DateTime
-     */
-    public function getPublishedAt()
-    {
-        return $this->publishedAt;
-    }
-
-    /**
      * Set publishedBy
      *
      * @param \AppBundle\Entity\User $publishedBy
@@ -186,29 +222,5 @@ class Audit
     public function getPublishedBy()
     {
         return $this->publishedBy;
-    }
-
-    /**
-     * Set published
-     *
-     * @param boolean $published
-     *
-     * @return Audit
-     */
-    public function setPublished($published)
-    {
-        $this->published = $published;
-
-        return $this;
-    }
-
-    /**
-     * Get published
-     *
-     * @return boolean
-     */
-    public function getPublished()
-    {
-        return $this->published;
     }
 }

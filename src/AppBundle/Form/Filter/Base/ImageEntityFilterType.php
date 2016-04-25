@@ -2,8 +2,8 @@
 
 namespace AppBundle\Form\Filter\Base;
 
-use AppBundle\Entity\Filter\ImageEntityFilter;
 use AppBundle\Form\Filter\Base\SimpleEntityFilterType;
+use AppBundle\Entity\Filter\Base\ImageEntityFilter;
 
 class ImageEntityFilterType extends SimpleEntityFilterType
 {	

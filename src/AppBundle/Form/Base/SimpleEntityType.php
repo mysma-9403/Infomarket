@@ -15,6 +15,8 @@ class SimpleEntityType extends BaseFormType
 	 * @see \AppBundle\Form\Base\FormType::addMainFields()
 	 */
 	protected function addMainFields(FormBuilderInterface $builder, array $options) {
+		parent::addMainFields($builder, $options);
+		
 		$builder
 			->add('name', TextType::class, array(
 					'attr' => array('autofocus' => true)

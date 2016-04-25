@@ -142,4 +142,12 @@ class Branch extends ImageEntity
     {
         return $this->categories;
     }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->categories = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
 }

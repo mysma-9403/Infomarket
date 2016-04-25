@@ -17,6 +17,9 @@ use AppBundle\Entity\Term;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Entity\Filter\BranchFilter;
+use AppBundle\Entity\Filter\Base\SimpleEntityFilter;
+use AppBundle\Entity\Filter\ArticleCategoryFilter;
+use AppBundle\Entity\ArticleCategory;
 
 class CategoryController extends SimpleEntityController
 {
@@ -88,7 +91,7 @@ class CategoryController extends SimpleEntityController
 		
 		$brandFilter = new BrandFilter();
 		$brandFilter->setCategories([$entry]);
-		$brandFilter->setPublished(true);
+		$brandFilter->setPublished(SimpleEntityFilter::TRUE_VALUES);
 		$brandRepository = $this->getDoctrine()->getRepository(Brand::class);
 		$brands = $brandRepository->findSelected($brandFilter);
 		
@@ -98,7 +101,7 @@ class CategoryController extends SimpleEntityController
 		
 		$termFilter = new TermFilter();
 // 		$termFilter->setCategories([$entry]);
-		$termFilter->setPublished(true);
+		$termFilter->setPublished(SimpleEntityFilter::TRUE_VALUES);
 		$termRepository = $this->getDoctrine()->getRepository(Term::class);
 		$terms = $termRepository->findSelected($termFilter);
 		
@@ -108,12 +111,23 @@ class CategoryController extends SimpleEntityController
 		
 		$articleFilter = new ArticleFilter();
 // 		$articleFilter->setCategories([$entry]);
-		$articleFilter->setPublished(true);
+		$articleFilter->setPublished(SimpleEntityFilter::TRUE_VALUES);
+		$articleFilter->setFeatured(SimpleEntityFilter::TRUE_VALUES);
 		$articleRepository = $this->getDoctrine()->getRepository(Article::class);
 		$articles = $articleRepository->findSelected($articleFilter);
 		
 		$params['articles'] = $articles;
 		
+		
+		
+		
+		$articleCategoryFilter = new ArticleCategoryFilter();
+		$articleCategoryFilter->setPublished(SimpleEntityFilter::TRUE_VALUES);
+		$articleCategoryFilter->setFeatured(SimpleEntityFilter::TRUE_VALUES);
+		$articleCategoryRepository = $this->getDoctrine()->getRepository(ArticleCategory::class);
+		$articleCategories = $articleCategoryRepository->findSelected($articleCategoryFilter);
+		
+		$params['article_categories'] = $articleCategories;
 		
 		
 		return $params;
