@@ -4,6 +4,6 @@
 {% set mainPath = 'article' %}
 
 {% block moreContent %}
-	<p><strong>{{ entry.intro }}</strong></p>
-	<p>{{ entry.content }}</p>
+	<p><strong>{{ entry.intro | raw }}</strong></p>
+	<p>{{ entry.content | raw }}</p>
 {% endblock %}

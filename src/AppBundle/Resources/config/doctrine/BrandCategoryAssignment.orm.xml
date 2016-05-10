@@ -8,9 +8,6 @@
         table="brand_category_assignments"
         repository-class="AppBundle\Repository\BrandCategoryAssignmentRepository">
         
-        <id name="brand" association-key="true" />
-        <id name="category" association-key="true" />
-        
         <many-to-one field="brand" target-entity="Brand" />
         <many-to-one field="category" target-entity="Category" />
         

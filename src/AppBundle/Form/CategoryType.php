@@ -7,6 +7,7 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use AppBundle\Form\Base\ImageEntityType;
+use AppBundle\Repository\CategoryRepository;
 
 class CategoryType extends ImageEntityType
 {
@@ -23,6 +24,10 @@ class CategoryType extends ImageEntityType
 			))
 			->add('parent', EntityType::class, array(
 					'class'			=> $this->getEntityType(),
+					'query_builder' => function (CategoryRepository $repository) {
+						return $repository->createQueryBuilder('e')
+						->orderBy('e.treePath', 'ASC');
+					},
 					'choice_label' 	=> 'name',
 					'required' => false,
 					'expanded'      => false,
@@ -39,7 +44,10 @@ class CategoryType extends ImageEntityType
 					'required' => false
 			))
 			->add('content', null, array(
-					'attr' => array('rows' => 20),
+					'attr' => array(
+							'class' => 'tinymce',
+							'data-theme' => 'bbcode',
+							'rows' => 20),
 					'required' => false
 			))
 			;

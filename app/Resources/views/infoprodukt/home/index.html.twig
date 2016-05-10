@@ -8,7 +8,8 @@
 	<div class="row no-padding video-container">
 {# 		<video autoplay controls muted poster="{{ asset('img/template/info-produkt-logo.png') }}" id="bgvid" loop>#}
 		<video autoplay controls muted poster="{{ asset('img/template/info-produkt-logo.png') }}" id="bgvid">
-			<source src="{{ asset('img/template/info-produkt-video.mp4') }}" type="video/mp4">
+{# 			<source src="{{ asset('img/template/info-produkt-video.mp4') }}" type="video/mp4">#}
+			<source src="{{ asset('img/template/video.webm') }}" type="video/mp4">
 		</video>
 		
 		<div class="row no-padding video-container bkg-black-50"></div>
@@ -77,7 +78,7 @@
 		{% for entry in categories %}
 			{% if loop.index < 6 %}
 			<div class="col-sm-2">
-				{% include 'common/tile.html.twig' with {'entry': entry, 'entryPath': 'category' } %}
+				{% include 'common/default_tile.html.twig' with {'entry': entry, 'entryPath': 'category' } %}
 			</div>
 			{% endif %}
 		{% endfor %}

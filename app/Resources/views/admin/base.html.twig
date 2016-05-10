@@ -51,14 +51,17 @@
 
     </head>
     <body>
-    	{% block javascripts %}
+		{% block body %}
+        {% endblock %}
+        
+        {% block javascripts %}
         	<script src="{{ asset('js/jquery.min.js') }}"></script>
         	<script src="{{ asset('js/bootstrap.min.js') }}"></script>
         	<script src="{{ asset('js/moment.min.js') }}"></script>
         	<script src="{{ asset('js/bootstrap-datetimepicker.min.js') }}"></script>
+        	
+        	{% block moreJavascripts %}
+        	{% endblock %}
 		{% endblock %}
-		
-		{% block body %}
-        {% endblock %}
     </body>
 </html>

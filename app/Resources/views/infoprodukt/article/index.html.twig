@@ -22,7 +22,7 @@
 								<a href="{{ path('infoprodukt_' ~ mainPath ~ '_show', { 'id': entry.id }) }}">
 									<h4>{{ entry.name }}</h4>
 								</a>
-								<p>{{ entry.intro }}</p>
+								<p>{{ entry.intro | raw }}</p>
 								<a class="btn btn-danger" href="{{ path('infoprodukt_' ~ mainPath ~ '_show', { 'id': entry.id }) }}">
 									{{ 'label.readMore'|trans }}
 								</a>

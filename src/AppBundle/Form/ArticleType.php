@@ -66,11 +66,17 @@ class ArticleType extends ImageEntityType
 					'placeholder'	=> 'Choose category'
 			))
 			->add('intro', null, array(
-					'attr' => array('rows' => 5),
+					'attr' => array(
+							'class' => 'tinymce',
+							'data-theme' => 'bbcode',
+							'rows' => 5),
 					'required' => false
 			))
 			->add('content', null, array(
-					'attr' => array('rows' => 20),
+					'attr' => array(
+							'class' => 'tinymce',
+							'data-theme' => 'bbcode',
+							'rows' => 20),
 					'required' => false
 			))
 			->add('layout', ChoiceType::class, array(

@@ -4,5 +4,5 @@
 {% set mainPath = 'product' %}
 
 {% block moreContent %}
-	<p>{{ entry.content }}</p>
+	<p>{{ entry.content | raw }}</p>
 {% endblock %}

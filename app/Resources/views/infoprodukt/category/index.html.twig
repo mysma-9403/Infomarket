@@ -21,7 +21,7 @@
 						
 						{% if visible %}
 							<div class="col-sm-3">
-								{% include 'common/tile.html.twig' with {'entry': subentry, 'entryPath': mainPath } %}
+								{% include 'common/bottom_rect_tile.html.twig' with {'entry': subentry, 'entryPath': mainPath } %}
 							</div>
 						{% endif %}
 					{% else %}
@@ -32,4 +32,11 @@
 			{% endfor %}
 		</div>
 	</div>
+	
+	<ul>
+		{% for categoryyy in categories %}
+			{% include 'common/category_node.html.twig' with { 'entry': categoryyy } %}
+		{% endfor %}
+	</ul>
+	
 {% endblock %}

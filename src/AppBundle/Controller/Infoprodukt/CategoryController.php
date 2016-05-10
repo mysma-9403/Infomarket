@@ -172,11 +172,11 @@ class CategoryController extends SimpleEntityController
     
     protected function showRootCategories()
     {
-    	return false;
+    	return SimpleEntityFilter::TRUE_VALUES;
     }
     
     protected function showPreleafCategories()
     {
-    	return true;
+    	return SimpleEntityFilter::ALL_VALUES;
     }
 }

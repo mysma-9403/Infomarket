@@ -18,6 +18,7 @@ class AppKernel extends Kernel
         	new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
 			new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
         	new FOS\UserBundle\FOSUserBundle(),
+			new Stfalcon\Bundle\TinymceBundle\StfalconTinymceBundle(),
             new AppBundle\AppBundle(),
         ];
 

@@ -11,11 +11,11 @@
 				<img class="img-responsive div-center" src="{{ asset(entry.getImagePath()) }}">
 				
 				<div class="col-xs-12 div-bottom bkg-black-50 text-white">
-					<div class="container lifted-bottom">
+					<div class="container-fluid lifted-bottom">
 						<div class="row">
 							<div class="col-xs-12">
-								<h4>{{ entry.name }}</h4>
-								<p>{{ entry.content }}</p>
+								<h2>{{ entry.name }} klasyfikacja i podzial</h2>
+{# 								<p>{{ entry.content | raw }}</p>#}
 							</div>
 						</div>
 					</div>
@@ -23,9 +23,11 @@
 			</div>
 			
 			{% block categories %}
-			<div class="row lifted-top">
-				<div class="col-xs-12">
-				{% include 'common/tile_list.html.twig' with {'entries': entry.children, 'entryPath': 'article', 'colSize': 2, 'tile': 'bottom_rect_tile' } %}
+			<div class="container-fluid">
+				<div class="row lifted-top">
+					<div class="col-xs-12">
+					{% include 'common/tile_list.html.twig' with {'entries': entry.children, 'entryPath': 'category', 'colSize': 2, 'tile': 'bottom_rect_tile' } %}
+					</div>
 				</div>
 			</div>
 			{% endblock %}
@@ -65,7 +67,10 @@
 									    	<img src="{{ asset(article.getImagePath()) }}">
 								      		<div class="carousel-caption">
 								      			<a class="text-white" href="{{ path('infoprodukt_article_show', { id: article.id }) }}">
-									      			<h1>{{ article.name }}</h1>
+									      			<h2>
+									      				{{ article.name }}
+									      				{{ article.subname }}
+									      			</h2>
 									      		</a>
 											</div>
 									    </div>
@@ -99,12 +104,12 @@
 		<div class="vr-space-80"></div>
 		
 		{% block news %}
-		<div class="container">
+		<div class="container-fluid">
 			<div class="row">
 				<div class="col-xs-12">
 					
 					<div class="row no-padding">
-						{% include 'common/tile_list.html.twig' with {'entries': articles, 'entryPath': 'article', 'colSize': 3, 'limit': 4} %}
+						{% include 'common/tile_list.html.twig' with {'entries': articles, 'entryPath': 'article', 'colSize': 3, 'limit': 4, 'tile': 'bottom_rect_tile'} %}
 					</div>
 					
 					<div class="row text-center lowered">
@@ -166,6 +171,7 @@
 	
 		<div class="container">
 			<div class="row">
+				{% block categoryHeader %}
 				<div class="col-xs-12 well">
 					<div class="col-sm-3">
 						<div class="rect">
@@ -175,10 +181,44 @@
 					
 					<div class="col-sm-9">
 						<h1>{{ entry.name }}</h1>
-						<p>{{ entry.content }}</p>
+						<p>{{ entry.content | raw }}</p>
+					</div>	
+				</div>
+				{% endblock %}
+				
+				{% block brandsRank %}
+				<div class="col-xs-12 well">
+					<h1><span class="fa fa-spinner"></span> Rating marek</h1>
+					
+					<div class="row">
+						<div class="col-sm-2"><h4 class="text-center">Segment</h4></div>
+						<div class="col-sm-10"><h4 class="text-center">Wiodace marki</h4></div>
 					</div>
 					
+					{% for entry in segments %}
+						<div class="row  {{ loop.index % 2 ? 'bkg-lime-green' : '' }}">
+							<div class=" col-sm-2 text-white">
+								<div class="rect">
+									<img class="img-responsive div-center" alt="{{ entry.name }}" src="{{ asset(entry.getImagePath()) }}">
+								</div>
+							</div>
+							{% set i = 1 %}
+							{% for brand in brands %}
+								{% if i <= 5 %}
+									<div class=" col-sm-2 text-white">
+										<div class="rect">
+											<img class="img-responsive div-center" alt="{{ brand.name }}" src="{{ asset(brand.getImagePath()) }}">
+										</div>
+									</div>
+									{% set i = i+1 %}
+								{% endif %}
+							{% endfor %}
+						</div>
+					{% endfor %}
 				</div>
+				{% endblock %}
+				
+				{% block productsRank %}
 				<div class="col-xs-12 well">
 					<h1><span class="fa fa-star-half-o"></span> Top modeli</h1>
 					
@@ -192,13 +232,10 @@
 					</div>
 					
 					{% for entry in segments %}
-						<div class="row">
+						<div class="row {{ loop.index % 2 ? 'bkg-lime-green' : '' }}">
 							<div class=" col-sm-2 text-white">
 								<div class="rect">
 									<img class="div-center" alt="{{ entry.name }}" src="{{ asset(entry.getImagePath()) }}">
-									<div class="col-xs-12 div-bottom bkg-black-50">
-										<h5 class="text-center">{{ entry.name }}</h5>
-									</div>
 								</div>
 							</div>
 							{% set i = 1 %}
@@ -220,58 +257,8 @@
 							{% endfor %}
 						</div>
 					{% endfor %}
-					
 				</div>
-				<div class="col-xs-12 well">
-					<h1><span class="fa fa-tasks"></span> Rating marek</h1>
-					
-					<div class="row">
-						<div class="col-sm-2"><h4 class="text-center">Segment</h4></div>
-						<div class="col-sm-10"><h4 class="text-center">Wiodace marki</h4></div>
-					</div>
-					
-					{% for entry in segments %}
-						<div class="row">
-							<div class=" col-sm-2 text-white">
-								<div class="rect">
-									<img class="img-responsive div-center" alt="{{ entry.name }}" src="{{ asset(entry.getImagePath()) }}">
-									<div class="col-xs-12 div-bottom bkg-black-50">
-										<h5 class="text-center">{{ entry.name }}</h5>
-									</div>
-								</div>
-							</div>
-							{% set i = 1 %}
-							{% for brand in brands %}
-								{% if i <= 5 %}
-									<div class=" col-sm-2 text-white">
-										<div class="rect">
-											<img class="img-responsive div-center" alt="{{ brand.name }}" src="{{ asset(brand.getImagePath()) }}">
-											<div class="col-xs-12 div-bottom bkg-black-50">
-												<a class="text-white" href="{{ path('infoprodukt_brand_show', {'id': brand.id}) }}">
-													<h5>{{ brand.name }}</h5>
-												</a>
-											</div>
-										</div>
-									</div>
-									{% set i = i+1 %}
-								{% endif %}
-							{% endfor %}
-						</div>
-					{% endfor %}
-				</div>
-				
-				<div class="col-xs-12 well">
-					<h1><span class="fa fa-graduation-cap"></span> Leksykon pojec</h1>
-					
-					{% for term in terms %}
-						{% if loop.index <= 40 %}
-						<div class="col-sm-3">
-							<a href="#">{{ term.name }}</a>
-						</div>
-						{% endif %}
-					{% endfor %}
-				</div>
-				
+				{% endblock %}
 			</div>
 		</div>
 	

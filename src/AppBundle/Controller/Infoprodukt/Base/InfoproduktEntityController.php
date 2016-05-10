@@ -75,8 +75,9 @@ abstract class InfoproduktEntityController extends BaseEntityController
     	
     	$categoryFilter = new CategoryFilter($branchRepository, $categoryRepository);
     	$categoryFilter->setPublished(true);
-    	$categoryFilter->setFeatured(true);
-    	$categoryFilter->setPreleaf(true);
+//     	$categoryFilter->setFeatured(true);
+//     	$categoryFilter->setPreleaf(true);
+    	$categoryFilter->setRoot(true);
     
     	$categories = $this->getParamList(Category::class, $categoryFilter);
     	$params['categories'] = $categories;

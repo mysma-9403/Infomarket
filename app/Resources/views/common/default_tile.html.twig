@@ -3,7 +3,10 @@
 		<div class="rect col-bottom">
 			<img class="div-center" alt="{{ entry.name }}" src="{{ asset(entry.getImagePath()) }}">
 			<div class="col-xs-12 div-bottom bkg-black-50">
-				<h4>{{ entry.name }}</h4>
+				<h4>
+					{{ entry.name }}
+					{{ entry.subname is defined ? entry.subname : '' }}
+				</h4>
 			</div>
 		</div>
 	</a>

@@ -50,7 +50,7 @@
 							<span class="fa fa-user"></span> {{ branch.updatedBy }}
 						</p>
 						
-			          	<p>{{ entry.intro }}</p>
+			          	<p>{{ entry.intro | raw }}</p>
 			          	<p >
 			          		<a class="branch-color-{{ branch.id }}" href="{{ path('infomarket_' ~ mainPath ~ '_show', { 'branch': branch.name, 'id': entry.id }) }}">
 			          			{{ 'label.readMore'|trans }}

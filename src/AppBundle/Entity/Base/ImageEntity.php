@@ -8,8 +8,7 @@ class ImageEntity extends Image
     /**
      * @var string
      */
-    private $name;
-
+    protected $name;
 
     /**
      * Set name

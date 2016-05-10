@@ -2,22 +2,17 @@
 
 namespace AppBundle\Form;
 
-use AppBundle\Form\Base\SimpleEntityType;
 use AppBundle\Entity\Segment;
+use AppBundle\Form\Base\ImageEntityType;
 
-class SegmentType extends SimpleEntityType
+class SegmentType extends ImageEntityType
 {
 	/**
-	 * {@inheritdoc}
+	 * 
+	 * {@inheritDoc}
+	 * @see \AppBundle\Form\Base\SimpleEntityType::getEntityType()
 	 */
-	protected function getEntityClass() {
+	protected function getEntityType() {
 		return Segment::class;
-	}
-	
-	/**
-	 * {@inheritdoc}
-	 */
-	protected function getEntityName() {
-		return 'segment';
 	}
 }

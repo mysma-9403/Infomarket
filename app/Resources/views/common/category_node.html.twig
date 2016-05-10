@@ -1,0 +1,9 @@
+<li>
+	{{ entry.name }} {{ entry.subname }} ({{ entry.id }})
+	
+	<ul>
+	{% for subentry in entry.children %}
+			{% include 'common/category_node.html.twig' with { 'entry': subentry } %}
+	{% endfor %}
+	</ul>
+</li>

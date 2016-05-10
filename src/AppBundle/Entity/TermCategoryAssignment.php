@@ -2,10 +2,12 @@
 
 namespace AppBundle\Entity;
 
+use AppBundle\Entity\Base\Audit;
+
 /**
  * TermCategoryAssignment
  */
-class TermCategoryAssignment
+class TermCategoryAssignment extends Audit
 {
     /**
      * @var \AppBundle\Entity\Term

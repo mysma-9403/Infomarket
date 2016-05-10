@@ -64,6 +64,36 @@
                 <target>Leksykon pojęć</target>
             </trans-unit>
             
+            <trans-unit id="title.article_categories">
+                <source>title.article_categories</source>
+                <target>Kategorie artykułów</target>
+            </trans-unit>
+            
+            <trans-unit id="title.assignments">
+                <source>title.assignments</source>
+                <target>Powiązania</target>
+            </trans-unit>
+            <trans-unit id="title.branch_category_assignments">
+                <source>title.branch_category_assignments</source>
+                <target>Branża - Kategoria</target>
+            </trans-unit>
+            <trans-unit id="title.brand_category_assignments">
+                <source>title.brand_category_assignments</source>
+                <target>Marka - Kategoria</target>
+            </trans-unit>
+            
+            
+            
+            
+            <trans-unit id="header.articles">
+                <source>header.articles</source>
+                <target>Artykuły</target>
+            </trans-unit>
+            <trans-unit id="header.news">
+                <source>header.news</source>
+                <target>Informacje</target>
+            </trans-unit>
+            
             
             
             
@@ -117,6 +147,45 @@
                 <target>Akcje</target>
             </trans-unit>
             
+            <trans-unit id="label.published">
+                <source>label.published</source>
+                <target>Opublikowane</target>
+            </trans-unit>
+            <trans-unit id="label.featured">
+                <source>label.featured</source>
+                <target>Wyróżniony</target>
+            </trans-unit>
+            <trans-unit id="label.selected">
+                <source>label.selected</source>
+                <target>Zaznaczone</target>
+            </trans-unit>
+            
+            <trans-unit id="label.publishedAt">
+                <source>label.publishedAt</source>
+                <target>Opublikowany o</target>
+            </trans-unit>
+            <trans-unit id="label.createdAt">
+                <source>label.createdAt</source>
+                <target>Utworzony o</target>
+            </trans-unit>
+            <trans-unit id="label.updatedAt">
+                <source>label.updatedAt</source>
+                <target>Edytowany o</target>
+            </trans-unit>
+            
+            <trans-unit id="label.publishedBy">
+                <source>label.publishedBy</source>
+                <target>Opublikowany przez</target>
+            </trans-unit>
+            <trans-unit id="label.createdBy">
+                <source>label.createdBy</source>
+                <target>Utworzony przez</target>
+            </trans-unit>
+            <trans-unit id="label.updatedBy">
+                <source>label.updatedBy</source>
+                <target>Edytowany przez</target>
+            </trans-unit>
+            
             
             
             <trans-unit id="action.show">
@@ -139,9 +208,29 @@
                 <source>action.delete</source>
                 <target>Usuń</target>
             </trans-unit>
+            <trans-unit id="action.filter">
+                <source>action.filter</source>
+                <target>Filtruj</target>
+            </trans-unit>
+            <trans-unit id="action.selectAll">
+                <source>action.selectAll</source>
+                <target>Zaznacz wszystkie</target>
+            </trans-unit>
+            <trans-unit id="action.selectNone">
+                <source>action.selectNone</source>
+                <target>Odznacz wszystkie</target>
+            </trans-unit>
             <trans-unit id="action.deleteSelected">
                 <source>action.deleteSelected</source>
                 <target>Usuń zaznaczone</target>
+            </trans-unit>
+            <trans-unit id="action.publishSelected">
+                <source>action.publishSelected</source>
+                <target>Publikuj zaznaczone</target>
+            </trans-unit>
+            <trans-unit id="action.unpublishSelected">
+                <source>action.unpublishSelected</source>
+                <target>Nie publikuj zaznaczonych</target>
             </trans-unit>
             
             

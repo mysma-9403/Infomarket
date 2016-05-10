@@ -2,74 +2,101 @@
 
 namespace AppBundle\Controller\Admin;
 
-use AppBundle\Controller\Admin\Base\SimpleEntityController;
-use AppBundle\Entity\Lists\SegmentList;
+use AppBundle\Controller\Admin\Base\ImageEntityController;
 use AppBundle\Entity\Segment;
 use AppBundle\Form\SegmentType;
-use AppBundle\Form\SegmentListType;
+use Symfony\Component\HttpFoundation\Request;
 
-class SegmentController extends SimpleEntityController {
+class SegmentController extends ImageEntityController {
 	
-	/**
-	 * {@inheritDoc}
-	 */
-	protected function getEntityType() {
-		return 'AppBundle:Segment';
+	public function indexAction(Request $request, $page)
+	{
+		return $this->indexActionInternal($request, $page);
+	}
+	
+	public function showAction(Request $request, $id)
+	{
+		return $this->showActionInternal($request, $id);
 	}
 	
 	/**
-	 * {@inheritDoc}
+	 *
+	 * @param Request $request
+	 * @param unknown $id
 	 */
-	protected function getEntityClass() {
-		return Segment::class;
+	public function newAction(Request $request)
+	{
+		return $this->newActionInternal($request);
 	}
 	
 	/**
-	 * {@inheritDoc}
+	 *
+	 * @param Request $request
+	 * @param unknown $id
 	 */
-	protected function getEntityListClass() {
-		return SegmentList::class;
+	public function copyAction(Request $request, $id)
+	{
+		return $this->copyActionInternal($request, $id);
 	}
 	
 	/**
-	 * {@inheritDoc}
+	 *
+	 * @param Request $request
+	 * @param unknown $id
 	 */
-	protected function getFormClass() {
-		return SegmentType::class;
+	public function editAction(Request $request, $id)
+	{
+		return $this->editActionInternal($request, $id);
 	}
 	
-	/**
-	 * {@inheritDoc}
-	 */
-	protected function getListFormClass() {
-		return SegmentListType::class;
+	public function setPublishedAction(Request $request, $id)
+	{
+		return $this->setPublishedActionInternal($request, $id);
 	}
 	
-	/**
-	 * {@inheritDoc}
-	 */
-	protected function getTwigName() {
-		return 'segment';
+	public function setFeaturedAction(Request $request, $id)
+	{
+		return $this->setFeaturedActionInternal($request, $id);
 	}
+
+	//------------------------------------------------------------------------
+	// Entity creators
+	//------------------------------------------------------------------------
 	
 	/**
+	 * 
 	 * {@inheritDoc}
+	 * @see \AppBundle\Controller\Admin\Base\SimpleEntityController::createNewEntity()
 	 */
-	protected function createNewList() {
-		return new SegmentList();
-	}
-	
-	/**
-	 * {@inheritDoc}
-	 */
-	protected function createNewEntry() {
+	protected function createNewEntity(Request $request) {
 		return new Segment();
 	}
 	
+	
+	//------------------------------------------------------------------------
+	// Entity types
+	//------------------------------------------------------------------------
+	
 	/**
+	 * 
 	 * {@inheritDoc}
+	 * @see \AppBundle\Controller\Admin\Base\SimpleEntityController::getEntityType()
 	 */
-	protected function getIndexRoute() {
-		return 'admin_segments';
+	protected function getEntityType() {
+		return Segment::class;
+	}
+	
+	
+	//------------------------------------------------------------------------
+	// Form types
+	//------------------------------------------------------------------------
+	
+	/**
+	 * 
+	 * {@inheritDoc}
+	 * @see \AppBundle\Controller\Admin\Base\SimpleEntityController::getFormType()
+	 */
+	protected function getFormType() {
+		return SegmentType::class;
 	}
 }

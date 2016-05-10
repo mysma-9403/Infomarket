@@ -76,13 +76,13 @@ abstract class AdminEntityController extends BaseEntityController {
 			if ($form->get('publishSelected')->isClicked()) {
 				$data = $form->getData();
 				$entries = $data->getEntries();
-				$this->publishSelected($entries);
+				$this->setPublishedSelected($entries, true);
 			}
 				
 			if ($form->get('unpublishSelected')->isClicked()) {
 				$data = $form->getData();
 				$entries = $data->getEntries();
-				$this->unpublishSelected($entries);
+				$this->setPublishedSelected($entries, false);
 			}
 	
 			return $this->redirectToRoute($this->getIndexRoute(), $filter->getValues());
@@ -211,7 +211,7 @@ abstract class AdminEntityController extends BaseEntityController {
 		$em->flush();
 	}
 	
-	protected function publishSelected($entries, $published)
+	protected function setPublishedSelected($entries, $published)
 	{
 		$em = $this->getDoctrine()->getManager();
 	
@@ -304,6 +304,11 @@ abstract class AdminEntityController extends BaseEntityController {
 	protected function getEditRoute()
 	{
 		return $this->getIndexRoute() . '_edit';
+	}
+	
+	protected function getCopyRoute()
+	{
+		return $this->getIndexRoute() . '_copy';
 	}
 	
 	

@@ -35,6 +35,7 @@
 	<buildpathentry kind="src" path="vendor/symfony/symfony/src/Symfony/Bridge/ProxyManager"/>
 	<buildpathentry kind="src" path="vendor/twig/twig/lib"/>
 	<buildpathentry kind="src" path="vendor/doctrine/annotations/lib"/>
+	<buildpathentry kind="src" path="vendor/stfalcon/tinymce-bundle"/>
 	<buildpathentry kind="src" path="vendor/sensio/distribution-bundle"/>
 	<buildpathentry kind="src" path="vendor/symfony/phpunit-bridge"/>
 	<buildpathentry kind="src" path="src"/>

@@ -2,10 +2,12 @@
 
 namespace AppBundle\Entity;
 
+use AppBundle\Entity\Base\Audit;
+
 /**
  * BrandCategoryAssignment
  */
-class BrandCategoryAssignment
+class BrandCategoryAssignment extends Audit
 {
     /**
      * @var \AppBundle\Entity\Brand

@@ -29,7 +29,7 @@
 									<div class="carousel-caption">
 										<div class="col-xs-12">
 											<h3>{{ entry.name }}</h3>
-											<p>{{ entry.intro }}</p>
+											<p>{{ entry.intro | raw }}</p>
 											<a role="button" class="btn btn-danger">{{ 'label.readMore'|trans }}</a>
 										</div>
 									</div>
@@ -69,7 +69,7 @@
 										<div class="caption-inner">
 											<div class="col-xs-12">
 												<h4>{{ entry.name }}</h4>
-												<p>{{ entry.intro }}</p>
+												<p>{{ entry.intro | raw }}</p>
 												<a role="button" class="btn btn-danger">{{ 'label.readMore'|trans }}</a>
 											</div>
 										</div>

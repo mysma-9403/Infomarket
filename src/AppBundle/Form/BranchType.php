@@ -23,7 +23,10 @@ class BranchType extends ImageEntityType
 					'required' => false
 			))
 			->add('content', null, array(
-					'attr' => array('rows' => 20),
+					'attr' => array(
+							'class' => 'tinymce',
+							'data-theme' => 'bbcode',
+							'rows' => 20),
 					'required' => false
 			))
 		;

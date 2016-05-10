@@ -13,7 +13,8 @@ class SimpleEntityFilterType extends FilterFormType
 	 * {@inheritDoc}
 	 * @see \AppBundle\Form\Base\FormType::addMainFields()
 	 */
-	protected function addMoreFields(FormBuilderInterface $builder, array $options) {
+	protected function addMainFields(FormBuilderInterface $builder, array $options) {
+		parent::addMainFields($builder, $options);
 		
 		$builder
 			->add('name', TextType::class, array(

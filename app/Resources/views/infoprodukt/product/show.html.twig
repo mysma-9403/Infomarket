@@ -62,7 +62,7 @@
 	{% block description %}
 	<div class="row">
 		<div class="col-xs-12">
-			<p>{{ entry.content }}</p>
+			<p>{{ entry.content | raw }}</p>
 		</div>
 	</div>
 	{% endblock %}
