@@ -1,0 +1,23 @@
+<div class="row">
+	<div class="col-xs-12 col-sm-6 col-md-3">
+		<strong>{{ label | trans }}: </strong>
+	</div>
+	<div class="col-xs-12 col-sm-6 col-md-9">
+		{% if value %}
+			{% if linkPath is not defined %}
+				{% set linkPath = basePath ~ object ~ '_show' %}
+			{% endif %}
+			{% if routePath is not defined %}
+				{% set routePath = basePath ~ mainPath ~ extPath %}
+			{% endif %}
+			{% if routeParams is not defined %}
+				{% set routeParams = { id: routeId } %}
+			{% endif %}
+			<a href="{{ path(linkPath, { id: value.id, route: routePath, routeParams: routeParams }) }}">
+				{{ value.name }}
+			</a>
+		{% else %}
+			-
+		{% endif %}
+	</div>
+</div>

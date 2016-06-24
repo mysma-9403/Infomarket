@@ -1,5 +1,7 @@
 {% extends 'admin/base.html.twig' %}
 
+{% set basePath = 'admin_' %}
+
 {% block title %}{{ title }}{% endblock %}
 
 {% block body %}
@@ -10,7 +12,7 @@
 				<h1>{{ title }}</h1>
 				
 				<div>
-					<a href="{{ path('fos_user_security_logout') }}">{% trans %}title.logout{% endtrans %}</a>
+					<a href="{{ path('fos_user_security_logout') }}">{{ 'label.logout'|trans }}</a>
 				</div>
 			</div>	
 		</div>
@@ -23,7 +25,7 @@
 {# 			<ul class="nav nav-tabs">#}
 				
 				<li {% if mainPath == 'admin' %} class="active" {% endif %}><a href="{{ path('admin') }}">{% trans %}title.admin{% endtrans %}</a></li>
-				<li {% if mainPath == 'article' %} class="active" {% endif %} class="dropdown">
+				<li {% if 'article' in mainPath %} class="active" {% endif %} class="dropdown">
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
 						<span class="txt-success fa fa-user"></span> {{ 'title.articles'|trans }} <span class="caret"></span>
 					</a>
@@ -38,25 +40,57 @@
 								{{ 'title.article_categories'|trans }}
 							</a>
 						</li>
+						<li class="divider"></li>
+						<li>
+							<a href="{{ path('admin_' ~ 'article_article_category_assignment') }}">
+								{{ 'title.article_article_category_assignments'|trans }}
+							</a>
+						</li>
+						<li>
+							<a href="{{ path('admin_' ~ 'article_category_assignment') }}">
+								{{ 'title.article_category_assignments'|trans }}
+							</a>
+						</li>
 					</ul>
 				</li>
 				<li {% if mainPath == 'branch' %} class="active" {% endif %}><a href="{{ path('admin_' ~ 'branch') }}">{% trans %}title.branches{% endtrans %}</a></li>
 				<li {% if mainPath == 'brand' %} class="active" {% endif %}><a href="{{ path('admin_' ~ 'brand') }}">{% trans %}title.brands{% endtrans %}</a></li>
-				<li {% if mainPath == 'category' %} class="active" {% endif %}><a href="{{ path('admin_' ~ 'category') }}">{% trans %}title.categories{% endtrans %}</a></li>
-				<li {% if mainPath == 'segment' %} class="active" {% endif %}><a href="{{ path('admin_' ~ 'segment') }}">{% trans %}title.segments{% endtrans %}</a></li>
-				<li {% if mainPath == 'product' %} class="active" {% endif %}><a href="{{ path('admin_' ~ 'product') }}">{% trans %}title.products{% endtrans %}</a></li>
-				<li {% if 'assignment' in mainPath %} class="active" {% endif %} class="dropdown">
+{# 				<li {% if mainPath == 'category' %} class="active" {% endif %}><a href="{{ path('admin_' ~ 'category') }}">{% trans %}title.categories{% endtrans %}</a></li>#}
+				<li {% if 'category' in mainPath %} class="active" {% endif %} class="dropdown">
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-						<span class="txt-success fa fa-user"></span> {{ 'title.assignments'|trans }} <span class="caret"></span>
+						<span class="txt-success fa fa-user"></span> {{ 'title.categories'|trans }} <span class="caret"></span>
 					</a>
 					<ul class="dropdown-menu">
+						<li>
+							<a href="{{ path('admin_' ~ 'category') }}">
+								{{ 'title.categories'|trans }}
+							</a>
+						</li>
+						<li>
+							<a href="{{ path('admin_' ~ 'category_tree') }}">
+								{{ 'title.category_tree'|trans }}
+							</a>
+						</li>
+						<li class="divider"></li>
 						<li>
 							<a href="{{ path('admin_' ~ 'branch_category_assignment') }}">
 								{{ 'title.branch_category_assignments'|trans }}
 							</a>
 						</li>
+						<li>
+							<a href="{{ path('admin_' ~ 'brand_category_assignment') }}">
+								{{ 'title.brand_category_assignments'|trans }}
+							</a>
+						</li>
+						<li>
+							<a href="{{ path('admin_' ~ 'product_category_assignment') }}">
+								{{ 'title.product_category_assignments'|trans }}
+							</a>
+						</li>
 					</ul>
 				</li>
+				<li {% if mainPath == 'segment' %} class="active" {% endif %}><a href="{{ path('admin_' ~ 'segment') }}">{% trans %}title.segments{% endtrans %}</a></li>
+				<li {% if mainPath == 'product' %} class="active" {% endif %}><a href="{{ path('admin_' ~ 'product') }}">{% trans %}title.products{% endtrans %}</a></li>
 			</ul>
 		</div>
 	{% endblock %}

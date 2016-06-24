@@ -10,6 +10,8 @@ use AppBundle\Entity\Brand;
 use AppBundle\Entity\Category;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use AppBundle\Form\Base\ImageEntityType;
+use AppBundle\Repository\BrandRepository;
+use AppBundle\Repository\CategoryRepository;
 
 class ProductType extends ImageEntityType
 {
@@ -23,6 +25,10 @@ class ProductType extends ImageEntityType
 		$builder
 			->add('brand', EntityType::class, array(
 					'class'			=> Brand::class,
+					'query_builder' => function (BrandRepository $repository) {
+					return $repository->createQueryBuilder('e')
+					->orderBy('e.name', 'ASC');
+					},
 					'choice_label' 	=> 'name',
 					'required' 		=> false,
 					'expanded'      => false,
@@ -31,6 +37,10 @@ class ProductType extends ImageEntityType
 			))
 			->add('category', EntityType::class, array(
 					'class'			=> Category::class,
+					'query_builder' => function (CategoryRepository $repository) {
+					return $repository->createQueryBuilder('e')
+					->orderBy('e.name', 'ASC');
+					},
 					'choice_label' 	=> 'name',
 					'required' 		=> false,
 					'expanded'      => false,

@@ -1,9 +1,8 @@
 @import "..\vendor\bootstrap\less\bootstrap.less";
-@icon-font-path: "../fonts/";
-
 @import "..\vendor\eonasdan-bootstrap-datetimepicker\src\less\_bootstrap-datetimepicker.less";
 
 @import "variables.less";
+@import "fonts.less";
 
 
 
@@ -20,7 +19,16 @@
 
 
 
+.text-xs-bottom {
+	position: absolute;
+	bottom: 0;
+}
 
+.text-xs-bottom-mm {
+	position: absolute;
+	bottom: @padding-large-vertical;
+}
+  	
 .text-xs-left { text-align: left; }
 .text-xs-right { text-align: right; }
 .text-xs-center { text-align: center; }
@@ -30,6 +38,11 @@
 	.text-sm-bottom {
     	position: absolute;
     	bottom: 0;
+  	}
+  	
+  	.text-sm-bottom-mm {
+    	position: absolute;
+    	bottom: @padding-large-vertical;
   	}
   	
   	.text-sm-left { text-align: left; }
@@ -42,6 +55,11 @@
 	.text-md-bottom {
     	position: absolute;
     	bottom: 0;
+  	}
+  	
+  	.text-md-bottom-mm {
+    	position: absolute;
+    	bottom: @padding-large-vertical;
   	}
   
   	.text-md-left { text-align: left; }
@@ -56,29 +74,22 @@
     	bottom: 0;
   	}
   	
+  	.text-lg-bottom-mm {
+    	position: absolute;
+    	bottom: @padding-large-vertical;
+  	}
+  	
   	.text-lg-left { text-align: left; }
   	.text-lg-right { text-align: right; }
   	.text-lg-center { text-align: center; }
   	.text-lg-justify { text-align: justify; }
 }
 
-@font-face {
-    font-family: 'Geometric231LtEU';
-    src: url('../fonts/1126EU27.ttf');
-}
 
-@font-face {
-    font-family: 'Geometric231NmEU';
-    src: url('../fonts/1127EU27.ttf');
-}
 
-@font-face {
-    font-family: 'Geometric231HvEU';
-    src: url('../fonts/1129EU27.ttf');
-}
 
-h1, h2, h3, h4, h5, h6 {
-	font-family: "Geometric231HvEU", "Calibri", Sans-serif;
+.table.vert-align > tbody > tr > td {
+    vertical-align: middle;
 }
 
 
@@ -90,21 +101,103 @@ h2.title {
 	margin-top: -10px;
 }
 
-.text-primary {
-    color: @brand-primary;
+
+
+
+
+.text-black {
+	color: black
 }
 
-.text-red {
-    color: @red;
+.text-gray-darker {
+	color: @gray-darker
 }
 
 .text-white {
-    color: @white;
+	color: @white;
+}
+
+a.text-white:focus,
+a.text-white:hover {
+	color: @gray;
+}
+
+.text-brand {
+	color: @brand-primary;
+}
+
+.text-red {
+	color: @red;
 }
 
 .text-lime-green {
 	color: @lime-green;
 }
+
+.text-green {
+	color: @green;
+}
+
+
+
+
+
+
+.bkg-white {
+	background-color: white;
+}
+
+.bkg-white-50 {
+	background-color: rgba(255, 255, 255, 0.5);
+}
+
+.bkg-black {
+	background-color: black;
+}
+
+.bkg-black-50 {
+	background-color: rgba(0, 0, 0, 0.5);
+}
+
+.bkg-red {
+	background-color: @red;
+}
+
+.bkg-brand {
+	background-color: @brand-primary;
+}
+
+.bkg-lime-green {
+	background-color: @lime-green;
+}
+
+.bkg-green {
+	background-color: @green;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 .no-padding {
 	margins: 0;
@@ -126,7 +219,6 @@ h2.title {
 
 
 body {
-	font-family: "Geometric231NmEU", "Calibri", Sans-serif;
 	background: @brand-gray-light;
 }
 
@@ -255,4 +347,36 @@ nav.sidebar .navbar-nav > li:first-child {
 
 nav.sidebar .navbar-nav > li {
 	border-bottom: 5px @blue solid;
+}
+
+ul.nav-tree
+{
+    list-style-type: none;
+}
+
+
+
+
+
+.horizontal-break {
+    padding-right: 20px;
+}
+
+
+
+
+.equal {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.equal > div[class*='col-'] {  
+  display: flex;
+  flex-direction: column;
+}
+
+.vcenter {
+    display: inline-block;
+    vertical-align: middle;
+    float: none;
 }

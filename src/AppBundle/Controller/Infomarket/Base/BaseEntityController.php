@@ -98,7 +98,6 @@ abstract class BaseEntityController extends Controller
     	$categoryRepository = $this->getDoctrine()->getRepository(Category::class);
     	
     	$categoryFilter = new CategoryFilter($branchRepository, $categoryRepository);
-    	
     	$categoryFilter->initValues($request); //TODO make it better :P
     	
     	$categoryFilter->setPublished(true);

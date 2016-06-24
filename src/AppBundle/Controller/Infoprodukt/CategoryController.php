@@ -4,22 +4,26 @@ namespace AppBundle\Controller\Infoprodukt;
 
 use AppBundle\Controller\Infoprodukt\Base\SimpleEntityController;
 use AppBundle\Entity\Article;
+use AppBundle\Entity\ArticleCategory;
 use AppBundle\Entity\Branch;
 use AppBundle\Entity\Brand;
 use AppBundle\Entity\Category;
+use AppBundle\Entity\Filter\ArticleCategoryFilter;
 use AppBundle\Entity\Filter\ArticleFilter;
+use AppBundle\Entity\Filter\Base\SimpleEntityFilter;
+use AppBundle\Entity\Filter\BranchFilter;
 use AppBundle\Entity\Filter\BrandFilter;
 use AppBundle\Entity\Filter\CategoryFilter;
+use AppBundle\Entity\Filter\ProductFilter;
 use AppBundle\Entity\Filter\TermFilter;
 use AppBundle\Entity\Product;
 use AppBundle\Entity\Segment;
 use AppBundle\Entity\Term;
+use AppBundle\Repository\BrandRepository;
+use AppBundle\Repository\CategoryRepository;
+use AppBundle\Repository\SegmentRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-use AppBundle\Entity\Filter\BranchFilter;
-use AppBundle\Entity\Filter\Base\SimpleEntityFilter;
-use AppBundle\Entity\Filter\ArticleCategoryFilter;
-use AppBundle\Entity\ArticleCategory;
 
 class CategoryController extends SimpleEntityController
 {
@@ -73,62 +77,105 @@ class CategoryController extends SimpleEntityController
 		
 		$entry = $params['entry'];
 		
-		
-		
-		$segmentRepository = $this->getDoctrine()->getRepository(Segment::class);
-		$segments = $segmentRepository->findAll();
-		
-		$params['segments'] = $segments;
-		
-		
-		
-		$productRepository = $this->getDoctrine()->getRepository(Product::class);
-		$products = $productRepository->findBy(['category' => $entry, 'published' => true]);
-		
-		$params['products'] = $products;
-		
-		
-		
-		$brandFilter = new BrandFilter();
-		$brandFilter->setCategories([$entry]);
-		$brandFilter->setPublished(SimpleEntityFilter::TRUE_VALUES);
-		$brandRepository = $this->getDoctrine()->getRepository(Brand::class);
-		$brands = $brandRepository->findSelected($brandFilter);
-		
-		$params['brands'] = $brands;
-		
-		
-		
-		$termFilter = new TermFilter();
-// 		$termFilter->setCategories([$entry]);
-		$termFilter->setPublished(SimpleEntityFilter::TRUE_VALUES);
-		$termRepository = $this->getDoctrine()->getRepository(Term::class);
-		$terms = $termRepository->findSelected($termFilter);
-		
-		$params['terms'] = $terms;
-		
-		
-		
-		$articleFilter = new ArticleFilter();
-// 		$articleFilter->setCategories([$entry]);
-		$articleFilter->setPublished(SimpleEntityFilter::TRUE_VALUES);
-		$articleFilter->setFeatured(SimpleEntityFilter::TRUE_VALUES);
-		$articleRepository = $this->getDoctrine()->getRepository(Article::class);
-		$articles = $articleRepository->findSelected($articleFilter);
-		
-		$params['articles'] = $articles;
-		
-		
-		
-		
-		$articleCategoryFilter = new ArticleCategoryFilter();
-		$articleCategoryFilter->setPublished(SimpleEntityFilter::TRUE_VALUES);
-		$articleCategoryFilter->setFeatured(SimpleEntityFilter::TRUE_VALUES);
-		$articleCategoryRepository = $this->getDoctrine()->getRepository(ArticleCategory::class);
-		$articleCategories = $articleCategoryRepository->findSelected($articleCategoryFilter);
-		
-		$params['article_categories'] = $articleCategories;
-		
+		if($entry->getPreleaf()) {
+			$articleFilter = new ArticleFilter();
+			$articleFilter->setCategories([$entry]);
+			$articleFilter->setPublished(SimpleEntityFilter::TRUE_VALUES);
+			$articleFilter->setFeatured(SimpleEntityFilter::TRUE_VALUES);
+			$articleFilter->setLimit(7);
+			$articleRepository = $this->getDoctrine()->getRepository(Article::class);
+			$articles = $articleRepository->findSelected($articleFilter);
+			
+			$params['articles'] = $articles;
+			
+			$articleCategoryFilter = new ArticleCategoryFilter();
+			$articleCategoryFilter->setPublished(SimpleEntityFilter::TRUE_VALUES);
+			$articleCategoryFilter->setFeatured(SimpleEntityFilter::TRUE_VALUES);
+			$articleCategoryRepository = $this->getDoctrine()->getRepository(ArticleCategory::class);
+			$articleCategories = $articleCategoryRepository->findSelected($articleCategoryFilter);
+			
+			$params['article_categories'] = $articleCategories;
+		} else {
+			//TODO use as setters as they are useless in many cases!!! (like here)
+			$categoryRepository = $this->getDoctrine()->getRepository(Category::class);
+			$brandRepository = $this->getDoctrine()->getRepository(Brand::class);
+			$segmentRepository = $this->getDoctrine()->getRepository(Segment::class);
+			$branchRepository = $this->getDoctrine()->getRepository(Branch::class);
+			
+			$segments = $segmentRepository->findAll();
+			$params['segments'] = $segments;
+			
+			$params['brands'] = array();
+			$params['products'] = array();
+			
+			foreach ($segments as $segment) {
+				$brandFilter = new BrandFilter();
+				$brandFilter->setCategories([$entry]);
+				$brandFilter->setSegments([$segment]);
+				$brandFilter->setPublished(SimpleEntityFilter::TRUE_VALUES);
+				
+				$brandRepository = $this->getDoctrine()->getRepository(Brand::class);
+				$brands = $brandRepository->findSelected($brandFilter);
+				
+				$params['brands'][$segment->getId()] = $brands;
+				
+				$productFilter = new ProductFilter($categoryRepository, $brandRepository, $segmentRepository);
+				$productFilter->setCategories([$entry]);
+				$productFilter->setSegments([$segment]);
+				$productFilter->setPublished(SimpleEntityFilter::TRUE_VALUES);
+				
+				$productRepository = $this->getDoctrine()->getRepository(Product::class);
+				$products = $productRepository->findSelected($productFilter);
+				
+				$params['products'][$segment->getId()] = $products;
+			}
+			
+			
+			
+			$params['subbrands'] = array();
+			$params['subproducts'] = array();
+			
+			$categoryFilter = new CategoryFilter($branchRepository, $categoryRepository);
+			$categoryFilter->setParents([$entry]);
+				
+			$categories = $categoryRepository->findSelected($categoryFilter);
+			$params['subcategories'] = $categories;
+			
+			foreach ($categories as $category) {
+				$params['subbrands'][$category->getId()] = array();
+				$params['subproducts'][$category->getId()] = array();
+				
+				foreach ($segments as $segment) {
+					$brandFilter = new BrandFilter();
+					$brandFilter->setCategories([$category]);
+					$brandFilter->setSegments([$segment]);
+					$brandFilter->setPublished(SimpleEntityFilter::TRUE_VALUES);
+				
+					$brandRepository = $this->getDoctrine()->getRepository(Brand::class);
+					$brands = $brandRepository->findSelected($brandFilter);
+				
+					$params['subbrands'][$category->getId()][$segment->getId()] = $brands;
+				
+					$productFilter = new ProductFilter($categoryRepository, $brandRepository, $segmentRepository);
+					$productFilter->setCategories([$category]);
+					$productFilter->setSegments([$segment]);
+					$productFilter->setPublished(SimpleEntityFilter::TRUE_VALUES);
+				
+					$productRepository = $this->getDoctrine()->getRepository(Product::class);
+					$products = $productRepository->findSelected($productFilter);
+				
+					$params['subproducts'][$category->getId()][$segment->getId()] = $products;
+				}
+			}
+			
+			$termFilter = new TermFilter();
+			// 		$termFilter->setCategories([$entry]);
+			$termFilter->setPublished(SimpleEntityFilter::TRUE_VALUES);
+			$termRepository = $this->getDoctrine()->getRepository(Term::class);
+			$terms = $termRepository->findSelected($termFilter);
+			
+			$params['terms'] = $terms;
+		}
 		
 		return $params;
 	}

@@ -11,15 +11,17 @@
 	{% endif %}
 	
 	<a class="text-white" href="{{ path('infoprodukt_' ~ entryPath ~ '_show', { 'id': entry.id }) }}">
+		<div class="row">
 		<div class="rect">
-			<img class="div-center" alt="{{ entry.name }}" src="{{ asset(entry.getImagePath()) }}">
+			<img class="div-center" alt="{{ entry.name | raw }}" src="{{ asset(entry.getImagePath()) }}">
 		</div>
-		<div class="col-xs-12 rect-title {{ alternate and loop.index % 2 ? bkgSecondary : bkgPrimary }}">
-			<h5>{{ entry.name }}</h5>
+		</div>
+		<div class="row rect-title {{ alternate and loop.index % 2 ? bkgSecondary : bkgPrimary }}">
+			<h3>{{ entry.getHtmlName() | raw }}</h3>
 		</div>
 		{% if entry.subname is defined %}
-			<div class="col-xs-12 rect-subtitle col-bottom {{ alternate and loop.index % 2 ? bkgPrimary : bkgSecondary }}">
-				<p>{{ entry.subname }}</p>
+			<div class="row rect-subtitle col-bottom {{ alternate and loop.index % 2 ? bkgPrimary : bkgSecondary }}">
+				<h4>{{ entry.subname }}</h4>
 			</div>
 		{% endif %}
 	</a>

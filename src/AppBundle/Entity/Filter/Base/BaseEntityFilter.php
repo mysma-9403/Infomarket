@@ -10,17 +10,8 @@ class BaseEntityFilter {
 	const TRUE_VALUES = 1;
 	const FALSE_VALUES = 2;
 	
-	/**
-	 *
-	 * @var string
-	 */
-	protected $filterName = 'base_filter_';
-	
-	/**
-	 *
-	 */
-	protected function getFilterName() {
-		return $this->filterName;
+	public function __construct() {
+		$this->filterName = 'base_filter_';
 	}
 	
 	/**
@@ -31,7 +22,7 @@ class BaseEntityFilter {
 		//TODO replace selected with entry list - like stages in Song filter
 		$this->selected = $request->get($this->getFilterName() . 'selected', array());
 		
-		$this->published = $request->get($this->getFilterName() . 'published', null);
+		$this->published = $request->get($this->getFilterName() . 'published', $this::ALL_VALUES);
 		
 		$this->createdAfter = $request->get($this->getFilterName() . 'createdAfter', null);
 		$this->createdBefore = $request->get($this->getFilterName() . 'createdBefore', null);
@@ -51,7 +42,7 @@ class BaseEntityFilter {
 	 * 
 	 */
 	public function clearQueryValues() {
-		$this->published = null;
+		$this->published = $this::ALL_VALUES;
 		
 		$this->createdAfter = null;
 		$this->createdBefore = null;
@@ -205,13 +196,26 @@ class BaseEntityFilter {
 		}
 		return $expression;
 	}
-	
+		
 	/**
 	 * return string
 	 */
 	public function getOrderByExpression() {
 		return '';
 	}
+	
+	
+	/**
+	 *
+	 * @var string
+	 */
+	protected $filterName;
+	
+	/**
+	 *
+	 * @var integer
+	 */
+	protected $limit = 0;
 	
 	/**
 	 * @var array
@@ -242,6 +246,37 @@ class BaseEntityFilter {
 	 * @var datetime
 	 */
 	protected $updatedBefore;
+	
+	
+	/**
+	 *
+	 * @return string
+	 */
+	public function getFilterName() {
+		return $this->filterName;
+	}
+	
+	/**
+	 *
+	 * @param string $filterName
+	 *
+	 * @return SimpleEntityFilter
+	 */
+	public function setFilterName($filterName) {
+		$this->filterName = $filterName;
+	
+		return $this;
+	}
+	
+	public function getLimit() {
+		return $this->limit;
+	}
+	
+	public function setLimit($limit) {
+		$this->limit = $limit;
+		
+		return $this;
+	}
 	
 	/**
 	 * Add id of selected entry

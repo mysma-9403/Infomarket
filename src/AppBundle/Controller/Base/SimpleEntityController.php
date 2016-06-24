@@ -26,7 +26,7 @@ abstract class SimpleEntityController extends BaseEntityController
      */
     protected function getEntityFilter(Request $request)
     {
-    	$filter = new SimpleEntityFilter(); //TODO simple entity filter can have name param, so it can be used as a default filter of all entities
+    	$filter = new SimpleEntityFilter();
     	$filter->setPublished(true);
     	
     	return $filter;

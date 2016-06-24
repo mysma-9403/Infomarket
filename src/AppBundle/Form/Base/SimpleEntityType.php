@@ -3,7 +3,6 @@
 namespace AppBundle\Form\Base;
 
 use AppBundle\Entity\Base\SimpleEntity;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 
@@ -22,18 +21,6 @@ class SimpleEntityType extends BaseFormType
 					'attr' => array('autofocus' => true)
 			))
 		;
-	}
-	
-	/**
-	 * 
-	 * {@inheritDoc}
-	 * @see \AppBundle\Form\Base\FormType::addActions()
-	 */
-	protected function addActions(FormBuilderInterface $builder, array $options) {
-		$builder
-			->add('saveAndNew', SubmitType::class)
-			->add('saveAndCopy', SubmitType::class)
-			->add('saveAndQuit', SubmitType::class);
 	}
 	
 	/**

@@ -1,6 +1,6 @@
 {% extends 'infoprodukt/index.html.twig' %}
 
-{% set title = entry.name %}
+{% set title = entry.name | raw %}
 {% set mainPath = 'category' %}
 		
 {% block content %}
@@ -14,7 +14,7 @@
 					<div class="container-fluid lifted-bottom">
 						<div class="row">
 							<div class="col-xs-12">
-								<h2>{{ entry.name }} klasyfikacja i podzial</h2>
+								<h3>{{ entry.name | raw}} {{ 'label.category.subtitle'|trans }}</h3>
 {# 								<p>{{ entry.content | raw }}</p>#}
 							</div>
 						</div>
@@ -33,7 +33,7 @@
 			{% endblock %}
 		</div>
 		
-		<div class="vr-space-80"></div>
+		<div class="vr-space-40"></div>
 		
 		{% block featuredNews %}
 		<div class="row">
@@ -101,7 +101,7 @@
 			</div>
 		{% endblock %}
 		
-		<div class="vr-space-80"></div>
+		<div class="vr-space-40"></div>
 		
 		{% block news %}
 		<div class="container-fluid">
@@ -109,18 +109,18 @@
 				<div class="col-xs-12">
 					
 					<div class="row no-padding">
-						{% include 'common/tile_list.html.twig' with {'entries': articles, 'entryPath': 'article', 'colSize': 3, 'limit': 4, 'tile': 'bottom_rect_tile'} %}
+						{% include 'common/tile_list.html.twig' with {'entries': articles, 'entryPath': 'article', 'colSize': 3, 'start': 4, 'limit': 4, 'tile': 'bottom_rect_tile'} %}
 					</div>
 					
 					<div class="row text-center lowered">
-						<a class="btn btn-primary">Czytaj wiecej...</a>
+						<a href={{ path('infoprodukt_article', { category: entry.id }) }} class="btn btn-primary">Czytaj wiecej...</a>
 					</div>
 				</div>
 			</div>
 		</div>
 		{% endblock %}
 		
-		<div class="vr-space-80"></div>
+		<div class="vr-space-40"></div>
 		
 		{% block articleCategories %}
 		<div class="container">
@@ -134,7 +134,7 @@
 		</div>
 		{% endblock %}
 		
-		<div class="vr-space-80"></div>
+		<div class="vr-space-40"></div>
 		
 		{% block ad %}
 		<div class="row">
@@ -149,7 +149,7 @@
 		</div>
 		{% endblock %}
 		
-		<div class="vr-space-80"></div>
+		<div class="vr-space-40"></div>
 		
 		{% block promocje %}
 		<div class="container">
@@ -160,7 +160,7 @@
 					</div>
 					
 					<div class="row text-center lowered">
-						<a class="btn btn-primary">Zobacz wiecej...</a>
+						<a href={{ path('infoprodukt_article', { category: entry.id }) }} class="btn btn-primary">Zobacz wiecej...</a>
 					</div>
 				</div>
 			</div>
@@ -180,41 +180,105 @@
 					</div>
 					
 					<div class="col-sm-9">
-						<h1>{{ entry.name }}</h1>
+						<h1>
+							<span class="text-red">{{ entry.name | raw }}</span> 
+							<span class="text-primary">{{ entry.subname | raw }}</span>
+						</h1>
 						<p>{{ entry.content | raw }}</p>
 					</div>	
 				</div>
 				{% endblock %}
 				
-				{% block brandsRank %}
+				{% block brandsRank %}		
 				<div class="col-xs-12 well">
 					<h1><span class="fa fa-spinner"></span> Rating marek</h1>
 					
-					<div class="row">
-						<div class="col-sm-2"><h4 class="text-center">Segment</h4></div>
-						<div class="col-sm-10"><h4 class="text-center">Wiodace marki</h4></div>
-					</div>
-					
+					{% set show = false %}
 					{% for entry in segments %}
-						<div class="row  {{ loop.index % 2 ? 'bkg-lime-green' : '' }}">
-							<div class=" col-sm-2 text-white">
-								<div class="rect">
-									<img class="img-responsive div-center" alt="{{ entry.name }}" src="{{ asset(entry.getImagePath()) }}">
-								</div>
-							</div>
-							{% set i = 1 %}
-							{% for brand in brands %}
-								{% if i <= 5 %}
+						{% if attribute(brands, entry.id) | length > 0 %}
+							{% set show = true %}
+						{% endif %}
+					{% endfor %}
+					
+					{% if show %}
+						<div class="row">
+							<div class="col-sm-2"><h4 class="text-center">Segment</h4></div>
+							<div class="col-sm-10"><h4 class="text-center">Wiodace marki</h4></div>
+						</div>
+						
+						{% for segment in segments %}
+							{% if attribute(brands, segment.id) | length > 0 %}
+								<div class="row  {{ loop.index % 2 ? 'bkg-lime-green' : '' }}">
 									<div class=" col-sm-2 text-white">
 										<div class="rect">
-											<img class="img-responsive div-center" alt="{{ brand.name }}" src="{{ asset(brand.getImagePath()) }}">
+											<img class="img-responsive div-center" alt="{{ segment.name | raw }}" src="{{ asset(segment.getImagePath()) }}">
 										</div>
 									</div>
-									{% set i = i+1 %}
+										{% set i = 1 %}
+										{% for brand in attribute(brands, segment.id) %}
+											{% if i <= 5 %}
+												<div class=" col-sm-2 text-white">
+													<div class="rect">
+														<img class="img-responsive div-center" alt="{{ brand.name }}" src="{{ asset(brand.getImagePath()) }}">
+													</div>
+												</div>
+												{% set i = i+1 %}
+											{% endif %}
+										{% endfor %}
+								</div>
+							{% endif %}
+						{% endfor %}
+					{% endif %}
+					
+					
+					{% for category in subcategories %}
+						
+						{% set show = false %}
+						{% for segment in segments %}
+							{% if attribute(attribute(subbrands, category.id), segment.id) | length > 0 %}
+								{% set show = true %}
+							{% endif %}
+						{% endfor %}
+					
+						{% if show %}
+							<h2>
+								<span class="text-red">{{ category.name }}</span>  
+								<span class="text-blue"{{ category.subname }}</span> 
+							</h2>
+							
+							<div class="row">
+								<div class="col-sm-2"><h4 class="text-center">Segment</h4></div>
+								<div class="col-sm-10"><h4 class="text-center">Wiodace marki</h4></div>
+							</div>
+							
+							{% for segment in segments %}
+								{% if attribute(attribute(subbrands, category.id), segment.id) | length > 0 %}
+									<div class="row  {{ loop.index % 2 ? 'bkg-lime-green' : '' }}">
+										<div class=" col-sm-2 text-white">
+											<div class="rect">
+												<img class="img-responsive div-center" alt="{{ segment.name | raw }}" src="{{ asset(segment.getImagePath()) }}">
+											</div>
+										</div>
+										{% set i = 1 %}
+										{% for brand in attribute(attribute(subbrands, category.id), segment.id) %}
+											{% if i <= 5 %}
+												<div class=" col-sm-2 text-white">
+													<div class="rect">
+														<img class="img-responsive div-center" alt="{{ brand.name }}" src="{{ asset(brand.getImagePath()) }}">
+													</div>
+												</div>
+												{% set i = i+1 %}
+											{% endif %}
+										{% endfor %}
+									</div>
 								{% endif %}
 							{% endfor %}
-						</div>
+						{% endif %}
+						
 					{% endfor %}
+				
+				
+				
 				</div>
 				{% endblock %}
 				
@@ -222,43 +286,118 @@
 				<div class="col-xs-12 well">
 					<h1><span class="fa fa-star-half-o"></span> Top modeli</h1>
 					
-					<div class="row">
-						<div class="col-sm-2"><h4 class="text-center">Segment</h4></div>
-						<div class="col-sm-2"><h4 class="text-center">1st</h4></div>
-						<div class="col-sm-2"><h4 class="text-center">2nd</h4></div>
-						<div class="col-sm-2"><h4 class="text-center">3rd</h4></div>
-						<div class="col-sm-2"><h4 class="text-center">4th</h4></div>
-						<div class="col-sm-2"><h4 class="text-center">5th</h4></div>
-					</div>
-					
+					{% set show = false %}
 					{% for entry in segments %}
-						<div class="row {{ loop.index % 2 ? 'bkg-lime-green' : '' }}">
-							<div class=" col-sm-2 text-white">
-								<div class="rect">
-									<img class="div-center" alt="{{ entry.name }}" src="{{ asset(entry.getImagePath()) }}">
-								</div>
-							</div>
-							{% set i = 1 %}
-							{% for product in products %}
-								{% if i <= 5 and product.segment.id == entry.id %}
+						{% if attribute(products, entry.id) | length > 0 %}
+							{% set show = true %}
+						{% endif %}
+					{% endfor %}
+					
+					{% if show %}
+						<div class="row">
+							<div class="col-sm-2"><h4 class="text-center">Segment</h4></div>
+							<div class="col-sm-2"><h4 class="text-center">1st</h4></div>
+							<div class="col-sm-2"><h4 class="text-center">2nd</h4></div>
+							<div class="col-sm-2"><h4 class="text-center">3rd</h4></div>
+							<div class="col-sm-2"><h4 class="text-center">4th</h4></div>
+							<div class="col-sm-2"><h4 class="text-center">5th</h4></div>
+						</div>
+						
+						{% for segment in segments %}
+							{% if attribute(products, segment.id) | length > 0 %}
+								<div class="row {{ loop.index % 2 ? 'bkg-lime-green' : '' }}">
 									<div class=" col-sm-2 text-white">
 										<div class="rect">
-											<img class="img-responsive div-center" alt="{{ product.name }}" src="{{ asset(product.getImagePath()) }}">
-											<div class="col-xs-12 div-bottom bkg-black-50">
-												<a class="text-white" href="{{ path('infoprodukt_product_show', {'id': product.id}) }}">
-													<h5>{{ product.brand ? product.brand.name : '' }}</h5>
-													<h5>{{ product.name }}</h5>
-												</a>
-											</div>
+											<img class="div-center" alt="{{ segment.name | raw }}" src="{{ asset(segment.getImagePath()) }}">
 										</div>
 									</div>
-									{% set i = i+1 %}
+									{% set i = 1 %}
+									{% for product in attribute(products, segment.id) %}
+										{% if i <= 5 %}
+											<div class=" col-sm-2 text-white">
+												<div class="rect">
+													<img class="img-responsive div-center" alt="{{ product.name }}" src="{{ asset(product.getImagePath()) }}">
+													<div class="col-xs-12 div-bottom bkg-black-50">
+														<a class="text-white" href="{{ path('infoprodukt_product_show', {'id': product.id}) }}">
+															<h5>{{ product.brand ? product.brand.name : '' }}</h5>
+															<h5>{{ product.name }}</h5>
+														</a>
+													</div>
+												</div>
+											</div>
+											{% set i = i+1 %}
+										{% endif %}
+									{% endfor %}
+								</div>
+							{% endif %}
+						{% endfor %}
+					{% endif %}
+					
+					
+					
+					{% for category in subcategories %}
+					
+						{% set show = false %}
+						{% for segment in segments %}
+							{% if attribute(attribute(subproducts, category.id), segment.id) | length > 0 %}
+								{% set show = true %}
+							{% endif %}
+						{% endfor %}
+						
+						{% if show %}
+							<h2>
+								<span class="text-red">{{ category.name }}</span> 
+								<span class="text-primary">{{ category.subname }}</span>
+							</h2>
+							
+							<div class="row">
+								<div class="col-sm-2"><h4 class="text-center">Segment</h4></div>
+								<div class="col-sm-2"><h4 class="text-center">1st</h4></div>
+								<div class="col-sm-2"><h4 class="text-center">2nd</h4></div>
+								<div class="col-sm-2"><h4 class="text-center">3rd</h4></div>
+								<div class="col-sm-2"><h4 class="text-center">4th</h4></div>
+								<div class="col-sm-2"><h4 class="text-center">5th</h4></div>
+							</div>
+							
+							{% for segment in segments %}
+								{% if attribute(attribute(subproducts, category.id), segment.id) | length > 0 %}
+									<div class="row  {{ loop.index % 2 ? 'bkg-lime-green' : '' }}">
+										<div class=" col-sm-2 text-white">
+											<div class="rect">
+												<img class="img-responsive div-center" alt="{{ segment.name | raw }}" src="{{ asset(segment.getImagePath()) }}">
+											</div>
+										</div>
+										{% set i = 1 %}
+										{% for product in attribute(attribute(subproducts, category.id), segment.id) %}
+											{% if i <= 5 %}
+												<div class=" col-sm-2 text-white">
+													<div class="rect">
+														<img class="img-responsive div-center" alt="{{ product.name }}" src="{{ asset(product.getImagePath()) }}">
+														<div class="col-xs-12 div-bottom bkg-black-50">
+															<a class="text-white" href="{{ path('infoprodukt_product_show', {'id': product.id}) }}">
+																<h5>{{ product.brand ? product.brand.name : '' }}</h5>
+																<h5>{{ product.name }}</h5>
+															</a>
+														</div>
+													</div>
+												</div>
+												{% set i = i+1 %}
+											{% endif %}
+										{% endfor %}
+									</div>
 								{% endif %}
 							{% endfor %}
-						</div>
+						{% endif %}
+						
 					{% endfor %}
+				
+				
+				
 				</div>
 				{% endblock %}
+				
+				
+				
 			</div>
 		</div>
 	

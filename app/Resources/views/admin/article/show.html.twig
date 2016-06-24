@@ -1,4 +1,52 @@
 {% extends 'admin/image/show.html.twig' %}
 
-{% set mainPath = 'article' %}
 {% set title = 'title.articles'|trans %}
+{% set mainPath = 'article' %}
+{% set gender = 'm.' %}
+
+{% block moreFields2 %}
+	<div class="row">
+		<div class="col-xs-12">
+			<h4>{{ entry.subname | raw }}</h4>
+		</div>
+	</div>
+{% endblock %}
+
+{% block moreFields3 %}
+	{% include 'common/fields/bool_field.html.twig' with 
+	{ 'label': ('label.' ~ gender ~ 'featured')|trans, 'value': entry.featured } %}
+	
+	
+	<div class="row">
+		<div class="col-xs-12">
+			<h4>{{ 'label.intro'|trans }}</h4>
+		</div>
+		<div class="col-xs-12">
+			{{ entry.intro | raw }}
+		</div>
+	</div>
+	
+	<div class="row">
+		<div class="col-xs-12">
+			<h4>{{ 'label.content'|trans }}</h4>
+		</div>
+		<div class="col-xs-12">
+			{{ entry.content | raw }}
+		</div>
+	</div>
+	
+	<div class="lowered-25"></div>
+	
+	{% include 'common/fields/simple_field.html.twig' with 
+	{ 'label': 'label.article.parent', 'value': entry.parent,
+		'object': 'article', 'routeId': entry.id } %}
+	
+	{% include 'common/fields/text_field.html.twig' with 
+	{ 'label': 'label.orderNumber'|trans, 'value': entry.orderNumber } %}
+	
+	{% include 'common/fields/text_field.html.twig' with 
+	{ 'label': 'label.article.layout'|trans, 'value': entry.layout } %}
+	
+	{% include 'common/fields/bool_field.html.twig' with 
+	{ 'label': 'label.article.displaySided'|trans, 'value': entry.displaySided } %}
+{% endblock %}

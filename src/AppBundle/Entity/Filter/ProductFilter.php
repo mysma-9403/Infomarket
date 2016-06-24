@@ -4,13 +4,13 @@ namespace AppBundle\Entity\Filter;
 
 use AppBundle\Entity\Filter\Base\SimpleEntityFilter;
 use AppBundle;
-use AppBundle\Entity\Filter\Base\ImageEntityFilter;
+use AppBundle\Entity\ProductCategoryAssignment;
 use AppBundle\Repository\BrandRepository;
 use AppBundle\Repository\CategoryRepository;
-use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Repository\SegmentRepository;
+use Symfony\Component\HttpFoundation\Request;
 
-class ProductFilter extends ImageEntityFilter {
+class ProductFilter extends SimpleEntityFilter {
 
 	/**
 	 * 
@@ -24,15 +24,8 @@ class ProductFilter extends ImageEntityFilter {
 		$this->categoryRepository = $categoryRepository;
 		$this->brandRepository = $brandRepository;
 		$this->segmentRepository = $segmentRepository;
-	}
-	
-	/**
-	 *
-	 * {@inheritDoc}
-	 * @see \AppBundle\Entity\Filter\Base\SimpleEntityFilter::getFilterName()
-	 */
-	protected function getFilterName() {
-		return 'product_filter_';
+		
+		$this->filterName = 'product_filter_';
 	}
 	
 	/**
@@ -56,6 +49,8 @@ class ProductFilter extends ImageEntityFilter {
 	 * @see \AppBundle\Entity\Filter\Base\SimpleEntityFilter::initMoreValues()
 	 */
 	protected function initMoreValues(Request $request) {
+		parent::initMoreValues($request);
+		
 		$categories = $request->get('categories', array());
 		$this->categories = $this->categoryRepository->findBy(array('id' => $categories));
 		
@@ -72,6 +67,8 @@ class ProductFilter extends ImageEntityFilter {
 	 * @see \AppBundle\Entity\Filter\Base\SimpleEntityFilter::clearMoreQueryValues()
 	 */
 	protected function clearMoreQueryValues() { 
+		parent::clearMoreQueryValues();
+		
 		$this->categories = array();
 		$this->brands = array();
 		$this->segments= array();
@@ -92,6 +89,15 @@ class ProductFilter extends ImageEntityFilter {
 		return $values;
 	}
 	
+	protected function getJoinExpressions() {
+		$expressions = parent::getJoinExpressions();
+	
+		if($this->categories || $this->segments)
+			$expressions[] = ProductCategoryAssignment::class . ' pca WITH pca.product = e.id';
+	
+		return $expressions;
+	}
+	
 	/**
 	 * 
 	 * {@inheritDoc}
@@ -100,17 +106,15 @@ class ProductFilter extends ImageEntityFilter {
 	protected function getWhereExpressions() {
 		$expressions = parent::getWhereExpressions();
 		
-		if($this->categories) {
-			$expressions[] = $this->getEqualArrayExpression('e.category', $this->categories);
-		}
-		
 		if($this->brands) {
 			$expressions[] = $this->getEqualArrayExpression('e.brand', $this->brands);
 		}
 		
-		if($this->segments) {
-			$expressions[] = $this->getEqualArrayExpression('e.segment', $this->segments);
-		}
+		if($this->categories)
+			$expressions[] = $this->getEqualArrayExpression('pca.category', $this->categories);
+		
+		if($this->segments)
+			$expressions[] = $this->getEqualArrayExpression('pca.segment', $this->segments);
 		
 		return $expressions;
 	}

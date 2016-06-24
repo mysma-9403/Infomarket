@@ -9,20 +9,16 @@
         repository-class="AppBundle\Repository\ArticleRepository">
         
         <field name="subname" type="string" length="64" nullable="true"/>
-        
-        <many-to-one field="parent" target-entity="Article" nullable="true" />
-        
-        <many-to-one field="branch" target-entity="Branch" />
-        <many-to-one field="articleCategory" target-entity="ArticleCategory" />
-        
-        <field name="displaySided" type="boolean" default="false" />
         <field name="featured" type="boolean" default="false" />
         
         <field name="intro" type="text" nullable="true" />
         <field name="content" type="text" nullable="true" />
         
+        <many-to-one field="parent" target-entity="Article" nullable="true" />
+        
+        <field name="orderNumber" type="integer" default="1"/>
         <field name="layout" type="integer" default="0"/>
-        <field name="orderNumber" type="integer" default="0"/>
+        <field name="displaySided" type="boolean" default="false" />
         
         <one-to-many field="children" target-entity="Article" mapped-by="parent">
             <order-by>

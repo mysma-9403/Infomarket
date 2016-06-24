@@ -9,7 +9,10 @@
         repository-class="AppBundle\Repository\BrandCategoryAssignmentRepository">
         
         <many-to-one field="brand" target-entity="Brand" />
+        <many-to-one field="segment" target-entity="Segment" />
         <many-to-one field="category" target-entity="Category" />
+        
+        <field name="orderNumber" type="integer" default="1"/>
         
     </entity>
     

@@ -12,14 +12,14 @@
 	
 	<a class="text-white" href="{{ path('infoprodukt_' ~ entryPath ~ '_show', { 'id': entry.id }) }}">
 		<div class="rect">
-			<img class="div-center" alt="{{ entry.name }}" src="{{ asset(entry.getImagePath()) }}">
+			<img class="div-center" alt="{{ entry.name | raw }}" src="{{ asset(entry.getImagePath()) }}">
 		</div>
 		<div class="col-xs-12 rect-title {{ alternate and loop.index % 2 ? textSecondary : textPrimary }}">
-			<h5>{{ entry.name }}</h5>
+			<h5>{{ entry.getHtmlName() | raw }}</h5>
 		</div>
 		{% if entry.subname is defined %}
 			<div class="col-xs-12 rect-subtitle col-bottom {{ alternate and loop.index % 2 ? textPrimary : textSecondary }}">
-				<p>{{ entry.subname }}</p>
+				<p>{{ entry.subname | raw }}</p>
 			</div>
 		{% endif %}
 	</a>

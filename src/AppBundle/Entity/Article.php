@@ -33,7 +33,7 @@ class Article extends ImageEntity
 	 */
 	public function getUploadPath()
 	{
-		return '../web/uploads/articles';
+		return '../web/uploads/articles/' . $this->createdAt->format('Y/m/');
 	}
 	
 	/**
@@ -50,16 +50,6 @@ class Article extends ImageEntity
      * @var string
      */
     private $content;
-
-    /**
-     * @var \AppBundle\Entity\Branch
-     */
-    private $branch;
-
-    /**
-     * @var \AppBundle\Entity\ArticleCategory
-     */
-    private $articleCategory;
     
     /**
      * @var boolean
@@ -116,54 +106,6 @@ class Article extends ImageEntity
     }
 
     /**
-     * Set branch
-     *
-     * @param \AppBundle\Entity\Branch $branch
-     *
-     * @return Article
-     */
-    public function setBranch(\AppBundle\Entity\Branch $branch = null)
-    {
-        $this->branch = $branch;
-
-        return $this;
-    }
-
-    /**
-     * Get branch
-     *
-     * @return \AppBundle\Entity\Branch
-     */
-    public function getBranch()
-    {
-        return $this->branch;
-    }
-
-    /**
-     * Set articleCategory
-     *
-     * @param \AppBundle\Entity\ArticleCategory $articleCategory
-     *
-     * @return Article
-     */
-    public function setArticleCategory(\AppBundle\Entity\ArticleCategory $articleCategory = null)
-    {
-        $this->articleCategory = $articleCategory;
-
-        return $this;
-    }
-
-    /**
-     * Get articleCategory
-     *
-     * @return \AppBundle\Entity\ArticleCategory
-     */
-    public function getArticleCategory()
-    {
-        return $this->articleCategory;
-    }
-
-    /**
      * Set featured
      *
      * @param boolean $featured
@@ -210,6 +152,7 @@ class Article extends ImageEntity
     {
         return $this->subname;
     }
+    
     /**
      * @var \Doctrine\Common\Collections\Collection
      */
@@ -285,6 +228,7 @@ class Article extends ImageEntity
     {
         return $this->parent;
     }
+    
     /**
      * @var integer
      */
@@ -314,6 +258,7 @@ class Article extends ImageEntity
     {
         return $this->layout;
     }
+    
     /**
      * @var boolean
      */
@@ -343,6 +288,7 @@ class Article extends ImageEntity
     {
         return $this->displaySided;
     }
+    
     /**
      * @var integer
      */

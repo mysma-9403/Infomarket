@@ -1,6 +1,6 @@
 {% extends 'infoprodukt/base/show.html.twig' %}
 
-{% set title = entry.name %}
+{% set title = entry.name | raw %}
 {% set mainPath = 'article' %}
 		
 {% block mainContent %}
@@ -8,9 +8,51 @@
 	<div class="row">
 		<div class="col-xs-12">
 			<h2>
-				<span class="text-brand">{{ entry.name }}</span>
-				<span class="text-red">{{ entry.subname }}</span>
+				<span class="text-brand">{{ entry.name | raw }}</span>
+				<span class="text-red">{{ entry.subname | raw }}</span>
 			</h2>
+{# 			<h2 class="humnst1">#}
+{# 				<span class="text-brand">{{ entry.name | raw }}</span>#}
+{# 				<span class="text-red">{{ entry.subname | raw }}</span>#}
+{# 			</h2>#}
+{# 			<h2 class="humnst2">#}
+{# 				<span class="text-brand">{{ entry.name | raw }}</span>#}
+{# 				<span class="text-red">{{ entry.subname | raw }}</span>#}
+{# 			</h2>#}
+{# 			<h2 class="humnst3">#}
+{# 				<span class="text-brand">{{ entry.name | raw }}</span>#}
+{# 				<span class="text-red">{{ entry.subname | raw }}</span>#}
+{# 			</h2>#}
+{# 			<h2 class="humnst4">#}
+{# 				<span class="text-brand">{{ entry.name | raw }}</span>#}
+{# 				<span class="text-red">{{ entry.subname | raw }}</span>#}
+{# 			</h2>#}
+{# 			<h2 class="humnst5">#}
+{# 				<span class="text-brand">{{ entry.name | raw }}</span>#}
+{# 				<span class="text-red">{{ entry.subname | raw }}</span>#}
+{# 			</h2>#}
+{# 			<h2 class="humnst6">#}
+{# 				<span class="text-brand">{{ entry.name | raw }}</span>#}
+{# 				<span class="text-red">{{ entry.subname | raw }}</span>#}
+{# 			</h2>#}
+{# 			<h2 class="humnst7">#}
+{# 				<span class="text-brand">{{ entry.name | raw }}</span>#}
+{# 				<span class="text-red">{{ entry.subname | raw }}</span>#}
+{# 			</h2>#}
+{# 			<h2 class="humnst8">#}
+{# 				<span class="text-brand">{{ entry.name | raw }}</span>#}
+{# 				<span class="text-red">{{ entry.subname | raw }}</span>#}
+{# 			</h2>#}
+			
+{# 			<h2 class="gothic">#}
+{# 				<span class="text-brand">{{ entry.name | raw }}</span>#}
+{# 				<span class="text-red">{{ entry.subname | raw }}</span>#}
+{# 			</h2>#}
+			
+{# 			<h2 class="gothic-bold">#}
+{# 				<span class="text-brand">{{ entry.name | raw }}</span>#}
+{# 				<span class="text-red">{{ entry.subname | raw }}</span>#}
+{# 			</h2>#}
 		</div>
 	</div>
 	{% endblock %}
@@ -20,7 +62,13 @@
 		<div class="col-sm-{{ entry.displaySided ? 12 : 4 }}">
 			<div class="rect">
 				<img class="div-center" src="{{ asset(entry.getImagePath()) }}">
-			</div>	
+			</div>
+			<p class="text-muted">
+				<span class="fa fa-calendar"></span> {{ entry.publishedAt | date('Y-m-d') }}
+				{% if entry.publishedBy %}
+					, <span class="fa fa-user"></span> {{ entry.publishedBy.name }}
+				{% endif %}
+			</p>	
 		</div>
 		{% endblock %}
 		
@@ -29,6 +77,17 @@
 			<div class="row">
 				<div class="col-xs-12">
 					<p><strong>{{ entry.intro | raw }}</strong></p>
+{# 					<p class="humnst1">{{ entry.intro | raw }}</p>#}
+{# 					<p class="humnst2">{{ entry.intro | raw }}</p>#}
+{# 					<p class="humnst3">{{ entry.intro | raw }}</p>#}
+{# 					<p class="humnst4">{{ entry.intro | raw }}</p>#}
+{# 					<p class="humnst5">{{ entry.intro | raw }}</p>#}
+{# 					<p class="humnst6">{{ entry.intro | raw }}</p>#}
+{# 					<p class="humnst7">{{ entry.intro | raw }}</p>#}
+{# 					<p class="humnst8">{{ entry.intro | raw }}</p>#}
+				
+{# 					<p class="gothic">{{ entry.intro | raw }}</p>#}
+{# 					<p class="gothic-bold">{{ entry.intro | raw }}</p>#}
 				</div>
 			</div>
 		</div>
@@ -38,6 +97,17 @@
 		<div class="row">
 			<div class="col-xs-12">
 				<p>{{ entry.content | raw }}</p>
+{# 				<p class="humnst1">{{ entry.content | raw }}</p>#}
+{# 				<p class="humnst2">{{ entry.content | raw }}</p>#}
+{# 				<p class="humnst3">{{ entry.content | raw }}</p>#}
+{# 				<p class="humnst4">{{ entry.content | raw }}</p>#}
+{# 				<p class="humnst5">{{ entry.content | raw }}</p>#}
+{# 				<p class="humnst6">{{ entry.content | raw }}</p>#}
+{# 				<p class="humnst7">{{ entry.content | raw }}</p>#}
+{# 				<p class="humnst8">{{ entry.content | raw }}</p>#}
+				
+{# 				<p class="gothic">{{ entry.content | raw }}</p>#}
+{# 				<p class="gothic-bold">{{ entry.content | raw }}</p>#}
 			</div>
 		</div>
 		{% endblock %}

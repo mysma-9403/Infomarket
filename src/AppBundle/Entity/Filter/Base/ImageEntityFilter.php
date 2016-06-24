@@ -7,12 +7,6 @@ use AppBundle;
 
 class ImageEntityFilter extends SimpleEntityFilter {
 
-	/**
-	 * 
-	 * @var boolean
-	 */
-	private $withImage;
-	
 	protected function getWhereExpressions() {
 		$expressions = parent::getWhereExpressions();
 		
@@ -21,6 +15,12 @@ class ImageEntityFilter extends SimpleEntityFilter {
 		
 		return $expressions;
 	}
+
+	/**
+	 *
+	 * @var boolean
+	 */
+	private $withImage;
 	
 	/**
 	 * Set with image

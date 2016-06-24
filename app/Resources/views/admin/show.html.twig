@@ -1,21 +1,28 @@
 {% extends 'admin/index.html.twig' %}
 
-{% block content %}
-    <h1>{{ entry.name }}</h1>
+{% set extPath = '_show' %}
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>{{ 'label.image'|trans }}</th>
-                <td><img src="{{ asset(entry.getImagePath()) }}" width = "160" height = "160"/></td>
-            </tr>
-            <tr>
-                <th>{{ 'label.content'|trans }}</th>
-                <td>{{ entry.content | raw }}</td>
-            </tr>
-        </tbody>
-    </table>
-    
-    {% block actions %}
-	{% endblock %}
+{% block content %}
+	<div class="container">
+		{% block moreFields1 %}
+		{% endblock %}
+		
+	    {% block mainFields1 %}
+		{% endblock %}
+		
+		{% block moreFields2 %}
+		{% endblock %}
+		
+		{% block mainFields2 %}
+		{% endblock %}
+		
+		{% block moreFields3 %}
+		{% endblock %}
+		
+		{% block auditFields %}
+		{% endblock %}
+	    
+	    {% block actions %}
+		{% endblock %}
+	</div>
 {% endblock %}

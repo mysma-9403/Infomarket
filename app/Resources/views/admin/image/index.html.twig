@@ -3,11 +3,9 @@
 {# Header section #}
 {% block headerMainFields1 %}
 	<th><i class="fa fa-photo"></i>{{ 'label.image'|trans }}</th>
-	<th><i class="fa fa-tag"></i>{{ 'label.name'|trans }}</th>
 {% endblock %}
 
 {# Entry section #}
 {% block entryMainFields1 %}
 	<td><img alt="{{ item.name }}" src="{{ asset(item.getImagePath()) }}" class="img-circle" width="40" height="40" /></td>
-	<td>{{ item.name }}</td>
 {% endblock %}	        

@@ -1,13 +1,13 @@
 {% extends 'infoprodukt/base/show.html.twig' %}
 
-{% set title = entry.name %}
+{% set title = entry.name | raw %}
 {% set mainPath = 'term' %}
 		
 {% block mainContent %}
 	{% block header %}
 	<div class="row">
 		<div class="col-xs-12">
-			<h1>{{ entry.name }}</h1>
+			<h1>{{ entry.name | raw }}</h1>
 		</div>
 	</div>
 	{% endblock %}

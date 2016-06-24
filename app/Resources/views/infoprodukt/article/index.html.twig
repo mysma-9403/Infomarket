@@ -20,13 +20,25 @@
 							</div>
 							<div class="col-sm-9">
 								<a href="{{ path('infoprodukt_' ~ mainPath ~ '_show', { 'id': entry.id }) }}">
-									<h4>{{ entry.name }}</h4>
+									<h4>{{ entry.name | raw }}</h4>
 								</a>
-								<p>{{ entry.intro | raw }}</p>
+								<p class="text-muted">
+									<span class="fa fa-calendar"></span> {{ entry.publishedAt | date('Y-m-d') }}
+									{% if entry.publishedBy %}
+										, <span class="fa fa-user"></span> {{ entry.publishedBy.name }}
+									{% endif %}
+								</p>
+								<p>
+									{% if entry.intro | length > 0 %}
+										{{ entry.intro | raw }}
+									{% else %}
+										{{ entry.content[:256] | raw }}...
+									{% endif %}
+								</p>
 								<a class="btn btn-danger" href="{{ path('infoprodukt_' ~ mainPath ~ '_show', { 'id': entry.id }) }}">
 									{{ 'label.readMore'|trans }}
 								</a>
-								<div class="vr-space-20"></div>
+								<div class="vr-space-10"></div>
 							</div>
 						</div>
 					</div>

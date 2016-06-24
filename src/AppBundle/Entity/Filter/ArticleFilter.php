@@ -4,14 +4,112 @@ namespace AppBundle\Entity\Filter;
 
 use AppBundle\Entity\Filter\Base\SimpleEntityFilter;
 use AppBundle;
+use AppBundle\Entity\ArticleCategoryAssignment;
+use AppBundle\Repository\CategoryRepository;
+use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Repository\ArticleCategoryRepository;
+use AppBundle\Entity\ArticleArticleCategoryAssignment;
 
 class ArticleFilter extends SimpleEntityFilter {
+	
+	/**
+	 * 
+	 * @param ArticleCategoryRepository $articleCategoryRepository
+	 * @param CategoryRepository $categoryRepository
+	 */
+	public function __construct(ArticleCategoryRepository $articleCategoryRepository, CategoryRepository $categoryRepository) {
+		$this->articleCategoryRepository = $articleCategoryRepository;
+		$this->categoryRepository = $categoryRepository;
+		$this->filterName = 'article_filter_';
+	}
+	
+	/**
+	 * @var ArticleCategoryRepository
+	 */
+	protected $articleCategoryRepository;
+	
+	/**
+	 * @var CategoryRepository
+	 */
+	protected $categoryRepository;
+	
+	/**
+	 *
+	 * {@inheritDoc}
+	 * @see \AppBundle\Entity\Filter\Base\SimpleEntityFilter::initMoreValues()
+	 */
+	protected function initMoreValues(Request $request) {
+		parent::initMoreValues($request);
+	
+		$articleCategories = $request->get($this->getFilterName() . 'article_categories', array());
+		$this->articleCategories = $this->articleCategoryRepository->findBy(array('id' => $articleCategories));
+		
+		$categories = $request->get($this->getFilterName() . 'categories', array());
+		$this->categories = $this->categoryRepository->findBy(array('id' => $categories));
+		
+		$parents = $request->get($this->getFilterName() . 'parents', array());
+		$this->parents = $this->categoryRepository->findBy(array('id' => $parents));
+		
+		$this->featured = $request->get($this->getFilterName() . 'featured', SimpleEntityFilter::ALL_VALUES);
+		$this->main = $request->get($this->getFilterName() . 'main', SimpleEntityFilter::ALL_VALUES);
+	}
+	
+	/**
+	 *
+	 * {@inheritDoc}
+	 * @see \AppBundle\Entity\Filter\Base\SimpleEntityFilter::clearMoreQueryValues()
+	 */
+	protected function clearMoreQueryValues() {
+		parent::clearMoreQueryValues();
+	
+		$this->articleCategories = array();
+		$this->categories = array();
+		$this->parents = array();
+		
+		$this->featured = SimpleEntityFilter::ALL_VALUES;
+		$this->main = SimpleEntityFilter::ALL_VALUES;
+	}
+	
+	/**
+	 *
+	 * {@inheritDoc}
+	 * @see \AppBundle\Entity\Filter\Base\SimpleEntityFilter::getValues()
+	 */
+	public function getValues() {
+		$values = parent::getValues();
+	
+		if($this->articleCategories) {
+			$values[$this->getFilterName() . 'article_categories'] = $this->getIdValues($this->articleCategories);
+		}
+		
+		if($this->categories) {
+			$values[$this->getFilterName() . 'categories'] = $this->getIdValues($this->categories);
+		}
+		
+		if($this->parents) {
+			$values[$this->getFilterName() . 'parents'] = $this->getIdValues($this->parents);
+		}
+	
+		if($this->featured != SimpleEntityFilter::ALL_VALUES) {
+			$values[$this->getFilterName() . 'featured'] = $this->featured;
+		}
+		
+		if($this->main != SimpleEntityFilter::ALL_VALUES) {
+			$values[$this->getFilterName() . 'main'] = $this->main;
+		}
+		
+		return $values;
+	}
 	
 	protected function getWhereExpressions() {
 		$expressions = parent::getWhereExpressions();
 		
 		if($this->articleCategories) {
-			$expressions[] = $this->getEqualArrayExpression('e.articleCategory', $this->articleCategories);
+			$expressions[] = $this->getEqualArrayExpression('aaca.articleCategory', $this->articleCategories);
+		}
+		
+		if($this->categories) {
+			$expressions[] = $this->getEqualArrayExpression('aca.category', $this->categories);
 		}
 		
 		if($this->featured) {
@@ -33,6 +131,25 @@ class ArticleFilter extends SimpleEntityFilter {
 	}
 	
 	/**
+	 *
+	 * {@inheritDoc}
+	 * @see \AppBundle\Entity\Filter\Base\BaseEntityFilter::getJoinExpressions()
+	 */
+	protected function getJoinExpressions() {
+		$expressions = parent::getJoinExpressions();
+	
+		if($this->articleCategories) {
+			$expressions[] = ArticleArticleCategoryAssignment::class . ' aaca WITH aaca.article = e.id';
+		}
+		
+		if($this->categories || $this->parents) {
+			$expressions[] = ArticleCategoryAssignment::class . ' aca WITH aca.article = e.id';
+		}
+	
+		return $expressions;
+	}
+	
+	/**
 	 * {@inheritDoc}
 	 */
 	public function getOrderByExpression() {
@@ -44,6 +161,12 @@ class ArticleFilter extends SimpleEntityFilter {
 	 * @var array
 	 */
 	private $articleCategories;
+	
+	/**
+	 *
+	 * @var array
+	 */
+	private $categories;
 	
 	/**
 	 * @var array
@@ -82,6 +205,30 @@ class ArticleFilter extends SimpleEntityFilter {
 	public function getArticleCategories()
 	{
 		return $this->articleCategories;
+	}
+	
+	/**
+	 * Set article categories
+	 *
+	 * @param array $articleCategories
+	 *
+	 * @return ArticleFilter
+	 */
+	public function setCategories($categories)
+	{
+		$this->categories = $categories;
+	
+		return $this;
+	}
+	
+	/**
+	 * Get article categories
+	 *
+	 * @return array
+	 */
+	public function getCategories()
+	{
+		return $this->categories;
 	}
 	
 	/**

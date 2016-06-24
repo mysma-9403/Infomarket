@@ -12,7 +12,7 @@
 			{% for entry in entries%}
 				<div class="col-xs-4">
 					<a href="{{ path('infoprodukt_' ~ mainPath ~ '_show', { 'id': entry.id }) }}">
-						{{ entry.name }}
+						{{ entry.name | raw }}
 					</a>
 				</div>
 			{% else %}

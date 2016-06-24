@@ -16,14 +16,14 @@
 		
 		{% block summary %}
 		<div class="col-sm-6">
-			<h1>{{ entry.name }}</h1>
+			<h1>{{ entry.name | raw }}</h1>
 			
 			<div class="row">
 				<div class="col-xs-4">
 					<p><strong>Producent: </strong></p>
 				</div>
 				<div class="col-xs-8">
-					<p>{{ entry.name }} Sp. z o.o.</p>
+					<p>{{ entry.name | raw }} Sp. z o.o.</p>
 				</div>
 			</div>
 			

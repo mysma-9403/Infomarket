@@ -1,0 +1,45 @@
+{% extends 'infoprodukt/base/show.html.twig' %}
+
+{% set title = entry.name | raw %}
+{% set mainPath = 'page' %}
+		
+{% block mainContent %}
+	{% block header %}
+	<div class="row">
+		<div class="col-xs-12">
+			<h2>
+				<span class="text-brand">{{ entry.name | raw }}</span>
+			</h2>
+		</div>
+	</div>
+	{% endblock %}
+	
+	<div class="col-xs-12"> 
+		{% block logo %}
+		{% if entry.getImagePath() %}
+			<div class="col-sm-6 col-sm-offset-3">
+				<div class="rect">
+					<img class="div-center" src="{{ asset(entry.getImagePath()) }}">
+				</div>	
+			</div>
+		{% endif %}
+		{% endblock %}
+		
+		{% block description %}
+		<div class="row">
+			<div class="col-xs-12">
+				<p>{{ entry.content | raw }}</p>
+			</div>
+		</div>
+		{% endblock %}
+	</div>
+	
+	{% block back %}
+	<div class="row">
+		<div class="col-xs-12">
+			<a class="btn btn-primary fa fa-arrow-circle-o-left" href="{{ path('infoprodukt_home') }}"></a>
+			<a class="btn btn-primary fa fa-arrow-circle-o-up pull-right" href="#"></a>
+		</div>
+	</div>	
+	{% endblock %}
+{% endblock %}

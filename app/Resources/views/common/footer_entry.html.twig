@@ -1,6 +1,6 @@
 {% if entry.featured %}
 	<a href="{{ path('infomarket_product', { 'branches': branches, 'branch': branch, 'category': entry.id }) }}">
-		{{ entry.name }}
+		{{ entry.name | raw }}
 	</a>
 	<br>
 {% endif %}

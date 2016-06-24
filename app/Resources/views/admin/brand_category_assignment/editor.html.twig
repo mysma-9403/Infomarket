@@ -1,0 +1,15 @@
+{% extends 'admin/simple/editor.html.twig' %}
+
+{% set mainPath = 'brand_category_assignment' %}
+{% set title = 'title.brand_category_assignments'|trans %}
+{% set gender = '' %}
+
+{% block mainFields1 %}
+{% endblock %}
+
+{% block moreFields2 %}
+	{{ form_row(form.brand, { 'label': 'label.brand' }) }}
+	{{ form_row(form.segment, { 'label': 'label.segment' }) }}
+	{{ form_row(form.category, { 'label': 'label.category' }) }}
+	{{ form_row(form.orderNumber, { 'label': 'label.orderNumber' }) }}
+{% endblock %}

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+        http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <entity name="AppBundle\Entity\ProductCategoryAssignment" 
+        table="product_category_assignments"
+        repository-class="AppBundle\Repository\ProductCategoryAssignmentRepository">
+        
+        <many-to-one field="product" target-entity="Product" />
+        <many-to-one field="segment" target-entity="Segment" />
+        <many-to-one field="category" target-entity="Category" />
+        
+        <field name="orderNumber" type="integer" default="1"/>
+        
+    </entity>
+    
+</doctrine-mapping>

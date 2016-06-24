@@ -34,6 +34,10 @@ infoprodukt_category_show:
     host:      infoprodukt.loc
     defaults:  { _controller: "AppBundle:Infoprodukt/Category:show" }
 
+infoprodukt_page_show:
+    path:      /pages/show/{id}
+    defaults:  { _controller: "AppBundle:Infoprodukt/Page:show" }
+    
 infoprodukt_product:
     path:      /products/{page}
     host:      infoprodukt.loc
@@ -84,7 +88,7 @@ infomarket_brand:
 infomarket_brand_show:
     path:      /brands/show/{id}
     defaults:  { _controller: "AppBundle:Infomarket/Brand:show" }
-                
+                    
 infomarket_product:
     path:      /products/{page}
     defaults:  { _controller: "AppBundle:Infomarket/Product:index", page: 1 }
@@ -152,6 +156,65 @@ admin_article:
     defaults:  { _controller: "AppBundle:Admin/Article:index", page: 1 }
     
 
+# Admin ArticleArticleCategoryAssignments Routing    
+admin_article_article_category_assignment_show:
+    path:      /admin/articleArticleArticleCategoryAssignments/show/{id}
+    defaults:  { _controller: "AppBundle:Admin/ArticleArticleCategoryAssignment:show" }
+    
+admin_article_article_category_assignment_new:
+    path:      /admin/articleArticleArticleCategoryAssignments/new/
+    defaults:  { _controller: "AppBundle:Admin/ArticleArticleCategoryAssignment:new" }
+    
+admin_article_article_category_assignment_copy:
+    path:      /admin/articleArticleArticleCategoryAssignments/copy/{id}
+    defaults:  { _controller: "AppBundle:Admin/ArticleArticleCategoryAssignment:copy" }
+    
+admin_article_article_category_assignment_edit:
+    path:      /admin/articleArticleArticleCategoryAssignments/edit/{id}
+    defaults:  { _controller: "AppBundle:Admin/ArticleArticleCategoryAssignment:edit" }
+    
+admin_article_article_category_assignment_delete:
+    path:      /admin/articleArticleArticleCategoryAssignments/delete/{id}
+    defaults:  { _controller: "AppBundle:Admin/ArticleArticleCategoryAssignment:delete" }
+    
+admin_article_article_category_assignment_set_published:
+    path:      /admin/articleArticleArticleCategoryAssignments/publish/{id}
+    defaults:  { _controller: "AppBundle:Admin/ArticleArticleCategoryAssignment:setPublished" }
+
+admin_article_article_category_assignment:
+    path:      /admin/articleArticleArticleCategoryAssignments/{page}
+    defaults:  { _controller: "AppBundle:Admin/ArticleArticleCategoryAssignment:index", page: 1 }
+    
+# Admin ArticleCategoryAssignments Routing    
+admin_article_category_assignment_show:
+    path:      /admin/articleCategoryAssignments/show/{id}
+    defaults:  { _controller: "AppBundle:Admin/ArticleCategoryAssignment:show" }
+    
+admin_article_category_assignment_new:
+    path:      /admin/articleCategoryAssignments/new/
+    defaults:  { _controller: "AppBundle:Admin/ArticleCategoryAssignment:new" }
+    
+admin_article_category_assignment_copy:
+    path:      /admin/articleCategoryAssignments/copy/{id}
+    defaults:  { _controller: "AppBundle:Admin/ArticleCategoryAssignment:copy" }
+    
+admin_article_category_assignment_edit:
+    path:      /admin/articleCategoryAssignments/edit/{id}
+    defaults:  { _controller: "AppBundle:Admin/ArticleCategoryAssignment:edit" }
+    
+admin_article_category_assignment_delete:
+    path:      /admin/articleCategoryAssignments/delete/{id}
+    defaults:  { _controller: "AppBundle:Admin/ArticleCategoryAssignment:delete" }
+    
+admin_article_category_assignment_set_published:
+    path:      /admin/articleCategoryAssignments/publish/{id}
+    defaults:  { _controller: "AppBundle:Admin/ArticleCategoryAssignment:setPublished" }
+
+admin_article_category_assignment:
+    path:      /admin/articleCategoryAssignments/{page}
+    defaults:  { _controller: "AppBundle:Admin/ArticleCategoryAssignment:index", page: 1 }
+    
+    
 # Admin ArticleCategories Routing    
 admin_article_category_show:
     path:      /admin/articleCategories/show/{id}
@@ -244,6 +307,7 @@ admin_branch_category_assignment:
     path:      /admin/branchCategoryAssignments/{page}
     defaults:  { _controller: "AppBundle:Admin/BranchCategoryAssignment:index", page: 1 }
 
+
 # Admin Brands Routing    
 admin_brand_show:
     path:      /admin/brands/show/{id}
@@ -273,7 +337,37 @@ admin_brand:
     path:      /admin/brands/{page}
     defaults:  { _controller: "AppBundle:Admin/Brand:index", page: 1 }
     
+
+# Admin BrandCategoryAssignments Routing    
+admin_brand_category_assignment_show:
+    path:      /admin/brandCategoryAssignments/show/{id}
+    defaults:  { _controller: "AppBundle:Admin/BrandCategoryAssignment:show" }
     
+admin_brand_category_assignment_new:
+    path:      /admin/brandCategoryAssignments/new/
+    defaults:  { _controller: "AppBundle:Admin/BrandCategoryAssignment:new" }
+    
+admin_brand_category_assignment_copy:
+    path:      /admin/brandCategoryAssignments/copy/{id}
+    defaults:  { _controller: "AppBundle:Admin/BrandCategoryAssignment:copy" }
+    
+admin_brand_category_assignment_edit:
+    path:      /admin/brandCategoryAssignments/edit/{id}
+    defaults:  { _controller: "AppBundle:Admin/BrandCategoryAssignment:edit" }
+    
+admin_brand_category_assignment_delete:
+    path:      /admin/brandCategoryAssignments/delete/{id}
+    defaults:  { _controller: "AppBundle:Admin/BrandCategoryAssignment:delete" }
+    
+admin_brand_category_assignment_set_published:
+    path:      /admin/brandCategoryAssignments/publish/{id}
+    defaults:  { _controller: "AppBundle:Admin/BrandCategoryAssignment:setPublished" }
+
+admin_brand_category_assignment:
+    path:      /admin/brandCategoryAssignments/{page}
+    defaults:  { _controller: "AppBundle:Admin/BrandCategoryAssignment:index", page: 1 }
+    
+        
 # Admin Categories Routing    
 admin_category_show:
     path:      /admin/categories/show/{id}
@@ -302,13 +396,54 @@ admin_category_set_published:
 admin_category_set_featured:
     path:      /admin/categories/set_featured/{id}
     defaults:  { _controller: "AppBundle:Admin/Category:setFeatured" }
+    
+admin_category_set_preleaf:
+    path:      /admin/categories/set_preleaf/{id}
+    defaults:  { _controller: "AppBundle:Admin/Category:setPreleaf" }
 
+admin_category_ratings:
+    path:      /admin/categories/ratings/{id}
+    defaults:  { _controller: "AppBundle:Admin/Category:ratings" }
+    
+admin_category_tree:
+    path:      /admin/categories/tree/
+    defaults:  { _controller: "AppBundle:Admin/Category:tree" }
+    
 admin_category:
     path:      /admin/categories/{page}
     defaults:  { _controller: "AppBundle:Admin/Category:index", page: 1 }
     
+# Admin Pages Routing    
+admin_page_show:
+    path:      /admin/pages/show/{id}
+    defaults:  { _controller: "AppBundle:Admin/Page:show" }
+    
+admin_page_new:
+    path:      /admin/pages/new/
+    defaults:  { _controller: "AppBundle:Admin/Page:new" }
+    
+admin_page_copy:
+    path:      /admin/pages/copy/{id}
+    defaults:  { _controller: "AppBundle:Admin/Page:copy" }
+    
+admin_page_edit:
+    path:      /admin/pages/edit/{id}
+    defaults:  { _controller: "AppBundle:Admin/Page:edit" }
+    
+admin_page_delete:
+    path:      /admin/pages/delete/{id}
+    defaults:  { _controller: "AppBundle:Admin/Page:delete" }
+    
+admin_page_set_published:
+    path:      /admin/pages/publish/{id}
+    defaults:  { _controller: "AppBundle:Admin/Page:setPublished" }
 
-
+admin_page:
+    path:      /admin/pages/{page}
+    defaults:  { _controller: "AppBundle:Admin/Page:index", page: 1 }
+    
+    
+    
 # Admin Products Routing    
 admin_product_show:
     path:      /admin/products/show/{id}
@@ -337,7 +472,38 @@ admin_product_set_published:
 admin_product:
     path:      /admin/products/{page}
     defaults:  { _controller: "AppBundle:Admin/Product:index", page: 1 }                
-        
+      
+      
+# Admin ProductCategoryAssignments Routing    
+admin_product_category_assignment_show:
+    path:      /admin/productCategoryAssignments/show/{id}
+    defaults:  { _controller: "AppBundle:Admin/ProductCategoryAssignment:show" }
+    
+admin_product_category_assignment_new:
+    path:      /admin/productCategoryAssignments/new/
+    defaults:  { _controller: "AppBundle:Admin/ProductCategoryAssignment:new" }
+    
+admin_product_category_assignment_copy:
+    path:      /admin/productCategoryAssignments/copy/{id}
+    defaults:  { _controller: "AppBundle:Admin/ProductCategoryAssignment:copy" }
+    
+admin_product_category_assignment_edit:
+    path:      /admin/productCategoryAssignments/edit/{id}
+    defaults:  { _controller: "AppBundle:Admin/ProductCategoryAssignment:edit" }
+    
+admin_product_category_assignment_delete:
+    path:      /admin/productCategoryAssignments/delete/{id}
+    defaults:  { _controller: "AppBundle:Admin/ProductCategoryAssignment:delete" }
+    
+admin_product_category_assignment_set_published:
+    path:      /admin/productCategoryAssignments/publish/{id}
+    defaults:  { _controller: "AppBundle:Admin/ProductCategoryAssignment:setPublished" }
+
+admin_product_category_assignment:
+    path:      /admin/productCategoryAssignments/{page}
+    defaults:  { _controller: "AppBundle:Admin/ProductCategoryAssignment:index", page: 1 }
+    
+            
 # Admin Segments Routing    
 admin_segment_show:
     path:      /admin/segments/show/{id}
@@ -367,6 +533,11 @@ admin_segment:
     path:      /admin/segments/{page}
     defaults:  { _controller: "AppBundle:Admin/Segment:index", page: 1 }
 
+# Admin Users Routing    
+admin_user_show:
+    path:      /admin/users/show/{id}
+    defaults:  { _controller: "AppBundle:Admin/User:show" }
+    
 # Friends of Symfony Routing    
 fos_user:
     resource: "@FOSUserBundle/Resources/config/routing/all.xml"

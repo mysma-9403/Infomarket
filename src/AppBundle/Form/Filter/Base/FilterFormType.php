@@ -26,11 +26,10 @@ class FilterFormType extends BaseFormType
 	
 		$builder
 			->add('published', ChoiceType::class, array(
-					'placeholder'	=> 'All',
 					'choices'		=> $publishChoices,
 					'expanded'      => false,
 					'multiple'      => false,
-					'required' 		=> false
+					'required' 		=> true
 			))
 			->add('updatedAfter', DateTimeType::class, array(
 					'widget' => 'single_text',

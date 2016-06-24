@@ -10,9 +10,19 @@ use AppBundle\Entity\Base\Audit;
 class BrandCategoryAssignment extends Audit
 {
     /**
+     * @var integer
+     */
+    private $orderNumber;
+
+    /**
      * @var \AppBundle\Entity\Brand
      */
     private $brand;
+
+    /**
+     * @var \AppBundle\Entity\Segment
+     */
+    private $segment;
 
     /**
      * @var \AppBundle\Entity\Category
@@ -21,13 +31,37 @@ class BrandCategoryAssignment extends Audit
 
 
     /**
+     * Set orderNumber
+     *
+     * @param integer $orderNumber
+     *
+     * @return BrandCategoryAssignment
+     */
+    public function setOrderNumber($orderNumber)
+    {
+        $this->orderNumber = $orderNumber;
+
+        return $this;
+    }
+
+    /**
+     * Get orderNumber
+     *
+     * @return integer
+     */
+    public function getOrderNumber()
+    {
+        return $this->orderNumber;
+    }
+
+    /**
      * Set brand
      *
      * @param \AppBundle\Entity\Brand $brand
      *
      * @return BrandCategoryAssignment
      */
-    public function setBrand(\AppBundle\Entity\Brand $brand)
+    public function setBrand(\AppBundle\Entity\Brand $brand = null)
     {
         $this->brand = $brand;
 
@@ -45,13 +79,37 @@ class BrandCategoryAssignment extends Audit
     }
 
     /**
+     * Set segment
+     *
+     * @param \AppBundle\Entity\Segment $segment
+     *
+     * @return BrandCategoryAssignment
+     */
+    public function setSegment(\AppBundle\Entity\Segment $segment = null)
+    {
+        $this->segment = $segment;
+
+        return $this;
+    }
+
+    /**
+     * Get segment
+     *
+     * @return \AppBundle\Entity\Segment
+     */
+    public function getSegment()
+    {
+        return $this->segment;
+    }
+
+    /**
      * Set category
      *
      * @param \AppBundle\Entity\Category $category
      *
      * @return BrandCategoryAssignment
      */
-    public function setCategory(\AppBundle\Entity\Category $category)
+    public function setCategory(\AppBundle\Entity\Category $category = null)
     {
         $this->category = $category;
 

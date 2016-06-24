@@ -2,7 +2,8 @@
 
 {% set mainPath = 'article_category' %}
 {% set title = 'title.article_categories'|trans %}
+{% set gender = 'fm.' %}
 
-{% block moreFields2 %}
-	{{ form_row(form.featured, { 'label': 'label.featured' }) }}
+{% block moreFields3 %}
+	{{ form_row(form.featured, { 'label': 'label.fm.featured' }) }}
 {% endblock %}

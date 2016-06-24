@@ -3,14 +3,13 @@
 namespace AppBundle\Form;
 
 use AppBundle\Entity\Article;
-use AppBundle\Form\Base\SimpleEntityType;
-use Symfony\Component\Form\FormBuilderInterface;
 use AppBundle\Form\Base\ImageEntityType;
+use AppBundle\Form\Base\SimpleEntityType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
-use AppBundle\Entity\ArticleCategory;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\FormBuilderInterface;
 
 class ArticleType extends ImageEntityType
 {
@@ -57,14 +56,6 @@ class ArticleType extends ImageEntityType
 					'multiple'      => false,
 					'placeholder'	=> 'Choose parent'
 			))
-			->add('articleCategory', EntityType::class, array(
-					'class'			=> ArticleCategory::class,
-					'choice_label' 	=> 'name',
-					'required' 		=> false,
-					'expanded'      => false,
-					'multiple'      => false,
-					'placeholder'	=> 'Choose category'
-			))
 			->add('intro', null, array(
 					'attr' => array(
 							'class' => 'tinymce',
@@ -85,7 +76,7 @@ class ArticleType extends ImageEntityType
 					'multiple'      => false
 			))
 			->add('orderNumber', NumberType::class, array(
-					'required' => false
+					'required' => true
 			))
 			->add('displaySided', null, array(
 					'required' => false

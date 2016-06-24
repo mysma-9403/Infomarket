@@ -47,6 +47,16 @@ class BranchCategoryAssignmentController extends AdminEntityController {
 	}
 	
 	/**
+	 *
+	 * @param Request $request
+	 * @param unknown $id
+	 */
+	public function deleteAction(Request $request, $id)
+	{
+		return $this->deleteActionInternal($request, $id);
+	}
+	
+	/**
 	 * 
 	 * @param Request $request
 	 * @return \AppBundle\Entity\BranchCategoryAssignment
@@ -61,10 +71,19 @@ class BranchCategoryAssignmentController extends AdminEntityController {
 		
 		$branch = $this->getParamById($request, Branch::class, null);
 		if($branch) {
-			$entity->setCategory($branch);
+			$entity->setBranch($branch);
 		}
 		
 		return $entity;
+	}
+	
+	protected function createFromTemplate(Request $request, $template) {
+		$entry = parent::createFromTemplate($request, $template);
+	
+		$entry->setCategory($template->getCategory());
+		$entry->setBranch($template->getBranch());
+	
+		return $entry;
 	}
 	
 	/**

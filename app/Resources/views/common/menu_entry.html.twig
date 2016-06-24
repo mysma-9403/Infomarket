@@ -1,6 +1,6 @@
 {% if entry.getChildren()|length > 0 %}
 	<li class="row-fluid">
-		<label class="tree-toggle nav-header">{{ entry.name }}  ({{ entry.getChildren()|length }})</label>
+		<label class="tree-toggle nav-header">{{ entry.name | raw }}  ({{ entry.getChildren()|length }})</label>
 		<ul class="nav-list tree collapse"> {# in #} {# nav psuje!!! #}
 			{% for child in entry.getChildren() %}
 				{% include 'common/menu_entry.html.twig' with {'entry': child } %} 
@@ -8,5 +8,5 @@
 		</ul>
 	</li>
 {% else %}
-	<li><a href="{{ path('infomarket_' ~ mainPath, { 'branches': branches, 'branch': branch.name, 'category': entry.name }) }}">{{ entry.name }}</a></li>
+	<li><a href="{{ path('infomarket_' ~ mainPath, { 'branches': branches, 'branch': branch.name, 'category': entry.name | raw }) }}">{{ entry.name | raw }}</a></li>
 {% endif %}

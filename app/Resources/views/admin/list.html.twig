@@ -19,10 +19,12 @@
 						
 						{% block filterMoreFields2 %}
 						{% endblock %}
-						
+					</ul>	
+					<ul class="list-inline col-xs-12">
 						{% block filterMainFields2 %}
 						{% endblock %}
-						
+					</ul>
+					<ul class="list-inline col-xs-12">
 						{% block filterActions %}
 						{% endblock %}
 					</ul>			
@@ -51,7 +53,7 @@
 			{% endblock %}
 	    	
     		{% block listTable %}
-	    		<table class="table table-striped">
+	    		<table class="table table-striped vert-align">
 					<thead>
 						{% block tableHeader %}
 							<th><i class="fa fa-check-square-o"></i>{{ 'label.selected'|trans }}</th>

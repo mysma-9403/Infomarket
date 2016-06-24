@@ -1,11 +1,11 @@
 <div class="row">
 	<a class="text-white" href="{{ path('infoprodukt_' ~ entryPath ~ '_show', { 'id': entry.id }) }}">
 		<div class="rect col-bottom">
-			<img class="div-center" alt="{{ entry.name }}" src="{{ asset(entry.getImagePath()) }}">
+			<img class="div-center" alt="{{ entry.name | raw }}" src="{{ asset(entry.getImagePath()) }}">
 			<div class="col-xs-12 div-bottom bkg-black-50">
 				<h4>
-					{{ entry.name }}
-					{{ entry.subname is defined ? entry.subname : '' }}
+					{{ entry.getHtmlName() | raw }}
+					{{ entry.subname is defined ? entry.subname | raw : '' }}
 				</h4>
 			</div>
 		</div>

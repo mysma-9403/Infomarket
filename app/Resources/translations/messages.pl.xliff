@@ -21,7 +21,7 @@
             
             <trans-unit id="title.articles">
                 <source>title.articles</source>
-                <target>Informacje</target>
+                <target>Artykuły</target>
             </trans-unit>
             <trans-unit id="title.branch">
                 <source>title.branch</source>
@@ -73,13 +73,46 @@
                 <source>title.assignments</source>
                 <target>Powiązania</target>
             </trans-unit>
+            
+            <trans-unit id="title.article_article_category_assignments">
+                <source>title.article_article_category_assignments</source>
+                <target>Artykuły - Kategorie artykułów</target>
+            </trans-unit>
+            <trans-unit id="title.article_category_assignments">
+                <source>title.article_category_assignments</source>
+                <target>Artykuły - Kategorie</target>
+            </trans-unit>
             <trans-unit id="title.branch_category_assignments">
                 <source>title.branch_category_assignments</source>
-                <target>Branża - Kategoria</target>
+                <target>Branże - Kategorie</target>
             </trans-unit>
             <trans-unit id="title.brand_category_assignments">
                 <source>title.brand_category_assignments</source>
-                <target>Marka - Kategoria</target>
+                <target>Marki - Kategorie</target>
+            </trans-unit>
+            <trans-unit id="title.product_category_assignments">
+                <source>title.product_category_assignments</source>
+                <target>Produkty - Kategorie</target>
+            </trans-unit>
+            <trans-unit id="title.category_tree">
+                <source>title.category_tree</source>
+                <target>Drzewo kategorii</target>
+            </trans-unit>
+            
+            
+            
+            
+            <trans-unit id="title.footer.copyright">
+                <source>title.footer.copyright</source>
+                <target>2016 InfoMarket</target>
+            </trans-unit>
+            <trans-unit id="title.footer.office">
+                <source>title.footer.office</source>
+                <target>Redakcja</target>
+            </trans-unit>
+            <trans-unit id="title.footer.magazine">
+                <source>title.footer.magazine</source>
+                <target>Magazyn</target>
             </trans-unit>
             
             
@@ -97,6 +130,40 @@
             
             
             
+            <trans-unit id="label.article">
+                <source>label.article</source>
+                <target>Artyuł</target>
+            </trans-unit>
+            <trans-unit id="label.articleCategory">
+                <source>label.articleCategory</source>
+                <target>Kategoria artyułu</target>
+            </trans-unit>
+            <trans-unit id="label.branch">
+                <source>label.branch</source>
+                <target>Branża</target>
+            </trans-unit>
+            <trans-unit id="label.brand">
+                <source>label.brand</source>
+                <target>Marka</target>
+            </trans-unit>
+            <trans-unit id="label.category">
+                <source>label.category</source>
+                <target>Kategoria</target>
+            </trans-unit>
+            <trans-unit id="label.segment">
+                <source>label.segment</source>
+                <target>Segment</target>
+            </trans-unit>
+            <trans-unit id="label.product">
+                <source>label.product</source>
+                <target>Produkt</target>
+            </trans-unit>
+            
+            
+            
+            
+            
+            
             <trans-unit id="label.filter">
                 <source>label.filter</source>
                 <target>Filtr</target>
@@ -108,6 +175,15 @@
             <trans-unit id="label.links">
                 <source>label.links</source>
                 <target>Menu</target>
+            </trans-unit>
+            
+            <trans-unit id="label.all">
+                <source>label.all</source>
+                <target>Wszystkie</target>
+            </trans-unit>
+            <trans-unit id="label.findUs">
+                <source>label.findUs</source>
+                <target>Znajdź nas na</target>
             </trans-unit>
             
             <trans-unit id="label.readMore">
@@ -132,20 +208,31 @@
             
 			<trans-unit id="label.name">
                 <source>label.name</source>
-                <target>Nazwa</target>
+                <target>Tytuł</target>
+            </trans-unit>
+            <trans-unit id="label.subname">
+                <source>label.subname</source>
+                <target>Podtytuł</target>
             </trans-unit>
             <trans-unit id="label.image">
                 <source>label.image</source>
                 <target>Obrazek</target>
             </trans-unit>
-            <trans-unit id="label.description">
-                <source>label.description</source>
-                <target>Opic</target>
+            <trans-unit id="label.intro">
+                <source>label.intro</source>
+                <target>Wprowadzenie</target>
+            </trans-unit>
+            <trans-unit id="label.content">
+                <source>label.content</source>
+                <target>Treść</target>
             </trans-unit>
             <trans-unit id="label.actions">
                 <source>label.actions</source>
                 <target>Akcje</target>
             </trans-unit>
+            
+            
+            
             
             <trans-unit id="label.published">
                 <source>label.published</source>
@@ -153,7 +240,7 @@
             </trans-unit>
             <trans-unit id="label.featured">
                 <source>label.featured</source>
-                <target>Wyróżniony</target>
+                <target>Wyróżnione</target>
             </trans-unit>
             <trans-unit id="label.selected">
                 <source>label.selected</source>
@@ -162,31 +249,160 @@
             
             <trans-unit id="label.publishedAt">
                 <source>label.publishedAt</source>
-                <target>Opublikowany o</target>
+                <target>Opublikowane o</target>
             </trans-unit>
             <trans-unit id="label.createdAt">
                 <source>label.createdAt</source>
-                <target>Utworzony o</target>
+                <target>Utworzone o</target>
             </trans-unit>
             <trans-unit id="label.updatedAt">
                 <source>label.updatedAt</source>
-                <target>Edytowany o</target>
+                <target>Edytowane o</target>
             </trans-unit>
             
             <trans-unit id="label.publishedBy">
                 <source>label.publishedBy</source>
-                <target>Opublikowany przez</target>
+                <target>Opublikowane przez</target>
             </trans-unit>
             <trans-unit id="label.createdBy">
                 <source>label.createdBy</source>
-                <target>Utworzony przez</target>
+                <target>Utworzone przez</target>
             </trans-unit>
             <trans-unit id="label.updatedBy">
                 <source>label.updatedBy</source>
+                <target>Edytowane przez</target>
+            </trans-unit>
+            
+            
+            
+            
+            <trans-unit id="label.orderNumber">
+                <source>label.orderNumber</source>
+                <target>Numer porządkowy</target>
+            </trans-unit>
+            
+            <trans-unit id="label.logout">
+                <source>label.logout</source>
+                <target>Wyloguj</target>
+            </trans-unit>
+            
+            
+            
+            <trans-unit id="label.m.published">
+                <source>label.m.published</source>
+                <target>Opublikowany</target>
+            </trans-unit>
+            <trans-unit id="label.m.featured">
+                <source>label.m.featured</source>
+                <target>Wyróżniony</target>
+            </trans-unit>
+            
+            <trans-unit id="label.m.publishedAt">
+                <source>label.m.publishedAt</source>
+                <target>Opublikowany o</target>
+            </trans-unit>
+            <trans-unit id="label.m.createdAt">
+                <source>label.m.createdAt</source>
+                <target>Utworzony o</target>
+            </trans-unit>
+            <trans-unit id="label.m.updatedAt">
+                <source>label.m.updatedAt</source>
+                <target>Edytowany o</target>
+            </trans-unit>
+            
+            <trans-unit id="label.m.publishedBy">
+                <source>label.m.publishedBy</source>
+                <target>Opublikowany przez</target>
+            </trans-unit>
+            <trans-unit id="label.m.createdBy">
+                <source>label.m.createdBy</source>
+                <target>Utworzony przez</target>
+            </trans-unit>
+            <trans-unit id="label.m.updatedBy">
+                <source>label.m.updatedBy</source>
                 <target>Edytowany przez</target>
             </trans-unit>
             
             
+            
+            
+            <trans-unit id="label.fm.published">
+                <source>label.fm.published</source>
+                <target>Opublikowana</target>
+            </trans-unit>
+            <trans-unit id="label.fm.featured">
+                <source>label.fm.featured</source>
+                <target>Wyróżniona</target>
+            </trans-unit>
+            
+            <trans-unit id="label.fm.publishedAt">
+                <source>label.fm.publishedAt</source>
+                <target>Opublikowana o</target>
+            </trans-unit>
+            <trans-unit id="label.fm.createdAt">
+                <source>label.fm.createdAt</source>
+                <target>Utworzona o</target>
+            </trans-unit>
+            <trans-unit id="label.fm.updatedAt">
+                <source>label.fm.updatedAt</source>
+                <target>Edytowana o</target>
+            </trans-unit>
+            
+            <trans-unit id="label.fm.publishedBy">
+                <source>label.fm.publishedBy</source>
+                <target>Opublikowana przez</target>
+            </trans-unit>
+            <trans-unit id="label.fm.createdBy">
+                <source>label.fm.createdBy</source>
+                <target>Utworzona przez</target>
+            </trans-unit>
+            <trans-unit id="label.fm.updatedBy">
+                <source>label.fm.updatedBy</source>
+                <target>Edytowana przez</target>
+            </trans-unit>
+            
+            
+            
+            <trans-unit id="label.yes">
+                <source>label.yes</source>
+                <target>Tak</target>
+            </trans-unit>
+            
+            <trans-unit id="label.no">
+                <source>label.no</source>
+                <target>Nie</target>
+            </trans-unit>
+            
+            
+            
+            
+            <trans-unit id="label.article.parent">
+                <source>label.article.parent</source>
+                <target>Artykuł główny</target>
+            </trans-unit>
+            <trans-unit id="label.article.layout">
+                <source>label.article.layout</source>
+                <target>Ułożenie</target>
+            </trans-unit>
+            <trans-unit id="label.article.displaySided">
+                <source>label.article.displaySided</source>
+                <target>Wyświetl podzielony</target>
+            </trans-unit>
+            
+            
+            
+            
+            <trans-unit id="label.category.subtitle">
+                <source>label.category.subtitle</source>
+                <target>- klasyfikacja i podział</target>
+            </trans-unit>
+            
+            
+            
+            <trans-unit id="action.back">
+                <source>action.back</source>
+                <target>Wróć</target>
+            </trans-unit>
             
             <trans-unit id="action.show">
                 <source>action.show</source>
@@ -235,18 +451,34 @@
             
             
             
-            
-            <trans-unit id="action.form.saveAndNew">
-                <source>action.form.saveAndNew</source>
+            <trans-unit id="action.save">
+                <source>action.save</source>
+                <target>Zapisz</target>
+            </trans-unit>
+            <trans-unit id="action.saveAndNew">
+                <source>action.saveAndNew</source>
                 <target>Zapisz i utwórz</target>
             </trans-unit>
-            <trans-unit id="action.form.saveAndCopy">
-                <source>action.form.saveAndCopy</source>
+            <trans-unit id="action.saveAndCopy">
+                <source>action.saveAndCopy</source>
                 <target>Zapisz i kopiuj</target>
             </trans-unit>
-            <trans-unit id="action.form.saveAndQuit">
-                <source>action.form.saveAndQuit</source>
+            <trans-unit id="action.saveAndQuit">
+                <source>action.saveAndQuit</source>
                 <target>Zapisz i wróć</target>
+            </trans-unit>
+            
+            
+            
+            
+            
+            <trans-unit id="text.slogan1">
+                <source>text.slogan1</source>
+                <target>Sam wybieraj najlepsze produkty.</target>
+            </trans-unit>
+            <trans-unit id="text.slogan2">
+                <source>text.slogan2</source>
+                <target>Kupuj głową, nie ceną.</target>
             </trans-unit>
         </body>
     </file>

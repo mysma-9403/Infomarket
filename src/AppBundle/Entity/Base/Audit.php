@@ -8,42 +8,42 @@ class Audit
     /**
      * @var boolean
      */
-    private $published;
+    protected $published;
 
     /**
      * @var \DateTime
      */
-    private $createdAt;
+    protected $createdAt;
 
     /**
      * @var \DateTime
      */
-    private $updatedAt;
+    protected $updatedAt;
 
     /**
      * @var \DateTime
      */
-    private $publishedAt;
+    protected $publishedAt;
 
     /**
      * @var integer
      */
-    private $id;
+    protected $id;
 
     /**
      * @var \AppBundle\Entity\User
      */
-    private $createdBy;
+    protected $createdBy;
 
     /**
      * @var \AppBundle\Entity\User
      */
-    private $updatedBy;
+    protected $updatedBy;
 
     /**
      * @var \AppBundle\Entity\User
      */
-    private $publishedBy;
+    protected $publishedBy;
 
 
     /**

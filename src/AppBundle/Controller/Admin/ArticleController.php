@@ -7,6 +7,10 @@ use AppBundle\Controller\Admin\Base\SimpleEntityController;
 use AppBundle\Entity\Article;
 use AppBundle\Form\ArticleType;
 use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Entity\Filter\ArticleFilter;
+use AppBundle\Entity\ArticleCategory;
+use AppBundle\Entity\Category;
+use AppBundle\Form\Filter\ArticleFilterType;
 
 class ArticleController extends ImageEntityController {
 	
@@ -60,6 +64,11 @@ class ArticleController extends ImageEntityController {
 		return $this->setFeaturedActionInternal($request, $id);
 	}
 	
+	public function deleteAction(Request $request, $id)
+	{
+		return $this->deleteActionInternal($request, $id);
+	}
+	
 	//------------------------------------------------------------------------
 	// Entity creators
 	//------------------------------------------------------------------------
@@ -71,6 +80,17 @@ class ArticleController extends ImageEntityController {
 	 */
 	protected function createNewEntity(Request $request) {
 		return new Article();
+	}
+	
+	/**
+	 * 
+	 * {@inheritDoc}
+	 * @see \AppBundle\Controller\Admin\Base\SimpleEntityController::createNewFilter()
+	 */
+	protected function createNewFilter() {
+		$articleCategoryRepository = $this->getDoctrine()->getRepository(ArticleCategory::class);
+		$categoryRepository = $this->getDoctrine()->getRepository(Category::class);
+		return new ArticleFilter($articleCategoryRepository, $categoryRepository);
 	}
 	
 	
@@ -99,5 +119,14 @@ class ArticleController extends ImageEntityController {
 	 */
 	protected function getFormType() {
 		return ArticleType::class;
+	}
+	
+	/**
+	 * 
+	 * {@inheritDoc}
+	 * @see \AppBundle\Controller\Admin\Base\SimpleEntityController::getFilterFormType()
+	 */
+	protected function getFilterFormType() {
+		return ArticleFilterType::class;
 	}
 }

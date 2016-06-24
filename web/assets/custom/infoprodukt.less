@@ -1,66 +1,6 @@
 @import "common.less";
 
 
-
-.text-black {
-	color: black
-}
-
-.text-gray-darker {
-	color: @gray-darker
-}
-
-.text-white {
-	color: @white;
-}
-
-a.text-white:focus,
-a.text-white:hover {
-	color: @gray;
-}
-
-.text-brand {
-	color: @brand-primary;
-}
-
-.text-red {
-	color: @red;
-}
-
-.text-lime-green {
-	color: @lime-green;
-}
-
-
-.bkg-white {
-	background-color: white;
-}
-
-.bkg-white-50 {
-	background-color: rgba(255, 255, 255, 0.5);
-}
-
-.bkg-black {
-	background-color: black;
-}
-
-.bkg-black-50 {
-	background-color: rgba(0, 0, 0, 0.5);
-}
-
-.bkg-red {
-	background-color: @red;
-}
-
-.bkg-brand {
-	background-color: @brand-primary;
-}
-
-.bkg-lime-green {
-	background-color: @lime-green;
-}
-
-
 .content {
 	margin-top: 50px;
 	margin-bottom: 0px;
@@ -81,6 +21,14 @@ a.text-white:hover {
 	height: 20px;
 }
 
+.vr-space-10 {
+	height: 10px;
+}
+
+.vr-space-5 {
+	height: 5px;
+}
+
 
 
 
@@ -96,6 +44,16 @@ a.text-white:hover {
     background-color: white;
 }
 
+.navbar {
+	padding-bottom: 0px !important;
+    margin-bottom: -5px !important;
+}
+
+.input-group {
+	padding-bottom: 0px !important;
+	margin-bottom: 0px !important;
+}
+
 .navbar-default .navbar-nav li > a {
     color: @brand-primary;
 }
@@ -106,8 +64,18 @@ a.text-white:hover {
   	padding-bottom: (@padding * 2);
   	margin-top: 50px;
   	margin-bottom: 0px;
+  	
+  	font-size: 12px;
 }
 
+.footer a {
+	color: @gray-lighter;
+}
+
+.footer a:hover,
+.footer a:focus {
+	color: @white;
+}
 
 
 .col-bottom { 
@@ -304,7 +272,6 @@ nav.sidebar .navbar-nav > li {
 
 
 
-
 .lifted-top {
 	margin-top: -50px;
 }
@@ -314,13 +281,26 @@ nav.sidebar .navbar-nav > li {
 }
 
 .rect-title {
-	height: 50px;
+	padding-left: 2px;
+	padding-right: 2px;
+	height: 38px;
+}
+
+.rect-title h3 {
+	margin: 2px;
+	font-size: 16px;
 }
 
 .rect-subtitle {
-	height: 100px;
+	padding-left: 2px;
+	padding-right: 2px;
+	height: 56px;
 }
 
+.rect-subtitle h4 {
+	margin: 2px;
+	font-size: 14px;
+}
 
 
 
@@ -365,9 +345,11 @@ nav.sidebar .navbar-nav > li {
 }
 
 .video-container {
-    position: relative;
-    overflow: hidden;
-    height: 750px;
+	position: relative;
+	overflow: hidden;
+	width: 100%;
+	height: auto;
+	padding-top: 45%;
 }
 
 video {
@@ -417,7 +399,11 @@ video {
 .social-menu {
 	position: fixed;
 	top: 80px;
-	right: 20px;
+	right: 10px;
+}
+
+.social-menu > .row {
+	margin-bottom: 5px;
 }
 
 a .social-button {

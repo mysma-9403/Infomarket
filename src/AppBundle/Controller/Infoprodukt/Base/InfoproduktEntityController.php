@@ -10,6 +10,12 @@ use AppBundle\Entity\Filter\CategoryFilter;
 use AppBundle\Form\Filter\Base\SimpleEntityFilterType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Entity\Page;
+use AppBundle\Entity\Filter\PageFilter;
+use AppBundle\Entity\Filter\LinkFilter;
+use AppBundle\Entity\Link;
+use AppBundle\Entity\Base\Audit;
+use AppBundle\Entity\Filter\Base\BaseEntityFilter;
 
 abstract class InfoproduktEntityController extends BaseEntityController
 {
@@ -75,12 +81,27 @@ abstract class InfoproduktEntityController extends BaseEntityController
     	
     	$categoryFilter = new CategoryFilter($branchRepository, $categoryRepository);
     	$categoryFilter->setPublished(true);
-//     	$categoryFilter->setFeatured(true);
-//     	$categoryFilter->setPreleaf(true);
-    	$categoryFilter->setRoot(true);
+    	$categoryFilter->setFeatured(true);
+    	$categoryFilter->setPreleaf(true);
+//     	$categoryFilter->setRoot(true);
     
     	$categories = $this->getParamList(Category::class, $categoryFilter);
     	$params['categories'] = $categories;
+    	
+    	$pageFilter = new PageFilter();
+    	$pageFilter->setPublished(true);
+    	$pageFilter->setFeatured(true);
+    	
+    	$pages = $this->getParamList(Page::class, $pageFilter);
+    	$params['pages'] = $pages;
+    	
+    	$linkFilter = new LinkFilter();
+    	$linkFilter->setPublished(BaseEntityFilter::TRUE_VALUES);
+    	$linkFilter->setFeatured(BaseEntityFilter::TRUE_VALUES);
+    	$linkFilter->setType(Link::FOOTER_LINK);
+    	
+    	$links = $this->getParamList(Link::class, $linkFilter);
+    	$params['links'] = $links;
     
     	return $params;
     }

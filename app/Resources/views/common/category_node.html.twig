@@ -1,9 +1,46 @@
 <li>
-	{{ entry.name }} {{ entry.subname }} ({{ entry.id }})
+	<a href="{{ path('admin_' ~ mainPath ~ '_show', { id: entry.id, route: 'admin_category_tree' }) }}" class="horizontal-break">
+		{{ entry.name | raw }} 
+		<span class="text-red">{{ entry.subname | raw }}</span>
+	</a>
 	
-	<ul>
-	{% for subentry in entry.children %}
-			{% include 'common/category_node.html.twig' with { 'entry': subentry } %}
-	{% endfor %}
-	</ul>
+	<a href="{{ path('admin_' ~ mainPath ~ '_new', { category: entry.id, route: 'admin_category_tree' }) }}">
+		<span class="fa fa-file-o"></span>
+	</a>
+	 
+	<a href="{{ path('admin_' ~ mainPath ~ '_edit', { id: entry.id, route: 'admin_category_tree' }) }}">
+		<span class="fa fa-edit"></span>
+	</a>
+	
+	<a href="{{ path('admin_' ~ mainPath ~ '_copy', { id: entry.id, route: 'admin_category_tree' }) }}" class="horizontal-break">
+		<span class="fa fa-copy"></span>
+	</a>
+	
+	<a href="{{ path('admin_' ~ mainPath ~ '_set_published', { id: entry.id, published: entry.published ? false : true, route: 'admin_category_tree' }) }}">
+		<span class="fa {{ entry.published ? 'fa-check-square-o text-green' : 'fa-square-o text-red' }}"></span>
+	</a>
+	
+	<a href="{{ path('admin_' ~ mainPath ~ '_set_featured', { id: entry.id, featured: entry.featured ? false : true, route: 'admin_category_tree' }) }}">
+		<span class="fa {{ entry.featured ? 'fa-star text-green' : 'fa-star-o text-red' }}"></span>
+	</a>
+	
+	<a href="{{ path('admin_' ~ mainPath ~ '_set_preleaf', { id: entry.id, preleaf: entry.preleaf ? false : true, route: 'admin_category_tree' }) }}" class="horizontal-break">
+		<span class="fa fa-leaf {{ entry.preleaf ? 'text-green' : 'text-red' }}"></span>
+	</a>
+	
+	<a href="{{ path('admin_' ~ mainPath ~ '_ratings', { id: entry.id, route: 'admin_category_tree' }) }}" class="horizontal-break">
+		<span class="fa fa-tasks"></span>
+	</a>
+	
+	{% if entry.children | length > 0 %}
+		<a data-toggle="collapse" data-target="#{{ entry.id }}">
+			<span class="fa fa-caret-right"></span> 
+		</a>
+		
+		<ul id="{{ entry.id }}" class="nav-collapse collapse nav-tree">
+			{% for subentry in entry.children %}
+				{% include 'common/category_node.html.twig' with { 'entry': subentry } %}
+			{% endfor %}
+		</ul>
+	{% endif %}
 </li>

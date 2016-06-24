@@ -9,13 +9,23 @@
         table="categories"
         repository-class="AppBundle\Repository\CategoryRepository">
         
-        <field name="subname" type="string" length="128" nullable="true" />
+        <field name="subname" type="string" length="64" nullable="true" />
+        <field name="orderNumber" type="integer" default="1" />
+        
+        <field name="slug" type="string" length="256">
+        	<gedmo:slug unique="false" separator="-" fields="orderNumber,name,subname" />
+        	<gedmo:tree-path-source />
+        </field>
+        
         <field name="icon" type="string" length="64" nullable="true" />
         
         <field name="featured" type="boolean" default="false" />
         <field name="preleaf" type="boolean" default="false" />
         
         <field name="content" type="text" nullable="true" />
+        
+        
+        <gedmo:tree-path-source />
         
         <many-to-one field="parent" target-entity="Category" nullable="true">
             <gedmo:tree-parent />
@@ -27,7 +37,24 @@
             </order-by>
         </one-to-many>
         
-        <one-to-many field="branches" target-entity="BranchCategoryAssignment" mapped-by="category">
+        <one-to-many field="branchAssignments" target-entity="BranchCategoryAssignment" mapped-by="category">
+        	<order-by>
+            	<order-by-field name="id" direction="ASC" />
+            </order-by>
+        </one-to-many>
+        
+        <one-to-many field="brandAssignments" target-entity="BrandCategoryAssignment" mapped-by="category">
+            <order-by>
+            	<order-by-field name="segment" direction="ASC" />
+            	<order-by-field name="orderNumber" direction="ASC" />
+            </order-by>
+        </one-to-many>
+        
+        <one-to-many field="productAssignments" target-entity="ProductCategoryAssignment" mapped-by="category">
+            <order-by>
+            	<order-by-field name="segment" direction="ASC" />
+            	<order-by-field name="orderNumber" direction="ASC" />
+            </order-by>
         </one-to-many>
         
     </entity>

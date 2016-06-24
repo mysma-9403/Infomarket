@@ -1,15 +1,13 @@
 {% extends 'admin/simple/show.html.twig' %}
 
-{% block mainFields1 %}
+{% block mainFields2 %}	
 	<div class="row">
-		<div class="col-xs-12 col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3">
-			<h3>{{ entry.name }}</h3>
+		<div class="col-xs-12">
+			<img alt="{{ entry.name | raw }}" src="{{ asset(entry.getImagePath()) }}" width="160" height="160" />
 		</div>
 	</div>
 	
-	<div class="row">
-		<div class="col-xs-12 col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3">
-			<img alt="{{ entry.name }}" src="{{ asset(entry.getImagePath()) }}" width="160" height="160" />
-		</div>
-	</div>
+	<div class="row lowered-25"></div>
+	{% include 'common/fields/bool_field.html.twig' with 
+	{ 'label': ('label.' ~ gender ~ 'published')|trans, 'value': entry.published } %}
 {% endblock %}

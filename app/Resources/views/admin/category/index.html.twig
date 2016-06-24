@@ -3,18 +3,26 @@
 {% set mainPath = 'category' %}
 {% set title = 'title.categories'|trans %}
 
+{% block headerMoreFields1 %}
+	<th></th>
+{% endblock %}
+
 {% block headerMoreFields2 %}
 	<th><i class="fa fa-star"></i>{{ 'label.featured'|trans }}</th>
+{% endblock %}
+
+{% block entryMoreFields1 %}
+	<td>{{ item.subname }}</td>
 {% endblock %}
 
 {% block entryMoreFields2 %}
 	<td>
 		{% if item.featured %}
-			<a href="{{ path('admin_' ~ mainPath ~ '_set_featured', { id: item.id, featured: false }) }}">
+			<a href="{{ path('admin_' ~ mainPath ~ '_set_featured', { id: item.id, featured: false, routeParams: routingParams.routeParams }) }}">
 				<i class="fa fa-star" data-toggle="tooltip" title="{{ 'label.featured'|trans }}"></i>
 			</a>
 		{%  else %}
-			<a href="{{ path('admin_' ~ mainPath ~ '_set_featured', { id: item.id, featured: true }) }}">
+			<a href="{{ path('admin_' ~ mainPath ~ '_set_featured', { id: item.id, featured: true, routeParams: routingParams.routeParams }) }}">
 				<i class="fa fa-star-o" data-toggle="tooltip" title="{{ 'label.unfeatured'|trans }}"></i>
 			</a>
 		{% endif %}

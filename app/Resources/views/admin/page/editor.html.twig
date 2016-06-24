@@ -1,0 +1,10 @@
+{% extends 'admin/image/editor.html.twig' %}
+
+{% set mainPath = 'page' %}
+{% set title = 'title.pages'|trans %}
+{% set gender = 'fm.' %}
+
+{% block moreFields2 %}
+	{{ form_row(form.featured, { 'label': 'label.featured' }) }}	
+    {{ form_row(form.content, { 'label': 'label.content' }) }}
+{% endblock %}

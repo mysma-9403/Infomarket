@@ -150,45 +150,7 @@ class Category extends ImageTree
     {
         return $this->featured;
     }
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    private $branches;
-
-
-    /**
-     * Add branch
-     *
-     * @param \AppBundle\Entity\BranchCategoryAssignment $branch
-     *
-     * @return Category
-     */
-    public function addBranch(\AppBundle\Entity\BranchCategoryAssignment $branch)
-    {
-        $this->branches[] = $branch;
-
-        return $this;
-    }
-
-    /**
-     * Remove branch
-     *
-     * @param \AppBundle\Entity\BranchCategoryAssignment $branch
-     */
-    public function removeBranch(\AppBundle\Entity\BranchCategoryAssignment $branch)
-    {
-        $this->branches->removeElement($branch);
-    }
-
-    /**
-     * Get branches
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getBranches()
-    {
-        return $this->branches;
-    }
+    
     /**
      * @var string
      */
@@ -247,6 +209,7 @@ class Category extends ImageTree
     {
         return $this->preleaf;
     }
+    
     /**
      * @var string
      */
@@ -275,5 +238,180 @@ class Category extends ImageTree
     public function getSubname()
     {
         return $this->subname;
+    }
+    
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $branchAssignments;
+    
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $brandAssignments;
+    
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $productAssignments;
+
+    /**
+     * Add branchAssignment
+     *
+     * @param \AppBundle\Entity\BranchCategoryAssignment $branchAssignment
+     *
+     * @return Category
+     */
+    public function addBranchAssignment(\AppBundle\Entity\BranchCategoryAssignment $branchAssignment)
+    {
+        $this->branchAssignments[] = $branchAssignment;
+
+        return $this;
+    }
+
+    /**
+     * Remove branchAssignment
+     *
+     * @param \AppBundle\Entity\BranchCategoryAssignment $branchAssignment
+     */
+    public function removeBranchAssignment(\AppBundle\Entity\BranchCategoryAssignment $branchAssignment)
+    {
+        $this->branchAssignments->removeElement($branchAssignment);
+    }
+
+    /**
+     * Get branchAssignments
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getBranchAssignments()
+    {
+        return $this->branchAssignments;
+    }
+
+    /**
+     * Add brandAssignment
+     *
+     * @param \AppBundle\Entity\BrandCategoryAssignment $brandAssignment
+     *
+     * @return Category
+     */
+    public function addBrandAssignment(\AppBundle\Entity\BrandCategoryAssignment $brandAssignment)
+    {
+        $this->brandAssignments[] = $brandAssignment;
+
+        return $this;
+    }
+
+    /**
+     * Remove brandAssignment
+     *
+     * @param \AppBundle\Entity\BrandCategoryAssignment $brandAssignment
+     */
+    public function removeBrandAssignment(\AppBundle\Entity\BrandCategoryAssignment $brandAssignment)
+    {
+        $this->brandAssignments->removeElement($brandAssignment);
+    }
+
+    /**
+     * Get brandAssignments
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getBrandAssignments()
+    {
+        return $this->brandAssignments;
+    }
+
+    /**
+     * Add productAssignment
+     *
+     * @param \AppBundle\Entity\ProductCategoryAssignment $productAssignment
+     *
+     * @return Category
+     */
+    public function addProductAssignment(\AppBundle\Entity\ProductCategoryAssignment $productAssignment)
+    {
+        $this->productAssignments[] = $productAssignment;
+
+        return $this;
+    }
+
+    /**
+     * Remove productAssignment
+     *
+     * @param \AppBundle\Entity\ProductCategoryAssignment $productAssignment
+     */
+    public function removeProductAssignment(\AppBundle\Entity\ProductCategoryAssignment $productAssignment)
+    {
+        $this->productAssignments->removeElement($productAssignment);
+    }
+
+    /**
+     * Get productAssignments
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getProductAssignments()
+    {
+        return $this->productAssignments;
+    }
+    /**
+     * @var integer
+     */
+    private $orderNumber;
+
+
+    /**
+     * Set orderNumber
+     *
+     * @param integer $orderNumber
+     *
+     * @return Category
+     */
+    public function setOrderNumber($orderNumber)
+    {
+        $this->orderNumber = $orderNumber;
+
+        return $this;
+    }
+
+    /**
+     * Get orderNumber
+     *
+     * @return integer
+     */
+    public function getOrderNumber()
+    {
+        return $this->orderNumber;
+    }
+    /**
+     * @var string
+     */
+    private $slug;
+
+
+    /**
+     * Set slug
+     *
+     * @param string $slug
+     *
+     * @return Category
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
+
+        return $this;
+    }
+
+    /**
+     * Get slug
+     *
+     * @return string
+     */
+    public function getSlug()
+    {
+        return $this->slug;
     }
 }

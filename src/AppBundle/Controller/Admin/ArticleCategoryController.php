@@ -5,7 +5,9 @@ namespace AppBundle\Controller\Admin;
 use AppBundle\Controller\Admin\Base\ImageEntityController;
 use AppBundle\Controller\Admin\Base\SimpleEntityController;
 use AppBundle\Entity\ArticleCategory;
+use AppBundle\Entity\Filter\ArticleCategoryFilter;
 use AppBundle\Form\ArticleCategoryType;
+use AppBundle\Form\Filter\ArticleCategoryFilterType;
 use Symfony\Component\HttpFoundation\Request;
 
 class ArticleCategoryController extends ImageEntityController {
@@ -73,6 +75,15 @@ class ArticleCategoryController extends ImageEntityController {
 		return new ArticleCategory();
 	}
 	
+	/**
+	 *
+	 * {@inheritDoc}
+	 * @see \AppBundle\Controller\Admin\Base\SimpleEntityController::createNewFilter()
+	 */
+	protected function createNewFilter() {
+		return new ArticleCategoryFilter();
+	}
+	
 	
 	//------------------------------------------------------------------------
 	// Entity types
@@ -99,5 +110,14 @@ class ArticleCategoryController extends ImageEntityController {
 	 */
 	protected function getFormType() {
 		return ArticleCategoryType::class;
+	}
+	
+	/**
+	 *
+	 * {@inheritDoc}
+	 * @see \AppBundle\Controller\Admin\Base\SimpleEntityController::getFilterFormType()
+	 */
+	protected function getFilterFormType() {
+		return ArticleCategoryFilterType::class;
 	}
 }

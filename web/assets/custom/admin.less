@@ -1,0 +1,520 @@
+@import "common.less";
+
+@font-size-base: 11pt;
+
+body {
+	background: @white;
+}
+
+
+
+
+.text-black {
+	color: black
+}
+
+.text-gray-darker {
+	color: @gray-darker
+}
+
+.text-white {
+	color: @white;
+}
+
+a.text-white:focus,
+a.text-white:hover {
+	color: @gray;
+}
+
+.text-brand {
+	color: @brand-primary;
+}
+
+.text-red {
+	color: @red;
+}
+
+.text-lime-green {
+	color: @lime-green;
+}
+
+
+.bkg-white {
+	background-color: white;
+}
+
+.bkg-white-50 {
+	background-color: rgba(255, 255, 255, 0.5);
+}
+
+.bkg-black {
+	background-color: black;
+}
+
+.bkg-black-50 {
+	background-color: rgba(0, 0, 0, 0.5);
+}
+
+.bkg-red {
+	background-color: @red;
+}
+
+.bkg-brand {
+	background-color: @brand-primary;
+}
+
+.bkg-lime-green {
+	background-color: @lime-green;
+}
+
+
+.content {
+	margin-top: 50px;
+	margin-bottom: 0px;
+	min-height: 687px;
+}
+
+
+
+.vr-space-80 {
+	height: 80px;
+}
+
+.vr-space-40 {
+	height: 40px;
+}
+
+.vr-space-20 {
+	height: 20px;
+}
+
+.vr-space-10 {
+	height: 10px;
+}
+
+.vr-space-5 {
+	height: 5px;
+}
+
+
+#nav.affix {
+    position: fixed;
+    top: 0;
+    width: 100%;
+  	z-index: 10;
+}
+
+.navbar-default {
+	color: @brand-primary;
+    background-color: white;
+}
+
+.navbar {
+	padding-bottom: 0px !important;
+    margin-bottom: -5px !important;
+}
+
+.input-group {
+	padding-bottom: 0px !important;
+	margin-bottom: 0px !important;
+}
+
+.navbar-default .navbar-nav li > a {
+    color: @brand-primary;
+}
+
+.footer {
+  	color: @white;
+  	background: @brand-primary;
+  	padding-bottom: (@padding * 2);
+  	margin-top: 50px;
+  	margin-bottom: 0px;
+  	
+  	font-size: 12px;
+}
+
+.footer a {
+	color: @gray-lighter;
+}
+
+.footer a:hover,
+.footer a:focus {
+	color: @white;
+}
+
+
+.col-bottom { 
+	margin-bottom:20px; 
+}
+
+
+
+.rect-2x1 img,
+.rect img {
+	position: absolute;
+  	left: 50%;
+  	top: 50%;
+  	height: 100%;
+  	width: auto;
+  	-webkit-transform: translate(-50%,-50%);
+      	-ms-transform: translate(-50%,-50%);
+          	transform: translate(-50%,-50%);
+}
+
+.rect {
+	position: relative;
+	overflow: hidden;
+	width: 100%;
+	height: auto;
+	padding-top: 100%;
+}
+
+.rect-3x2 {
+	position: relative;
+	overflow: hidden;
+	width: 100%;
+	height: auto;
+	padding-top: 66%;
+}
+
+.rect-2x1 {
+	position: relative;
+	overflow: hidden;
+	width: 100%;
+	height: auto;
+	padding-top: 50%;
+}
+
+.rect-3x1 {
+	position: relative;
+	overflow: hidden;
+	width: 100%;
+	height: auto;
+	padding-top: 34%;
+}
+
+.rect-4x1 {
+	position: relative;
+	overflow: hidden;
+	width: 100%;
+	height: auto;
+	padding-top: 25%;
+}
+
+.rect-5x1 {
+	position: relative;
+	overflow: hidden;
+	width: 100%;
+	height: auto;
+	padding-top: 20%;
+}
+
+.rect-10x1 {
+	position: relative;
+	overflow: hidden;
+	width: 100%;
+	height: auto;
+	padding-top: 10%;
+}
+
+.rect-1x2 {
+	position: relative;
+	overflow: hidden;
+	width: 100%;
+	height: auto;
+	padding-top: 150%;
+}
+
+.rect-2x3 {
+	position: relative;
+	overflow: hidden;
+	width: 100%;
+	height: auto;
+	padding-top: 166%;
+}
+
+.circle {
+	position: relative;
+	border-radius: 50%;
+	width: 100%;
+	height: auto;
+	padding-top: 100%;
+}
+
+.navbar {
+	border: none;
+}
+
+.category-bar {
+	padding: 10px;
+	color: @gray-lighter;
+    background-color: rgba(0, 0, 0, 0.3);
+}
+
+.search-bar {
+	margin: 8px;
+	color: @red;
+}
+
+
+.thumbnail.category {
+	//background-image: 'img/template/placeholder-2x1.png';
+	background-color: #00000088;
+}
+
+
+
+.thumb {
+    padding-bottom: 100%;
+}
+
+.thumb img,
+.thumb div {
+	width:100%;
+	
+	bottom: 0;
+	position: absolute;
+}
+
+
+
+
+.tile a {
+	color: @gray-lighter;
+}
+
+.tile a:hover,
+.tile a:focus {
+	color: @gray-darker;
+}
+
+.tile.branch-0 {
+	background-color: @gray-light;
+}
+
+div.tile .tile-heading {
+	background: rgba(0,0,0,0.4);
+}
+					
+.well {
+	margin-top: 25px;
+	background-color: @white;
+	border: transparent;
+	border-radius:0;
+}
+
+.panel {
+    border-radius:0;
+}
+
+.breadcrumb {
+	background-color: transparent;
+}
+
+
+
+
+
+nav.sidebar .navbar-nav .open .dropdown-menu {
+	position: static;
+	float: none;
+	width: auto;
+	margin-top: 0;
+	background-color: transparent;
+	border: 0;
+	-webkit-box-shadow: none;
+	box-shadow: none;
+}
+
+nav.sidebar .navbar-nav > li:first-child {
+	border-top: 5px @red solid;
+}
+
+nav.sidebar .navbar-nav > li {
+	border-bottom: 5px @blue solid;
+}
+
+
+
+
+.lifted-top {
+	margin-top: -50px;
+}
+
+.lifted-bottom {
+	margin-bottom: 50px;
+}
+
+.rect-title {
+	padding-left: 2px;
+	padding-right: 2px;
+	height: 38px;
+}
+
+.rect-title h3 {
+	margin: 2px;
+	font-size: 16px;
+}
+
+.rect-subtitle {
+	padding-left: 2px;
+	padding-right: 2px;
+	height: 56px;
+}
+
+.rect-subtitle h4 {
+	margin: 2px;
+	font-size: 14px;
+}
+
+
+
+
+
+
+
+
+.div-top {
+	position: absolute;
+	bottom: 0px;
+}
+
+.div-bottom {
+	position: absolute;
+	bottom: 0px;
+}
+
+.div-center {
+	position: absolute;
+    left: 50%;
+    top: 50%;
+    -webkit-transform: translate(-50%,-50%);
+    -moz-transform: translate(-50%,-50%);
+    -ms-transform: translate(-50%,-50%);
+    transform: translate(-50%,-50%);
+}
+
+.photo-container {
+    position: relative;
+    overflow: hidden;
+    height: 750px;
+}
+
+.photo-fixed {
+	position: fixed;
+    z-index: -1;
+    
+    background: url('/img/template/kino-domowe-2.jpg') center center no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+.video-container {
+	position: relative;
+	overflow: hidden;
+	width: 100%;
+	height: auto;
+	padding-top: 45%;
+}
+
+video {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    min-width: 100%;
+    min-height: 100%;
+    -webkit-transform: translate(-50%,-50%);
+    -moz-transform: translate(-50%,-50%);
+    -ms-transform: translate(-50%,-50%);
+    transform: translate(-50%,-50%);
+    z-index: -1;
+}
+
+
+
+.right.carousel-control > span, 
+.left.carousel-control > span {
+    margin-top: 150%;
+}
+
+.right.carousel-control.quotes , 
+.left.carousel-control.quotes  {
+    opacity: 0;
+    filter:alpha(opacity=0); /* IE support */
+}
+
+.carousel-indicators.quotes li {
+	border-color: @gray-darker;
+}
+
+.carousel-indicators.quotes li.active {
+	background-color: @gray-darker;
+}
+
+
+
+
+
+.certificate {
+	position: fixed;
+	top: 80px;
+	left: 10px;
+}
+
+.social-menu {
+	position: fixed;
+	top: 80px;
+	right: 10px;
+}
+
+.social-menu > .row {
+	margin-bottom: 5px;
+}
+
+a .social-button {
+	position: relative;
+	width: 50px;
+	height: 50px;
+	border: solid 4px;
+}
+
+a .social-button {
+	color: @white;
+	border-color: @white;
+	background-color: @brand-primary;
+}
+
+a:focus .social-button,
+a:hover .social-button {	
+	color: @brand-primary;
+	border-color: @brand-primary;
+	background-color: @white;
+}
+
+a .social-button.red {
+	color: @white;
+	border-color: @white;
+	background-color: @red;
+}
+
+a:focus .social-button.red,
+a:hover .social-button.red {	
+	color: @red;
+	border-color: @red;
+	background-color: @white;
+}
+
+.social-button > h6 {
+	margin-top: 0px;
+	padding-top: 0px;
+}
+
+
+
+
+
+.input-sm {
+	font-size: 14px;
+   	line-height: 14px;
+	height: 28px;
+}

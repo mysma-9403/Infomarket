@@ -76,6 +76,7 @@ stof_doctrine_extensions:
     orm:
         default:
             uploadable: true
+            sluggable: true
             
 # Swiftmailer Configuration
 swiftmailer:

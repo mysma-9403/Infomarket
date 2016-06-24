@@ -1,5 +1,7 @@
 {% extends 'admin/index.html.twig' %}
 
+{% set extPath = '_edit' %}
+
 {% block content %}
 	
 	{% block formBlock %}
@@ -8,17 +10,20 @@
 	<div class="row">
 		<div class="col-xs-12">
 		{{ form_start(form) }}
-		    {%  block mainFields1 %}
-		    {%  endblock %}
-		    
-		    {% block moreFields1 %}
-		    {%  endblock %}
-		    
-		    {%  block mainFields2 %}
-		    {%  endblock %}
+			{% block moreFields1 %}
+		    {% endblock %}
+		
+		    {% block mainFields1 %}
+		    {% endblock %}
 		    
 		    {% block moreFields2 %}
-		    {%  endblock %}
+		    {% endblock %}
+		    
+		    {% block mainFields2 %}
+		    {% endblock %}
+		    
+		    {% block moreFields3 %}
+		    {% endblock %}
 		
 			{{ form_errors(form) }}
 		

@@ -8,11 +8,11 @@
 	<div class="row no-padding video-container">
 {# 		<video autoplay controls muted poster="{{ asset('img/template/info-produkt-logo.png') }}" id="bgvid" loop>#}
 		<video autoplay controls muted poster="{{ asset('img/template/info-produkt-logo.png') }}" id="bgvid">
-{# 			<source src="{{ asset('img/template/info-produkt-video.mp4') }}" type="video/mp4">#}
-			<source src="{{ asset('img/template/video.webm') }}" type="video/mp4">
+			<source src="{{ asset('img/template/info-produkt-video.mp4') }}" type="video/mp4">
+{# 			<source src="{{ asset('img/template/video.webm') }}" type="video/mp4">#}
 		</video>
 		
-		<div class="row no-padding video-container bkg-black-50"></div>
+{# 		<div class="row no-padding video-container bkg-black-50"></div>#}
 {# 		<div class="row div-center">#}
 {# 			<div class="col-xs-12">#}
 {# 				<img class="img-responsive" src="img/template/info-produkt-logo.png">#}
@@ -21,189 +21,12 @@
 	</div>
 	{% endblock %}
 	
-	<div class="vr-space-40"></div>
-	
 	{% block main %}
 	<div class="row">
 		<h1 class="text-center">
-			<span class="text-brand">Sam wybieraj najlepsze produkty.</span>
-			<span class="text-red">Kupuj glowa, nie cena.</span>
+			<span class="text-brand">{{ 'text.slogan1'|trans }}</span>
+			<span class="text-red">{{ 'text.slogan2'|trans }}</span>
 		</h1>
-		<div class="vr-space-20"></div>
-	</div>
-			
-	<div class="container">
-		<div class="row">
-			<div class="col-sm-4">
-				<div class="col-sm-2"></div>
-				<div class="col-sm-8">
-					<div class="circle bkg-white">
-						<span class="div-center fa fa-user fa-5x text-brand"></span>
-					</div>
-				</div>
-				<div class="col-sm-2"></div>
-				<h2 class="text-center text-red">Opinie ekspertow</h2>
-			</div>
-			<div class="col-sm-4">
-				<div class="col-sm-2"></div>
-				<div class="col-sm-8">
-					<div class="circle bkg-white">
-						<span class="div-center fa fa-star-half-o fa-5x text-brand"></span>
-					</div>
-				</div>
-				<div class="col-sm-2"></div>
-				<h2 class="text-center text-red">Najlepsze produkty</h2>
-			</div>
-			<div class="col-sm-4">
-				<div class="col-sm-2"></div>
-				<div class="col-sm-8">
-					<div class="circle bkg-white">
-						<span class="div-center fa fa-tasks fa-5x text-brand"></span>
-					</div>
-				</div>
-				<div class="col-sm-2"></div>
-				<h2 class="text-center text-red">Rating marek</h2>
-			</div>
-		</div>
-	</div>
-	{% endblock %}
-	
-	<div class="vr-space-80"></div>
-	
-	{% block categories %}
-	<div class="row no-padding">
-		<h1 class="text-center">Kategorie</h1>
-		<div class="vr-space-20"></div>
-		
-		{% for entry in categories %}
-			{% if loop.index < 6 %}
-			<div class="col-sm-2">
-				{% include 'common/default_tile.html.twig' with {'entry': entry, 'entryPath': 'category' } %}
-			</div>
-			{% endif %}
-		{% endfor %}
-		<div class="col-sm-2">
-			<div class="row">
-				<a class="text-white" href="{{ path('infoprodukt_category') }}">
-					<div class="rect">
-						<img class="img-responsive div-center" alt="Inne" src="{{ asset('img/template/placeholder-1x1.png') }}">
-						<div class="col-xs-12 div-bottom bkg-black-50">
-							<h4>Inne</h4>
-						</div>
-					</div>
-				</a>
-			</div>
-		</div>
-	</div>
-	{% endblock %}
-	
-	<div class="vr-space-80"></div>
-	
-	{% block about %}
-	<div class="row">
-		<h1 class="text-center">O nas</h1>
-		<div class="vr-space-20"></div>
-		
-		<div id="myCarousel" class="carousel slide" data-ride="carousel">
-			<ol class="carousel-indicators quotes">
-		    	<li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-		    	<li data-target="#myCarousel" data-slide-to="1"></li>
-		    	<li data-target="#myCarousel" data-slide-to="2"></li>
-		  	</ol>
-		  	
-		  	<div class="carousel-inner" role="listbox">
-			    <div class="item active">
-			      	<div class="rect-5x1">
-				      	<div class="div-center text-gray-dark">
-					        <p><i>
-								InfoProdukt jest najlepszym magazynem na rynku wydawniczym. Zostalismy wyroznieni w dwoch konkursach rangi gmiennej i powiatowej (Przesnysz i Kolebki Dolne).
-								InfoProdukt jest najlepszym magazynem na rynku wydawniczym. Zostalismy wyroznieni w dwoch konkursach rangi gmiennej i powiatowej (Przesnysz i Kolebki Dolne).
-								InfoProdukt jest najlepszym magazynem na rynku wydawniczym. Zostalismy wyroznieni w dwoch konkursach rangi gmiennej i powiatowej (Przesnysz i Kolebki Dolne).
-								InfoProdukt jest najlepszym magazynem na rynku wydawniczym. Zostalismy wyroznieni w dwoch konkursach rangi gmiennej i powiatowej (Przesnysz i Kolebki Dolne).
-								InfoProdukt jest najlepszym magazynem na rynku wydawniczym. Zostalismy wyroznieni w dwoch konkursach rangi gmiennej i powiatowej (Przesnysz i Kolebki Dolne).
-								InfoProdukt jest najlepszym magazynem na rynku wydawniczym. Zostalismy wyroznieni w dwoch konkursach rangi gmiennej i powiatowej (Przesnysz i Kolebki Dolne). 
-							</i></p>
-							<p><strong>Piotr Krakowiak</strong></p>
-				      	</div>
-			      	</div>
-		    	</div>
-			
-			    <div class="item">
-			      	<div class="rect-5x1">
-				      	<div class="div-center text-gray-dark">
-					        <p><i>
-								InfoProdukt jest najlepszym magazynem na rynku wydawniczym. Zostalismy wyroznieni w dwoch konkursach rangi gmiennej i powiatowej (Przesnysz i Kolebki Dolne).
-								InfoProdukt jest najlepszym magazynem na rynku wydawniczym. Zostalismy wyroznieni w dwoch konkursach rangi gmiennej i powiatowej (Przesnysz i Kolebki Dolne).
-								InfoProdukt jest najlepszym magazynem na rynku wydawniczym. Zostalismy wyroznieni w dwoch konkursach rangi gmiennej i powiatowej (Przesnysz i Kolebki Dolne).
-								InfoProdukt jest najlepszym magazynem na rynku wydawniczym. Zostalismy wyroznieni w dwoch konkursach rangi gmiennej i powiatowej (Przesnysz i Kolebki Dolne).
-								InfoProdukt jest najlepszym magazynem na rynku wydawniczym. Zostalismy wyroznieni w dwoch konkursach rangi gmiennej i powiatowej (Przesnysz i Kolebki Dolne).
-								InfoProdukt jest najlepszym magazynem na rynku wydawniczym. Zostalismy wyroznieni w dwoch konkursach rangi gmiennej i powiatowej (Przesnysz i Kolebki Dolne). 
-							</i></p>
-							<p><strong>Piotr Krakowiak</strong></p>
-				      	</div>
-			      	</div>
-			    </div>
-			
-			    <div class="item">
-			      	<div class="rect-5x1">
-				      	<div class="div-center text-gray-dark">
-					        <p><i>
-								InfoProdukt jest najlepszym magazynem na rynku wydawniczym. Zostalismy wyroznieni w dwoch konkursach rangi gmiennej i powiatowej (Przesnysz i Kolebki Dolne).
-								InfoProdukt jest najlepszym magazynem na rynku wydawniczym. Zostalismy wyroznieni w dwoch konkursach rangi gmiennej i powiatowej (Przesnysz i Kolebki Dolne).
-								InfoProdukt jest najlepszym magazynem na rynku wydawniczym. Zostalismy wyroznieni w dwoch konkursach rangi gmiennej i powiatowej (Przesnysz i Kolebki Dolne).
-								InfoProdukt jest najlepszym magazynem na rynku wydawniczym. Zostalismy wyroznieni w dwoch konkursach rangi gmiennej i powiatowej (Przesnysz i Kolebki Dolne).
-								InfoProdukt jest najlepszym magazynem na rynku wydawniczym. Zostalismy wyroznieni w dwoch konkursach rangi gmiennej i powiatowej (Przesnysz i Kolebki Dolne).
-								InfoProdukt jest najlepszym magazynem na rynku wydawniczym. Zostalismy wyroznieni w dwoch konkursach rangi gmiennej i powiatowej (Przesnysz i Kolebki Dolne). 
-							</i></p>
-							<p><strong>Piotr Krakowiak</strong></p>
-				      	</div>
-			      	</div>
-			    </div>
-		  	</div>
-		  	
-		  	<a class="left carousel-control quotes" href="#myCarousel" role="button" data-slide="prev">
-		    	<span class="fa fa-chevron-left" aria-hidden="true"></span>
-		    	<span class="sr-only">Previous</span>
-		  	</a>
-		  	<a class="right carousel-control quotes" href="#myCarousel" role="button" data-slide="next">
-		    	<span class="fa fa-chevron-right" aria-hidden="true"></span>
-		    	<span class="sr-only">Next</span>
-		  	</a>
-		</div>
-	</div>
-	{% endblock %}
-	
-	<div class="vr-space-80"></div>
-	
-	{% block ad %}
-	<div class="row">
-		<div class="rect-3x1">
-{# 			<img class="img-responsive div-center" src="{{ asset(entry.getImagePath()) }}">#}
-			<img class="img-responsive div-center" src="{{ asset('img/template/kino-domowe-2.jpg') }}">
-			<div class="div-center text-center">
-				<h1>Tutaj bedzie reklama :)</h1>
-				<a class="btn btn-default" href="#">Kliknij!</a>
-			</div>
-		</div>
-	</div>
-	{% endblock %}
-	
-	<div class="vr-space-80"></div>
-	
-	{% block partners %}
-	<div class="container">
-		<div class="row">
-			<h1 class="text-center">Partnerzy</h1>
-			<div class="vr-space-20"></div>
-			
-			<div class="col-sm-4"></div>
-			<div class="col-sm-4">
-				<a href="http://infomarket.edu.loc:8000">
-					<img class="img-responsive" src="img/template/placeholder-2x1.png">
-				</a>
-			</div>
-			<div class="col-sm-4"></div>
-		</div>
 	</div>
 	{% endblock %}
 {% endblock %}

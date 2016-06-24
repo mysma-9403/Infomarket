@@ -56,6 +56,8 @@ abstract class BaseEntityController extends Controller
     	
     	$params['entries'] = $entries;
     	
+    	$params['routingParams'] = $this->getIndexRoutingParams($request);
+    	
     	return $params;
     }
     
@@ -87,10 +89,30 @@ abstract class BaseEntityController extends Controller
     	$params = [];
     	
     	$params['routingParams'] = $this->getRoutingParams($request);
-    
+    	
     	return $params;
     }
     
+    protected function getIndexRoutingParams(Request $request) 
+    {
+    	$params = array();
+    	
+    	$routeParams = $request->get('routeParams', []);
+    	$routeParams['page'] = $request->get('page', null);
+    	 
+    	//TODO filter and entryFilter are little different, getEntityFilter should be split into two stages:
+    	// 1. init from request -> use in route params
+    	// 2. init additional data like published = true -> in admin panel its not desireable!!
+    	 
+    	$filter = $this->createNewFilter();
+    	$filter->initValues($request);
+    	 
+    	$routeParams = array_merge($routeParams, $filter->getValues());
+    	
+    	$params['routeParams'] = $routeParams;
+    	
+    	return $params;
+    }
     /**
      * 
      * @param Request $request
@@ -100,7 +122,6 @@ abstract class BaseEntityController extends Controller
     {
     	$params = array();
     	
-    	$params['page'] = $request->get('page', null);
     	$params['route'] = $request->get('route', $this->getIndexRoute());
     	$params['routeParams'] = $request->get('routeParams', []);
     	 
@@ -151,7 +172,7 @@ abstract class BaseEntityController extends Controller
      * @param object $filter
      * @return object[]
      */
-    protected function getParamList($paramClass, $filter) //TODO filter moze miec paramClass
+    protected function getParamList($paramClass, $filter)
     {
     	$repository = $this->getDoctrine()->getRepository($paramClass);
     	return $repository->findSelected($filter);
@@ -187,6 +208,7 @@ abstract class BaseEntityController extends Controller
 	protected function getEntityFilter(Request $request)
 	{
 		$filter = new BaseEntityFilter();
+		$filter->initValues($request);
 		$filter->setPublished(true);
 		 
 		return $filter;

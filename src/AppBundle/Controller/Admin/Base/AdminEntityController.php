@@ -166,8 +166,8 @@ abstract class AdminEntityController extends BaseEntityController {
 		$em->remove($entry);
 		$em->flush();
 	
-		$params = $this->getParams($request);
-		return $this->redirectToRoute($this->getIndexRoute(), $params);
+		$routingParams = $this->getRoutingParams($request);
+		return $this->redirectToRoute($routingParams['route'], $routingParams['routeParams']);
 	}
 	
 	protected function setPublishedActionInternal(Request $request, $id)
@@ -182,8 +182,8 @@ abstract class AdminEntityController extends BaseEntityController {
 		$em->persist($entry);
 		$em->flush();
 	
-		$params = $this->getParams($request);
-		return $this->redirectToRoute($this->getIndexRoute(), $params);
+		$routingParams = $this->getRoutingParams($request);
+		return $this->redirectToRoute($routingParams['route'], $routingParams['routeParams']);
 	}
 	
 	protected function setFeaturedActionInternal(Request $request, $id)
@@ -198,7 +198,8 @@ abstract class AdminEntityController extends BaseEntityController {
 		$em->persist($entry);
 		$em->flush();
 	
-		return $this->redirectToRoute($this->getIndexRoute());
+		$routingParams = $this->getRoutingParams($request);
+		return $this->redirectToRoute($routingParams['route'], $routingParams['routeParams']);
 	}
 	
 	protected function deleteSelected($entries)
@@ -230,7 +231,7 @@ abstract class AdminEntityController extends BaseEntityController {
 	 */
 	protected function editEntry(Request $request, $entry)
 	{
-		$params = $this->getParams($request);
+		$params = $this->getEditParams($request, $entry);
 		$routingParams = $params['routingParams'];
 		
 		$form = $this->createForm($this->getFormType(), $entry);
@@ -252,12 +253,30 @@ abstract class AdminEntityController extends BaseEntityController {
 				return $this->redirectToRoute($this->getCopyRoute(), $params);
 			}
 			
-			return $this->redirectToRoute($this->getIndexRoute(), $routingParams['routeParams']);
+			if ($form->get('saveAndQuit')->isClicked()) {
+				$routingParams = $this->getRoutingParams($request);
+				return $this->redirectToRoute($routingParams['route'], $routingParams['routeParams']);
+			}
 		}
 		$params['entry'] = $entry;
 		$params['form'] = $form->createView();
 	
 		return $this->render($this->getEditView(), $params);
+	}
+	
+	/**
+	 *
+	 * @param Request $request
+	 * @param mixed $entry current entry
+	 * @return mixed[]
+	 */
+	protected function getEditParams(Request $request, $entry)
+	{
+		$params = $this->getParams($request);
+		
+		$params['entry'] = $entry;
+		 
+		return $params;
 	}
 	
 	/**
@@ -320,10 +339,7 @@ abstract class AdminEntityController extends BaseEntityController {
 	 * @return mixed
 	 */
 	protected function createFromTemplate(Request $request, $template) {
-		$entry = $this->createNewEntity($request);
-		$entry->setName($template->getName());
-	
-		return $entry;
+		return $this->createNewEntity($request);
 	}
 	
 	/**

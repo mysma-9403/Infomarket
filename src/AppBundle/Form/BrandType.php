@@ -3,10 +3,10 @@
 namespace AppBundle\Form;
 
 use AppBundle\Entity\Brand;
-use AppBundle\Form\Base\SimpleEntityType;
+use AppBundle\Form\Base\ImageEntityType;
 use Symfony\Component\Form\FormBuilderInterface;
 
-class BrandType extends SimpleEntityType
+class BrandType extends ImageEntityType
 {
 	/**
 	 * 

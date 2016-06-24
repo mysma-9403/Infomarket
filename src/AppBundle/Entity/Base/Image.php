@@ -8,7 +8,7 @@ class Image extends Audit {
 	
 	public function getUploadPath()
 	{
-		return '../web/upload/images';
+		return '../web/upload/images/';
 	}
 	
 	public function getImagePath()
@@ -47,7 +47,7 @@ class Image extends Audit {
      */
     public function setFile($file)
     {
-    	$this->file= $file;
+    	$this->file = $file;
     
     	return $this;
     }

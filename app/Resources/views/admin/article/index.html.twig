@@ -3,6 +3,24 @@
 {% set mainPath = 'article' %}
 {% set title = 'title.articles'|trans %}
 
+{% block filterMoreFields1 %}
+	<li class="col-xs-12 col-sm-6 col-md-4 col-lg-2">
+		{{ form_widget(filter.articleCategories, { 'label': 'label.articleCategories' }) }}
+	</li>
+	<li class="col-xs-12 col-sm-6 col-md-4 col-lg-2">
+		{{ form_widget(filter.categories, { 'label': 'label.categories' }) }}
+	</li>
+{% endblock %}
+
+{% block filterMoreFields2 %}
+	<li class="col-xs-12 col-sm-6 col-md-4 col-lg-2">
+		{{ form_widget(filter.featured, { 'label': 'label.featured' }) }}
+	</li>
+	<li class="col-xs-12 col-sm-6 col-md-4 col-lg-2">
+		{{ form_widget(filter.main, { 'label': 'label.main' }) }}
+	</li>
+{% endblock %}
+
 {% block headerMoreFields2 %}
 	<th><i class="fa fa-star"></i>{{ 'label.featured'|trans }}</th>
 {% endblock %}
@@ -10,11 +28,11 @@
 {% block entryMoreFields2 %}
 	<td>
 		{% if item.featured %}
-			<a href="{{ path('admin_' ~ mainPath ~ '_set_featured', { id: item.id, featured: false }) }}">
+			<a href="{{ path('admin_' ~ mainPath ~ '_set_featured', { id: item.id, featured: false, routeParams: routingParams.routeParams }) }}">
 				<i class="fa fa-star" data-toggle="tooltip" title="{{ 'label.featured'|trans }}"></i>
 			</a>
 		{%  else %}
-			<a href="{{ path('admin_' ~ mainPath ~ '_set_featured', { id: item.id, featured: true }) }}">
+			<a href="{{ path('admin_' ~ mainPath ~ '_set_featured', { id: item.id, featured: true, routeParams: routingParams.routeParams }) }}">
 				<i class="fa fa-star-o" data-toggle="tooltip" title="{{ 'label.unfeatured'|trans }}"></i>
 			</a>
 		{% endif %}

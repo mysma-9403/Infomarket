@@ -9,7 +9,7 @@
 			{% for entry in branches %}
 			<div class="row">
 				<div class="col-xs-12">
-					<h1>{{ entry.name }}</h1>
+					<h1>{{ entry.name | raw }}</h1>
 					
 					{% for subentry in categories %}
 						{% set visible = false %}
@@ -32,11 +32,4 @@
 			{% endfor %}
 		</div>
 	</div>
-	
-	<ul>
-		{% for categoryyy in categories %}
-			{% include 'common/category_node.html.twig' with { 'entry': categoryyy } %}
-		{% endfor %}
-	</ul>
-	
 {% endblock %}

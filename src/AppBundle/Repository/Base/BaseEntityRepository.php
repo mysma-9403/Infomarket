@@ -31,7 +31,13 @@ abstract class BaseEntityRepository extends EntityRepository
     	$query .= ' ' . $filter->getWhereExpression();
     	$query .= ' ' . $filter->getOrderByExpression();
     	
-        return $this->getEntityManager()->createQuery($query);
+        $query = $this->getEntityManager()->createQuery($query);
+        
+        if($filter->getLimit() > 0) {
+        	$query->setMaxResults($filter->getLimit());
+        }
+        
+        return $query;
     }
     
     /**

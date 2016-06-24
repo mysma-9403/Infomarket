@@ -102,7 +102,7 @@
 						{% if loop.index <= 12 %}
 							<div class="col-sm-3">
 								<a href="{{ path('infoprodukt_term_show', { 'id': entry.id }) }}">
-									{{ entry.name }}
+									{{ entry.name | raw }}
 								</a>
 							</div>
 						{% endif %}

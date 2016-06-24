@@ -13,15 +13,15 @@
 						{% block navigationHeader %}
 						<div class="navbar-header">
 							{% block navigationButton %}
-								<button type="button" class="navbar-toggle collapsed" 
-										data-toggle="collapse" 
-										data-target="#catbar" 
-										aria-expanded="false">
-							        <span class="sr-only">Toggle navigation</span>
-							        <span class="icon-bar"></span>
-							        <span class="icon-bar"></span>
-							        <span class="icon-bar"></span>
-						      	</button>
+							<button type="button" class="navbar-toggle collapsed" 
+									data-toggle="collapse" 
+									data-target="#catbar" 
+									aria-expanded="false">
+						        <span class="sr-only">Toggle navigation</span>
+						        <span class="icon-bar"></span>
+						        <span class="icon-bar"></span>
+						        <span class="icon-bar"></span>
+					      	</button>
 				      		{% endblock %}
 				      		
 				      		{% block navigationBrand %}
@@ -75,13 +75,13 @@
 									{% if loop.index <= 5 %}
 										<li>
 											<a href="{{ path('infoprodukt_category_show', routingParams|merge({'id': entry.id})) }}">
-												{{ entry.name }}
+												{{ entry.name | raw }}
 											</a>
 										</li>
 									{% endif %}
 								{% endfor %}
 								<li>
-									<a href="{{ path('infoprodukt_category') }}">{{ 'label.all' }}</a>
+									<a href="{{ path('infoprodukt_category') }}">{{ 'label.all'|trans }}</a>
 								</li>
 							</ul>
 						</div>
@@ -102,22 +102,74 @@
 		<div class="footer">
 	  		<div class="container-fluid">
 		    	<div class="container">
-		      		<h4 class="text-xs-center">&copy; 2016 InfoMarket</h4>
+		    		<div class="row">
+		      			<div class="col-sm-3">
+		      			</div>
+		      			<div class="col-sm-6">
+		      				<h5 class="text-xs-center">&copy; {{ 'title.footer.copyright'|trans }}</h5>
+		      			</div>
+		      			<div class="col-sm-3">
+		      				<h5 class="text-xs-center text-sm-left">
+{# 		      					{{ 'label.findUs'|trans }} #}
+		      					<a href="http://www.facebook.com/infomarket1"><i class="fa fa-facebook"></i></a>
+	      					</h5>
+		      			</div>
+		      		</div>
 		      		
 		      		<div class="row">
-			      		<div class="col-sm-9">
-			      			<h4>Infomarket Sp. z o.o.</h4>
+			      		<div class="col-sm-3">
+			      			<h5>Infomarket Sp. z o.o.</h5>
+			      			<hr>
 			      			<p>
-			      				ul. Trylogii 2/16a lok. 50, 01-982 Warszawa<br>
+			      				ul. Trylogii 2/16,<br>
+			      				01-982 Warszawa<br>
 			      				tel./fax: (22) 835 19 17<br>
 			      				e-mail: <a href="mailto:redakcja@infomarket.edu.pl">redakcja@infomarket.edu.pl</a>
 		      				</p>
 			      		</div>
+			      		<div class="col-sm-6">
+			      			<h5>{{ 'title.footer.office'|trans }}</h5>
+			      			<hr>
+			      			
+			      			{% set half = pages|length / 2 %}
+			      			
+			      			<div class="row">
+				      			<div class="col-xs-6">
+					      			{% set count = 0 %}
+						      		
+					      			{% for entry in pages %}
+					      				{% if count < half %}
+								      		<div>
+								      			<a href="{{ path('infoprodukt_page_show', { id: entry.id}) }}">{{ entry.name }}</a>
+							      			</div>
+						      			{% endif %}
+						      			{% set count = count+1 %}
+						      		{% endfor %}
+					      		</div>
+					      		
+					      		<div class="col-xs-6">
+									{% set count = 0 %}
+						      		
+					      			{% for entry in pages %}
+					      				{% if count >= half %}
+								      		<div>
+								      			<a href="{{ path('infoprodukt_page_show', { id: entry.id}) }}">{{ entry.name }}</a>
+							      			</div>
+						      			{% endif %}
+						      			{% set count = count+1 %}
+						      		{% endfor %}
+					      		</div>
+				      		</div>
+			      		</div>
 			      		<div class="col-sm-3">
-		        			<a href="http://www.facebook.com/infomarket1"><i class="fa fa-facebook"></i></a>
-			        		<a href="#"><i class="fa fa-twitter"></i></a>
-			        		<a href="#"><i class="fa fa-pinterest"></i></a>
-			        		<a href="#"><i class="fa fa-instagram"></i></a>
+			      			<h5>{{ 'title.footer.magazine'|trans }}</h5>
+			      			<hr>
+			      			
+			      			{% for entry in links %}
+				      		<div>
+				      			<a href="{{ entry.url }}">{{ entry.name }}</a>
+			      			</div>
+				      		{% endfor %}
 			      		</div>
 		      		</div>
 		    	</div>
