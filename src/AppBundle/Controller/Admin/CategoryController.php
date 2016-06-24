@@ -180,9 +180,14 @@ class CategoryController extends ImageTreeController {
 		$entry->products = array();
 		$entry->brands = array();
 
+		//TODO use as setters as they are useless in many cases!!! (like here)
+		$categoryRepository = $this->getDoctrine()->getRepository(Category::class);
+		$brandRepository = $this->getDoctrine()->getRepository(Brand::class);
+		$segmentRepository = $this->getDoctrine()->getRepository(Segment::class);
+		
 		//TODO nie zadziala dla new :( -> przeniesc do tree
 		foreach ($segments as $segment) {
-			$brandFilter = new BrandFilter();
+			$brandFilter = new BrandFilter($categoryRepository, $segmentRepository);
 			//TODO nie zadziala dla new :( -> przeniesc do tree
 // 			$brandFilter->setCategories([$entry]);
 			$brandFilter->setSegments([$segment]);
@@ -192,11 +197,6 @@ class CategoryController extends ImageTreeController {
 			$brands = $brandRepository->findSelected($brandFilter);
 
 			$entry->brands[$segment->getId()] = $brands;
-
-			//TODO use as setters as they are useless in many cases!!! (like here)
-			$categoryRepository = $this->getDoctrine()->getRepository(Category::class);
-			$brandRepository = $this->getDoctrine()->getRepository(Brand::class);
-			$segmentRepository = $this->getDoctrine()->getRepository(Segment::class);
 
 			$productFilter = new ProductFilter($categoryRepository, $brandRepository, $segmentRepository);
 			//TODO nie zadziala dla new :( -> przeniesc do tree

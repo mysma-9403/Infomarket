@@ -265,6 +265,32 @@ abstract class AdminEntityController extends BaseEntityController {
 	}
 	
 	/**
+	 * 
+	 * {@inheritDoc}
+	 * @see \AppBundle\Controller\Base\BaseEntityController::getIndexRoutingParams()
+	 */
+	protected function getIndexRoutingParams(Request $request)
+	{
+		$params = array();
+		 
+		$routeParams = $request->get('routeParams', []);
+		$routeParams['page'] = $request->get('page', null);
+	
+		//TODO filter and entryFilter are little different, getEntityFilter should be split into two stages:
+		// 1. init from request -> use in route params
+		// 2. init additional data like published = true -> in admin panel its not desireable!!
+	
+		$filter = $this->createNewFilter();
+		$filter->initValues($request);
+	
+		$routeParams = array_merge($routeParams, $filter->getValues());
+		 
+		$params['routeParams'] = $routeParams;
+		 
+		return $params;
+	}
+	
+	/**
 	 *
 	 * @param Request $request
 	 * @param mixed $entry current entry

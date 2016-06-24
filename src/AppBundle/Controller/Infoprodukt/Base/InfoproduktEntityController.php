@@ -5,17 +5,16 @@ namespace AppBundle\Controller\Infoprodukt\Base;
 use AppBundle\Controller\Base\BaseEntityController;
 use AppBundle\Entity\Branch;
 use AppBundle\Entity\Category;
+use AppBundle\Entity\Filter\Base\BaseEntityFilter;
 use AppBundle\Entity\Filter\Base\SimpleEntityFilter;
 use AppBundle\Entity\Filter\CategoryFilter;
+use AppBundle\Entity\Filter\LinkFilter;
+use AppBundle\Entity\Filter\PageFilter;
+use AppBundle\Entity\Link;
+use AppBundle\Entity\Page;
 use AppBundle\Form\Filter\Base\SimpleEntityFilterType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-use AppBundle\Entity\Page;
-use AppBundle\Entity\Filter\PageFilter;
-use AppBundle\Entity\Filter\LinkFilter;
-use AppBundle\Entity\Link;
-use AppBundle\Entity\Base\Audit;
-use AppBundle\Entity\Filter\Base\BaseEntityFilter;
 
 abstract class InfoproduktEntityController extends BaseEntityController
 {
@@ -98,7 +97,7 @@ abstract class InfoproduktEntityController extends BaseEntityController
     	$linkFilter = new LinkFilter();
     	$linkFilter->setPublished(BaseEntityFilter::TRUE_VALUES);
     	$linkFilter->setFeatured(BaseEntityFilter::TRUE_VALUES);
-    	$linkFilter->setType(Link::FOOTER_LINK);
+    	$linkFilter->setTypes([Link::FOOTER_LINK]);
     	
     	$links = $this->getParamList(Link::class, $linkFilter);
     	$params['links'] = $links;

@@ -56,7 +56,9 @@ class CategoryController extends SimpleEntityController
 	{
 		$params = parent::getIndexParams($request, $page);
 	
-		$branchFilter = new BranchFilter();
+		$categoryRepository = $this->getDoctrine()->getRepository(Category::class);
+		
+		$branchFilter = new BranchFilter($categoryRepository);
 		$branchFilter->initValues($request);
 		$branchFilter->setPublished(true);
 		 
@@ -78,7 +80,10 @@ class CategoryController extends SimpleEntityController
 		$entry = $params['entry'];
 		
 		if($entry->getPreleaf()) {
-			$articleFilter = new ArticleFilter();
+			$articleCategoryRepository = $this->getDoctrine()->getRepository(ArticleCategory::class);
+			$categoryRepository = $this->getDoctrine()->getRepository(Category::class);
+			
+			$articleFilter = new ArticleFilter($articleCategoryRepository, $categoryRepository);
 			$articleFilter->setCategories([$entry]);
 			$articleFilter->setPublished(SimpleEntityFilter::TRUE_VALUES);
 			$articleFilter->setFeatured(SimpleEntityFilter::TRUE_VALUES);
@@ -109,7 +114,7 @@ class CategoryController extends SimpleEntityController
 			$params['products'] = array();
 			
 			foreach ($segments as $segment) {
-				$brandFilter = new BrandFilter();
+				$brandFilter = new BrandFilter($categoryRepository, $segmentRepository);
 				$brandFilter->setCategories([$entry]);
 				$brandFilter->setSegments([$segment]);
 				$brandFilter->setPublished(SimpleEntityFilter::TRUE_VALUES);
@@ -146,7 +151,7 @@ class CategoryController extends SimpleEntityController
 				$params['subproducts'][$category->getId()] = array();
 				
 				foreach ($segments as $segment) {
-					$brandFilter = new BrandFilter();
+					$brandFilter = new BrandFilter($categoryRepository, $segmentRepository);
 					$brandFilter->setCategories([$category]);
 					$brandFilter->setSegments([$segment]);
 					$brandFilter->setPublished(SimpleEntityFilter::TRUE_VALUES);
@@ -168,7 +173,7 @@ class CategoryController extends SimpleEntityController
 				}
 			}
 			
-			$termFilter = new TermFilter();
+			$termFilter = new TermFilter($categoryRepository);
 			// 		$termFilter->setCategories([$entry]);
 			$termFilter->setPublished(SimpleEntityFilter::TRUE_VALUES);
 			$termRepository = $this->getDoctrine()->getRepository(Term::class);

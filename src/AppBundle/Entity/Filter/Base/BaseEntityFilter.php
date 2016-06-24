@@ -196,6 +196,29 @@ class BaseEntityFilter {
 		}
 		return $expression;
 	}
+	
+	/**
+	 *
+	 * @param unknown $name
+	 * @param unknown $entries
+	 * @return NULL|string
+	 */
+	protected function getEqualNumberArrayExpression($name, $entries) {
+		$size = count($entries);
+		if($size == 0) return null;
+	
+		if($size == 1) {
+			$expression = $name .' = ' . $entries[0];
+		}
+		else {
+			$expression = $name .' in (' . $entries[0];
+			for ($i = 1; $i < $size; $i++) {
+				$expression .= ', ' . $entries[$i];
+			}
+			$expression .= ')';
+		}
+		return $expression;
+	}
 		
 	/**
 	 * return string

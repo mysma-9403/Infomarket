@@ -68,7 +68,7 @@ class LinkFilter extends SimpleEntityFilter {
 		}
 		
 		if($this->types) {
-			$expressions[] = $this->getEqualArrayExpression('e.type', $this->types);
+			$expressions[] = $this->getEqualNumberArrayExpression('e.type', $this->types);
 		}
 		
 		return $expressions;

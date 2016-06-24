@@ -88,7 +88,9 @@ abstract class BaseEntityController extends Controller
     {
     	$params = [];
     	
-    	$branchFilter = new BranchFilter();
+    	$categoryRepository = $this->getDoctrine()->getRepository(Category::class);
+    	
+    	$branchFilter = new BranchFilter($categoryRepository);
     	$branchFilter->setPublished(true);
     	$branches = $this->getParamList(Branch::class, $branchFilter);
     	

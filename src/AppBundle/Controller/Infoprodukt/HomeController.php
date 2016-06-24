@@ -31,7 +31,9 @@ class HomeController extends SimpleEntityController
 	{
 		$params = parent::getIndexParams($request, $page);
 		
-		$branchFilter = new BranchFilter();
+		$categoryRepository = $this->getDoctrine()->getRepository(Category::class);
+		
+		$branchFilter = new BranchFilter($categoryRepository);
     	$branchFilter->initValues($request);
     	$branchFilter->setPublished(true);
     	

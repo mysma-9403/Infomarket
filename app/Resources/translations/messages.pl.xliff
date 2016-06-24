@@ -98,6 +98,10 @@
                 <source>title.category_tree</source>
                 <target>Drzewo kategorii</target>
             </trans-unit>
+            <trans-unit id="title.ratings">
+                <source>title.ratings</source>
+                <target>Ratingi</target>
+            </trans-unit>
             
             
             

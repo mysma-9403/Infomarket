@@ -10,6 +10,7 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
+use AppBundle\Repository\ArticleRepository;
 
 class ArticleType extends ImageEntityType
 {
@@ -50,6 +51,10 @@ class ArticleType extends ImageEntityType
 			))
 			->add('parent', EntityType::class, array(
 					'class'			=> $this->getEntityType(),
+					'query_builder' => function (ArticleRepository $repository) {
+						return $repository->createQueryBuilder('e')
+						->orderBy('e.published DESC, e.name', 'ASC');
+					},
 					'choice_label' 	=> 'name',
 					'required' 		=> false,
 					'expanded'      => false,
