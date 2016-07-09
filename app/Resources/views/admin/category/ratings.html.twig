@@ -1,13 +1,15 @@
 {% extends 'admin/index.html.twig' %}
 
 {% set mainPath = 'category' %}
-{% set title = 'title.ratings'|trans %}
+{% set title = 'title.ratings'|trans  %}
 
 {% block content %}
 
+	<h2>{{ entry.name }} {{ entry.subname }}</h2>
+	
 	{% for segment in entry.segments %}
 		<div class="row">
-			<h2>{{ 'label.segment'|trans }} {{ segment.name }}</h2>
+			<h3>{{ 'label.segment'|trans }} {{ segment.name }}</h3>
 			
 			<div class="row equal">
 			
@@ -16,13 +18,15 @@
 						<div class="col-xs-6 col-md-3">
 							<h3>{{ 'title.products'|trans }}</h3>
 						</div>
-						<div class="col-xs-6 col-md-3">
-							<a href="{{ path('admin_product_category_assignment_new', { category: entry.id, segment: segment.id, route: 'admin_category_ratings', routeParams: { id: entry.id } }) }}"
-								class="btn btn-success text-xs-bottom-mm">
-								<span class="fa fa-plus"></span> 
-								{{ 'action.addProduct'|trans }} 
-							</a>
-						</div>
+						{% if is_granted('ROLE_EDITOR') %}
+							<div class="col-xs-6 col-md-3">
+								<a href="{{ path('admin_product_category_assignment_new', { category: entry.id, segment: segment.id, route: 'admin_category_ratings', routeParams: { id: entry.id } }) }}"
+									class="btn btn-success text-xs-bottom-mm">
+									<span class="fa fa-plus"></span> 
+									{{ 'action.assignProduct'|trans }} 
+								</a>
+							</div>
+						{% endif %}
 					</div>
 					
 					<table class="table table-striped vert-align">
@@ -42,16 +46,18 @@
 										{{ productAssignment.product.name }}
 									</a>
 								</td>
-								<td>
-									<a href="{{ path('admin_product_category_assignment_edit', { id: productAssignment.id, route: 'admin_category_ratings', routeParams: { id: entry.id } }) }}" class="btn btn-warning">
-										<span class="fa fa-edit"></span> 
-										{{ 'action.edit'|trans }}
-									</a>
-									<a href="{{ path('admin_product_category_assignment_delete', { id: productAssignment.id, route: 'admin_category_ratings', routeParams: { id: entry.id } }) }}" class="btn btn-danger">
-										<span class="fa fa-trash"></span> 
-										{{ 'action.delete'|trans }}
-									</a>
-								</td>
+								{% if is_granted('ROLE_EDITOR') %}
+									<td>
+										<a href="{{ path('admin_product_category_assignment_edit', { id: productAssignment.id, route: 'admin_category_ratings', routeParams: { id: entry.id } }) }}" class="btn btn-warning">
+											<span class="fa fa-edit"></span> 
+											{{ 'action.edit'|trans }}
+										</a>
+										<a href="{{ path('admin_product_category_assignment_delete', { id: productAssignment.id, route: 'admin_category_ratings', routeParams: { id: entry.id } }) }}" class="btn btn-danger">
+											<span class="fa fa-trash"></span> 
+											{{ 'action.delete'|trans }}
+										</a>
+									</td>
+								{% endif %}
 							</tr>
 							{% endif %}
 						{% endfor %}
@@ -64,13 +70,15 @@
 						<div class="col-xs-6 col-md-3">
 							<h3>{{ 'title.brands'|trans }}</h3>
 						</div>
-						<div class="col-xs-6 col-md-3">
-							<a href="{{ path('admin_brand_category_assignment_new', { category: entry.id, segment: segment.id, route: 'admin_category_ratings', routeParams: { id: entry.id } }) }}"
-								class="btn btn-success text-xs-bottom-mm">
-								<span class="fa fa-plus"></span> 
-								{{ 'action.addBrand'|trans }} 
-							</a>
-						</div>
+						{% if is_granted('ROLE_EDITOR') %}
+							<div class="col-xs-6 col-md-3">
+								<a href="{{ path('admin_brand_category_assignment_new', { category: entry.id, segment: segment.id, route: 'admin_category_ratings', routeParams: { id: entry.id } }) }}"
+									class="btn btn-success text-xs-bottom-mm">
+									<span class="fa fa-plus"></span> 
+									{{ 'action.assignBrand'|trans }} 
+								</a>
+							</div>
+						{% endif %}
 					</div>
 					
 					<table class="table table-striped vert-align">
@@ -83,16 +91,18 @@
 										{{ brandAssignment.brand.name }}
 									</a>
 								</td>
-								<td>
-									<a href="{{ path('admin_brand_category_assignment_edit', { id: brandAssignment.id, route: 'admin_category_ratings', routeParams: { id: entry.id } }) }}" class="btn btn-warning">
-										<span class="fa fa-edit"></span> 
-										{{ 'action.edit'|trans }}
-									</a>
-									<a href="{{ path('admin_brand_category_assignment_delete', { id: brandAssignment.id, route: 'admin_category_ratings', routeParams: { id: entry.id } }) }}" class="btn btn-danger">
-										<span class="fa fa-trash"></span> 
-										{{ 'action.delete'|trans }}
-									</a>
-								</td>
+								{% if is_granted('ROLE_EDITOR') %}
+									<td>
+										<a href="{{ path('admin_brand_category_assignment_edit', { id: brandAssignment.id, route: 'admin_category_ratings', routeParams: { id: entry.id } }) }}" class="btn btn-warning">
+											<span class="fa fa-edit"></span> 
+											{{ 'action.edit'|trans }}
+										</a>
+										<a href="{{ path('admin_brand_category_assignment_delete', { id: brandAssignment.id, route: 'admin_category_ratings', routeParams: { id: entry.id } }) }}" class="btn btn-danger">
+											<span class="fa fa-trash"></span> 
+											{{ 'action.delete'|trans }}
+										</a>
+									</td>
+								{% endif %}
 							</tr>
 							{% endif %}
 						{% endfor %}
@@ -104,5 +114,13 @@
 			
 		</div>
 	{% endfor %}
+
+	<div class="row lowered-25">
+	
+	<div class="btn-group col-xs-12">
+		<a type="button" class="btn btn-primary" href="{{ path(routingParams.route, routingParams.routeParams) }}">
+			<i class="fa fa-close"></i>{{ 'action.back'|trans }}
+		</a>
+	</div>
 		
 {% endblock %}

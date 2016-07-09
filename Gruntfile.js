@@ -12,9 +12,7 @@ module.exports = function (grunt) {
                     ]
                 },
                 files: {
-                	'web/css/admin.css': 'web/assets/custom/admin.less',
-                	'web/css/infomarket.css': 'web/assets/custom/infomarket.less',
-                	'web/css/infoprodukt.css': 'web/assets/custom/infoprodukt.less',
+                	'web/css/app.css': 'web/assets/custom/app.less',
                     'web/css/font-awesome.css': 'web/assets/vendor/font-awesome/less/font-awesome.less'
                 }
             },
@@ -27,9 +25,7 @@ module.exports = function (grunt) {
                     ]
                 },
                 files: {
-                	'web/css/admin.min.css': 'web/assets/custom/admin.less',
-                	'web/css/infomarket.min.css': 'web/assets/custom/infomarket.less',
-                	'web/css/infoprodukt.min.css': 'web/assets/custom/infoprodukt.less',
+                	'web/css/app.min.css': 'web/assets/custom/app.less',
                 	'web/css/font-awesome.min.css': 'web/assets/vendor/font-awesome/less/font-awesome.less'
                 }
             }
@@ -43,6 +39,7 @@ module.exports = function (grunt) {
                 files: {
                     'js/jquery.js': 'jquery/dist/jquery.js',
                     'js/moment.js': 'moment/min/moment.min.js',
+                    'js/pl.js': 'moment/locale/pl.js',
                     'js/bootstrap.js': 'bootstrap/dist/js/bootstrap.js',
                 	'js/bootstrap-datetimepicker.js': 'eonasdan-bootstrap-datetimepicker/src/js/bootstrap-datetimepicker.js'
                 }
@@ -58,6 +55,7 @@ module.exports = function (grunt) {
 	            files: {
 	                'web/js/jquery.min.js': ['web/js/jquery.js'],
 	                'web/js/moment.min.js': ['web/js/moment.js'],
+	                'web/js/pl.min.js': ['web/js/pl.js'],
 	                'web/js/bootstrap.min.js': ['web/js/bootstrap.js'],
         			'web/js/bootstrap-datetimepicker.min.js': ['web/js/bootstrap-datetimepicker.js']
 	            }

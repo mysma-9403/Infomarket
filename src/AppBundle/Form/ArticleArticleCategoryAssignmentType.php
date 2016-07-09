@@ -5,7 +5,6 @@ namespace AppBundle\Form;
 use AppBundle\Entity\Article;
 use AppBundle\Entity\ArticleArticleCategoryAssignment;
 use AppBundle\Entity\ArticleCategory;
-use AppBundle\Entity\Category;
 use AppBundle\Form\Base\BaseFormType;
 use AppBundle\Form\Base\ImageEntityType;
 use AppBundle\Repository\ArticleCategoryRepository;
@@ -28,11 +27,11 @@ class ArticleArticleCategoryAssignmentType extends BaseFormType
 						return $repository->createQueryBuilder('e')
 						->orderBy('e.published DESC, e.name', 'ASC');
 					},
-					'choice_label' 	=> 'name',
+					'choice_label' 	=> 'displayName',
 					'required' 		=> true,
 					'expanded'      => false,
 					'multiple'      => false,
-					'placeholder'	=> 'Choose article'
+					'placeholder'	=> 'label.choose.article'
 			))
 			->add('articleCategory', EntityType::class, array(
 					'class'			=> ArticleCategory::class,
@@ -40,11 +39,11 @@ class ArticleArticleCategoryAssignmentType extends BaseFormType
 						return $repository->createQueryBuilder('e')
 						->orderBy('e.published DESC, e.name', 'ASC');
 					},
-					'choice_label' 	=> 'name',
+					'choice_label' 	=> 'displayName',
 					'required' 		=> true,
 					'expanded'      => false,
 					'multiple'      => false,
-					'placeholder'	=> 'Choose category'
+					'placeholder'	=> 'label.choose.articleCategory'
 			))
 		;
 	}

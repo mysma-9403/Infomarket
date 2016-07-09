@@ -5,20 +5,30 @@ namespace AppBundle\Controller\Admin;
 use AppBundle\Controller\Admin\Base\ImageEntityController;
 use AppBundle\Controller\Admin\Base\SimpleEntityController;
 use AppBundle\Entity\Article;
-use AppBundle\Form\ArticleType;
-use Symfony\Component\HttpFoundation\Request;
-use AppBundle\Entity\Filter\ArticleFilter;
 use AppBundle\Entity\ArticleCategory;
 use AppBundle\Entity\Category;
+use AppBundle\Entity\Filter\ArticleFilter;
+use AppBundle\Form\ArticleType;
 use AppBundle\Form\Filter\ArticleFilterType;
+use Symfony\Component\HttpFoundation\Request;
 
 class ArticleController extends ImageEntityController {
 	
+	/**
+	 * 
+	 * @param Request $request
+	 * @param unknown $page
+	 */
 	public function indexAction(Request $request, $page)
 	{
 		return $this->indexActionInternal($request, $page);
 	}
 	
+	/**
+	 * 
+	 * @param Request $request
+	 * @param unknown $id
+	 */
 	public function showAction(Request $request, $id)
 	{
 		return $this->showActionInternal($request, $id);
@@ -54,19 +64,56 @@ class ArticleController extends ImageEntityController {
 		return $this->editActionInternal($request, $id);
 	}
 	
+	/**
+	 * 
+	 * @param Request $request
+	 * @param unknown $id
+	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
+	 */
+	public function deleteAction(Request $request, $id)
+	{
+		return $this->deleteActionInternal($request, $id);
+	}
+	
+	/**
+	 * 
+	 * @param Request $request
+	 * @param unknown $id
+	 */
 	public function setPublishedAction(Request $request, $id)
 	{
 		return $this->setPublishedActionInternal($request, $id);
 	}
 	
+	/**
+	 * 
+	 * @param Request $request
+	 * @param unknown $id
+	 */
 	public function setFeaturedAction(Request $request, $id)
 	{
 		return $this->setFeaturedActionInternal($request, $id);
 	}
 	
-	public function deleteAction(Request $request, $id)
+	public function previewAction(Request $request, $id)
 	{
-		return $this->deleteActionInternal($request, $id);
+		return $this->previewActionInternal($request, $id);
+	}
+	
+	
+	
+	
+	/**
+	 *
+	 * @param Request $request
+	 * @param integer $id current entry ID
+	 *
+	 * @return \Symfony\Component\HttpFoundation\Response
+	 */
+	protected function previewActionInternal(Request $request, $id)
+	{
+		$params = $this->getShowParams($request, $id);
+		return $this->render($this->getPreviewView(), $params);
 	}
 	
 	//------------------------------------------------------------------------
@@ -79,7 +126,36 @@ class ArticleController extends ImageEntityController {
 	 * @see \AppBundle\Controller\Admin\Base\SimpleEntityController::createNewEntity()
 	 */
 	protected function createNewEntity(Request $request) {
-		return new Article();
+		$entity = new Article();
+		
+		$parent = $this->getParamByNameId($request, Article::class, 'parent', null);
+		if($parent) {
+			$entity->setParent($parent);
+		}
+		
+		return $entity;
+	}
+	
+	/**
+	 * 
+	 * {@inheritDoc}
+	 * @see \AppBundle\Controller\Admin\Base\SimpleEntityController::createFromTemplate()
+	 */
+	protected function createFromTemplate(Request $request, $template) {
+		$entry = parent::createFromTemplate($request, $template);
+	
+		$entry->setSubname($template->getSubname());
+		$entry->setFeatured($template->getFeatured());
+		
+		$entry->setIntro($template->getIntro());
+		$entry->setContent($template->getContent());
+		
+		$entry->setParent($template->getParent());
+		$entry->setOrderNumber($template->getOrderNumber());
+		$entry->setLayout($template->getLayout());
+		$entry->setDisplaySided($template->getDisplaySided());
+	
+		return $entry;
 	}
 	
 	/**
@@ -128,5 +204,11 @@ class ArticleController extends ImageEntityController {
 	 */
 	protected function getFilterFormType() {
 		return ArticleFilterType::class;
+	}
+	
+	
+	protected function getPreviewView()
+	{
+		return $this->getBaseName() . '/' . $this->getEntityName() . '/preview.html.twig';
 	}
 }

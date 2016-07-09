@@ -5,12 +5,13 @@ namespace AppBundle\Form;
 use AppBundle\Entity\Article;
 use AppBundle\Form\Base\ImageEntityType;
 use AppBundle\Form\Base\SimpleEntityType;
+use AppBundle\Repository\ArticleRepository;
+use Ivory\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
-use AppBundle\Repository\ArticleRepository;
 
 class ArticleType extends ImageEntityType
 {
@@ -22,24 +23,24 @@ class ArticleType extends ImageEntityType
 	protected function addMoreFields(FormBuilderInterface $builder, array $options) {
 		
 		$layoutChoices = array(
-				'Default (left)'		=> Article::DEFAULT_LEFT_LAYOUT,
-				'Default (right)'		=> Article::DEFAULT_RIGHT_LAYOUT,
-				'Default (alternate)'	=> Article::DEFAULT_ALTERNATE_LAYOUT,
+				'label.article.layout.default.left'			=> Article::DEFAULT_LEFT_LAYOUT,
+				'label.article.layout.default.right'		=> Article::DEFAULT_RIGHT_LAYOUT,
+				'label.article.layout.default.alternate'	=> Article::DEFAULT_ALTERNATE_LAYOUT,
 				
-				'Narrow (left)' 		=> Article::NARROW_LEFT_LAYOUT,
-				'Narrow (right)' 		=> Article::NARROW_RIGHT_LAYOUT,
-				'Narrow (alternate)' 	=> Article::NARROW_ALTERNATE_LAYOUT,
+				'label.article.layout.narrow.left' 			=> Article::NARROW_LEFT_LAYOUT,
+				'label.article.layout.narrow.right' 		=> Article::NARROW_RIGHT_LAYOUT,
+				'label.article.layout.narrow.alternate' 	=> Article::NARROW_ALTERNATE_LAYOUT,
 				
-				'Wide' 					=> Article::WIDE_LAYOUT,
-				'Wide (small image)' 	=> Article::WIDE_SMALL_IMAGE_LAYOUT,
+				'label.article.layout.wide.normalImage' 	=> Article::WIDE_LAYOUT,
+				'label.article.layout.wide.smallImage' 		=> Article::WIDE_SMALL_IMAGE_LAYOUT,
 				
-				'Column (2)' 			=> Article::COLUMN_2_LAYOUT,
-				'Column (3)' 			=> Article::COLUMN_3_LAYOUT,
-				'Column (4)' 			=> Article::COLUMN_4_LAYOUT,
+				'label.article.layout.column.2' 			=> Article::COLUMN_2_LAYOUT,
+				'label.article.layout.column.3' 			=> Article::COLUMN_3_LAYOUT,
+				'label.article.layout.column.4' 			=> Article::COLUMN_4_LAYOUT,
 				
-				'Grid (2)' 				=> Article::GRID_2_LAYOUT,
-				'Grid (3)' 				=> Article::GRID_3_LAYOUT,
-				'Grid (4)' 				=> Article::GRID_4_LAYOUT,
+				'label.article.layout.grid.2' 				=> Article::GRID_2_LAYOUT,
+				'label.article.layout.grid.3' 				=> Article::GRID_3_LAYOUT,
+				'label.article.layout.grid.4' 				=> Article::GRID_4_LAYOUT,
 		);
 		
 		$builder
@@ -59,20 +60,16 @@ class ArticleType extends ImageEntityType
 					'required' 		=> false,
 					'expanded'      => false,
 					'multiple'      => false,
-					'placeholder'	=> 'Choose parent'
+					'placeholder'	=> 'label.choose.article.parent'
 			))
-			->add('intro', null, array(
-					'attr' => array(
-							'class' => 'tinymce',
-							'data-theme' => 'bbcode',
-							'rows' => 5),
+			->add('intro', CKEditorType::class, array(
+					'config' => array(
+							'uiColor' => '#ffffff'),
 					'required' => false
 			))
-			->add('content', null, array(
-					'attr' => array(
-							'class' => 'tinymce',
-							'data-theme' => 'bbcode',
-							'rows' => 20),
+			->add('content', CKEditorType::class, array(
+					'config' => array(
+							'uiColor' => '#ffffff'),
 					'required' => false
 			))
 			->add('layout', ChoiceType::class, array(
@@ -84,6 +81,9 @@ class ArticleType extends ImageEntityType
 					'required' => true
 			))
 			->add('displaySided', null, array(
+					'required' => false
+			))
+			->add('displayPaginated', null, array(
 					'required' => false
 			))
 		;

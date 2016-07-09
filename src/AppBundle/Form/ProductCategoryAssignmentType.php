@@ -11,6 +11,10 @@ use AppBundle\Entity\Category;
 use AppBundle\Entity\Product;
 use AppBundle\Entity\Segment;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use AppBundle\Repository\ProductRepository;
+use AppBundle\Entity\Brand;
+use AppBundle\Repository\SegmentRepository;
+use AppBundle\Repository\CategoryRepository;
 
 class ProductCategoryAssignmentType extends BaseFormType
 {
@@ -23,27 +27,40 @@ class ProductCategoryAssignmentType extends BaseFormType
 		$builder
 			->add('product', EntityType::class, array(
 					'class'			=> Product::class,
-					'choice_label' 	=> 'name',
+					'query_builder' => function (ProductRepository $repository) {
+						return $repository->createQueryBuilder('e')
+						->leftJoin(Brand::class, 'b', null, 'WITH b.id = e.brand')
+						->orderBy('e.published DESC, b.name ASC, e.name', 'ASC');
+					},
+					'choice_label' 	=> 'displayName',
 					'required' 		=> true,
 					'expanded'      => false,
 					'multiple'      => false,
-					'placeholder'	=> 'Choose product'
+					'placeholder'	=> 'label.choose.product'
 			))
 			->add('segment', EntityType::class, array(
 					'class'			=> Segment::class,
-					'choice_label' 	=> 'name',
+					'query_builder' => function (SegmentRepository $repository) {
+						return $repository->createQueryBuilder('e')
+						->orderBy('e.published DESC, e.id', 'ASC');
+					},
+					'choice_label' 	=> 'displayName',
 					'required' 		=> true,
 					'expanded'      => false,
 					'multiple'      => false,
-					'placeholder'	=> 'Choose segment'
+					'placeholder'	=> 'label.choose.segment'
 			))
 			->add('category', EntityType::class, array(
 					'class'			=> Category::class,
-					'choice_label' 	=> 'name',
+					'query_builder' => function (CategoryRepository $repository) {
+						return $repository->createQueryBuilder('e')
+						->orderBy('e.published DESC, e.name', 'ASC');
+					},
+					'choice_label' 	=> 'displayName',
 					'required' 		=> true,
 					'expanded'      => false,
 					'multiple'      => false,
-					'placeholder'	=> 'Choose category'
+					'placeholder'	=> 'label.choose.category'
 			))
 			->add('orderNumber', NumberType::class, array(
 					'required' => true

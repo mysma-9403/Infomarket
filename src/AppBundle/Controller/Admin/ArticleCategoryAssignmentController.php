@@ -7,24 +7,20 @@ use AppBundle\Entity\Article;
 use AppBundle\Entity\ArticleCategoryAssignment;
 use AppBundle\Entity\Category;
 use AppBundle\Form\ArticleCategoryAssignmentType;
-use AppBundle\Form\Lists\ArticleCategoryAssignmentListType;
 use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Entity\Filter\ArticleCategoryAssignmentFilter;
+use AppBundle\Form\Filter\ArticleCategoryAssignmentFilterType;
 
 class ArticleCategoryAssignmentController extends AdminEntityController {
 	
+	/**
+	 * 
+	 * @param Request $request
+	 * @param unknown $page
+	 */
 	public function indexAction(Request $request, $page)
 	{
 		return $this->indexActionInternal($request, $page);
-	}
-	
-	/**
-	 *
-	 * @param Request $request
-	 * @param integer $id
-	 */
-	public function showAction(Request $request, $id)
-	{
-		return $this->showActionInternal($request, $id);
 	}
 	
 	/**
@@ -32,13 +28,23 @@ class ArticleCategoryAssignmentController extends AdminEntityController {
 	 * @param Request $request
 	 * @param unknown $id
 	 */
+	public function showAction(Request $request, $id)
+	{
+		return $this->showActionInternal($request, $id);
+	}
+	
+	/**
+	 *
+	 * @param Request $request
+	 * @param unknown $id
+	 */
 	public function newAction(Request $request)
 	{
 		return $this->newActionInternal($request);
 	}
-
+	
 	/**
-	 * 
+	 *
 	 * @param Request $request
 	 * @param unknown $id
 	 */
@@ -48,7 +54,7 @@ class ArticleCategoryAssignmentController extends AdminEntityController {
 	}
 	
 	/**
-	 * 
+	 *
 	 * @param Request $request
 	 * @param unknown $id
 	 */
@@ -58,14 +64,29 @@ class ArticleCategoryAssignmentController extends AdminEntityController {
 	}
 	
 	/**
-	 *
+	 * 
 	 * @param Request $request
 	 * @param unknown $id
+	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
 	 */
 	public function deleteAction(Request $request, $id)
 	{
 		return $this->deleteActionInternal($request, $id);
 	}
+	
+	/**
+	 * 
+	 * @param Request $request
+	 * @param unknown $id
+	 */
+	public function setPublishedAction(Request $request, $id)
+	{
+		return $this->setPublishedActionInternal($request, $id);
+	}
+	
+	//------------------------------------------------------------------------
+	// Entity creators
+	//------------------------------------------------------------------------
 	
 	/**
 	 * 
@@ -91,6 +112,32 @@ class ArticleCategoryAssignmentController extends AdminEntityController {
 	/**
 	 * 
 	 * {@inheritDoc}
+	 * @see \AppBundle\Controller\Admin\Base\AdminEntityController::createFromTemplate()
+	 */
+	protected function createFromTemplate(Request $request, $template) {
+		$entry = parent::createFromTemplate($request, $template);
+	
+		$entry->setArticle($template->getArticle());
+		$entry->setCategory($template->getCategory());
+	
+		return $entry;
+	}
+	
+	/**
+	 * 
+	 * {@inheritDoc}
+	 * @see \AppBundle\Controller\Admin\Base\AdminEntityController::createNewFilter()
+	 */
+	protected function createNewFilter() {
+		$articleRepository = $this->getDoctrine()->getRepository(Article::class);
+		$categoryRepository = $this->getDoctrine()->getRepository(Category::class);
+		
+		return new ArticleCategoryAssignmentFilter($articleRepository, $categoryRepository);
+	}
+	
+	/**
+	 * 
+	 * {@inheritDoc}
 	 * @see \AppBundle\Controller\Base\BaseEntityController::getEntityType()
 	 */
 	protected function getEntityType() {
@@ -107,10 +154,9 @@ class ArticleCategoryAssignmentController extends AdminEntityController {
 	
 	/**
 	 * 
-	 * {@inheritDoc}
-	 * @see \AppBundle\Controller\Admin\Base\AdminEntityController::getListFormType()
+	 * @return string
 	 */
-	protected function getListFormType() {
-		return ArticleCategoryAssignmentListType::class;
+	 protected function getFilterFormType() {
+		return ArticleCategoryAssignmentFilterType::class;
 	}
 }

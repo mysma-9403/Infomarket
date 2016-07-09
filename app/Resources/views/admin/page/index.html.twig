@@ -9,14 +9,9 @@
 
 {% block entryMoreFields2 %}
 	<td>
-		{% if item.featured %}
-			<a href="{{ path('admin_' ~ mainPath ~ '_set_featured', { id: item.id, featured: false }) }}">
-				<i class="fa fa-star" data-toggle="tooltip" title="{{ 'label.featured'|trans }}"></i>
-			</a>
-		{%  else %}
-			<a href="{{ path('admin_' ~ mainPath ~ '_set_featured', { id: item.id, featured: true }) }}">
-				<i class="fa fa-star-o" data-toggle="tooltip" title="{{ 'label.unfeatured'|trans }}"></i>
-			</a>
-		{% endif %}
+		{% include 'common/fields/bool_action_field.html.twig' with 
+			{ 'id': item.id, 'value': item.featured, 'extPath': '_set_featured',
+				'trueTooltip': 'label.featured'|trans, 'falseTooltip': 'label.notFeatured'|trans,
+				'trueIcon': 'fa-star', 'falseIcon': 'fa-star-o' } %}
 	</td>
 {% endblock %}

@@ -3,12 +3,31 @@
 {% set mainPath = 'category' %}
 {% set title = 'title.categories'|trans %}
 
+{% block filterMoreFields2 %}
+	<li class="col-xs-12 col-sm-6 col-md-4 col-lg-2">
+		{{ form_widget(filter.subname, { 'label': 'label.subname' }) }}
+	</li>
+{% endblock %}
+
+{% block filterMoreFields3 %}
+	<li class="col-xs-12 col-sm-6 col-md-4 col-lg-2">
+		{{ form_widget(filter.featured, { 'label': 'label.featured' }) }}
+	</li>
+	<li class="col-xs-12 col-sm-6 col-md-4 col-lg-2">
+		{{ form_widget(filter.preleaf, { 'label': 'label.preleaf' }) }}
+	</li>
+	<li class="col-xs-12 col-sm-6 col-md-4 col-lg-2">
+		{{ form_widget(filter.root, { 'label': 'label.root' }) }}
+	</li>
+{% endblock %}
+
 {% block headerMoreFields1 %}
-	<th></th>
+	<th>{{ 'label.subname'|trans }}</th>
 {% endblock %}
 
 {% block headerMoreFields2 %}
 	<th><i class="fa fa-star"></i>{{ 'label.featured'|trans }}</th>
+	<th><i class="fa fa-leaf"></i>{{ 'label.preleafs'|trans }}</th>
 {% endblock %}
 
 {% block entryMoreFields1 %}
@@ -17,14 +36,16 @@
 
 {% block entryMoreFields2 %}
 	<td>
-		{% if item.featured %}
-			<a href="{{ path('admin_' ~ mainPath ~ '_set_featured', { id: item.id, featured: false, routeParams: routingParams.routeParams }) }}">
-				<i class="fa fa-star" data-toggle="tooltip" title="{{ 'label.featured'|trans }}"></i>
-			</a>
-		{%  else %}
-			<a href="{{ path('admin_' ~ mainPath ~ '_set_featured', { id: item.id, featured: true, routeParams: routingParams.routeParams }) }}">
-				<i class="fa fa-star-o" data-toggle="tooltip" title="{{ 'label.unfeatured'|trans }}"></i>
-			</a>
-		{% endif %}
+		{% include 'common/fields/bool_action_field.html.twig' with 
+			{ 'id': item.id, 'value': item.featured, 'extPath': '_set_featured',
+				'trueTooltip': 'label.featured'|trans, 'falseTooltip': 'label.notFeatured'|trans,
+				'trueIcon': 'fa-star', 'falseIcon': 'fa-star-o' } %}
+	</td>
+	
+	<td>
+		{% include 'common/fields/bool_action_field.html.twig' with 
+			{ 'id': item.id, 'value': item.preleaf, 'extPath': '_set_preleaf',
+				'trueTooltip': 'label.preleafs'|trans, 'falseTooltip': 'label.others'|trans,
+				'trueIcon': 'fa-leaf text-green', 'falseIcon': 'fa-leaf text-red' } %}
 	</td>
 {% endblock %}

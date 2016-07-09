@@ -15,6 +15,7 @@ use AppBundle\Entity\Page;
 use AppBundle\Form\Filter\Base\SimpleEntityFilterType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Entity\Base\SimpleEntity;
 
 abstract class InfoproduktEntityController extends BaseEntityController
 {
@@ -79,10 +80,9 @@ abstract class InfoproduktEntityController extends BaseEntityController
     	$categoryRepository = $this->getDoctrine()->getRepository(Category::class);
     	
     	$categoryFilter = new CategoryFilter($branchRepository, $categoryRepository);
-    	$categoryFilter->setPublished(true);
-    	$categoryFilter->setFeatured(true);
-    	$categoryFilter->setPreleaf(true);
-//     	$categoryFilter->setRoot(true);
+    	$categoryFilter->setPublished(SimpleEntityFilter::TRUE_VALUES);
+    	$categoryFilter->setFeatured(SimpleEntityFilter::TRUE_VALUES);
+    	$categoryFilter->setPreleaf(SimpleEntityFilter::TRUE_VALUES);
     
     	$categories = $this->getParamList(Category::class, $categoryFilter);
     	$params['categories'] = $categories;

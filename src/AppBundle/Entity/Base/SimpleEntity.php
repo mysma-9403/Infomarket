@@ -4,6 +4,14 @@ namespace AppBundle\Entity\Base;
 
 class SimpleEntity extends Audit
 {
+	/**
+	 * 
+	 * {@inheritDoc}
+	 * @see \AppBundle\Entity\Base\Audit::getDisplayName()
+	 */
+	public function getDisplayName() {
+		return $this->name;
+	}
 	
     /**
      * @var string

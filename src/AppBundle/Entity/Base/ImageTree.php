@@ -4,6 +4,31 @@ namespace AppBundle\Entity\Base;
 
 class ImageTree extends Image
 {
+	/**
+	 * 
+	 * {@inheritDoc}
+	 * @see \AppBundle\Entity\Base\Image::getDisplayName()
+	 */
+	public function getDisplayName() {
+		$name = $this->name;
+		
+		$parent = $this->getParent();
+		if($parent) {
+			$name .= ' (';
+			$name .= $parent->getName();
+		
+			$parent = $parent->getParent();
+			while($parent) {
+				$name .= '/';
+				$name .= $parent->getName();
+				$parent = $parent->getParent();
+			}
+			$name .= ')';
+		}
+	
+		return $name;
+	}
+	
     /**
      * @var string
      */
@@ -18,7 +43,6 @@ class ImageTree extends Image
      * @var string
      */
     private $treePath;
-
 
     /**
      * Set name

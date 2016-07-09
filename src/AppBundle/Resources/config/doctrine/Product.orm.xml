@@ -13,6 +13,13 @@
         <field name="price" type="integer" nullable="true" />
         <field name="guarantee" type="integer" nullable="true" />
         
+        <one-to-many field="categoryAssignments" target-entity="ProductCategoryAssignment" mapped-by="product">
+            <order-by>
+            	<order-by-field name="category" direction="ASC" />
+            	<order-by-field name="segment" direction="ASC" />
+            </order-by>
+        </one-to-many>
+        
     </entity>
     
 </doctrine-mapping>

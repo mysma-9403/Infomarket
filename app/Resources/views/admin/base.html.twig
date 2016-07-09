@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-    	<meta http-equiv="Content-Type" content="text/html" charset=UTF-8 />
+    	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" charset="UTF-8" />
     	
         <title>{% block title %}Welcome!{% endblock %}</title>
         
@@ -14,17 +14,18 @@
 
     </head>
     <body>
-		{% block body %}
-        {% endblock %}
-        
         {% block javascripts %}
         	<script src="{{ asset('js/jquery.min.js') }}"></script>
         	<script src="{{ asset('js/bootstrap.min.js') }}"></script>
         	<script src="{{ asset('js/moment.min.js') }}"></script>
+        	<script src="{{ asset('js/pl.js') }}"></script>
         	<script src="{{ asset('js/bootstrap-datetimepicker.min.js') }}"></script>
         	
         	{% block moreJavascripts %}
         	{% endblock %}
 		{% endblock %}
+		
+		{% block body %}
+        {% endblock %}
     </body>
 </html>

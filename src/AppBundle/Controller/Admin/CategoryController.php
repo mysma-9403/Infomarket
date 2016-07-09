@@ -16,14 +16,25 @@ use AppBundle\Entity\Segment;
 use AppBundle\Form\CategoryType;
 use AppBundle\Repository\BranchRepository;
 use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Form\Filter\CategoryFilterType;
 
 class CategoryController extends ImageTreeController {
 	
+	/**
+	 * 
+	 * @param Request $request
+	 * @param unknown $page
+	 */
 	public function indexAction(Request $request, $page)
 	{
 		return $this->indexActionInternal($request, $page);
 	}
 	
+	/**
+	 * 
+	 * @param Request $request
+	 * @param unknown $id
+	 */
 	public function showAction(Request $request, $id)
 	{
 		return $this->showActionInternal($request, $id);
@@ -59,34 +70,73 @@ class CategoryController extends ImageTreeController {
 		return $this->editActionInternal($request, $id);
 	}
 	
+	/**
+	 * 
+	 * @param Request $request
+	 * @param unknown $id
+	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
+	 */
+	public function deleteAction(Request $request, $id)
+	{
+		return $this->deleteActionInternal($request, $id);
+	}
+	
+	/**
+	 * 
+	 * @param Request $request
+	 * @param unknown $id
+	 */
 	public function setPublishedAction(Request $request, $id)
 	{
 		return $this->setPublishedActionInternal($request, $id);
 	}
 	
+	/**
+	 * 
+	 * @param Request $request
+	 * @param unknown $id
+	 */
 	public function setFeaturedAction(Request $request, $id)
 	{
 		return $this->setFeaturedActionInternal($request, $id);
 	}
 	
+	/**
+	 * 
+	 * @param Request $request
+	 * @param unknown $id
+	 */
 	public function setPreleafAction(Request $request, $id)
 	{
 		return $this->setPreleafActionInternal($request, $id);
 	}
 	
+	/**
+	 * 
+	 * @param Request $request
+	 */
 	public function treeAction(Request $request)
 	{
 		return $this->treeActionInternal($request);
 	}
 	
+	/**
+	 * 
+	 * @param Request $request
+	 * @param unknown $id
+	 */
 	public function ratingsAction(Request $request, $id)
 	{
 		return $this->ratingsActionInternal($request, $id);
 	}
 	
+	//------------------------------------------------------------------------
+	// Internal actions
+	//------------------------------------------------------------------------
+	
 	protected function setPreleafActionInternal(Request $request, $id)
 	{
-		$preleaf = $request->get('preleaf', false);
+		$preleaf = $request->get('value', false);
 	
 		$em = $this->getDoctrine()->getManager();
 	
@@ -227,6 +277,8 @@ class CategoryController extends ImageTreeController {
 	protected function getTreeParams(Request $request)
 	{
 		$params = parent::getParams($request);
+		
+		$params['routingParams']['route'] = $this->getTreeRoute();
 		return $params;
 	}
 	
@@ -242,7 +294,7 @@ class CategoryController extends ImageTreeController {
 	protected function createNewEntity(Request $request) {
 		$entity = new Category();
 		
-		$parent = $this->getParamById($request, Category::class, null);
+		$parent = $this->getParamByNameId($request, Category::class, 'parent', null);
 		if($parent) {
 			$entity->setParent($parent);
 		}
@@ -258,22 +310,44 @@ class CategoryController extends ImageTreeController {
 	protected function createFromTemplate(Request $request, $template) {
 		$entry = parent::createFromTemplate($request, $template);
 	
-		$entry->setContent($template->getContent());
-		$entry->setIcon($template->getIcon());
-		$entry->setParent($template->getParent());
-		$entry->setPreleaf($template->getPreleaf());
 		$entry->setSubname($template->getSubname());
+		
+		$entry->setFeatured($template->getFeatured());
+		$entry->setPreleaf($template->getPreleaf());
+		
+		$entry->setIcon($template->getIcon());
+		
+		$entry->setParent($template->getParent());
+		$entry->setOrderNumber($template->getOrderNumber());
+		
+		$entry->setContent($template->getContent());
 	
 		return $entry;
 	}
+	
 	/**
-	 *
+	 * 
 	 * {@inheritDoc}
-	 * @see \AppBundle\Controller\Admin\Base\SimpleEntityController::createNewEntity()
+	 * @see \AppBundle\Controller\Admin\Base\SimpleEntityController::createNewFilter()
+	 */
+	protected function createNewFilter() {
+		$branchRepository = $this->getDoctrine()->getRepository(Branch::class);
+		$categoryRepository = $this->getDoctrine()->getRepository(Category::class);
+		
+		$filter = new CategoryFilter($branchRepository, $categoryRepository);
+	
+		return $filter;
+	}
+	
+	/**
+	 * 
+	 * @param Request $request
+	 * @return \AppBundle\Entity\Filter\CategoryFilter
 	 */
 	protected function createTreeFilter(Request $request) {
 		$branchRepository = $this->getDoctrine()->getRepository(Branch::class);
 		$categoryRepository = $this->getDoctrine()->getRepository(Category::class);
+		
 		$filter = new CategoryFilter($branchRepository, $categoryRepository);
 		
 		return $filter;
@@ -305,6 +379,15 @@ class CategoryController extends ImageTreeController {
 	 */
 	protected function getFormType() {
 		return CategoryType::class;
+	}
+
+	/**
+	 * 
+	 * {@inheritDoc}
+	 * @see \AppBundle\Controller\Admin\Base\SimpleEntityController::getFilterFormType()
+	 */
+	protected function getFilterFormType() {
+		return CategoryFilterType::class;
 	}
 	
 	protected function getTreeView()

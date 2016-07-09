@@ -24,15 +24,15 @@ class ArticleFilterType extends ImageEntityFilterType
 	protected function addMoreFields(FormBuilderInterface $builder, array $options) {
 	
 		$featuredChoices = array(
-				'All'			=> SimpleEntityFilter::ALL_VALUES,
-				'Featured' 		=> SimpleEntityFilter::TRUE_VALUES,
-				'Not featured' 	=> SimpleEntityFilter::FALSE_VALUES
+				'label.all'			=> SimpleEntityFilter::ALL_VALUES,
+				'label.featured' 	=> SimpleEntityFilter::TRUE_VALUES,
+				'label.notFeatured' => SimpleEntityFilter::FALSE_VALUES
 		);
 		
 		$mainChoices = array(
-				'All'			=> SimpleEntityFilter::ALL_VALUES,
-				'Main articles' 		=> SimpleEntityFilter::TRUE_VALUES,
-				'Sub articles' 	=> SimpleEntityFilter::FALSE_VALUES
+				'label.all'					=> SimpleEntityFilter::ALL_VALUES,
+				'label.article.main' 		=> SimpleEntityFilter::TRUE_VALUES,
+				'label.article.children' 	=> SimpleEntityFilter::FALSE_VALUES
 		);
 	
 		$builder

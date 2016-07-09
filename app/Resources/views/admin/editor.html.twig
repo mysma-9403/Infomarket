@@ -4,46 +4,52 @@
 
 {% block content %}
 	
-	{% block formBlock %}
-	{% form_theme form 'form/fields.html.twig' %}
-	
-	<div class="row">
-		<div class="col-xs-12">
-		{{ form_start(form) }}
-			{% block moreFields1 %}
-		    {% endblock %}
+	<div class="container">
+		{% block formBlock %}
+		{% form_theme form 'form/fields.html.twig' %}
 		
-		    {% block mainFields1 %}
-		    {% endblock %}
-		    
-		    {% block moreFields2 %}
-		    {% endblock %}
-		    
-		    {% block mainFields2 %}
-		    {% endblock %}
-		    
-		    {% block moreFields3 %}
-		    {% endblock %}
-		
-			{{ form_errors(form) }}
-		
-			{% block actions %}
-		    {% endblock %}
-		{{ form_end(form) }}
+		<div class="row">
+			<div class="col-xs-12">
+			{{ form_start(form) }}
+				{% block moreFields1 %}
+			    {% endblock %}
+			
+			    {% block mainFields1 %}
+			    {% endblock %}
+			    
+			    {% block moreFields2 %}
+			    {% endblock %}
+			    
+			    {% block mainFields2 %}
+			    {% endblock %}
+			    
+			    {% block moreFields3 %}
+			    {% endblock %}
+			
+				{{ form_errors(form) }}
+			
+				{% block moreActions1 %}
+			    {% endblock %}
+			    
+				{% block mainActions %}
+			    {% endblock %}
+			    
+			    {% block moreActions2 %}
+			    {% endblock %}
+			{{ form_end(form) }}
+			</div>
 		</div>
+		
+		<div class="row">
+			<div class="col-xs-12">
+				{% if entry.id %}
+					{% block assignments %}
+			    	{% endblock %}
+		    	{% endif %}
+			</div>
+		</div>
+			    
+		{% endblock %}
 	</div>
 	
-	<div class="row">
-		<div class="col-xs-12">
-			{% block assignments %}
-	    {%  endblock %}
-		</div>
-	</div>
-		    
-	{% endblock %}
-	
-{% endblock %}
-
-{% block moreJavascripts %}
-	{{ tinymce_init() }}
 {% endblock %}

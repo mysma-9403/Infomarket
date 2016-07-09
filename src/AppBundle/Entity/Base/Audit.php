@@ -4,6 +4,12 @@ namespace AppBundle\Entity\Base;
 
 class Audit
 {
+	/**
+	 * Used in lists, form fields etc.
+	 */
+	public function getDisplayName() {
+		return $this->id;
+	}
 	
     /**
      * @var boolean

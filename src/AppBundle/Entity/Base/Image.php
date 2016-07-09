@@ -6,6 +6,15 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class Image extends Audit {
 	
+	/**
+	 * 
+	 * {@inheritDoc}
+	 * @see \AppBundle\Entity\Base\Audit::getDisplayName()
+	 */
+	public function getDisplayName() {
+		return $this->name;
+	}
+	
 	public function getUploadPath()
 	{
 		return '../web/upload/images/';

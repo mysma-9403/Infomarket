@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <buildpath>
+	<buildpathentry kind="src" path="vendor/doctrine/data-fixtures/lib"/>
 	<buildpathentry kind="src" path="vendor/paragonie/random_compat/lib"/>
 	<buildpathentry kind="src" path="vendor/sensiolabs/security-checker"/>
 	<buildpathentry kind="src" path="vendor/symfony/assetic-bundle"/>
@@ -8,6 +9,7 @@
 	<buildpathentry kind="src" path="vendor/doctrine/common/lib/Doctrine/Common"/>
 	<buildpathentry kind="src" path="vendor/psr/cache/src"/>
 	<buildpathentry excluding="Intl/Resources/stubs/" kind="src" path="vendor/symfony/symfony/src/Symfony/Component"/>
+	<buildpathentry kind="src" path="vendor/egeloen/ckeditor-bundle"/>
 	<buildpathentry kind="con" path="org.eclipse.php.core.LANGUAGE"/>
 	<buildpathentry kind="src" path="vendor/symfony/swiftmailer-bundle"/>
 	<buildpathentry kind="src" path="vendor/doctrine/cache/lib/Doctrine/Common/Cache"/>
@@ -18,13 +20,16 @@
 	<buildpathentry kind="src" path="vendor/symfony/symfony/src/Symfony/Bridge/Doctrine"/>
 	<buildpathentry kind="src" path="vendor/psr/log"/>
 	<buildpathentry kind="src" path="vendor/gedmo/doctrine-extensions/lib"/>
+	<buildpathentry kind="src" path="vendor/robloach/component-installer/src"/>
 	<buildpathentry kind="src" path="vendor/doctrine/orm/lib"/>
 	<buildpathentry kind="src" path="vendor/doctrine/lexer/lib"/>
 	<buildpathentry kind="src" path="vendor/knplabs/knp-paginator-bundle"/>
 	<buildpathentry kind="src" path="vendor/kriswallsmith/assetic/src"/>
 	<buildpathentry kind="src" path="vendor/symfony/monolog-bundle"/>
+	<buildpathentry kind="src" path="vendor/egeloen/json-builder/src"/>
 	<buildpathentry kind="src" path="vendor/behat/transliterator/src"/>
 	<buildpathentry kind="src" path="vendor/swiftmailer/swiftmailer/lib"/>
+	<buildpathentry kind="src" path="vendor/doctrine/doctrine-fixtures-bundle"/>
 	<buildpathentry kind="src" path="vendor/symfony/symfony/src/Symfony/Bridge/Monolog"/>
 	<buildpathentry kind="src" path="vendor/doctrine/doctrine-bundle"/>
 	<buildpathentry kind="src" path="vendor/symfony/polyfill-php56"/>
@@ -35,9 +40,10 @@
 	<buildpathentry kind="src" path="vendor/symfony/symfony/src/Symfony/Bridge/ProxyManager"/>
 	<buildpathentry kind="src" path="vendor/twig/twig/lib"/>
 	<buildpathentry kind="src" path="vendor/doctrine/annotations/lib"/>
-	<buildpathentry kind="src" path="vendor/stfalcon/tinymce-bundle"/>
+	<buildpathentry kind="src" path="vendor/helios-ag/fm-elfinder-bundle"/>
 	<buildpathentry kind="src" path="vendor/sensio/distribution-bundle"/>
 	<buildpathentry kind="src" path="vendor/symfony/phpunit-bridge"/>
+	<buildpathentry kind="src" path="vendor/helios-ag/fm-elfinder-php-connector/src"/>
 	<buildpathentry kind="src" path="src"/>
 	<buildpathentry kind="src" path="vendor/monolog/monolog/src/Monolog"/>
 	<buildpathentry kind="src" path="vendor/doctrine/dbal/lib"/>

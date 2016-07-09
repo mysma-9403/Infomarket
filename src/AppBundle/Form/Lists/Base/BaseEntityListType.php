@@ -20,7 +20,7 @@ class BaseEntityListType extends BaseFormType
 		$builder
 			->add('entries', EntityType::class, array(
 					'class'			=> $this->getChoiceType(),
-					'choice_label' 	=> 'id',
+					'choice_label' 	=> 'displayName',
 					'choices'		=> $options['choices'],
 					'expanded'      => true,
 					'multiple'      => true

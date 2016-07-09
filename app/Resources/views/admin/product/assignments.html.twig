@@ -1,0 +1,40 @@
+<div class="row equal">
+	<div class="col-xs-6 col-sm-2">
+		<h2>{{ 'title.categories'|trans }}</h2>
+	</div>
+	{% if is_granted('ROLE_EDITOR') %}
+		<div class="col-xs-6 col-sm-2">
+			<a href="{{ path('admin_product_category_assignment_new', { product: entry.id, route: basePath ~ mainPath ~ extPath, routeParams: { id: entry.id } }) }}"
+				class="btn btn-success text-xs-bottom-mm">
+				<span class="fa fa-plus"></span> 
+				{{ 'action.assignCategory'|trans }} 
+			</a>
+		</div>
+	{% endif %}
+</div>
+
+<table class="table table-striped vert-align">
+	<tbody>
+	{% for categoryAssignment in entry.categoryAssignments %}
+		<tr>
+			<td>
+				<a href="{{ path('admin_category_show', { id: categoryAssignment.category.id }) }}">
+					{{ categoryAssignment.category.name }}
+				</a>
+			</td>
+			{% if is_granted('ROLE_EDITOR') %}
+				<td>
+					<a href="{{ path('admin_product_category_assignment_edit', { id: categoryAssignment.id, route: basePath ~ mainPath ~ extPath, routeParams: { id: entry.id } }) }}" class="btn btn-warning">
+						<span class="fa fa-edit"></span> 
+						{{ 'action.edit'|trans }}
+					</a>
+					<a href="{{ path('admin_product_category_assignment_delete', { id: categoryAssignment.id, route: basePath ~ mainPath ~ extPath, routeParams: { id: entry.id } }) }}" class="btn btn-danger">
+						<span class="fa fa-trash"></span> 
+						{{ 'action.delete'|trans }}
+					</a>
+				</td>
+			{% endif %}
+		</tr>
+	{% endfor %}
+	</tbody>
+</table>

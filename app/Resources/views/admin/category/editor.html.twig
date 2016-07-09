@@ -6,167 +6,30 @@
 
 {% block moreFields2 %}
 	{{ form_row(form.subname, { 'label': 'label.subname' }) }}
-	{{ form_row(form.orderNumber, { 'label': 'label.orderNumber' }) }}
+{% endblock %}
+
+{% block moreFields3 %}
+	{{ form_row(form.featured, { 'label': 'label.fm.featured' }) }}
+	{{ form_row(form.preleaf, { 'label': 'label.category.preleaf' }) }}
+	
 	{{ form_row(form.icon, { 'label': 'label.icon' }) }}
 	
-	{{ form_row(form.parent, { 'label': 'label.parent' }) }}
-	
-	{{ form_row(form.featured, { 'label': 'label.featured' }) }}
-	{{ form_row(form.published, { 'label': 'label.published' }) }}
-	{{ form_row(form.preleaf, { 'label': 'label.preleaf' }) }}	
-    
+	{{ form_row(form.parent, { 'label': 'label.category.parent' }) }}
+	{{ form_row(form.orderNumber, { 'label': 'label.orderNumber' }) }}
+	    
 	{{ form_row(form.content, { 'label': 'label.content' }) }}
 {% endblock %}
 
+{% block moreActions1 %}
+	{% if entry.id %}
+		<a href="{{ path('admin_category_ratings', { id: entry.id, route: basePath ~ mainPath ~ extPath, routeParams: { id: entry.id } }) }}"
+			class="btn btn-primary">
+			<span class="fa fa-star"></span> 
+			{{ 'title.ratings'|trans }} 
+		</a>
+	{% endif %}
+{% endblock %}
+
 {% block assignments %}
-	<div class="row equal">
-		<div class="col-xs-6 col-sm-2">
-			<h2>{{ 'title.branches'|trans }}</h2>
-		</div>
-		<div class="col-xs-6 col-sm-2">
-			<a href="{{ path('admin_branch_category_assignment_new', { category: entry.id, route: 'admin_category_edit', routeParams: { id: entry.id } }) }}"
-				class="btn btn-success text-xs-bottom-mm">
-				<span class="fa fa-plus"></span> 
-				{{ 'action.addBranch'|trans }} 
-			</a>
-		</div>
-	</div>
-	
-	<table class="table table-striped vert-align">
-		<tbody>
-		{% for branchAssignment in entry.branchAssignments %}
-			<tr>
-				<td>
-					<a href="{{ path('admin_branch_show', { id: branchAssignment.branch.id }) }}">
-						{{ branchAssignment.branch.name }}
-					</a>
-				</td>
-				<td>
-					<a href="{{ path('admin_branch_category_assignment_edit', { id: branchAssignment.id, route: 'admin_category_edit', routeParams: { id: entry.id } }) }}" class="btn btn-warning">
-						<span class="fa fa-edit"></span> 
-						{{ 'action.edit'|trans }}
-					</a>
-					<a href="{{ path('admin_branch_category_assignment_delete', { id: branchAssignment.id, route: 'admin_category_edit', routeParams: { id: entry.id } }) }}" class="btn btn-danger">
-						<span class="fa fa-trash"></span> 
-						{{ 'action.delete'|trans }}
-					</a>
-				</td>
-			</tr>
-		{% endfor %}
-		</tbody>
-	</table>
-	
-	
-	
-	
-	<div class="row bkg-primary equal">
-		<div class="col-xs-6 col-sm-2">
-			<h2>{{ 'title.brands'|trans }}</h2>
-		</div>
-		<div class="col-xs-6 col-sm-2">
-			<a href="{{ path('admin_brand_category_assignment_new', { category: entry.id, route: 'admin_category_edit', routeParams: { id: entry.id } }) }}"
-				class="btn btn-success text-xs-bottom-mm">
-				<span class="fa fa-plus"></span> 
-				{{ 'action.addBrand'|trans }} 
-			</a>
-		</div>
-	</div>
-	
-	<table class="table table-striped vert-align">
-		<tbody>
-		{% for brandAssignment in entry.brandAssignments %}
-			<tr>
-				<td>
-					<a href="{{ path('admin_segment_show', { id: brandAssignment.segment.id }) }}">
-						{{ brandAssignment.segment.name }}
-					</a>
-				</td>
-				<td>
-					<a href="{{ path('admin_brand_show', { id: brandAssignment.brand.id }) }}">
-						{{ brandAssignment.brand.name }}
-					</a>
-				</td>
-				<td>
-					<a href="{{ path('admin_brand_category_assignment_edit', { id: brandAssignment.id, route: 'admin_category_edit', routeParams: { id: entry.id } }) }}" class="btn btn-warning">
-						<span class="fa fa-edit"></span> 
-						{{ 'action.edit'|trans }}
-					</a>
-					<a href="{{ path('admin_brand_category_assignment_delete', { id: brandAssignment.id, route: 'admin_category_edit', routeParams: { id: entry.id } }) }}" class="btn btn-danger">
-						<span class="fa fa-trash"></span> 
-						{{ 'action.delete'|trans }}
-					</a>
-				</td>
-			</tr>
-		{% endfor %}
-		</tbody>
-	</table>
-	
-	
-	
-	
-	<div class="row bkg-primary equal">
-		<div class="col-xs-6 col-sm-2">
-			<h2>{{ 'title.products'|trans }}</h2>
-		</div>
-		<div class="col-xs-6 col-sm-2">
-			<a href="{{ path('admin_product_category_assignment_new', { category: entry.id, route: 'admin_category_edit', routeParams: { id: entry.id } }) }}"
-				class="btn btn-success text-xs-bottom-mm">
-				<span class="fa fa-plus"></span> 
-				{{ 'action.addProduct'|trans }} 
-			</a>
-		</div>
-	</div>
-	
-	<table class="table table-striped vert-align">
-		<tbody>
-		{% for productAssignment in entry.productAssignments %}
-			<tr>
-				<td>
-					<a href="{{ path('admin_segment_show', { id: productAssignment.segment.id }) }}">
-						{{ productAssignment.segment.name }}
-					</a>
-				</td>
-				<td>
-					{% if productAssignment.product.brand %}
-					<a href="{{ path('admin_brand_show', { id: productAssignment.product.brand.id }) }}"> 
-						{{ productAssignment.product.brand.name }}
-					</a>
-					{% endif %}
-				</td>
-				<td>
-					<a href="{{ path('admin_product_show', { id: productAssignment.product.id }) }}">
-						{{ productAssignment.product.name }}
-					</a>
-				</td>
-				<td>
-					<a href="{{ path('admin_product_category_assignment_edit', { id: productAssignment.id, route: 'admin_category_edit', routeParams: { id: entry.id } }) }}" class="btn btn-warning">
-						<span class="fa fa-edit"></span> 
-						{{ 'action.edit'|trans }}
-					</a>
-					<a href="{{ path('admin_product_category_assignment_delete', { id: productAssignment.id, route: 'admin_category_edit', routeParams: { id: entry.id } }) }}" class="btn btn-danger">
-						<span class="fa fa-trash"></span> 
-						{{ 'action.delete'|trans }}
-					</a>
-				</td>
-			</tr>
-		{% endfor %}
-		</tbody>
-	</table>
-	
-	
-	
-	
-	<div class="row bkg-primary equal">
-		<div class="col-xs-6 col-sm-2">
-			<h2>{{ 'title.ratings'|trans }}</h2>
-		</div>
-		<div class="col-xs-6 col-sm-2">
-			<a href="{{ path('admin_category_ratings', { id: entry.id, route: 'admin_category_edit', routeParams: { id: entry.id } }) }}"
-				class="btn btn-primary text-xs-bottom-mm">
-				<span class="fa fa-star"></span> 
-				{{ 'action.show'|trans }} 
-			</a>
-		</div>
-	</div>
-	
+	{% include 'admin/category/assignments.html.twig' with { 'entry': entry } %}
 {% endblock %}

@@ -14,7 +14,7 @@ class Category extends ImageTree
 	 */
 	public function getUploadPath()
 	{
-		return '../web/uploads/categories';
+		return '../web/uploads/categories/' . $this->getTreePath();
 	}
 	
     /**
@@ -26,11 +26,6 @@ class Category extends ImageTree
      * @var \Doctrine\Common\Collections\Collection
      */
     private $children;
-
-    /**
-     * @var \AppBundle\Entity\Category
-     */
-    private $parent;
 
     /**
      * @var boolean
@@ -101,30 +96,6 @@ class Category extends ImageTree
     public function getChildren()
     {
         return $this->children;
-    }
-
-    /**
-     * Set parent
-     *
-     * @param \AppBundle\Entity\Category $parent
-     *
-     * @return Category
-     */
-    public function setParent(\AppBundle\Entity\Category $parent = null)
-    {
-        $this->parent = $parent;
-
-        return $this;
-    }
-
-    /**
-     * Get parent
-     *
-     * @return \AppBundle\Entity\Category
-     */
-    public function getParent()
-    {
-        return $this->parent;
     }
 
     /**
@@ -413,5 +384,64 @@ class Category extends ImageTree
     public function getSlug()
     {
         return $this->slug;
+    }
+    
+    /**
+     * @var \AppBundle\Entity\Category
+     */
+    private $parent;
+
+
+    /**
+     * Set parent
+     *
+     * @param \AppBundle\Entity\Category $parent
+     *
+     * @return Category
+     */
+    public function setParent(\AppBundle\Entity\Category $parent = null)
+    {
+        $this->parent = $parent;
+
+        return $this;
+    }
+
+    /**
+     * Get parent
+     *
+     * @return \AppBundle\Entity\Category
+     */
+    public function getParent()
+    {
+        return $this->parent;
+    }
+    /**
+     * @var string
+     */
+    private $featuredImage;
+
+
+    /**
+     * Set featuredImage
+     *
+     * @param string $featuredImage
+     *
+     * @return Category
+     */
+    public function setFeaturedImage($featuredImage)
+    {
+        $this->featuredImage = $featuredImage;
+
+        return $this;
+    }
+
+    /**
+     * Get featuredImage
+     *
+     * @return string
+     */
+    public function getFeaturedImage()
+    {
+        return $this->featuredImage;
     }
 }

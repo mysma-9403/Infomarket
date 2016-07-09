@@ -6,6 +6,7 @@ use AppBundle\Entity\Filter\Base\BaseEntityFilter;
 use AppBundle\Utils\ClassUtils;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Doctrine\Common\Proxy\Exception\InvalidArgumentException;
 
 abstract class BaseEntityController extends Controller
 {
@@ -100,6 +101,7 @@ abstract class BaseEntityController extends Controller
     	$routeParams = $request->get('routeParams', []);
     	$routeParams['page'] = $request->get('page', null);
     	
+    	$params['route'] = $request->get('route', $this->getIndexRoute());
     	$params['routeParams'] = $routeParams;
     	
     	return $params;
@@ -155,6 +157,20 @@ abstract class BaseEntityController extends Controller
     	$repository = $this->getDoctrine()->getRepository($paramClass);
     	$paramName = ClassUtils::getClassName($paramClass);
     	$id = $request->get($paramName, $template);
+    	return $id ? $repository->find($id) : null;
+    }
+    
+    /**
+     * 
+     * @param unknown $request
+     * @param unknown $paramClass
+     * @param unknown $name
+     * @param unknown $template
+     */
+    protected function getParamByNameId($request, $paramClass, $name, $template)
+    {
+    	$repository = $this->getDoctrine()->getRepository($paramClass);
+    	$id = $request->get($name, $template);
     	return $id ? $repository->find($id) : null;
     }
     

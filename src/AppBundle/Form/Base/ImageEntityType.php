@@ -2,9 +2,9 @@
 
 namespace AppBundle\Form\Base;
 
-use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Form\Extension\Core\Type\FileType;
 use AppBundle\Entity\Base\ImageEntity;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\FormBuilderInterface;
 
 class ImageEntityType extends SimpleEntityType
 {	

@@ -6,8 +6,13 @@
 
 {%  block moreFields2 %}	
     {{ form_row(form.brand, { 'label': 'label.brand' }) }}
-    {{ form_row(form.category, { 'label': 'label.category' }) }}
-    
-    {{ form_row(form.price, { 'label': 'label.price' }) }}
-    {{ form_row(form.guarantee, { 'label': 'label.guarantee' }) }}
+{% endblock %}
+
+{%  block moreFields3 %}    
+    {{ form_row(form.price, { 'label': 'label.product.price' }) }}
+    {{ form_row(form.guarantee, { 'label': 'label.product.guarantee' }) }}
 {%  endblock %}
+
+{% block assignments %}
+	{% include 'admin/product/assignments.html.twig' with { 'entry': entry } %}
+{% endblock %}

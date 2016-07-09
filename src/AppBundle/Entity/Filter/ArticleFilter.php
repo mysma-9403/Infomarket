@@ -21,6 +21,8 @@ class ArticleFilter extends SimpleEntityFilter {
 		$this->articleCategoryRepository = $articleCategoryRepository;
 		$this->categoryRepository = $categoryRepository;
 		$this->filterName = 'article_filter_';
+		
+		$this->featured = $this::ALL_VALUES;
 	}
 	
 	/**
@@ -90,12 +92,16 @@ class ArticleFilter extends SimpleEntityFilter {
 			$values[$this->getFilterName() . 'parents'] = $this->getIdValues($this->parents);
 		}
 	
-		if($this->featured != SimpleEntityFilter::ALL_VALUES) {
-			$values[$this->getFilterName() . 'featured'] = $this->featured;
+		if($this->featured == SimpleEntityFilter::TRUE_VALUES) {
+			$values[$this->getFilterName() . 'featured'] = true;
+		} else if($this->featured == SimpleEntityFilter::FALSE_VALUES) {
+			$values[$this->getFilterName() . 'featured'] = false;
 		}
 		
-		if($this->main != SimpleEntityFilter::ALL_VALUES) {
-			$values[$this->getFilterName() . 'main'] = $this->main;
+		if($this->main == SimpleEntityFilter::TRUE_VALUES) {
+			$values[$this->getFilterName() . 'main'] = true;
+		} else if($this->main == SimpleEntityFilter::FALSE_VALUES) {
+			$values[$this->getFilterName() . 'main'] = false;
 		}
 		
 		return $values;
@@ -112,14 +118,16 @@ class ArticleFilter extends SimpleEntityFilter {
 			$expressions[] = $this->getEqualArrayExpression('aca.category', $this->categories);
 		}
 		
-		if($this->featured) {
-			$expressions[] = 'e.featured = ' . $this->featured;
+		if($this->featured == SimpleEntityFilter::TRUE_VALUES) {
+			$expressions[] = 'e.featured = 1';
+		} else if($this->featured == SimpleEntityFilter::FALSE_VALUES) {
+			$expressions[] = 'e.featured = 0';
 		}
 		
-		if($this->main === SimpleEntityFilter::TRUE_VALUES) {
+		if($this->main == SimpleEntityFilter::TRUE_VALUES) {
 			$expressions[] = 'e.parent IS NULL';
 		} else {
-			if($this->main === SimpleEntityFilter::FALSE_VALUES) {
+			if($this->main == SimpleEntityFilter::FALSE_VALUES) {
 				$expressions[] = 'e.parent IS NOT NULL';
 			}
 			if($this->parents) {

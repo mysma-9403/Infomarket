@@ -4,7 +4,31 @@ namespace AppBundle\Entity\Base;
 
 class SimpleTree extends Audit
 {
-   
+	/**
+	 * 
+	 * {@inheritDoc}
+	 * @see \AppBundle\Entity\Base\SimpleEntity::getDisplayName()
+	 */
+	public function getDisplayName() {
+		$name = $this->name;
+		
+		$parent = $this->getParent();
+		if($parent) {
+			$name .= ' (';
+			$name .= $parent->getName();
+		
+			$parent = $parent->getParent();
+			while($parent) {
+				$name .= '/';
+				$name .= $parent->getName();
+				$parent = $parent->getParent();
+			}
+			$name .= ')';
+		}
+	
+		return $name;
+	}
+	
     /**
      * @var string
      */
@@ -19,11 +43,6 @@ class SimpleTree extends Audit
      * @var string
      */
     private $treePath;
-
-    /**
-     * @var \AppBundle\Entity\Base\SimpleTree
-     */
-    private $parent;
 
 
     /**
@@ -111,29 +130,5 @@ class SimpleTree extends Audit
     public function getTreePath()
     {
         return $this->treePath;
-    }
-
-    /**
-     * Set parent
-     *
-     * @param \AppBundle\Entity\Base\SimpleTree $parent
-     *
-     * @return SimpleTree
-     */
-    public function setParent(\AppBundle\Entity\Base\SimpleTree $parent = null)
-    {
-        $this->parent = $parent;
-
-        return $this;
-    }
-
-    /**
-     * Get parent
-     *
-     * @return \AppBundle\Entity\Base\SimpleTree
-     */
-    public function getParent()
-    {
-        return $this->parent;
     }
 }

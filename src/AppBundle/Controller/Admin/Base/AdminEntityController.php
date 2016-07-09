@@ -135,6 +135,8 @@ abstract class AdminEntityController extends BaseEntityController {
 	 */
 	protected function newActionInternal(Request $request)
 	{
+		$this->denyAccessUnlessGranted('ROLE_EDITOR', null, 'Unable to access this page!');
+		
 		$entry = $this->createNewEntity($request);
 		return $this->editEntry($request, $entry);
 	}
@@ -146,6 +148,8 @@ abstract class AdminEntityController extends BaseEntityController {
 	 */
 	protected function copyActionInternal(Request $request, $id)
 	{
+		$this->denyAccessUnlessGranted('ROLE_EDITOR', null, 'Unable to access this page!');
+		
 		$entry = $this->getEntry($id);
 		$entry = $this->createFromTemplate($request, $entry);
 		return $this->editEntry($request, $entry);
@@ -153,12 +157,16 @@ abstract class AdminEntityController extends BaseEntityController {
 	
 	protected function editActionInternal(Request $request, $id)
 	{
+		$this->denyAccessUnlessGranted('ROLE_EDITOR', null, 'Unable to access this page!');
+		
 		$entry = $this->getEntry($id);
 		return $this->editEntry($request, $entry);
 	}
 	
 	protected function deleteActionInternal(Request $request, $id)
 	{
+		$this->denyAccessUnlessGranted($this->getDeleteRole(), null, 'Unable to access this page!');
+		
 		$em = $this->getDoctrine()->getManager();
 	
 		//Make sure entity exists :)
@@ -172,7 +180,9 @@ abstract class AdminEntityController extends BaseEntityController {
 	
 	protected function setPublishedActionInternal(Request $request, $id)
 	{
-		$published = $request->get('published', false);
+		$this->denyAccessUnlessGranted('ROLE_EDITOR', null, 'Unable to access this page!');
+		
+		$published = $request->get('value', false);
 		
 		$em = $this->getDoctrine()->getManager();
 	
@@ -188,7 +198,9 @@ abstract class AdminEntityController extends BaseEntityController {
 	
 	protected function setFeaturedActionInternal(Request $request, $id)
 	{
-		$featured = $request->get('featured', false);
+		$this->denyAccessUnlessGranted('ROLE_EDITOR', null, 'Unable to access this page!');
+		
+		$featured = $request->get('value', false);
 	
 		$em = $this->getDoctrine()->getManager();
 	
@@ -204,6 +216,8 @@ abstract class AdminEntityController extends BaseEntityController {
 	
 	protected function deleteSelected($entries)
 	{
+		$this->denyAccessUnlessGranted($this->getDeleteRole(), null, 'Unable to access this page!');
+		
 		$em = $this->getDoctrine()->getManager();
 	
 		foreach ($entries as $entry)
@@ -214,6 +228,8 @@ abstract class AdminEntityController extends BaseEntityController {
 	
 	protected function setPublishedSelected($entries, $published)
 	{
+		$this->denyAccessUnlessGranted('ROLE_EDITOR', null, 'Unable to access this page!');
+		
 		$em = $this->getDoctrine()->getManager();
 	
 		foreach ($entries as $entry) {
@@ -232,7 +248,6 @@ abstract class AdminEntityController extends BaseEntityController {
 	protected function editEntry(Request $request, $entry)
 	{
 		$params = $this->getEditParams($request, $entry);
-		$routingParams = $params['routingParams'];
 		
 		$form = $this->createForm($this->getFormType(), $entry);
 	
@@ -244,18 +259,9 @@ abstract class AdminEntityController extends BaseEntityController {
 	
 			$this->addFlash('success', 'info.entry.created_successfully'); //TODO label
 	
-			if ($form->get('saveAndNew')->isClicked()) {
-				return $this->redirectToRoute($this->getNewRoute(), $params);
-			}
-	
-			if ($form->get('saveAndCopy')->isClicked()) {
+			if ($form->get('save')->isClicked()) {
 				$params['id'] = $entry->getId();
-				return $this->redirectToRoute($this->getCopyRoute(), $params);
-			}
-			
-			if ($form->get('saveAndQuit')->isClicked()) {
-				$routingParams = $this->getRoutingParams($request);
-				return $this->redirectToRoute($routingParams['route'], $routingParams['routeParams']);
+				return $this->redirectToRoute($this->getEditRoute(), $params);
 			}
 		}
 		$params['entry'] = $entry;
@@ -284,7 +290,8 @@ abstract class AdminEntityController extends BaseEntityController {
 		$filter->initValues($request);
 	
 		$routeParams = array_merge($routeParams, $filter->getValues());
-		 
+
+		$params['route'] = $request->get('route', $this->getIndexRoute());
 		$params['routeParams'] = $routeParams;
 		 
 		return $params;
@@ -365,7 +372,11 @@ abstract class AdminEntityController extends BaseEntityController {
 	 * @return mixed
 	 */
 	protected function createFromTemplate(Request $request, $template) {
-		return $this->createNewEntity($request);
+		$entity = $this->createNewEntity($request);
+		
+		$entity->setPublished($template->getPublished());
+		
+		return $entity;
 	}
 	
 	/**
@@ -413,5 +424,9 @@ abstract class AdminEntityController extends BaseEntityController {
 	 */
 	protected function getBaseName() {
 		return 'admin';
+	}
+	
+	protected function getDeleteRole() {
+		return 'ROLE_EDITOR';
 	}
 }

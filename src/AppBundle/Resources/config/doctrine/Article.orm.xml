@@ -14,11 +14,14 @@
         <field name="intro" type="text" nullable="true" />
         <field name="content" type="text" nullable="true" />
         
+        <many-to-one field="brand" target-entity="Brand" nullable="true" />
+        
         <many-to-one field="parent" target-entity="Article" nullable="true" />
         
         <field name="orderNumber" type="integer" default="1"/>
         <field name="layout" type="integer" default="0"/>
         <field name="displaySided" type="boolean" default="false" />
+        <field name="displayPaginated" type="boolean" default="false" />
         
         <one-to-many field="children" target-entity="Article" mapped-by="parent">
             <order-by>
@@ -26,6 +29,19 @@
                 <order-by-field name="name" direction="ASC" />
             </order-by>
         </one-to-many>
+        
+        <one-to-many field="articleCategoryAssignments" target-entity="ArticleArticleCategoryAssignment" mapped-by="article">
+            <order-by>
+            	<order-by-field name="articleCategory" direction="ASC" />
+            </order-by>
+        </one-to-many>
+        
+        <one-to-many field="categoryAssignments" target-entity="ArticleCategoryAssignment" mapped-by="article">
+            <order-by>
+            	<order-by-field name="category" direction="ASC" />
+            </order-by>
+        </one-to-many>
+        
     </entity>
     
 </doctrine-mapping>

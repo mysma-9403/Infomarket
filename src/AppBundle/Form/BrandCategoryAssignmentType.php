@@ -11,6 +11,9 @@ use AppBundle\Entity\Category;
 use AppBundle\Entity\Brand;
 use AppBundle\Entity\Segment;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use AppBundle\Repository\BrandRepository;
+use AppBundle\Repository\SegmentRepository;
+use AppBundle\Repository\CategoryRepository;
 
 class BrandCategoryAssignmentType extends BaseFormType
 {
@@ -23,27 +26,39 @@ class BrandCategoryAssignmentType extends BaseFormType
 		$builder
 			->add('brand', EntityType::class, array(
 					'class'			=> Brand::class,
-					'choice_label' 	=> 'name',
+					'query_builder' => function (BrandRepository $repository) {
+						return $repository->createQueryBuilder('e')
+						->orderBy('e.published DESC, e.name', 'ASC');
+					},
+					'choice_label' 	=> 'displayName',
 					'required' 		=> true,
 					'expanded'      => false,
 					'multiple'      => false,
-					'placeholder'	=> 'Choose brand'
+					'placeholder'	=> 'label.choose.brand'
 			))
 			->add('segment', EntityType::class, array(
 					'class'			=> Segment::class,
-					'choice_label' 	=> 'name',
+					'query_builder' => function (SegmentRepository $repository) {
+						return $repository->createQueryBuilder('e')
+						->orderBy('e.published DESC, e.id', 'ASC');
+					},
+					'choice_label' 	=> 'displayName',
 					'required' 		=> true,
 					'expanded'      => false,
 					'multiple'      => false,
-					'placeholder'	=> 'Choose segment'
+					'placeholder'	=> 'label.choose.segment'
 			))
 			->add('category', EntityType::class, array(
 					'class'			=> Category::class,
-					'choice_label' 	=> 'name',
+					'query_builder' => function (CategoryRepository $repository) {
+						return $repository->createQueryBuilder('e')
+						->orderBy('e.published DESC, e.name', 'ASC');
+					},
+					'choice_label' 	=> 'displayName',
 					'required' 		=> true,
 					'expanded'      => false,
 					'multiple'      => false,
-					'placeholder'	=> 'Choose category'
+					'placeholder'	=> 'label.choose.category'
 			))
 			->add('orderNumber', NumberType::class, array(
 					'required' => true

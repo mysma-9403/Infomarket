@@ -1,16 +1,24 @@
-{% extends 'admin/simple/index.html.twig' %}
+{% extends 'admin/base/index.html.twig' %}
 
 {% set mainPath = 'brand_category_assignment' %}
 {% set title = 'title.brand_category_assignments'|trans %}
 
-{% block filterMainFields1 %} {# should be in base/list.html.twig #}
+{% block filterMoreFields1 %}
 	<li class="col-xs-12 col-sm-6 col-md-4 col-lg-2">
-		{{ form_widget(filter.published, { 'label': 'label.published' }) }}
+		{{ form_widget(filter.categories, { 'label': 'label.categories' }) }}
+	</li>
+	<li class="col-xs-12 col-sm-6 col-md-4 col-lg-2">
+		{{ form_widget(filter.segments, { 'label': 'label.segments' }) }}
+	</li>
+	<li class="col-xs-12 col-sm-6 col-md-4 col-lg-2">
+		{{ form_widget(filter.brands, { 'label': 'label.brands' }) }}
 	</li>
 {% endblock %}
 
 {% block headerMainFields1 %}
+	<th><i class="fa fa-file-o"></i> {{ 'label.brand'|trans }}</th>
 {% endblock %}
 
 {% block entryMainFields1 %}
+	<td>{{ item.brand.name }}</td>
 {% endblock %}

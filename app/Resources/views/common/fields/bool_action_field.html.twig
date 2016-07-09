@@ -1,0 +1,31 @@
+{% if role is not defined %}
+	{% set role = 'ROLE_EDITOR' %}
+{% endif %}
+
+{% if trueIcon is not defined %}
+	{% set trueIcon = 'fa-check' %}
+{% endif %}
+
+{% if falseIcon is not defined %}
+	{% set falseIcon = 'fa-remove' %}
+{% endif %}
+
+{% if trueTooltip is not defined %}
+	{% set trueTooltip = 'label.yes'|trans %}
+{% endif %}
+
+{% if falseTooltip is not defined %}
+	{% set falseTooltip = 'label.no'|trans %}
+{% endif %}
+
+{% if is_granted(role) %}
+	<a href="{{ path(basePath ~ mainPath ~ extPath, { id: id, value: value ? false : true, route: routingParams.route, routeParams: routingParams.routeParams }) }}">
+		<span class="fa {{ value ? trueIcon : falseIcon }}" data-toggle="tooltip" 
+			title="{{ value ? trueTooltip : falseTooltip }}">
+		</span>
+	</a>
+{% else %}
+	<span class="fa {{ value ? trueIcon : falseIcon }}" data-toggle="tooltip" 
+		title="{{ value ? trueTooltip : falseTooltip }}">
+	</span>
+{% endif %}

@@ -1,36 +1,33 @@
 {
-    "name":"Infomarket",
-    "license":"MIT",
-    "type":"project",
-    "description":"Infomarket web site",
-    "autoload":{
-        "psr-4":{
-            "":"src/"
-        },
-        "classmap":[
-            "app/AppKernel.php",
-            "app/AppCache.php"
-        ]
-        
-    },
-    "autoload-dev":{
-        "psr-4":{
-            "Tests\\" : "tests/"
+	"name" : "Neonki-composer",
+	"license" : "MIT",
+	"type" : "project",
+	"autoload" : {
+		"psr-4" : {
+			"" : "src/"
+		},
+		"classmap" : [
+			"app/AppKernel.php",
+			"app/AppCache.php"
+		]
+	},
+	"autoload-dev" : {
+		"psr-4" : {
+			"Tests\\" : "tests/"
 		}
 	},
-	"repositories": [
-        {
-            "type": "package",
-            "package": {
-                "name": "jquery/jquery",
-                "version": "1.11.1",
-                "dist": {
-                    "url": "http://code.jquery.com/jquery-1.11.1.js",
-                    "type": "file"
-                }
-            }
-        }
-    ],
+	"repositories" : [{
+			"type" : "package",
+			"package" : {
+				"name" : "jquery/jquery",
+				"version" : "1.11.1",
+				"dist" : {
+					"url" : "http://code.jquery.com/jquery-1.11.1.js",
+					"type" : "file"
+				}
+			}
+		}
+	],
 	"require" : {
 		"php" : ">=5.5.9",
 		"symfony/symfony" : "3.1.*@dev",
@@ -48,7 +45,8 @@
 		"stof/doctrine-extensions-bundle" : "^1.2",
 		"knplabs/knp-paginator-bundle" : "~2.4",
 		"friendsofsymfony/user-bundle" : "~2.0@dev",
-        "stfalcon/tinymce-bundle": "2.0"
+		"helios-ag/fm-elfinder-bundle": "~6",
+		"egeloen/ckeditor-bundle": "^4.0"
 	},
 	"require-dev" : {
 		"sensio/generator-bundle" : "^3.0",
@@ -75,7 +73,8 @@
 	"config" : {
 		"platform" : {
 			"php" : "5.5.9"
-		}
+		},
+		"component-dir": "web/assets"
 	},
 	"prefer-stable" : true,
 	"minimum-stability" : "dev",

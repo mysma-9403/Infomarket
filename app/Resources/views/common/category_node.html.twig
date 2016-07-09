@@ -1,35 +1,41 @@
 <li>
-	<a href="{{ path('admin_' ~ mainPath ~ '_show', { id: entry.id, route: 'admin_category_tree' }) }}" class="horizontal-break">
-		{{ entry.name | raw }} 
-		<span class="text-red">{{ entry.subname | raw }}</span>
-	</a>
-	
-	<a href="{{ path('admin_' ~ mainPath ~ '_new', { category: entry.id, route: 'admin_category_tree' }) }}">
-		<span class="fa fa-file-o"></span>
-	</a>
-	 
-	<a href="{{ path('admin_' ~ mainPath ~ '_edit', { id: entry.id, route: 'admin_category_tree' }) }}">
-		<span class="fa fa-edit"></span>
-	</a>
-	
-	<a href="{{ path('admin_' ~ mainPath ~ '_copy', { id: entry.id, route: 'admin_category_tree' }) }}" class="horizontal-break">
-		<span class="fa fa-copy"></span>
-	</a>
-	
-	<a href="{{ path('admin_' ~ mainPath ~ '_set_published', { id: entry.id, published: entry.published ? false : true, route: 'admin_category_tree' }) }}">
-		<span class="fa {{ entry.published ? 'fa-check-square-o text-green' : 'fa-square-o text-red' }}"></span>
-	</a>
-	
-	<a href="{{ path('admin_' ~ mainPath ~ '_set_featured', { id: entry.id, featured: entry.featured ? false : true, route: 'admin_category_tree' }) }}">
-		<span class="fa {{ entry.featured ? 'fa-star text-green' : 'fa-star-o text-red' }}"></span>
-	</a>
-	
-	<a href="{{ path('admin_' ~ mainPath ~ '_set_preleaf', { id: entry.id, preleaf: entry.preleaf ? false : true, route: 'admin_category_tree' }) }}" class="horizontal-break">
-		<span class="fa fa-leaf {{ entry.preleaf ? 'text-green' : 'text-red' }}"></span>
-	</a>
+	{% if is_granted('ROLE_EDITOR') %}
+		<a href="{{ path('admin_' ~ mainPath ~ '_new', { parent: entry.id, route: 'admin_category_tree' }) }}">
+			<span class="fa fa-file-o"></span>
+		</a>
+		 
+		<a href="{{ path('admin_' ~ mainPath ~ '_edit', { id: entry.id, route: 'admin_category_tree' }) }}">
+			<span class="fa fa-edit"></span>
+		</a>
+		
+		<a href="{{ path('admin_' ~ mainPath ~ '_copy', { id: entry.id, route: 'admin_category_tree' }) }}" class="horizontal-break">
+			<span class="fa fa-copy"></span>
+		</a>
+	{% endif %}
 	
 	<a href="{{ path('admin_' ~ mainPath ~ '_ratings', { id: entry.id, route: 'admin_category_tree' }) }}" class="horizontal-break">
 		<span class="fa fa-tasks"></span>
+	</a>
+	
+	{% include 'common/fields/bool_action_field.html.twig' with 
+		{ 'id': entry.id, 'value': entry.published, 'extPath': '_set_published',
+			'trueTooltip': 'label.published'|trans, 'falseTooltip': 'label.unpublished'|trans } %}
+	
+	{% include 'common/fields/bool_action_field.html.twig' with 
+		{ 'id': entry.id, 'value': entry.featured, 'extPath': '_set_featured',
+			'trueTooltip': 'label.featured'|trans, 'falseTooltip': 'label.notFeatured'|trans,
+			'trueIcon': 'fa-star', 'falseIcon': 'fa-star-o' } %}
+			
+	{% include 'common/fields/bool_action_field.html.twig' with 
+		{ 'id': entry.id, 'value': entry.preleaf, 'extPath': '_set_preleaf',
+			'trueTooltip': 'label.preleaf'|trans, 'falseTooltip': 'label.other'|trans,
+			'trueIcon': 'fa-leaf text-green', 'falseIcon': 'fa-leaf text-red' } %}
+			
+	<span class="horizontal-break"></span>
+	
+	<a href="{{ path('admin_' ~ mainPath ~ '_show', { id: entry.id, route: 'admin_category_tree' }) }}" class="horizontal-break">
+		{{ entry.name | raw }} 
+		<span class="text-red">{{ entry.subname | raw }}</span>
 	</a>
 	
 	{% if entry.children | length > 0 %}

@@ -60,7 +60,7 @@ class CategoryController extends SimpleEntityController
 		
 		$branchFilter = new BranchFilter($categoryRepository);
 		$branchFilter->initValues($request);
-		$branchFilter->setPublished(true);
+		$branchFilter->setPublished(SimpleEntityFilter::TRUE_VALUES);
 		 
 		$branches = $this->getParamList(Branch::class, $branchFilter);
 		$params['branches'] = $branches;

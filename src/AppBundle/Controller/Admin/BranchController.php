@@ -10,11 +10,21 @@ use Symfony\Component\HttpFoundation\Request;
 
 class BranchController extends ImageEntityController {
 	
+	/**
+	 * 
+	 * @param Request $request
+	 * @param unknown $page
+	 */
 	public function indexAction(Request $request, $page)
 	{
 		return $this->indexActionInternal($request, $page);
 	}
 	
+	/**
+	 * 
+	 * @param Request $request
+	 * @param unknown $id
+	 */
 	public function showAction(Request $request, $id)
 	{
 		return $this->showActionInternal($request, $id);
@@ -50,19 +60,31 @@ class BranchController extends ImageEntityController {
 		return $this->editActionInternal($request, $id);
 	}
 	
+	/**
+	 * 
+	 * @param Request $request
+	 * @param unknown $id
+	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
+	 */
+	public function deleteAction(Request $request, $id)
+	{
+		return $this->deleteActionInternal($request, $id);
+	}
+	
+	/**
+	 * 
+	 * @param Request $request
+	 * @param unknown $id
+	 */
 	public function setPublishedAction(Request $request, $id)
 	{
 		return $this->setPublishedActionInternal($request, $id);
 	}
 	
-	public function setFeaturedAction(Request $request, $id)
-	{
-		return $this->setFeaturedActionInternal($request, $id);
-	}
-	
 	//------------------------------------------------------------------------
 	// Entity creators
 	//------------------------------------------------------------------------
+	
 	/**
 	 * 
 	 * {@inheritDoc}
@@ -72,6 +94,20 @@ class BranchController extends ImageEntityController {
 		return new Branch();
 	}
 	
+	/**
+	 * 
+	 * {@inheritDoc}
+	 * @see \AppBundle\Controller\Admin\Base\SimpleEntityController::createFromTemplate()
+	 */
+	protected function createFromTemplate(Request $request, $template) {
+		$entry = parent::createFromTemplate($request, $template);
+	
+		$entry->setIcon($template->getIcon());
+		$entry->setColor($template->getColor());
+		$entry->setContent($template->getContent());
+	
+		return $entry;
+	}
 	
 	//------------------------------------------------------------------------
 	// Entity types

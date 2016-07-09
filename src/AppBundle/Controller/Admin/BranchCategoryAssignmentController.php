@@ -3,14 +3,21 @@
 namespace AppBundle\Controller\Admin;
 
 use AppBundle\Controller\Admin\Base\AdminEntityController;
+use AppBundle\Entity\Branch;
 use AppBundle\Entity\BranchCategoryAssignment;
+use AppBundle\Entity\Category;
 use AppBundle\Form\BranchCategoryAssignmentType;
 use Symfony\Component\HttpFoundation\Request;
-use AppBundle\Entity\Category;
-use AppBundle\Entity\Branch;
+use AppBundle\Entity\Filter\BranchCategoryAssignmentFilter;
+use AppBundle\Form\Filter\BranchCategoryAssignmentFilterType;
 
 class BranchCategoryAssignmentController extends AdminEntityController {
 	
+	/**
+	 * 
+	 * @param Request $request
+	 * @param unknown $page
+	 */
 	public function indexAction(Request $request, $page)
 	{
 		return $this->indexActionInternal($request, $page);
@@ -21,13 +28,23 @@ class BranchCategoryAssignmentController extends AdminEntityController {
 	 * @param Request $request
 	 * @param unknown $id
 	 */
+	public function showAction(Request $request, $id)
+	{
+		return $this->showActionInternal($request, $id);
+	}
+	
+	/**
+	 *
+	 * @param Request $request
+	 * @param unknown $id
+	 */
 	public function newAction(Request $request)
 	{
 		return $this->newActionInternal($request);
 	}
-
+	
 	/**
-	 * 
+	 *
 	 * @param Request $request
 	 * @param unknown $id
 	 */
@@ -37,7 +54,7 @@ class BranchCategoryAssignmentController extends AdminEntityController {
 	}
 	
 	/**
-	 * 
+	 *
 	 * @param Request $request
 	 * @param unknown $id
 	 */
@@ -47,14 +64,29 @@ class BranchCategoryAssignmentController extends AdminEntityController {
 	}
 	
 	/**
-	 *
+	 * 
 	 * @param Request $request
 	 * @param unknown $id
+	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
 	 */
 	public function deleteAction(Request $request, $id)
 	{
 		return $this->deleteActionInternal($request, $id);
 	}
+	
+	/**
+	 * 
+	 * @param Request $request
+	 * @param unknown $id
+	 */
+	public function setPublishedAction(Request $request, $id)
+	{
+		return $this->setPublishedActionInternal($request, $id);
+	}
+	
+	//------------------------------------------------------------------------
+	// Entity creators
+	//------------------------------------------------------------------------
 	
 	/**
 	 * 
@@ -77,13 +109,30 @@ class BranchCategoryAssignmentController extends AdminEntityController {
 		return $entity;
 	}
 	
+	/**
+	 * 
+	 * {@inheritDoc}
+	 * @see \AppBundle\Controller\Admin\Base\AdminEntityController::createFromTemplate()
+	 */
 	protected function createFromTemplate(Request $request, $template) {
 		$entry = parent::createFromTemplate($request, $template);
 	
-		$entry->setCategory($template->getCategory());
 		$entry->setBranch($template->getBranch());
+		$entry->setCategory($template->getCategory());
 	
 		return $entry;
+	}
+	
+	/**
+	 *
+	 * {@inheritDoc}
+	 * @see \AppBundle\Controller\Admin\Base\AdminEntityController::createNewFilter()
+	 */
+	protected function createNewFilter() {
+		$branchRepository = $this->getDoctrine()->getRepository(Branch::class);
+		$categoryRepository = $this->getDoctrine()->getRepository(Category::class);
+	
+		return new BranchCategoryAssignmentFilter($branchRepository, $categoryRepository);
 	}
 	
 	/**
@@ -101,5 +150,13 @@ class BranchCategoryAssignmentController extends AdminEntityController {
 	 */
 	protected function getFormType() {
 		return BranchCategoryAssignmentType::class;
+	}
+	
+	/**
+	 *
+	 * @return string
+	 */
+	protected function getFilterFormType() {
+		return BranchCategoryAssignmentFilterType::class;
 	}
 }

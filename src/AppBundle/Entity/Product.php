@@ -10,6 +10,18 @@ use AppBundle\Entity\Base\ImageEntity;
 class Product extends ImageEntity
 {
 	/**
+	 * 
+	 * {@inheritDoc}
+	 * @see \AppBundle\Entity\Base\Image::getDisplayName()
+	 */
+	public function getDisplayName() {
+		if($this->brand) {
+			return $this->brand->getName() . ' ' . $this->getName();
+		}
+		return $this->name;
+	}
+	
+	/**
 	 * {@inheritDoc}
 	 */
 	public function getUploadPath()
@@ -27,11 +39,6 @@ class Product extends ImageEntity
      * @var string
      */
     private $content;
-
-    /**
-     * @var \AppBundle\Entity\Category
-     */
-    private $category;
 
 
     /**
@@ -83,30 +90,6 @@ class Product extends ImageEntity
     }
 
     /**
-     * Set category
-     *
-     * @param \AppBundle\Entity\Category $category
-     *
-     * @return Product
-     */
-    public function setCategory(\AppBundle\Entity\Category $category = null)
-    {
-        $this->category = $category;
-
-        return $this;
-    }
-
-    /**
-     * Get category
-     *
-     * @return \AppBundle\Entity\Category
-     */
-    public function getCategory()
-    {
-        return $this->category;
-    }
-    
-    /**
      * @var integer
      */
     private $price;
@@ -120,11 +103,6 @@ class Product extends ImageEntity
      * @var \AppBundle\Entity\Brand
      */
     private $brand;
-
-    /**
-     * @var \AppBundle\Entity\Segment
-     */
-    private $segment;
     
     /**
      * Set price
@@ -197,28 +175,50 @@ class Product extends ImageEntity
     {
         return $this->brand;
     }
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $categoryAssignments;
 
     /**
-     * Set segment
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->categoryAssignments = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add categoryAssignment
      *
-     * @param \AppBundle\Entity\Segment $segment
+     * @param \AppBundle\Entity\ProductCategoryAssignment $categoryAssignment
      *
      * @return Product
      */
-    public function setSegment(\AppBundle\Entity\Segment $segment = null)
+    public function addCategoryAssignment(\AppBundle\Entity\ProductCategoryAssignment $categoryAssignment)
     {
-        $this->segment = $segment;
+        $this->categoryAssignments[] = $categoryAssignment;
 
         return $this;
     }
 
     /**
-     * Get segment
+     * Remove categoryAssignment
      *
-     * @return \AppBundle\Entity\Segment
+     * @param \AppBundle\Entity\ProductCategoryAssignment $categoryAssignment
      */
-    public function getSegment()
+    public function removeCategoryAssignment(\AppBundle\Entity\ProductCategoryAssignment $categoryAssignment)
     {
-        return $this->segment;
+        $this->categoryAssignments->removeElement($categoryAssignment);
+    }
+
+    /**
+     * Get categoryAssignments
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getCategoryAssignments()
+    {
+        return $this->categoryAssignments;
     }
 }

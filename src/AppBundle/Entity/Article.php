@@ -29,6 +29,15 @@ class Article extends ImageEntity
 	const GRID_4_LAYOUT 			= 22;
 	
 	/**
+	 * 
+	 * {@inheritDoc}
+	 * @see \AppBundle\Entity\Base\Image::getDisplayName()
+	 */
+	public function getDisplayName() {
+		return $this->name . ' ' . $this->subname;
+	}
+	
+	/**
 	 * {@inheritDoc}
 	 */
 	public function getUploadPath()
@@ -317,5 +326,142 @@ class Article extends ImageEntity
     public function getOrderNumber()
     {
         return $this->orderNumber;
+    }
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $articleCategoryAssignments;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $categoryAssignments;
+
+
+    /**
+     * Add articleCategoryAssignment
+     *
+     * @param \AppBundle\Entity\ArticleArticleCategoryAssignment $articleCategoryAssignment
+     *
+     * @return Article
+     */
+    public function addArticleCategoryAssignment(\AppBundle\Entity\ArticleArticleCategoryAssignment $articleCategoryAssignment)
+    {
+        $this->articleCategoryAssignments[] = $articleCategoryAssignment;
+
+        return $this;
+    }
+
+    /**
+     * Remove articleCategoryAssignment
+     *
+     * @param \AppBundle\Entity\ArticleArticleCategoryAssignment $articleCategoryAssignment
+     */
+    public function removeArticleCategoryAssignment(\AppBundle\Entity\ArticleArticleCategoryAssignment $articleCategoryAssignment)
+    {
+        $this->articleCategoryAssignments->removeElement($articleCategoryAssignment);
+    }
+
+    /**
+     * Get articleCategoryAssignments
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getArticleCategoryAssignments()
+    {
+        return $this->articleCategoryAssignments;
+    }
+
+    /**
+     * Add categoryAssignment
+     *
+     * @param \AppBundle\Entity\ArticleCategoryAssignment $categoryAssignment
+     *
+     * @return Article
+     */
+    public function addCategoryAssignment(\AppBundle\Entity\ArticleCategoryAssignment $categoryAssignment)
+    {
+        $this->categoryAssignments[] = $categoryAssignment;
+
+        return $this;
+    }
+
+    /**
+     * Remove categoryAssignment
+     *
+     * @param \AppBundle\Entity\ArticleCategoryAssignment $categoryAssignment
+     */
+    public function removeCategoryAssignment(\AppBundle\Entity\ArticleCategoryAssignment $categoryAssignment)
+    {
+        $this->categoryAssignments->removeElement($categoryAssignment);
+    }
+
+    /**
+     * Get categoryAssignments
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getCategoryAssignments()
+    {
+        return $this->categoryAssignments;
+    }
+    /**
+     * @var boolean
+     */
+    private $displayPaginated;
+
+
+    /**
+     * Set displayPaginated
+     *
+     * @param boolean $displayPaginated
+     *
+     * @return Article
+     */
+    public function setDisplayPaginated($displayPaginated)
+    {
+        $this->displayPaginated = $displayPaginated;
+
+        return $this;
+    }
+
+    /**
+     * Get displayPaginated
+     *
+     * @return boolean
+     */
+    public function getDisplayPaginated()
+    {
+        return $this->displayPaginated;
+    }
+    
+    /**
+     * @var \AppBundle\Entity\Brand
+     */
+    private $brand;
+
+
+    /**
+     * Set brand
+     *
+     * @param \AppBundle\Entity\Brand $brand
+     *
+     * @return Article
+     */
+    public function setBrand(\AppBundle\Entity\Brand $brand = null)
+    {
+        $this->brand = $brand;
+
+        return $this;
+    }
+
+    /**
+     * Get brand
+     *
+     * @return \AppBundle\Entity\Brand
+     */
+    public function getBrand()
+    {
+        return $this->brand;
     }
 }

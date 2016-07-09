@@ -27,23 +27,23 @@ class ArticleCategoryAssignmentType extends BaseFormType
 						return $repository->createQueryBuilder('e')
 						->orderBy('e.published DESC, e.name', 'ASC');
 					},
-					'choice_label' 	=> 'name',
+					'choice_label' 	=> 'displayName',
 					'required' 		=> true,
 					'expanded'      => false,
 					'multiple'      => false,
-					'placeholder'	=> 'Choose article'
+					'placeholder'	=> 'label.choose.article'
 			))
 			->add('category', EntityType::class, array(
 					'class'			=> Category::class,
 					'query_builder' => function (CategoryRepository $repository) {
-					return $repository->createQueryBuilder('e')
-					->orderBy('e.published DESC, e.name', 'ASC');
+						return $repository->createQueryBuilder('e')
+						->orderBy('e.published DESC, e.name', 'ASC');
 					},
-					'choice_label' 	=> 'name',
+					'choice_label' 	=> 'displayName',
 					'required' 		=> true,
 					'expanded'      => false,
 					'multiple'      => false,
-					'placeholder'	=> 'Choose category'
+					'placeholder'	=> 'label.choose.category'
 			))
 		;
 	}

@@ -16,16 +16,15 @@
         	<gedmo:slug unique="false" separator="-" fields="orderNumber,name,subname" />
         	<gedmo:tree-path-source />
         </field>
-        
+            
         <field name="icon" type="string" length="64" nullable="true" />
+        
+        <field name="featuredImage" type="string" length="256" nullable="true"/>
         
         <field name="featured" type="boolean" default="false" />
         <field name="preleaf" type="boolean" default="false" />
         
         <field name="content" type="text" nullable="true" />
-        
-        
-        <gedmo:tree-path-source />
         
         <many-to-one field="parent" target-entity="Category" nullable="true">
             <gedmo:tree-parent />

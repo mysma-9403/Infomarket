@@ -4,9 +4,8 @@ namespace AppBundle\Controller\Admin\Base;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
-use AppBundle\Form\Lists\Base\SimpleEntityListType;
-use AppBundle\Form\Filter\Base\SimpleEntityFilterType;
 use AppBundle\Entity\Filter\Base\SimpleEntityFilter;
+use AppBundle\Form\Filter\Base\SimpleEntityFilterType;
 use Symfony\Component\HttpFoundation\Request;
 
 abstract class SimpleEntityController extends AdminEntityController
@@ -23,11 +22,11 @@ abstract class SimpleEntityController extends AdminEntityController
 		return new SimpleEntityFilter();
 	}
 	
-	protected function getListFormType() {
-		return SimpleEntityListType::class;
-	}
-	
 	protected function getFilterFormType() {
 		return SimpleEntityFilterType::class;
+	}
+	
+	protected function getDeleteRole() {
+		return 'ROLE_ADMIN';
 	}
 }

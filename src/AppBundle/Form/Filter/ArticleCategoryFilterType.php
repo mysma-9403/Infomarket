@@ -19,17 +19,16 @@ class ArticleCategoryFilterType extends ImageEntityFilterType
 	protected function addMoreFields(FormBuilderInterface $builder, array $options) {
 	
 		$featuredChoices = array(
-				'All'			=> SimpleEntityFilter::ALL_VALUES,
-				'Featured' 		=> SimpleEntityFilter::TRUE_VALUES,
-				'Not featured' 	=> SimpleEntityFilter::FALSE_VALUES
+				'label.all'			=> SimpleEntityFilter::ALL_VALUES,
+				'label.featured' 	=> SimpleEntityFilter::TRUE_VALUES,
+				'label.notFeatured' => SimpleEntityFilter::FALSE_VALUES
 		);
 	
 		$builder
 		->add('featured', ChoiceType::class, array(
 				'choices'		=> $featuredChoices,
 				'expanded'      => false,
-				'multiple'      => false,
-				'required' 		=> true
+				'multiple'      => false
 		))
 		;
 	}

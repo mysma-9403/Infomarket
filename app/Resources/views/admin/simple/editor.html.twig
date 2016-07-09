@@ -1,26 +1,5 @@
-{% extends 'admin/editor.html.twig' %}
+{% extends 'admin/base/editor.html.twig' %}
 
 {% block mainFields1 %}	
     {{ form_row(form.name, { 'label': 'label.name' }) }}
 {%  endblock %}
-
-{% block mainFields2 %}
-	{{ form_row(form.published, { 'label': 'label.' ~ gender ~ 'published' }) }}
-{% endblock %}
-
-
-{% block actions %}
-	<div class="btn-group">
-		{{ form_widget(form.save, { 'icon': 'fa-file-o', 'label': 'action.save', 'attr': {'class': 'btn btn-success'} }) }}
-		{{ form_widget(form.saveAndQuit, { 'icon': 'fa-save', 'label': 'action.saveAndQuit', 'attr': {'class': 'btn btn-primary'} }) }}
-	</div>
-	<div class="btn-group">
-	    {{ form_widget(form.saveAndNew, { 'icon': 'fa-file-o', 'label': 'action.saveAndNew', 'attr': {'class': 'btn btn-success'} }) }}
-	    {{ form_widget(form.saveAndCopy, { 'icon': 'fa-copy', 'label': 'action.saveAndCopy', 'attr': {'class': 'btn btn-warning'} }) }}
-    </div>
-    <div class="btn-group">
-	    <a type="button" class="btn btn-primary" href="{{ path(routingParams.route, routingParams.routeParams) }}">
-	    	<i class="fa fa-close"></i>{{ 'action.back'|trans }}
-		</a>
-    </div>
-{% endblock %}

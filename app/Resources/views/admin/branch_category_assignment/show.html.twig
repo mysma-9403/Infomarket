@@ -4,5 +4,12 @@
 {% set title = 'title.branch_category_assignments'|trans %}
 {% set gender = '' %}
 
-{% block mainFields1 %}
+{% block mainFields1 %}	
+	{% include 'common/fields/simple_field.html.twig' with 
+	{ 'label': 'label.branch', 'value': entry.branch,
+		'object': 'branch', 'routeId': entry.id } %}
+	
+	{% include 'common/fields/simple_field.html.twig' with 
+	{ 'label': 'label.category', 'value': entry.category,
+		'object': 'category', 'routeId': entry.id } %}
 {% endblock %}

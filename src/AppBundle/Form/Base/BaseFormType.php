@@ -59,10 +59,8 @@ class BaseFormType extends AbstractType
 	 */
 	protected function addActions(FormBuilderInterface $builder, array $options) {
 		$builder
-		->add('save', SubmitType::class)
-		->add('saveAndNew', SubmitType::class)
-		->add('saveAndCopy', SubmitType::class)
-		->add('saveAndQuit', SubmitType::class);
+			->add('save', SubmitType::class)
+		;
 	}
 	
 	/**

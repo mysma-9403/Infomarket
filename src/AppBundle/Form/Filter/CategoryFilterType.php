@@ -8,25 +8,51 @@ use AppBundle\Form\Filter\Base\SimpleEntityFilterType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use AppBundle\Entity\Filter\Base\SimpleEntityFilter;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 class CategoryFilterType extends ImageEntityFilterType
 {	
 	protected function addMoreFields(FormBuilderInterface $builder, array $options) {
 	
-		//TODO pole klasy bazowej do resue?
-		$publishChoices = array(
-				'All'			=> SimpleEntityFilter::ALL_VALUES,
-				'Published' 	=> SimpleEntityFilter::TRUE_VALUES,
-				'Unpublished' 	=> SimpleEntityFilter::FALSE_VALUES
+		$featuredChoices = array(
+				'label.all'			=> SimpleEntityFilter::ALL_VALUES,
+				'label.featured' 	=> SimpleEntityFilter::TRUE_VALUES,
+				'label.notFeatured' => SimpleEntityFilter::FALSE_VALUES
+		);
+		
+		$preleafChoices = array(
+				'label.all'			=> SimpleEntityFilter::ALL_VALUES,
+				'label.preleafs' 	=> SimpleEntityFilter::TRUE_VALUES,
+				'label.others'  	=> SimpleEntityFilter::FALSE_VALUES
+		);
+		
+		$rootChoices = array(
+				'label.all'			=> SimpleEntityFilter::ALL_VALUES,
+				'label.roots' 		=> SimpleEntityFilter::TRUE_VALUES,
+				'label.children' 	=> SimpleEntityFilter::FALSE_VALUES
 		);
 		
 		$builder
-			->add('published', ChoiceType::class, array(
-					'placeholder'	=> 'All',
-					'choices'		=> $publishChoices,
+			->add('subname', TextType::class, array(
+					'attr' => array(
+							'placeholder' => 'label.subname'
+					),
+					'required' => false
+			))
+			->add('featured', ChoiceType::class, array(
+					'choices'		=> $featuredChoices,
 					'expanded'      => false,
-					'multiple'      => false,
-					'required' 		=> false
+					'multiple'      => false
+			))
+			->add('preleaf', ChoiceType::class, array(
+					'choices'		=> $preleafChoices,
+					'expanded'      => false,
+					'multiple'      => false
+			))
+			->add('root', ChoiceType::class, array(
+					'choices'		=> $rootChoices,
+					'expanded'      => false,
+					'multiple'      => false
 			))
 		;
 	}

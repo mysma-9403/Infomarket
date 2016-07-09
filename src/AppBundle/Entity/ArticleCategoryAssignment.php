@@ -9,6 +9,15 @@ use AppBundle\Entity\Base\Audit;
  */
 class ArticleCategoryAssignment extends Audit
 {
+	/**
+	 *
+	 * {@inheritDoc}
+	 * @see \AppBundle\Entity\Base\Audit::getDisplayName()
+	 */
+	public function getDisplayName() {
+		return $this->category->getName();
+	}
+	
     /**
      * @var \AppBundle\Entity\Article
      */

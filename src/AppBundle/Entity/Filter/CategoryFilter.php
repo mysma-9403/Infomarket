@@ -20,6 +20,9 @@ class CategoryFilter extends SimpleEntityFilter {
 		$this->branchRepository = $branchRepository;
 		$this->categoryRepository = $categoryRepository;
 		$this->filterName = 'category_filter_';
+		
+		$this->featured = SimpleEntityFilter::ALL_VALUES;
+		$this->preleaf = SimpleEntityFilter::ALL_VALUES;
 	}
 	
 	/**
@@ -46,6 +49,8 @@ class CategoryFilter extends SimpleEntityFilter {
 		$parents = $request->get($this->getFilterName() . 'parents', array());
 		$this->parents = $this->categoryRepository->findBy(array('id' => $parents));
 		
+		$this->subname = $request->get($this->getFilterName() . 'subname', null);
+		
 		$this->featured = $request->get($this->getFilterName() . 'featured', SimpleEntityFilter::ALL_VALUES);
 		$this->preleaf = $request->get($this->getFilterName() . 'preleaf', SimpleEntityFilter::ALL_VALUES);
 		$this->root = $request->get($this->getFilterName() . 'root', SimpleEntityFilter::ALL_VALUES);
@@ -61,6 +66,8 @@ class CategoryFilter extends SimpleEntityFilter {
 		
 		$this->branches = array();
 		$this->parents = array();
+		
+		$this->subname = null;
 		
 		$this->featured = SimpleEntityFilter::ALL_VALUES;
 		$this->preleaf = SimpleEntityFilter::ALL_VALUES;
@@ -83,16 +90,26 @@ class CategoryFilter extends SimpleEntityFilter {
 			$values[$this->getFilterName() . 'parents'] = $this->getIdValues($this->parents);
 		}
 		
-		if($this->featured != SimpleEntityFilter::ALL_VALUES) {
-			$values[$this->getFilterName() . 'featured'] = $this->featured;
+		if($this->subname) {
+			$values[$this->getFilterName() . 'subname'] = $this->subname;
 		}
 		
-		if($this->preleaf != SimpleEntityFilter::ALL_VALUES) {
-			$values[$this->getFilterName() . 'preleaf'] = $this->preleaf;
+		if($this->featured == SimpleEntityFilter::TRUE_VALUES) {
+			$values[$this->getFilterName() . 'featured'] = true;
+		} else if($this->featured == SimpleEntityFilter::FALSE_VALUES) {
+			$values[$this->getFilterName() . 'featured'] = false;
 		}
 		
-		if($this->root != SimpleEntityFilter::ALL_VALUES) {
-			$values[$this->getFilterName() . 'root'] = $this->root;
+		if($this->preleaf == SimpleEntityFilter::TRUE_VALUES) {
+			$values[$this->getFilterName() . 'preleaf'] = true;
+		} else if($this->preleaf == SimpleEntityFilter::FALSE_VALUES) {
+			$values[$this->getFilterName() . 'preleaf'] = false;
+		}
+		
+		if($this->root == SimpleEntityFilter::TRUE_VALUES) {
+			$values[$this->getFilterName() . 'root'] = true;
+		} else if($this->root == SimpleEntityFilter::FALSE_VALUES) {
+			$values[$this->getFilterName() . 'root'] = false;
 		}
 	
 		return $values;
@@ -110,18 +127,22 @@ class CategoryFilter extends SimpleEntityFilter {
 			$expressions[] = $this->getEqualArrayExpression('bca.branch', $this->branches);
 		}
 		
-		if($this->featured) {
+		if($this->subname) {
+			$expressions[] = 'e.subname like \'%' . $this->subname . '%\'';
+		}
+		
+		if($this->featured != SimpleEntityFilter::ALL_VALUES) {
 			$expressions[] = 'e.featured = ' . $this->featured;
 		}
 		
-		if($this->preleaf) {
+		if($this->preleaf != SimpleEntityFilter::ALL_VALUES) {
 			$expressions[] = 'e.preleaf = ' . $this->preleaf;
 		}
 		
-		if($this->root === SimpleEntityFilter::TRUE_VALUES) {
+		if($this->root == SimpleEntityFilter::TRUE_VALUES) {
 			$expressions[] = 'e.parent IS NULL';
 		} else {
-			if($this->root === SimpleEntityFilter::FALSE_VALUES) {
+			if($this->root == SimpleEntityFilter::FALSE_VALUES) {
 				$expressions[] = 'e.parent IS NOT NULL';
 			}
 			if($this->parents) {
@@ -155,6 +176,12 @@ class CategoryFilter extends SimpleEntityFilter {
 	
 	/**
 	 *
+	 * @var string
+	 */
+	private $subname;
+	
+	/**
+	 *
 	 * @var boolean
 	 */
 	private $root;
@@ -182,6 +209,30 @@ class CategoryFilter extends SimpleEntityFilter {
 	 * @var array
 	 */
 	private $parents;
+	
+	/**
+	 * Set subname
+	 *
+	 * @param string $subname
+	 *
+	 * @return SimpleEntityFilter
+	 */
+	public function setSubname($subname)
+	{
+		$this->subname = $subname;
+	
+		return $this;
+	}
+	
+	/**
+	 * Get subname
+	 *
+	 * @return string
+	 */
+	public function getSubname()
+	{
+		return $this->subname;
+	}
 	
 	/**
 	 * Set root

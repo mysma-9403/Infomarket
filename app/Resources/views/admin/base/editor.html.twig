@@ -1,0 +1,35 @@
+{% extends 'admin/editor.html.twig' %}
+
+{% block mainFields2 %}
+	{{ form_row(form.published, { 'label': 'label.' ~ gender ~ 'published' }) }}
+{% endblock %}
+
+{% block mainActions %}
+	<div class="btn-group">
+		{{ form_widget(form.save, { 'icon': 'fa-save', 'label': 'action.save', 'attr': {'class': 'btn btn-success'} }) }}
+	</div>
+    {% if entry.id %}
+	    <div class="btn-group">
+	    	<a type="button" class="btn btn-success" href="{{ path(basePath ~ mainPath ~ '_new', { routingParams: routingParams }) }}">
+		    	<i class="fa fa-file-o"></i> {{ 'action.new'|trans }}
+			</a>
+		    <a type="button" class="btn btn-warning" href="{{ path(basePath ~ mainPath ~ '_copy', { id: entry.id, routingParams: routingParams }) }}">
+		    	<i class="fa fa-copy"></i> {{ 'action.copy'|trans }}
+			</a>
+	    </div>
+	    
+	    {% set hidden="hidden" %}
+		{% if is_granted('ROLE_ADMIN') or (is_granted('ROLE_EDITOR') and '_assignment' in mainPath ) %}
+			{% set hidden="" %}
+		{% endif %}
+
+		<a type="button" class="btn btn-danger {{ hidden }}" href="{{ path(basePath ~ mainPath ~ '_delete', { id: entry.id, routingParams: routingParams }) }}">
+	    	<i class="fa fa-trash"></i> {{ 'action.delete'|trans }}
+		</a>
+    {% endif %}
+    <div class="btn-group">
+	    <a type="button" class="btn btn-primary" href="{{ path(routingParams.route, routingParams.routeParams) }}">
+	    	<i class="fa fa-close"></i> {{ 'action.back'|trans }}
+		</a>
+    </div>
+{% endblock %}

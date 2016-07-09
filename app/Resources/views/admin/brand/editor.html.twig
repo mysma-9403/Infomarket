@@ -4,6 +4,10 @@
 {% set title = 'title.brands'|trans %}
 {% set gender = 'fm.' %}
 
-{%  block moreFields2 %}	
+{%  block moreFields3 %}	
     {{ form_row(form.content, { 'label': 'label.content' }) }}
 {%  endblock %}
+
+{% block assignments %}
+	{% include 'admin/brand/assignments.html.twig' with { 'entry': entry } %}
+{% endblock %}

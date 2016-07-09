@@ -4,12 +4,12 @@
 {% set title = 'title.article_category_assignments'|trans %}
 {% set gender = '' %}
 
-{% block mainFields1 %}
-	{% include 'common/fields/simple_field.html.twig' with 
-	{ 'label': 'label.category', 'value': entry.category,
-		'object': 'category', 'routeId': entry.id } %}
-		
+{% block mainFields1 %}	
 	{% include 'common/fields/simple_field.html.twig' with 
 	{ 'label': 'label.article', 'value': entry.article,
 		'object': 'article', 'routeId': entry.id } %}
+		
+	{% include 'common/fields/simple_field.html.twig' with 
+	{ 'label': 'label.category', 'value': entry.category,
+		'object': 'category', 'routeId': entry.id } %}
 {% endblock %}

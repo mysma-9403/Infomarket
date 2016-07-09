@@ -101,3 +101,40 @@ services:
 knp_paginator:
     template:
          pagination: KnpPaginatorBundle:Pagination:twitter_bootstrap_v3_pagination.html.twig
+         
+# CKEditor
+ivory_ck_editor:
+    default_config: default
+    configs:
+        default:
+            filebrowserBrowseRoute: elfinder
+            filebrowserBrowseRouteParameters: []
+                         
+# File uploader ElFinder         
+fm_elfinder:
+    #assets_path: / # default is /assets, this is where css/js elfinder files are
+    instances:
+        featured:
+            editor: form
+            include_assets: true
+            visible_mime_types: ['image/png', 'image/jpg', 'image/jpeg']
+            connector:
+                roots:
+                    uploads:
+                        driver: LocalFileSystem
+                        path: uploads/categories/featured
+                        upload_allow: ['image/png', 'image/jpg', 'image/jpeg']
+                        upload_deny: ['all']
+                        upload_max_size: 2M
+        default:
+            editor: ckeditor
+            include_assets: true
+            visible_mime_types: ['image/png', 'image/jpg', 'image/jpeg']
+            connector:
+                roots:
+                    uploads:
+                        driver: LocalFileSystem
+                        path: uploads
+                        upload_allow: ['image/png', 'image/jpg', 'image/jpeg']
+                        upload_deny: ['all']
+                        upload_max_size: 2M

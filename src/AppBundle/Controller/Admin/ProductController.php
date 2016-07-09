@@ -15,11 +15,21 @@ use AppBundle\Entity\Segment;
 
 class ProductController extends ImageEntityController {
 	
+	/**
+	 * 
+	 * @param Request $request
+	 * @param unknown $page
+	 */
 	public function indexAction(Request $request, $page)
 	{
 		return $this->indexActionInternal($request, $page);
 	}
 	
+	/**
+	 * 
+	 * @param Request $request
+	 * @param unknown $id
+	 */
 	public function showAction(Request $request, $id)
 	{
 		return $this->showActionInternal($request, $id);
@@ -55,14 +65,25 @@ class ProductController extends ImageEntityController {
 		return $this->editActionInternal($request, $id);
 	}
 	
+	/**
+	 * 
+	 * @param Request $request
+	 * @param unknown $id
+	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
+	 */
+	public function deleteAction(Request $request, $id)
+	{
+		return $this->deleteActionInternal($request, $id);
+	}
+	
+	/**
+	 * 
+	 * @param Request $request
+	 * @param unknown $id
+	 */
 	public function setPublishedAction(Request $request, $id)
 	{
 		return $this->setPublishedActionInternal($request, $id);
-	}
-	
-	public function setFeaturedAction(Request $request, $id)
-	{
-		return $this->setFeaturedActionInternal($request, $id);
 	}
 	
 	//------------------------------------------------------------------------
@@ -76,6 +97,21 @@ class ProductController extends ImageEntityController {
 	 */
 	protected function createNewEntity(Request $request) {
 		return new Product();
+	}
+	
+	/**
+	 * 
+	 * {@inheritDoc}
+	 * @see \AppBundle\Controller\Admin\Base\SimpleEntityController::createFromTemplate()
+	 */
+	protected function createFromTemplate(Request $request, $template) {
+		$entry = parent::createFromTemplate($request, $template);
+	
+		$entry->setBrand($template->getBrand());
+		$entry->setPrice($template->getPrice());
+		$entry->setGuarantee($template->getGuarantee());
+	
+		return $entry;
 	}
 	
 	/**

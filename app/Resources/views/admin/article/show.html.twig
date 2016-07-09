@@ -50,3 +50,15 @@
 	{% include 'common/fields/bool_field.html.twig' with 
 	{ 'label': 'label.article.displaySided'|trans, 'value': entry.displaySided } %}
 {% endblock %}
+
+{% block moreActions1 %}
+	<a href="{{ path('admin_article_preview', { id: entry.id, route: basePath ~ mainPath ~ extPath, routeParams: { id: entry.id } }) }}"
+		class="btn btn-primary">
+		<span class="fa fa-eye"></span> 
+		{{ 'action.article.preview'|trans }} 
+	</a>
+{% endblock %}
+
+{% block assignments %}
+	{% include 'admin/article/assignments.html.twig' with { 'entry': entry } %}
+{% endblock %}

@@ -1,0 +1,195 @@
+{% extends 'admin/list.html.twig' %}
+
+
+
+
+{# Filter section #}
+{% block filterMainFields2 %}
+	<li class="col-xs-12 col-sm-6 col-md-4 col-lg-2">
+		{{ form_widget(filter.published, { 'label': 'label.published' }) }}
+	</li>
+{% endblock %}
+
+{% block filterMainFields3 %}
+	<li class="col-xs-12 col-sm-6 col-md-4 col-lg-2">
+		<div class='input-group date' id='datetimepicker1'>
+			{{ form_widget(filter.publishedAfter) }}
+			<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+	    </div>
+    </li>
+    
+    <li class="col-xs-12 col-sm-6 col-md-4 col-lg-2">
+		<div class='input-group date' id='datetimepicker2'>
+			{{ form_widget(filter.publishedBefore) }}
+			<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+	    </div>
+    </li>
+    
+    {% set hidden = "hidden" %}
+    {% if is_granted('ROLE_ADMIN') %}
+    	{% set hidden = "" %}
+    {% endif %}
+    
+	<li class="col-xs-12 col-sm-6 col-md-4 col-lg-2 {{ hidden }}">
+		<div class='input-group date' id='datetimepicker3'>
+			{{ form_widget(filter.updatedAfter) }}
+			<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+	    </div>
+    </li>
+    
+    <li class="col-xs-12 col-sm-6 col-md-4 col-lg-2 {{ hidden }}">
+		<div class='input-group date' id='datetimepicker4'>
+			{{ form_widget(filter.updatedBefore) }}
+			<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+	    </div>
+    </li>
+    
+    <li class="col-xs-12 col-sm-6 col-md-4 col-lg-2 {{ hidden }}">
+		<div class='input-group date' id='datetimepicker5'>
+			{{ form_widget(filter.createdAfter) }}
+			<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+	    </div>
+    </li>
+    
+    <li class="col-xs-12 col-sm-6 col-md-4 col-lg-2 {{ hidden }}">
+		<div class='input-group date' id='datetimepicker6'>
+			{{ form_widget(filter.createdBefore) }}
+			<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+	    </div>
+    </li>
+    
+    
+    <script type="text/javascript">
+		$(function () {
+			$('div.date').datetimepicker();
+		});
+	</script>
+{% endblock %}
+					
+{% block filterActions %}
+	<li class="col-xs-12 col-sm-6 col-sm-offset-6 col-md-4 col-md-offset-8 col-lg-3 col-lg-offset-9">
+		<div class="btn-group">
+			{{ form_widget(filter.search, { 'icon': 'fa-search', 'label': 'action.search', 'attr': {'class': 'btn btn-primary'} }) }}
+			{{ form_widget(filter.clear, { 'icon': 'fa-eraser', 'label': 'action.clear', 'attr': {'class': 'btn btn-warning'} }) }}
+		</div>
+	</li>
+{% endblock %}
+
+	    	
+
+
+{# Header section #}
+{% block headerMainFields2 %}
+	<th><i class="fa fa-check"></i> {{ 'label.published'|trans }}</th>
+{% endblock %}
+	
+{% block headerMainFields3 %}
+	<th><i class="fa fa-calendar-check-o"></i> {{ 'label.publishedAt'|trans }}</th>
+	<th><i class="fa fa-user"></i> {{ 'label.publishedBy'|trans }}</th>
+	
+	{% if is_granted('ROLE_ADMIN') %}
+		<th><i class="fa fa-calendar-o"></i> {{ 'label.updatedAt'|trans }}</th>
+		<th><i class="fa fa-user"></i> {{ 'label.updatedBy'|trans }}</th>
+		<th><i class="fa fa-calendar-plus-o"></i> {{ 'label.createdAt'|trans }}</th>
+		<th><i class="fa fa-user"></i> {{ 'label.createdBy'|trans }}</th>
+	{% endif %}
+	
+	<th><i class="fa fa-play"></i> {{ 'label.actions'|trans }}</th>
+{% endblock %}
+		
+		
+{% block headerActions %}
+	{% set hidden="hidden" %}
+	{% if is_granted('ROLE_EDITOR') %}
+		{% set hidden="" %}
+	{% endif %}
+	
+	<li class="{{ hidden }}">
+		{{ form_widget(form.new, { 'icon': 'fa-file-o', 'label': 'action.new', 'attr': {'class': 'btn btn-success', 'type': 'button'} }) }}
+	</li>
+	<li>
+		<div class="btn-group {{ hidden }}">
+			{{ form_widget(form.selectAll, { 'icon': 'fa-check-square-o', 'label': 'action.selectAll', 'attr': {'class': 'btn btn-primary', 'type': 'button'} }) }}
+			{{ form_widget(form.selectNone, { 'icon': 'fa-square-o', 'label': 'action.selectNone', 'attr': {'class': 'btn btn-primary', 'type': 'button'} }) }}
+		</div>
+	</li>
+	<li>
+		<div class="btn-group {{ hidden }}">
+			{{ form_widget(form.publishSelected, { 'icon': 'fa-check-square-o', 'label': 'action.publishSelected', 'attr': {'class': 'btn btn-primary', 'type': 'button'} }) }}
+			{{ form_widget(form.unpublishSelected, { 'icon': 'fa-square-o', 'label': 'action.unpublishSelected', 'attr': {'class': 'btn btn-primary', 'type': 'button'} }) }}
+		</div>
+	</li>
+	
+	{% set hidden="hidden" %}
+	{% if is_granted('ROLE_ADMIN') or (is_granted('ROLE_EDITOR') and '_assignment' in mainPath ) %}
+		{% set hidden="" %}
+	{% endif %}
+		
+	<li>
+		<div class="{{ hidden }}">
+			{{ form_widget(form.deleteSelected, { 'icon': 'fa-trash', 'label': 'action.deleteSelected', 'attr': {'class': 'btn btn-danger', 'type': 'button'} }) }}
+		</div>
+	</li>
+{% endblock %}
+
+
+
+
+{# Entry section #}
+{% block entryMainFields2 %}
+	<td>
+		{% include 'common/fields/bool_action_field.html.twig' with 
+			{ 'id': item.id, 'value': item.published, 'extPath': '_set_published',
+				'trueTooltip': 'label.published'|trans, 'falseTooltip': 'label.unpublished'|trans } %}
+	</td>
+{% endblock %}
+
+{% block entryMainFields3 %}	
+	<td>
+		{% if item.publishedAt > date("01-01-1900") %}
+    		{{ item.publishedAt|date('d.m.Y H:i:s') }}
+		{% endif %}
+	</td>
+	<td>{{ item.publishedBy }}</td>
+	
+	{% if is_granted('ROLE_ADMIN') %}
+		<td>
+			{% if item.updatedAt > date("01-01-1900") %}
+	    		{{ item.updatedAt|date('d.m.Y H:i:s') }}
+			{% endif %}
+		</td>
+		<td>{{ item.updatedBy }}</td>
+		        
+		<td>
+			{% if item.createdAt > date("01-01-1900") %}
+		    	{{ item.createdAt|date('d.m.Y H:i:s') }}
+			{% endif %}
+		</td>
+		<td>{{ item.createdBy }}</td>
+	{% endif %}
+{% endblock %}
+	 
+{% block entryActions %}
+	<td>
+		<a type="button" class="btn btn-sm btn-primary" href="{{ path('admin_' ~ mainPath ~ '_show', { id: item.id, routeParams: routingParams.routeParams }) }}">
+			<i class="fa fa-eye"></i>{{ 'action.show'|trans }}
+		</a>
+		
+		{% if is_granted('ROLE_EDITOR') %}
+			<div class="btn-group">
+				<a type="button" class="btn btn-sm btn-success" href="{{ path('admin_' ~ mainPath ~ '_edit', { id: item.id, routeParams: routingParams.routeParams  }) }}">
+					<i class="fa fa-edit"></i>{{ 'action.edit'|trans }}
+				</a>
+				<a type="button" class="btn btn-sm btn-warning" href="{{ path('admin_' ~ mainPath ~ '_copy', { id: item.id, routeParams: routingParams.routeParams  }) }}">
+					<i class="fa fa-copy"></i>{{ 'action.copy'|trans }}
+				</a>
+			</div>
+		{% endif %}
+		
+		{% if is_granted('ROLE_ADMIN') or (is_granted('ROLE_EDITOR') and '_assignment' in mainPath ) %}
+			<a type="button" class="btn btn-sm btn-danger" href="{{ path('admin_' ~ mainPath ~ '_delete', { id: item.id, routeParams: routingParams.routeParams  }) }}">
+			<i class="fa fa-trash"></i>{{ 'action.delete'|trans }}
+		</a>
+		{% endif %}
+	</td>
+{% endblock %}

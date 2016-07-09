@@ -23,6 +23,10 @@
                 <source>title.articles</source>
                 <target>Artykuły</target>
             </trans-unit>
+            <trans-unit id="title.articleCategories">
+                <source>title.articleCategories</source>
+                <target>Kategorie artykułów</target>
+            </trans-unit>
             <trans-unit id="title.branch">
                 <source>title.branch</source>
                 <target>Branża</target>
@@ -164,6 +168,63 @@
             </trans-unit>
             
             
+            <trans-unit id="label.article.layout.default.left">
+                <source>label.article.layout.default.left</source>
+                <target>Domyślny (do lewej)</target>
+            </trans-unit>
+            <trans-unit id="label.article.layout.default.right">
+                <source>label.article.layout.default.right</source>
+                <target>Domyślny (do prawej)</target>
+            </trans-unit>
+            <trans-unit id="label.article.layout.default.alternate">
+                <source>label.article.layout.default.alternate</source>
+                <target>Domyślny (mieszany)</target>
+            </trans-unit>
+            <trans-unit id="label.article.layout.narrow.left">
+                <source>label.article.layout.narrow.left</source>
+                <target>Wąski (do lewej)</target>
+            </trans-unit>
+            <trans-unit id="label.article.layout.narrow.right">
+                <source>label.article.layout.narrow.right</source>
+                <target>Wąski (do prawej)</target>
+            </trans-unit>
+            <trans-unit id="label.article.layout.narrow.alternate">
+                <source>label.article.layout.narrow.alternate</source>
+                <target>Wąski (mieszany)</target>
+            </trans-unit>
+            <trans-unit id="label.article.layout.wide.normalImage">
+                <source>label.article.layout.wide.normalImage</source>
+                <target>Szeroki (normalne zdjęcie)</target>
+            </trans-unit>
+            <trans-unit id="label.article.layout.wide.smallImage">
+                <source>label.article.layout.wide.smallImage</source>
+                <target>Szeroki (małe zdjęcie)</target>
+            </trans-unit>
+            <trans-unit id="label.article.layout.column.2">
+                <source>label.article.layout.column.2</source>
+                <target>Kolumnowy (2)</target>
+            </trans-unit>
+            <trans-unit id="label.article.layout.column.3">
+                <source>label.article.layout.column.3</source>
+                <target>Kolumnowy (3)</target>
+            </trans-unit>
+            <trans-unit id="label.article.layout.column.4">
+                <source>label.article.layout.column.4</source>
+                <target>Kolumnowy (4)</target>
+            </trans-unit>
+            <trans-unit id="label.article.layout.grid.2">
+                <source>label.article.layout.grid.2</source>
+                <target>Siatka (2)</target>
+            </trans-unit>
+            <trans-unit id="label.article.layout.grid.3">
+                <source>label.article.layout.grid.3</source>
+                <target>Siatka (3)</target>
+            </trans-unit>
+            <trans-unit id="label.article.layout.grid.4">
+                <source>label.article.layout.grid.4</source>
+                <target>Siatka (4)</target>
+            </trans-unit>
+            
             
             
             
@@ -242,13 +303,39 @@
                 <source>label.published</source>
                 <target>Opublikowane</target>
             </trans-unit>
+            <trans-unit id="label.unpublished">
+                <source>label.unpublished</source>
+                <target>Nieopublikowane</target>
+            </trans-unit>
             <trans-unit id="label.featured">
                 <source>label.featured</source>
                 <target>Wyróżnione</target>
             </trans-unit>
+            <trans-unit id="label.notFeatured">
+                <source>label.notFeatured</source>
+                <target>Niewyróżnione</target>
+            </trans-unit>
             <trans-unit id="label.selected">
                 <source>label.selected</source>
                 <target>Zaznaczone</target>
+            </trans-unit>
+            
+            <trans-unit id="label.preleafs">
+                <source>label.preleafs</source>
+                <target>Główne</target>
+            </trans-unit>
+            <trans-unit id="label.others">
+                <source>label.others</source>
+                <target>Pozostałe</target>
+            </trans-unit>
+            
+            <trans-unit id="label.roots">
+                <source>label.roots</source>
+                <target>Korzenie</target>
+            </trans-unit>
+            <trans-unit id="label.children">
+                <source>label.children</source>
+                <target>Dzieci</target>
             </trans-unit>
             
             <trans-unit id="label.publishedAt">
@@ -283,6 +370,14 @@
             <trans-unit id="label.orderNumber">
                 <source>label.orderNumber</source>
                 <target>Numer porządkowy</target>
+            </trans-unit>
+            <trans-unit id="label.icon">
+                <source>label.icon</source>
+                <target>Ikonka</target>
+            </trans-unit>
+            <trans-unit id="label.color">
+                <source>label.color</source>
+                <target>Kolor</target>
             </trans-unit>
             
             <trans-unit id="label.logout">
@@ -325,6 +420,33 @@
             <trans-unit id="label.m.updatedBy">
                 <source>label.m.updatedBy</source>
                 <target>Edytowany przez</target>
+            </trans-unit>
+            
+            
+            
+            <trans-unit id="label.publishedAfter">
+                <source>label.publishedAfter</source>
+                <target>Opublikowane po</target>
+            </trans-unit>
+            <trans-unit id="label.publishedBefore">
+                <source>label.publishedBefore</source>
+                <target>Opublikowane przed</target>
+            </trans-unit>
+            <trans-unit id="label.updatedAfter">
+                <source>label.updatedAfter</source>
+                <target>Edytowane po</target>
+            </trans-unit>
+            <trans-unit id="label.updatedBefore">
+                <source>label.updatedBefore</source>
+                <target>Edytowane po przed</target>
+            </trans-unit>
+            <trans-unit id="label.createdAfter">
+                <source>label.createdAfter</source>
+                <target>Stworzone po</target>
+            </trans-unit>
+            <trans-unit id="label.createdBefore">
+                <source>label.createdBefore</source>
+                <target>Stworzone po przed</target>
             </trans-unit>
             
             
@@ -393,15 +515,98 @@
                 <target>Wyświetl podzielony</target>
             </trans-unit>
             
+            <trans-unit id="label.article.main">
+                <source>label.article.main</source>
+                <target>Artykuły główne</target>
+            </trans-unit>
+            <trans-unit id="label.article.children">
+                <source>label.article.children</source>
+                <target>Podartykuły</target>
+            </trans-unit>
             
             
             
+            
+            <trans-unit id="label.category.parent">
+                <source>label.category.parent</source>
+                <target>Kategoria nadrzędna</target>
+            </trans-unit>
             <trans-unit id="label.category.subtitle">
                 <source>label.category.subtitle</source>
                 <target>- klasyfikacja i podział</target>
             </trans-unit>
+            <trans-unit id="label.category.preleaf">
+                <source>label.category.preleaf</source>
+                <target>Główna</target>
+            </trans-unit>
+            <trans-unit id="label.category.children">
+                <source>label.category.children</source>
+                <target>Podkategorie</target>
+            </trans-unit>
             
             
+            
+            
+            
+            <trans-unit id="label.choose.article">
+                <source>label.choose.article</source>
+                <target>Wybierz artyuł</target>
+            </trans-unit>
+            <trans-unit id="label.choose.articleCategory">
+                <source>label.choose.articleCategory</source>
+                <target>Wybierz kategorię artyułu</target>
+            </trans-unit>
+            <trans-unit id="label.choose.branch">
+                <source>label.choose.branch</source>
+                <target>Wybierz branżę</target>
+            </trans-unit>
+            <trans-unit id="label.choose.brand">
+                <source>label.choose.brand</source>
+                <target>Wybierz markę</target>
+            </trans-unit>
+            <trans-unit id="label.choose.category">
+                <source>label.choose.category</source>
+                <target>Wybierz kategorię</target>
+            </trans-unit>
+            <trans-unit id="label.choose.segment">
+                <source>label.choose.segment</source>
+                <target>Wybierz segment</target>
+            </trans-unit>
+            <trans-unit id="label.choose.product">
+                <source>label.choose.product</source>
+                <target>Wybierz produkt</target>
+            </trans-unit>
+            <trans-unit id="label.choose.article.parent">
+                <source>label.choose.article.parent</source>
+                <target>Wybierz artykuł główny</target>
+            </trans-unit>
+            <trans-unit id="label.choose.category.parent">
+                <source>label.choose.category.parent</source>
+                <target>Wybierz kategorię główną</target>
+            </trans-unit>
+            
+            
+            
+            
+            
+            <trans-unit id="label.product.price">
+                <source>label.product.price</source>
+                <target>Cena</target>
+            </trans-unit>
+            <trans-unit id="label.product.guarantee">
+                <source>label.product.guarantee</source>
+                <target>Gwarancja</target>
+            </trans-unit>
+            
+            
+            <trans-unit id="action.search">
+                <source>action.search</source>
+                <target>Szukaj</target>
+            </trans-unit>
+            <trans-unit id="action.clear">
+                <source>action.clear</source>
+                <target>Wyczyść</target>
+            </trans-unit>
             
             <trans-unit id="action.back">
                 <source>action.back</source>
@@ -470,6 +675,56 @@
             <trans-unit id="action.saveAndQuit">
                 <source>action.saveAndQuit</source>
                 <target>Zapisz i wróć</target>
+            </trans-unit>
+            
+            
+            
+            <trans-unit id="action.article.preview">
+                <source>action.article.preview</source>
+                <target>Podgląd artykułu</target>
+            </trans-unit>
+            
+            
+            
+            
+            <trans-unit id="action.createSubarticle">
+                <source>action.createSubarticle</source>
+                <target>Stwórz podartykuł</target>
+            </trans-unit>
+            <trans-unit id="action.createSubcategory">
+                <source>action.createSubcategory</source>
+                <target>Stwórz podkategorię</target>
+            </trans-unit>
+            
+            
+            
+            <trans-unit id="action.assignArticle">
+                <source>action.assignArticle</source>
+                <target>Przypisz artykuł</target>
+            </trans-unit>
+            <trans-unit id="action.assignArticleCategory">
+                <source>action.assignArticleCategory</source>
+                <target>Przypisz kategorię artykułu</target>
+            </trans-unit>
+            <trans-unit id="action.assignBranch">
+                <source>action.assignBranch</source>
+                <target>Przypisz branżę</target>
+            </trans-unit>
+            <trans-unit id="action.assignBrand">
+                <source>action.assignBrand</source>
+                <target>Przypisz markę</target>
+            </trans-unit>
+            <trans-unit id="action.assignCategory">
+                <source>action.assignCategory</source>
+                <target>Przypisz kategorię</target>
+            </trans-unit>
+            <trans-unit id="action.assignSegment">
+                <source>action.assignSegment</source>
+                <target>Przypisz segment</target>
+            </trans-unit>
+            <trans-unit id="action.assignProduct">
+                <source>action.assignProduct</source>
+                <target>Przypisz product</target>
             </trans-unit>
             
             

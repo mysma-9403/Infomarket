@@ -19,10 +19,6 @@
             <gedmo:tree-path separator="/" append-id="false" />
         </field>
         
-        <many-to-one field="parent" target-entity="SimpleTree" nullable="true">
-            <gedmo:tree-parent />
-        </many-to-one>
-        
         <gedmo:tree type="materializedPath" />
         
     </mapped-superclass>

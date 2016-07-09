@@ -18,7 +18,10 @@ class SimpleEntityFilterType extends FilterFormType
 		
 		$builder
 			->add('name', TextType::class, array(
-					'attr' => array('autofocus' => true),
+					'attr' => array(
+							'autofocus' => true,
+							'placeholder' => 'label.name'
+					),
 					'required' => false
 			))
 		;
