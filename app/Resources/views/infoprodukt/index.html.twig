@@ -76,7 +76,7 @@
 								{% for entry in categories %}
 									{% if loop.index <= 4 %}
 										<li>
-											<a href="{{ path('infoprodukt_category_show', routingParams|merge({'id': entry.id})) }}">
+											<a href="{{ path('infoprodukt_category_show', {'id': entry.id}) }}">
 												{{ entry.name | raw }}
 											</a>
 										</li>

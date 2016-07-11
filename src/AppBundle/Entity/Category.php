@@ -14,7 +14,7 @@ class Category extends ImageTree
 	 */
 	public function getUploadPath()
 	{
-		return '../web/uploads/categories/' . $this->getTreePath();
+		return '../web/uploads/categories';
 	}
 	
     /**

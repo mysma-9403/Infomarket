@@ -514,6 +514,10 @@
                 <source>label.article.displaySided</source>
                 <target>Wyświetl podzielony</target>
             </trans-unit>
+            <trans-unit id="label.article.displayPaginated">
+                <source>label.article.displayPaginated</source>
+                <target>Wyświetl z paginacją</target>
+            </trans-unit>
             
             <trans-unit id="label.article.main">
                 <source>label.article.main</source>

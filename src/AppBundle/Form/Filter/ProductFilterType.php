@@ -9,6 +9,8 @@ use AppBundle\Form\Filter\Base\SimpleEntityFilterType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\FormBuilderInterface;
 use AppBundle\Form\Filter\Base\ImageEntityFilterType;
+use AppBundle\Repository\CategoryRepository;
+use AppBundle\Repository\BrandRepository;
 
 class ProductFilterType extends ImageEntityFilterType
 {
@@ -21,6 +23,10 @@ class ProductFilterType extends ImageEntityFilterType
 		$builder
 			->add('categories', EntityType::class, array(
 					'class'			=> Category::class,
+					'query_builder' => function (CategoryRepository $repository) {
+						return $repository->createQueryBuilder('e')
+						->orderBy('e.published DESC, e.name', 'ASC');
+					},
 					'choice_label' 	=> 'name',
 					'required'		=> false,
 					'expanded'      => false,
@@ -29,6 +35,10 @@ class ProductFilterType extends ImageEntityFilterType
 			))
 			->add('brands', EntityType::class, array(
 					'class'			=> Brand::class,
+					'query_builder' => function (BrandRepository $repository) {
+						return $repository->createQueryBuilder('e')
+						->orderBy('e.published DESC, e.name', 'ASC');
+					},
 					'choice_label' 	=> 'name',
 					'required'		=> false,
 					'expanded'      => false,

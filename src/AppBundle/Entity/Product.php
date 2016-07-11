@@ -26,7 +26,7 @@ class Product extends ImageEntity
 	 */
 	public function getUploadPath()
 	{
-		return '../web/uploads/products/' . $this->category->getTreePath();
+		return '../web/uploads/products/' . substr($this->getBrand()->getName(), 0, 1) . '/' . $this->getBrand()->getName();
 	}
 	
 	

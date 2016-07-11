@@ -135,9 +135,9 @@ class CategoryFilter extends SimpleEntityFilter {
 			$expressions[] = 'e.featured = ' . $this->featured;
 		}
 		
-		if($this->preleaf != SimpleEntityFilter::ALL_VALUES) {
-			$expressions[] = 'e.preleaf = ' . $this->preleaf;
-		}
+// 		if($this->preleaf != SimpleEntityFilter::ALL_VALUES) {
+// 			$expressions[] = 'e.preleaf = ' . $this->preleaf;
+// 		}
 		
 		if($this->root == SimpleEntityFilter::TRUE_VALUES) {
 			$expressions[] = 'e.parent IS NULL';

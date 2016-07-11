@@ -6,7 +6,6 @@ use AppBundle\Entity\Filter\Base\BaseEntityFilter;
 use AppBundle\Utils\ClassUtils;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-use Doctrine\Common\Proxy\Exception\InvalidArgumentException;
 
 abstract class BaseEntityController extends Controller
 {

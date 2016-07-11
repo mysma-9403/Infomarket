@@ -9,6 +9,15 @@ use AppBundle\Entity\Base\ImageEntity;
  */
 class ArticleCategory extends ImageEntity
 {
+	/**
+	 * 
+	 * {@inheritDoc}
+	 * @see \AppBundle\Entity\Base\Image::getUploadPath()
+	 */
+	public function getUploadPath()
+	{
+		return '../web/uploads/article-categories';
+	}
 	
     /**
      * @var boolean

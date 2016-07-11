@@ -28,7 +28,7 @@ class ProductType extends ImageEntityType
 					->orderBy('e.name', 'ASC');
 					},
 					'choice_label' 	=> 'name',
-					'required' 		=> false,
+					'required' 		=> true,
 					'expanded'      => false,
 					'multiple'      => false,
 					'placeholder'	=> 'label.choose.brand'

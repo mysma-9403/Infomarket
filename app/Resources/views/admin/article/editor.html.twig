@@ -6,6 +6,7 @@
 
 {% block moreFields2 %}
 	{{ form_row(form.subname, { 'label': 'label.subname' }) }}
+	{{ form_row(form.brand, { 'label': 'label.brand' }) }}
 {% endblock %}
 	
 {% block moreFields3 %}
@@ -19,6 +20,7 @@
 	
 	{{ form_row(form.layout, { 'label': 'label.article.layout' }) }}
     {{ form_row(form.displaySided, { 'label': 'label.article.displaySided' }) }}
+    {{ form_row(form.displayPaginated, { 'label': 'label.article.displayPaginated' }) }}
 {% endblock %}
 
 {% block moreActions1 %}
