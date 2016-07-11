@@ -5,6 +5,7 @@ namespace AppBundle\Form;
 use AppBundle\Entity\Branch;
 use AppBundle\Form\Base\ImageEntityType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Ivory\CKEditorBundle\Form\Type\CKEditorType;
 
 class BranchType extends ImageEntityType
 {
@@ -22,11 +23,9 @@ class BranchType extends ImageEntityType
 			->add('color', null, array(
 					'required' => false
 			))
-			->add('content', null, array(
-					'attr' => array(
-							'class' => 'tinymce',
-							'data-theme' => 'bbcode',
-							'rows' => 20),
+			->add('content', CKEditorType::class, array(
+					'config' => array(
+							'uiColor' => '#ffffff'),
 					'required' => false
 			))
 		;

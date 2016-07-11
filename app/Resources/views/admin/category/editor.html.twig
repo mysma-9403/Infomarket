@@ -4,6 +4,20 @@
 {% set title = 'title.categories'|trans %}
 {% set gender = 'fm.' %}
 
+{% block moreFields1 %}
+	{% if entry.featuredImage %}
+	<div class="row">
+	    <div class="col-xs-12">
+	    	<div class="rect-2x1">
+				<img alt="{{ entry.name | raw }}" src="{{ asset(entry.featuredImage) }}" class="div-center" />
+			</div>
+		</div>
+	</div>
+	{% endif %}
+	
+	{{ form_row(form.featuredImage, { 'label': 'label.category.featuredImage' }) }}
+{% endblock %}
+
 {% block moreFields2 %}
 	{{ form_row(form.subname, { 'label': 'label.subname' }) }}
 {% endblock %}

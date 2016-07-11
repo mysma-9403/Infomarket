@@ -281,7 +281,7 @@
             </trans-unit>
             <trans-unit id="label.image">
                 <source>label.image</source>
-                <target>Obrazek</target>
+                <target>Zdjęcie</target>
             </trans-unit>
             <trans-unit id="label.intro">
                 <source>label.intro</source>
@@ -542,6 +542,10 @@
             <trans-unit id="label.category.children">
                 <source>label.category.children</source>
                 <target>Podkategorie</target>
+            </trans-unit>
+            <trans-unit id="label.category.featuredImage">
+                <source>label.category.featuredImage</source>
+                <target>Zdjęcie wyróżnione</target>
             </trans-unit>
             
             

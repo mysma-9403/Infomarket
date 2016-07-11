@@ -1,11 +1,16 @@
 {% extends 'admin/simple/show.html.twig' %}
 
-{% block mainFields2 %}	
-	<div class="row">
-		<div class="col-xs-12">
-			<img alt="{{ entry.name | raw }}" src="{{ asset(entry.getImagePath()) }}" width="160" height="160" />
+{% block mainFields2 %}
+
+	{% if entry.image %}
+    <div class="row">
+	    <div class="col-xs-6 col-sm-4 col-md-3">
+	    	<div class="rect">
+				<img alt="{{ entry.name | raw }}" src="{{ asset(entry.getImagePath()) }}" class="div-center" />
+			</div>
 		</div>
 	</div>
+	{% endif %}
 	
 	<div class="row lowered-25"></div>
 	{% include 'common/fields/bool_field.html.twig' with 

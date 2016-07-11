@@ -1,11 +1,15 @@
 {% extends 'admin/simple/editor.html.twig' %}
 
 {% block mainFields2 %}
+	{% if entry.image %}
     <div class="row">
-	    <div class="col-xs-12">
-			<img alt="{{ entry.name | raw }}" src="{{ asset(entry.getImagePath()) }}" width="160" height="160" />
+	    <div class="col-xs-6 col-sm-4 col-md-3">
+	    	<div class="rect">
+				<img alt="{{ entry.name | raw }}" src="{{ asset(entry.getImagePath()) }}" class="div-center" />
+			</div>
 		</div>
 	</div>
+	{% endif %}
 	
     {{ form_row(form.file, { 'label': 'label.image' }) }}
     

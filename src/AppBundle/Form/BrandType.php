@@ -5,6 +5,7 @@ namespace AppBundle\Form;
 use AppBundle\Entity\Brand;
 use AppBundle\Form\Base\ImageEntityType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Ivory\CKEditorBundle\Form\Type\CKEditorType;
 
 class BrandType extends ImageEntityType
 {
@@ -16,11 +17,9 @@ class BrandType extends ImageEntityType
 	protected function addMoreFields(FormBuilderInterface $builder, array $options) {
 		
 		$builder
-			->add('content', null, array(
-					'attr' => array(
-							'class' => 'tinymce',
-							'data-theme' => 'bbcode',
-							'rows' => 20),
+			->add('content', CKEditorType::class, array(
+					'config' => array(
+							'uiColor' => '#ffffff'),
 					'required' => false
 			))
 		;
