@@ -270,7 +270,14 @@ abstract class AdminEntityController extends BaseEntityController {
 				}
 			}
 			else {
-				$em->remove($entry);
+				$errors = $this->deleteMore($entry);
+				if (count($errors) > 0) {
+					foreach ($errors as $error) {
+						$errors[] = $error->getMessage();
+					}
+				} else {
+					$em->remove($entry);
+				}
 			}
 		}
 		
