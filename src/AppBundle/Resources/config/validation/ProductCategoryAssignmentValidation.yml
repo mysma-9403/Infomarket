@@ -1,0 +1,7 @@
+AppBundle\Entity\ProductCategoryAssignment:
+    constraints:
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
+            fields: [product, segment, category]
+            ignoreNull: false
+            message: 'productCategoryAssignment.unique'
+                

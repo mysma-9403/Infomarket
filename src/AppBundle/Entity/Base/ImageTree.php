@@ -4,6 +4,10 @@ namespace AppBundle\Entity\Base;
 
 class ImageTree extends Image
 {
+	public function __toString() {
+		return $this->name;
+	}
+	
 	/**
 	 * 
 	 * {@inheritDoc}

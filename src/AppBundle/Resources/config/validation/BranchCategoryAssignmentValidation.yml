@@ -1,0 +1,8 @@
+AppBundle\Entity\BranchCategoryAssignment:
+    constraints:
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
+            fields: [branch, category]
+            errorPath: branch
+            ignoreNull: false
+            message: 'branchCategoryAssignment.unique'
+                

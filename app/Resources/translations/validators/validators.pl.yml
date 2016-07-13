@@ -1,6 +1,18 @@
+# Simple validation
 category.name.unique: Podana nazwa jest już wykorzystywana w innej podkategorii wybranej kategorii głównej.
 
-# Assignment errors
+# Assignment uniqueness
+articleArticleCategoryAssignment.unique: Artykuł jest już powiązany z wybraną kategorią artykułów.
+
+articleCategoryAssignment.unique: Artykuł jest już powiązany z wybraną kategorią.
+
+branchCategoryAssignment.unique: Kategoria jest już powiązana z wybraną branżą.
+
+brandCategoryAssignment.unique: Marka jest już przypisana do ratingu marek w danym segmencie dla wybranej kategorii.
+
+productCategoryAssignment.unique: Produkt jest już przypisany do ratingu produktów w danym segmencie dla wybranej kategorii.
+
+# Assignment delete errors
 articleCategory.usedIn.articleArticleCategoryAssignments: Kategoria artykułów jest używana w niektórych artykułach i nie może być usunięta.
 
 branch.usedIn.branchCategoryAssignments: Branża jest używana w niektórych kategoriach i nie może być usunięta.
@@ -16,7 +28,7 @@ category.usedIn.productsCategoryAssignments: Kategoria jest używana w niektóry
 segment.usedIn.brandCategoryAssignments: Segment jest używany w niektórych ratingach marek i nie może być usunięty.
 segment.usedIn.productCategoryAssignments: Segment jest używany w niektórych ratingach produktów i nie może być usunięty.
 
-#Assignment warnings
+#Assignment delete warnings
 article.usedIn.children: Artykuł posiada podartykuły. Usunięcie artykułu spowoduje usunięcie tych podartykułów.
 article.usedIn.articleArticleCategoryAssignments: Artykuł jest powiązany z niektórymi kategoriami artykułów. Usunięcie artykułu spowoduje usunięcie tych powiązań.
 article.usedIn.articleCategoryAssignments: Artykuł jest powiązany z niektórymi kategoriami. Usunięcie artykułu spowoduje usunięcie tych powiązań.

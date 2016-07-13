@@ -4,7 +4,19 @@ namespace AppBundle\Entity\Base;
 
 class ImageEntity extends Image
 {	
-    
+	/**
+	 * 
+	 * {@inheritDoc}
+	 * @see \AppBundle\Entity\Base\Image::getDisplayName()
+	 */
+	public function getDisplayName() {
+		return $this->name;
+	}
+	
+	public function __toString() {
+		return $this->name;
+	}
+	
     /**
      * @var string
      */

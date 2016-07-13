@@ -4,6 +4,10 @@ namespace AppBundle\Entity\Base;
 
 class SimpleTree extends Audit
 {
+	public function __toString() {
+		return $this->name;
+	}
+	
 	/**
 	 * 
 	 * {@inheritDoc}

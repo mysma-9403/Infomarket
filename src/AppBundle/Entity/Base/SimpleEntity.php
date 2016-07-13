@@ -4,6 +4,10 @@ namespace AppBundle\Entity\Base;
 
 class SimpleEntity extends Audit
 {
+	public function __toString() {
+		return $this->name;
+	}
+	
 	/**
 	 * 
 	 * {@inheritDoc}

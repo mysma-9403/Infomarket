@@ -12,7 +12,7 @@ class Image extends Audit {
 	 * @see \AppBundle\Entity\Base\Audit::getDisplayName()
 	 */
 	public function getDisplayName() {
-		return $this->name;
+		return $this->id;
 	}
 	
 	public function getUploadPath()
