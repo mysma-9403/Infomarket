@@ -131,7 +131,7 @@ class CategoryController extends ImageTreeController {
 	}
 	
 	//------------------------------------------------------------------------
-	// Internal actions
+	// Internal logic
 	//------------------------------------------------------------------------
 	
 	protected function setPreleafActionInternal(Request $request, $id)
@@ -280,6 +280,22 @@ class CategoryController extends ImageTreeController {
 		
 		$params['routingParams']['route'] = $this->getTreeRoute();
 		return $params;
+	}
+	
+	/**
+	 *
+	 * {@inheritDoc}
+	 * @see \AppBundle\Controller\Admin\Base\AdminEntityController::deleteMore()
+	 */
+	protected function deleteMore($entry)
+	{
+		$em = $this->getDoctrine()->getManager();
+		foreach ($entry->getBranchCategoryAssignments() as $branchCategoryAssignment) {
+			$em->remove($branchCategoryAssignment);
+		}
+		$em->flush();
+	
+		return array();
 	}
 	
 	//------------------------------------------------------------------------

@@ -61,20 +61,20 @@
 
 <table class="table table-striped vert-align">
 	<tbody>
-	{% for branchAssignment in entry.branchAssignments %}
+	{% for branchCategoryAssignment in entry.branchCategoryAssignments %}
 		<tr>
 			<td>
-				<a href="{{ path('admin_branch_show', { id: branchAssignment.branch.id }) }}">
-					{{ branchAssignment.branch.name }}
+				<a href="{{ path('admin_branch_show', { id: branchCategoryAssignment.branch.id }) }}">
+					{{ branchCategoryAssignment.branch.name }}
 				</a>
 			</td>
 			{% if is_granted('ROLE_EDITOR') %}
 				<td>
-					<a href="{{ path('admin_branch_category_assignment_edit', { id: branchAssignment.id, route: basePath ~ mainPath ~ extPath, routeParams: { id: entry.id } }) }}" class="btn btn-warning">
+					<a href="{{ path('admin_branch_category_assignment_edit', { id: branchCategoryAssignment.id, route: basePath ~ mainPath ~ extPath, routeParams: { id: entry.id } }) }}" class="btn btn-warning">
 						<span class="fa fa-edit"></span> 
 						{{ 'action.edit'|trans }}
 					</a>
-					<a href="{{ path('admin_branch_category_assignment_delete', { id: branchAssignment.id, route: basePath ~ mainPath ~ extPath, routeParams: { id: entry.id } }) }}" class="btn btn-danger">
+					<a href="{{ path('admin_branch_category_assignment_delete', { id: branchCategoryAssignment.id, route: basePath ~ mainPath ~ extPath, routeParams: { id: entry.id } }) }}" class="btn btn-danger">
 						<span class="fa fa-trash"></span> 
 						{{ 'action.delete'|trans }}
 					</a>

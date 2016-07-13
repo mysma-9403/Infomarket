@@ -1,0 +1,16 @@
+AppBundle\Entity\Product:
+    constraints:
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: name
+    properties:
+        name:
+            - NotBlank: ~
+        brand:
+            - NotBlank: ~
+        price:
+            - Range:
+                min: 0
+                max: 999999
+        guarantee:
+            - Range:
+                min: 0
+                max: 99

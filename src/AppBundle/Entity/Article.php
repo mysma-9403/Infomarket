@@ -45,11 +45,17 @@ class Article extends ImageEntity
 		return '../web/uploads/articles/' . $this->createdAt->format('Y/m/');
 	}
 	
-	/**
-	 * @var string
-	 */
-	private $subname;
 	
+    /**
+     * @var string
+     */
+    private $subname;
+
+    /**
+     * @var boolean
+     */
+    private $featured;
+
     /**
      * @var string
      */
@@ -59,12 +65,109 @@ class Article extends ImageEntity
      * @var string
      */
     private $content;
-    
+
+    /**
+     * @var integer
+     */
+    private $orderNumber;
+
+    /**
+     * @var integer
+     */
+    private $layout;
+
     /**
      * @var boolean
      */
-    private $featured;
+    private $displaySided;
 
+    /**
+     * @var boolean
+     */
+    private $displayPaginated;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $children;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $articleArticleCategoryAssignments;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $articleCategoryAssignments;
+
+    /**
+     * @var \AppBundle\Entity\Brand
+     */
+    private $brand;
+
+    /**
+     * @var \AppBundle\Entity\Article
+     */
+    private $parent;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->children = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->articleArticleCategoryAssignments = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->articleCategoryAssignments = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Set subname
+     *
+     * @param string $subname
+     *
+     * @return Article
+     */
+    public function setSubname($subname)
+    {
+        $this->subname = $subname;
+
+        return $this;
+    }
+
+    /**
+     * Get subname
+     *
+     * @return string
+     */
+    public function getSubname()
+    {
+        return $this->subname;
+    }
+
+    /**
+     * Set featured
+     *
+     * @param boolean $featured
+     *
+     * @return Article
+     */
+    public function setFeatured($featured)
+    {
+        $this->featured = $featured;
+
+        return $this;
+    }
+
+    /**
+     * Get featured
+     *
+     * @return boolean
+     */
+    public function getFeatured()
+    {
+        return $this->featured;
+    }
 
     /**
      * Set intro
@@ -115,69 +218,99 @@ class Article extends ImageEntity
     }
 
     /**
-     * Set featured
+     * Set orderNumber
      *
-     * @param boolean $featured
+     * @param integer $orderNumber
      *
      * @return Article
      */
-    public function setFeatured($featured)
+    public function setOrderNumber($orderNumber)
     {
-        $this->featured = $featured;
+        $this->orderNumber = $orderNumber;
 
         return $this;
     }
 
     /**
-     * Get featured
+     * Get orderNumber
+     *
+     * @return integer
+     */
+    public function getOrderNumber()
+    {
+        return $this->orderNumber;
+    }
+
+    /**
+     * Set layout
+     *
+     * @param integer $layout
+     *
+     * @return Article
+     */
+    public function setLayout($layout)
+    {
+        $this->layout = $layout;
+
+        return $this;
+    }
+
+    /**
+     * Get layout
+     *
+     * @return integer
+     */
+    public function getLayout()
+    {
+        return $this->layout;
+    }
+
+    /**
+     * Set displaySided
+     *
+     * @param boolean $displaySided
+     *
+     * @return Article
+     */
+    public function setDisplaySided($displaySided)
+    {
+        $this->displaySided = $displaySided;
+
+        return $this;
+    }
+
+    /**
+     * Get displaySided
      *
      * @return boolean
      */
-    public function getFeatured()
+    public function getDisplaySided()
     {
-        return $this->featured;
+        return $this->displaySided;
     }
 
     /**
-     * Set subname
+     * Set displayPaginated
      *
-     * @param string $subname
+     * @param boolean $displayPaginated
      *
      * @return Article
      */
-    public function setSubname($subname)
+    public function setDisplayPaginated($displayPaginated)
     {
-        $this->subname = $subname;
+        $this->displayPaginated = $displayPaginated;
 
         return $this;
     }
 
     /**
-     * Get subname
+     * Get displayPaginated
      *
-     * @return string
+     * @return boolean
      */
-    public function getSubname()
+    public function getDisplayPaginated()
     {
-        return $this->subname;
-    }
-    
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    private $children;
-
-    /**
-     * @var \AppBundle\Entity\Article
-     */
-    private $parent;
-
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->children = new \Doctrine\Common\Collections\ArrayCollection();
+        return $this->displayPaginated;
     }
 
     /**
@@ -215,137 +348,47 @@ class Article extends ImageEntity
     }
 
     /**
-     * Set parent
+     * Add articleArticleCategoryAssignment
      *
-     * @param \AppBundle\Entity\Article $parent
+     * @param \AppBundle\Entity\ArticleArticleCategoryAssignment $articleArticleCategoryAssignment
      *
      * @return Article
      */
-    public function setParent(\AppBundle\Entity\Article $parent = null)
+    public function addArticleArticleCategoryAssignment(\AppBundle\Entity\ArticleArticleCategoryAssignment $articleArticleCategoryAssignment)
     {
-        $this->parent = $parent;
+        $this->articleArticleCategoryAssignments[] = $articleArticleCategoryAssignment;
 
         return $this;
     }
 
     /**
-     * Get parent
+     * Remove articleArticleCategoryAssignment
      *
-     * @return \AppBundle\Entity\Article
+     * @param \AppBundle\Entity\ArticleArticleCategoryAssignment $articleArticleCategoryAssignment
      */
-    public function getParent()
+    public function removeArticleArticleCategoryAssignment(\AppBundle\Entity\ArticleArticleCategoryAssignment $articleArticleCategoryAssignment)
     {
-        return $this->parent;
-    }
-    
-    /**
-     * @var integer
-     */
-    private $layout;
-
-
-    /**
-     * Set layout
-     *
-     * @param integer $layout
-     *
-     * @return Article
-     */
-    public function setLayout($layout)
-    {
-        $this->layout = $layout;
-
-        return $this;
+        $this->articleArticleCategoryAssignments->removeElement($articleArticleCategoryAssignment);
     }
 
     /**
-     * Get layout
+     * Get articleArticleCategoryAssignments
      *
-     * @return integer
+     * @return \Doctrine\Common\Collections\Collection
      */
-    public function getLayout()
+    public function getArticleArticleCategoryAssignments()
     {
-        return $this->layout;
+        return $this->articleArticleCategoryAssignments;
     }
-    
-    /**
-     * @var boolean
-     */
-    private $displaySided;
-
-
-    /**
-     * Set displaySided
-     *
-     * @param boolean $displaySided
-     *
-     * @return Article
-     */
-    public function setDisplaySided($displaySided)
-    {
-        $this->displaySided = $displaySided;
-
-        return $this;
-    }
-
-    /**
-     * Get displaySided
-     *
-     * @return boolean
-     */
-    public function getDisplaySided()
-    {
-        return $this->displaySided;
-    }
-    
-    /**
-     * @var integer
-     */
-    private $orderNumber;
-
-
-    /**
-     * Set orderNumber
-     *
-     * @param integer $orderNumber
-     *
-     * @return Article
-     */
-    public function setOrderNumber($orderNumber)
-    {
-        $this->orderNumber = $orderNumber;
-
-        return $this;
-    }
-
-    /**
-     * Get orderNumber
-     *
-     * @return integer
-     */
-    public function getOrderNumber()
-    {
-        return $this->orderNumber;
-    }
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    private $articleCategoryAssignments;
-
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    private $categoryAssignments;
-
 
     /**
      * Add articleCategoryAssignment
      *
-     * @param \AppBundle\Entity\ArticleArticleCategoryAssignment $articleCategoryAssignment
+     * @param \AppBundle\Entity\ArticleCategoryAssignment $articleCategoryAssignment
      *
      * @return Article
      */
-    public function addArticleCategoryAssignment(\AppBundle\Entity\ArticleArticleCategoryAssignment $articleCategoryAssignment)
+    public function addArticleCategoryAssignment(\AppBundle\Entity\ArticleCategoryAssignment $articleCategoryAssignment)
     {
         $this->articleCategoryAssignments[] = $articleCategoryAssignment;
 
@@ -355,9 +398,9 @@ class Article extends ImageEntity
     /**
      * Remove articleCategoryAssignment
      *
-     * @param \AppBundle\Entity\ArticleArticleCategoryAssignment $articleCategoryAssignment
+     * @param \AppBundle\Entity\ArticleCategoryAssignment $articleCategoryAssignment
      */
-    public function removeArticleCategoryAssignment(\AppBundle\Entity\ArticleArticleCategoryAssignment $articleCategoryAssignment)
+    public function removeArticleCategoryAssignment(\AppBundle\Entity\ArticleCategoryAssignment $articleCategoryAssignment)
     {
         $this->articleCategoryAssignments->removeElement($articleCategoryAssignment);
     }
@@ -371,75 +414,6 @@ class Article extends ImageEntity
     {
         return $this->articleCategoryAssignments;
     }
-
-    /**
-     * Add categoryAssignment
-     *
-     * @param \AppBundle\Entity\ArticleCategoryAssignment $categoryAssignment
-     *
-     * @return Article
-     */
-    public function addCategoryAssignment(\AppBundle\Entity\ArticleCategoryAssignment $categoryAssignment)
-    {
-        $this->categoryAssignments[] = $categoryAssignment;
-
-        return $this;
-    }
-
-    /**
-     * Remove categoryAssignment
-     *
-     * @param \AppBundle\Entity\ArticleCategoryAssignment $categoryAssignment
-     */
-    public function removeCategoryAssignment(\AppBundle\Entity\ArticleCategoryAssignment $categoryAssignment)
-    {
-        $this->categoryAssignments->removeElement($categoryAssignment);
-    }
-
-    /**
-     * Get categoryAssignments
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getCategoryAssignments()
-    {
-        return $this->categoryAssignments;
-    }
-    /**
-     * @var boolean
-     */
-    private $displayPaginated;
-
-
-    /**
-     * Set displayPaginated
-     *
-     * @param boolean $displayPaginated
-     *
-     * @return Article
-     */
-    public function setDisplayPaginated($displayPaginated)
-    {
-        $this->displayPaginated = $displayPaginated;
-
-        return $this;
-    }
-
-    /**
-     * Get displayPaginated
-     *
-     * @return boolean
-     */
-    public function getDisplayPaginated()
-    {
-        return $this->displayPaginated;
-    }
-    
-    /**
-     * @var \AppBundle\Entity\Brand
-     */
-    private $brand;
-
 
     /**
      * Set brand
@@ -463,5 +437,29 @@ class Article extends ImageEntity
     public function getBrand()
     {
         return $this->brand;
+    }
+
+    /**
+     * Set parent
+     *
+     * @param \AppBundle\Entity\Article $parent
+     *
+     * @return Article
+     */
+    public function setParent(\AppBundle\Entity\Article $parent = null)
+    {
+        $this->parent = $parent;
+
+        return $this;
+    }
+
+    /**
+     * Get parent
+     *
+     * @return \AppBundle\Entity\Article
+     */
+    public function getParent()
+    {
+        return $this->parent;
     }
 }

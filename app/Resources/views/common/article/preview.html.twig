@@ -2,10 +2,15 @@
 {% block header %}
 <div class="row">
 	<div class="col-xs-12">
-		<h2>
+		{% if entry.brand %}
+			<h2>
+				<span class="text-red">{{ entry.brand.name | raw }}</span>
+			</h2>
+		{% endif %}
+		<h3>
 			<span class="text-brand">{{ entry.name | raw }}</span>
 			<span class="text-red">{{ entry.subname | raw }}</span>
-		</h2>
+		</h3>
 	</div>
 </div>
 {% endblock %}

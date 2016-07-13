@@ -10,10 +10,10 @@
         
         <many-to-one field="brand" target-entity="Brand" nullable="false" />
         
-        <field name="price" type="integer" nullable="true" />
+        <field name="price" type="decimal" precision="10" scale="2" nullable="true" />
         <field name="guarantee" type="integer" nullable="true" />
         
-        <one-to-many field="categoryAssignments" target-entity="ProductCategoryAssignment" mapped-by="product">
+        <one-to-many field="productCategoryAssignments" target-entity="ProductCategoryAssignment" mapped-by="product">
             <order-by>
             	<order-by-field name="category" direction="ASC" />
             	<order-by-field name="segment" direction="ASC" />

@@ -29,68 +29,8 @@ class Product extends ImageEntity
 		return '../web/uploads/products/' . substr($this->getBrand()->getName(), 0, 1) . '/' . $this->getBrand()->getName();
 	}
 	
-	
     /**
      * @var string
-     */
-    private $intro;
-
-    /**
-     * @var string
-     */
-    private $content;
-
-
-    /**
-     * Set intro
-     *
-     * @param string $intro
-     *
-     * @return Product
-     */
-    public function setIntro($intro)
-    {
-        $this->intro = $intro;
-
-        return $this;
-    }
-
-    /**
-     * Get intro
-     *
-     * @return string
-     */
-    public function getIntro()
-    {
-        return $this->intro;
-    }
-
-    /**
-     * Set content
-     *
-     * @param string $content
-     *
-     * @return Product
-     */
-    public function setContent($content)
-    {
-        $this->content = $content;
-
-        return $this;
-    }
-
-    /**
-     * Get content
-     *
-     * @return string
-     */
-    public function getContent()
-    {
-        return $this->content;
-    }
-
-    /**
-     * @var integer
      */
     private $price;
 
@@ -100,14 +40,27 @@ class Product extends ImageEntity
     private $guarantee;
 
     /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $productCategoryAssignments;
+
+    /**
      * @var \AppBundle\Entity\Brand
      */
     private $brand;
-    
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->productCategoryAssignments = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
     /**
      * Set price
      *
-     * @param integer $price
+     * @param string $price
      *
      * @return Product
      */
@@ -121,7 +74,7 @@ class Product extends ImageEntity
     /**
      * Get price
      *
-     * @return integer
+     * @return string
      */
     public function getPrice()
     {
@@ -153,6 +106,40 @@ class Product extends ImageEntity
     }
 
     /**
+     * Add productCategoryAssignment
+     *
+     * @param \AppBundle\Entity\ProductCategoryAssignment $productCategoryAssignment
+     *
+     * @return Product
+     */
+    public function addProductCategoryAssignment(\AppBundle\Entity\ProductCategoryAssignment $productCategoryAssignment)
+    {
+        $this->productCategoryAssignments[] = $productCategoryAssignment;
+
+        return $this;
+    }
+
+    /**
+     * Remove productCategoryAssignment
+     *
+     * @param \AppBundle\Entity\ProductCategoryAssignment $productCategoryAssignment
+     */
+    public function removeProductCategoryAssignment(\AppBundle\Entity\ProductCategoryAssignment $productCategoryAssignment)
+    {
+        $this->productCategoryAssignments->removeElement($productCategoryAssignment);
+    }
+
+    /**
+     * Get productCategoryAssignments
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getProductCategoryAssignments()
+    {
+        return $this->productCategoryAssignments;
+    }
+
+    /**
      * Set brand
      *
      * @param \AppBundle\Entity\Brand $brand
@@ -174,51 +161,5 @@ class Product extends ImageEntity
     public function getBrand()
     {
         return $this->brand;
-    }
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    private $categoryAssignments;
-
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->categoryAssignments = new \Doctrine\Common\Collections\ArrayCollection();
-    }
-
-    /**
-     * Add categoryAssignment
-     *
-     * @param \AppBundle\Entity\ProductCategoryAssignment $categoryAssignment
-     *
-     * @return Product
-     */
-    public function addCategoryAssignment(\AppBundle\Entity\ProductCategoryAssignment $categoryAssignment)
-    {
-        $this->categoryAssignments[] = $categoryAssignment;
-
-        return $this;
-    }
-
-    /**
-     * Remove categoryAssignment
-     *
-     * @param \AppBundle\Entity\ProductCategoryAssignment $categoryAssignment
-     */
-    public function removeCategoryAssignment(\AppBundle\Entity\ProductCategoryAssignment $categoryAssignment)
-    {
-        $this->categoryAssignments->removeElement($categoryAssignment);
-    }
-
-    /**
-     * Get categoryAssignments
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getCategoryAssignments()
-    {
-        return $this->categoryAssignments;
     }
 }

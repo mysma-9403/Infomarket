@@ -88,6 +88,7 @@ abstract class BaseEntityController extends Controller
     {
     	$params = [];
     	
+    	$params['errors'] = $request->get('errors', array());
     	$params['routingParams'] = $this->getRoutingParams($request);
     	
     	return $params;

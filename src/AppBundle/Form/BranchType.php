@@ -21,7 +21,7 @@ class BranchType extends ImageEntityType
 					'required' => false
 			))
 			->add('color', null, array(
-					'required' => false
+					'required' => true
 			))
 			->add('content', CKEditorType::class, array(
 					'config' => array(

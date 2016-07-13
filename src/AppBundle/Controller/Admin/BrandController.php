@@ -82,6 +82,26 @@ class BrandController extends ImageEntityController {
 	}
 	
 	//------------------------------------------------------------------------
+	// Internal logic
+	//------------------------------------------------------------------------
+	
+	/**
+	 *
+	 * {@inheritDoc}
+	 * @see \AppBundle\Controller\Admin\Base\AdminEntityController::deleteMore()
+	 */
+	protected function deleteMore($entry)
+	{
+		$em = $this->getDoctrine()->getManager();
+		foreach ($entry->getBrandCategoryAssignments() as $brandCategoryAssignment) {
+			$em->remove($brandCategoryAssignment);
+		}
+		$em->flush();
+	
+		return array();
+	}
+	
+	//------------------------------------------------------------------------
 	// Entity creators
 	//------------------------------------------------------------------------
 	

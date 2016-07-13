@@ -120,14 +120,15 @@
 		</div>
 	</li>
 	
-	{% set hidden="hidden" %}
+	{% set hidden='hidden' %}
 	{% if is_granted('ROLE_ADMIN') or (is_granted('ROLE_EDITOR') and '_assignment' in mainPath ) %}
 		{% set hidden="" %}
 	{% endif %}
 		
+	{% set confirm = 'return confirm("' ~ 'confirm.deleteSelected'|trans ~ '")' %}
 	<li>
 		<div class="{{ hidden }}">
-			{{ form_widget(form.deleteSelected, { 'icon': 'fa-trash', 'label': 'action.deleteSelected', 'attr': {'class': 'btn btn-danger', 'type': 'button'} }) }}
+			{{ form_widget(form.deleteSelected, { 'icon': 'fa-trash', 'label': 'action.deleteSelected', 'attr': {'class': 'btn btn-danger', 'type': 'button', 'onclick': confirm } }) }}
 		</div>
 	</li>
 {% endblock %}
@@ -187,9 +188,10 @@
 		{% endif %}
 		
 		{% if is_granted('ROLE_ADMIN') or (is_granted('ROLE_EDITOR') and '_assignment' in mainPath ) %}
-			<a type="button" class="btn btn-sm btn-danger" href="{{ path('admin_' ~ mainPath ~ '_delete', { id: item.id, routeParams: routingParams.routeParams  }) }}">
-			<i class="fa fa-trash"></i>{{ 'action.delete'|trans }}
-		</a>
+			<a type="button" class="btn btn-sm btn-danger" onclick="return confirm('{{ 'confirm.delete'|trans }}')"
+				href="{{ path('admin_' ~ mainPath ~ '_delete', { id: item.id, routeParams: routingParams.routeParams  }) }}">
+				<i class="fa fa-trash"></i>{{ 'action.delete'|trans }}
+			</a>
 		{% endif %}
 	</td>
 {% endblock %}

@@ -51,6 +51,8 @@ abstract class AdminEntityController extends BaseEntityController {
 	
 		if ($form->isSubmitted() && $form->isValid())
 		{
+			$submitParams = array();
+			
 			if ($form->get('new')->isClicked()) {
 				return $this->redirectToRoute($this->getNewRoute());
 			}
@@ -59,18 +61,16 @@ abstract class AdminEntityController extends BaseEntityController {
 				foreach ($allEntries as $entry) {
 					$filter->addSelected($entry->getId());
 				}
-				return $this->redirectToRoute($this->getIndexRoute(), $filter->getValues());
 			}
 				
 			if ($form->get('selectNone')->isClicked()) {
 				$filter->clearSelected();
-				return $this->redirectToRoute($this->getIndexRoute(), $filter->getValues());
 			}
 				
 			if ($form->get('deleteSelected')->isClicked()) {
 				$data = $form->getData();
 				$entries = $data->getEntries();
-				$this->deleteSelected($entries);
+				$submitParams['errors'] = $this->deleteSelected($entries);
 			}
 				
 			if ($form->get('publishSelected')->isClicked()) {
@@ -84,8 +84,9 @@ abstract class AdminEntityController extends BaseEntityController {
 				$entries = $data->getEntries();
 				$this->setPublishedSelected($entries, false);
 			}
-	
-			return $this->redirectToRoute($this->getIndexRoute(), $filter->getValues());
+			
+			$submitParams = array_merge($submitParams, $filter->getValues());
+			return $this->redirectToRoute($this->getIndexRoute(), $submitParams);
 		}
 		$params['entries'] = $allEntries;
 		$params['form'] = $form->createView();
@@ -167,15 +168,52 @@ abstract class AdminEntityController extends BaseEntityController {
 	{
 		$this->denyAccessUnlessGranted($this->getDeleteRole(), null, 'Unable to access this page!');
 		
-		$em = $this->getDoctrine()->getManager();
-	
-		//Make sure entity exists :)
 		$entry = $this->getEntry($id);
-		$em->remove($entry);
-		$em->flush();
-	
+		
+		$validator = $this->get('validator');
+		$errors = $validator->validate($entry, null, array('removal'));
+		
 		$routingParams = $this->getRoutingParams($request);
-		return $this->redirectToRoute($routingParams['route'], $routingParams['routeParams']);
+		
+		if (count($errors) > 0) {
+			foreach ($errors as $error) {
+				$routingParams['routeParams']['errors'][] = $error->getMessage();
+			}
+			
+			return $this->redirectToRoute($routingParams['route'], $routingParams['routeParams']);
+		}
+		else {
+			$em = $this->getDoctrine()->getManager();
+			$em->getConnection()->beginTransaction();
+			
+			try {
+				$errors = $this->deleteMore($entry); 
+				if (count($errors) > 0) {
+					foreach ($errors as $error) {
+						$routingParams['routeParams']['errors'][] = $error->getMessage();
+					}
+					
+					$em->getConnection()->rollback();
+				}
+				else {
+					$em->remove($entry);
+					$em->flush();
+					
+					$em->getConnection()->commit();
+					return $this->redirectToRoute($this->getIndexRoute());
+				}
+			} catch (Exception $ex) {
+				$em->getConnection()->rollback();
+				$routingParams['routeParams']['errors'][] = $ex->getMessage();
+			}
+			
+			return $this->redirectToRoute($routingParams['route'], $routingParams['routeParams']);
+		}
+	}
+	
+	protected function deleteMore($entry) 
+	{
+		return array();
 	}
 	
 	protected function setPublishedActionInternal(Request $request, $id)
@@ -217,13 +255,28 @@ abstract class AdminEntityController extends BaseEntityController {
 	protected function deleteSelected($entries)
 	{
 		$this->denyAccessUnlessGranted($this->getDeleteRole(), null, 'Unable to access this page!');
-		
+	
 		$em = $this->getDoctrine()->getManager();
+		
+		$validator = $this->get('validator');
+		$errors = array();
 	
-		foreach ($entries as $entry)
-			$em->remove($entry);
-	
+		foreach ($entries as $entry) {
+			$entryErrors = $validator->validate($entry, null, array('removal'));
+			
+			if (count($entryErrors) > 0) {
+				foreach ($entryErrors as $error) {
+					$errors[] = $error->getMessage();
+				}
+			}
+			else {
+				$em->remove($entry);
+			}
+		}
+		
 		$em->flush();
+		
+		return $errors;
 	}
 	
 	protected function setPublishedSelected($entries, $published)

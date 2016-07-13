@@ -16,7 +16,7 @@ class SimpleEntity extends Audit
     /**
      * @var string
      */
-    private $name;
+    protected $name;
 
 
     /**

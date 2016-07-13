@@ -1,0 +1,8 @@
+AppBundle\Entity\Article:
+    properties:
+        name:
+            - NotBlank: ~
+        orderNumber:
+            - Range:
+                min: 0
+                max: 99   

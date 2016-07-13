@@ -20,6 +20,41 @@ class Category extends ImageTree
     /**
      * @var string
      */
+    private $subname;
+
+    /**
+     * @var integer
+     */
+    private $orderNumber;
+
+    /**
+     * @var string
+     */
+    private $slug;
+
+    /**
+     * @var string
+     */
+    private $icon;
+
+    /**
+     * @var string
+     */
+    private $featuredImage;
+
+    /**
+     * @var boolean
+     */
+    private $featured;
+
+    /**
+     * @var boolean
+     */
+    private $preleaf;
+
+    /**
+     * @var string
+     */
     private $content;
 
     /**
@@ -28,16 +63,208 @@ class Category extends ImageTree
     private $children;
 
     /**
-     * @var boolean
+     * @var \Doctrine\Common\Collections\Collection
      */
-    private $featured;
-    
+    private $articleCategoryAssignments;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $branchCategoryAssignments;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $brandCategoryAssignments;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $productCategoryAssignments;
+
+    /**
+     * @var \AppBundle\Entity\Category
+     */
+    private $parent;
+
     /**
      * Constructor
      */
     public function __construct()
     {
         $this->children = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->articleCategoryAssignments = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->branchCategoryAssignments = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->brandCategoryAssignments = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->productCategoryAssignments = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Set subname
+     *
+     * @param string $subname
+     *
+     * @return Category
+     */
+    public function setSubname($subname)
+    {
+        $this->subname = $subname;
+
+        return $this;
+    }
+
+    /**
+     * Get subname
+     *
+     * @return string
+     */
+    public function getSubname()
+    {
+        return $this->subname;
+    }
+
+    /**
+     * Set orderNumber
+     *
+     * @param integer $orderNumber
+     *
+     * @return Category
+     */
+    public function setOrderNumber($orderNumber)
+    {
+        $this->orderNumber = $orderNumber;
+
+        return $this;
+    }
+
+    /**
+     * Get orderNumber
+     *
+     * @return integer
+     */
+    public function getOrderNumber()
+    {
+        return $this->orderNumber;
+    }
+
+    /**
+     * Set slug
+     *
+     * @param string $slug
+     *
+     * @return Category
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
+
+        return $this;
+    }
+
+    /**
+     * Get slug
+     *
+     * @return string
+     */
+    public function getSlug()
+    {
+        return $this->slug;
+    }
+
+    /**
+     * Set icon
+     *
+     * @param string $icon
+     *
+     * @return Category
+     */
+    public function setIcon($icon)
+    {
+        $this->icon = $icon;
+
+        return $this;
+    }
+
+    /**
+     * Get icon
+     *
+     * @return string
+     */
+    public function getIcon()
+    {
+        return $this->icon;
+    }
+
+    /**
+     * Set featuredImage
+     *
+     * @param string $featuredImage
+     *
+     * @return Category
+     */
+    public function setFeaturedImage($featuredImage)
+    {
+        $this->featuredImage = $featuredImage;
+
+        return $this;
+    }
+
+    /**
+     * Get featuredImage
+     *
+     * @return string
+     */
+    public function getFeaturedImage()
+    {
+        return $this->featuredImage;
+    }
+
+    /**
+     * Set featured
+     *
+     * @param boolean $featured
+     *
+     * @return Category
+     */
+    public function setFeatured($featured)
+    {
+        $this->featured = $featured;
+
+        return $this;
+    }
+
+    /**
+     * Get featured
+     *
+     * @return boolean
+     */
+    public function getFeatured()
+    {
+        return $this->featured;
+    }
+
+    /**
+     * Set preleaf
+     *
+     * @param boolean $preleaf
+     *
+     * @return Category
+     */
+    public function setPreleaf($preleaf)
+    {
+        $this->preleaf = $preleaf;
+
+        return $this;
+    }
+
+    /**
+     * Get preleaf
+     *
+     * @return boolean
+     */
+    public function getPreleaf()
+    {
+        return $this->preleaf;
     }
 
     /**
@@ -99,298 +326,140 @@ class Category extends ImageTree
     }
 
     /**
-     * Set featured
+     * Add articleCategoryAssignment
      *
-     * @param boolean $featured
+     * @param \AppBundle\Entity\ArticleCategoryAssignment $articleCategoryAssignment
      *
      * @return Category
      */
-    public function setFeatured($featured)
+    public function addArticleCategoryAssignment(\AppBundle\Entity\ArticleCategoryAssignment $articleCategoryAssignment)
     {
-        $this->featured = $featured;
+        $this->articleCategoryAssignments[] = $articleCategoryAssignment;
 
         return $this;
     }
 
     /**
-     * Get featured
+     * Remove articleCategoryAssignment
      *
-     * @return boolean
+     * @param \AppBundle\Entity\ArticleCategoryAssignment $articleCategoryAssignment
      */
-    public function getFeatured()
+    public function removeArticleCategoryAssignment(\AppBundle\Entity\ArticleCategoryAssignment $articleCategoryAssignment)
     {
-        return $this->featured;
-    }
-    
-    /**
-     * @var string
-     */
-    private $icon;
-
-
-    /**
-     * Set icon
-     *
-     * @param string $icon
-     *
-     * @return Category
-     */
-    public function setIcon($icon)
-    {
-        $this->icon = $icon;
-
-        return $this;
+        $this->articleCategoryAssignments->removeElement($articleCategoryAssignment);
     }
 
     /**
-     * Get icon
-     *
-     * @return string
-     */
-    public function getIcon()
-    {
-        return $this->icon;
-    }
-    /**
-     * @var boolean
-     */
-    private $preleaf;
-
-
-    /**
-     * Set preleaf
-     *
-     * @param boolean $preleaf
-     *
-     * @return Category
-     */
-    public function setPreleaf($preleaf)
-    {
-        $this->preleaf = $preleaf;
-
-        return $this;
-    }
-
-    /**
-     * Get preleaf
-     *
-     * @return boolean
-     */
-    public function getPreleaf()
-    {
-        return $this->preleaf;
-    }
-    
-    /**
-     * @var string
-     */
-    private $subname;
-
-
-    /**
-     * Set subname
-     *
-     * @param string $subname
-     *
-     * @return Category
-     */
-    public function setSubname($subname)
-    {
-        $this->subname = $subname;
-
-        return $this;
-    }
-
-    /**
-     * Get subname
-     *
-     * @return string
-     */
-    public function getSubname()
-    {
-        return $this->subname;
-    }
-    
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    private $branchAssignments;
-    
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    private $brandAssignments;
-    
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    private $productAssignments;
-
-    /**
-     * Add branchAssignment
-     *
-     * @param \AppBundle\Entity\BranchCategoryAssignment $branchAssignment
-     *
-     * @return Category
-     */
-    public function addBranchAssignment(\AppBundle\Entity\BranchCategoryAssignment $branchAssignment)
-    {
-        $this->branchAssignments[] = $branchAssignment;
-
-        return $this;
-    }
-
-    /**
-     * Remove branchAssignment
-     *
-     * @param \AppBundle\Entity\BranchCategoryAssignment $branchAssignment
-     */
-    public function removeBranchAssignment(\AppBundle\Entity\BranchCategoryAssignment $branchAssignment)
-    {
-        $this->branchAssignments->removeElement($branchAssignment);
-    }
-
-    /**
-     * Get branchAssignments
+     * Get articleCategoryAssignments
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getBranchAssignments()
+    public function getArticleCategoryAssignments()
     {
-        return $this->branchAssignments;
+        return $this->articleCategoryAssignments;
     }
 
     /**
-     * Add brandAssignment
+     * Add branchCategoryAssignment
      *
-     * @param \AppBundle\Entity\BrandCategoryAssignment $brandAssignment
+     * @param \AppBundle\Entity\BranchCategoryAssignment $branchCategoryAssignment
      *
      * @return Category
      */
-    public function addBrandAssignment(\AppBundle\Entity\BrandCategoryAssignment $brandAssignment)
+    public function addBranchCategoryAssignment(\AppBundle\Entity\BranchCategoryAssignment $branchCategoryAssignment)
     {
-        $this->brandAssignments[] = $brandAssignment;
+        $this->branchCategoryAssignments[] = $branchCategoryAssignment;
 
         return $this;
     }
 
     /**
-     * Remove brandAssignment
+     * Remove branchCategoryAssignment
      *
-     * @param \AppBundle\Entity\BrandCategoryAssignment $brandAssignment
+     * @param \AppBundle\Entity\BranchCategoryAssignment $branchCategoryAssignment
      */
-    public function removeBrandAssignment(\AppBundle\Entity\BrandCategoryAssignment $brandAssignment)
+    public function removeBranchCategoryAssignment(\AppBundle\Entity\BranchCategoryAssignment $branchCategoryAssignment)
     {
-        $this->brandAssignments->removeElement($brandAssignment);
+        $this->branchCategoryAssignments->removeElement($branchCategoryAssignment);
     }
 
     /**
-     * Get brandAssignments
+     * Get branchCategoryAssignments
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getBrandAssignments()
+    public function getBranchCategoryAssignments()
     {
-        return $this->brandAssignments;
+        return $this->branchCategoryAssignments;
     }
 
     /**
-     * Add productAssignment
+     * Add brandCategoryAssignment
      *
-     * @param \AppBundle\Entity\ProductCategoryAssignment $productAssignment
+     * @param \AppBundle\Entity\BrandCategoryAssignment $brandCategoryAssignment
      *
      * @return Category
      */
-    public function addProductAssignment(\AppBundle\Entity\ProductCategoryAssignment $productAssignment)
+    public function addBrandCategoryAssignment(\AppBundle\Entity\BrandCategoryAssignment $brandCategoryAssignment)
     {
-        $this->productAssignments[] = $productAssignment;
+        $this->brandCategoryAssignments[] = $brandCategoryAssignment;
 
         return $this;
     }
 
     /**
-     * Remove productAssignment
+     * Remove brandCategoryAssignment
      *
-     * @param \AppBundle\Entity\ProductCategoryAssignment $productAssignment
+     * @param \AppBundle\Entity\BrandCategoryAssignment $brandCategoryAssignment
      */
-    public function removeProductAssignment(\AppBundle\Entity\ProductCategoryAssignment $productAssignment)
+    public function removeBrandCategoryAssignment(\AppBundle\Entity\BrandCategoryAssignment $brandCategoryAssignment)
     {
-        $this->productAssignments->removeElement($productAssignment);
+        $this->brandCategoryAssignments->removeElement($brandCategoryAssignment);
     }
 
     /**
-     * Get productAssignments
+     * Get brandCategoryAssignments
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getProductAssignments()
+    public function getBrandCategoryAssignments()
     {
-        return $this->productAssignments;
+        return $this->brandCategoryAssignments;
     }
-    /**
-     * @var integer
-     */
-    private $orderNumber;
-
 
     /**
-     * Set orderNumber
+     * Add productCategoryAssignment
      *
-     * @param integer $orderNumber
+     * @param \AppBundle\Entity\ProductCategoryAssignment $productCategoryAssignment
      *
      * @return Category
      */
-    public function setOrderNumber($orderNumber)
+    public function addProductCategoryAssignment(\AppBundle\Entity\ProductCategoryAssignment $productCategoryAssignment)
     {
-        $this->orderNumber = $orderNumber;
+        $this->productCategoryAssignments[] = $productCategoryAssignment;
 
         return $this;
     }
 
     /**
-     * Get orderNumber
+     * Remove productCategoryAssignment
      *
-     * @return integer
+     * @param \AppBundle\Entity\ProductCategoryAssignment $productCategoryAssignment
      */
-    public function getOrderNumber()
+    public function removeProductCategoryAssignment(\AppBundle\Entity\ProductCategoryAssignment $productCategoryAssignment)
     {
-        return $this->orderNumber;
-    }
-    /**
-     * @var string
-     */
-    private $slug;
-
-
-    /**
-     * Set slug
-     *
-     * @param string $slug
-     *
-     * @return Category
-     */
-    public function setSlug($slug)
-    {
-        $this->slug = $slug;
-
-        return $this;
+        $this->productCategoryAssignments->removeElement($productCategoryAssignment);
     }
 
     /**
-     * Get slug
+     * Get productCategoryAssignments
      *
-     * @return string
+     * @return \Doctrine\Common\Collections\Collection
      */
-    public function getSlug()
+    public function getProductCategoryAssignments()
     {
-        return $this->slug;
+        return $this->productCategoryAssignments;
     }
-    
-    /**
-     * @var \AppBundle\Entity\Category
-     */
-    private $parent;
-
 
     /**
      * Set parent
@@ -414,34 +483,5 @@ class Category extends ImageTree
     public function getParent()
     {
         return $this->parent;
-    }
-    /**
-     * @var string
-     */
-    private $featuredImage;
-
-
-    /**
-     * Set featuredImage
-     *
-     * @param string $featuredImage
-     *
-     * @return Category
-     */
-    public function setFeaturedImage($featuredImage)
-    {
-        $this->featuredImage = $featuredImage;
-
-        return $this;
-    }
-
-    /**
-     * Get featuredImage
-     *
-     * @return string
-     */
-    public function getFeaturedImage()
-    {
-        return $this->featuredImage;
     }
 }

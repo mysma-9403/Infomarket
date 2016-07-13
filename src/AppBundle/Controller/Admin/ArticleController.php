@@ -102,6 +102,9 @@ class ArticleController extends ImageEntityController {
 	
 	
 	
+	//------------------------------------------------------------------------
+	// Internal logic
+	//------------------------------------------------------------------------
 	
 	/**
 	 *
@@ -114,6 +117,33 @@ class ArticleController extends ImageEntityController {
 	{
 		$params = $this->getShowParams($request, $id);
 		return $this->render($this->getPreviewView(), $params);
+	}
+	
+	/**
+	 *
+	 * {@inheritDoc}
+	 * @see \AppBundle\Controller\Admin\Base\AdminEntityController::deleteMore()
+	 */
+	protected function deleteMore($entry)
+	{
+		$em = $this->getDoctrine()->getManager();
+		foreach ($entry->getArticleArticleCategoryAssignments() as $articleArticleCategoryAssignment) {
+			$em->remove($articleArticleCategoryAssignment);
+		}
+		$em->flush();
+		
+		foreach ($entry->getArticleCategoryAssignments() as $articleCategoryAssignment) {
+			$em->remove($articleCategoryAssignment);
+		}
+		$em->flush();
+		
+		foreach ($entry->getChildren() as $subentry) {
+			$this->deleteMore($subentry);
+			$em->remove($subentry);
+		}
+		$em->flush();
+	
+		return array();
 	}
 	
 	//------------------------------------------------------------------------

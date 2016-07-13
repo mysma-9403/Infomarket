@@ -1,0 +1,11 @@
+AppBundle\Entity\ArticleCategory:
+    constraints:
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: name
+    properties:
+        name:
+            - NotBlank: ~
+        articleArticleCategoryAssignments:
+            - Count:
+                groups: [removal]
+                max: 0
+                exactMessage: articleCategory.usedIn.articleArticleCategoryAssignments

@@ -22,7 +22,21 @@ class Segment extends ImageEntity
     /**
      * @var \Doctrine\Common\Collections\Collection
      */
-    private $products;
+    private $productCategoryAssignments;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $brandCategoryAssignments;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->productCategoryAssignments = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->brandCategoryAssignments = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
     /**
      * Set content
@@ -49,44 +63,70 @@ class Segment extends ImageEntity
     }
 
     /**
-     * Add product
+     * Add productCategoryAssignment
      *
-     * @param \AppBundle\Entity\Product $product
+     * @param \AppBundle\Entity\ProductCategoryAssignment $productCategoryAssignment
      *
      * @return Segment
      */
-    public function addProduct(\AppBundle\Entity\Product $product)
+    public function addProductCategoryAssignment(\AppBundle\Entity\ProductCategoryAssignment $productCategoryAssignment)
     {
-        $this->products[] = $product;
+        $this->productCategoryAssignments[] = $productCategoryAssignment;
 
         return $this;
     }
 
     /**
-     * Remove product
+     * Remove productCategoryAssignment
      *
-     * @param \AppBundle\Entity\Product $product
+     * @param \AppBundle\Entity\ProductCategoryAssignment $productCategoryAssignment
      */
-    public function removeProduct(\AppBundle\Entity\Product $product)
+    public function removeProductCategoryAssignment(\AppBundle\Entity\ProductCategoryAssignment $productCategoryAssignment)
     {
-        $this->products->removeElement($product);
+        $this->productCategoryAssignments->removeElement($productCategoryAssignment);
     }
 
     /**
-     * Get products
+     * Get productCategoryAssignments
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getProducts()
+    public function getProductCategoryAssignments()
     {
-        return $this->products;
-    }
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->products = new \Doctrine\Common\Collections\ArrayCollection();
+        return $this->productCategoryAssignments;
     }
 
+    /**
+     * Add brandCategoryAssignment
+     *
+     * @param \AppBundle\Entity\BrandCategoryAssignment $brandCategoryAssignment
+     *
+     * @return Segment
+     */
+    public function addBrandCategoryAssignment(\AppBundle\Entity\BrandCategoryAssignment $brandCategoryAssignment)
+    {
+        $this->brandCategoryAssignments[] = $brandCategoryAssignment;
+
+        return $this;
+    }
+
+    /**
+     * Remove brandCategoryAssignment
+     *
+     * @param \AppBundle\Entity\BrandCategoryAssignment $brandCategoryAssignment
+     */
+    public function removeBrandCategoryAssignment(\AppBundle\Entity\BrandCategoryAssignment $brandCategoryAssignment)
+    {
+        $this->brandCategoryAssignments->removeElement($brandCategoryAssignment);
+    }
+
+    /**
+     * Get brandCategoryAssignments
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getBrandCategoryAssignments()
+    {
+        return $this->brandCategoryAssignments;
+    }
 }

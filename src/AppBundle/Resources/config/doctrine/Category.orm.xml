@@ -36,20 +36,20 @@
             </order-by>
         </one-to-many>
         
-        <one-to-many field="branchAssignments" target-entity="BranchCategoryAssignment" mapped-by="category">
-        	<order-by>
-            	<order-by-field name="id" direction="ASC" />
-            </order-by>
+        <one-to-many field="articleCategoryAssignments" target-entity="ArticleCategoryAssignment" mapped-by="category">
         </one-to-many>
         
-        <one-to-many field="brandAssignments" target-entity="BrandCategoryAssignment" mapped-by="category">
+        <one-to-many field="branchCategoryAssignments" target-entity="BranchCategoryAssignment" mapped-by="category">
+        </one-to-many>
+        
+        <one-to-many field="brandCategoryAssignments" target-entity="BrandCategoryAssignment" mapped-by="category">
             <order-by>
             	<order-by-field name="segment" direction="ASC" />
             	<order-by-field name="orderNumber" direction="ASC" />
             </order-by>
         </one-to-many>
         
-        <one-to-many field="productAssignments" target-entity="ProductCategoryAssignment" mapped-by="category">
+        <one-to-many field="productCategoryAssignments" target-entity="ProductCategoryAssignment" mapped-by="category">
             <order-by>
             	<order-by-field name="segment" direction="ASC" />
             	<order-by-field name="orderNumber" direction="ASC" />

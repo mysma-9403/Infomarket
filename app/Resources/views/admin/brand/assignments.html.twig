@@ -15,20 +15,20 @@
 
 <table class="table table-striped vert-align">
 	<tbody>
-	{% for categoryAssignment in entry.categoryAssignments %}
+	{% for brandCategoryAssignment in entry.brandCategoryAssignments %}
 		<tr>
 			<td>
-				<a href="{{ path('admin_category_show', { id: categoryAssignment.category.id }) }}">
-					{{ categoryAssignment.category.name }}
+				<a href="{{ path('admin_category_show', { id: brandCategoryAssignment.category.id }) }}">
+					{{ brandCategoryAssignment.category.name }}
 				</a>
 			</td>
 			{% if is_granted('ROLE_EDITOR') %}
 				<td>
-					<a href="{{ path('admin_brand_category_assignment_edit', { id: categoryAssignment.id, route: basePath ~ mainPath ~ extPath, routeParams: { id: entry.id } }) }}" class="btn btn-warning">
+					<a href="{{ path('admin_brand_category_assignment_edit', { id: brandCategoryAssignment.id, route: basePath ~ mainPath ~ extPath, routeParams: { id: entry.id } }) }}" class="btn btn-warning">
 						<span class="fa fa-edit"></span> 
 						{{ 'action.edit'|trans }}
 					</a>
-					<a href="{{ path('admin_brand_category_assignment_delete', { id: categoryAssignment.id, route: basePath ~ mainPath ~ extPath, routeParams: { id: entry.id } }) }}" class="btn btn-danger">
+					<a href="{{ path('admin_brand_category_assignment_delete', { id: brandCategoryAssignment.id, route: basePath ~ mainPath ~ extPath, routeParams: { id: entry.id } }) }}" class="btn btn-danger">
 						<span class="fa fa-trash"></span> 
 						{{ 'action.delete'|trans }}
 					</a>

@@ -1,0 +1,16 @@
+AppBundle\Entity\Segment:
+    constraints:
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: name
+    properties:
+        name:
+            - NotBlank: ~
+        brandCategoryAssignments:
+            - Count:
+                groups: [removal]
+                max: 0
+                exactMessage: segment.usedIn.brandCategoryAssignments
+        productCategoryAssignments:
+            - Count:
+                groups: [removal]
+                max: 0
+                exactMessage: segment.usedIn.productCategoryAssignments

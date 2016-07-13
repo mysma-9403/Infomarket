@@ -48,4 +48,50 @@ class ArticleCategory extends ImageEntity
     {
         return $this->featured;
     }
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $articleArticleCategoryAssignments;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->articleArticleCategoryAssignments = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add articleArticleCategoryAssignment
+     *
+     * @param \AppBundle\Entity\ArticleArticleCategoryAssignment $articleArticleCategoryAssignment
+     *
+     * @return ArticleCategory
+     */
+    public function addArticleArticleCategoryAssignment(\AppBundle\Entity\ArticleArticleCategoryAssignment $articleArticleCategoryAssignment)
+    {
+        $this->articleArticleCategoryAssignments[] = $articleArticleCategoryAssignment;
+
+        return $this;
+    }
+
+    /**
+     * Remove articleArticleCategoryAssignment
+     *
+     * @param \AppBundle\Entity\ArticleArticleCategoryAssignment $articleArticleCategoryAssignment
+     */
+    public function removeArticleArticleCategoryAssignment(\AppBundle\Entity\ArticleArticleCategoryAssignment $articleArticleCategoryAssignment)
+    {
+        $this->articleArticleCategoryAssignments->removeElement($articleArticleCategoryAssignment);
+    }
+
+    /**
+     * Get articleArticleCategoryAssignments
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getArticleArticleCategoryAssignments()
+    {
+        return $this->articleArticleCategoryAssignments;
+    }
 }

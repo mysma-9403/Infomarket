@@ -35,6 +35,13 @@
 		</a>
 	{% endif %}
 	 
+	{% if is_granted('ROLE_ADMIN') or (is_granted('ROLE_EDITOR') and '_assignment' in mainPath ) %}
+		<a type="button" class="btn btn-danger" onclick="return confirm('{{ 'confirm.delete'|trans }}')" 
+			href="{{ path(basePath ~ mainPath ~ '_delete', { id: entry.id, route: basePath ~ mainPath ~ extPath, routeParams: { id: entry.id } }) }}">
+    		<i class="fa fa-trash"></i> {{ 'action.delete'|trans }}
+		</a>
+	{% endif %}
+		
 	<a type="button" class="btn btn-primary" href="{{ path(routingParams.route, routingParams.routeParams) }}">
     	<i class="fa fa-close"></i>{{ 'action.back'|trans }}
 	</a>

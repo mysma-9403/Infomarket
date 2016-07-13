@@ -11,6 +11,8 @@
         
         <field name="featured" type="boolean" default="false" />
         
+        <one-to-many field="articleArticleCategoryAssignments" target-entity="ArticleArticleCategoryAssignment" mapped-by="articleCategory">
+        </one-to-many>
     </entity>
     
 </doctrine-mapping>

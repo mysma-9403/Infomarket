@@ -4,6 +4,16 @@
 {% set mainPath = 'article' %}
 {% set gender = 'm.' %}
 
+{% block moreFields1 %}
+	{% if entry.brand %}
+	<div class="row">
+		<div class="col-xs-12">
+			<h3>{{ entry.brand.name | raw }}</h3>
+		</div>
+	</div>
+	{% endif %}
+{% endblock %}
+
 {% block moreFields2 %}
 	<div class="row">
 		<div class="col-xs-12">
@@ -49,6 +59,10 @@
 	
 	{% include 'common/fields/bool_field.html.twig' with 
 	{ 'label': 'label.article.displaySided'|trans, 'value': entry.displaySided } %}
+	
+	{% include 'common/fields/bool_field.html.twig' with 
+	{ 'label': 'label.article.displayPaginated'|trans, 'value': entry.displayPaginated } %}
+	
 {% endblock %}
 
 {% block moreActions1 %}

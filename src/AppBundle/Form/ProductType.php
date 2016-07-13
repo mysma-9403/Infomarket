@@ -8,8 +8,9 @@ use AppBundle\Form\Base\ImageEntityType;
 use AppBundle\Form\Base\SimpleEntityType;
 use AppBundle\Repository\BrandRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
-use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 
 class ProductType extends ImageEntityType
 {
@@ -33,8 +34,9 @@ class ProductType extends ImageEntityType
 					'multiple'      => false,
 					'placeholder'	=> 'label.choose.brand'
 			))
-			->add('price', IntegerType::class, array(
-					'required' => false
+			->add('price', NumberType::class, array(
+					'required' => false,
+					'scale'	=> 2
 			))
 			->add('guarantee', IntegerType::class, array(
 					'required' => false

@@ -18,14 +18,12 @@
 			</a>
 	    </div>
 	    
-	    {% set hidden="hidden" %}
 		{% if is_granted('ROLE_ADMIN') or (is_granted('ROLE_EDITOR') and '_assignment' in mainPath ) %}
-			{% set hidden="" %}
+			<a type="button" class="btn btn-danger" onclick="return confirm('{{ 'confirm.delete'|trans }}')" 
+				href="{{ path(basePath ~ mainPath ~ '_delete', { id: entry.id, route: basePath ~ mainPath ~ extPath, routeParams: { id: entry.id } }) }}">
+	    		<i class="fa fa-trash"></i> {{ 'action.delete'|trans }}
+			</a>
 		{% endif %}
-
-		<a type="button" class="btn btn-danger {{ hidden }}" href="{{ path(basePath ~ mainPath ~ '_delete', { id: entry.id, routingParams: routingParams }) }}">
-	    	<i class="fa fa-trash"></i> {{ 'action.delete'|trans }}
-		</a>
     {% endif %}
     <div class="btn-group">
 	    <a type="button" class="btn btn-primary" href="{{ path(routingParams.route, routingParams.routeParams) }}">

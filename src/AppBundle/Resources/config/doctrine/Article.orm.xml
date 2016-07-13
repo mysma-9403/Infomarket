@@ -18,7 +18,7 @@
         
         <many-to-one field="parent" target-entity="Article" nullable="true" />
         
-        <field name="orderNumber" type="integer" default="1"/>
+        <field name="orderNumber" type="integer" default="1" nullable="true" />
         <field name="layout" type="integer" default="0"/>
         <field name="displaySided" type="boolean" default="false" />
         <field name="displayPaginated" type="boolean" default="false" />
@@ -30,16 +30,10 @@
             </order-by>
         </one-to-many>
         
-        <one-to-many field="articleCategoryAssignments" target-entity="ArticleArticleCategoryAssignment" mapped-by="article">
-            <order-by>
-            	<order-by-field name="articleCategory" direction="ASC" />
-            </order-by>
+        <one-to-many field="articleArticleCategoryAssignments" target-entity="ArticleArticleCategoryAssignment" mapped-by="article">
         </one-to-many>
         
-        <one-to-many field="categoryAssignments" target-entity="ArticleCategoryAssignment" mapped-by="article">
-            <order-by>
-            	<order-by-field name="category" direction="ASC" />
-            </order-by>
+        <one-to-many field="articleCategoryAssignments" target-entity="ArticleCategoryAssignment" mapped-by="article">
         </one-to-many>
         
     </entity>

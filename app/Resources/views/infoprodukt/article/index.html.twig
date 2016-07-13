@@ -19,8 +19,17 @@
 								</div>
 							</div>
 							<div class="col-sm-9">
+								{% if entry.brand %}
+								<a href="{{ path('infoprodukt_brand_show', { 'id': entry.brand.id }) }}">
+									<h2 class="text-red">{{ entry.brand.name | raw }}</h2>
+								</a>
+								{% endif %}
+								
 								<a href="{{ path('infoprodukt_' ~ mainPath ~ '_show', { 'id': entry.id }) }}">
-									<h4>{{ entry.name | raw }}</h4>
+									<h3>
+										<span class="text-brand">{{ entry.name | raw }}</span> 
+										<span class="text-red">{{ entry.subname | raw }}</span>
+									</h3>
 								</a>
 								<p class="text-muted">
 									<span class="fa fa-calendar"></span> {{ entry.publishedAt | date('Y-m-d') }}

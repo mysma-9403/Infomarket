@@ -6,6 +6,11 @@
 {% block mainContent %}
 	{% block header %}
 	<div class="row">
+		<div class="col-xs-12">
+			<h2 class="text-red">{{ entry.name | raw }}</h2>
+		</div>
+	</div>
+	<div class="row">
 		{% block logo %}
 		<div class="col-sm-6">
 			<div class="rect-2x1">
@@ -16,8 +21,6 @@
 		
 		{% block summary %}
 		<div class="col-sm-6">
-			<h1>{{ entry.name | raw }}</h1>
-			
 			<div class="row">
 				<div class="col-xs-4">
 					<p><strong>Producent: </strong></p>

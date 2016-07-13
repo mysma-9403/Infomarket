@@ -22,7 +22,7 @@ class CategoryType extends ImageEntityType
 					'required' => false
 			))
 			->add('orderNumber', null, array(
-					'required' => false
+					'required' => true
 			))
 			->add('icon', null, array(
 					'required' => false

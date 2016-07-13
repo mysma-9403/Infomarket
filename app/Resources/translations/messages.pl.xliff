@@ -737,6 +737,14 @@
             
             
             
+            <trans-unit id="confirm.delete">
+                <source>confirm.delete</source>
+                <target>Jesteś pewien, że chcesz usunąć ten obiekt?</target>
+            </trans-unit>
+            <trans-unit id="confirm.deleteSelected">
+                <source>confirm.deleteSelected</source>
+                <target>Jesteś pewien, że chcesz usunąć zaznaczone obiekty?</target>
+            </trans-unit>
             
             
             <trans-unit id="text.slogan1">

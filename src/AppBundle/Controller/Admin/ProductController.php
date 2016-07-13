@@ -85,6 +85,26 @@ class ProductController extends ImageEntityController {
 	{
 		return $this->setPublishedActionInternal($request, $id);
 	}
+
+	//------------------------------------------------------------------------
+	// Internal logic
+	//------------------------------------------------------------------------
+	
+	/**
+	 * 
+	 * {@inheritDoc}
+	 * @see \AppBundle\Controller\Admin\Base\AdminEntityController::deleteMore()
+	 */
+	protected function deleteMore($entry)
+	{
+		$em = $this->getDoctrine()->getManager();
+		foreach ($entry->getProductCategoryAssignments() as $productCategoryAssignment) {
+			$em->remove($productCategoryAssignment);
+		}
+		$em->flush();
+		
+		return array();
+	}
 	
 	//------------------------------------------------------------------------
 	// Entity creators

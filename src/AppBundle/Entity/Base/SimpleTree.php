@@ -32,17 +32,17 @@ class SimpleTree extends Audit
     /**
      * @var string
      */
-    private $name;
+    protected $name;
 
     /**
      * @var integer
      */
-    private $level;
+    protected $level;
 
     /**
      * @var string
      */
-    private $treePath;
+    protected $treePath;
 
 
     /**

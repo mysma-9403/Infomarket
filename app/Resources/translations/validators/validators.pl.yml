@@ -1,0 +1,27 @@
+category.name.unique: Podana nazwa jest już wykorzystywana w innej podkategorii wybranej kategorii głównej.
+
+# Assignment errors
+articleCategory.usedIn.articleArticleCategoryAssignments: Kategoria artykułów jest używana w niektórych artykułach i nie może być usunięta.
+
+branch.usedIn.branchCategoryAssignments: Branża jest używana w niektórych kategoriach i nie może być usunięta.
+
+brand.usedIn.products: Marka jest używana w niektórych produktach i nie może być usunięta.
+
+category.usedIn.children: Kategoria jest używana w niektórych podkategoriach i nie może być usunięta.
+category.usedIn.articleCategoryAssignments: Kategoria jest używana w niektórych artykułach i nie może być usunięta.
+category.usedIn.brandCategoryAssignments: Kategoria jest używana w niektórych ratingach marek i nie może być usunięta.
+category.usedIn.productsCategoryAssignments: Kategoria jest używana w niektórych ratingach produktów i nie może być usunięta.
+
+segment.usedIn.brandCategoryAssignments: Segment jest używany w niektórych ratingach marek i nie może być usunięty.
+segment.usedIn.productCategoryAssignments: Segment jest używany w niektórych ratingach produktów i nie może być usunięty.
+
+#Assignment warnings
+article.usedIn.children: Artykuł posiada podartykuły. Usunięcie artykułu spowoduje usunięcie tych podartykułów.
+article.usedIn.articleArticleCategoryAssignments: Artykuł jest powiązany z niektórymi kategoriami artykułów. Usunięcie artykułu spowoduje usunięcie tych powiązań.
+article.usedIn.articleCategoryAssignments: Artykuł jest powiązany z niektórymi kategoriami. Usunięcie artykułu spowoduje usunięcie tych powiązań.
+
+brand.usedIn.brandCategoryAssignments: Marka występuje w niekótrych ratingach marek. Usunięcie marki spowoduje usunięcie tych wpisów.
+
+category.usedIn.branchCategoryAssignments: Kategoria jest powiązana z niektórymi branżami. Usunięcie kategorii spowoduje usunięcie tych powiązań.
+
+product.usedIn.productCategoryAssignments: Produkt występuje w niekótrych ratingach produktów. Usunięcie produktu spowoduje usunięcie tych wpisów. 

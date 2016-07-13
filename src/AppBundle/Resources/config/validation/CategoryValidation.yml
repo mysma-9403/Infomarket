@@ -1,0 +1,36 @@
+AppBundle\Entity\Category:
+    constraints:
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
+            fields: [parent, name, subname]
+            errorPath: name
+            ignoreNull: false
+            message: 'category.name.unique'
+    properties:
+        name:
+            - NotBlank: ~
+        orderNumber:
+            - NotBlank: ~
+            - Range:
+                min: 0
+                max: 99
+        children:
+            - Count:
+                groups: [removal]
+                max: 0
+                exactMessage: category.usedIn.children
+        articleCategoryAssignments:
+            - Count:
+                groups: [removal]
+                max: 0
+                exactMessage: category.usedIn.articleCategoryAssignments
+        brandCategoryAssignments:
+            - Count:
+                groups: [removal]
+                max: 0
+                exactMessage: category.usedIn.brandCategoryAssignments
+        productCategoryAssignments:
+            - Count:
+                groups: [removal]
+                max: 0
+                exactMessage: category.usedIn.productCategoryAssignments
+                

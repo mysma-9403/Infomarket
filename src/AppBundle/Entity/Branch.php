@@ -26,17 +26,25 @@ class Branch extends ImageEntity
      * @var string
      */
     private $color;
-    
+
     /**
      * @var string
      */
     private $icon;
-    
+
     /**
      * @var \Doctrine\Common\Collections\Collection
      */
-    private $categories;
-    
+    private $branchCategoryAssignments;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->branchCategoryAssignments = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
     /**
      * Set content
      *
@@ -110,44 +118,36 @@ class Branch extends ImageEntity
     }
 
     /**
-     * Add category
+     * Add branchCategoryAssignment
      *
-     * @param \AppBundle\Entity\Category $category
+     * @param \AppBundle\Entity\BranchCategoryAssignment $branchCategoryAssignment
      *
      * @return Branch
      */
-    public function addCategory(\AppBundle\Entity\Category $category)
+    public function addBranchCategoryAssignment(\AppBundle\Entity\BranchCategoryAssignment $branchCategoryAssignment)
     {
-        $this->categories[] = $category;
+        $this->branchCategoryAssignments[] = $branchCategoryAssignment;
 
         return $this;
     }
 
     /**
-     * Remove category
+     * Remove branchCategoryAssignment
      *
-     * @param \AppBundle\Entity\Category $category
+     * @param \AppBundle\Entity\BranchCategoryAssignment $branchCategoryAssignment
      */
-    public function removeCategory(\AppBundle\Entity\Category $category)
+    public function removeBranchCategoryAssignment(\AppBundle\Entity\BranchCategoryAssignment $branchCategoryAssignment)
     {
-        $this->categories->removeElement($category);
+        $this->branchCategoryAssignments->removeElement($branchCategoryAssignment);
     }
 
     /**
-     * Get categories
+     * Get branchCategoryAssignments
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getCategories()
+    public function getBranchCategoryAssignments()
     {
-        return $this->categories;
+        return $this->branchCategoryAssignments;
     }
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->categories = new \Doctrine\Common\Collections\ArrayCollection();
-    }
-
 }

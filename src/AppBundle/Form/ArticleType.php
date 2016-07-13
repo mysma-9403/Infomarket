@@ -92,7 +92,7 @@ class ArticleType extends ImageEntityType
 					'multiple'      => false
 			))
 			->add('orderNumber', NumberType::class, array(
-					'required' => true
+					'required' => false
 			))
 			->add('displaySided', null, array(
 					'required' => false
