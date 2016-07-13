@@ -4,6 +4,11 @@ AppBundle\Entity\Brand:
     properties:
         name:
             - NotBlank: ~
+        articles:
+            - Count:
+                groups: [removal]
+                max: 0
+                exactMessage: brand.usedIn.articles
         products:
             - Count:
                 groups: [removal]
