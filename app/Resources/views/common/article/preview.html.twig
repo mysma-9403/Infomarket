@@ -114,7 +114,7 @@
 {% block back %}
 <div class="row">
 	<div class="col-xs-12">
-		<a class="btn btn-primary fa fa-arrow-circle-o-left" href="{{ path(routingParams.route, routingParams.routeParams) }}"></a>
+		<a class="btn btn-primary fa fa-arrow-circle-o-left" href="{{ app.request.headers.get('referer') }}"></a>
 		<a class="btn btn-primary fa fa-arrow-circle-o-up pull-right" href="#"></a>
 	</div>
 </div>	

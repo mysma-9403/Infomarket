@@ -70,7 +70,7 @@ abstract class AdminEntityController extends BaseEntityController {
 			if ($form->get('deleteSelected')->isClicked()) {
 				$data = $form->getData();
 				$entries = $data->getEntries();
-				$submitParams['errors'] = $this->deleteSelected($entries);
+				$this->deleteSelected($entries);
 			}
 				
 			if ($form->get('publishSelected')->isClicked()) {
@@ -177,12 +177,9 @@ abstract class AdminEntityController extends BaseEntityController {
 		
 		if (count($errors) > 0) {
 			foreach ($errors as $error) {
-				$routingParams['routeParams']['errors'][] = $error->getMessage();
+				$this->addFlash('error', $error->getMessage());
 			}
-			
-			return $this->redirectToRoute($routingParams['route'], $routingParams['routeParams']);
-		}
-		else {
+		} else {
 			$em = $this->getDoctrine()->getManager();
 			$em->getConnection()->beginTransaction();
 			
@@ -190,7 +187,7 @@ abstract class AdminEntityController extends BaseEntityController {
 				$errors = $this->deleteMore($entry); 
 				if (count($errors) > 0) {
 					foreach ($errors as $error) {
-						$routingParams['routeParams']['errors'][] = $error->getMessage();
+						$this->addFlash('error', $error->getMessage());
 					}
 					
 					$em->getConnection()->rollback();
@@ -200,15 +197,15 @@ abstract class AdminEntityController extends BaseEntityController {
 					$em->flush();
 					
 					$em->getConnection()->commit();
-					return $this->redirectToRoute($this->getIndexRoute());
 				}
 			} catch (Exception $ex) {
 				$em->getConnection()->rollback();
-				$routingParams['routeParams']['errors'][] = $ex->getMessage();
+				$this->addFlash('error', $ex->getMessage());
 			}
-			
-			return $this->redirectToRoute($routingParams['route'], $routingParams['routeParams']);
 		}
+		
+		$routingParams['routingParams'] = $routingParams;
+		return $this->redirectToRoute($routingParams['route'], $routingParams['routeParams']);
 	}
 	
 	protected function deleteMore($entry) 
@@ -259,14 +256,13 @@ abstract class AdminEntityController extends BaseEntityController {
 		$em = $this->getDoctrine()->getManager();
 		
 		$validator = $this->get('validator');
-		$errors = array();
 	
 		foreach ($entries as $entry) {
 			$entryErrors = $validator->validate($entry, null, array('removal'));
 			
 			if (count($entryErrors) > 0) {
 				foreach ($entryErrors as $error) {
-					$errors[] = $error->getMessage();
+					$this->addFlash('error', $error->getMessage());
 				}
 			}
 			else {
@@ -276,14 +272,12 @@ abstract class AdminEntityController extends BaseEntityController {
 						$errors[] = $error->getMessage();
 					}
 				} else {
-					$em->remove($entry);
+					$this->addFlash('error', $error->getMessage());
 				}
 			}
 		}
 		
 		$em->flush();
-		
-		return $errors;
 	}
 	
 	protected function setPublishedSelected($entries, $published)
@@ -317,44 +311,18 @@ abstract class AdminEntityController extends BaseEntityController {
 		{
 			$this->saveEntry($entry);
 	
-			$this->addFlash('success', 'info.entry.created_successfully'); //TODO label
-	
+			$this->addFlash('success', 'success.created');
+			
 			if ($form->get('save')->isClicked()) {
 				$params['id'] = $entry->getId();
 				return $this->redirectToRoute($this->getEditRoute(), $params);
 			}
 		}
+		
 		$params['entry'] = $entry;
 		$params['form'] = $form->createView();
 	
 		return $this->render($this->getEditView(), $params);
-	}
-	
-	/**
-	 * 
-	 * {@inheritDoc}
-	 * @see \AppBundle\Controller\Base\BaseEntityController::getIndexRoutingParams()
-	 */
-	protected function getIndexRoutingParams(Request $request)
-	{
-		$params = array();
-		 
-		$routeParams = $request->get('routeParams', []);
-		$routeParams['page'] = $request->get('page', null);
-	
-		//TODO filter and entryFilter are little different, getEntityFilter should be split into two stages:
-		// 1. init from request -> use in route params
-		// 2. init additional data like published = true -> in admin panel its not desireable!!
-	
-		$filter = $this->createNewFilter();
-		$filter->initValues($request);
-	
-		$routeParams = array_merge($routeParams, $filter->getValues());
-
-		$params['route'] = $request->get('route', $this->getIndexRoute());
-		$params['routeParams'] = $routeParams;
-		 
-		return $params;
 	}
 	
 	/**
@@ -365,7 +333,7 @@ abstract class AdminEntityController extends BaseEntityController {
 	 */
 	protected function getEditParams(Request $request, $entry)
 	{
-		$params = $this->getParams($request);
+		$params = $this->getRouteParams($request);
 		
 		$params['entry'] = $entry;
 		 

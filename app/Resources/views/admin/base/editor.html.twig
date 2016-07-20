@@ -10,23 +10,24 @@
 	</div>
     {% if entry.id %}
 	    <div class="btn-group">
-	    	<a type="button" class="btn btn-success" href="{{ path(basePath ~ mainPath ~ '_new', { routingParams: routingParams }) }}">
+	    	<a type="button" class="btn btn-success" href="{{ path(basePath ~ mainPath ~ '_new', { route: route, routeParams: routeParams }) }}">
 		    	<i class="fa fa-file-o"></i> {{ 'action.new'|trans }}
 			</a>
-		    <a type="button" class="btn btn-warning" href="{{ path(basePath ~ mainPath ~ '_copy', { id: entry.id, routingParams: routingParams }) }}">
+		    <a type="button" class="btn btn-warning" href="{{ path(basePath ~ mainPath ~ '_copy', { id: entry.id, route: route, routeParams: routeParams }) }}">
 		    	<i class="fa fa-copy"></i> {{ 'action.copy'|trans }}
 			</a>
 	    </div>
 	    
 		{% if is_granted('ROLE_ADMIN') or (is_granted('ROLE_EDITOR') and '_assignment' in mainPath ) %}
 			<a type="button" class="btn btn-danger" onclick="return confirm('{{ 'confirm.delete'|trans }}')" 
-				href="{{ path(basePath ~ mainPath ~ '_delete', { id: entry.id, route: basePath ~ mainPath ~ extPath, routeParams: { id: entry.id } }) }}">
+				href="{{ path(basePath ~ mainPath ~ '_delete', { id: entry.id, route: route, routeParams: routeParams }) }}">
 	    		<i class="fa fa-trash"></i> {{ 'action.delete'|trans }}
 			</a>
 		{% endif %}
     {% endif %}
     <div class="btn-group">
-	    <a type="button" class="btn btn-primary" href="{{ path(routingParams.route, routingParams.routeParams) }}">
+    	<a type="button" class="btn btn-primary" href="{{ app.request.headers.get('referer') }}">
+{# 	    <a type="button" class="btn btn-primary" href="{{ path(route, routeParams) }}">#}
 	    	<i class="fa fa-close"></i> {{ 'action.back'|trans }}
 		</a>
     </div>

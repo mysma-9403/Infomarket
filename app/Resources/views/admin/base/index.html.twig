@@ -172,16 +172,16 @@
 	 
 {% block entryActions %}
 	<td>
-		<a type="button" class="btn btn-sm btn-primary" href="{{ path('admin_' ~ mainPath ~ '_show', { id: item.id, routeParams: routingParams.routeParams }) }}">
+		<a type="button" class="btn btn-sm btn-primary" href="{{ path('admin_' ~ mainPath ~ '_show', { id: item.id, routeParams: routeParams }) }}">
 			<i class="fa fa-eye"></i>{{ 'action.show'|trans }}
 		</a>
 		
 		{% if is_granted('ROLE_EDITOR') %}
 			<div class="btn-group">
-				<a type="button" class="btn btn-sm btn-success" href="{{ path('admin_' ~ mainPath ~ '_edit', { id: item.id, routeParams: routingParams.routeParams  }) }}">
+				<a type="button" class="btn btn-sm btn-success" href="{{ path('admin_' ~ mainPath ~ '_edit', { id: item.id, routeParams: routeParams  }) }}">
 					<i class="fa fa-edit"></i>{{ 'action.edit'|trans }}
 				</a>
-				<a type="button" class="btn btn-sm btn-warning" href="{{ path('admin_' ~ mainPath ~ '_copy', { id: item.id, routeParams: routingParams.routeParams  }) }}">
+				<a type="button" class="btn btn-sm btn-warning" href="{{ path('admin_' ~ mainPath ~ '_copy', { id: item.id, routeParams: routeParams  }) }}">
 					<i class="fa fa-copy"></i>{{ 'action.copy'|trans }}
 				</a>
 			</div>
@@ -189,7 +189,7 @@
 		
 		{% if is_granted('ROLE_ADMIN') or (is_granted('ROLE_EDITOR') and '_assignment' in mainPath ) %}
 			<a type="button" class="btn btn-sm btn-danger" onclick="return confirm('{{ 'confirm.delete'|trans }}')"
-				href="{{ path('admin_' ~ mainPath ~ '_delete', { id: item.id, routeParams: routingParams.routeParams  }) }}">
+				href="{{ path('admin_' ~ mainPath ~ '_delete', { id: item.id, routeParams: routeParams  }) }}">
 				<i class="fa fa-trash"></i>{{ 'action.delete'|trans }}
 			</a>
 		{% endif %}

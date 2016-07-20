@@ -35,6 +35,11 @@ abstract class BaseEntityController extends Controller
 		return $this->render($this->getShowView(), $params);
 	}
 	
+	protected function redirectToReferer() {
+		$referer = $this->getRequest()->headers->get('referer');
+		return $this->redirect($referer);
+	}
+	
     /**
      * 
      * @param Request $request
@@ -43,10 +48,12 @@ abstract class BaseEntityController extends Controller
      */
     protected function getIndexParams(Request $request, $page)
     {
-    	$params = $this->getParams($request);
+    	$params = $this->getRouteParams($request);
     	
     	$entryFilter = $this->getEntityFilter($request);
     	$params['entryFilter'] = $entryFilter;
+    	
+    	$params['routeParams'] = array_merge($params['routeParams'], $entryFilter->getValues());
     	
     	$repository = $this->getEntityRepository();
     	$query = $repository->querySelected($entryFilter);
@@ -55,8 +62,6 @@ abstract class BaseEntityController extends Controller
     	$entries = $paginator->paginate($query, $page, $this->getPageEntries($request));
     	
     	$params['entries'] = $entries;
-    	
-    	$params['routingParams'] = $this->getIndexRoutingParams($request);
     	
     	return $params;
     }
@@ -69,7 +74,7 @@ abstract class BaseEntityController extends Controller
      */
     protected function getShowParams(Request $request, $id)
     {
-    	$params = $this->getParams($request);
+    	$params = $this->getRouteParams($request);
     	
     	$repository = $this->getEntityRepository();
     	$entry = $repository->find($id);
@@ -79,56 +84,14 @@ abstract class BaseEntityController extends Controller
     	return $params;
     }
     
-    /**
-     * 
-     * @param Request $request
-     * @return mixed[]
-     */
-    protected function getParams(Request $request)
-    {
-    	$params = [];
-    	
-    	$params['errors'] = $request->get('errors', array());
-    	$params['routingParams'] = $this->getRoutingParams($request);
-    	
-    	return $params;
-    }
-    
-    protected function getIndexRoutingParams(Request $request) 
-    {
-    	$params = array();
-    	
-    	$routeParams = $request->get('routeParams', []);
-    	$routeParams['page'] = $request->get('page', null);
-    	
-    	$params['route'] = $request->get('route', $this->getIndexRoute());
-    	$params['routeParams'] = $routeParams;
-    	
-    	return $params;
-    }
-    
-    /**
-     * 
-     * @param Request $request
-     * @return mixed[]
-     */
-    protected function getRoutingParams(Request $request)
-    {
+    protected function getRouteParams(Request $request) {
     	$params = array();
     	
     	$params['route'] = $request->get('route', $this->getIndexRoute());
     	$params['routeParams'] = $request->get('routeParams', []);
-    	 
+    	
     	return $params;
     }
-    
-//     protected function redirectToRoute($route, array $parameters = array(), $status = 302) {
-// //     	if(array_key_exists('route', $parameters)) {
-// //     		return $this->redirectToRoute($parameters['route'], $parameters['routeParams']);
-// //     	} else {
-//     		return $this->redirectToRoute($route, $parameters);
-// //     	}
-//     }
     
     /**
      * 

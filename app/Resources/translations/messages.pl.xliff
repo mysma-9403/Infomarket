@@ -2,6 +2,10 @@
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
     <file source-language="en" target-language="pl" datatype="plaintext" original="file.ext">
         <body>
+        	<trans-unit id="title.site">
+                <source>title.site</source>
+                <target>InfoMarket</target>
+            </trans-unit>
         	<trans-unit id="title.admin">
                 <source>title.admin</source>
                 <target>Panel administratora</target>
@@ -747,6 +751,16 @@
             </trans-unit>
             
             
+            
+            
+            <trans-unit id="success.created">
+                <source>success.created</source>
+                <target>Obiekt został poprawnie zapisany.</target>
+            </trans-unit>
+            
+            
+            
+            
             <trans-unit id="text.slogan1">
                 <source>text.slogan1</source>
                 <target>Sam wybieraj najlepsze produkty.</target>
@@ -755,6 +769,8 @@
                 <source>text.slogan2</source>
                 <target>Kupuj głową, nie ceną.</target>
             </trans-unit>
+            
+            
         </body>
     </file>
 </xliff>

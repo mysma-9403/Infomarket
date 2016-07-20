@@ -85,11 +85,12 @@ class CategoryController extends SimpleEntityController
 			
 			$articleFilter = new ArticleFilter($articleCategoryRepository, $categoryRepository);
 			$articleFilter->setCategories([$entry]);
-			$articleFilter->setPublished(SimpleEntityFilter::TRUE_VALUES);
-			$articleFilter->setFeatured(SimpleEntityFilter::TRUE_VALUES);
+// 			$articleFilter->setPublished(SimpleEntityFilter::TRUE_VALUES);
+// 			$articleFilter->setFeatured(SimpleEntityFilter::TRUE_VALUES);
 			$articleFilter->setLimit(7);
 			$articleRepository = $this->getDoctrine()->getRepository(Article::class);
-			$articles = $articleRepository->findSelected($articleFilter);
+// 			$articles = $articleRepository->findSelected($articleFilter);
+			$articles = $articleRepository->findAll();
 			
 			$params['articles'] = $articles;
 			
