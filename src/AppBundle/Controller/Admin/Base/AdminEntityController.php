@@ -3,12 +3,11 @@
 namespace AppBundle\Controller\Admin\Base;
 
 use AppBundle\Controller\Base\BaseEntityController;
-use AppBundle\Entity\Filter\Base\BaseEntityFilter;
+use AppBundle\Entity\Base\Audit;
 use AppBundle\Entity\Lists\Base\BaseEntityList;
 use AppBundle\Form\Filter\Base\FilterFormType;
 use AppBundle\Form\Lists\Base\BaseEntityListType;
 use Symfony\Component\HttpFoundation\Request;
-use AppBundle\Entity\Base\Audit;
 
 abstract class AdminEntityController extends BaseEntityController {
 	
@@ -21,8 +20,7 @@ abstract class AdminEntityController extends BaseEntityController {
 	{
 		$params = $this->getIndexParams($request, $page);
 		
-		$filter = $this->createNewFilter();
-		$filter->initValues($request);
+		$filter = $this->getEntityFilter($request);
 	
 		$filterForm = $this->createForm($this->getFilterFormType(), $filter);
 		$filterForm->handleRequest($request);
@@ -50,9 +48,7 @@ abstract class AdminEntityController extends BaseEntityController {
 		$form->handleRequest($request);
 	
 		if ($form->isSubmitted() && $form->isValid())
-		{
-			$submitParams = array();
-			
+		{	
 			if ($form->get('new')->isClicked()) {
 				return $this->redirectToRoute($this->getNewRoute());
 			}
@@ -85,8 +81,7 @@ abstract class AdminEntityController extends BaseEntityController {
 				$this->setPublishedSelected($entries, false);
 			}
 			
-			$submitParams = array_merge($submitParams, $filter->getValues());
-			return $this->redirectToRoute($this->getIndexRoute(), $submitParams);
+			return $this->redirectToRoute($this->getIndexRoute(), $filter->getValues());
 		}
 		$params['entries'] = $allEntries;
 		$params['form'] = $form->createView();
@@ -138,8 +133,8 @@ abstract class AdminEntityController extends BaseEntityController {
 	{
 		$this->denyAccessUnlessGranted('ROLE_EDITOR', null, 'Unable to access this page!');
 		
-		$entry = $this->createNewEntity($request);
-		return $this->editEntry($request, $entry);
+		$params = $this->getNewParams($request);
+		return $this->editEntry($request, $params);
 	}
 	
 	/**
@@ -151,17 +146,16 @@ abstract class AdminEntityController extends BaseEntityController {
 	{
 		$this->denyAccessUnlessGranted('ROLE_EDITOR', null, 'Unable to access this page!');
 		
-		$entry = $this->getEntry($id);
-		$entry = $this->createFromTemplate($request, $entry);
-		return $this->editEntry($request, $entry);
+		$params = $this->getCopyParams($request, $id);
+		return $this->editEntry($request, $params);
 	}
 	
 	protected function editActionInternal(Request $request, $id)
 	{
 		$this->denyAccessUnlessGranted('ROLE_EDITOR', null, 'Unable to access this page!');
 		
-		$entry = $this->getEntry($id);
-		return $this->editEntry($request, $entry);
+		$params = $this->getEditParams($request, $id);
+		return $this->editEntry($request, $params);
 	}
 	
 	protected function deleteActionInternal(Request $request, $id)
@@ -172,8 +166,6 @@ abstract class AdminEntityController extends BaseEntityController {
 		
 		$validator = $this->get('validator');
 		$errors = $validator->validate($entry, null, array('removal'));
-		
-		$routingParams = $this->getRoutingParams($request);
 		
 		if (count($errors) > 0) {
 			foreach ($errors as $error) {
@@ -204,7 +196,7 @@ abstract class AdminEntityController extends BaseEntityController {
 			}
 		}
 		
-		$routingParams['routingParams'] = $routingParams;
+		$routingParams = $this->getRoutingParams($request);
 		return $this->redirectToRoute($routingParams['route'], $routingParams['routeParams']);
 	}
 	
@@ -269,10 +261,10 @@ abstract class AdminEntityController extends BaseEntityController {
 				$errors = $this->deleteMore($entry);
 				if (count($errors) > 0) {
 					foreach ($errors as $error) {
-						$errors[] = $error->getMessage();
+						$this->addFlash('error', $error->getMessage());
 					}
 				} else {
-					$this->addFlash('error', $error->getMessage());
+					$em->remove($entry);
 				}
 			}
 		}
@@ -299,9 +291,9 @@ abstract class AdminEntityController extends BaseEntityController {
 	 * @param Request $request
 	 * @param unknown $entry
 	 */
-	protected function editEntry(Request $request, $entry)
-	{
-		$params = $this->getEditParams($request, $entry);
+	protected function editEntry(Request $request, $params)
+	{	
+		$entry = $params['entry'];
 		
 		$form = $this->createForm($this->getFormType(), $entry);
 	
@@ -314,15 +306,42 @@ abstract class AdminEntityController extends BaseEntityController {
 			$this->addFlash('success', 'success.created');
 			
 			if ($form->get('save')->isClicked()) {
-				$params['id'] = $entry->getId();
-				return $this->redirectToRoute($this->getEditRoute(), $params);
+				return $this->redirectToRoute($this->getEditRoute(), array('id' => $entry->getId()));
 			}
 		}
 		
-		$params['entry'] = $entry;
 		$params['form'] = $form->createView();
 	
 		return $this->render($this->getEditView(), $params);
+	}
+	
+	protected function getNewParams(Request $request)
+	{
+		$params = $this->getParams($request);
+	
+		$routeParams = array();
+		$this->registerRequest($request, $this->getNewRoute(), $routeParams);
+	
+		$entry = $this->createNewEntity($request);
+		$params['entry'] = $entry;
+			
+		$params = array_merge($params, $this->getRoutingParams($request));
+		return $params;
+	}
+	
+	protected function getCopyParams(Request $request, $id)
+	{
+		$params = $this->getParams($request);
+	
+		$routeParams = array();
+		$this->registerRequest($request, $this->getCopyRoute(), $routeParams);
+		
+		$template = $this->getEntry($id);
+		$entry = $this->createFromTemplate($request, $template);
+		$params['entry'] = $entry;
+			
+		$params = array_merge($params, $this->getRoutingParams($request));
+		return $params;
 	}
 	
 	/**
@@ -331,12 +350,17 @@ abstract class AdminEntityController extends BaseEntityController {
 	 * @param mixed $entry current entry
 	 * @return mixed[]
 	 */
-	protected function getEditParams(Request $request, $entry)
+	protected function getEditParams(Request $request, $id)
 	{
-		$params = $this->getRouteParams($request);
+		$params = $this->getParams($request);
 		
+		$routeParams = array('id' => $id);
+		$this->registerRequest($request, $this->getEditRoute(), $routeParams);
+		
+		$entry = $this->getEntry($id);
 		$params['entry'] = $entry;
 		 
+		$params = array_merge($params, $this->getRoutingParams($request));
 		return $params;
 	}
 	
@@ -358,13 +382,6 @@ abstract class AdminEntityController extends BaseEntityController {
 	 * @param unknown $entry
 	 */
 	protected function prepareEntry($entry) { }
-	
-	protected function getEntry($id) {
-		$repository = $this->getDoctrine()->getRepository($this->getEntityType());
-		$entry = $repository->find($id);
-	
-		return $entry;
-	}
 	
 	protected function getRepository() {
 		return $this->getDoctrine()->getRepository($this->getEntityType());
@@ -415,10 +432,6 @@ abstract class AdminEntityController extends BaseEntityController {
 	 */
 	protected function createNewEntity(Request $request) {
 		return new Audit();
-	}
-	
-	protected function createNewFilter() {
-		return new BaseEntityFilter();
 	}
 	
 	protected function createNewList() {

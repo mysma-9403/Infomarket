@@ -55,6 +55,7 @@ class ArticleController extends SimpleEntityController
     	$filter = new ArticleFilter($articleCategoryRepository, $categoryRepository);
     	$filter->setPublished(SimpleEntityFilter::TRUE_VALUES);
     	$filter->setMain(SimpleEntityFilter::TRUE_VALUES);
+    	$filter->setOrderBy('e.publishedAt DESC');
     	
     	return $filter;
     }

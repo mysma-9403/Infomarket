@@ -115,7 +115,7 @@ class ArticleController extends ImageEntityController {
 	 */
 	protected function previewActionInternal(Request $request, $id)
 	{
-		$params = $this->getShowParams($request, $id);
+		$params = $this->getPreviewParams($request, $id);
 		return $this->render($this->getPreviewView(), $params);
 	}
 	
@@ -144,6 +144,21 @@ class ArticleController extends ImageEntityController {
 		$em->flush();
 	
 		return array();
+	}
+	
+	protected function getPreviewParams(Request $request, $id)
+	{
+		$params = array();
+		 
+		$routeParams = array('id' => $id);
+		$this->registerRequest($request, $this->getPreviewRoute(), $routeParams);
+		 
+		$repository = $this->getEntityRepository();
+		$entry = $repository->find($id);
+		$params['entry'] = $entry;
+		 
+		$params = array_merge($params, $this->getRoutingParams($request));
+		return $params;
 	}
 	
 	//------------------------------------------------------------------------
@@ -236,6 +251,10 @@ class ArticleController extends ImageEntityController {
 		return ArticleFilterType::class;
 	}
 	
+	protected function getPreviewRoute()
+	{
+		return $this->getIndexRoute() . '_preview';
+	}
 	
 	protected function getPreviewView()
 	{

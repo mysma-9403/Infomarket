@@ -33,6 +33,11 @@ class Branch extends ImageEntity
     private $icon;
 
     /**
+     * @var integer
+     */
+    private $orderNumber;
+
+    /**
      * @var \Doctrine\Common\Collections\Collection
      */
     private $branchCategoryAssignments;
@@ -115,6 +120,30 @@ class Branch extends ImageEntity
     public function getIcon()
     {
         return $this->icon;
+    }
+
+    /**
+     * Set orderNumber
+     *
+     * @param integer $orderNumber
+     *
+     * @return Branch
+     */
+    public function setOrderNumber($orderNumber)
+    {
+        $this->orderNumber = $orderNumber;
+
+        return $this;
+    }
+
+    /**
+     * Get orderNumber
+     *
+     * @return integer
+     */
+    public function getOrderNumber()
+    {
+        return $this->orderNumber;
     }
 
     /**

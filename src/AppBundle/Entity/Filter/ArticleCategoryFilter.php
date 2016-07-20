@@ -10,6 +10,8 @@ use Symfony\Component\HttpFoundation\Request;
 class ArticleCategoryFilter extends ImageEntityFilter {
 	
 	public function __construct() {
+		parent::__construct();
+		
 		$this->filterName = 'article_category_filter_';
 	}
 	
@@ -21,7 +23,7 @@ class ArticleCategoryFilter extends ImageEntityFilter {
 	protected function initMoreValues(Request $request) {
 		parent::initMoreValues($request);
 	
-		$this->featured = $request->get($this->getFilterName() . 'featured', SimpleEntityFilter::ALL_VALUES);
+		$this->featured = $request->get($this->getFilterName() . 'featured', $this::ALL_VALUES);
 	}
 	
 	/**
@@ -32,7 +34,7 @@ class ArticleCategoryFilter extends ImageEntityFilter {
 	protected function clearMoreQueryValues() {
 		parent::clearMoreQueryValues();
 	
-		$this->featured = SimpleEntityFilter::ALL_VALUES;
+		$this->featured = $this::ALL_VALUES;
 	}
 	
 	/**
@@ -43,7 +45,7 @@ class ArticleCategoryFilter extends ImageEntityFilter {
 	public function getValues() {
 		$values = parent::getValues();
 	
-		if($this->featured != SimpleEntityFilter::ALL_VALUES) {
+		if($this->featured !== $this::ALL_VALUES) {
 			$values[$this->getFilterName() . 'featured'] = $this->featured;
 		}
 	
@@ -53,18 +55,11 @@ class ArticleCategoryFilter extends ImageEntityFilter {
 	protected function getWhereExpressions() {
 		$expressions = parent::getWhereExpressions();
 		
-		if($this->featured != SimpleEntityFilter::ALL_VALUES) {
+		if($this->featured !== $this::ALL_VALUES) {
 			$expressions[] = 'e.featured = ' . $this->featured;
 		}
 		
 		return $expressions;
-	}
-	
-	/**
-	 * {@inheritDoc}
-	 */
-	public function getOrderByExpression() {
-		return ' ORDER BY e.name ASC ';
 	}
 	
 	/**

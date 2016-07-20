@@ -15,7 +15,10 @@ class TermFilter extends SimpleEntityFilter {
 	 * @param CategoryRepository $categoryRepository
 	 */
 	public function __construct(CategoryRepository $categoryRepository) {
+		parent::__construct();
+		
 		$this->categoryRepository = $categoryRepository;
+		
 		$this->filterName = 'term_filter_';
 	}
 	
@@ -90,13 +93,6 @@ class TermFilter extends SimpleEntityFilter {
 		}
 	
 		return $expressions;
-	}
-	
-	/**
-	 * {@inheritDoc}
-	 */
-	public function getOrderByExpression() {
-		return ' ORDER BY e.name ASC ';
 	}
 	
 	/**

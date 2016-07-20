@@ -15,7 +15,10 @@ class BranchFilter extends ImageEntityFilter {
 	 * @param CategoryRepository $categoryRepository
 	 */
 	public function __construct(CategoryRepository $categoryRepository) {
+		parent::__construct();
+		
 		$this->categoryRepository = $categoryRepository;
+		
 		$this->filterName = 'branch_filter_';
 	}
 	
@@ -90,16 +93,6 @@ class BranchFilter extends ImageEntityFilter {
 	
 			return $expressions;
 	}
-	
-	/**
-	 * {@inheritDoc}
-	 */
-	public function getOrderByExpression() {
-		return 'ORDER BY e.id ASC';
-	}
-	
-	
-	
 	
 	/**
 	 *

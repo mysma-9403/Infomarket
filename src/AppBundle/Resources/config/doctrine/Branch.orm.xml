@@ -13,6 +13,8 @@
         <field name="color" type="string" nullable="true" />
         <field name="icon" type="string" nullable="true" />
         
+        <field name="orderNumber" type="integer" default="0" />
+        
         <one-to-many field="branchCategoryAssignments" target-entity="BranchCategoryAssignment" mapped-by="branch">
         </one-to-many>
         

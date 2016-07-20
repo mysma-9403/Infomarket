@@ -20,7 +20,7 @@
 						</div>
 						{% if is_granted('ROLE_EDITOR') %}
 							<div class="col-xs-6 col-md-3">
-								<a href="{{ path('admin_product_category_assignment_new', { category: entry.id, segment: segment.id, route: 'admin_category_ratings', routeParams: { id: entry.id } }) }}"
+								<a href="{{ path('admin_product_category_assignment_new', { category: entry.id, segment: segment.id }) }}"
 									class="btn btn-success text-xs-bottom-mm">
 									<span class="fa fa-plus"></span> 
 									{{ 'action.assignProduct'|trans }} 
@@ -48,11 +48,11 @@
 								</td>
 								{% if is_granted('ROLE_EDITOR') %}
 									<td>
-										<a href="{{ path('admin_product_category_assignment_edit', { id: productCategoryAssignment.id, route: 'admin_category_ratings', routeParams: { id: entry.id } }) }}" class="btn btn-warning">
+										<a href="{{ path('admin_product_category_assignment_edit', { id: productCategoryAssignment.id }) }}" class="btn btn-warning">
 											<span class="fa fa-edit"></span> 
 											{{ 'action.edit'|trans }}
 										</a>
-										<a href="{{ path('admin_product_category_assignment_delete', { id: productCategoryAssignment.id, route: 'admin_category_ratings', routeParams: { id: entry.id } }) }}" class="btn btn-danger">
+										<a href="{{ path('admin_product_category_assignment_delete', { id: productCategoryAssignment.id }) }}" class="btn btn-danger">
 											<span class="fa fa-trash"></span> 
 											{{ 'action.delete'|trans }}
 										</a>
@@ -72,7 +72,7 @@
 						</div>
 						{% if is_granted('ROLE_EDITOR') %}
 							<div class="col-xs-6 col-md-3">
-								<a href="{{ path('admin_brand_category_assignment_new', { category: entry.id, segment: segment.id, route: 'admin_category_ratings', routeParams: { id: entry.id } }) }}"
+								<a href="{{ path('admin_brand_category_assignment_new', { category: entry.id, segment: segment.id }) }}"
 									class="btn btn-success text-xs-bottom-mm">
 									<span class="fa fa-plus"></span> 
 									{{ 'action.assignBrand'|trans }} 
@@ -93,11 +93,11 @@
 								</td>
 								{% if is_granted('ROLE_EDITOR') %}
 									<td>
-										<a href="{{ path('admin_brand_category_assignment_edit', { id: brandCategoryAssignment.id, route: 'admin_category_ratings', routeParams: { id: entry.id } }) }}" class="btn btn-warning">
+										<a href="{{ path('admin_brand_category_assignment_edit', { id: brandCategoryAssignment.id }) }}" class="btn btn-warning">
 											<span class="fa fa-edit"></span> 
 											{{ 'action.edit'|trans }}
 										</a>
-										<a href="{{ path('admin_brand_category_assignment_delete', { id: brandCategoryAssignment.id, route: 'admin_category_ratings', routeParams: { id: entry.id } }) }}" class="btn btn-danger">
+										<a href="{{ path('admin_brand_category_assignment_delete', { id: brandCategoryAssignment.id }) }}" class="btn btn-danger">
 											<span class="fa fa-trash"></span> 
 											{{ 'action.delete'|trans }}
 										</a>
@@ -118,7 +118,7 @@
 	<div class="row lowered-25">
 	
 	<div class="btn-group col-xs-12">
-		<a type="button" class="btn btn-primary" href="{{ path(routingParams.route, routingParams.routeParams) }}">
+		<a type="button" class="btn btn-primary" href="{{ path(route, routeParams) }}">
 			<i class="fa fa-close"></i>{{ 'action.back'|trans }}
 		</a>
 	</div>

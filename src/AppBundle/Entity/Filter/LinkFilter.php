@@ -9,7 +9,11 @@ use Symfony\Component\HttpFoundation\Request;
 class LinkFilter extends SimpleEntityFilter {
 	
 	public function __construct() {
+		parent::__construct();
+		
 		$this->filterName = 'link_filter_';
+		
+		$this->featured = $this::ALL_VALUES;
 	}
 	
 	/**
@@ -19,9 +23,10 @@ class LinkFilter extends SimpleEntityFilter {
 	 */
 	protected function initMoreValues(Request $request) {
 		parent::initMoreValues($request);
-	
-		$this->featured = $request->get($this->getFilterName() . 'featured', SimpleEntityFilter::ALL_VALUES);
+		
 		$this->types = $request->get($this->getFilterName() . 'types', array());
+		
+		$this->featured = $request->get($this->getFilterName() . 'featured', $this::ALL_VALUES);
 	}
 	
 	/**
@@ -32,8 +37,9 @@ class LinkFilter extends SimpleEntityFilter {
 	protected function clearMoreQueryValues() {
 		parent::clearMoreQueryValues();
 	
-		$this->featured = SimpleEntityFilter::ALL_VALUES;
 		$this->types = array();
+		
+		$this->featured = $this::ALL_VALUES;
 	}
 	
 	/**
@@ -44,7 +50,7 @@ class LinkFilter extends SimpleEntityFilter {
 	public function getValues() {
 		$values = parent::getValues();
 	
-		if($this->featured != SimpleEntityFilter::ALL_VALUES) {
+		if($this->featured !== $this::ALL_VALUES) {
 			$values[$this->getFilterName() . 'featured'] = $this->featured;
 		}
 		
@@ -72,13 +78,6 @@ class LinkFilter extends SimpleEntityFilter {
 		}
 		
 		return $expressions;
-	}
-	
-	/**
-	 * {@inheritDoc}
-	 */
-	public function getOrderByExpression() {
-		return ' ORDER BY e.orderNumber ASC, e.name ASC ';
 	}
 	
 	/**

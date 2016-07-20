@@ -20,9 +20,14 @@ class ArticleArticleCategoryAssignmentFilter extends SimpleEntityFilter {
 	 * @param ArticleCategoryRepository $articleCategoryRepository
 	 */
 	public function __construct(ArticleRepository $articleRepository, ArticleCategoryRepository $articleCategoryRepository) {
+		parent::__construct();
+		
 		$this->articleRepository = $articleRepository;
 		$this->articleCategoryRepository = $articleCategoryRepository;
+		
 		$this->filterName = 'article_article_category_assignment_filter_';
+		
+		$this->orderBy = 'c.name ASC, a.name ASC, a.subname ASC';
 	}
 	
 	/**
@@ -107,13 +112,6 @@ class ArticleArticleCategoryAssignmentFilter extends SimpleEntityFilter {
 		$expressions[] = ArticleCategory::class . ' c WITH e.articleCategory = c.id';
 	
 		return $expressions;
-	}
-	
-	/**
-	 * {@inheritDoc}
-	 */
-	public function getOrderByExpression() {
-		return ' ORDER BY c.name ASC, a.name ASC, a.subname ASC';
 	}
 	
 	/**

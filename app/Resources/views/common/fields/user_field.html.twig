@@ -13,7 +13,7 @@
 			{% if routeParams is not defined %}
 				{% set routeParams = { id: routeId } %}
 			{% endif %}
-			<a href="{{ path(linkPath, { id: value.id, route: routePath, routeParams: routeParams }) }}">
+			<a href="{{ path(linkPath, { id: value.id }) }}">
 				{{ value.username }}
 			</a>
 		{% else %}

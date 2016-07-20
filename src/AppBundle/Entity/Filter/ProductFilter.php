@@ -21,6 +21,8 @@ class ProductFilter extends SimpleEntityFilter {
 	public function __construct(CategoryRepository $categoryRepository, 
 								BrandRepository $brandRepository, 
 								SegmentRepository $segmentRepository) {
+		parent::__construct();
+									
 		$this->categoryRepository = $categoryRepository;
 		$this->brandRepository = $brandRepository;
 		$this->segmentRepository = $segmentRepository;

@@ -30,19 +30,19 @@
 
 {% block mainActions %}
 	{% if is_granted('ROLE_EDITOR') %}
-	    <a type="button" class="btn btn-warning" href="{{ path('admin_' ~ mainPath ~ '_edit', { id: entry.id, route: basePath ~ mainPath ~ extPath, routeParams: { id: entry.id } }) }}">
+	    <a type="button" class="btn btn-warning" href="{{ path('admin_' ~ mainPath ~ '_edit', { id: entry.id }) }}">
 	    	<i class="fa fa-edit"></i>{{ 'action.edit'|trans }}
 		</a>
 	{% endif %}
 	 
 	{% if is_granted('ROLE_ADMIN') or (is_granted('ROLE_EDITOR') and '_assignment' in mainPath ) %}
 		<a type="button" class="btn btn-danger" onclick="return confirm('{{ 'confirm.delete'|trans }}')" 
-			href="{{ path(basePath ~ mainPath ~ '_delete', { id: entry.id, route: basePath ~ mainPath ~ extPath, routeParams: { id: entry.id } }) }}">
+			href="{{ path(basePath ~ mainPath ~ '_delete', { id: entry.id }) }}">
     		<i class="fa fa-trash"></i> {{ 'action.delete'|trans }}
 		</a>
 	{% endif %}
-		
-	<a type="button" class="btn btn-primary" href="{{ app.request.headers.get('referer') }}">
+	
+	<a type="button" class="btn btn-primary" href="{{ path(route, routeParams) }}">
     	<i class="fa fa-close"></i>{{ 'action.back'|trans }}
 	</a>
 {% endblock %}

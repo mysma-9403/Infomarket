@@ -624,6 +624,10 @@
                 <source>action.back</source>
                 <target>Wróć</target>
             </trans-unit>
+            <trans-unit id="action.toTop">
+                <source>action.toTop</source>
+                <target>Do góry</target>
+            </trans-unit>
             
             <trans-unit id="action.show">
                 <source>action.show</source>

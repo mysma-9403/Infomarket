@@ -11,7 +11,11 @@ class SimpleEntityFilter extends BaseEntityFilter {
 	 * 
 	 */
 	public function __construct() {
+		parent::__construct();
+		
 		$this->filterName = "simple_filter_";
+		
+		$this->orderBy = 'e.name ASC';
 	}
 	
 	/**
@@ -53,20 +57,11 @@ class SimpleEntityFilter extends BaseEntityFilter {
 	protected function getWhereExpressions() {
 		$expressions = parent::getWhereExpressions();
 		
-		if($this->name != '') {
+		if($this->name !== null && $this->name !== '') {
 			$expressions[] = 'e.name like \'%' . $this->name . '%\'';
 		}
 		
 		return $expressions;
-	}
-	
-	/**
-	 * 
-	 * {@inheritDoc}
-	 * @see \AppBundle\Entity\Filter\Base\BaseEntityFilter::getOrderByExpression()
-	 */
-	public function getOrderByExpression() {
-		return 'ORDER BY e.name ASC';
 	}
 	
 	/**

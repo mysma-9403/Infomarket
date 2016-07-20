@@ -19,7 +19,7 @@
 {% endif %}
 
 {% if is_granted(role) %}
-	<a href="{{ path(basePath ~ mainPath ~ extPath, { id: id, value: value ? false : true, route: route, routeParams: routeParams }) }}">
+	<a href="{{ path(basePath ~ mainPath ~ extPath, { id: id, value: value ? false : true }) }}">
 		<span class="fa {{ value ? trueIcon : falseIcon }}" data-toggle="tooltip" 
 			title="{{ value ? trueTooltip : falseTooltip }}">
 		</span>

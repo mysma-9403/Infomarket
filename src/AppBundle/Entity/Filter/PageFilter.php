@@ -9,7 +9,11 @@ use Symfony\Component\HttpFoundation\Request;
 class PageFilter extends SimpleEntityFilter {
 	
 	public function __construct() {
+		parent::__construct();
+		
 		$this->filterName = 'page_filter_';
+		
+		$this->featured = $this::ALL_VALUES;
 	}
 	
 	/**
@@ -20,7 +24,7 @@ class PageFilter extends SimpleEntityFilter {
 	protected function initMoreValues(Request $request) {
 		parent::initMoreValues($request);
 	
-		$this->featured = $request->get($this->getFilterName() . 'featured', SimpleEntityFilter::ALL_VALUES);
+		$this->featured = $request->get($this->getFilterName() . 'featured', $this::ALL_VALUES);
 	}
 	
 	/**
@@ -31,7 +35,7 @@ class PageFilter extends SimpleEntityFilter {
 	protected function clearMoreQueryValues() {
 		parent::clearMoreQueryValues();
 	
-		$this->featured = SimpleEntityFilter::ALL_VALUES;
+		$this->featured = $this::ALL_VALUES;
 	}
 	
 	/**
@@ -42,7 +46,7 @@ class PageFilter extends SimpleEntityFilter {
 	public function getValues() {
 		$values = parent::getValues();
 	
-		if($this->featured != SimpleEntityFilter::ALL_VALUES) {
+		if($this->featured !== $this::ALL_VALUES) {
 			$values[$this->getFilterName() . 'featured'] = $this->featured;
 		}
 	
@@ -52,18 +56,11 @@ class PageFilter extends SimpleEntityFilter {
 	protected function getWhereExpressions() {
 		$expressions = parent::getWhereExpressions();
 		
-		if($this->featured != SimpleEntityFilter::ALL_VALUES) {
+		if($this->featured !== SimpleEntityFilter::ALL_VALUES) {
 			$expressions[] = 'e.featured = ' . $this->featured;
 		}
 		
 		return $expressions;
-	}
-	
-	/**
-	 * {@inheritDoc}
-	 */
-	public function getOrderByExpression() {
-		return ' ORDER BY e.orderNumber ASC, e.name ASC ';
 	}
 	
 	/**

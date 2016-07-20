@@ -26,7 +26,8 @@
 			<div class="container-fluid">
 				<div class="row lifted-top">
 					<div class="col-xs-12">
-					{% include 'common/tile_list.html.twig' with {'entries': entry.children, 'entryPath': 'category', 'colSize': 2, 'tile': 'bottom_rect_tile' } %}
+						{% include 'common/tile_list.html.twig' with {'entries': entry.children, 
+							'entryPath': 'category', 'colSize': 2, 'tile': 'bottom_rect_tile' } %}
 					</div>
 				</div>
 			</div>
@@ -34,7 +35,7 @@
 		</div>
 		
 		<div class="vr-space-40"></div>
-		
+
 		{% block featuredNews %}
 		<div class="row">
 			<div class="container">
@@ -50,32 +51,62 @@
 					<div class="col-sm-9">
 						<div id="myCarousel" class="carousel slide" data-ride="carousel">
 							<ol class="carousel-indicators">
-						    	{% set count = 0 %}
-							    {% for article in articles %}
-							    	{% if count < 3 and article.featured %}
+{# 						    	{% set count = 0 %}#}
+{# 							    {% for article in articles %}#}
+{# 							    	{% if count < 3 and article.featured %}#}
+{# 							    		<li data-target="#myCarousel" data-slide-to="{{ count }}" class="{{ count < 1 ? 'active' : '' }}"></li>#}
+{# 							    		{% set count = count+1 %}#}
+{# 							    	{% endif %}#}
+{# 							    {% endfor %}#}
+
+
+								{% set count = 0 %}
+							    {% for articleCategoryAssignment in entry.articleCategoryAssignments
+							    	if articleCategoryAssignment.article.published
+							    	and articleCategoryAssignment.article.featured 
+							    	and count < 3 %}
 							    		<li data-target="#myCarousel" data-slide-to="{{ count }}" class="{{ count < 1 ? 'active' : '' }}"></li>
-							    		{% set count = count+1 %}
-							    	{% endif %}
+							    		{% set count = count + 1 %}
 							    {% endfor %}
 						  	</ol>
 						  	
 						  	<div class="carousel-inner" role="listbox">
-							    {% set count = 0 %}
-							    {% for article in articles %}
-							    	{% if count < 3 and article.featured %}
+{# 							    {% set count = 0 %}#}
+{# 							    {% for article in articles %}#}
+{# 							    	{% if count < 3 and article.featured %}#}
+{# 							    		<div class="item rect-2x1 {{ count < 1 ? 'active' : '' }}">#}
+{# 									    	<img src="{{ asset(article.getImagePath()) }}">#}
+{# 								      		<div class="carousel-caption">#}
+{# 								      			<a class="text-white" href="{{ path('infoprodukt_article_show', { id: article.id }) }}">#}
+{# 									      			<h2>#}
+{# 									      				{{ article.name }}#}
+{# 									      				{{ article.subname }}#}
+{# 									      			</h2>#}
+{# 									      		</a>#}
+{# 											</div>#}
+{# 									    </div>#}
+{# 							    		{% set count = count+1 %}#}
+{# 							    	{% endif %}#}
+{# 							    {% endfor %}#}
+
+
+								{% set count = 0 %}
+							    {% for articleCategoryAssignment in entry.articleCategoryAssignments
+							    	if articleCategoryAssignment.article.published
+							    	and articleCategoryAssignment.article.featured 
+							    	and count < 3 %}
 							    		<div class="item rect-2x1 {{ count < 1 ? 'active' : '' }}">
-									    	<img src="{{ asset(article.getImagePath()) }}">
+									    	<img src="{{ asset(articleCategoryAssignment.article.getImagePath()) }}">
 								      		<div class="carousel-caption">
-								      			<a class="text-white" href="{{ path('infoprodukt_article_show', { id: article.id }) }}">
-									      			<h2>
-									      				{{ article.name }}
-									      				{{ article.subname }}
-									      			</h2>
+								      			<a class="text-white" href="{{ path('infoprodukt_article_show', { id: articleCategoryAssignment.article.id }) }}">
+									      			<h3>
+									      				{{ articleCategoryAssignment.article.name }}
+									      				{{ articleCategoryAssignment.article.subname }}
+									      			</h3>
 									      		</a>
 											</div>
 									    </div>
-							    		{% set count = count+1 %}
-							    	{% endif %}
+							    		{% set count = count + 1 %}
 							    {% endfor %}
 						  	</div>
 						  	
@@ -118,6 +149,21 @@
 				</div>
 			</div>
 		</div>
+		
+			<div class="col-xs-6">
+		    {% for articleCategoryAssignment in entry.articleCategoryAssignments
+		    	if articleCategoryAssignment.article.published
+		    	and articleCategoryAssignment.article.featured %}
+		    		<li>{{ articleCategoryAssignment.article.name }}</li>
+		    {% endfor %}
+		    </div>
+		    
+		    <div class="col-xs-6">
+		    {% for article in articles %}
+	    		<li>{{ article.name }}</li>
+		    {% endfor %}
+		    </div>
+		    
 		{% endblock %}
 		
 		<div class="vr-space-40"></div>

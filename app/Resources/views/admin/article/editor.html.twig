@@ -25,7 +25,7 @@
 
 {% block moreActions1 %}
 	{% if entry.id %}
-		<a href="{{ path('admin_article_preview', { id: entry.id, route: basePath ~ mainPath ~ extPath, routeParams: { id: entry.id } }) }}"
+		<a href="{{ path('admin_article_preview', { id: entry.id }) }}"
 			class="btn btn-primary">
 			<span class="fa fa-eye"></span> 
 			{{ 'action.article.preview'|trans }} 

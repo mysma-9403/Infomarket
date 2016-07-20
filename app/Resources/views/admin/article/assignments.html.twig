@@ -4,7 +4,7 @@
 	</div>
 	{% if is_granted('ROLE_EDITOR') %}
 		<div class="col-xs-6 col-sm-2">
-			<a href="{{ path('admin_article_new', { parent: entry.id, route: basePath ~ mainPath ~ extPath, routeParams: { id: entry.id } }) }}"
+			<a href="{{ path('admin_article_new', { parent: entry.id }) }}"
 				class="btn btn-success text-xs-bottom-mm">
 				<span class="fa fa-plus"></span> 
 				{{ 'action.createSubarticle'|trans }} 
@@ -18,23 +18,23 @@
 	{% for article in entry.children %}
 		<tr>
 			<td>
-				<a href="{{ path('admin_article_show', { id: article.id, route: basePath ~ mainPath ~ extPath, routeParams: { id: entry.id } }) }}">
+				<a href="{{ path('admin_article_show', { id: article.id }) }}">
 					{{ article.name }} {{ article.subname }}
 				</a>
 			</td>
 			<td>
-				<a href="{{ path('admin_article_show', { id: article.id, route: basePath ~ mainPath ~ extPath, routeParams: { id: entry.id } }) }}" class="btn btn-primary">
+				<a href="{{ path('admin_article_show', { id: article.id }) }}" class="btn btn-primary">
 					<span class="fa fa-eye"></span> 
 					{{ 'action.show'|trans }}
 				</a>
 				{% if is_granted('ROLE_EDITOR') %}
-					<a href="{{ path('admin_article_edit', { id: article.id, route: basePath ~ mainPath ~ extPath, routeParams: { id: entry.id } }) }}" class="btn btn-warning">
+					<a href="{{ path('admin_article_edit', { id: article.id }) }}" class="btn btn-warning">
 						<span class="fa fa-edit"></span> 
 						{{ 'action.edit'|trans }}
 					</a>
 				{% endif %}
 				{% if is_granted('ROLE_ADMIN') %}
-					<a href="{{ path('admin_article_delete', { id: article.id, route: basePath ~ mainPath ~ extPath, routeParams: { id: entry.id } }) }}" class="btn btn-danger">
+					<a href="{{ path('admin_article_delete', { id: article.id }) }}" class="btn btn-danger">
 						<span class="fa fa-trash"></span>  
 						{{ 'action.delete'|trans }}
 					</a>
@@ -55,7 +55,7 @@
 	</div>
 	{% if is_granted('ROLE_EDITOR') %}
 		<div class="col-xs-6 col-sm-2">
-			<a href="{{ path('admin_article_article_category_assignment_new', { article: entry.id, route: basePath ~ mainPath ~ extPath, routeParams: { id: entry.id } }) }}"
+			<a href="{{ path('admin_article_article_category_assignment_new', { article: entry.id }) }}"
 				class="btn btn-success text-xs-bottom-mm">
 				<span class="fa fa-plus"></span> 
 				{{ 'action.assignArticleCategory'|trans }} 
@@ -69,20 +69,17 @@
 	{% for articleArticleCategoryAssignment in entry.articleArticleCategoryAssignments %}
 		<tr>
 			<td>
-				<a href="{{ path('admin_article_category_show', { id: articleArticleCategoryAssignment.articleCategory.id, 
-					route: basePath ~ mainPath ~ extPath, routeParams: { id: entry.id } }) }}">
+				<a href="{{ path('admin_article_category_show', { id: articleArticleCategoryAssignment.articleCategory.id }) }}">
 					{{ articleArticleCategoryAssignment.articleCategory.name }}
 				</a>
 			</td>
 			{% if is_granted('ROLE_EDITOR') %}
 				<td>
-					<a href="{{ path('admin_article_article_category_assignment_edit', { id: articleArticleCategoryAssignment.id, 
-						route: basePath ~ mainPath ~ extPath, routeParams: { id: entry.id } }) }}" class="btn btn-warning">
+					<a href="{{ path('admin_article_article_category_assignment_edit', { id: articleArticleCategoryAssignment.id }) }}" class="btn btn-warning">
 						<span class="fa fa-edit"></span> 
 						{{ 'action.edit'|trans }}
 					</a>
-					<a href="{{ path('admin_article_article_category_assignment_delete', { id: articleArticleCategoryAssignment.id, 
-						route: basePath ~ mainPath ~ extPath, routeParams: { id: entry.id } }) }}" class="btn btn-danger">
+					<a href="{{ path('admin_article_article_category_assignment_delete', { id: articleArticleCategoryAssignment.id }) }}" class="btn btn-danger">
 						<span class="fa fa-trash"></span> 
 						{{ 'action.delete'|trans }}
 					</a>
@@ -104,8 +101,7 @@
 	</div>
 	{% if is_granted('ROLE_EDITOR') %}
 		<div class="col-xs-6 col-sm-2">
-			<a href="{{ path('admin_article_category_assignment_new', { article: entry.id, 
-				route: basePath ~ mainPath ~ extPath, routeParams: { id: entry.id } }) }}"
+			<a href="{{ path('admin_article_category_assignment_new', { article: entry.id }) }}"
 				class="btn btn-success text-xs-bottom-mm">
 				<span class="fa fa-plus"></span> 
 				{{ 'action.assignCategory'|trans }} 
@@ -119,20 +115,17 @@
 	{% for articleCategoryAssignment in entry.articleCategoryAssignments %}
 		<tr>
 			<td>
-				<a href="{{ path('admin_category_show', { id: articleCategoryAssignment.category.id,
-					route: basePath ~ mainPath ~ extPath, routeParams: { id: entry.id } }) }}">
+				<a href="{{ path('admin_category_show', { id: articleCategoryAssignment.category.id }) }}">
 					{{ articleCategoryAssignment.category.name }}
 				</a>
 			</td>
 			{% if is_granted('ROLE_EDITOR') %}
 				<td>
-					<a href="{{ path('admin_article_category_assignment_edit', { id: articleCategoryAssignment.id, 
-						route: basePath ~ mainPath ~ extPath, routeParams: { id: entry.id } }) }}" class="btn btn-warning">
+					<a href="{{ path('admin_article_category_assignment_edit', { id: articleCategoryAssignment.id }) }}" class="btn btn-warning">
 						<span class="fa fa-edit"></span> 
 						{{ 'action.edit'|trans }}
 					</a>
-					<a href="{{ path('admin_article_category_assignment_delete', { id: articleCategoryAssignment.id, 
-						route: basePath ~ mainPath ~ extPath, routeParams: { id: entry.id } }) }}" class="btn btn-danger">
+					<a href="{{ path('admin_article_category_assignment_delete', { id: articleCategoryAssignment.id }) }}" class="btn btn-danger">
 						<span class="fa fa-trash"></span> 
 						{{ 'action.delete'|trans }}
 					</a>

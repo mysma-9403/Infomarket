@@ -48,21 +48,22 @@ abstract class BaseEntityController extends Controller
      */
     protected function getIndexParams(Request $request, $page)
     {
-    	$params = $this->getRouteParams($request);
+    	$params = $this->getParams($request);
     	
     	$entryFilter = $this->getEntityFilter($request);
     	$params['entryFilter'] = $entryFilter;
     	
-    	$params['routeParams'] = array_merge($params['routeParams'], $entryFilter->getValues());
+    	$routeParams = array_merge($entryFilter->getValues(), array('page' => $page));
+    	$this->registerRequest($request, $this->getIndexRoute(), $routeParams);
     	
     	$repository = $this->getEntityRepository();
     	$query = $repository->querySelected($entryFilter);
     	 
     	$paginator = $this->get('knp_paginator');
     	$entries = $paginator->paginate($query, $page, $this->getPageEntries($request));
-    	
     	$params['entries'] = $entries;
     	
+    	$params = array_merge($params, $this->getRoutingParams($request));
     	return $params;
     }
     
@@ -74,23 +75,84 @@ abstract class BaseEntityController extends Controller
      */
     protected function getShowParams(Request $request, $id)
     {
-    	$params = $this->getRouteParams($request);
+    	$params = $this->getParams($request);
     	
-    	$repository = $this->getEntityRepository();
-    	$entry = $repository->find($id);
+    	$routeParams = array('id' => $id);
+    	$this->registerRequest($request, $this->getShowRoute(), $routeParams);
     	
+    	$entry = $this->getEntry($id);
     	$params['entry'] = $entry;
     	
+    	$params = array_merge($params, $this->getRoutingParams($request));
     	return $params;
     }
     
-    protected function getRouteParams(Request $request) {
-    	$params = array();
+    protected function getParams(Request $request) {
+    	return array();
+    }
+    
+    protected function getRoutingParams(Request $request) {
+    	return $request->getSession()->get('last_route', array('route' => $this->getIndexView(), 'routeParams' => array()));
+    }
+    
+    protected function registerRequest(Request $request, $route, $routeParams) {
+    	$session = $request->getSession();
     	
-    	$params['route'] = $request->get('route', $this->getIndexRoute());
-    	$params['routeParams'] = $request->get('routeParams', []);
+    	$currRoute = $session->get('curr_route', null);
+    	$newRoute = array('route' => $route, 'routeParams' => $routeParams);
     	
-    	return $params;
+    	if($currRoute != null && $this->isDuplicate($currRoute, $newRoute)) {
+    		return;
+    	}
+    	
+    	if($currRoute != null) {
+    		$session->set('last_route', $currRoute);
+    	}
+    	
+    	$session->set('curr_route', !$this->isRestricted($newRoute) ? $newRoute : null);
+    }
+    
+    protected function isDuplicate($currRoute, $newRoute) {
+    	if($currRoute['route'] != $newRoute['route']) {
+    		return false;
+    	}
+    
+    	$currRouteParams = $currRoute['routeParams'];
+    	$newRouteParams = $newRoute['routeParams'];
+    
+    	$count = count($currRouteParams);
+    
+    	if($count != count($newRouteParams)) {
+    		return  false;
+    	}
+    
+    	foreach(array_keys($currRouteParams) as $key) {
+    		if(!array_key_exists($key, $newRouteParams)) {
+    			return false;
+    		}
+    			
+    		if($currRouteParams[$key] != $newRouteParams[$key]) {
+    			return false;
+    		}
+    	}
+    		
+    	return true;
+    }
+    
+    protected function isRestricted($newRoute) {
+    	if(strpos($newRoute['route'], '_new') !== false) {
+    		return true;
+    	}
+    	
+    	if(strpos($newRoute['route'], '_copy') !== false) {
+    		return true;
+    	}
+    	
+    	if(strpos($newRoute['route'], '_delete') !== false) {
+    		return true;
+    	}
+    
+    	return false;
     }
     
     /**
@@ -178,13 +240,23 @@ abstract class BaseEntityController extends Controller
      */
 	protected function getEntityFilter(Request $request)
 	{
-		$filter = new BaseEntityFilter();
+		$filter = $this->createNewFilter();
 		$filter->initValues($request);
-		$filter->setPublished(true);
 		 
 		return $filter;
 	}
     
+	protected function createNewFilter() {
+		return new BaseEntityFilter();
+	}
+	
+	protected function getEntry($id) {
+		$repository = $this->getDoctrine()->getRepository($this->getEntityType());
+		$entry = $repository->find($id);
+	
+		return $entry;
+	}
+	
     /**
      * 
      * @param Request $request

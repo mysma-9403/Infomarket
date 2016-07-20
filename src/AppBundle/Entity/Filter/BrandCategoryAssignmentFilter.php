@@ -21,10 +21,15 @@ class BrandCategoryAssignmentFilter extends SimpleEntityFilter {
 	 * @param SegmentRepository $segmentRepository
 	 */
 	public function __construct(BrandRepository $brandRepository, CategoryRepository $categoryRepository, SegmentRepository $segmentRepository) {
+		parent::__construct();
+		
 		$this->brandRepository = $brandRepository;
 		$this->categoryRepository = $categoryRepository;
 		$this->segmentRepository = $segmentRepository;
+		
 		$this->filterName = 'brand_category_assignment_filter_';
+		
+		$this->orderBy = 'c.name ASC, c.subname ASC, s.orderNumber ASC, b.name ASC';
 	}
 	
 	/**
@@ -127,13 +132,6 @@ class BrandCategoryAssignmentFilter extends SimpleEntityFilter {
 		$expressions[] = Segment::class . ' s WITH e.segment = s.id';
 	
 		return $expressions;
-	}
-	
-	/**
-	 * {@inheritDoc}
-	 */
-	public function getOrderByExpression() {
-		return ' ORDER BY c.name ASC, c.subname ASC, s.id ASC, b.name ASC';
 	}
 	
 	/**

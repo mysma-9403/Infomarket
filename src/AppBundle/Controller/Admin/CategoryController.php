@@ -5,18 +5,14 @@ namespace AppBundle\Controller\Admin;
 use AppBundle\Controller\Admin\Base\ImageTreeController;
 use AppBundle\Controller\Admin\Base\SimpleEntityController;
 use AppBundle\Entity\Branch;
-use AppBundle\Entity\Brand;
 use AppBundle\Entity\Category;
 use AppBundle\Entity\Filter\Base\SimpleEntityFilter;
-use AppBundle\Entity\Filter\BrandFilter;
 use AppBundle\Entity\Filter\CategoryFilter;
-use AppBundle\Entity\Filter\ProductFilter;
-use AppBundle\Entity\Product;
-use AppBundle\Entity\Segment;
 use AppBundle\Form\CategoryType;
+use AppBundle\Form\Filter\CategoryFilterType;
 use AppBundle\Repository\BranchRepository;
 use Symfony\Component\HttpFoundation\Request;
-use AppBundle\Form\Filter\CategoryFilterType;
+use AppBundle\Entity\Segment;
 
 class CategoryController extends ImageTreeController {
 	
@@ -177,108 +173,43 @@ class CategoryController extends ImageTreeController {
 		
 		$filter->setRoot(SimpleEntityFilter::TRUE_VALUES);
 		$params['entries'] = $repository->findSelected($filter);
-			
+		
 		return $this->render($this->getTreeView(), $params);
 	}
 	
 	protected function ratingsActionInternal(Request $request, $id)
 	{
-		$entry = $this->getEntry($id);
-		
-		$params = $this->getEditParams($request, $entry);
-		$routingParams = $params['routingParams'];
-		
-		$form = $this->createForm($this->getFormType(), $entry);
-	
-		$form->handleRequest($request);
-	
-		if ($form->isSubmitted() && $form->isValid())
-		{
-			$this->saveEntry($entry);
-	
-			$this->addFlash('success', 'info.entry.created_successfully'); //TODO label
-			
-			if ($form->get('saveAndQuit')->isClicked()) {
-				$routingParams = $this->getRoutingParams($request);
-				return $this->redirectToRoute($routingParams['route'], $routingParams['routeParams']);
-			}
-		}
-		$params['entry'] = $entry;
-		$params['form'] = $form->createView();
-	
+		$params = $this->getRatingsParams($request, $id);
 		return $this->render($this->getRatingsView(), $params);
 	}
 	
-	/**
-	 * 
-	 * {@inheritDoc}
-	 * @see \AppBundle\Controller\Admin\Base\AdminEntityController::getEditParams()
-	 */
-	protected function getEditParams(Request $request, $entry)
+	protected function getTreeParams(Request $request)
 	{
-		$params = parent::getEditParams($request, $entry);
+		$params = array();
 	
-		$entry = $params['entry'];
+		$routeParams = array();
+		$this->registerRequest($request, $this->getTreeRoute(), $routeParams);
+	
+		$params = array_merge($params, $this->getRoutingParams($request));
+		return $params;
+	}
+	
+	protected function getRatingsParams(Request $request, $id)
+	{
+		$params = array();
+	
+		$routeParams = array('id' => $id);
+		$this->registerRequest($request, $this->getRatingsRoute(), $routeParams);
 		
-		
+		$entry = $this->getEntry($id);
+		$params['entry'] = $entry;
 		
 		$segmentRepository = $this->getDoctrine()->getRepository(Segment::class);
 		$segments = $segmentRepository->findAll();
 			
 		$entry->segments = $segments;
 			
-		$entry->products = array();
-		$entry->brands = array();
-
-		//TODO use as setters as they are useless in many cases!!! (like here)
-		$categoryRepository = $this->getDoctrine()->getRepository(Category::class);
-		$brandRepository = $this->getDoctrine()->getRepository(Brand::class);
-		$segmentRepository = $this->getDoctrine()->getRepository(Segment::class);
-		
-		//TODO nie zadziala dla new :( -> przeniesc do tree
-		foreach ($segments as $segment) {
-			$brandFilter = new BrandFilter($categoryRepository, $segmentRepository);
-			//TODO nie zadziala dla new :( -> przeniesc do tree
-// 			$brandFilter->setCategories([$entry]);
-			$brandFilter->setSegments([$segment]);
-			$brandFilter->setPublished(SimpleEntityFilter::TRUE_VALUES);
-
-			$brandRepository = $this->getDoctrine()->getRepository(Brand::class);
-			$brands = $brandRepository->findSelected($brandFilter);
-
-			$entry->brands[$segment->getId()] = $brands;
-
-			$productFilter = new ProductFilter($categoryRepository, $brandRepository, $segmentRepository);
-			//TODO nie zadziala dla new :( -> przeniesc do tree
-// 			$productFilter->setCategories([$entry]);
-			$productFilter->setSegments([$segment]);
-			$productFilter->setPublished(SimpleEntityFilter::TRUE_VALUES);
-
-			$productRepository = $this->getDoctrine()->getRepository(Product::class);
-			$products = $productRepository->findSelected($productFilter);
-
-			$entry->products[$segment->getId()] = $products;
-		}
-		
-		if(count($segments) > 0) {
-			if(count($entry->brands[$segments[0]->getId()]) > 0) $entry->brand1_1 = $entry->brands[$segments[0]->getId()][0];
-		}
-		
-		$params['entry'] = $entry;
-	
-		return $params;
-	}
-	
-	/**
-	 *
-	 * {@inheritDoc}
-	 * @see \AppBundle\Controller\Admin\Base\AdminEntityController::getEditParams()
-	 */
-	protected function getTreeParams(Request $request)
-	{
-		$params = parent::getParams($request);
-		
-		$params['routingParams']['route'] = $this->getTreeRoute();
+		$params = array_merge($params, $this->getRoutingParams($request));
 		return $params;
 	}
 	

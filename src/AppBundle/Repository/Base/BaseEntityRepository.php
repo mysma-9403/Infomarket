@@ -27,9 +27,9 @@ abstract class BaseEntityRepository extends EntityRepository
     {
     	$query = 'SELECT e';
     	$query .= ' FROM ' . $this->getEntityType() . ' e';
-    	$query .= ' ' . $filter->getJoinExpression();
-    	$query .= ' ' . $filter->getWhereExpression();
-    	$query .= ' ' . $filter->getOrderByExpression();
+    	$query .= $filter->getJoinExpression();
+    	$query .= $filter->getWhereExpression();
+		$query .= $filter->getOrderByExpression();
     	
         $query = $this->getEntityManager()->createQuery($query);
         

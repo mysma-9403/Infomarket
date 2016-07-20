@@ -56,14 +56,29 @@ class CategoryController extends SimpleEntityController
 	{
 		$params = parent::getIndexParams($request, $page);
 	
+		$branchRepository = $this->getDoctrine()->getRepository(Branch::class);
 		$categoryRepository = $this->getDoctrine()->getRepository(Category::class);
 		
 		$branchFilter = new BranchFilter($categoryRepository);
 		$branchFilter->initValues($request);
 		$branchFilter->setPublished(SimpleEntityFilter::TRUE_VALUES);
-		 
+		$branchFilter->setOrderBy('e.orderNumber ASC');
+		
 		$branches = $this->getParamList(Branch::class, $branchFilter);
 		$params['branches'] = $branches;
+		
+		$categoryFilter = new CategoryFilter($branchRepository, $categoryRepository);
+		$categoryFilter->initValues($request);
+		$categoryFilter->setPublished(SimpleEntityFilter::TRUE_VALUES);
+		$categoryFilter->setPreleaf(SimpleEntityFilter::TRUE_VALUES);
+		$categoryFilter->setOrderBy('e.orderNumber ASC');
+		
+		$allCategories = array();
+		foreach($branches as $branch) {
+			$categoryFilter->setBranches(array($branch));
+			$allCategories[$branch->getId()] = $this->getParamList(Category::class, $categoryFilter);
+		}
+		$params['allCategories'] = $allCategories;
 	
 		return $params;
 	}
@@ -85,18 +100,21 @@ class CategoryController extends SimpleEntityController
 			
 			$articleFilter = new ArticleFilter($articleCategoryRepository, $categoryRepository);
 			$articleFilter->setCategories([$entry]);
-// 			$articleFilter->setPublished(SimpleEntityFilter::TRUE_VALUES);
-// 			$articleFilter->setFeatured(SimpleEntityFilter::TRUE_VALUES);
+			$articleFilter->setPublished(SimpleEntityFilter::TRUE_VALUES);
+			$articleFilter->setFeatured(SimpleEntityFilter::TRUE_VALUES);
+			$articleFilter->setMain(SimpleEntityFilter::TRUE_VALUES);
+			$articleFilter->setOrderBy('e.publishedAt ASC');
 			$articleFilter->setLimit(7);
-			$articleRepository = $this->getDoctrine()->getRepository(Article::class);
-// 			$articles = $articleRepository->findSelected($articleFilter);
-			$articles = $articleRepository->findAll();
+			
+			$articles = $this->getParamList(Article::class, $articleFilter);
 			
 			$params['articles'] = $articles;
 			
 			$articleCategoryFilter = new ArticleCategoryFilter();
 			$articleCategoryFilter->setPublished(SimpleEntityFilter::TRUE_VALUES);
 			$articleCategoryFilter->setFeatured(SimpleEntityFilter::TRUE_VALUES);
+			//TODO $articleCategoryFilter->setOrderBy('e.orderNumber ASC');
+			
 			$articleCategoryRepository = $this->getDoctrine()->getRepository(ArticleCategory::class);
 			$articleCategories = $articleCategoryRepository->findSelected($articleCategoryFilter);
 			
@@ -143,6 +161,7 @@ class CategoryController extends SimpleEntityController
 			
 			$categoryFilter = new CategoryFilter($branchRepository, $categoryRepository);
 			$categoryFilter->setParents([$entry]);
+			$categoryFilter->setOrderBy('e.orderNumber ASC, e.name ASC');
 				
 			$categories = $categoryRepository->findSelected($categoryFilter);
 			$params['subcategories'] = $categories;
@@ -202,7 +221,9 @@ class CategoryController extends SimpleEntityController
 		$categoryRepository = $this->getDoctrine()->getRepository(Category::class);
 		
 		$filter = new CategoryFilter($branchRepository, $categoryRepository);
+		$filter->setOrderBy('e.orderNumber ASC, e.name ASC');
 		$filter->setPublished(true);
+		
 		
 		$category = $this->getParamById($request, Category::class, null);
 		

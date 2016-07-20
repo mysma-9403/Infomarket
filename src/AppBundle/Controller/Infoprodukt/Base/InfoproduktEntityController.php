@@ -15,7 +15,6 @@ use AppBundle\Entity\Page;
 use AppBundle\Form\Filter\Base\SimpleEntityFilterType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-use AppBundle\Entity\Base\SimpleEntity;
 
 abstract class InfoproduktEntityController extends BaseEntityController
 {
@@ -36,14 +35,11 @@ abstract class InfoproduktEntityController extends BaseEntityController
 
 		if ($searchFilterForm->isSubmitted() && $searchFilterForm->isValid()) {
 			if ($searchFilterForm->get('search')->isClicked()) {
-				$routingParams = $params['routingParams'];
-				$routingParams = array_merge($routingParams, $searchFilter->getValues());
-
-				return $this->redirectToRoute('infoprodukt_search', $routingParams);
+				return $this->redirectToRoute('infoprodukt_search', $searchFilter->getValues());
 			}
 		}
 		$params['searchFilterForm'] = $searchFilterForm->createView();
-	
+		
 		return $this->render($this->getIndexView(), $params);
 	}
 	
@@ -61,10 +57,7 @@ abstract class InfoproduktEntityController extends BaseEntityController
 	
 		if ($searchFilterForm->isSubmitted() && $searchFilterForm->isValid()) {
 			if ($searchFilterForm->get('search')->isClicked()) {
-				$routingParams = $params['routingParams'];
-				$routingParams = array_merge($routingParams, $searchFilter->getValues());
-	
-				return $this->redirectToRoute('infoprodukt_search', $routingParams);
+				return $this->redirectToRoute('infoprodukt_search', $searchFilter->getValues());
 			}
 		}
 		$params['searchFilterForm'] = $searchFilterForm->createView();
@@ -83,6 +76,7 @@ abstract class InfoproduktEntityController extends BaseEntityController
     	$categoryFilter->setPublished(SimpleEntityFilter::TRUE_VALUES);
     	$categoryFilter->setFeatured(SimpleEntityFilter::TRUE_VALUES);
     	$categoryFilter->setPreleaf(SimpleEntityFilter::TRUE_VALUES);
+    	$categoryFilter->setOrderBy('e.orderNumber ASC, e.name ASC');
     
     	$categories = $this->getParamList(Category::class, $categoryFilter);
     	$params['categories'] = $categories;
@@ -90,6 +84,7 @@ abstract class InfoproduktEntityController extends BaseEntityController
     	$pageFilter = new PageFilter();
     	$pageFilter->setPublished(true);
     	$pageFilter->setFeatured(true);
+    	$pageFilter->setOrderBy('e.orderNumber DESC');
     	
     	$pages = $this->getParamList(Page::class, $pageFilter);
     	$params['pages'] = $pages;
@@ -98,6 +93,7 @@ abstract class InfoproduktEntityController extends BaseEntityController
     	$linkFilter->setPublished(BaseEntityFilter::TRUE_VALUES);
     	$linkFilter->setFeatured(BaseEntityFilter::TRUE_VALUES);
     	$linkFilter->setTypes([Link::FOOTER_LINK]);
+    	$linkFilter->setOrderBy('e.orderNumber DESC');
     	
     	$links = $this->getParamList(Link::class, $linkFilter);
     	$params['links'] = $links;

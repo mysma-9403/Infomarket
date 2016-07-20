@@ -9,24 +9,15 @@
 			{% for entry in branches %}
 			<div class="row">
 				<div class="col-xs-12">
-					<h1>{{ entry.name | raw }}</h1>
+					<h2>{{ entry.name | raw }}</h2>
 					
-					{% for subentry in categories %}
-						{% set visible = false %}
-						{% for branchCategoryAssignment in subentry.branchCategoryAssignments %}
-							{% if branchCategoryAssignment.branch.id == entry.id %}
-								{% set visible = true %}
-							{% endif %}
-						{% endfor %}
-						
-						{% if visible %}
-							<div class="col-sm-3">
-								{% include 'common/bottom_rect_tile.html.twig' with {'entry': subentry, 'entryPath': mainPath } %}
-							</div>
-						{% endif %}
+					{% for subentry in attribute(allCategories, entry.id) %}
+						<div class="col-sm-3">
+							{% include 'common/bottom_rect_tile.html.twig' with {'entry': subentry, 'entryPath': mainPath } %}
+						</div>
 					{% else %}
 						<p>{{ 'label.noEntries'|trans }}</p>
-					{% endfor %}		
+					{% endfor %}
 				</div>
 			</div>
 			{% endfor %}

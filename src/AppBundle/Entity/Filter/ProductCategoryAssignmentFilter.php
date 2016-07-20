@@ -21,10 +21,15 @@ class ProductCategoryAssignmentFilter extends SimpleEntityFilter {
 	 * @param SegmentRepository $segmentRepository
 	 */
 	public function __construct(ProductRepository $productRepository, CategoryRepository $categoryRepository, SegmentRepository $segmentRepository) {
+		parent::__construct();
+		
 		$this->productRepository = $productRepository;
 		$this->categoryRepository = $categoryRepository;
 		$this->segmentRepository = $segmentRepository;
+		
 		$this->filterName = 'product_category_assignment_filter_';
+		
+		$this->orderBy = 'c.name ASC, c.subname ASC, s.orderNumber ASC, p.name ASC';
 	}
 	
 	/**
@@ -127,13 +132,6 @@ class ProductCategoryAssignmentFilter extends SimpleEntityFilter {
 		$expressions[] = Segment::class . ' s WITH e.segment = s.id';
 	
 		return $expressions;
-	}
-	
-	/**
-	 * {@inheritDoc}
-	 */
-	public function getOrderByExpression() {
-		return ' ORDER BY c.name ASC, c.subname ASC, s.id ASC, p.name ASC';
 	}
 	
 	/**

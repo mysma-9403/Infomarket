@@ -17,8 +17,11 @@ class BrandFilter extends SimpleEntityFilter {
 	 * @param SegmentRepository $segmentRepository
 	 */
 	public function __construct(CategoryRepository $categoryRepository, SegmentRepository $segmentRepository) {
+		parent::__construct();
+		
 		$this->categoryRepository = $categoryRepository;
 		$this->segmentRepository = $segmentRepository;
+		
 		$this->filterName = 'brand_filter_';
 	}
 	

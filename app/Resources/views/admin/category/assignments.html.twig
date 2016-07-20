@@ -4,7 +4,7 @@
 	</div>
 	{% if is_granted('ROLE_EDITOR') %}
 		<div class="col-xs-6 col-sm-2">
-			<a href="{{ path('admin_category_new', { parent: entry.id, route: basePath ~ mainPath ~ extPath, routeParams: { id: entry.id } }) }}"
+			<a href="{{ path('admin_category_new', { parent: entry.id }) }}"
 				class="btn btn-success text-xs-bottom-mm">
 				<span class="fa fa-plus"></span> 
 				{{ 'action.createSubcategory'|trans }} 
@@ -24,12 +24,12 @@
 			</td>
 			{% if is_granted('ROLE_EDITOR') %}
 				<td>
-					<a href="{{ path('admin_category_edit', { id: category.id, route: basePath ~ mainPath ~ extPath, routeParams: { id: entry.id } }) }}" class="btn btn-warning">
+					<a href="{{ path('admin_category_edit', { id: category.id }) }}" class="btn btn-warning">
 						<span class="fa fa-edit"></span> 
 						{{ 'action.edit'|trans }}
 					</a>
 					{% if is_granted('ROLE_ADMIN') %}
-						<a href="{{ path('admin_category_delete', { id: category.id, route: basePath ~ mainPath ~ extPath, routeParams: { id: entry.id } }) }}" class="btn btn-danger">
+						<a href="{{ path('admin_category_delete', { id: category.id }) }}" class="btn btn-danger">
 							<span class="fa fa-trash"></span> 
 							{{ 'action.delete'|trans }}
 						</a>
@@ -50,7 +50,7 @@
 	</div>
 	{% if is_granted('ROLE_EDITOR') %}
 		<div class="col-xs-6 col-sm-2">
-			<a href="{{ path('admin_branch_category_assignment_new', { category: entry.id, route: basePath ~ mainPath ~ extPath, routeParams: { id: entry.id } }) }}"
+			<a href="{{ path('admin_branch_category_assignment_new', { category: entry.id }) }}"
 				class="btn btn-success text-xs-bottom-mm">
 				<span class="fa fa-plus"></span> 
 				{{ 'action.assignBranch'|trans }} 
@@ -70,11 +70,11 @@
 			</td>
 			{% if is_granted('ROLE_EDITOR') %}
 				<td>
-					<a href="{{ path('admin_branch_category_assignment_edit', { id: branchCategoryAssignment.id, route: basePath ~ mainPath ~ extPath, routeParams: { id: entry.id } }) }}" class="btn btn-warning">
+					<a href="{{ path('admin_branch_category_assignment_edit', { id: branchCategoryAssignment.id }) }}" class="btn btn-warning">
 						<span class="fa fa-edit"></span> 
 						{{ 'action.edit'|trans }}
 					</a>
-					<a href="{{ path('admin_branch_category_assignment_delete', { id: branchCategoryAssignment.id, route: basePath ~ mainPath ~ extPath, routeParams: { id: entry.id } }) }}" class="btn btn-danger">
+					<a href="{{ path('admin_branch_category_assignment_delete', { id: branchCategoryAssignment.id }) }}" class="btn btn-danger">
 						<span class="fa fa-trash"></span> 
 						{{ 'action.delete'|trans }}
 					</a>

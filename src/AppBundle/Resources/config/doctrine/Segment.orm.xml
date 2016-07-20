@@ -10,6 +10,8 @@
         
         <field name="content" type="text" nullable="true" />
         
+        <field name="orderNumber" type="integer" default="0" />
+        
         <one-to-many field="productCategoryAssignments" target-entity="ProductCategoryAssignment" mapped-by="segment">
             <order-by>
             	<order-by-field name="category" direction="ASC" />

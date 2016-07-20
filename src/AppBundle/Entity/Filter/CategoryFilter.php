@@ -17,12 +17,18 @@ class CategoryFilter extends SimpleEntityFilter {
 	 * @param CategoryRepository $categoryRepository
 	 */
 	public function __construct(BranchRepository $branchRepository, CategoryRepository $categoryRepository) {
+		parent::__construct();
+		
 		$this->branchRepository = $branchRepository;
 		$this->categoryRepository = $categoryRepository;
+		
 		$this->filterName = 'category_filter_';
 		
-		$this->featured = SimpleEntityFilter::ALL_VALUES;
-		$this->preleaf = SimpleEntityFilter::ALL_VALUES;
+		$this->featured = $this::ALL_VALUES;
+		$this->preleaf = $this::ALL_VALUES;
+		$this->root = $this::ALL_VALUES;
+		
+		$this->orderBy = 'e.name ASC';
 	}
 	
 	/**
@@ -51,9 +57,9 @@ class CategoryFilter extends SimpleEntityFilter {
 		
 		$this->subname = $request->get($this->getFilterName() . 'subname', null);
 		
-		$this->featured = $request->get($this->getFilterName() . 'featured', SimpleEntityFilter::ALL_VALUES);
-		$this->preleaf = $request->get($this->getFilterName() . 'preleaf', SimpleEntityFilter::ALL_VALUES);
-		$this->root = $request->get($this->getFilterName() . 'root', SimpleEntityFilter::ALL_VALUES);
+		$this->featured = $request->get($this->getFilterName() . 'featured', $this::ALL_VALUES);
+		$this->preleaf = $request->get($this->getFilterName() . 'preleaf', $this::ALL_VALUES);
+		$this->root = $request->get($this->getFilterName() . 'root', $this::ALL_VALUES);
 	}
 	
 	/**
@@ -69,9 +75,9 @@ class CategoryFilter extends SimpleEntityFilter {
 		
 		$this->subname = null;
 		
-		$this->featured = SimpleEntityFilter::ALL_VALUES;
-		$this->preleaf = SimpleEntityFilter::ALL_VALUES;
-		$this->root = SimpleEntityFilter::ALL_VALUES;
+		$this->featured = $this::ALL_VALUES;
+		$this->preleaf = $this::ALL_VALUES;
+		$this->root = $this::ALL_VALUES;
 	}
 	
 	/**
@@ -94,22 +100,16 @@ class CategoryFilter extends SimpleEntityFilter {
 			$values[$this->getFilterName() . 'subname'] = $this->subname;
 		}
 		
-		if($this->featured == SimpleEntityFilter::TRUE_VALUES) {
-			$values[$this->getFilterName() . 'featured'] = true;
-		} else if($this->featured == SimpleEntityFilter::FALSE_VALUES) {
-			$values[$this->getFilterName() . 'featured'] = false;
+		if($this->featured !== $this::ALL_VALUES) {
+			$values[$this->getFilterName() . 'featured'] = $this->featured;
 		}
 		
-		if($this->preleaf == SimpleEntityFilter::TRUE_VALUES) {
-			$values[$this->getFilterName() . 'preleaf'] = true;
-		} else if($this->preleaf == SimpleEntityFilter::FALSE_VALUES) {
-			$values[$this->getFilterName() . 'preleaf'] = false;
+		if($this->preleaf !== $this::ALL_VALUES) {
+			$values[$this->getFilterName() . 'preleaf'] = $this->preleaf;
 		}
 		
-		if($this->root == SimpleEntityFilter::TRUE_VALUES) {
-			$values[$this->getFilterName() . 'root'] = true;
-		} else if($this->root == SimpleEntityFilter::FALSE_VALUES) {
-			$values[$this->getFilterName() . 'root'] = false;
+		if($this->root !== $this::ALL_VALUES) {
+			$values[$this->getFilterName() . 'root'] = $this->root;
 		}
 	
 		return $values;
@@ -131,18 +131,18 @@ class CategoryFilter extends SimpleEntityFilter {
 			$expressions[] = 'e.subname like \'%' . $this->subname . '%\'';
 		}
 		
-		if($this->featured != SimpleEntityFilter::ALL_VALUES) {
+		if($this->featured !== SimpleEntityFilter::ALL_VALUES) {
 			$expressions[] = 'e.featured = ' . $this->featured;
 		}
 		
-// 		if($this->preleaf != SimpleEntityFilter::ALL_VALUES) {
-// 			$expressions[] = 'e.preleaf = ' . $this->preleaf;
-// 		}
+		if($this->preleaf !== SimpleEntityFilter::ALL_VALUES) {
+			$expressions[] = 'e.preleaf = ' . $this->preleaf;
+		}
 		
-		if($this->root == SimpleEntityFilter::TRUE_VALUES) {
+		if($this->root === SimpleEntityFilter::TRUE_VALUES) {
 			$expressions[] = 'e.parent IS NULL';
 		} else {
-			if($this->root == SimpleEntityFilter::FALSE_VALUES) {
+			if($this->root === SimpleEntityFilter::FALSE_VALUES) {
 				$expressions[] = 'e.parent IS NOT NULL';
 			}
 			if($this->parents) {
@@ -165,13 +165,6 @@ class CategoryFilter extends SimpleEntityFilter {
 			$expressions[] = BranchCategoryAssignment::class . ' bca WITH bca.category = e.id';
 		
 		return $expressions;
-	}
-	
-	/**
-	 * {@inheritDoc}
-	 */
-	public function getOrderByExpression() {
-		return ' ORDER BY e.treePath ASC ';
 	}
 	
 	/**

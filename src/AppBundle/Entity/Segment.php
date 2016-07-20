@@ -20,6 +20,11 @@ class Segment extends ImageEntity
     private $content;
 
     /**
+     * @var integer
+     */
+    private $orderNumber;
+
+    /**
      * @var \Doctrine\Common\Collections\Collection
      */
     private $productCategoryAssignments;
@@ -60,6 +65,30 @@ class Segment extends ImageEntity
     public function getContent()
     {
         return $this->content;
+    }
+
+    /**
+     * Set orderNumber
+     *
+     * @param integer $orderNumber
+     *
+     * @return Segment
+     */
+    public function setOrderNumber($orderNumber)
+    {
+        $this->orderNumber = $orderNumber;
+
+        return $this;
+    }
+
+    /**
+     * Get orderNumber
+     *
+     * @return integer
+     */
+    public function getOrderNumber()
+    {
+        return $this->orderNumber;
     }
 
     /**
