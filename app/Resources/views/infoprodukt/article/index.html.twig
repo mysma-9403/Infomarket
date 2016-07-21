@@ -19,11 +19,11 @@
 								</div>
 							</div>
 							<div class="col-sm-9">
-								{% if entry.brand %}
-								<a href="{{ path('infoprodukt_brand_show', { 'id': entry.brand.id }) }}">
-									<h2 class="text-red">{{ entry.brand.name | raw }}</h2>
-								</a>
-								{% endif %}
+								{% for articleBrandAssignment in entry.articleBrandAssignments %}
+									<a href="{{ path(basePath ~ 'brand_show', { id: articleBrandAssignment.brand.id }) }}">
+										<h3 class="text-red">{{ articleBrandAssignment.brand.name | raw }} </h3>
+									</a> 
+								{% endfor %}
 								
 								<a href="{{ path('infoprodukt_' ~ mainPath ~ '_show', { 'id': entry.id }) }}">
 									<h3>

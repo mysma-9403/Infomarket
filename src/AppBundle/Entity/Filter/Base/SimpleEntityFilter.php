@@ -57,8 +57,8 @@ class SimpleEntityFilter extends BaseEntityFilter {
 	protected function getWhereExpressions() {
 		$expressions = parent::getWhereExpressions();
 		
-		if($this->name !== null && $this->name !== '') {
-			$expressions[] = 'e.name like \'%' . $this->name . '%\'';
+		if($this->name) {
+			$expressions[] = $this->getStringsExpression('e.name', $this->name);
 		}
 		
 		return $expressions;

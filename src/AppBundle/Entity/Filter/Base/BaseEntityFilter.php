@@ -210,6 +210,31 @@ class BaseEntityFilter {
 		return '';
 	}
 	
+	protected function getStringsExpression($name, $string) {
+		$values = explode(',', $string);
+		
+		$expression = null;
+		foreach ($values as $value) {
+			if($expression) {
+				$expression .= ' OR ' . $this->getStringExpression($name, $value);
+			} else {
+				$expression = $this->getStringExpression($name, $value);
+			}
+		}
+		return $expression;
+	}
+	
+	protected function getStringExpression($name, $string) {
+		$like = ' like ';
+		if(substr($string, 0, 2) == '<>') {
+			$string = str_replace('<>', '', $string);
+			$like = ' not like ';
+		}
+		
+		$string = str_replace('*', '%', $string);
+		return $name . $like . '\'' . $string . '\'';
+	}
+	
 	/**
 	 *
 	 * @param unknown $name
