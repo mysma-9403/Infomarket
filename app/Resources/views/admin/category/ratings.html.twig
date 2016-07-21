@@ -32,7 +32,7 @@
 					<table class="table table-striped vert-align">
 						<tbody>
 						{% for productCategoryAssignment in entry.productCategoryAssignments %}
-							{% if productAssignment.segment.id == segment.id %}
+							{% if productCategoryAssignment.segment.id == segment.id %}
 							<tr>
 								<td>
 									{% if productCategoryAssignment.product.brand %}
