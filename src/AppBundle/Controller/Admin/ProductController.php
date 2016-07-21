@@ -145,7 +145,7 @@ class ProductController extends ImageEntityController {
 		$segmentRepository = $this->getDoctrine()->getRepository(Segment::class);
 		
 		$filter = new ProductFilter($categoryRepository, $brandRepository, $segmentRepository);
-		$filter->setOrderBy('b.name ASC, p.name ASC');
+		$filter->setOrderBy('b.name ASC, e.name ASC');
 		
 		return $filter;
 	}
