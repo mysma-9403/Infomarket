@@ -9,6 +9,7 @@ use AppBundle\Repository\BrandRepository;
 use AppBundle\Repository\CategoryRepository;
 use AppBundle\Repository\SegmentRepository;
 use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Entity\Brand;
 
 class ProductFilter extends SimpleEntityFilter {
 
@@ -94,6 +95,8 @@ class ProductFilter extends SimpleEntityFilter {
 	protected function getJoinExpressions() {
 		$expressions = parent::getJoinExpressions();
 	
+		$expressions[] = Brand::class . ' b WITH b.id = e.brand';
+		
 		if($this->categories || $this->segments)
 			$expressions[] = ProductCategoryAssignment::class . ' pca WITH pca.product = e.id';
 	

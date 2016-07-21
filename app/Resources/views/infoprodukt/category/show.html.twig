@@ -51,62 +51,24 @@
 					<div class="col-sm-9">
 						<div id="myCarousel" class="carousel slide" data-ride="carousel">
 							<ol class="carousel-indicators">
-{# 						    	{% set count = 0 %}#}
-{# 							    {% for article in articles %}#}
-{# 							    	{% if count < 3 and article.featured %}#}
-{# 							    		<li data-target="#myCarousel" data-slide-to="{{ count }}" class="{{ count < 1 ? 'active' : '' }}"></li>#}
-{# 							    		{% set count = count+1 %}#}
-{# 							    	{% endif %}#}
-{# 							    {% endfor %}#}
-
-
-								{% set count = 0 %}
-							    {% for articleCategoryAssignment in entry.articleCategoryAssignments
-							    	if articleCategoryAssignment.article.published
-							    	and articleCategoryAssignment.article.featured 
-							    	and count < 3 %}
-							    		<li data-target="#myCarousel" data-slide-to="{{ count }}" class="{{ count < 1 ? 'active' : '' }}"></li>
-							    		{% set count = count + 1 %}
+							    {% for article in articles|slice(0,3)%}
+						    		<li data-target="#myCarousel" data-slide-to="{{ loop.index-1 }}" class="{{ loop.index == 1 ? 'active' : '' }}"></li>
 							    {% endfor %}
 						  	</ol>
 						  	
 						  	<div class="carousel-inner" role="listbox">
-{# 							    {% set count = 0 %}#}
-{# 							    {% for article in articles %}#}
-{# 							    	{% if count < 3 and article.featured %}#}
-{# 							    		<div class="item rect-2x1 {{ count < 1 ? 'active' : '' }}">#}
-{# 									    	<img src="{{ asset(article.getImagePath()) }}">#}
-{# 								      		<div class="carousel-caption">#}
-{# 								      			<a class="text-white" href="{{ path('infoprodukt_article_show', { id: article.id }) }}">#}
-{# 									      			<h2>#}
-{# 									      				{{ article.name }}#}
-{# 									      				{{ article.subname }}#}
-{# 									      			</h2>#}
-{# 									      		</a>#}
-{# 											</div>#}
-{# 									    </div>#}
-{# 							    		{% set count = count+1 %}#}
-{# 							    	{% endif %}#}
-{# 							    {% endfor %}#}
-
-
-								{% set count = 0 %}
-							    {% for articleCategoryAssignment in entry.articleCategoryAssignments
-							    	if articleCategoryAssignment.article.published
-							    	and articleCategoryAssignment.article.featured 
-							    	and count < 3 %}
-							    		<div class="item rect-2x1 {{ count < 1 ? 'active' : '' }}">
-									    	<img src="{{ asset(articleCategoryAssignment.article.getImagePath()) }}">
-								      		<div class="carousel-caption">
-								      			<a class="text-white" href="{{ path('infoprodukt_article_show', { id: articleCategoryAssignment.article.id }) }}">
-									      			<h3>
-									      				{{ articleCategoryAssignment.article.name }}
-									      				{{ articleCategoryAssignment.article.subname }}
-									      			</h3>
-									      		</a>
-											</div>
-									    </div>
-							    		{% set count = count + 1 %}
+								{% for article in articles|slice(0,3)%}
+						    		<div class="item rect-2x1 {{ loop.index == 1 ? 'active' : '' }}">
+								    	<img src="{{ asset(article.getImagePath()) }}">
+							      		<div class="carousel-caption">
+							      			<a class="text-white" href="{{ path('infoprodukt_article_show', { id: article.id }) }}">
+								      			<h3>
+								      				{{ article.name }}
+								      				{{ article.subname }}
+								      			</h3>
+								      		</a>
+										</div>
+								    </div>
 							    {% endfor %}
 						  	</div>
 						  	
@@ -144,36 +106,39 @@
 					</div>
 					
 					<div class="row text-center lowered">
-						<a href={{ path('infoprodukt_article', { category: entry.id }) }} class="btn btn-primary">Czytaj wiecej...</a>
+						<a href={{ path('infoprodukt_article', { article_filter_categories: entry.id }) }} class="btn btn-primary">Czytaj wiecej...</a>
 					</div>
 				</div>
 			</div>
-		</div>
-		
-			<div class="col-xs-6">
-		    {% for articleCategoryAssignment in entry.articleCategoryAssignments
-		    	if articleCategoryAssignment.article.published
-		    	and articleCategoryAssignment.article.featured %}
-		    		<li>{{ articleCategoryAssignment.article.name }}</li>
-		    {% endfor %}
-		    </div>
-		    
-		    <div class="col-xs-6">
-		    {% for article in articles %}
-	    		<li>{{ article.name }}</li>
-		    {% endfor %}
-		    </div>
-		    
+		</div>    
 		{% endblock %}
 		
 		<div class="vr-space-40"></div>
 		
-		{% block articleCategories %}
+		{% block articleCategoriesBlock %}
 		<div class="container">
 			<div class="row">
 				<div class="col-xs-12">
 					<div class="row no-padding">
-						{% include 'common/tile_list.html.twig' with {'entries': article_categories, 'entryPath': 'article', 'colSize': 3, 'limit': 4, 'tile': 'bottom_text_tile', 'alternate': true} %}
+{# 						{% include 'common/tile_list.html.twig' with {'entries': article_categories, 'entryPath': 'article', #}
+{# 							'colSize': 3, 'limit': 4, 'tile': 'bottom_text_tile', 'alternate': true} %}#}
+						{% for articleCategory in article_categories | slice(0,4) %}
+							<div class="col-sm-3">
+								<div class="row">
+									<a class="text-white" href="{{ path('infoprodukt_article', 
+										{ article_filter_categories: entry.id, article_filter_article_categories: articleCategory.id }) }}">
+										<div class="rect col-bottom">
+											<img class="div-center" alt="{{ articleCategory.name | raw }}" src="{{ asset(articleCategory.getImagePath()) }}">
+											<div class="col-xs-12 div-bottom bkg-black-50">
+												<h4>
+													{{ articleCategory.name | raw }}
+												</h4>
+											</div>
+										</div>
+									</a>
+								</div>
+							</div>
+						{% endfor %}
 					</div>
 				</div>
 			</div>

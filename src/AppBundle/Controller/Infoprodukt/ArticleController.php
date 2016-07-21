@@ -53,6 +53,7 @@ class ArticleController extends SimpleEntityController
     	$categoryRepository = $this->getDoctrine()->getRepository(Category::class);
     	
     	$filter = new ArticleFilter($articleCategoryRepository, $categoryRepository);
+    	$filter->initValues($request);
     	$filter->setPublished(SimpleEntityFilter::TRUE_VALUES);
     	$filter->setMain(SimpleEntityFilter::TRUE_VALUES);
     	$filter->setOrderBy('e.publishedAt DESC');

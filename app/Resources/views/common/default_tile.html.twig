@@ -1,5 +1,10 @@
 <div class="row">
-	<a class="text-white" href="{{ path('infoprodukt_' ~ entryPath ~ '_show', { 'id': entry.id }) }}">
+	{% if routeParams %}
+		{% set routeParams = routeParams | merge({ 'id': entry.id }) %}	
+	{% else %}
+		{% set routeParams = { 'id': entry.id } %}
+	{% endif %}
+	<a class="text-white" href="{{ path('infoprodukt_' ~ entryPath ~ '_show', routeParams) }}">
 		<div class="rect col-bottom">
 			<img class="div-center" alt="{{ entry.name | raw }}" src="{{ asset(entry.getImagePath()) }}">
 			<div class="col-xs-12 div-bottom bkg-black-50">

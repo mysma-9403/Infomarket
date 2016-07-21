@@ -211,7 +211,11 @@ class ArticleController extends ImageEntityController {
 	protected function createNewFilter() {
 		$articleCategoryRepository = $this->getDoctrine()->getRepository(ArticleCategory::class);
 		$categoryRepository = $this->getDoctrine()->getRepository(Category::class);
-		return new ArticleFilter($articleCategoryRepository, $categoryRepository);
+		
+		$filter = new ArticleFilter($articleCategoryRepository, $categoryRepository);
+		$filter->setOrderBy('e.createdAt DESC');
+		
+		return $filter;
 	}
 	
 	
