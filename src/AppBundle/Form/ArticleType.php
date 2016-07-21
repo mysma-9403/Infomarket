@@ -12,8 +12,6 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
-use AppBundle\Entity\Brand;
-use AppBundle\Repository\BrandRepository;
 
 class ArticleType extends ImageEntityType
 {
@@ -64,18 +62,6 @@ class ArticleType extends ImageEntityType
 					'multiple'      => false,
 					'placeholder'	=> 'label.choose.article.parent'
 			))
-			->add('brand', EntityType::class, array(
-					'class'			=> Brand::class,
-					'query_builder' => function (BrandRepository $repository) {
-					return $repository->createQueryBuilder('e')
-					->orderBy('e.published DESC, e.name', 'ASC');
-					},
-					'choice_label' 	=> 'name',
-					'required' 		=> false,
-					'expanded'      => false,
-					'multiple'      => false,
-					'placeholder'	=> 'label.choose.brand'
-							))
 			->add('intro', CKEditorType::class, array(
 					'config' => array(
 							'uiColor' => '#ffffff'),

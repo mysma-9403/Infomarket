@@ -14,8 +14,6 @@
         <field name="intro" type="text" nullable="true" />
         <field name="content" type="text" nullable="true" />
         
-        <many-to-one field="brand" target-entity="Brand" nullable="true" />
-        
         <many-to-one field="parent" target-entity="Article" nullable="true" />
         
         <field name="orderNumber" type="integer" default="1" nullable="true" />
@@ -34,6 +32,9 @@
         </one-to-many>
         
         <one-to-many field="articleCategoryAssignments" target-entity="ArticleCategoryAssignment" mapped-by="article">
+        </one-to-many>
+        
+        <one-to-many field="articleBrandAssignments" target-entity="ArticleBrandAssignment" mapped-by="article">
         </one-to-many>
         
     </entity>

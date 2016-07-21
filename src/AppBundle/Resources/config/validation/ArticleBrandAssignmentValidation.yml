@@ -1,0 +1,8 @@
+AppBundle\Entity\ArticleBrandAssignment:
+    constraints:
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
+            fields: [article, brand]
+            errorPath: brand
+            ignoreNull: false
+            message: 'articleBrandAssignment.unique'
+                

@@ -87,6 +87,11 @@ class Article extends ImageEntity
     private $displayPaginated;
 
     /**
+     * @var \AppBundle\Entity\Article
+     */
+    private $parent;
+    
+    /**
      * @var \Doctrine\Common\Collections\Collection
      */
     private $children;
@@ -102,15 +107,10 @@ class Article extends ImageEntity
     private $articleCategoryAssignments;
 
     /**
-     * @var \AppBundle\Entity\Brand
+     * @var \Doctrine\Common\Collections\Collection
      */
-    private $brand;
-
-    /**
-     * @var \AppBundle\Entity\Article
-     */
-    private $parent;
-
+    private $articleBrandAssignments;
+    
     /**
      * Constructor
      */
@@ -416,30 +416,6 @@ class Article extends ImageEntity
     }
 
     /**
-     * Set brand
-     *
-     * @param \AppBundle\Entity\Brand $brand
-     *
-     * @return Article
-     */
-    public function setBrand(\AppBundle\Entity\Brand $brand = null)
-    {
-        $this->brand = $brand;
-
-        return $this;
-    }
-
-    /**
-     * Get brand
-     *
-     * @return \AppBundle\Entity\Brand
-     */
-    public function getBrand()
-    {
-        return $this->brand;
-    }
-
-    /**
      * Set parent
      *
      * @param \AppBundle\Entity\Article $parent
@@ -461,5 +437,39 @@ class Article extends ImageEntity
     public function getParent()
     {
         return $this->parent;
+    }
+
+    /**
+     * Add articleBrandAssignment
+     *
+     * @param \AppBundle\Entity\ArticleBrandAssignment $articleBrandAssignment
+     *
+     * @return Article
+     */
+    public function addArticleBrandAssignment(\AppBundle\Entity\ArticleBrandAssignment $articleBrandAssignment)
+    {
+        $this->articleBrandAssignments[] = $articleBrandAssignment;
+
+        return $this;
+    }
+
+    /**
+     * Remove articleBrandAssignment
+     *
+     * @param \AppBundle\Entity\ArticleBrandAssignment $articleBrandAssignment
+     */
+    public function removeArticleBrandAssignment(\AppBundle\Entity\ArticleBrandAssignment $articleBrandAssignment)
+    {
+        $this->articleBrandAssignments->removeElement($articleBrandAssignment);
+    }
+
+    /**
+     * Get articleBrandAssignments
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getArticleBrandAssignments()
+    {
+        return $this->articleBrandAssignments;
     }
 }

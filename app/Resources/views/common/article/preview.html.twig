@@ -2,11 +2,11 @@
 {% block header %}
 <div class="row">
 	<div class="col-xs-12">
-		{% if entry.brand %}
-			<h2>
-				<span class="text-red">{{ entry.brand.name | raw }}</span>
-			</h2>
-		{% endif %}
+		<h2 class="text-red">
+		{% for articleBrandAssignment in entry.articleBrandAssignments %}
+			<a href="{{ path(basePath ~ 'brand_show', { id: articleBrandAssignment.brand.id }) }}">{{ articleBrandAssignment.brand.name | raw }}</a> 
+		{% endfor %}
+		</h2>
 		<h3>
 			<span class="text-brand">{{ entry.name | raw }}</span>
 			<span class="text-red">{{ entry.subname | raw }}</span>

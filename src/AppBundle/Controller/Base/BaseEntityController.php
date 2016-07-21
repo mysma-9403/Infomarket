@@ -35,8 +35,8 @@ abstract class BaseEntityController extends Controller
 		return $this->render($this->getShowView(), $params);
 	}
 	
-	protected function redirectToReferer() {
-		$referer = $this->getRequest()->headers->get('referer');
+	protected function redirectToReferer(Request $request) {
+		$referer = $request->headers->get('referer');
 		return $this->redirect($referer);
 	}
 	

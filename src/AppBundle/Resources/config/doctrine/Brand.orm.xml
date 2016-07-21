@@ -10,17 +10,13 @@
         
         <field name="content" type="text" nullable="true" />
         
+        <one-to-many field="articleBrandAssignments" target-entity="ArticleBrandAssignment" mapped-by="brand">
+        </one-to-many>
+        
         <one-to-many field="brandCategoryAssignments" target-entity="BrandCategoryAssignment" mapped-by="brand">
             <order-by>
             	<order-by-field name="category" direction="ASC" />
             	<order-by-field name="segment" direction="ASC" />
-            </order-by>
-        </one-to-many>
-        
-        <one-to-many field="articles" target-entity="Article" mapped-by="brand">
-            <order-by>
-            	<order-by-field name="published" direction="ASC" />
-            	<order-by-field name="name" direction="ASC" />
             </order-by>
         </one-to-many>
         

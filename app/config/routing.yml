@@ -188,7 +188,36 @@ admin_article_article_category_assignment_set_published:
 admin_article_article_category_assignment:
     path:      /admin/article-article_category_assignments/{page}
     defaults:  { _controller: "AppBundle:Admin/ArticleArticleCategoryAssignment:index", page: 1 }
+
+# Admin ArticleBrandAssignments Routing    
+admin_article_brand_assignment_show:
+    path:      /admin/article-brand_assignments/show/{id}
+    defaults:  { _controller: "AppBundle:Admin/ArticleBrandAssignment:show" }
     
+admin_article_brand_assignment_new:
+    path:      /admin/article-brand_assignments/new/
+    defaults:  { _controller: "AppBundle:Admin/ArticleBrandAssignment:new" }
+    
+admin_article_brand_assignment_copy:
+    path:      /admin/article-brand_assignments/copy/{id}
+    defaults:  { _controller: "AppBundle:Admin/ArticleBrandAssignment:copy" }
+    
+admin_article_brand_assignment_edit:
+    path:      /admin/article-brand_assignments/edit/{id}
+    defaults:  { _controller: "AppBundle:Admin/ArticleBrandAssignment:edit" }
+    
+admin_article_brand_assignment_delete:
+    path:      /admin/article-brand_assignments/delete/{id}
+    defaults:  { _controller: "AppBundle:Admin/ArticleBrandAssignment:delete" }
+    
+admin_article_brand_assignment_set_published:
+    path:      /admin/article-brand_assignments/set_published/{id}
+    defaults:  { _controller: "AppBundle:Admin/ArticleBrandAssignment:setPublished" }
+
+admin_article_brand_assignment:
+    path:      /admin/article-brand_assignments/{page}
+    defaults:  { _controller: "AppBundle:Admin/ArticleBrandAssignment:index", page: 1 }
+        
 # Admin ArticleCategoryAssignments Routing    
 admin_article_category_assignment_show:
     path:      /admin/article-category_assignments/show/{id}

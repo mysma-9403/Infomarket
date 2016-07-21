@@ -86,6 +86,10 @@
                 <source>title.article_article_category_assignments</source>
                 <target>Artykuły - Kategorie artykułów</target>
             </trans-unit>
+            <trans-unit id="title.article_brand_assignments">
+                <source>title.article_brand_assignments</source>
+                <target>Artykuły - Marki</target>
+            </trans-unit>
             <trans-unit id="title.article_category_assignments">
                 <source>title.article_category_assignments</source>
                 <target>Artykuły - Kategorie</target>

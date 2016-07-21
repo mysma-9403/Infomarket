@@ -171,6 +171,7 @@ abstract class AdminEntityController extends BaseEntityController {
 			foreach ($errors as $error) {
 				$this->addFlash('error', $error->getMessage());
 			}
+			return $this->redirectToReferer($request);
 		} else {
 			$em = $this->getDoctrine()->getManager();
 			$em->getConnection()->beginTransaction();
@@ -183,6 +184,7 @@ abstract class AdminEntityController extends BaseEntityController {
 					}
 					
 					$em->getConnection()->rollback();
+					return $this->redirectToReferer($request);
 				}
 				else {
 					$em->remove($entry);
@@ -193,6 +195,7 @@ abstract class AdminEntityController extends BaseEntityController {
 			} catch (Exception $ex) {
 				$em->getConnection()->rollback();
 				$this->addFlash('error', $ex->getMessage());
+				return $this->redirectToReferer($request);
 			}
 		}
 		

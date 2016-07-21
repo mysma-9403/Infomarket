@@ -1,0 +1,15 @@
+{% extends 'admin/simple/show.html.twig' %}
+
+{% set mainPath = 'article_brand_assignment' %}
+{% set title = 'title.article_brand_assignments'|trans %}
+{% set gender = '' %}
+
+{% block mainFields1 %}	
+	{% include 'common/fields/simple_field.html.twig' with 
+	{ 'label': 'label.article', 'value': entry.article,
+		'object': 'article', 'routeId': entry.id } %}
+		
+	{% include 'common/fields/simple_field.html.twig' with 
+	{ 'label': 'label.brand', 'value': entry.brand,
+		'object': 'brand', 'routeId': entry.id } %}
+{% endblock %}

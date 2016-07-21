@@ -171,4 +171,43 @@ class Brand extends ImageEntity
     {
         return $this->articles;
     }
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $articleBrandAssignments;
+
+
+    /**
+     * Add articleBrandAssignment
+     *
+     * @param \AppBundle\Entity\ArticleBrandAssignment $articleBrandAssignment
+     *
+     * @return Brand
+     */
+    public function addArticleBrandAssignment(\AppBundle\Entity\ArticleBrandAssignment $articleBrandAssignment)
+    {
+        $this->articleBrandAssignments[] = $articleBrandAssignment;
+
+        return $this;
+    }
+
+    /**
+     * Remove articleBrandAssignment
+     *
+     * @param \AppBundle\Entity\ArticleBrandAssignment $articleBrandAssignment
+     */
+    public function removeArticleBrandAssignment(\AppBundle\Entity\ArticleBrandAssignment $articleBrandAssignment)
+    {
+        $this->articleBrandAssignments->removeElement($articleBrandAssignment);
+    }
+
+    /**
+     * Get articleBrandAssignments
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getArticleBrandAssignments()
+    {
+        return $this->articleBrandAssignments;
+    }
 }

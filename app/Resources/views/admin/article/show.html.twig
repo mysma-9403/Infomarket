@@ -4,16 +4,6 @@
 {% set mainPath = 'article' %}
 {% set gender = 'm.' %}
 
-{% block moreFields1 %}
-	{% if entry.brand %}
-	<div class="row">
-		<div class="col-xs-12">
-			<h3>{{ entry.brand.name | raw }}</h3>
-		</div>
-	</div>
-	{% endif %}
-{% endblock %}
-
 {% block moreFields2 %}
 	<div class="row">
 		<div class="col-xs-12">
@@ -28,19 +18,19 @@
 	
 	
 	<div class="row">
-		<div class="col-xs-12">
+		<div class="col-sm-9">
 			<h4>{{ 'label.intro'|trans }}</h4>
 		</div>
-		<div class="col-xs-12">
+		<div class="col-sm-9">
 			{{ entry.intro | raw }}
 		</div>
 	</div>
 	
 	<div class="row">
-		<div class="col-xs-12">
+		<div class="col-sm-9">
 			<h4>{{ 'label.content'|trans }}</h4>
 		</div>
-		<div class="col-xs-12">
+		<div class="col-sm-9">
 			{{ entry.content | raw }}
 		</div>
 	</div>

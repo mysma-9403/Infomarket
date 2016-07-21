@@ -137,11 +137,18 @@ class ArticleController extends ImageEntityController {
 		}
 		$em->flush();
 		
+		foreach ($entry->getArticleBrandAssignments() as $articleBrandAssignment) {
+			$em->remove($articleBrandAssignment);
+		}
+		$em->flush();
+		
 		foreach ($entry->getChildren() as $subentry) {
 			$this->deleteMore($subentry);
 			$em->remove($subentry);
 		}
 		$em->flush();
+		
+		return array();
 	
 		return array();
 	}
