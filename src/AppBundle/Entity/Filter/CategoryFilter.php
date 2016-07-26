@@ -131,21 +131,18 @@ class CategoryFilter extends SimpleEntityFilter {
 			$expressions[] = 'e.subname like \'%' . $this->subname . '%\'';
 		}
 		
-		if($this->featured !== SimpleEntityFilter::ALL_VALUES) {
+		if($this->featured !== $this::ALL_VALUES) {
 			$expressions[] = 'e.featured = ' . $this->featured;
 		}
 		
-		//TODO i don't know why upper version does not work on server... :(
-		if($this->preleaf == SimpleEntityFilter::TRUE_VALUES) {
-			$expressions[] = 'e.preleaf = ' . true;
-		} else if($this->preleaf == SimpleEntityFilter::FALSE_VALUES) {
-			$expressions[] = 'e.preleaf = ' . false;
+		if($this->preleaf !== $this::ALL_VALUES) {
+			$expressions[] = 'e.preleaf = ' . $this->preleaf;
 		}
 		
-		if($this->root === SimpleEntityFilter::TRUE_VALUES) {
+		if($this->root === $this::TRUE_VALUES) {
 			$expressions[] = 'e.parent IS NULL';
 		} else {
-			if($this->root === SimpleEntityFilter::FALSE_VALUES) {
+			if($this->root === $this::FALSE_VALUES) {
 				$expressions[] = 'e.parent IS NOT NULL';
 			}
 			if($this->parents) {
