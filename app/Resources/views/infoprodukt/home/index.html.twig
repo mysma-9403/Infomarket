@@ -21,12 +21,71 @@
 	</div>
 	{% endblock %}
 	
-	{% block main %}
+	<div class="vr-space-10"></div>
+	
+	{% block promo %}
 	<div class="row">
-		<h1 class="text-center">
+		<h2 class="text-center">
 			<span class="text-brand">{{ 'text.slogan1'|trans }}</span>
 			<span class="text-red">{{ 'text.slogan2'|trans }}</span>
-		</h1>
+		</h2>
 	</div>
 	{% endblock %}
+	
+	<div class="vr-space-40"></div>
+	
+	{% block featuredCategories %}
+	<div class="container">
+		<div class="row">
+			<h2 class="text-center">
+				<span class="text-brand">{{ 'title.mostPopular'|trans }}</span> 
+				<span class="text-red">{{ 'title.categories'|trans }}</span>
+			</h2>
+		</div>
+		
+		<div class="vr-space-10"></div>
+		
+		<div class="row">
+			<div class="col-xs-12">
+				{% include 'common/tile_list.html.twig' with {'entries': menuCategories|slice(0,8), 
+					'entryPath': 'category', 'colSize': 3, 'tile': 'bottom_rect_tile' } %}
+			</div>
+			
+			<div class="row text-center lowered">
+				<a href={{ path(basePath ~ 'category') }} class="btn btn-primary">{{ 'label.showAll'|trans }}</a>
+			</div>
+		</div>
+	</div>
+	{% endblock %}
+	
+	<div class="vr-space-40"></div>
+	
+	{% block magazines %}
+		<div class="container">
+			<div class="row text-center text-primary">
+				<h2>{{ 'header.magazines'|trans }}</h2>
+			</div>
+		
+			<div class="vr-space-10"></div>
+			
+			<div class="row">
+				{% for magazine in magazines %}
+					<div class="col-sm-3">
+				  		<a href="{{ asset(magazine.magazineFile) }}">
+			  				<img class="img-responsive" src="{{ asset(magazine.getImagePath()) }}">
+				  		</a>
+				  	</div>
+			  	{% endfor %}
+		  	</div>
+		  	
+		  	<div class="vr-space-10"></div>
+			  	
+		  	<div class="row text-center lowered">
+				<a href={{ path(basePath ~ 'magazine') }} class="btn btn-danger">{{ 'label.showAll'|trans }}</a>
+			</div>
+			
+			<div class="vr-space-10"></div>
+	  	</div>
+	{% endblock %}
+	
 {% endblock %}

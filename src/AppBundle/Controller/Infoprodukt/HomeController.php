@@ -5,10 +5,12 @@ namespace AppBundle\Controller\Infoprodukt;
 use AppBundle\Controller\Infoprodukt\Base\SimpleEntityController;
 use AppBundle\Entity\Branch;
 use AppBundle\Entity\Category;
-use AppBundle\Entity\Filter\BranchFilter;
 use AppBundle\Entity\Filter\CategoryFilter;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Entity\Filter\MagazineFilter;
+use AppBundle\Entity\Filter\Base\SimpleEntityFilter;
+use AppBundle\Entity\Magazine;
 
 class HomeController extends SimpleEntityController
 {
@@ -23,23 +25,24 @@ class HomeController extends SimpleEntityController
 	}
 	
 	/**
-	 * 
+	 *
 	 * {@inheritDoc}
 	 * @see \AppBundle\Controller\Infomarket\Base\BaseEntityController::getShowParams()
 	 */
 	protected function getIndexParams(Request $request, $page)
 	{
 		$params = parent::getIndexParams($request, $page);
-		
-		$categoryRepository = $this->getDoctrine()->getRepository(Category::class);
-		
-		$branchFilter = new BranchFilter($categoryRepository);
-    	$branchFilter->initValues($request);
-    	$branchFilter->setPublished(true);
-    	
-    	$branches = $this->getParamList(Branch::class, $branchFilter);
-    	$params['branches'] = $branches;
-		
+	
+		$magazineFilter = new MagazineFilter();
+		$magazineFilter->initValues($request);
+		$magazineFilter->setPublished(SimpleEntityFilter::TRUE_VALUES);
+		$magazineFilter->setFeatured(SimpleEntityFilter::TRUE_VALUES);
+		$magazineFilter->setOrderBy('e.orderNumber ASC, e.name ASC');
+		$magazineFilter->setLimit(4);
+	
+		$magazines = $this->getParamList(Magazine::class, $magazineFilter);
+		$params['magazines'] = $magazines;
+	
 		return $params;
 	}
 	

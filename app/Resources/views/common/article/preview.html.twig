@@ -19,6 +19,7 @@
 <div class="col-xs-{{ entry.displaySided ? 6 : 12 }}"> 
 	{% block logo %}
 	<div class="col-sm-{{ entry.displaySided ? 12 : 4 }}">
+		
 		<a href="#" class="pop">
 			<div class="rect">
 				<img class="div-center" src="{{ asset(entry.getImagePath()) }}">
@@ -38,13 +39,7 @@
 				</div>
 			</div>
 		</div>
-
-		<p class="text-muted">
-			<span class="fa fa-calendar"></span> {{ entry.publishedAt | date('Y-m-d') }}
-			{% if entry.publishedBy %}
-				, <span class="fa fa-user"></span> {{ entry.publishedBy.username }}
-			{% endif %}
-		</p>	
+		
 	</div>
 	{% endblock %}
 	
@@ -109,13 +104,24 @@
 	</div>
 	{% endblock %}
 </div>
+
+<div class="row">
+	<div class="col-xs-12">
+		<p class="text-muted">
+			<span class="fa fa-calendar"></span> {{ entry.publishedAt | date('Y-m-d') }}
+			{% if entry.publishedBy %}
+				, <span class="fa fa-user"></span> {{ entry.publishedBy.username }}
+			{% endif %}
+		</p>
+	</div>
+</div>
 {% endblock %}
 
 {% block back %}
 <div class="row">
 	<div class="col-xs-12">
-		<a class="btn btn-primary fa fa-arrow-circle-o-left" href="{{ path(route, routeParams) }}"> {{ 'action.back' | trans }}</a>
-		<a class="btn btn-primary fa fa-arrow-circle-o-up pull-right" href="#"> {{ 'action.toTop' | trans }}</a>
+		<a class="btn btn-primary" href="{{ path(route, routeParams) }}"><span class="fa fa-arrow-circle-o-left"></span> {{ 'action.back' | trans }}</a>
+		<a class="btn btn-primary pull-right" href="#"><span class="fa fa-arrow-circle-o-up"></span> {{ 'action.toTop' | trans }}</a>
 	</div>
 </div>	
 {% endblock %}

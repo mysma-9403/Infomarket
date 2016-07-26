@@ -68,4 +68,3 @@ class ArticleBrandAssignment extends Audit
         return $this->brand;
     }
 }
-

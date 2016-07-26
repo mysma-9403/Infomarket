@@ -1,0 +1,11 @@
+AppBundle\Entity\Magazine:
+    constraints:
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: name
+    properties:
+        name:
+            - NotBlank: ~
+        orderNumber:
+            - NotBlank: ~
+            - Range:
+                min: 0
+                max: 99

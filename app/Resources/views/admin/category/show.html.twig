@@ -47,10 +47,14 @@
 	
 	{% include 'common/fields/simple_field.html.twig' with 
 	{ 'label': 'label.category.parent', 'value': entry.parent,
-		'object': 'category', 'routeId': entry.id } %}
+		'object': 'category' } %}
 	
 	{% include 'common/fields/text_field.html.twig' with 
 	{ 'label': 'label.orderNumber'|trans, 'value': entry.orderNumber } %}
+	
+	{% include 'common/fields/simple_field.html.twig' with 
+	{ 'label': 'label.category.magazine', 'value': entry.magazine,
+		'object': 'magazine' } %}
 	
 {% endblock %}
 

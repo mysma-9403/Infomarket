@@ -62,7 +62,7 @@ class CategoryController extends SimpleEntityController
 		$branchFilter = new BranchFilter($categoryRepository);
 		$branchFilter->initValues($request);
 		$branchFilter->setPublished(SimpleEntityFilter::TRUE_VALUES);
-		$branchFilter->setOrderBy('e.orderNumber ASC');
+		$branchFilter->setOrderBy('e.orderNumber ASC, e.name ASC');
 		
 		$branches = $this->getParamList(Branch::class, $branchFilter);
 		$params['branches'] = $branches;
@@ -71,14 +71,12 @@ class CategoryController extends SimpleEntityController
 		$categoryFilter->initValues($request);
 		$categoryFilter->setPublished(SimpleEntityFilter::TRUE_VALUES);
 		$categoryFilter->setPreleaf(SimpleEntityFilter::TRUE_VALUES);
-		$categoryFilter->setOrderBy('e.orderNumber ASC');
+		$categoryFilter->setOrderBy('e.orderNumber ASC, e.name ASC');
 		
-		$allCategories = array();
-		foreach($branches as $branch) {
-			$categoryFilter->setBranches(array($branch));
-			$allCategories[$branch->getId()] = $this->getParamList(Category::class, $categoryFilter);
-		}
-		$params['allCategories'] = $allCategories;
+		$categories = $this->getParamList(Category::class, $categoryFilter);
+		$params['categories'] = $categories;
+		
+		$params['limitCategories'] = count($categoryFilter->getBranches()) == 0;
 	
 		return $params;
 	}
@@ -107,20 +105,30 @@ class CategoryController extends SimpleEntityController
 			$articleFilter->setLimit(7);
 			
 			$articles = $this->getParamList(Article::class, $articleFilter);
-			
 			$params['articles'] = $articles;
+			
+			
+			
+			$articleCategory = $this->getDoctrine()->getRepository(ArticleCategory::class)->find(1);
+			
+			$articleFilter->setArticleCategories([$articleCategory]);
+			$articleFilter->setLimit(4);
+			
+			$promotions = $this->getParamList(Article::class, $articleFilter);
+			$params['promotions'] = $promotions; 
+			
+			
 			
 			$articleCategoryFilter = new ArticleCategoryFilter();
 			$articleCategoryFilter->setPublished(SimpleEntityFilter::TRUE_VALUES);
 			$articleCategoryFilter->setFeatured(SimpleEntityFilter::TRUE_VALUES);
 			//TODO $articleCategoryFilter->setOrderBy('e.orderNumber ASC');
 			
-			$articleCategoryRepository = $this->getDoctrine()->getRepository(ArticleCategory::class);
 			$articleCategories = $articleCategoryRepository->findSelected($articleCategoryFilter);
-			
 			$params['article_categories'] = $articleCategories;
 		} else {
 			//TODO use as setters as they are useless in many cases!!! (like here)
+			//TODO @up - not sure - they are needed in initValues! 
 			$categoryRepository = $this->getDoctrine()->getRepository(Category::class);
 			$brandRepository = $this->getDoctrine()->getRepository(Brand::class);
 			$segmentRepository = $this->getDoctrine()->getRepository(Segment::class);

@@ -27,7 +27,7 @@
 				<li {% if mainPath == 'admin' %} class="active" {% endif %}><a href="{{ path('admin') }}">{% trans %}title.admin{% endtrans %}</a></li>
 				<li {% if 'article' in mainPath %} class="active" {% endif %} class="dropdown">
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-						<span class="txt-success fa fa-user"></span> {{ 'title.articles'|trans }} <span class="caret"></span>
+						<span class="txt-success "></span> {{ 'title.articles'|trans }} <span class="caret"></span>
 					</a>
 					<ul class="dropdown-menu">
 						<li>
@@ -59,11 +59,10 @@
 					</ul>
 				</li>
 				<li {% if mainPath == 'branch' %} class="active" {% endif %}><a href="{{ path('admin_' ~ 'branch') }}">{% trans %}title.branches{% endtrans %}</a></li>
-				<li {% if mainPath == 'brand' %} class="active" {% endif %}><a href="{{ path('admin_' ~ 'brand') }}">{% trans %}title.brands{% endtrans %}</a></li>
 {# 				<li {% if mainPath == 'category' %} class="active" {% endif %}><a href="{{ path('admin_' ~ 'category') }}">{% trans %}title.categories{% endtrans %}</a></li>#}
 				<li {% if 'category' in mainPath %} class="active" {% endif %} class="dropdown">
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-						<span class="txt-success fa fa-user"></span> {{ 'title.categories'|trans }} <span class="caret"></span>
+						<span class="txt-success "></span> {{ 'title.categories'|trans }} <span class="caret"></span>
 					</a>
 					<ul class="dropdown-menu">
 						<li>
@@ -94,8 +93,45 @@
 						</li>
 					</ul>
 				</li>
-				<li {% if mainPath == 'segment' %} class="active" {% endif %}><a href="{{ path('admin_' ~ 'segment') }}">{% trans %}title.segments{% endtrans %}</a></li>
-				<li {% if mainPath == 'product' %} class="active" {% endif %}><a href="{{ path('admin_' ~ 'product') }}">{% trans %}title.products{% endtrans %}</a></li>
+				<li {% if 'product' in mainPath %} class="active" {% endif %} class="dropdown">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+						<span class="txt-success "></span> {{ 'title.products'|trans }} <span class="caret"></span>
+					</a>
+					<ul class="dropdown-menu">
+						<li>
+							<a href="{{ path(basePath ~ 'product') }}">
+								{{ 'title.products'|trans }}
+							</a>
+						</li>
+						<li>
+							<a href="{{ path(basePath ~ 'brand') }}">
+								{{ 'title.brands'|trans }}
+							</a>
+						</li>
+						<li>
+							<a href="{{ path(basePath ~ 'segment') }}">
+								{{ 'title.segments'|trans }}
+							</a>
+						</li>
+					</ul>
+				</li>
+				<li {% if 'other' in mainPath %} class="active" {% endif %} class="dropdown">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+						<span class="txt-success "></span> {{ 'title.others'|trans }} <span class="caret"></span>
+					</a>
+					<ul class="dropdown-menu">
+						<li>
+							<a href="{{ path(basePath ~ 'magazine') }}">
+								{{ 'title.magazines'|trans }}
+							</a>
+						</li>
+						<li>
+							<a href="{{ path(basePath ~ 'page') }}">
+								{{ 'title.pages'|trans }}
+							</a>
+						</li>
+					</ul>
+				</li>
 			</ul>
 		</div>
 	{% endblock %}

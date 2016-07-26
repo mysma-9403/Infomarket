@@ -11,14 +11,10 @@
 			<div class="row">
 				<div class="col-xs-12">
 					<a href="{{ path('infoprodukt_category') }}">
-						<h1>Kategorie</h1>
+						<h2>{{ 'title.categories'|trans }}</h2>
 					</a>
 					
 					{% include 'common/tile_list.html.twig' with {'entries': entries, 'entryPath': 'category', 'limit': 12} %}
-					
-					{% if entries|length > 12 %}
-						<a class="btn btn-danger" href="{{ path('infoprodukt_category') }}">{{ 'label.readMore'|trans }}</a>
-					{% endif %}	
 				</div>
 			</div>
 			<div class="row">
@@ -35,7 +31,7 @@
 			<div class="row">
 				<div class="col-xs-12">
 					<a href="{{ path('infoprodukt_product') }}">
-						<h1>Produkty</h1>
+						<h2>{{ 'title.products'|trans }}</h2>
 					</a>
 					
 					{% include 'common/tile_list.html.twig' with {'entries': products, 'entryPath': 'product', 'limit': 12} %}
@@ -55,7 +51,7 @@
 			<div class="row">
 				<div class="col-xs-12">
 					<a href="{{ path('infoprodukt_article') }}">
-						<h1>Artykuly</h1>
+						<h2>{{ 'title.articles'|trans }}</h2>
 					</a>
 					
 					{% include 'common/tile_list.html.twig' with {'entries': articles, 'entryPath': 'article', 'limit': 12} %}	
@@ -75,7 +71,7 @@
 			<div class="row">
 				<div class="col-xs-12">
 					<a href="{{ path('infoprodukt_brand') }}">
-						<h1>Marki</h1>
+						<h2>{{ 'title.brands'|trans }}</h2>
 					</a>
 					
 					{% include 'common/tile_list.html.twig' with {'entries': brands, 'entryPath': 'brand', 'limit': 12} %}
@@ -95,7 +91,7 @@
 			<div class="row">
 				<div class="col-xs-12">
 					<a href="{{ path('infoprodukt_term') }}">
-						<h1>Leksykon pojec</h1>
+						<h2>{{ 'title.terms'|trans }}</h2>
 					</a>
 					
 					{% for entry in terms %}

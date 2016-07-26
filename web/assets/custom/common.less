@@ -118,7 +118,7 @@ h2.title {
 
 a.text-white:focus,
 a.text-white:hover {
-	color: @gray;
+	color: @red;
 }
 
 .text-brand {
@@ -378,4 +378,43 @@ ul.nav-tree
     display: inline-block;
     vertical-align: middle;
     float: none;
+}
+
+
+
+
+
+.column-layout-2 {
+    -moz-column-count: 2;
+    -moz-column-gap: @padding;
+    -webkit-column-count: 2;
+    -webkit-column-gap: @padding;
+    column-count: 2;
+    column-gap: @padding;
+    width: 100%;
+}
+
+.column-layout-3 {
+    -moz-column-count: 3;
+    -moz-column-gap: @padding;
+    -webkit-column-count: 3;
+    -webkit-column-gap: @padding;
+    column-count: 3;
+    column-gap: @padding;
+    width: 100%;
+}
+
+.column-layout-4 {
+    -moz-column-count: 4;
+    -moz-column-gap: @padding;
+    -webkit-column-count: 4;
+    -webkit-column-gap: @padding;
+    column-count: 4;
+    column-gap: @padding;
+    width: 100%;
+}
+
+.column-layout div {
+    display: inline-block;
+    width: 100%;
 }

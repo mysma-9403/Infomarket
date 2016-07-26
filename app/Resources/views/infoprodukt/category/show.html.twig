@@ -11,7 +11,7 @@
 				<img class="img-responsive div-center" src="{{ asset(entry.featuredImage) }}">
 				
 				<div class="col-xs-12 div-bottom bkg-black-50 text-white">
-					<div class="container-fluid lifted-bottom">
+					<div class="container lifted-bottom">
 						<div class="row">
 							<div class="col-xs-12">
 								<h3>{{ entry.name | raw}} {{ 'label.category.subtitle'|trans }}</h3>
@@ -23,11 +23,11 @@
 			</div>
 			
 			{% block categories %}
-			<div class="container-fluid">
+			<div class="container">
 				<div class="row lifted-top">
 					<div class="col-xs-12">
 						{% include 'common/tile_list.html.twig' with {'entries': entry.children, 
-							'entryPath': 'category', 'colSize': 2, 'tile': 'bottom_rect_tile' } %}
+							'entryPath': 'category', 'colSize': 3, 'tile': 'bottom_rect_tile' } %}
 					</div>
 				</div>
 			</div>
@@ -37,59 +37,62 @@
 		<div class="vr-space-40"></div>
 
 		{% block featuredNews %}
-		<div class="row">
 			<div class="container">
-				<h1>
+				<h2 class="text-center">
 					<span class="text-red">{{ 'header.articles'|trans }}</span> 
 					<span class="text-brand">{{ 'header.news'|trans }}</span>
-				</h1>
+				</h2>
 			</div>
-			
+				
 			<div class="vr-space-20"></div>
 			
+			<div class="row">	
 				<div class="col-xs-12">
-					<div class="col-sm-9">
-						<div id="myCarousel" class="carousel slide" data-ride="carousel">
-							<ol class="carousel-indicators">
-							    {% for article in articles|slice(0,3)%}
-						    		<li data-target="#myCarousel" data-slide-to="{{ loop.index-1 }}" class="{{ loop.index == 1 ? 'active' : '' }}"></li>
-							    {% endfor %}
-						  	</ol>
-						  	
-						  	<div class="carousel-inner" role="listbox">
-								{% for article in articles|slice(0,3)%}
-						    		<div class="item rect-2x1 {{ loop.index == 1 ? 'active' : '' }}">
-								    	<img src="{{ asset(article.getImagePath()) }}">
-							      		<div class="carousel-caption">
-							      			<a class="text-white" href="{{ path('infoprodukt_article_show', { id: article.id }) }}">
-								      			<h3>
-								      				{{ article.name }}
-								      				{{ article.subname }}
-								      			</h3>
-								      		</a>
-										</div>
-								    </div>
-							    {% endfor %}
-						  	</div>
-						  	
-						  	<a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
-						    	<span class="fa fa-chevron-left" aria-hidden="true"></span>
-						    	<span class="sr-only">Previous</span>
-						  	</a>
-						  	<a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
-						    	<span class="fa fa-chevron-right" aria-hidden="true"></span>
-						    	<span class="sr-only">Next</span>
-						  	</a>
+					
+					<div id="myCarousel" class="carousel slide" data-ride="carousel">
+						<ol class="carousel-indicators">
+						    {% for article in articles|slice(0,3)%}
+					    		<li data-target="#myCarousel" data-slide-to="{{ loop.index-1 }}" class="{{ loop.index == 1 ? 'active' : '' }}"></li>
+						    {% endfor %}
+					  	</ol>
+					  	
+					  	<div class="carousel-inner" role="listbox">
+							{% for article in articles|slice(0,3)%}
+					    		<div class="item rect-3x1 {{ loop.index == 1 ? 'active' : '' }}">
+							    	<div class="div-center">
+							    		<img src="{{ asset(article.getImagePath()) }}">
+					      			</div>
+					      			
+					      			<div class="col-xs-12 div-bottom bkg-black-50">
+										<div class="rect-10x1">
+											<div class="div-hcenter div-top">
+								      			<a class="text-white" href="{{ path('infoprodukt_article_show', { id: article.id }) }}">
+									      			<h2 class="text-center">
+														{% for articleBrandAssignment in article.articleBrandAssignments %}
+										      				{{ articleBrandAssignment.brand.name }} 
+									      				{% endfor %}
+								      				</h2>
+									      			<h3 class="text-center">
+									      				{{ article.name }} {{ article.subname }}
+								      				</h3>
+									      		</a>
+								      		</div>
+							      		</div>
+						      		</div>
+							    </div>
+						    {% endfor %}
 					  	</div>
+					  	
+					  	<a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+					    	<span class="fa fa-chevron-left" aria-hidden="true"></span>
+					    	<span class="sr-only">Previous</span>
+					  	</a>
+					  	<a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+					    	<span class="fa fa-chevron-right" aria-hidden="true"></span>
+					    	<span class="sr-only">Next</span>
+					  	</a>
 				  	</div>
 				  	
-				  	<div class="col-sm-3">
-				  		<a href="#">
-				  			<div class="rect-1x2 bkg-white">
-				  				<img class="div-center img-responsive" src="{{ asset('img/template/magazyn-sluchawki.png') }}">
-				  			</div>
-				  		</a>
-				  	</div>
 			  	</div>
 			</div>
 		{% endblock %}
@@ -97,16 +100,37 @@
 		<div class="vr-space-40"></div>
 		
 		{% block news %}
-		<div class="container-fluid">
+		<div class="container">
 			<div class="row">
 				<div class="col-xs-12">
-					
 					<div class="row no-padding">
-						{% include 'common/tile_list.html.twig' with {'entries': articles, 'entryPath': 'article', 'colSize': 3, 'start': 4, 'limit': 4, 'tile': 'bottom_rect_tile'} %}
-					</div>
-					
-					<div class="row text-center lowered">
-						<a href={{ path('infoprodukt_article', { article_filter_categories: entry.id }) }} class="btn btn-primary">Czytaj wiecej...</a>
+						{% for article in articles | slice(3,4) %}
+							<div class="col-sm-3">
+								<div class="row">
+									<a class="text-white" href="{{ path(basePath ~ 'article_show', { id: article.id }) }}">
+										<div class="rect col-bottom">
+											<img class="div-center" alt="{{ entry.name | raw }}" src="{{ asset(entry.getImagePath()) }}">
+											
+											<div class="col-xs-12 div-bottom bkg-black-50">
+												<div class="rect-2x1">
+													<div class="div-top">
+														<h4>
+															{% for articleBrandAssignment in article.articleBrandAssignments %}
+											      				{{ articleBrandAssignment.brand.name }} 
+										      				{% endfor %}
+									      				</h4>
+														<h5>
+															{{ article.getHtmlName() | raw }}
+														</h5>
+													</div>
+												</div>
+											</div>
+										</div>
+									</a>
+								</div>
+							</div>
+						{% endfor %}
+{# 						{% include 'common/tile_list.html.twig' with {'entries': articles, 'entryPath': 'article', 'colSize': 3, 'start': 0, 'limit': 4, 'tile': 'default_tile'} %}#}
 					</div>
 				</div>
 			</div>
@@ -120,20 +144,18 @@
 			<div class="row">
 				<div class="col-xs-12">
 					<div class="row no-padding">
-{# 						{% include 'common/tile_list.html.twig' with {'entries': article_categories, 'entryPath': 'article', #}
-{# 							'colSize': 3, 'limit': 4, 'tile': 'bottom_text_tile', 'alternate': true} %}#}
 						{% for articleCategory in article_categories | slice(0,4) %}
 							<div class="col-sm-3">
 								<div class="row">
 									<a class="text-white" href="{{ path('infoprodukt_article', 
 										{ article_filter_categories: entry.id, article_filter_article_categories: articleCategory.id }) }}">
-										<div class="rect col-bottom">
+										<div class="rect">
 											<img class="div-center" alt="{{ articleCategory.name | raw }}" src="{{ asset(articleCategory.getImagePath()) }}">
-											<div class="col-xs-12 div-bottom bkg-black-50">
-												<h4>
-													{{ articleCategory.name | raw }}
-												</h4>
-											</div>
+										</div>
+										<div class="col-xs-12 rect-title {{ loop.index % 2 == 0 ? 'text-brand' : 'text-red' }}">
+											<h4 class="text-center">
+												{{ articleCategory.name | raw }}
+											</h4>
 										</div>
 									</a>
 								</div>
@@ -145,6 +167,12 @@
 		</div>
 		{% endblock %}
 		
+		<div class="vr-space-10"></div>
+		
+		<div class="row text-center lowered">
+			<a href={{ path('infoprodukt_article', { article_filter_categories: entry.id }) }} class="btn btn-primary">{{ 'label.readMore'|trans }}</a>
+		</div>
+						
 		<div class="vr-space-40"></div>
 		
 		{% block ad %}
@@ -153,7 +181,7 @@
 	{# 			<img class="div-center" src="{{ asset(entry.getImagePath()) }}">#}
 				<img class="div-center" src="{{ asset('img/template/some-img.jpg') }}">
 				<div class="div-center text-center">
-					<h1>Tutaj bedzie reklama :)</h1>
+					<h2>Tutaj bedzie reklama :)</h2>
 					<a class="btn btn-default" href="#">Kliknij!</a>
 				</div>
 			</div>
@@ -162,21 +190,59 @@
 		
 		<div class="vr-space-40"></div>
 		
-		{% block promocje %}
-		<div class="container">
-			<div class="row">
-				<div class="col-xs-12">
-					<div class="row no-padding">
-						{% include 'common/tile_list.html.twig' with {'entries': articles, 'entryPath': 'article', 'colSize': 3, 'limit': 4} %}
-					</div>
+		{% block promotions %}
+			{% if promotions|length > 0 %}
+				<div class="container">
+					<h2 class="text-center text-red">
+						{{ 'header.promotions'|trans }}
+					</h2>
 					
-					<div class="row text-center lowered">
-						<a href={{ path('infoprodukt_article', { category: entry.id }) }} class="btn btn-primary">Zobacz wiecej...</a>
+					<div class="vr-space-10"></div>
+					
+					<div class="row">
+						<div class="col-xs-12">
+							<div class="row no-padding">
+								{% include 'common/tile_list.html.twig' with {'entries': promotions, 'entryPath': 'article', 
+									routeParams: { article_filter_article_categories: 1 }, 'colSize': 3, 'limit': 4} %}
+							</div>
+							
+							<div class="row text-center lowered">
+								<a href={{ path('infoprodukt_article', { category: entry.id, article_filter_article_categories: 1 }) }} class="btn btn-primary">{{ 'label.showMore'|trans }}</a>
+							</div>
+						</div>
 					</div>
 				</div>
-			</div>
-		</div>
+			{% endif %}
 		{% endblock %}
+		
+		<div class="vr-space-40"></div>
+		
+		{% if entry.magazine %}
+			{% block magazine %}
+			<div class="row bkg-black-50">
+				<div class="container">
+					<div class="row">
+						<div class="col-sm-3">
+					  		<a href="{{ asset(entry.magazine.magazineFile) }}">
+				  				<img class="img-responsive" src="{{ asset(entry.magazine.getImagePath()) }}">
+					  		</a>
+					  	</div>
+					  	<div class="col-sm-6 text-white">
+					  		<h2>{{ entry.magazine.name }}</h2>
+					  		<p>{{ entry.magazine.content|raw }}</p>
+					  		
+					  		<div class="vr-space-40"></div>
+					  		
+					  		<h2>Newsletter</h2>
+					  		<p>Zapisz sie do naszego newslettera! Nie omina cie najnowsze informacje z branzy agd, rtv, costam costam.</p>
+					  		<input />
+					  		<a href="#" class="btn btn-danger">{{ 'action.save'|trans }}</a>
+					  	</div>
+				  	</div>
+			  	</div>
+		  	</div>
+			{% endblock %}
+		{% endif %}
 	
 	{% else %}
 	
@@ -191,10 +257,10 @@
 					</div>
 					
 					<div class="col-sm-9">
-						<h1>
+						<h2>
 							<span class="text-red">{{ entry.name | raw }}</span> 
 							<span class="text-primary">{{ entry.subname | raw }}</span>
-						</h1>
+						</h2>
 						<p>{{ entry.content | raw }}</p>
 					</div>	
 				</div>
@@ -202,7 +268,7 @@
 				
 				{% block brandsRank %}		
 				<div class="col-xs-12 well">
-					<h1><span class="fa fa-spinner"></span> Rating marek</h1>
+					<h2><span class="fa fa-spinner"></span> Rating marek</h2>
 					
 					{% set show = false %}
 					{% for entry in segments %}
@@ -295,7 +361,7 @@
 				
 				{% block productsRank %}
 				<div class="col-xs-12 well">
-					<h1><span class="fa fa-star-half-o"></span> Top modeli</h1>
+					<h2><span class="fa fa-star-half-o"></span> Top modeli</h2>
 					
 					{% set show = false %}
 					{% for entry in segments %}

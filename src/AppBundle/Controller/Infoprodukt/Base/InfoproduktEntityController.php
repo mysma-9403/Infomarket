@@ -15,6 +15,7 @@ use AppBundle\Entity\Page;
 use AppBundle\Form\Filter\Base\SimpleEntityFilterType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Entity\Filter\BranchFilter;
 
 abstract class InfoproduktEntityController extends BaseEntityController
 {
@@ -72,6 +73,13 @@ abstract class InfoproduktEntityController extends BaseEntityController
     	$branchRepository = $this->getDoctrine()->getRepository(Branch::class);
     	$categoryRepository = $this->getDoctrine()->getRepository(Category::class);
     	
+    	$branchFilter = new BranchFilter($categoryRepository);
+    	$branchFilter->setPublished(SimpleEntityFilter::TRUE_VALUES);
+    	$branchFilter->setOrderBy('e.orderNumber ASC, e.name ASC');
+    	
+    	$branches = $this->getParamList(Branch::class, $branchFilter);
+    	$params['menuBranches'] = $branches;
+    	
     	$categoryFilter = new CategoryFilter($branchRepository, $categoryRepository);
     	$categoryFilter->setPublished(SimpleEntityFilter::TRUE_VALUES);
     	$categoryFilter->setFeatured(SimpleEntityFilter::TRUE_VALUES);
@@ -79,24 +87,24 @@ abstract class InfoproduktEntityController extends BaseEntityController
     	$categoryFilter->setOrderBy('e.orderNumber ASC, e.name ASC');
     
     	$categories = $this->getParamList(Category::class, $categoryFilter);
-    	$params['categories'] = $categories;
+    	$params['menuCategories'] = $categories;
     	
     	$pageFilter = new PageFilter();
-    	$pageFilter->setPublished(true);
-    	$pageFilter->setFeatured(true);
-    	$pageFilter->setOrderBy('e.orderNumber DESC');
+    	$pageFilter->setPublished(SimpleEntityFilter::TRUE_VALUES);
+    	$pageFilter->setFeatured(SimpleEntityFilter::TRUE_VALUES);
+    	$pageFilter->setOrderBy('e.orderNumber ASC');
     	
     	$pages = $this->getParamList(Page::class, $pageFilter);
-    	$params['pages'] = $pages;
+    	$params['menuPages'] = $pages;
     	
     	$linkFilter = new LinkFilter();
     	$linkFilter->setPublished(BaseEntityFilter::TRUE_VALUES);
     	$linkFilter->setFeatured(BaseEntityFilter::TRUE_VALUES);
     	$linkFilter->setTypes([Link::FOOTER_LINK]);
-    	$linkFilter->setOrderBy('e.orderNumber DESC');
+    	$linkFilter->setOrderBy('e.orderNumber ASC');
     	
     	$links = $this->getParamList(Link::class, $linkFilter);
-    	$params['links'] = $links;
+    	$params['menuLinks'] = $links;
     
     	return $params;
     }

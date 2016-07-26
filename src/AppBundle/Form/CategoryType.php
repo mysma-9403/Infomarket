@@ -5,11 +5,12 @@ namespace AppBundle\Form;
 use AppBundle\Entity\Category;
 use AppBundle\Form\Base\ImageEntityType;
 use AppBundle\Repository\CategoryRepository;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
-use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolver;
 use FM\ElfinderBundle\Form\Type\ElFinderType;
 use Ivory\CKEditorBundle\Form\Type\CKEditorType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\FormBuilderInterface;
+use AppBundle\Entity\Magazine;
+use AppBundle\Repository\MagazineRepository;
 
 class CategoryType extends ImageEntityType
 {
@@ -43,9 +44,18 @@ class CategoryType extends ImageEntityType
 					'multiple'      => false,
 					'placeholder'	=> 'label.choose.category.parent'
 			))
-			->add('published', null, array(
-					'required' => false
-			))
+			->add('magazine', EntityType::class, array(
+					'class'			=> Magazine::class,
+					'query_builder' => function (MagazineRepository $repository) {
+					return $repository->createQueryBuilder('e')
+					->orderBy('e.name', 'ASC');
+					},
+					'choice_label' 	=> 'name',
+					'required' 		=> false,
+					'expanded'      => false,
+					'multiple'      => false,
+					'placeholder'	=> 'label.choose.magazine'
+							))
 			->add('preleaf', null, array(
 					'required' => false
 			))
@@ -63,29 +73,7 @@ class CategoryType extends ImageEntityType
 	/**
 	 * {@inheritdoc}
 	 */
-	public function configureOptions(OptionsResolver $resolver)
-	{
-		$resolver->setDefaults(array(
-				'data_class' => $this->getEntityClass(),
-				'choices' => array(),
-		));
-	}
-	
-	/**
-	 * {@inheritdoc}
-	 */
-	protected function getEntityClass() {
-		return Category::class;
-	}
-	
-	/**
-	 * {@inheritdoc}
-	 */
-	protected function getEntityName() {
-		return 'category';
-	}
-	
 	protected function getEntityType() {
-		return 'AppBundle:Category';
+		return Category::class;
 	}
 }

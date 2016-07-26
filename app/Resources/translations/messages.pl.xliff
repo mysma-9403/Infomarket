@@ -14,13 +14,14 @@
                 <source>title.home</source>
                 <target>Strona domowa</target>
             </trans-unit>
-            <trans-unit id="title.magazine">
-                <source>title.magazine</source>
-                <target>Magazyn</target>
-            </trans-unit>
             <trans-unit id="title.office">
                 <source>title.office</source>
                 <target>Redakcja</target>
+            </trans-unit>
+            
+            <trans-unit id="title.otgers">
+                <source>title.others</source>
+                <target>Inne</target>
             </trans-unit>
             
             <trans-unit id="title.articles">
@@ -51,13 +52,13 @@
                 <source>title.categories</source>
                 <target>Kategorie</target>
             </trans-unit>
-            <trans-unit id="title.segment">
-                <source>title.segment</source>
-                <target>Segment</target>
+            <trans-unit id="title.magazine">
+                <source>title.magazine</source>
+                <target>Magazyn</target>
             </trans-unit>
-            <trans-unit id="title.segments">
-                <source>title.segments</source>
-                <target>Segmenty</target>
+            <trans-unit id="title.magazines">
+                <source>title.magazines</source>
+                <target>Magazyny</target>
             </trans-unit>
             <trans-unit id="title.product">
                 <source>title.product</source>
@@ -66,6 +67,22 @@
             <trans-unit id="title.products">
                 <source>title.products</source>
                 <target>Produkty</target>
+            </trans-unit>
+            <trans-unit id="title.page">
+                <source>title.page</source>
+                <target>Strona</target>
+            </trans-unit>
+            <trans-unit id="title.pages">
+                <source>title.pages</source>
+                <target>Strony</target>
+            </trans-unit>
+            <trans-unit id="title.segment">
+                <source>title.segment</source>
+                <target>Segment</target>
+            </trans-unit>
+            <trans-unit id="title.segments">
+                <source>title.segments</source>
+                <target>Segmenty</target>
             </trans-unit>
             <trans-unit id="title.terms">
                 <source>title.terms</source>
@@ -116,6 +133,15 @@
             </trans-unit>
             
             
+            <trans-unit id="title.featured">
+                <source>title.featured</source>
+                <target>Wyróżnione</target>
+            </trans-unit>
+            <trans-unit id="title.mostPopular">
+                <source>title.mostPopular</source>
+                <target>Najpopularniejsze</target>
+            </trans-unit>
+            
             
             
             <trans-unit id="title.footer.copyright">
@@ -141,6 +167,14 @@
             <trans-unit id="header.news">
                 <source>header.news</source>
                 <target>Informacje</target>
+            </trans-unit>
+            <trans-unit id="header.promotions">
+                <source>header.promotions</source>
+                <target>Promocje</target>
+            </trans-unit>
+            <trans-unit id="header.magazines">
+                <source>header.magazines</source>
+                <target>Magazyny</target>
             </trans-unit>
             
             
@@ -254,14 +288,26 @@
                 <source>label.all</source>
                 <target>Wszystkie</target>
             </trans-unit>
+            <trans-unit id="label.showAll">
+                <source>label.showAll</source>
+                <target>Pokaż wszystkie</target>
+            </trans-unit>
             <trans-unit id="label.findUs">
                 <source>label.findUs</source>
                 <target>Znajdź nas na</target>
             </trans-unit>
             
+            <trans-unit id="label.more">
+                <source>label.more</source>
+                <target>Więcej...</target>
+            </trans-unit>
             <trans-unit id="label.readMore">
                 <source>label.readMore</source>
                 <target>Czytaj więcej...</target>
+            </trans-unit>
+            <trans-unit id="label.showMore">
+                <source>label.showMore</source>
+                <target>Pokaż więcej...</target>
             </trans-unit>
             <trans-unit id="label.moreArticles">
                 <source>label.moreArticles</source>
@@ -507,6 +553,10 @@
                 <target>Nie</target>
             </trans-unit>
             
+            <trans-unit id="label.noEntries">
+                <source>label.noEntries</source>
+                <target>Brak wyników.</target>
+            </trans-unit>
             
             
             
@@ -542,6 +592,10 @@
             <trans-unit id="label.category.parent">
                 <source>label.category.parent</source>
                 <target>Kategoria nadrzędna</target>
+            </trans-unit>
+            <trans-unit id="label.category.magazine">
+                <source>label.category.magazine</source>
+                <target>Powiązany magazyn</target>
             </trans-unit>
             <trans-unit id="label.category.subtitle">
                 <source>label.category.subtitle</source>
@@ -583,6 +637,10 @@
             <trans-unit id="label.choose.category">
                 <source>label.choose.category</source>
                 <target>Wybierz kategorię</target>
+            </trans-unit>
+            <trans-unit id="label.choose.magazine">
+                <source>label.choose.magazine</source>
+                <target>Wybierz magazyn</target>
             </trans-unit>
             <trans-unit id="label.choose.segment">
                 <source>label.choose.segment</source>

@@ -1,0 +1,15 @@
+{% extends 'admin/image/editor.html.twig' %}
+
+{% set mainPath = 'magazine' %}
+{% set title = 'title.magazines'|trans %}
+{% set gender = 'm.' %}
+
+{% block moreFields3 %}
+	{{ form_row(form.featured, { 'label': 'label.fm.featured' }) }}
+	
+	{{ form_row(form.orderNumber, { 'label': 'label.orderNumber' }) }}
+	
+	{{ form_row(form.magazineFile, { 'label': 'label.magazine.magazineFile' }) }}
+	    
+	{{ form_row(form.content, { 'label': 'label.content' }) }}
+{% endblock %}

@@ -129,6 +129,18 @@ fm_elfinder:
                         upload_allow: ['image/png', 'image/jpg', 'image/jpeg']
                         upload_deny: ['all']
                         upload_max_size: 2M
+        magazine:
+            editor: form
+            include_assets: true
+            visible_mime_types: ['application/pdf']
+            connector:
+                roots:
+                    uploads:
+                        driver: LocalFileSystem
+                        path: uploads/magazines/files
+                        upload_allow: ['application/pdf']
+                        upload_deny: ['all']
+                        upload_max_size: 256M
         default:
             editor: ckeditor
             include_assets: true

@@ -1,0 +1,51 @@
+{% extends 'infoprodukt/base/index.html.twig' %}
+
+{% set title = 'title.magazines'|trans %}
+{% set mainPath = 'magazine' %}
+		
+{% block mainContent %}
+	{% block magazines %}
+	<div class="row">
+		<div class="col-xs-12">
+			<h1>{{ 'title.magazines'|trans }}</h1>
+			
+			{% for entry in entries%}
+				<div class="row">
+					<div class="panel">
+						<div class="panel-body">
+							<div class="col-sm-3">
+								<div class="rect">
+									<a href="{{ asset(entry.magazineFile) }}">
+										<img class="div-center" src="{{ asset(entry.getImagePath()) }}">
+									</a>
+								</div>
+							</div>
+							<div class="col-sm-9">
+								<h3 class="text-brand">{{ entry.name | raw }}</h3>
+								<p>{{ entry.content | raw }}</p>
+								
+								<div class="vr-space-10"></div>
+								
+								<a class="btn btn-danger" href="{{ asset(entry.magazineFile) }}">
+									<span class="fa fa-eye"></span> {{ 'action.show'|trans }}
+								</a>
+								<div class="vr-space-10"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+			{% else %}
+				<p>{{ 'label.noEntries'|trans }}</p>
+			{% endfor %}
+		</div>
+	</div>
+	{% endblock %}
+	
+	{% block paginator %}
+	<div class="row">
+		<div class="col-xs-12">
+	        {{ knp_pagination_render(entries) }}
+		</div>
+	</div>
+	{% endblock %}
+{% endblock %}

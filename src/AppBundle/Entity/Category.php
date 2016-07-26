@@ -484,4 +484,33 @@ class Category extends ImageTree
     {
         return $this->parent;
     }
+    /**
+     * @var \AppBundle\Entity\Magazine
+     */
+    private $magazine;
+
+
+    /**
+     * Set magazine
+     *
+     * @param \AppBundle\Entity\Magazine $magazine
+     *
+     * @return Category
+     */
+    public function setMagazine(\AppBundle\Entity\Magazine $magazine = null)
+    {
+        $this->magazine = $magazine;
+
+        return $this;
+    }
+
+    /**
+     * Get magazine
+     *
+     * @return \AppBundle\Entity\Magazine
+     */
+    public function getMagazine()
+    {
+        return $this->magazine;
+    }
 }

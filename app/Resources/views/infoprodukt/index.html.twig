@@ -73,20 +73,64 @@
 						{% endblock %}
 						
 						{% block navigationLinks %}
-				    	<div class="collapse navbar-collapse" id="catbar">
+{# 				    	<div class="collapse navbar-collapse" id="catbar">#}
+{# 							<ul class="nav navbar-nav navbar-right">#}
+{# 								{% for entry in categories %}#}
+{# 									{% if loop.index <= 4 %}#}
+{# 										<li>#}
+{# 											<a href="{{ path('infoprodukt_category_show', {'id': entry.id}) }}">#}
+{# 												{{ entry.name | raw }}#}
+{# 											</a>#}
+{# 										</li>#}
+{# 									{% endif %}#}
+{# 								{% endfor %}#}
+{# 								<li>#}
+{# 									<a href="{{ path('infoprodukt_category') }}">{{ 'label.all'|trans }}</a>#}
+{# 								</li>#}
+{# 							</ul>#}
+{# 						</div>#}
+						<div class="collapse navbar-collapse" id="catbar">
 							<ul class="nav navbar-nav navbar-right">
-								{% for entry in categories %}
-									{% if loop.index <= 4 %}
-										<li>
-											<a href="{{ path('infoprodukt_category_show', {'id': entry.id}) }}">
-												{{ entry.name | raw }}
-											</a>
-										</li>
-									{% endif %}
+								{% for branch in menuBranches %}
+									<li>
+										<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+											<span class="fa fa-{{ branch.icon }}"></span> {{ branch.name | raw }} <span class="caret"></span>
+										</a>
+										<ul class="dropdown-menu">
+											{% set limit = 11 %}
+											{% for category in menuCategories %}
+												{% if limit > 0 %}
+													
+													{% set show = false %}
+													{% for branchCategoryAssignment in category.branchCategoryAssignments if show == false %}
+														{% if branchCategoryAssignment.branch.id == branch.id %}
+															{% set show = true %}
+														{% endif %}
+													{% endfor %}
+													
+													{% if show %}
+														<li>
+															<a href="{{ path(basePath ~ 'category_show', { id: category.id }) }}">
+																{{ category.name |raw ~  ' ' ~ category.subname | raw }}
+															</a>
+														</li>
+														{% set limit = limit - 1 %}
+													{% endif %}
+													
+												{% endif %}
+											{% endfor %}
+											
+											<li class="divider" />
+											
+											<li>
+												<a href="{{ path(basePath ~ 'category', { category_filter_branches: { id: branch.id} }) }}">
+													{{ 'label.all' | trans }} <span class="fa fa-caret-right">
+												</a>
+											</li>
+										</ul>
+									</li>
+									
 								{% endfor %}
-								<li>
-									<a href="{{ path('infoprodukt_category') }}">{{ 'label.all'|trans }}</a>
-								</li>
 							</ul>
 						</div>
 						{% endblock %}
@@ -114,8 +158,9 @@
 		      			</div>
 		      			<div class="col-sm-3">
 		      				<h5 class="text-xs-center text-sm-left">
-{# 		      					{{ 'label.findUs'|trans }} #}
-		      					<a href="http://www.facebook.com/infomarket1"><i class="fa fa-facebook"></i></a>
+		      					<a href="http://www.facebook.com/infomarket1"><i class="fa fa-facebook"></i></a> 
+		      					<a href="https://www.youtube.com/channel/UCpH2PHKAxnNlX-zSgJXyjpA"><i class="fa fa-youtube"></i></a> 
+		      					<a href="http://infomarket.edu.loc:8000" class="title">IM</a> 
 	      					</h5>
 		      			</div>
 		      		</div>
@@ -135,32 +180,22 @@
 			      			<h5>{{ 'title.footer.office'|trans }}</h5>
 			      			<hr>
 			      			
-			      			{% set half = pages|length / 2 %}
+			      			{% set half = menuPages|length / 2 %}
 			      			
 			      			<div class="row">
 				      			<div class="col-xs-6">
-					      			{% set count = 0 %}
-						      		
-					      			{% for entry in pages %}
-					      				{% if count < half %}
-								      		<div>
-								      			<a href="{{ path('infoprodukt_page_show', { id: entry.id}) }}">{{ entry.name }}</a>
-							      			</div>
-						      			{% endif %}
-						      			{% set count = count+1 %}
+					      			{% for entry in menuPages|slice(0,half) %}
+							      		<div>
+							      			<a href="{{ path('infoprodukt_page_show', { id: entry.id}) }}">{{ entry.name }}</a>
+						      			</div>
 						      		{% endfor %}
 					      		</div>
 					      		
 					      		<div class="col-xs-6">
-									{% set count = 0 %}
-						      		
-					      			{% for entry in pages %}
-					      				{% if count >= half %}
-								      		<div>
-								      			<a href="{{ path('infoprodukt_page_show', { id: entry.id}) }}">{{ entry.name }}</a>
-							      			</div>
-						      			{% endif %}
-						      			{% set count = count+1 %}
+					      			{% for entry in menuPages|slice(half+1) %}
+							      		<div>
+							      			<a href="{{ path('infoprodukt_page_show', { id: entry.id}) }}">{{ entry.name }}</a>
+						      			</div>
 						      		{% endfor %}
 					      		</div>
 				      		</div>
@@ -169,10 +204,10 @@
 			      			<h5>{{ 'title.footer.magazine'|trans }}</h5>
 			      			<hr>
 			      			
-			      			{% for entry in links %}
-				      		<div>
-				      			<a href="{{ entry.url }}">{{ entry.name }}</a>
-			      			</div>
+			      			{% for entry in menuLinks %}
+					      		<div>
+					      			<a href="{{ entry.url }}">{{ entry.name }}</a>
+				      			</div>
 				      		{% endfor %}
 			      		</div>
 		      		</div>

@@ -6,20 +6,53 @@
 {% block content %}
 	<div class="container">
 		<div class="col-xs-12 well">
-			{% for entry in branches %}
-			<div class="row">
-				<div class="col-xs-12">
-					<h2>{{ entry.name | raw }}</h2>
+			{% for branch in branches %}
+			
+				{% set show = false %}
+				{% for category in categories %}
+					{% for branchCategoryAssignment in category.branchCategoryAssignments if show == false %}
+						{% if branchCategoryAssignment.branch.id == branch.id %}
+							{% set show = true %}
+						{% endif %}
+					{% endfor %}					
+				{% endfor %}
+				
+				{% if show %}
+					<div class="row">
 					
-					{% for subentry in attribute(allCategories, entry.id) %}
-						<div class="col-sm-3">
-							{% include 'common/bottom_rect_tile.html.twig' with {'entry': subentry, 'entryPath': mainPath } %}
+						<div class="col-xs-12">
+							<h2>{{ branch.name | raw }}</h2>
+							
+							{% set limit = 8 %}
+							{% for category in categories if limitCategories == false or limit > 0 %}
+								
+								{% set show = false %}
+								{% for branchCategoryAssignment in category.branchCategoryAssignments if show == false %}
+									{% if branchCategoryAssignment.branch.id == branch.id %}
+										{% set show = true %}
+									{% endif %}
+								{% endfor %}
+								
+								{% if show %}
+									<div class="col-sm-3">
+										{% include 'common/bottom_rect_tile.html.twig' with {'entry': category, 'entryPath': mainPath } %}
+									</div>
+									
+									{% set limit = limit - 1 %}
+								{% endif %}
+								
+							{% endfor %}
 						</div>
-					{% else %}
-						<p>{{ 'label.noEntries'|trans }}</p>
-					{% endfor %}
-				</div>
-			</div>
+						
+						{% if limitCategories and limit == 0 %}
+							<div class="row text-center lowered">
+								<a href={{ path(basePath ~ 'category', { category_filter_branches: branch.id }) }} class="btn btn-primary">{{ 'label.showAll'|trans }}</a>
+							</div>
+						{% endif %}
+						
+					</div>
+				{% endif %}
+				
 			{% endfor %}
 		</div>
 	</div>

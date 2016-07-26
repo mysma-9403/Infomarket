@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+        http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <entity name="AppBundle\Entity\Magazine" 
+        table="magazines"
+        repository-class="AppBundle\Repository\MagazineRepository">
+        
+        <field name="featured" type="boolean" default="false" />
+        
+        <field name="orderNumber" type="integer" default="0" />
+        
+        <field name="magazineFile" type="string" length="256"/>
+        
+        <field name="content" type="text" nullable="true" />
+        
+    </entity>
+</doctrine-mapping>

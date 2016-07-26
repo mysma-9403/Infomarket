@@ -1,0 +1,25 @@
+{% extends 'admin/image/show.html.twig' %}
+
+{% set mainPath = 'magazine' %}
+{% set title = 'title.magazines'|trans %}
+{% set gender = 'm.' %}
+
+{% block moreFields3 %}
+	{% include 'common/fields/bool_field.html.twig' with 
+	{ 'label': ('label.' ~ gender ~ 'featured')|trans, 'value': entry.featured } %}
+	
+	{% include 'common/fields/text_field.html.twig' with 
+	{ 'label': 'label.orderNumber'|trans, 'value': entry.orderNumber } %}
+	
+	{% include 'common/fields/text_field.html.twig' with 
+	{ 'label': ('label.magazine.magazineFile')|trans, 'value': entry.magazineFile } %}
+	
+	<div class="row">
+		<div class="col-xs-12">
+			<h4>{{ 'label.content'|trans }}</h4>
+		</div>
+		<div class="col-xs-12">
+			{{ entry.content | raw }}
+		</div>
+	</div>
+{% endblock %}
