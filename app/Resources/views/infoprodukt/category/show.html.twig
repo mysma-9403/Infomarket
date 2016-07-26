@@ -109,7 +109,7 @@
 								<div class="row">
 									<a class="text-white" href="{{ path(basePath ~ 'article_show', { id: article.id }) }}">
 										<div class="rect col-bottom">
-											<img class="div-center" alt="{{ entry.name | raw }}" src="{{ asset(entry.getImagePath()) }}">
+											<img class="div-center" alt="{{ article.name | raw }}" src="{{ asset(article.getImagePath()) }}">
 											
 											<div class="col-xs-12 div-bottom bkg-black-50">
 												<div class="rect-2x1">
