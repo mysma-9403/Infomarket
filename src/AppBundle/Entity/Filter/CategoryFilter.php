@@ -135,8 +135,11 @@ class CategoryFilter extends SimpleEntityFilter {
 			$expressions[] = 'e.featured = ' . $this->featured;
 		}
 		
-		if($this->preleaf !== SimpleEntityFilter::ALL_VALUES) {
-			$expressions[] = 'e.preleaf = ' . $this->preleaf;
+		//TODO i don't know why upper version does not work on server... :(
+		if($this->preleaf == SimpleEntityFilter::TRUE_VALUES) {
+			$expressions[] = 'e.preleaf = ' . true;
+		} else if($this->preleaf == SimpleEntityFilter::FALSE_VALUES) {
+			$expressions[] = 'e.preleaf = ' . false;
 		}
 		
 		if($this->root === SimpleEntityFilter::TRUE_VALUES) {
