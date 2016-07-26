@@ -8,6 +8,7 @@ use AppBundle\Entity\Filter\ArticleFilter;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Entity\Article;
+use AppBundle\Entity\Category;
 
 class HomeController extends SimpleEntityController
 {
@@ -52,7 +53,10 @@ class HomeController extends SimpleEntityController
      */
     protected function getEntityFilter(Request $request)
     {
-    	$filter = new ArticleFilter();
+    	$articleCategoryRepository = $this->getDoctrine()->getRepository(ArticleCategory::class);
+		$categoryRepository = $this->getDoctrine()->getRepository(Category::class);
+		
+		$filter = new ArticleFilter($articleCategoryRepository, $categoryRepository);
     	$filter->setPublished(true);
     	$filter->setFeatured(true);
     	
