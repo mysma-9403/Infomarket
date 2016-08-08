@@ -37,6 +37,7 @@ class ArticleCategoryAssignmentType extends BaseFormType
 					'class'			=> Category::class,
 					'query_builder' => function (CategoryRepository $repository) {
 						return $repository->createQueryBuilder('e')
+						->where('e.preleaf = true')
 						->orderBy('e.published DESC, e.name', 'ASC');
 					},
 					'choice_label' 	=> 'displayName',

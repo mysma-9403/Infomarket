@@ -10,7 +10,7 @@
 		{% set bkgSecondary = 'bkg-red' %}
 	{% endif %}
 	
-	<a class="text-white" href="{{ path('infoprodukt_' ~ entryPath ~ '_show', { 'id': entry.id }) }}">
+	<a class="text-white" href="{{ path('infoprodukt_' ~ entryPath ~ '_show', routeParams|merge({ 'id': entry.id }) ) }}">
 		<div class="row">
 		<div class="rect">
 			<img class="div-center" alt="{{ entry.name | raw }}" src="{{ asset(entry.getImagePath()) }}">

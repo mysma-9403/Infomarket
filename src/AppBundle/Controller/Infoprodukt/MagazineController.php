@@ -3,7 +3,6 @@
 namespace AppBundle\Controller\Infoprodukt;
 
 use AppBundle\Controller\Infoprodukt\Base\SimpleEntityController;
-use AppBundle\Entity\Filter\Base\SimpleEntityFilter;
 use AppBundle\Entity\Filter\MagazineFilter;
 use AppBundle\Entity\Magazine;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -29,18 +28,9 @@ class MagazineController extends SimpleEntityController
     {
     	return Magazine::class;
     }
-
-    /**
-     * 
-     * {@inheritDoc}
-     * @see \AppBundle\Controller\Infomarket\Base\BaseEntityController::getEntityFilter()
-     */
-    protected function getEntityFilter(Request $request)
+    
+    protected function createNewFilter()	
     {
-    	$filter = new MagazineFilter();
-    	$filter->initValues($request);
-    	$filter->setPublished(SimpleEntityFilter::TRUE_VALUES);
-    	
-    	return $filter;
+    	return new MagazineFilter();
     }
 }

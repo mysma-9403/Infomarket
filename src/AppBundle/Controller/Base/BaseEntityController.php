@@ -50,11 +50,10 @@ abstract class BaseEntityController extends Controller
     {
     	$params = $this->getParams($request);
     	
+    	$this->registerRequest($request, $this->getIndexRoute(), $this->getIndexRouteParams($request, $page));
+    	
     	$entryFilter = $this->getEntityFilter($request);
     	$params['entryFilter'] = $entryFilter;
-    	
-    	$routeParams = array_merge($entryFilter->getValues(), array('page' => $page));
-    	$this->registerRequest($request, $this->getIndexRoute(), $routeParams);
     	
     	$repository = $this->getEntityRepository();
     	$query = $repository->querySelected($entryFilter);
@@ -65,6 +64,13 @@ abstract class BaseEntityController extends Controller
     	
     	$params = array_merge($params, $this->getRoutingParams($request));
     	return $params;
+    }
+    
+    protected function getIndexRouteParams(Request $request, $page) {
+    	$routeParams = $this->getRouteParams($request);
+    	$routeParams['page'] = $page;
+    	
+    	return $routeParams;
     }
     
     /**
@@ -86,6 +92,21 @@ abstract class BaseEntityController extends Controller
     	$params = array_merge($params, $this->getRoutingParams($request));
     	return $params;
     }
+    
+    protected function getShowRouteParams(Request $request, $id) {
+    	$routeParams = $this->getRouteParams($request);
+    	$routeParams['id'] = $id;
+    	 
+    	return $routeParams;
+    }
+    
+    protected function getRouteParams(Request $request) {
+    	$entryFilter = $this->getRequestEntityFilter($request);
+    	$routeParams = $entryFilter->getValues();
+    	 
+    	return $routeParams;
+    }
+    
     
     protected function getParams(Request $request) {
     	return array();
@@ -240,9 +261,14 @@ abstract class BaseEntityController extends Controller
      */
 	protected function getEntityFilter(Request $request)
 	{
+		return $this->getRequestEntityFilter($request);
+	}
+	
+	protected function getRequestEntityFilter(Request $request)
+	{
 		$filter = $this->createNewFilter();
 		$filter->initValues($request);
-		 
+			
 		return $filter;
 	}
     

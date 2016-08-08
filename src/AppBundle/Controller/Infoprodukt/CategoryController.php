@@ -3,13 +3,16 @@
 namespace AppBundle\Controller\Infoprodukt;
 
 use AppBundle\Controller\Infoprodukt\Base\SimpleEntityController;
+use AppBundle\Entity\Advert;
 use AppBundle\Entity\Article;
 use AppBundle\Entity\ArticleCategory;
 use AppBundle\Entity\Branch;
 use AppBundle\Entity\Brand;
 use AppBundle\Entity\Category;
+use AppBundle\Entity\Filter\AdvertFilter;
 use AppBundle\Entity\Filter\ArticleCategoryFilter;
 use AppBundle\Entity\Filter\ArticleFilter;
+use AppBundle\Entity\Filter\Base\BaseEntityFilter;
 use AppBundle\Entity\Filter\Base\SimpleEntityFilter;
 use AppBundle\Entity\Filter\BranchFilter;
 use AppBundle\Entity\Filter\BrandFilter;
@@ -126,6 +129,18 @@ class CategoryController extends SimpleEntityController
 			
 			$articleCategories = $articleCategoryRepository->findSelected($articleCategoryFilter);
 			$params['article_categories'] = $articleCategories;
+			
+			$advertFilter = new AdvertFilter($categoryRepository);
+			$advertFilter->setPublished(BaseEntityFilter::TRUE_VALUES);
+			$advertFilter->setCategories([$entry]);
+			
+			$advertFilter->setLocations([Advert::FEATURED_LOCATION]);
+			
+			$featuredAds = $this->getParamList(Advert::class, $advertFilter);
+			shuffle($featuredAds);
+			$featuredAds = array_slice($featuredAds, 0, 3);
+			$params['featuredAds'] = $featuredAds;
+			
 		} else {
 			//TODO use as setters as they are useless in many cases!!! (like here)
 			//TODO @up - not sure - they are needed in initValues! 
@@ -225,21 +240,17 @@ class CategoryController extends SimpleEntityController
 	
 	protected function getEntityFilter(Request $request)
 	{
+		$filter = parent::getEntityFilter($request);
+		$filter->setOrderBy('e.orderNumber ASC, e.name ASC');
+		 
+		return $filter;
+	}
+	
+	protected function createNewFilter() {
 		$branchRepository = $this->getDoctrine()->getRepository(Branch::class);
 		$categoryRepository = $this->getDoctrine()->getRepository(Category::class);
 		
-		$filter = new CategoryFilter($branchRepository, $categoryRepository);
-		$filter->setOrderBy('e.orderNumber ASC, e.name ASC');
-		$filter->setPublished(true);
-		
-		
-		$category = $this->getParamById($request, Category::class, null);
-		
-		if($category) {
-			$filter->setParents([$category]);
-		}
-		 
-		return $filter;
+		return new CategoryFilter($branchRepository, $categoryRepository);
 	}
 	
     protected function getHomeName()

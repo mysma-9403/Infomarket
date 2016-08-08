@@ -46,7 +46,7 @@ class ArticleFilterType extends ImageEntityFilterType
 				'required'		=> false,
 				'expanded'      => false,
 				'multiple'      => true,
-				'placeholder'	=> 'Choose article category'
+				'placeholder'	=> 'label.choose.articleCategory'
 		))
 		->add('categories', EntityType::class, array(
 				'class'			=> Category::class,
@@ -58,7 +58,7 @@ class ArticleFilterType extends ImageEntityFilterType
 				'required'		=> false,
 				'expanded'      => false,
 				'multiple'      => true,
-				'placeholder'	=> 'Choose category'
+				'placeholder'	=> 'label.choose.category'
 		))
 		->add('featured', ChoiceType::class, array(
 				'choices'		=> $featuredChoices,

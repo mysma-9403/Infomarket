@@ -1,8 +1,10 @@
 {% extends 'infoprodukt/base/show.html.twig' %}
 
-{% set title = 'title.products'|trans %}
+{% set title = entry.name|raw %}
 {% set mainPath = 'product' %}
 		
+{% set listName = 'title.products'|trans %}
+
 {% block mainContent %}
 	{% block header %}
 	<div class="row">

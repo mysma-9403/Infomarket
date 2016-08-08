@@ -24,6 +24,18 @@
                 <target>Inne</target>
             </trans-unit>
             
+            <trans-unit id="title.advert">
+                <source>title.advert</source>
+                <target>Reklama</target>
+            </trans-unit>
+            <trans-unit id="title.adverts">
+                <source>title.adverts</source>
+                <target>Reklamy</target>
+            </trans-unit>
+            <trans-unit id="title.article">
+                <source>title.article</source>
+                <target>Artykuł</target>
+            </trans-unit>
             <trans-unit id="title.articles">
                 <source>title.articles</source>
                 <target>Artykuły</target>
@@ -99,6 +111,10 @@
                 <target>Powiązania</target>
             </trans-unit>
             
+            <trans-unit id="title.advert_category_assignments">
+                <source>title.advert_category_assignments</source>
+                <target>Reklamy - Kategorie</target>
+            </trans-unit>
             <trans-unit id="title.article_article_category_assignments">
                 <source>title.article_article_category_assignments</source>
                 <target>Artykuły - Kategorie artykułów</target>
@@ -180,6 +196,10 @@
             
             
             
+            <trans-unit id="label.advert">
+                <source>label.advert</source>
+                <target>Reklama</target>
+            </trans-unit>
             <trans-unit id="label.article">
                 <source>label.article</source>
                 <target>Artyuł</target>
@@ -207,6 +227,57 @@
             <trans-unit id="label.product">
                 <source>label.product</source>
                 <target>Produkt</target>
+            </trans-unit>
+            
+            
+            
+            <trans-unit id="label.advert.location.top">
+                <source>label.advert.location.top</source>
+                <target>Baner górny</target>
+            </trans-unit>
+            <trans-unit id="label.advert.location.side">
+                <source>label.advert.location.side</source>
+                <target>Baner boczny</target>
+            </trans-unit>
+            <trans-unit id="label.advert.location.text">
+                <source>label.advert.location.text</source>
+                <target>Baner śródtekstowy</target>
+            </trans-unit>
+            <trans-unit id="label.advert.location.featured">
+                <source>label.advert.location.featured</source>
+                <target>Baner wyróżniony</target>
+            </trans-unit>
+            <trans-unit id="label.advert.location">
+                <source>label.advert.location</source>
+                <target>Pozycja</target>
+            </trans-unit>
+            <trans-unit id="label.advert.link">
+                <source>label.advert.link</source>
+                <target>Link</target>
+            </trans-unit>
+            <trans-unit id="label.advert.dateFrom">
+                <source>label.advert.dateFrom</source>
+                <target>Widoczna od</target>
+            </trans-unit>
+            <trans-unit id="label.advert.dateTo">
+                <source>label.advert.dateTo</source>
+                <target>Widoczna do</target>
+            </trans-unit>
+            <trans-unit id="label.advert.showCount">
+                <source>label.advert.showCount</source>
+                <target>Liczba wyświetleń</target>
+            </trans-unit>
+            <trans-unit id="label.advert.showLimit">
+                <source>label.advert.showLimit</source>
+                <target>Limit wyświetleń</target>
+            </trans-unit>
+            <trans-unit id="label.advert.clickCount">
+                <source>label.advert.clickCount</source>
+                <target>Liczba kliknięć</target>
+            </trans-unit>
+            <trans-unit id="label.advert.clickLimit">
+                <source>label.advert.clickLimit</source>
+                <target>Limit kliknięć</target>
             </trans-unit>
             
             
@@ -284,6 +355,11 @@
                 <target>Menu</target>
             </trans-unit>
             
+            <trans-unit id="label.home">
+                <source>label.home</source>
+                <target>Strona domowa</target>
+            </trans-unit>
+            
             <trans-unit id="label.all">
                 <source>label.all</source>
                 <target>Wszystkie</target>
@@ -322,6 +398,12 @@
                 <target>Początek strony</target>
             </trans-unit>
             
+            
+            
+            <trans-unit id="label.sections">
+                <source>label.sections</source>
+                <target>Sekcje</target>
+            </trans-unit>
             
             
             
@@ -618,6 +700,10 @@
             
             
             
+            <trans-unit id="label.choose.location">
+                <source>label.choose.location</source>
+                <target>Wybierz pozycję</target>
+            </trans-unit>
             <trans-unit id="label.choose.article">
                 <source>label.choose.article</source>
                 <target>Wybierz artyuł</target>

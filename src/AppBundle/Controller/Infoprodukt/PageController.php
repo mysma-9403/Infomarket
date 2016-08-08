@@ -3,11 +3,10 @@
 namespace AppBundle\Controller\Infoprodukt;
 
 use AppBundle\Controller\Infoprodukt\Base\SimpleEntityController;
+use AppBundle\Entity\Filter\PageFilter;
 use AppBundle\Entity\Page;
-use AppBundle\Entity\Filter\Base\SimpleEntityFilter;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-use AppBundle\Entity\Filter\PageFilter;
 
 class PageController extends SimpleEntityController
 {   
@@ -40,17 +39,9 @@ class PageController extends SimpleEntityController
     	return Page::class;
     }
 
-    /**
-     * 
-     * {@inheritDoc}
-     * @see \AppBundle\Controller\Infomarket\Base\BaseEntityController::getEntityFilter()
-     */
-    protected function getEntityFilter(Request $request)
+    protected function createNewFilter()	
     {
-    	$filter = new PageFilter();
-    	$filter->setPublished(SimpleEntityFilter::TRUE_VALUES);
-    	
-    	return $filter;
+    	return new PageFilter();
     }
     
     /**

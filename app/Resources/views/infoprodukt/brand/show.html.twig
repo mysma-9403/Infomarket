@@ -1,7 +1,9 @@
 {% extends 'infoprodukt/base/show.html.twig' %}
 
-{% set title = 'title.brands'|trans %}
+{% set title = entry.name|raw %}
 {% set mainPath = 'brand' %}
+
+{% set listName = 'title.brands'|trans %}
 		
 {% block mainContent %}
 	{% block header %}

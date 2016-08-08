@@ -3,10 +3,13 @@
 namespace AppBundle\Controller\Infoprodukt;
 
 use AppBundle\Controller\Infoprodukt\Base\SimpleEntityController;
+use AppBundle\Entity\Category;
+use AppBundle\Entity\Filter\ProductFilter;
 use AppBundle\Entity\Product;
-use AppBundle\Entity\Filter\Base\SimpleEntityFilter;
+use AppBundle\Entity\Segment;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Entity\Brand;
 
 class ProductController extends SimpleEntityController
 {   
@@ -38,17 +41,24 @@ class ProductController extends SimpleEntityController
     {
     	return Product::class;
     }
-
-    /**
-     * 
-     * {@inheritDoc}
-     * @see \AppBundle\Controller\Infomarket\Base\BaseEntityController::getEntityFilter()
-     */
+    
     protected function getEntityFilter(Request $request)
     {
-    	$filter = new SimpleEntityFilter();
-    	$filter->setPublished(true);
-    	
+    	$filter = parent::getEntityFilter($request);
+    
+    	$category = $this->getParamById($request, Category::class, null);
+    	if($category) {
+    		$filter->setCategories([$category]);
+    	}
+    
     	return $filter;
+    }
+    
+    protected function createNewFilter() {
+    	$categoryRepository = $this->getDoctrine()->getRepository(Category::class);
+    	$segmentRepository = $this->getDoctrine()->getRepository(Segment::class);
+    	$brandRepository = $this->getDoctrine()->getRepository(Brand::class);
+    
+    	return new ProductFilter($categoryRepository, $brandRepository, $segmentRepository);
     }
 }

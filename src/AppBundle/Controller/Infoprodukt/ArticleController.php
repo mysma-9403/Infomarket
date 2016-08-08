@@ -10,6 +10,8 @@ use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Entity\Filter\ArticleFilter;
 use AppBundle\Entity\ArticleCategory;
 use AppBundle\Entity\Category;
+use AppBundle\Form\Filter\Infoprodukt\ArticleFilterType;
+use AppBundle\Form\Filter\Base\SimpleEntityFilterType;
 
 class ArticleController extends SimpleEntityController
 {   
@@ -32,6 +34,55 @@ class ArticleController extends SimpleEntityController
 		return $this->showActionInternal($request, $id);
 	}
 	
+	protected function indexActionInternal(Request $request, $page)
+	{
+		$params = $this->getIndexParams($request, $page);
+		
+		//TODO brzydki override, pomyslec czy da sie ladniej :)
+		$searchFilter = new SimpleEntityFilter();
+		$searchFilter->initValues($request);
+	
+		$searchFilterForm = $this->createForm(SimpleEntityFilterType::class, $searchFilter);
+		$searchFilterForm->handleRequest($request);
+
+		if ($searchFilterForm->isSubmitted() && $searchFilterForm->isValid()) {
+			if ($searchFilterForm->get('search')->isClicked()) {
+				return $this->redirectToRoute('infoprodukt_search', $searchFilter->getValues());
+			}
+		}
+		$params['searchFilterForm'] = $searchFilterForm->createView();
+	
+		$filter = $this->getEntityFilter($request);
+	
+		$filterForm = $this->createForm(ArticleFilterType::class, $filter);
+		$filterForm->handleRequest($request);
+	
+		if ($filterForm->isSubmitted() && $filterForm->isValid()) {
+				
+			if ($filterForm->get('search')->isClicked()) {
+				$filter->setPublished(SimpleEntityFilter::ALL_VALUES);
+				$filter->setMain(SimpleEntityFilter::ALL_VALUES);
+				$filter->setCategories(array());
+				
+				$routingParams = array();
+				$routingParams['category'] = $params['category']->getId();
+				$routingParams = array_merge($routingParams, $filter->getValues());
+				
+				return $this->redirectToRoute($this->getIndexRoute(), $routingParams);
+			}
+				
+			if ($filterForm->get('clear')->isClicked()) {
+				$routingParams = array();
+				$routingParams['category'] = $filter->getCategories()[0]->getId();
+				
+				return $this->redirectToRoute($this->getIndexRoute(), $routingParams);
+			}
+		}
+		$params['articleFilterForm'] = $filterForm->createView();
+			
+		return $this->render($this->getIndexView(), $params);
+	}
+	
 	/**
 	 * 
 	 * {@inheritDoc}
@@ -49,15 +100,23 @@ class ArticleController extends SimpleEntityController
      */
     protected function getEntityFilter(Request $request)
     {
-    	$articleCategoryRepository = $this->getDoctrine()->getRepository(ArticleCategory::class);
-    	$categoryRepository = $this->getDoctrine()->getRepository(Category::class);
+    	$filter = parent::getEntityFilter($request);
     	
-    	$filter = new ArticleFilter($articleCategoryRepository, $categoryRepository);
-    	$filter->initValues($request);
-    	$filter->setPublished(SimpleEntityFilter::TRUE_VALUES);
+    	$category = $this->getParamById($request, Category::class, null);
+    	if($category) {
+    		$filter->setCategories([$category]);
+    	}
+    	
     	$filter->setMain(SimpleEntityFilter::TRUE_VALUES);
     	$filter->setOrderBy('e.publishedAt DESC');
     	
     	return $filter;
+    }
+    
+    protected function createNewFilter() {
+    	$articleCategoryRepository = $this->getDoctrine()->getRepository(ArticleCategory::class);
+    	$categoryRepository = $this->getDoctrine()->getRepository(Category::class);
+    	
+    	return new ArticleFilter($articleCategoryRepository, $categoryRepository);
     }
 }

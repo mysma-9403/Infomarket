@@ -2,30 +2,69 @@
 		
 {% block content %}
 <div class="container">
+	
+	{% block breadcrumbs %}
+		<div class="row">
+			<div class="col-xs-12">
+				<a href="{{ path('infomarket_home') }}">{{ 'label.home'|trans }}</a>
+				
+				{% block moreBreadcrumbs%}
+				{% endblock %}
+			</div>
+		</div>
+	{% endblock %}
+	
 	<div class="row">
 		{% block sidebar %}
 		<div class="col-sm-3 col-sm-push-9">
 			<div class="col-xs-12 well">
-				{% block sidebarContent %}
-				<h1>Sekcje</h1>
+			
+				{% block sidebarContent %}	
+							
+					{% block sectionsBlock %}
+						<h1>{{ 'label.sections'|trans }}</h1>
+						
+						{% include 'infoprodukt/common/sections.html.twig' with 
+						{ 'category': category } %}
+					{% endblock %}
+					
+					{% block categoriesBlock %}
+						{% if category and category.preleaf == false %}
+							<h1>{{ 'label.categories'|trans }}</h1>
+							
+							<ul class="nav nav-pills nav-stacked">
+								{% for subcategory in category.parent.children %}
+									<li role="presentation" class="{{ subcategory.id == category.id ? 'active' : ''}}">
+										<a href="{{ path(basePath ~ mainPath, { category: subcategory.id }) }}">
+											{{ subcategory.name }} {{ subcategory.subname }}
+										</a>
+									</li>
+								{% endfor %}
+							</ul>
+						{% endif %}
+					{% endblock %}
+					
+					{% block moreSidebarContent %}
+					{% endblock %}
 				
-				<ul class="nav nav-pills nav-stacked">
-					<li role="presentation" class="{{ mainPath == 'category' ? 'active' : ''}}">
-						<a href="{{ path('infoprodukt_category') }}">Kategorie</a>
-					</li>
-					<li role="presentation" class="{{ mainPath == 'article' ? 'active' : ''}}">
-						<a href="{{ path('infoprodukt_article') }}">Artykuly</a>
-					</li>
-					<li role="presentation" class="{{ mainPath == 'product' ? 'active' : ''}}">
-						<a href="{{ path('infoprodukt_product') }}">Produkty</a>
-					</li>
-					<li role="presentation" class="{{ mainPath == 'brand' ? 'active' : ''}}">
-						<a href="{{ path('infoprodukt_brand') }}">Marki</a>
-					</li>
-					<li role="presentation" class="{{ mainPath == 'term' ? 'active' : ''}}">
-						<a href="{{ path('infoprodukt_term') }}">Leksykon pojec</a>
-					</li>
-				</ul>
+				{% endblock %}
+			</div>
+			
+			<div class="col-xs-12">
+				{% block sidebarAds %}
+					<div id="mySideAdsCarousel" class="carousel slide" data-ride="carousel">
+					  	<div class="carousel-inner" role="listbox">
+							{% for advert in sideAds %}
+					    		<div class="item rect-1x2 {{ loop.index == 1 ? 'active' : '' }}">
+							    	<div class="div-center">
+							    		<a href="{{ 'http://' ~ advert.link }}">
+							    			<img src="{{ asset(advert.getImagePath()) }}">
+							    		</a>
+					      			</div>
+							    </div>
+						    {% endfor %}
+					  	</div>
+				  	</div>
 				{% endblock %}
 			</div>
 		</div>
@@ -37,6 +76,24 @@
 				{% block mainContent %}
 				{% endblock %}
 			</div>
+			
+			{% block topAds %}
+				<div class="col-xs-12">
+					<div id="myTopAdsCarousel" class="carousel slide" data-ride="carousel">
+					  	<div class="carousel-inner" role="listbox">
+							{% for advert in topAds %}
+					    		<div class="item rect-6x1 {{ loop.index == 1 ? 'active' : '' }}">
+							    	<div class="div-center">
+							    		<a href="{{ 'http://' ~ advert.link }}">
+							    			<img src="{{ asset(advert.getImagePath()) }}">
+							    		</a>
+					      			</div>
+							    </div>
+						    {% endfor %}
+					  	</div>
+				  	</div>
+			  	</div>
+			{% endblock %}
 		</div>
 		{% endblock %}
 	</div>

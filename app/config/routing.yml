@@ -127,6 +127,64 @@ admin:
     path:      /admin/
     defaults:  { _controller: "AppBundle:Admin/Admin:index" }
 
+# Admin Adverts Routing    
+admin_advert_show:
+    path:      /admin/adverts/show/{id}
+    defaults:  { _controller: "AppBundle:Admin/Advert:show" }
+    
+admin_advert_new:
+    path:      /admin/adverts/new/
+    defaults:  { _controller: "AppBundle:Admin/Advert:new" }
+    
+admin_advert_copy:
+    path:      /admin/adverts/copy/{id}
+    defaults:  { _controller: "AppBundle:Admin/Advert:copy" }
+    
+admin_advert_edit:
+    path:      /admin/adverts/edit/{id}
+    defaults:  { _controller: "AppBundle:Admin/Advert:edit" }
+    
+admin_advert_delete:
+    path:      /admin/adverts/delete/{id}
+    defaults:  { _controller: "AppBundle:Admin/Advert:delete" }
+    
+admin_advert_set_published:
+    path:      /admin/adverts/set_published/{id}
+    defaults:  { _controller: "AppBundle:Admin/Advert:setPublished" }
+        
+admin_advert:
+    path:      /admin/adverts/{page}
+    defaults:  { _controller: "AppBundle:Admin/Advert:index", page: 1 }
+
+# Admin AdvertCategoryAssignments Routing    
+admin_advert_category_assignment_show:
+    path:      /admin/advert-category_assignments/show/{id}
+    defaults:  { _controller: "AppBundle:Admin/AdvertCategoryAssignment:show" }
+    
+admin_advert_category_assignment_new:
+    path:      /admin/advert-category_assignments/new/
+    defaults:  { _controller: "AppBundle:Admin/AdvertCategoryAssignment:new" }
+    
+admin_advert_category_assignment_copy:
+    path:      /admin/advert-category_assignments/copy/{id}
+    defaults:  { _controller: "AppBundle:Admin/AdvertCategoryAssignment:copy" }
+    
+admin_advert_category_assignment_edit:
+    path:      /admin/advert-category_assignments/edit/{id}
+    defaults:  { _controller: "AppBundle:Admin/AdvertCategoryAssignment:edit" }
+    
+admin_advert_category_assignment_delete:
+    path:      /admin/advert-category_assignments/delete/{id}
+    defaults:  { _controller: "AppBundle:Admin/AdvertCategoryAssignment:delete" }
+    
+admin_advert_category_assignment_set_published:
+    path:      /admin/advert-category_assignments/set_published/{id}
+    defaults:  { _controller: "AppBundle:Admin/AdvertCategoryAssignment:setPublished" }
+
+admin_advert_category_assignment:
+    path:      /admin/advert-category_assignments/{page}
+    defaults:  { _controller: "AppBundle:Admin/AdvertCategoryAssignment:index", page: 1 }
+            
 # Admin Articles Routing    
 admin_article_show:
     path:      /admin/articles/show/{id}

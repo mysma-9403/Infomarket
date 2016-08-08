@@ -59,7 +59,6 @@
 					</ul>
 				</li>
 				<li {% if mainPath == 'branch' %} class="active" {% endif %}><a href="{{ path('admin_' ~ 'branch') }}">{% trans %}title.branches{% endtrans %}</a></li>
-{# 				<li {% if mainPath == 'category' %} class="active" {% endif %}><a href="{{ path('admin_' ~ 'category') }}">{% trans %}title.categories{% endtrans %}</a></li>#}
 				<li {% if 'category' in mainPath %} class="active" {% endif %} class="dropdown">
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
 						<span class="txt-success "></span> {{ 'title.categories'|trans }} <span class="caret"></span>
@@ -111,6 +110,24 @@
 						<li>
 							<a href="{{ path(basePath ~ 'segment') }}">
 								{{ 'title.segments'|trans }}
+							</a>
+						</li>
+					</ul>
+				</li>
+				<li {% if 'advert' in mainPath %} class="active" {% endif %} class="dropdown">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+						<span class="txt-success "></span> {{ 'title.adverts'|trans }} <span class="caret"></span>
+					</a>
+					<ul class="dropdown-menu">
+						<li>
+							<a href="{{ path('admin_' ~ 'advert') }}">
+								{{ 'title.adverts'|trans }}
+							</a>
+						</li>
+						<li class="divider"></li>
+						<li>
+							<a href="{{ path('admin_' ~ 'advert_category_assignment') }}">
+								{{ 'title.advert_category_assignments'|trans }}
 							</a>
 						</li>
 					</ul>

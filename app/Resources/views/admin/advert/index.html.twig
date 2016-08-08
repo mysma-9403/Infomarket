@@ -1,0 +1,47 @@
+{% extends 'admin/image/index.html.twig' %}
+
+{% set mainPath = 'advert' %}
+{% set title = 'title.adverts'|trans %}
+
+{% block filterMoreFields3 %}
+	<li class="col-xs-12 col-sm-6 col-md-4 col-lg-2">
+		{{ form_widget(filter.locations, { 'label': 'label.advert.locations' }) }}
+	</li>
+	<li class="col-xs-12 col-sm-6 col-md-4 col-lg-2">
+		{{ form_widget(filter.link, { 'label': 'label.advert.link' }) }}
+	</li>
+	<li class="col-xs-12 col-sm-6 col-md-4 col-lg-2">
+		{{ form_widget(filter.showCount, { 'label': 'label.advert.showCount' }) }}
+	</li>
+	<li class="col-xs-12 col-sm-6 col-md-4 col-lg-2">
+		{{ form_widget(filter.showLimit, { 'label': 'label.advert.showLimit' }) }}
+	</li>
+	<li class="col-xs-12 col-sm-6 col-md-4 col-lg-2">
+		{{ form_widget(filter.clickCount, { 'label': 'label.advert.clickCount' }) }}
+	</li>
+	<li class="col-xs-12 col-sm-6 col-md-4 col-lg-2">
+		{{ form_widget(filter.clickLimit, { 'label': 'label.advert.clickLimit' }) }}
+	</li>
+{% endblock %}
+
+{% block headerMoreFields2 %}
+	<th><i class="fa fa-globe"></i>{{ 'label.advert.location'|trans }}</th>
+	
+	<th><i class="fa fa-globe"></i>{{ 'label.advert.link'|trans }}</th>
+	
+	<th><i class="fa fa-"></i>{{ 'label.advert.showCount'|trans }}</th>
+	<th><i class="fa fa-"></i>{{ 'label.advert.showLimit'|trans }}</th>
+	<th><i class="fa fa-"></i>{{ 'label.advert.clickCount'|trans }}</th>
+	<th><i class="fa fa-"></i>{{ 'label.advert.clickLimit'|trans }}</th>
+{% endblock %}
+
+{% block entryMoreFields2 %}
+	<td>{{ item.location }}</td>
+	
+	<td>{{ item.link}}</td>
+	
+	<td>{{ item.showCount }}</td>
+	<td>{{ item.showLimit }}</td>
+	<td>{{ item.clickCount }}</td>
+	<td>{{ item.clickLimit }}</td>
+{% endblock %}

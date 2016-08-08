@@ -1,0 +1,42 @@
+{% extends 'admin/image/show.html.twig' %}
+
+{% set title = 'title.adverts'|trans %}
+{% set mainPath = 'advert' %}
+{% set gender = 'fm.' %}
+
+{% block moreFields3 %}
+	{% include 'common/fields/text_field.html.twig' with 
+	{ 'label': 'label.advert.location'|trans, 'value': entry.location } %}
+	
+	<div class="lowered-25"></div>
+	
+	{% include 'common/fields/text_field.html.twig' with 
+	{ 'label': 'label.advert.link'|trans, 'value': entry.link } %}
+	
+	<div class="lowered-25"></div>
+	
+	{% include 'common/fields/date_field.html.twig' with 
+	{ 'label': 'label.advert.dateFrom'|trans, 'value': entry.dateFrom } %}
+	
+	{% include 'common/fields/date_field.html.twig' with 
+	{ 'label': 'label.advert.dateTo'|trans, 'value': entry.dateTo } %}
+	
+	<div class="lowered-25"></div>
+	
+	{% include 'common/fields/text_field.html.twig' with 
+	{ 'label': 'label.advert.showCount'|trans, 'value': entry.showCount } %}
+	
+	{% include 'common/fields/text_field.html.twig' with 
+	{ 'label': 'label.advert.showLimit'|trans, 'value': entry.showLimit } %}
+	
+	{% include 'common/fields/text_field.html.twig' with 
+	{ 'label': 'label.advert.clickCount'|trans, 'value': entry.clickCount } %}
+	
+	{% include 'common/fields/text_field.html.twig' with 
+	{ 'label': 'label.advert.clickLimit'|trans, 'value': entry.clickLimit } %}
+	
+{% endblock %}
+
+{% block assignments %}
+	{% include 'admin/advert/assignments.html.twig' with { 'entry': entry } %}
+{% endblock %}

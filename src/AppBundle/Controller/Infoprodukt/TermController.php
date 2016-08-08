@@ -3,8 +3,9 @@
 namespace AppBundle\Controller\Infoprodukt;
 
 use AppBundle\Controller\Infoprodukt\Base\SimpleEntityController;
+use AppBundle\Entity\Category;
+use AppBundle\Entity\Filter\TermFilter;
 use AppBundle\Entity\Term;
-use AppBundle\Entity\Filter\Base\SimpleEntityFilter;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -38,17 +39,23 @@ class TermController extends SimpleEntityController
     {
     	return Term::class;
     }
-
-    /**
-     * 
-     * {@inheritDoc}
-     * @see \AppBundle\Controller\Infomarket\Base\BaseEntityController::getEntityFilter()
-     */
+    
     protected function getEntityFilter(Request $request)
     {
-    	$filter = new SimpleEntityFilter();
-    	$filter->setPublished(true);
-    	
+    	$filter = parent::getEntityFilter($request);
+    
+    	$category = $this->getParamById($request, Category::class, null);
+    	if($category) {
+    		$filter->setCategories([$category]);
+    	}
+    
     	return $filter;
+    }
+    
+    protected function createNewFilter()
+    {
+    	$categoryRepository = $this->getDoctrine()->getRepository(Category::class);
+    	
+    	return new TermFilter($categoryRepository);
     }
 }

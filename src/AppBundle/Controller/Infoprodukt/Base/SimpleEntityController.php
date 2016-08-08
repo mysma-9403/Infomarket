@@ -3,8 +3,8 @@
 namespace AppBundle\Controller\Infoprodukt\Base;
 
 use AppBundle\Entity\Base\SimpleEntity;
-use AppBundle\Entity\Filter\Base\SimpleEntityFilter;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use AppBundle\Entity\Filter\Base\SimpleEntityFilter;
 use Symfony\Component\HttpFoundation\Request;
 
 class SimpleEntityController extends InfoproduktEntityController
@@ -18,16 +18,16 @@ class SimpleEntityController extends InfoproduktEntityController
     {
     	return SimpleEntity::class;
     }
-
+    
     /**
      * 
      * {@inheritDoc}
-     * @see \AppBundle\Controller\Infomarket\Base\BaseEntityController::getEntityFilter()
+     * @see \AppBundle\Controller\Base\BaseEntityController::createNewFilter()
      */
-    protected function getEntityFilter(Request $request)
-    {
-    	$filter = new SimpleEntityFilter();
-    	$filter->setPublished(true);
+    protected function getEntityFilter(Request $request) {
+    	$filter = $this->createNewFilter();
+    	$filter->initValues($request);
+    	$filter->setPublished(SimpleEntityFilter::TRUE_VALUES);
     	
     	return $filter;
     }

@@ -16,6 +16,8 @@ use AppBundle\Form\Filter\Base\SimpleEntityFilterType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Entity\Filter\BranchFilter;
+use AppBundle\Entity\Filter\AdvertFilter;
+use AppBundle\Entity\Advert;
 
 abstract class InfoproduktEntityController extends BaseEntityController
 {
@@ -66,9 +68,17 @@ abstract class InfoproduktEntityController extends BaseEntityController
 		return $this->render($this->getShowView(), $params);
 	}
 	
+	/*
+	 * Params 
+	 */
+	
+	
+	
     protected function getParams(Request $request)
     {
     	$params = parent::getParams($request);
+    	
+    	$params = array_merge($params, $this->getAdvertParams($request));
     	
     	$branchRepository = $this->getDoctrine()->getRepository(Branch::class);
     	$categoryRepository = $this->getDoctrine()->getRepository(Category::class);
@@ -109,17 +119,66 @@ abstract class InfoproduktEntityController extends BaseEntityController
     	return $params;
     }
     
+    protected function getRouteParams(Request $request) {
+    	$routeParams = parent::getRouteParams($request);
+    	
+    	$category = $this->getParamById($request, Category::class, null);
+    	if($category) {
+    		$routeParams['category'] = $category->getId();
+    	}
+    
+    	return $routeParams;
+    }
+    
     protected function getRoutingParams(Request $request)
     {
     	$params = parent::getRoutingParams($request);
     	
     	$category = $this->getParamById($request, Category::class, null);
-    	if($category) {
-    		$params['category'] = $category->getId();
-    	}
-    	 
+		$params['category'] = $category;
+    	
     	return $params;
     }
+    
+    protected function getAdvertParams(Request $request)
+    {
+    	$params = array();
+    	
+    	$categoryRepository = $this->getDoctrine()->getRepository(Category::class);
+    	
+    	$advertFilter = new AdvertFilter($categoryRepository);
+	    $advertFilter->setPublished(BaseEntityFilter::TRUE_VALUES);
+	    
+	    $category = $this->getParamById($request, Category::class, null);
+	    if ($category) {
+	    	if ($category->getPreleaf()) {
+	    		$advertFilter->setCategories([$category]);
+	    	} else if ($category->getParent()) {
+	    		$advertFilter->setCategories([$category->getParent()]);
+	    	}
+	    }
+	    
+	    $advertFilter->setLocations([Advert::TOP_LOCATION]);
+	    	
+	    $topAds = $this->getParamList(Advert::class, $advertFilter);
+	    shuffle($topAds);
+	    $topAds = array_slice($topAds, 0, 3);
+	    $params['topAds'] = $topAds;
+	    
+	    $advertFilter->setLocations([Advert::SIDE_LOCATION]);
+	    
+	    $sideAds = $this->getParamList(Advert::class, $advertFilter);
+	    shuffle($sideAds);
+	    $sideAds = array_slice($sideAds, 0, 3);
+	    $params['sideAds'] = $sideAds;
+	    
+	    return $params;
+    }
+    
+    /*
+     * Other 
+     */
+    
     
     protected function getBaseName() 
     {

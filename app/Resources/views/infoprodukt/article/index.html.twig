@@ -3,6 +3,27 @@
 {% set title = 'title.articles'|trans %}
 {% set mainPath = 'article' %}
 		
+{% block moreSidebarContent %}
+	{% block articleCategoriesBlock %}
+		<h1>{{ 'title.articleCategories'|trans }}</h1>
+		
+		{% form_theme articleFilterForm 'form/fields.html.twig' %}
+		
+		<div class="col-xs-12">
+			{{ form_start(articleFilterForm) }}
+				{{ form_row(articleFilterForm.articleCategories, { 'label': ' ' }) }}
+				
+				<div class="btn-group">
+					{{ form_widget(articleFilterForm.search, { 'icon': 'fa-search', 'label': 'action.search', 'attr': {'class': 'btn btn-primary'} }) }}
+					{{ form_widget(articleFilterForm.clear, { 'icon': 'fa-eraser', 'label': 'action.clear', 'attr': {'class': 'btn btn-warning'} }) }}
+				</div>
+			{{ form_end(articleFilterForm) }}
+		</div>
+	{% endblock %}
+{% endblock %}
+
+
+
 {% block mainContent %}
 	{% block articles %}
 	<div class="row">
@@ -20,12 +41,12 @@
 							</div>
 							<div class="col-sm-9">
 								{% for articleBrandAssignment in entry.articleBrandAssignments %}
-									<a href="{{ path(basePath ~ 'brand_show', { id: articleBrandAssignment.brand.id }) }}">
+									<a href="{{ path(basePath ~ 'brand_show', { id: articleBrandAssignment.brand.id, category: category ? category.id : null }) }}">
 										<h3 class="text-red">{{ articleBrandAssignment.brand.name | raw }} </h3>
 									</a> 
 								{% endfor %}
 								
-								<a href="{{ path('infoprodukt_' ~ mainPath ~ '_show', { 'id': entry.id }) }}">
+								<a href="{{ path('infoprodukt_' ~ mainPath ~ '_show', { 'id': entry.id, category: category ? category.id : null }) }}">
 									<h3>
 										<span class="text-brand">{{ entry.name | raw }}</span> 
 										<span class="text-red">{{ entry.subname | raw }}</span>
@@ -38,13 +59,9 @@
 									{% endif %}
 								</p>
 								<p>
-									{% if entry.intro | length > 0 %}
-										{{ entry.intro | raw }}
-									{% else %}
-										{{ entry.content[:256] | raw }}...
-									{% endif %}
+									{{ entry.intro | raw }}
 								</p>
-								<a class="btn btn-danger" href="{{ path('infoprodukt_' ~ mainPath ~ '_show', { 'id': entry.id }) }}">
+								<a class="btn btn-danger" href="{{ path('infoprodukt_' ~ mainPath ~ '_show', { 'id': entry.id, category: category ? category.id : null }) }}">
 									{{ 'label.readMore'|trans }}
 								</a>
 								<div class="vr-space-10"></div>

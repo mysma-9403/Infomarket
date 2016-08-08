@@ -45,7 +45,6 @@ class Article extends ImageEntity
 		return '../web/uploads/articles/' . $this->createdAt->format('Y/m/');
 	}
 	
-	
     /**
      * @var string
      */

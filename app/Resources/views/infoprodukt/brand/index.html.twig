@@ -9,7 +9,13 @@
 		<div class="col-xs-12">
 			<h1>{{ 'title.brands'|trans }}</h1>
 			
-			{% include 'common/tile_list.html.twig' with {'entries': entries, 'entryPath': 'brand'} %}
+			{% for entry in entries %}
+				<div class="col-sm-3">
+					{% include 'common/default_tile.html.twig' with {entry: entry, entryPath: 'brand', routeParams: { category: category ? category.id : null } } %}
+				</div>
+			{% else %}
+				<p>{{ 'label.noEntries'|trans }}</p>
+			{% endfor %}
 		</div>
 	</div>
 	{% endblock %}

@@ -1,0 +1,30 @@
+<ul class="nav nav-pills nav-stacked">
+	
+	{% set preleafCategory = category is null or category.preleaf ? category : category.parent %}
+	{% set preleafCategoryId = preleafCategory ? preleafCategory.id : null %}
+	
+	{% set childCategory = category and category.preleaf ? category.getDefaultChildCategory() : category %}
+	{% set childCategoryId = childCategory ? childCategory.id : null %}
+	
+	<li role="presentation" class="{{ mainPath == 'article' ? 'active' : ''}}">
+		<a href="{{ path('infoprodukt_article', { category: preleafCategoryId }) }}">{{ 'title.articles'|trans }}</a>
+	</li>
+	
+	<li role="presentation" class="{{ mainPath == 'category' ? 'active' : ''}}">
+		<a href="{{ path('infoprodukt_category' ~ (childCategoryId ? '_show' : ''), { id: childCategoryId, category: childCategoryId }) }}">
+			{{ childCategoryId ? 'title.ratings'|trans : 'title.categories'|trans }}
+		</a>
+	</li>
+	
+	<li role="presentation" class="{{ mainPath == 'product' ? 'active' : ''}}">
+		<a href="{{ path('infoprodukt_product', { category: childCategoryId }) }}">{{ 'title.products'|trans }}</a>
+	</li>
+	<li role="presentation" class="{{ mainPath == 'brand' ? 'active' : ''}}">
+		<a href="{{ path('infoprodukt_brand', { category: childCategoryId }) }}">{{ 'title.brands'|trans }}</a>
+	</li>
+	
+	<li role="presentation" class="{{ mainPath == 'term' ? 'active' : ''}}">
+		<a href="{{ path('infoprodukt_term', { category: preleafCategoryId }) }}">{{ 'title.terms'|trans }}</a>
+	</li>
+		
+</ul>

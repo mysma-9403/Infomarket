@@ -17,6 +17,16 @@ class Category extends ImageTree
 		return '../web/uploads/categories';
 	}
 	
+	public function getDefaultChildCategory() {
+		
+		foreach ($this->getChildren() as $child) {
+			if($child->getPublished())
+				return $child;
+		}
+		
+		return null;
+	}
+	
     /**
      * @var string
      */

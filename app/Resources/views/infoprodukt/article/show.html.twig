@@ -1,7 +1,9 @@
 {% extends 'infoprodukt/base/show.html.twig' %}
 
-{% set title = entry.name | raw %}
+{% set title = entry.name|raw %}
 {% set mainPath = 'article' %}
+
+{% set listName = 'title.articles'|trans %}
 		
 {% block mainContent %}
 	{% include 'common/article/preview.html.twig' with { 'entry': entry } %}

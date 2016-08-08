@@ -149,8 +149,6 @@ class ArticleController extends ImageEntityController {
 		$em->flush();
 		
 		return array();
-	
-		return array();
 	}
 	
 	protected function getPreviewParams(Request $request, $id)

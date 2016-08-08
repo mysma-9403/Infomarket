@@ -1,0 +1,21 @@
+{% extends 'admin/image/editor.html.twig' %}
+
+{% set title = 'title.adverts'|trans %}
+{% set mainPath = 'advert' %}
+{% set gender = 'fm.' %}
+	
+{% block moreFields3 %}
+	{{ form_row(form.location, { 'label': 'label.advert.location' }) }}
+	
+	{{ form_row(form.link, { 'label': 'label.advert.link' }) }}
+	
+	{{ form_row(form.dateFrom, { 'label': 'label.advert.dateFrom' }) }}	
+    {{ form_row(form.dateTo, { 'label': 'label.advert.dateTo' }) }}
+	
+	{{ form_row(form.showLimit, { 'label': 'label.advert.showLimit' }) }}
+	{{ form_row(form.clickLimit, { 'label': 'label.advert.clickLimit' }) }}
+{% endblock %}
+
+{% block assignments %}
+	{% include 'admin/advert/assignments.html.twig' with { 'entry': entry } %}
+{% endblock %}
