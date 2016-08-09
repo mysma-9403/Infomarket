@@ -16,6 +16,8 @@ class SimpleEntityFilter extends BaseEntityFilter {
 		$this->filterName = "simple_filter_";
 		
 		$this->orderBy = 'e.name ASC';
+		
+		$this->addNameDecorators = false;
 	}
 	
 	/**
@@ -58,16 +60,47 @@ class SimpleEntityFilter extends BaseEntityFilter {
 		$expressions = parent::getWhereExpressions();
 		
 		if($this->name) {
-			$expressions[] = $this->getStringsExpression('e.name', $this->name);
+			$expressions[] = $this->getStringsExpression('e.name', $this->name, $this->addNameDecorators);
 		}
 		
 		return $expressions;
 	}
 	
 	/**
+	 * 
+	 * @var boolean
+	 */
+	protected $addNameDecorators;
+	
+	/**
+	 * Set addNameDecorators
+	 *
+	 * @param string $addNameDecorators
+	 *
+	 * @return SimpleEntityFilter
+	 */
+	public function setAddNameDecorators($addNameDecorators)
+	{
+		$this->addNameDecorators= $addNameDecorators;
+	
+		return $this;
+	}
+	
+	/**
+	 * Get addNameDecorators
+	 *
+	 * @return string
+	 */
+	public function getAddNameDecorators()
+	{
+		return $this->addNameDecorators;
+	}
+	
+	/**
 	 * @var string
 	 */
 	protected $name;
+	
 	/**
 	 * Set name
 	 *

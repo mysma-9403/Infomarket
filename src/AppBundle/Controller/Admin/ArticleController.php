@@ -11,6 +11,7 @@ use AppBundle\Entity\Filter\ArticleFilter;
 use AppBundle\Form\ArticleType;
 use AppBundle\Form\Filter\ArticleFilterType;
 use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Entity\Brand;
 
 class ArticleController extends ImageEntityController {
 	
@@ -216,8 +217,9 @@ class ArticleController extends ImageEntityController {
 	protected function createNewFilter() {
 		$articleCategoryRepository = $this->getDoctrine()->getRepository(ArticleCategory::class);
 		$categoryRepository = $this->getDoctrine()->getRepository(Category::class);
+		$brandRepository = $this->getDoctrine()->getRepository(Brand::class);
 		
-		$filter = new ArticleFilter($articleCategoryRepository, $categoryRepository);
+		$filter = new ArticleFilter($articleCategoryRepository, $categoryRepository, $brandRepository);
 		$filter->setOrderBy('e.createdAt DESC');
 		
 		return $filter;

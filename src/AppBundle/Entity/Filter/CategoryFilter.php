@@ -29,6 +29,8 @@ class CategoryFilter extends SimpleEntityFilter {
 		$this->root = $this::ALL_VALUES;
 		
 		$this->orderBy = 'e.name ASC';
+		
+		$this->addSubnameDecorators = false;
 	}
 	
 	/**
@@ -128,7 +130,7 @@ class CategoryFilter extends SimpleEntityFilter {
 		}
 		
 		if($this->subname) {
-			$expressions[] = 'e.subname like \'%' . $this->subname . '%\'';
+			$expressions[] = $this->getStringsExpression('e.subname', $this->subname, $this->addSubnameDecorators);
 		}
 		
 		if($this->featured !== $this::ALL_VALUES) {
@@ -166,6 +168,39 @@ class CategoryFilter extends SimpleEntityFilter {
 		
 		return $expressions;
 	}
+	
+	
+	/**
+	 *
+	 * @var boolean
+	 */
+	protected $addSubnameDecorators;
+	
+	/**
+	 * Set addSubnameDecorators
+	 *
+	 * @param string $addSubnameDecorators
+	 *
+	 * @return SimpleEntityFilter
+	 */
+	public function setAddSubnameDecorators($addSubnameDecorators)
+	{
+		$this->addSubnameDecorators= $addSubnameDecorators;
+	
+		return $this;
+	}
+	
+	/**
+	 * Get addSubnameDecorators
+	 *
+	 * @return string
+	 */
+	public function getAddSubnameDecorators()
+	{
+		return $this->addSubnameDecorators;
+	}
+	
+	
 	
 	/**
 	 *

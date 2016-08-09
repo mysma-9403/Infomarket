@@ -13,6 +13,8 @@ use AppBundle\Repository\CategoryRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
+use AppBundle\Entity\Brand;
+use AppBundle\Repository\BrandRepository;
 
 class ArticleFilterType extends ImageEntityFilterType
 {	
@@ -59,6 +61,18 @@ class ArticleFilterType extends ImageEntityFilterType
 				'expanded'      => false,
 				'multiple'      => true,
 				'placeholder'	=> 'label.choose.category'
+		))
+		->add('brands', EntityType::class, array(
+				'class'			=> Brand::class,
+				'query_builder' => function (BrandRepository $repository) {
+				return $repository->createQueryBuilder('e')
+				->orderBy('e.published DESC, e.name', 'ASC');
+				},
+				'choice_label' 	=> 'name',
+				'required'		=> false,
+				'expanded'      => false,
+				'multiple'      => true,
+				'placeholder'	=> 'label.choose.brand'
 		))
 		->add('featured', ChoiceType::class, array(
 				'choices'		=> $featuredChoices,

@@ -4,6 +4,11 @@ app:
     type:     annotation
      
 # Infoprodukt Routing
+infoprodukt_advert_click:
+    path:      /adverts/click/{id}
+    host:      infoprodukt.loc
+    defaults:  { _controller: "AppBundle:Infoprodukt/Advert:click" }
+    
 infoprodukt_article:
     path:      /articles/{page}
     host:      infoprodukt.loc

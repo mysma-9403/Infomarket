@@ -13,6 +13,10 @@ use AppBundle\Entity\Product;
 use AppBundle\Entity\Term;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Entity\Segment;
+use AppBundle\Entity\Filter\ProductFilter;
+use AppBundle\Entity\Filter\ArticleFilter;
+use AppBundle\Entity\ArticleCategory;
 
 class SearchController extends SimpleEntityController
 {
@@ -36,19 +40,15 @@ class SearchController extends SimpleEntityController
 		$params = parent::getIndexParams($request, $page);
 		
 		
+		$articleCategoryRepository = $this->getDoctrine()->getRepository(ArticleCategory::class);
+		$categoryRepository = $this->getDoctrine()->getRepository(Category::class);
+		$segmentRepository = $this->getDoctrine()->getRepository(Segment::class);
+		
 		
 		$simpleFilter = new SimpleEntityFilter();
+		$simpleFilter->setAddNameDecorators(true);
 		$simpleFilter->initValues($request);
-		$simpleFilter->setPublished(true);
-		
-		
-		
-		$productRepository = $this->getDoctrine()->getRepository(Product::class);
-		$products = $productRepository->findSelected($simpleFilter);
-		
-		$params['products'] = $products;
-		
-		
+		$simpleFilter->setPublished(SimpleEntityFilter::ALL_VALUES);
 		
 		$brandRepository = $this->getDoctrine()->getRepository(Brand::class);
 		$brands = $brandRepository->findSelected($simpleFilter);
@@ -57,18 +57,32 @@ class SearchController extends SimpleEntityController
 		
 		
 		
-		$termRepository = $this->getDoctrine()->getRepository(Term::class);
-		$terms = $termRepository->findSelected($simpleFilter);
+		$productRepository = $this->getDoctrine()->getRepository(Product::class);
+		$products = $productRepository->findSelected($simpleFilter);
 		
-		$params['terms'] = $terms;
+		$productFilter = new ProductFilter($categoryRepository, $brandRepository, $segmentRepository);
+		$productFilter->setBrands($brands);
+		$products = array_merge($products, $productRepository->findSelected($productFilter));
+		
+		$params['products'] = $products;
 		
 		
 		
 		$articleRepository = $this->getDoctrine()->getRepository(Article::class);
 		$articles = $articleRepository->findSelected($simpleFilter);
 		
+		$articleFilter = new ArticleFilter($articleCategoryRepository, $categoryRepository, $brandRepository);
+		$articleFilter->setBrands($brands);
+		$articles = array_merge($articles, $articleRepository->findSelected($articleFilter));
+		
 		$params['articles'] = $articles;
 		
+		
+		
+		$termRepository = $this->getDoctrine()->getRepository(Term::class);
+		$terms = $termRepository->findSelected($simpleFilter);
+		
+		$params['terms'] = $terms;
 		
 		
 		return $params;
@@ -86,14 +100,22 @@ class SearchController extends SimpleEntityController
 	
 	protected function getEntityFilter(Request $request)
 	{
+		$filter = parent::getEntityFilter($request);
+		
+		$filter->setPreleaf(SimpleEntityFilter::TRUE_VALUES);
+		 
+		return $filter;
+	}
+	
+	protected function createNewFilter() {
 		$branchRepository = $this->getDoctrine()->getRepository(Branch::class);
 		$categoryRepository = $this->getDoctrine()->getRepository(Category::class);
 		
 		$filter = new CategoryFilter($branchRepository, $categoryRepository);
-		$filter->initValues($request);
-		$filter->setPublished(true);
-		$filter->setPreleaf(true);
-		 
+		$filter->setFilterName('simple_filter_');
+		$filter->setAddNameDecorators(true);
+		$filter->setAddSubnameDecorators(true);
+		
 		return $filter;
 	}
 	

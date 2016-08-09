@@ -7,10 +7,10 @@ use AppBundle\Entity\AdvertCategoryAssignment;
 use AppBundle\Entity\Category;
 use AppBundle\Form\Base\BaseFormType;
 use AppBundle\Form\Base\ImageEntityType;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
-use Symfony\Component\Form\FormBuilderInterface;
 use AppBundle\Repository\AdvertRepository;
 use AppBundle\Repository\CategoryRepository;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\FormBuilderInterface;
 
 class AdvertCategoryAssignmentType extends BaseFormType
 {

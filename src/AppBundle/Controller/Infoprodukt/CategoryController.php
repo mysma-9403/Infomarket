@@ -98,8 +98,9 @@ class CategoryController extends SimpleEntityController
 		if($entry->getPreleaf()) {
 			$articleCategoryRepository = $this->getDoctrine()->getRepository(ArticleCategory::class);
 			$categoryRepository = $this->getDoctrine()->getRepository(Category::class);
+			$brandRepository = $this->getDoctrine()->getRepository(Brand::class);
 			
-			$articleFilter = new ArticleFilter($articleCategoryRepository, $categoryRepository);
+			$articleFilter = new ArticleFilter($articleCategoryRepository, $categoryRepository, $brandRepository);
 			$articleFilter->setCategories([$entry]);
 			$articleFilter->setPublished(SimpleEntityFilter::TRUE_VALUES);
 			$articleFilter->setFeatured(SimpleEntityFilter::TRUE_VALUES);
@@ -140,6 +141,17 @@ class CategoryController extends SimpleEntityController
 			shuffle($featuredAds);
 			$featuredAds = array_slice($featuredAds, 0, 3);
 			$params['featuredAds'] = $featuredAds;
+			
+			
+			
+			
+			$em = $this->getDoctrine()->getManager();
+			 
+			foreach($featuredAds as $ad) {
+				$ad->setShowCount($ad->getShowCount()+1);
+				$em->persist($ad);
+			}
+			$em->flush();
 			
 		} else {
 			//TODO use as setters as they are useless in many cases!!! (like here)

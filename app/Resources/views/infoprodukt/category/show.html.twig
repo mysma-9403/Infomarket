@@ -194,7 +194,7 @@
 							{% for advert in featuredAds %}
 					    		<div class="item rect-3x1 {{ loop.index == 1 ? 'active' : '' }}">
 							    	<div class="div-center">
-							    		<a href="{{ 'http://' ~ advert.link }}">
+							    		<a href="{{ path('infoprodukt_advert_click', { id: advert.id }) }}">
 							    			<img src="{{ asset(advert.getImagePath()) }}">
 							    		</a>
 					      			</div>
@@ -329,7 +329,7 @@
 										{% for advert in sideAds %}
 								    		<div class="item rect-1x2 {{ loop.index == 1 ? 'active' : '' }}">
 										    	<div class="div-center">
-										    		<a href="{{ 'http://' ~ advert.link }}">
+										    		<a href="{{ path('infoprodukt_advert_click', { id: advert.id }) }}">
 										    			<img src="{{ asset(advert.getImagePath()) }}">
 										    		</a>
 								      			</div>
@@ -369,7 +369,7 @@
 										{% for advert in topAds %}
 								    		<div class="item rect-6x1 {{ loop.index == 1 ? 'active' : '' }}">
 										    	<div class="div-center">
-										    		<a href="{{ 'http://' ~ advert.link }}">
+										    		<a href="{{ path('infoprodukt_advert_click', { id: advert.id }) }}">
 										    			<img src="{{ asset(advert.getImagePath()) }}">
 										    		</a>
 								      			</div>

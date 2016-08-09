@@ -58,13 +58,16 @@ class AdvertType extends ImageEntityType
 					]
 			))
 			->add('link', TextType::class, array(
-					'required' => true
+					'required' => true,
+					'attr' => ['placeholder' => 'label.advert.link']
 			))
 			->add('showLimit', NumberType::class, array(
-					'required' => false
+					'required' => false,
+					'attr' => ['placeholder' => 'label.advert.showLimit']
 			))
 			->add('clickLimit', NumberType::class, array(
-					'required' => false
+					'required' => false,
+					'attr' => ['placeholder' => 'label.advert.clickLimit']
 			))
 		;
 	}

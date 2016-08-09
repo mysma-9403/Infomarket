@@ -210,21 +210,25 @@ class BaseEntityFilter {
 		return '';
 	}
 	
-	protected function getStringsExpression($name, $string) {
+	protected function getStringsExpression($name, $string, $addDecorators = false) {
 		$values = explode(',', $string);
 		
 		$expression = null;
 		foreach ($values as $value) {
 			if($expression) {
-				$expression .= ' OR ' . $this->getStringExpression($name, $value);
+				$expression .= ' OR ' . $this->getStringExpression($name, $value, $addDecorators);
 			} else {
-				$expression = $this->getStringExpression($name, $value);
+				$expression = $this->getStringExpression($name, $value, $addDecorators);
 			}
 		}
 		return $expression;
 	}
 	
-	protected function getStringExpression($name, $string) {
+	protected function getStringExpression($name, $string, $addDecorators = false) {
+		if($addDecorators) {
+			$string = '*' . $string . '*';
+		}
+		
 		$like = ' like ';
 		if(substr($string, 0, 2) == '<>') {
 			$string = str_replace('<>', '', $string);

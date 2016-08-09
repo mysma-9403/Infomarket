@@ -9,6 +9,7 @@ use AppBundle\Entity\Filter\ArticleFilter;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Entity\Category;
+use AppBundle\Entity\Brand;
 
 class ArticleController extends SimpleEntityController
 {   
@@ -69,8 +70,9 @@ class ArticleController extends SimpleEntityController
     {
     	$articleCategoryRepository = $this->getDoctrine()->getRepository(ArticleCategory::class);
 		$categoryRepository = $this->getDoctrine()->getRepository(Category::class);
+		$brandRepository = $this->getDoctrine()->getRepository(Brand::class);
 		
-		$filter = new ArticleFilter($articleCategoryRepository, $categoryRepository);
+		$filter = new ArticleFilter($articleCategoryRepository, $categoryRepository, $brandRepository);
     	$filter->setPublished(true);
     	
     	$articleCategory = $this->getParam($request, ArticleCategory::class, null);

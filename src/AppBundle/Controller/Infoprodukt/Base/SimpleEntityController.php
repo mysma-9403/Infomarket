@@ -25,8 +25,8 @@ class SimpleEntityController extends InfoproduktEntityController
      * @see \AppBundle\Controller\Base\BaseEntityController::createNewFilter()
      */
     protected function getEntityFilter(Request $request) {
-    	$filter = $this->createNewFilter();
-    	$filter->initValues($request);
+    	$filter = parent::getEntityFilter($request);
+    	
     	$filter->setPublished(SimpleEntityFilter::TRUE_VALUES);
     	
     	return $filter;

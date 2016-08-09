@@ -27,6 +27,32 @@ class Category extends ImageTree
 		return null;
 	}
 	
+	/**
+	 * 
+	 * {@inheritDoc}
+	 * @see \AppBundle\Entity\Base\Image::getDisplayName()
+	 */
+	public function getDisplayName() {
+		$name = $this->name;
+		$name .= ' ' . $this->subname;
+		
+		$parent = $this->getParent();
+		if($parent) {
+			$name .= ' (';
+			$name .= $parent->getName();
+		
+			$parent = $parent->getParent();
+			while($parent) {
+				$name .= '/';
+				$name .= $parent->getName();
+				$parent = $parent->getParent();
+			}
+			$name .= ')';
+		}
+	
+		return $name;
+	}
+	
     /**
      * @var string
      */

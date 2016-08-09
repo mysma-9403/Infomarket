@@ -172,6 +172,21 @@ abstract class InfoproduktEntityController extends BaseEntityController
 	    $sideAds = array_slice($sideAds, 0, 3);
 	    $params['sideAds'] = $sideAds;
 	    
+	    
+	    $em = $this->getDoctrine()->getManager();
+	    
+	    foreach($topAds as $ad) {
+	    	$ad->setShowCount($ad->getShowCount()+1);
+	    	$em->persist($ad);
+	    }
+	    $em->flush();
+	    
+	    foreach($sideAds as $ad) {
+	    	$ad->setShowCount($ad->getShowCount()+1);
+	    	$em->persist($ad);
+	    }
+	    $em->flush();
+	    
 	    return $params;
     }
     

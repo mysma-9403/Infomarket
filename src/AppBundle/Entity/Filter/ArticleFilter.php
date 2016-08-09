@@ -4,11 +4,13 @@ namespace AppBundle\Entity\Filter;
 
 use AppBundle\Entity\Filter\Base\SimpleEntityFilter;
 use AppBundle;
+use AppBundle\Entity\ArticleArticleCategoryAssignment;
+use AppBundle\Entity\ArticleBrandAssignment;
 use AppBundle\Entity\ArticleCategoryAssignment;
+use AppBundle\Repository\ArticleCategoryRepository;
+use AppBundle\Repository\BrandRepository;
 use AppBundle\Repository\CategoryRepository;
 use Symfony\Component\HttpFoundation\Request;
-use AppBundle\Repository\ArticleCategoryRepository;
-use AppBundle\Entity\ArticleArticleCategoryAssignment;
 
 class ArticleFilter extends SimpleEntityFilter {
 	
@@ -23,15 +25,21 @@ class ArticleFilter extends SimpleEntityFilter {
 	protected $categoryRepository;
 	
 	/**
+	 * @var BrandRepository
+	 */
+	protected $brandRepository;
+	
+	/**
 	 * 
 	 * @param ArticleCategoryRepository $articleCategoryRepository
 	 * @param CategoryRepository $categoryRepository
 	 */
-	public function __construct(ArticleCategoryRepository $articleCategoryRepository, CategoryRepository $categoryRepository) {
+	public function __construct(ArticleCategoryRepository $articleCategoryRepository, CategoryRepository $categoryRepository, BrandRepository $brandRepository) {
 		parent::__construct();
 		
 		$this->articleCategoryRepository = $articleCategoryRepository;
 		$this->categoryRepository = $categoryRepository;
+		$this->brandRepository = $brandRepository;
 		
 		$this->filterName = 'article_filter_';
 		
@@ -53,6 +61,9 @@ class ArticleFilter extends SimpleEntityFilter {
 		$categories = $request->get($this->getFilterName() . 'categories', array());
 		$this->categories = $this->categoryRepository->findBy(array('id' => $categories));
 		
+		$brands = $request->get($this->getFilterName() . 'brands', array());
+		$this->brands = $this->brandRepository->findBy(array('id' => $brands));
+		
 		$parents = $request->get($this->getFilterName() . 'parents', array());
 		$this->parents = $this->categoryRepository->findBy(array('id' => $parents));
 		
@@ -70,6 +81,8 @@ class ArticleFilter extends SimpleEntityFilter {
 	
 		$this->articleCategories = array();
 		$this->categories = array();
+		$this->brands = array();
+		
 		$this->parents = array();
 		
 		$this->featured = $this::ALL_VALUES;
@@ -90,6 +103,10 @@ class ArticleFilter extends SimpleEntityFilter {
 		
 		if($this->categories) {
 			$values[$this->getFilterName() . 'categories'] = $this->getIdValues($this->categories);
+		}
+		
+		if($this->brands) {
+			$values[$this->getFilterName() . 'brands'] = $this->getIdValues($this->brands);
 		}
 		
 		if($this->parents) {
@@ -116,6 +133,10 @@ class ArticleFilter extends SimpleEntityFilter {
 		
 		if($this->categories) {
 			$expressions[] = $this->getEqualArrayExpression('aca.category', $this->categories);
+		}
+		
+		if($this->brands) {
+			$expressions[] = $this->getEqualArrayExpression('aba.brand', $this->brands);
 		}
 		
 		if($this->featured !== SimpleEntityFilter::ALL_VALUES) {
@@ -152,6 +173,10 @@ class ArticleFilter extends SimpleEntityFilter {
 		if($this->categories) {
 			$expressions[] = ArticleCategoryAssignment::class . ' aca WITH aca.article = e.id';
 		}
+		
+		if($this->brands) {
+			$expressions[] = ArticleBrandAssignment::class . ' aba WITH aba.article = e.id';
+		}
 	
 		return $expressions;
 	}
@@ -167,6 +192,12 @@ class ArticleFilter extends SimpleEntityFilter {
 	 * @var array
 	 */
 	private $categories;
+	
+	/**
+	 *
+	 * @var array
+	 */
+	private $brands;
 	
 	/**
 	 * @var array
@@ -208,9 +239,9 @@ class ArticleFilter extends SimpleEntityFilter {
 	}
 	
 	/**
-	 * Set article categories
+	 * Set categories
 	 *
-	 * @param array $articleCategories
+	 * @param array $categories
 	 *
 	 * @return ArticleFilter
 	 */
@@ -222,7 +253,7 @@ class ArticleFilter extends SimpleEntityFilter {
 	}
 	
 	/**
-	 * Get article categories
+	 * Get categories
 	 *
 	 * @return array
 	 */
@@ -232,9 +263,33 @@ class ArticleFilter extends SimpleEntityFilter {
 	}
 	
 	/**
-	 * Set article categories
+	 * Set brands
 	 *
-	 * @param array $articleCategories
+	 * @param array $brands
+	 *
+	 * @return ArticleFilter
+	 */
+	public function setBrands($brands)
+	{
+		$this->brands = $brands;
+	
+		return $this;
+	}
+	
+	/**
+	 * Get brands
+	 *
+	 * @return array
+	 */
+	public function getBrands()
+	{
+		return $this->brands;
+	}
+	
+	/**
+	 * Set parents
+	 *
+	 * @param array $parents
 	 *
 	 * @return ArticleFilter
 	 */
@@ -246,7 +301,7 @@ class ArticleFilter extends SimpleEntityFilter {
 	}
 	
 	/**
-	 * Get article categories
+	 * Get parents
 	 *
 	 * @return array
 	 */

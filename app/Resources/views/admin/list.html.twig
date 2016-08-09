@@ -5,7 +5,6 @@
 	{% block filterMenu %}
 		<div class="panel-group" id="accordion">
 			<div id="filter" class="accordion-body collapse">
-			
 				{% block filterForm %}
 					{% form_theme filter 'form/fields.html.twig' %}
 					
@@ -47,6 +46,7 @@
 		{% endblock %}
 	
 	{%  block listBlock %}
+	
 		{% form_theme form 'form/fields.html.twig' %}
 	
 		{{ form_start(form) }}
@@ -63,10 +63,11 @@
 			{% endblock %}
 	    	
     		{% block listTable %}
+    		<div class="row">
 	    		<table class="table table-striped vert-align">
 					<thead>
 						{% block tableHeader %}
-							<th><i class="fa fa-check-square-o"></i>{{ 'label.selected'|trans }}</th>
+							<th><i class="fa fa-check-square-o"></i> {{ 'label.selected'|trans }}</th>
 							
 							{% block headerMoreFields1 %}
 							{% endblock %}
@@ -124,6 +125,7 @@
 						{% endblock %}
 					</tbody>
 				</table>
+			</div>
 			{% endblock %}
 		{{ form_end(form) }}
 	{% endblock %}

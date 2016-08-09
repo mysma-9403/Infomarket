@@ -81,19 +81,24 @@ class AdvertFilterType extends ImageEntityFilterType
 				]
 		))
 		->add('link', TextType::class, array(
-				'required' => false
+				'required' => false,
+				'attr' => ['placeholder' => 'label.advert.link']
 		))
 		->add('showCount', NumberType::class, array(
-				'required' => false
+				'required' => false,
+				'attr' => ['placeholder' => 'label.advert.showCount']
 		))
 		->add('showLimit', NumberType::class, array(
-				'required' => false
+				'required' => false,
+				'attr' => ['placeholder' => 'label.advert.showLimit']
 		))
 		->add('clickCount', NumberType::class, array(
-				'required' => false
+				'required' => false,
+				'attr' => ['placeholder' => 'label.advert.clickCount']
 		))
 		->add('clickLimit', NumberType::class, array(
-				'required' => false
+				'required' => false,
+				'attr' => ['placeholder' => 'label.advert.clickLimit']
 		))
 		->add('active', ChoiceType::class, array(
 				'choices'		=> $activeChoices,

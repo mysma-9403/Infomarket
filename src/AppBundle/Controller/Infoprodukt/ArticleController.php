@@ -12,6 +12,7 @@ use AppBundle\Entity\ArticleCategory;
 use AppBundle\Entity\Category;
 use AppBundle\Form\Filter\Infoprodukt\ArticleFilterType;
 use AppBundle\Form\Filter\Base\SimpleEntityFilterType;
+use AppBundle\Entity\Brand;
 
 class ArticleController extends SimpleEntityController
 {   
@@ -116,7 +117,8 @@ class ArticleController extends SimpleEntityController
     protected function createNewFilter() {
     	$articleCategoryRepository = $this->getDoctrine()->getRepository(ArticleCategory::class);
     	$categoryRepository = $this->getDoctrine()->getRepository(Category::class);
+    	$brandRepository = $this->getDoctrine()->getRepository(Brand::class);
     	
-    	return new ArticleFilter($articleCategoryRepository, $categoryRepository);
+    	return new ArticleFilter($articleCategoryRepository, $categoryRepository, $brandRepository);
     }
 }
