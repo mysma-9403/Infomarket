@@ -210,4 +210,33 @@ class Brand extends ImageEntity
     {
         return $this->articleBrandAssignments;
     }
+    /**
+     * @var string
+     */
+    private $www;
+
+
+    /**
+     * Set www
+     *
+     * @param string $www
+     *
+     * @return Brand
+     */
+    public function setWww($www)
+    {
+        $this->www = $www;
+
+        return $this;
+    }
+
+    /**
+     * Get www
+     *
+     * @return string
+     */
+    public function getWww()
+    {
+        return $this->www;
+    }
 }

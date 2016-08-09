@@ -1,0 +1,14 @@
+<div class="row">
+	<div class="col-xs-12 col-sm-6 col-md-3">
+		<strong>{{ label | trans }}: </strong>
+	</div>
+	<div class="col-xs-12 col-sm-6 col-md-9">
+		{% if value %}
+			<a href="{{ 'http://' ~ value }}">
+				{{ value }}
+			</a>
+		{% else %}
+			-
+		{% endif %}
+	</div>
+</div>

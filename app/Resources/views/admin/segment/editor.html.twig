@@ -3,3 +3,7 @@
 {% set mainPath = 'segment' %}
 {% set title = 'title.segments'|trans %}
 {% set gender = 'm.' %}
+
+{%  block moreFields3 %}
+	{{ form_row(form.color, { 'label': 'label.color' }) }}	
+{%  endblock %}

@@ -4,7 +4,9 @@
 {% set title = 'title.brands'|trans %}
 {% set gender = 'fm.' %}
 
-{%  block moreFields3 %}	
+{%  block moreFields3 %}
+	{{ form_row(form.www, { 'label': 'label.www' }) }}
+		
     {{ form_row(form.content, { 'label': 'label.content' }) }}
 {%  endblock %}
 

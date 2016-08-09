@@ -15,4 +15,7 @@
 			</p>
 		</div>
 	</div>
+	
+	{% include 'common/fields/text_field.html.twig' with 
+	{ 'label': 'label.orderNumber'|trans, 'value': entry.orderNumber } %}
 {% endblock %}

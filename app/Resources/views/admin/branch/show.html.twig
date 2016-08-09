@@ -6,6 +6,15 @@
 
 {% block moreFields3 %}
 	
+	{% include 'common/fields/text_field.html.twig' with 
+	{ 'label': 'label.icon'|trans, 'value': entry.icon } %}
+	
+	{% include 'common/fields/color_field.html.twig' with 
+	{ 'label': 'label.color'|trans, 'value': entry.color } %}
+	
+	{% include 'common/fields/text_field.html.twig' with 
+	{ 'label': 'label.orderNumber'|trans, 'value': entry.orderNumber } %}
+	
 	<div class="row">
 		<div class="col-xs-12">
 			<h4>{{ 'label.content'|trans }}</h4>
@@ -14,13 +23,5 @@
 			{{ entry.content | raw }}
 		</div>
 	</div>
-	
-	<div class="lowered-25"></div>
-	
-	{% include 'common/fields/text_field.html.twig' with 
-	{ 'label': 'label.icon'|trans, 'value': entry.icon } %}
-	
-	{% include 'common/fields/color_field.html.twig' with 
-	{ 'label': 'label.color'|trans, 'value': entry.color } %}
 	
 {% endblock %}

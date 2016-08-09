@@ -340,6 +340,15 @@
             
             
             
+            <trans-unit id="label.rating.brands">
+                <source>label.rating.brands</source>
+                <target>Wiodące marki</target>
+            </trans-unit>
+            <trans-unit id="label.rating.products">
+                <source>label.rating.products</source>
+                <target>Najlepsze produkty</target>
+            </trans-unit>
+            
             
             
             <trans-unit id="label.filter">
@@ -515,6 +524,10 @@
                 <source>label.color</source>
                 <target>Kolor</target>
             </trans-unit>
+            <trans-unit id="label.www">
+                <source>label.www</source>
+                <target>Strona www</target>
+            </trans-unit>
             
             <trans-unit id="label.logout">
                 <source>label.logout</source>
@@ -668,6 +681,15 @@
                 <target>Podartykuły</target>
             </trans-unit>
             
+            <trans-unit id="label.article.date">
+                <source>label.article.date</source>
+                <target>Data artykułu</target>
+            </trans-unit>
+            <trans-unit id="label.article.author">
+                <source>label.article.author</source>
+                <target>Autor</target>
+            </trans-unit>
+            
             
             
             
@@ -743,6 +765,10 @@
             <trans-unit id="label.choose.category.parent">
                 <source>label.choose.category.parent</source>
                 <target>Wybierz kategorię główną</target>
+            </trans-unit>
+            <trans-unit id="label.choose.user">
+                <source>label.choose.user</source>
+                <target>Wybierz użytkownika</target>
             </trans-unit>
             
             

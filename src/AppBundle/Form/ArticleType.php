@@ -12,6 +12,9 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
+use AppBundle\Repository\UserRepository;
+use AppBundle\Entity\User;
 
 class ArticleType extends ImageEntityType
 {
@@ -85,6 +88,30 @@ class ArticleType extends ImageEntityType
 			))
 			->add('displayPaginated', null, array(
 					'required' => false
+			))
+			
+			->add('date', DateTimeType::class, array(
+					'widget' => 'single_text',
+					'format' => 'dd/MM/yyyy HH:mm',
+					'required' => true,
+					'attr' => [
+							'class' => 'form-control input-inline datetimepicker',
+							'data-provide' => 'datetimepicker',
+							'data-date-format' => 'DD/MM/YYYY HH:mm',
+							'placeholder' => 'label.article.date'
+					]
+			))
+			->add('author', EntityType::class, array(
+					'class'			=> User::class,
+					'query_builder' => function (UserRepository $repository) {
+					return $repository->createQueryBuilder('e')
+					->orderBy('e.username', 'ASC');
+					},
+					'choice_label' 	=> 'username',
+					'required' 		=> true,
+					'expanded'      => false,
+					'multiple'      => false,
+					'placeholder'	=> 'label.choose.user'
 			))
 		;
 	}

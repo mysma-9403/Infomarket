@@ -11,6 +11,16 @@
 {% block moreFields3 %}
 	{{ form_row(form.featured, { 'label': 'label.m.featured' }) }}
 	
+	<div class="form-group">
+		<label>{{ 'label.article.date'|trans }}</label>
+		<div class='input-group date' id='datetimepicker1'>
+			{{ form_widget(form.date) }}
+			<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+	    </div>
+    </div>
+    
+	{{ form_row(form.author, { 'label': 'label.article.author' }) }}
+	
 	{{ form_row(form.intro, { 'label': 'label.intro' }) }}	
     {{ form_row(form.content, { 'label': 'label.content' }) }}
 	
@@ -20,6 +30,12 @@
 	{{ form_row(form.layout, { 'label': 'label.article.layout' }) }}
     {{ form_row(form.displaySided, { 'label': 'label.article.displaySided' }) }}
     {{ form_row(form.displayPaginated, { 'label': 'label.article.displayPaginated' }) }}
+    
+    <script type="text/javascript">
+		$(function () {
+			$('div.date').datetimepicker();
+		});
+	</script>
 {% endblock %}
 
 {% block moreActions1 %}

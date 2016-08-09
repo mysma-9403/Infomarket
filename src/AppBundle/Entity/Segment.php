@@ -158,4 +158,33 @@ class Segment extends ImageEntity
     {
         return $this->brandCategoryAssignments;
     }
+    /**
+     * @var string
+     */
+    private $color;
+
+
+    /**
+     * Set color
+     *
+     * @param string $color
+     *
+     * @return Segment
+     */
+    public function setColor($color)
+    {
+        $this->color = $color;
+
+        return $this;
+    }
+
+    /**
+     * Get color
+     *
+     * @return string
+     */
+    public function getColor()
+    {
+        return $this->color;
+    }
 }

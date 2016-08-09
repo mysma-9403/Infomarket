@@ -6,6 +6,7 @@ use AppBundle\Entity\Brand;
 use AppBundle\Form\Base\ImageEntityType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Ivory\CKEditorBundle\Form\Type\CKEditorType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 class BrandType extends ImageEntityType
 {
@@ -17,6 +18,9 @@ class BrandType extends ImageEntityType
 	protected function addMoreFields(FormBuilderInterface $builder, array $options) {
 		
 		$builder
+			->add('www', TextType::class, array(
+					'required' => false
+			))
 			->add('content', CKEditorType::class, array(
 					'config' => array(
 							'uiColor' => '#ffffff'),

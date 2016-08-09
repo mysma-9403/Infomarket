@@ -5,6 +5,9 @@
 {% set gender = 'm.' %}
 
 {% block moreFields3 %}
+	{% include 'common/fields/color_field.html.twig' with 
+	{ 'label': 'label.color'|trans, 'value': entry.color } %}
+	
 	<div class="row">
 		<div class="col-xs-12">
 			<h4>{{ 'label.content'|trans }}</h4>

@@ -10,6 +10,9 @@
             <generator strategy="AUTO"/>
         </id>
         
+        <field name="forename" type="string" length="64" nullable="true" />
+        <field name="surname" type="string" length="64" nullable="true" />
+        
     </entity>
     
 </doctrine-mapping>

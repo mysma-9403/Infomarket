@@ -6,6 +6,9 @@
 
 {% block moreFields3 %}
 	
+	{% include 'common/fields/url_field.html.twig' with 
+	{ 'label': 'label.www'|trans, 'value': entry.www } %}
+	
 	<div class="row">
 		<div class="col-xs-12">
 			<h4>{{ 'label.content'|trans }}</h4>

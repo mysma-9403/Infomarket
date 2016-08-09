@@ -21,6 +21,10 @@
         <field name="displaySided" type="boolean" default="false" />
         <field name="displayPaginated" type="boolean" default="false" />
         
+        <field name="date" type="datetime" nullable="false" />
+        <many-to-one field="author" target-entity="AppBundle\Entity\User">
+        </many-to-one>
+        
         <one-to-many field="children" target-entity="Article" mapped-by="parent">
             <order-by>
             	<order-by-field name="orderNumber" direction="ASC" />
