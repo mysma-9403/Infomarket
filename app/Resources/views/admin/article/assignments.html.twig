@@ -1,16 +1,18 @@
-<div class="row equal">
-	<div class="col-xs-6 col-sm-2">
-		<h2>{{ 'label.article.children'|trans }}</h2>
-	</div>
-	{% if is_granted('ROLE_EDITOR') %}
+<div class="col-xs-12">
+	<div class="row equal">
 		<div class="col-xs-6 col-sm-2">
-			<a href="{{ path('admin_article_new', { parent: entry.id }) }}"
-				class="btn btn-success text-xs-bottom-mm">
-				<span class="fa fa-plus"></span> 
-				{{ 'action.createSubarticle'|trans }} 
-			</a>
+			<h2>{{ 'label.article.children'|trans }}</h2>
 		</div>
-	{% endif %}
+		{% if is_granted('ROLE_EDITOR') %}
+			<div class="col-xs-6 col-sm-2">
+				<a href="{{ path('admin_article_new', { parent: entry.id }) }}"
+					class="btn btn-success text-xs-bottom-mm">
+					<span class="fa fa-plus"></span> 
+					{{ 'action.createSubarticle'|trans }} 
+				</a>
+			</div>
+		{% endif %}
+	</div>
 </div>
 
 <table class="table table-striped vert-align">
@@ -48,20 +50,21 @@
 
 
 
-
-<div class="row equal">
-	<div class="col-xs-6 col-sm-2">
-		<h2>{{ 'title.brands'|trans }}</h2>
-	</div>
-	{% if is_granted('ROLE_EDITOR') %}
+<div class="col-xs-12">
+	<div class="row equal">
 		<div class="col-xs-6 col-sm-2">
-			<a href="{{ path('admin_article_brand_assignment_new', { article: entry.id }) }}"
-				class="btn btn-success text-xs-bottom-mm">
-				<span class="fa fa-plus"></span> 
-				{{ 'action.assignBrand'|trans }} 
-			</a>
+			<h2>{{ 'title.brands'|trans }}</h2>
 		</div>
-	{% endif %}
+		{% if is_granted('ROLE_EDITOR') %}
+			<div class="col-xs-6 col-sm-2">
+				<a href="{{ path('admin_article_brand_assignment_new', { article: entry.id }) }}"
+					class="btn btn-success text-xs-bottom-mm">
+					<span class="fa fa-plus"></span> 
+					{{ 'action.assignBrand'|trans }} 
+				</a>
+			</div>
+		{% endif %}
+	</div>
 </div>
 
 <table class="table table-striped vert-align">
@@ -94,20 +97,21 @@
 
 
 
-
-<div class="row equal">
-	<div class="col-xs-6 col-sm-2">
-		<h2>{{ 'title.articleCategories'|trans }}</h2>
-	</div>
-	{% if is_granted('ROLE_EDITOR') %}
+<div class="col-xs-12">
+	<div class="row equal">
 		<div class="col-xs-6 col-sm-2">
-			<a href="{{ path('admin_article_article_category_assignment_new', { article: entry.id }) }}"
-				class="btn btn-success text-xs-bottom-mm">
-				<span class="fa fa-plus"></span> 
-				{{ 'action.assignArticleCategory'|trans }} 
-			</a>
+			<h2>{{ 'title.articleCategories'|trans }}</h2>
 		</div>
-	{% endif %}
+		{% if is_granted('ROLE_EDITOR') %}
+			<div class="col-xs-6 col-sm-2">
+				<a href="{{ path('admin_article_article_category_assignment_new', { article: entry.id }) }}"
+					class="btn btn-success text-xs-bottom-mm">
+					<span class="fa fa-plus"></span> 
+					{{ 'action.assignArticleCategory'|trans }} 
+				</a>
+			</div>
+		{% endif %}
+	</div>
 </div>
 
 <table class="table table-striped vert-align">
@@ -140,20 +144,21 @@
 
 
 
-
-<div class="row equal">
-	<div class="col-xs-6 col-sm-2">
-		<h2>{{ 'title.categories'|trans }}</h2>
-	</div>
-	{% if is_granted('ROLE_EDITOR') %}
+<div class="col-xs-12">
+	<div class="row equal">
 		<div class="col-xs-6 col-sm-2">
-			<a href="{{ path('admin_article_category_assignment_new', { article: entry.id }) }}"
-				class="btn btn-success text-xs-bottom-mm">
-				<span class="fa fa-plus"></span> 
-				{{ 'action.assignCategory'|trans }} 
-			</a>
+			<h2>{{ 'title.categories'|trans }}</h2>
 		</div>
-	{% endif %}
+		{% if is_granted('ROLE_EDITOR') %}
+			<div class="col-xs-6 col-sm-2">
+				<a href="{{ path('admin_article_category_assignment_new', { article: entry.id }) }}"
+					class="btn btn-success text-xs-bottom-mm">
+					<span class="fa fa-plus"></span> 
+					{{ 'action.assignCategory'|trans }} 
+				</a>
+			</div>
+		{% endif %}
+	</div>
 </div>
 
 <table class="table table-striped vert-align">
@@ -172,6 +177,51 @@
 						{{ 'action.edit'|trans }}
 					</a>
 					<a href="{{ path('admin_article_category_assignment_delete', { id: articleCategoryAssignment.id }) }}" class="btn btn-danger">
+						<span class="fa fa-trash"></span> 
+						{{ 'action.delete'|trans }}
+					</a>
+				</td>
+			{% endif %}
+		</tr>
+	{% endfor %}
+	</tbody>
+</table>
+
+
+
+<div class="col-xs-12">
+	<div class="row equal">
+		<div class="col-xs-6 col-sm-2">
+			<h2>{{ 'title.tags'|trans }}</h2>
+		</div>
+		{% if is_granted('ROLE_EDITOR') %}
+			<div class="col-xs-6 col-sm-2">
+				<a href="{{ path('admin_article_tag_assignment_new', { article: entry.id }) }}"
+					class="btn btn-success text-xs-bottom-mm">
+					<span class="fa fa-plus"></span> 
+					{{ 'action.assignTag'|trans }} 
+				</a>
+			</div>
+		{% endif %}
+	</div>
+</div>
+
+<table class="table table-striped vert-align">
+	<tbody>
+	{% for articleTagAssignment in entry.articleTagAssignments %}
+		<tr>
+			<td>
+				<a href="{{ path('admin_tag_show', { id: articleTagAssignment.tag.id }) }}">
+					{{ articleTagAssignment.tag.name }}
+				</a>
+			</td>
+			{% if is_granted('ROLE_EDITOR') %}
+				<td>
+					<a href="{{ path('admin_article_tag_assignment_edit', { id: articleTagAssignment.id }) }}" class="btn btn-warning">
+						<span class="fa fa-edit"></span> 
+						{{ 'action.edit'|trans }}
+					</a>
+					<a href="{{ path('admin_article_tag_assignment_delete', { id: articleTagAssignment.id }) }}" class="btn btn-danger">
 						<span class="fa fa-trash"></span> 
 						{{ 'action.delete'|trans }}
 					</a>

@@ -9,14 +9,6 @@ use AppBundle\Entity\Base\SimpleEntity;
  */
 class Term extends SimpleEntity
 {
-	/**
-	 * {@inheritDoc}
-	 */
-	public function getUploadPath()
-	{
-		return '../web/uploads/terms';
-	}
-	
     /**
      * @var string
      */
@@ -44,5 +36,51 @@ class Term extends SimpleEntity
     public function getContent()
     {
         return $this->content;
+    }
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $termCategoryAssignments;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->termCategoryAssignments = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add termCategoryAssignment
+     *
+     * @param \AppBundle\Entity\TermCategoryAssignment $termCategoryAssignment
+     *
+     * @return Term
+     */
+    public function addTermCategoryAssignment(\AppBundle\Entity\TermCategoryAssignment $termCategoryAssignment)
+    {
+        $this->termCategoryAssignments[] = $termCategoryAssignment;
+
+        return $this;
+    }
+
+    /**
+     * Remove termCategoryAssignment
+     *
+     * @param \AppBundle\Entity\TermCategoryAssignment $termCategoryAssignment
+     */
+    public function removeTermCategoryAssignment(\AppBundle\Entity\TermCategoryAssignment $termCategoryAssignment)
+    {
+        $this->termCategoryAssignments->removeElement($termCategoryAssignment);
+    }
+
+    /**
+     * Get termCategoryAssignments
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getTermCategoryAssignments()
+    {
+        return $this->termCategoryAssignments;
     }
 }

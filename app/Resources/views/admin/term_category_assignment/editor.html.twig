@@ -1,0 +1,13 @@
+{% extends 'admin/simple/editor.html.twig' %}
+
+{% set mainPath = 'term_category_assignment' %}
+{% set title = 'title.term_category_assignments'|trans %}
+{% set gender = '' %}
+
+{% block mainFields1 %}
+{% endblock %}
+
+{% block moreFields2 %}
+	{{ form_row(form.term, { 'label': 'label.term' }) }}
+	{{ form_row(form.category, { 'label': 'label.category' }) }}
+{% endblock %}

@@ -96,9 +96,13 @@
                 <source>title.segments</source>
                 <target>Segmenty</target>
             </trans-unit>
+            <trans-unit id="title.tags">
+                <source>title.tags</source>
+                <target>Tagi</target>
+            </trans-unit>
             <trans-unit id="title.terms">
                 <source>title.terms</source>
-                <target>Leksykon pojęć</target>
+                <target>Terminy</target>
             </trans-unit>
             
             <trans-unit id="title.article_categories">
@@ -127,6 +131,10 @@
                 <source>title.article_category_assignments</source>
                 <target>Artykuły - Kategorie</target>
             </trans-unit>
+             <trans-unit id="title.article_tag_assignments">
+                <source>title.article_tag_assignments</source>
+                <target>Artykuły - Tagi</target>
+            </trans-unit>
             <trans-unit id="title.branch_category_assignments">
                 <source>title.branch_category_assignments</source>
                 <target>Branże - Kategorie</target>
@@ -138,6 +146,10 @@
             <trans-unit id="title.product_category_assignments">
                 <source>title.product_category_assignments</source>
                 <target>Produkty - Kategorie</target>
+            </trans-unit>
+            <trans-unit id="title.term_category_assignments">
+                <source>title.term_category_assignments</source>
+                <target>Terminy - Kategorie</target>
             </trans-unit>
             <trans-unit id="title.category_tree">
                 <source>title.category_tree</source>
@@ -174,6 +186,10 @@
             </trans-unit>
             
             
+            <trans-unit id="title.infoprodukt.terms">
+                <source>title.infoprodukt.terms</source>
+                <target>Leksykon pojęć</target>
+            </trans-unit>
             
             
             <trans-unit id="header.articles">
@@ -220,13 +236,17 @@
                 <source>label.category</source>
                 <target>Kategoria</target>
             </trans-unit>
+            <trans-unit id="label.product">
+                <source>label.product</source>
+                <target>Produkt</target>
+            </trans-unit>
             <trans-unit id="label.segment">
                 <source>label.segment</source>
                 <target>Segment</target>
             </trans-unit>
-            <trans-unit id="label.product">
-                <source>label.product</source>
-                <target>Produkt</target>
+            <trans-unit id="label.tag">
+                <source>label.tag</source>
+                <target>Tag</target>
             </trans-unit>
             
             
@@ -758,6 +778,10 @@
                 <source>label.choose.product</source>
                 <target>Wybierz produkt</target>
             </trans-unit>
+            <trans-unit id="label.choose.tag">
+                <source>label.choose.tag</source>
+                <target>Wybierz tag</target>
+            </trans-unit>
             <trans-unit id="label.choose.article.parent">
                 <source>label.choose.article.parent</source>
                 <target>Wybierz artykuł główny</target>
@@ -908,13 +932,17 @@
                 <source>action.assignCategory</source>
                 <target>Przypisz kategorię</target>
             </trans-unit>
+            <trans-unit id="action.assignProduct">
+                <source>action.assignProduct</source>
+                <target>Przypisz product</target>
+            </trans-unit>
             <trans-unit id="action.assignSegment">
                 <source>action.assignSegment</source>
                 <target>Przypisz segment</target>
             </trans-unit>
-            <trans-unit id="action.assignProduct">
-                <source>action.assignProduct</source>
-                <target>Przypisz product</target>
+            <trans-unit id="action.assignTag">
+                <source>action.assignTag</source>
+                <target>Przypisz tag</target>
             </trans-unit>
             
             

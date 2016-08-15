@@ -1,0 +1,21 @@
+{% extends 'admin/base/index.html.twig' %}
+
+{% set mainPath = 'article_tag_assignment' %}
+{% set title = 'title.article_tag_assignments'|trans %}
+
+{% block filterMoreFields1 %}
+	<li class="col-xs-12 col-sm-6 col-md-4 col-lg-2">
+		{{ form_widget(filter.tags, { 'label': 'label.tags' }) }}
+	</li>
+	<li class="col-xs-12 col-sm-6 col-md-4 col-lg-2">
+		{{ form_widget(filter.articles, { 'label': 'label.articles' }) }}
+	</li>
+{% endblock %}
+
+{% block headerMainFields1 %}
+	<th><i class="fa fa-file-o"></i> {{ 'label.article'|trans }}</th>
+{% endblock %}
+
+{% block entryMainFields1 %}
+	<td>{{ item.article.name }} {{ item.article.subname }}</td>
+{% endblock %}

@@ -40,6 +40,11 @@
 								{{ 'title.article_categories'|trans }}
 							</a>
 						</li>
+						<li>
+							<a href="{{ path('admin_' ~ 'tag') }}">
+								{{ 'title.tags'|trans }}
+							</a>
+						</li>
 						<li class="divider"></li>
 						<li>
 							<a href="{{ path('admin_' ~ 'article_brand_assignment') }}">
@@ -54,6 +59,11 @@
 						<li>
 							<a href="{{ path('admin_' ~ 'article_category_assignment') }}">
 								{{ 'title.article_category_assignments'|trans }}
+							</a>
+						</li>
+						<li>
+							<a href="{{ path('admin_' ~ 'article_tag_assignment') }}">
+								{{ 'title.article_tag_assignments'|trans }}
 							</a>
 						</li>
 					</ul>
@@ -88,6 +98,11 @@
 						<li>
 							<a href="{{ path('admin_' ~ 'product_category_assignment') }}">
 								{{ 'title.product_category_assignments'|trans }}
+							</a>
+						</li>
+						<li>
+							<a href="{{ path('admin_' ~ 'term_category_assignment') }}">
+								{{ 'title.term_category_assignments'|trans }}
 							</a>
 						</li>
 					</ul>
@@ -145,6 +160,11 @@
 						<li>
 							<a href="{{ path(basePath ~ 'page') }}">
 								{{ 'title.pages'|trans }}
+							</a>
+						</li>
+						<li>
+							<a href="{{ path(basePath ~ 'term') }}">
+								{{ 'title.terms'|trans }}
 							</a>
 						</li>
 					</ul>

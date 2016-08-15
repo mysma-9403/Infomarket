@@ -19,8 +19,8 @@
 	{% include 'common/fields/date_field.html.twig' with 
 	{ 'label': 'label.article.date'|trans, 'value': entry.date } %}
 	
-	{% include 'common/fields/simple_field.html.twig' with 
-	{ 'label': 'label.article.author', 'value': entry.author, 'object': 'user' } %}
+	{% include 'common/fields/user_field.html.twig' with 
+	{ 'label': 'label.article.author', 'value': entry.author } %}
 	
 	<div class="row">
 		<div class="col-sm-9">

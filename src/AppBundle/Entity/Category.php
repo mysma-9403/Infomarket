@@ -549,4 +549,82 @@ class Category extends ImageTree
     {
         return $this->magazine;
     }
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $advertCategoryAssignments;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $termCategoryAssignments;
+
+
+    /**
+     * Add advertCategoryAssignment
+     *
+     * @param \AppBundle\Entity\AdvertCategoryAssignment $advertCategoryAssignment
+     *
+     * @return Category
+     */
+    public function addAdvertCategoryAssignment(\AppBundle\Entity\AdvertCategoryAssignment $advertCategoryAssignment)
+    {
+        $this->advertCategoryAssignments[] = $advertCategoryAssignment;
+
+        return $this;
+    }
+
+    /**
+     * Remove advertCategoryAssignment
+     *
+     * @param \AppBundle\Entity\AdvertCategoryAssignment $advertCategoryAssignment
+     */
+    public function removeAdvertCategoryAssignment(\AppBundle\Entity\AdvertCategoryAssignment $advertCategoryAssignment)
+    {
+        $this->advertCategoryAssignments->removeElement($advertCategoryAssignment);
+    }
+
+    /**
+     * Get advertCategoryAssignments
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getAdvertCategoryAssignments()
+    {
+        return $this->advertCategoryAssignments;
+    }
+
+    /**
+     * Add termCategoryAssignment
+     *
+     * @param \AppBundle\Entity\TermCategoryAssignment $termCategoryAssignment
+     *
+     * @return Category
+     */
+    public function addTermCategoryAssignment(\AppBundle\Entity\TermCategoryAssignment $termCategoryAssignment)
+    {
+        $this->termCategoryAssignments[] = $termCategoryAssignment;
+
+        return $this;
+    }
+
+    /**
+     * Remove termCategoryAssignment
+     *
+     * @param \AppBundle\Entity\TermCategoryAssignment $termCategoryAssignment
+     */
+    public function removeTermCategoryAssignment(\AppBundle\Entity\TermCategoryAssignment $termCategoryAssignment)
+    {
+        $this->termCategoryAssignments->removeElement($termCategoryAssignment);
+    }
+
+    /**
+     * Get termCategoryAssignments
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getTermCategoryAssignments()
+    {
+        return $this->termCategoryAssignments;
+    }
 }

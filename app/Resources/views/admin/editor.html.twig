@@ -44,17 +44,18 @@
 			{{ form_end(form) }}
 			</div>
 		</div>
-		
-		<div class="row">
-			<div class="col-xs-12">
-				{% if entry.id %}
-					{% block assignments %}
-			    	{% endblock %}
-		    	{% endif %}
-			</div>
-		</div>
 			    
 		{% endblock %}
+		
+	</div>
+	
+	<div class="vr-space-40"></div>
+	
+	<div class="row">
+		{% if entry.id %}
+			{% block assignments %}
+	    	{% endblock %}
+    	{% endif %}
 	</div>
 	
 {% endblock %}

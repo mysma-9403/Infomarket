@@ -38,6 +38,9 @@
             </order-by>
         </one-to-many>
         
+        <one-to-many field="advertCategoryAssignments" target-entity="AdvertCategoryAssignment" mapped-by="category">
+        </one-to-many>
+        
         <one-to-many field="articleCategoryAssignments" target-entity="ArticleCategoryAssignment" mapped-by="category">
         </one-to-many>
         
@@ -56,6 +59,9 @@
             	<order-by-field name="segment" direction="ASC" />
             	<order-by-field name="orderNumber" direction="ASC" />
             </order-by>
+        </one-to-many>
+        
+        <one-to-many field="termCategoryAssignments" target-entity="TermCategoryAssignment" mapped-by="category">
         </one-to-many>
         
     </entity>

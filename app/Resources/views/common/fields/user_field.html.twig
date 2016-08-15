@@ -14,7 +14,7 @@
 				{% set routeParams = { id: routeId } %}
 			{% endif %}
 			<a href="{{ path(linkPath, { id: value.id }) }}">
-				{{ value.username }}
+				{{ value.forename }} {{ value.surname }}
 			</a>
 		{% else %}
 			-

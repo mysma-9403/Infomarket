@@ -33,4 +33,9 @@ AppBundle\Entity\Category:
                 groups: [removal]
                 max: 0
                 exactMessage: category.usedIn.productCategoryAssignments
+        termCategoryAssignments:
+            - Count:
+                groups: [removal]
+                max: 0
+                exactMessage: category.usedIn.termCategoryAssignments
                 

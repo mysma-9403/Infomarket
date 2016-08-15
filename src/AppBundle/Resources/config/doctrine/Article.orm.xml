@@ -41,6 +41,9 @@
         <one-to-many field="articleBrandAssignments" target-entity="ArticleBrandAssignment" mapped-by="article">
         </one-to-many>
         
+        <one-to-many field="articleTagAssignments" target-entity="ArticleTagAssignment" mapped-by="article">
+        </one-to-many>
+        
     </entity>
     
 </doctrine-mapping>

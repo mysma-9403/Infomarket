@@ -1,0 +1,11 @@
+AppBundle\Entity\Tag:
+    constraints:
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: name
+    properties:
+        name:
+            - NotBlank: ~
+        articleTagAssignments:
+            - Count:
+                groups: [removal]
+                max: 0
+                exactMessage: tag.usedIn.articleTagAssignments

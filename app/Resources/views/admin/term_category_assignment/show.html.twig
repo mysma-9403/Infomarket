@@ -1,0 +1,15 @@
+{% extends 'admin/simple/show.html.twig' %}
+
+{% set mainPath = 'term_category_assignment' %}
+{% set title = 'title.term_category_assignments'|trans %}
+{% set gender = '' %}
+
+{% block mainFields1 %}	
+	{% include 'common/fields/simple_field.html.twig' with 
+	{ 'label': 'label.term', 'value': entry.term,
+		'object': 'term', 'routeId': entry.id } %}
+		
+	{% include 'common/fields/simple_field.html.twig' with 
+	{ 'label': 'label.category', 'value': entry.category,
+		'object': 'category', 'routeId': entry.id } %}
+{% endblock %}

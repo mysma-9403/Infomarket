@@ -1,0 +1,22 @@
+{% extends 'admin/simple/show.html.twig' %}
+
+{% set mainPath = 'term' %}
+{% set title = 'title.terms'|trans %}
+{% set gender = 'm.' %}
+
+{% block moreFields3 %}
+	
+	<div class="row">
+		<div class="col-xs-12">
+			<h4>{{ 'label.content'|trans }}</h4>
+		</div>
+		<div class="col-xs-12">
+			{{ entry.content | raw }}
+		</div>
+	</div>
+	
+{% endblock %}
+
+{% block assignments %}
+	{% include 'admin/term/assignments.html.twig' with { 'entry': entry } %}
+{% endblock %}

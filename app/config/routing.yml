@@ -314,7 +314,35 @@ admin_article_category_assignment_set_published:
 admin_article_category_assignment:
     path:      /admin/article-category_assignments/{page}
     defaults:  { _controller: "AppBundle:Admin/ArticleCategoryAssignment:index", page: 1 }
+
+# Admin ArticleTagAssignments Routing    
+admin_article_tag_assignment_show:
+    path:      /admin/article-tag_assignments/show/{id}
+    defaults:  { _controller: "AppBundle:Admin/ArticleTagAssignment:show" }
     
+admin_article_tag_assignment_new:
+    path:      /admin/article-tag_assignments/new/
+    defaults:  { _controller: "AppBundle:Admin/ArticleTagAssignment:new" }
+    
+admin_article_tag_assignment_copy:
+    path:      /admin/article-tag_assignments/copy/{id}
+    defaults:  { _controller: "AppBundle:Admin/ArticleTagAssignment:copy" }
+    
+admin_article_tag_assignment_edit:
+    path:      /admin/article-tag_assignments/edit/{id}
+    defaults:  { _controller: "AppBundle:Admin/ArticleTagAssignment:edit" }
+    
+admin_article_tag_assignment_delete:
+    path:      /admin/article-tag_assignments/delete/{id}
+    defaults:  { _controller: "AppBundle:Admin/ArticleTagAssignment:delete" }
+    
+admin_article_tag_assignment_set_published:
+    path:      /admin/article-tag_assignments/set_published/{id}
+    defaults:  { _controller: "AppBundle:Admin/ArticleTagAssignment:setPublished" }
+
+admin_article_tag_assignment:
+    path:      /admin/article-tag_assignments/{page}
+    defaults:  { _controller: "AppBundle:Admin/ArticleTagAssignment:index", page: 1 }    
     
 # Admin ArticleCategories Routing    
 admin_article_category_show:
@@ -671,6 +699,93 @@ admin_segment:
     path:      /admin/segments/{page}
     defaults:  { _controller: "AppBundle:Admin/Segment:index", page: 1 }
 
+# Admin Tags Routing    
+admin_tag_show:
+    path:      /admin/tags/show/{id}
+    defaults:  { _controller: "AppBundle:Admin/Tag:show" }
+    
+admin_tag_new:
+    path:      /admin/tags/new/
+    defaults:  { _controller: "AppBundle:Admin/Tag:new" }
+    
+admin_tag_copy:
+    path:      /admin/tags/copy/{id}
+    defaults:  { _controller: "AppBundle:Admin/Tag:copy" }
+    
+admin_tag_edit:
+    path:      /admin/tags/edit/{id}
+    defaults:  { _controller: "AppBundle:Admin/Tag:edit" }
+    
+admin_tag_delete:
+    path:      /admin/tags/delete/{id}
+    defaults:  { _controller: "AppBundle:Admin/Tag:delete" }
+    
+admin_tag_set_published:
+    path:      /admin/tags/set_published/{id}
+    defaults:  { _controller: "AppBundle:Admin/Tag:setPublished" }
+        
+admin_tag:
+    path:      /admin/tags/{page}
+    defaults:  { _controller: "AppBundle:Admin/Tag:index", page: 1 }
+    
+# Admin Terms Routing    
+admin_term_show:
+    path:      /admin/terms/show/{id}
+    defaults:  { _controller: "AppBundle:Admin/Term:show" }
+    
+admin_term_new:
+    path:      /admin/terms/new/
+    defaults:  { _controller: "AppBundle:Admin/Term:new" }
+    
+admin_term_copy:
+    path:      /admin/terms/copy/{id}
+    defaults:  { _controller: "AppBundle:Admin/Term:copy" }
+    
+admin_term_edit:
+    path:      /admin/terms/edit/{id}
+    defaults:  { _controller: "AppBundle:Admin/Term:edit" }
+    
+admin_term_delete:
+    path:      /admin/terms/delete/{id}
+    defaults:  { _controller: "AppBundle:Admin/Term:delete" }
+    
+admin_term_set_published:
+    path:      /admin/terms/set_published/{id}
+    defaults:  { _controller: "AppBundle:Admin/Term:setPublished" }
+        
+admin_term:
+    path:      /admin/terms/{page}
+    defaults:  { _controller: "AppBundle:Admin/Term:index", page: 1 }
+
+# Admin TermCategoryAssignments Routing    
+admin_term_category_assignment_show:
+    path:      /admin/term-category_assignments/show/{id}
+    defaults:  { _controller: "AppBundle:Admin/TermCategoryAssignment:show" }
+    
+admin_term_category_assignment_new:
+    path:      /admin/term-category_assignments/new/
+    defaults:  { _controller: "AppBundle:Admin/TermCategoryAssignment:new" }
+    
+admin_term_category_assignment_copy:
+    path:      /admin/term-category_assignments/copy/{id}
+    defaults:  { _controller: "AppBundle:Admin/TermCategoryAssignment:copy" }
+    
+admin_term_category_assignment_edit:
+    path:      /admin/term-category_assignments/edit/{id}
+    defaults:  { _controller: "AppBundle:Admin/TermCategoryAssignment:edit" }
+    
+admin_term_category_assignment_delete:
+    path:      /admin/term-category_assignments/delete/{id}
+    defaults:  { _controller: "AppBundle:Admin/TermCategoryAssignment:delete" }
+    
+admin_term_category_assignment_set_published:
+    path:      /admin/term-category_assignments/set_published/{id}
+    defaults:  { _controller: "AppBundle:Admin/TermCategoryAssignment:setPublished" }
+
+admin_term_category_assignment:
+    path:      /admin/term-category_assignments/{page}
+    defaults:  { _controller: "AppBundle:Admin/TermCategoryAssignment:index", page: 1 }
+        
 # Admin Users Routing    
 admin_user_show:
     path:      /admin/users/show/{id}

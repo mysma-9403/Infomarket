@@ -43,12 +43,12 @@
 		</div>
 	</div>
 	
+	<div class="vr-space-40"></div>
+	
 	<div class="row">
-		<div class="col-xs-12">
-			{% if entry.id %}
-				{% block assignments %}
-		    	{% endblock %}
-	    	{% endif %}
-		</div>
+		{% if entry.id %}
+			{% block assignments %}
+	    	{% endblock %}
+    	{% endif %}
 	</div>
 {% endblock %}

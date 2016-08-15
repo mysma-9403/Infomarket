@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+        http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <entity name="AppBundle\Entity\Tag" 
+        table="tags"
+        repository-class="AppBundle\Repository\TagRepository">
+        
+        <one-to-many field="articleTagAssignments" target-entity="ArticleTagAssignment" mapped-by="tag">
+        </one-to-many>
+        
+    </entity>
+    
+</doctrine-mapping>

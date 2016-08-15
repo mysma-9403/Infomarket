@@ -529,4 +529,43 @@ class Article extends ImageEntity
     {
         return $this->author;
     }
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $articleTagAssignments;
+
+
+    /**
+     * Add articleTagAssignment
+     *
+     * @param \AppBundle\Entity\ArticleTagAssignment $articleTagAssignment
+     *
+     * @return Article
+     */
+    public function addArticleTagAssignment(\AppBundle\Entity\ArticleTagAssignment $articleTagAssignment)
+    {
+        $this->articleTagAssignments[] = $articleTagAssignment;
+
+        return $this;
+    }
+
+    /**
+     * Remove articleTagAssignment
+     *
+     * @param \AppBundle\Entity\ArticleTagAssignment $articleTagAssignment
+     */
+    public function removeArticleTagAssignment(\AppBundle\Entity\ArticleTagAssignment $articleTagAssignment)
+    {
+        $this->articleTagAssignments->removeElement($articleTagAssignment);
+    }
+
+    /**
+     * Get articleTagAssignments
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getArticleTagAssignments()
+    {
+        return $this->articleTagAssignments;
+    }
 }

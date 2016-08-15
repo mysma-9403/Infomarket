@@ -8,11 +8,15 @@ articleBrandAssignment.unique: Artykuł jest już powiązany z wybraną marką.
 
 articleCategoryAssignment.unique: Artykuł jest już powiązany z wybraną kategorią.
 
+articleTagAssignment.unique: Artykuł jest już powiązany z wybranym tagiem.
+
 branchCategoryAssignment.unique: Kategoria jest już powiązana z wybraną branżą.
 
 brandCategoryAssignment.unique: Marka jest już przypisana do ratingu marek w danym segmencie dla wybranej kategorii.
 
 productCategoryAssignment.unique: Produkt jest już przypisany do ratingu produktów w danym segmencie dla wybranej kategorii.
+
+termCategoryAssignment.unique: Kategoria jest już powiązana z wybranym terminem.
 
 # Assignment delete errors
 articleCategory.usedIn.articleArticleCategoryAssignments: Kategoria artykułów jest używana w niektórych artykułach i nie może być usunięta.
@@ -26,9 +30,12 @@ category.usedIn.children: Kategoria jest używana w niektórych podkategoriach i
 category.usedIn.articleCategoryAssignments: Kategoria jest używana w niektórych artykułach i nie może być usunięta.
 category.usedIn.brandCategoryAssignments: Kategoria jest używana w niektórych ratingach marek i nie może być usunięta.
 category.usedIn.productCategoryAssignments: Kategoria jest używana w niektórych ratingach produktów i nie może być usunięta.
+category.usedIn.termCategoryAssignments: Kategoria jest używana w niektórych terminach (leksykon pojęć) i nie może być usunięta.
 
 segment.usedIn.brandCategoryAssignments: Segment jest używany w niektórych ratingach marek i nie może być usunięty.
 segment.usedIn.productCategoryAssignments: Segment jest używany w niektórych ratingach produktów i nie może być usunięty.
+
+tag.usedIn.articleTagAssignments: Tag jest używany w niektórych artykułach i nie może być usunięty.
 
 #Assignment delete warnings
 article.usedIn.children: Artykuł posiada podartykuły. Usunięcie artykułu spowoduje usunięcie tych podartykułów.

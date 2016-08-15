@@ -1,0 +1,13 @@
+{% extends 'admin/simple/editor.html.twig' %}
+
+{% set mainPath = 'term' %}
+{% set title = 'title.terms'|trans %}
+{% set gender = 'm.' %}
+
+{%  block moreFields3 %}
+    {{ form_row(form.content, { 'label': 'label.content' }) }}
+{%  endblock %}
+
+{% block assignments %}
+	{% include 'admin/term/assignments.html.twig' with { 'entry': entry } %}
+{% endblock %}

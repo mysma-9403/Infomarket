@@ -1,0 +1,13 @@
+{% extends 'admin/simple/editor.html.twig' %}
+
+{% set mainPath = 'article_tag_assignment' %}
+{% set title = 'title.article_tag_assignments'|trans %}
+{% set gender = '' %}
+
+{% block mainFields1 %}
+{% endblock %}
+
+{% block moreFields2 %}
+	{{ form_row(form.article, { 'label': 'label.article' }) }}
+	{{ form_row(form.tag, { 'label': 'label.tag' }) }}
+{% endblock %}
