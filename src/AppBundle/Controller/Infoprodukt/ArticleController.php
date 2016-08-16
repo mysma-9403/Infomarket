@@ -13,6 +13,7 @@ use AppBundle\Entity\Category;
 use AppBundle\Form\Filter\Infoprodukt\ArticleFilterType;
 use AppBundle\Form\Filter\Base\SimpleEntityFilterType;
 use AppBundle\Entity\Brand;
+use AppBundle\Entity\Tag;
 
 class ArticleController extends SimpleEntityController
 {   
@@ -80,6 +81,7 @@ class ArticleController extends SimpleEntityController
 			}
 		}
 		$params['articleFilterForm'] = $filterForm->createView();
+		$params['tags'] = $filter->getTags();
 			
 		return $this->render($this->getIndexView(), $params);
 	}
@@ -118,7 +120,8 @@ class ArticleController extends SimpleEntityController
     	$articleCategoryRepository = $this->getDoctrine()->getRepository(ArticleCategory::class);
     	$categoryRepository = $this->getDoctrine()->getRepository(Category::class);
     	$brandRepository = $this->getDoctrine()->getRepository(Brand::class);
+    	$tagRepository = $this->getDoctrine()->getRepository(Tag::class);
     	
-    	return new ArticleFilter($articleCategoryRepository, $categoryRepository, $brandRepository);
+    	return new ArticleFilter($articleCategoryRepository, $categoryRepository, $brandRepository, $tagRepository);
     }
 }

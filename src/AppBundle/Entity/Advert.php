@@ -19,7 +19,7 @@ class Advert extends ImageEntity
 	 */
 	public function getUploadPath()
 	{
-		return '../web/uploads/adverts/' . $this->createdAt->format('Y/m');
+		return '../web/uploads/adverts/' . $this->createdAt->format('Y/m/');
 	}
     /**
      * @var \DateTime

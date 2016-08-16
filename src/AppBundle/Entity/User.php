@@ -9,6 +9,16 @@ class User extends BaseUser
 	const ROLE_EDITOR = 'ROLE_EDITOR';
 	const ROLE_PUBLISHER = 'ROLE_PUBLISHER';
 	const ROLE_ADMIN = 'ROLE_ADMIN';
+    
+	/**
+	 *
+	 * {@inheritDoc}
+	 * @see \AppBundle\Entity\Base\Audit::getDisplayName()
+	 */
+	public function getDisplayName() {
+		return $this->surname . ' ' . $this->forename;
+	}
+	
     /**
      * @var string
      */

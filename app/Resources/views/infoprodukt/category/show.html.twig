@@ -337,7 +337,7 @@
 							{% endblock %}
 						</div>
 						
-						<div class="col-xs-12">
+						<div class="col-xs-12 no-padding">
 							{% block sidebarAds %}
 								<div id="mySideAdsCarousel" class="carousel slide" data-ride="carousel">
 								  	<div class="carousel-inner" role="listbox">
@@ -401,7 +401,7 @@
 							
 							
 							<div class="col-xs-12">
-								<h2><span class="fa fa-spinner"></span> {{ 'label.brandRating'|trans }}</h2>
+								<h2><span class="fa fa-globe"></span> {{ 'label.rating.brands'|trans }}</h2>
 							</div>
 							
 							{% set show = false %}
@@ -505,7 +505,7 @@
 						<div class="col-xs-12 no-side-padding well">
 							
 							<div class="col-xs-12">
-								<h2><span class="fa fa-star-half-o"></span> Top modeli</h2>
+								<h2><span class="fa fa-star-half-o"></span> {{ 'label.rating.products'|trans }}</h2>
 							</div>
 							
 							{% set show = false %}
@@ -549,6 +549,19 @@
 											</div>
 										</div>
 										
+										<div class="row no-side-padding">
+											<div class=" col-sm-2 bkg-red text-white">
+												{{ segment.name | raw }}
+											</div>
+											{% for product in attribute(products, segment.id)|slice(0,5) %}
+												<div class=" col-sm-2 bkg-white text-white">
+													<a class="text-white" href="{{ path('infoprodukt_product_show', {'id': product.id}) }}">
+														{{ product.name }}
+													</a>
+												</div>
+											{% endfor %}
+										</div>
+										
 										<div class="vr-space-10"></div>
 									{% endif %}
 								{% endfor %}
@@ -574,8 +587,8 @@
 									</div>
 									
 									<div class="row no-side-padding">
-										<div class="col-sm-2"><h4 class="text-center">{{ 'label.segment'|trans }}</h4></div>
-										<div class="col-sm-10"><h4 class="text-center">{{ 'label.rating.products'|trans }}</h4></div>
+										<div class="col-sm-2"><h3 class="text-center">{{ 'label.segment'|trans }}</h3></div>
+										<div class="col-sm-10"><h3 class="text-center">{{ 'label.rating.products'|trans }}</h3></div>
 									</div>
 									
 									{% for segment in segments %}
@@ -590,15 +603,9 @@
 													</div>
 													
 													{% for product in attribute(attribute(subproducts, category.id), segment.id)|slice(0,5) %}
-														<div class=" col-sm-2 bkg-white text-white">
+														<div class="col-sm-2 bkg-white">
 															<div class="rect">
 																<img class="img-responsive div-center" alt="{{ product.name }}" src="{{ asset(product.getImagePath()) }}">
-																<div class="col-xs-12 div-bottom bkg-black-50">
-																	<a class="text-white" href="{{ path('infoprodukt_product_show', {'id': product.id}) }}">
-																		<h5>{{ product.brand ? product.brand.name : '' }}</h5>
-																		<h5>{{ product.name }}</h5>
-																	</a>
-																</div>
 															</div>
 														</div>
 													{% endfor %}
@@ -606,7 +613,41 @@
 												</div>
 											</div>
 											
-											<div class="vr-space-10"></div>
+											<div class="row no-side-padding">
+												<div class="col-xs-12">
+													<div class="col-sm-2 text-red">
+														<h4 class="text-sm-right"><strong>{{ 'label.brand'|trans }}</strong></h4>
+													</div>
+													
+													{% for product in attribute(attribute(subproducts, category.id), segment.id)|slice(0,5) %}
+														<div class="col-sm-2 rating-subtitle bkg-red text-white">
+															<a class="div-center text-center text-small" href="{{ path(basePath ~ 'brand_show', {'id': product.brand.id }) }}">
+																{{ product.brand.name }}
+															</a>
+														</div>
+													{% endfor %}
+												</div>
+											</div>
+											
+											<div class="vr-space-5"></div>
+											
+											<div class="row no-side-padding">
+												<div class="col-xs-12">
+													<div class="col-sm-2 text-brand">
+														<h4 class="text-sm-right"><strong>{{ 'label.product'|trans }}</strong></h4>
+													</div>
+													
+													{% for product in attribute(attribute(subproducts, category.id), segment.id)|slice(0,5) %}
+														<div class="col-sm-2 rating-subtitle bkg-brand text-white">
+															<a class="div-center text-center text-very-small" href="{{ path(basePath ~ 'product_show', {'id': product.id}) }}">
+																{{ product.name }}
+															</a>
+														</div>
+													{% endfor %}
+												</div>
+											</div>
+											
+											<div class="vr-space-20"></div>
 										{% endif %}
 									{% endfor %}
 								{% endif %}

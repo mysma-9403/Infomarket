@@ -105,9 +105,9 @@ class ArticleType extends ImageEntityType
 					'class'			=> User::class,
 					'query_builder' => function (UserRepository $repository) {
 					return $repository->createQueryBuilder('e')
-					->orderBy('e.username', 'ASC');
+					->orderBy('e.surname ASC, e.forename', 'ASC');
 					},
-					'choice_label' 	=> 'username',
+					'choice_label' 	=> 'displayname',
 					'required' 		=> true,
 					'expanded'      => false,
 					'multiple'      => false,

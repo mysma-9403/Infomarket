@@ -3,12 +3,28 @@
 namespace AppBundle\Entity;
 
 use AppBundle\Entity\Base\Audit;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 /**
  * ArticleTagAssignment
  */
 class ArticleTagAssignment extends Audit
 {
+	public function validate(ExecutionContextInterface $context, $payload)
+	{	
+		if ($this->tag == null && $this->newTagName == null) {
+			$context->buildViolation('tag.tagAndNameAreNull')
+			->addViolation()
+			;
+		}
+		
+		if ($this->tag != null && $this->newTagName != null) {
+			$context->buildViolation('tag.tagAndNameAreNotNull')
+			->addViolation()
+			;
+		}
+	}
+	
     /**
      * @var \AppBundle\Entity\Article
      */
@@ -18,7 +34,11 @@ class ArticleTagAssignment extends Audit
      * @var \AppBundle\Entity\Tag
      */
     private $tag;
-
+    
+    /**
+     * @var string
+     */
+    private $newTagName;
 
     /**
      * Set article
@@ -66,5 +86,29 @@ class ArticleTagAssignment extends Audit
     public function getTag()
     {
         return $this->tag;
+    }
+    
+    /**
+     * Set newTagName
+     *
+     * @param string $newTagName
+     *
+     * @return ArticleTagAssignment
+     */
+    public function setNewTagName($newTagName)
+    {
+    	$this->newTagName = $newTagName;
+    
+    	return $this;
+    }
+    
+    /**
+     * Get newTagName
+     *
+     * @return string
+     */
+    public function getNewTagName()
+    {
+    	return $this->newTagName;
     }
 }

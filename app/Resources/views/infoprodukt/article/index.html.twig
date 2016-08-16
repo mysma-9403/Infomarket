@@ -2,7 +2,16 @@
 
 {% set title = 'title.articles'|trans %}
 {% set mainPath = 'article' %}
-		
+
+{% block moreMoreBreadcrumbs%}
+	{% if tags | length > 0 %}
+		/
+		<a href="{{ path(basePath ~ mainPath, { category: categoryId, article_filter_tags: tags[0].id }) }}">
+			{{ tags[0].name }}
+		</a>
+	{% endif %}
+{% endblock %}
+			
 {% block moreSidebarContent %}
 	{% block articleCategoriesBlock %}
 		<h1>{{ 'title.articleCategories'|trans }}</h1>
@@ -52,18 +61,43 @@
 										<span class="text-red">{{ entry.subname | raw }}</span>
 									</h3>
 								</a>
-								<p class="text-muted">
-									<span class="fa fa-calendar"></span> {{ entry.publishedAt | date('Y-m-d') }}
-									{% if entry.publishedBy %}
-										, <span class="fa fa-user"></span> {{ entry.publishedBy.name }}
+								
+								<div class="col-xs-6 text-muted">
+									{% if entry.date %}
+										<span class="fa fa-calendar"></span> {{ entry.date | date('Y-m-d') }}
 									{% endif %}
-								</p>
-								<p>
-									{{ entry.intro | raw }}
-								</p>
-								<a class="btn btn-danger" href="{{ path('infoprodukt_' ~ mainPath ~ '_show', { 'id': entry.id, category: category ? category.id : null }) }}">
-									{{ 'label.readMore'|trans }}
-								</a>
+								</div>
+								
+								<div class="col-xs-6 text-muted">
+									{% if entry.author %}
+										<span class="fa fa-user"></span> {{ entry.author.forename }} {{ entry.author.surname }}
+									{% endif %}
+								</div>
+								
+								<div class="col-xs-12 text-muted">
+									{% if entry.articleTagAssignments | length > 0 %}
+										<span class="fa fa-tags"></span> 
+										{% spaceless %}
+										{% for articleTagAssignment in entry.articleTagAssignments %}
+											{{- loop.index > 1 ? ', ' : '' -}}
+											<a href="{{ path(basePath ~ mainPath, { category: category ? category.id : null, article_filter_tags: articleTagAssignment.tag.id }) }}">
+												{{- articleTagAssignment.tag.name -}}
+											</a>
+											 
+										{% endfor %}
+										{% endspaceless %}
+									{% endif %}
+								</div>
+								
+								<div class="col-xs-12">
+									<p>
+										{{ entry.intro | raw }}
+									</p>
+									<a class="btn btn-danger" href="{{ path('infoprodukt_' ~ mainPath ~ '_show', { 'id': entry.id, category: category ? category.id : null }) }}">
+										{{ 'label.readMore'|trans }}
+									</a>
+								</div>
+								
 								<div class="vr-space-10"></div>
 							</div>
 						</div>

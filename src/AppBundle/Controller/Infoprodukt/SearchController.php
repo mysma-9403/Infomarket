@@ -17,6 +17,7 @@ use AppBundle\Entity\Segment;
 use AppBundle\Entity\Filter\ProductFilter;
 use AppBundle\Entity\Filter\ArticleFilter;
 use AppBundle\Entity\ArticleCategory;
+use AppBundle\Entity\Tag;
 
 class SearchController extends SimpleEntityController
 {
@@ -43,7 +44,7 @@ class SearchController extends SimpleEntityController
 		$articleCategoryRepository = $this->getDoctrine()->getRepository(ArticleCategory::class);
 		$categoryRepository = $this->getDoctrine()->getRepository(Category::class);
 		$segmentRepository = $this->getDoctrine()->getRepository(Segment::class);
-		
+		$tagRepository = $this->getDoctrine()->getRepository(Tag::class);
 		
 		$simpleFilter = new SimpleEntityFilter();
 		$simpleFilter->setAddNameDecorators(true);
@@ -71,7 +72,7 @@ class SearchController extends SimpleEntityController
 		$articleRepository = $this->getDoctrine()->getRepository(Article::class);
 		$articles = $articleRepository->findSelected($simpleFilter);
 		
-		$articleFilter = new ArticleFilter($articleCategoryRepository, $categoryRepository, $brandRepository);
+		$articleFilter = new ArticleFilter($articleCategoryRepository, $categoryRepository, $brandRepository, $tagRepository);
 		$articleFilter->setBrands($brands);
 		$articles = array_merge($articles, $articleRepository->findSelected($articleFilter));
 		

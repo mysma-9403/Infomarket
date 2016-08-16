@@ -11,6 +11,8 @@ use AppBundle\Repository\ArticleCategoryRepository;
 use AppBundle\Repository\BrandRepository;
 use AppBundle\Repository\CategoryRepository;
 use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Repository\TagRepository;
+use AppBundle\Entity\ArticleTagAssignment;
 
 class ArticleFilter extends SimpleEntityFilter {
 	
@@ -30,16 +32,25 @@ class ArticleFilter extends SimpleEntityFilter {
 	protected $brandRepository;
 	
 	/**
+	 * @var TagRepository
+	 */
+	protected $tagRepository;
+	
+	/**
 	 * 
 	 * @param ArticleCategoryRepository $articleCategoryRepository
 	 * @param CategoryRepository $categoryRepository
 	 */
-	public function __construct(ArticleCategoryRepository $articleCategoryRepository, CategoryRepository $categoryRepository, BrandRepository $brandRepository) {
+	public function __construct(ArticleCategoryRepository $articleCategoryRepository, 
+								CategoryRepository $categoryRepository, 
+								BrandRepository $brandRepository, 
+								TagRepository $tagRepository) {
 		parent::__construct();
 		
 		$this->articleCategoryRepository = $articleCategoryRepository;
 		$this->categoryRepository = $categoryRepository;
 		$this->brandRepository = $brandRepository;
+		$this->tagRepository = $tagRepository;
 		
 		$this->filterName = 'article_filter_';
 		
@@ -64,6 +75,9 @@ class ArticleFilter extends SimpleEntityFilter {
 		$brands = $request->get($this->getFilterName() . 'brands', array());
 		$this->brands = $this->brandRepository->findBy(array('id' => $brands));
 		
+		$tags = $request->get($this->getFilterName() . 'tags', array());
+		$this->tags = $this->tagRepository->findBy(array('id' => $tags));
+		
 		$parents = $request->get($this->getFilterName() . 'parents', array());
 		$this->parents = $this->categoryRepository->findBy(array('id' => $parents));
 		
@@ -82,6 +96,7 @@ class ArticleFilter extends SimpleEntityFilter {
 		$this->articleCategories = array();
 		$this->categories = array();
 		$this->brands = array();
+		$this->tags= array();
 		
 		$this->parents = array();
 		
@@ -107,6 +122,10 @@ class ArticleFilter extends SimpleEntityFilter {
 		
 		if($this->brands) {
 			$values[$this->getFilterName() . 'brands'] = $this->getIdValues($this->brands);
+		}
+		
+		if($this->tags) {
+			$values[$this->getFilterName() . 'tags'] = $this->getIdValues($this->tags);
 		}
 		
 		if($this->parents) {
@@ -137,6 +156,10 @@ class ArticleFilter extends SimpleEntityFilter {
 		
 		if($this->brands) {
 			$expressions[] = $this->getEqualArrayExpression('aba.brand', $this->brands);
+		}
+		
+		if($this->tags) {
+			$expressions[] = $this->getEqualArrayExpression('ata.tag', $this->tags);
 		}
 		
 		if($this->featured !== SimpleEntityFilter::ALL_VALUES) {
@@ -177,6 +200,10 @@ class ArticleFilter extends SimpleEntityFilter {
 		if($this->brands) {
 			$expressions[] = ArticleBrandAssignment::class . ' aba WITH aba.article = e.id';
 		}
+		
+		if($this->tags) {
+			$expressions[] = ArticleTagAssignment::class . ' ata WITH ata.article = e.id';
+		}
 	
 		return $expressions;
 	}
@@ -198,6 +225,12 @@ class ArticleFilter extends SimpleEntityFilter {
 	 * @var array
 	 */
 	private $brands;
+	
+	/**
+	 *
+	 * @var array
+	 */
+	private $tags;
 	
 	/**
 	 * @var array
@@ -284,6 +317,30 @@ class ArticleFilter extends SimpleEntityFilter {
 	public function getBrands()
 	{
 		return $this->brands;
+	}
+	
+	/**
+	 * Set tags
+	 *
+	 * @param array $tags
+	 *
+	 * @return ArticleFilter
+	 */
+	public function setTags($tags)
+	{
+		$this->tags = $tags;
+	
+		return $this;
+	}
+	
+	/**
+	 * Get tags
+	 *
+	 * @return array
+	 */
+	public function getTags()
+	{
+		return $this->tags;
 	}
 	
 	/**

@@ -50,9 +50,10 @@
 				{% endblock %}
 			</div>
 			
-			<div class="col-xs-12">
+			<div class="col-xs-12 no-padding">
 				{% block sidebarAds %}
-					<div id="mySideAdsCarousel" class="carousel slide" data-ride="carousel">
+					<div id="sideAdsCarousel" class="carousel slide" data-ride="carousel">
+						
 					  	<div class="carousel-inner" role="listbox">
 							{% for advert in sideAds %}
 					    		<div class="item rect-1x2 {{ loop.index == 1 ? 'active' : '' }}">
@@ -67,6 +68,7 @@
 				  	</div>
 				{% endblock %}
 			</div>
+			
 		</div>
 		{% endblock %}
 		

@@ -27,6 +27,7 @@ use AppBundle\Repository\CategoryRepository;
 use AppBundle\Repository\SegmentRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Entity\Tag;
 
 class CategoryController extends SimpleEntityController
 {
@@ -99,8 +100,9 @@ class CategoryController extends SimpleEntityController
 			$articleCategoryRepository = $this->getDoctrine()->getRepository(ArticleCategory::class);
 			$categoryRepository = $this->getDoctrine()->getRepository(Category::class);
 			$brandRepository = $this->getDoctrine()->getRepository(Brand::class);
+			$tagRepository = $this->getDoctrine()->getRepository(Tag::class);
 			
-			$articleFilter = new ArticleFilter($articleCategoryRepository, $categoryRepository, $brandRepository);
+			$articleFilter = new ArticleFilter($articleCategoryRepository, $categoryRepository, $brandRepository, $tagRepository);
 			$articleFilter->setCategories([$entry]);
 			$articleFilter->setPublished(SimpleEntityFilter::TRUE_VALUES);
 			$articleFilter->setFeatured(SimpleEntityFilter::TRUE_VALUES);

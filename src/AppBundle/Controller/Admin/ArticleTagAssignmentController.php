@@ -83,6 +83,38 @@ class ArticleTagAssignmentController extends AdminEntityController {
 	{
 		return $this->setPublishedActionInternal($request, $id);
 	}
+
+	//------------------------------------------------------------------------
+	// Internal logic
+	//------------------------------------------------------------------------
+	
+	/**
+	 * 
+	 * {@inheritDoc}
+	 * @see \AppBundle\Controller\Admin\Base\AdminEntityController::prepareEntry()
+	 */
+	protected function prepareEntry($entry) {
+		if($entry->getTag()) return;
+		
+		$tagRepository = $this->getDoctrine()->getRepository(Tag::class);
+		
+		$result = $tagRepository->findBy([ 'name' => $entry->getNewTagName() ], null, 1);
+		
+		if(count($result) == 0) {
+			$em = $this->getDoctrine()->getManager();
+			
+			$tag = new Tag();
+			$tag->setName($entry->getNewTagName());
+			$tag->setPublished(true);
+				
+			$em->persist($tag);
+			$em->flush();
+			
+			$result = $tagRepository->findBy([ 'name' => $entry->getNewTagName() ], null, 1);
+		}
+		
+		$entry->setTag($result[0]);
+	}
 	
 	//------------------------------------------------------------------------
 	// Entity creators

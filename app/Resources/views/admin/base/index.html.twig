@@ -151,7 +151,9 @@
     		{{ item.publishedAt|date('d.m.Y H:i:s') }}
 		{% endif %}
 	</td>
-	<td>{{ item.publishedBy }}</td>
+	<td>
+		{% include 'common/links/user_link.html.twig' with { value: item.publishedBy } %}
+	</td>
 	
 	{% if is_granted('ROLE_ADMIN') %}
 		<td>
@@ -159,14 +161,18 @@
 	    		{{ item.updatedAt|date('d.m.Y H:i:s') }}
 			{% endif %}
 		</td>
-		<td>{{ item.updatedBy }}</td>
+		<td>
+			{% include 'common/links/user_link.html.twig' with { value: item.updatedBy } %}
+		</td>
 		        
 		<td>
 			{% if item.createdAt > date("01-01-1900") %}
 		    	{{ item.createdAt|date('d.m.Y H:i:s') }}
 			{% endif %}
 		</td>
-		<td>{{ item.createdBy }}</td>
+		<td>
+			{% include 'common/links/user_link.html.twig' with { value: item.createdBy } %}
+		</td>
 	{% endif %}
 {% endblock %}
 	 

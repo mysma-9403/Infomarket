@@ -10,6 +10,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Entity\Category;
 use AppBundle\Entity\Brand;
+use AppBundle\Entity\Tag;
 
 class ArticleController extends SimpleEntityController
 {   
@@ -71,8 +72,9 @@ class ArticleController extends SimpleEntityController
     	$articleCategoryRepository = $this->getDoctrine()->getRepository(ArticleCategory::class);
 		$categoryRepository = $this->getDoctrine()->getRepository(Category::class);
 		$brandRepository = $this->getDoctrine()->getRepository(Brand::class);
+		$tagRepository = $this->getDoctrine()->getRepository(Tag::class);
 		
-		$filter = new ArticleFilter($articleCategoryRepository, $categoryRepository, $brandRepository);
+		$filter = new ArticleFilter($articleCategoryRepository, $categoryRepository, $brandRepository, $tagRepository);
     	$filter->setPublished(true);
     	
     	$articleCategory = $this->getParam($request, ArticleCategory::class, null);

@@ -1,6 +1,8 @@
 {% extends 'infoprodukt/base/base.html.twig' %}
 
 {% block moreBreadcrumbs%}
+	
+	{% set categoryId = null %}
 	{% if category %}
 		{% set categoryId = category.preleaf ? category.id : category.parent.id %}
 		{% set categoryName = category.preleaf ? category.name : category.parent.name %}
@@ -11,5 +13,10 @@
 		</a>
 	{% endif %}
 	/ 
-	{{ title }}
+	<a href="{{ path(basePath ~ mainPath, { category: categoryId }) }}">
+		{{ title }}
+	</a>
+	{% block moreMoreBreadcrumbs%}
+	{% endblock %}
+	
 {% endblock %}

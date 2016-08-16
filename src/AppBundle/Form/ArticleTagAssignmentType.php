@@ -11,6 +11,7 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\FormBuilderInterface;
 use AppBundle\Repository\ArticleRepository;
 use AppBundle\Repository\TagRepository;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 class ArticleTagAssignmentType extends BaseFormType
 {
@@ -40,10 +41,13 @@ class ArticleTagAssignmentType extends BaseFormType
 						->orderBy('e.published DESC, e.name', 'ASC');
 					},
 					'choice_label' 	=> 'displayName',
-					'required' 		=> true,
+					'required' 		=> false,
 					'expanded'      => false,
 					'multiple'      => false,
 					'placeholder'	=> 'label.choose.tag'
+			))
+			->add('newTagName', TextType::class, array(
+					'required' => false
 			))
 		;
 	}

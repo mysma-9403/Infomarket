@@ -3,11 +3,8 @@ category.name.unique: Podana nazwa jest już wykorzystywana w innej podkategorii
 
 # Assignment uniqueness
 articleArticleCategoryAssignment.unique: Artykuł jest już powiązany z wybraną kategorią artykułów.
-
 articleBrandAssignment.unique: Artykuł jest już powiązany z wybraną marką.
-
 articleCategoryAssignment.unique: Artykuł jest już powiązany z wybraną kategorią.
-
 articleTagAssignment.unique: Artykuł jest już powiązany z wybranym tagiem.
 
 branchCategoryAssignment.unique: Kategoria jest już powiązana z wybraną branżą.
@@ -17,6 +14,7 @@ brandCategoryAssignment.unique: Marka jest już przypisana do ratingu marek w da
 productCategoryAssignment.unique: Produkt jest już przypisany do ratingu produktów w danym segmencie dla wybranej kategorii.
 
 termCategoryAssignment.unique: Kategoria jest już powiązana z wybranym terminem.
+
 
 # Assignment delete errors
 articleCategory.usedIn.articleArticleCategoryAssignments: Kategoria artykułów jest używana w niektórych artykułach i nie może być usunięta.
@@ -47,3 +45,9 @@ brand.usedIn.brandCategoryAssignments: Marka występuje w niekótrych ratingach 
 category.usedIn.branchCategoryAssignments: Kategoria jest powiązana z niektórymi branżami. Usunięcie kategorii spowoduje usunięcie tych powiązań.
 
 product.usedIn.productCategoryAssignments: Produkt występuje w niekótrych ratingach produktów. Usunięcie produktu spowoduje usunięcie tych wpisów. 
+
+# Others
+tag.tagAndNameAreNull: Jedno z pól - 'Tag', 'Nowy tag' - nie może być puste. 
+tag.tagAndNameAreNotNull: Jedno z pól - 'Tag', 'Nowy tag' - musi być puste.
+
+tag.alreadyExists: Podany tag już istnieje.

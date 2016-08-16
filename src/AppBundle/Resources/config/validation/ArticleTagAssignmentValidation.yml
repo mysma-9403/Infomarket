@@ -5,4 +5,10 @@ AppBundle\Entity\ArticleTagAssignment:
             errorPath: tag
             ignoreNull: false
             message: 'articleTagAssignment.unique'
+            fields: newTagName
+        - Callback: validate
+    properties:
+        newTagName:
+            - AppBundle\Validator\Constraints\IsArticleTagAssignmentUnique: 
+                message: tag.alreadyExists
                 

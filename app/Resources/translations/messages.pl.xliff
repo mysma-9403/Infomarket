@@ -809,6 +809,15 @@
             </trans-unit>
             
             
+            
+            
+            <trans-unit id="label.tag.newTag">
+                <source>label.tag.newTag</source>
+                <target>Nowy tag</target>
+            </trans-unit>
+            
+            
+            
             <trans-unit id="action.search">
                 <source>action.search</source>
                 <target>Szukaj</target>

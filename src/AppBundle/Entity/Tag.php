@@ -9,7 +9,7 @@ use AppBundle\Entity\Base\SimpleEntity;
  */
 class Tag extends SimpleEntity
 {	
-    
+	
     /**
      * @var \Doctrine\Common\Collections\Collection
      */
@@ -20,6 +20,8 @@ class Tag extends SimpleEntity
      */
     public function __construct()
     {
+    	parent::__construct();
+    	
         $this->articleTagAssignments = new \Doctrine\Common\Collections\ArrayCollection();
     }
 

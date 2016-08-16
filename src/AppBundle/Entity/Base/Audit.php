@@ -4,6 +4,10 @@ namespace AppBundle\Entity\Base;
 
 class Audit
 {
+	public function __construct() {
+		$this->published = false;
+	}
+	
 	/**
 	 * Used in lists, form fields etc.
 	 */

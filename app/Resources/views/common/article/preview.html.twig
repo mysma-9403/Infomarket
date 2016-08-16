@@ -45,10 +45,35 @@
 	
 	{% block summary %}
 	<div class="col-sm-{{ entry.displaySided ? 12 : 8 }}">
-		<div class="row">
-			<div class="col-xs-12">
-				<p><strong>{{ entry.intro | raw }}</strong></p>
-			</div>
+		<div class="col-xs-12">
+			<p><strong>{{ entry.intro | raw }}</strong></p>
+		</div>
+		
+		<div class="col-xs-6 text-muted">
+			{% if entry.date %}
+				<span class="fa fa-calendar"></span> {{ entry.date | date('Y-m-d') }}
+			{% endif %}
+		</div>
+		
+		<div class="col-xs-6 text-muted">
+			{% if entry.author %}
+				<span class="fa fa-user"></span> {{ entry.author.forename }} {{ entry.author.surname }}
+			{% endif %}
+		</div>
+		
+		<div class="col-xs-12 text-muted">
+			{% if entry.articleTagAssignments | length > 0 %}
+				<span class="fa fa-tags"></span> 
+				{% spaceless %}
+				{% for articleTagAssignment in entry.articleTagAssignments %}
+					{{- loop.index > 1 ? ', ' : '' -}}
+					<a href="{{ path(basePath ~ mainPath, { category: category ? category.id : null, article_filter_tags: articleTagAssignment.tag.id }) }}">
+						{{- articleTagAssignment.tag.name -}}
+					</a>
+					 
+				{% endfor %}
+				{% endspaceless %}
+			{% endif %}
 		</div>
 	</div>
 	{% endblock %}
@@ -106,18 +131,38 @@
 </div>
 
 <div class="row">
-	<div class="col-xs-12">
-		<p class="text-muted">
-			<span class="fa fa-calendar"></span> {{ entry.publishedAt | date('Y-m-d') }}
-			{% if entry.publishedBy %}
-				, <span class="fa fa-user"></span> {{ entry.publishedBy.username }}
-			{% endif %}
-		</p>
+	<div class="col-xs-6 text-muted">
+		{% if entry.date %}
+			<span class="fa fa-calendar"></span> {{ entry.date | date('Y-m-d') }}
+		{% endif %}
+	</div>
+	
+	<div class="col-xs-6 text-muted">
+		{% if entry.author %}
+			<span class="fa fa-user"></span> {{ entry.author.forename }} {{ entry.author.surname }}
+		{% endif %}
+	</div>
+	
+	<div class="col-xs-12 text-muted">
+		{% if entry.articleTagAssignments | length > 0 %}
+			<span class="fa fa-tags"></span> 
+			{% spaceless %}
+			{% for articleTagAssignment in entry.articleTagAssignments %}
+				{{- loop.index > 1 ? ', ' : '' -}}
+				<a href="{{ path(basePath ~ mainPath, { category: category ? category.id : null, article_filter_tags: articleTagAssignment.tag.id }) }}">
+					{{- articleTagAssignment.tag.name -}}
+				</a>
+				 
+			{% endfor %}
+			{% endspaceless %}
+		{% endif %}
 	</div>
 </div>
 {% endblock %}
 
 {% block back %}
+<div class="vr-space-40"></div>
+
 <div class="row">
 	<div class="col-xs-12">
 		<a class="btn btn-primary" href="{{ path(route, routeParams) }}"><span class="fa fa-arrow-circle-o-left"></span> {{ 'action.back' | trans }}</a>
