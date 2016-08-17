@@ -2,12 +2,12 @@
 
 namespace AppBundle\Form\Base;
 
+use AppBundle\Entity\Base\Audit;
 use AppBundle\Utils\ClassUtils;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use AppBundle\Entity\Base\Audit;
 
 class BaseFormType extends AbstractType
 {

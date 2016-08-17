@@ -11,7 +11,8 @@
 		{% block logo %}
 		<div class="col-sm-6">
 			<div class="rect-2x1">
-				<img class="img-responsive div-center" src="{{ asset(entry.getImagePath()) }}">
+				<img class="div-center img-{{ entry.vertical ? 'v' : '' }}responsive" 
+					alt="{{ entry.name | raw }}" src="{{ asset(entry.getImagePath()) }}">
 			</div>	
 		</div>
 		{% endblock %}

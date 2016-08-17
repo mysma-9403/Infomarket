@@ -5,7 +5,8 @@
 			<h3 class="text-red">{{ article.subname | raw }}</h3>
 			<div class="col-xs-6 col-xs-offset-3">
 				<div class="rect">
-					<img class="div-center" alt="{{ article.name | raw }}" src="{{ asset(article.getImagePath()) }}">
+					<img class="div-center img-{{ article.vertical ? 'v' : '' }}responsive" 
+						alt="{{ article.name | raw }}" src="{{ asset(article.getImagePath()) }}">
 				</div>
 			</div>
 			<p><strong>{{ article.intro | raw }}</strong></p>

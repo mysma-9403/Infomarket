@@ -14,7 +14,7 @@
 		
 		<div class="row">
 			<div class="rect-3x1">
-				<img class="img-responsive div-center" src="{{ asset(entry.featuredImage) }}">
+				<img class="div-center img-{{ entry.vertical ? 'v' : '' }}responsive" src="{{ asset(entry.featuredImage) }}">
 				
 				<div class="col-xs-12 div-bottom bkg-black-50 text-white">
 					<div class="container lifted-bottom">
@@ -71,7 +71,8 @@
 							{% for article in articles|slice(0,3)%}
 					    		<div class="item rect-3x1 {{ loop.index == 1 ? 'active' : '' }}">
 							    	<div class="div-center">
-							    		<img src="{{ asset(article.getImagePath()) }}">
+							    		<img class="img-{{ article.vertical ? '' : 'v' }}responsive" 
+							    			alt="{{ article.name | raw }}" src="{{ asset(article.getImagePath()) }}">
 					      			</div>
 					      			
 					      			<div class="col-xs-12 div-bottom bkg-black-50">
@@ -84,7 +85,7 @@
 									      				{% endfor %}
 								      				</h2>
 									      			<h3 class="text-center">
-									      				{{ article.name }} {{ article.subname }}
+									      				{{ article.name | raw }} {{ article.subname }}
 								      				</h3>
 									      		</a>
 								      		</div>
@@ -120,7 +121,8 @@
 								<div class="row">
 									<a class="text-white" href="{{ path(basePath ~ 'article_show', { id: article.id, category: entry.id }) }}">
 										<div class="rect col-bottom">
-											<img class="div-center" alt="{{ article.name | raw }}" src="{{ asset(article.getImagePath()) }}">
+											<img class="div-center img-{{ article.vertical ? '' : 'v' }}responsive" 
+												alt="{{ article.name | raw }}" src="{{ asset(article.getImagePath()) }}">
 											
 											<div class="col-xs-12 div-bottom bkg-black-50">
 												<div class="rect-2x1">
@@ -160,7 +162,8 @@
 									<a class="text-white" href="{{ path('infoprodukt_article', 
 										{ category: entry.id, article_filter_article_categories: articleCategory.id }) }}">
 										<div class="rect">
-											<img class="div-center" alt="{{ articleCategory.name | raw }}" src="{{ asset(articleCategory.getImagePath()) }}">
+											<img class="div-center img-{{ articleCategory.vertical ? '' : 'v' }}responsive" 
+												alt="{{ articleCategory.name | raw }}" src="{{ asset(articleCategory.getImagePath()) }}">
 										</div>
 										<div class="col-xs-12 rect-title {{ loop.index % 2 == 0 ? 'text-brand' : 'text-red' }}">
 											<h4 class="text-center">
@@ -185,19 +188,18 @@
 						
 		<div class="vr-space-40"></div>
 		
-		{% block ad %}
+		{% block featuredAds %}
 			<div class="row">	
-				<div class="col-xs-12">
+				<div class="col-xs-12 no-padding">
 					
-					<div id="myAdCarousel" class="carousel slide" data-ride="carousel">
+					<div id="featuredAdsCarousel" class="carousel slide" data-ride="carousel">
 					  	<div class="carousel-inner" role="listbox">
 							{% for advert in featuredAds %}
 					    		<div class="item rect-3x1 {{ loop.index == 1 ? 'active' : '' }}">
-							    	<div class="div-center">
-							    		<a href="{{ path('infoprodukt_advert_click', { id: advert.id }) }}">
-							    			<img src="{{ asset(advert.getImagePath()) }}">
-							    		</a>
-					      			</div>
+						    		<a href="{{ path('infoprodukt_advert_click', { id: advert.id }) }}">
+						    			<img class="div-center img-{{ advert.vertical ? '' : 'v' }}responsive" 
+						    				alt="{{ advert.name | raw }}" src="{{ asset(advert.getImagePath()) }}">
+						    		</a>
 							    </div>
 						    {% endfor %}
 					  	</div>
@@ -243,7 +245,8 @@
 					<div class="row">
 						<div class="col-sm-3">
 					  		<a href="{{ asset(entry.magazine.magazineFile) }}">
-				  				<img class="img-responsive" src="{{ asset(entry.magazine.getImagePath()) }}">
+					  			<img class="img-{{ entry.magazine.vertical ? '' : 'v' }}responsive" 
+							    				alt="{{ entry.magazine.name | raw }}" src="{{ asset(entry.magazine.getImagePath()) }}">
 					  		</a>
 					  	</div>
 					  	<div class="col-sm-6 text-white">
@@ -339,15 +342,14 @@
 						
 						<div class="col-xs-12 no-padding">
 							{% block sidebarAds %}
-								<div id="mySideAdsCarousel" class="carousel slide" data-ride="carousel">
+								<div id="sideAdsCarousel" class="carousel slide" data-ride="carousel">
 								  	<div class="carousel-inner" role="listbox">
 										{% for advert in sideAds %}
 								    		<div class="item rect-1x2 {{ loop.index == 1 ? 'active' : '' }}">
-										    	<div class="div-center">
-										    		<a href="{{ path('infoprodukt_advert_click', { id: advert.id }) }}">
-										    			<img src="{{ asset(advert.getImagePath()) }}">
-										    		</a>
-								      			</div>
+									    		<a href="{{ path('infoprodukt_advert_click', { id: advert.id }) }}">
+									    			<img class="div-center img-{{ advert.vertical ? 'v' : '' }}responsive"
+														alt="{{ advert.name | raw }}" src="{{ asset(advert.getImagePath()) }}">
+									    		</a>
 										    </div>
 									    {% endfor %}
 								  	</div>
@@ -363,7 +365,8 @@
 						<div class="col-xs-12 well">
 							<div class="col-sm-3">
 								<div class="rect">
-									<img class="div-center" src="{{ asset(entry.getImagePath()) }}">
+									<img class="div-center img-{{ entry.vertical ? 'v' : '' }}responsive" 
+										alt="{{ entry.name | raw }}" src="{{ asset(entry.getImagePath()) }}">
 								</div>
 							</div>
 							
@@ -378,16 +381,15 @@
 						{% endblock %}
 						
 						{% block topAds %}
-							<div class="col-xs-12">
-								<div id="myTopAdsCarousel" class="carousel slide" data-ride="carousel">
+							<div class="col-xs-12 no-padding">
+								<div id="topAdsCarousel" class="carousel slide" data-ride="carousel">
 								  	<div class="carousel-inner" role="listbox">
 										{% for advert in topAds %}
 								    		<div class="item rect-6x1 {{ loop.index == 1 ? 'active' : '' }}">
-										    	<div class="div-center">
-										    		<a href="{{ path('infoprodukt_advert_click', { id: advert.id }) }}">
-										    			<img src="{{ asset(advert.getImagePath()) }}">
-										    		</a>
-								      			</div>
+									    		<a href="{{ path('infoprodukt_advert_click', { id: advert.id }) }}">
+									    			<img class="div-center img-{{ advert.vertical ? 'v' : '' }}responsive" 
+									    				alr="{{ advert.name | raw }}" src="{{ asset(advert.getImagePath()) }}">
+									    		</a>
 										    </div>
 									    {% endfor %}
 								  	</div>
@@ -397,8 +399,6 @@
 						
 						{% block brandsRank %}		
 						<div class="col-xs-12 no-side-padding well">
-							
-							
 							
 							<div class="col-xs-12">
 								<h2><span class="fa fa-globe"></span> {{ 'label.rating.brands'|trans }}</h2>
@@ -413,8 +413,10 @@
 							
 							{% if show %}
 								<div class="row no-side-padding">
-									<div class="col-sm-2"><h4 class="text-center">{{ 'label.segment'|trans }}</h4></div>
-									<div class="col-sm-10"><h4 class="text-center">{{ 'label.rating.brands'|trans }}</h4></div>
+									<div class="col-xs-12">
+										<div class="hidden-xs col-sm-4 col-md-2"><h3 class="text-center">{{ 'label.segment'|trans }}</h3></div>
+										<div class="hidden-xs col-sm-8 col-md-10"><h3 class="text-center">{{ 'label.rating.brands'|trans }}</h3></div>
+									</div>
 								</div>
 								
 								{% for segment in segments %}
@@ -422,16 +424,46 @@
 										<div class="row no-side-padding bkg-segment-{{ segment.id }}">
 											<div class="col-xs-12">
 												
-												<div class="col-sm-2 text-white">
+												<div class="col-xs-12 col-sm-4 col-md-2 no-padding">
 													<div class="rect">
-														<img class="img-responsive div-center" alt="{{ segment.name | raw }}" src="{{ asset(segment.getImagePath()) }}">
+														<img class="div-center img-{{ segment.vertical ? 'v' : '' }}responsive" 
+															alt="{{ segment.name | raw }}" src="{{ asset(segment.getImagePath()) }}">
+													</div>
+													
+													<div class="col-xs-12 rating-subtitle hidden-xs">
+														<div class="col-xs-12">
+															<h4 class="text-sm-right text-red"><strong>{{ 'label.brand'|trans }}</strong></h4>
+														</div>
+													</div>
+													
+													<div class="col-xs-12 vr-space-5"></div>
+													
+													<div class="col-xs-12 rating-subtitle hidden-xs">
+														<div class="col-xs-12">
+															<h4 class="text-sm-right text-brand"><strong>www</strong></h4>
+														</div>
 													</div>
 												</div>
 												
 												{% for brand in attribute(brands, segment.id)|slice(0,5) %}
-													<div class="col-sm-2 bkg-white text-white">
-														<div class="rect">
-															<img class="img-responsive div-center" alt="{{ brand.name }}" src="{{ asset(brand.getImagePath()) }}">
+													<div class="col-sm-4 col-md-2 no-padding">
+														<div class="rect bkg-white">
+															<img class="div-center img-{{ brand.vertical ? 'v' : '' }}responsive" 
+																alt="{{ brand.name }}" src="{{ asset(brand.getImagePath()) }}">
+														</div>
+														
+														<div class="col-xs-12 bkg-red rating-subtitle text-center text-white">
+															<a href="{{ path(basePath ~ 'brand_show', {'id': brand.id }) }}">
+																{{ brand.name }}
+															</a>
+														</div>
+														
+														<div class="col-xs-12 vr-space-5 bkg-white"></div>
+														
+														<div class="col-xs-12 bkg-brand rating-subtitle text-center text-white">
+															<a class="text-small" href="{{ 'http://' ~ brand.www }}">
+																{{ brand.www }}
+															</a>
 														</div>
 													</div>
 												{% endfor %}
@@ -463,8 +495,10 @@
 									</div>
 									
 									<div class="row no-side-padding">
-										<div class="col-sm-2"><h4 class="text-center">{{ 'label.segment'|trans }}</h4></div>
-										<div class="col-sm-10"><h4 class="text-center">{{ 'label.rating.brands'|trans }}</h4></div>
+										<div class="col-xs-12">
+											<div class="hidden-xs col-sm-4 col-md-2"><h3 class="text-center">{{ 'label.segment'|trans }}</h3></div>
+											<div class="hidden-xs col-sm-8 col-md-10"><h3 class="text-center">{{ 'label.rating.brands'|trans }}</h3></div>
+										</div>
 									</div>
 									
 									{% for segment in segments %}
@@ -472,16 +506,46 @@
 											<div class="row no-side-padding bkg-segment-{{ segment.id }}">
 												<div class="col-xs-12">
 													
-													<div class=" col-sm-2 text-white">
+													<div class="col-xs-12 col-sm-4 col-md-2 no-padding">
 														<div class="rect">
-															<img class="img-responsive div-center" alt="{{ segment.name | raw }}" src="{{ asset(segment.getImagePath()) }}">
+															<img class="div-center img-{{ segment.vertical ? 'v' : '' }}responsive" 
+																alt="{{ segment.name | raw }}" src="{{ asset(segment.getImagePath()) }}">
+														</div>
+														
+														<div class="col-xs-12 rating-subtitle hidden-xs">
+															<div class="col-xs-12">
+																<h4 class="text-sm-right text-red"><strong>{{ 'label.brand'|trans }}</strong></h4>
+															</div>
+														</div>
+														
+														<div class="col-xs-12 vr-space-5"></div>
+														
+														<div class="col-xs-12 rating-subtitle hidden-xs">
+															<div class="col-xs-12">
+																<h4 class="text-sm-right text-brand"><strong>www</strong></h4>
+															</div>
 														</div>
 													</div>
 													
 													{% for brand in attribute(attribute(subbrands, category.id), segment.id)|slice(0,5) %}
-														<div class="col-sm-2 bkg-white text-white">
-															<div class="rect">
-																<img class="img-responsive div-center" alt="{{ brand.name }}" src="{{ asset(brand.getImagePath()) }}">
+														<div class="col-sm-4 col-md-2 no-padding">
+															<div class="rect bkg-white">
+																<img class="div-center img-{{ brand.vertical ? 'v' : '' }}responsive" 
+																	alt="{{ brand.name }}" src="{{ asset(brand.getImagePath()) }}">
+															</div>
+															
+															<div class="col-xs-12 bkg-red rating-subtitle text-center text-white">
+																<a href="{{ path(basePath ~ 'brand_show', {'id': brand.id }) }}">
+																	{{ brand.name }}
+																</a>
+															</div>
+															
+															<div class="col-xs-12 vr-space-5 bkg-white"></div>
+															
+															<div class="col-xs-12 bkg-brand rating-subtitle text-center text-white">
+																<a class="text-small" href="{{ 'http://' ~ brand.www }}">
+																	{{ brand.www }}
+																</a>
 															</div>
 														</div>
 													{% endfor %}
@@ -489,7 +553,7 @@
 												</div>
 											</div>
 											
-											<div class="vr-space-10"></div>
+											<div class="vr-space-20"></div>
 										{% endif %}
 									{% endfor %}
 								{% endif %}
@@ -517,52 +581,66 @@
 							
 							{% if show %}
 								<div class="row no-side-padding">
-									<div class="col-sm-2"><h4 class="text-center">{{ 'label.segment'|trans }}</h4></div>
-									<div class="col-sm-10"><h4 class="text-center">{{ 'label.rating.products'|trans }}</h4></div>
+									<div class="col-xs-12">
+										<div class="hidden-xs col-sm-4 col-md-2"><h3 class="text-center">{{ 'label.segment'|trans }}</h3></div>
+										<div class="hidden-xs col-sm-8 col-md-10"><h3 class="text-center">{{ 'label.rating.products'|trans }}</h3></div>
+									</div>
 								</div>
 								
 								{% for segment in segments %}
 									{% if attribute(products, segment.id) | length > 0 %}
 										<div class="row no-side-padding bkg-segment-{{ segment.id }}">
 											<div class="col-xs-12">
-												
-												<div class=" col-sm-2 text-white">
+											
+												<div class="col-xs-12 col-sm-4 col-md-2 no-padding">
 													<div class="rect">
-														<img class="div-center" alt="{{ segment.name | raw }}" src="{{ asset(segment.getImagePath()) }}">
+														<img class="div-center img-{{ segment.vertical ? 'v' : '' }}responsive" 
+															alt="{{ segment.name | raw }}" src="{{ asset(segment.getImagePath()) }}">
+													</div>
+													
+													<div class="col-xs-12 rating-subtitle hidden-xs">
+														<div class="col-xs-12">
+															<h4 class="text-sm-right text-red"><strong>{{ 'label.brand'|trans }}</strong></h4>
+														</div>
+													</div>
+													
+													
+													<div class="col-xs-12 vr-space-5"></div>
+													
+													<div class="col-xs-12 rating-subtitle hidden-xs">
+														<div class="col-xs-12">
+															<h4 class="text-sm-right text-brand"><strong>{{ 'label.product'|trans }}</strong></h4>
+														</div>
 													</div>
 												</div>
 												
 												{% for product in attribute(products, segment.id)|slice(0,5) %}
-													<div class=" col-sm-2 bkg-white text-white">
-														<div class="rect">
-															<img class="img-responsive div-center" alt="{{ product.name }}" src="{{ asset(product.getImagePath()) }}">
-															<div class="col-xs-12 div-bottom bkg-black-50">
-																<a class="text-white" href="{{ path('infoprodukt_product_show', {'id': product.id}) }}">
-																	<h5>{{ product.brand ? product.brand.name : '' }}</h5>
-																	<h5>{{ product.name }}</h5>
-																</a>
-															</div>
+													<div class="col-sm-4 col-md-2 no-padding">
+														<div class="rect bkg-white">
+															<img class="div-center img-{{ product.vertical ? 'v' : '' }}responsive" 
+																alt="{{ product.name }}" src="{{ asset(product.getImagePath()) }}">
+														</div>
+														
+														<div class="col-xs-12 bkg-red rating-subtitle text-center text-white">
+															<a href="{{ path(basePath ~ 'brand_show', {'id': product.brand.id }) }}">
+																{{ product.brand.name }}
+															</a>
+														</div>
+																
+														<div class="col-xs-12 vr-space-5 bkg-white"></div>
+																
+														<div class="col-xs-12 bkg-brand rating-subtitle text-center text-white">
+															<a class="text-small" href="{{ path(basePath ~ 'product_show', {'id': product.id }) }}">
+																{{ product.name }}
+															</a>
 														</div>
 													</div>
 												{% endfor %}
 												
 											</div>
 										</div>
-										
-										<div class="row no-side-padding">
-											<div class=" col-sm-2 bkg-red text-white">
-												{{ segment.name | raw }}
-											</div>
-											{% for product in attribute(products, segment.id)|slice(0,5) %}
-												<div class=" col-sm-2 bkg-white text-white">
-													<a class="text-white" href="{{ path('infoprodukt_product_show', {'id': product.id}) }}">
-														{{ product.name }}
-													</a>
-												</div>
-											{% endfor %}
-										</div>
-										
-										<div class="vr-space-10"></div>
+											
+										<div class="vr-space-20"></div>
 									{% endif %}
 								{% endfor %}
 							{% endif %}
@@ -587,8 +665,10 @@
 									</div>
 									
 									<div class="row no-side-padding">
-										<div class="col-sm-2"><h3 class="text-center">{{ 'label.segment'|trans }}</h3></div>
-										<div class="col-sm-10"><h3 class="text-center">{{ 'label.rating.products'|trans }}</h3></div>
+										<div class="col-xs-12">
+											<div class="hidden-xs col-sm-4 col-md-2"><h3 class="text-center">{{ 'label.segment'|trans }}</h3></div>
+											<div class="hidden-xs col-sm-8 col-md-10"><h3 class="text-center">{{ 'label.rating.products'|trans }}</h3></div>
+										</div>
 									</div>
 									
 									{% for segment in segments %}
@@ -596,54 +676,51 @@
 											<div class="row no-side-padding bkg-segment-{{ segment.id }}">
 												<div class="col-xs-12">
 												
-													<div class="col-sm-2 text-white">
+													<div class="col-xs-12 col-sm-4 col-md-2 no-padding">
 														<div class="rect">
-															<img class="img-responsive div-center" alt="{{ segment.name | raw }}" src="{{ asset(segment.getImagePath()) }}">
+															<img class="div-center img-{{ segment.vertical ? 'v' : '' }}responsive" 
+																alt="{{ segment.name | raw }}" src="{{ asset(segment.getImagePath()) }}">
+														</div>
+														
+														<div class="col-xs-12 rating-subtitle hidden-xs">
+															<div class="col-xs-12">
+																<h4 class="text-sm-right text-red"><strong>{{ 'label.brand'|trans }}</strong></h4>
+															</div>
+														</div>
+														
+														
+														<div class="col-xs-12 vr-space-5"></div>
+														
+														<div class="col-xs-12 rating-subtitle hidden-xs">
+															<div class="col-xs-12">
+																<h4 class="text-sm-right text-brand"><strong>{{ 'label.product'|trans }}</strong></h4>
+															</div>
 														</div>
 													</div>
 													
 													{% for product in attribute(attribute(subproducts, category.id), segment.id)|slice(0,5) %}
-														<div class="col-sm-2 bkg-white">
-															<div class="rect">
-																<img class="img-responsive div-center" alt="{{ product.name }}" src="{{ asset(product.getImagePath()) }}">
+														<div class="col-sm-4 col-md-2 no-padding">
+															<div class="rect bkg-white">
+																<img class="div-center img-{{ product.vertical ? 'v' : '' }}responsive" 
+																	alt="{{ product.name }}" src="{{ asset(product.getImagePath()) }}">
+															</div>
+															
+															<div class="col-xs-12 bkg-red rating-subtitle text-center text-white">
+																<a href="{{ path(basePath ~ 'brand_show', {'id': product.brand.id }) }}">
+																	{{ product.brand.name }}
+ 																</a>
+															</div>
+															
+															<div class="col-xs-12 vr-space-5 bkg-white"></div>
+															
+															<div class="col-xs-12 bkg-brand rating-subtitle text-center text-white">
+																<a class="text-small" href="{{ path(basePath ~ 'product_show', {'id': product.id }) }}">
+																	{{ product.name }}
+ 																</a>
 															</div>
 														</div>
 													{% endfor %}
 													
-												</div>
-											</div>
-											
-											<div class="row no-side-padding">
-												<div class="col-xs-12">
-													<div class="col-sm-2 text-red">
-														<h4 class="text-sm-right"><strong>{{ 'label.brand'|trans }}</strong></h4>
-													</div>
-													
-													{% for product in attribute(attribute(subproducts, category.id), segment.id)|slice(0,5) %}
-														<div class="col-sm-2 rating-subtitle bkg-red text-white">
-															<a class="div-center text-center text-small" href="{{ path(basePath ~ 'brand_show', {'id': product.brand.id }) }}">
-																{{ product.brand.name }}
-															</a>
-														</div>
-													{% endfor %}
-												</div>
-											</div>
-											
-											<div class="vr-space-5"></div>
-											
-											<div class="row no-side-padding">
-												<div class="col-xs-12">
-													<div class="col-sm-2 text-brand">
-														<h4 class="text-sm-right"><strong>{{ 'label.product'|trans }}</strong></h4>
-													</div>
-													
-													{% for product in attribute(attribute(subproducts, category.id), segment.id)|slice(0,5) %}
-														<div class="col-sm-2 rating-subtitle bkg-brand text-white">
-															<a class="div-center text-center text-very-small" href="{{ path(basePath ~ 'product_show', {'id': product.id}) }}">
-																{{ product.name }}
-															</a>
-														</div>
-													{% endfor %}
 												</div>
 											</div>
 											

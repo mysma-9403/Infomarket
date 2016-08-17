@@ -7,7 +7,10 @@
 	<div class="col-sm-{{ cols }}">
 		<h2 class="text-brand">{{ article.name | raw }}</h2>
 		<h3 class="text-red">{{ article.subname | raw }}</h3>
-		<img class="img-responsive" alt="{{ article.name | raw }}" src="{{ asset(article.getImagePath()) }}">
+		
+		<img class="div-center img-{{ article.vertical ? 'v' : '' }}responsive" 
+			alt="{{ article.name | raw }}" src="{{ asset(article.getImagePath()) }}">
+		
 		<p><strong>{{ article.intro | raw }}</strong></p>
 		<p>{{ article.content | raw }}</p>
 	</div>

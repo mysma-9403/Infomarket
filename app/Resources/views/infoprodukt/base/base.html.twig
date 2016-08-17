@@ -3,6 +3,8 @@
 {% block content %}
 <div class="container">
 	
+	<div class="vr-space-10"></div>
+	
 	{% block breadcrumbs %}
 		<div class="row">
 			<div class="col-xs-12">
@@ -57,11 +59,10 @@
 					  	<div class="carousel-inner" role="listbox">
 							{% for advert in sideAds %}
 					    		<div class="item rect-1x2 {{ loop.index == 1 ? 'active' : '' }}">
-							    	<div class="div-center">
-							    		<a href="{{ path('infoprodukt_advert_click', { id: advert.id }) }}">
-							    			<img src="{{ asset(advert.getImagePath()) }}">
-							    		</a>
-					      			</div>
+						    		<a href="{{ path('infoprodukt_advert_click', { id: advert.id }) }}">
+						    			<img class="div-center img-{{ advert.vertical ? 'v' : '' }}responsive" 
+											alt="{{ advert.name | raw }}" src="{{ asset(advert.getImagePath()) }}">
+						    		</a>
 							    </div>
 						    {% endfor %}
 					  	</div>
@@ -80,16 +81,15 @@
 			</div>
 			
 			{% block topAds %}
-				<div class="col-xs-12">
-					<div id="myTopAdsCarousel" class="carousel slide" data-ride="carousel">
+				<div class="col-xs-12 no-padding">
+					<div id="topAdsCarousel" class="carousel slide" data-ride="carousel">
 					  	<div class="carousel-inner" role="listbox">
 							{% for advert in topAds %}
 					    		<div class="item rect-6x1 {{ loop.index == 1 ? 'active' : '' }}">
-							    	<div class="div-center">
-							    		<a href="{{ path('infoprodukt_advert_click', { id: advert.id }) }}">
-							    			<img src="{{ asset(advert.getImagePath()) }}">
-							    		</a>
-					      			</div>
+						    		<a href="{{ path('infoprodukt_advert_click', { id: advert.id }) }}">
+						    			<img class="div-center img-{{ advert.vertical ? 'v' : '' }}responsive" 
+											alt="{{ advert.name | raw }}" src="{{ asset(advert.getImagePath()) }}">
+						    		</a>
 							    </div>
 						    {% endfor %}
 					  	</div>

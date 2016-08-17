@@ -18,6 +18,8 @@
         <field name="image" column="image" type="string" nullable="true">
             <gedmo:uploadable-file-path />
         </field>
+        
+        <field name="vertical" type="boolean" nullable="false" default="0" />
 
         <gedmo:uploadable
             append-number="true"

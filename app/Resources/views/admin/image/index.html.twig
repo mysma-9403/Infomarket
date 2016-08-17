@@ -7,5 +7,10 @@
 
 {# Entry section #}
 {% block entryMainFields1 %}
-	<td><img alt="{{ item.name }}" src="{{ asset(item.getImagePath()) }}" class="img-circle" width="40" height="40" /></td>
+	<td>
+		<div class="circle bkg-white" width="40" height="40">
+			<img class="div-center img-{{ item.vertical ? 'v' : '' }}responsive"
+				alt="{{ item.name }}" src="{{ asset(item.getImagePath()) }}" />
+		</div>
+	</td>
 {% endblock %}	        

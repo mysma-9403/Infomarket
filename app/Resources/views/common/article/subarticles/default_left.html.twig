@@ -11,7 +11,8 @@
 		<div class="col-sm-3">
 			{% if article.image %}
 				<div class="rect">
-					<img class="div-center" alt="{{ article.name | raw }}" src="{{ asset(article.getImagePath()) }}">
+					<img class="div-center img-{{ article.vertical ? 'v' : '' }}responsive" 
+						alt="{{ article.name | raw }}" src="{{ asset(article.getImagePath()) }}">
 				</div>
 			{% endif %}
 		</div>

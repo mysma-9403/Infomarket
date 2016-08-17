@@ -5,13 +5,16 @@
     <div class="row">
 	    <div class="col-xs-6 col-sm-4 col-md-3">
 	    	<div class="rect">
-				<img alt="{{ entry.name | raw }}" src="{{ asset(entry.getImagePath()) }}" class="img-responsive div-center" />
+				<img class="div-center img-{{ entry.vertical ? 'v' : '' }}responsive" 
+					alt="{{ entry.name | raw }}" src="{{ asset(entry.getImagePath()) }}" />
 			</div>
 		</div>
 	</div>
 	{% endif %}
 	
     {{ form_row(form.file, { 'label': 'label.image' }) }}
+    
+    {{ form_row(form.vertical, { 'label': 'label.image.vertical' }) }}
     
     {{ form_row(form.published, { 'label': 'label.' ~ gender ~ 'published' }) }}
 {% endblock %}

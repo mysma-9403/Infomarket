@@ -61,9 +61,11 @@ class SearchController extends SimpleEntityController
 		$productRepository = $this->getDoctrine()->getRepository(Product::class);
 		$products = $productRepository->findSelected($simpleFilter);
 		
-		$productFilter = new ProductFilter($categoryRepository, $brandRepository, $segmentRepository);
-		$productFilter->setBrands($brands);
-		$products = array_merge($products, $productRepository->findSelected($productFilter));
+		if(count($brands) > 0) {
+			$productFilter = new ProductFilter($categoryRepository, $brandRepository, $segmentRepository);
+			$productFilter->setBrands($brands);
+			$products = array_merge($products, $productRepository->findSelected($productFilter));
+		}
 		
 		$params['products'] = $products;
 		
@@ -72,9 +74,11 @@ class SearchController extends SimpleEntityController
 		$articleRepository = $this->getDoctrine()->getRepository(Article::class);
 		$articles = $articleRepository->findSelected($simpleFilter);
 		
-		$articleFilter = new ArticleFilter($articleCategoryRepository, $categoryRepository, $brandRepository, $tagRepository);
-		$articleFilter->setBrands($brands);
-		$articles = array_merge($articles, $articleRepository->findSelected($articleFilter));
+		if(count($brands) > 0) {
+			$articleFilter = new ArticleFilter($articleCategoryRepository, $categoryRepository, $brandRepository, $tagRepository);
+			$articleFilter->setBrands($brands);
+			$articles = array_merge($articles, $articleRepository->findSelected($articleFilter));
+		}
 		
 		$params['articles'] = $articles;
 		

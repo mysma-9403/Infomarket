@@ -6,13 +6,19 @@
     <div class="row">
 	    <div class="col-xs-6 col-sm-4 col-md-3">
 	    	<div class="rect">
-				<img alt="{{ entry.name | raw }}" src="{{ asset(entry.getImagePath()) }}" class="img-responsive div-center" />
+				<img class="div-center img-{{ entry.vertical ? 'v' : '' }}responsive" 
+					alt="{{ entry.name | raw }}" src="{{ asset(entry.getImagePath()) }}" />
 			</div>
 		</div>
 	</div>
 	{% endif %}
 	
+	{% include 'common/fields/bool_field.html.twig' with 
+	{ 'label': ('label.image.vertical')|trans, 'value': entry.vertical } %}
+	
 	<div class="row lowered-25"></div>
+	
 	{% include 'common/fields/bool_field.html.twig' with 
 	{ 'label': ('label.' ~ gender ~ 'published')|trans, 'value': entry.published } %}
+	
 {% endblock %}

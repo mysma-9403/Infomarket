@@ -48,6 +48,11 @@ class Image extends Audit {
     protected $image;
     
     /**
+     * @var boolean
+     */
+    protected $vertical;
+    
+    /**
      * Set file
      *
      * @param UploadedFile $file
@@ -141,5 +146,29 @@ class Image extends Audit {
     public function getImage()
     {
         return $this->image;
+    }
+
+    /**
+     * Set vertical
+     *
+     * @param boolean $vertical
+     *
+     * @return Image
+     */
+    public function setVertical($vertical)
+    {
+        $this->vertical = $vertical;
+
+        return $this;
+    }
+
+    /**
+     * Get vertical
+     *
+     * @return boolean
+     */
+    public function getVertical()
+    {
+        return $this->vertical;
     }
 }

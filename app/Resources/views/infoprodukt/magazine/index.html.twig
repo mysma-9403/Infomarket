@@ -18,19 +18,23 @@
 							<div class="col-sm-3">
 								<div class="rect">
 									<a href="{{ asset(entry.magazineFile) }}">
-										<img class="div-center" src="{{ asset(entry.getImagePath()) }}">
+										<img class="div-center img-{{ entry.vertical ? 'v' : '' }}responsive" 
+											alt="{{ entry.name | raw }}" src="{{ asset(entry.getImagePath()) }}">
 									</a>
 								</div>
 							</div>
 							<div class="col-sm-9">
-								<h3 class="text-brand">{{ entry.name | raw }}</h3>
+								<h3 class="title text-brand text-xs-center text-sm-left">{{ entry.name | raw }}</h3>
 								<p>{{ entry.content | raw }}</p>
 								
 								<div class="vr-space-10"></div>
 								
-								<a class="btn btn-danger" href="{{ asset(entry.magazineFile) }}">
-									<span class="fa fa-eye"></span> {{ 'action.show'|trans }}
-								</a>
+								<p class="text-xs-center text-sm-left">
+									<a class="btn btn-danger" href="{{ asset(entry.magazineFile) }}">
+										<span class="fa fa-eye"></span> {{ 'action.show'|trans }}
+									</a>
+								</p>
+								
 								<div class="vr-space-10"></div>
 							</div>
 						</div>
@@ -46,7 +50,7 @@
 	{% block paginator %}
 	<div class="row">
 		<div class="col-xs-12">
-	        {{ knp_pagination_render(entries) }}
+        	{{ knp_pagination_render(entries) }}
 		</div>
 	</div>
 	{% endblock %}

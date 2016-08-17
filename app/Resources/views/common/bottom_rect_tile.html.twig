@@ -13,7 +13,8 @@
 	<a class="text-white" href="{{ path('infoprodukt_' ~ entryPath ~ '_show', routeParams|merge({ 'id': entry.id }) ) }}">
 		<div class="row">
 		<div class="rect">
-			<img class="div-center" alt="{{ entry.name | raw }}" src="{{ asset(entry.getImagePath()) }}">
+			<img class="div-center img-{{ entry.vertical ? '' : 'v' }}responsive" 
+				alt="{{ entry.name | raw }}" src="{{ asset(entry.getImagePath()) }}">
 		</div>
 		</div>
 		<div class="row rect-title {{ alternate and loop.index % 2 ? bkgSecondary : bkgPrimary }}">

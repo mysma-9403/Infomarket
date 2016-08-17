@@ -20,6 +20,9 @@ class ImageEntityType extends SimpleEntityType
 			->add('file', FileType::class, array(
 					'required' => false
 			))
+			->add('vertical', null, array(
+					'required' => false
+			))
 		;
 	}
 	

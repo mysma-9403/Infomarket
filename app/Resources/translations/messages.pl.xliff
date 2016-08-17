@@ -448,6 +448,10 @@
                 <source>label.image</source>
                 <target>Zdjęcie</target>
             </trans-unit>
+            <trans-unit id="label.image.vertical">
+                <source>label.image.vertical</source>
+                <target>Zdjęcie pionowe</target>
+            </trans-unit>
             <trans-unit id="label.intro">
                 <source>label.intro</source>
                 <target>Wprowadzenie</target>
