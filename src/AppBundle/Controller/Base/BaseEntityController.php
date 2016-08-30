@@ -6,6 +6,7 @@ use AppBundle\Entity\Filter\Base\BaseEntityFilter;
 use AppBundle\Utils\ClassUtils;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Entity\User;
 
 abstract class BaseEntityController extends Controller
 {
@@ -273,7 +274,8 @@ abstract class BaseEntityController extends Controller
 	}
     
 	protected function createNewFilter() {
-		return new BaseEntityFilter();
+		$userRepository = $this->getDoctrine()->getRepository(User::class);
+		return new BaseEntityFilter($userRepository);
 	}
 	
 	protected function getEntry($id) {

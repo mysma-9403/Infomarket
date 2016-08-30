@@ -34,7 +34,9 @@ class HomeController extends SimpleEntityController
 	{
 		$params = parent::getIndexParams($request, $page);
 	
-		$magazineFilter = new MagazineFilter();
+		$userRepository = $this->getDoctrine()->getRepository(User::class);
+		
+		$magazineFilter = new MagazineFilter($userRepository);
 		$magazineFilter->initValues($request);
 		$magazineFilter->setPublished(SimpleEntityFilter::TRUE_VALUES);
 		$magazineFilter->setFeatured(SimpleEntityFilter::TRUE_VALUES);
