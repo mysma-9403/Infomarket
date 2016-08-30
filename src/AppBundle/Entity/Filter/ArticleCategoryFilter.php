@@ -6,11 +6,12 @@ use AppBundle\Entity\Filter\Base\SimpleEntityFilter;
 use AppBundle;
 use AppBundle\Entity\Filter\Base\ImageEntityFilter;
 use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Repository\UserRepository;
 
 class ArticleCategoryFilter extends ImageEntityFilter {
 	
-	public function __construct() {
-		parent::__construct();
+	public function __construct(UserRepository $userRepository) {
+		parent::__construct($userRepository);
 		
 		$this->filterName = 'article_category_filter_';
 	}

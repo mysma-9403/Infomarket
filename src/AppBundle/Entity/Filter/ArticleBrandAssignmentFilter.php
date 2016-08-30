@@ -10,6 +10,7 @@ use AppBundle\Repository\ArticleBrandAssignmentRepository;
 use AppBundle\Repository\ArticleRepository;
 use AppBundle\Repository\BrandRepository;
 use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Repository\UserRepository;
 
 class ArticleBrandAssignmentFilter extends SimpleEntityFilter {
 	
@@ -18,8 +19,12 @@ class ArticleBrandAssignmentFilter extends SimpleEntityFilter {
 	 * @param ArticleBrandAssignmentRepository $articleRepository
 	 * @param BrandRepository $brandRepository
 	 */
-	public function __construct(ArticleRepository $articleRepository, BrandRepository $brandRepository) {
-		parent::__construct();
+	public function __construct(
+			UserRepository $userRepository, 
+			ArticleRepository $articleRepository, 
+			BrandRepository $brandRepository) {
+		
+		parent::__construct($userRepository);
 		
 		$this->articleRepository = $articleRepository;
 		$this->brandRepository = $brandRepository;

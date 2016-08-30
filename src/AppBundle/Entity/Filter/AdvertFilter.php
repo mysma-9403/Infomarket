@@ -7,6 +7,7 @@ use AppBundle\Repository\CategoryRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Validator\Constraints\Date;
 use AppBundle\Entity\AdvertCategoryAssignment;
+use AppBundle\Repository\UserRepository;
 
 class AdvertFilter extends SimpleEntityFilter {
 	
@@ -19,8 +20,8 @@ class AdvertFilter extends SimpleEntityFilter {
 	 * 
 	 * @param CategoryRepository $categoryRepository
 	 */
-	public function __construct(CategoryRepository $categoryRepository) {
-		parent::__construct();
+	public function __construct(UserRepository $userRepository, CategoryRepository $categoryRepository) {
+		parent::__construct($userRepository);
 		
 		$this->categoryRepository = $categoryRepository;
 		

@@ -13,8 +13,11 @@
 		{# --------------------------------------------------------------------------------------------------- #}
 		
 		<div class="row">
-			<div class="rect-3x1">
-				<img class="div-center img-{{ entry.vertical ? 'v' : '' }}responsive" src="{{ asset(entry.featuredImage) }}">
+			<div class="rect-3x1 bkg-white">
+				{% if entry.image %}
+					<img class="div-center img-{{ entry.vertical ? 'v' : '' }}responsive" 
+						src="{{ asset(entry.featuredImage) }}">
+				{% endif %}
 				
 				<div class="col-xs-12 div-bottom bkg-black-50 text-white">
 					<div class="container lifted-bottom">
@@ -70,9 +73,11 @@
 					  	<div class="carousel-inner" role="listbox">
 							{% for article in articles|slice(0,3)%}
 					    		<div class="item rect-3x1 {{ loop.index == 1 ? 'active' : '' }}">
-							    	<div class="div-center">
-							    		<img class="img-{{ article.vertical ? '' : 'v' }}responsive" 
-							    			alt="{{ article.name | raw }}" src="{{ asset(article.getImagePath()) }}">
+							    	<div class="div-center bkg-white">
+							    		{% if article.image %}
+								    		<img class="img-{{ article.vertical ? '' : 'v' }}responsive" 
+								    			alt="{{ article.name | raw }}" src="{{ asset(article.getImagePath()) }}">
+						    			{% endif %}
 					      			</div>
 					      			
 					      			<div class="col-xs-12 div-bottom bkg-black-50">
@@ -120,9 +125,11 @@
 							<div class="col-sm-3">
 								<div class="row">
 									<a class="text-white" href="{{ path(basePath ~ 'article_show', { id: article.id, category: entry.id }) }}">
-										<div class="rect col-bottom">
-											<img class="div-center img-{{ article.vertical ? '' : 'v' }}responsive" 
-												alt="{{ article.name | raw }}" src="{{ asset(article.getImagePath()) }}">
+										<div class="rect col-bottom bkg-white">
+											{% if article.image %}
+												<img class="div-center img-{{ article.vertical ? '' : 'v' }}responsive" 
+													alt="{{ article.name | raw }}" src="{{ asset(article.getImagePath()) }}">
+											{% endif %}
 											
 											<div class="col-xs-12 div-bottom bkg-black-50">
 												<div class="rect-2x1">
@@ -161,9 +168,11 @@
 								<div class="row">
 									<a class="text-white" href="{{ path('infoprodukt_article', 
 										{ category: entry.id, article_filter_article_categories: articleCategory.id }) }}">
-										<div class="rect">
-											<img class="div-center img-{{ articleCategory.vertical ? '' : 'v' }}responsive" 
-												alt="{{ articleCategory.name | raw }}" src="{{ asset(articleCategory.getImagePath()) }}">
+										<div class="rect bkg-white">
+											{% if articleCategory.image %}
+												<img class="div-center img-{{ articleCategory.vertical ? '' : 'v' }}responsive" 
+													alt="{{ articleCategory.name | raw }}" src="{{ asset(articleCategory.getImagePath()) }}">
+											{% endif %}
 										</div>
 										<div class="col-xs-12 rect-title {{ loop.index % 2 == 0 ? 'text-brand' : 'text-red' }}">
 											<h4 class="text-center">
@@ -197,8 +206,10 @@
 							{% for advert in featuredAds %}
 					    		<div class="item rect-3x1 {{ loop.index == 1 ? 'active' : '' }}">
 						    		<a href="{{ path('infoprodukt_advert_click', { id: advert.id }) }}">
-						    			<img class="div-center img-{{ advert.vertical ? '' : 'v' }}responsive" 
-						    				alt="{{ advert.name | raw }}" src="{{ asset(advert.getImagePath()) }}">
+						    			{% if advert.image %}
+							    			<img class="div-center img-{{ advert.vertical ? '' : 'v' }}responsive" 
+							    				alt="{{ advert.name | raw }}" src="{{ asset(advert.getImagePath()) }}">
+					    				{% endif %}
 						    		</a>
 							    </div>
 						    {% endfor %}
@@ -245,8 +256,10 @@
 					<div class="row">
 						<div class="col-sm-3">
 					  		<a href="{{ asset(entry.magazine.magazineFile) }}">
-					  			<img class="img-{{ entry.magazine.vertical ? '' : 'v' }}responsive" 
-							    				alt="{{ entry.magazine.name | raw }}" src="{{ asset(entry.magazine.getImagePath()) }}">
+					  			{% if entry.magazine.image %}
+					  				<img class="img-{{ entry.magazine.vertical ? '' : 'v' }}responsive" 
+					    				alt="{{ entry.magazine.name | raw }}" src="{{ asset(entry.magazine.getImagePath()) }}">
+			    				{% endif %}
 					  		</a>
 					  	</div>
 					  	<div class="col-sm-6 text-white">
@@ -347,8 +360,10 @@
 										{% for advert in sideAds %}
 								    		<div class="item rect-1x2 {{ loop.index == 1 ? 'active' : '' }}">
 									    		<a href="{{ path('infoprodukt_advert_click', { id: advert.id }) }}">
-									    			<img class="div-center img-{{ advert.vertical ? 'v' : '' }}responsive"
-														alt="{{ advert.name | raw }}" src="{{ asset(advert.getImagePath()) }}">
+									    			{% if advert.image %}
+										    			<img class="div-center img-{{ advert.vertical ? 'v' : '' }}responsive"
+															alt="{{ advert.name | raw }}" src="{{ asset(advert.getImagePath()) }}">
+													{% endif %}
 									    		</a>
 										    </div>
 									    {% endfor %}
@@ -364,9 +379,11 @@
 						{% block categoryHeader %}
 						<div class="col-xs-12 well">
 							<div class="col-sm-3">
-								<div class="rect">
-									<img class="div-center img-{{ entry.vertical ? 'v' : '' }}responsive" 
-										alt="{{ entry.name | raw }}" src="{{ asset(entry.getImagePath()) }}">
+								<div class="rect bkg-white">
+									{% if entry.image %}
+										<img class="div-center img-{{ entry.vertical ? 'v' : '' }}responsive" 
+											alt="{{ entry.name | raw }}" src="{{ asset(entry.getImagePath()) }}">
+									{% endif %}
 								</div>
 							</div>
 							
@@ -387,8 +404,10 @@
 										{% for advert in topAds %}
 								    		<div class="item rect-6x1 {{ loop.index == 1 ? 'active' : '' }}">
 									    		<a href="{{ path('infoprodukt_advert_click', { id: advert.id }) }}">
-									    			<img class="div-center img-{{ advert.vertical ? 'v' : '' }}responsive" 
-									    				alr="{{ advert.name | raw }}" src="{{ asset(advert.getImagePath()) }}">
+									    			{% if advert.image %}
+										    			<img class="div-center img-{{ advert.vertical ? 'v' : '' }}responsive" 
+										    				alr="{{ advert.name | raw }}" src="{{ asset(advert.getImagePath()) }}">
+								    				{% endif %}
 									    		</a>
 										    </div>
 									    {% endfor %}
@@ -426,8 +445,10 @@
 												
 												<div class="col-xs-12 col-sm-4 col-md-2 no-padding">
 													<div class="rect">
-														<img class="div-center img-{{ segment.vertical ? 'v' : '' }}responsive" 
-															alt="{{ segment.name | raw }}" src="{{ asset(segment.getImagePath()) }}">
+														{% if segment.image %}
+															<img class="div-center img-{{ segment.vertical ? 'v' : '' }}responsive" 
+																alt="{{ segment.name | raw }}" src="{{ asset(segment.getImagePath()) }}">
+														{% endif %}
 													</div>
 													
 													<div class="col-xs-12 rating-subtitle hidden-xs">
@@ -445,11 +466,21 @@
 													</div>
 												</div>
 												
-												{% for brand in attribute(brands, segment.id)|slice(0,5) %}
+												{% for brand in attribute(brands, segment.id) %}
+													{% if loop.index > 1 and loop.index % 2 == 1 %}
+														<div class="col-sm-4 col-md-2 no-padding hidden-xs hidden-md hidden-lg">
+														</div>
+													{% endif %}
+													{% if loop.index > 1 and loop.index % 5 == 1 %}
+														<div class="col-sm-4 col-md-2 no-padding hidden-xs hidden-sm">
+														</div>
+													{% endif %}
 													<div class="col-sm-4 col-md-2 no-padding">
 														<div class="rect bkg-white">
-															<img class="div-center img-{{ brand.vertical ? 'v' : '' }}responsive" 
-																alt="{{ brand.name }}" src="{{ asset(brand.getImagePath()) }}">
+															{% if brand.image %}
+																<img class="div-center img-{{ brand.vertical ? 'v' : '' }}responsive" 
+																	alt="{{ brand.name }}" src="{{ asset(brand.getImagePath()) }}">
+															{% endif %}
 														</div>
 														
 														<div class="col-xs-12 bkg-red rating-subtitle text-center text-white">
@@ -508,8 +539,10 @@
 													
 													<div class="col-xs-12 col-sm-4 col-md-2 no-padding">
 														<div class="rect">
-															<img class="div-center img-{{ segment.vertical ? 'v' : '' }}responsive" 
-																alt="{{ segment.name | raw }}" src="{{ asset(segment.getImagePath()) }}">
+															{% if segment.image %}
+																<img class="div-center img-{{ segment.vertical ? 'v' : '' }}responsive" 
+																	alt="{{ segment.name | raw }}" src="{{ asset(segment.getImagePath()) }}">
+															{% endif %}
 														</div>
 														
 														<div class="col-xs-12 rating-subtitle hidden-xs">
@@ -527,11 +560,21 @@
 														</div>
 													</div>
 													
-													{% for brand in attribute(attribute(subbrands, category.id), segment.id)|slice(0,5) %}
+													{% for brand in attribute(attribute(subbrands, category.id), segment.id) %}
+														{% if loop.index > 1 and loop.index % 2 == 1 %}
+															<div class="col-sm-4 col-md-2 no-padding hidden-xs hidden-md hidden-lg">
+															</div>
+														{% endif %}
+														{% if loop.index > 1 and loop.index % 5 == 1 %}
+															<div class="col-sm-4 col-md-2 no-padding hidden-xs hidden-sm">
+															</div>
+														{% endif %}
 														<div class="col-sm-4 col-md-2 no-padding">
 															<div class="rect bkg-white">
-																<img class="div-center img-{{ brand.vertical ? 'v' : '' }}responsive" 
-																	alt="{{ brand.name }}" src="{{ asset(brand.getImagePath()) }}">
+																{% if brand.image %}
+																	<img class="div-center img-{{ brand.vertical ? 'v' : '' }}responsive" 
+																		alt="{{ brand.name }}" src="{{ asset(brand.getImagePath()) }}">
+																{% endif %}
 															</div>
 															
 															<div class="col-xs-12 bkg-red rating-subtitle text-center text-white">
@@ -594,8 +637,10 @@
 											
 												<div class="col-xs-12 col-sm-4 col-md-2 no-padding">
 													<div class="rect">
-														<img class="div-center img-{{ segment.vertical ? 'v' : '' }}responsive" 
-															alt="{{ segment.name | raw }}" src="{{ asset(segment.getImagePath()) }}">
+														{% if segment.image %}
+															<img class="div-center img-{{ segment.vertical ? 'v' : '' }}responsive" 
+																alt="{{ segment.name | raw }}" src="{{ asset(segment.getImagePath()) }}">
+														{% endif %}
 													</div>
 													
 													<div class="col-xs-12 rating-subtitle hidden-xs">
@@ -614,11 +659,21 @@
 													</div>
 												</div>
 												
-												{% for product in attribute(products, segment.id)|slice(0,5) %}
+												{% for product in attribute(products, segment.id) %}
+													{% if loop.index > 1 and loop.index % 2 == 1 %}
+														<div class="col-sm-4 col-md-2 no-padding hidden-xs hidden-md hidden-lg">
+														</div>
+													{% endif %}
+													{% if loop.index > 1 and loop.index % 5 == 1 %}
+														<div class="col-sm-4 col-md-2 no-padding hidden-xs hidden-sm">
+														</div>
+													{% endif %}
 													<div class="col-sm-4 col-md-2 no-padding">
 														<div class="rect bkg-white">
-															<img class="div-center img-{{ product.vertical ? 'v' : '' }}responsive" 
-																alt="{{ product.name }}" src="{{ asset(product.getImagePath()) }}">
+															{% if product.image %}
+																<img class="div-center img-{{ product.vertical ? 'v' : '' }}responsive" 
+																	alt="{{ product.name }}" src="{{ asset(product.getImagePath()) }}">
+															{% endif %}
 														</div>
 														
 														<div class="col-xs-12 bkg-red rating-subtitle text-center text-white">
@@ -678,8 +733,10 @@
 												
 													<div class="col-xs-12 col-sm-4 col-md-2 no-padding">
 														<div class="rect">
-															<img class="div-center img-{{ segment.vertical ? 'v' : '' }}responsive" 
-																alt="{{ segment.name | raw }}" src="{{ asset(segment.getImagePath()) }}">
+															{% if segment.image %}
+																<img class="div-center img-{{ segment.vertical ? 'v' : '' }}responsive" 
+																	alt="{{ segment.name | raw }}" src="{{ asset(segment.getImagePath()) }}">
+															{% endif %}
 														</div>
 														
 														<div class="col-xs-12 rating-subtitle hidden-xs">
@@ -698,11 +755,21 @@
 														</div>
 													</div>
 													
-													{% for product in attribute(attribute(subproducts, category.id), segment.id)|slice(0,5) %}
+													{% for product in attribute(attribute(subproducts, category.id), segment.id) %}
+														{% if loop.index > 1 and loop.index % 2 == 1 %}
+															<div class="col-sm-4 col-md-2 no-padding hidden-xs hidden-md hidden-lg">
+															</div>
+														{% endif %}
+														{% if loop.index > 1 and loop.index % 5 == 1 %}
+															<div class="col-sm-4 col-md-2 no-padding hidden-xs hidden-sm">
+															</div>
+														{% endif %}
 														<div class="col-sm-4 col-md-2 no-padding">
 															<div class="rect bkg-white">
-																<img class="div-center img-{{ product.vertical ? 'v' : '' }}responsive" 
-																	alt="{{ product.name }}" src="{{ asset(product.getImagePath()) }}">
+																{% if product.image %}
+																	<img class="div-center img-{{ product.vertical ? 'v' : '' }}responsive" 
+																		alt="{{ product.name }}" src="{{ asset(product.getImagePath()) }}">
+																{% endif %}
 															</div>
 															
 															<div class="col-xs-12 bkg-red rating-subtitle text-center text-white">

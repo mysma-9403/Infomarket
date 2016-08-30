@@ -13,6 +13,7 @@ use AppBundle\Form\Filter\ArticleFilterType;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Entity\Brand;
 use AppBundle\Entity\Tag;
+use AppBundle\Entity\User;
 
 class ArticleController extends ImageEntityController {
 	
@@ -129,6 +130,7 @@ class ArticleController extends ImageEntityController {
 	protected function deleteMore($entry)
 	{
 		$em = $this->getDoctrine()->getManager();
+		
 		foreach ($entry->getArticleArticleCategoryAssignments() as $articleArticleCategoryAssignment) {
 			$em->remove($articleArticleCategoryAssignment);
 		}
@@ -221,12 +223,13 @@ class ArticleController extends ImageEntityController {
 	 * @see \AppBundle\Controller\Admin\Base\SimpleEntityController::createNewFilter()
 	 */
 	protected function createNewFilter() {
+		$userRepository = $this->getDoctrine()->getRepository(User::class);
 		$articleCategoryRepository = $this->getDoctrine()->getRepository(ArticleCategory::class);
 		$categoryRepository = $this->getDoctrine()->getRepository(Category::class);
 		$brandRepository = $this->getDoctrine()->getRepository(Brand::class);
 		$tagRepository = $this->getDoctrine()->getRepository(Tag::class);
 		
-		$filter = new ArticleFilter($articleCategoryRepository, $categoryRepository, $brandRepository, $tagRepository);
+		$filter = new ArticleFilter($userRepository, $articleCategoryRepository, $categoryRepository, $brandRepository, $tagRepository);
 		$filter->setOrderBy('e.createdAt DESC');
 		
 		return $filter;

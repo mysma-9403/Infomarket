@@ -4,14 +4,15 @@ namespace AppBundle\Entity\Filter\Base;
 
 use AppBundle\Entity\Filter\Base\BaseEntityFilter;
 use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Repository\UserRepository;
 
 class SimpleEntityFilter extends BaseEntityFilter {
 	
 	/**
 	 * 
 	 */
-	public function __construct() {
-		parent::__construct();
+	public function __construct(UserRepository $userRepository) {
+		parent::__construct($userRepository);
 		
 		$this->filterName = "simple_filter_";
 		

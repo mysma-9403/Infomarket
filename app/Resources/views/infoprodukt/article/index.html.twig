@@ -45,8 +45,10 @@
 						<div class="panel-body">
 							<div class="col-sm-3">
 								<div class="rect">
-									<img class="div-center img-{{ entry.vertical ? 'v' : '' }}responsive" 
-										alt="{{ entry.name | raw }}" src="{{ asset(entry.getImagePath()) }}">
+									{% if entry.image %}
+										<img class="div-center img-{{ entry.vertical ? 'v' : '' }}responsive" 
+											alt="{{ entry.name | raw }}" src="{{ asset(entry.getImagePath()) }}">
+									{% endif %}
 								</div>
 							</div>
 							<div class="col-sm-9">

@@ -10,6 +10,10 @@ class User extends BaseUser
 	const ROLE_PUBLISHER = 'ROLE_PUBLISHER';
 	const ROLE_ADMIN = 'ROLE_ADMIN';
     
+	public function __toString() {
+		return $this->getDisplayName();
+	}
+	
 	/**
 	 *
 	 * {@inheritDoc}

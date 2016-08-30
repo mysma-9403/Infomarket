@@ -16,6 +16,7 @@ use AppBundle\Form\Filter\CategoryFilterType;
 use AppBundle\Form\Filter\ProductFilterType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Entity\User;
 
 class SiteController extends SimpleEntityController
 {
@@ -183,11 +184,12 @@ class SiteController extends SimpleEntityController
 	
 	protected function getEntityFilter(Request $request)
 	{
+		$userRepository = $this->getDoctrine()->getRepository(User::class);
 		$categoryRepository = $this->getDoctrine()->getRepository(Category::class);
 		$brandRepository = $this->getDoctrine()->getRepository(Brand::class);
 		$segmentRepository = $this->getDoctrine()->getRepository(Segment::class);
 		
-		$filter = new ProductFilter($categoryRepository, $brandRepository, $segmentRepository);
+		$filter = new ProductFilter($userRepository, $categoryRepository, $brandRepository, $segmentRepository);
 		$filter->setPublished(true);
 		 
 		$category = $this->getParamByName($request, Category::class, null);

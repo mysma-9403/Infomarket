@@ -7,6 +7,7 @@ use AppBundle\Entity\Filter\Base\ImageEntityFilter;
 use AppBundle\Repository\CategoryRepository;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Entity\BranchCategoryAssignment;
+use AppBundle\Repository\UserRepository;
 
 class BranchFilter extends ImageEntityFilter {
 	
@@ -14,8 +15,8 @@ class BranchFilter extends ImageEntityFilter {
 	 *
 	 * @param CategoryRepository $categoryRepository
 	 */
-	public function __construct(CategoryRepository $categoryRepository) {
-		parent::__construct();
+	public function __construct(UserRepository $userRepository, CategoryRepository $categoryRepository) {
+		parent::__construct($userRepository);
 		
 		$this->categoryRepository = $categoryRepository;
 		

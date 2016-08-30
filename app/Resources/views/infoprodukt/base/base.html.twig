@@ -60,8 +60,10 @@
 							{% for advert in sideAds %}
 					    		<div class="item rect-1x2 {{ loop.index == 1 ? 'active' : '' }}">
 						    		<a href="{{ path('infoprodukt_advert_click', { id: advert.id }) }}">
-						    			<img class="div-center img-{{ advert.vertical ? 'v' : '' }}responsive" 
-											alt="{{ advert.name | raw }}" src="{{ asset(advert.getImagePath()) }}">
+						    			{% if advert.image %}
+							    			<img class="div-center img-{{ advert.vertical ? 'v' : '' }}responsive" 
+												alt="{{ advert.name | raw }}" src="{{ asset(advert.getImagePath()) }}">
+										{% endif %}
 						    		</a>
 							    </div>
 						    {% endfor %}
@@ -87,8 +89,10 @@
 							{% for advert in topAds %}
 					    		<div class="item rect-6x1 {{ loop.index == 1 ? 'active' : '' }}">
 						    		<a href="{{ path('infoprodukt_advert_click', { id: advert.id }) }}">
-						    			<img class="div-center img-{{ advert.vertical ? 'v' : '' }}responsive" 
-											alt="{{ advert.name | raw }}" src="{{ asset(advert.getImagePath()) }}">
+						    			{% if advert.image %}
+							    			<img class="div-center img-{{ advert.vertical ? 'v' : '' }}responsive" 
+												alt="{{ advert.name | raw }}" src="{{ asset(advert.getImagePath()) }}">
+										{% endif %}
 						    		</a>
 							    </div>
 						    {% endfor %}

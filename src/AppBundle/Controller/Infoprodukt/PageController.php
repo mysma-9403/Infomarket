@@ -7,6 +7,7 @@ use AppBundle\Entity\Filter\PageFilter;
 use AppBundle\Entity\Page;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Entity\User;
 
 class PageController extends SimpleEntityController
 {   
@@ -41,7 +42,8 @@ class PageController extends SimpleEntityController
 
     protected function createNewFilter()	
     {
-    	return new PageFilter();
+    	$userRepository = $this->getDoctrine()->getRepository(User::class);
+    	return new PageFilter($userRepository);
     }
     
     /**

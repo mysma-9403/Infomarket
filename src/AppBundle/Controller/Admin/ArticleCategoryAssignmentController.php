@@ -10,6 +10,7 @@ use AppBundle\Form\ArticleCategoryAssignmentType;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Entity\Filter\ArticleCategoryAssignmentFilter;
 use AppBundle\Form\Filter\ArticleCategoryAssignmentFilterType;
+use AppBundle\Entity\User;
 
 class ArticleCategoryAssignmentController extends AdminEntityController {
 	
@@ -129,10 +130,11 @@ class ArticleCategoryAssignmentController extends AdminEntityController {
 	 * @see \AppBundle\Controller\Admin\Base\AdminEntityController::createNewFilter()
 	 */
 	protected function createNewFilter() {
+		$userRepository = $this->getDoctrine()->getRepository(User::class);
 		$articleRepository = $this->getDoctrine()->getRepository(Article::class);
 		$categoryRepository = $this->getDoctrine()->getRepository(Category::class);
 		
-		return new ArticleCategoryAssignmentFilter($articleRepository, $categoryRepository);
+		return new ArticleCategoryAssignmentFilter($userRepository, $articleRepository, $categoryRepository);
 	}
 	
 	/**

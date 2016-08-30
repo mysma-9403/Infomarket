@@ -9,6 +9,7 @@ use AppBundle\Entity\Filter\MagazineFilter;
 use AppBundle\Form\MagazineType;
 use AppBundle\Form\Filter\MagazineFilterType;
 use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Entity\User;
 
 class MagazineController extends ImageEntityController {
 	
@@ -127,7 +128,8 @@ class MagazineController extends ImageEntityController {
 	 * @see \AppBundle\Controller\Admin\Base\SimpleEntityController::createNewFilter()
 	 */
 	protected function createNewFilter() {
-		return new MagazineFilter();
+		$userRepository = $this->getDoctrine()->getRepository(User::class);
+		return new MagazineFilter($userRepository);
 	}
 	
 	

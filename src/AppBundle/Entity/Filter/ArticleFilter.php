@@ -13,6 +13,7 @@ use AppBundle\Repository\CategoryRepository;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Repository\TagRepository;
 use AppBundle\Entity\ArticleTagAssignment;
+use AppBundle\Repository\UserRepository;
 
 class ArticleFilter extends SimpleEntityFilter {
 	
@@ -41,11 +42,14 @@ class ArticleFilter extends SimpleEntityFilter {
 	 * @param ArticleCategoryRepository $articleCategoryRepository
 	 * @param CategoryRepository $categoryRepository
 	 */
-	public function __construct(ArticleCategoryRepository $articleCategoryRepository, 
-								CategoryRepository $categoryRepository, 
-								BrandRepository $brandRepository, 
-								TagRepository $tagRepository) {
-		parent::__construct();
+	public function __construct(
+			UserRepository $userRepository,
+			ArticleCategoryRepository $articleCategoryRepository, 
+			CategoryRepository $categoryRepository, 
+			BrandRepository $brandRepository, 
+			TagRepository $tagRepository) {
+		
+		parent::__construct($userRepository);
 		
 		$this->articleCategoryRepository = $articleCategoryRepository;
 		$this->categoryRepository = $categoryRepository;

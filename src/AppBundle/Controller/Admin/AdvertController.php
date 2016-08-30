@@ -10,6 +10,7 @@ use AppBundle\Form\AdvertType;
 use AppBundle\Form\Filter\AdvertFilterType;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Entity\Category;
+use AppBundle\Entity\User;
 
 class AdvertController extends ImageEntityController {
 	
@@ -85,6 +86,27 @@ class AdvertController extends ImageEntityController {
 	}
 	
 	//------------------------------------------------------------------------
+	// Internal logic
+	//------------------------------------------------------------------------
+	
+	/**
+	 *
+	 * {@inheritDoc}
+	 * @see \AppBundle\Controller\Admin\Base\AdminEntityController::deleteMore()
+	 */
+	protected function deleteMore($entry)
+	{
+		$em = $this->getDoctrine()->getManager();
+		
+		foreach ($entry->getAdvertCategoryAssignments() as $advertCategoryAssignment) {
+			$em->remove($advertCategoryAssignment);
+		}
+		$em->flush();
+		
+		return array();
+	}
+	
+	//------------------------------------------------------------------------
 	// Entity creators
 	//------------------------------------------------------------------------
 	
@@ -128,9 +150,10 @@ class AdvertController extends ImageEntityController {
 	 * @see \AppBundle\Controller\Admin\Base\SimpleEntityController::createNewFilter()
 	 */
 	protected function createNewFilter() {
+		$userRepository = $this->getDoctrine()->getRepository(User::class);
 		$categoryRepository = $this->getDoctrine()->getRepository(Category::class);
 		
-		$filter = new AdvertFilter($categoryRepository);
+		$filter = new AdvertFilter($userRepository, $categoryRepository);
 		$filter->setOrderBy('e.createdAt DESC');
 		
 		return $filter;

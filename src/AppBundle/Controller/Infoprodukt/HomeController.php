@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Entity\Filter\MagazineFilter;
 use AppBundle\Entity\Filter\Base\SimpleEntityFilter;
 use AppBundle\Entity\Magazine;
+use AppBundle\Entity\User;
 
 class HomeController extends SimpleEntityController
 {
@@ -58,10 +59,11 @@ class HomeController extends SimpleEntityController
 	
 	protected function getEntityFilter(Request $request)
 	{
+		$userRepository = $this->getDoctrine()->getRepository(User::class);
 		$branchRepository = $this->getDoctrine()->getRepository(Branch::class);
 		$categoryRepository = $this->getDoctrine()->getRepository(Category::class);
 		
-		$filter = new CategoryFilter($branchRepository, $categoryRepository);
+		$filter = new CategoryFilter($userRepository, $branchRepository, $categoryRepository);
 		$filter->setPublished(true);
 		
 		$category = $this->getParamById($request, Category::class, null);

@@ -10,6 +10,7 @@ use AppBundle\Entity\Segment;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Entity\Brand;
+use AppBundle\Entity\User;
 
 class ProductController extends SimpleEntityController
 {   
@@ -55,10 +56,11 @@ class ProductController extends SimpleEntityController
     }
     
     protected function createNewFilter() {
+    	$userRepository = $this->getDoctrine()->getRepository(User::class);
     	$categoryRepository = $this->getDoctrine()->getRepository(Category::class);
     	$segmentRepository = $this->getDoctrine()->getRepository(Segment::class);
     	$brandRepository = $this->getDoctrine()->getRepository(Brand::class);
     
-    	return new ProductFilter($categoryRepository, $brandRepository, $segmentRepository);
+    	return new ProductFilter($userRepository, $categoryRepository, $brandRepository, $segmentRepository);
     }
 }

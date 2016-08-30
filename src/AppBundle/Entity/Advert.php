@@ -21,6 +21,7 @@ class Advert extends ImageEntity
 	{
 		return '../web/uploads/adverts/' . $this->createdAt->format('Y/m/');
 	}
+	
     /**
      * @var \DateTime
      */

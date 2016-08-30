@@ -18,6 +18,7 @@ use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Entity\Filter\BranchFilter;
 use AppBundle\Entity\Filter\AdvertFilter;
 use AppBundle\Entity\Advert;
+use AppBundle\Entity\User;
 
 abstract class InfoproduktEntityController extends BaseEntityController
 {
@@ -30,7 +31,8 @@ abstract class InfoproduktEntityController extends BaseEntityController
 	{
 		$params = $this->getIndexParams($request, $page);
 		
-		$searchFilter = new SimpleEntityFilter();
+		$userRepository = $this->getDoctrine()->getRepository(User::class);
+		$searchFilter = new SimpleEntityFilter($userRepository);
 		$searchFilter->initValues($request);
 	
 		$searchFilterForm = $this->createForm(SimpleEntityFilterType::class, $searchFilter);
@@ -51,8 +53,8 @@ abstract class InfoproduktEntityController extends BaseEntityController
 		$params = $this->getShowParams($request, $id);
 	
 	
-	
-		$searchFilter = new SimpleEntityFilter();
+		$userRepository = $this->getDoctrine()->getRepository(User::class);
+		$searchFilter = new SimpleEntityFilter($userRepository);
 		$searchFilter->initValues($request);
 	
 		$searchFilterForm = $this->createForm(SimpleEntityFilterType::class, $searchFilter);
@@ -80,17 +82,18 @@ abstract class InfoproduktEntityController extends BaseEntityController
     	
     	$params = array_merge($params, $this->getAdvertParams($request));
     	
+    	$userRepository = $this->getDoctrine()->getRepository(User::class);
     	$branchRepository = $this->getDoctrine()->getRepository(Branch::class);
     	$categoryRepository = $this->getDoctrine()->getRepository(Category::class);
     	
-    	$branchFilter = new BranchFilter($categoryRepository);
+    	$branchFilter = new BranchFilter($userRepository, $categoryRepository);
     	$branchFilter->setPublished(SimpleEntityFilter::TRUE_VALUES);
     	$branchFilter->setOrderBy('e.orderNumber ASC, e.name ASC');
     	
     	$branches = $this->getParamList(Branch::class, $branchFilter);
     	$params['menuBranches'] = $branches;
     	
-    	$categoryFilter = new CategoryFilter($branchRepository, $categoryRepository);
+    	$categoryFilter = new CategoryFilter($userRepository, $branchRepository, $categoryRepository);
     	$categoryFilter->setPublished(SimpleEntityFilter::TRUE_VALUES);
     	$categoryFilter->setFeatured(SimpleEntityFilter::TRUE_VALUES);
     	$categoryFilter->setPreleaf(SimpleEntityFilter::TRUE_VALUES);
@@ -99,7 +102,7 @@ abstract class InfoproduktEntityController extends BaseEntityController
     	$categories = $this->getParamList(Category::class, $categoryFilter);
     	$params['menuCategories'] = $categories;
     	
-    	$pageFilter = new PageFilter();
+    	$pageFilter = new PageFilter($userRepository);
     	$pageFilter->setPublished(SimpleEntityFilter::TRUE_VALUES);
     	$pageFilter->setFeatured(SimpleEntityFilter::TRUE_VALUES);
     	$pageFilter->setOrderBy('e.orderNumber ASC');
@@ -107,7 +110,7 @@ abstract class InfoproduktEntityController extends BaseEntityController
     	$pages = $this->getParamList(Page::class, $pageFilter);
     	$params['menuPages'] = $pages;
     	
-    	$linkFilter = new LinkFilter();
+    	$linkFilter = new LinkFilter($userRepository);
     	$linkFilter->setPublished(BaseEntityFilter::TRUE_VALUES);
     	$linkFilter->setFeatured(BaseEntityFilter::TRUE_VALUES);
     	$linkFilter->setTypes([Link::FOOTER_LINK]);
@@ -144,10 +147,12 @@ abstract class InfoproduktEntityController extends BaseEntityController
     {
     	$params = array();
     	
+    	$userRepository = $this->getDoctrine()->getRepository(User::class);
     	$categoryRepository = $this->getDoctrine()->getRepository(Category::class);
     	
-    	$advertFilter = new AdvertFilter($categoryRepository);
+    	$advertFilter = new AdvertFilter($userRepository, $categoryRepository);
 	    $advertFilter->setPublished(BaseEntityFilter::TRUE_VALUES);
+	    $advertFilter->setActive(BaseEntityFilter::TRUE_VALUES);
 	    
 	    $category = $this->getParamById($request, Category::class, null);
 	    if ($category) {

@@ -10,6 +10,7 @@ use AppBundle\Repository\ArticleCategoryAssignmentRepository;
 use AppBundle\Repository\ArticleRepository;
 use AppBundle\Repository\CategoryRepository;
 use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Repository\UserRepository;
 
 class ArticleCategoryAssignmentFilter extends SimpleEntityFilter {
 	
@@ -18,8 +19,12 @@ class ArticleCategoryAssignmentFilter extends SimpleEntityFilter {
 	 * @param ArticleCategoryAssignmentRepository $articleRepository
 	 * @param CategoryRepository $categoryRepository
 	 */
-	public function __construct(ArticleRepository $articleRepository, CategoryRepository $categoryRepository) {
-		parent::__construct();
+	public function __construct(
+			UserRepository $userRepository, 
+			ArticleRepository $articleRepository, 
+			CategoryRepository $categoryRepository) {
+		
+		parent::__construct($userRepository);
 		
 		$this->articleRepository = $articleRepository;
 		$this->categoryRepository = $categoryRepository;

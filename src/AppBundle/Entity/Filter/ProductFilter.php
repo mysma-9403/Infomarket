@@ -10,6 +10,7 @@ use AppBundle\Repository\CategoryRepository;
 use AppBundle\Repository\SegmentRepository;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Entity\Brand;
+use AppBundle\Repository\UserRepository;
 
 class ProductFilter extends SimpleEntityFilter {
 
@@ -19,16 +20,20 @@ class ProductFilter extends SimpleEntityFilter {
 	 * @param BrandRepository $brandRepository
 	 * @param SegmentRepository $segmentRepository
 	 */
-	public function __construct(CategoryRepository $categoryRepository, 
-								BrandRepository $brandRepository, 
-								SegmentRepository $segmentRepository) {
-		parent::__construct();
+	public function __construct(
+			UserRepository $userRepository, 
+			CategoryRepository $categoryRepository,
+			BrandRepository $brandRepository,
+			SegmentRepository $segmentRepository) {
+		parent::__construct($userRepository);
 									
 		$this->categoryRepository = $categoryRepository;
 		$this->brandRepository = $brandRepository;
 		$this->segmentRepository = $segmentRepository;
 		
 		$this->filterName = 'product_filter_';
+		
+		$this->orderBy = 'b.name ASC, e.name ASC';
 	}
 	
 	/**

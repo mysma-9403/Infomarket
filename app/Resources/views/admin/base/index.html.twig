@@ -59,6 +59,19 @@
     </li>
     
     
+    <li class="col-xs-12 col-sm-6 col-md-4 col-lg-2">
+		{{ form_widget(filter.publishedBy, { 'label': 'label.publishedBy' }) }}
+	</li>
+	
+	<li class="col-xs-12 col-sm-6 col-md-4 col-lg-2">
+		{{ form_widget(filter.updatedBy, { 'label': 'label.updatedBy' }) }}
+	</li>
+	
+	<li class="col-xs-12 col-sm-6 col-md-4 col-lg-2">
+		{{ form_widget(filter.createdBy, { 'label': 'label.createdBy' }) }}
+	</li>
+    
+    
     <script type="text/javascript">
 		$(function () {
 			$('div.date').datetimepicker();

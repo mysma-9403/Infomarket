@@ -11,9 +11,11 @@
 	{% endif %}
 	
 	<a class="text-white" href="{{ path('infoprodukt_' ~ entryPath ~ '_show', { 'id': entry.id }) }}">
-		<div class="rect">
-			<img class="div-center img-{{ entry.vertical ? '' : 'v' }}responsive" 
-				alt="{{ entry.name | raw }}" src="{{ asset(entry.getImagePath()) }}">
+		<div class="rect bkg-white">
+			{% if entry.image %}
+				<img class="div-center img-{{ entry.vertical ? '' : 'v' }}responsive" 
+					alt="{{ entry.name | raw }}" src="{{ asset(entry.getImagePath()) }}">
+			{% endif %}
 		</div>
 		<div class="col-xs-12 rect-title {{ alternate and loop.index % 2 ? textSecondary : textPrimary }}">
 			<h5>{{ entry.getHtmlName() | raw }}</h5>

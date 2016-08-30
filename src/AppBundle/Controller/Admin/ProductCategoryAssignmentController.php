@@ -11,6 +11,7 @@ use AppBundle\Form\ProductCategoryAssignmentType;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Entity\Filter\ProductCategoryAssignmentFilter;
 use AppBundle\Form\Filter\ProductCategoryAssignmentFilterType;
+use AppBundle\Entity\User;
 
 class ProductCategoryAssignmentController extends AdminEntityController {
 	
@@ -140,11 +141,12 @@ class ProductCategoryAssignmentController extends AdminEntityController {
 	 * @see \AppBundle\Controller\Admin\Base\AdminEntityController::createNewFilter()
 	 */
 	protected function createNewFilter() {
+		$userRepository = $this->getDoctrine()->getRepository(User::class);
 		$productRepository = $this->getDoctrine()->getRepository(Product::class);
 		$categoryRepository = $this->getDoctrine()->getRepository(Category::class);
 		$segmentRepository = $this->getDoctrine()->getRepository(Segment::class);
 	
-		return new ProductCategoryAssignmentFilter($productRepository, $categoryRepository, $segmentRepository);
+		return new ProductCategoryAssignmentFilter($userRepository, $productRepository, $categoryRepository, $segmentRepository);
 	}
 	
 	/**

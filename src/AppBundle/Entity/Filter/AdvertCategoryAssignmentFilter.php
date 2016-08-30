@@ -10,6 +10,7 @@ use AppBundle\Repository\AdvertCategoryAssignmentRepository;
 use AppBundle\Repository\AdvertRepository;
 use AppBundle\Repository\CategoryRepository;
 use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Repository\UserRepository;
 
 class AdvertCategoryAssignmentFilter extends SimpleEntityFilter {
 	
@@ -18,8 +19,8 @@ class AdvertCategoryAssignmentFilter extends SimpleEntityFilter {
 	 * @param AdvertCategoryAssignmentRepository $advertRepository
 	 * @param CategoryRepository $categoryRepository
 	 */
-	public function __construct(AdvertRepository $advertRepository, CategoryRepository $categoryRepository) {
-		parent::__construct();
+	public function __construct(UserRepository $userRepository, AdvertRepository $advertRepository, CategoryRepository $categoryRepository) {
+		parent::__construct($userRepository);
 		
 		$this->advertRepository = $advertRepository;
 		$this->categoryRepository = $categoryRepository;

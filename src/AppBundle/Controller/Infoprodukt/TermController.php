@@ -8,6 +8,7 @@ use AppBundle\Entity\Filter\TermFilter;
 use AppBundle\Entity\Term;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Entity\User;
 
 class TermController extends SimpleEntityController
 {   
@@ -54,8 +55,9 @@ class TermController extends SimpleEntityController
     
     protected function createNewFilter()
     {
+    	$userRepository = $this->getDoctrine()->getRepository(User::class);
     	$categoryRepository = $this->getDoctrine()->getRepository(Category::class);
     	
-    	return new TermFilter($categoryRepository);
+    	return new TermFilter($userRepository, $categoryRepository);
     }
 }

@@ -10,6 +10,7 @@ use AppBundle\Entity\Filter\AdvertCategoryAssignmentFilter;
 use AppBundle\Form\AdvertCategoryAssignmentType;
 use AppBundle\Form\Filter\AdvertCategoryAssignmentFilterType;
 use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Entity\User;
 
 class AdvertCategoryAssignmentController extends AdminEntityController {
 	
@@ -129,10 +130,11 @@ class AdvertCategoryAssignmentController extends AdminEntityController {
 	 * @see \AppBundle\Controller\Admin\Base\AdminEntityController::createNewFilter()
 	 */
 	protected function createNewFilter() {
+		$userRepository = $this->getDoctrine()->getRepository(User::class);
 		$advertRepository = $this->getDoctrine()->getRepository(Advert::class);
 		$categoryRepository = $this->getDoctrine()->getRepository(Category::class);
 		
-		return new AdvertCategoryAssignmentFilter($advertRepository, $categoryRepository);
+		return new AdvertCategoryAssignmentFilter($userRepository, $advertRepository, $categoryRepository);
 	}
 	
 	/**

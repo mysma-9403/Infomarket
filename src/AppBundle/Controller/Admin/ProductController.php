@@ -12,6 +12,7 @@ use AppBundle\Form\Filter\ProductFilterType;
 use AppBundle\Form\ProductType;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Entity\Segment;
+use AppBundle\Entity\User;
 
 class ProductController extends ImageEntityController {
 	
@@ -140,11 +141,12 @@ class ProductController extends ImageEntityController {
 	 * @see \AppBundle\Controller\Admin\Base\SimpleEntityController::createNewFilter()
 	 */
 	protected function createNewFilter() {
+		$userRepository = $this->getDoctrine()->getRepository(User::class);
 		$categoryRepository = $this->getDoctrine()->getRepository(Category::class);
 		$brandRepository = $this->getDoctrine()->getRepository(Brand::class);
 		$segmentRepository = $this->getDoctrine()->getRepository(Segment::class);
 		
-		$filter = new ProductFilter($categoryRepository, $brandRepository, $segmentRepository);
+		$filter = new ProductFilter($userRepository, $categoryRepository, $brandRepository, $segmentRepository);
 		$filter->setOrderBy('b.name ASC, e.name ASC');
 		
 		return $filter;

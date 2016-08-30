@@ -10,6 +10,7 @@ use AppBundle\Form\BranchCategoryAssignmentType;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Entity\Filter\BranchCategoryAssignmentFilter;
 use AppBundle\Form\Filter\BranchCategoryAssignmentFilterType;
+use AppBundle\Entity\User;
 
 class BranchCategoryAssignmentController extends AdminEntityController {
 	
@@ -129,10 +130,11 @@ class BranchCategoryAssignmentController extends AdminEntityController {
 	 * @see \AppBundle\Controller\Admin\Base\AdminEntityController::createNewFilter()
 	 */
 	protected function createNewFilter() {
+		$userRepository = $this->getDoctrine()->getRepository(User::class);
 		$branchRepository = $this->getDoctrine()->getRepository(Branch::class);
 		$categoryRepository = $this->getDoctrine()->getRepository(Category::class);
 	
-		return new BranchCategoryAssignmentFilter($branchRepository, $categoryRepository);
+		return new BranchCategoryAssignmentFilter($userRepository, $branchRepository, $categoryRepository);
 	}
 	
 	/**

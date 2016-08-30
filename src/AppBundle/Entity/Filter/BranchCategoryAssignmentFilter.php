@@ -9,6 +9,7 @@ use AppBundle\Entity\Category;
 use AppBundle\Repository\BranchRepository;
 use AppBundle\Repository\CategoryRepository;
 use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Repository\UserRepository;
 
 class BranchCategoryAssignmentFilter extends SimpleEntityFilter {
 	
@@ -17,8 +18,12 @@ class BranchCategoryAssignmentFilter extends SimpleEntityFilter {
 	 * @param BranchRepository $branchRepository
 	 * @param CategoryRepository $categoryRepository
 	 */
-	public function __construct(BranchRepository $branchRepository, CategoryRepository $categoryRepository) {
-		parent::__construct();
+	public function __construct(
+			UserRepository $userRepository, 
+			BranchRepository $branchRepository, 
+			CategoryRepository $categoryRepository) {
+		
+		parent::__construct($userRepository);
 		
 		$this->branchRepository = $branchRepository;
 		$this->categoryRepository = $categoryRepository;

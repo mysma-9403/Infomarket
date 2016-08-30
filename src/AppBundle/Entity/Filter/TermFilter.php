@@ -7,6 +7,7 @@ use AppBundle;
 use AppBundle\Entity\TermCategoryAssignment;
 use AppBundle\Repository\CategoryRepository;
 use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Repository\UserRepository;
 
 class TermFilter extends SimpleEntityFilter {
 
@@ -14,8 +15,8 @@ class TermFilter extends SimpleEntityFilter {
 	 *
 	 * @param CategoryRepository $categoryRepository
 	 */
-	public function __construct(CategoryRepository $categoryRepository) {
-		parent::__construct();
+	public function __construct(UserRepository $userRepository, CategoryRepository $categoryRepository) {
+		parent::__construct($userRepository);
 		
 		$this->categoryRepository = $categoryRepository;
 		

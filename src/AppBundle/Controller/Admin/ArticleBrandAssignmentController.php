@@ -10,6 +10,7 @@ use AppBundle\Form\ArticleBrandAssignmentType;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Entity\Filter\ArticleBrandAssignmentFilter;
 use AppBundle\Form\Filter\ArticleBrandAssignmentFilterType;
+use AppBundle\Entity\User;
 
 class ArticleBrandAssignmentController extends AdminEntityController {
 	
@@ -129,10 +130,11 @@ class ArticleBrandAssignmentController extends AdminEntityController {
 	 * @see \AppBundle\Controller\Admin\Base\AdminEntityController::createNewFilter()
 	 */
 	protected function createNewFilter() {
+		$userRepository = $this->getDoctrine()->getRepository(User::class);
 		$articleRepository = $this->getDoctrine()->getRepository(Article::class);
 		$brandRepository = $this->getDoctrine()->getRepository(Brand::class);
 		
-		return new ArticleBrandAssignmentFilter($articleRepository, $brandRepository);
+		return new ArticleBrandAssignmentFilter($userRepository, $articleRepository, $brandRepository);
 	}
 	
 	/**

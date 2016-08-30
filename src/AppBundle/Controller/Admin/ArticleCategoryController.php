@@ -9,6 +9,7 @@ use AppBundle\Entity\Filter\ArticleCategoryFilter;
 use AppBundle\Form\ArticleCategoryType;
 use AppBundle\Form\Filter\ArticleCategoryFilterType;
 use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Entity\User;
 
 class ArticleCategoryController extends ImageEntityController {
 	
@@ -115,7 +116,8 @@ class ArticleCategoryController extends ImageEntityController {
 	 * @see \AppBundle\Controller\Admin\Base\SimpleEntityController::createNewFilter()
 	 */
 	protected function createNewFilter() {
-		return new ArticleCategoryFilter();
+		$userRepository = $this->getDoctrine()->getRepository(User::class);
+		return new ArticleCategoryFilter($userRepository);
 	}
 	
 	

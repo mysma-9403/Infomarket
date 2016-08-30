@@ -7,6 +7,7 @@ use AppBundle\Entity\Filter\MagazineFilter;
 use AppBundle\Entity\Magazine;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Entity\User;
 
 class MagazineController extends SimpleEntityController
 {   
@@ -31,6 +32,7 @@ class MagazineController extends SimpleEntityController
     
     protected function createNewFilter()	
     {
-    	return new MagazineFilter();
+    	$userRepository = $this->getDoctrine()->getRepository(User::class);
+    	return new MagazineFilter($userRepository);
     }
 }

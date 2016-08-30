@@ -27,6 +27,14 @@ class Image extends Audit {
 		
 	}
 	
+	public function removeImage() {
+		$this->file = null;
+		$this->image = null;
+		$this->mimeType = null;
+		$this->size = 0;
+		$this->vertical = false;
+	}
+	
 	/**
 	 * @var UploadedFile
 	 */

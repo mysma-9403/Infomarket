@@ -10,6 +10,7 @@ use AppBundle\Entity\Tag;
 use AppBundle\Form\ArticleTagAssignmentType;
 use AppBundle\Form\Filter\ArticleTagAssignmentFilterType;
 use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Entity\User;
 
 class ArticleTagAssignmentController extends AdminEntityController {
 	
@@ -161,10 +162,11 @@ class ArticleTagAssignmentController extends AdminEntityController {
 	 * @see \AppBundle\Controller\Admin\Base\AdminEntityController::createNewFilter()
 	 */
 	protected function createNewFilter() {
+		$userRepository = $this->getDoctrine()->getRepository(User::class);
 		$articleRepository = $this->getDoctrine()->getRepository(Article::class);
 		$brandRepository = $this->getDoctrine()->getRepository(Tag::class);
 		
-		return new ArticleTagAssignmentFilter($articleRepository, $brandRepository);
+		return new ArticleTagAssignmentFilter($userRepository, $articleRepository, $brandRepository);
 	}
 	
 	/**

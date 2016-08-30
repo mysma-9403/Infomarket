@@ -3,9 +3,9 @@
 <div class="row">
 	<div class="col-xs-12">
 		<h2 class="text-red">
-		{% for articleBrandAssignment in entry.articleBrandAssignments %}
-			<a href="{{ path(basePath ~ 'brand_show', { id: articleBrandAssignment.brand.id }) }}">{{ articleBrandAssignment.brand.name | raw }}</a> 
-		{% endfor %}
+			{% for articleBrandAssignment in entry.articleBrandAssignments %}
+				<a href="{{ path(basePath ~ 'brand_show', { id: articleBrandAssignment.brand.id }) }}">{{ articleBrandAssignment.brand.name | raw }}</a> 
+			{% endfor %}
 		</h2>
 		<h3>
 			<span class="text-brand">{{ entry.name | raw }}</span>
@@ -16,119 +16,132 @@
 {% endblock %}
 
 {% block content %}
-<div class="col-xs-{{ entry.displaySided ? 6 : 12 }}"> 
-	{% block logo %}
-	<div class="col-sm-{{ entry.displaySided ? 12 : 4 }}">
+<div class="row">
+	<div class="col-xs-{{ entry.displaySided ? 6 : 12 }}"> 
 		
-		<a href="#" class="pop">
-			<div class="rect">
-				<img class="div-center img-{{ entry.vertical ? 'v' : '' }}responsive" 
-					alt="{{ entry.name | raw }}" src="{{ asset(entry.getImagePath()) }}">
-			</div>
-		</a>
-		
-		<div class="modal fade" id="imagemodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-			<div class="modal-dialog">
-				<div class="modal-content">              
-					<div class="modal-body">
-						<button type="button" class="close" data-dismiss="modal">
-							<span aria-hidden="true">&times;</span>
-							<span class="sr-only">Close</span>
-						</button>
-						<img src="" class="imagepreview" style="width: 100%;" >
+		<div class="row">
+			{% block logo %}
+				<div class="col-sm-{{ entry.image and entry.displaySided == false ? 4 : 12 }}">
+					{% if entry.image %}
+						<a href="#" class="pop">
+							<div class="rect">
+								<img class="div-center img-{{ entry.vertical ? 'v' : '' }}responsive" 
+									alt="{{ entry.name | raw }}" src="{{ asset(entry.getImagePath()) }}">
+							</div>
+						</a>
+					
+						<div class="modal fade" id="imagemodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+							<div class="modal-dialog">
+								<div class="modal-content">              
+									<div class="modal-body">
+										<button type="button" class="close" data-dismiss="modal">
+											<span aria-hidden="true">&times;</span>
+											<span class="sr-only">Close</span>
+										</button>
+										<img src="" class="imagepreview" style="width: 100%;" >
+									</div>
+								</div>
+							</div>
+						</div>
+					{% endif %}
+				</div>
+			{% endblock %}
+			
+			{% block summary %}
+			<div class="col-sm-{{ entry.image and entry.displaySided == false ? 8 : 12 }}">
+				{% if entry.intro %}
+				<div class="row">
+					<div class="col-xs-12">
+						<p><strong>{{ entry.intro | raw }}</strong></p>
+					</div>
+				</div>
+				{% endif %}
+				
+				<div class="row">
+					<div class="col-xs-6 text-muted">
+						{% if entry.date %}
+							<span class="fa fa-calendar"></span> {{ entry.date | date('Y-m-d') }}
+						{% endif %}
+					</div>
+					
+					<div class="col-xs-6 text-muted">
+						{% if entry.author %}
+							<span class="fa fa-user"></span> {{ entry.author.forename }} {{ entry.author.surname }}
+						{% endif %}
+					</div>
+				</div>
+				
+				<div class="row">
+				<div class="col-xs-12 text-muted">
+						{% if entry.articleTagAssignments | length > 0 %}
+							<span class="fa fa-tags"></span> 
+							{% spaceless %}
+							{% for articleTagAssignment in entry.articleTagAssignments %}
+								{{- loop.index > 1 ? ', ' : '' -}}
+								<a href="{{ path(basePath ~ mainPath, { category: category ? category.id : null, article_filter_tags: articleTagAssignment.tag.id }) }}">
+									{{- articleTagAssignment.tag.name -}}
+								</a>
+								 
+							{% endfor %}
+							{% endspaceless %}
+						{% endif %}
 					</div>
 				</div>
 			</div>
+			{% endblock %}
 		</div>
 		
+		{% block description %}
+		<div class="row">
+			<div class="col-xs-12">
+				<p>{{ entry.content | raw }}</p>
+			</div>
+		</div>
+		{% endblock %}
 	</div>
-	{% endblock %}
 	
-	{% block summary %}
-	<div class="col-sm-{{ entry.displaySided ? 12 : 8 }}">
-		<div class="col-xs-12">
-			<p><strong>{{ entry.intro | raw }}</strong></p>
+	<div class="col-xs-{{ entry.displaySided ? 6 : 12 }}"> 
+		{% block subarticles %}
+		<div class="row">
+			<div class="col-xs-12">
+				{% if entry.layout == constant('AppBundle\\Entity\\Article::DEFAULT_RIGHT_LAYOUT') %}
+					{% include 'common/article/subarticles/default_right.html.twig' with { 'articles': entry.children } %}
+				{% elseif entry.layout == constant('AppBundle\\Entity\\Article::DEFAULT_ALTERNATE_LAYOUT') %}
+					{% include 'common/article/subarticles/default_alternate.html.twig' with { 'articles': entry.children } %}
+				
+				{% elseif entry.layout == constant('AppBundle\\Entity\\Article::NARROW_LEFT_LAYOUT') %}
+					{% include 'common/article/subarticles/narrow_left.html.twig' with { 'articles': entry.children } %}
+				{% elseif entry.layout == constant('AppBundle\\Entity\\Article::NARROW_RIGHT_LAYOUT') %}
+					{% include 'common/article/subarticles/narrow_right.html.twig' with { 'articles': entry.children } %}
+				{% elseif entry.layout == constant('AppBundle\\Entity\\Article::NARROW_ALTERNATE_LAYOUT') %}
+					{% include 'common/article/subarticles/narrow_alternate.html.twig' with { 'articles': entry.children } %}
+				
+				{% elseif entry.layout == constant('AppBundle\\Entity\\Article::WIDE_LAYOUT') %}
+					{% include 'common/article/subarticles/wide.html.twig' with { 'articles': entry.children } %}
+				{% elseif entry.layout == constant('AppBundle\\Entity\\Article::WIDE_SMALL_IMAGE_LAYOUT') %}
+					{% include 'common/article/subarticles/wide_small_image.html.twig' with { 'articles': entry.children } %}
+				
+				{% elseif entry.layout == constant('AppBundle\\Entity\\Article::COLUMN_2_LAYOUT') %}
+					{% include 'common/article/subarticles/column.html.twig' with { 'articles': entry.children, 'cols': 6 } %}
+				{% elseif entry.layout == constant('AppBundle\\Entity\\Article::COLUMN_3_LAYOUT') %}
+					{% include 'common/article/subarticles/column.html.twig' with { 'articles': entry.children, 'cols': 4 } %}
+				{% elseif entry.layout == constant('AppBundle\\Entity\\Article::COLUMN_4_LAYOUT') %}
+					{% include 'common/article/subarticles/column.html.twig' with { 'articles': entry.children, 'cols': 3 } %}
+				
+				{% elseif entry.layout == constant('AppBundle\\Entity\\Article::GRID_2_LAYOUT') %}
+					{% include 'common/article/subarticles/grid.html.twig' with { 'articles': entry.children, 'cols': 6 } %}
+				{% elseif entry.layout == constant('AppBundle\\Entity\\Article::GRID_3_LAYOUT') %}
+					{% include 'common/article/subarticles/grid.html.twig' with { 'articles': entry.children, 'cols': 4 } %}
+				{% elseif entry.layout == constant('AppBundle\\Entity\\Article::GRID_4_LAYOUT') %}
+					{% include 'common/article/subarticles/grid.html.twig' with { 'articles': entry.children, 'cols': 3 } %}
+				
+				{% else %}
+					{% include 'common/article/subarticles/default_left.html.twig' with { 'articles': entry.children } %}
+				{% endif %}
+			</div>
 		</div>
-		
-		<div class="col-xs-6 text-muted">
-			{% if entry.date %}
-				<span class="fa fa-calendar"></span> {{ entry.date | date('Y-m-d') }}
-			{% endif %}
-		</div>
-		
-		<div class="col-xs-6 text-muted">
-			{% if entry.author %}
-				<span class="fa fa-user"></span> {{ entry.author.forename }} {{ entry.author.surname }}
-			{% endif %}
-		</div>
-		
-		<div class="col-xs-12 text-muted">
-			{% if entry.articleTagAssignments | length > 0 %}
-				<span class="fa fa-tags"></span> 
-				{% spaceless %}
-				{% for articleTagAssignment in entry.articleTagAssignments %}
-					{{- loop.index > 1 ? ', ' : '' -}}
-					<a href="{{ path(basePath ~ mainPath, { category: category ? category.id : null, article_filter_tags: articleTagAssignment.tag.id }) }}">
-						{{- articleTagAssignment.tag.name -}}
-					</a>
-					 
-				{% endfor %}
-				{% endspaceless %}
-			{% endif %}
-		</div>
+		{% endblock %}
 	</div>
-	{% endblock %}
-	
-	{% block description %}
-	<div class="row">
-		<div class="col-xs-12">
-			<p>{{ entry.content | raw }}</p>
-		</div>
-	</div>
-	{% endblock %}
-</div>
-
-<div class="col-xs-{{ entry.displaySided ? 6 : 12 }}"> 
-	{% block subarticles %}
-	<div class="row">
-		<div class="col-xs-12">
-			{% if entry.layout == constant('AppBundle\\Entity\\Article::DEFAULT_RIGHT_LAYOUT') %}
-				{% include 'common/article/subarticles/default_right.html.twig' with { 'articles': entry.children } %}
-			{% elseif entry.layout == constant('AppBundle\\Entity\\Article::DEFAULT_ALTERNATE_LAYOUT') %}
-				{% include 'common/article/subarticles/default_alternate.html.twig' with { 'articles': entry.children } %}
-			
-			{% elseif entry.layout == constant('AppBundle\\Entity\\Article::NARROW_LEFT_LAYOUT') %}
-				{% include 'common/article/subarticles/narrow_left.html.twig' with { 'articles': entry.children } %}
-			{% elseif entry.layout == constant('AppBundle\\Entity\\Article::NARROW_RIGHT_LAYOUT') %}
-				{% include 'common/article/subarticles/narrow_right.html.twig' with { 'articles': entry.children } %}
-			{% elseif entry.layout == constant('AppBundle\\Entity\\Article::NARROW_ALTERNATE_LAYOUT') %}
-				{% include 'common/article/subarticles/narrow_alternate.html.twig' with { 'articles': entry.children } %}
-			
-			{% elseif entry.layout == constant('AppBundle\\Entity\\Article::WIDE_LAYOUT') %}
-				{% include 'common/article/subarticles/wide.html.twig' with { 'articles': entry.children } %}
-			{% elseif entry.layout == constant('AppBundle\\Entity\\Article::WIDE_SMALL_IMAGE_LAYOUT') %}
-				{% include 'common/article/subarticles/wide_small_image.html.twig' with { 'articles': entry.children } %}
-			
-			{% elseif entry.layout == constant('AppBundle\\Entity\\Article::COLUMN_2_LAYOUT') %}
-				{% include 'common/article/subarticles/column.html.twig' with { 'articles': entry.children, 'cols': 6 } %}
-			{% elseif entry.layout == constant('AppBundle\\Entity\\Article::COLUMN_3_LAYOUT') %}
-				{% include 'common/article/subarticles/column.html.twig' with { 'articles': entry.children, 'cols': 4 } %}
-			{% elseif entry.layout == constant('AppBundle\\Entity\\Article::COLUMN_4_LAYOUT') %}
-				{% include 'common/article/subarticles/column.html.twig' with { 'articles': entry.children, 'cols': 3 } %}
-			
-			{% elseif entry.layout == constant('AppBundle\\Entity\\Article::GRID_2_LAYOUT') %}
-				{% include 'common/article/subarticles/grid.html.twig' with { 'articles': entry.children, 'cols': 6 } %}
-			{% elseif entry.layout == constant('AppBundle\\Entity\\Article::GRID_3_LAYOUT') %}
-				{% include 'common/article/subarticles/grid.html.twig' with { 'articles': entry.children, 'cols': 4 } %}
-			{% elseif entry.layout == constant('AppBundle\\Entity\\Article::GRID_4_LAYOUT') %}
-				{% include 'common/article/subarticles/grid.html.twig' with { 'articles': entry.children, 'cols': 3 } %}
-			
-			{% else %}
-				{% include 'common/article/subarticles/default_left.html.twig' with { 'articles': entry.children } %}
-			{% endif %}
-		</div>
-	</div>
-	{% endblock %}
 </div>
 
 <div class="row">

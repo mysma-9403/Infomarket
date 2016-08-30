@@ -11,6 +11,7 @@ use AppBundle\Form\BrandCategoryAssignmentType;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Entity\Filter\BrandCategoryAssignmentFilter;
 use AppBundle\Form\Filter\BrandCategoryAssignmentFilterType;
+use AppBundle\Entity\User;
 
 class BrandCategoryAssignmentController extends AdminEntityController {
 	
@@ -140,11 +141,12 @@ class BrandCategoryAssignmentController extends AdminEntityController {
 	 * @see \AppBundle\Controller\Admin\Base\AdminEntityController::createNewFilter()
 	 */
 	protected function createNewFilter() {
+		$userRepository = $this->getDoctrine()->getRepository(User::class);
 		$brandRepository = $this->getDoctrine()->getRepository(Brand::class);
 		$categoryRepository = $this->getDoctrine()->getRepository(Category::class);
 		$segmentRepository = $this->getDoctrine()->getRepository(Segment::class);
 	
-		return new BrandCategoryAssignmentFilter($brandRepository, $categoryRepository, $segmentRepository);
+		return new BrandCategoryAssignmentFilter($userRepository, $brandRepository, $categoryRepository, $segmentRepository);
 	}
 	
 	/**

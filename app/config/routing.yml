@@ -153,6 +153,10 @@ admin_advert_delete:
     path:      /admin/adverts/delete/{id}
     defaults:  { _controller: "AppBundle:Admin/Advert:delete" }
     
+admin_advert_remove_image:
+    path:      /admin/adverts/remove_image/{id}
+    defaults:  { _controller: "AppBundle:Admin/Advert:removeImage" }
+    
 admin_advert_set_published:
     path:      /admin/adverts/set_published/{id}
     defaults:  { _controller: "AppBundle:Admin/Advert:setPublished" }
@@ -210,6 +214,10 @@ admin_article_edit:
 admin_article_delete:
     path:      /admin/articles/delete/{id}
     defaults:  { _controller: "AppBundle:Admin/Article:delete" }
+    
+admin_article_remove_image:
+    path:      /admin/articles/remove_image/{id}
+    defaults:  { _controller: "AppBundle:Admin/Article:removeImage" }
     
 admin_article_set_published:
     path:      /admin/articles/set_published/{id}
@@ -365,6 +373,10 @@ admin_article_category_delete:
     path:      /admin/article_categories/delete/{id}
     defaults:  { _controller: "AppBundle:Admin/ArticleCategory:delete" }
     
+admin_article_category_remove_image:
+    path:      /admin/article_categories/remove_image/{id}
+    defaults:  { _controller: "AppBundle:Admin/ArticleCategory:removeImage" }
+    
 admin_article_category_set_published:
     path:      /admin/article_categories/set_published/{id}
     defaults:  { _controller: "AppBundle:Admin/ArticleCategory:setPublished" }
@@ -398,6 +410,10 @@ admin_branch_edit:
 admin_branch_delete:
     path:      /admin/branches/delete/{id}
     defaults:  { _controller: "AppBundle:Admin/Branch:delete" }
+    
+admin_branch_remove_image:
+    path:      /admin/branches/remove_image/{id}
+    defaults:  { _controller: "AppBundle:Admin/Branch:removeImage" }
     
 admin_branch_set_published:
     path:      /admin/branches/set_published/{id}
@@ -457,6 +473,10 @@ admin_brand_edit:
 admin_brand_delete:
     path:      /admin/brands/delete/{id}
     defaults:  { _controller: "AppBundle:Admin/Brand:delete" }
+    
+admin_brand_remove_image:
+    path:      /admin/brands/remove_image/{id}
+    defaults:  { _controller: "AppBundle:Admin/Brand:removeImage" }
     
 admin_brand_set_published:
     path:      /admin/brands/set_published/{id}
@@ -518,6 +538,10 @@ admin_category_delete:
     path:      /admin/categories/delete/{id}
     defaults:  { _controller: "AppBundle:Admin/Category:delete" }
     
+admin_category_remove_image:
+    path:      /admin/categories/remove_image/{id}
+    defaults:  { _controller: "AppBundle:Admin/Category:removeImage" }
+    
 admin_category_set_published:
     path:      /admin/categories/set_published/{id}
     defaults:  { _controller: "AppBundle:Admin/Category:setPublished" }
@@ -563,6 +587,10 @@ admin_magazine_delete:
     path:      /admin/magazines/delete/{id}
     defaults:  { _controller: "AppBundle:Admin/Magazine:delete" }
     
+admin_magazine_remove_image:
+    path:      /admin/magazines/remove_image/{id}
+    defaults:  { _controller: "AppBundle:Admin/Magazine:removeImage" }
+    
 admin_magazine_set_published:
     path:      /admin/magazines/set_published/{id}
     defaults:  { _controller: "AppBundle:Admin/Magazine:setPublished" }
@@ -595,6 +623,10 @@ admin_page_edit:
 admin_page_delete:
     path:      /admin/pages/delete/{id}
     defaults:  { _controller: "AppBundle:Admin/Page:delete" }
+    
+admin_page_remove_image:
+    path:      /admin/pages/remove_image/{id}
+    defaults:  { _controller: "AppBundle:Admin/Page:removeImage" }
     
 admin_page_set_published:
     path:      /admin/pages/set_published/{id}
@@ -630,6 +662,10 @@ admin_product_edit:
 admin_product_delete:
     path:      /admin/products/delete/{id}
     defaults:  { _controller: "AppBundle:Admin/Product:delete" }
+    
+admin_product_remove_image:
+    path:      /admin/products/remove_image/{id}
+    defaults:  { _controller: "AppBundle:Admin/Product:removeImage" }
     
 admin_product_set_published:
     path:      /admin/products/set_published/{id}
@@ -690,6 +726,10 @@ admin_segment_edit:
 admin_segment_delete:
     path:      /admin/segments/delete/{id}
     defaults:  { _controller: "AppBundle:Admin/Segment:delete" }
+    
+admin_segment_remove_image:
+    path:      /admin/segments/remove_image/{id}
+    defaults:  { _controller: "AppBundle:Admin/Segment:removeImage" }
     
 admin_segment_set_published:
     path:      /admin/segments/set_published/{id}

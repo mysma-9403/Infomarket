@@ -20,6 +20,14 @@
 	{% for productCategoryAssignment in entry.productCategoryAssignments %}
 		<tr>
 			<td>
+				<div class="table-circle-30 bkg-white">
+					{% if productCategoryAssignment.category.image %}
+						<img class="div-center img-{{ productCategoryAssignment.category.vertical ? '' : 'v' }}responsive"
+							alt="{{ productCategoryAssignment.category.name }}" src="{{ asset(productCategoryAssignment.category.getImagePath()) }}" />
+					{% endif %}
+				</div>
+			</td>
+			<td>
 				<a href="{{ path('admin_category_show', { id: productCategoryAssignment.category.id }) }}">
 					{{ productCategoryAssignment.category.name }}
 				</a>

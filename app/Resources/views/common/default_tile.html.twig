@@ -5,10 +5,12 @@
 		{% set routeParams = { 'id': entry.id } %}
 	{% endif %}
 	<a class="text-white" href="{{ path('infoprodukt_' ~ entryPath ~ '_show', routeParams) }}">
-		<div class="rect col-bottom">
+		<div class="rect col-bottom bkg-white">
 			
-			<img class="div-center img-{{ entry.vertical ? '' : 'v' }}responsive" 
-				alt="{{ entry.name | raw }}" src="{{ asset(entry.getImagePath()) }}">
+			{% if entry.image %}
+				<img class="div-center img-{{ entry.vertical ? '' : 'v' }}responsive" 
+					alt="{{ entry.name | raw }}" src="{{ asset(entry.getImagePath()) }}">
+			{% endif %}
 					
 			<div class="col-xs-12 div-bottom bkg-black-50">
 				<div class="rect-3x1">

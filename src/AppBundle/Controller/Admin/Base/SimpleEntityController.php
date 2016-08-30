@@ -7,6 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use AppBundle\Entity\Filter\Base\SimpleEntityFilter;
 use AppBundle\Form\Filter\Base\SimpleEntityFilterType;
 use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Entity\User;
 
 abstract class SimpleEntityController extends AdminEntityController
 {
@@ -19,7 +20,8 @@ abstract class SimpleEntityController extends AdminEntityController
 	}
 	
 	protected function createNewFilter() {
-		return new SimpleEntityFilter();
+		$userRepository = $this->getDoctrine()->getRepository(User::class);
+		return new SimpleEntityFilter($userRepository);
 	}
 	
 	protected function getFilterFormType() {

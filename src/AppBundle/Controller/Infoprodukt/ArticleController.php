@@ -14,6 +14,7 @@ use AppBundle\Form\Filter\Infoprodukt\ArticleFilterType;
 use AppBundle\Form\Filter\Base\SimpleEntityFilterType;
 use AppBundle\Entity\Brand;
 use AppBundle\Entity\Tag;
+use AppBundle\Entity\User;
 
 class ArticleController extends SimpleEntityController
 {   
@@ -41,7 +42,9 @@ class ArticleController extends SimpleEntityController
 		$params = $this->getIndexParams($request, $page);
 		
 		//TODO brzydki override, pomyslec czy da sie ladniej :)
-		$searchFilter = new SimpleEntityFilter();
+		$userRepository = $this->getDoctrine()->getRepository(User::class);
+		
+		$searchFilter = new SimpleEntityFilter($userRepository);
 		$searchFilter->initValues($request);
 	
 		$searchFilterForm = $this->createForm(SimpleEntityFilterType::class, $searchFilter);
@@ -117,11 +120,12 @@ class ArticleController extends SimpleEntityController
     }
     
     protected function createNewFilter() {
+    	$userRepository = $this->getDoctrine()->getRepository(User::class);
     	$articleCategoryRepository = $this->getDoctrine()->getRepository(ArticleCategory::class);
     	$categoryRepository = $this->getDoctrine()->getRepository(Category::class);
     	$brandRepository = $this->getDoctrine()->getRepository(Brand::class);
     	$tagRepository = $this->getDoctrine()->getRepository(Tag::class);
     	
-    	return new ArticleFilter($articleCategoryRepository, $categoryRepository, $brandRepository, $tagRepository);
+    	return new ArticleFilter($userRepository, $articleCategoryRepository, $categoryRepository, $brandRepository, $tagRepository);
     }
 }

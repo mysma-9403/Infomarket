@@ -10,6 +10,7 @@ use AppBundle\Entity\Filter\TermCategoryAssignmentFilter;
 use AppBundle\Form\TermCategoryAssignmentType;
 use AppBundle\Form\Filter\TermCategoryAssignmentFilterType;
 use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Entity\User;
 
 class TermCategoryAssignmentController extends AdminEntityController {
 	
@@ -129,10 +130,11 @@ class TermCategoryAssignmentController extends AdminEntityController {
 	 * @see \AppBundle\Controller\Admin\Base\AdminEntityController::createNewFilter()
 	 */
 	protected function createNewFilter() {
+		$userRepository = $this->getDoctrine()->getRepository(User::class);
 		$advertRepository = $this->getDoctrine()->getRepository(Term::class);
 		$categoryRepository = $this->getDoctrine()->getRepository(Category::class);
 		
-		return new TermCategoryAssignmentFilter($advertRepository, $categoryRepository);
+		return new TermCategoryAssignmentFilter($userRepository, $advertRepository, $categoryRepository);
 	}
 	
 	/**

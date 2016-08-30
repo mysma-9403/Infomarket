@@ -9,6 +9,9 @@ use AppBundle\Entity\Filter\Base\BaseEntityFilter;
 use AppBundle\Entity\Filter\Base\SimpleEntityFilter;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use AppBundle\Entity\User;
+use AppBundle\Repository\UserRepository;
 
 class FilterFormType extends BaseFormType
 {	
@@ -96,6 +99,39 @@ class FilterFormType extends BaseFormType
 							'data-date-format' => 'DD/MM/YYYY HH:mm',
 							'placeholder' => 'label.createdBefore'
 					]
+			))
+			->add('publishedBy', EntityType::class, array(
+					'class'			=> User::class,
+					'query_builder' => function (UserRepository $repository) {
+					return $repository->createQueryBuilder('e')
+					->orderBy('e.surname ASC, e.forename', 'ASC');
+					},
+					'required'		=> false,
+					'expanded'      => false,
+					'multiple'      => true,
+					'placeholder'	=> 'label.choose.user'
+			))
+			->add('createdBy', EntityType::class, array(
+					'class'			=> User::class,
+					'query_builder' => function (UserRepository $repository) {
+					return $repository->createQueryBuilder('e')
+					->orderBy('e.surname ASC, e.forename', 'ASC');
+					},
+					'required'		=> false,
+					'expanded'      => false,
+					'multiple'      => true,
+					'placeholder'	=> 'label.choose.user'
+			))
+			->add('updatedBy', EntityType::class, array(
+					'class'			=> User::class,
+					'query_builder' => function (UserRepository $repository) {
+					return $repository->createQueryBuilder('e')
+					->orderBy('e.surname ASC, e.forename', 'ASC');
+					},
+					'required'		=> false,
+					'expanded'      => false,
+					'multiple'      => true,
+					'placeholder'	=> 'label.choose.user'
 			))
 		;
 	}

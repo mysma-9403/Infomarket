@@ -13,6 +13,7 @@ use AppBundle\Form\Filter\CategoryFilterType;
 use AppBundle\Repository\BranchRepository;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Entity\Segment;
+use AppBundle\Entity\User;
 
 class CategoryController extends ImageTreeController {
 	
@@ -278,10 +279,11 @@ class CategoryController extends ImageTreeController {
 	 * @see \AppBundle\Controller\Admin\Base\SimpleEntityController::createNewFilter()
 	 */
 	protected function createNewFilter() {
+		$userRepository = $this->getDoctrine()->getRepository(User::class);
 		$branchRepository = $this->getDoctrine()->getRepository(Branch::class);
 		$categoryRepository = $this->getDoctrine()->getRepository(Category::class);
 		
-		$filter = new CategoryFilter($branchRepository, $categoryRepository);
+		$filter = new CategoryFilter($userRepository, $branchRepository, $categoryRepository);
 	
 		return $filter;
 	}
@@ -292,10 +294,11 @@ class CategoryController extends ImageTreeController {
 	 * @return \AppBundle\Entity\Filter\CategoryFilter
 	 */
 	protected function createTreeFilter(Request $request) {
+		$userRepository = $this->getDoctrine()->getRepository(User::class);
 		$branchRepository = $this->getDoctrine()->getRepository(Branch::class);
 		$categoryRepository = $this->getDoctrine()->getRepository(Category::class);
 		
-		$filter = new CategoryFilter($branchRepository, $categoryRepository);
+		$filter = new CategoryFilter($userRepository, $branchRepository, $categoryRepository);
 		
 		return $filter;
 	}

@@ -19,8 +19,10 @@
 		{% if entry.getImagePath() %}
 			<div class="col-sm-6 col-sm-offset-3">
 				<div class="rect">
-					<img class="div-center img-{{ entry.vertical ? 'v' : '' }}responsive" 
-						alt="{{ entry.name | raw }}" src="{{ asset(entry.getImagePath()) }}">
+					{% if entry.image %}
+						<img class="div-center img-{{ entry.vertical ? 'v' : '' }}responsive" 
+							alt="{{ entry.name | raw }}" src="{{ asset(entry.getImagePath()) }}">
+					{% endif %}
 				</div>	
 			</div>
 		{% endif %}

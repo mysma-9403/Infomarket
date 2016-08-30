@@ -10,6 +10,7 @@ use AppBundle\Repository\ArticleTagAssignmentRepository;
 use AppBundle\Repository\ArticleRepository;
 use AppBundle\Repository\TagRepository;
 use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Repository\UserRepository;
 
 class ArticleTagAssignmentFilter extends SimpleEntityFilter {
 	
@@ -18,8 +19,12 @@ class ArticleTagAssignmentFilter extends SimpleEntityFilter {
 	 * @param ArticleTagAssignmentRepository $articleRepository
 	 * @param TagRepository $tagRepository
 	 */
-	public function __construct(ArticleRepository $articleRepository, TagRepository $tagRepository) {
-		parent::__construct();
+	public function __construct(
+			UserRepository $userRepository, 
+			ArticleRepository $articleRepository, 
+			TagRepository $tagRepository) {
+		
+		parent::__construct($userRepository);
 		
 		$this->articleRepository = $articleRepository;
 		$this->tagRepository = $tagRepository;

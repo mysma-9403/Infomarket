@@ -8,9 +8,11 @@
 {# Entry section #}
 {% block entryMainFields1 %}
 	<td>
-		<div class="circle bkg-white" width="40" height="40">
-			<img class="div-center img-{{ item.vertical ? 'v' : '' }}responsive"
-				alt="{{ item.name }}" src="{{ asset(item.getImagePath()) }}" />
+		<div class="table-circle-30 bkg-white">
+			{% if item.image %}
+				<img class="div-center img-{{ item.vertical ? '' : 'v' }}responsive"
+					alt="{{ item.name }}" src="{{ asset(item.getImagePath()) }}" />
+			{% endif %}
 		</div>
 	</td>
 {% endblock %}	        

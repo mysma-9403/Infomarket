@@ -8,6 +8,7 @@ use AppBundle\Entity\BrandCategoryAssignment;
 use AppBundle\Repository\CategoryRepository;
 use AppBundle\Repository\SegmentRepository;
 use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Repository\UserRepository;
 
 class BrandFilter extends SimpleEntityFilter {
 
@@ -16,8 +17,8 @@ class BrandFilter extends SimpleEntityFilter {
 	 * @param CategoryRepository $categoryRepository
 	 * @param SegmentRepository $segmentRepository
 	 */
-	public function __construct(CategoryRepository $categoryRepository, SegmentRepository $segmentRepository) {
-		parent::__construct();
+	public function __construct(UserRepository $userRepository, CategoryRepository $categoryRepository, SegmentRepository $segmentRepository) {
+		parent::__construct($userRepository);
 		
 		$this->categoryRepository = $categoryRepository;
 		$this->segmentRepository = $segmentRepository;

@@ -11,6 +11,7 @@ use AppBundle\Repository\CategoryRepository;
 use AppBundle\Repository\SegmentRepository;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Entity\Segment;
+use AppBundle\Repository\UserRepository;
 
 class ProductCategoryAssignmentFilter extends SimpleEntityFilter {
 	
@@ -20,8 +21,13 @@ class ProductCategoryAssignmentFilter extends SimpleEntityFilter {
 	 * @param CategoryRepository $categoryRepository
 	 * @param SegmentRepository $segmentRepository
 	 */
-	public function __construct(ProductRepository $productRepository, CategoryRepository $categoryRepository, SegmentRepository $segmentRepository) {
-		parent::__construct();
+	public function __construct(
+			UserRepository $userRepository, 
+			ProductRepository $productRepository, 
+			CategoryRepository $categoryRepository, 
+			SegmentRepository $segmentRepository) {
+		
+		parent::__construct($userRepository);
 		
 		$this->productRepository = $productRepository;
 		$this->categoryRepository = $categoryRepository;

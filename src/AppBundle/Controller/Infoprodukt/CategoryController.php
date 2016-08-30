@@ -28,6 +28,7 @@ use AppBundle\Repository\SegmentRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Entity\Tag;
+use AppBundle\Entity\User;
 
 class CategoryController extends SimpleEntityController
 {
@@ -60,10 +61,11 @@ class CategoryController extends SimpleEntityController
 	{
 		$params = parent::getIndexParams($request, $page);
 	
+		$userRepository = $this->getDoctrine()->getRepository(User::class);
 		$branchRepository = $this->getDoctrine()->getRepository(Branch::class);
 		$categoryRepository = $this->getDoctrine()->getRepository(Category::class);
 		
-		$branchFilter = new BranchFilter($categoryRepository);
+		$branchFilter = new BranchFilter($userRepository, $categoryRepository);
 		$branchFilter->initValues($request);
 		$branchFilter->setPublished(SimpleEntityFilter::TRUE_VALUES);
 		$branchFilter->setOrderBy('e.orderNumber ASC, e.name ASC');
@@ -71,7 +73,7 @@ class CategoryController extends SimpleEntityController
 		$branches = $this->getParamList(Branch::class, $branchFilter);
 		$params['branches'] = $branches;
 		
-		$categoryFilter = new CategoryFilter($branchRepository, $categoryRepository);
+		$categoryFilter = new CategoryFilter($userRepository, $branchRepository, $categoryRepository);
 		$categoryFilter->initValues($request);
 		$categoryFilter->setPublished(SimpleEntityFilter::TRUE_VALUES);
 		$categoryFilter->setPreleaf(SimpleEntityFilter::TRUE_VALUES);
@@ -97,12 +99,13 @@ class CategoryController extends SimpleEntityController
 		$entry = $params['entry'];
 		
 		if($entry->getPreleaf()) {
+			$userRepository = $this->getDoctrine()->getRepository(User::class);
 			$articleCategoryRepository = $this->getDoctrine()->getRepository(ArticleCategory::class);
 			$categoryRepository = $this->getDoctrine()->getRepository(Category::class);
 			$brandRepository = $this->getDoctrine()->getRepository(Brand::class);
 			$tagRepository = $this->getDoctrine()->getRepository(Tag::class);
 			
-			$articleFilter = new ArticleFilter($articleCategoryRepository, $categoryRepository, $brandRepository, $tagRepository);
+			$articleFilter = new ArticleFilter($userRepository, $articleCategoryRepository, $categoryRepository, $brandRepository, $tagRepository);
 			$articleFilter->setCategories([$entry]);
 			$articleFilter->setPublished(SimpleEntityFilter::TRUE_VALUES);
 			$articleFilter->setFeatured(SimpleEntityFilter::TRUE_VALUES);
@@ -125,7 +128,7 @@ class CategoryController extends SimpleEntityController
 			
 			
 			
-			$articleCategoryFilter = new ArticleCategoryFilter();
+			$articleCategoryFilter = new ArticleCategoryFilter($userRepository);
 			$articleCategoryFilter->setPublished(SimpleEntityFilter::TRUE_VALUES);
 			$articleCategoryFilter->setFeatured(SimpleEntityFilter::TRUE_VALUES);
 			//TODO $articleCategoryFilter->setOrderBy('e.orderNumber ASC');
@@ -133,7 +136,7 @@ class CategoryController extends SimpleEntityController
 			$articleCategories = $articleCategoryRepository->findSelected($articleCategoryFilter);
 			$params['article_categories'] = $articleCategories;
 			
-			$advertFilter = new AdvertFilter($categoryRepository);
+			$advertFilter = new AdvertFilter($userRepository, $categoryRepository);
 			$advertFilter->setPublished(BaseEntityFilter::TRUE_VALUES);
 			$advertFilter->setCategories([$entry]);
 			
@@ -158,6 +161,7 @@ class CategoryController extends SimpleEntityController
 		} else {
 			//TODO use as setters as they are useless in many cases!!! (like here)
 			//TODO @up - not sure - they are needed in initValues! 
+			$userRepository = $this->getDoctrine()->getRepository(User::class);
 			$categoryRepository = $this->getDoctrine()->getRepository(Category::class);
 			$brandRepository = $this->getDoctrine()->getRepository(Brand::class);
 			$segmentRepository = $this->getDoctrine()->getRepository(Segment::class);
@@ -170,7 +174,7 @@ class CategoryController extends SimpleEntityController
 			$params['products'] = array();
 			
 			foreach ($segments as $segment) {
-				$brandFilter = new BrandFilter($categoryRepository, $segmentRepository);
+				$brandFilter = new BrandFilter($userRepository, $categoryRepository, $segmentRepository);
 				$brandFilter->setCategories([$entry]);
 				$brandFilter->setSegments([$segment]);
 				$brandFilter->setPublished(SimpleEntityFilter::TRUE_VALUES);
@@ -180,7 +184,7 @@ class CategoryController extends SimpleEntityController
 				
 				$params['brands'][$segment->getId()] = $brands;
 				
-				$productFilter = new ProductFilter($categoryRepository, $brandRepository, $segmentRepository);
+				$productFilter = new ProductFilter($userRepository, $categoryRepository, $brandRepository, $segmentRepository);
 				$productFilter->setCategories([$entry]);
 				$productFilter->setSegments([$segment]);
 				$productFilter->setPublished(SimpleEntityFilter::TRUE_VALUES);
@@ -196,7 +200,7 @@ class CategoryController extends SimpleEntityController
 			$params['subbrands'] = array();
 			$params['subproducts'] = array();
 			
-			$categoryFilter = new CategoryFilter($branchRepository, $categoryRepository);
+			$categoryFilter = new CategoryFilter($userRepository, $branchRepository, $categoryRepository);
 			$categoryFilter->setParents([$entry]);
 			$categoryFilter->setOrderBy('e.orderNumber ASC, e.name ASC');
 				
@@ -208,7 +212,7 @@ class CategoryController extends SimpleEntityController
 				$params['subproducts'][$category->getId()] = array();
 				
 				foreach ($segments as $segment) {
-					$brandFilter = new BrandFilter($categoryRepository, $segmentRepository);
+					$brandFilter = new BrandFilter($userRepository, $categoryRepository, $segmentRepository);
 					$brandFilter->setCategories([$category]);
 					$brandFilter->setSegments([$segment]);
 					$brandFilter->setPublished(SimpleEntityFilter::TRUE_VALUES);
@@ -218,7 +222,7 @@ class CategoryController extends SimpleEntityController
 				
 					$params['subbrands'][$category->getId()][$segment->getId()] = $brands;
 				
-					$productFilter = new ProductFilter($categoryRepository, $brandRepository, $segmentRepository);
+					$productFilter = new ProductFilter($userRepository, $categoryRepository, $brandRepository, $segmentRepository);
 					$productFilter->setCategories([$category]);
 					$productFilter->setSegments([$segment]);
 					$productFilter->setPublished(SimpleEntityFilter::TRUE_VALUES);
@@ -230,7 +234,7 @@ class CategoryController extends SimpleEntityController
 				}
 			}
 			
-			$termFilter = new TermFilter($categoryRepository);
+			$termFilter = new TermFilter($userRepository, $categoryRepository);
 			// 		$termFilter->setCategories([$entry]);
 			$termFilter->setPublished(SimpleEntityFilter::TRUE_VALUES);
 			$termRepository = $this->getDoctrine()->getRepository(Term::class);
@@ -261,10 +265,11 @@ class CategoryController extends SimpleEntityController
 	}
 	
 	protected function createNewFilter() {
+		$userRepository = $this->getDoctrine()->getRepository(User::class);
 		$branchRepository = $this->getDoctrine()->getRepository(Branch::class);
 		$categoryRepository = $this->getDoctrine()->getRepository(Category::class);
 		
-		return new CategoryFilter($branchRepository, $categoryRepository);
+		return new CategoryFilter($userRepository, $branchRepository, $categoryRepository);
 	}
 	
     protected function getHomeName()

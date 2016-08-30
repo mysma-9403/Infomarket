@@ -906,6 +906,13 @@
             
             
             
+            <trans-unit id="action.image.remove">
+                <source>action.image.remove</source>
+                <target>Usuń zdjęcie</target>
+            </trans-unit>
+            
+            
+            
             <trans-unit id="action.article.preview">
                 <source>action.article.preview</source>
                 <target>Podgląd artykułu</target>

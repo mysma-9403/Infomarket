@@ -20,6 +20,14 @@
 	{% for termCategoryAssignment in entry.termCategoryAssignments %}
 		<tr>
 			<td>
+				<div class="table-circle-30 bkg-white">
+					{% if termCategoryAssignment.category.image %}
+						<img class="div-center img-{{ termCategoryAssignment.category.vertical ? '' : 'v' }}responsive"
+							alt="{{ termCategoryAssignment.category.name }}" src="{{ asset(termCategoryAssignment.category.getImagePath()) }}" />
+					{% endif %}
+				</div>
+			</td>
+			<td>
 				<a href="{{ path('admin_category_show', { id: termCategoryAssignment.category.id }) }}">
 					{{ termCategoryAssignment.category.name }}
 				</a>

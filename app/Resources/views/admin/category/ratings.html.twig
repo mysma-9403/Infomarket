@@ -35,6 +35,14 @@
 							{% if productCategoryAssignment.segment.id == segment.id %}
 							<tr>
 								<td>
+									<div class="circle bkg-white" width="20" height="20">
+										{% if productCategoryAssignment.product.image %}
+											<img class="div-center img-{{ productCategoryAssignment.product.vertical ? '' : 'v' }}responsive"
+												alt="{{ productCategoryAssignment.product.image }}" src="{{ asset(productCategoryAssignment.product.getImagePath()) }}" />
+										{% endif %}
+									</div>
+								</td>
+								<td>
 									{% if productCategoryAssignment.product.brand %}
 									<a href="{{ path('admin_brand_show', { id: productCategoryAssignment.product.brand.id }) }}"> 
 										{{ productCategoryAssignment.product.brand.name }}
@@ -86,6 +94,14 @@
 						{% for brandCategoryAssignment in entry.brandCategoryAssignments %}
 							{% if brandCategoryAssignment.segment.id == segment.id %}
 							<tr>
+								<td>
+									<div class="circle bkg-white" width="20" height="20">
+										{% if brandCategoryAssignment.brand.image %}
+											<img class="div-center img-{{ brandCategoryAssignment.brand.vertical ? '' : 'v' }}responsive"
+												alt="{{ brandCategoryAssignment.brand.image }}" src="{{ asset(brandCategoryAssignment.brand.getImagePath()) }}" />
+										{% endif %}
+									</div>
+								</td>
 								<td>
 									<a href="{{ path('admin_brand_show', { id: brandCategoryAssignment.brand.id }) }}">
 										{{ brandCategoryAssignment.brand.name }}

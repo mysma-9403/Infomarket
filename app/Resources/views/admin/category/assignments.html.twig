@@ -20,6 +20,14 @@
 	{% for category in entry.children %}
 		<tr>
 			<td>
+				<div class="table-circle-30 bkg-white">
+					{% if category.image %}
+						<img class="div-center img-{{ category.vertical ? '' : 'v' }}responsive"
+							alt="{{ category.image }}" src="{{ asset(category.getImagePath()) }}" />
+					{% endif %}
+				</div>
+			</td>
+			<td>
 				<a href="{{ path('admin_category_show', { id: category.id }) }}">
 					{{ category.name }} {{ category.subname }}
 				</a>
@@ -66,6 +74,14 @@
 	<tbody>
 	{% for branchCategoryAssignment in entry.branchCategoryAssignments %}
 		<tr>
+			<td>
+				<div class="table-circle-30 bkg-white">
+					{% if branchCategoryAssignment.branch.image %}
+						<img class="div-center img-{{ branchCategoryAssignment.branch.vertical ? '' : 'v' }}responsive"
+							alt="{{ branchCategoryAssignment.branch.image }}" src="{{ asset(branchCategoryAssignment.branch.getImagePath()) }}" />
+					{% endif %}
+				</div>
+			</td>
 			<td>
 				<a href="{{ path('admin_branch_show', { id: branchCategoryAssignment.branch.id }) }}">
 					{{ branchCategoryAssignment.branch.name }}

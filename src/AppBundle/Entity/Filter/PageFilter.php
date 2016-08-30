@@ -5,11 +5,12 @@ namespace AppBundle\Entity\Filter;
 use AppBundle\Entity\Filter\Base\SimpleEntityFilter;
 use AppBundle;
 use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Repository\UserRepository;
 
 class PageFilter extends SimpleEntityFilter {
 	
-	public function __construct() {
-		parent::__construct();
+	public function __construct(UserRepository $userRepository) {
+		parent::__construct($userRepository);
 		
 		$this->filterName = 'page_filter_';
 		

@@ -20,6 +20,14 @@
 	{% for article in entry.children %}
 		<tr>
 			<td>
+				<div class="table-circle-30 bkg-white" width="20" height="20">
+					{% if article.image %}
+						<img class="div-center img-{{ article.vertical ? '' : 'v' }}responsive"
+							alt="{{ article.image }}" src="{{ asset(article.getImagePath()) }}" />
+					{% endif %}
+				</div>
+			</td>
+			<td>
 				<a href="{{ path('admin_article_show', { id: article.id }) }}">
 					{{ article.name }} {{ article.subname }}
 				</a>
@@ -72,6 +80,14 @@
 	{% for articleBrandAssignment in entry.articleBrandAssignments %}
 		<tr>
 			<td>
+				<div class="table-circle-30 bkg-white" width="20" height="20">
+					{% if articleBrandAssignment.brand.image %}
+						<img class="div-center img-{{ articleBrandAssignment.brand.vertical ? '' : 'v' }}responsive"
+							alt="{{ articleBrandAssignment.brand.image }}" src="{{ asset(articleBrandAssignment.brand.getImagePath()) }}" />
+					{% endif %}
+				</div>
+			</td>
+			<td>
 				<a href="{{ path('admin_brand_show', { id: articleBrandAssignment.brand.id }) }}">
 					{{ articleBrandAssignment.brand.name }}
 				</a>
@@ -119,6 +135,14 @@
 	{% for articleArticleCategoryAssignment in entry.articleArticleCategoryAssignments %}
 		<tr>
 			<td>
+				<div class="table-circle-30 bkg-white" width="20" height="20">
+					{% if articleArticleCategoryAssignment.articleCategory.image %}
+						<img class="div-center img-{{ articleArticleCategoryAssignment.articleCategory.vertical ? '' : 'v' }}responsive"
+							alt="{{ articleArticleCategoryAssignment.articleCategory.image }}" src="{{ asset(articleArticleCategoryAssignment.articleCategory.getImagePath()) }}" />
+					{% endif %}
+				</div>
+			</td>
+			<td>
 				<a href="{{ path('admin_article_category_show', { id: articleArticleCategoryAssignment.articleCategory.id }) }}">
 					{{ articleArticleCategoryAssignment.articleCategory.name }}
 				</a>
@@ -165,6 +189,14 @@
 	<tbody>
 	{% for articleCategoryAssignment in entry.articleCategoryAssignments %}
 		<tr>
+			<td>
+				<div class="table-circle-30 bkg-white">
+					{% if articleCategoryAssignment.category.image %}
+						<img class="div-center img-{{ articleCategoryAssignment.category.vertical ? '' : 'v' }}responsive"
+							alt="{{ articleCategoryAssignment.category.image }}" src="{{ asset(articleCategoryAssignment.category.getImagePath()) }}" />
+					{% endif %}
+				</div>
+			</td>
 			<td>
 				<a href="{{ path('admin_category_show', { id: articleCategoryAssignment.category.id }) }}">
 					{{ articleCategoryAssignment.category.name }}
