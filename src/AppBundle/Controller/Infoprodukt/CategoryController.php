@@ -138,6 +138,7 @@ class CategoryController extends SimpleEntityController
 			
 			$advertFilter = new AdvertFilter($userRepository, $categoryRepository);
 			$advertFilter->setPublished(BaseEntityFilter::TRUE_VALUES);
+			$advertFilter->setActive(BaseEntityFilter::TRUE_VALUES);
 			$advertFilter->setCategories([$entry]);
 			
 			$advertFilter->setLocations([Advert::FEATURED_LOCATION]);

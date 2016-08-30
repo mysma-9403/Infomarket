@@ -144,11 +144,11 @@ class AdvertFilter extends SimpleEntityFilter {
 		
 		if($this->active === SimpleEntityFilter::TRUE_VALUES) {
 			$date = new \DateTime();
-			$expressions[] = 'e.dateFrom <= \'' . $date->format('Y-m-d H:i') . '\'';
-			$expressions[] = 'e.dateTo >= \'' . $date->format('Y-m-d H:i') . '\'';
+			$expressions[] = '(e.dateFrom IS NULL OR e.dateFrom <= \'' . $date->format('Y-m-d H:i') . '\')';
+			$expressions[] = '(e.dateTo IS NULL OR e.dateTo >= \'' . $date->format('Y-m-d H:i') . '\')';
 			
-			$expressions[] = 'e.showCount <= e.showLimit';
-			$expressions[] = 'e.clickCount <= e.clickLimit';
+			$expressions[] = '(e.showLimit IS NULL OR e.showLimit <= 0 OR e.showCount <= e.showLimit)';
+			$expressions[] = '(e.clickLimit IS NULL OR e.clickLimit <= 0 OR e.clickCount <= e.clickLimit)';
 		} else if($this->active === SimpleEntityFilter::FALSE_VALUES) {
 			$date = new \DateTime();
 			
