@@ -10,8 +10,12 @@
 	<td>
 		<div class="table-circle-30 bkg-white">
 			{% if item.image %}
-				<img class="div-center img-{{ item.vertical ? '' : 'v' }}responsive"
-					alt="{{ item.name }}" src="{{ asset(item.getImagePath()) }}" />
+				{% if item.mimeType == "application/x-shockwave-flash" %}
+					<embed class="div-center img-{{ item.vertical ? '' : 'v' }}responsive" src="{{ asset(item.getImagePath()) }}">
+				{% else %}
+					<img class="div-center img-{{ item.vertical ? '' : 'v' }}responsive" 
+						alt="{{ item.name | raw }}" src="{{ asset(item.getImagePath()) }}" />
+				{% endif %}
 			{% endif %}
 		</div>
 	</td>

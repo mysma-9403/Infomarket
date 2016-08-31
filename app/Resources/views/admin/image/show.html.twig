@@ -6,8 +6,12 @@
     <div class="row">
 	    <div class="col-xs-6 col-sm-4 col-md-3">
 	    	<div class="rect">
-				<img class="div-center img-{{ entry.vertical ? 'v' : '' }}responsive" 
-					alt="{{ entry.name | raw }}" src="{{ asset(entry.getImagePath()) }}" />
+				{% if entry.mimeType == "application/x-shockwave-flash" %}
+					<embed class="div-center img-{{ entry.vertical ? 'v' : '' }}responsive" src="{{ asset(entry.getImagePath()) }}">
+				{% else %}
+					<img class="div-center img-{{ entry.vertical ? 'v' : '' }}responsive" 
+						alt="{{ entry.name | raw }}" src="{{ asset(entry.getImagePath()) }}" />
+				{% endif %}
 			</div>
 		</div>
 	</div>
