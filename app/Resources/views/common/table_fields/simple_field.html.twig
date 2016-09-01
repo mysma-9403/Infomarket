@@ -1,0 +1,10 @@
+{% if value %}
+	{% if linkPath is not defined %}
+		{% set linkPath = basePath ~ object ~ '_show' %}
+	{% endif %}
+	<a href="{{ path(linkPath, { id: value.id }) }}">
+		{{ value.name }}
+	</a>
+{% else %}
+	-
+{% endif %}

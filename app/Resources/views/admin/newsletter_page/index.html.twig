@@ -1,0 +1,21 @@
+{% extends 'admin/simple/index.html.twig' %}
+
+{% set title = 'title.newsletterPages'|trans %}
+{% set mainPath = 'newsletter_page' %}
+
+{% block filterMoreFields3 %}
+	<li class="col-xs-12 col-sm-6 col-md-4 col-lg-2">
+		{{ form_widget(filter.newsletterPageTemplates, { 'label': 'label.choose.newsletterPageTemplates' }) }}
+	</li>
+{% endblock %}
+
+{% block headerMoreFields2 %}
+	<th><i class="fa fa-file-o"></i> {{ 'label.newsletterPageTemplate'|trans }}</th>
+{% endblock %}
+
+{% block entryMoreFields2 %}
+	<td>
+		{% include 'common/table_fields/simple_field.html.twig' with 
+			{ 'value': item.newsletterPageTemplate, 'object': 'newsletter_page_template' } %}
+	</td>
+{% endblock %}

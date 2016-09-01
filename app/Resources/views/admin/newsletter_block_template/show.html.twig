@@ -1,0 +1,25 @@
+{% extends 'admin/simple/show.html.twig' %}
+
+{% set title = 'title.newsletterBlockTemplates'|trans %}
+{% set mainPath = 'newsletter_block_template' %}
+{% set gender = 'm.' %}
+
+{% block moreFields3 %}
+	<div class="row">
+		<div class="col-sm-9">
+			<h4>{{ 'label.newsletterBlockTemplate.style'|trans }}</h4>
+		</div>
+		<div class="col-sm-9">
+			{{ entry.style | raw }}
+		</div>
+	</div>
+	
+	<div class="row">
+		<div class="col-sm-9">
+			<h4>{{ 'label.content'|trans }}</h4>
+		</div>
+		<div class="col-sm-9">
+			{{ entry.content | raw }}
+		</div>
+	</div>
+{% endblock %}

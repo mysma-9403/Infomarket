@@ -147,6 +147,36 @@
 						</li>
 					</ul>
 				</li>
+				{% if is_granted('ROLE_ADMIN') %}
+					<li {% if 'newsletter' in mainPath %} class="active" {% endif %} class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+							<span class="txt-success"></span> {{ 'title.newsletter'|trans }} <span class="caret"></span>
+						</a>
+						<ul class="dropdown-menu">
+							<li>
+								<a href="{{ path(basePath ~ 'newsletter_page') }}">
+									{{ 'title.newsletterPages'|trans }}
+								</a>
+							</li>
+							<li>
+								<a href="{{ path(basePath ~ 'newsletter_block') }}">
+									{{ 'title.newsletterBlocks'|trans }}
+								</a>
+							</li>
+							<li class="divider"></li>
+							<li>
+								<a href="{{ path(basePath ~ 'newsletter_page_template') }}">
+									{{ 'title.newsletterPageTemplates'|trans }}
+								</a>
+							</li>
+							<li>
+								<a href="{{ path(basePath ~ 'newsletter_block_template') }}">
+									{{ 'title.newsletterBlockTemplates'|trans }}
+								</a>
+							</li>
+						</ul>
+					</li>
+				{% endif %}
 				<li {% if 'other' in mainPath %} class="active" {% endif %} class="dropdown">
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
 						<span class="txt-success "></span> {{ 'title.others'|trans }} <span class="caret"></span>

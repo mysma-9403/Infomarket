@@ -16,8 +16,7 @@
 
 {% block moreFields3 %}
 	{% include 'common/fields/simple_field.html.twig' with 
-	{ 'label': 'label.brand', 'value': entry.brand,
-		'object': 'brand', 'routeId': entry.id } %}
+	{ 'label': 'label.brand', 'value': entry.brand, 'object': 'brand' } %}
 		
 	{% include 'common/fields/text_field.html.twig' with 
 	{ 'label': ('label.product.price')|trans, 'value': entry.price } %}

@@ -1,0 +1,8 @@
+AppBundle\Entity\Segment:
+    properties:
+        name:
+            - NotBlank: ~
+        newsletterPage:
+            - NotBlank: ~
+        newsletterBlockTemplate:
+            - NotBlank: ~

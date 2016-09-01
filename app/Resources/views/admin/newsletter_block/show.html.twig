@@ -1,0 +1,18 @@
+{% extends 'admin/simple/show.html.twig' %}
+
+{% set title = 'title.newsletterBlocks'|trans %}
+{% set mainPath = 'newsletter_block' %}
+{% set gender = 'm.' %}
+
+{% block moreFields3 %}
+	{% include 'common/fields/simple_field.html.twig' with 
+		{ 'label': 'label.newsletterPage', 'value': entry.newsletterPage, 'object': 'newsletter_page' } %}
+	{% include 'common/fields/text_field.html.twig' with 
+		{ 'label': 'label.orderNumber', 'value': entry.orderNumber } %}
+	{% include 'common/fields/simple_field.html.twig' with 
+		{ 'label': 'label.newsletterBlockTemplate', 'value': entry.newsletterBlockTemplate, 'object': 'newsletter_block_template' } %}
+	{% include 'common/fields/simple_field.html.twig' with 
+		{ 'label': 'label.article', 'value': entry.article, 'object': 'article' } %}
+	{% include 'common/fields/simple_field.html.twig' with 
+		{ 'label': 'label.advert', 'value': entry.advert, 'object': 'advert' } %}
+{% endblock %}

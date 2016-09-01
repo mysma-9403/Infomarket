@@ -72,6 +72,42 @@
                 <source>title.magazines</source>
                 <target>Magazyny</target>
             </trans-unit>
+            <trans-unit id="title.newsletter">
+                <source>title.newsletter</source>
+                <target>Newsletter</target>
+            </trans-unit>
+            <trans-unit id="title.newsletterBlock">
+                <source>title.newsletterBlock</source>
+                <target>Blok newslettera</target>
+            </trans-unit>
+            <trans-unit id="title.newsletterBlocks">
+                <source>title.newsletterBlocks</source>
+                <target>Bloki newslettera</target>
+            </trans-unit>
+            <trans-unit id="title.newsletterBlockTemplate">
+                <source>title.newsletterBlockTemplate</source>
+                <target>Szablon bloku newslettera</target>
+            </trans-unit>
+            <trans-unit id="title.newsletterBlockTemplates">
+                <source>title.newsletterBlockTemplates</source>
+                <target>Szablony bloków newslettera</target>
+            </trans-unit>
+            <trans-unit id="title.newsletterPage">
+                <source>title.newsletterPage</source>
+                <target>Strona newslettera</target>
+            </trans-unit>
+            <trans-unit id="title.newsletterPages">
+                <source>title.newsletterPages</source>
+                <target>Strony newslettera</target>
+            </trans-unit>
+            <trans-unit id="title.newsletterPageTemplate">
+                <source>title.newsletterPageTemplate</source>
+                <target>Szablon strony newslettera</target>
+            </trans-unit>
+            <trans-unit id="title.newsletterPageTemplates">
+                <source>title.newsletterPageTemplates</source>
+                <target>Szablony stron newslettera</target>
+            </trans-unit>
             <trans-unit id="title.product">
                 <source>title.product</source>
                 <target>Produkt</target>
@@ -743,12 +779,37 @@
             </trans-unit>
             
             
+            <trans-unit id="label.newsletterBlock">
+                <source>label.newsletterBlock</source>
+                <target>Blok newslettera</target>
+            </trans-unit>
+            <trans-unit id="label.newsletterBlocks">
+                <source>label.newsletterBlocks</source>
+                <target>Bloki newslettera</target>
+            </trans-unit>
+            <trans-unit id="label.newsletterBlockTemplate">
+                <source>label.newsletterBlockTemplate</source>
+                <target>Szablon bloku newslettera</target>
+            </trans-unit>
+            <trans-unit id="label.newsletterPage">
+                <source>label.newsletterPage</source>
+                <target>Strona newslettera</target>
+            </trans-unit>
+            <trans-unit id="label.newsletterPageTemplate">
+                <source>label.newsletterPageTemplate</source>
+                <target>Szablon strony newslettera</target>
+            </trans-unit>
+            
             
             
             
             <trans-unit id="label.choose.location">
                 <source>label.choose.location</source>
                 <target>Wybierz pozycję</target>
+            </trans-unit>
+            <trans-unit id="label.choose.advert">
+                <source>label.choose.advert</source>
+                <target>Wybierz reklamę</target>
             </trans-unit>
             <trans-unit id="label.choose.article">
                 <source>label.choose.article</source>
@@ -799,9 +860,48 @@
                 <target>Wybierz użytkownika</target>
             </trans-unit>
             
+            <trans-unit id="label.choose.newsletterBlock">
+                <source>label.choose.newsletterBlock</source>
+                <target>Wybierz blok newslettera</target>
+            </trans-unit>
+            <trans-unit id="label.choose.newsletterBlocks">
+                <source>label.choose.newsletterBlocks</source>
+                <target>Wybierz bloki newslettera</target>
+            </trans-unit>
+            <trans-unit id="label.choose.newsletterBlockTemplate">
+                <source>label.choose.newsletterBlockTemplate</source>
+                <target>Wybierz szablon bloku newslettera</target>
+            </trans-unit>
+            <trans-unit id="label.choose.newsletterBlockTemplates">
+                <source>label.choose.newsletterBlockTemplates</source>
+                <target>Wybierz szablony bloków newslettera</target>
+            </trans-unit>
+            
+            <trans-unit id="label.choose.newsletterPage">
+                <source>label.choose.newsletterPage</source>
+                <target>Wybierz stronę newslettera</target>
+            </trans-unit>
+            <trans-unit id="label.choose.newsletterPages">
+                <source>label.choose.newsletterPages</source>
+                <target>Wybierz strony newslettera</target>
+            </trans-unit>
+            <trans-unit id="label.choose.newsletterPageTemplate">
+                <source>label.choose.newsletterPageTemplate</source>
+                <target>Wybierz szablon strony newslettera</target>
+            </trans-unit>
+            <trans-unit id="label.choose.newsletterPageTemplates">
+                <source>label.choose.newsletterPageTemplates</source>
+                <target>Wybierz szablony stron newslettera</target>
+            </trans-unit>
             
             
             
+            
+            
+            <trans-unit id="label.newsletterBlockTemplate.style">
+                <source>label.newsletterBlockTemplate.style</source>
+                <target>Styl (CSS)</target>
+            </trans-unit>
             
             <trans-unit id="label.product.price">
                 <source>label.product.price</source>
@@ -963,6 +1063,17 @@
             <trans-unit id="action.assignTag">
                 <source>action.assignTag</source>
                 <target>Przypisz tag</target>
+            </trans-unit>
+            
+            
+            <trans-unit id="action.newsletterPage.showCode">
+                <source>action.newsletterPage.showCode</source>
+                <target>Pokaż kod wynikowy</target>
+            </trans-unit>
+            
+            <trans-unit id="action.create.newsletterBlock">
+                <source>action.create.newsletterBlock</source>
+                <target>Dodaj nowy blok newslettera</target>
             </trans-unit>
             
             

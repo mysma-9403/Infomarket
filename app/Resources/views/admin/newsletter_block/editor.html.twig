@@ -1,0 +1,13 @@
+{% extends 'admin/simple/editor.html.twig' %}
+
+{% set title = 'title.newsletterBlocks'|trans %}
+{% set mainPath = 'newsletter_block' %}
+{% set gender = 'm.' %}
+	
+{% block moreFields3 %}
+	{{ form_row(form.newsletterPage, { 'label': 'label.newsletterPage' }) }}
+	{{ form_row(form.orderNumber, { 'label': 'label.orderNumber' }) }}
+	{{ form_row(form.newsletterBlockTemplate, { 'label': 'label.newsletterBlockTemplate' }) }}
+	{{ form_row(form.article, { 'label': 'label.article' }) }}
+	{{ form_row(form.advert, { 'label': 'label.advert' }) }}
+{% endblock %}

@@ -602,7 +602,123 @@ admin_magazine_set_featured:
 admin_magazine:
     path:      /admin/magazines/{page}
     defaults:  { _controller: "AppBundle:Admin/Magazine:index", page: 1 }
+
+# Admin NewsletterBlocks Routing    
+admin_newsletter_block_show:
+    path:      /admin/newsletter_blocks/show/{id}
+    defaults:  { _controller: "AppBundle:Admin/NewsletterBlock:show" }
+    
+admin_newsletter_block_new:
+    path:      /admin/newsletter_blocks/new/
+    defaults:  { _controller: "AppBundle:Admin/NewsletterBlock:new" }
+    
+admin_newsletter_block_copy:
+    path:      /admin/newsletter_blocks/copy/{id}
+    defaults:  { _controller: "AppBundle:Admin/NewsletterBlock:copy" }
+    
+admin_newsletter_block_edit:
+    path:      /admin/newsletter_blocks/edit/{id}
+    defaults:  { _controller: "AppBundle:Admin/NewsletterBlock:edit" }
+    
+admin_newsletter_block_delete:
+    path:      /admin/newsletter_blocks/delete/{id}
+    defaults:  { _controller: "AppBundle:Admin/NewsletterBlock:delete" }
+    
+admin_newsletter_block_set_published:
+    path:      /admin/newsletter_blocks/set_published/{id}
+    defaults:  { _controller: "AppBundle:Admin/NewsletterBlock:setPublished" }
         
+admin_newsletter_block:
+    path:      /admin/newsletter_blocks/{page}
+    defaults:  { _controller: "AppBundle:Admin/NewsletterBlock:index", page: 1 }
+    
+# Admin NewsletterBlockTemplates Routing    
+admin_newsletter_block_template_show:
+    path:      /admin/newsletter_block_templates/show/{id}
+    defaults:  { _controller: "AppBundle:Admin/NewsletterBlockTemplate:show" }
+    
+admin_newsletter_block_template_new:
+    path:      /admin/newsletter_block_templates/new/
+    defaults:  { _controller: "AppBundle:Admin/NewsletterBlockTemplate:new" }
+    
+admin_newsletter_block_template_copy:
+    path:      /admin/newsletter_block_templates/copy/{id}
+    defaults:  { _controller: "AppBundle:Admin/NewsletterBlockTemplate:copy" }
+    
+admin_newsletter_block_template_edit:
+    path:      /admin/newsletter_block_templates/edit/{id}
+    defaults:  { _controller: "AppBundle:Admin/NewsletterBlockTemplate:edit" }
+    
+admin_newsletter_block_template_delete:
+    path:      /admin/newsletter_block_templates/delete/{id}
+    defaults:  { _controller: "AppBundle:Admin/NewsletterBlockTemplate:delete" }
+    
+admin_newsletter_block_template_set_published:
+    path:      /admin/newsletter_block_templates/set_published/{id}
+    defaults:  { _controller: "AppBundle:Admin/NewsletterBlockTemplate:setPublished" }
+        
+admin_newsletter_block_template:
+    path:      /admin/newsletter_block_templates/{page}
+    defaults:  { _controller: "AppBundle:Admin/NewsletterBlockTemplate:index", page: 1 }
+
+# Admin NewsletterPages Routing    
+admin_newsletter_page_show:
+    path:      /admin/newsletter_pages/show/{id}
+    defaults:  { _controller: "AppBundle:Admin/NewsletterPage:show" }
+    
+admin_newsletter_page_new:
+    path:      /admin/newsletter_pages/new/
+    defaults:  { _controller: "AppBundle:Admin/NewsletterPage:new" }
+    
+admin_newsletter_page_copy:
+    path:      /admin/newsletter_pages/copy/{id}
+    defaults:  { _controller: "AppBundle:Admin/NewsletterPage:copy" }
+    
+admin_newsletter_page_edit:
+    path:      /admin/newsletter_pages/edit/{id}
+    defaults:  { _controller: "AppBundle:Admin/NewsletterPage:edit" }
+    
+admin_newsletter_page_delete:
+    path:      /admin/newsletter_pages/delete/{id}
+    defaults:  { _controller: "AppBundle:Admin/NewsletterPage:delete" }
+    
+admin_newsletter_page_set_published:
+    path:      /admin/newsletter_pages/set_published/{id}
+    defaults:  { _controller: "AppBundle:Admin/NewsletterPage:setPublished" }
+        
+admin_newsletter_page:
+    path:      /admin/newsletter_pages/{page}
+    defaults:  { _controller: "AppBundle:Admin/NewsletterPage:index", page: 1 }
+    
+# Admin NewsletterPageTemplates Routing    
+admin_newsletter_page_template_show:
+    path:      /admin/newsletter_page_templates/show/{id}
+    defaults:  { _controller: "AppBundle:Admin/NewsletterPageTemplate:show" }
+    
+admin_newsletter_page_template_new:
+    path:      /admin/newsletter_page_templates/new/
+    defaults:  { _controller: "AppBundle:Admin/NewsletterPageTemplate:new" }
+    
+admin_newsletter_page_template_copy:
+    path:      /admin/newsletter_page_templates/copy/{id}
+    defaults:  { _controller: "AppBundle:Admin/NewsletterPageTemplate:copy" }
+    
+admin_newsletter_page_template_edit:
+    path:      /admin/newsletter_page_templates/edit/{id}
+    defaults:  { _controller: "AppBundle:Admin/NewsletterPageTemplate:edit" }
+    
+admin_newsletter_page_template_delete:
+    path:      /admin/newsletter_page_templates/delete/{id}
+    defaults:  { _controller: "AppBundle:Admin/NewsletterPageTemplate:delete" }
+    
+admin_newsletter_page_template_set_published:
+    path:      /admin/newsletter_page_templates/set_published/{id}
+    defaults:  { _controller: "AppBundle:Admin/NewsletterPageTemplate:setPublished" }
+        
+admin_newsletter_page_template:
+    path:      /admin/newsletter_page_templates/{page}
+    defaults:  { _controller: "AppBundle:Admin/NewsletterPageTemplate:index", page: 1 }
+            
 # Admin Pages Routing    
 admin_page_show:
     path:      /admin/pages/show/{id}

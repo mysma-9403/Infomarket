@@ -1,0 +1,9 @@
+{% extends 'admin/simple/editor.html.twig' %}
+
+{% set title = 'title.newsletterPageTemplates'|trans %}
+{% set mainPath = 'newsletter_page_template' %}
+{% set gender = 'm.' %}
+	
+{% block moreFields3 %}	
+    {{ form_row(form.content, { 'label': 'label.content' }) }}
+{% endblock %}

@@ -1,0 +1,45 @@
+{% extends 'admin/simple/index.html.twig' %}
+
+{% set title = 'title.newsletterBlocks'|trans %}
+{% set mainPath = 'newsletter_block' %}
+
+{% block filterMoreFields3 %}
+	<li class="col-xs-12 col-sm-6 col-md-4 col-lg-2">
+		{{ form_widget(filter.newsletterPages, { 'label': 'label.choose.newsletterPages' }) }}
+	</li>
+	<li class="col-xs-12 col-sm-6 col-md-4 col-lg-2">
+		{{ form_widget(filter.newsletterBlockTemplates, { 'label': 'label.choose.newsletterBlockTemplates' }) }}
+	</li>
+	<li class="col-xs-12 col-sm-6 col-md-4 col-lg-2">
+		{{ form_widget(filter.articles, { 'label': 'label.choose.articles' }) }}
+	</li>
+	<li class="col-xs-12 col-sm-6 col-md-4 col-lg-2">
+		{{ form_widget(filter.adverts, { 'label': 'label.choose.adverts' }) }}
+	</li>
+{% endblock %}
+
+{% block headerMoreFields2 %}
+	<th><i class="fa fa-file-o"></i> {{ 'label.newsletterPage'|trans }}</th>
+	<th><i class="fa fa-file-o"></i> {{ 'label.newsletterBlockTemplate'|trans }}</th>
+	<th><i class="fa fa-file-o"></i> {{ 'label.article'|trans }}</th>
+	<th><i class="fa fa-picture-o"></i> {{ 'label.advert'|trans }}</th>
+{% endblock %}
+
+{% block entryMoreFields2 %}
+	<td>
+		{% include 'common/table_fields/simple_field.html.twig' with 
+			{ 'value': item.newsletterPage, 'object': 'newsletter_page' } %}
+	</td>
+	<td>
+		{% include 'common/table_fields/simple_field.html.twig' with 
+			{ 'value': item.newsletterBlockTemplate, 'object': 'newsletter_block_template' } %}
+	</td>
+	<td>			
+		{% include 'common/table_fields/simple_field.html.twig' with 
+			{ 'value': item.article, 'object': 'article' } %}
+	</td>
+	<td>
+		{% include 'common/table_fields/simple_field.html.twig' with 
+			{ 'value': item.advert, 'object': 'advert' } %}
+	</td>
+{% endblock %}
