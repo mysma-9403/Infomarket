@@ -5,7 +5,7 @@
     <div class="row">
 	    <div class="col-xs-6 col-sm-4 col-md-3">
 	    	<div class="rect">
-				{% include 'common/advert/advert_entry.html.twig' with { 'entry': entry } %}
+				{% include 'common/image/image_entry.html.twig' with { 'entry': entry } %}
 			</div>
 		</div>
 	</div>
@@ -21,6 +21,9 @@
     {{ form_row(form.file, { 'label': 'label.image' }) }}
     
     {{ form_row(form.vertical, { 'label': 'label.image.vertical' }) }}
+    
+    {{ form_row(form.forcedWidth, { 'label': 'label.image.forcedWidth' }) }}
+	{{ form_row(form.forcedHeight, { 'label': 'label.image.forcedHeight' }) }}
     
     {{ form_row(form.published, { 'label': 'label.' ~ gender ~ 'published' }) }}
 {% endblock %}

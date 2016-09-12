@@ -22,6 +22,33 @@ class MagazineController extends SimpleEntityController
 	
 	/**
 	 * 
+	 * @param Request $request
+	 * @param integer $id
+	 */
+	public function showAction(Request $request, $id)
+	{
+		return $this->showActionInternal($request, $id);
+	}
+	
+	/**
+	 * 
+	 * {@inheritDoc}
+	 * @see \AppBundle\Controller\Infoprodukt\Base\InfoproduktEntityController::showActionInternal()
+	 */
+	protected function showActionInternal(Request $request, $id)
+	{
+		$this->sendShowEventAnalytics($request, $id);
+		
+		$entry = $this->getEntry($id);
+		
+		$baseUrl = $request->getScheme() . '://' . $request->getHttpHost();
+		$fileUrl = $entry->getMagazineFile();
+		
+		return $this->redirect($baseUrl . $fileUrl);
+	}
+	
+	/**
+	 * 
 	 * {@inheritDoc}
 	 * @see \AppBundle\Controller\Infomarket\Base\BaseEntityController::getEntityType()
 	 */

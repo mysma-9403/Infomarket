@@ -23,12 +23,20 @@ use AppBundle\Entity\User;
 abstract class InfoproduktEntityController extends BaseEntityController
 {
 	/**
+	 * InfoProdukt build version
+	 * @var integer $version
+	 */
+	protected $version = 1;
+	
+	/**
 	 * 
 	 * {@inheritDoc}
 	 * @see \AppBundle\Controller\Base\BaseEntityController::indexActionInternal()
 	 */
 	protected function indexActionInternal(Request $request, $page)
 	{
+		$this->sendPageviewAnalytics($request);
+		
 		$params = $this->getIndexParams($request, $page);
 		
 		$userRepository = $this->getDoctrine()->getRepository(User::class);
@@ -50,6 +58,9 @@ abstract class InfoproduktEntityController extends BaseEntityController
 	
 	protected function showActionInternal(Request $request, $id)
 	{
+		$this->sendPageviewAnalytics($request);
+		$this->sendShowEventAnalytics($request, $id);
+		
 		$params = $this->getShowParams($request, $id);
 	
 	
@@ -71,11 +82,41 @@ abstract class InfoproduktEntityController extends BaseEntityController
 	}
 	
 	/*
+	 * Internal logic
+	 */
+	protected function sendPageviewAnalytics(Request $request) 
+	{
+		$tracker = $this->get('happyr.google_analytics.tracker');
+		
+		$data = array(
+				'v' => $this->version,
+				't' => 'pageview',
+				'dh' => 'infoprodukt.pl',
+				'dp' => $request->get('_route')
+		);
+		
+		$tracker->send($data, 'pageview');
+	}
+	
+	protected function sendShowEventAnalytics(Request $request, $id)
+	{
+		$tracker = $this->get('happyr.google_analytics.tracker');
+	
+		$data = array(
+				'v' => $this->version,
+				't' => 'event',
+				'ec' => $this->getEntityName(),
+				'ea' => 'show',
+				'el' => 'id',
+				'ev' => $id
+		);
+	
+		$tracker->send($data, 'pageview');
+	}
+	
+	/*
 	 * Params 
 	 */
-	
-	
-	
     protected function getParams(Request $request)
     {
     	$params = parent::getParams($request);
@@ -198,8 +239,6 @@ abstract class InfoproduktEntityController extends BaseEntityController
     /*
      * Other 
      */
-    
-    
     protected function getBaseName() 
     {
     	return 'infoprodukt';

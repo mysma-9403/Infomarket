@@ -1,7 +1,7 @@
 <?php
 
-use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\Config\Loader\LoaderInterface;
+use Symfony\Component\HttpKernel\Kernel;
 
 class AppKernel extends Kernel
 {
@@ -22,6 +22,8 @@ class AppKernel extends Kernel
 			new FM\ElfinderBundle\FMElfinderBundle(),
             new AppBundle\AppBundle(),
             new KrkDev\Bundle\RoutingBundle\KrkRoutingBundle(),
+        	new Http\HttplugBundle\HttplugBundle(),
+			new Happyr\GoogleAnalyticsBundle\HappyrGoogleAnalyticsBundle()
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {

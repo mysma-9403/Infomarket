@@ -5,6 +5,7 @@ namespace AppBundle\Form\Base;
 use AppBundle\Entity\Base\ImageEntity;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 
 class ImageEntityType extends SimpleEntityType
 {	
@@ -22,6 +23,14 @@ class ImageEntityType extends SimpleEntityType
 			))
 			->add('vertical', null, array(
 					'required' => false
+			))
+			->add('forcedWidth', NumberType::class, array(
+					'required' => false,
+					'attr' => ['placeholder' => 'label.forcedWidth']
+			))
+			->add('forcedHeight', NumberType::class, array(
+					'required' => false,
+					'attr' => ['placeholder' => 'label.forcedHeight']
 			))
 		;
 	}

@@ -74,7 +74,7 @@
 				{% for magazine in magazines %}
 					<div class="col-xs-12 col-sm-3">
 						<div class="rect">
-					  		<a href="{{ asset(magazine.magazineFile) }}">
+					  		<a href="{{ path(basePath ~ 'magazine_show', { id: magazine.id }) }}">
 					  			{% if magazine.image %}
 					  				<img class="div-center img-{{ magazine.vertical ? 'v' : '' }}responsive" 
 										alt="{{ magazine.name | raw }}" src="{{ asset(magazine.getImagePath()) }}">

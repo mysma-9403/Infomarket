@@ -1,0 +1,10 @@
+AppBundle\Entity\Base\Image:
+    properties:
+        forcedWidth:
+            - Range:
+                min: 0
+                max: 9999
+        forcedHeight:
+            - Range:
+                min: 0
+                max: 9999 

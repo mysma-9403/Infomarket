@@ -140,9 +140,6 @@ class AdvertController extends ImageEntityController {
 		$entry->setShowLimit($template->getShowLimit());
 		$entry->setClickCount($template->getClickCount());
 		$entry->setClickLimit($template->getClickLimit());
-		
-		$entry->setForcedWidth($template->getForcedWidth());
-		$entry->setForcedHeight($template->getForcedHeight());
 	
 		return $entry;
 	}

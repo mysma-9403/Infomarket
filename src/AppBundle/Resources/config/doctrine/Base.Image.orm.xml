@@ -20,6 +20,9 @@
         </field>
         
         <field name="vertical" type="boolean" nullable="false" default="0" />
+        
+        <field name="forcedWidth" type="integer" nullable="true" />
+        <field name="forcedHeight" type="integer" nullable="true" />
 
         <gedmo:uploadable
             append-number="true"

@@ -3,7 +3,7 @@
 {% set title = 'title.adverts'|trans %}
 {% set mainPath = 'advert' %}
 {% set gender = 'fm.' %}
-	
+
 {% block moreFields3 %}
 	{{ form_row(form.location, { 'label': 'label.advert.location' }) }}
 	
@@ -14,9 +14,6 @@
 	
 	{{ form_row(form.showLimit, { 'label': 'label.advert.showLimit' }) }}
 	{{ form_row(form.clickLimit, { 'label': 'label.advert.clickLimit' }) }}
-	
-	{{ form_row(form.forcedWidth, { 'label': 'label.advert.forcedWidth' }) }}
-	{{ form_row(form.forcedHeight, { 'label': 'label.advert.forcedHeight' }) }}
 {% endblock %}
 
 {% block assignments %}

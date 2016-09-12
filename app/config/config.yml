@@ -112,7 +112,13 @@ ivory_ck_editor:
         default:
             filebrowserBrowseRoute: elfinder
             filebrowserBrowseRouteParameters: []
-                         
+
+# Google Analytics
+happyr_google_analytics:
+    tracking_id: UA-83994037-1
+    http_client: 'httplug.client'
+    http_message_factory: 'httplug.message_factory'
+                             
 # File uploader ElFinder         
 fm_elfinder:
     #assets_path: / # default is /assets, this is where css/js elfinder files are

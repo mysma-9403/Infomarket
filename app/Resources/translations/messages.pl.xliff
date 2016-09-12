@@ -335,14 +335,6 @@
                 <source>label.advert.clickLimit</source>
                 <target>Limit kliknięć</target>
             </trans-unit>
-            <trans-unit id="label.advert.forcedWidth">
-                <source>label.advert.forcedWidth</source>
-                <target>Wymuszona szerokość</target>
-            </trans-unit>
-            <trans-unit id="label.advert.forcedHeight">
-                <source>label.advert.forcedHeight</source>
-                <target>Wymuszona wysokość</target>
-            </trans-unit>
             
             
             <trans-unit id="label.article.layout.default.left">
@@ -495,6 +487,14 @@
             <trans-unit id="label.image.vertical">
                 <source>label.image.vertical</source>
                 <target>Zdjęcie pionowe</target>
+            </trans-unit>
+            <trans-unit id="label.image.forcedWidth">
+                <source>label.image.forcedWidth</source>
+                <target>Wymuszona szerokość</target>
+            </trans-unit>
+            <trans-unit id="label.image.forcedHeight">
+                <source>label.image.forcedHeight</source>
+                <target>Wymuszona wysokość</target>
             </trans-unit>
             <trans-unit id="label.intro">
                 <source>label.intro</source>

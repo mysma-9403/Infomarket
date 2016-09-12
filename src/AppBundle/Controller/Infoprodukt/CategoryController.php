@@ -58,7 +58,7 @@ class CategoryController extends SimpleEntityController
 	 * @see \AppBundle\Controller\Infomarket\Base\BaseEntityController::getShowParams()
 	 */
 	protected function getIndexParams(Request $request, $page)
-	{
+	{	
 		$params = parent::getIndexParams($request, $page);
 	
 		$userRepository = $this->getDoctrine()->getRepository(User::class);
@@ -93,7 +93,7 @@ class CategoryController extends SimpleEntityController
 	 * @see \AppBundle\Controller\Infomarket\Base\BaseEntityController::getShowParams()
 	 */
 	protected function getShowParams(Request $request, $id)
-	{
+	{	
 		$params = parent::getShowParams($request, $id);
 		
 		$entry = $params['entry'];

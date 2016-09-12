@@ -6,7 +6,7 @@
     <div class="row">
 	    <div class="col-xs-6 col-sm-4 col-md-3">
 	    	<div class="rect">
-				{% include 'common/advert/advert_entry.html.twig' with { 'entry': entry } %}
+				{% include 'common/image/image_entry.html.twig' with { 'entry': entry } %}
 			</div>
 		</div>
 	</div>
@@ -14,6 +14,12 @@
 	
 	{% include 'common/fields/bool_field.html.twig' with 
 	{ 'label': ('label.image.vertical')|trans, 'value': entry.vertical } %}
+	
+	{% include 'common/fields/text_field.html.twig' with 
+	{ 'label': 'label.image.forcedWidth'|trans, 'value': entry.forcedWidth } %}
+	
+	{% include 'common/fields/text_field.html.twig' with 
+	{ 'label': 'label.image.forcedHeight'|trans, 'value': entry.forcedHeight } %}
 	
 	<div class="row lowered-25"></div>
 	

@@ -39,6 +39,11 @@ infoprodukt_category_show:
     host:      infoprodukt.loc
     defaults:  { _controller: "AppBundle:Infoprodukt/Category:show" }
 
+infoprodukt_magazine_show:
+    path:      /magazines/show/{id}
+    host:      infoprodukt.loc
+    defaults:  { _controller: "AppBundle:Infoprodukt/Magazine:show" }
+    
 infoprodukt_magazine:
     path:      /magazines/{page}
     host:      infoprodukt.loc
@@ -46,6 +51,7 @@ infoprodukt_magazine:
     
 infoprodukt_page_show:
     path:      /pages/show/{id}
+    host:      infoprodukt.loc
     defaults:  { _controller: "AppBundle:Infoprodukt/Page:show" }
     
 infoprodukt_product:

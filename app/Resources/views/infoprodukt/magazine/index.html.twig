@@ -17,7 +17,7 @@
 						<div class="panel-body">
 							<div class="col-sm-3">
 								<div class="rect">
-									<a href="{{ asset(entry.magazineFile) }}">
+									<a href="{{ path(basePath ~ mainPath ~ '_show', { id: entry.id }) }}">
 										{% if entry.image %}
 											<img class="div-center img-{{ entry.vertical ? 'v' : '' }}responsive" 
 												alt="{{ entry.name | raw }}" src="{{ asset(entry.getImagePath()) }}">
@@ -32,7 +32,7 @@
 								<div class="vr-space-10"></div>
 								
 								<p class="text-xs-center text-sm-left">
-									<a class="btn btn-danger" href="{{ asset(entry.magazineFile) }}">
+									<a class="btn btn-danger" href="{{ path(basePath ~ mainPath ~ '_show', { id: entry.id }) }}">
 										<span class="fa fa-eye"></span> {{ 'action.show'|trans }}
 									</a>
 								</p>

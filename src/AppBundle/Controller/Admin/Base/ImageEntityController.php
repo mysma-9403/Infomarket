@@ -41,4 +41,15 @@ abstract class ImageEntityController extends SimpleEntityController {
 			$uploadableManager->markEntityToUpload($entry, new UploadedFileInfo($entry->getFile()));
 		}
 	}
+	
+	protected function createFromTemplate(Request $request, $template) {
+		$entry = parent::createFromTemplate($request, $template);
+	
+		$entry->setVertical($template->getVertical());
+		
+		$entry->setForcedWidth($template->getForcedWidth());
+		$entry->setForcedHeight($template->getForcedHeight());
+	
+		return $entry;
+	}
 }

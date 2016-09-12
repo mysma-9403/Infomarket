@@ -21,20 +21,39 @@ class AdvertController extends SimpleEntityController
 
 	protected function clickActionInternal(Request $request, $id)
 	{
+		$this->sendAdvertEventAnalytics($request, $id);
+		
 		$entry = $this->getEntry($id);
 		$entry->setClickCount($entry->getClickCount()+1);
 		
 		$this->saveEntry($entry);
 		
-		return $this->redirect('http://' . $entry->getLink());
+		return $this->redirect($request->getScheme() . '://' . $entry->getLink());
 	}
-		
+	
+	protected function sendAdvertEventAnalytics(Request $request, $id)
+	{
+		$tracker = $this->get('happyr.google_analytics.tracker');
+	
+		$data = array(
+				'v' => $this->version,
+				't' => 'event',
+				'ec' => 'advert',
+				'ea' => 'click',
+				'el' => 'id',
+				'ev' => $id
+		);
+	
+		$tracker->send($data, 'pageview');
+	}
+	
 	protected function saveEntry($entry) {
 		$em = $this->getDoctrine()->getManager();
 			
 		$em->persist($entry);
 		$em->flush();
 	}
+	
 	/**
 	 * 
 	 * {@inheritDoc}

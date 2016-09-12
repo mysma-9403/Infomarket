@@ -1,0 +1,29 @@
+{% if entry.image %}
+	{% if entry.forcedWidth and entry.forcedWidth > 0 %}
+		{% set forcedWidth = 'width=' ~ entry.forcedWidth ~ '' %}
+	{% else %}
+		{% set forcedWidth = '' %}
+	{% endif %}
+
+	{% if entry.forcedHeight and entry.forcedHeight > 0 %}
+		{% set forcedHeight = 'height=' ~ entry.forcedHeight ~ '' %}
+	{% else %}
+		{% set forcedHeight = '' %}
+	{% endif %}
+	
+	{% if forcedWidth|length == 0 and forcedHeight|length == 0 %}
+		{% set responsive = 'img-' ~ (entry.vertical ? 'v' : '') ~ 'responsive' %}
+	{% else %}
+		{% set responsive = '' %}
+	{% endif %}
+	
+			
+	
+	{% if entry.mimeType == "application/x-shockwave-flash" %}
+		<embed class="div-center {{ responsive }}" {{ forcedWidth }} {{ forcedHeight }} 
+			src="{{ asset(entry.getImagePath()) }}">
+	{% else %}
+		<img class="div-center {{ responsive }}" {{ forcedWidth }} {{ forcedHeight }}
+			alt="{{ entry.name | raw }}" src="{{ asset(entry.getImagePath()) }}" />
+	{% endif %}
+{% endif %}

@@ -39,6 +39,8 @@ class ArticleController extends SimpleEntityController
 	
 	protected function indexActionInternal(Request $request, $page)
 	{
+		$this->sendPageviewAnalytics($request);
+		
 		$params = $this->getIndexParams($request, $page);
 		
 		//TODO brzydki override, pomyslec czy da sie ladniej :)
