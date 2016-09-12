@@ -6,12 +6,7 @@
     <div class="row">
 	    <div class="col-xs-6 col-sm-4 col-md-3">
 	    	<div class="rect">
-				{% if entry.mimeType == "application/x-shockwave-flash" %}
-					<embed class="div-center img-{{ entry.vertical ? 'v' : '' }}responsive" src="{{ asset(entry.getImagePath()) }}">
-				{% else %}
-					<img class="div-center img-{{ entry.vertical ? 'v' : '' }}responsive" 
-						alt="{{ entry.name | raw }}" src="{{ asset(entry.getImagePath()) }}" />
-				{% endif %}
+				{% include 'common/advert/advert_entry.html.twig' with { 'entry': entry } %}
 			</div>
 		</div>
 	</div>

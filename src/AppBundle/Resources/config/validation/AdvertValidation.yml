@@ -13,4 +13,12 @@ AppBundle\Entity\Advert:
         clickLimit:
             - Range:
                 min: 0
-                max: 9999999   
+                max: 9999999  
+        forcedWidth:
+            - Range:
+                min: 0
+                max: 9999
+        forcedHeight:
+            - Range:
+                min: 0
+                max: 9999 

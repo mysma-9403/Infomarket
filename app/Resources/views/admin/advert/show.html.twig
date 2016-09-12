@@ -35,6 +35,11 @@
 	{% include 'common/fields/text_field.html.twig' with 
 	{ 'label': 'label.advert.clickLimit'|trans, 'value': entry.clickLimit } %}
 	
+	{% include 'common/fields/text_field.html.twig' with 
+	{ 'label': 'label.advert.forcedWidth'|trans, 'value': entry.forcedWidth } %}
+	
+	{% include 'common/fields/text_field.html.twig' with 
+	{ 'label': 'label.advert.forcedHeight'|trans, 'value': entry.forcedHeight } %}
 {% endblock %}
 
 {% block assignments %}

@@ -205,16 +205,7 @@
 					  	<div class="carousel-inner" role="listbox">
 							{% for advert in featuredAds %}
 					    		<div class="item rect-3x1 {{ loop.index == 1 ? 'active' : '' }}">
-						    		<a href="{{ path('infoprodukt_advert_click', { id: advert.id }) }}">
-						    			{% if advert.image %}
-							    			{% if advert.mimeType == "application/x-shockwave-flash" %}
-												<embed class="div-center img-{{ advert.vertical ? '' : 'v' }}responsive" src="{{ asset(advert.getImagePath()) }}">
-											{% else %}
-												<img class="div-center img-{{ advert.vertical ? '' : 'v' }}responsive" 
-													alt="{{ advert.name | raw }}" src="{{ asset(advert.getImagePath()) }}" />
-											{% endif %}
-										{% endif %}
-						    		</a>
+						    		{% include 'common/advert/advert_entry.html.twig' with { 'entry': advert } %}
 							    </div>
 						    {% endfor %}
 					  	</div>
@@ -363,16 +354,7 @@
 								  	<div class="carousel-inner" role="listbox">
 										{% for advert in sideAds %}
 								    		<div class="item rect-1x2 {{ loop.index == 1 ? 'active' : '' }}">
-									    		<a href="{{ path('infoprodukt_advert_click', { id: advert.id }) }}">
-									    			{% if advert.image %}
-										    			{% if advert.mimeType == "application/x-shockwave-flash" %}
-															<embed class="div-center img-{{ advert.vertical ? 'v' : '' }}responsive" src="{{ asset(advert.getImagePath()) }}">
-														{% else %}
-															<img class="div-center img-{{ advert.vertical ? 'v' : '' }}responsive" 
-																alt="{{ advert.name | raw }}" src="{{ asset(advert.getImagePath()) }}" />
-														{% endif %}
-													{% endif %}
-									    		</a>
+									    		{% include 'common/advert/advert_entry.html.twig' with { 'entry': advert } %}
 										    </div>
 									    {% endfor %}
 								  	</div>
@@ -411,16 +393,7 @@
 								  	<div class="carousel-inner" role="listbox">
 										{% for advert in topAds %}
 								    		<div class="item rect-6x1 {{ loop.index == 1 ? 'active' : '' }}">
-									    		<a href="{{ path('infoprodukt_advert_click', { id: advert.id }) }}">
-									    			{% if advert.image %}
-										    			{% if advert.mimeType == "application/x-shockwave-flash" %}
-															<embed class="div-center img-{{ advert.vertical ? 'v' : '' }}responsive" src="{{ asset(advert.getImagePath()) }}">
-														{% else %}
-															<img class="div-center img-{{ advert.vertical ? 'v' : '' }}responsive" 
-																alt="{{ advert.name | raw }}" src="{{ asset(advert.getImagePath()) }}" />
-														{% endif %}
-								    				{% endif %}
-									    		</a>
+									    		{% include 'common/advert/advert_entry.html.twig' with { 'entry': advert } %}
 										    </div>
 									    {% endfor %}
 								  	</div>

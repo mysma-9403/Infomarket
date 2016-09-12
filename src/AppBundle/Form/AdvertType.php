@@ -69,6 +69,14 @@ class AdvertType extends ImageEntityType
 					'required' => false,
 					'attr' => ['placeholder' => 'label.advert.clickLimit']
 			))
+			->add('forcedWidth', NumberType::class, array(
+					'required' => false,
+					'attr' => ['placeholder' => 'label.advert.forcedWidth']
+			))
+			->add('forcedHeight', NumberType::class, array(
+					'required' => false,
+					'attr' => ['placeholder' => 'label.advert.forcedHeight']
+			))
 		;
 	}
 	

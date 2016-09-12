@@ -20,6 +20,9 @@
         <field name="clickCount" type="integer" nullable="true" />
         <field name="clickLimit" type="integer" nullable="true" />
         
+        <field name="forcedWidth" type="integer" nullable="true" />
+        <field name="forcedHeight" type="integer" nullable="true" />
+        
         <one-to-many field="advertCategoryAssignments" target-entity="AdvertCategoryAssignment" mapped-by="advert">
         </one-to-many>
         

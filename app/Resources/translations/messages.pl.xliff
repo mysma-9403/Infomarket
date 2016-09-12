@@ -335,6 +335,14 @@
                 <source>label.advert.clickLimit</source>
                 <target>Limit kliknięć</target>
             </trans-unit>
+            <trans-unit id="label.advert.forcedWidth">
+                <source>label.advert.forcedWidth</source>
+                <target>Wymuszona szerokość</target>
+            </trans-unit>
+            <trans-unit id="label.advert.forcedHeight">
+                <source>label.advert.forcedHeight</source>
+                <target>Wymuszona wysokość</target>
+            </trans-unit>
             
             
             <trans-unit id="label.article.layout.default.left">

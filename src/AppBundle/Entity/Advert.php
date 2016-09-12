@@ -300,4 +300,62 @@ class Advert extends ImageEntity
     {
         return $this->advertCategoryAssignments;
     }
+    /**
+     * @var integer
+     */
+    private $forcedWidth;
+
+    /**
+     * @var integer
+     */
+    private $forcedHeight;
+
+
+    /**
+     * Set forcedWidth
+     *
+     * @param integer $forcedWidth
+     *
+     * @return Advert
+     */
+    public function setForcedWidth($forcedWidth)
+    {
+        $this->forcedWidth = $forcedWidth;
+
+        return $this;
+    }
+
+    /**
+     * Get forcedWidth
+     *
+     * @return integer
+     */
+    public function getForcedWidth()
+    {
+        return $this->forcedWidth;
+    }
+
+    /**
+     * Set forcedHeight
+     *
+     * @param integer $forcedHeight
+     *
+     * @return Advert
+     */
+    public function setForcedHeight($forcedHeight)
+    {
+        $this->forcedHeight = $forcedHeight;
+
+        return $this;
+    }
+
+    /**
+     * Get forcedHeight
+     *
+     * @return integer
+     */
+    public function getForcedHeight()
+    {
+        return $this->forcedHeight;
+    }
 }
