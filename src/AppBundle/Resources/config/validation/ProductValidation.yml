@@ -1,6 +1,9 @@
 AppBundle\Entity\Product:
     constraints:
-        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: name
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
+            fields: [brand, name]
+            errorPath: name
+            ignoreNull: false
     properties:
         name:
             - NotBlank: ~
