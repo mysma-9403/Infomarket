@@ -116,7 +116,7 @@ class ArticleController extends SimpleEntityController
     	}
     	
     	$filter->setMain(SimpleEntityFilter::TRUE_VALUES);
-    	$filter->setOrderBy('e.publishedAt DESC');
+    	$filter->setOrderBy('e.date DESC');
     	
     	return $filter;
     }
