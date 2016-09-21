@@ -11,6 +11,7 @@ use AppBundle\Entity\Product;
 use AppBundle\Entity\Segment;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Entity\User;
 
 class ProductController extends SimpleEntityController
 {
@@ -46,10 +47,12 @@ class ProductController extends SimpleEntityController
 	{
 		$params = parent::initIndexParams($request, $page);
 		
-		$segmentFilter = new SimpleEntityFilter();
+		$userRepository = $this->getDoctrine()->getRepository(User::class);
+		
+		$segmentFilter = new SimpleEntityFilter($userRepository);
 		$segments = $this->getParamList(Segment::class, $segmentFilter);
 		
-		$segment = $this->getParam($request, Segment::class, null);
+		$segment = $this->getParamByName($request, Segment::class, null);
 		
 		$params['segments'] = $segments;
 		$params['segment'] = $segment;
@@ -74,19 +77,20 @@ class ProductController extends SimpleEntityController
 	 */
 	protected function getEntityFilter(Request $request)
 	{
+		$userRepository = $this->getDoctrine()->getRepository(User::class);
 		$categoryRepository = $this->getDoctrine()->getRepository(Category::class);
 		$brandRepository = $this->getDoctrine()->getRepository(Brand::class);
 		$segmentRepository = $this->getDoctrine()->getRepository(Segment::class);
 		
-		$filter = new ProductFilter($categoryRepository, $brandRepository, $segmentRepository);
+		$filter = new ProductFilter($userRepository, $categoryRepository, $brandRepository, $segmentRepository);
 		$filter->setPublished(true);
 		 
-		$category = $this->getParam($request, Category::class, null);
+		$category = $this->getParamByName($request, Category::class, null);
 		if($category) {
 			$filter->setCategories([$category]);
 		}
 		
-		$segment = $this->getParam($request, Segment::class, null);
+		$segment = $this->getParamByName($request, Segment::class, null);
 		if($segment) {
 			$filter->setSegments([$segment]);
 		}

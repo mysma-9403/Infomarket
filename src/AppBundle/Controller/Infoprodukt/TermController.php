@@ -60,4 +60,14 @@ class TermController extends SimpleEntityController
     	
     	return new TermFilter($userRepository, $categoryRepository);
     }
+    
+    /**
+     *
+     * @param Request $request
+     * @return integer
+     */
+    protected function getPageEntries(Request $request)
+    {
+    	return 60;
+    }
 }

@@ -11,6 +11,8 @@ use AppBundle\Entity\Article;
 use AppBundle\Entity\Category;
 use AppBundle\Entity\Brand;
 use AppBundle\Entity\Tag;
+use AppBundle\Entity\User;
+use AppBundle\Entity\Filter\Base\SimpleEntityFilter;
 
 class HomeController extends SimpleEntityController
 {
@@ -55,16 +57,17 @@ class HomeController extends SimpleEntityController
      */
     protected function getEntityFilter(Request $request)
     {
+    	$userRepository = $this->getDoctrine()->getRepository(User::class);
     	$articleCategoryRepository = $this->getDoctrine()->getRepository(ArticleCategory::class);
 		$categoryRepository = $this->getDoctrine()->getRepository(Category::class);
 		$brandRepository = $this->getDoctrine()->getRepository(Brand::class);
 		$tagRepository = $this->getDoctrine()->getRepository(Tag::class);
 		
-		$filter = new ArticleFilter($articleCategoryRepository, $categoryRepository, $brandRepository, $tagRepository);
-    	$filter->setPublished(true);
-    	$filter->setFeatured(true);
+		$filter = new ArticleFilter($userRepository, $articleCategoryRepository, $categoryRepository, $brandRepository, $tagRepository);
+    	$filter->setPublished(SimpleEntityFilter::TRUE_VALUES);
+    	$filter->setFeatured(SimpleEntityFilter::TRUE_VALUES);
     	
-    	$articleCategory = $this->getParam($request, ArticleCategory::class, null);
+    	$articleCategory = $this->getParamById($request, ArticleCategory::class, null);
     	if($articleCategory) {
     		$filter->setArticleCategories([$articleCategory]);
     	}

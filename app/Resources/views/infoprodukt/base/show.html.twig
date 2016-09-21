@@ -1,6 +1,6 @@
 {% extends 'infoprodukt/base/base.html.twig' %}
 
-{% block moreBreadcrumbs%}
+{% block moreBreadcrumbs %}
 	{% if category %}
 		/ 
 		<a href="{{ path(basePath ~ 'category_show', { id: category.id, category: category.preleaf ? category.id : category.parent.id }) }}">{{ category.name }}</a>

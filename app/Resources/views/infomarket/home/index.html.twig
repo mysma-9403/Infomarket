@@ -51,10 +51,10 @@
 						</div>
 						
 						<ul>
-							{% for child in entry.categories %}
-								{% if not child.category.parent %}
-									<a href="{{ path('infomarket_product', { 'branch': entry.name, 'category': child.category.name}) }}">
-										<li>{{ child.category.name }}</li>
+							{% for branchCategoryAssignment in entry.branchCategoryAssignments %}
+								{% if not branchCategoryAssignment.category.parent %}
+									<a href="{{ path('infomarket_product', { 'branch': entry.name, 'category': branchCategoryAssignment.category.name}) }}">
+										<li>{{ branchCategoryAssignment.category.name }}</li>
 									</a>	
 								{% endif %}
 							{% else %}

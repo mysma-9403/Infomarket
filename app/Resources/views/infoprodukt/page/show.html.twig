@@ -2,6 +2,15 @@
 
 {% set title = entry.name|raw %}
 {% set mainPath = 'page' %}
+
+{% block moreBreadcrumbs %}
+	{% if category %}
+		/ 
+		<a href="{{ path(basePath ~ 'category_show', { id: category.id, category: category.preleaf ? category.id : category.parent.id }) }}">{{ category.name }}</a>
+	{% endif %}
+	/ 
+	{{ entry.name }}
+{% endblock %}
 		
 {% block mainContent %}
 	{% block header %}
