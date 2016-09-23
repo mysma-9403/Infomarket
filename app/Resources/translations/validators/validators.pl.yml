@@ -1,4 +1,6 @@
 # Simple validation
+article.name.notnull: Tytuł głównego artykułu nie może być pusty.
+
 category.name.unique: Podana nazwa jest już wykorzystywana w innej podkategorii wybranej kategorii głównej.
 
 # Assignment uniqueness

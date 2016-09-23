@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use AppBundle\Entity\Base\ImageEntity;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 /**
  * Article
@@ -43,6 +44,21 @@ class Article extends ImageEntity
 	public function getUploadPath()
 	{
 		return '../web/uploads/articles/' . $this->createdAt->format('Y/m/');
+	}
+	
+	/**
+	 * 
+	 * @param ExecutionContextInterface $context
+	 * @param unknown $payload
+	 */
+	public function validate(ExecutionContextInterface $context, $payload)
+	{
+		if ($this->parent == null && $this->name == null) {
+			$context->buildViolation('article.name.notnull')
+				->atPath('name')
+				->addViolation();
+        }
+        
 	}
 	
     /**

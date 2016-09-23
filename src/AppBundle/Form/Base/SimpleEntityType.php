@@ -18,7 +18,8 @@ class SimpleEntityType extends BaseFormType
 		
 		$builder
 			->add('name', TextType::class, array(
-					'attr' => array('autofocus' => true)
+					'attr' => array('autofocus' => true),
+					'required' => false
 			))
 		;
 	}
