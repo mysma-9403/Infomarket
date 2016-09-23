@@ -953,14 +953,6 @@ admin_user_show:
     path:      /admin/users/show/{id}
     defaults:  { _controller: "AppBundle:Admin/User:show" }
     
-admin_user_new:
-    path:      /admin/users/new/
-    defaults:  { _controller: "AppBundle:Admin/User:new" }
-    
-admin_user_copy:
-    path:      /admin/users/copy/{id}
-    defaults:  { _controller: "AppBundle:Admin/User:copy" }
-    
 admin_user_edit:
     path:      /admin/users/edit/{id}
     defaults:  { _controller: "AppBundle:Admin/User:edit" }
@@ -968,14 +960,6 @@ admin_user_edit:
 admin_user_delete:
     path:      /admin/users/delete/{id}
     defaults:  { _controller: "AppBundle:Admin/User:delete" }
-    
-admin_user_remove_image:
-    path:      /admin/users/remove_image/{id}
-    defaults:  { _controller: "AppBundle:Admin/User:removeImage" }
-    
-admin_user_set_published:
-    path:      /admin/users/set_published/{id}
-    defaults:  { _controller: "AppBundle:Admin/User:setPublished" }
         
 admin_user:
     path:      /admin/users/{page}
