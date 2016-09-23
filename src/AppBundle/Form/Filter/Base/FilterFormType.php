@@ -143,8 +143,8 @@ class FilterFormType extends BaseFormType
 	 */
 	protected function addActions(FormBuilderInterface $builder, array $options) {
 		$builder
-		->add('search', SubmitType::class)
-		->add('clear', SubmitType::class)
+			->add('search', SubmitType::class)
+			->add('clear', SubmitType::class)
 		;
 	}
 	

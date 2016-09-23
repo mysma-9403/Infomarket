@@ -132,6 +132,10 @@
                 <source>title.segments</source>
                 <target>Segmenty</target>
             </trans-unit>
+            <trans-unit id="title.settings">
+                <source>title.settings</source>
+                <target>Ustawienia</target>
+            </trans-unit>
             <trans-unit id="title.tags">
                 <source>title.tags</source>
                 <target>Tagi</target>
@@ -139,6 +143,14 @@
             <trans-unit id="title.terms">
                 <source>title.terms</source>
                 <target>Leksykon pojęć</target>
+            </trans-unit>
+            <trans-unit id="title.user">
+                <source>title.user</source>
+                <target>Użytkownik</target>
+            </trans-unit>
+            <trans-unit id="title.users">
+                <source>title.users</source>
+                <target>Użytkownicy</target>
             </trans-unit>
             
             <trans-unit id="title.article_categories">
@@ -930,6 +942,29 @@
             
             
             
+            <trans-unit id="label.user.username">
+                <source>label.user.username</source>
+                <target>Login</target>
+            </trans-unit>
+            <trans-unit id="label.user.forename">
+                <source>label.user.forename</source>
+                <target>Imię</target>
+            </trans-unit>
+            <trans-unit id="label.user.surname">
+                <source>label.user.surname</source>
+                <target>Nazwisko</target>
+            </trans-unit>
+            <trans-unit id="label.user.pseudonym">
+                <source>label.user.pseudonym</source>
+                <target>Pseudonim</target>
+            </trans-unit>
+            <trans-unit id="label.user.email">
+                <source>label.user.email</source>
+                <target>E-mail</target>
+            </trans-unit>
+            
+            
+            
             <trans-unit id="action.search">
                 <source>action.search</source>
                 <target>Szukaj</target>
@@ -1082,6 +1117,13 @@
             <trans-unit id="action.create.newsletterBlock">
                 <source>action.create.newsletterBlock</source>
                 <target>Dodaj nowy blok newslettera</target>
+            </trans-unit>
+            
+            
+            
+            <trans-unit id="action.user.changePassword">
+                <source>action.user.changePassword</source>
+                <target>Zmień hasło</target>
             </trans-unit>
             
             

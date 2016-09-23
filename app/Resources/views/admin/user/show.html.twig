@@ -1,7 +1,7 @@
 {% extends 'admin/simple/show.html.twig' %}
 
-{% set mainPath = 'article_category' %}
-{% set title = 'title.article_categories'|trans %}
+{% set mainPath = 'user' %}
+{% set title = 'title.users'|trans %}
 {% set gender = 'm.' %}
 
 {% block mainFields1 %}
@@ -10,4 +10,44 @@
 			<h3>{{ entry.username | raw }}</h3>
 		</div>
 	</div>
+{% endblock %}
+
+{% block mainFields2 %}
+{% endblock %}
+
+{% block moreFields3 %}
+	
+	{% include 'common/fields/text_field.html.twig' with 
+	{ 'label': 'label.user.email'|trans, 'value': entry.email } %}
+	
+	<div class="row lowered-25"></div>
+	
+	{% include 'common/fields/text_field.html.twig' with 
+	{ 'label': 'label.user.forename'|trans, 'value': entry.forename } %}
+	
+	{% include 'common/fields/text_field.html.twig' with 
+	{ 'label': 'label.user.surname'|trans, 'value': entry.surname } %}
+	
+	{% include 'common/fields/text_field.html.twig' with 
+	{ 'label': 'label.user.pseudonym'|trans, 'value': entry.pseudonym } %}
+	
+{% endblock %}
+            
+{% block auditFields %}
+{% endblock %}
+
+{% block mainActions %}
+	{% if is_granted('ROLE_SUPER_ADMIN') %}
+	    <a type="button" class="btn btn-warning" href="{{ path('admin_' ~ mainPath ~ '_edit', { id: entry.id }) }}">
+	    	<i class="fa fa-edit"></i>{{ 'action.edit'|trans }}
+		</a>
+		<a type="button" class="btn btn-danger" onclick="return confirm('{{ 'confirm.delete'|trans }}')" 
+			href="{{ path(basePath ~ mainPath ~ '_delete', { id: entry.id }) }}">
+    		<i class="fa fa-trash"></i> {{ 'action.delete'|trans }}
+		</a>
+	{% endif %}
+	
+	<a type="button" class="btn btn-primary" href="{{ path(route, routeParams) }}">
+    	<i class="fa fa-close"></i>{{ 'action.back'|trans }}
+	</a>
 {% endblock %}

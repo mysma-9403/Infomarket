@@ -197,7 +197,19 @@
 								{{ 'title.terms'|trans }}
 							</a>
 						</li>
+						{% if is_granted('ROLE_ADMIN') %}
+							<li>
+								<a href="{{ path(basePath ~ 'user') }}">
+									{{ 'title.users'|trans }}
+								</a>
+							</li>
+						{% endif %}
 					</ul>
+				</li>
+				<li>
+					<a href="{{ path(basePath ~ 'user_settings') }}">
+						{{ 'title.settings'|trans }}
+					</a>
 				</li>
 			</ul>
 		</div>

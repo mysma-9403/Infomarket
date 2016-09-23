@@ -19,8 +19,19 @@ services:
         tags:
             - { name: form.type_extension, extended_type: Symfony\Component\Form\Extension\Core\Type\ButtonType }
             
+            
+            
+            
     validator.node.is_article_tag_assignment_unique:
         class: AppBundle\Validator\Constraints\IsArticleTagAssignmentUniqueValidator
         arguments: ['@doctrine']
         tags:
             - { name: validator.constraint_validator, alias: is_article_tag_assignment_unique }
+            
+            
+            
+    app.user_voter:
+        class: AppBundle\Security\Base\UserVoter
+        tags:
+            - { name: security.voter }
+        public: false

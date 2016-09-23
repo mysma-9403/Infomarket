@@ -20,7 +20,13 @@ class User extends BaseUser
 	 * @see \AppBundle\Entity\Base\Audit::getDisplayName()
 	 */
 	public function getDisplayName() {
-		return $this->surname . ' ' . $this->forename;
+		if($this->pseudonym != null) {
+			return $this->pseudonym;
+		}
+		if($this->surname != null) {
+		 	return $this->surname . ' ' . $this->forename;
+		}
+		return $this->username;
 	}
 	
     /**
@@ -80,5 +86,34 @@ class User extends BaseUser
     public function getSurname()
     {
         return $this->surname;
+    }
+    /**
+     * @var string
+     */
+    private $pseudonym;
+
+
+    /**
+     * Set pseudonym
+     *
+     * @param string $pseudonym
+     *
+     * @return User
+     */
+    public function setPseudonym($pseudonym)
+    {
+        $this->pseudonym = $pseudonym;
+
+        return $this;
+    }
+
+    /**
+     * Get pseudonym
+     *
+     * @return string
+     */
+    public function getPseudonym()
+    {
+        return $this->pseudonym;
     }
 }

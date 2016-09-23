@@ -29,12 +29,12 @@ security:
         - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
         
         # Admin site
-        - { path: ^/admin/users, role: ROLE_SUPER_ADMIN }
+        - { path: ^/admin/settings, role: ROLE_EDITOR }
+        - { path: ^/admin/users, role: ROLE_ADMIN }
         
         - { path: ^/admin/newsletter, role: ROLE_ADMIN }
         
         - { path: _assignments/delete, role: ROLE_EDITOR }
-        
         - { path: /delete, role: ROLE_ADMIN }
         
         - { path: /new, role: ROLE_EDITOR }

@@ -298,6 +298,8 @@ abstract class AdminEntityController extends BaseEntityController {
 	{	
 		$entry = $params['entry'];
 		
+		$this->denyAccessUnlessGranted('edit', $entry);
+		
 		$form = $this->createForm($this->getFormType(), $entry);
 	
 		$form->handleRequest($request);
