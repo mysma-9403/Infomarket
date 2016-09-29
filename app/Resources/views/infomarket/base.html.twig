@@ -12,8 +12,8 @@
 			<link rel="stylesheet" href="{{ asset('css/font-awesome.min.css') }}">
 		{% endblock %}
 		
-		{% if branches is defined %}
-			{% for entry in branches %}
+		{% if menuBranches is defined %}
+			{% for entry in menuBranches %}
 				<style>
 					<!--
 					.navbar-default .navbar-nav > .active.branch-{{ entry.id }} a {
@@ -56,6 +56,9 @@
         	<script src="{{ asset('js/bootstrap.min.js') }}"></script>
         	<script src="{{ asset('js/moment.min.js') }}"></script>
         	<script src="{{ asset('js/bootstrap-datetimepicker.min.js') }}"></script>
+        	
+        	{% block baseMoreJavascripts %}
+        	{% endblock %}
 		{% endblock %}
 		
 		{% block body %}

@@ -7,24 +7,24 @@
 	{% set childCategoryId = childCategory ? childCategory.id : null %}
 	
 	<li role="presentation" class="{{ mainPath == 'article' ? 'active' : ''}}">
-		<a href="{{ path('infoprodukt_article', { category: preleafCategoryId }) }}">{{ 'title.articles'|trans }}</a>
+		<a href="{{ path(basePath ~ 'article', { category: preleafCategoryId }) }}">{{ 'title.articles'|trans }}</a>
 	</li>
 	
 	<li role="presentation" class="{{ mainPath == 'category' ? 'active' : ''}}">
-		<a href="{{ path('infoprodukt_category' ~ (childCategoryId ? '_show' : ''), { id: childCategoryId, category: childCategoryId }) }}">
+		<a href="{{ path(basePath ~ 'category' ~ (childCategoryId ? '_show' : ''), { id: childCategoryId, category: childCategoryId }) }}">
 			{{ childCategoryId ? 'title.ratings'|trans : 'title.categories'|trans }}
 		</a>
 	</li>
 	
 	<li role="presentation" class="{{ mainPath == 'product' ? 'active' : ''}}">
-		<a href="{{ path('infoprodukt_product', { category: childCategoryId }) }}">{{ 'title.products'|trans }}</a>
+		<a href="{{ path(basePath ~ 'product', { category: childCategoryId }) }}">{{ 'title.products'|trans }}</a>
 	</li>
 	<li role="presentation" class="{{ mainPath == 'brand' ? 'active' : ''}}">
-		<a href="{{ path('infoprodukt_brand', { category: childCategoryId }) }}">{{ 'title.brands'|trans }}</a>
+		<a href="{{ path(basePath ~ 'brand', { category: childCategoryId }) }}">{{ 'title.brands'|trans }}</a>
 	</li>
 	
 	<li role="presentation" class="{{ mainPath == 'term' ? 'active' : ''}}">
-		<a href="{{ path('infoprodukt_term', { category: preleafCategoryId }) }}">{{ 'title.terms'|trans }}</a>
+		<a href="{{ path(basePath ~ 'term', { category: preleafCategoryId }) }}">{{ 'title.terms'|trans }}</a>
 	</li>
 		
 </ul>

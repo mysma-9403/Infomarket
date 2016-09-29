@@ -28,8 +28,7 @@
 
 	<div class="row">
 		<div class="col-xs-12 well">
-			<h1>{{ 'title.branches'|trans }}</h1>
-			{% for entry in branches %}
+			{% for entry in entries %}
 				{% if loop.index % 2 == 1 %}
 					{% set left = "" %}
 					{% set right = "" %}
@@ -37,8 +36,8 @@
 					{% set left = "col-sm-push-6" %}
 					{% set right = "col-sm-pull-6" %}
 				{% endif %}
-				<div class="col-xs-12 nopadding tile branch-{{ entry.id }}">
-					<div class="col-sm-6 nopadding {{ left }}">
+				<div class="col-xs-12 no-padding tile branch-{{ entry.id }}">
+					<div class="col-sm-6 no-padding {{ left }}">
 						<img class="img-responsive" alt="{{ entry.name }}" src="{{ entry.getImagePath() }}">
 					</div>
 					<div class="col-sm-6 {{ right }}">

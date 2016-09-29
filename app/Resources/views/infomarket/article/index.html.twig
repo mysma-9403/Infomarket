@@ -1,72 +1,93 @@
-{% extends 'infomarket/index.html.twig' %}
+{% extends 'infomarket/base/index.html.twig' %}
 
 {% set title = 'title.articles'|trans %}
 {% set mainPath = 'article' %}
 		
-{% block content %}
-	<div class="col-sm-3 col-sm-push-9">
-		<div class="panel-group" id="accordion">
+{% block mainContent %}
+	{% block articles %}
+	<div class="row">
+		<div class="col-xs-12">
+			<h1>{{ 'title.articles'|trans }}</h1>
 			
-			<div class="btn-group btn-group-justified">
-				<a class="btn btn-primary toggle" data-toggle="collapse" data-parent="#accodrion" href="#articleCategories">
-					<i class="fa fa-filter"></i> {{ 'label.categories'|trans }}
-				</a>
-			</div>
-			
-			<div class="list-group list-group collapse" id="articleCategories">
-				{% for entry in article_categories %}
-					{% set active = '' %}
-					{% if article_category and article_category.name == entry.name %}
-						{% set active = 'active' %}
-					{% endif %}
-					
-					<a class="list-group-item {{ active }}"
-						href="{{ path('infomarket_article', { 'branch': branch.name, 'article_category': entry.name }) }}">
-						{{ entry.name }}
-						<span class="badge">104</span>
-					</a>
-				{% endfor %}
-			</div>
+			{% for entry in entries%}
+				<div class="row">
+					<div class="panel">
+						<div class="panel-body">
+							<div class="col-sm-3">
+								<div class="rect">
+									{% if entry.image %}
+										<img class="div-center img-{{ entry.vertical ? 'v' : '' }}responsive" 
+											alt="{{ entry.name | raw }}" src="{{ asset(entry.getImagePath()) }}">
+									{% endif %}
+								</div>
+							</div>
+							<div class="col-sm-9">
+								{% for articleBrandAssignment in entry.articleBrandAssignments %}
+									<a href="{{ path(basePath ~ 'brand_show', { id: articleBrandAssignment.brand.id, branch: branch.id }) }}">
+										<h3 class="text-red">{{ articleBrandAssignment.brand.name | raw }} </h3>
+									</a> 
+								{% endfor %}
+								
+								<a href="{{ path('infoprodukt_' ~ mainPath ~ '_show', { 'id': entry.id, branch: branch.id }) }}">
+									<h3>
+										<span class="text-brand">{{ entry.name | raw }}</span> 
+										<span class="text-red">{{ entry.subname | raw }}</span>
+									</h3>
+								</a>
+								
+								<div class="col-xs-6 text-muted">
+									{% if entry.date %}
+										<span class="fa fa-calendar"></span> {{ entry.date | date('Y-m-d') }}
+									{% endif %}
+								</div>
+								
+								<div class="col-xs-6 text-muted">
+									{% if entry.author %}
+										<span class="fa fa-user"></span> {{ entry.author }}
+									{% endif %}
+								</div>
+								
+								<div class="col-xs-12 text-muted">
+									{% if entry.articleTagAssignments | length > 0 %}
+										<span class="fa fa-tags"></span> 
+										{% spaceless %}
+										{% for articleTagAssignment in entry.articleTagAssignments %}
+											{{- loop.index > 1 ? ', ' : '' -}}
+											<a href="{{ path(basePath ~ mainPath, { branch: branch.id, article_filter_tags: articleTagAssignment.tag.id }) }}">
+												{{- articleTagAssignment.tag.name -}}
+											</a>
+											 
+										{% endfor %}
+										{% endspaceless %}
+									{% endif %}
+								</div>
+								
+								<div class="col-xs-12">
+									<p>
+										{{ entry.intro | raw }}
+									</p>
+									<a class="btn btn-danger" href="{{ path('infoprodukt_' ~ mainPath ~ '_show', { 'id': entry.id, branch: branch.id }) }}">
+										{{ 'label.readMore'|trans }}
+									</a>
+								</div>
+								
+								<div class="vr-space-10"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+			{% else %}
+				<p>{{ 'label.noEntries'|trans }}</p>
+			{% endfor %}
 		</div>
 	</div>
+	{% endblock %}
 	
-	<div class="col-sm-9  col-sm-pull-3">
-		{% block articles %}
-			{% for entry in entries %}
-				<div class="row">
-		        	
-		        	<div class="col-sm-3">
-			        	<img class="img-responsive lowered" src="{{ asset(entry.getImagePath()) }}">
-		        	</div>
-		        	
-			        <div class="col-sm-9">
-			        	<h3 class="title">
-			        		<a class="text-primary" href="{{ path('infomarket_' ~ mainPath ~ '_show', { 'branch': branch.name, 'id': entry.id }) }}">{{ entry.name }}</a>
-						</h3>
-							
-						<p class="text-muted">
-							<span class="fa fa-calendar"></span> {{ branch.updatedAt|date("d.m.Y") }}
-							<span class="hr-space"></span>
-							<span class="fa fa-user"></span> {{ branch.updatedBy }}
-						</p>
-						
-			          	<p>{{ entry.intro | raw }}</p>
-			          	<p >
-			          		<a class="branch-color-{{ branch.id }}" href="{{ path('infomarket_' ~ mainPath ~ '_show', { 'branch': branch.name, 'id': entry.id }) }}">
-			          			{{ 'label.readMore'|trans }}
-		          			</a>
-		          		</p>
-			          	
-			        </div>
-				</div>
-				<hr>
-			{% else %}
-				No entries found.
-			{% endfor %}
-		{% endblock %}
-	
-		{% block listPaginator %}
+	{% block paginator %}
+	<div class="row">
+		<div class="col-xs-12">
 	        {{ knp_pagination_render(entries) }}
-		{% endblock %}
+		</div>
 	</div>
+	{% endblock %}
 {% endblock %}

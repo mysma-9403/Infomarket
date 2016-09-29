@@ -1,0 +1,20 @@
+<li>
+	{% if showAll is not defined %}
+		{% set showAll = false %}
+	{% endif %}
+	
+	{% if (showAll and entry.children|length > 0) or (showAll != true and entry.preleaf != true) %}
+		<a class="trigger right-caret">
+			{{ entry.name | raw }} {{ entry.subname | raw }}
+		</a>
+		<ul class="dropdown-menu sub-menu">
+			{% for subentry in entry.children %}
+				{% include 'common/category/menu_entry.html.twig' with { 'entry': subentry } %}
+			{% endfor %}
+		</ul>
+	{% else %}
+		<a href="{{ path(basePath ~ 'category_show', { id: entry.id }) }}">
+			{{ entry.name | raw }} {{ entry.subname | raw }}
+		</a>
+	{% endif %}
+</li>

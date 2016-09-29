@@ -273,11 +273,6 @@ class CategoryController extends SimpleEntityController
 		return new CategoryFilter($userRepository, $branchRepository, $categoryRepository);
 	}
 	
-    protected function getHomeName()
-    {
-    	return 'infoprodukt';
-    }
-    
     protected function initBranch(Request $request, $branches)
     {
     	return $this->getParamByName($request, Branch::class, null);

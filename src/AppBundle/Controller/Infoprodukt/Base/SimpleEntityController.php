@@ -3,10 +3,8 @@
 namespace AppBundle\Controller\Infoprodukt\Base;
 
 use AppBundle\Controller\Base\BaseEntityController;
-use AppBundle\Entity\Advert;
 use AppBundle\Entity\Branch;
 use AppBundle\Entity\Category;
-use AppBundle\Entity\Filter\AdvertFilter;
 use AppBundle\Entity\Filter\Base\BaseEntityFilter;
 use AppBundle\Entity\Filter\Base\SimpleEntityFilter;
 use AppBundle\Entity\Filter\BranchFilter;
@@ -120,7 +118,6 @@ abstract class SimpleEntityController extends BaseEntityController
     protected function getParams(Request $request)
     {
     	$params = parent::getParams($request);
-    	
     	$params = array_merge($params, $this->getAdvertParams($request));
     	
     	$userRepository = $this->getDoctrine()->getRepository(User::class);
@@ -136,9 +133,8 @@ abstract class SimpleEntityController extends BaseEntityController
     	
     	$categoryFilter = new CategoryFilter($userRepository, $branchRepository, $categoryRepository);
     	$categoryFilter->setPublished(SimpleEntityFilter::TRUE_VALUES);
-    	$categoryFilter->setFeatured(SimpleEntityFilter::TRUE_VALUES);
-    	$categoryFilter->setPreleaf(SimpleEntityFilter::TRUE_VALUES);
-    	$categoryFilter->setOrderBy('e.orderNumber ASC, e.name ASC');
+    	$categoryFilter->setRoot(SimpleEntityFilter::TRUE_VALUES);
+    	$categoryFilter->setOrderBy('e.name ASC');
     
     	$categories = $this->getParamList(Category::class, $categoryFilter);
     	$params['menuCategories'] = $categories;
@@ -182,58 +178,6 @@ abstract class SimpleEntityController extends BaseEntityController
 		$params['category'] = $category;
     	
     	return $params;
-    }
-    
-    protected function getAdvertParams(Request $request)
-    {
-    	$params = array();
-    	
-    	$userRepository = $this->getDoctrine()->getRepository(User::class);
-    	$categoryRepository = $this->getDoctrine()->getRepository(Category::class);
-    	
-    	$advertFilter = new AdvertFilter($userRepository, $categoryRepository);
-	    $advertFilter->setPublished(BaseEntityFilter::TRUE_VALUES);
-	    $advertFilter->setActive(BaseEntityFilter::TRUE_VALUES);
-	    
-	    $category = $this->getParamById($request, Category::class, null);
-	    if ($category) {
-	    	if ($category->getPreleaf()) {
-	    		$advertFilter->setCategories([$category]);
-	    	} else if ($category->getParent()) {
-	    		$advertFilter->setCategories([$category->getParent()]);
-	    	}
-	    }
-	    
-	    $advertFilter->setLocations([Advert::TOP_LOCATION]);
-	    	
-	    $topAds = $this->getParamList(Advert::class, $advertFilter);
-	    shuffle($topAds);
-	    $topAds = array_slice($topAds, 0, 3);
-	    $params['topAds'] = $topAds;
-	    
-	    $advertFilter->setLocations([Advert::SIDE_LOCATION]);
-	    
-	    $sideAds = $this->getParamList(Advert::class, $advertFilter);
-	    shuffle($sideAds);
-	    $sideAds = array_slice($sideAds, 0, 3);
-	    $params['sideAds'] = $sideAds;
-	    
-	    
-	    $em = $this->getDoctrine()->getManager();
-	    
-	    foreach($topAds as $ad) {
-	    	$ad->setShowCount($ad->getShowCount()+1);
-	    	$em->persist($ad);
-	    }
-	    $em->flush();
-	    
-	    foreach($sideAds as $ad) {
-	    	$ad->setShowCount($ad->getShowCount()+1);
-	    	$em->persist($ad);
-	    }
-	    $em->flush();
-	    
-	    return $params;
     }
     
     /**

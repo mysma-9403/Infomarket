@@ -1,6 +1,30 @@
 {% extends 'infomarket/base.html.twig' %}
 
+{% set basePath = 'infomarket_' %}
+
 {% block title %}{{ title }}{% endblock %}
+
+{% block baseMoreJavascripts %}
+	<script type="text/javascript">
+		$(function(){
+			$(".dropdown-menu > li > a.trigger").on("click",function(e){
+				var current=$(this).next();
+				var grandparent=$(this).parent().parent();
+				if($(this).hasClass('left-caret')||$(this).hasClass('right-caret'))
+					$(this).toggleClass('right-caret left-caret');
+				grandparent.find('.left-caret').not(this).toggleClass('right-caret left-caret');
+				grandparent.find(".sub-menu:visible").not(current).hide();
+				current.toggle();
+				e.stopPropagation();
+			});
+			$(".dropdown-menu > li > a:not(.trigger)").on("click",function(){
+				var root=$(this).closest('.dropdown');
+				root.find('.left-caret').toggleClass('right-caret left-caret');
+				root.find('.sub-menu:visible').hide();
+			});
+		});
+	</script>
+{% endblock %}
 
 {% block body %}
 	
@@ -25,10 +49,16 @@
 					      		{% endif %}
 				      		{% endblock %}
 				      		
+				      		{% block navigationBrand %}
 							<a class="navbar-brand" href="{{ path('infomarket_home') }}">
-{# 								<img alt="Brand" src="{{ asset('img/template/brand-home.png') }}">#}
-								<h1 class="title"><span class="branch-color-{{ branch.id }}">INFO</span><span class="text-white">MARKET</span></h1>
+								<h2 class="title text-brand hidden-xs">
+									<span class="branch-color-{{ branch.id }}">Info</span><span class="text-white">Market</span>
+								</h2>
+								<h2 class="title text-brand visible-xs">
+									<span class="branch-color-{{ branch.id }}">I</span><span class="text-white">M</span>
+								</h2>
 							</a>
+							{% endblock %}
 				    	</div>
 			    	{% endblock %}
 			    	
@@ -37,29 +67,53 @@
 			      			<ul class="nav navbar-nav navbar-right">
 								{% block navigationMenu %}
 									{% if branch %}
-										<li class="{% if mainPath == 'home' %}active{% endif %} branch-{{ branch.id }}">
-											<a href="{{ path('infomarket_home', {'branch': branch.name }) }}">
-												<span class="fa fa-home"></span> {{ 'title.home'|trans }}</a>
-										</li>
 										<li class="{% if mainPath == 'article' %}active{% endif %} branch-{{ branch.id }}">
-											<a href="{{ path('infomarket_article', {'branch': branch.name }) }}">
-												<span class="fa fa-file-text-o"></span> {{ 'title.articles'|trans }}</a>
+											<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+												<span class="fa fa-file-text-o"></span> {{ 'title.articles'|trans }} <span class="caret">
+											</a>
+											<ul class="dropdown-menu">
+												{% for articleCategory in menuArticleCategories %}
+													<li>
+														<a href="{{ path(basePath ~ 'article', { 'article_filter_article_categories': articleCategory.id }) }}">
+															{{ articleCategory.name }}
+														</a>
+													</li>
+												{% endfor %}
+												<li class="divider"></li>
+												<li>
+													<a href="{{ path(basePath ~ 'article') }}">
+														{{ 'label.all'|trans }} <span class="fa fa-caret-right branch-{{ branch.id }}"></span>
+													</a>
+												</li>
+											</ul>
 										</li>
-										<li class="{% if mainPath == 'product' or mainPath == 'brand' %}active{% endif %} branch-{{ branch.id }}">
-											<a href="{{ path('infomarket_product', {'branch': branch.name }) }}">
-												<span class="fa fa-camera-retro"></span> {{ 'title.products'|trans }}</a>
-										</li>
-										<li class="{% if mainPath == 'product2' or mainPath == 'brand' %}active{% endif %} branch-{{ branch.id }}">
-											<a href="{{ path('infomarket_product2', {'branch': branch.name }) }}">
-												<span class="fa fa-camera-retro"></span> {{ 'title.products'|trans }}</a>
+										<li>
+											<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+												<span class="fa fa-camera-retro"></span> {{ 'title.products'|trans }} <span class="caret">
+											</a>
+											<ul class="dropdown-menu">
+												{% for category in menuCategories %}
+														
+														{% set show = false %}
+														{% for branchCategoryAssignment in category.branchCategoryAssignments if show == false %}
+															{% if branchCategoryAssignment.branch.id == branch.id %}
+																{% set show = true %}
+															{% endif %}
+														{% endfor %}
+														
+														{% if show %}
+															{% include 'common/category/menu_entry.html.twig' with { 'entry': category, 'showAll': true } %}
+														{% endif %}
+												{% endfor %}
+											</ul>
 										</li>
 										<li class="{% if mainPath == 'magazine' %}active{% endif %} branch-{{ branch.id }}">
 											<a href="{{ path('infomarket_magazine', {'branch': branch.name }) }}">
-												<span class="fa fa-newspaper-o"></span> {{ 'title.magazine'|trans }}</a>
+												<span class="fa fa-newspaper-o"></span> {{ 'title.magazines'|trans }}</a>
 										</li>
-										<li class="{% if mainPath == 'office' %}active{% endif %} branch-{{ branch.id }}">
-											<a href="{{ path('infomarket_office', {'branch': branch.name }) }}">
-												<span class="fa fa-building-o"></span> {{ 'title.office'|trans }}</a>
+										<li class="{% if mainPath == 'advertisement' or mainPath == 'brand' %}active{% endif %} branch-{{ branch.id }}">
+											<a href="{{ path('infomarket_home', {'branch': branch.name }) }}">
+												<span class="fa fa-globe"></span> {{ 'Reklama'|trans }}</a>
 										</li>
 									{% endif %}
 								{% endblock %}
@@ -80,71 +134,65 @@
 		<div class="footer navbar-inverse">
 	  		<div class="container-fluid">
 		    	<div class="container">
-		      		<h4 class="text-xs-center">&copy; 2016 InfoMarket</h4>
-		      		
-		      		{% if branch.name is defined %}
-			      		<div class="row">
-				      		<div class="col-sm-3">
-				      			<a href="{{ path('infomarket_home', { 'branch': branch.name}) }}">
-									<h4>{{ 'title.home'|trans }}</h4>
-								</a>
-								
-								<hr>
-								
-		      					{% for entry in article_categories %}
-									<a href="{{ path('infomarket_article', { 'branch': branch.name, 'article_category': entry.name }) }}">
-									{{ entry.name }}
-									</a>
-									<br>
-								{% endfor %}
-				      		</div>
-				      		<div class="col-sm-3">
-				      			<a href="{{ path('infomarket_product', { 'branch': branch.name}) }}">
-									<h4>{{ 'title.products'|trans }}</h4>
-								</a>
-								
-								<hr>
-								
-								{% for entry in categories %}
-									{% include 'common/footer_entry.html.twig' with {'entry': entry } %}
-								{% endfor %}
-				      		</div>
-				      		<div class="col-sm-3">
-				      			<a href="{{ path('infomarket_magazine', { 'branch': branch.name}) }}">
-									<h4>{{ 'title.magazine'|trans }}</h4>
-								</a>
-								
-								<hr>
-				      		</div>
-				      		<div class="col-sm-3">
-				      			<a href="{{ path('infomarket_office', { 'branch': branch.name}) }}">
-									<h4>{{ 'title.office'|trans }}</h4>
-								</a>
-								
-								<hr>
-				      		</div>
-			      		</div>
-			      		
-			      		<div class="row">
-				      		<div class="col-sm-9"><hr></div>
-				      		<div class="col-sm-3"><hr></div>
-			      		</div>
-		      		{% endif %}
+		    		<div class="row">
+		      			<div class="col-sm-3">
+		      			</div>
+		      			<div class="col-sm-6">
+		      				<h5 class="text-xs-center">&copy; {{ 'title.footer.copyright'|trans }}</h5>
+		      			</div>
+		      			<div class="col-sm-3">
+		      				<h5 class="text-xs-center text-sm-left">
+		      					<a href="http://www.facebook.com/infomarket1"><i class="fa fa-facebook"></i></a> 
+		      					<a href="https://www.youtube.com/channel/UCpH2PHKAxnNlX-zSgJXyjpA"><i class="fa fa-youtube"></i></a> 
+		      					<a href="http://infomarket.edu.loc:8000" class="title">IM</a> 
+	      					</h5>
+		      			</div>
+		      		</div>
 		      		
 		      		<div class="row">
-			      		<div class="col-sm-9">
-			      			<h4>Infomarket Sp. z o.o.</h4>
+			      		<div class="col-sm-3">
+			      			<h5>InfoMarket Sp. z o.o.</h5>
+			      			<hr>
 			      			<p>
-			      				ul. Trylogii 2/16a lok. 50, 01-982 Warszawa<br>
+			      				ul. Trylogii 2/16,<br>
+			      				01-982 Warszawa<br>
 			      				tel./fax: (22) 835 19 17<br>
 			      				e-mail: <a href="mailto:redakcja@infomarket.edu.pl">redakcja@infomarket.edu.pl</a>
 		      				</p>
 			      		</div>
+			      		<div class="col-sm-6">
+			      			<h5>{{ 'title.footer.office'|trans }}</h5>
+			      			<hr>
+			      			
+			      			{% set half = menuPages|length / 2 %}
+			      			
+			      			<div class="row">
+				      			<div class="col-xs-6">
+					      			{% for entry in menuPages|slice(0,half) %}
+							      		<div>
+							      			<a href="{{ path(basePath ~ 'page_show', { id: entry.id}) }}">{{ entry.name }}</a>
+						      			</div>
+						      		{% endfor %}
+					      		</div>
+					      		
+					      		<div class="col-xs-6">
+					      			{% for entry in menuPages|slice(half+1) %}
+							      		<div>
+							      			<a href="{{ path(basePath ~ 'page_show', { id: entry.id}) }}">{{ entry.name }}</a>
+						      			</div>
+						      		{% endfor %}
+					      		</div>
+				      		</div>
+			      		</div>
 			      		<div class="col-sm-3">
-		        			<a href="http://www.facebook.com/infomarket1"><i class="fa fa-facebook"></i></a>
-			        		<a href="#"><i class="fa fa-twitter"></i></a>
-			        		<a href="#"><i class="fa fa-pinterest"></i></a>
-			        		<a href="#"><i class="fa fa-instagram"></i></a>
+			      			<h5>{{ 'title.footer.magazine'|trans }}</h5>
+			      			<hr>
+			      			
+			      			{% for entry in menuLinks %}
+					      		<div>
+					      			<a href="{{ entry.url }}">{{ entry.name }}</a>
+				      			</div>
+				      		{% endfor %}
 			      		</div>
 		      		</div>
 		    	</div>
@@ -159,14 +207,16 @@
 		    	{% block branchBarList %}
 	      			<ul class="nav navbar-nav navbar-center nav-horizontal">
 						{% block branchMenu %}
-							{% for entry in branches %}
+							{% for entry in menuBranches %}
 								{% if branch != null and branch.name == entry.name %}
 									{% set active='active' %}
 								{% else %}
 									{% set active='' %}
 								{% endif %}
 									<li class="branch-{{ entry.id }} {{ active }}">
-										<a href="{{ path('infomarket_' ~ mainPath, { 'branch': entry.name}) }}">
+										{# TODO current path / mainPath not working for page! :( #}
+{# 										<a href="{{ path(basePath ~ 'home', { 'branch': entry.id }) }}">#}
+										<a href="{{ path(basePath ~ mainPath ~ extPath, {})) }}">
 											<i class="fa {{ entry.icon }}"></i><span class="hidden-xs"> {{ entry.name }}</span>
 										</a>
 									</li>

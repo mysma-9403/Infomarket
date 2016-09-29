@@ -1,9 +1,0 @@
-{% extends 'infomarket/image/show.html.twig' %}
-
-{% set title = 'title.articles'|trans %}
-{% set mainPath = 'article' %}
-
-{% block moreContent %}
-	<p><strong>{{ entry.intro | raw }}</strong></p>
-	<p>{{ entry.content | raw }}</p>
-{% endblock %}

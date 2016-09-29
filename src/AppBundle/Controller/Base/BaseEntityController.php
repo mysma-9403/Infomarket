@@ -7,6 +7,9 @@ use AppBundle\Utils\ClassUtils;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Entity\User;
+use AppBundle\Entity\Category;
+use AppBundle\Entity\Filter\AdvertFilter;
+use AppBundle\Entity\Advert;
 
 abstract class BaseEntityController extends Controller
 {
@@ -51,7 +54,8 @@ abstract class BaseEntityController extends Controller
     {
     	$params = $this->getParams($request);
     	
-    	$this->registerRequest($request, $this->getIndexRoute(), $this->getIndexRouteParams($request, $page));
+    	$routeParams =  $this->getIndexRouteParams($request, $page);
+    	$this->registerRequest($request, $this->getIndexRoute(), $routeParams);
     	
     	$entryFilter = $this->getEntityFilter($request);
     	$params['entryFilter'] = $entryFilter;
@@ -84,7 +88,7 @@ abstract class BaseEntityController extends Controller
     {
     	$params = $this->getParams($request);
     	
-    	$routeParams = array('id' => $id);
+    	$routeParams = $this->getShowRouteParams($request, $id);
     	$this->registerRequest($request, $this->getShowRoute(), $routeParams);
     	
     	$entry = $this->getEntry($id);
@@ -101,6 +105,10 @@ abstract class BaseEntityController extends Controller
     	return $routeParams;
     }
     
+    //TODO can make another class for registering requests??
+    /**
+     * @param Request $request
+     */
     protected function getRouteParams(Request $request) {
     	$entryFilter = $this->getRequestEntityFilter($request);
     	$routeParams = $entryFilter->getValues();
@@ -115,6 +123,58 @@ abstract class BaseEntityController extends Controller
     
     protected function getRoutingParams(Request $request) {
     	return $request->getSession()->get('last_route', array('route' => $this->getIndexView(), 'routeParams' => array()));
+    }
+    
+    protected function getAdvertParams(Request $request)
+    {
+    	$params = array();
+    	 
+    	$userRepository = $this->getDoctrine()->getRepository(User::class);
+    	$categoryRepository = $this->getDoctrine()->getRepository(Category::class);
+    	 
+    	$advertFilter = new AdvertFilter($userRepository, $categoryRepository);
+    	$advertFilter->setPublished(BaseEntityFilter::TRUE_VALUES);
+    	$advertFilter->setActive(BaseEntityFilter::TRUE_VALUES);
+    	 
+    	$category = $this->getParamById($request, Category::class, null);
+    	if ($category) {
+    		if ($category->getPreleaf()) {
+    			$advertFilter->setCategories([$category]);
+    		} else if ($category->getParent()) {
+    			$advertFilter->setCategories([$category->getParent()]);
+    		}
+    	}
+    	 
+    	$advertFilter->setLocations([Advert::TOP_LOCATION]);
+    
+    	$topAds = $this->getParamList(Advert::class, $advertFilter);
+    	shuffle($topAds);
+    	$topAds = array_slice($topAds, 0, 3);
+    	$params['topAds'] = $topAds;
+    	 
+    	$advertFilter->setLocations([Advert::SIDE_LOCATION]);
+    	 
+    	$sideAds = $this->getParamList(Advert::class, $advertFilter);
+    	shuffle($sideAds);
+    	$sideAds = array_slice($sideAds, 0, 3);
+    	$params['sideAds'] = $sideAds;
+    	 
+    	 
+    	$em = $this->getDoctrine()->getManager();
+    	 
+    	foreach($topAds as $ad) {
+    		$ad->setShowCount($ad->getShowCount()+1);
+    		$em->persist($ad);
+    	}
+    	$em->flush();
+    	 
+    	foreach($sideAds as $ad) {
+    		$ad->setShowCount($ad->getShowCount()+1);
+    		$em->persist($ad);
+    	}
+    	$em->flush();
+    	 
+    	return $params;
     }
     
     protected function registerRequest(Request $request, $route, $routeParams) {

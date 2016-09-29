@@ -2,19 +2,24 @@
 
 namespace AppBundle\Controller\Infomarket\Base;
 
+use AppBundle\AppBundle;
+use AppBundle\Controller\Base\BaseEntityController;
 use AppBundle\Entity\ArticleCategory;
+use AppBundle\Entity\Base\SimpleEntity;
 use AppBundle\Entity\Branch;
 use AppBundle\Entity\Category;
+use AppBundle\Entity\Filter\ArticleCategoryFilter;
+use AppBundle\Entity\Filter\Base\BaseEntityFilter;
 use AppBundle\Entity\Filter\Base\SimpleEntityFilter;
 use AppBundle\Entity\Filter\BranchFilter;
 use AppBundle\Entity\Filter\CategoryFilter;
-use AppBundle\Utils\ClassUtils;
+use AppBundle\Entity\Filter\LinkFilter;
+use AppBundle\Entity\Filter\PageFilter;
+use AppBundle\Entity\Link;
+use AppBundle\Entity\Page;
+use AppBundle\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-use AppBundle\AppBundle;
-use AppBundle\Controller\Base\BaseEntityController;
-use AppBundle\Entity\Base\SimpleEntity;
-use AppBundle\Entity\User;
 
 abstract class SimpleEntityController extends BaseEntityController
 {   
@@ -25,67 +30,153 @@ abstract class SimpleEntityController extends BaseEntityController
      */
     protected function getParams(Request $request)
     {
-    	$params = [];
+    	$params = parent::getParams($request);
+    	$params = array_merge($params, $this->getAdvertParams($request));
+    	$params = array_merge($params, $this->getRoutingParams($request));
     	
     	$userRepository = $this->getDoctrine()->getRepository(User::class);
     	$branchRepository = $this->getDoctrine()->getRepository(Branch::class);
     	$categoryRepository = $this->getDoctrine()->getRepository(Category::class);
+    	 
     	
     	$branchFilter = new BranchFilter($userRepository, $categoryRepository);
-    	$branchFilter->setPublished(true);
+    	$branchFilter->setPublished(SimpleEntityFilter::TRUE_VALUES);
+    	$branchFilter->setOrderBy('e.orderNumber ASC, e.name ASC');
+    	 
     	$branches = $this->getParamList(Branch::class, $branchFilter);
+    	$params['menuBranches'] = $branches;
     	
-    	$branch = $this->initBranch($request, $branches);
+    	
+    	$articleCategoryFilter = new ArticleCategoryFilter($userRepository);
+    	$articleCategoryFilter->setPublished(SimpleEntityFilter::TRUE_VALUES);
+    	$articleCategoryFilter->setFeatured(SimpleEntityFilter::TRUE_VALUES);
+    	$articleCategoryFilter->setOrderBy('e.orderNumber ASC');
+    	 
+    	$articleCategories = $this->getParamList(ArticleCategory::class, $articleCategoryFilter);
+    	$params['menuArticleCategories'] = $articleCategories;
     	
     	
     	$categoryFilter = new CategoryFilter($userRepository, $branchRepository, $categoryRepository);
-    	$categoryFilter->initValues($request); //TODO make it better :P
-    	
-    	$categoryFilter->setPublished(true);
-    	if($branch) $categoryFilter->setBranches([$branch]);
-    	$categoryFilter->setRoot($this->showRootCategories());
-    	$categoryFilter->setPreleaf($this->showPreleafCategories());
+    	$categoryFilter->setBranches(array($params['branch']));
+    	$categoryFilter->setPublished(SimpleEntityFilter::TRUE_VALUES);
+    	$categoryFilter->setRoot(SimpleEntityFilter::TRUE_VALUES);
+    	$categoryFilter->setOrderBy('e.name ASC');
     	
     	$categories = $this->getParamList(Category::class, $categoryFilter);
-    	
-    	$category = $this->getParamById($request, Category::class, null);
-    	
-    	$pathCategories = array();
-    	
-    	if($category) {
-    		if(false) {//TODO $category->getBranchCategoryAssignment()->getBranch()->getId() != $branch->getId()) {
-    			$category = null;
-    		} else {
-    			$pathCategories = $this->addWithParent($pathCategories, $category);
-    		}
-    	}
-    	
-    	$articleCategoryFilter = new SimpleEntityFilter($userRepository);
-    	//$articleCategoryFilter->setBranch($branch);
-    	$articleCategories = $this->getParamList(ArticleCategory::class, $articleCategoryFilter);
-    	
-    	$articleCategory = $this->getParamByName($request, ArticleCategory::class, $articleCategories[0]->getName());
+    	$params['menuCategories'] = $categories;
     	
     	
+    	$pageFilter = new PageFilter($userRepository);
+    	$pageFilter->setPublished(SimpleEntityFilter::TRUE_VALUES);
+    	$pageFilter->setFeatured(SimpleEntityFilter::TRUE_VALUES);
+    	$pageFilter->setOrderBy('e.orderNumber ASC');
+    	 
+    	$pages = $this->getParamList(Page::class, $pageFilter);
+    	$params['menuPages'] = $pages;
+    	 
     	
-    	$params['branch'] = $branch;
-    	$params['category'] = $category;
-    	$params['article_category'] = $articleCategory;
+    	$linkFilter = new LinkFilter($userRepository);
+    	$linkFilter->setPublished(BaseEntityFilter::TRUE_VALUES);
+    	$linkFilter->setFeatured(BaseEntityFilter::TRUE_VALUES);
+    	$linkFilter->setTypes([Link::FOOTER_LINK]);
+    	$linkFilter->setOrderBy('e.orderNumber ASC');
+    	 
+    	$links = $this->getParamList(Link::class, $linkFilter);
+    	$params['menuLinks'] = $links;
     	
-    	$params['branches'] = $branches;
-    	$params['categories'] = $categories;
-    	$params['article_categories'] = $articleCategories;
     	
-    	$params['pathCategories'] = $pathCategories;
     	
-    	$params['categoryFilter'] = $categoryFilter;
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+//     	$category = $this->getParamById($request, Category::class, null);
+    	
+//     	$pathCategories = array();
+    	
+//     	if($category) {
+//     		if(false) {//TODO $category->getBranchCategoryAssignment()->getBranch()->getId() != $branch->getId()) {
+//     			$category = null;
+//     		} else {
+//     			$pathCategories = $this->addWithParent($pathCategories, $category);
+//     		}
+//     	}
+    	
+    	
+//     	$params['pathCategories'] = $pathCategories;
+    	
+//     	$params['categoryFilter'] = $categoryFilter;
     	 
     	return $params;
     }
     
-    protected function initBranch(Request $request, $branches)
+    protected function getRouteParams(Request $request) {
+    	$routeParams = parent::getRouteParams($request);
+    	
+    	$branch = $this->getParamById($request, Branch::class, null);
+    	
+    	if($branch == null) {
+    		$lastRoutingParams = $this->getRoutingParams($request);
+    		$lastRouteParams = $lastRoutingParams['routeParams'];
+    		if(array_key_exists('branch', $lastRouteParams)) {
+    			$repository = $this->getDoctrine()->getRepository(Branch::class);
+    			$branch = $repository->find($lastRouteParams['branch']);
+    		}
+    	}
+    	
+    	if($branch == null) {
+    		$userRepository = $this->getDoctrine()->getRepository(User::class);
+    		$categoryRepository = $this->getDoctrine()->getRepository(Category::class);
+    	
+    		$branchFilter = new BranchFilter($userRepository, $categoryRepository);
+    		$branchFilter->setPublished(SimpleEntityFilter::TRUE_VALUES);
+    		$branchFilter->setOrderBy('e.orderNumber ASC, e.name ASC');
+    		 
+    		$branches = $this->getParamList(Branch::class, $branchFilter);
+    	
+    		$branch = $branches[0];
+    	}
+    	
+    	$routeParams['branch'] = $branch->getId();
+    
+    	return $routeParams;
+    }
+    
+    protected function getRoutingParams(Request $request)
     {
-    	return $this->getParamByName($request, Branch::class, $branches[0]->getName());
+    	$params = parent::getRoutingParams($request);
+    	
+    	$branch = $this->getParamById($request, Branch::class, null);
+    	
+    	if($branch == null) {
+    		$routeParams = $params['routeParams'];
+    		if(array_key_exists('branch', $routeParams)) {
+    			$repository = $this->getDoctrine()->getRepository(Branch::class);
+    			$branch = $repository->find($routeParams['branch']);
+    		}
+    	}
+    	
+    	if($branch == null) {
+	    	$userRepository = $this->getDoctrine()->getRepository(User::class);
+	    	$categoryRepository = $this->getDoctrine()->getRepository(Category::class);
+	    	
+	    	$branchFilter = new BranchFilter($userRepository, $categoryRepository);
+	    	$branchFilter->setPublished(SimpleEntityFilter::TRUE_VALUES);
+	    	$branchFilter->setOrderBy('e.orderNumber ASC, e.name ASC');
+	    	 
+	    	$branches = $this->getParamList(Branch::class, $branchFilter);
+	    	
+	    	$branch = $branches[0];
+    	}
+    	
+    	$params['branch'] = $branch;
+    	 
+    	return $params;
     }
     
     protected function showRootCategories()

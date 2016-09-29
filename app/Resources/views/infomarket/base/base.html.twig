@@ -1,4 +1,4 @@
-{% extends 'infoprodukt/index.html.twig' %}
+{% extends 'infomarket/index.html.twig' %}
 		
 {% block content %}
 <div class="container">
@@ -21,34 +21,7 @@
 		<div class="col-sm-3 col-sm-push-9">
 			<div class="col-xs-12 well">
 			
-				{% block sidebarContent %}	
-							
-					{% block sectionsBlock %}
-						<h1>{{ 'label.sections'|trans }}</h1>
-						
-						{% include 'infoprodukt/common/sections.html.twig' with 
-						{ 'category': category } %}
-					{% endblock %}
-					
-					{% block categoriesBlock %}
-						{% if category and category.preleaf == false %}
-							<h1>{{ 'label.categories'|trans }}</h1>
-							
-							<ul class="nav nav-pills nav-stacked">
-								{% for subcategory in category.parent.children %}
-									<li role="presentation" class="{{ subcategory.id == category.id ? 'active' : ''}}">
-										<a href="{{ path(basePath ~ mainPath, { category: subcategory.id }) }}">
-											{{ subcategory.name }} {{ subcategory.subname }}
-										</a>
-									</li>
-								{% endfor %}
-							</ul>
-						{% endif %}
-					{% endblock %}
-					
-					{% block moreSidebarContent %}
-					{% endblock %}
-				
+				{% block sidebarContent %}
 				{% endblock %}
 			</div>
 			

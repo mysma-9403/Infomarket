@@ -12,6 +12,9 @@ use AppBundle\Entity\Category;
 use AppBundle\Entity\Brand;
 use AppBundle\Entity\Tag;
 use AppBundle\Entity\User;
+use AppBundle\Entity\Filter\Base\SimpleEntityFilter;
+use AppBundle\Entity\Branch;
+use AppBundle\Entity\BranchCategoryAssignment;
 
 class ArticleController extends SimpleEntityController
 {   
@@ -39,20 +42,6 @@ class ArticleController extends SimpleEntityController
 		return $this->showActionInternal($request, $id);
 	}
 	
-	/**
-	 *
-	 * @param Request $request
-	 * @param integer $page
-	 *
-	 * @return \Symfony\Component\HttpFoundation\Response
-	 */
-	public function homeAction(Request $request, $page)
-	{
-		$params = $this->initIndexParams($request, $page);
-		
-		return $this->render('infomarket/home/index.html.twig', $params);
-	}
-	
     /**
      * 
      * {@inheritDoc}
@@ -63,27 +52,33 @@ class ArticleController extends SimpleEntityController
     	return Article::class;
     }
     
-    /**
-     * 
-     * {@inheritDoc}
-     * @see \AppBundle\Controller\Infomarket\Base\SimpleEntityController::getEntityFilter()
-     */
     protected function getEntityFilter(Request $request)
     {
+    	$filter = parent::getEntityFilter($request);
+    	
+    	$routingParams = $this->getRoutingParams($request);
+    	$branch = $routingParams['branch'];
+    	if($branch) {
+    		$categories = array();
+    		foreach ($branch->getBranchCategoryAssignments() as $branchCategoryAssignment) {
+    			$categories[] = $branchCategoryAssignment->getCategory();
+    		}
+    		$filter->setCategories($categories);
+    	}
+    	 
+    	$filter->setMain(SimpleEntityFilter::TRUE_VALUES);
+    	$filter->setOrderBy('e.date DESC');
+    	 
+    	return $filter;
+    }
+    
+    protected function createNewFilter() {
     	$userRepository = $this->getDoctrine()->getRepository(User::class);
     	$articleCategoryRepository = $this->getDoctrine()->getRepository(ArticleCategory::class);
-		$categoryRepository = $this->getDoctrine()->getRepository(Category::class);
-		$brandRepository = $this->getDoctrine()->getRepository(Brand::class);
-		$tagRepository = $this->getDoctrine()->getRepository(Tag::class);
-		
-		$filter = new ArticleFilter($userRepository, $articleCategoryRepository, $categoryRepository, $brandRepository, $tagRepository);
-    	$filter->setPublished(true);
-    	
-    	$articleCategory = $this->getParamByName($request, ArticleCategory::class, null);
-    	if($articleCategory) {
-    		$filter->setArticleCategories([$articleCategory]);
-    	}
-    	
-    	return $filter;	
+    	$categoryRepository = $this->getDoctrine()->getRepository(Category::class);
+    	$brandRepository = $this->getDoctrine()->getRepository(Brand::class);
+    	$tagRepository = $this->getDoctrine()->getRepository(Tag::class);
+    	 
+    	return new ArticleFilter($userRepository, $articleCategoryRepository, $categoryRepository, $brandRepository, $tagRepository);
     }
 }

@@ -1,0 +1,12 @@
+{% extends 'infomarket/base/base.html.twig' %}
+
+{% block moreBreadcrumbs%}
+	
+	/ 
+	<a href="{{ path(basePath ~ mainPath, { branch: branch.id }) }}">
+		{{ title }}
+	</a>
+	{% block moreMoreBreadcrumbs%}
+	{% endblock %}
+	
+{% endblock %}

@@ -1,0 +1,13 @@
+<ul class="nav nav-pills nav-stacked">
+	
+	<li role="presentation" class="{{ mainPath == 'article' ? 'active' : ''}}">
+		<a href="{{ path(basePath ~ 'article', { branch: branch.id }) }}">{{ 'title.articles'|trans }}</a>
+	</li>
+	
+	<li role="presentation" class="{{ mainPath == 'product' ? 'active' : ''}}">
+		<a href="{{ path(basePath ~ 'product', { branch: branch.id }) }}">{{ 'title.products'|trans }}</a>
+	</li>
+	<li role="presentation" class="{{ mainPath == 'magazine' ? 'active' : ''}}">
+		<a href="{{ path(basePath ~ 'brand', { branch: branch.id }) }}">{{ 'title.brands'|trans }}</a>
+	</li>
+</ul>

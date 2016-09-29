@@ -104,7 +104,19 @@ infomarket_brand:
 infomarket_brand_show:
     path:      /brands/show/{id}
     defaults:  { _controller: "AppBundle:Infomarket/Brand:show" }
-                    
+
+infomarket_category:
+    path:      /categories/{page}
+    defaults:  { _controller: "AppBundle:Infomarket/Category:index", page: 1 }
+    
+infomarket_category_show:
+    path:      /categories/show/{id}
+    defaults:  { _controller: "AppBundle:Infomarket/Category:show" }
+
+infomarket_page_show:
+    path:      /pages/show/{id}
+    defaults:  { _controller: "AppBundle:Infomarket/Page:show" }
+                            
 infomarket_product:
     path:      /products/{page}
     defaults:  { _controller: "AppBundle:Infomarket/Product:index", page: 1 }
@@ -128,10 +140,6 @@ infomarket_term_show:
 infomarket_magazine:
     path:      /magazine
     defaults:  { _controller: "AppBundle:Infomarket/Magazine:index" }
-    
-infomarket_office:
-    path:      /office
-    defaults:  { _controller: "AppBundle:Infomarket/Office:index" }
         
 # Admin Routing
 admin:

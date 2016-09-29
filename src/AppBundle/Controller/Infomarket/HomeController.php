@@ -3,16 +3,12 @@
 namespace AppBundle\Controller\Infomarket;
 
 use AppBundle\Controller\Infomarket\Base\SimpleEntityController;
-use AppBundle\Entity\ArticleCategory;
-use AppBundle\Entity\Filter\ArticleFilter;
+use AppBundle\Entity\Branch;
+use AppBundle\Entity\Category;
+use AppBundle\Entity\Filter\BranchFilter;
+use AppBundle\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-use AppBundle\Entity\Article;
-use AppBundle\Entity\Category;
-use AppBundle\Entity\Brand;
-use AppBundle\Entity\Tag;
-use AppBundle\Entity\User;
-use AppBundle\Entity\Filter\Base\SimpleEntityFilter;
 
 class HomeController extends SimpleEntityController
 {
@@ -47,34 +43,39 @@ class HomeController extends SimpleEntityController
 	 */
 	protected function getEntityType()
 	{
-		return Article::class;
+		return Branch::class;
 	}
 	
-    /**
-     * 
-     * {@inheritDoc}
-     * @see \AppBundle\Controller\Infomarket\Base\SimpleEntityController::getEntityFilter()
-     */
+	/**
+	 * 
+	 * {@inheritDoc}
+	 * @see \AppBundle\Controller\Infomarket\Base\SimpleEntityController::getEntityFilter()
+	 */
     protected function getEntityFilter(Request $request)
     {
-    	$userRepository = $this->getDoctrine()->getRepository(User::class);
-    	$articleCategoryRepository = $this->getDoctrine()->getRepository(ArticleCategory::class);
-		$categoryRepository = $this->getDoctrine()->getRepository(Category::class);
-		$brandRepository = $this->getDoctrine()->getRepository(Brand::class);
-		$tagRepository = $this->getDoctrine()->getRepository(Tag::class);
-		
-		$filter = new ArticleFilter($userRepository, $articleCategoryRepository, $categoryRepository, $brandRepository, $tagRepository);
-    	$filter->setPublished(SimpleEntityFilter::TRUE_VALUES);
-    	$filter->setFeatured(SimpleEntityFilter::TRUE_VALUES);
-    	
-    	$articleCategory = $this->getParamById($request, ArticleCategory::class, null);
-    	if($articleCategory) {
-    		$filter->setArticleCategories([$articleCategory]);
-    	}
+    	$filter = parent::getEntityFilter($request);
+    	$filter->setOrderBy('e.orderNumber ASC, e.name ASC');
     	
     	return $filter;	
     }
     
+    /**
+     * 
+     * {@inheritDoc}
+     * @see \AppBundle\Controller\Base\BaseEntityController::createNewFilter()
+     */
+    protected function createNewFilter() {
+    	$userRepository = $this->getDoctrine()->getRepository(User::class);
+    	$categoryRepository = $this->getDoctrine()->getRepository(Category::class);
+    	
+    	return new BranchFilter($userRepository, $categoryRepository);
+    }
+    
+    /**
+     * 
+     * {@inheritDoc}
+     * @see \AppBundle\Controller\Base\BaseEntityController::getEntityName()
+     */
     protected function getEntityName()
     {
     	return 'home';
