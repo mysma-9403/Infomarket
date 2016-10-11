@@ -4,22 +4,25 @@ namespace AppBundle\Controller\Admin;
 
 use AppBundle\Controller\Admin\Base\ImageEntityController;
 use AppBundle\Controller\Admin\Base\SimpleEntityController;
-use AppBundle\Entity\Brand;
-use AppBundle\Entity\Category;
-use AppBundle\Entity\Filter\ProductFilter;
 use AppBundle\Entity\Product;
 use AppBundle\Form\Filter\ProductFilterType;
 use AppBundle\Form\ProductType;
 use Symfony\Component\HttpFoundation\Request;
-use AppBundle\Entity\Segment;
-use AppBundle\Entity\User;
+use AppBundle\Manager\Filter\Common\ProductFilterManager;
+use AppBundle\Manager\Entity\Common\ProductManager;
 
 class ProductController extends ImageEntityController {
 	
+	//---------------------------------------------------------------------------
+	// Actions
+	//---------------------------------------------------------------------------
+	
 	/**
-	 * 
+	 *
 	 * @param Request $request
-	 * @param unknown $page
+	 * @param integer $page
+	 *
+	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
 	 */
 	public function indexAction(Request $request, $page)
 	{
@@ -27,9 +30,11 @@ class ProductController extends ImageEntityController {
 	}
 	
 	/**
-	 * 
+	 *
 	 * @param Request $request
-	 * @param unknown $id
+	 * @param integer $id
+	 *
+	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
 	 */
 	public function showAction(Request $request, $id)
 	{
@@ -39,7 +44,8 @@ class ProductController extends ImageEntityController {
 	/**
 	 *
 	 * @param Request $request
-	 * @param unknown $id
+	 *
+	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
 	 */
 	public function newAction(Request $request)
 	{
@@ -49,7 +55,9 @@ class ProductController extends ImageEntityController {
 	/**
 	 *
 	 * @param Request $request
-	 * @param unknown $id
+	 * @param integer $id
+	 *
+	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
 	 */
 	public function copyAction(Request $request, $id)
 	{
@@ -59,7 +67,9 @@ class ProductController extends ImageEntityController {
 	/**
 	 *
 	 * @param Request $request
-	 * @param unknown $id
+	 * @param integer $id
+	 *
+	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
 	 */
 	public function editAction(Request $request, $id)
 	{
@@ -67,9 +77,10 @@ class ProductController extends ImageEntityController {
 	}
 	
 	/**
-	 * 
+	 *
 	 * @param Request $request
-	 * @param unknown $id
+	 * @param integer $id
+	 *
 	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
 	 */
 	public function deleteAction(Request $request, $id)
@@ -78,21 +89,36 @@ class ProductController extends ImageEntityController {
 	}
 	
 	/**
-	 * 
+	 *
 	 * @param Request $request
-	 * @param unknown $id
+	 * @param integer $id
+	 *
+	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
 	 */
 	public function setPublishedAction(Request $request, $id)
 	{
 		return $this->setPublishedActionInternal($request, $id);
 	}
-
-	//------------------------------------------------------------------------
-	// Internal logic
-	//------------------------------------------------------------------------
 	
 	/**
 	 * 
+	 * @param Request $request
+	 * @param integer $id
+	 * 
+	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
+	 */
+	public function setFeaturedAction(Request $request, $id)
+	{
+		return $this->setFeaturedActionInternal($request, $id);
+	}
+	
+	
+	//---------------------------------------------------------------------------
+	// Internal logic
+	//---------------------------------------------------------------------------
+	
+	/**
+	 *
 	 * {@inheritDoc}
 	 * @see \AppBundle\Controller\Admin\Base\AdminEntityController::deleteMore()
 	 */
@@ -103,58 +129,25 @@ class ProductController extends ImageEntityController {
 			$em->remove($productCategoryAssignment);
 		}
 		$em->flush();
-		
+	
 		return array();
 	}
 	
-	//------------------------------------------------------------------------
-	// Entity creators
-	//------------------------------------------------------------------------
+	//---------------------------------------------------------------------------
+	// Managers
+	//---------------------------------------------------------------------------
 	
-	/**
-	 * 
-	 * {@inheritDoc}
-	 * @see \AppBundle\Controller\Admin\Base\SimpleEntityController::createNewEntity()
-	 */
-	protected function createNewEntity(Request $request) {
-		return new Product();
+	protected function getEntityManager($doctrine, $paginator) {
+		return new ProductManager($doctrine, $paginator);
 	}
 	
-	/**
-	 * 
-	 * {@inheritDoc}
-	 * @see \AppBundle\Controller\Admin\Base\SimpleEntityController::createFromTemplate()
-	 */
-	protected function createFromTemplate(Request $request, $template) {
-		$entry = parent::createFromTemplate($request, $template);
-	
-		$entry->setBrand($template->getBrand());
-		$entry->setPrice($template->getPrice());
-		$entry->setGuarantee($template->getGuarantee());
-	
-		return $entry;
-	}
-	
-	/**
-	 * 
-	 * {@inheritDoc}
-	 * @see \AppBundle\Controller\Admin\Base\SimpleEntityController::createNewFilter()
-	 */
-	protected function createNewFilter() {
-		$userRepository = $this->getDoctrine()->getRepository(User::class);
-		$categoryRepository = $this->getDoctrine()->getRepository(Category::class);
-		$brandRepository = $this->getDoctrine()->getRepository(Brand::class);
-		$segmentRepository = $this->getDoctrine()->getRepository(Segment::class);
-		
-		$filter = new ProductFilter($userRepository, $categoryRepository, $brandRepository, $segmentRepository);
-		$filter->setOrderBy('b.name ASC, e.name ASC');
-		
-		return $filter;
+	protected function getFilterManager($doctrine) {
+		return new ProductFilterManager($doctrine);
 	}
 	
 	
 	//------------------------------------------------------------------------
-	// Entity types
+	// EntityType related
 	//------------------------------------------------------------------------
 	
 	/**
@@ -168,7 +161,7 @@ class ProductController extends ImageEntityController {
 	
 	
 	//------------------------------------------------------------------------
-	// Form types
+	// Forms
 	//------------------------------------------------------------------------
 	
 	/**
@@ -181,7 +174,7 @@ class ProductController extends ImageEntityController {
 	}
 	
 	/**
-	 * 
+	 *
 	 * {@inheritDoc}
 	 * @see \AppBundle\Controller\Admin\Base\SimpleEntityController::getFilterFormType()
 	 */

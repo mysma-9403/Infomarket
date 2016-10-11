@@ -5,18 +5,24 @@ namespace AppBundle\Controller\Admin;
 use AppBundle\Controller\Admin\Base\ImageEntityController;
 use AppBundle\Controller\Admin\Base\SimpleEntityController;
 use AppBundle\Entity\ArticleCategory;
-use AppBundle\Entity\Filter\ArticleCategoryFilter;
 use AppBundle\Form\ArticleCategoryType;
 use AppBundle\Form\Filter\ArticleCategoryFilterType;
+use AppBundle\Manager\Entity\Common\ArticleCategoryManager;
+use AppBundle\Manager\Filter\Common\ArticleCategoryFilterManager;
 use Symfony\Component\HttpFoundation\Request;
-use AppBundle\Entity\User;
 
 class ArticleCategoryController extends ImageEntityController {
 	
+	//---------------------------------------------------------------------------
+	// Actions
+	//---------------------------------------------------------------------------
+	
 	/**
-	 * 
+	 *
 	 * @param Request $request
-	 * @param unknown $page
+	 * @param integer $page
+	 *
+	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
 	 */
 	public function indexAction(Request $request, $page)
 	{
@@ -24,9 +30,11 @@ class ArticleCategoryController extends ImageEntityController {
 	}
 	
 	/**
-	 * 
+	 *
 	 * @param Request $request
-	 * @param unknown $id
+	 * @param integer $id
+	 *
+	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
 	 */
 	public function showAction(Request $request, $id)
 	{
@@ -36,7 +44,8 @@ class ArticleCategoryController extends ImageEntityController {
 	/**
 	 *
 	 * @param Request $request
-	 * @param unknown $id
+	 *
+	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
 	 */
 	public function newAction(Request $request)
 	{
@@ -46,7 +55,9 @@ class ArticleCategoryController extends ImageEntityController {
 	/**
 	 *
 	 * @param Request $request
-	 * @param unknown $id
+	 * @param integer $id
+	 *
+	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
 	 */
 	public function copyAction(Request $request, $id)
 	{
@@ -56,7 +67,9 @@ class ArticleCategoryController extends ImageEntityController {
 	/**
 	 *
 	 * @param Request $request
-	 * @param unknown $id
+	 * @param integer $id
+	 *
+	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
 	 */
 	public function editAction(Request $request, $id)
 	{
@@ -64,9 +77,10 @@ class ArticleCategoryController extends ImageEntityController {
 	}
 	
 	/**
-	 * 
+	 *
 	 * @param Request $request
-	 * @param unknown $id
+	 * @param integer $id
+	 *
 	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
 	 */
 	public function deleteAction(Request $request, $id)
@@ -75,54 +89,44 @@ class ArticleCategoryController extends ImageEntityController {
 	}
 	
 	/**
-	 * 
+	 *
 	 * @param Request $request
-	 * @param unknown $id
+	 * @param integer $id
+	 *
+	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
 	 */
 	public function setPublishedAction(Request $request, $id)
 	{
 		return $this->setPublishedActionInternal($request, $id);
 	}
 	
-	//------------------------------------------------------------------------
-	// Entity creators
-	//------------------------------------------------------------------------
-	
 	/**
 	 * 
-	 * {@inheritDoc}
-	 * @see \AppBundle\Controller\Admin\Base\SimpleEntityController::createNewEntity()
-	 */
-	protected function createNewEntity(Request $request) {
-		return new ArticleCategory();
-	}
-	
-	/**
+	 * @param Request $request
+	 * @param integer $id
 	 * 
-	 * {@inheritDoc}
-	 * @see \AppBundle\Controller\Admin\Base\SimpleEntityController::createFromTemplate()
+	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
 	 */
-	protected function createFromTemplate(Request $request, $template) {
-		$entry = parent::createFromTemplate($request, $template);
-	
-		$entry->setFeatured($template->getFeatured());
-	
-		return $entry;
+	public function setFeaturedAction(Request $request, $id)
+	{
+		return $this->setFeaturedActionInternal($request, $id);
 	}
 	
-	/**
-	 *
-	 * {@inheritDoc}
-	 * @see \AppBundle\Controller\Admin\Base\SimpleEntityController::createNewFilter()
-	 */
-	protected function createNewFilter() {
-		$userRepository = $this->getDoctrine()->getRepository(User::class);
-		return new ArticleCategoryFilter($userRepository);
+	//---------------------------------------------------------------------------
+	// Managers
+	//---------------------------------------------------------------------------
+	
+	protected function getEntityManager($doctrine, $paginator) {
+		return new ArticleCategoryManager($doctrine, $paginator);
+	}
+	
+	protected function getFilterManager($doctrine) {
+		return new ArticleCategoryFilterManager($doctrine);
 	}
 	
 	
 	//------------------------------------------------------------------------
-	// Entity types
+	// EntityType related
 	//------------------------------------------------------------------------
 	
 	/**
@@ -136,7 +140,7 @@ class ArticleCategoryController extends ImageEntityController {
 	
 	
 	//------------------------------------------------------------------------
-	// Form types
+	// Forms
 	//------------------------------------------------------------------------
 	
 	/**

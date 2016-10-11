@@ -6,13 +6,20 @@ use AppBundle\Controller\Admin\Base\ImageEntityController;
 use AppBundle\Entity\Segment;
 use AppBundle\Form\SegmentType;
 use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Manager\Entity\Common\SegmentManager;
+use AppBundle\Manager\Filter\Common\SegmentFilterManager;
 
 class SegmentController extends ImageEntityController {
 	
+	//---------------------------------------------------------------------------
+	// Actions
+	//---------------------------------------------------------------------------
 	/**
 	 * 
 	 * @param Request $request
-	 * @param unknown $page
+	 * @param integer $page
+	 * 
+	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
 	 */
 	public function indexAction(Request $request, $page)
 	{
@@ -22,7 +29,9 @@ class SegmentController extends ImageEntityController {
 	/**
 	 * 
 	 * @param Request $request
-	 * @param unknown $id
+	 * @param integer $id
+	 * 
+	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
 	 */
 	public function showAction(Request $request, $id)
 	{
@@ -30,9 +39,10 @@ class SegmentController extends ImageEntityController {
 	}
 	
 	/**
-	 *
+	 * 
 	 * @param Request $request
-	 * @param unknown $id
+	 * 
+	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
 	 */
 	public function newAction(Request $request)
 	{
@@ -40,9 +50,11 @@ class SegmentController extends ImageEntityController {
 	}
 	
 	/**
-	 *
+	 * 
 	 * @param Request $request
-	 * @param unknown $id
+	 * @param integer $id
+	 * 
+	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
 	 */
 	public function copyAction(Request $request, $id)
 	{
@@ -50,9 +62,11 @@ class SegmentController extends ImageEntityController {
 	}
 	
 	/**
-	 *
+	 * 
 	 * @param Request $request
-	 * @param unknown $id
+	 * @param integer $id
+	 * 
+	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
 	 */
 	public function editAction(Request $request, $id)
 	{
@@ -62,7 +76,8 @@ class SegmentController extends ImageEntityController {
 	/**
 	 * 
 	 * @param Request $request
-	 * @param unknown $id
+	 * @param integer $id
+	 * 
 	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
 	 */
 	public function deleteAction(Request $request, $id)
@@ -73,29 +88,29 @@ class SegmentController extends ImageEntityController {
 	/**
 	 * 
 	 * @param Request $request
-	 * @param unknown $id
+	 * @param integer $id
+	 * 
+	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
 	 */
 	public function setPublishedAction(Request $request, $id)
 	{
 		return $this->setPublishedActionInternal($request, $id);
 	}
 	
-	//------------------------------------------------------------------------
-	// Entity creators
-	//------------------------------------------------------------------------
+	//---------------------------------------------------------------------------
+	// Managers
+	//---------------------------------------------------------------------------
 	
-	/**
-	 * 
-	 * {@inheritDoc}
-	 * @see \AppBundle\Controller\Admin\Base\SimpleEntityController::createNewEntity()
-	 */
-	protected function createNewEntity(Request $request) {
-		return new Segment();
+	protected function getEntityManager($doctrine, $paginator) {
+		return new SegmentManager($doctrine, $paginator);
 	}
 	
+	protected function getFilterManager($doctrine) {
+		return new SegmentFilterManager($doctrine);
+	}
 	
 	//------------------------------------------------------------------------
-	// Entity types
+	// EntityType related
 	//------------------------------------------------------------------------
 	
 	/**
@@ -106,11 +121,6 @@ class SegmentController extends ImageEntityController {
 	protected function getEntityType() {
 		return Segment::class;
 	}
-	
-	
-	//------------------------------------------------------------------------
-	// Form types
-	//------------------------------------------------------------------------
 	
 	/**
 	 * 

@@ -2,36 +2,21 @@
 
 namespace AppBundle\Controller\Infomarket;
 
-use AppBundle\Controller\Infomarket\Base\SimpleEntityController;
-use AppBundle\Entity\Advert;
-use AppBundle\Entity\Article;
-use AppBundle\Entity\ArticleCategory;
-use AppBundle\Entity\Branch;
-use AppBundle\Entity\Brand;
+use AppBundle\Controller\Infomarket\Base\InfomarketController;
 use AppBundle\Entity\Category;
-use AppBundle\Entity\Filter\AdvertFilter;
-use AppBundle\Entity\Filter\ArticleCategoryFilter;
-use AppBundle\Entity\Filter\ArticleFilter;
-use AppBundle\Entity\Filter\Base\BaseEntityFilter;
-use AppBundle\Entity\Filter\Base\SimpleEntityFilter;
-use AppBundle\Entity\Filter\BranchFilter;
-use AppBundle\Entity\Filter\BrandFilter;
-use AppBundle\Entity\Filter\CategoryFilter;
-use AppBundle\Entity\Filter\ProductFilter;
-use AppBundle\Entity\Filter\TermFilter;
-use AppBundle\Entity\Product;
-use AppBundle\Entity\Segment;
-use AppBundle\Entity\Term;
-use AppBundle\Repository\BrandRepository;
-use AppBundle\Repository\CategoryRepository;
-use AppBundle\Repository\SegmentRepository;
+use AppBundle\Manager\Entity\Base\EntityManager;
+use AppBundle\Manager\Entity\Common\CategoryManager;
+use AppBundle\Manager\Filter\Base\FilterManager;
+use AppBundle\Manager\Filter\Infomarket\IMCategoryFilterManager;
+use AppBundle\Manager\Params\EntryParams\Infomarket\CategoryEntryParamsManager;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-use AppBundle\Entity\Tag;
-use AppBundle\Entity\User;
 
-class CategoryController extends SimpleEntityController
+class CategoryController extends InfomarketController
 {
+	//---------------------------------------------------------------------------
+	// Actions
+	//---------------------------------------------------------------------------
 	/**
 	 * 
 	 * {@inheritDoc}
@@ -52,176 +37,32 @@ class CategoryController extends SimpleEntityController
 		return $this->showActionInternal($request, $id);
 	}
 	
-	/**
-	 *
-	 * {@inheritDoc}
-	 * @see \AppBundle\Controller\Infomarket\Base\BaseEntityController::getShowParams()
-	 */
-	protected function getIndexParams(Request $request, $page)
-	{	
-		$params = parent::getIndexParams($request, $page);
+	//---------------------------------------------------------------------------
+	// Managers
+	//---------------------------------------------------------------------------
 	
-		$userRepository = $this->getDoctrine()->getRepository(User::class);
-		$branchRepository = $this->getDoctrine()->getRepository(Branch::class);
-		$categoryRepository = $this->getDoctrine()->getRepository(Category::class);
-		
-		$branchFilter = new BranchFilter($userRepository, $categoryRepository);
-		$branchFilter->initValues($request);
-		$branchFilter->setPublished(SimpleEntityFilter::TRUE_VALUES);
-		$branchFilter->setOrderBy('e.orderNumber ASC, e.name ASC');
-		
-		$branches = $this->getParamList(Branch::class, $branchFilter);
-		$params['branches'] = $branches;
-		
-		$categoryFilter = new CategoryFilter($userRepository, $branchRepository, $categoryRepository);
-		$categoryFilter->initValues($request);
-		$categoryFilter->setPublished(SimpleEntityFilter::TRUE_VALUES);
-		$categoryFilter->setPreleaf(SimpleEntityFilter::TRUE_VALUES);
-		$categoryFilter->setOrderBy('e.orderNumber ASC, e.name ASC');
-		
-		$categories = $this->getParamList(Category::class, $categoryFilter);
-		$params['categories'] = $categories;
-		
-		$params['limitCategories'] = count($categoryFilter->getBranches()) == 0;
-	
-		return $params;
+	protected function getInternalEntryParamsManager(EntityManager $em, FilterManager $fm, $doctrine) {
+		return new CategoryEntryParamsManager($em, $fm, $doctrine);
 	}
 	
-	/**
-	 * 
-	 * {@inheritDoc}
-	 * @see \AppBundle\Controller\Infomarket\Base\BaseEntityController::getShowParams()
-	 */
-	protected function getShowParams(Request $request, $id)
-	{	
-		$params = parent::getShowParams($request, $id);
-		
-		$entry = $params['entry'];
-		
-		//TODO use as setters as they are useless in many cases!!! (like here)
-		//TODO @up - not sure - they are needed in initValues! 
-		$userRepository = $this->getDoctrine()->getRepository(User::class);
-		$categoryRepository = $this->getDoctrine()->getRepository(Category::class);
-		$brandRepository = $this->getDoctrine()->getRepository(Brand::class);
-		$segmentRepository = $this->getDoctrine()->getRepository(Segment::class);
-		$branchRepository = $this->getDoctrine()->getRepository(Branch::class);
-		
-		$segments = $segmentRepository->findAll();
-		$params['segments'] = $segments;
-		
-		$params['brands'] = array();
-		$params['products'] = array();
-		
-		foreach ($segments as $segment) {
-			$brandFilter = new BrandFilter($userRepository, $categoryRepository, $segmentRepository);
-			$brandFilter->setCategories([$entry]);
-			$brandFilter->setSegments([$segment]);
-			$brandFilter->setPublished(SimpleEntityFilter::TRUE_VALUES);
-			
-			$brandRepository = $this->getDoctrine()->getRepository(Brand::class);
-			$brands = $brandRepository->findSelected($brandFilter);
-			
-			$params['brands'][$segment->getId()] = $brands;
-			
-			$productFilter = new ProductFilter($userRepository, $categoryRepository, $brandRepository, $segmentRepository);
-			$productFilter->setCategories([$entry]);
-			$productFilter->setSegments([$segment]);
-			$productFilter->setPublished(SimpleEntityFilter::TRUE_VALUES);
-			
-			$productRepository = $this->getDoctrine()->getRepository(Product::class);
-			$products = $productRepository->findSelected($productFilter);
-			
-			$params['products'][$segment->getId()] = $products;
-		}
-		
-		
-		
-		$params['subbrands'] = array();
-		$params['subproducts'] = array();
-		
-		$categoryFilter = new CategoryFilter($userRepository, $branchRepository, $categoryRepository);
-		$categoryFilter->setParents([$entry]);
-		$categoryFilter->setOrderBy('e.orderNumber ASC, e.name ASC');
-			
-		$categories = $categoryRepository->findSelected($categoryFilter);
-		$params['subcategories'] = $categories;
-		
-		foreach ($categories as $category) {
-			$params['subbrands'][$category->getId()] = array();
-			$params['subproducts'][$category->getId()] = array();
-			
-			foreach ($segments as $segment) {
-				$brandFilter = new BrandFilter($userRepository, $categoryRepository, $segmentRepository);
-				$brandFilter->setCategories([$category]);
-				$brandFilter->setSegments([$segment]);
-				$brandFilter->setPublished(SimpleEntityFilter::TRUE_VALUES);
-			
-				$brandRepository = $this->getDoctrine()->getRepository(Brand::class);
-				$brands = $brandRepository->findSelected($brandFilter);
-			
-				$params['subbrands'][$category->getId()][$segment->getId()] = $brands;
-			
-				$productFilter = new ProductFilter($userRepository, $categoryRepository, $brandRepository, $segmentRepository);
-				$productFilter->setCategories([$category]);
-				$productFilter->setSegments([$segment]);
-				$productFilter->setPublished(SimpleEntityFilter::TRUE_VALUES);
-			
-				$productRepository = $this->getDoctrine()->getRepository(Product::class);
-				$products = $productRepository->findSelected($productFilter);
-			
-				$params['subproducts'][$category->getId()][$segment->getId()] = $products;
-			}
-		}
-		
-		$termFilter = new TermFilter($userRepository, $categoryRepository);
-		// 		$termFilter->setCategories([$entry]);
-		$termFilter->setPublished(SimpleEntityFilter::TRUE_VALUES);
-		$termRepository = $this->getDoctrine()->getRepository(Term::class);
-		$terms = $termRepository->findSelected($termFilter);
-		
-		$params['terms'] = $terms;
-		
-		return $params;
+	protected function getEntityManager($doctrine, $paginator) {
+		return new CategoryManager($doctrine, $paginator);
 	}
 	
-	/**
-	 * 
-	 * {@inheritDoc}
-	 * @see \AppBundle\Controller\Infomarket\HomeController::getEntityType()
-	 */
+	protected function getEntryFilterManager($doctrine) {
+		return new IMCategoryFilterManager($doctrine);
+	}
+	
+	protected function isFilterByBranches() {
+		return true;
+	}
+	
+	//---------------------------------------------------------------------------
+	// EntityType related
+	//---------------------------------------------------------------------------
+	
 	protected function getEntityType()
 	{
 		return Category::class;
 	}
-	
-	protected function getEntityFilter(Request $request)
-	{
-		$filter = parent::getEntityFilter($request);
-		$filter->setOrderBy('e.orderNumber ASC, e.name ASC');
-		 
-		return $filter;
-	}
-	
-	protected function createNewFilter() {
-		$userRepository = $this->getDoctrine()->getRepository(User::class);
-		$branchRepository = $this->getDoctrine()->getRepository(Branch::class);
-		$categoryRepository = $this->getDoctrine()->getRepository(Category::class);
-		
-		return new CategoryFilter($userRepository, $branchRepository, $categoryRepository);
-	}
-    
-    protected function initBranch(Request $request, $branches)
-    {
-    	return $this->getParamByName($request, Branch::class, null);
-    }
-    
-    protected function showRootCategories()
-    {
-    	return SimpleEntityFilter::TRUE_VALUES;
-    }
-    
-    protected function showPreleafCategories()
-    {
-    	return SimpleEntityFilter::ALL_VALUES;
-    }
 }

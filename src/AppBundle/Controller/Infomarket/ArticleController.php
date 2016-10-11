@@ -2,22 +2,18 @@
 
 namespace AppBundle\Controller\Infomarket;
 
-use AppBundle\Controller\Infomarket\Base\SimpleEntityController;
+use AppBundle\Controller\Infomarket\Base\InfomarketController;
 use AppBundle\Entity\Article;
-use AppBundle\Entity\ArticleCategory;
-use AppBundle\Entity\Filter\ArticleFilter;
+use AppBundle\Manager\Entity\Common\ArticleManager;
+use AppBundle\Manager\Filter\Common\ArticleFilterManager;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-use AppBundle\Entity\Category;
-use AppBundle\Entity\Brand;
-use AppBundle\Entity\Tag;
-use AppBundle\Entity\User;
-use AppBundle\Entity\Filter\Base\SimpleEntityFilter;
-use AppBundle\Entity\Branch;
-use AppBundle\Entity\BranchCategoryAssignment;
 
-class ArticleController extends SimpleEntityController
+class ArticleController extends InfomarketController
 {   
+	//---------------------------------------------------------------------------
+	// Actions
+	//---------------------------------------------------------------------------
 	/**
 	 *
 	 * @param Request $request
@@ -42,6 +38,25 @@ class ArticleController extends SimpleEntityController
 		return $this->showActionInternal($request, $id);
 	}
 	
+	//---------------------------------------------------------------------------
+	// Managers
+	//---------------------------------------------------------------------------
+	
+	protected function getEntityManager($doctrine, $paginator) {
+		return new ArticleManager($doctrine, $paginator);
+	}
+	
+	protected function getEntryFilterManager($doctrine) {
+		return new ArticleFilterManager($doctrine);
+	}
+	
+	protected function isFilterByCategories() {
+		return true;
+	}
+	
+	//---------------------------------------------------------------------------
+	// EntityType related
+	//---------------------------------------------------------------------------
     /**
      * 
      * {@inheritDoc}
@@ -50,35 +65,5 @@ class ArticleController extends SimpleEntityController
     protected function getEntityType()
     {
     	return Article::class;
-    }
-    
-    protected function getEntityFilter(Request $request)
-    {
-    	$filter = parent::getEntityFilter($request);
-    	
-    	$routingParams = $this->getRoutingParams($request);
-    	$branch = $routingParams['branch'];
-    	if($branch) {
-    		$categories = array();
-    		foreach ($branch->getBranchCategoryAssignments() as $branchCategoryAssignment) {
-    			$categories[] = $branchCategoryAssignment->getCategory();
-    		}
-    		$filter->setCategories($categories);
-    	}
-    	 
-    	$filter->setMain(SimpleEntityFilter::TRUE_VALUES);
-    	$filter->setOrderBy('e.date DESC');
-    	 
-    	return $filter;
-    }
-    
-    protected function createNewFilter() {
-    	$userRepository = $this->getDoctrine()->getRepository(User::class);
-    	$articleCategoryRepository = $this->getDoctrine()->getRepository(ArticleCategory::class);
-    	$categoryRepository = $this->getDoctrine()->getRepository(Category::class);
-    	$brandRepository = $this->getDoctrine()->getRepository(Brand::class);
-    	$tagRepository = $this->getDoctrine()->getRepository(Tag::class);
-    	 
-    	return new ArticleFilter($userRepository, $articleCategoryRepository, $categoryRepository, $brandRepository, $tagRepository);
     }
 }

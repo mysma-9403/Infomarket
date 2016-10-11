@@ -7,12 +7,7 @@
 			{% if linkPath is not defined %}
 				{% set linkPath = basePath ~ 'user_show' %}
 			{% endif %}
-			{% if routePath is not defined %}
-				{% set routePath = basePath ~ mainPath ~ extPath %}
-			{% endif %}
-			{% if routeParams is not defined %}
-				{% set routeParams = { id: routeId } %}
-			{% endif %}
+			
 			<a href="{{ path(linkPath, { id: value.id }) }}">
 				{{ value.surname }} {{ value.forename }}
 			</a>

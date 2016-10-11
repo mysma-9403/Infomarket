@@ -12,7 +12,12 @@ abstract class ImageEntityController extends SimpleEntityController {
 		
 		$this->denyAccessUnlessGranted('ROLE_EDITOR', null, 'Unable to access this page!');
 		
-		$entry = $this->getEntry($id);
+		$params = $this->createParams($this->getRemoveImageRoute());
+		$params = $this->getEditParams($request, $params, $id);
+		
+		$viewParams = $params['viewParams'];
+		$entry = $viewParams['entry'];
+		
 		if($entry) {
 			if(file_exists($entry->getImagePath())) {
 				unlink($entry->getImage());
@@ -25,9 +30,11 @@ abstract class ImageEntityController extends SimpleEntityController {
 			$em->persist($entry);
 			$em->flush();
 		}
-    	
-    	$routingParams = $this->getRoutingParams($request);
-    	return $this->redirectToRoute($routingParams['route'], $routingParams['routeParams']);
+		
+    	/** @var RouteManager $rm */
+    	$rm = $this->getRouteManager();
+    	$lastRoute = $rm->getLastRoute($request, $this->getIndexRoute());
+    	return $this->redirectToRoute($lastRoute['route'], $lastRoute['routeParams']);
 	}
 	
 	/**
@@ -35,6 +42,7 @@ abstract class ImageEntityController extends SimpleEntityController {
 	 * {@inheritDoc}
 	 * @see \AppBundle\Controller\Admin\Base\SimpleEntityController::prepareEntry()
 	 */
+	//TODO refactor
 	protected function prepareEntry($entry) {
 		if($entry->getFile()) {
 			$uploadableManager = $this->get('stof_doctrine_extensions.uploadable.manager');
@@ -42,6 +50,7 @@ abstract class ImageEntityController extends SimpleEntityController {
 		}
 	}
 	
+	//TODO move to ImageEntityManager
 	protected function createFromTemplate(Request $request, $template) {
 		$entry = parent::createFromTemplate($request, $template);
 	
@@ -51,5 +60,14 @@ abstract class ImageEntityController extends SimpleEntityController {
 		$entry->setForcedHeight($template->getForcedHeight());
 	
 		return $entry;
+	}
+	
+	//---------------------------------------------------------------------------
+	// Routes
+	//---------------------------------------------------------------------------
+	
+	protected function getRemoveImageRoute()
+	{
+		return $this->getIndexRoute() . '_remove_image';
 	}
 }

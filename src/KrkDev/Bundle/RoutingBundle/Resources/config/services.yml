@@ -1,6 +1,0 @@
-services:
-    krk_routing.listener:
-        class: KrkDev\Bundle\RoutingBundle\Listener\Kernel
-        tags:
-            - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }
-        arguments: ['@router']

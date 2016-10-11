@@ -3,22 +3,25 @@
 namespace AppBundle\Controller\Admin;
 
 use AppBundle\Controller\Admin\Base\AdminEntityController;
-use AppBundle\Entity\Brand;
 use AppBundle\Entity\BrandCategoryAssignment;
-use AppBundle\Entity\Category;
-use AppBundle\Entity\Segment;
 use AppBundle\Form\BrandCategoryAssignmentType;
-use Symfony\Component\HttpFoundation\Request;
-use AppBundle\Entity\Filter\BrandCategoryAssignmentFilter;
 use AppBundle\Form\Filter\BrandCategoryAssignmentFilterType;
-use AppBundle\Entity\User;
+use AppBundle\Manager\Entity\Common\BrandCategoryAssignmentManager;
+use AppBundle\Manager\Filter\Common\BrandCategoryAssignmentFilterManager;
+use Symfony\Component\HttpFoundation\Request;
 
 class BrandCategoryAssignmentController extends AdminEntityController {
 	
+	//---------------------------------------------------------------------------
+	// Actions
+	//---------------------------------------------------------------------------
+	
 	/**
-	 * 
+	 *
 	 * @param Request $request
-	 * @param unknown $page
+	 * @param integer $page
+	 *
+	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
 	 */
 	public function indexAction(Request $request, $page)
 	{
@@ -26,9 +29,11 @@ class BrandCategoryAssignmentController extends AdminEntityController {
 	}
 	
 	/**
-	 * 
+	 *
 	 * @param Request $request
-	 * @param unknown $id
+	 * @param integer $id
+	 *
+	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
 	 */
 	public function showAction(Request $request, $id)
 	{
@@ -38,7 +43,8 @@ class BrandCategoryAssignmentController extends AdminEntityController {
 	/**
 	 *
 	 * @param Request $request
-	 * @param unknown $id
+	 *
+	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
 	 */
 	public function newAction(Request $request)
 	{
@@ -48,7 +54,9 @@ class BrandCategoryAssignmentController extends AdminEntityController {
 	/**
 	 *
 	 * @param Request $request
-	 * @param unknown $id
+	 * @param integer $id
+	 *
+	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
 	 */
 	public function copyAction(Request $request, $id)
 	{
@@ -58,7 +66,9 @@ class BrandCategoryAssignmentController extends AdminEntityController {
 	/**
 	 *
 	 * @param Request $request
-	 * @param unknown $id
+	 * @param integer $id
+	 *
+	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
 	 */
 	public function editAction(Request $request, $id)
 	{
@@ -66,9 +76,10 @@ class BrandCategoryAssignmentController extends AdminEntityController {
 	}
 	
 	/**
-	 * 
+	 *
 	 * @param Request $request
-	 * @param unknown $id
+	 * @param integer $id
+	 *
 	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
 	 */
 	public function deleteAction(Request $request, $id)
@@ -77,82 +88,47 @@ class BrandCategoryAssignmentController extends AdminEntityController {
 	}
 	
 	/**
-	 * 
+	 *
 	 * @param Request $request
-	 * @param unknown $id
+	 * @param integer $id
+	 *
+	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
 	 */
 	public function setPublishedAction(Request $request, $id)
 	{
 		return $this->setPublishedActionInternal($request, $id);
 	}
 	
+	//---------------------------------------------------------------------------
+	// Managers
+	//---------------------------------------------------------------------------
+	
+	/**
+	 * 
+	 * {@inheritDoc}
+	 * @see \AppBundle\Controller\Base\BaseEntityController::getEntityManager()
+	 */
+	protected function getEntityManager($doctrine, $paginator) {
+		return new BrandCategoryAssignmentManager($doctrine, $paginator);
+	}
+	
+	/**
+	 * 
+	 * {@inheritDoc}
+	 * @see \AppBundle\Controller\Base\BaseEntityController::getFilterManager()
+	 */
+	protected function getFilterManager($doctrine) {
+		return new BrandCategoryAssignmentFilterManager($doctrine);
+	}
+	
 	//------------------------------------------------------------------------
-	// Entity creators
+	// EntityType related
 	//------------------------------------------------------------------------
 	
 	/**
 	 * 
-	 * @param Request $request
-	 * @return \AppBundle\Entity\BrandCategoryAssignment
-	 */
-	protected function createNewEntity(Request $request) {
-		$entity = new BrandCategoryAssignment();
-		
-		$category = $this->getParamById($request, Category::class, null);
-		if($category) {
-			$entity->setCategory($category);
-		}
-		
-		$segment = $this->getParamById($request, Segment::class, null);
-		if($segment) {
-			$entity->setSegment($segment);
-		}
-		
-		$brand = $this->getParamById($request, Brand::class, null);
-		if($brand) {
-			$entity->setBrand($brand);
-		}
-		
-		$entity->setOrderNumber(1);
-		
-		return $entity;
-	}
-	
-	/**
-	 * 
 	 * {@inheritDoc}
-	 * @see \AppBundle\Controller\Admin\Base\AdminEntityController::createFromTemplate()
-	 */
-	protected function createFromTemplate(Request $request, $template) {
-		$entry = parent::createFromTemplate($request, $template);
-	
-		$entry->setCategory($template->getCategory());
-		$entry->setSegment($template->getSegment());
-		$entry->setBrand($template->getBrand());
-		
-		$entry->setOrderNumber($template->getOrderNumber());
-	
-		return $entry;
-	}
-	
-	/**
-	 *
-	 * {@inheritDoc}
-	 * @see \AppBundle\Controller\Admin\Base\AdminEntityController::createNewFilter()
-	 */
-	protected function createNewFilter() {
-		$userRepository = $this->getDoctrine()->getRepository(User::class);
-		$brandRepository = $this->getDoctrine()->getRepository(Brand::class);
-		$categoryRepository = $this->getDoctrine()->getRepository(Category::class);
-		$segmentRepository = $this->getDoctrine()->getRepository(Segment::class);
-	
-		return new BrandCategoryAssignmentFilter($userRepository, $brandRepository, $categoryRepository, $segmentRepository);
-	}
-	
-	/**
-	 * 
-	 * {@inheritDoc}
-	 * @see \AppBundle\Controller\Base\BaseEntityController::getEntityType()
+	 * @see \AppBundle\Controller\Base\BaseController::getEntityType()
 	 */
 	protected function getEntityType() {
 		return BrandCategoryAssignment::class;
@@ -160,17 +136,19 @@ class BrandCategoryAssignmentController extends AdminEntityController {
 	
 	/**
 	 * 
-	 * @return string
+	 * {@inheritDoc}
+	 * @see \AppBundle\Controller\Admin\Base\AdminEntityController::getFormType()
 	 */
 	protected function getFormType() {
 		return BrandCategoryAssignmentType::class;
 	}
 	
 	/**
-	 *
-	 * @return string
+	 * 
+	 * {@inheritDoc}
+	 * @see \AppBundle\Controller\Admin\Base\AdminEntityController::getFilterFormType()
 	 */
-	protected function getFilterFormType() {
+	 protected function getFilterFormType() {
 		return BrandCategoryAssignmentFilterType::class;
 	}
 }

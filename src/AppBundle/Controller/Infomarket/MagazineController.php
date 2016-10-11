@@ -2,13 +2,18 @@
 
 namespace AppBundle\Controller\Infomarket;
 
-use AppBundle\Controller\Infomarket\Base\SimpleEntityController;
+use AppBundle\Controller\Infomarket\Base\InfomarketController;
+use AppBundle\Entity\Magazine;
+use AppBundle\Manager\Entity\Common\MagazineManager;
+use AppBundle\Manager\Filter\Common\MagazineFilterManager;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use AppBundle\Entity\Brand;
 use Symfony\Component\HttpFoundation\Request;
 
-class MagazineController extends SimpleEntityController
+class MagazineController extends InfomarketController
 {
+	//---------------------------------------------------------------------------
+	// Actions
+	//---------------------------------------------------------------------------
 	/**
 	 *
 	 * @param Request $request
@@ -16,9 +21,9 @@ class MagazineController extends SimpleEntityController
 	 *
 	 * @return \Symfony\Component\HttpFoundation\Response
 	 */
-	public function indexAction(Request $request)
+	public function indexAction(Request $request, $page)
 	{
-		return $this->indexActionInternal($request, 0);
+		return $this->indexActionInternal($request, $page);
 	}
 	
 	/**
@@ -33,6 +38,26 @@ class MagazineController extends SimpleEntityController
 		return $this->showActionInternal($request, $id);
 	}
 	
+	//---------------------------------------------------------------------------
+	// Managers
+	//---------------------------------------------------------------------------
+	
+	protected function getEntityManager($doctrine, $paginator) {
+		return new MagazineManager($doctrine, $paginator);
+	}
+	
+	protected function getEntryFilterManager($doctrine) {
+		return new MagazineFilterManager($doctrine);
+	}
+	
+	protected function isFilterByCategories() {
+		return true;
+	}
+	
+	//---------------------------------------------------------------------------
+	// EntityType related
+	//---------------------------------------------------------------------------
+	
 	/**
      * 
      * {@inheritDoc}
@@ -40,11 +65,6 @@ class MagazineController extends SimpleEntityController
      */
     protected function getEntityType()
     {
-    	return Brand::class;
-    }
-    
-    protected function getEntityName()
-    {
-    	return 'magazine';
+    	return Magazine::class;
     }
 }

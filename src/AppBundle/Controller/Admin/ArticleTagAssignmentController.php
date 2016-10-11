@@ -3,21 +3,25 @@
 namespace AppBundle\Controller\Admin;
 
 use AppBundle\Controller\Admin\Base\AdminEntityController;
-use AppBundle\Entity\Article;
 use AppBundle\Entity\ArticleTagAssignment;
-use AppBundle\Entity\Filter\ArticleTagAssignmentFilter;
-use AppBundle\Entity\Tag;
 use AppBundle\Form\ArticleTagAssignmentType;
 use AppBundle\Form\Filter\ArticleTagAssignmentFilterType;
+use AppBundle\Manager\Entity\Common\ArticleTagAssignmentManager;
+use AppBundle\Manager\Filter\Common\ArticleTagAssignmentFilterManager;
 use Symfony\Component\HttpFoundation\Request;
-use AppBundle\Entity\User;
 
 class ArticleTagAssignmentController extends AdminEntityController {
 	
+	//---------------------------------------------------------------------------
+	// Actions
+	//---------------------------------------------------------------------------
+	
 	/**
-	 * 
+	 *
 	 * @param Request $request
-	 * @param unknown $page
+	 * @param integer $page
+	 *
+	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
 	 */
 	public function indexAction(Request $request, $page)
 	{
@@ -25,9 +29,11 @@ class ArticleTagAssignmentController extends AdminEntityController {
 	}
 	
 	/**
-	 * 
+	 *
 	 * @param Request $request
-	 * @param unknown $id
+	 * @param integer $id
+	 *
+	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
 	 */
 	public function showAction(Request $request, $id)
 	{
@@ -37,7 +43,8 @@ class ArticleTagAssignmentController extends AdminEntityController {
 	/**
 	 *
 	 * @param Request $request
-	 * @param unknown $id
+	 *
+	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
 	 */
 	public function newAction(Request $request)
 	{
@@ -47,7 +54,9 @@ class ArticleTagAssignmentController extends AdminEntityController {
 	/**
 	 *
 	 * @param Request $request
-	 * @param unknown $id
+	 * @param integer $id
+	 *
+	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
 	 */
 	public function copyAction(Request $request, $id)
 	{
@@ -57,7 +66,9 @@ class ArticleTagAssignmentController extends AdminEntityController {
 	/**
 	 *
 	 * @param Request $request
-	 * @param unknown $id
+	 * @param integer $id
+	 *
+	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
 	 */
 	public function editAction(Request $request, $id)
 	{
@@ -65,9 +76,10 @@ class ArticleTagAssignmentController extends AdminEntityController {
 	}
 	
 	/**
-	 * 
+	 *
 	 * @param Request $request
-	 * @param unknown $id
+	 * @param integer $id
+	 *
 	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
 	 */
 	public function deleteAction(Request $request, $id)
@@ -76,103 +88,47 @@ class ArticleTagAssignmentController extends AdminEntityController {
 	}
 	
 	/**
-	 * 
+	 *
 	 * @param Request $request
-	 * @param unknown $id
+	 * @param integer $id
+	 *
+	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
 	 */
 	public function setPublishedAction(Request $request, $id)
 	{
 		return $this->setPublishedActionInternal($request, $id);
 	}
-
-	//------------------------------------------------------------------------
-	// Internal logic
-	//------------------------------------------------------------------------
+	
+	//---------------------------------------------------------------------------
+	// Managers
+	//---------------------------------------------------------------------------
 	
 	/**
 	 * 
 	 * {@inheritDoc}
-	 * @see \AppBundle\Controller\Admin\Base\AdminEntityController::prepareEntry()
+	 * @see \AppBundle\Controller\Base\BaseEntityController::getEntityManager()
 	 */
-	protected function prepareEntry($entry) {
-		if($entry->getTag()) return;
-		
-		$tagRepository = $this->getDoctrine()->getRepository(Tag::class);
-		
-		$result = $tagRepository->findBy([ 'name' => $entry->getNewTagName() ], null, 1);
-		
-		if(count($result) == 0) {
-			$em = $this->getDoctrine()->getManager();
-			
-			$tag = new Tag();
-			$tag->setName($entry->getNewTagName());
-			$tag->setPublished(true);
-				
-			$em->persist($tag);
-			$em->flush();
-			
-			$result = $tagRepository->findBy([ 'name' => $entry->getNewTagName() ], null, 1);
-		}
-		
-		$entry->setTag($result[0]);
-	}
-	
-	//------------------------------------------------------------------------
-	// Entity creators
-	//------------------------------------------------------------------------
-	
-	/**
-	 * 
-	 * @param Request $request
-	 * @return \AppBundle\Entity\ArticleTagAssignment
-	 */
-	protected function createNewEntity(Request $request) {
-		$entity = new ArticleTagAssignment();
-		
-		$brand = $this->getParamById($request, Tag::class, null);
-		if($brand) {
-			$entity->setTag($brand);
-		}
-		
-		$article = $this->getParamById($request, Article::class, null);
-		if($article) {
-			$entity->setArticle($article);
-		}
-		
-		return $entity;
+	protected function getEntityManager($doctrine, $paginator) {
+		return new ArticleTagAssignmentManager($doctrine, $paginator);
 	}
 	
 	/**
 	 * 
 	 * {@inheritDoc}
-	 * @see \AppBundle\Controller\Admin\Base\AdminEntityController::createFromTemplate()
+	 * @see \AppBundle\Controller\Base\BaseEntityController::getFilterManager()
 	 */
-	protected function createFromTemplate(Request $request, $template) {
-		$entry = parent::createFromTemplate($request, $template);
-	
-		$entry->setArticle($template->getArticle());
-		$entry->setTag($template->getTag());
-	
-		return $entry;
+	protected function getFilterManager($doctrine) {
+		return new ArticleTagAssignmentFilterManager($doctrine);
 	}
+	
+	//------------------------------------------------------------------------
+	// EntityType related
+	//------------------------------------------------------------------------
 	
 	/**
 	 * 
 	 * {@inheritDoc}
-	 * @see \AppBundle\Controller\Admin\Base\AdminEntityController::createNewFilter()
-	 */
-	protected function createNewFilter() {
-		$userRepository = $this->getDoctrine()->getRepository(User::class);
-		$articleRepository = $this->getDoctrine()->getRepository(Article::class);
-		$brandRepository = $this->getDoctrine()->getRepository(Tag::class);
-		
-		return new ArticleTagAssignmentFilter($userRepository, $articleRepository, $brandRepository);
-	}
-	
-	/**
-	 * 
-	 * {@inheritDoc}
-	 * @see \AppBundle\Controller\Base\BaseEntityController::getEntityType()
+	 * @see \AppBundle\Controller\Base\BaseController::getEntityType()
 	 */
 	protected function getEntityType() {
 		return ArticleTagAssignment::class;
@@ -180,7 +136,8 @@ class ArticleTagAssignmentController extends AdminEntityController {
 	
 	/**
 	 * 
-	 * @return string
+	 * {@inheritDoc}
+	 * @see \AppBundle\Controller\Admin\Base\AdminEntityController::getFormType()
 	 */
 	protected function getFormType() {
 		return ArticleTagAssignmentType::class;
@@ -188,7 +145,8 @@ class ArticleTagAssignmentController extends AdminEntityController {
 	
 	/**
 	 * 
-	 * @return string
+	 * {@inheritDoc}
+	 * @see \AppBundle\Controller\Admin\Base\AdminEntityController::getFilterFormType()
 	 */
 	 protected function getFilterFormType() {
 		return ArticleTagAssignmentFilterType::class;

@@ -25,13 +25,11 @@
 							
 					{% block sectionsBlock %}
 						<h1>{{ 'label.sections'|trans }}</h1>
-						
-						{% include 'infoprodukt/common/sections.html.twig' with 
-						{ 'category': category } %}
+						{% include 'infoprodukt/common/sections.html.twig' with { 'category': category is defined ? category : null } %}
 					{% endblock %}
 					
 					{% block categoriesBlock %}
-						{% if category and category.preleaf == false %}
+						{% if category is defined and category.preleaf == false %}
 							<h1>{{ 'label.categories'|trans }}</h1>
 							
 							<ul class="nav nav-pills nav-stacked">

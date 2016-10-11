@@ -14,6 +14,24 @@ class Advert extends ImageEntity
 	const TEXT_LOCATION 	= 2;
 	const FEATURED_LOCATION = 3;
 	
+	public static function getLocationName($location) {
+		switch ($location) {
+			case self::TOP_LOCATION:
+				return 'topAds';
+			case self::SIDE_LOCATION:
+				return 'sideAds';
+			case self::TEXT_LOCATION:
+				return 'textAds';
+			case self::FEATURED_LOCATION:
+				return 'featuredAds';
+			default:
+				return null;
+		}
+	}
+	
+	
+	
+	
 	/**
 	 * {@inheritDoc}
 	 */

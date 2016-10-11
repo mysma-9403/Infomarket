@@ -3,19 +3,25 @@
 namespace AppBundle\Controller\Admin;
 
 use AppBundle\Controller\Admin\Base\SimpleEntityController;
-use AppBundle\Entity\Filter\NewsletterBlockTemplateFilter;
 use AppBundle\Entity\NewsletterBlockTemplate;
-use AppBundle\Entity\User;
 use AppBundle\Form\Filter\NewsletterBlockTemplateFilterType;
 use AppBundle\Form\NewsletterBlockTemplateType;
+use AppBundle\Manager\Entity\Common\NewsletterBlockTemplateManager;
+use AppBundle\Manager\Filter\Common\NewsletterBlockTemplateFilterManager;
 use Symfony\Component\HttpFoundation\Request;
 
 class NewsletterBlockTemplateController extends SimpleEntityController {
 	
+	//---------------------------------------------------------------------------
+	// Actions
+	//---------------------------------------------------------------------------
+	
 	/**
-	 * 
+	 *
 	 * @param Request $request
-	 * @param unknown $page
+	 * @param integer $page
+	 *
+	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
 	 */
 	public function indexAction(Request $request, $page)
 	{
@@ -23,9 +29,11 @@ class NewsletterBlockTemplateController extends SimpleEntityController {
 	}
 	
 	/**
-	 * 
+	 *
 	 * @param Request $request
-	 * @param unknown $id
+	 * @param integer $id
+	 *
+	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
 	 */
 	public function showAction(Request $request, $id)
 	{
@@ -35,7 +43,8 @@ class NewsletterBlockTemplateController extends SimpleEntityController {
 	/**
 	 *
 	 * @param Request $request
-	 * @param unknown $id
+	 *
+	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
 	 */
 	public function newAction(Request $request)
 	{
@@ -45,7 +54,9 @@ class NewsletterBlockTemplateController extends SimpleEntityController {
 	/**
 	 *
 	 * @param Request $request
-	 * @param unknown $id
+	 * @param integer $id
+	 *
+	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
 	 */
 	public function copyAction(Request $request, $id)
 	{
@@ -55,7 +66,9 @@ class NewsletterBlockTemplateController extends SimpleEntityController {
 	/**
 	 *
 	 * @param Request $request
-	 * @param unknown $id
+	 * @param integer $id
+	 *
+	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
 	 */
 	public function editAction(Request $request, $id)
 	{
@@ -63,9 +76,10 @@ class NewsletterBlockTemplateController extends SimpleEntityController {
 	}
 	
 	/**
-	 * 
+	 *
 	 * @param Request $request
-	 * @param unknown $id
+	 * @param integer $id
+	 *
 	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
 	 */
 	public function deleteAction(Request $request, $id)
@@ -74,60 +88,32 @@ class NewsletterBlockTemplateController extends SimpleEntityController {
 	}
 	
 	/**
-	 * 
+	 *
 	 * @param Request $request
-	 * @param unknown $id
+	 * @param integer $id
+	 *
+	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
 	 */
 	public function setPublishedAction(Request $request, $id)
 	{
 		return $this->setPublishedActionInternal($request, $id);
 	}
 	
-	//------------------------------------------------------------------------
-	// Entity creators
-	//------------------------------------------------------------------------
+	//---------------------------------------------------------------------------
+	// Managers
+	//---------------------------------------------------------------------------
 	
-	/**
-	 * 
-	 * {@inheritDoc}
-	 * @see \AppBundle\Controller\Admin\Base\SimpleEntityController::createNewEntity()
-	 */
-	protected function createNewEntity(Request $request) {
-		$entity = new NewsletterBlockTemplate();
-		
-		return $entity;
+	protected function getEntityManager($doctrine, $paginator) {
+		return new NewsletterBlockTemplateManager($doctrine, $paginator);
 	}
 	
-	/**
-	 * 
-	 * {@inheritDoc}
-	 * @see \AppBundle\Controller\Admin\Base\SimpleEntityController::createFromTemplate()
-	 */
-	protected function createFromTemplate(Request $request, $template) {
-		$entry = parent::createFromTemplate($request, $template);
-		
-		$entry->setStyle($template->getStyle());
-		$entry->setContent($template->getContent());
-	
-		return $entry;
-	}
-	
-	/**
-	 * 
-	 * {@inheritDoc}
-	 * @see \AppBundle\Controller\Admin\Base\SimpleEntityController::createNewFilter()
-	 */
-	protected function createNewFilter() {
-		$userRepository = $this->getDoctrine()->getRepository(User::class);
-		
-		$filter = new NewsletterBlockTemplateFilter($userRepository);
-		
-		return $filter;
+	protected function getFilterManager($doctrine) {
+		return new NewsletterBlockTemplateFilterManager($doctrine);
 	}
 	
 	
 	//------------------------------------------------------------------------
-	// Entity types
+	// EntityType related
 	//------------------------------------------------------------------------
 	
 	/**
@@ -141,7 +127,7 @@ class NewsletterBlockTemplateController extends SimpleEntityController {
 	
 	
 	//------------------------------------------------------------------------
-	// Form types
+	// Forms
 	//------------------------------------------------------------------------
 	
 	/**
@@ -154,7 +140,7 @@ class NewsletterBlockTemplateController extends SimpleEntityController {
 	}
 	
 	/**
-	 * 
+	 *
 	 * {@inheritDoc}
 	 * @see \AppBundle\Controller\Admin\Base\SimpleEntityController::getFilterFormType()
 	 */

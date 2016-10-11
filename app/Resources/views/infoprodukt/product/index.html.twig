@@ -11,7 +11,7 @@
 			
 			{% for entry in entries %}
 				<div class="col-sm-3">
-					{% include 'common/default_tile.html.twig' with {entry: entry, entryPath: 'product', routeParams: { category: category ? category.id : null } } %}
+					{% include 'common/default_tile.html.twig' with {entry: entry, entryPath: 'product', routeParams: { category: category is defined ? category.id : null } } %}
 				</div>
 			{% else %}
 				<p>{{ 'label.noEntries'|trans }}</p>

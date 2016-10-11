@@ -7,7 +7,7 @@
 
 	<h2>{{ entry.name }} {{ entry.subname }}</h2>
 	
-	{% for segment in entry.segments %}
+	{% for segment in segments %}
 		<div class="row">
 			<h3>{{ 'label.segment'|trans }} {{ segment.name }}</h3>
 			
@@ -134,7 +134,7 @@
 	<div class="row lowered-25">
 	
 	<div class="btn-group col-xs-12">
-		<a type="button" class="btn btn-primary" href="{{ path(route, routeParams) }}">
+		<a type="button" class="btn btn-primary" href="{{ path(basePath ~ mainPath) }}">
 			<i class="fa fa-close"></i>{{ 'action.back'|trans }}
 		</a>
 	</div>

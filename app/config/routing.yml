@@ -85,9 +85,9 @@ infoprodukt_home:
     defaults:  { _controller: "AppBundle:Infoprodukt/Home:index", page: 1 }
     
 # Infomarket Routing
-infomarket_home:
-    path:      /
-    defaults:  { _controller: "AppBundle:Infomarket/Home:index" }
+infomarket_advert_click:
+    path:      /adverts/click/{id}
+    defaults:  { _controller: "AppBundle:Infomarket/Advert:click" }
     
 infomarket_article:
     path:      /articles/{page}
@@ -120,10 +120,6 @@ infomarket_page_show:
 infomarket_product:
     path:      /products/{page}
     defaults:  { _controller: "AppBundle:Infomarket/Product:index", page: 1 }
-    
-infomarket_product2: # TODO remove!!
-    path:      /products2/{page}
-    defaults:  { _controller: "AppBundle:Infomarket/Product2:index", page: 1 }
 
 infomarket_product_show:
     path:      /products/show/{id}
@@ -139,8 +135,13 @@ infomarket_term_show:
         
 infomarket_magazine:
     path:      /magazine
-    defaults:  { _controller: "AppBundle:Infomarket/Magazine:index" }
+    defaults:  { _controller: "AppBundle:Infomarket/Magazine:index", page: 1 }
         
+infomarket_home:
+    path:      /
+    defaults:  { _controller: "AppBundle:Infomarket/Home:index" }
+    
+    
 # Admin Routing
 admin:
     path:      /admin/

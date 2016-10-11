@@ -1,10 +1,15 @@
 <ul class="nav nav-pills nav-stacked">
 	
-	{% set preleafCategory = category is null or category.preleaf ? category : category.parent %}
-	{% set preleafCategoryId = preleafCategory ? preleafCategory.id : null %}
+	{% set preleafCategoryId = null %}
+	{% set childCategoryId = null %}
 	
-	{% set childCategory = category and category.preleaf ? category.getDefaultChildCategory() : category %}
-	{% set childCategoryId = childCategory ? childCategory.id : null %}
+	{% if category %}
+		{% set preleafCategory = category.preleaf ? category : category.parent %}
+		{% set preleafCategoryId = preleafCategory ? preleafCategory.id : null %}
+		
+		{% set childCategory = category.preleaf ? category.getDefaultChildCategory() : category %}
+		{% set childCategoryId = childCategory ? childCategory.id : null %}
+	{% endif %}
 	
 	<li role="presentation" class="{{ mainPath == 'article' ? 'active' : ''}}">
 		<a href="{{ path(basePath ~ 'article', { category: preleafCategoryId }) }}">{{ 'title.articles'|trans }}</a>

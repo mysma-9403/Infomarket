@@ -2,16 +2,18 @@
 
 namespace AppBundle\Controller\Infomarket;
 
-use AppBundle\Controller\Infomarket\Base\SimpleEntityController;
+use AppBundle\Controller\Infomarket\Base\InfomarketController;
 use AppBundle\Entity\Branch;
-use AppBundle\Entity\Category;
-use AppBundle\Entity\Filter\BranchFilter;
-use AppBundle\Entity\User;
+use AppBundle\Manager\Entity\Common\BranchManager;
+use AppBundle\Manager\Filter\Infomarket\IMBranchFilterManager;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
-class HomeController extends SimpleEntityController
+class HomeController extends InfomarketController
 {
+	//---------------------------------------------------------------------------
+	// Actions
+	//---------------------------------------------------------------------------
 	/**
 	 *
 	 * @param Request $request
@@ -36,46 +38,27 @@ class HomeController extends SimpleEntityController
 		return $this->showActionInternal($request, $id);
 	}
 	
-	/**
-	 *
-	 * {@inheritDoc}
-	 * @see \AppBundle\Controller\Infomarket\Base\SimpleEntityController::getEntityType()
-	 */
+	//---------------------------------------------------------------------------
+	// Managers
+	//---------------------------------------------------------------------------
+	
+	protected function getEntityManager($doctrine, $paginator) {
+		return new BranchManager($doctrine, $paginator);
+	}
+	
+	protected function getEntryFilterManager($doctrine) {
+		return new IMBranchFilterManager($doctrine);
+	}
+	
+	//---------------------------------------------------------------------------
+	// EntityType related
+	//---------------------------------------------------------------------------
+	
 	protected function getEntityType()
 	{
 		return Branch::class;
 	}
 	
-	/**
-	 * 
-	 * {@inheritDoc}
-	 * @see \AppBundle\Controller\Infomarket\Base\SimpleEntityController::getEntityFilter()
-	 */
-    protected function getEntityFilter(Request $request)
-    {
-    	$filter = parent::getEntityFilter($request);
-    	$filter->setOrderBy('e.orderNumber ASC, e.name ASC');
-    	
-    	return $filter;	
-    }
-    
-    /**
-     * 
-     * {@inheritDoc}
-     * @see \AppBundle\Controller\Base\BaseEntityController::createNewFilter()
-     */
-    protected function createNewFilter() {
-    	$userRepository = $this->getDoctrine()->getRepository(User::class);
-    	$categoryRepository = $this->getDoctrine()->getRepository(Category::class);
-    	
-    	return new BranchFilter($userRepository, $categoryRepository);
-    }
-    
-    /**
-     * 
-     * {@inheritDoc}
-     * @see \AppBundle\Controller\Base\BaseEntityController::getEntityName()
-     */
     protected function getEntityName()
     {
     	return 'home';

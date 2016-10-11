@@ -3,6 +3,16 @@
 		{% set alternate = false %}
 	{% endif %}
 	
+	{% if routeParams is not defined %}
+		{% set routeParams = { 'id': entry.id } %}
+	{% else %}
+		{% set routeParams = routeParams|merge({ 'id': entry.id }) %}
+	{% endif %}
+	
+	{% if entryPath is not defined %}
+		{% set entryPath = mainPath %}
+	{% endif %}
+	
 	{% if textPrimary is not defined %}
 		{% set textPrimary = 'text-brand' %}
 	{% endif %}

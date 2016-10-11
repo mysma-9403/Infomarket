@@ -11,6 +11,7 @@ use AppBundle\Repository\SegmentRepository;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Entity\Brand;
 use AppBundle\Repository\UserRepository;
+use Cache\Adapter\Common\Exception\InvalidArgumentException;
 
 class ProductFilter extends SimpleEntityFilter {
 
@@ -120,11 +121,13 @@ class ProductFilter extends SimpleEntityFilter {
 			$expressions[] = $this->getEqualArrayExpression('e.brand', $this->brands);
 		}
 		
-		if($this->categories)
+		if($this->categories) {
 			$expressions[] = $this->getEqualArrayExpression('pca.category', $this->categories);
+		}
 		
-		if($this->segments)
+		if($this->segments) {
 			$expressions[] = $this->getEqualArrayExpression('pca.segment', $this->segments);
+		}
 		
 		return $expressions;
 	}

@@ -3,21 +3,25 @@
 namespace AppBundle\Controller\Admin;
 
 use AppBundle\Controller\Admin\Base\AdminEntityController;
-use AppBundle\Entity\Term;
 use AppBundle\Entity\TermCategoryAssignment;
-use AppBundle\Entity\Category;
-use AppBundle\Entity\Filter\TermCategoryAssignmentFilter;
-use AppBundle\Form\TermCategoryAssignmentType;
 use AppBundle\Form\Filter\TermCategoryAssignmentFilterType;
+use AppBundle\Form\TermCategoryAssignmentType;
+use AppBundle\Manager\Entity\Common\TermCategoryAssignmentManager;
+use AppBundle\Manager\Filter\Common\TermCategoryAssignmentFilterManager;
 use Symfony\Component\HttpFoundation\Request;
-use AppBundle\Entity\User;
 
 class TermCategoryAssignmentController extends AdminEntityController {
 	
+	//---------------------------------------------------------------------------
+	// Actions
+	//---------------------------------------------------------------------------
+	
 	/**
-	 * 
+	 *
 	 * @param Request $request
-	 * @param unknown $page
+	 * @param integer $page
+	 *
+	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
 	 */
 	public function indexAction(Request $request, $page)
 	{
@@ -25,9 +29,11 @@ class TermCategoryAssignmentController extends AdminEntityController {
 	}
 	
 	/**
-	 * 
+	 *
 	 * @param Request $request
-	 * @param unknown $id
+	 * @param integer $id
+	 *
+	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
 	 */
 	public function showAction(Request $request, $id)
 	{
@@ -37,7 +43,8 @@ class TermCategoryAssignmentController extends AdminEntityController {
 	/**
 	 *
 	 * @param Request $request
-	 * @param unknown $id
+	 *
+	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
 	 */
 	public function newAction(Request $request)
 	{
@@ -47,7 +54,9 @@ class TermCategoryAssignmentController extends AdminEntityController {
 	/**
 	 *
 	 * @param Request $request
-	 * @param unknown $id
+	 * @param integer $id
+	 *
+	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
 	 */
 	public function copyAction(Request $request, $id)
 	{
@@ -57,7 +66,9 @@ class TermCategoryAssignmentController extends AdminEntityController {
 	/**
 	 *
 	 * @param Request $request
-	 * @param unknown $id
+	 * @param integer $id
+	 *
+	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
 	 */
 	public function editAction(Request $request, $id)
 	{
@@ -65,9 +76,10 @@ class TermCategoryAssignmentController extends AdminEntityController {
 	}
 	
 	/**
-	 * 
+	 *
 	 * @param Request $request
-	 * @param unknown $id
+	 * @param integer $id
+	 *
 	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
 	 */
 	public function deleteAction(Request $request, $id)
@@ -76,71 +88,47 @@ class TermCategoryAssignmentController extends AdminEntityController {
 	}
 	
 	/**
-	 * 
+	 *
 	 * @param Request $request
-	 * @param unknown $id
+	 * @param integer $id
+	 *
+	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
 	 */
 	public function setPublishedAction(Request $request, $id)
 	{
 		return $this->setPublishedActionInternal($request, $id);
 	}
 	
+	//---------------------------------------------------------------------------
+	// Managers
+	//---------------------------------------------------------------------------
+	
+	/**
+	 * 
+	 * {@inheritDoc}
+	 * @see \AppBundle\Controller\Base\BaseEntityController::getEntityManager()
+	 */
+	protected function getEntityManager($doctrine, $paginator) {
+		return new TermCategoryAssignmentManager($doctrine, $paginator);
+	}
+	
+	/**
+	 * 
+	 * {@inheritDoc}
+	 * @see \AppBundle\Controller\Base\BaseEntityController::getFilterManager()
+	 */
+	protected function getFilterManager($doctrine) {
+		return new TermCategoryAssignmentFilterManager($doctrine);
+	}
+	
 	//------------------------------------------------------------------------
-	// Entity creators
+	// EntityType related
 	//------------------------------------------------------------------------
 	
 	/**
 	 * 
-	 * @param Request $request
-	 * @return \AppBundle\Entity\TermCategoryAssignment
-	 */
-	protected function createNewEntity(Request $request) {
-		$entity = new TermCategoryAssignment();
-		
-		$category = $this->getParamById($request, Category::class, null);
-		if($category) {
-			$entity->setCategory($category);
-		}
-		
-		$term = $this->getParamById($request, Term::class, null);
-		if($term) {
-			$entity->setTerm($term);
-		}
-		
-		return $entity;
-	}
-	
-	/**
-	 * 
 	 * {@inheritDoc}
-	 * @see \AppBundle\Controller\Admin\Base\AdminEntityController::createFromTemplate()
-	 */
-	protected function createFromTemplate(Request $request, $template) {
-		$entry = parent::createFromTemplate($request, $template);
-	
-		$entry->setTerm($template->getTerm());
-		$entry->setCategory($template->getCategory());
-	
-		return $entry;
-	}
-	
-	/**
-	 * 
-	 * {@inheritDoc}
-	 * @see \AppBundle\Controller\Admin\Base\AdminEntityController::createNewFilter()
-	 */
-	protected function createNewFilter() {
-		$userRepository = $this->getDoctrine()->getRepository(User::class);
-		$advertRepository = $this->getDoctrine()->getRepository(Term::class);
-		$categoryRepository = $this->getDoctrine()->getRepository(Category::class);
-		
-		return new TermCategoryAssignmentFilter($userRepository, $advertRepository, $categoryRepository);
-	}
-	
-	/**
-	 * 
-	 * {@inheritDoc}
-	 * @see \AppBundle\Controller\Base\BaseEntityController::getEntityType()
+	 * @see \AppBundle\Controller\Base\BaseController::getEntityType()
 	 */
 	protected function getEntityType() {
 		return TermCategoryAssignment::class;
@@ -148,7 +136,8 @@ class TermCategoryAssignmentController extends AdminEntityController {
 	
 	/**
 	 * 
-	 * @return string
+	 * {@inheritDoc}
+	 * @see \AppBundle\Controller\Admin\Base\AdminEntityController::getFormType()
 	 */
 	protected function getFormType() {
 		return TermCategoryAssignmentType::class;
@@ -156,7 +145,8 @@ class TermCategoryAssignmentController extends AdminEntityController {
 	
 	/**
 	 * 
-	 * @return string
+	 * {@inheritDoc}
+	 * @see \AppBundle\Controller\Admin\Base\AdminEntityController::getFilterFormType()
 	 */
 	 protected function getFilterFormType() {
 		return TermCategoryAssignmentFilterType::class;

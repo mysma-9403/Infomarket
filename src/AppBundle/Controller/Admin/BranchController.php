@@ -2,18 +2,26 @@
 
 namespace AppBundle\Controller\Admin;
 
+use AppBundle\Controller\Admin\Base\ImageEntityController;
 use AppBundle\Controller\Admin\Base\SimpleEntityController;
 use AppBundle\Entity\Branch;
 use AppBundle\Form\BranchType;
-use AppBundle\Controller\Admin\Base\ImageEntityController;
+use AppBundle\Manager\Entity\Common\BranchManager;
+use AppBundle\Manager\Filter\Common\BranchFilterManager;
 use Symfony\Component\HttpFoundation\Request;
 
 class BranchController extends ImageEntityController {
 	
+	//---------------------------------------------------------------------------
+	// Actions
+	//---------------------------------------------------------------------------
+	
 	/**
-	 * 
+	 *
 	 * @param Request $request
-	 * @param unknown $page
+	 * @param integer $page
+	 *
+	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
 	 */
 	public function indexAction(Request $request, $page)
 	{
@@ -21,9 +29,11 @@ class BranchController extends ImageEntityController {
 	}
 	
 	/**
-	 * 
+	 *
 	 * @param Request $request
-	 * @param unknown $id
+	 * @param integer $id
+	 *
+	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
 	 */
 	public function showAction(Request $request, $id)
 	{
@@ -33,7 +43,8 @@ class BranchController extends ImageEntityController {
 	/**
 	 *
 	 * @param Request $request
-	 * @param unknown $id
+	 *
+	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
 	 */
 	public function newAction(Request $request)
 	{
@@ -43,7 +54,9 @@ class BranchController extends ImageEntityController {
 	/**
 	 *
 	 * @param Request $request
-	 * @param unknown $id
+	 * @param integer $id
+	 *
+	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
 	 */
 	public function copyAction(Request $request, $id)
 	{
@@ -53,7 +66,9 @@ class BranchController extends ImageEntityController {
 	/**
 	 *
 	 * @param Request $request
-	 * @param unknown $id
+	 * @param integer $id
+	 *
+	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
 	 */
 	public function editAction(Request $request, $id)
 	{
@@ -61,9 +76,10 @@ class BranchController extends ImageEntityController {
 	}
 	
 	/**
-	 * 
+	 *
 	 * @param Request $request
-	 * @param unknown $id
+	 * @param integer $id
+	 *
 	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
 	 */
 	public function deleteAction(Request $request, $id)
@@ -72,45 +88,44 @@ class BranchController extends ImageEntityController {
 	}
 	
 	/**
-	 * 
+	 *
 	 * @param Request $request
-	 * @param unknown $id
+	 * @param integer $id
+	 *
+	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
 	 */
 	public function setPublishedAction(Request $request, $id)
 	{
 		return $this->setPublishedActionInternal($request, $id);
 	}
 	
-	//------------------------------------------------------------------------
-	// Entity creators
-	//------------------------------------------------------------------------
-	
 	/**
 	 * 
-	 * {@inheritDoc}
-	 * @see \AppBundle\Controller\Admin\Base\SimpleEntityController::createNewEntity()
-	 */
-	protected function createNewEntity(Request $request) {
-		return new Branch();
-	}
-	
-	/**
+	 * @param Request $request
+	 * @param integer $id
 	 * 
-	 * {@inheritDoc}
-	 * @see \AppBundle\Controller\Admin\Base\SimpleEntityController::createFromTemplate()
+	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
 	 */
-	protected function createFromTemplate(Request $request, $template) {
-		$entry = parent::createFromTemplate($request, $template);
-	
-		$entry->setIcon($template->getIcon());
-		$entry->setColor($template->getColor());
-		$entry->setContent($template->getContent());
-	
-		return $entry;
+	public function setFeaturedAction(Request $request, $id)
+	{
+		return $this->setFeaturedActionInternal($request, $id);
 	}
+	
+	//---------------------------------------------------------------------------
+	// Managers
+	//---------------------------------------------------------------------------
+	
+	protected function getEntityManager($doctrine, $paginator) {
+		return new BranchManager($doctrine, $paginator);
+	}
+	
+	protected function getFilterManager($doctrine) {
+		return new BranchFilterManager($doctrine);
+	}
+	
 	
 	//------------------------------------------------------------------------
-	// Entity types
+	// EntityType related
 	//------------------------------------------------------------------------
 	
 	/**
@@ -124,7 +139,7 @@ class BranchController extends ImageEntityController {
 	
 	
 	//------------------------------------------------------------------------
-	// Form types
+	// Forms
 	//------------------------------------------------------------------------
 	
 	/**

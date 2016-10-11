@@ -1,0 +1,31 @@
+{% extends 'infomarket/base/index.html.twig' %}
+
+{% set title = 'title.brands'|trans %}
+{% set type = 'title.brands'|trans %}
+{% set mainPath = 'brand' %}
+		
+{% block mainContent %}
+	{% block brands %}
+	<div class="row">
+		<div class="col-xs-12">
+			<h1>{{ 'title.brands'|trans }}</h1>
+			
+			{% for entry in entries %}
+				<div class="col-sm-3">
+					{% include 'common/default_tile.html.twig' with {entry: entry } %}
+				</div>
+			{% else %}
+				<p>{{ 'label.noEntries'|trans }}</p>
+			{% endfor %}
+		</div>
+	</div>
+	{% endblock %}
+	
+	{% block paginator %}
+	<div class="row">
+		<div class="col-xs-12">
+	        {{ knp_pagination_render(entries) }}
+		</div>
+	</div>
+	{% endblock %}
+{% endblock %}

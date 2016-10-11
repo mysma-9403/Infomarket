@@ -3,21 +3,25 @@
 namespace AppBundle\Controller\Admin;
 
 use AppBundle\Controller\Admin\Base\AdminEntityController;
-use AppBundle\Entity\Advert;
 use AppBundle\Entity\AdvertCategoryAssignment;
-use AppBundle\Entity\Category;
-use AppBundle\Entity\Filter\AdvertCategoryAssignmentFilter;
 use AppBundle\Form\AdvertCategoryAssignmentType;
 use AppBundle\Form\Filter\AdvertCategoryAssignmentFilterType;
+use AppBundle\Manager\Entity\Common\AdvertCategoryAssignmentManager;
+use AppBundle\Manager\Filter\Common\AdvertCategoryAssignmentFilterManager;
 use Symfony\Component\HttpFoundation\Request;
-use AppBundle\Entity\User;
 
 class AdvertCategoryAssignmentController extends AdminEntityController {
 	
+	//---------------------------------------------------------------------------
+	// Actions
+	//---------------------------------------------------------------------------
+	
 	/**
-	 * 
+	 *
 	 * @param Request $request
-	 * @param unknown $page
+	 * @param integer $page
+	 *
+	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
 	 */
 	public function indexAction(Request $request, $page)
 	{
@@ -25,9 +29,11 @@ class AdvertCategoryAssignmentController extends AdminEntityController {
 	}
 	
 	/**
-	 * 
+	 *
 	 * @param Request $request
-	 * @param unknown $id
+	 * @param integer $id
+	 *
+	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
 	 */
 	public function showAction(Request $request, $id)
 	{
@@ -37,7 +43,8 @@ class AdvertCategoryAssignmentController extends AdminEntityController {
 	/**
 	 *
 	 * @param Request $request
-	 * @param unknown $id
+	 *
+	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
 	 */
 	public function newAction(Request $request)
 	{
@@ -47,7 +54,9 @@ class AdvertCategoryAssignmentController extends AdminEntityController {
 	/**
 	 *
 	 * @param Request $request
-	 * @param unknown $id
+	 * @param integer $id
+	 *
+	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
 	 */
 	public function copyAction(Request $request, $id)
 	{
@@ -57,7 +66,9 @@ class AdvertCategoryAssignmentController extends AdminEntityController {
 	/**
 	 *
 	 * @param Request $request
-	 * @param unknown $id
+	 * @param integer $id
+	 *
+	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
 	 */
 	public function editAction(Request $request, $id)
 	{
@@ -65,9 +76,10 @@ class AdvertCategoryAssignmentController extends AdminEntityController {
 	}
 	
 	/**
-	 * 
+	 *
 	 * @param Request $request
-	 * @param unknown $id
+	 * @param integer $id
+	 *
 	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
 	 */
 	public function deleteAction(Request $request, $id)
@@ -76,71 +88,47 @@ class AdvertCategoryAssignmentController extends AdminEntityController {
 	}
 	
 	/**
-	 * 
+	 *
 	 * @param Request $request
-	 * @param unknown $id
+	 * @param integer $id
+	 *
+	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
 	 */
 	public function setPublishedAction(Request $request, $id)
 	{
 		return $this->setPublishedActionInternal($request, $id);
 	}
 	
+	//---------------------------------------------------------------------------
+	// Managers
+	//---------------------------------------------------------------------------
+	
+	/**
+	 * 
+	 * {@inheritDoc}
+	 * @see \AppBundle\Controller\Base\BaseEntityController::getEntityManager()
+	 */
+	protected function getEntityManager($doctrine, $paginator) {
+		return new AdvertCategoryAssignmentManager($doctrine, $paginator);
+	}
+	
+	/**
+	 * 
+	 * {@inheritDoc}
+	 * @see \AppBundle\Controller\Base\BaseEntityController::getFilterManager()
+	 */
+	protected function getFilterManager($doctrine) {
+		return new AdvertCategoryAssignmentFilterManager($doctrine);
+	}
+	
 	//------------------------------------------------------------------------
-	// Entity creators
+	// EntityType related
 	//------------------------------------------------------------------------
 	
 	/**
 	 * 
-	 * @param Request $request
-	 * @return \AppBundle\Entity\AdvertCategoryAssignment
-	 */
-	protected function createNewEntity(Request $request) {
-		$entity = new AdvertCategoryAssignment();
-		
-		$category = $this->getParamById($request, Category::class, null);
-		if($category) {
-			$entity->setCategory($category);
-		}
-		
-		$advert = $this->getParamById($request, Advert::class, null);
-		if($advert) {
-			$entity->setAdvert($advert);
-		}
-		
-		return $entity;
-	}
-	
-	/**
-	 * 
 	 * {@inheritDoc}
-	 * @see \AppBundle\Controller\Admin\Base\AdminEntityController::createFromTemplate()
-	 */
-	protected function createFromTemplate(Request $request, $template) {
-		$entry = parent::createFromTemplate($request, $template);
-	
-		$entry->setAdvert($template->getAdvert());
-		$entry->setCategory($template->getCategory());
-	
-		return $entry;
-	}
-	
-	/**
-	 * 
-	 * {@inheritDoc}
-	 * @see \AppBundle\Controller\Admin\Base\AdminEntityController::createNewFilter()
-	 */
-	protected function createNewFilter() {
-		$userRepository = $this->getDoctrine()->getRepository(User::class);
-		$advertRepository = $this->getDoctrine()->getRepository(Advert::class);
-		$categoryRepository = $this->getDoctrine()->getRepository(Category::class);
-		
-		return new AdvertCategoryAssignmentFilter($userRepository, $advertRepository, $categoryRepository);
-	}
-	
-	/**
-	 * 
-	 * {@inheritDoc}
-	 * @see \AppBundle\Controller\Base\BaseEntityController::getEntityType()
+	 * @see \AppBundle\Controller\Base\BaseController::getEntityType()
 	 */
 	protected function getEntityType() {
 		return AdvertCategoryAssignment::class;
@@ -148,7 +136,8 @@ class AdvertCategoryAssignmentController extends AdminEntityController {
 	
 	/**
 	 * 
-	 * @return string
+	 * {@inheritDoc}
+	 * @see \AppBundle\Controller\Admin\Base\AdminEntityController::getFormType()
 	 */
 	protected function getFormType() {
 		return AdvertCategoryAssignmentType::class;
@@ -156,7 +145,8 @@ class AdvertCategoryAssignmentController extends AdminEntityController {
 	
 	/**
 	 * 
-	 * @return string
+	 * {@inheritDoc}
+	 * @see \AppBundle\Controller\Admin\Base\AdminEntityController::getFilterFormType()
 	 */
 	 protected function getFilterFormType() {
 		return AdvertCategoryAssignmentFilterType::class;

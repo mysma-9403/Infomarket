@@ -2,18 +2,24 @@
 
 namespace AppBundle\Controller\Infoprodukt;
 
-use AppBundle\Controller\Infoprodukt\Base\SimpleEntityController;
-use AppBundle\Entity\Filter\PageFilter;
+use AppBundle\Controller\Infoprodukt\Base\InfoproduktController;
 use AppBundle\Entity\Page;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-use AppBundle\Entity\User;
+use AppBundle\Manager\Entity\Common\PageManager;
+use AppBundle\Manager\Filter\Common\PageFilterManager;
 
-class PageController extends SimpleEntityController
+class PageController extends InfoproduktController
 {   
+	//---------------------------------------------------------------------------
+	// Actions
+	//---------------------------------------------------------------------------
 	/**
-	 * 
+	 *
 	 * @param Request $request
+	 * @param integer $page
+	 *
+	 * @return \Symfony\Component\HttpFoundation\Response
 	 */
 	public function indexAction(Request $request, $page)
 	{
@@ -21,30 +27,46 @@ class PageController extends SimpleEntityController
 	}
 	
 	/**
-	 * 
+	 *
 	 * @param Request $request
-	 * @param unknown $id
+	 * @param integer $id
+	 *
+	 * @return \Symfony\Component\HttpFoundation\Response
 	 */
 	public function showAction(Request $request, $id)
 	{
 		return $this->showActionInternal($request, $id);
 	}
 	
+	//---------------------------------------------------------------------------
+	// Managers
+	//---------------------------------------------------------------------------
+	
+	protected function getEntityManager($doctrine, $paginator) {
+		return new PageManager($doctrine, $paginator);
+	}
+	
+	protected function getEntryFilterManager($doctrine) {
+		return new PageFilterManager($doctrine);
+	}
+	
+	//---------------------------------------------------------------------------
+	// EntityType related
+	//---------------------------------------------------------------------------
+	
 	/**
-	 * 
-	 * {@inheritDoc}
-	 * @see \AppBundle\Controller\Infomarket\Base\BaseEntityController::getEntityType()
-	 */
+     * 
+     * {@inheritDoc}
+     * @see \AppBundle\Controller\Infomarket\Base\SimpleEntityController::getEntityType()
+     */
     protected function getEntityType()
     {
     	return Page::class;
     }
-
-    protected function createNewFilter()	
-    {
-    	$userRepository = $this->getDoctrine()->getRepository(User::class);
-    	return new PageFilter($userRepository);
-    }
+    
+    //---------------------------------------------------------------------------
+    // Routes
+    //---------------------------------------------------------------------------
     
     /**
      * 
@@ -53,6 +75,6 @@ class PageController extends SimpleEntityController
      */
     protected function getIndexRoute()
     {
-    	return $this->getBaseName() . '_home';
+    	return $this->getDomain() . '_home';
     }
 }

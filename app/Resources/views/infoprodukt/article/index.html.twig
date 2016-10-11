@@ -53,12 +53,12 @@
 							</div>
 							<div class="col-sm-9">
 								{% for articleBrandAssignment in entry.articleBrandAssignments %}
-									<a href="{{ path(basePath ~ 'brand_show', { id: articleBrandAssignment.brand.id, category: category ? category.id : null }) }}">
+									<a href="{{ path(basePath ~ 'brand_show', { id: articleBrandAssignment.brand.id, category: category is defined ? category.id : null }) }}">
 										<h3 class="text-red">{{ articleBrandAssignment.brand.name | raw }} </h3>
 									</a> 
 								{% endfor %}
 								
-								<a href="{{ path('infoprodukt_' ~ mainPath ~ '_show', { 'id': entry.id, category: category ? category.id : null }) }}">
+								<a href="{{ path('infoprodukt_' ~ mainPath ~ '_show', { 'id': entry.id, category: category is defined ? category.id : null }) }}">
 									<h3>
 										<span class="text-brand">{{ entry.name | raw }}</span> 
 										<span class="text-red">{{ entry.subname | raw }}</span>
@@ -96,7 +96,7 @@
 									<p>
 										{{ entry.intro | raw }}
 									</p>
-									<a class="btn btn-danger" href="{{ path('infoprodukt_' ~ mainPath ~ '_show', { 'id': entry.id, category: category ? category.id : null }) }}">
+									<a class="btn btn-danger" href="{{ path('infoprodukt_' ~ mainPath ~ '_show', { 'id': entry.id, category: category is defined ? category.id : null }) }}">
 										{{ 'label.readMore'|trans }}
 									</a>
 								</div>

@@ -1,13 +1,31 @@
-{% extends 'infomarket/base/product/index.html.twig' %}
+{% extends 'infomarket/base/index.html.twig' %}
 
 {% set title = 'title.products'|trans %}
+{% set type = 'title.products'|trans %}
 {% set mainPath = 'product' %}
-
-{% block entryHeader %}
-	<h4>{{ entry.brand.name }} {{ entry.name }}</h4>
-{% endblock %}
-
-{% block entryContent %}
-	{{ 'label.product.price'|trans }}: {{ entry.price }}
-	{{ 'label.product.guarantee'|trans }}: {{ entry.guarantee }}
+		
+{% block mainContent %}
+	{% block products %}
+	<div class="row">
+		<div class="col-xs-12">
+			<h1>{{ 'title.products'|trans }}</h1>
+			
+			{% for entry in entries %}
+				<div class="col-sm-3">
+					{% include 'common/default_tile.html.twig' with {entry: entry} %}
+				</div>
+			{% else %}
+				<p>{{ 'label.noEntries'|trans }}</p>
+			{% endfor %}
+		</div>
+	</div>
+	{% endblock %}
+	
+	{% block paginator %}
+	<div class="row">
+		<div class="col-xs-12">
+	        {{ knp_pagination_render(entries) }}
+		</div>
+	</div>
+	{% endblock %}
 {% endblock %}

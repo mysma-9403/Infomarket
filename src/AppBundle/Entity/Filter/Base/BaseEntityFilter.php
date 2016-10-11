@@ -16,6 +16,9 @@ class BaseEntityFilter {
 	 */
 	protected $userRepository;
 	
+	/** @var array */
+	protected $routeParams;
+	
 	public function __construct(UserRepository $userRepository) {
 		$this->userRepository = $userRepository;
 		

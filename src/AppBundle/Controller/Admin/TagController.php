@@ -5,14 +5,22 @@ namespace AppBundle\Controller\Admin;
 use AppBundle\Controller\Admin\Base\SimpleEntityController;
 use AppBundle\Entity\Tag;
 use AppBundle\Form\TagType;
+use AppBundle\Manager\Entity\Common\TagManager;
+use AppBundle\Manager\Filter\Common\TagFilterManager;
 use Symfony\Component\HttpFoundation\Request;
 
 class TagController extends SimpleEntityController {
 	
+	//---------------------------------------------------------------------------
+	// Actions
+	//---------------------------------------------------------------------------
+	
 	/**
-	 * 
+	 *
 	 * @param Request $request
-	 * @param unknown $page
+	 * @param integer $page
+	 *
+	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
 	 */
 	public function indexAction(Request $request, $page)
 	{
@@ -20,9 +28,11 @@ class TagController extends SimpleEntityController {
 	}
 	
 	/**
-	 * 
+	 *
 	 * @param Request $request
-	 * @param unknown $id
+	 * @param integer $id
+	 *
+	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
 	 */
 	public function showAction(Request $request, $id)
 	{
@@ -32,7 +42,8 @@ class TagController extends SimpleEntityController {
 	/**
 	 *
 	 * @param Request $request
-	 * @param unknown $id
+	 *
+	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
 	 */
 	public function newAction(Request $request)
 	{
@@ -42,7 +53,9 @@ class TagController extends SimpleEntityController {
 	/**
 	 *
 	 * @param Request $request
-	 * @param unknown $id
+	 * @param integer $id
+	 *
+	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
 	 */
 	public function copyAction(Request $request, $id)
 	{
@@ -52,7 +65,9 @@ class TagController extends SimpleEntityController {
 	/**
 	 *
 	 * @param Request $request
-	 * @param unknown $id
+	 * @param integer $id
+	 *
+	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
 	 */
 	public function editAction(Request $request, $id)
 	{
@@ -60,9 +75,10 @@ class TagController extends SimpleEntityController {
 	}
 	
 	/**
-	 * 
+	 *
 	 * @param Request $request
-	 * @param unknown $id
+	 * @param integer $id
+	 *
 	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
 	 */
 	public function deleteAction(Request $request, $id)
@@ -71,31 +87,44 @@ class TagController extends SimpleEntityController {
 	}
 	
 	/**
-	 * 
+	 *
 	 * @param Request $request
-	 * @param unknown $id
+	 * @param integer $id
+	 *
+	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
 	 */
 	public function setPublishedAction(Request $request, $id)
 	{
 		return $this->setPublishedActionInternal($request, $id);
 	}
 	
-	//------------------------------------------------------------------------
-	// Entity creators
-	//------------------------------------------------------------------------
-	
 	/**
 	 * 
-	 * {@inheritDoc}
-	 * @see \AppBundle\Controller\Admin\Base\SimpleEntityController::createNewEntity()
+	 * @param Request $request
+	 * @param integer $id
+	 * 
+	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
 	 */
-	protected function createNewEntity(Request $request) {
-		return new Tag();
+	public function setFeaturedAction(Request $request, $id)
+	{
+		return $this->setFeaturedActionInternal($request, $id);
+	}
+	
+	//---------------------------------------------------------------------------
+	// Managers
+	//---------------------------------------------------------------------------
+	
+	protected function getEntityManager($doctrine, $paginator) {
+		return new TagManager($doctrine, $paginator);
+	}
+	
+	protected function getFilterManager($doctrine) {
+		return new TagFilterManager($doctrine);
 	}
 	
 	
 	//------------------------------------------------------------------------
-	// Entity types
+	// EntityType related
 	//------------------------------------------------------------------------
 	
 	/**
@@ -109,7 +138,7 @@ class TagController extends SimpleEntityController {
 	
 	
 	//------------------------------------------------------------------------
-	// Form types
+	// Forms
 	//------------------------------------------------------------------------
 	
 	/**

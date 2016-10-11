@@ -26,7 +26,7 @@
 		{% endif %}
     {% endif %}
     <div class="btn-group">
-		<a type="button" class="btn btn-primary" href="{{ path(route, routeParams) }}">
+		<a type="button" class="btn btn-primary" href="{{ path(basePath ~ mainPath) }}">
 	    	<i class="fa fa-close"></i> {{ 'action.back'|trans }}
 		</a>
     </div>

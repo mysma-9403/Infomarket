@@ -33,6 +33,18 @@ class ImageTree extends Image
 		return $name;
 	}
 	
+	public function getParentChain() {
+		$chain = array();
+		
+		$parent = $this->getParent();
+		while($parent) {
+			array_unshift($chain, $parent);
+			$parent = $parent->getParent();
+		}
+		
+		return $chain;
+	}
+	
     /**
      * @var string
      */

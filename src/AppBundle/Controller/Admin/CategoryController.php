@@ -2,25 +2,29 @@
 
 namespace AppBundle\Controller\Admin;
 
-use AppBundle\Controller\Admin\Base\ImageTreeController;
+use AppBundle\Controller\Admin\Base\ImageEntityController;
 use AppBundle\Controller\Admin\Base\SimpleEntityController;
-use AppBundle\Entity\Branch;
 use AppBundle\Entity\Category;
-use AppBundle\Entity\Filter\Base\SimpleEntityFilter;
-use AppBundle\Entity\Filter\CategoryFilter;
 use AppBundle\Form\CategoryType;
 use AppBundle\Form\Filter\CategoryFilterType;
-use AppBundle\Repository\BranchRepository;
+use AppBundle\Manager\Entity\Base\EntityManager;
+use AppBundle\Manager\Entity\Common\CategoryManager;
+use AppBundle\Manager\Filter\Admin\ACategoryFilterManager;
+use AppBundle\Manager\Filter\Base\FilterManager;
+use AppBundle\Manager\Params\EntryParams\Admin\CategoryEntryParamsManager;
 use Symfony\Component\HttpFoundation\Request;
-use AppBundle\Entity\Segment;
-use AppBundle\Entity\User;
 
-class CategoryController extends ImageTreeController {
+class CategoryController extends ImageEntityController {
 	
+	//---------------------------------------------------------------------------
+	// Actions
+	//---------------------------------------------------------------------------
 	/**
 	 * 
 	 * @param Request $request
-	 * @param unknown $page
+	 * @param integer $page
+	 * 
+	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
 	 */
 	public function indexAction(Request $request, $page)
 	{
@@ -30,7 +34,9 @@ class CategoryController extends ImageTreeController {
 	/**
 	 * 
 	 * @param Request $request
-	 * @param unknown $id
+	 * @param integer $id
+	 * 
+	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
 	 */
 	public function showAction(Request $request, $id)
 	{
@@ -38,9 +44,10 @@ class CategoryController extends ImageTreeController {
 	}
 	
 	/**
-	 *
+	 * 
 	 * @param Request $request
-	 * @param unknown $id
+	 * 
+	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
 	 */
 	public function newAction(Request $request)
 	{
@@ -48,9 +55,11 @@ class CategoryController extends ImageTreeController {
 	}
 	
 	/**
-	 *
+	 * 
 	 * @param Request $request
-	 * @param unknown $id
+	 * @param integer $id
+	 * 
+	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
 	 */
 	public function copyAction(Request $request, $id)
 	{
@@ -58,9 +67,11 @@ class CategoryController extends ImageTreeController {
 	}
 	
 	/**
-	 *
+	 * 
 	 * @param Request $request
-	 * @param unknown $id
+	 * @param integer $id
+	 * 
+	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
 	 */
 	public function editAction(Request $request, $id)
 	{
@@ -70,7 +81,8 @@ class CategoryController extends ImageTreeController {
 	/**
 	 * 
 	 * @param Request $request
-	 * @param unknown $id
+	 * @param integer $id
+	 * 
 	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
 	 */
 	public function deleteAction(Request $request, $id)
@@ -81,7 +93,9 @@ class CategoryController extends ImageTreeController {
 	/**
 	 * 
 	 * @param Request $request
-	 * @param unknown $id
+	 * @param integer $id
+	 * 
+	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
 	 */
 	public function setPublishedAction(Request $request, $id)
 	{
@@ -91,7 +105,9 @@ class CategoryController extends ImageTreeController {
 	/**
 	 * 
 	 * @param Request $request
-	 * @param unknown $id
+	 * @param integer $id
+	 * 
+	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
 	 */
 	public function setFeaturedAction(Request $request, $id)
 	{
@@ -101,7 +117,9 @@ class CategoryController extends ImageTreeController {
 	/**
 	 * 
 	 * @param Request $request
-	 * @param unknown $id
+	 * @param integer $id
+	 * 
+	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
 	 */
 	public function setPreleafAction(Request $request, $id)
 	{
@@ -111,6 +129,8 @@ class CategoryController extends ImageTreeController {
 	/**
 	 * 
 	 * @param Request $request
+	 * 
+	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
 	 */
 	public function treeAction(Request $request)
 	{
@@ -120,39 +140,51 @@ class CategoryController extends ImageTreeController {
 	/**
 	 * 
 	 * @param Request $request
-	 * @param unknown $id
+	 * @param integer $id
+	 * 
+	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
 	 */
 	public function ratingsAction(Request $request, $id)
 	{
 		return $this->ratingsActionInternal($request, $id);
 	}
 	
-	//------------------------------------------------------------------------
-	// Internal logic
-	//------------------------------------------------------------------------
+	//---------------------------------------------------------------------------
+	// Internal actions
+	//---------------------------------------------------------------------------
 	
 	protected function setPreleafActionInternal(Request $request, $id)
 	{
+		$this->denyAccessUnlessGranted('ROLE_EDITOR', null, 'Unable to access this page!');
+	
+		$params = $this->createParams($this->getSetPreleafRoute());
+		$params = $this->getEditParams($request, $params, $id);
+	
+		$viewParams = $params['viewParams'];
+		$entry = $viewParams['entry'];
+	
 		$preleaf = $request->get('value', false);
 	
 		$em = $this->getDoctrine()->getManager();
 	
-		//Make sure entity exists :)
-		$entry = $this->getEntry($id);
 		$entry->setPreleaf($preleaf);
 		$em->persist($entry);
 		$em->flush();
 	
-		$routingParams = $this->getRoutingParams($request);
-		return $this->redirectToRoute($routingParams['route'], $routingParams['routeParams']);
+		return $this->redirectToReferer($request);
 	}
 	
 	protected function treeActionInternal(Request $request)
 	{
-		$params = $this->getTreeParams($request);
+		$params = $this->createParams($this->getTreeRoute());
+		$params = $this->getTreeParams($request, $params);
+	
+		$viewParams = $params['viewParams'];
 		
-		$filter = $this->createTreeFilter($request);
-		$filter->initValues($request);
+		
+		
+		
+		$filter = $viewParams['entryFilter'];
 		
 		$filterForm = $this->createForm($this->getFilterFormType(), $filter);
 		$filterForm->handleRequest($request);
@@ -168,52 +200,76 @@ class CategoryController extends ImageTreeController {
 				return $this->redirectToRoute($this->getTreeRoute(), $filter->getValues());
 			}
 		}
-		$params['filter'] = $filterForm->createView();
+		$viewParams['filter'] = $filterForm->createView();
 		
-		$repository = $this->getRepository();
 		
-		$filter->setRoot(SimpleEntityFilter::TRUE_VALUES);
-		$params['entries'] = $repository->findSelected($filter);
 		
-		return $this->render($this->getTreeView(), $params);
+		
+		
+		return $this->render($this->getTreeView(), $viewParams);
 	}
 	
 	protected function ratingsActionInternal(Request $request, $id)
 	{
-		$params = $this->getRatingsParams($request, $id);
-		return $this->render($this->getRatingsView(), $params);
+		$params = $this->createParams($this->getRatingsRoute());
+		$params = $this->getRatingsParams($request, $params, $id);
+		
+		$rm = $this->getRouteManager();
+		$rm->register($request, $params['route'], $params['routeParams']);
+		
+		$am = $this->getAnalyticsManager();
+		$am->sendPageviewAnalytics($params['domain'], $params['route']);
+		$am->sendEventAnalytics($this->getEntityName(), 'ratings', $id);
+		
+		return $this->render($this->getRatingsView(), $params['viewParams']);
 	}
 	
-	protected function getTreeParams(Request $request)
-	{
-		$params = array();
+	//---------------------------------------------------------------------------
+	// Managers
+	//---------------------------------------------------------------------------
 	
-		$routeParams = array();
-		$this->registerRequest($request, $this->getTreeRoute(), $routeParams);
+	protected function getInternalEntryParamsManager(EntityManager $em, FilterManager $fm, $doctrine) {
+		return new CategoryEntryParamsManager($em, $fm, $doctrine);
+	}
 	
-		$params = array_merge($params, $this->getRoutingParams($request));
+	protected function getEntityManager($doctrine, $paginator) {
+		return new CategoryManager($doctrine, $paginator);
+	}
+	
+	protected function getFilterManager($doctrine) {
+		return new ACategoryFilterManager($doctrine);
+	}
+	
+	//---------------------------------------------------------------------------
+	// Params
+	//---------------------------------------------------------------------------
+	/**
+	 *
+	 * @param array $params
+	 * @return array
+	 */
+	protected function getTreeParams(Request $request, array $params) {
+		$params = $this->getParams($request, $params);
+	
+		$em = $this->getEntryParamsManager();
+		$params = $em->getTreeParams($request, $params);
+	
 		return $params;
 	}
 	
-	protected function getRatingsParams(Request $request, $id)
+	protected function getRatingsParams(Request $request, array $params, $id)
 	{
-		$params = array();
+		$params = $this->getParams($request, $params);
 	
-		$routeParams = array('id' => $id);
-		$this->registerRequest($request, $this->getRatingsRoute(), $routeParams);
-		
-		$entry = $this->getEntry($id);
-		$params['entry'] = $entry;
-		
-		$segmentRepository = $this->getDoctrine()->getRepository(Segment::class);
-		$segments = $segmentRepository->findAll();
-			
-		$entry->segments = $segments;
-			
-		$params = array_merge($params, $this->getRoutingParams($request));
+		$em = $this->getEntryParamsManager();
+		$params = $em->getRatingsParams($request, $params, $id);
+	
 		return $params;
 	}
 	
+	//---------------------------------------------------------------------------
+	// Internal logic
+	//---------------------------------------------------------------------------
 	/**
 	 *
 	 * {@inheritDoc}
@@ -230,83 +286,9 @@ class CategoryController extends ImageTreeController {
 		return array();
 	}
 	
-	//------------------------------------------------------------------------
-	// Entity creators
-	//------------------------------------------------------------------------
-	
-	/**
-	 * 
-	 * {@inheritDoc}
-	 * @see \AppBundle\Controller\Admin\Base\SimpleEntityController::createNewEntity()
-	 */
-	protected function createNewEntity(Request $request) {
-		$entity = new Category();
-		
-		$parent = $this->getParamByNameId($request, Category::class, 'parent', null);
-		if($parent) {
-			$entity->setParent($parent);
-		}
-		
-		return $entity;
-	}
-	
-	/**
-	 * 
-	 * {@inheritDoc}
-	 * @see \AppBundle\Controller\Admin\Base\AdminEntityController::createFromTemplate()
-	 */
-	protected function createFromTemplate(Request $request, $template) {
-		$entry = parent::createFromTemplate($request, $template);
-	
-		$entry->setSubname($template->getSubname());
-		
-		$entry->setFeatured($template->getFeatured());
-		$entry->setPreleaf($template->getPreleaf());
-		
-		$entry->setIcon($template->getIcon());
-		
-		$entry->setParent($template->getParent());
-		$entry->setOrderNumber($template->getOrderNumber());
-		
-		$entry->setContent($template->getContent());
-	
-		return $entry;
-	}
-	
-	/**
-	 * 
-	 * {@inheritDoc}
-	 * @see \AppBundle\Controller\Admin\Base\SimpleEntityController::createNewFilter()
-	 */
-	protected function createNewFilter() {
-		$userRepository = $this->getDoctrine()->getRepository(User::class);
-		$branchRepository = $this->getDoctrine()->getRepository(Branch::class);
-		$categoryRepository = $this->getDoctrine()->getRepository(Category::class);
-		
-		$filter = new CategoryFilter($userRepository, $branchRepository, $categoryRepository);
-	
-		return $filter;
-	}
-	
-	/**
-	 * 
-	 * @param Request $request
-	 * @return \AppBundle\Entity\Filter\CategoryFilter
-	 */
-	protected function createTreeFilter(Request $request) {
-		$userRepository = $this->getDoctrine()->getRepository(User::class);
-		$branchRepository = $this->getDoctrine()->getRepository(Branch::class);
-		$categoryRepository = $this->getDoctrine()->getRepository(Category::class);
-		
-		$filter = new CategoryFilter($userRepository, $branchRepository, $categoryRepository);
-		
-		return $filter;
-	}
-	
-	
-	//------------------------------------------------------------------------
-	// Entity types
-	//------------------------------------------------------------------------
+	//---------------------------------------------------------------------------
+	// EntityType related
+	//---------------------------------------------------------------------------
 	
 	/**
 	 * 
@@ -318,9 +300,9 @@ class CategoryController extends ImageTreeController {
 	}
 	
 	
-	//------------------------------------------------------------------------
-	// Form types
-	//------------------------------------------------------------------------
+	//---------------------------------------------------------------------------
+	// Forms
+	//---------------------------------------------------------------------------
 	
 	/**
 	 * 
@@ -340,15 +322,23 @@ class CategoryController extends ImageTreeController {
 		return CategoryFilterType::class;
 	}
 	
+	//---------------------------------------------------------------------------
+	// Views
+	//---------------------------------------------------------------------------
+	
 	protected function getTreeView()
 	{
-		return $this->getBaseName() . '/' . $this->getEntityName() . '/tree.html.twig';
+		return $this->getDomain() . '/' . $this->getEntityName() . '/tree.html.twig';
 	}
 	
 	protected function getRatingsView()
 	{
-		return $this->getBaseName() . '/' . $this->getEntityName() . '/ratings.html.twig';
+		return $this->getDomain() . '/' . $this->getEntityName() . '/ratings.html.twig';
 	}
+	
+	//---------------------------------------------------------------------------
+	// Routes
+	//---------------------------------------------------------------------------
 	
 	protected function getTreeRoute()
     {
@@ -358,5 +348,10 @@ class CategoryController extends ImageTreeController {
     protected function getRatingsRoute()
     {
     	return $this->getIndexRoute() . '_ratings';
+    }
+    
+    protected function getSetPreleafRoute()
+    {
+    	return $this->getIndexRoute() . '_set_preleaf';
     }
 }

@@ -3,7 +3,7 @@
 {% block moreBreadcrumbs%}
 	
 	{% set categoryId = null %}
-	{% if category %}
+	{% if category is defined %}
 		{% set categoryId = category.preleaf ? category.id : category.parent.id %}
 		{% set categoryName = category.preleaf ? category.name : category.parent.name %}
 		{% set categorySubname = category.preleaf ? category.subname : category.parent.subname %}

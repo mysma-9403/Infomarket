@@ -2,7 +2,11 @@
 
 {% set basePath = 'infomarket_' %}
 
-{% block title %}{{ title }}{% endblock %}
+{% if redirectToMainPath is not defined %}
+	{% set redirectToMainPath = true %}
+{% endif %}
+
+{% block title %}{{ title|trans }}{% endblock %}
 
 {% block baseMoreJavascripts %}
 	<script type="text/javascript">
@@ -36,17 +40,15 @@
 					{% block navigationHeader %}
 						<div class="navbar-header">
 							{% block navigationButton %}
-								{% if branch %}
-									<button type="button" class="navbar-toggle collapsed" 
-											data-toggle="collapse" 
-											data-target="#bs-example-navbar-collapse-1" 
-											aria-expanded="false">
-								        <span class="sr-only">Toggle navigation</span>
-								        <span class="icon-bar"></span>
-								        <span class="icon-bar"></span>
-								        <span class="icon-bar"></span>
-							      	</button>
-					      		{% endif %}
+								<button type="button" class="navbar-toggle collapsed" 
+										data-toggle="collapse" 
+										data-target="#bs-example-navbar-collapse-1" 
+										aria-expanded="false">
+							        <span class="sr-only">Toggle navigation</span>
+							        <span class="icon-bar"></span>
+							        <span class="icon-bar"></span>
+							        <span class="icon-bar"></span>
+						      	</button>
 				      		{% endblock %}
 				      		
 				      		{% block navigationBrand %}
@@ -66,56 +68,54 @@
 						<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 			      			<ul class="nav navbar-nav navbar-right">
 								{% block navigationMenu %}
-									{% if branch %}
-										<li class="{% if mainPath == 'article' %}active{% endif %} branch-{{ branch.id }}">
-											<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-												<span class="fa fa-file-text-o"></span> {{ 'title.articles'|trans }} <span class="caret">
-											</a>
-											<ul class="dropdown-menu">
-												{% for articleCategory in menuArticleCategories %}
-													<li>
-														<a href="{{ path(basePath ~ 'article', { 'article_filter_article_categories': articleCategory.id }) }}">
-															{{ articleCategory.name }}
-														</a>
-													</li>
-												{% endfor %}
-												<li class="divider"></li>
+									<li class="{% if mainPath == 'article' %}active{% endif %} branch-{{ branch.id }}">
+										<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+											<span class="fa fa-file-text-o"></span> {{ 'title.articles'|trans }} <span class="caret">
+										</a>
+										<ul class="dropdown-menu">
+											{% for articleCategory in menuArticleCategories %}
 												<li>
-													<a href="{{ path(basePath ~ 'article') }}">
-														{{ 'label.all'|trans }} <span class="fa fa-caret-right branch-{{ branch.id }}"></span>
+													<a href="{{ path(basePath ~ 'article', { 'article_filter_article_categories': articleCategory.id }) }}">
+														{{ articleCategory.name }}
 													</a>
 												</li>
-											</ul>
-										</li>
-										<li>
-											<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-												<span class="fa fa-camera-retro"></span> {{ 'title.products'|trans }} <span class="caret">
-											</a>
-											<ul class="dropdown-menu">
-												{% for category in menuCategories %}
-														
-														{% set show = false %}
-														{% for branchCategoryAssignment in category.branchCategoryAssignments if show == false %}
-															{% if branchCategoryAssignment.branch.id == branch.id %}
-																{% set show = true %}
-															{% endif %}
-														{% endfor %}
-														
-														{% if show %}
-															{% include 'common/category/menu_entry.html.twig' with { 'entry': category, 'showAll': true } %}
+											{% endfor %}
+											<li class="divider"></li>
+											<li>
+												<a href="{{ path(basePath ~ 'article') }}">
+													{{ 'label.all'|trans }} <span class="fa fa-caret-right branch-{{ branch.id }}"></span>
+												</a>
+											</li>
+										</ul>
+									</li>
+									<li class="{% if mainPath == 'category' %}active{% endif %} branch-{{ branch.id }}">
+										<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+											<span class="fa fa-camera-retro"></span> {{ 'title.products'|trans }} <span class="caret">
+										</a>
+										<ul class="dropdown-menu">
+											{% for category in menuCategories %}
+													
+													{% set show = false %}
+													{% for branchCategoryAssignment in category.branchCategoryAssignments if show == false %}
+														{% if branchCategoryAssignment.branch.id == branch.id %}
+															{% set show = true %}
 														{% endif %}
-												{% endfor %}
-											</ul>
-										</li>
-										<li class="{% if mainPath == 'magazine' %}active{% endif %} branch-{{ branch.id }}">
-											<a href="{{ path('infomarket_magazine', {'branch': branch.name }) }}">
-												<span class="fa fa-newspaper-o"></span> {{ 'title.magazines'|trans }}</a>
-										</li>
-										<li class="{% if mainPath == 'advertisement' or mainPath == 'brand' %}active{% endif %} branch-{{ branch.id }}">
-											<a href="{{ path('infomarket_home', {'branch': branch.name }) }}">
-												<span class="fa fa-globe"></span> {{ 'Reklama'|trans }}</a>
-										</li>
-									{% endif %}
+													{% endfor %}
+													
+													{% if show %}
+														{% include 'common/category/menu_entry.html.twig' with { 'entry': category, 'showAll': true } %}
+													{% endif %}
+											{% endfor %}
+										</ul>
+									</li>
+									<li class="{% if mainPath == 'magazine' %}active{% endif %} branch-{{ branch.id }}">
+										<a href="{{ path(basePath ~ 'magazine') }}">
+											<span class="fa fa-newspaper-o"></span> {{ 'title.magazines'|trans }}</a>
+									</li>
+									<li class="{% if mainPath == 'advertisement' or mainPath == 'brand' %}active{% endif %} branch-{{ branch.id }}">
+										<a href="{{ path(basePath ~ 'home') }}">
+											<span class="fa fa-globe"></span> {{ 'Reklama'|trans }}</a>
+									</li>
 								{% endblock %}
 							</ul>
 						</div>
@@ -214,9 +214,11 @@
 									{% set active='' %}
 								{% endif %}
 									<li class="branch-{{ entry.id }} {{ active }}">
-										{# TODO current path / mainPath not working for page! :( #}
-{# 										<a href="{{ path(basePath ~ 'home', { 'branch': entry.id }) }}">#}
-										<a href="{{ path(basePath ~ mainPath ~ extPath, {})) }}">
+										{% if redirectToMainPath %}
+											<a href="{{ path(basePath ~ mainPath, { 'branch': entry.id }) }}">
+										{% else %}
+											<a href="{{ path(basePath ~ 'home', { 'branch': entry.id }) }}">
+										{% endif %}
 											<i class="fa {{ entry.icon }}"></i><span class="hidden-xs"> {{ entry.name }}</span>
 										</a>
 									</li>

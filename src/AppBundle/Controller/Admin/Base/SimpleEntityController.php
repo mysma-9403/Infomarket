@@ -2,31 +2,38 @@
 
 namespace AppBundle\Controller\Admin\Base;
 
+use AppBundle\Form\Filter\Base\SimpleEntityFilterType;
+use AppBundle\Manager\Filter\Base\SimpleEntityFilterManager;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
-use AppBundle\Entity\Filter\Base\SimpleEntityFilter;
-use AppBundle\Form\Filter\Base\SimpleEntityFilterType;
-use Symfony\Component\HttpFoundation\Request;
-use AppBundle\Entity\User;
+
 
 abstract class SimpleEntityController extends AdminEntityController
 {
-	protected function createFromTemplate(Request $request, $template) {
-		$entry = parent::createFromTemplate($request, $template);
+	//---------------------------------------------------------------------------
+	// Managers
+	//---------------------------------------------------------------------------
 	
-		$entry->setName($template->getName());
-	
-		return $entry;
+	protected function getFilterManager($doctrine) {	
+		return new SimpleEntityFilterManager($doctrine);
 	}
 	
-	protected function createNewFilter() {
-		$userRepository = $this->getDoctrine()->getRepository(User::class);
-		return new SimpleEntityFilter($userRepository);
-	}
+	//------------------------------------------------------------------------
+	// Forms
+	//------------------------------------------------------------------------
 	
+	/**
+	 *
+	 * {@inheritDoc}
+	 * @see \AppBundle\Controller\Admin\Base\SimpleEntityController::getFilterFormType()
+	 */
 	protected function getFilterFormType() {
 		return SimpleEntityFilterType::class;
 	}
+	
+	//---------------------------------------------------------------------------
+	// Settings
+	//---------------------------------------------------------------------------
 	
 	protected function getDeleteRole() {
 		return 'ROLE_ADMIN';

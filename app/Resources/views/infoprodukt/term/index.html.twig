@@ -11,7 +11,7 @@
 			
 			{% for entry in entries%}
 				<div class="col-xs-4">
-					<a href="{{ path('infoprodukt_' ~ mainPath ~ '_show', { 'id': entry.id, category: category ? category.id : null }) }}">
+					<a href="{{ path('infoprodukt_' ~ mainPath ~ '_show', { 'id': entry.id, category: category is defined ? category.id : null }) }}">
 						{{ entry.name | raw }}
 					</a>
 				</div>

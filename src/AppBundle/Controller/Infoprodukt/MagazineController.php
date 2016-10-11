@@ -2,18 +2,24 @@
 
 namespace AppBundle\Controller\Infoprodukt;
 
-use AppBundle\Controller\Infoprodukt\Base\SimpleEntityController;
-use AppBundle\Entity\Filter\MagazineFilter;
+use AppBundle\Controller\Infoprodukt\Base\InfoproduktController;
 use AppBundle\Entity\Magazine;
+use AppBundle\Manager\Entity\Common\MagazineManager;
+use AppBundle\Manager\Filter\Common\MagazineFilterManager;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-use AppBundle\Entity\User;
 
-class MagazineController extends SimpleEntityController
+class MagazineController extends InfoproduktController
 {   
+	//---------------------------------------------------------------------------
+	// Actions
+	//---------------------------------------------------------------------------
 	/**
-	 * 
+	 *
 	 * @param Request $request
+	 * @param integer $page
+	 *
+	 * @return \Symfony\Component\HttpFoundation\Response
 	 */
 	public function indexAction(Request $request, $page)
 	{
@@ -21,45 +27,65 @@ class MagazineController extends SimpleEntityController
 	}
 	
 	/**
-	 * 
+	 *
 	 * @param Request $request
 	 * @param integer $id
+	 *
+	 * @return \Symfony\Component\HttpFoundation\Response
 	 */
 	public function showAction(Request $request, $id)
 	{
 		return $this->showActionInternal($request, $id);
 	}
 	
-	/**
-	 * 
-	 * {@inheritDoc}
-	 * @see \AppBundle\Controller\Infoprodukt\Base\InfoproduktEntityController::showActionInternal()
-	 */
+	//---------------------------------------------------------------------------
+	// Internal actions
+	//---------------------------------------------------------------------------
+	
 	protected function showActionInternal(Request $request, $id)
 	{
-		$this->sendShowEventAnalytics($request, $id);
+		$params = $this->createParams($this->getShowRoute());
+		$params = $this->getShowParams($request, $params, $id);
 		
-		$entry = $this->getEntry($id);
+		$rm = $this->getRouteManager();
+		$rm->register($request, $params['route'], $params['routeParams']);
 		
+		$am = $this->getAnalyticsManager();
+		$am->sendPageviewAnalytics($params['domain'], $params['route']);
+		$am->sendEventAnalytics($this->getEntityName(), 'show', $id);
+		
+		$viewParams = $params['viewParams'];
+		$entry = $viewParams['entry'];
+	
 		$baseUrl = $request->getScheme() . '://' . $request->getHttpHost();
 		$fileUrl = $entry->getMagazineFile();
-		
+	
 		return $this->redirect($baseUrl . $fileUrl);
 	}
 	
+	//---------------------------------------------------------------------------
+	// Managers
+	//---------------------------------------------------------------------------
+	
+	protected function getEntityManager($doctrine, $paginator) {
+		return new MagazineManager($doctrine, $paginator);
+	}
+	
+	protected function getEntryFilterManager($doctrine) {
+		return new MagazineFilterManager($doctrine);
+	}
+	
+	//---------------------------------------------------------------------------
+	// EntityType related
+	//---------------------------------------------------------------------------
+	
 	/**
-	 * 
-	 * {@inheritDoc}
-	 * @see \AppBundle\Controller\Infomarket\Base\BaseEntityController::getEntityType()
-	 */
+     * 
+     * {@inheritDoc}
+     * @see \AppBundle\Controller\Infomarket\Base\SimpleEntityController::getEntityType()
+     */
     protected function getEntityType()
     {
     	return Magazine::class;
-    }
-    
-    protected function createNewFilter()	
-    {
-    	$userRepository = $this->getDoctrine()->getRepository(User::class);
-    	return new MagazineFilter($userRepository);
     }
 }

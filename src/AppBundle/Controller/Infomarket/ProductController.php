@@ -2,19 +2,18 @@
 
 namespace AppBundle\Controller\Infomarket;
 
-use AppBundle\Controller\Infomarket\Base\SimpleEntityController;
-use AppBundle\Entity\Brand;
-use AppBundle\Entity\Category;
-use AppBundle\Entity\Filter\Base\SimpleEntityFilter;
-use AppBundle\Entity\Filter\ProductFilter;
+use AppBundle\Controller\Infomarket\Base\InfomarketController;
 use AppBundle\Entity\Product;
-use AppBundle\Entity\Segment;
+use AppBundle\Manager\Entity\Common\ProductManager;
+use AppBundle\Manager\Filter\Common\ProductFilterManager;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-use AppBundle\Entity\User;
 
-class ProductController extends SimpleEntityController
+class ProductController extends InfomarketController
 {
+	//---------------------------------------------------------------------------
+	// Actions
+	//---------------------------------------------------------------------------
 	/**
 	 *
 	 * @param Request $request
@@ -39,62 +38,33 @@ class ProductController extends SimpleEntityController
 		return $this->showActionInternal($request, $id);
 	}
 	
-	/**
-	 *
-	 * @param Request $request
-	 */
-	protected function initIndexParams(Request $request, $page)
-	{
-		$params = parent::initIndexParams($request, $page);
-		
-		$userRepository = $this->getDoctrine()->getRepository(User::class);
-		
-		$segmentFilter = new SimpleEntityFilter($userRepository);
-		$segments = $this->getParamList(Segment::class, $segmentFilter);
-		
-		$segment = $this->getParamByName($request, Segment::class, null);
-		
-		$params['segments'] = $segments;
-		$params['segment'] = $segment;
-		 
-		return $params;
+	//---------------------------------------------------------------------------
+	// Managers
+	//---------------------------------------------------------------------------
+	
+	protected function getEntityManager($doctrine, $paginator) {
+		return new ProductManager($doctrine, $paginator);
 	}
 	
-	/**
-	 *
-	 * {@inheritDoc}
-	 * @see \AppBundle\Controller\Infomarket\Base\SimpleEntityController::getEntityType()
-	 */
-	protected function getEntityType()
-	{
-		return Product::class;
+	protected function getEntryFilterManager($doctrine) {
+		return new ProductFilterManager($doctrine);
 	}
 	
-	/**
-	 *
-	 * {@inheritDoc}
-	 * @see \AppBundle\Controller\Infomarket\Base\SimpleEntityController::getEntityFilter()
-	 */
-	protected function getEntityFilter(Request $request)
-	{
-		$userRepository = $this->getDoctrine()->getRepository(User::class);
-		$categoryRepository = $this->getDoctrine()->getRepository(Category::class);
-		$brandRepository = $this->getDoctrine()->getRepository(Brand::class);
-		$segmentRepository = $this->getDoctrine()->getRepository(Segment::class);
-		
-		$filter = new ProductFilter($userRepository, $categoryRepository, $brandRepository, $segmentRepository);
-		$filter->setPublished(true);
-		 
-		$category = $this->getParamByName($request, Category::class, null);
-		if($category) {
-			$filter->setCategories([$category]);
-		}
-		
-		$segment = $this->getParamByName($request, Segment::class, null);
-		if($segment) {
-			$filter->setSegments([$segment]);
-		}
-		 
-		return $filter;
+	protected function isFilterByCategories() {
+		return true;
 	}
+	
+	//---------------------------------------------------------------------------
+	// EntityType related
+	//---------------------------------------------------------------------------
+	
+	/**
+     * 
+     * {@inheritDoc}
+     * @see \AppBundle\Controller\Infomarket\Base\SimpleEntityController::getEntityType()
+     */
+    protected function getEntityType()
+    {
+    	return Product::class;
+    }
 }

@@ -39,6 +39,7 @@
 	<buildpathentry kind="src" path="vendor/egeloen/json-builder/src"/>
 	<buildpathentry kind="src" path="vendor/behat/transliterator/src"/>
 	<buildpathentry kind="src" path="vendor/swiftmailer/swiftmailer/lib"/>
+	<buildpathentry kind="src" path="vendor/intervention/image/src/Intervention/Image"/>
 	<buildpathentry kind="src" path="vendor/symfony/symfony/src/Symfony/Bridge/Monolog"/>
 	<buildpathentry kind="src" path="vendor/php-http/client-common/src"/>
 	<buildpathentry kind="src" path="vendor/doctrine/doctrine-bundle"/>

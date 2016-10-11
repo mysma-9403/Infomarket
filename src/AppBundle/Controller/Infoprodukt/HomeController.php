@@ -2,19 +2,21 @@
 
 namespace AppBundle\Controller\Infoprodukt;
 
-use AppBundle\Controller\Infoprodukt\Base\SimpleEntityController;
-use AppBundle\Entity\Branch;
+use AppBundle\Controller\Infoprodukt\Base\InfoproduktController;
 use AppBundle\Entity\Category;
-use AppBundle\Entity\Filter\CategoryFilter;
+use AppBundle\Manager\Entity\Base\EntityManager;
+use AppBundle\Manager\Entity\Common\BranchManager;
+use AppBundle\Manager\Filter\Base\FilterManager;
+use AppBundle\Manager\Filter\Infoprodukt\IPBranchFilterManager;
+use AppBundle\Manager\Params\EntryParams\Infoprodukt\HomeEntryParamsManager;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-use AppBundle\Entity\Filter\MagazineFilter;
-use AppBundle\Entity\Filter\Base\SimpleEntityFilter;
-use AppBundle\Entity\Magazine;
-use AppBundle\Entity\User;
 
-class HomeController extends SimpleEntityController
+class HomeController extends InfoproduktController
 {
+	//---------------------------------------------------------------------------
+	// Actions
+	//---------------------------------------------------------------------------
 	/**
 	 * 
 	 * @param Request $request
@@ -25,30 +27,25 @@ class HomeController extends SimpleEntityController
 		return $this->indexActionInternal($request, $page);
 	}
 	
-	/**
-	 *
-	 * {@inheritDoc}
-	 * @see \AppBundle\Controller\Infomarket\Base\BaseEntityController::getShowParams()
-	 */
-	protected function getIndexParams(Request $request, $page)
-	{
-		$params = parent::getIndexParams($request, $page);
+	//---------------------------------------------------------------------------
+	// Managers
+	//---------------------------------------------------------------------------
 	
-		$userRepository = $this->getDoctrine()->getRepository(User::class);
-		
-		$magazineFilter = new MagazineFilter($userRepository);
-		$magazineFilter->initValues($request);
-		$magazineFilter->setPublished(SimpleEntityFilter::TRUE_VALUES);
-		$magazineFilter->setFeatured(SimpleEntityFilter::TRUE_VALUES);
-		$magazineFilter->setOrderBy('e.orderNumber ASC, e.name ASC');
-		$magazineFilter->setLimit(4);
-	
-		$magazines = $this->getParamList(Magazine::class, $magazineFilter);
-		$params['magazines'] = $magazines;
-	
-		return $params;
+	protected function getInternalEntryParamsManager(EntityManager $em, FilterManager $fm, $doctrine) {
+		return new HomeEntryParamsManager($em, $fm, $doctrine);
 	}
 	
+	protected function getEntityManager($doctrine, $paginator) {
+		return new BranchManager($doctrine, $paginator);
+	}
+	
+	protected function getEntryFilterManager($doctrine) {
+		return new IPBranchFilterManager($doctrine);
+	}
+	
+	//---------------------------------------------------------------------------
+	// EntityType related
+	//---------------------------------------------------------------------------
 	/**
 	 * 
 	 * {@inheritDoc}
@@ -57,24 +54,6 @@ class HomeController extends SimpleEntityController
 	protected function getEntityType()
 	{
 		return Category::class;
-	}
-	
-	protected function getEntityFilter(Request $request)
-	{
-		$userRepository = $this->getDoctrine()->getRepository(User::class);
-		$branchRepository = $this->getDoctrine()->getRepository(Branch::class);
-		$categoryRepository = $this->getDoctrine()->getRepository(Category::class);
-		
-		$filter = new CategoryFilter($userRepository, $branchRepository, $categoryRepository);
-		$filter->setPublished(true);
-		
-		$category = $this->getParamById($request, Category::class, null);
-		
-		if($category) {
-			$filter->setParents([$category]);
-		}
-		 
-		return $filter;
 	}
 	
     protected function getEntityName()

@@ -3,14 +3,18 @@
 namespace AppBundle\Controller\Admin\Base;
 
 use AppBundle\Controller\Base\BaseEntityController;
-use AppBundle\Entity\Base\Audit;
 use AppBundle\Entity\Lists\Base\BaseEntityList;
 use AppBundle\Form\Filter\Base\FilterFormType;
 use AppBundle\Form\Lists\Base\BaseEntityListType;
 use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Manager\Route\RouteManager;
+use AppBundle\Form\Base\BaseFormType;
 
 abstract class AdminEntityController extends BaseEntityController {
 	
+	//---------------------------------------------------------------------------
+	// Internal actions
+	//---------------------------------------------------------------------------
 	/**
 	 *
 	 * {@inheritDoc}
@@ -18,9 +22,22 @@ abstract class AdminEntityController extends BaseEntityController {
 	 */
 	protected function indexActionInternal(Request $request, $page)
 	{
-		$params = $this->getIndexParams($request, $page);
+		$params = $this->createParams($this->getIndexRoute());
+		$params = $this->getIndexParams($request, $params, $page);
 		
-		$filter = $this->getEntityFilter($request);
+		$rm = $this->getRouteManager();
+		$rm->register($request, $params['route'], $params['routeParams']);
+		
+		$am = $this->getAnalyticsManager();
+		$am->sendPageviewAnalytics($params['domain'], $params['route']);
+		
+		
+		$viewParams = $params['viewParams'];
+		
+		
+		
+		
+		$filter = $viewParams['entryFilter'];
 	
 		$filterForm = $this->createForm($this->getFilterFormType(), $filter);
 		$filterForm->handleRequest($request);
@@ -36,75 +53,241 @@ abstract class AdminEntityController extends BaseEntityController {
 				return $this->redirectToRoute($this->getIndexRoute(), $filter->getValues());
 			}
 		}
-		$params['filter'] = $filterForm->createView();
-	
+		$viewParams['filter'] = $filterForm->createView();
 		
 		
 		
-		$allEntries = $this->getAllEntries($filter, $page);
+		
+		$allEntries = $viewParams['entries'];
 		$selectedEntries = $this->getSelectedEntries($filter, $allEntries);
-	
+		
 		$form = $this->createForm($this->getListFormType(), $selectedEntries, array('choices' => $allEntries));
 		$form->handleRequest($request);
-	
+		
 		if ($form->isSubmitted() && $form->isValid())
-		{	
+		{
 			if ($form->get('new')->isClicked()) {
 				return $this->redirectToRoute($this->getNewRoute());
 			}
-	
+		
 			if ($form->get('selectAll')->isClicked()) {
 				foreach ($allEntries as $entry) {
 					$filter->addSelected($entry->getId());
 				}
 			}
-				
+		
 			if ($form->get('selectNone')->isClicked()) {
 				$filter->clearSelected();
 			}
-				
+		
 			if ($form->get('deleteSelected')->isClicked()) {
 				$data = $form->getData();
 				$entries = $data->getEntries();
 				$this->deleteSelected($entries);
-			}
 				
+				return $this->redirectToReferer($request);
+			}
+		
 			if ($form->get('publishSelected')->isClicked()) {
 				$data = $form->getData();
 				$entries = $data->getEntries();
 				$this->setPublishedSelected($entries, true);
-			}
 				
+				return $this->redirectToReferer($request);
+			}
+		
 			if ($form->get('unpublishSelected')->isClicked()) {
 				$data = $form->getData();
 				$entries = $data->getEntries();
 				$this->setPublishedSelected($entries, false);
+				
+				return $this->redirectToReferer($request);
 			}
-			
+				
 			return $this->redirectToRoute($this->getIndexRoute(), $filter->getValues());
 		}
-		$params['entries'] = $allEntries;
-		$params['form'] = $form->createView();
-			
-		return $this->render($this->getIndexView(), $params);
+		$viewParams['form'] = $form->createView();
+		
+		
+		
+		return $this->render($this->getIndexView(), $viewParams);
 	}
 	
 	/**
-	 * Get all entries matching criteria specified in $filter.
 	 *
-	 * @param SimpleEntityFilter $filter
-	 * @param int $page
-	 *
-	 * @return array
+	 * @param Request $request
 	 */
-	protected function getAllEntries($filter, $page) {
-		$repository = $this->getRepository();
-		$query = $repository->querySelected($filter);
-			
-		$paginator = $this->get('knp_paginator');
-		return $paginator->paginate($query, $page, 8); //TODO count settings?
+	protected function newActionInternal(Request $request)
+	{
+		$this->denyAccessUnlessGranted('ROLE_EDITOR', null, 'Unable to access this page!');
+	
+		$params = $this->createParams($this->getNewRoute());
+		$params = $this->getNewParams($request, $params);
+		
+		return $this->editEntry($request, $params);
 	}
 	
+	/**
+	 *
+	 * @param Request $request
+	 * @param unknown $id
+	 */
+	protected function copyActionInternal(Request $request, $id)
+	{
+		$this->denyAccessUnlessGranted('ROLE_EDITOR', null, 'Unable to access this page!');
+	
+		$params = $this->createParams($this->getCopyRoute());
+		$params = $this->getCopyParams($request, $params, $id);
+		
+		return $this->editEntry($request, $params);
+	}
+	
+	protected function editActionInternal(Request $request, $id)
+	{
+		$this->denyAccessUnlessGranted('ROLE_EDITOR', null, 'Unable to access this page!');
+	
+		$params = $this->createParams($this->getEditRoute());
+		$params = $this->getEditParams($request, $params, $id);
+		
+		$rm = $this->getRouteManager();
+		$rm->register($request, $params['route'], $params['routeParams']);
+		
+		$am = $this->getAnalyticsManager();
+		$am->sendPageviewAnalytics($params['domain'], $params['route']);
+		$am->sendEventAnalytics($this->getEntityName(), 'show', $id);
+		
+		return $this->editEntry($request, $params);
+	}
+	
+	protected function deleteActionInternal(Request $request, $id)
+	{
+		$this->denyAccessUnlessGranted($this->getDeleteRole(), null, 'Unable to access this page!');
+		
+		$params = $this->createParams($this->getDeleteRoute());
+		$params = $this->getEditParams($request, $params, $id);
+		
+		$viewParams = $params['viewParams'];
+		$entry = $viewParams['entry'];
+	
+		//TODO ValidationManager??
+		$validator = $this->get('validator');
+		$errors = $validator->validate($entry, null, array('removal'));
+	
+		if (count($errors) > 0) {
+			foreach ($errors as $error) {
+				$this->addFlash('error', $error->getMessage());
+			}
+			return $this->redirectToReferer($request);
+		} else {
+			$em = $this->getDoctrine()->getManager();
+			$em->getConnection()->beginTransaction();
+				
+			try {
+				$errors = $this->deleteMore($entry);
+				if (count($errors) > 0) {
+					foreach ($errors as $error) {
+						$this->addFlash('error', $error->getMessage());
+					}
+						
+					$em->getConnection()->rollback();
+					return $this->redirectToReferer($request);
+				}
+				else {
+					$em->remove($entry);
+					$em->flush();
+						
+					$em->getConnection()->commit();
+				}
+			} catch (Exception $ex) {
+				$em->getConnection()->rollback();
+				$this->addFlash('error', $ex->getMessage());
+				return $this->redirectToReferer($request);
+			}
+		}
+		
+		/** @var RouteManager $rm */
+		$rm = $this->getRouteManager();
+		$rm->remove($request, $id);
+		$lastRoute = $rm->getLastRoute($request, ['route' => $this->getIndexRoute(), 'routeParams' => array()]);
+		return $this->redirectToRoute($lastRoute['route'], $lastRoute['routeParams']);
+	}
+	
+	protected function setPublishedActionInternal(Request $request, $id)
+	{
+		$this->denyAccessUnlessGranted('ROLE_EDITOR', null, 'Unable to access this page!');
+	
+		$params = $this->createParams($this->getSetPublishedRoute());
+		$params = $this->getEditParams($request, $params, $id);
+		
+		$viewParams = $params['viewParams'];
+		$entry = $viewParams['entry'];
+		
+		$published = $request->get('value', false);
+	
+		$em = $this->getDoctrine()->getManager();
+	
+		$entry->setPublished($published);
+		$em->persist($entry);
+		$em->flush();
+		
+		return $this->redirectToReferer($request);
+	}
+	
+	protected function setFeaturedActionInternal(Request $request, $id)
+	{
+		$this->denyAccessUnlessGranted('ROLE_EDITOR', null, 'Unable to access this page!');
+	
+		$params = $this->createParams($this->getSetFeaturedRoute());
+		$params = $this->getEditParams($request, $params, $id);
+		
+		$viewParams = $params['viewParams'];
+		$entry = $viewParams['entry'];
+		
+		$featured = $request->get('value', false);
+	
+		$em = $this->getDoctrine()->getManager();
+	
+		$entry->setFeatured($featured);
+		$em->persist($entry);
+		$em->flush();
+	
+		return $this->redirectToReferer($request);
+	}
+	
+	
+	//---------------------------------------------------------------------------
+	// Params
+	//---------------------------------------------------------------------------
+	protected function getNewParams(Request $request, array $params) {
+		$params = $this->getParams($request, $params);
+
+		$em = $this->getEntryParamsManager();
+		$params = $em->getNewParams($request, $params);
+		
+		return $params;
+	}
+	
+	protected function getCopyParams(Request $request, array $params, $id) {
+		$params = $this->getParams($request, $params);
+	
+		$em = $this->getEntryParamsManager();
+		$params = $em->getCopyParams($request, $params, $id);
+	
+		return $params;
+	}
+	
+	protected function getEditParams(Request $request, array $params, $id) {
+		$params = $this->getParams($request, $params);
+	
+		$em = $this->getEntryParamsManager();
+		$params = $em->getEditParams($request, $params, $id);
+	
+		return $params;
+	}
+	
+	//---------------------------------------------------------------------------
+	// Internal logic
+	//---------------------------------------------------------------------------
 	/**
 	 * Get entries selected by the list checkboxes.
 	 *
@@ -125,124 +308,6 @@ abstract class AdminEntityController extends BaseEntityController {
 	}
 	
 	
-	/**
-	 * 
-	 * @param Request $request
-	 */
-	protected function newActionInternal(Request $request)
-	{
-		$this->denyAccessUnlessGranted('ROLE_EDITOR', null, 'Unable to access this page!');
-		
-		$params = $this->getNewParams($request);
-		return $this->editEntry($request, $params);
-	}
-	
-	/**
-	 * 
-	 * @param Request $request
-	 * @param unknown $id
-	 */
-	protected function copyActionInternal(Request $request, $id)
-	{
-		$this->denyAccessUnlessGranted('ROLE_EDITOR', null, 'Unable to access this page!');
-		
-		$params = $this->getCopyParams($request, $id);
-		return $this->editEntry($request, $params);
-	}
-	
-	protected function editActionInternal(Request $request, $id)
-	{
-		$this->denyAccessUnlessGranted('ROLE_EDITOR', null, 'Unable to access this page!');
-		
-		$params = $this->getEditParams($request, $id);
-		return $this->editEntry($request, $params);
-	}
-	
-	protected function deleteActionInternal(Request $request, $id)
-	{
-		$this->denyAccessUnlessGranted($this->getDeleteRole(), null, 'Unable to access this page!');
-		
-		$entry = $this->getEntry($id);
-		
-		$validator = $this->get('validator');
-		$errors = $validator->validate($entry, null, array('removal'));
-		
-		if (count($errors) > 0) {
-			foreach ($errors as $error) {
-				$this->addFlash('error', $error->getMessage());
-			}
-			return $this->redirectToReferer($request);
-		} else {
-			$em = $this->getDoctrine()->getManager();
-			$em->getConnection()->beginTransaction();
-			
-			try {
-				$errors = $this->deleteMore($entry); 
-				if (count($errors) > 0) {
-					foreach ($errors as $error) {
-						$this->addFlash('error', $error->getMessage());
-					}
-					
-					$em->getConnection()->rollback();
-					return $this->redirectToReferer($request);
-				}
-				else {
-					$em->remove($entry);
-					$em->flush();
-					
-					$em->getConnection()->commit();
-				}
-			} catch (Exception $ex) {
-				$em->getConnection()->rollback();
-				$this->addFlash('error', $ex->getMessage());
-				return $this->redirectToReferer($request);
-			}
-		}
-		
-		$routingParams = $this->getRoutingParams($request);
-		return $this->redirectToRoute($routingParams['route'], $routingParams['routeParams']);
-	}
-	
-	protected function deleteMore($entry) 
-	{
-		return array();
-	}
-	
-	protected function setPublishedActionInternal(Request $request, $id)
-	{
-		$this->denyAccessUnlessGranted('ROLE_EDITOR', null, 'Unable to access this page!');
-		
-		$published = $request->get('value', false);
-		
-		$em = $this->getDoctrine()->getManager();
-	
-		//Make sure entity exists :)
-		$entry = $this->getEntry($id);
-		$entry->setPublished($published);
-		$em->persist($entry);
-		$em->flush();
-	
-		$routingParams = $this->getRoutingParams($request);
-		return $this->redirectToRoute($routingParams['route'], $routingParams['routeParams']);
-	}
-	
-	protected function setFeaturedActionInternal(Request $request, $id)
-	{
-		$this->denyAccessUnlessGranted('ROLE_EDITOR', null, 'Unable to access this page!');
-		
-		$featured = $request->get('value', false);
-	
-		$em = $this->getDoctrine()->getManager();
-	
-		//Make sure entity exists :)
-		$entry = $this->getEntry($id);
-		$entry->setFeatured($featured);
-		$em->persist($entry);
-		$em->flush();
-	
-		$routingParams = $this->getRoutingParams($request);
-		return $this->redirectToRoute($routingParams['route'], $routingParams['routeParams']);
-	}
 	
 	protected function deleteSelected($entries)
 	{
@@ -296,7 +361,8 @@ abstract class AdminEntityController extends BaseEntityController {
 	 */
 	protected function editEntry(Request $request, $params)
 	{	
-		$entry = $params['entry'];
+		$viewParams = $params['viewParams'];
+		$entry = $viewParams['entry'];
 		
 		$form = $this->createForm($this->getFormType(), $entry);
 	
@@ -313,58 +379,9 @@ abstract class AdminEntityController extends BaseEntityController {
 			}
 		}
 		
-		$params['form'] = $form->createView();
+		$viewParams['form'] = $form->createView();
 	
-		return $this->render($this->getEditView(), $params);
-	}
-	
-	protected function getNewParams(Request $request)
-	{
-		$params = $this->getParams($request);
-	
-		$routeParams = array();
-		$this->registerRequest($request, $this->getNewRoute(), $routeParams);
-	
-		$entry = $this->createNewEntity($request);
-		$params['entry'] = $entry;
-			
-		$params = array_merge($params, $this->getRoutingParams($request));
-		return $params;
-	}
-	
-	protected function getCopyParams(Request $request, $id)
-	{
-		$params = $this->getParams($request);
-	
-		$routeParams = array();
-		$this->registerRequest($request, $this->getCopyRoute(), $routeParams);
-		
-		$template = $this->getEntry($id);
-		$entry = $this->createFromTemplate($request, $template);
-		$params['entry'] = $entry;
-			
-		$params = array_merge($params, $this->getRoutingParams($request));
-		return $params;
-	}
-	
-	/**
-	 *
-	 * @param Request $request
-	 * @param mixed $entry current entry
-	 * @return mixed[]
-	 */
-	protected function getEditParams(Request $request, $id)
-	{
-		$params = $this->getParams($request);
-		
-		$routeParams = array('id' => $id);
-		$this->registerRequest($request, $this->getEditRoute(), $routeParams);
-		
-		$entry = $this->getEntry($id);
-		$params['entry'] = $entry;
-		 
-		$params = array_merge($params, $this->getRoutingParams($request));
-		return $params;
+		return $this->render($this->getEditView(), $viewParams);
 	}
 	
 	/**
@@ -390,20 +407,54 @@ abstract class AdminEntityController extends BaseEntityController {
 		return $this->getDoctrine()->getRepository($this->getEntityType());
 	}
 	
-	
-	protected function getEditView()
+	protected function deleteMore($entry)
 	{
-		return $this->getBaseName() . '/' . $this->getEntityName() . '/editor.html.twig';
+		return array();
 	}
+	
+	protected function getDeleteRole() {
+		return 'ROLE_EDITOR';
+	}
+	
+	//---------------------------------------------------------------------------
+	// EntityType related
+	//---------------------------------------------------------------------------
+	
+	protected function createNewList() {
+		return new BaseEntityList();
+	}
+	
+	/**
+	 *
+	 * @return BaseFormType
+	 */
+	protected function getFormType() {
+		return BaseFormType::class;
+	}
+	
+	/**
+	 *
+	 * @return BaseEntityListType
+	 */
+	protected function getListFormType() {
+		return BaseEntityListType::class;
+	}
+	
+	/**
+	 *
+	 * @return FilterFormType
+	 */
+	protected function getFilterFormType() {
+		return FilterFormType::class;
+	}
+	
+	//---------------------------------------------------------------------------
+	// Routes
+	//---------------------------------------------------------------------------
 	
 	protected function getNewRoute()
 	{
 		return $this->getIndexRoute() . '_new';
-	}
-	
-	protected function getEditRoute()
-	{
-		return $this->getIndexRoute() . '_edit';
 	}
 	
 	protected function getCopyRoute()
@@ -411,66 +462,40 @@ abstract class AdminEntityController extends BaseEntityController {
 		return $this->getIndexRoute() . '_copy';
 	}
 	
-	
-	/**
-	 * Create new entry as a copy of a $template
-	 *
-	 * @param mixed $template
-	 *
-	 * @return mixed
-	 */
-	protected function createFromTemplate(Request $request, $template) {
-		$entity = $this->createNewEntity($request);
-		
-		$entity->setPublished($template->getPublished());
-		
-		return $entity;
+	protected function getEditRoute()
+	{
+		return $this->getIndexRoute() . '_edit';
 	}
 	
-	/**
-	 *
-	 * @param Request $request
-	 *
-	 * @return mixed
-	 */
-	protected function createNewEntity(Request $request) {
-		return new Audit();
+	protected function getDeleteRoute()
+	{
+		return $this->getIndexRoute() . '_delete';
 	}
 	
-	protected function createNewList() {
-		return new BaseEntityList();
+	protected function getSetPublishedRoute()
+	{
+		return $this->getIndexRoute() . '_set_published';
 	}
 	
-	
-	/**
-	 * Get entity list class (e.g. BundleListType::class)
-	 *
-	 * @return mixed
-	 */
-	protected function getListFormType() {
-		return BaseEntityListType::class;
+	protected function getSetFeaturedRoute()
+	{
+		return $this->getIndexRoute() . 'set_featured';
 	}
 	
-	/**
-	 * Get entity filter class (e.g <strong>SimpleEntityFilterType::class</strong>)
-	 *
-	 * @return mixed
-	 */
-	protected function getFilterFormType() {
-		return FilterFormType::class;
+	//---------------------------------------------------------------------------
+	// Views
+	//---------------------------------------------------------------------------
+	
+	protected function getEditView()
+	{
+		return $this->getDomain() . '/' . $this->getEntityName() . '/editor.html.twig';
 	}
 	
+	//---------------------------------------------------------------------------
+	// Domain
+	//---------------------------------------------------------------------------
 	
-	/**
-	 * 
-	 * {@inheritDoc}
-	 * @see \AppBundle\Controller\Base\BaseEntityController::getBaseName()
-	 */
-	protected function getBaseName() {
+	protected function getDomain() {
 		return 'admin';
-	}
-	
-	protected function getDeleteRole() {
-		return 'ROLE_EDITOR';
 	}
 }

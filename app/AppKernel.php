@@ -21,7 +21,6 @@ class AppKernel extends Kernel
 			new Ivory\CKEditorBundle\IvoryCKEditorBundle(),
 			new FM\ElfinderBundle\FMElfinderBundle(),
             new AppBundle\AppBundle(),
-            new KrkDev\Bundle\RoutingBundle\KrkRoutingBundle(),
         	new Http\HttplugBundle\HttplugBundle(),
 			new Happyr\GoogleAnalyticsBundle\HappyrGoogleAnalyticsBundle()
         ];

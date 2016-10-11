@@ -1,0 +1,86 @@
+{% extends 'infomarket/base/show.html.twig' %}
+
+{% set type = 'title.brands'|trans %}
+{% set mainPath = 'brand' %}
+
+{% set listName = 'title.brands'|trans %}
+		
+{% block mainContent %}
+	{% block header %}
+	<div class="row">
+		<div class="col-xs-12">
+			<h2 class="text-red">{{ entry.name | raw }}</h2>
+		</div>
+	</div>
+	<div class="row">
+		{% block logo %}
+		<div class="col-sm-6">
+			<div class="rect-2x1">
+				{% if entry.image %}
+					<img class="div-center img-{{ entry.vertical ? 'v' : '' }}responsive" 
+						alt="{{ entry.name | raw }}" src="{{ asset(entry.getImagePath()) }}">
+				{% endif %}
+			</div>	
+		</div>
+		{% endblock %}
+		
+		{% block summary %}
+		<div class="col-sm-6">
+			<div class="row">
+				<div class="col-xs-4">
+					<p><strong>Producent: </strong></p>
+				</div>
+				<div class="col-xs-8">
+					<p>{{ entry.name | raw }} Sp. z o.o.</p>
+				</div>
+			</div>
+			
+			<div class="row">
+				<div class="col-xs-4">
+					<p><strong>Rok zalozenia: </strong></p>
+				</div>
+				<div class="col-xs-8">
+					<p>1977</p>
+				</div>
+			</div>			
+			
+			<div class="row">
+				<div class="col-xs-4">
+					<p><strong>Kraj: </strong></p>
+				</div>
+				<div class="col-xs-8">
+					<p>Polska</p>
+				</div>
+			</div>	
+			
+			<div class="row">
+				<div class="col-xs-4">
+					<p><strong>Glowna siedziba: </strong></p>
+				</div>
+				<div class="col-xs-8">
+					<p>Warszawa</p>
+				</div>
+			</div>
+		</div>
+		{% endblock %}
+		
+	</div>
+	{% endblock %}
+	
+	{% block description %}
+	<div class="row">
+		<div class="col-xs-12">
+			<p>{{ entry.content | raw }}</p>
+		</div>
+	</div>
+	{% endblock %}
+	
+	{% block back %}
+	<div class="row">
+		<div class="col-xs-12">
+			<a class="btn btn-primary fa fa-arrow-circle-o-left" href="{{ path(basePath ~ mainPath) }}"></a>
+			<a class="btn btn-primary fa fa-arrow-circle-o-up pull-right" href="#"></a>
+		</div>
+	</div>	
+	{% endblock %}
+{% endblock %}

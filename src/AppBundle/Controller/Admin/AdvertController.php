@@ -5,19 +5,23 @@ namespace AppBundle\Controller\Admin;
 use AppBundle\Controller\Admin\Base\ImageEntityController;
 use AppBundle\Controller\Admin\Base\SimpleEntityController;
 use AppBundle\Entity\Advert;
-use AppBundle\Entity\Filter\AdvertFilter;
 use AppBundle\Form\AdvertType;
 use AppBundle\Form\Filter\AdvertFilterType;
+use AppBundle\Manager\Entity\Common\AdvertManager;
+use AppBundle\Manager\Filter\Common\AdvertFilterManager;
 use Symfony\Component\HttpFoundation\Request;
-use AppBundle\Entity\Category;
-use AppBundle\Entity\User;
 
 class AdvertController extends ImageEntityController {
 	
+	//---------------------------------------------------------------------------
+	// Actions
+	//---------------------------------------------------------------------------
 	/**
 	 * 
 	 * @param Request $request
-	 * @param unknown $page
+	 * @param integer $page
+	 * 
+	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
 	 */
 	public function indexAction(Request $request, $page)
 	{
@@ -27,7 +31,9 @@ class AdvertController extends ImageEntityController {
 	/**
 	 * 
 	 * @param Request $request
-	 * @param unknown $id
+	 * @param integer $id
+	 * 
+	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
 	 */
 	public function showAction(Request $request, $id)
 	{
@@ -35,9 +41,10 @@ class AdvertController extends ImageEntityController {
 	}
 	
 	/**
-	 *
+	 * 
 	 * @param Request $request
-	 * @param unknown $id
+	 * 
+	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
 	 */
 	public function newAction(Request $request)
 	{
@@ -45,9 +52,11 @@ class AdvertController extends ImageEntityController {
 	}
 	
 	/**
-	 *
+	 * 
 	 * @param Request $request
-	 * @param unknown $id
+	 * @param integer $id
+	 * 
+	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
 	 */
 	public function copyAction(Request $request, $id)
 	{
@@ -55,9 +64,11 @@ class AdvertController extends ImageEntityController {
 	}
 	
 	/**
-	 *
+	 * 
 	 * @param Request $request
-	 * @param unknown $id
+	 * @param integer $id
+	 * 
+	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
 	 */
 	public function editAction(Request $request, $id)
 	{
@@ -67,7 +78,8 @@ class AdvertController extends ImageEntityController {
 	/**
 	 * 
 	 * @param Request $request
-	 * @param unknown $id
+	 * @param integer $id
+	 * 
 	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
 	 */
 	public function deleteAction(Request $request, $id)
@@ -78,7 +90,9 @@ class AdvertController extends ImageEntityController {
 	/**
 	 * 
 	 * @param Request $request
-	 * @param unknown $id
+	 * @param integer $id
+	 * 
+	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
 	 */
 	public function setPublishedAction(Request $request, $id)
 	{
@@ -105,67 +119,25 @@ class AdvertController extends ImageEntityController {
 		
 		return array();
 	}
+	//---------------------------------------------------------------------------
+	// Managers
+	//---------------------------------------------------------------------------
 	
-	//------------------------------------------------------------------------
-	// Entity creators
-	//------------------------------------------------------------------------
-	
-	/**
-	 * 
-	 * {@inheritDoc}
-	 * @see \AppBundle\Controller\Admin\Base\SimpleEntityController::createNewEntity()
-	 */
-	protected function createNewEntity(Request $request) {
-		$entity = new Advert();
-		
-		return $entity;
+	protected function getEntityManager($doctrine, $paginator) {
+		return new AdvertManager($doctrine, $paginator);
 	}
 	
-	/**
-	 * 
-	 * {@inheritDoc}
-	 * @see \AppBundle\Controller\Admin\Base\SimpleEntityController::createFromTemplate()
-	 */
-	protected function createFromTemplate(Request $request, $template) {
-		$entry = parent::createFromTemplate($request, $template);
-	
-		$entry->setDateFrom($template->getDateFrom());
-		$entry->setDateTo($template->getDateTo());
-		
-		$entry->setLocation($template->getLocation());
-		
-		$entry->setLink($template->getLink());
-		
-		$entry->setShowCount($template->getShowCount());
-		$entry->setShowLimit($template->getShowLimit());
-		$entry->setClickCount($template->getClickCount());
-		$entry->setClickLimit($template->getClickLimit());
-	
-		return $entry;
-	}
-	
-	/**
-	 * 
-	 * {@inheritDoc}
-	 * @see \AppBundle\Controller\Admin\Base\SimpleEntityController::createNewFilter()
-	 */
-	protected function createNewFilter() {
-		$userRepository = $this->getDoctrine()->getRepository(User::class);
-		$categoryRepository = $this->getDoctrine()->getRepository(Category::class);
-		
-		$filter = new AdvertFilter($userRepository, $categoryRepository);
-		$filter->setOrderBy('e.createdAt DESC');
-		
-		return $filter;
+	protected function getFilterManager($doctrine) {
+		return new AdvertFilterManager($doctrine);
 	}
 	
 	
 	//------------------------------------------------------------------------
-	// Entity types
+	// EntityType related
 	//------------------------------------------------------------------------
 	
 	/**
-	 * 
+	 *
 	 * {@inheritDoc}
 	 * @see \AppBundle\Controller\Admin\Base\SimpleEntityController::getEntityType()
 	 */
@@ -175,11 +147,11 @@ class AdvertController extends ImageEntityController {
 	
 	
 	//------------------------------------------------------------------------
-	// Form types
+	// Forms
 	//------------------------------------------------------------------------
 	
 	/**
-	 * 
+	 *
 	 * {@inheritDoc}
 	 * @see \AppBundle\Controller\Admin\Base\SimpleEntityController::getFormType()
 	 */

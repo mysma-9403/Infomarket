@@ -2,15 +2,62 @@
 
 namespace AppBundle\Controller\Infomarket;
 
-use AppBundle\Controller\Infomarket\Base\SimpleEntityController;
+use AppBundle\Controller\Infomarket\Base\InfomarketController;
 use AppBundle\Entity\Term;
+use AppBundle\Manager\Entity\Common\TermManager;
+use AppBundle\Manager\Filter\Common\TermFilterManager;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-use AppBundle\Entity\Filter\TermFilter;
-use AppBundle\Entity\Category;
 
-class TermController extends ProductController
+class TermController extends InfomarketController
 {	
+	//---------------------------------------------------------------------------
+	// Actions
+	//---------------------------------------------------------------------------
+	/**
+	 *
+	 * @param Request $request
+	 * @param integer $page
+	 *
+	 * @return \Symfony\Component\HttpFoundation\Response
+	 */
+	public function indexAction(Request $request, $page)
+	{
+		return $this->indexActionInternal($request, $page);
+	}
+	
+	/**
+	 *
+	 * @param Request $request
+	 * @param integer $id
+	 *
+	 * @return \Symfony\Component\HttpFoundation\Response
+	 */
+	public function showAction(Request $request, $id)
+	{
+		return $this->showActionInternal($request, $id);
+	}
+	
+	//---------------------------------------------------------------------------
+	// Managers
+	//---------------------------------------------------------------------------
+	
+	protected function getEntityManager($doctrine, $paginator) {
+		return new TermManager($doctrine, $paginator);
+	}
+	
+	protected function getEntryFilterManager($doctrine) {
+		return new TermFilterManager($doctrine);
+	}
+	
+	protected function isFilterByCategories() {
+		return true;
+	}
+	
+	//---------------------------------------------------------------------------
+	// EntityType related
+	//---------------------------------------------------------------------------
+	
 	/**
      * 
      * {@inheritDoc}
@@ -19,33 +66,5 @@ class TermController extends ProductController
     protected function getEntityType()
     {
     	return Term::class;
-    }
-    
-    /**
-     *
-     * {@inheritDoc}
-     * @see \AppBundle\Controller\Infomarket\Base\SimpleEntityController::getEntityFilter()
-     */
-    protected function getEntityFilter(Request $request)
-    {
-    	$filter = new TermFilter();
-    	$filter->setPublished(true);
-    	
-    	$category = $this->getParam($request, Category::class, null);
-    	if($category) {
-    		$filter->setCategories([$category]);
-    	}
-    	 
-    	return $filter;
-    }
-    
-    /**
-     * 
-     * {@inheritDoc}
-     * @see \AppBundle\Controller\Infomarket\Base\BaseEntityController::getPageEntries()
-     */
-    protected function getPageEntries(Request $request)
-    {
-    	return 90;
     }
 }

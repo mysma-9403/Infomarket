@@ -4,28 +4,6 @@
 {% set mainPath = 'home' %}
 		
 {% block content %}
-{# 	<div class="row">#}
-{# 		<div class="col-xs-12 well">#}
-{# 			<h1>{{ 'title.branches'|trans }}</h1>#}
-{# 			{% for entry in branches %}#}
-				
-{# 				<div class="col-sm-3">#}
-{# 					<div class="col-xs-12">#}
-{# 						<p class="text-center"><span class="fa {{ entry.icon }} fa-5x"></span></p>#}
-{# 						<a class="tile-heading" href="{{ path('infomarket_product', { 'branch': entry.name }) }}">#}
-{# 							<h4>{{ entry.name }}</h4>#}
-{# 						</a>#}
-{# 					</div>#}
-{# 				</div>#}
-{# 			{% else %}#}
-{# 				{{ 'label.noEntries'|trans }}#}
-{# 			{% endfor %}#}
-{# 		</div>#}
-{# 	</div>#}
-	<div class="col-xs-12 visible-xs">
-		<img class="img-responsive" src="img/template/logo-home.png">
-	</div>
-
 	<div class="row">
 		<div class="col-xs-12 well">
 			{% for entry in entries %}
@@ -43,7 +21,7 @@
 					<div class="col-sm-6 {{ right }}">
 						<div class="row tile-heading">
 							<div class="col-xs-12">
-								<a class="tile-heading" href="{{ path('infomarket_product', { 'branch': entry.name }) }}">
+								<a class="tile-heading" href="{{ path(basePath ~ 'category', { 'branch': entry.id }) }}">
 									<h4>{{ entry.name }}</h4>
 								</a>
 							</div>
@@ -52,7 +30,7 @@
 						<ul>
 							{% for branchCategoryAssignment in entry.branchCategoryAssignments %}
 								{% if not branchCategoryAssignment.category.parent %}
-									<a href="{{ path('infomarket_product', { 'branch': entry.name, 'category': branchCategoryAssignment.category.name}) }}">
+									<a href="{{ path(basePath ~ 'category_show', { id: branchCategoryAssignment.category.id, branch: entry.id }) }}">
 										<li>{{ branchCategoryAssignment.category.name }}</li>
 									</a>	
 								{% endif %}

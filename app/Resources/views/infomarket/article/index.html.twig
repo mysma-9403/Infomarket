@@ -1,14 +1,13 @@
 {% extends 'infomarket/base/index.html.twig' %}
 
 {% set title = 'title.articles'|trans %}
+{% set type = 'title.articles'|trans %}
 {% set mainPath = 'article' %}
 		
 {% block mainContent %}
 	{% block articles %}
 	<div class="row">
 		<div class="col-xs-12">
-			<h1>{{ 'title.articles'|trans }}</h1>
-			
 			{% for entry in entries%}
 				<div class="row">
 					<div class="panel">
@@ -23,12 +22,12 @@
 							</div>
 							<div class="col-sm-9">
 								{% for articleBrandAssignment in entry.articleBrandAssignments %}
-									<a href="{{ path(basePath ~ 'brand_show', { id: articleBrandAssignment.brand.id, branch: branch.id }) }}">
+									<a href="{{ path(basePath ~ 'brand_show', { id: articleBrandAssignment.brand.id }) }}">
 										<h3 class="text-red">{{ articleBrandAssignment.brand.name | raw }} </h3>
 									</a> 
 								{% endfor %}
 								
-								<a href="{{ path('infoprodukt_' ~ mainPath ~ '_show', { 'id': entry.id, branch: branch.id }) }}">
+								<a href="{{ path(basePath ~ mainPath ~ '_show', { 'id': entry.id }) }}">
 									<h3>
 										<span class="text-brand">{{ entry.name | raw }}</span> 
 										<span class="text-red">{{ entry.subname | raw }}</span>
@@ -66,7 +65,7 @@
 									<p>
 										{{ entry.intro | raw }}
 									</p>
-									<a class="btn btn-danger" href="{{ path('infoprodukt_' ~ mainPath ~ '_show', { 'id': entry.id, branch: branch.id }) }}">
+									<a class="btn btn-danger" href="{{ path(basePath ~ mainPath ~ '_show', { 'id': entry.id }) }}">
 										{{ 'label.readMore'|trans }}
 									</a>
 								</div>

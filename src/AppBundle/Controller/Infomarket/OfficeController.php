@@ -2,12 +2,14 @@
 
 namespace AppBundle\Controller\Infomarket;
 
-use AppBundle\Controller\Infomarket\Base\SimpleEntityController;
+use AppBundle\Controller\Infomarket\Base\InfomarketController;
 use AppBundle\Entity\Brand;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Manager\Filter\Common\BrandFilterManager;
+use AppBundle\Manager\Entity\Common\BrandManager;
 
-class OfficeController extends SimpleEntityController
+class OfficeController extends InfomarketController
 {
 	/**
 	 *
@@ -33,6 +35,21 @@ class OfficeController extends SimpleEntityController
 		return $this->showActionInternal($request, $id);
 	}
 	
+	//---------------------------------------------------------------------------
+	// Managers
+	//---------------------------------------------------------------------------
+	
+	protected function getEntityManager($doctrine, $paginator) {
+		return new BrandManager($doctrine, $paginator);
+	}
+	
+	protected function getEntryFilterManager($doctrine) {
+		return new BrandFilterManager($doctrine);
+	}
+	
+	//---------------------------------------------------------------------------
+	// EntityType related
+	//---------------------------------------------------------------------------
 	/**
      * 
      * {@inheritDoc}

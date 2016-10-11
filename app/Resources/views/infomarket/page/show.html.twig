@@ -1,15 +1,11 @@
 {% extends 'infomarket/base/show.html.twig' %}
 
+{% set redirectToMainPath = false %}
+
 {% set title = entry.name|raw %}
 {% set mainPath = 'page_show' %}
 
-{% block moreBreadcrumbs %}
-	{% if category %}
-		/ 
-		<a href="{{ path(basePath ~ 'category_show', { id: category.id, category: category.preleaf ? category.id : category.parent.id }) }}">{{ category.name }}</a>
-	{% endif %}
-	/ 
-	{{ entry.name }}
+{% block breadcrumbs %}
 {% endblock %}
 		
 {% block mainContent %}

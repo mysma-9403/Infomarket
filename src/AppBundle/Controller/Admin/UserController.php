@@ -5,19 +5,28 @@ namespace AppBundle\Controller\Admin;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use AppBundle\Controller\Admin\Base\SimpleEntityController;
-use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Entity\User;
-use AppBundle\Form\UserType;
 use AppBundle\Form\Filter\UserFilterType;
-use AppBundle\Entity\Filter\UserFilter;
 use AppBundle\Form\Lists\UserListType;
+use AppBundle\Form\UserType;
+use AppBundle\Manager\Entity\Common\UserManager;
+use AppBundle\Manager\Filter\Common\UserFilterManager;
+use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Manager\Params\EntryParams\Infomarket\UserEntryParamsManager;
+use AppBundle\Manager\Entity\Base\EntityManager;
+use AppBundle\Manager\Filter\Base\FilterManager;
 
 class UserController extends SimpleEntityController
 {
-/**
+	//---------------------------------------------------------------------------
+	// Actions
+	//---------------------------------------------------------------------------
+	/**
 	 * 
 	 * @param Request $request
-	 * @param unknown $page
+	 * @param integer $page
+	 * 
+	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
 	 */
 	public function indexAction(Request $request, $page)
 	{
@@ -27,7 +36,9 @@ class UserController extends SimpleEntityController
 	/**
 	 * 
 	 * @param Request $request
-	 * @param unknown $id
+	 * @param integer $id
+	 * 
+	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
 	 */
 	public function showAction(Request $request, $id)
 	{
@@ -35,9 +46,11 @@ class UserController extends SimpleEntityController
 	}
 	
 	/**
-	 *
+	 * 
 	 * @param Request $request
-	 * @param unknown $id
+	 * @param integer $id
+	 * 
+	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
 	 */
 	public function editAction(Request $request, $id)
 	{
@@ -47,7 +60,8 @@ class UserController extends SimpleEntityController
 	/**
 	 * 
 	 * @param Request $request
-	 * @param unknown $id
+	 * @param integer $id
+	 * 
 	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
 	 */
 	public function deleteAction(Request $request, $id)
@@ -58,7 +72,9 @@ class UserController extends SimpleEntityController
 	/**
 	 * 
 	 * @param Request $request
-	 * @param unknown $id
+	 * @param integer $id
+	 * 
+	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
 	 */
 	public function settingsAction(Request $request)
 	{
@@ -66,24 +82,29 @@ class UserController extends SimpleEntityController
 	}
 	
 	//------------------------------------------------------------------------
-	// Internal logic
+	// Internal actions
 	//------------------------------------------------------------------------
 	
 	/**
-	 *
+	 * 
 	 * @param Request $request
-	 * @param unknown $entry
+	 * 
+	 * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
 	 */
 	protected function settingsActionInternal(Request $request)
 	{
-		$params = $this->getSettingsParams($request);
-		
-		$entry = $this->get('security.token_storage')->getToken()->getUser();
+		$params = $this->createParams($this->getPreviewRoute());
+		$params = $this->getSettingsParams($request, $params);
 	
+		$rm = $this->getRouteManager();
+		$rm->register($request, $params['route'], $params['routeParams']);
+		
+		$viewParams = $params['viewParams'];
+		$entry = $viewParams['entry'];
+		
 		$this->denyAccessUnlessGranted('edit', $entry);
 	
 		$form = $this->createForm($this->getFormType(), $entry);
-	
 		$form->handleRequest($request);
 	
 		if ($form->isSubmitted() && $form->isValid())
@@ -97,77 +118,51 @@ class UserController extends SimpleEntityController
 			}
 		}
 		
-		$params['entry'] = $entry;
-		$params['form'] = $form->createView();
+		$viewParams['form'] = $form->createView();
 	
-		return $this->render($this->getSettingsView(), $params);
+		return $this->render($this->getSettingsView(), $viewParams);
 	}
 	
-	/**
-	 * 
-	 * @param Request $request
-	 */
-	protected function getSettingsParams(Request $request)
-	{
-		$params = $this->getParams($request);
+	//---------------------------------------------------------------------------
+	// Managers
+	//---------------------------------------------------------------------------
 	
-		$routeParams = array();
-		$this->registerRequest($request, $this->getEditRoute(), $routeParams);
-			
-		$params = array_merge($params, $this->getRoutingParams($request));
+	protected function getInternalEntryParamsManager(EntityManager $em, FilterManager $fm, $doctrine) {
+		return new UserEntryParamsManager($em, $fm, $doctrine);
+	}
+	
+	protected function getEntityManager($doctrine, $paginator) {
+		return new UserManager($doctrine, $paginator);
+	}
+	
+	protected function getFilterManager($doctrine) {
+		return new UserFilterManager($doctrine);
+	}
+	
+	//---------------------------------------------------------------------------
+	// Params
+	//---------------------------------------------------------------------------
+	protected function getSettingsParams(Request $request, array $params) {
+		$params = $this->getParams($request, $params);
+	
+		$em = $this->getEntryParamsManager();
+		$params = $em->getSettingsParams($request, $params);
+		
 		return $params;
 	}
 	
 	//------------------------------------------------------------------------
-	// Entity creators
+	// EntityType related
 	//------------------------------------------------------------------------
 	
 	/**
-	 * 
-	 * {@inheritDoc}
-	 * @see \AppBundle\Controller\Admin\Base\SimpleEntityController::createNewEntity()
-	 */
-	protected function createNewEntity(Request $request) {
-		return new User();
-	}
-	
-	/**
-	 * 
-	 * {@inheritDoc}
-	 * @see \AppBundle\Controller\Admin\Base\SimpleEntityController::createFromTemplate()
-	 */
-	protected function createFromTemplate(Request $request, $template) {
-		$entry = parent::createFromTemplate($request, $template);
-	
-		$entry->setEmail($template->getEmail());
-		$entry->setForename($template->getForename());
-		$entry->setSurname($template->getSurname());
-	
-		return $entry;
-	}
-	
-	protected function createNewFilter() {
-		$userRepository = $this->getDoctrine()->getRepository(User::class);
-		return new UserFilter($userRepository);
-	}
-	
-	//------------------------------------------------------------------------
-	// Entity types
-	//------------------------------------------------------------------------
-	
-	/**
-	 * 
+	 *
 	 * {@inheritDoc}
 	 * @see \AppBundle\Controller\Admin\Base\SimpleEntityController::getEntityType()
 	 */
 	protected function getEntityType() {
 		return User::class;
 	}
-	
-	
-	//------------------------------------------------------------------------
-	// Form types
-	//------------------------------------------------------------------------
 	
 	/**
 	 * 
@@ -178,23 +173,45 @@ class UserController extends SimpleEntityController
 		return UserType::class;
 	}
 	
+	/**
+	 * 
+	 * {@inheritDoc}
+	 * @see \AppBundle\Controller\Admin\Base\AdminEntityController::getFilterFormType()
+	 */
 	protected function getFilterFormType() {
 		return UserFilterType::class;
 	}
 	
+	/**
+	 * 
+	 * {@inheritDoc}
+	 * @see \AppBundle\Controller\Admin\Base\AdminEntityController::getListFormType()
+	 */
 	protected function getListFormType() {
 		return UserListType::class;
 	}
 	
 	//------------------------------------------------------------------------
-	// Helpers
+	// Views
+	//------------------------------------------------------------------------
+	
+	protected function getSettingsView() {
+		return $this->getDomain() . '/' . $this->getEntityName() . '/settings.html.twig';
+	}
+	
+	//------------------------------------------------------------------------
+	// Routes
 	//------------------------------------------------------------------------
 	
 	protected function getSettingsRoute() {
 		return $this->getIndexRoute() . '_settings';
 	}
 	
-	protected function getSettingsView() {
-		return $this->getBaseName() . '/' . $this->getEntityName() . '/settings.html.twig';
+	//---------------------------------------------------------------------------
+	// Settings
+	//---------------------------------------------------------------------------
+	
+	protected function getDeleteRole() {
+		return 'ROLE_SUPER_ADMIN';
 	}
 }

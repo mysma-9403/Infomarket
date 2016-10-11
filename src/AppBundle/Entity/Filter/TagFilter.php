@@ -6,7 +6,7 @@ use AppBundle\Entity\Filter\Base\SimpleEntityFilter;
 use AppBundle;
 use AppBundle\Repository\UserRepository;
 
-class TermFilter extends SimpleEntityFilter {
+class TagFilter extends SimpleEntityFilter {
 
 	/**
 	 * 

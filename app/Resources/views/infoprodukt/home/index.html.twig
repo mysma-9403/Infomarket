@@ -26,27 +26,15 @@
 	
 	{% block images %}
 		<div class="row">
-				
-			<div id="myCarousel" class="carousel slide" data-ride="carousel">
-				  	
-			  	<div class="carousel-inner" role="listbox">
-					<img class="item img-responsive active" alt="image" src="uploads/photos/salon.jpg">
-					<img class="item img-vresponsive" alt="image" src="uploads/photos/kitchen.jpg">
-		    		<img class="item img-responsive" alt="image" src="uploads/photos/chainsaw.jpg">
+			<div id="myCarousel" class="carousel slide carousel-fade" data-ride="carousel">
+			  	<div class="carousel-inner">
+			  		<img class="item active img-responsive" alt="image" src="uploads/photos/saloon.png" />
+					<img class="item img-vresponsive" alt="image" src="uploads/photos/kitchen.png">
+		    		<img class="item img-responsive" alt="image" src="uploads/photos/chainsaw.png">
 			  	</div>
 		  	</div>
-			  	
-	    	<div class="div-center bkg-white">
-	    		<div class="rect-3x1 photo-foreground">
-	    		</div>
-    		</div>
 		</div>
 	{% endblock %}
-	
-	<div class="bkg-white">
-	    		<div class="rect-3x1 photo-foreground">
-	    		</div>
-    		</div>
 	
 	<div class="vr-space-10"></div>
 	
@@ -74,7 +62,7 @@
 		
 		<div class="row">
 			<div class="col-xs-12">
-				{% include 'common/tile_list.html.twig' with {'entries': menuCategories|slice(0,8), 
+				{% include 'common/tile_list.html.twig' with {'entries': categories|slice(0,8), 
 					'entryPath': 'category', 'colSize': 3, 'tile': 'bottom_rect_tile' } %}
 			</div>
 			

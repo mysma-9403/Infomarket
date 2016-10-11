@@ -2,15 +2,62 @@
 
 namespace AppBundle\Controller\Infomarket;
 
-use AppBundle\Controller\Infomarket\Base\SimpleEntityController;
+use AppBundle\Controller\Infomarket\Base\InfomarketController;
 use AppBundle\Entity\Brand;
+use AppBundle\Manager\Entity\Common\BrandManager;
+use AppBundle\Manager\Filter\Common\BrandFilterManager;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-use AppBundle\Entity\Filter\BrandFilter;
-use AppBundle\Entity\Category;
 
-class BrandController extends ProductController
+class BrandController extends InfomarketController
 {	
+	//---------------------------------------------------------------------------
+	// Actions
+	//---------------------------------------------------------------------------
+	/**
+	 *
+	 * @param Request $request
+	 * @param integer $page
+	 *
+	 * @return \Symfony\Component\HttpFoundation\Response
+	 */
+	public function indexAction(Request $request, $page)
+	{
+		return $this->indexActionInternal($request, $page);
+	}
+	
+	/**
+	 *
+	 * @param Request $request
+	 * @param integer $id
+	 *
+	 * @return \Symfony\Component\HttpFoundation\Response
+	 */
+	public function showAction(Request $request, $id)
+	{
+		return $this->showActionInternal($request, $id);
+	}
+	
+	//---------------------------------------------------------------------------
+	// Managers
+	//---------------------------------------------------------------------------
+	
+	protected function getEntityManager($doctrine, $paginator) {
+		return new BrandManager($doctrine, $paginator);
+	}
+	
+	protected function getEntryFilterManager($doctrine) {
+		return new BrandFilterManager($doctrine);
+	}
+	
+	protected function isFilterByCategories() {
+		return true;
+	}
+	
+	//---------------------------------------------------------------------------
+	// EntityType related
+	//---------------------------------------------------------------------------
+	
 	/**
      * 
      * {@inheritDoc}
@@ -19,23 +66,5 @@ class BrandController extends ProductController
     protected function getEntityType()
     {
     	return Brand::class;
-    }
-    
-    /**
-     * 
-     * {@inheritDoc}
-     * @see \AppBundle\Controller\Infomarket\Base\SimpleEntityController::getEntityFilter()
-     */
-    protected function getEntityFilter(Request $request)
-    {
-    	$filter = new BrandFilter();
-    	$filter->setPublished(true);
-    	
-    	$category = $this->getParam($request, Category::class, null);
-    	if($category) {
-    		$filter->setCategories([$category]);
-    	}
-    	
-    	return $filter;
     }
 }

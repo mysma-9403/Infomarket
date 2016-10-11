@@ -1,12 +1,18 @@
 {% extends 'infomarket/base/base.html.twig' %}
 
+{% set title = entry.name|raw %}
+
 {% block moreBreadcrumbs %}
-	{% if category %}
-		/ 
-		<a href="{{ path(basePath ~ 'category_show', { id: category.id, category: category.preleaf ? category.id : category.parent.id }) }}">{{ category.name }}</a>
-	{% endif %}
+
 	/ 
-	<a href="{{ path(basePath ~ mainPath, { category: category ? category.id : null }) }}">{{ listName }}</a>
+	<a href="{{ path(basePath ~ mainPath) }}">
+		{{ type|trans }}
+	</a>
+	{% block baseMoreBreadcrumbs%}
+	{% endblock %}
 	/ 
-	{{ entry.name }}
+	<a href="{{ path(basePath ~ mainPath ~ '_show', { id: entry.id }) }}">
+		{{ title|trans }}
+	</a>
+	
 {% endblock %}

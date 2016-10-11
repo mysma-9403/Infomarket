@@ -6,10 +6,10 @@
 {% block mainContent %}
 	<div class="row">
 		<div class="col-xs-12">
-			{% for branch in branches %}
+			{% for branch in menuBranches %}
 			
 				{% set show = false %}
-				{% for category in categories %}
+				{% for category in entries %}
 					{% for branchCategoryAssignment in category.branchCategoryAssignments if show == false %}
 						{% if branchCategoryAssignment.branch.id == branch.id %}
 							{% set show = true %}
@@ -24,7 +24,8 @@
 							<h2>{{ branch.name | raw }}</h2>
 							
 							{% set limit = 8 %}
-							{% for category in categories if limitCategories == false or limit > 0 %}
+							{% set limitCategories = false %}
+							{% for category in entries if limitCategories == false or limit > 0 %}
 								
 								{% set show = false %}
 								{% for branchCategoryAssignment in category.branchCategoryAssignments if show == false %}

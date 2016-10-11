@@ -3,6 +3,16 @@
 		{% set alternate = false %}
 	{% endif %}
 	
+	{% if routeParams is not defined %}
+		{% set routeParams = { 'id': entry.id } %}
+	{% else %}
+		{% set routeParams = routeParams|merge({ 'id': entry.id }) %}
+	{% endif %}
+	
+	{% if entryPath is not defined %}
+		{% set entryPath = mainPath %}
+	{% endif %}
+	
 	{% if bkgPrimary is not defined %}
 		{% set bkgPrimary = 'bkg-brand' %}
 	{% endif %}
@@ -10,7 +20,7 @@
 		{% set bkgSecondary = 'bkg-red' %}
 	{% endif %}
 	
-	<a class="text-white" href="{{ path('infoprodukt_' ~ entryPath ~ '_show', routeParams|merge({ 'id': entry.id }) ) }}">
+	<a class="text-white" href="{{ path(basePath ~ entryPath ~ '_show', routeParams) }}">
 		<div class="row">
 		<div class="rect bkg-white">
 			{% if entry.image %}

@@ -69,14 +69,14 @@ class SimpleEntityFilter extends BaseEntityFilter {
 	
 	/**
 	 * 
-	 * @var boolean
+	 * @var bool
 	 */
 	protected $addNameDecorators;
 	
 	/**
 	 * Set addNameDecorators
 	 *
-	 * @param string $addNameDecorators
+	 * @param bool $addNameDecorators
 	 *
 	 * @return SimpleEntityFilter
 	 */
@@ -90,7 +90,7 @@ class SimpleEntityFilter extends BaseEntityFilter {
 	/**
 	 * Get addNameDecorators
 	 *
-	 * @return string
+	 * @return bool
 	 */
 	public function getAddNameDecorators()
 	{

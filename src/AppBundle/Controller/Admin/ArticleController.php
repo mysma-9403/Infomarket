@@ -5,22 +5,23 @@ namespace AppBundle\Controller\Admin;
 use AppBundle\Controller\Admin\Base\ImageEntityController;
 use AppBundle\Controller\Admin\Base\SimpleEntityController;
 use AppBundle\Entity\Article;
-use AppBundle\Entity\ArticleCategory;
-use AppBundle\Entity\Category;
-use AppBundle\Entity\Filter\ArticleFilter;
 use AppBundle\Form\ArticleType;
 use AppBundle\Form\Filter\ArticleFilterType;
+use AppBundle\Manager\Entity\Common\ArticleManager;
+use AppBundle\Manager\Filter\Common\ArticleFilterManager;
 use Symfony\Component\HttpFoundation\Request;
-use AppBundle\Entity\Brand;
-use AppBundle\Entity\Tag;
-use AppBundle\Entity\User;
 
 class ArticleController extends ImageEntityController {
 	
+	//---------------------------------------------------------------------------
+	// Actions
+	//---------------------------------------------------------------------------
 	/**
 	 * 
 	 * @param Request $request
-	 * @param unknown $page
+	 * @param integer $page
+	 * 
+	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
 	 */
 	public function indexAction(Request $request, $page)
 	{
@@ -30,7 +31,9 @@ class ArticleController extends ImageEntityController {
 	/**
 	 * 
 	 * @param Request $request
-	 * @param unknown $id
+	 * @param integer $id
+	 * 
+	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
 	 */
 	public function showAction(Request $request, $id)
 	{
@@ -38,9 +41,10 @@ class ArticleController extends ImageEntityController {
 	}
 	
 	/**
-	 *
+	 * 
 	 * @param Request $request
-	 * @param unknown $id
+	 * 
+	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
 	 */
 	public function newAction(Request $request)
 	{
@@ -48,9 +52,11 @@ class ArticleController extends ImageEntityController {
 	}
 	
 	/**
-	 *
+	 * 
 	 * @param Request $request
-	 * @param unknown $id
+	 * @param integer $id
+	 * 
+	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
 	 */
 	public function copyAction(Request $request, $id)
 	{
@@ -58,9 +64,11 @@ class ArticleController extends ImageEntityController {
 	}
 	
 	/**
-	 *
+	 * 
 	 * @param Request $request
-	 * @param unknown $id
+	 * @param integer $id
+	 * 
+	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
 	 */
 	public function editAction(Request $request, $id)
 	{
@@ -70,7 +78,8 @@ class ArticleController extends ImageEntityController {
 	/**
 	 * 
 	 * @param Request $request
-	 * @param unknown $id
+	 * @param integer $id
+	 * 
 	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
 	 */
 	public function deleteAction(Request $request, $id)
@@ -81,7 +90,9 @@ class ArticleController extends ImageEntityController {
 	/**
 	 * 
 	 * @param Request $request
-	 * @param unknown $id
+	 * @param integer $id
+	 * 
+	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
 	 */
 	public function setPublishedAction(Request $request, $id)
 	{
@@ -91,23 +102,31 @@ class ArticleController extends ImageEntityController {
 	/**
 	 * 
 	 * @param Request $request
-	 * @param unknown $id
+	 * @param integer $id
+	 * 
+	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
 	 */
 	public function setFeaturedAction(Request $request, $id)
 	{
 		return $this->setFeaturedActionInternal($request, $id);
 	}
 	
+	/**
+	 * 
+	 * @param Request $request
+	 * @param integer $id
+	 * 
+	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
+	 */
 	public function previewAction(Request $request, $id)
 	{
 		return $this->previewActionInternal($request, $id);
 	}
 	
 	
-	
-	//------------------------------------------------------------------------
-	// Internal logic
-	//------------------------------------------------------------------------
+	//---------------------------------------------------------------------------
+	// Internal actions
+	//---------------------------------------------------------------------------
 	
 	/**
 	 *
@@ -118,10 +137,30 @@ class ArticleController extends ImageEntityController {
 	 */
 	protected function previewActionInternal(Request $request, $id)
 	{
-		$params = $this->getPreviewParams($request, $id);
-		return $this->render($this->getPreviewView(), $params);
+		$params = $this->createParams($this->getPreviewRoute());
+		$params = $this->getShowParams($request, $params, $id);
+	
+		$rm = $this->getRouteManager();
+		$rm->register($request, $params['route'], $params['routeParams']);
+	
+		return $this->render($this->getPreviewView(), $params['viewParams']);
 	}
 	
+	//---------------------------------------------------------------------------
+	// Managers
+	//---------------------------------------------------------------------------
+	
+	protected function getEntityManager($doctrine, $paginator) {
+		return new ArticleManager($doctrine, $paginator);
+	}
+	
+	protected function getFilterManager($doctrine) {
+		return new ArticleFilterManager($doctrine);
+	}
+	
+	//---------------------------------------------------------------------------
+	// Internal logic
+	//---------------------------------------------------------------------------
 	/**
 	 *
 	 * {@inheritDoc}
@@ -160,84 +199,8 @@ class ArticleController extends ImageEntityController {
 		return array();
 	}
 	
-	protected function getPreviewParams(Request $request, $id)
-	{
-		$params = array();
-		 
-		$routeParams = array('id' => $id);
-		$this->registerRequest($request, $this->getPreviewRoute(), $routeParams);
-		 
-		$repository = $this->getEntityRepository();
-		$entry = $repository->find($id);
-		$params['entry'] = $entry;
-		 
-		$params = array_merge($params, $this->getRoutingParams($request));
-		return $params;
-	}
-	
 	//------------------------------------------------------------------------
-	// Entity creators
-	//------------------------------------------------------------------------
-	
-	/**
-	 * 
-	 * {@inheritDoc}
-	 * @see \AppBundle\Controller\Admin\Base\SimpleEntityController::createNewEntity()
-	 */
-	protected function createNewEntity(Request $request) {
-		$entity = new Article();
-		
-		$parent = $this->getParamByNameId($request, Article::class, 'parent', null);
-		if($parent) {
-			$entity->setParent($parent);
-		}
-		
-		return $entity;
-	}
-	
-	/**
-	 * 
-	 * {@inheritDoc}
-	 * @see \AppBundle\Controller\Admin\Base\SimpleEntityController::createFromTemplate()
-	 */
-	protected function createFromTemplate(Request $request, $template) {
-		$entry = parent::createFromTemplate($request, $template);
-	
-		$entry->setSubname($template->getSubname());
-		$entry->setFeatured($template->getFeatured());
-		
-		$entry->setIntro($template->getIntro());
-		$entry->setContent($template->getContent());
-		
-		$entry->setParent($template->getParent());
-		$entry->setOrderNumber($template->getOrderNumber());
-		$entry->setLayout($template->getLayout());
-		$entry->setDisplaySided($template->getDisplaySided());
-	
-		return $entry;
-	}
-	
-	/**
-	 * 
-	 * {@inheritDoc}
-	 * @see \AppBundle\Controller\Admin\Base\SimpleEntityController::createNewFilter()
-	 */
-	protected function createNewFilter() {
-		$userRepository = $this->getDoctrine()->getRepository(User::class);
-		$articleCategoryRepository = $this->getDoctrine()->getRepository(ArticleCategory::class);
-		$categoryRepository = $this->getDoctrine()->getRepository(Category::class);
-		$brandRepository = $this->getDoctrine()->getRepository(Brand::class);
-		$tagRepository = $this->getDoctrine()->getRepository(Tag::class);
-		
-		$filter = new ArticleFilter($userRepository, $articleCategoryRepository, $categoryRepository, $brandRepository, $tagRepository);
-		$filter->setOrderBy('e.createdAt DESC');
-		
-		return $filter;
-	}
-	
-	
-	//------------------------------------------------------------------------
-	// Entity types
+	// Entity type related
 	//------------------------------------------------------------------------
 	
 	/**
@@ -251,7 +214,7 @@ class ArticleController extends ImageEntityController {
 	
 	
 	//------------------------------------------------------------------------
-	// Form types
+	// Forms
 	//------------------------------------------------------------------------
 	
 	/**
@@ -272,13 +235,19 @@ class ArticleController extends ImageEntityController {
 		return ArticleFilterType::class;
 	}
 	
+	//---------------------------------------------------------------------------
+	// Views
+	//---------------------------------------------------------------------------
+	protected function getPreviewView()
+	{
+		return $this->getDomain() . '/' . $this->getEntityName() . '/preview.html.twig';
+	}
+	
+	//---------------------------------------------------------------------------
+	// Routes
+	//---------------------------------------------------------------------------
 	protected function getPreviewRoute()
 	{
 		return $this->getIndexRoute() . '_preview';
-	}
-	
-	protected function getPreviewView()
-	{
-		return $this->getBaseName() . '/' . $this->getEntityName() . '/preview.html.twig';
 	}
 }
