@@ -5,8 +5,9 @@ namespace AppBundle\Form;
 use AppBundle\Entity\ArticleCategory;
 use AppBundle\Form\Base\ImageEntityType;
 use AppBundle\Form\Base\SimpleEntityType;
-use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\FormBuilderInterface;
 
 class ArticleCategoryType extends ImageEntityType
 {
@@ -19,6 +20,9 @@ class ArticleCategoryType extends ImageEntityType
 		
 		$builder
 			->add('featured', null, array(
+					'required' => false
+			))
+			->add('subname', TextType::class, array(
 					'required' => false
 			))
 			->add('orderNumber', NumberType::class, array(

@@ -1,0 +1,18 @@
+{% set col = col|default('col-sm-2') %}
+
+<div class="{{ col }} padding-5">
+	<a class="text-white" href="{{ path(basePath ~ 'category_show', { id: entry.children.first.id, category: entry.id }) }}">
+		<div class="rect col-bottom bkg-white">
+			{% if entry.image %}
+				<img class="div-center img-{{ entry.vertical ? '' : 'v' }}responsive" 
+					alt="{{ entry.name | raw }}" src="{{ asset(entry.getImagePath()) }}">
+			{% endif %}
+			
+			<div class="col-xs-12 bkg-red">
+				<h5 class="title text-center padding-5">
+					{{ 'label.ratings'|trans|upper }}
+				</h5>
+			</div>
+		</div>
+	</a>
+</div>

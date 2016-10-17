@@ -103,6 +103,13 @@ h2.title {
 .title {
 	padding-top: 0px;
 	margin-top: 0px;
+	padding-bottom: 0px;
+	margin-bottom: 0px;
+}
+
+.subtitle {
+	padding-top: 0px;
+	margin-top: 0px;
 }
 
 .rect-title {
@@ -119,7 +126,7 @@ h2.title {
 .rect-subtitle {
 	padding-left: 2px;
 	padding-right: 2px;
-	height: 56px;
+	height: 20px;
 }
 
 .rect-subtitle h4 {
@@ -135,6 +142,21 @@ h2.title {
 	height: 36px;
 }
 
+
+
+.default-tile .title {
+	padding-top: 4px;
+	margin-top: 4px;
+	padding-bottom: 2px;
+	margin-bottom: 2px;
+}
+
+.default-tile .subtitle {
+	padding-top: 2px;
+	margin-top: 2px;
+	padding-bottom: 2px;
+	margin-bottom: 2px;
+}
 
 
 
@@ -197,8 +219,16 @@ a.text-white:hover {
 	background-color: @red;
 }
 
+.bkg-red-50 {
+	background-color: rgba(202, 3, 36, 0.5);
+}
+
 .bkg-brand {
 	background-color: @brand-primary;
+}
+
+.bkg-brand-50 {
+	background-color: rgba(0, 67, 115, 0.5);
 }
 
 .bkg-lime-green {
@@ -257,6 +287,11 @@ a.text-white:hover {
 .no-bottom-padding {
 	margin-bottom: 0 !important;
 	padding-bottom: 0 !important;
+}
+
+.padding-5 {
+	margins: 5px;
+	padding: 5px;
 }
 
 
@@ -446,6 +481,16 @@ body {
 
 
 
+
+a:hover .text-red,
+a:focus .text-red {
+	color: @white;
+}
+
+a:hover .text-white,
+a:focus .text-white {
+	color: @red;
+}
 
 .tile a {
 	color: @gray-lighter;

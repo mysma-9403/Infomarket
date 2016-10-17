@@ -14,6 +14,9 @@ use AppBundle\Manager\Params\Infoprodukt\InfoproduktParamsManager;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Manager\Filter\Infoprodukt\Base\InfoproduktFilterManager;
+use AppBundle\Entity\Base\SimpleEntity;
+use AppBundle\Form\Base\SimpleEntityType;
+use AppBundle\Form\Filter\Base\SearchFilterType;
 
 abstract class InfoproduktController extends BaseEntityController
 {	
@@ -45,6 +48,9 @@ abstract class InfoproduktController extends BaseEntityController
 		
 		
 		$userRepository = $this->getDoctrine()->getRepository(User::class);
+		
+		
+		
 		$searchFilter = new SimpleEntityFilter($userRepository);
 		$searchFilter->initValues($request);
 		
@@ -58,6 +64,19 @@ abstract class InfoproduktController extends BaseEntityController
 		}
 		$viewParams['searchFilterForm'] = $searchFilterForm->createView();
 		
+		
+		
+		$newsletter = new SimpleEntity();
+		
+		$newsletterForm = $this->createForm(SimpleEntityType::class, $newsletter);
+		$newsletterForm->handleRequest($request);
+		
+		if ($newsletterForm->isSubmitted() && $newsletterForm->isValid()) {
+			if ($newsletterForm->get('save')->isClicked()) {
+				//TODO return $this->redirectToRoute($this->getSearchRoute(), $searchFilter->getValues());
+			}
+		}
+		$viewParams['newsletterForm'] = $newsletterForm->createView();
 		
 		
 		
@@ -87,10 +106,13 @@ abstract class InfoproduktController extends BaseEntityController
 		$viewParams = $params['viewParams'];
 		
 		$userRepository = $this->getDoctrine()->getRepository(User::class);
+		
+		
+		
 		$searchFilter = new SimpleEntityFilter($userRepository);
 		$searchFilter->initValues($request);
 		
-		$searchFilterForm = $this->createForm(SimpleEntityFilterType::class, $searchFilter);
+		$searchFilterForm = $this->createForm(SearchFilterType::class, $searchFilter);
 		$searchFilterForm->handleRequest($request);
 		
 		if ($searchFilterForm->isSubmitted() && $searchFilterForm->isValid()) {
@@ -99,6 +121,20 @@ abstract class InfoproduktController extends BaseEntityController
 			}
 		}
 		$viewParams['searchFilterForm'] = $searchFilterForm->createView();
+		
+		
+		
+		$newsletter = new SimpleEntity();
+		
+		$newsletterForm = $this->createForm(SimpleEntityType::class, $newsletter);
+		$newsletterForm->handleRequest($request);
+		
+		if ($newsletterForm->isSubmitted() && $newsletterForm->isValid()) {
+			if ($newsletterForm->get('save')->isClicked()) {
+				//TODO return $this->redirectToRoute($this->getSearchRoute(), $searchFilter->getValues());
+			}
+		}
+		$viewParams['newsletterForm'] = $newsletterForm->createView();
 	
 		
 		

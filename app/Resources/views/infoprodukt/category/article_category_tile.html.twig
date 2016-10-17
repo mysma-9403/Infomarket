@@ -1,0 +1,25 @@
+{% set col = col|default('col-sm-2') %}
+
+<div class="{{ col }} padding-5">
+	{% if articles|length == 1 %}
+		<a class="text-white" href="{{ path(basePath ~ 'article_show', 
+			{ id: articles|first.id, category: entry.id, articleCategory: articleCategory.id }) }}">
+	{% else %}
+		<a class="text-white" href="{{ path(basePath ~ 'article', 
+			{ category: entry.id, articleCategory: articleCategory.id }) }}">
+	{% endif %}
+		<div class="rect col-bottom bkg-white">
+			{% if articleCategory.image %}
+				<img class="div-center img-{{ articleCategory.vertical ? '' : 'v' }}responsive" 
+					alt="{{ articleCategory.name | raw }}" src="{{ asset(articleCategory.getImagePath()) }}">
+			{% endif %}
+			
+			<div class="col-xs-12 bkg-red">
+				<h5 class="title text-center padding-5">
+					{{ articleCategory.name | upper }}
+					{{ articleCategory.subname | upper}}
+				</h5>
+			</div>
+		</div>
+	</a>
+</div>

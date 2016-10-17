@@ -123,4 +123,33 @@ class ArticleCategory extends ImageEntity
     {
         return $this->orderNumber;
     }
+    /**
+     * @var string
+     */
+    private $subname;
+
+
+    /**
+     * Set subname
+     *
+     * @param string $subname
+     *
+     * @return ArticleCategory
+     */
+    public function setSubname($subname)
+    {
+        $this->subname = $subname;
+
+        return $this;
+    }
+
+    /**
+     * Get subname
+     *
+     * @return string
+     */
+    public function getSubname()
+    {
+        return $this->subname;
+    }
 }

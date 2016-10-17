@@ -4,6 +4,14 @@
 {% set title = 'title.article_categories'|trans %}
 {% set gender = 'fm.' %}
 
+{% block moreFields2 %}
+	<div class="row">
+		<div class="col-xs-12">
+			<h4>{{ entry.subname | raw }}</h4>
+		</div>
+	</div>
+{% endblock %}
+
 {% block moreFields3 %}
 	<div class="row">
 		<div class="col-xs-12 col-sm-6 col-md-3">

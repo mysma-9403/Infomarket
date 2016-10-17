@@ -9,6 +9,7 @@
         table="article_categories"
         repository-class="AppBundle\Repository\ArticleCategoryRepository">
         
+        <field name="subname" type="string" length="64" nullable="true"/>
         <field name="featured" type="boolean" default="false" />
         
         <field name="orderNumber" type="integer" default="0" />

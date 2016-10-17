@@ -4,14 +4,13 @@ namespace AppBundle\Entity\Filter;
 
 use AppBundle\Entity\Filter\Base\SimpleEntityFilter;
 use AppBundle;
+use AppBundle\Entity\Brand;
 use AppBundle\Entity\ProductCategoryAssignment;
 use AppBundle\Repository\BrandRepository;
 use AppBundle\Repository\CategoryRepository;
 use AppBundle\Repository\SegmentRepository;
-use Symfony\Component\HttpFoundation\Request;
-use AppBundle\Entity\Brand;
 use AppBundle\Repository\UserRepository;
-use Cache\Adapter\Common\Exception\InvalidArgumentException;
+use Symfony\Component\HttpFoundation\Request;
 
 class ProductFilter extends SimpleEntityFilter {
 

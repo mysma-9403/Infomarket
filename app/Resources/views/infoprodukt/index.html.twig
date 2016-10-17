@@ -70,12 +70,10 @@
 									<li>
 										<div class='input-group input-sm'>
 											{{ form_widget(searchFilterForm.name, { 'label': 'label.name', 'attr': { 'class': 'input-sm' }  }) }}
-											<span class="input-group-addon input-sm"><i class="fa fa-search"></i></span>
+											<span class="input-group-btn">
+												{{ form_widget(searchFilterForm.search, { 'icon': 'fa fa-search', 'label': ' ', 'attr': { 'class': 'input-sm btn-danger' }  }) }}
+									      	</span>
 										</div>
-									</li>
-									
-									<li class="hidden">
-										{{ form_widget(searchFilterForm.search, { 'icon': 'fa-search', 'label': '', 'attr': {'class': 'btn btn-primary'} }) }}
 									</li>
 									
 									<li class="hidden"> {{ form_widget(searchFilterForm.clear) }} </li>
@@ -135,27 +133,68 @@
 	<div class="container-fluid content">
 		{% block content %}
 		{% endblock %}
+		
+		{% block contact %}
+			<div class="container">
+				
+				<div class="row">
+					<div class="col-sm-8 no-padding">
+						<h4 class="title padding-5">
+							<span class="text-red">{{ 'header.contact.1'|trans }}</span> 
+							<span class="text-brand">{{ 'header.contact.2'|trans }}</span>
+						</h4>
+						
+						<p class="padding-5">
+							<a href="http://krk.infoprodukt.pl">
+								<img src="{{ asset('img/template/twitter.png') }}">
+							</a>
+							<a href="http://www.facebook.com/infomarket1">
+								<img src="{{ asset('img/template/facebook.png') }}">
+							</a>
+							<a href="https://www.youtube.com/channel/UCpH2PHKAxnNlX-zSgJXyjpA">
+								<img src="{{ asset('img/template/youtube.png') }}">
+							</a>
+						</p>
+					</div>
+					
+					<div class="col-sm-4 no-padding">
+						<h4 class="title">
+							<span class="text-red">{{ 'header.newsletter.1'|trans }}</span> 
+							<span class="text-brand">{{ 'header.newsletter.2'|trans }}</span>
+						</h4>
+						
+						<div class="row">
+							<div class="col-xs-12 padding-5">
+								{% form_theme searchFilterForm 'form/fields.html.twig' %}
+								
+								{{ form_start(newsletterForm) }}
+									<ul class="list-inline">
+										<li>
+											<div class='input-group input-sm'>
+												{{ form_widget(newsletterForm.name, { 'label': 'label.name', 'attr': { 'class': 'input-sm' }  }) }}
+												<span class="input-group-btn">
+													{{ form_widget(newsletterForm.save, { 'label': 'action.save', 'attr': { 'class': 'input-sm btn-danger' }  }) }}
+										      	</span>
+											</div>
+										</li>
+										<li class="hidden"> {{ form_widget(newsletterForm.published) }} </li>
+									</ul>
+								{{ form_end(newsletterForm) }}
+							</div>
+				  		</div>
+				  		
+				  		<h5 class="text-right text-brand title padding-5">&copy; {{ 'title.footer.copyright'|trans }}</h5>
+					</div>
+				</div>
+			</div>    
+		{% endblock %}
 	</div>
 	
 	{% block footer %}
 		<div class="footer">
 	  		<div class="container-fluid">
 		    	<div class="container">
-		    		<div class="row">
-		      			<div class="col-sm-3">
-		      			</div>
-		      			<div class="col-sm-6">
-		      				<h5 class="text-xs-center">&copy; {{ 'title.footer.copyright'|trans }}</h5>
-		      			</div>
-		      			<div class="col-sm-3">
-		      				<h5 class="text-xs-center text-sm-left">
-		      					<a href="http://www.facebook.com/infomarket1"><i class="fa fa-facebook"></i></a> 
-		      					<a href="https://www.youtube.com/channel/UCpH2PHKAxnNlX-zSgJXyjpA"><i class="fa fa-youtube"></i></a> 
-		      					<a href="http://infomarket.edu.loc:8000" class="title">IM</a> 
-	      					</h5>
-		      			</div>
-		      		</div>
-		      		
+		    	
 		      		<div class="row">
 			      		<div class="col-sm-3">
 			      			<h5>InfoMarket Sp. z o.o.</h5>

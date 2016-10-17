@@ -31,7 +31,13 @@ class AdvertController extends BaseController
 		
 		$this->saveEntry($entry);
 		
-		return $this->redirect($request->getScheme() . '://' . $entry->getLink());
+		$scheme = $request->getScheme() . '://';
+		
+		$link = $entry->getLink();
+		$link = str_replace('http://', '', $link);
+		$link = str_replace('https://', '', $link);
+		
+		return $this->redirect($scheme . $link);
 	}
 	
 	protected function saveEntry($entry) {

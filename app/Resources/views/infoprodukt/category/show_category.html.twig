@@ -8,9 +8,9 @@
 		<div class="col-xs-12 div-bottom bkg-black-50 text-white">
 			<div class="container lifted-bottom">
 				<div class="row">
-					<div class="col-xs-12">
-						<h3>{{ entry.name | raw}} {{ 'label.category.subtitle'|trans }}</h3>
-					</div>
+					<h3 class="padding-5">
+						{{ entry.name | raw}} {{ 'label.category.subtitle'|trans }}
+					</h3>
 				</div>
 			</div>
 		</div>
@@ -19,167 +19,232 @@
 	{% block categories %}
 	<div class="container">
 		<div class="row lifted-top">
-			<div class="col-xs-12">
-				{% for subentry in entry.children %}
-					<div class="col-sm-3">
-						{% include 'common/bottom_rect_tile.html.twig' with {entry: subentry, entryPath: 'category', routeParams: { category: subentry.id } } %}
-					</div>
-				{% else %}
-					<p>{{ 'label.noEntries'|trans }}</p>
-				{% endfor %}
-			</div>
+			{% for subentry in entry.children %}
+				<div class="col-sm-2 padding-5">
+					{% include 'common/bottom_rect_tile.html.twig' with {entry: subentry, entryPath: 'category', routeParams: { category: subentry.id } } %}
+				</div>
+			{% else %}
+				<p>{{ 'label.noEntries'|trans }}</p>
+			{% endfor %}
 		</div>
 	</div>
 	{% endblock %}
 </div>
 
-<div class="vr-space-40"></div>
-
-{% block featuredNews %}
+{% block mainArticles %}
 	<div class="container">
-		<h2 class="text-center">
-			<span class="text-red">{{ 'header.articles'|trans }}</span> 
-			<span class="text-brand">{{ 'header.news'|trans }}</span>
-		</h2>
-	</div>
+		<div class="row">
+			<h4 class="title padding-5">
+				<span class="text-red">{{ mainCategory.name }}</span> 
+				<span class="text-brand">{{ mainCategory.subname }}</span>
+			</h4>
+		</div>
 		
-	<div class="vr-space-20"></div>
-	
-	<div class="row">
-		<div id="myCarousel" class="carousel slide" data-ride="carousel">
-			<ol class="carousel-indicators">
-			    {% for article in articles|slice(0,3)%}
-		    		<li data-target="#myCarousel" data-slide-to="{{ loop.index-1 }}" class="{{ loop.index == 1 ? 'active' : '' }}"></li>
-			    {% endfor %}
-		  	</ol>
-		  	
-		  	<div class="carousel-inner" role="listbox">
-				{% for article in articles|slice(0,3)%}
-		    		<div class="item rect-3x1 {{ loop.index == 1 ? 'active' : '' }}">
-				    	<div class="div-center bkg-white">
-				    		{% if article.image %}
-					    		<img class="img-{{ article.vertical ? '' : 'v' }}responsive" 
-					    			alt="{{ article.name | raw }}" src="{{ asset(article.getImagePath()) }}">
-			    			{% endif %}
-		      			</div>
-		      			
-		      			<div class="col-xs-12 div-bottom bkg-black-50">
-							<div class="rect-10x1">
-								<div class="div-hcenter div-top">
-					      			<a class="text-white" href="{{ path('infoprodukt_article_show', { id: article.id, category: entry.id }) }}">
-						      			<h2 class="text-center">
+		<div class="row">	
+			{% block magazine %}
+				<div class="col-sm-2 col-sm-push-10 padding-5">
+					{% if entry.magazine %}
+						<a href="{{ asset(entry.magazine.magazineFile) }}">
+							{% if entry.magazine.image %}
+								<div class="col-xs-12 bkg-red padding-5">
+					  				<img class="img-{{ entry.magazine.vertical ? '' : 'v' }}responsive" 
+					    				alt="{{ entry.magazine.name | raw }}" src="{{ asset(entry.magazine.getImagePath()) }}">
+			    				</div>
+		    				{% endif %}
+		    				<div class="col-xs-12 bkg-brand padding-5">
+		    					<h3 class="title text-center">
+		    						<span class="text-red">Pobierz</span>
+		    						<span class="text-white">aktualny numer</span>
+		    					</h3>
+		    				</div>
+				  		</a>
+			  		{% endif %}
+				</div>
+			{% endblock %}
+			
+			{% for article in mainArticles | slice(0,5) %}
+				<div class="col-sm-2 col-sm-pull-2 padding-5">
+					<a class="text-white" href="{{ path(basePath ~ 'article_show', { id: article.id, category: entry.id }) }}">
+						<div class="rect col-bottom bkg-white">
+							{% if article.image %}
+								<img class="div-center img-{{ article.vertical ? '' : 'v' }}responsive" 
+									alt="{{ article.name | raw }}" src="{{ asset(article.getImagePath()) }}">
+							{% endif %}
+							
+							<div class="col-xs-12 div-bottom bkg-black-50">
+								<div class="rect-2x1 default-tile">
+									<div class="div-top">
+										<h5 class="title">
 											{% for articleBrandAssignment in article.articleBrandAssignments %}
 							      				{{ articleBrandAssignment.brand.name }} 
 						      				{% endfor %}
-					      				</h2>
-						      			<h3 class="text-center">
-						      				{{ article.name | raw }} {{ article.subname }}
-					      				</h3>
-						      		</a>
-					      		</div>
-				      		</div>
-			      		</div>
-				    </div>
-			    {% endfor %}
-		  	</div>
-	  	</div>
-	</div>
-{% endblock %}
-
-<div class="vr-space-40"></div>
-
-{% block news %}
-<div class="container">
-	<div class="row">
-		<div class="col-xs-12">
-			<div class="row no-padding">
-				{% for article in articles | slice(3,4) %}
-					<div class="col-sm-3">
-						<div class="row">
-							<a class="text-white" href="{{ path(basePath ~ 'article_show', { id: article.id, category: entry.id }) }}">
-								<div class="rect col-bottom bkg-white">
-									{% if article.image %}
-										<img class="div-center img-{{ article.vertical ? '' : 'v' }}responsive" 
-											alt="{{ article.name | raw }}" src="{{ asset(article.getImagePath()) }}">
-									{% endif %}
-									
-									<div class="col-xs-12 div-bottom bkg-black-50">
-										<div class="rect-2x1">
-											<div class="div-top">
-												<h4>
-													{% for articleBrandAssignment in article.articleBrandAssignments %}
-									      				{{ articleBrandAssignment.brand.name }} 
-								      				{% endfor %}
-							      				</h4>
-												<h5>
-													{{ article.getHtmlName() | raw }}
-												</h5>
-											</div>
-										</div>
+						      				&nbsp
+					      				</h5>
+										<h5 class="subtitle">
+											{{ article.name | raw }}
+										</h5>
 									</div>
 								</div>
-							</a>
+							</div>
 						</div>
-					</div>
-				{% endfor %}
+					</a>
+				</div>
+			{% endfor %}
+			
+			{% for article in mainArticles | slice(5,10) %}
+				<div class="col-sm-2 col-sm-pull-2 padding-5">
+					<a class="text-white" href="{{ path(basePath ~ 'article_show', { id: article.id, category: entry.id }) }}">
+						<div class="rect col-bottom bkg-white">
+							{% if article.image %}
+								<img class="div-center img-{{ article.vertical ? '' : 'v' }}responsive" 
+									alt="{{ article.name | raw }}" src="{{ asset(article.getImagePath()) }}">
+							{% endif %}
+							
+							<div class="col-xs-12 div-bottom bkg-black-50">
+								<div class="rect-2x1 default-tile">
+									<div class="div-top">
+										<h5 class="title">
+											{% for articleBrandAssignment in article.articleBrandAssignments %}
+							      				{{ articleBrandAssignment.brand.name }} 
+						      				{% endfor %}
+						      				&nbsp
+					      				</h5>
+										<h5 class="subtitle">
+											{{ article.name | raw }}
+										</h5>
+									</div>
+								</div>
+							</div>
+						</div>
+					</a>
+				</div>
+			{% endfor %}
+		</div>
+		
+		<div class="row">
+			<div class="col-sm-2 col-sm-push-10 padding-5">
+				<a href={{ path('infoprodukt_article', { category: entry.id }) }} class="text-red title no-padding">
+					{{ 'label.more'|trans }}
+				</a>
 			</div>
 		</div>
 	</div>
-</div>    
 {% endblock %}
 
-<div class="vr-space-40"></div>
-
-{% block articleCategoriesBlock %}
-<div class="container">
-	<div class="row">
-		<div class="col-xs-12">
-			<div class="row no-padding">
-				{% for articleCategory in article_categories | slice(0,4) %}
-					<div class="col-sm-3">
-						<div class="row">
-							<a class="text-white" href="{{ path('infoprodukt_article', 
-								{ category: entry.id, article_filter_article_categories: articleCategory.id }) }}">
-								<div class="rect bkg-white">
-									{% if articleCategory.image %}
-										<img class="div-center img-{{ articleCategory.vertical ? '' : 'v' }}responsive" 
-											alt="{{ articleCategory.name | raw }}" src="{{ asset(articleCategory.getImagePath()) }}">
-									{% endif %}
-								</div>
-								<div class="col-xs-12 rect-title {{ loop.index % 2 == 0 ? 'text-brand' : 'text-red' }}">
-									<h4 class="text-center">
-										{{ articleCategory.name | raw }}
-									</h4>
-								</div>
-							</a>
-						</div>
-					</div>
-				{% endfor %}
-			</div>
+{% block auxiliaryArticlesBlock %}
+	<div class="container">
+		<div class="row">
+			<h4 class="title padding-5">
+				<span class="text-red">{{ auxiliaryCategory.name }}</span> 
+				<span class="text-brand">{{ auxiliaryCategory.subname }}</span>
+			</h4>
 		</div>
-	</div>
-</div>
-{% endblock %}
-
-<div class="vr-space-10"></div>
-
-<div class="row text-center lowered">
-	<a href={{ path('infoprodukt_article', { category: entry.id }) }} class="btn btn-primary">{{ 'label.readMore'|trans }}</a>
-</div>
+		
+		<div class="row">
+			{% for article in auxiliaryArticles | slice(0,6) %}
+				<div class="col-sm-2 padding-5">
+					<a class="text-white" href="{{ path(basePath ~ 'article_show', { id: article.id, category: entry.id }) }}">
+						<div class="rect col-bottom bkg-white">
+							{% if article.image %}
+								<img class="div-center img-{{ article.vertical ? '' : 'v' }}responsive" 
+									alt="{{ article.name | raw }}" src="{{ asset(article.getImagePath()) }}">
+							{% endif %}
+							
+							<div class="col-xs-12 div-bottom bkg-red-50">
+								<div class="rect-2x1 default-tile">
+									<div class="div-top">
+										<h5 class="title">
+											{% for articleBrandAssignment in article.articleBrandAssignments %}
+							      				{{ articleBrandAssignment.brand.name }} 
+						      				{% endfor %}
+						      				&nbsp
+					      				</h5>
+										<h5 class="subtitle">
+											{{ article.name | raw }}
+										</h5>
+									</div>
+								</div>
+							</div>
+						</div>
+					</a>
+				</div>
+			{% endfor %}
+		</div>
+		
+		<div class="row">
+			{% include 'infoprodukt/category/article_category_tile.html.twig' with 
+				{ articleCategory: questionsCategory, articles: questionsArticles } %}
+			
+			{% include 'infoprodukt/category/ratings_tile.html.twig' %}
 				
-<div class="vr-space-40"></div>
+			{% include 'infoprodukt/category/article_category_tile.html.twig' with 
+				{ articleCategory: buildsCategory, articles: buildsArticles } %}
+				
+			{% include 'infoprodukt/category/article_category_tile.html.twig' with 
+				{ articleCategory: schemasCategory, articles: schemasArticles } %}
+				
+			{% include 'infoprodukt/category/article_category_tile.html.twig' with 
+				{ articleCategory: moviesCategory, articles: moviesArticles } %}
+				
+			{% include 'infoprodukt/category/article_category_tile.html.twig' with 
+				{ articleCategory: reviewsCategory, articles: reviewsArticles } %}
+		</div>
+		
+		<div class="row">
+			<div class="col-sm-2 col-sm-push-10 padding-5">
+				<a href={{ path('infoprodukt_article', { category: entry.id }) }} class="text-red">
+					<h5 class="title">{{ 'label.more'|trans }}</h5>
+				</a>
+			</div>
+		</div>
+	</div>    
+{% endblock %}
+
+{% block featuredBrands %}
+	<div class="container">
+		<div class="row bkg-black-50">
+			
+			<h4 class="title no-padding">
+				<span class="bkg-brand text-white">
+					&nbsp{{ 'header.featuredBrands.1'|trans }}&nbsp
+				</span><span class="bkg-red text-white">
+					&nbsp{{ 'header.featuredBrands.2'|trans }}&nbsp
+				</span>
+			</h4>
+			
+			{% for brand in brands | slice(0,6) %}
+				<div class="col-sm-2">
+					<a href={{ path(basePath ~ 'brand_show', { id: brand.id, category: entry.id }) }}>
+						<div class="rect">
+							<img class="div-center img-{{ brand.vertical ? 'v' : '' }}responsive" 
+								alt="{{ brand.name | raw }}" src="{{ asset(brand.getImagePath()) }}">
+						</div>
+					</a>
+				</div>
+			{% endfor %}
+		</div>
+	</div>    
+{% endblock %}
 
 {% block featuredAds %}
-	<div class="row">	
-		<div class="col-xs-12 no-padding">
-			
-			<div id="featuredAdsCarousel" class="carousel slide" data-ride="carousel">
-			  	<div class="carousel-inner" role="listbox">
-					{% for advert in featuredAds %}
-			    		<div class="item rect-3x1 {{ loop.index == 1 ? 'active' : '' }}">
-				    		{% include 'common/advert/advert_entry.html.twig' with { 'entry': advert } %}
-					    </div>
-				    {% endfor %}
+	<div class="container">
+		<div class="row">
+			<h4 class="title padding-5">
+				<span class="text-red">{{ 'header.featuredAds.1'|trans }}</span> 
+				<span class="text-brand">{{ 'header.featuredAds.2'|trans }}</span>
+			</h4>
+		</div>
+		
+		<div class="row">
+			<div class="col-xs-12 padding-5">
+				<div id="featuredAdsCarousel" class="carousel slide" data-ride="carousel">
+				  	<div class="carousel-inner" role="listbox">
+						{% for advert in featuredAds %}
+				    		<div class="item rect-3x1 {{ loop.index == 1 ? 'active' : '' }}">
+					    		{% include 'common/advert/advert_entry.html.twig' with { 'entry': advert } %}
+						    </div>
+					    {% endfor %}
+				  	</div>
 			  	</div>
 		  	</div>
 		  	
@@ -187,61 +252,28 @@
 	</div>
 {% endblock %}
 
-<div class="vr-space-40"></div>
-
-{% block promotions %}
-	{% if promotions|length > 0 %}
-		<div class="container">
-			<h2 class="text-center text-red">
-				{{ 'header.promotions'|trans }}
-			</h2>
-			
-			<div class="vr-space-10"></div>
-			
-			<div class="row">
-				<div class="col-xs-12">
-					<div class="row no-padding">
-						{% include 'common/tile_list.html.twig' with {'entries': promotions, 'entryPath': 'article', 
-							routeParams: { article_filter_article_categories: 1 }, 'colSize': 3, 'limit': 4} %}
-					</div>
-					
-					<div class="row text-center lowered">
-						<a href={{ path('infoprodukt_article', { category: entry.id, article_filter_article_categories: 1 }) }} class="btn btn-primary">{{ 'label.showMore'|trans }}</a>
-					</div>
-				</div>
-			</div>
-		</div>
-	{% endif %}
+{% block productsArticlesBlock %}
+	{% include 'infoprodukt/category/article_category_articles.html.twig' with 
+		{ category: productsCategory, articles: productsArticles, bkgColor: 'bkg-brand-50' } %}
 {% endblock %}
 
-<div class="vr-space-40"></div>
+{% block promotionsArticlesBlock %}
+	{% include 'infoprodukt/category/article_category_articles.html.twig' with 
+		{ category: promotionsCategory, articles: promotionsArticles, bkgColor: 'bkg-red-50' } %}
+{% endblock %}
 
-{% if entry.magazine %}
-	{% block magazine %}
-	<div class="row bkg-black-50">
-		<div class="container">
-			<div class="row">
-				<div class="col-sm-3">
-			  		<a href="{{ asset(entry.magazine.magazineFile) }}">
-			  			{% if entry.magazine.image %}
-			  				<img class="img-{{ entry.magazine.vertical ? '' : 'v' }}responsive" 
-			    				alt="{{ entry.magazine.name | raw }}" src="{{ asset(entry.magazine.getImagePath()) }}">
-	    				{% endif %}
-			  		</a>
-			  	</div>
-			  	<div class="col-sm-6 text-white">
-			  		<h2>{{ entry.magazine.name }}</h2>
-			  		<p>{{ entry.magazine.content|raw }}</p>
-			  		
-			  		<div class="vr-space-40"></div>
-			  		
-			  		<h2>Newsletter</h2>
-			  		<p>Zapisz sie do naszego newslettera! Nie omina cie najnowsze informacje z branzy agd, rtv, costam costam.</p>
-			  		<input />
-			  		<a href="#" class="btn btn-danger">{{ 'action.save'|trans }}</a>
-			  	</div>
-		  	</div>
-	  	</div>
-  	</div>
-	{% endblock %}
-{% endif %}
+
+{% block usefulItemsBlock %}
+	<div class="container">
+		<div class="row">
+			<h4 class="title padding-5">
+				<span class="text-red">{{ 'header.usefulItems.1'|trans }}</span> 
+				<span class="text-brand">{{ 'header.usefulItems.2'|trans }}</span>
+			</h4>
+		</div>
+		
+		<br>
+		<br>
+		<br>
+	</div>    
+{% endblock %}

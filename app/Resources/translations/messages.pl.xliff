@@ -260,6 +260,56 @@
             
             
             
+            
+            
+            <trans-unit id="header.featuredBrands.1">
+                <source>header.featuredBrands.1</source>
+                <target>MARKI</target>
+            </trans-unit>
+            <trans-unit id="header.featuredBrands.2">
+                <source>header.featuredBrands.2</source>
+                <target>REKOMENDOWANE</target>
+            </trans-unit>
+            
+            <trans-unit id="header.featuredAds.1">
+                <source>header.featuredAds.1</source>
+                <target>Sekcja</target>
+            </trans-unit>
+            <trans-unit id="header.featuredAds.2">
+                <source>header.featuredAds.2</source>
+                <target>reklamowa</target>
+            </trans-unit>
+            
+            <trans-unit id="header.usefulItems.1">
+                <source>header.usefulItems.1</source>
+                <target>Przydatne</target>
+            </trans-unit>
+            <trans-unit id="header.usefulItems.2">
+                <source>header.usefulItems.2</source>
+                <target>i ciekawe</target>
+            </trans-unit>
+            
+            <trans-unit id="header.contact.1">
+                <source>header.contact.1</source>
+                <target>Kontakt</target>
+            </trans-unit>
+            <trans-unit id="header.contact.2">
+                <source>header.contact.2</source>
+                <target>z redakcją</target>
+            </trans-unit>
+            
+            <trans-unit id="header.newsletter.1">
+                <source>header.newsletter.1</source>
+                <target>Zapisz się</target>
+            </trans-unit>
+            <trans-unit id="header.newsletter.2">
+                <source>header.newsletter.2</source>
+                <target>do newslettera</target>
+            </trans-unit>
+            
+            
+            
+            
             <trans-unit id="label.advert">
                 <source>label.advert</source>
                 <target>Reklama</target>
@@ -783,7 +833,7 @@
             </trans-unit>
             <trans-unit id="label.category.subtitle">
                 <source>label.category.subtitle</source>
-                <target>- klasyfikacja i podział</target>
+                <target>- klasyfikacja</target>
             </trans-unit>
             <trans-unit id="label.category.preleaf">
                 <source>label.category.preleaf</source>
