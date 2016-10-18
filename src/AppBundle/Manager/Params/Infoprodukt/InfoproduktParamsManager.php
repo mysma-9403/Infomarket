@@ -42,10 +42,12 @@ class InfoproduktParamsManager extends ParamsManager {
     	$categories = $this->getParamList(Category::class, $categoryFilter);
     	
     	$temp = $categories[0];
-    	if(count($temp->getMenuChildren()) < 1) {
-	    	$categoryFilter->setRoot(BaseEntityFilter::FALSE_VALUES);
-	    	$categoryFilter->setLimit(10);
-	    	$categories = $this->prepareCategories($categories, $categoryFilter);
+    	if($temp) {
+	    	if(count($temp->getMenuChildren()) < 1) {
+		    	$categoryFilter->setRoot(BaseEntityFilter::FALSE_VALUES);
+		    	$categoryFilter->setLimit(10);
+		    	$categories = $this->prepareCategories($categories, $categoryFilter);
+	    	}
     	}
     	
     	$viewParams['menuCategories'] = $categories;
