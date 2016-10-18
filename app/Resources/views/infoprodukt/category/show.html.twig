@@ -9,8 +9,10 @@
 	
 	{% if entry.preleaf %}
 		{% include 'infoprodukt/category/show_category.html.twig' %}
-	{% else %}
+	{% elseif entry.parent and entry.parent.preleaf %}
 		{% include 'infoprodukt/category/show_ratings.html.twig' %}
+	{% else %}
+		{% include 'infoprodukt/category/show_subcategories.html.twig' %}
 	{% endif %}
 	
 {% endblock %}

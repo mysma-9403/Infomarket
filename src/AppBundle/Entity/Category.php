@@ -9,6 +9,23 @@ use AppBundle\Entity\Base\ImageTree;
  */
 class Category extends ImageTree
 {
+	/** @var array */
+	protected $menuChildren;
+	
+	public function getMenuChildren() {
+		return $this->menuChildren;
+	}
+		
+	/**
+	 * 
+	 * @param array $children
+	 * @return \AppBundle\Entity\Category
+	 */
+	public function setMenuChildren($children) {
+		$this->menuChildren = $children;
+		return $this;
+	}
+	
 	/**
 	 * {@inheritDoc}
 	 */

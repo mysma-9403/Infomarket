@@ -9,11 +9,31 @@
 	
 	{{ form_row(form.link, { 'label': 'label.advert.link' }) }}
 	
-	{{ form_row(form.dateFrom, { 'label': 'label.advert.dateFrom' }) }}	
-    {{ form_row(form.dateTo, { 'label': 'label.advert.dateTo' }) }}
+	<div class="form-group">
+		<label>{{ 'label.advert.dateFrom'|trans }}</label>
+		<div class='input-group date' id='datetimepicker1'>
+			{{ form_widget(form.dateFrom) }}
+			<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+	    </div>
+    </div>
+    
+    <div class="form-group">
+		<label>{{ 'label.advert.dateTo'|trans }}</label>
+		<div class='input-group date' id='datetimepicker1'>
+			{{ form_widget(form.dateTo) }}
+			<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+	    </div>
+    </div>
 	
 	{{ form_row(form.showLimit, { 'label': 'label.advert.showLimit' }) }}
 	{{ form_row(form.clickLimit, { 'label': 'label.advert.clickLimit' }) }}
+	
+	{# TODO should be in some baseMoreJavascript block #}
+	<script type="text/javascript">
+		$(function () {
+			$('div.date').datetimepicker();
+		});
+	</script>
 {% endblock %}
 
 {% block assignments %}

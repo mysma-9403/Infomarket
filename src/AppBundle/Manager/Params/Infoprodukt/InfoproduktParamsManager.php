@@ -17,6 +17,8 @@ class InfoproduktParamsManager extends ParamsManager {
 		$routeParams = $params['routeParams'];
 		$viewParams = $params['viewParams'];
 		
+		
+		
 		$userRepository = $this->doctrine->getRepository(User::class);
     	$branchRepository = $this->doctrine->getRepository(Branch::class);
     	$categoryRepository = $this->doctrine->getRepository(Category::class);
@@ -32,23 +34,48 @@ class InfoproduktParamsManager extends ParamsManager {
     	
     	$categoryFilter = new CategoryFilter($userRepository, $branchRepository, $categoryRepository);
     	$categoryFilter->setPublished(BaseEntityFilter::TRUE_VALUES);
+    	$categoryFilter->setFeatured(BaseEntityFilter::TRUE_VALUES);
     	$categoryFilter->setRoot(BaseEntityFilter::TRUE_VALUES);
     	$categoryFilter->setOrderBy('e.name ASC');
+    	$categoryFilter->setLimit(5);
     	 
     	$categories = $this->getParamList(Category::class, $categoryFilter);
+    	
+    	$temp = $categories[0];
+    	if(count($temp->getMenuChildren()) < 1) {
+	    	$categoryFilter->setRoot(BaseEntityFilter::FALSE_VALUES);
+	    	$categoryFilter->setLimit(10);
+	    	$categories = $this->prepareCategories($categories, $categoryFilter);
+    	}
+    	
     	$viewParams['menuCategories'] = $categories;
+    	
     	
     	
     	$category = $this->getCategory($request);
     	if($category) {
-	    	$routeParams['category'] = $category->getId();
-	    	$viewParams['category'] = $category;
+    		$routeParams['category'] = $category->getId();
+    		$viewParams['category'] = $category;
     	}
+    	
     	
     	
     	$params['routeParams'] = $routeParams;
     	$params['viewParams'] = $viewParams;
     	return $params;
+	}
+	
+	protected function prepareCategories(array $categories, CategoryFilter $categoryFilter) {
+		foreach ($categories as $category) {
+			$categoryFilter->setParents([$category]);
+			
+			$subcategories = $this->getParamList(Category::class, $categoryFilter);
+			$subcategories = $this->prepareCategories($subcategories, $categoryFilter);
+			
+			$category->setMenuChildren($subcategories);
+		}
+		
+		return $categories;
 	}
 	
 	protected function getCategory(Request $request) {
