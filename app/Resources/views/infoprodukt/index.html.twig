@@ -123,7 +123,7 @@
 								{% for category in menuCategories %}
 								<li>
 									<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-										<span class="fa fa-{{ category.icon }}"></span>
+										<span class="fa {{ category.icon }}"></span>
 										<span class="text-red"> {{ category.name }} {{ category.subname }}</span>
 										<span class="caret"></span>
 									</a>
