@@ -3,10 +3,10 @@
 <div class="{{ col }} padding-5">
 	{% if articles|length == 1 %}
 		<a class="text-white" href="{{ path(basePath ~ 'article_show', 
-			{ id: articles|first.id, category: entry.id, articleCategory: articleCategory.id }) }}">
+			{ id: articles|first.id, category: entry.id, article_filter_article_categories: articleCategory.id }) }}">
 	{% else %}
 		<a class="text-white" href="{{ path(basePath ~ 'article', 
-			{ category: entry.id, articleCategory: articleCategory.id }) }}">
+			{ category: entry.id, article_filter_article_categories: articleCategory.id }) }}">
 	{% endif %}
 		<div class="rect col-bottom bkg-white">
 			{% if articleCategory.image %}

@@ -64,7 +64,8 @@
 			
 			{% for article in mainArticles | slice(0,5) %}
 				<div class="col-sm-2 col-sm-pull-2 padding-5">
-					<a class="text-white" href="{{ path(basePath ~ 'article_show', { id: article.id, category: entry.id }) }}">
+					<a class="text-white" href="{{ path(basePath ~ 'article_show', 
+						{ id: article.id, category: entry.id, article_filter_article_categories: mainCategory.id }) }}">
 						<div class="rect col-bottom bkg-white">
 							{% if article.image %}
 								<img class="div-center img-{{ article.vertical ? '' : 'v' }}responsive" 
@@ -93,7 +94,8 @@
 			
 			{% for article in mainArticles | slice(5,10) %}
 				<div class="col-sm-2 col-sm-pull-2 padding-5">
-					<a class="text-white" href="{{ path(basePath ~ 'article_show', { id: article.id, category: entry.id }) }}">
+					<a class="text-white" href="{{ path(basePath ~ 'article_show', 
+						{ id: article.id, category: entry.id, article_filter_article_categories: mainCategory.id }) }}">
 						<div class="rect col-bottom bkg-white">
 							{% if article.image %}
 								<img class="div-center img-{{ article.vertical ? '' : 'v' }}responsive" 
@@ -123,7 +125,8 @@
 		
 		<div class="row">
 			<div class="col-sm-2 col-sm-push-10 padding-5">
-				<a href={{ path('infoprodukt_article', { category: entry.id, article_filter_article_categories: mainCategory.id }) }} class="text-red title no-padding">
+				<a class="text-red title no-padding" href={{ path('infoprodukt_article', 
+					{ category: entry.id, article_filter_article_categories: mainCategory.id }) }}>
 					{{ 'label.more'|trans }}
 				</a>
 			</div>
@@ -143,7 +146,8 @@
 		<div class="row">
 			{% for article in auxiliaryArticles | slice(0,6) %}
 				<div class="col-sm-2 padding-5">
-					<a class="text-white" href="{{ path(basePath ~ 'article_show', { id: article.id, category: entry.id }) }}">
+					<a class="text-white" href="{{ path(basePath ~ 'article_show', 
+						{ id: article.id, category: entry.id, article_filter_article_categories: auxiliaryCategory.id }) }}">
 						<div class="rect col-bottom bkg-white">
 							{% if article.image %}
 								<img class="div-center img-{{ article.vertical ? '' : 'v' }}responsive" 

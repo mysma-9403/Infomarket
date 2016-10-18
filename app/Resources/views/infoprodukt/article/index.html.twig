@@ -83,7 +83,8 @@
 										{% spaceless %}
 										{% for articleTagAssignment in entry.articleTagAssignments %}
 											{{- loop.index > 1 ? ', ' : '' -}}
-											<a href="{{ path(basePath ~ mainPath, { category: category ? category.id : null, article_filter_tags: articleTagAssignment.tag.id }) }}">
+											<a href="{{ path(basePath ~ mainPath, 
+												{ category: category is defined and category ? category.id : null, article_filter_tags: articleTagAssignment.tag.id }) }}">
 												{{- articleTagAssignment.tag.name -}}
 											</a>
 											 

@@ -4,13 +4,13 @@ namespace AppBundle\Controller\Infoprodukt;
 
 use AppBundle\Controller\Infoprodukt\Base\InfoproduktController;
 use AppBundle\Entity\Category;
+use AppBundle\Manager\Entity\Base\EntityManager;
 use AppBundle\Manager\Entity\Common\CategoryManager;
-use AppBundle\Manager\Filter\Common\CategoryFilterManager;
+use AppBundle\Manager\Filter\Base\FilterManager;
+use AppBundle\Manager\Filter\Infoprodukt\IPCategoryFilterManager;
+use AppBundle\Manager\Params\EntryParams\Infoprodukt\CategoryEntryParamsManager;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-use AppBundle\Manager\Entity\Base\EntityManager;
-use AppBundle\Manager\Filter\Base\FilterManager;
-use AppBundle\Manager\Params\EntryParams\Infoprodukt\CategoryEntryParamsManager;
 
 class CategoryController extends InfoproduktController
 {
@@ -50,7 +50,7 @@ class CategoryController extends InfoproduktController
 	}
 	
 	protected function getEntryFilterManager($doctrine) {
-		return new CategoryFilterManager($doctrine);
+		return new IPCategoryFilterManager($doctrine);
 	}
 	
 	//---------------------------------------------------------------------------
