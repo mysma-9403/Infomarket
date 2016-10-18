@@ -10,6 +10,15 @@ use AppBundle\Entity\Base\ImageEntity;
 class ArticleCategory extends ImageEntity
 {
 	/**
+	 *
+	 * {@inheritDoc}
+	 * @see \AppBundle\Entity\Base\Image::getDisplayName()
+	 */
+	public function getDisplayName() {
+		return $this->name . ' ' . $this->subname;
+	}
+	
+	/**
 	 * 
 	 * {@inheritDoc}
 	 * @see \AppBundle\Entity\Base\Image::getUploadPath()

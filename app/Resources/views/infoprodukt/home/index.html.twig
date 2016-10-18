@@ -2,31 +2,18 @@
 
 {% set title = 'InfoProdukt' %}
 {% set mainPath = 'home' %}
-	
-{% block video %}
-<div class="row no-padding">
-	<div class="col-xs-12 no-padding video-container">
-{# 		<video autoplay controls muted poster="{{ asset('img/template/info-produkt-logo.png') }}" id="bgvid" loop>#}
-		<video autoplay controls muted poster="{{ asset('img/template/info-produkt-logo.png') }}" id="bgvid">
-			<source src="{{ asset('img/template/info-produkt-video.mp4') }}" type="video/mp4">
-{# 			<source src="{{ asset('img/template/video.webm') }}" type="video/mp4">#}
-		</video>
-		
-{# 		<div class="row no-padding video-container bkg-black-50"></div>#}
-{# 		<div class="row div-center">#}
-{# 			<div class="col-xs-12">#}
-{# 				<img class="img-responsive" src="img/template/info-produkt-logo.png">#}
-{# 			</div>#}
-{# 		</div>#}
-	</div>
-</div>
-{% endblock %}
-	
+
 {% block content %}
 	
 	{% block images %}
 		<div class="row">
 			<div id="myCarousel" class="carousel slide carousel-fade" data-ride="carousel">
+				<ol class="carousel-indicators">
+				    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+				    <li data-target="#myCarousel" data-slide-to="1"></li>
+				    <li data-target="#myCarousel" data-slide-to="2"></li>
+			  	</ol>
+			  	
 			  	<div class="carousel-inner">
 			  		<img class="item active img-responsive" alt="image" src="uploads/photos/saloon.png" />
 					<img class="item img-vresponsive" alt="image" src="uploads/photos/kitchen.png">

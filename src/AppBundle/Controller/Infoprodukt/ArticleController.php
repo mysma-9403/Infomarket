@@ -15,6 +15,8 @@ use AppBundle\Manager\Entity\Common\ArticleManager;
 use AppBundle\Manager\Filter\Common\ArticleFilterManager;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Entity\Base\SimpleEntity;
+use AppBundle\Form\Base\SimpleEntityType;
 
 class ArticleController extends InfoproduktController
 {   
@@ -67,6 +69,9 @@ class ArticleController extends InfoproduktController
 		
 		
 		$userRepository = $this->getDoctrine()->getRepository(User::class);
+		
+		
+		
 		$searchFilter = new SimpleEntityFilter($userRepository);
 		$searchFilter->initValues($request);
 		
@@ -79,6 +84,20 @@ class ArticleController extends InfoproduktController
 			}
 		}
 		$viewParams['searchFilterForm'] = $searchFilterForm->createView();
+		
+		
+		
+		$newsletter = new SimpleEntity();
+		
+		$newsletterForm = $this->createForm(SimpleEntityType::class, $newsletter);
+		$newsletterForm->handleRequest($request);
+		
+		if ($newsletterForm->isSubmitted() && $newsletterForm->isValid()) {
+			if ($newsletterForm->get('save')->isClicked()) {
+				//TODO return $this->redirectToRoute($this->getSearchRoute(), $searchFilter->getValues());
+			}
+		}
+		$viewParams['newsletterForm'] = $newsletterForm->createView();
 	
 	
 		

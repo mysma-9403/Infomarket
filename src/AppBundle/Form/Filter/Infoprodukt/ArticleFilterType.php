@@ -26,7 +26,7 @@ class ArticleFilterType extends ImageEntityFilterType
 					return $repository->createQueryBuilder('e')
 					->orderBy('e.published DESC, e.name', 'ASC');
 				},
-				'choice_label' 	=> 'name',
+				'choice_label' 	=> 'displayname',
 				'required'		=> false,
 				'expanded'      => true,
 				'multiple'      => true,

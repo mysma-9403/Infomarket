@@ -466,6 +466,10 @@
                 <source>label.rating.products</source>
                 <target>Najlepsze produkty</target>
             </trans-unit>
+            <trans-unit id="label.rating.topModels">
+                <source>label.rating.topModels</source>
+                <target>Top modele</target>
+            </trans-unit>
             
             
             

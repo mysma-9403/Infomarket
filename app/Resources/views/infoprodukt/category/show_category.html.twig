@@ -123,7 +123,7 @@
 		
 		<div class="row">
 			<div class="col-sm-2 col-sm-push-10 padding-5">
-				<a href={{ path('infoprodukt_article', { category: entry.id }) }} class="text-red title no-padding">
+				<a href={{ path('infoprodukt_article', { category: entry.id, article_filter_article_categories: mainCategory.id }) }} class="text-red title no-padding">
 					{{ 'label.more'|trans }}
 				</a>
 			</div>
@@ -192,7 +192,7 @@
 		
 		<div class="row">
 			<div class="col-sm-2 col-sm-push-10 padding-5">
-				<a href={{ path('infoprodukt_article', { category: entry.id }) }} class="text-red">
+				<a href={{ path('infoprodukt_article', { category: entry.id, article_filter_article_categories: auxiliaryCategory.id }) }} class="text-red">
 					<h5 class="title">{{ 'label.more'|trans }}</h5>
 				</a>
 			</div>
@@ -237,7 +237,7 @@
 		
 		<div class="row">
 			<div class="col-xs-12 padding-5">
-				<div id="featuredAdsCarousel" class="carousel slide" data-ride="carousel">
+				<div id="featuredAdsCarousel" class="carousel slide carousel-fade" data-ride="carousel">
 				  	<div class="carousel-inner" role="listbox">
 						{% for advert in featuredAds %}
 				    		<div class="item rect-3x1 {{ loop.index == 1 ? 'active' : '' }}">

@@ -173,11 +173,6 @@ h2.title {
 	color: @white;
 }
 
-a.text-white:focus,
-a.text-white:hover {
-	color: @red;
-}
-
 .text-brand {
 	color: @brand-primary;
 }
@@ -194,6 +189,49 @@ a.text-white:hover {
 	color: @green;
 }
 
+
+
+a:hover .text-red,
+a:focus .text-red {
+	color: @red-darker;
+}
+
+a:hover .text-blue,
+a:focus .text-blue {
+	color: @blue-darker;
+}
+
+a:hover .text-brand,
+a:focus .text-brand {
+	color: @brand-darker;
+}
+
+a:hover .text-white,
+a:focus .text-white {
+	color: @gray-lighter;
+}
+
+
+
+.text-red a:hover,
+.text-red a:focus {
+	color: @red-darker;
+}
+
+.text-blue a:hover,
+.text-blue a:focus {
+	color: @blue-darker;
+}
+
+.text-brand a:hover,
+.text-brand a:focus {
+	color: @brand-darker;
+}
+
+.text-white a:hover,
+.text-white a:focus {
+	color: @gray-lighter;
+}
 
 
 
@@ -454,15 +492,6 @@ body {
     background-color: @gray;
 }
 
-.navbar-inverse a {
-    color: @white;
-}
-
-.navbar-inverse a:hover,
-.navbar-inverse a:focus {
-    color: @brand-primary;
-}
-
 
 
 
@@ -481,25 +510,6 @@ body {
 
 
 
-
-a:hover .text-red,
-a:focus .text-red {
-	color: @white;
-}
-
-a:hover .text-white,
-a:focus .text-white {
-	color: @red;
-}
-
-.tile a {
-	color: @gray-lighter;
-}
-
-.tile a:hover,
-.tile a:focus {
-	color: @gray-darker;
-}
 
 .tile.branch-0 {
 	background-color: @gray-light;
@@ -707,8 +717,8 @@ ul.nav-tree
 
 .carousel-indicators li {
 	border-radius: 0px;
-	border-width: 2px;
-	border-color: @gray-lighter;
+	border-width: 0px;
+	background-color: @brand-primary;
 }
 
 .carousel-indicators li.active {
