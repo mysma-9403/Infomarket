@@ -57,26 +57,6 @@
     color: @brand-primary;
 }
 
-.footer {
-  	color: @white;
-  	background: @brand-primary;
-  	padding-bottom: (@padding * 2);
-  	margin-top: 10px;
-  	margin-bottom: 0px;
-  	
-  	font-size: 12px;
-}
-
-.footer a {
-	color: @gray-lighter;
-}
-
-.footer a:hover,
-.footer a:focus {
-	color: @white;
-}
-
-
 .col-bottom { 
 	margin-bottom:20px; 
 }
@@ -220,18 +200,47 @@ video {
 }
 
 
-
-
-
-.certificate {
-	position: fixed;
-	top: 80px;
-	left: 10px;
+// footer
+.footer {
+  	color: @white;
+  	background: @brand-primary;
+  	padding-bottom: (@padding * 2);
+  	margin-top: 10px;
+  	margin-bottom: 0px;
+  	
+  	font-size: 12px;
 }
 
+.footer h3 {
+	margin: 0px;
+	padding-top: 16px;
+	padding-bottom: 0px;
+	
+	color: @gray-lighter;
+	font-size: 14px;
+}
+
+.footer hr {
+	margin-top: 5px;
+	margin-bottom: 10px;
+}
+
+.footer a {
+	color: @gray-lighter;
+}
+
+.footer a:hover,
+.footer a:focus {
+	color: @white;
+}
+
+
+
+
+// social icons
 .social-menu {
 	position: fixed;
-	top: 80px;
+	top: 200px;
 	right: 10px;
 }
 
@@ -243,9 +252,9 @@ a .social-button {
 	position: relative;
 	width: 50px;
 	height: 50px;
-}
+	font-size: 24px;
+	font-weight: bold;
 
-a .social-button {
 	color: @white;
 	background-color: @brand-primary;
 }
@@ -267,11 +276,6 @@ a:hover .social-button.red {
 	background-color: @white;
 }
 
-.social-button > h6 {
-	margin-top: 0px;
-	padding-top: 0px;
-}
-
 
 
 
@@ -279,5 +283,10 @@ a:hover .social-button.red {
 .input-sm {
 	font-size: 14px;
    	line-height: 14px;
+	
 	height: 28px;
+}
+
+.input-sm.search {
+	width: 150px;
 }

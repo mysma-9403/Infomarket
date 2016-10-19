@@ -31,7 +31,7 @@
 	{% block navigationBar %}
 	<nav class="navbar navbar-fixed-top no-more-padding">
 		<div class="navbar-default">
-			<div class="container">
+			<div class="container-fluid">
 				<div class="row">
 					<div class="col-xs-12">
 						{% block navigationHeader %}
@@ -50,11 +50,8 @@
 					      		
 					      		{% block navigationBrand %}
 								<a class="navbar-brand" href="{{ path('infoprodukt_home') }}">
-									<h2 class="title text-brand hidden-xs">
+									<h2 class="title text-brand">
 										<span class="text-red">Info</span>Produkt
-									</h2>
-									<h2 class="title text-brand visible-xs">
-										<span class="text-red">I</span>P
 									</h2>
 								</a>
 								{% endblock %}
@@ -62,13 +59,13 @@
 				    	{% endblock %}
 						
 						{% block navigationSearch %}
-						<div class="navbar-form navbar-right navbar-input-group hidden-xs" role="search">
+						<div class="navbar-form navbar-right navbar-input-group hidden-md" role="search">
 							{% form_theme searchFilterForm 'form/fields.html.twig' %}
 						
 							{{ form_start(searchFilterForm) }}
 								<ul class="list-inline">
 									<li>
-										<div class='input-group input-sm'>
+										<div class='input-group input-sm search'>
 											{{ form_widget(searchFilterForm.name, { 'label': 'label.name', 'attr': { 'class': 'input-sm' }  }) }}
 											<span class="input-group-btn">
 												{{ form_widget(searchFilterForm.search, { 'icon': 'fa fa-search', 'label': ' ', 'attr': { 'class': 'input-sm btn-danger' }  }) }}
@@ -97,7 +94,7 @@
 						
 						{% block navigationLinks %}
 						<div class="collapse navbar-collapse" id="catbar">
-							<ul class="nav navbar-nav navbar-right">
+							<ul class="nav navbar-nav navbar-center">
 {# 								{% for branch in menuBranches %}#}
 {# 									<li>#}
 {# 										<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">#}
@@ -137,7 +134,7 @@
 											<li>
 												<a href="{{ path(basePath ~ 'category_show', { id: category.id }) }}">
 													<span class="text-red">{{ 'label.all' | trans }}</span>
-													<span class="fa fa-caret-right"></span>
+													<span class="fa fa-x5 fa-caret-right"></span>
 												</a>
 											</li>
 										{% endif %}
@@ -226,7 +223,7 @@
 		    	
 		      		<div class="row">
 			      		<div class="col-sm-3">
-			      			<h5>InfoMarket Sp. z o.o.</h5>
+			      			<h3>InfoMarket Sp. z o.o.</h3>
 			      			<hr>
 			      			<p>
 			      				ul. Trylogii 2/16,<br>
@@ -236,7 +233,7 @@
 		      				</p>
 			      		</div>
 			      		<div class="col-sm-6">
-			      			<h5>{{ 'title.footer.office'|trans }}</h5>
+			      			<h3>{{ 'title.footer.office'|trans }}</h3>
 			      			<hr>
 			      			
 			      			{% set half = menuPages|length / 2 %}
@@ -260,7 +257,7 @@
 				      		</div>
 			      		</div>
 			      		<div class="col-sm-3">
-			      			<h5>{{ 'title.footer.magazine'|trans }}</h5>
+			      			<h3>{{ 'title.footer.magazine'|trans }}</h3>
 			      			<hr>
 			      			
 			      			{% for entry in menuLinks %}
@@ -273,10 +270,6 @@
 		    	</div>
 		  	</div>
 		</div>
-	{% endblock %}
-	
-	{% block certificate %}
-{# 	<img class="certificate" alt="{{ 'label.certificate'|trans }}" src="{{ asset('img/template/certificate.jpg') }}">#}
 	{% endblock %}
 	
 	{% block socialMenu %}
@@ -298,7 +291,7 @@
 		<div class="row">
 			<a href="http://infomarket.edu.loc:8000">
 				<div class="social-button">
-					<h6 class="div-center"><span class="text-red">I</span>M</h6>
+					<span class="div-center"><span class="text-red">I</span>M</span>
 				</div>
 			</a>
 		</div>

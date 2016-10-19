@@ -9,7 +9,7 @@
 			<div class="container lifted-bottom">
 				<div class="row">
 					<h3 class="padding-5">
-						{{ entry.name | raw}} {{ 'label.category.subtitle'|trans }}
+						{{ entry.name | raw}} &ndash; {{ 'label.category.subtitle'|trans }}
 					</h3>
 				</div>
 			</div>
@@ -45,16 +45,14 @@
 				<div class="col-sm-2 col-sm-push-10 padding-5">
 					{% if entry.magazine %}
 						<a href="{{ asset(entry.magazine.magazineFile) }}">
-							{% if entry.magazine.image %}
-								<div class="col-xs-12 bkg-red padding-5">
-					  				<img class="img-{{ entry.magazine.vertical ? '' : 'v' }}responsive" 
-					    				alt="{{ entry.magazine.name | raw }}" src="{{ asset(entry.magazine.getImagePath()) }}">
-			    				</div>
-		    				{% endif %}
+							<div class="col-xs-12 bkg-red padding-5">
+				  				<img class="img-responsive" 
+				    				alt="{{ entry.magazine.name | raw }}" src="{{ asset(entry.magazine.getImagePath()) }}">
+		    				</div>
 		    				<div class="col-xs-12 bkg-brand padding-5">
 		    					<h3 class="title text-center">
 		    						<span class="text-red">Pobierz</span>
-		    						<span class="text-white">aktualny numer</span>
+		    						<span class="text-white">aktualny <br> numer</span>
 		    					</h3>
 		    				</div>
 				  		</a>
@@ -206,7 +204,7 @@
 
 {% block featuredBrands %}
 	<div class="container">
-		<div class="row bkg-black-50">
+		<div class="row bkg-black-15">
 			
 			<h4 class="title no-padding">
 				<span class="bkg-brand text-white">

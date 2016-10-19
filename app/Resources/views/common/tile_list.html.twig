@@ -13,7 +13,7 @@
 	{% endif %}
 	
 	{% if (limit is not defined or loop.index <= limit) and loop.index >= start %}
-		<div class="col-sm-{{ colSize is defined ? colSize : '3' }}">
+		<div class="col-sm-{{ colSize is defined ? colSize : '3' }} padding-5">
 			{% include 'common/' ~ tile ~ '.html.twig' with {'entry': entry, 'entryPath': entryPath} %}
 		</div>
 	{% endif %}

@@ -29,7 +29,7 @@ class HomeEntryParamsManager extends EntryParamsManager {
     	$categoryFilter->setFeatured(BaseEntityFilter::TRUE_VALUES);
     	$categoryFilter->setPreleaf(BaseEntityFilter::TRUE_VALUES);
     	$categoryFilter->setOrderBy('e.orderNumber ASC, e.name ASC');
-    	$categoryFilter->setLimit(8);
+    	$categoryFilter->setLimit(12);
     	 
     	$categories = $this->getParamList(Category::class, $categoryFilter);
     	$viewParams['categories'] = $categories;
@@ -39,7 +39,7 @@ class HomeEntryParamsManager extends EntryParamsManager {
     	$magazineFilter->setPublished(BaseEntityFilter::TRUE_VALUES);
     	$magazineFilter->setFeatured(BaseEntityFilter::TRUE_VALUES);
     	$magazineFilter->setOrderBy('e.orderNumber ASC, e.name ASC');
-    	$magazineFilter->setLimit(4);
+    	$magazineFilter->setLimit(6);
     	
     	$magazines = $this->getParamList(Magazine::class, $magazineFilter);
     	$viewParams['magazines'] = $magazines;

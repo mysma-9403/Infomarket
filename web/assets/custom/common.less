@@ -2,6 +2,7 @@
 @import "..\vendor\eonasdan-bootstrap-datetimepicker\src\less\_bootstrap-datetimepicker.less";
 
 @import "variables.less";
+@import "colors.less";
 @import "fonts.less";
 
 
@@ -112,38 +113,15 @@ h2.title {
 	margin-top: 0px;
 }
 
-.rect-title {
-	padding-left: 2px;
-	padding-right: 2px;
-	height: 38px;
-}
-
-.rect-title h3 {
-	margin: 2px;
-	font-size: 16px;
-}
-
-.rect-subtitle {
-	padding-left: 2px;
-	padding-right: 2px;
-	height: 20px;
-}
-
-.rect-subtitle h4 {
-	margin: 2px;
-	font-size: 14px;
-}
 
 
 
-.rating-subtitle {
-	padding-left: 2px;
-	padding-right: 2px;
-	height: 36px;
-}
 
 
 
+
+
+// default tile
 .default-tile .title {
 	padding-top: 4px;
 	margin-top: 4px;
@@ -156,6 +134,43 @@ h2.title {
 	margin-top: 2px;
 	padding-bottom: 2px;
 	margin-bottom: 2px;
+}
+
+
+// bottom rect tile
+.bottom-rect-tile {
+	margin: 0px;
+	padding: 0px;
+}
+
+.bottom-rect-tile .title {
+	margin: 0px;
+	padding: 5px;
+	height: 40px;
+}
+
+.bottom-rect-tile .title h3 {
+	margin: 0px;
+	font-size: 14px;
+}
+
+.bottom-rect-tile .subtitle {
+	margin: 0px;
+	padding: 5px;
+	height: 25px;
+}
+
+.bottom-rect-tile .subtitle h4 {
+	margin: 0px;
+	font-size: 14px;
+}
+
+
+// rating tile
+.rating-subtitle {
+	padding-left: 2px;
+	padding-right: 2px;
+	height: 36px;
 }
 
 
@@ -232,70 +247,6 @@ a:focus .text-white {
 .text-white a:focus {
 	color: @gray-lighter;
 }
-
-
-
-
-
-.bkg-white {
-	background-color: white;
-}
-
-.bkg-white-50 {
-	background-color: rgba(255, 255, 255, 0.5);
-}
-
-.bkg-black {
-	background-color: black;
-}
-
-.bkg-black-50 {
-	background-color: rgba(0, 0, 0, 0.5);
-}
-
-.bkg-red {
-	background-color: @red;
-}
-
-.bkg-red-50 {
-	background-color: rgba(202, 3, 36, 0.5);
-}
-
-.bkg-brand {
-	background-color: @brand-primary;
-}
-
-.bkg-brand-50 {
-	background-color: rgba(0, 67, 115, 0.5);
-}
-
-.bkg-lime-green {
-	background-color: @lime-green;
-}
-
-.bkg-green {
-	background-color: @green;
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -468,6 +419,7 @@ body {
 				
 				
 .nav-horizontal > li {
+	margin: 5px;
     display: inline-block;
 }
 

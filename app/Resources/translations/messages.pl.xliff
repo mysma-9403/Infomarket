@@ -213,10 +213,6 @@
                 <source>title.featured</source>
                 <target>Wyróżnione</target>
             </trans-unit>
-            <trans-unit id="title.mostPopular">
-                <source>title.mostPopular</source>
-                <target>Najpopularniejsze</target>
-            </trans-unit>
             
             
             
@@ -260,6 +256,25 @@
             
             
             
+            
+            
+            <trans-unit id="header.categories.1">
+                <source>header.categories.1</source>
+                <target>Popularne</target>
+            </trans-unit>
+            <trans-unit id="header.categories.2">
+                <source>header.categories.2</source>
+                <target>kategorie</target>
+            </trans-unit>
+            
+            <trans-unit id="header.magazines.1">
+                <source>header.magazines.1</source>
+                <target>Nasze</target>
+            </trans-unit>
+            <trans-unit id="header.magazines.2">
+                <source>header.magazines.2</source>
+                <target>magazyny</target>
+            </trans-unit>
             
             
             <trans-unit id="header.featuredBrands.1">
@@ -837,7 +852,7 @@
             </trans-unit>
             <trans-unit id="label.category.subtitle">
                 <source>label.category.subtitle</source>
-                <target>- klasyfikacja</target>
+                <target>klasyfikacja</target>
             </trans-unit>
             <trans-unit id="label.category.preleaf">
                 <source>label.category.preleaf</source>
