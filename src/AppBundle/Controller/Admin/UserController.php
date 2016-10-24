@@ -12,7 +12,7 @@ use AppBundle\Form\UserType;
 use AppBundle\Manager\Entity\Common\UserManager;
 use AppBundle\Manager\Filter\Common\UserFilterManager;
 use Symfony\Component\HttpFoundation\Request;
-use AppBundle\Manager\Params\EntryParams\Infomarket\UserEntryParamsManager;
+use AppBundle\Manager\Params\EntryParams\Admin\UserEntryParamsManager;
 use AppBundle\Manager\Entity\Base\EntityManager;
 use AppBundle\Manager\Filter\Base\FilterManager;
 
@@ -93,7 +93,7 @@ class UserController extends SimpleEntityController
 	 */
 	protected function settingsActionInternal(Request $request)
 	{
-		$params = $this->createParams($this->getPreviewRoute());
+		$params = $this->createParams($this->getSettingsRoute());
 		$params = $this->getSettingsParams($request, $params);
 	
 		$rm = $this->getRouteManager();
@@ -128,7 +128,8 @@ class UserController extends SimpleEntityController
 	//---------------------------------------------------------------------------
 	
 	protected function getInternalEntryParamsManager(EntityManager $em, FilterManager $fm, $doctrine) {
-		return new UserEntryParamsManager($em, $fm, $doctrine);
+		$tokenStorage = $this->get('security.token_storage');
+		return new UserEntryParamsManager($em, $fm, $doctrine, $tokenStorage);
 	}
 	
 	protected function getEntityManager($doctrine, $paginator) {

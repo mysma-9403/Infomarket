@@ -1,6 +1,6 @@
 <?php
 
-namespace AppBundle\Manager\Params\EntryParams\Infomarket;
+namespace AppBundle\Manager\Params\EntryParams\Admin;
 
 use AppBundle\Manager\Params\EntryParams\Base\EntryParamsManager;
 use Symfony\Component\HttpFoundation\Request;
@@ -9,8 +9,8 @@ class UserEntryParamsManager extends EntryParamsManager {
 	
 	protected $tokenStorage;
 	
-	public function __construct($em, $fm, $tokenStorage) {
-		parent::__construct($em, $fm);
+	public function __construct($em, $fm, $doctrine, $tokenStorage) {
+		parent::__construct($em, $fm, $doctrine);
 		
 		$this->tokenStorage = $tokenStorage;
 	}
