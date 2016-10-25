@@ -10,6 +10,9 @@
         
         <field name="featured" type="boolean" default="false" />
         
+        <field name="infomarket" type="boolean" default="false" />
+        <field name="infoprodukt" type="boolean" default="false" />
+        
         <field name="orderNumber" type="integer" default="0" />
         
         <field name="magazineFile" type="string" length="256"/>

@@ -121,6 +121,13 @@ class TermCategoryAssignmentController extends AdminEntityController {
 		return new TermCategoryAssignmentFilterManager($doctrine);
 	}
 	
+	//---------------------------------------------------------------------------
+	// Roles
+	//---------------------------------------------------------------------------
+	protected function getDeleteRole() {
+		return 'ROLE_EDITOR';
+	}
+	
 	//------------------------------------------------------------------------
 	// EntityType related
 	//------------------------------------------------------------------------

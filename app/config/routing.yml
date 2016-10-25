@@ -134,7 +134,7 @@ infomarket_term_show:
     defaults:  { _controller: "AppBundle:Infomarket/Term:show" }
         
 infomarket_magazine:
-    path:      /magazine
+    path:      /magazine/{page}
     defaults:  { _controller: "AppBundle:Infomarket/Magazine:index", page: 1 }
         
 infomarket_home:
@@ -733,7 +733,40 @@ admin_newsletter_page_template_set_published:
 admin_newsletter_page_template:
     path:      /admin/newsletter_page_templates/{page}
     defaults:  { _controller: "AppBundle:Admin/NewsletterPageTemplate:index", page: 1 }
-            
+
+# Admin NewsletterUsers Routing    
+admin_newsletter_user_show:
+    path:      /admin/newsletter_users/show/{id}
+    defaults:  { _controller: "AppBundle:Admin/NewsletterUser:show" }
+    
+admin_newsletter_user_new:
+    path:      /admin/newsletter_users/new/
+    defaults:  { _controller: "AppBundle:Admin/NewsletterUser:new" }
+    
+admin_newsletter_user_copy:
+    path:      /admin/newsletter_users/copy/{id}
+    defaults:  { _controller: "AppBundle:Admin/NewsletterUser:copy" }
+    
+admin_newsletter_user_edit:
+    path:      /admin/newsletter_users/edit/{id}
+    defaults:  { _controller: "AppBundle:Admin/NewsletterUser:edit" }
+    
+admin_newsletter_user_delete:
+    path:      /admin/newsletter_users/delete/{id}
+    defaults:  { _controller: "AppBundle:Admin/NewsletterUser:delete" }
+    
+admin_newsletter_user_set_published:
+    path:      /admin/newsletter_users/set_published/{id}
+    defaults:  { _controller: "AppBundle:Admin/NewsletterUser:setPublished" }
+    
+admin_newsletter_user_set_subscribed:
+    path:      /admin/newsletter_users/set_subscribed/{id}
+    defaults:  { _controller: "AppBundle:Admin/NewsletterUser:setSubscribed" }
+        
+admin_newsletter_user:
+    path:      /admin/newsletter_users/{page}
+    defaults:  { _controller: "AppBundle:Admin/NewsletterUser:index", page: 1 }
+                
 # Admin Pages Routing    
 admin_page_show:
     path:      /admin/pages/show/{id}

@@ -111,6 +111,16 @@ class NewsletterBlockTemplateController extends SimpleEntityController {
 		return new NewsletterBlockTemplateFilterManager($doctrine);
 	}
 	
+	//---------------------------------------------------------------------------
+	// Roles
+	//---------------------------------------------------------------------------
+	protected function getShowRole() {
+		return 'ROLE_ADMIN';
+	}
+	
+	protected function getEditRole() {
+		return 'ROLE_ADMIN';
+	}
 	
 	//------------------------------------------------------------------------
 	// EntityType related

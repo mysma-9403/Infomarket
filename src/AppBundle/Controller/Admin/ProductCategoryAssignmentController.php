@@ -121,6 +121,13 @@ class ProductCategoryAssignmentController extends AdminEntityController {
 		return new ProductCategoryAssignmentFilterManager($doctrine);
 	}
 	
+	//---------------------------------------------------------------------------
+	// Roles
+	//---------------------------------------------------------------------------
+	protected function getDeleteRole() {
+		return 'ROLE_EDITOR';
+	}
+	
 	//------------------------------------------------------------------------
 	// EntityType related
 	//------------------------------------------------------------------------

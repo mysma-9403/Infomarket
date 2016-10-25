@@ -108,6 +108,14 @@
                 <source>title.newsletterPageTemplates</source>
                 <target>Szablony stron newslettera</target>
             </trans-unit>
+            <trans-unit id="title.newsletterUser">
+                <source>title.newsletterUser</source>
+                <target>Subskrybent</target>
+            </trans-unit>
+            <trans-unit id="title.newsletterUsers">
+                <source>title.newsletterUsers</source>
+                <target>Subskrybenci</target>
+            </trans-unit>
             <trans-unit id="title.product">
                 <source>title.product</source>
                 <target>Produkt</target>
@@ -322,6 +330,16 @@
                 <target>do newslettera</target>
             </trans-unit>
             
+            
+            
+            <trans-unit id="header.home.news">
+                <source>header.home.news</source>
+                <target>Informacje</target>
+            </trans-unit>
+            <trans-unit id="header.home.events">
+                <source>header.home.events</source>
+                <target>Wydarzenia</target>
+            </trans-unit>
             
             
             
@@ -804,6 +822,27 @@
             
             
             
+            
+            <trans-unit id="label.infomarket">
+                <source>label.infomarket</source>
+                <target>Infomarket</target>
+            </trans-unit>
+            <trans-unit id="label.notInfomarket">
+                <source>label.notInfomarket</source>
+                <target>Nie Infomarket</target>
+            </trans-unit>
+            
+            <trans-unit id="label.infoprodukt">
+                <source>label.infoprodukt</source>
+                <target>Infoprodukt</target>
+            </trans-unit>
+            <trans-unit id="label.notInfoprodukt">
+                <source>label.notInfoprodukt</source>
+                <target>Nie Infoprodukt</target>
+            </trans-unit>
+            
+            
+            
             <trans-unit id="label.article.parent">
                 <source>label.article.parent</source>
                 <target>Artykuł główny</target>
@@ -887,6 +926,19 @@
             <trans-unit id="label.newsletterPageTemplate">
                 <source>label.newsletterPageTemplate</source>
                 <target>Szablon strony newslettera</target>
+            </trans-unit>
+            
+            
+            
+            
+            <trans-unit id="label.newsletter.subscribed">
+                <source>label.newsletter.subscribed</source>
+                <target>Zapisany</target>
+            </trans-unit>
+            
+            <trans-unit id="label.newsletter.unsubscribed">
+                <source>label.newsletter.unsubscribed</source>
+                <target>Wypisany</target>
             </trans-unit>
             
             
@@ -1212,6 +1264,11 @@
             <trans-unit id="success.created">
                 <source>success.created</source>
                 <target>Obiekt został poprawnie zapisany.</target>
+            </trans-unit>
+            
+            <trans-unit id="success.subscribed">
+                <source>success.subscribed</source>
+                <target>Adres został z powodzeniem dodany do newslettera.</target>
             </trans-unit>
             
             

@@ -13,6 +13,10 @@
 	margin-bottom: 20px;
 }
 
+.brand-image {
+	margin-top: -28px;
+}
+
 #nav.affix {
     position: fixed;
     top: 0;
@@ -20,18 +24,12 @@
   	z-index: 10;
 }
 
-.lowered {
-	margin-top: (@padding * 2px);
-}
-
 .footer {
   	color: @white;
   	background: @gray-darker;
-  	padding-bottom: (@padding * 4px);
-  	margin-top: 45px;
+	
+  	margin-top: 5px;
   	margin-bottom: 75px;
-  	
-  	font-size: 12px;
 }
 
 .footer a {
@@ -72,14 +70,27 @@
     border-top: 5px solid;
 }
 
+
+.navbar-nav > li > a {
+	padding-top: 28px;
+	padding-bottom: 0px;
+}
+
+
 .navbar-default {
 	color: @gray-lighter;
     background-color: @brand-primary;
 }
 
 .navbar-default .navbar-nav li > a {
+    color: @brand-primary;
+}
+
+.navbar-default .navbar-nav > li > a {
     color: @gray-lighter;
 }
+
+
 
 .navbar-inverse {
 	color: @gray-lighter;
@@ -94,6 +105,8 @@
 .navbar-inverse a:focus {
     color: @brand-primary;
 }
+
+
 
 .dropdown-menu > li > a {
 	color: @brand-primary;
@@ -173,7 +186,9 @@ nav.sidebar .navbar-nav > li {
 }
 
 
-
+.item .article-rect {
+	height: 200px;
+}
 
 
 
@@ -189,33 +204,4 @@ nav.sidebar .navbar-nav > li {
 
 .home-gray-dark {
 	background: @brand-gray-dark;
-}
-
-.carousel {
-	height: 250px;
-	overflow: hidden;
-}
-
-.carousel-caption {
-    left: 40%;
-    bottom: 0;
-    
-    width: 60%;
-    height: 100%;
-    
-	text-align: left;
-	background: @brand-primary;
-}
-
-.item {
-	left: 0;
-    bottom: 0;
-    
-	width: 100%;
-    height: 250px;
-}
-
-.item img {
-	width: 40%;
-    height: auto;
 }

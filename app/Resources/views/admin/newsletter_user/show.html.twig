@@ -1,0 +1,10 @@
+{% extends 'admin/simple/show.html.twig' %}
+
+{% set title = 'title.newsletterUsers'|trans %}
+{% set mainPath = 'newsletter_user' %}
+{% set gender = 'm.' %}
+
+{% block moreFields3 %}
+	{% include 'common/fields/bool_field.html.twig' with 
+	{ 'label': 'label.newsletter.subscribed'|trans, 'value': entry.subscribed } %}
+{% endblock %}

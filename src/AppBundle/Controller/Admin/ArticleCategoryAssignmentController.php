@@ -121,6 +121,13 @@ class ArticleCategoryAssignmentController extends AdminEntityController {
 		return new ArticleCategoryAssignmentFilterManager($doctrine);
 	}
 	
+	//---------------------------------------------------------------------------
+	// Roles
+	//---------------------------------------------------------------------------
+	protected function getDeleteRole() {
+		return 'ROLE_EDITOR';
+	}
+	
 	//------------------------------------------------------------------------
 	// EntityType related
 	//------------------------------------------------------------------------

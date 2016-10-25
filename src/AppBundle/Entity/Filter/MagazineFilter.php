@@ -24,6 +24,8 @@ class MagazineFilter extends SimpleEntityFilter {
 		$this->filterName = 'magazine_filter_';
 		
 		$this->featured = $this::ALL_VALUES;
+		$this->infomarket = $this::ALL_VALUES;
+		$this->infoprodukt = $this::ALL_VALUES;
 		
 		$this->orderBy = 'e.name ASC';
 	}
@@ -40,6 +42,8 @@ class MagazineFilter extends SimpleEntityFilter {
 		$this->categories = $this->categoryRepository->findBy(array('id' => $categories));
 		
 		$this->featured = $request->get($this->getFilterName() . 'featured', $this::ALL_VALUES);
+		$this->infomarket = $request->get($this->getFilterName() . 'infomarket', $this::ALL_VALUES);
+		$this->infoprodukt = $request->get($this->getFilterName() . 'infoprodukt', $this::ALL_VALUES);
 	}
 	
 	/**
@@ -53,6 +57,8 @@ class MagazineFilter extends SimpleEntityFilter {
 		$this->categories = array();
 		
 		$this->featured = $this::ALL_VALUES;
+		$this->infomarket = $this::ALL_VALUES;
+		$this->infoprodukt = $this::ALL_VALUES;
 	}
 	
 	/**
@@ -69,6 +75,14 @@ class MagazineFilter extends SimpleEntityFilter {
 		
 		if($this->featured !== $this::ALL_VALUES) {
 			$values[$this->getFilterName() . 'featured'] = $this->featured;
+		}
+		
+		if($this->infomarket !== $this::ALL_VALUES) {
+			$values[$this->getFilterName() . 'infomarket'] = $this->infomarket;
+		}
+		
+		if($this->infoprodukt !== $this::ALL_VALUES) {
+			$values[$this->getFilterName() . 'infoprodukt'] = $this->infoprodukt;
 		}
 		
 		return $values;
@@ -88,6 +102,14 @@ class MagazineFilter extends SimpleEntityFilter {
 		
 		if($this->featured !== SimpleEntityFilter::ALL_VALUES) {
 			$expressions[] = 'e.featured = ' . $this->featured;
+		}
+		
+		if($this->infomarket !== SimpleEntityFilter::ALL_VALUES) {
+			$expressions[] = 'e.infomarket = ' . $this->infomarket;
+		}
+		
+		if($this->infoprodukt !== SimpleEntityFilter::ALL_VALUES) {
+			$expressions[] = 'e.infoprodukt = ' . $this->infoprodukt;
 		}
 	
 		return $expressions;
@@ -116,9 +138,21 @@ class MagazineFilter extends SimpleEntityFilter {
 	
 	/**
 	 *
-	 * @var boolean
+	 * @var
 	 */
 	private $featured;
+	
+	/**
+	 *
+	 * @var
+	 */
+	private $infomarket;
+	
+	/**
+	 *
+	 * @var
+	 */
+	private $infoprodukt;
 	
 	/**
 	 * Set categories
@@ -166,5 +200,53 @@ class MagazineFilter extends SimpleEntityFilter {
 	public function getFeatured()
 	{
 		return $this->featured;
+	}
+	
+	/**
+	 * Set infomarket
+	 *
+	 * @param boolean $infomarket
+	 *
+	 * @return SimpleEntityFilter
+	 */
+	public function setInfomarket($infomarket)
+	{
+		$this->infomarket = $infomarket;
+	
+		return $this;
+	}
+	
+	/**
+	 * Get infomarket
+	 *
+	 * @return boolean
+	 */
+	public function getInfomarket()
+	{
+		return $this->infomarket;
+	}
+	
+	/**
+	 * Set infoprodukt
+	 *
+	 * @param boolean $infoprodukt
+	 *
+	 * @return SimpleEntityFilter
+	 */
+	public function setInfoprodukt($infoprodukt)
+	{
+		$this->infoprodukt = $infoprodukt;
+	
+		return $this;
+	}
+	
+	/**
+	 * Get infoprodukt
+	 *
+	 * @return boolean
+	 */
+	public function getInfoprodukt()
+	{
+		return $this->infoprodukt;
 	}
 }

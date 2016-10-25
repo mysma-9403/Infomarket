@@ -25,6 +25,12 @@ class MagazineType extends ImageEntityType
 			->add('featured', null, array(
 					'required' => false
 			))
+			->add('infomarket', null, array(
+					'required' => false
+			))
+			->add('infoprodukt', null, array(
+					'required' => false
+			))
 			->add('content', CKEditorType::class, array(
 					'config' => array(
 							'uiColor' => '#ffffff'),

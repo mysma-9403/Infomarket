@@ -5,18 +5,18 @@ namespace AppBundle\Controller\Infoprodukt\Base;
 use AppBundle\Controller\Base\BaseEntityController;
 use AppBundle\Entity\Advert;
 use AppBundle\Entity\Filter\Base\SimpleEntityFilter;
+use AppBundle\Entity\NewsletterUser;
 use AppBundle\Entity\Page;
 use AppBundle\Entity\User;
+use AppBundle\Form\Filter\Base\SearchFilterType;
 use AppBundle\Form\Filter\Base\SimpleEntityFilterType;
+use AppBundle\Form\NewsletterUserType;
+use AppBundle\Manager\Filter\Infoprodukt\Base\InfoproduktFilterManager;
 use AppBundle\Manager\Params\Base\AdvertParamsManager;
 use AppBundle\Manager\Params\Base\FooterParamsManager;
 use AppBundle\Manager\Params\Infoprodukt\InfoproduktParamsManager;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-use AppBundle\Manager\Filter\Infoprodukt\Base\InfoproduktFilterManager;
-use AppBundle\Entity\Base\SimpleEntity;
-use AppBundle\Form\Base\SimpleEntityType;
-use AppBundle\Form\Filter\Base\SearchFilterType;
 
 abstract class InfoproduktController extends BaseEntityController
 {	
@@ -32,7 +32,7 @@ abstract class InfoproduktController extends BaseEntityController
 	 * @return \Symfony\Component\HttpFoundation\Response
 	 */
 	protected function indexActionInternal(Request $request, $page)
-	{
+	{	
 		$params = $this->createParams($this->getIndexRoute());
 		$params = $this->getIndexParams($request, $params, $page);
 		
@@ -49,8 +49,6 @@ abstract class InfoproduktController extends BaseEntityController
 		
 		$userRepository = $this->getDoctrine()->getRepository(User::class);
 		
-		
-		
 		$searchFilter = new SimpleEntityFilter($userRepository);
 		$searchFilter->initValues($request);
 		
@@ -66,14 +64,14 @@ abstract class InfoproduktController extends BaseEntityController
 		
 		
 		
-		$newsletter = new SimpleEntity();
+		$newsletter = new NewsletterUser();
 		
-		$newsletterForm = $this->createForm(SimpleEntityType::class, $newsletter);
+		$newsletterForm = $this->createForm(NewsletterUserType::class, $newsletter);
 		$newsletterForm->handleRequest($request);
 		
 		if ($newsletterForm->isSubmitted() && $newsletterForm->isValid()) {
 			if ($newsletterForm->get('save')->isClicked()) {
-				//TODO return $this->redirectToRoute($this->getSearchRoute(), $searchFilter->getValues());
+				$this->subscribe($newsletter);
 			}
 		}
 		$viewParams['newsletterForm'] = $newsletterForm->createView();
@@ -107,8 +105,6 @@ abstract class InfoproduktController extends BaseEntityController
 		
 		$userRepository = $this->getDoctrine()->getRepository(User::class);
 		
-		
-		
 		$searchFilter = new SimpleEntityFilter($userRepository);
 		$searchFilter->initValues($request);
 		
@@ -124,14 +120,14 @@ abstract class InfoproduktController extends BaseEntityController
 		
 		
 		
-		$newsletter = new SimpleEntity();
+		$newsletter = new NewsletterUser();
 		
-		$newsletterForm = $this->createForm(SimpleEntityType::class, $newsletter);
+		$newsletterForm = $this->createForm(NewsletterUserType::class, $newsletter);
 		$newsletterForm->handleRequest($request);
 		
 		if ($newsletterForm->isSubmitted() && $newsletterForm->isValid()) {
 			if ($newsletterForm->get('save')->isClicked()) {
-				//TODO return $this->redirectToRoute($this->getSearchRoute(), $searchFilter->getValues());
+				$this->subscribe($newsletter);
 			}
 		}
 		$viewParams['newsletterForm'] = $newsletterForm->createView();
@@ -206,6 +202,33 @@ abstract class InfoproduktController extends BaseEntityController
 	
 	protected function isFilterBySubcategories() {
 		return false;
+	}
+	
+	//---------------------------------------------------------------------------
+	// Internal logic
+	//---------------------------------------------------------------------------
+	protected function subscribe($entry) {
+		$em = $this->getDoctrine()->getManager();
+		
+		$repository = $this->getDoctrine()->getRepository(NewsletterUser::class);
+		$persistent = $repository->findOneBy(['name' => $entry->getName()]);
+		
+		if($persistent) {
+			if(!$persistent->getSubscribed()) {
+				$persistent->setSubscribed(true);
+				
+				$em->persist($persistent);
+				$em->flush();
+			}
+		} else {
+			$entry->setPublished(true);
+			$entry->setSubscribed(true);
+			
+			$em->persist($entry);
+			$em->flush();
+		}
+		
+		$this->addFlash('success', 'success.subscribed');
 	}
 	
 	//---------------------------------------------------------------------------

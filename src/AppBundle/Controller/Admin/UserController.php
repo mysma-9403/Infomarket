@@ -152,6 +152,21 @@ class UserController extends SimpleEntityController
 		return $params;
 	}
 	
+	//---------------------------------------------------------------------------
+	// Roles
+	//---------------------------------------------------------------------------
+	protected function getShowRole() {
+		return 'ROLE_ADMIN';
+	}
+	
+	protected function getEditRole() {
+		return 'ROLE_ADMIN';
+	}
+	
+	protected function getDeleteRole() {
+		return 'ROLE_SUPER_ADMIN';
+	}
+	
 	//------------------------------------------------------------------------
 	// EntityType related
 	//------------------------------------------------------------------------
@@ -206,13 +221,5 @@ class UserController extends SimpleEntityController
 	
 	protected function getSettingsRoute() {
 		return $this->getIndexRoute() . '_settings';
-	}
-	
-	//---------------------------------------------------------------------------
-	// Settings
-	//---------------------------------------------------------------------------
-	
-	protected function getDeleteRole() {
-		return 'ROLE_SUPER_ADMIN';
 	}
 }

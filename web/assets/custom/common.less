@@ -5,6 +5,8 @@
 @import "colors.less";
 @import "fonts.less";
 
+@import "footer.less";
+@import "carousel.less";
 
 
 .col-lg-2-4 {
@@ -404,6 +406,26 @@ body {
 	width: 10px;
 }
 
+.vr-space-80 {
+	height: 80px;
+}
+
+.vr-space-40 {
+	height: 40px;
+}
+
+.vr-space-20 {
+	height: 20px;
+}
+
+.vr-space-10 {
+	height: 10px;
+}
+
+.vr-space-5 {
+	height: 5px;
+}
+
 .lowered {
 	margin-top: (@padding * 2px);
 }
@@ -651,62 +673,6 @@ ul.nav-tree
     vertical-align: middle;
     width: 0;
 	margin-left:5px;
-}
-
-
-
-
-.right.carousel-control > span, 
-.left.carousel-control > span {
-    margin-top: 100%;
-}
-
-.right.carousel-control , 
-.left.carousel-control  {
-    opacity: 0;
-    filter:alpha(opacity=0); /* IE support */
-}
-
-.carousel-indicators li {
-	border-radius: 0px;
-	border-width: 0px;
-	background-color: @brand-primary;
-}
-
-.carousel-indicators li.active {
-	background-color: @red;
-}
-
-.carousel-fade {
-    .carousel-inner {
-        .item {
-            transition-property: opacity;
-        }
-        
-        .item,
-        .active.left,
-        .active.right {
-            opacity: 0;
-        }
-
-        .active,
-        .next.left,
-        .prev.right {
-            opacity: 1;
-        }
-
-        .next,
-        .prev,
-        .active.left,
-        .active.right {
-            left: 0;
-            transform: translate3d(0, 0, 0);
-        }
-    }
-
-    .carousel-control {
-        z-index: 2;
-    }
 }
 
 

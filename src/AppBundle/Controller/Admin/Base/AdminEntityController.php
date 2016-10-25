@@ -22,6 +22,8 @@ abstract class AdminEntityController extends BaseEntityController {
 	 */
 	protected function indexActionInternal(Request $request, $page)
 	{
+		$this->denyAccessUnlessGranted($this->getShowRole(), null, 'Unable to access this page!');
+		
 		$params = $this->createParams($this->getIndexRoute());
 		$params = $this->getIndexParams($request, $params, $page);
 		
@@ -113,13 +115,19 @@ abstract class AdminEntityController extends BaseEntityController {
 		return $this->render($this->getIndexView(), $viewParams);
 	}
 	
+	protected function showActionInternal(Request $request, $id) {
+		$this->denyAccessUnlessGranted($this->getShowRole(), null, 'Unable to access this page!');
+		
+		return parent::showActionInternal($request, $id);
+	}
+	
 	/**
 	 *
 	 * @param Request $request
 	 */
 	protected function newActionInternal(Request $request)
 	{
-		$this->denyAccessUnlessGranted('ROLE_EDITOR', null, 'Unable to access this page!');
+		$this->denyAccessUnlessGranted($this->getNewRole(), null, 'Unable to access this page!');
 	
 		$params = $this->createParams($this->getNewRoute());
 		$params = $this->getNewParams($request, $params);
@@ -134,7 +142,7 @@ abstract class AdminEntityController extends BaseEntityController {
 	 */
 	protected function copyActionInternal(Request $request, $id)
 	{
-		$this->denyAccessUnlessGranted('ROLE_EDITOR', null, 'Unable to access this page!');
+		$this->denyAccessUnlessGranted($this->getCopyRole(), null, 'Unable to access this page!');
 	
 		$params = $this->createParams($this->getCopyRoute());
 		$params = $this->getCopyParams($request, $params, $id);
@@ -144,7 +152,7 @@ abstract class AdminEntityController extends BaseEntityController {
 	
 	protected function editActionInternal(Request $request, $id)
 	{
-		$this->denyAccessUnlessGranted('ROLE_EDITOR', null, 'Unable to access this page!');
+		$this->denyAccessUnlessGranted($this->getEditRole(), null, 'Unable to access this page!');
 	
 		$params = $this->createParams($this->getEditRoute());
 		$params = $this->getEditParams($request, $params, $id);
@@ -214,7 +222,7 @@ abstract class AdminEntityController extends BaseEntityController {
 	
 	protected function setPublishedActionInternal(Request $request, $id)
 	{
-		$this->denyAccessUnlessGranted('ROLE_EDITOR', null, 'Unable to access this page!');
+		$this->denyAccessUnlessGranted($this->getEditRole(), null, 'Unable to access this page!');
 	
 		$params = $this->createParams($this->getSetPublishedRoute());
 		$params = $this->getEditParams($request, $params, $id);
@@ -235,7 +243,7 @@ abstract class AdminEntityController extends BaseEntityController {
 	
 	protected function setFeaturedActionInternal(Request $request, $id)
 	{
-		$this->denyAccessUnlessGranted('ROLE_EDITOR', null, 'Unable to access this page!');
+		$this->denyAccessUnlessGranted($this->getEditRole(), null, 'Unable to access this page!');
 	
 		$params = $this->createParams($this->getSetFeaturedRoute());
 		$params = $this->getEditParams($request, $params, $id);
@@ -342,7 +350,7 @@ abstract class AdminEntityController extends BaseEntityController {
 	
 	protected function setPublishedSelected($entries, $published)
 	{
-		$this->denyAccessUnlessGranted('ROLE_EDITOR', null, 'Unable to access this page!');
+		$this->denyAccessUnlessGranted($this->getEditRole(), null, 'Unable to access this page!');
 		
 		$em = $this->getDoctrine()->getManager();
 	
@@ -412,8 +420,27 @@ abstract class AdminEntityController extends BaseEntityController {
 		return array();
 	}
 	
-	protected function getDeleteRole() {
+	//---------------------------------------------------------------------------
+	// Roles
+	//---------------------------------------------------------------------------
+	protected function getShowRole() {
 		return 'ROLE_EDITOR';
+	}
+	
+	protected function getEditRole() {
+		return 'ROLE_EDITOR';
+	}
+	
+	protected function getNewRole() {
+		return $this->getEditRole();
+	}
+	
+	protected function getCopyRole() {
+		return $this->getNewRole();
+	}
+	
+	protected function getDeleteRole() {
+		return 'ROLE_ADMIN';
 	}
 	
 	//---------------------------------------------------------------------------

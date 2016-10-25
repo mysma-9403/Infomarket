@@ -2,25 +2,24 @@
 
 namespace AppBundle\Controller\Admin;
 
-use AppBundle\Controller\Admin\Base\AdminEntityController;
-use AppBundle\Entity\ArticleArticleCategoryAssignment;
-use AppBundle\Form\ArticleArticleCategoryAssignmentType;
-use AppBundle\Form\Filter\ArticleArticleCategoryAssignmentFilterType;
-use AppBundle\Manager\Entity\Common\ArticleArticleCategoryAssignmentManager;
-use AppBundle\Manager\Filter\Common\ArticleArticleCategoryAssignmentFilterManager;
+use AppBundle\Controller\Admin\Base\SimpleEntityController;
+use AppBundle\Entity\NewsletterUser;
+use AppBundle\Form\Filter\NewsletterUserFilterType;
+use AppBundle\Form\NewsletterUserType;
+use AppBundle\Manager\Entity\Common\NewsletterUserManager;
+use AppBundle\Manager\Filter\Common\NewsletterUserFilterManager;
 use Symfony\Component\HttpFoundation\Request;
 
-class ArticleArticleCategoryAssignmentController extends AdminEntityController {
+class NewsletterUserController extends SimpleEntityController {
 	
 	//---------------------------------------------------------------------------
 	// Actions
 	//---------------------------------------------------------------------------
-	
 	/**
-	 *
+	 * 
 	 * @param Request $request
 	 * @param integer $page
-	 *
+	 * 
 	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
 	 */
 	public function indexAction(Request $request, $page)
@@ -29,10 +28,10 @@ class ArticleArticleCategoryAssignmentController extends AdminEntityController {
 	}
 	
 	/**
-	 *
+	 * 
 	 * @param Request $request
 	 * @param integer $id
-	 *
+	 * 
 	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
 	 */
 	public function showAction(Request $request, $id)
@@ -41,9 +40,9 @@ class ArticleArticleCategoryAssignmentController extends AdminEntityController {
 	}
 	
 	/**
-	 *
+	 * 
 	 * @param Request $request
-	 *
+	 * 
 	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
 	 */
 	public function newAction(Request $request)
@@ -52,10 +51,10 @@ class ArticleArticleCategoryAssignmentController extends AdminEntityController {
 	}
 	
 	/**
-	 *
+	 * 
 	 * @param Request $request
 	 * @param integer $id
-	 *
+	 * 
 	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
 	 */
 	public function copyAction(Request $request, $id)
@@ -64,10 +63,10 @@ class ArticleArticleCategoryAssignmentController extends AdminEntityController {
 	}
 	
 	/**
-	 *
+	 * 
 	 * @param Request $request
 	 * @param integer $id
-	 *
+	 * 
 	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
 	 */
 	public function editAction(Request $request, $id)
@@ -76,10 +75,10 @@ class ArticleArticleCategoryAssignmentController extends AdminEntityController {
 	}
 	
 	/**
-	 *
+	 * 
 	 * @param Request $request
 	 * @param integer $id
-	 *
+	 * 
 	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
 	 */
 	public function deleteAction(Request $request, $id)
@@ -88,10 +87,10 @@ class ArticleArticleCategoryAssignmentController extends AdminEntityController {
 	}
 	
 	/**
-	 *
+	 * 
 	 * @param Request $request
 	 * @param integer $id
-	 *
+	 * 
 	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
 	 */
 	public function setPublishedAction(Request $request, $id)
@@ -99,33 +98,63 @@ class ArticleArticleCategoryAssignmentController extends AdminEntityController {
 		return $this->setPublishedActionInternal($request, $id);
 	}
 	
+	/**
+	 *
+	 * @param Request $request
+	 * @param integer $id
+	 *
+	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
+	 */
+	public function setSubscribedAction(Request $request, $id)
+	{
+		return $this->setSubscribedActionInternal($request, $id);
+	}
+	
+	//------------------------------------------------------------------------
+	// Internal actions
+	//------------------------------------------------------------------------
+	protected function setSubscribedActionInternal(Request $request, $id)
+	{
+		$this->denyAccessUnlessGranted($this->getEditRole(), null, 'Unable to access this page!');
+	
+		$params = $this->createParams($this->getSetPublishedRoute());
+		$params = $this->getEditParams($request, $params, $id);
+	
+		$viewParams = $params['viewParams'];
+		$entry = $viewParams['entry'];
+	
+		$subscribed = $request->get('value', false);
+	
+		$em = $this->getDoctrine()->getManager();
+	
+		$entry->setSubscribed($subscribed);
+		$em->persist($entry);
+		$em->flush();
+	
+		return $this->redirectToReferer($request);
+	}
+	
 	//---------------------------------------------------------------------------
 	// Managers
 	//---------------------------------------------------------------------------
 	
-	/**
-	 * 
-	 * {@inheritDoc}
-	 * @see \AppBundle\Controller\Base\BaseEntityController::getEntityManager()
-	 */
 	protected function getEntityManager($doctrine, $paginator) {
-		return new ArticleArticleCategoryAssignmentManager($doctrine, $paginator);
+		return new NewsletterUserManager($doctrine, $paginator);
 	}
 	
-	/**
-	 * 
-	 * {@inheritDoc}
-	 * @see \AppBundle\Controller\Base\BaseEntityController::getFilterManager()
-	 */
 	protected function getFilterManager($doctrine) {
-		return new ArticleArticleCategoryAssignmentFilterManager($doctrine);
+		return new NewsletterUserFilterManager($doctrine);
 	}
 	
 	//---------------------------------------------------------------------------
 	// Roles
 	//---------------------------------------------------------------------------
-	protected function getDeleteRole() {
-		return 'ROLE_EDITOR';
+	protected function getShowRole() {
+		return 'ROLE_ADMIN';
+	}
+	
+	protected function getEditRole() {
+		return 'ROLE_ADMIN';
 	}
 	
 	//------------------------------------------------------------------------
@@ -133,29 +162,34 @@ class ArticleArticleCategoryAssignmentController extends AdminEntityController {
 	//------------------------------------------------------------------------
 	
 	/**
-	 * 
+	 *
 	 * {@inheritDoc}
-	 * @see \AppBundle\Controller\Base\BaseController::getEntityType()
+	 * @see \AppBundle\Controller\Admin\Base\SimpleEntityController::getEntityType()
 	 */
 	protected function getEntityType() {
-		return ArticleArticleCategoryAssignment::class;
+		return NewsletterUser::class;
 	}
 	
+	
+	//------------------------------------------------------------------------
+	// Forms
+	//------------------------------------------------------------------------
+	
 	/**
-	 * 
+	 *
 	 * {@inheritDoc}
-	 * @see \AppBundle\Controller\Admin\Base\AdminEntityController::getFormType()
+	 * @see \AppBundle\Controller\Admin\Base\SimpleEntityController::getFormType()
 	 */
 	protected function getFormType() {
-		return ArticleArticleCategoryAssignmentType::class;
+		return NewsletterUserType::class;
 	}
 	
 	/**
 	 * 
 	 * {@inheritDoc}
-	 * @see \AppBundle\Controller\Admin\Base\AdminEntityController::getFilterFormType()
+	 * @see \AppBundle\Controller\Admin\Base\SimpleEntityController::getFilterFormType()
 	 */
-	 protected function getFilterFormType() {
-		return ArticleArticleCategoryAssignmentFilterType::class;
+	protected function getFilterFormType() {
+		return NewsletterUserFilterType::class;
 	}
 }

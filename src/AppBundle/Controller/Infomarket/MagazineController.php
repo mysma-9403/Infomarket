@@ -5,7 +5,7 @@ namespace AppBundle\Controller\Infomarket;
 use AppBundle\Controller\Infomarket\Base\InfomarketController;
 use AppBundle\Entity\Magazine;
 use AppBundle\Manager\Entity\Common\MagazineManager;
-use AppBundle\Manager\Filter\Common\MagazineFilterManager;
+use AppBundle\Manager\Filter\Infomarket\IMMagazineFilterManager;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -43,15 +43,14 @@ class MagazineController extends InfomarketController
 	//---------------------------------------------------------------------------
 	
 	protected function getEntityManager($doctrine, $paginator) {
-		return new MagazineManager($doctrine, $paginator);
+		$em = new MagazineManager($doctrine, $paginator);
+		$em->setEntriesPerPage(12);
+		
+		return $em;
 	}
 	
 	protected function getEntryFilterManager($doctrine) {
-		return new MagazineFilterManager($doctrine);
-	}
-	
-	protected function isFilterByCategories() {
-		return true;
+		return new IMMagazineFilterManager($doctrine);
 	}
 	
 	//---------------------------------------------------------------------------

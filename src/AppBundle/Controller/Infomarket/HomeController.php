@@ -8,6 +8,9 @@ use AppBundle\Manager\Entity\Common\BranchManager;
 use AppBundle\Manager\Filter\Infomarket\IMBranchFilterManager;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Manager\Entity\Base\EntityManager;
+use AppBundle\Manager\Filter\Base\FilterManager;
+use AppBundle\Manager\Params\EntryParams\Infomarket\HomeEntryParamsManager;
 
 class HomeController extends InfomarketController
 {
@@ -41,6 +44,10 @@ class HomeController extends InfomarketController
 	//---------------------------------------------------------------------------
 	// Managers
 	//---------------------------------------------------------------------------
+	
+	protected function getInternalEntryParamsManager(EntityManager $em, FilterManager $fm, $doctrine) {
+		return new HomeEntryParamsManager($em, $fm, $doctrine);
+	}
 	
 	protected function getEntityManager($doctrine, $paginator) {
 		return new BranchManager($doctrine, $paginator);

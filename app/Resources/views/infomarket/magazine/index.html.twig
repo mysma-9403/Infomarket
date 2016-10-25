@@ -5,5 +5,34 @@
 {% set mainPath = 'magazine' %}
 		
 {% block content %}
-	Tutaj bedo informacje o magazynie
+	<div class="container">
+		{% block magazines %}
+		<div class="row">
+			{% for entry in entries %}
+				<div class="col-sm-2 padding-5">
+					<a href="{{ asset(entry.magazineFile) }}">
+						<div class="col-xs-12 bkg-red padding-5">
+			  				<img class="img-responsive" 
+			    				alt="{{ entry.name | raw }}" src="{{ asset(entry.getImagePath()) }}">
+	    				</div>
+	    				<div class="col-xs-12 bkg-brand padding-5">
+	    					<h4 class="title text-white">
+	    						{{ entry.name }}
+	    					</h4>
+	    				</div>
+			  		</a>
+				</div>
+			{% endfor %}
+		</div>
+		{% endblock %}
+		
+		{% block paginator %}
+		<div class="row">
+			<div class="col-xs-12">
+		        {{ knp_pagination_render(entries) }}
+			</div>
+		</div>
+		{% endblock %}
+	</div>
+	
 {% endblock %}

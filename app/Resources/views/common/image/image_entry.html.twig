@@ -1,4 +1,6 @@
 {% if entry.image %}
+	{% set tile = tile|default(false) %}
+	
 	{% if entry.forcedWidth and entry.forcedWidth > 0 %}
 		{% set forcedWidth = 'width=' ~ entry.forcedWidth ~ '' %}
 	{% else %}
@@ -12,7 +14,11 @@
 	{% endif %}
 	
 	{% if forcedWidth|length == 0 and forcedHeight|length == 0 %}
-		{% set responsive = 'img-' ~ (entry.vertical ? 'v' : '') ~ 'responsive' %}
+		{% if tile %}
+			{% set responsive = 'img-' ~ (entry.vertical ? '' : 'v') ~ 'responsive' %}
+		{% else %}
+			{% set responsive = 'img-' ~ (entry.vertical ? 'v' : '') ~ 'responsive' %}
+		{% endif %}
 	{% else %}
 		{% set responsive = '' %}
 	{% endif %}

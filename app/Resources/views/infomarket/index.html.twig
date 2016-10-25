@@ -36,122 +36,169 @@
 		<nav class="navbar navbar-default navbar-fixed-top">
 			<div class="container">
 				
-				<div class="col-xs-12">
-					{% block navigationHeader %}
-						<div class="navbar-header">
-							{% block navigationButton %}
-								<button type="button" class="navbar-toggle collapsed" 
-										data-toggle="collapse" 
-										data-target="#bs-example-navbar-collapse-1" 
-										aria-expanded="false">
-							        <span class="sr-only">Toggle navigation</span>
-							        <span class="icon-bar"></span>
-							        <span class="icon-bar"></span>
-							        <span class="icon-bar"></span>
-						      	</button>
-				      		{% endblock %}
-				      		
-				      		{% block navigationBrand %}
-							<a class="navbar-brand" href="{{ path('infomarket_home') }}">
-								<h2 class="title text-brand hidden-xs">
-									<span class="branch-color-{{ branch.id }}">Info</span><span class="text-white">Market</span>
-								</h2>
-								<h2 class="title text-brand visible-xs">
-									<span class="branch-color-{{ branch.id }}">I</span><span class="text-white">M</span>
-								</h2>
-							</a>
-							{% endblock %}
-				    	</div>
-			    	{% endblock %}
-			    	
-			    	{% block navigationList %}
-						<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-			      			<ul class="nav navbar-nav navbar-right">
-								{% block navigationMenu %}
-									<li class="{% if mainPath == 'article' %}active{% endif %} branch-{{ branch.id }}">
-										<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-											<span class="fa fa-file-text-o"></span> {{ 'title.articles'|trans }} <span class="caret">
-										</a>
-										<ul class="dropdown-menu">
-											{% for articleCategory in menuArticleCategories %}
+				<div class="row">
+					<div class="col-xs-12">
+						{% block navigationHeader %}
+							<div class="navbar-header">
+								{% block navigationButton %}
+									<button type="button" class="navbar-toggle collapsed" 
+											data-toggle="collapse" 
+											data-target="#bs-example-navbar-collapse-1" 
+											aria-expanded="false">
+								        <span class="sr-only">Toggle navigation</span>
+								        <span class="icon-bar"></span>
+								        <span class="icon-bar"></span>
+								        <span class="icon-bar"></span>
+							      	</button>
+					      		{% endblock %}
+					      		
+					      		{% block navigationBrand %}
+								<a class="navbar-brand" href="{{ path('infomarket_home') }}">
+									<img class="brand-image" src="{{ asset('img/template/logo-infomarket.png') }}">
+								</a>
+								{% endblock %}
+					    	</div>
+				    	{% endblock %}
+				    	
+				    	{% block navigationList %}
+							<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+				      			<ul class="nav navbar-nav navbar-right">
+									{% block navigationMenu %}
+										<li class="{% if mainPath == 'article' %}active{% endif %} branch-{{ branch.id }}">
+											<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+												<span class="fa fa-file-text-o"></span> {{ 'title.articles'|trans }} <span class="caret">
+											</a>
+											<ul class="dropdown-menu">
+												{% for articleCategory in menuArticleCategories %}
+													<li>
+														<a href="{{ path(basePath ~ 'article', { 'article_filter_article_categories': articleCategory.id }) }}">
+															{{ articleCategory.name }}
+														</a>
+													</li>
+												{% endfor %}
+												<li class="divider"></li>
 												<li>
-													<a href="{{ path(basePath ~ 'article', { 'article_filter_article_categories': articleCategory.id }) }}">
-														{{ articleCategory.name }}
+													<a href="{{ path(basePath ~ 'article') }}">
+														{{ 'label.all'|trans }} <span class="fa fa-caret-right branch-color-{{ branch.id }}"></span>
 													</a>
 												</li>
-											{% endfor %}
-											<li class="divider"></li>
-											<li>
-												<a href="{{ path(basePath ~ 'article') }}">
-													{{ 'label.all'|trans }} <span class="fa fa-caret-right branch-{{ branch.id }}"></span>
-												</a>
-											</li>
-										</ul>
-									</li>
-									<li class="{% if mainPath == 'category' %}active{% endif %} branch-{{ branch.id }}">
-										<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-											<span class="fa fa-camera-retro"></span> {{ 'title.products'|trans }} <span class="caret">
-										</a>
-										<ul class="dropdown-menu">
-											{% for category in menuCategories %}
-													
-													{% set show = false %}
-													{% for branchCategoryAssignment in category.branchCategoryAssignments if show == false %}
-														{% if branchCategoryAssignment.branch.id == branch.id %}
-															{% set show = true %}
+											</ul>
+										</li>
+										<li class="{% if mainPath == 'category' %}active{% endif %} branch-{{ branch.id }}">
+											<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+												<span class="fa fa-camera-retro"></span> {{ 'title.products'|trans }} <span class="caret">
+											</a>
+											<ul class="dropdown-menu">
+												{% for category in menuCategories %}
+														
+														{% set show = false %}
+														{% for branchCategoryAssignment in category.branchCategoryAssignments if show == false %}
+															{% if branchCategoryAssignment.branch.id == branch.id %}
+																{% set show = true %}
+															{% endif %}
+														{% endfor %}
+														
+														{% if show %}
+															{% include 'common/category/menu_entry.html.twig' with 
+																{ 'entry': category, 'showAll': true, 'caretClass': 'branch-color-' ~ branch.id } %}
 														{% endif %}
-													{% endfor %}
-													
-													{% if show %}
-														{% include 'common/category/menu_entry.html.twig' with { 'entry': category, 'showAll': true } %}
-													{% endif %}
-											{% endfor %}
-										</ul>
-									</li>
-									<li class="{% if mainPath == 'magazine' %}active{% endif %} branch-{{ branch.id }}">
-										<a href="{{ path(basePath ~ 'magazine') }}">
-											<span class="fa fa-newspaper-o"></span> {{ 'title.magazines'|trans }}</a>
-									</li>
-									<li class="{% if mainPath == 'advertisement' or mainPath == 'brand' %}active{% endif %} branch-{{ branch.id }}">
-										<a href="{{ path(basePath ~ 'home') }}">
-											<span class="fa fa-globe"></span> {{ 'Reklama'|trans }}</a>
-									</li>
-								{% endblock %}
-							</ul>
-						</div>
-					{% endblock %}
+												{% endfor %}
+											</ul>
+										</li>
+										<li class="{% if mainPath == 'magazine' %}active{% endif %} branch-{{ branch.id }}">
+											<a href="{{ path(basePath ~ 'magazine') }}">
+												<span class="fa fa-newspaper-o"></span> {{ 'title.magazines'|trans }}</a>
+										</li>
+										<li class="{% if mainPath == 'advertisement' or mainPath == 'brand' %}active{% endif %} branch-{{ branch.id }}">
+											<a href="{{ path(basePath ~ 'home') }}">
+												<span class="fa fa-globe"></span> {{ 'Reklama'|trans }}</a>
+										</li>
+									{% endblock %}
+								</ul>
+							</div>
+						{% endblock %}
+					</div>
 				</div>
 		  	</div>
 		</nav>
 	{% endblock %}
 		
-	<div class="container content">
+	<div class="container-fluid content">
 		{% block content %}
 		{% endblock %}
 	</div>
+	
+	{% block contact %}
+		<div class="container">
+			
+			<div class="row">
+				<div class="col-sm-8">
+					<h4 class="title padding-5">
+						<span class="text-red">{{ 'header.contact.1'|trans }}</span> 
+						<span class="text-brand">{{ 'header.contact.2'|trans }}</span>
+					</h4>
+					
+					<p>
+						<a class="padding-5" href="http://krk.infoprodukt.pl">
+							<img src="{{ asset('img/template/twitter.png') }}">
+						</a>
+						<a href="http://www.facebook.com/infomarket1">
+							<img src="{{ asset('img/template/facebook.png') }}">
+						</a>
+						<a href="https://www.youtube.com/channel/UCpH2PHKAxnNlX-zSgJXyjpA">
+							<img src="{{ asset('img/template/youtube.png') }}">
+						</a>
+					</p>
+				</div>
+				
+				<div class="col-sm-4">
+					<h4 class="title padding-5">
+						<span class="text-red">{{ 'header.newsletter.1'|trans }}</span> 
+						<span class="text-brand">{{ 'header.newsletter.2'|trans }}</span>
+					</h4>
+					
+					{% form_theme newsletterForm 'form/fields.html.twig' %}
+					
+					{{ form_start(newsletterForm) }}
+						<ul class="list-inline no-padding">
+							<li class=" no-padding">
+								<div class='input-group input-sm no-padding'>
+									{{ form_widget(newsletterForm.name, { 'label': 'label.name', 'attr': { 'class': 'input-sm' }  }) }}
+									<span class="input-group-btn">
+										{{ form_widget(newsletterForm.save, { 'label': 'action.save', 'attr': { 'class': 'input-sm btn-danger' }  }) }}
+							      	</span>
+								</div>
+							</li>
+							<li class="hidden"> {{ form_widget(newsletterForm.published) }} </li>
+							<li class="hidden"> {{ form_widget(newsletterForm.subscribed) }} </li>
+						</ul>
+					{{ form_end(newsletterForm) }}
+				</div>
+			</div>
+			
+			<div class="row">
+				<div class="col-xs-12">
+					{% block errorsBlock %}
+						{% include 'common/errors.html.twig' %}
+					{% endblock %}
+				</div>
+			</div>
+					
+			<div class="row">
+				<div class="col-xs-12">
+					<h5 class="text-right text-brand title padding-5">&copy; {{ 'title.footer.copyright'|trans }}</h5>
+				</div>
+			</div>
+		</div>    
+	{% endblock %}
 	
 	{% block footer %}
 		<div class="footer navbar-inverse">
 	  		<div class="container-fluid">
 		    	<div class="container">
-		    		<div class="row">
-		      			<div class="col-sm-3">
-		      			</div>
-		      			<div class="col-sm-6">
-		      				<h5 class="text-xs-center">&copy; {{ 'title.footer.copyright'|trans }}</h5>
-		      			</div>
-		      			<div class="col-sm-3">
-		      				<h5 class="text-xs-center text-sm-left">
-		      					<a href="http://www.facebook.com/infomarket1"><i class="fa fa-facebook"></i></a> 
-		      					<a href="https://www.youtube.com/channel/UCpH2PHKAxnNlX-zSgJXyjpA"><i class="fa fa-youtube"></i></a> 
-		      					<a href="http://infomarket.edu.loc:8000" class="title">IM</a> 
-	      					</h5>
-		      			</div>
-		      		</div>
-		      		
 		      		<div class="row">
 			      		<div class="col-sm-3">
-			      			<h5>InfoMarket Sp. z o.o.</h5>
+			      			<h3>InfoMarket Sp. z o.o.</h3>
 			      			<hr>
 			      			<p>
 			      				ul. Trylogii 2/16,<br>
@@ -161,7 +208,7 @@
 		      				</p>
 			      		</div>
 			      		<div class="col-sm-6">
-			      			<h5>{{ 'title.footer.office'|trans }}</h5>
+			      			<h3>{{ 'title.footer.office'|trans }}</h3>
 			      			<hr>
 			      			
 			      			{% set half = menuPages|length / 2 %}
@@ -185,7 +232,7 @@
 				      		</div>
 			      		</div>
 			      		<div class="col-sm-3">
-			      			<h5>{{ 'title.footer.magazine'|trans }}</h5>
+			      			<h3>{{ 'title.footer.magazine'|trans }}</h3>
 			      			<hr>
 			      			
 			      			{% for entry in menuLinks %}

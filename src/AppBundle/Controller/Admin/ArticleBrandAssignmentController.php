@@ -121,6 +121,13 @@ class ArticleBrandAssignmentController extends AdminEntityController {
 		return new ArticleBrandAssignmentFilterManager($doctrine);
 	}
 	
+	//---------------------------------------------------------------------------
+	// Roles
+	//---------------------------------------------------------------------------
+	protected function getDeleteRole() {
+		return 'ROLE_EDITOR';
+	}
+	
 	//------------------------------------------------------------------------
 	// EntityType related
 	//------------------------------------------------------------------------

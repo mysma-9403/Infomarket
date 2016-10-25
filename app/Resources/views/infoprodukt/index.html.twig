@@ -29,11 +29,11 @@
 {% block body %}
 	
 	{% block navigationBar %}
-	<nav class="navbar navbar-fixed-top no-more-padding">
+	<nav class="navbar navbar-fixed-top">
 		<div class="navbar-default">
-			<div class="container-fluid">
+			<div class="container">
 				<div class="row">
-					<div class="col-xs-12">
+					<div class="col-xs-12 padding-5">
 						{% block navigationHeader %}
 							<div class="navbar-header">
 								{% block navigationButton %}
@@ -48,11 +48,9 @@
 						      	</button>
 					      		{% endblock %}
 					      		
-					      		{% block navigationBrand %}
+								{% block navigationBrand %}
 								<a class="navbar-brand" href="{{ path('infoprodukt_home') }}">
-									<h2 class="title text-brand">
-										<span class="text-red">Info</span>Produkt
-									</h2>
+									<img class="brand-image" src="{{ asset('img/template/logo-infoprodukt.png') }}">
 								</a>
 								{% endblock %}
 					    	</div>
@@ -159,62 +157,73 @@
 	<div class="container-fluid content">
 		{% block content %}
 		{% endblock %}
-		
-		{% block contact %}
-			<div class="container">
-				
-				<div class="row">
-					<div class="col-sm-8 no-padding">
-						<h4 class="title padding-5">
-							<span class="text-red">{{ 'header.contact.1'|trans }}</span> 
-							<span class="text-brand">{{ 'header.contact.2'|trans }}</span>
-						</h4>
-						
-						<p class="padding-5">
-							<a href="http://krk.infoprodukt.pl">
-								<img src="{{ asset('img/template/twitter.png') }}">
-							</a>
-							<a href="http://www.facebook.com/infomarket1">
-								<img src="{{ asset('img/template/facebook.png') }}">
-							</a>
-							<a href="https://www.youtube.com/channel/UCpH2PHKAxnNlX-zSgJXyjpA">
-								<img src="{{ asset('img/template/youtube.png') }}">
-							</a>
-						</p>
-					</div>
-					
-					<div class="col-sm-4 no-padding">
-						<h4 class="title">
-							<span class="text-red">{{ 'header.newsletter.1'|trans }}</span> 
-							<span class="text-brand">{{ 'header.newsletter.2'|trans }}</span>
-						</h4>
-						
-						<div class="row">
-							<div class="col-xs-12 padding-5">
-								{% form_theme searchFilterForm 'form/fields.html.twig' %}
-								
-								{{ form_start(newsletterForm) }}
-									<ul class="list-inline">
-										<li>
-											<div class='input-group input-sm'>
-												{{ form_widget(newsletterForm.name, { 'label': 'label.name', 'attr': { 'class': 'input-sm' }  }) }}
-												<span class="input-group-btn">
-													{{ form_widget(newsletterForm.save, { 'label': 'action.save', 'attr': { 'class': 'input-sm btn-danger' }  }) }}
-										      	</span>
-											</div>
-										</li>
-										<li class="hidden"> {{ form_widget(newsletterForm.published) }} </li>
-									</ul>
-								{{ form_end(newsletterForm) }}
-							</div>
-				  		</div>
-				  		
-				  		<h5 class="text-right text-brand title padding-5">&copy; {{ 'title.footer.copyright'|trans }}</h5>
-					</div>
-				</div>
-			</div>    
-		{% endblock %}
 	</div>
+	
+	{% block contact %}
+		<div class="container">
+			
+			<div class="row">
+				<div class="col-sm-8 no-padding">
+					<h4 class="title padding-5">
+						<span class="text-red">{{ 'header.contact.1'|trans }}</span> 
+						<span class="text-brand">{{ 'header.contact.2'|trans }}</span>
+					</h4>
+					
+					<p class="padding-5">
+						<a href="http://krk.infoprodukt.pl">
+							<img src="{{ asset('img/template/twitter.png') }}">
+						</a>
+						<a href="http://www.facebook.com/infomarket1">
+							<img src="{{ asset('img/template/facebook.png') }}">
+						</a>
+						<a href="https://www.youtube.com/channel/UCpH2PHKAxnNlX-zSgJXyjpA">
+							<img src="{{ asset('img/template/youtube.png') }}">
+						</a>
+					</p>
+				</div>
+				
+				<div class="col-sm-4 no-padding">
+					<h4 class="title">
+						<span class="text-red">{{ 'header.newsletter.1'|trans }}</span> 
+						<span class="text-brand">{{ 'header.newsletter.2'|trans }}</span>
+					</h4>
+					
+					<div class="row">
+						<div class="col-xs-12 padding-5">
+							{% form_theme newsletterForm 'form/fields.html.twig' %}
+							
+							{{ form_start(newsletterForm) }}
+								<ul class="list-inline">
+									<li>
+										<div class='input-group input-sm'>
+											{{ form_widget(newsletterForm.name, { 'label': 'label.name', 'attr': { 'class': 'input-sm' }  }) }}
+											<span class="input-group-btn">
+												{{ form_widget(newsletterForm.save, { 'label': 'action.save', 'attr': { 'class': 'input-sm btn-danger' }  }) }}
+									      	</span>
+										</div>
+									</li>
+									<li class="hidden"> {{ form_widget(newsletterForm.published) }} </li>
+									<li class="hidden"> {{ form_widget(newsletterForm.subscribed) }} </li>
+								</ul>
+							{{ form_end(newsletterForm) }}
+						</div>
+			  		</div>
+				</div>
+			</div>
+			
+			<div class="row">
+				<div class="col-xs-12 padding-5">
+				{% block errorsBlock %}
+					{% include 'common/errors.html.twig' %}
+				{% endblock %}
+				</div>
+			</div>
+			
+			<div class="row">
+				<h5 class="text-right text-brand title padding-5">&copy; {{ 'title.footer.copyright'|trans }}</h5>
+			</div>
+		</div>    
+	{% endblock %}
 	
 	{% block footer %}
 		<div class="footer">
