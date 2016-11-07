@@ -16,8 +16,7 @@ class ArticleFilterManager extends BaseFilterManager {
 	public function adaptToView(BaseEntityFilter $filter, array $params) {
 		/** @var ArticleFilter $filter */
 		$filter = parent::adaptToView($filter, $params);
-		
-		$filter->setMain(BaseEntityFilter::TRUE_VALUES); 
+		 
 		$filter->setOrderBy('e.date DESC');
 		
 		return $filter;

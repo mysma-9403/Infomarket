@@ -432,62 +432,34 @@
             </trans-unit>
             
             
-            <trans-unit id="label.article.layout.default.left">
-                <source>label.article.layout.default.left</source>
-                <target>Domyślny (do lewej)</target>
+            
+            <trans-unit id="label.article.layout.left">
+                <source>label.article.layout.left</source>
+                <target>Do lewej</target>
             </trans-unit>
-            <trans-unit id="label.article.layout.default.right">
-                <source>label.article.layout.default.right</source>
-                <target>Domyślny (do prawej)</target>
+            <trans-unit id="label.article.layout.mid">
+                <source>label.article.layout.mid</source>
+                <target>Do środka</target>
             </trans-unit>
-            <trans-unit id="label.article.layout.default.alternate">
-                <source>label.article.layout.default.alternate</source>
-                <target>Domyślny (mieszany)</target>
+            <trans-unit id="label.article.layout.right">
+                <source>label.article.layout.right</source>
+                <target>Do prawej</target>
             </trans-unit>
-            <trans-unit id="label.article.layout.narrow.left">
-                <source>label.article.layout.narrow.left</source>
-                <target>Wąski (do lewej)</target>
+            
+            
+            <trans-unit id="label.article.imageSize.small">
+                <source>label.article.imageSize.small</source>
+                <target>Mały</target>
             </trans-unit>
-            <trans-unit id="label.article.layout.narrow.right">
-                <source>label.article.layout.narrow.right</source>
-                <target>Wąski (do prawej)</target>
+            <trans-unit id="label.article.imageSize.medium">
+                <source>label.article.imageSize.medium</source>
+                <target>Średni</target>
             </trans-unit>
-            <trans-unit id="label.article.layout.narrow.alternate">
-                <source>label.article.layout.narrow.alternate</source>
-                <target>Wąski (mieszany)</target>
+            <trans-unit id="label.article.imageSize.large">
+                <source>label.article.imageSize.large</source>
+                <target>Duży</target>
             </trans-unit>
-            <trans-unit id="label.article.layout.wide.normalImage">
-                <source>label.article.layout.wide.normalImage</source>
-                <target>Szeroki (normalne zdjęcie)</target>
-            </trans-unit>
-            <trans-unit id="label.article.layout.wide.smallImage">
-                <source>label.article.layout.wide.smallImage</source>
-                <target>Szeroki (małe zdjęcie)</target>
-            </trans-unit>
-            <trans-unit id="label.article.layout.column.2">
-                <source>label.article.layout.column.2</source>
-                <target>Kolumnowy (2)</target>
-            </trans-unit>
-            <trans-unit id="label.article.layout.column.3">
-                <source>label.article.layout.column.3</source>
-                <target>Kolumnowy (3)</target>
-            </trans-unit>
-            <trans-unit id="label.article.layout.column.4">
-                <source>label.article.layout.column.4</source>
-                <target>Kolumnowy (4)</target>
-            </trans-unit>
-            <trans-unit id="label.article.layout.grid.2">
-                <source>label.article.layout.grid.2</source>
-                <target>Siatka (2)</target>
-            </trans-unit>
-            <trans-unit id="label.article.layout.grid.3">
-                <source>label.article.layout.grid.3</source>
-                <target>Siatka (3)</target>
-            </trans-unit>
-            <trans-unit id="label.article.layout.grid.4">
-                <source>label.article.layout.grid.4</source>
-                <target>Siatka (4)</target>
-            </trans-unit>
+            
             
             
             
@@ -904,6 +876,13 @@
             <trans-unit id="label.category.featuredImage">
                 <source>label.category.featuredImage</source>
                 <target>Zdjęcie wyróżnione</target>
+            </trans-unit>
+            
+            
+            
+            <trans-unit id="label.magazine.magazineFile">
+                <source>label.magazine.magazineFile</source>
+                <target>Plik magazynu</target>
             </trans-unit>
             
             

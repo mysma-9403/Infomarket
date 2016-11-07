@@ -3,11 +3,18 @@
 namespace AppBundle\Manager\Entity\Common;
 
 use AppBundle\Entity\Article;
+use AppBundle\Entity\User;
 use AppBundle\Manager\Entity\Base\SimpleEntityManager;
 use Symfony\Component\HttpFoundation\Request;
-use AppBundle\Entity\User;
 
 class ArticleManager extends SimpleEntityManager {
+	
+	private $tokenStorage;
+	
+	public function __construct($doctrine, $paginator, $tokenStorage) {
+		parent::__construct($doctrine, $paginator);
+		$this->tokenStorage = $tokenStorage;
+	}
 	
 	/**
 	 * Create new entry with request parameters.
@@ -26,17 +33,18 @@ class ArticleManager extends SimpleEntityManager {
 		$entry->setIntro($request->get('intro'));
 		$entry->setContent($request->get('content'));
 		
-		$entry->setAuthor($this->getParamWithName($request, User::class, 'author'));
-		$entry->setDate($request->get('date'));
+		$user = $this->tokenStorage->getToken()->getUser();
+		$entry->setAuthor($this->getParamWithName($request, User::class, 'author', $user));
 		
-		$entry->setLayout($request->get('layout'));
+		$entry->setDate($request->get('date', new \DateTime()));
 		
-		$entry->setDisplayPaginated($request->get('display_paginated'));
-		$entry->setDisplaySided($request->get('display_sided'));
+		$entry->setLayout($request->get('layout', Article::LEFT_LAYOUT));
+		$entry->setImageSize($request->get('image_size', Article::MEDIUM_IMAGE));
 		
 		$entry->setParent($this->getParamWithName($request, Article::class, 'parent'));
 		
-		$entry->setOrderNumber($request->get('order_number'));
+		$entry->setPage($request->get('order_number', 1));
+		$entry->setOrderNumber($request->get('order_number', 99));
 		
 		return $entry;
 	}
@@ -62,12 +70,11 @@ class ArticleManager extends SimpleEntityManager {
 		$entry->setDate($template->getDate());
 		
 		$entry->setLayout($template->getLayout());
-		
-		$entry->setDisplayPaginated($template->getDisplayPaginated());
-		$entry->setDisplaySided($template->getDisplaySided());
+		$entry->setImageSize($template->getImageSize());
 		
 		$entry->setParent($template->getParent());
 		
+		$entry->setPage($template->getPage());
 		$entry->setOrderNumber($template->getOrderNumber());
 		
 		return $entry;

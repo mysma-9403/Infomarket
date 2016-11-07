@@ -10,6 +10,9 @@ use AppBundle\Form\Filter\ArticleFilterType;
 use AppBundle\Manager\Entity\Common\ArticleManager;
 use AppBundle\Manager\Filter\Common\ArticleFilterManager;
 use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Manager\Entity\Base\EntityManager;
+use AppBundle\Manager\Filter\Base\FilterManager;
+use AppBundle\Manager\Params\EntryParams\Common\ArticleEntryParamsManager;
 
 class ArticleController extends ImageEntityController {
 	
@@ -118,9 +121,9 @@ class ArticleController extends ImageEntityController {
 	 * 
 	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
 	 */
-	public function previewAction(Request $request, $id)
+	public function previewAction(Request $request, $id, $page)
 	{
-		return $this->previewActionInternal($request, $id);
+		return $this->previewActionInternal($request, $id, $page);
 	}
 	
 	
@@ -135,10 +138,10 @@ class ArticleController extends ImageEntityController {
 	 *
 	 * @return \Symfony\Component\HttpFoundation\Response
 	 */
-	protected function previewActionInternal(Request $request, $id)
+	protected function previewActionInternal(Request $request, $id, $page)
 	{
 		$params = $this->createParams($this->getPreviewRoute());
-		$params = $this->getShowParams($request, $params, $id);
+		$params = $this->getPreviewParams($request, $params, $id, $page);
 	
 		$rm = $this->getRouteManager();
 		$rm->register($request, $params['route'], $params['routeParams']);
@@ -146,12 +149,26 @@ class ArticleController extends ImageEntityController {
 		return $this->render($this->getPreviewView(), $params['viewParams']);
 	}
 	
+	protected function getPreviewParams(Request $request, array $params, $id, $page) {
+		$params = $this->getParams($request, $params);
+	
+		$em = $this->getEntryParamsManager();
+		$params = $em->getPreviewParams($request, $params, $id, $page);
+	
+		return $params;
+	}
+	
 	//---------------------------------------------------------------------------
 	// Managers
 	//---------------------------------------------------------------------------
 	
+	protected function getInternalEntryParamsManager(EntityManager $em, FilterManager $fm, $doctrine) {
+		return new ArticleEntryParamsManager($em, $fm, $doctrine);
+	}
+	
 	protected function getEntityManager($doctrine, $paginator) {
-		return new ArticleManager($doctrine, $paginator);
+		$tokenStorage = $this->get('security.token_storage');
+		return new ArticleManager($doctrine, $paginator, $tokenStorage);
 	}
 	
 	protected function getFilterManager($doctrine) {

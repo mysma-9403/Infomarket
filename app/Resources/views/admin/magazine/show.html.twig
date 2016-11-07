@@ -8,6 +8,12 @@
 	{% include 'common/fields/bool_field.html.twig' with 
 	{ 'label': ('label.' ~ gender ~ 'featured')|trans, 'value': entry.featured } %}
 	
+	{% include 'common/fields/bool_field.html.twig' with 
+	{ 'label': ('label.infomarket')|trans, 'value': entry.infomarket } %}
+	
+	{% include 'common/fields/bool_field.html.twig' with 
+	{ 'label': ('label.infoprodukt')|trans, 'value': entry.infoprodukt } %}
+	
 	{% include 'common/fields/text_field.html.twig' with 
 	{ 'label': 'label.orderNumber'|trans, 'value': entry.orderNumber } %}
 	

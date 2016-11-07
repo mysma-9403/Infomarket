@@ -26,24 +26,15 @@ class ArticleType extends ImageEntityType
 	protected function addMoreFields(FormBuilderInterface $builder, array $options) {
 		
 		$layoutChoices = array(
-				'label.article.layout.default.left'			=> Article::DEFAULT_LEFT_LAYOUT,
-				'label.article.layout.default.right'		=> Article::DEFAULT_RIGHT_LAYOUT,
-				'label.article.layout.default.alternate'	=> Article::DEFAULT_ALTERNATE_LAYOUT,
-				
-				'label.article.layout.narrow.left' 			=> Article::NARROW_LEFT_LAYOUT,
-				'label.article.layout.narrow.right' 		=> Article::NARROW_RIGHT_LAYOUT,
-				'label.article.layout.narrow.alternate' 	=> Article::NARROW_ALTERNATE_LAYOUT,
-				
-				'label.article.layout.wide.normalImage' 	=> Article::WIDE_LAYOUT,
-				'label.article.layout.wide.smallImage' 		=> Article::WIDE_SMALL_IMAGE_LAYOUT,
-				
-				'label.article.layout.column.2' 			=> Article::COLUMN_2_LAYOUT,
-				'label.article.layout.column.3' 			=> Article::COLUMN_3_LAYOUT,
-				'label.article.layout.column.4' 			=> Article::COLUMN_4_LAYOUT,
-				
-				'label.article.layout.grid.2' 				=> Article::GRID_2_LAYOUT,
-				'label.article.layout.grid.3' 				=> Article::GRID_3_LAYOUT,
-				'label.article.layout.grid.4' 				=> Article::GRID_4_LAYOUT,
+				'label.article.layout.left'			=> Article::LEFT_LAYOUT,
+				'label.article.layout.mid'			=> Article::MID_LAYOUT,
+				'label.article.layout.right'		=> Article::RIGHT_LAYOUT,
+		);
+		
+		$imageSizeChoices = array(
+				'label.article.imageSize.small'			=> Article::SMALL_IMAGE,
+				'label.article.imageSize.medium'		=> Article::MEDIUM_IMAGE,
+				'label.article.imageSize.large'			=> Article::LARGE_IMAGE,
 		);
 		
 		$builder
@@ -53,6 +44,7 @@ class ArticleType extends ImageEntityType
 			->add('subname', TextType::class, array(
 					'required' => false
 			))
+			
 			->add('parent', EntityType::class, array(
 					'class'			=> $this->getEntityType(),
 					'query_builder' => function (ArticleRepository $repository) {
@@ -65,6 +57,24 @@ class ArticleType extends ImageEntityType
 					'multiple'      => false,
 					'placeholder'	=> 'label.choose.article.parent'
 			))
+			
+			->add('layout', ChoiceType::class, array(
+					'choices'		=> $layoutChoices,
+					'expanded'      => false,
+					'multiple'      => false
+			))
+			->add('imageSize', ChoiceType::class, array(
+					'choices'		=> $imageSizeChoices,
+					'expanded'      => false,
+					'multiple'      => false
+			))
+			->add('page', NumberType::class, array(
+					'required' => false
+			))
+			->add('orderNumber', NumberType::class, array(
+					'required' => false
+			))
+			
 			->add('intro', CKEditorType::class, array(
 					'config' => array(
 							'uiColor' => '#ffffff'),
@@ -73,20 +83,6 @@ class ArticleType extends ImageEntityType
 			->add('content', CKEditorType::class, array(
 					'config' => array(
 							'uiColor' => '#ffffff'),
-					'required' => false
-			))
-			->add('layout', ChoiceType::class, array(
-					'choices'		=> $layoutChoices,
-					'expanded'      => false,
-					'multiple'      => false
-			))
-			->add('orderNumber', NumberType::class, array(
-					'required' => false
-			))
-			->add('displaySided', null, array(
-					'required' => false
-			))
-			->add('displayPaginated', null, array(
 					'required' => false
 			))
 			

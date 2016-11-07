@@ -48,7 +48,7 @@ class MagazineFilterType extends ImageEntityFilterType
 					'expanded'      => false,
 					'multiple'      => false
 			))
-			->add('infprodukt', ChoiceType::class, array(
+			->add('infoprodukt', ChoiceType::class, array(
 					'choices'		=> $infoproduktChoices,
 					'expanded'      => false,
 					'multiple'      => false

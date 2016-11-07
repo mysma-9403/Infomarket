@@ -1,6 +1,6 @@
 {% extends 'admin/index.html.twig' %}
 
-{% set extPath = '_show' %}
+{% set extPath = extPath|default('_show') %}
 
 {% block content %}
 	<div class="container">

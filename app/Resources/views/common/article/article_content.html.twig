@@ -1,0 +1,7 @@
+{% if article.layout == constant('AppBundle\\Entity\\Article::MID_LAYOUT') %}
+	{% include 'common/article/layouts/mid_layout.html.twig' %}
+{% elseif article.layout == constant('AppBundle\\Entity\\Article::RIGHT_LAYOUT') %}
+	{% include 'common/article/layouts/right_layout.html.twig' %}
+{% else %}
+	{% include 'common/article/layouts/left_layout.html.twig' %}
+{% endif %}

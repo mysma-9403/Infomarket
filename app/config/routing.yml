@@ -15,9 +15,9 @@ infoprodukt_article:
     defaults:  { _controller: "AppBundle:Infoprodukt/Article:index", page: 1 }
     
 infoprodukt_article_show:
-    path:      /articles/show/{id}
+    path:      /articles/show/{id}/{page}
     host:      infoprodukt.loc
-    defaults:  { _controller: "AppBundle:Infoprodukt/Article:show" }
+    defaults:  { _controller: "AppBundle:Infoprodukt/Article:show", page: '1' }
     
 infoprodukt_brand:
     path:      /brands/{page}
@@ -94,8 +94,8 @@ infomarket_article:
     defaults:  { _controller: "AppBundle:Infomarket/Article:index", page: 1 }
 
 infomarket_article_show:
-    path:      /articles/show/{id}
-    defaults:  { _controller: "AppBundle:Infomarket/Article:show" }
+    path:      /articles/show/{id}/{page}
+    defaults:  { _controller: "AppBundle:Infomarket/Article:show", page: '1' }
     
 infomarket_brand:
     path:      /brands/{page}
@@ -243,8 +243,8 @@ admin_article_set_featured:
     defaults:  { _controller: "AppBundle:Admin/Article:setFeatured" }
 
 admin_article_preview:
-    path:      /admin/articles/preview/{id}
-    defaults:  { _controller: "AppBundle:Admin/Article:preview" }
+    path:      /admin/articles/preview/{id}/{page}
+    defaults:  { _controller: "AppBundle:Admin/Article:preview", page: '1' }
         
 admin_article:
     path:      /admin/articles/{page}

@@ -1,5 +1,7 @@
 {% extends 'infoprodukt/base/base.html.twig' %}
 
+{% set extPath = extPath|default('_show') %}
+
 {% block moreBreadcrumbs %}
 	{% if category is defined %}
 		/ 

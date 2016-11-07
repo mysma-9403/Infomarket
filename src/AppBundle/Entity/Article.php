@@ -10,24 +10,13 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
  */
 class Article extends ImageEntity
 {
-	const DEFAULT_LEFT_LAYOUT 		= 0;
-	const DEFAULT_RIGHT_LAYOUT 		= 1;
-	const DEFAULT_ALTERNATE_LAYOUT 	= 2;
+	const LEFT_LAYOUT = 0;
+	const MID_LAYOUT = 1;
+	const RIGHT_LAYOUT = 2;
 	
-	const NARROW_LEFT_LAYOUT 		= 3;
-	const NARROW_RIGHT_LAYOUT 		= 4;
-	const NARROW_ALTERNATE_LAYOUT 	= 5;
-	
-	const WIDE_LAYOUT 				= 6;
-	const WIDE_SMALL_IMAGE_LAYOUT 	= 7;
-	
-	const COLUMN_2_LAYOUT 			= 10;
-	const COLUMN_3_LAYOUT 			= 11;
-	const COLUMN_4_LAYOUT 			= 12;
-	
-	const GRID_2_LAYOUT 			= 20;
-	const GRID_3_LAYOUT 			= 21;
-	const GRID_4_LAYOUT 			= 22;
+	const LARGE_IMAGE = 0;
+	const MEDIUM_IMAGE = 1;
+	const SMALL_IMAGE = 2;
 	
 	/**
 	 * 
@@ -72,14 +61,9 @@ class Article extends ImageEntity
     private $featured;
 
     /**
-     * @var string
+     * @var integer
      */
-    private $intro;
-
-    /**
-     * @var string
-     */
-    private $content;
+    private $page;
 
     /**
      * @var integer
@@ -92,20 +76,25 @@ class Article extends ImageEntity
     private $layout;
 
     /**
-     * @var boolean
+     * @var integer
      */
-    private $displaySided;
+    private $imageSize;
 
     /**
-     * @var boolean
+     * @var \DateTime
      */
-    private $displayPaginated;
+    private $date;
 
     /**
-     * @var \AppBundle\Entity\Article
+     * @var string
      */
-    private $parent;
-    
+    private $intro;
+
+    /**
+     * @var string
+     */
+    private $content;
+
     /**
      * @var \Doctrine\Common\Collections\Collection
      */
@@ -125,16 +114,22 @@ class Article extends ImageEntity
      * @var \Doctrine\Common\Collections\Collection
      */
     private $articleBrandAssignments;
-    
+
     /**
-     * Constructor
+     * @var \Doctrine\Common\Collections\Collection
      */
-    public function __construct()
-    {
-        $this->children = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->articleArticleCategoryAssignments = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->articleCategoryAssignments = new \Doctrine\Common\Collections\ArrayCollection();
-    }
+    private $articleTagAssignments;
+
+    /**
+     * @var \AppBundle\Entity\Article
+     */
+    private $parent;
+
+    /**
+     * @var \AppBundle\Entity\User
+     */
+    private $author;
+
 
     /**
      * Set subname
@@ -185,51 +180,27 @@ class Article extends ImageEntity
     }
 
     /**
-     * Set intro
+     * Set page
      *
-     * @param string $intro
+     * @param integer $page
      *
      * @return Article
      */
-    public function setIntro($intro)
+    public function setPage($page)
     {
-        $this->intro = $intro;
+        $this->page = $page;
 
         return $this;
     }
 
     /**
-     * Get intro
+     * Get page
      *
-     * @return string
+     * @return integer
      */
-    public function getIntro()
+    public function getPage()
     {
-        return $this->intro;
-    }
-
-    /**
-     * Set content
-     *
-     * @param string $content
-     *
-     * @return Article
-     */
-    public function setContent($content)
-    {
-        $this->content = $content;
-
-        return $this;
-    }
-
-    /**
-     * Get content
-     *
-     * @return string
-     */
-    public function getContent()
-    {
-        return $this->content;
+        return $this->page;
     }
 
     /**
@@ -281,51 +252,99 @@ class Article extends ImageEntity
     }
 
     /**
-     * Set displaySided
+     * Set imageSize
      *
-     * @param boolean $displaySided
+     * @param integer $imageSize
      *
      * @return Article
      */
-    public function setDisplaySided($displaySided)
+    public function setImageSize($imageSize)
     {
-        $this->displaySided = $displaySided;
+        $this->imageSize = $imageSize;
 
         return $this;
     }
 
     /**
-     * Get displaySided
+     * Get imageSize
      *
-     * @return boolean
+     * @return integer
      */
-    public function getDisplaySided()
+    public function getImageSize()
     {
-        return $this->displaySided;
+        return $this->imageSize;
     }
 
     /**
-     * Set displayPaginated
+     * Set date
      *
-     * @param boolean $displayPaginated
+     * @param \DateTime $date
      *
      * @return Article
      */
-    public function setDisplayPaginated($displayPaginated)
+    public function setDate($date)
     {
-        $this->displayPaginated = $displayPaginated;
+        $this->date = $date;
 
         return $this;
     }
 
     /**
-     * Get displayPaginated
+     * Get date
      *
-     * @return boolean
+     * @return \DateTime
      */
-    public function getDisplayPaginated()
+    public function getDate()
     {
-        return $this->displayPaginated;
+        return $this->date;
+    }
+
+    /**
+     * Set intro
+     *
+     * @param string $intro
+     *
+     * @return Article
+     */
+    public function setIntro($intro)
+    {
+        $this->intro = $intro;
+
+        return $this;
+    }
+
+    /**
+     * Get intro
+     *
+     * @return string
+     */
+    public function getIntro()
+    {
+        return $this->intro;
+    }
+
+    /**
+     * Set content
+     *
+     * @param string $content
+     *
+     * @return Article
+     */
+    public function setContent($content)
+    {
+        $this->content = $content;
+
+        return $this;
+    }
+
+    /**
+     * Get content
+     *
+     * @return string
+     */
+    public function getContent()
+    {
+        return $this->content;
     }
 
     /**
@@ -431,30 +450,6 @@ class Article extends ImageEntity
     }
 
     /**
-     * Set parent
-     *
-     * @param \AppBundle\Entity\Article $parent
-     *
-     * @return Article
-     */
-    public function setParent(\AppBundle\Entity\Article $parent = null)
-    {
-        $this->parent = $parent;
-
-        return $this;
-    }
-
-    /**
-     * Get parent
-     *
-     * @return \AppBundle\Entity\Article
-     */
-    public function getParent()
-    {
-        return $this->parent;
-    }
-
-    /**
      * Add articleBrandAssignment
      *
      * @param \AppBundle\Entity\ArticleBrandAssignment $articleBrandAssignment
@@ -487,69 +482,6 @@ class Article extends ImageEntity
     {
         return $this->articleBrandAssignments;
     }
-    /**
-     * @var \DateTime
-     */
-    private $date;
-
-    /**
-     * @var \AppBundle\Entity\User
-     */
-    private $author;
-
-
-    /**
-     * Set date
-     *
-     * @param \DateTime $date
-     *
-     * @return Article
-     */
-    public function setDate($date)
-    {
-        $this->date = $date;
-
-        return $this;
-    }
-
-    /**
-     * Get date
-     *
-     * @return \DateTime
-     */
-    public function getDate()
-    {
-        return $this->date;
-    }
-
-    /**
-     * Set author
-     *
-     * @param \AppBundle\Entity\User $author
-     *
-     * @return Article
-     */
-    public function setAuthor(\AppBundle\Entity\User $author = null)
-    {
-        $this->author = $author;
-
-        return $this;
-    }
-
-    /**
-     * Get author
-     *
-     * @return \AppBundle\Entity\User
-     */
-    public function getAuthor()
-    {
-        return $this->author;
-    }
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    private $articleTagAssignments;
-
 
     /**
      * Add articleTagAssignment
@@ -583,5 +515,53 @@ class Article extends ImageEntity
     public function getArticleTagAssignments()
     {
         return $this->articleTagAssignments;
+    }
+
+    /**
+     * Set parent
+     *
+     * @param \AppBundle\Entity\Article $parent
+     *
+     * @return Article
+     */
+    public function setParent(\AppBundle\Entity\Article $parent = null)
+    {
+        $this->parent = $parent;
+
+        return $this;
+    }
+
+    /**
+     * Get parent
+     *
+     * @return \AppBundle\Entity\Article
+     */
+    public function getParent()
+    {
+        return $this->parent;
+    }
+
+    /**
+     * Set author
+     *
+     * @param \AppBundle\Entity\User $author
+     *
+     * @return Article
+     */
+    public function setAuthor(\AppBundle\Entity\User $author = null)
+    {
+        $this->author = $author;
+
+        return $this;
+    }
+
+    /**
+     * Get author
+     *
+     * @return \AppBundle\Entity\User
+     */
+    public function getAuthor()
+    {
+        return $this->author;
     }
 }

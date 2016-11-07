@@ -2,12 +2,13 @@
 
 {% set title = 'title.articles'|trans %}
 {% set mainPath = 'article' %}
+{% set extPath = '_preview' %}
 {% set gender = 'm.' %}
 
 {% block content %}
 	<div class="container">
 		<div class="col-sm-9">
-			{% include 'common/article/preview.html.twig' with { 'entry': entry } %}
+			{% include 'common/article/article.html.twig' with { 'entry': entry } %}
 		</div>
 	</div>
 {% endblock %}

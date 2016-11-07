@@ -60,6 +60,8 @@ class ArticleFilter extends SimpleEntityFilter {
 		
 		$this->featured = $this::ALL_VALUES;
 		$this->main = $this::ALL_VALUES;
+		
+		$this->pages = [];
 	}
 	
 	/**
@@ -85,6 +87,8 @@ class ArticleFilter extends SimpleEntityFilter {
 		$parents = $request->get($this->getFilterName() . 'parents', array());
 		$this->parents = $this->categoryRepository->findBy(array('id' => $parents));
 		
+		$this->pages = $request->get($this->getFilterName() . 'pages', array());
+		
 		$this->featured = $request->get($this->getFilterName() . 'featured', $this::ALL_VALUES);
 		$this->main = $request->get($this->getFilterName() . 'main', $this::ALL_VALUES);
 	}
@@ -103,6 +107,8 @@ class ArticleFilter extends SimpleEntityFilter {
 		$this->tags= array();
 		
 		$this->parents = array();
+		
+		$this->pages = array();
 		
 		$this->featured = $this::ALL_VALUES;
 		$this->main = $this::ALL_VALUES;
@@ -135,6 +141,10 @@ class ArticleFilter extends SimpleEntityFilter {
 		if($this->parents) {
 			$values[$this->getFilterName() . 'parents'] = $this->getIdValues($this->parents);
 		}
+		
+		if($this->pages) {
+			$values[$this->getFilterName() . 'pages'] = $this->pages;
+		}
 	
 		if($this->featured !== $this::ALL_VALUES) {
 			$values[$this->getFilterName() . 'featured'] = $this->featured;
@@ -164,6 +174,10 @@ class ArticleFilter extends SimpleEntityFilter {
 		
 		if($this->tags) {
 			$expressions[] = $this->getEqualArrayExpression('ata.tag', $this->tags);
+		}
+		
+		if($this->pages) {
+			$expressions[] = $this->getEqualNumberArrayExpression('e.page', $this->pages);
 		}
 		
 		if($this->featured !== SimpleEntityFilter::ALL_VALUES) {
@@ -250,6 +264,11 @@ class ArticleFilter extends SimpleEntityFilter {
 	 * @var boolean
 	 */
 	private $main;
+	
+	/**
+	 * @var integer
+	 */
+	private $page;
 	
 	/**
 	 * Set article categories
@@ -417,5 +436,29 @@ class ArticleFilter extends SimpleEntityFilter {
 	public function isMain()
 	{
 		return $this->main;
+	}
+	
+	/**
+	 * Set pages
+	 *
+	 * @param array $pages
+	 *
+	 * @return ArticleFilter
+	 */
+	public function setPages($pages)
+	{
+		$this->pages = $pages;
+	
+		return $this;
+	}
+	
+	/**
+	 * Get pages
+	 *
+	 * @return array
+	 */
+	public function getPages()
+	{
+		return $this->pages;
 	}
 }
