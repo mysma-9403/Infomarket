@@ -16,6 +16,8 @@
 
 <div class="container">
 	
+	<div class="vr-space-10"></div>
+	
 	{% block breadcrumbs %}
 		<div class="row">
 			<div class="col-xs-12">
@@ -172,20 +174,6 @@
 															alt="{{ segment.name | raw }}" src="{{ asset(segment.getImagePath()) }}">
 													{% endif %}
 												</div>
-												
-												<div class="col-xs-12 rating-subtitle hidden-xs">
-													<div class="col-xs-12">
-														<h4 class="text-sm-right text-red"><strong>{{ 'label.brand'|trans }}</strong></h4>
-													</div>
-												</div>
-												
-												<div class="col-xs-12 vr-space-5"></div>
-												
-												<div class="col-xs-12 rating-subtitle hidden-xs">
-													<div class="col-xs-12">
-														<h4 class="text-sm-right text-brand"><strong>www</strong></h4>
-													</div>
-												</div>
 											</div>
 											
 											{% for brand in attribute(brands, segment.id) %}
@@ -200,23 +188,11 @@
 												<div class="col-sm-4 col-md-2 no-padding">
 													<div class="rect bkg-white">
 														{% if brand.image %}
-															<img class="div-center img-{{ brand.vertical ? 'v' : '' }}responsive" 
-																alt="{{ brand.name }}" src="{{ asset(brand.getImagePath()) }}">
+															<a href="{{ path(basePath ~ 'brand_show', {'id': brand.id }) }}">
+																<img class="div-center img-{{ brand.vertical ? 'v' : '' }}responsive" 
+																	alt="{{ brand.name }}" src="{{ asset(brand.getImagePath()) }}">
+															</a>
 														{% endif %}
-													</div>
-													
-													<div class="col-xs-12 bkg-red rating-subtitle text-center text-white">
-														<a href="{{ path(basePath ~ 'brand_show', {'id': brand.id }) }}">
-															{{ brand.name }}
-														</a>
-													</div>
-													
-													<div class="col-xs-12 vr-space-5 bkg-white"></div>
-													
-													<div class="col-xs-12 bkg-brand rating-subtitle text-center text-white">
-														<a class="text-small" href="{{ 'http://' ~ brand.www }}">
-															{{ brand.www }}
-														</a>
 													</div>
 												</div>
 											{% endfor %}
@@ -266,20 +242,6 @@
 																alt="{{ segment.name | raw }}" src="{{ asset(segment.getImagePath()) }}">
 														{% endif %}
 													</div>
-													
-													<div class="col-xs-12 rating-subtitle hidden-xs">
-														<div class="col-xs-12">
-															<h4 class="text-sm-right text-red"><strong>{{ 'label.brand'|trans }}</strong></h4>
-														</div>
-													</div>
-													
-													<div class="col-xs-12 vr-space-5"></div>
-													
-													<div class="col-xs-12 rating-subtitle hidden-xs">
-														<div class="col-xs-12">
-															<h4 class="text-sm-right text-brand"><strong>www</strong></h4>
-														</div>
-													</div>
 												</div>
 												
 												{% for brand in attribute(attribute(subbrands, category.id), segment.id) %}
@@ -294,23 +256,11 @@
 													<div class="col-sm-4 col-md-2 no-padding">
 														<div class="rect bkg-white">
 															{% if brand.image %}
-																<img class="div-center img-{{ brand.vertical ? 'v' : '' }}responsive" 
-																	alt="{{ brand.name }}" src="{{ asset(brand.getImagePath()) }}">
+																<a href="{{ path(basePath ~ 'brand_show', {'id': brand.id }) }}">
+																	<img class="div-center img-{{ brand.vertical ? 'v' : '' }}responsive" 
+																		alt="{{ brand.name }}" src="{{ asset(brand.getImagePath()) }}">
+																</a>
 															{% endif %}
-														</div>
-														
-														<div class="col-xs-12 bkg-red rating-subtitle text-center text-white">
-															<a href="{{ path(basePath ~ 'brand_show', {'id': brand.id }) }}">
-																{{ brand.name }}
-															</a>
-														</div>
-														
-														<div class="col-xs-12 vr-space-5 bkg-white"></div>
-														
-														<div class="col-xs-12 bkg-brand rating-subtitle text-center text-white">
-															<a class="text-small" href="{{ 'http://' ~ brand.www }}">
-																{{ brand.www }}
-															</a>
 														</div>
 													</div>
 												{% endfor %}
@@ -383,18 +333,31 @@
 													{% endif %}
 												</div>
 												
-												<div class="col-xs-12 rating-subtitle hidden-xs">
+												<div class="col-xs-12 rating-subtitle1 hidden-xs">
 													<div class="col-xs-12">
-														<h4 class="text-sm-right text-red"><strong>{{ 'label.brand'|trans }}</strong></h4>
+														<p><h4 class="text-sm-right text-red">
+															<strong>{{ 'label.brand'|trans }}</strong>
+														</h4></p>
 													</div>
 												</div>
 												
+												<div class="col-xs-12 vr-space-5"></div>
+												
+												<div class="col-xs-12 rating-subtitle2 hidden-xs">
+													<div class="col-xs-12">
+														<p class="text-sm-right text-brand">
+															<strong>{{ 'label.product.symbol'|trans }}</strong>
+														</p>
+													</div>
+												</div>
 												
 												<div class="col-xs-12 vr-space-5"></div>
 												
-												<div class="col-xs-12 rating-subtitle hidden-xs">
+												<div class="col-xs-12 rating-subtitle2 hidden-xs">
 													<div class="col-xs-12">
-														<h4 class="text-sm-right text-brand"><strong>{{ 'label.product'|trans }}</strong></h4>
+														<p class="text-sm-right text-red">
+															<strong>{{ 'label.www'|trans }}</strong>
+														</p>
 													</div>
 												</div>
 											</div>
@@ -416,17 +379,25 @@
 														{% endif %}
 													</div>
 													
-													<div class="col-xs-12 bkg-red rating-subtitle text-center text-white">
-														<a href="{{ path(basePath ~ 'brand_show', {'id': product.brand.id }) }}">
-															{{ product.brand.name }}
+													<div class="col-xs-12 bkg-red rating-subtitle1 text-center">
+														<a class="text-white title" href="{{ path(basePath ~ 'brand_show', {'id': product.brand.id }) }}">
+															<h4>{{ product.brand.name }}</h4>
 														</a>
 													</div>
 															
 													<div class="col-xs-12 vr-space-5 bkg-white"></div>
 															
-													<div class="col-xs-12 bkg-brand rating-subtitle text-center text-white">
-														<a class="text-small" href="{{ path(basePath ~ 'product_show', {'id': product.id }) }}">
+													<div class="col-xs-12 bkg-brand rating-subtitle2 text-center">
+														<a class="text-small text-white title" href="{{ path(basePath ~ 'product_show', {'id': product.id }) }}">
 															{{ product.name }}
+														</a>
+													</div>
+													
+													<div class="col-xs-12 vr-space-5 bkg-white"></div>
+													
+													<div class="col-xs-12 bkg-brand rating-subtitle2 text-center">
+														<a class="text-small text-white title" href="{{ product.brand.www }}">
+															{{ 'label.www'|trans }}
 														</a>
 													</div>
 												</div>
@@ -479,18 +450,32 @@
 														{% endif %}
 													</div>
 													
-													<div class="col-xs-12 rating-subtitle hidden-xs">
+													<div class="col-xs-12 rating-subtitle1 hidden-xs">
 														<div class="col-xs-12">
-															<h4 class="text-sm-right text-red"><strong>{{ 'label.brand'|trans }}</strong></h4>
+															<h4 class="text-sm-right text-red">
+																<strong>{{ 'label.brand'|trans }}</strong>
+															</h4>
 														</div>
 													</div>
 													
 													
 													<div class="col-xs-12 vr-space-5"></div>
 													
-													<div class="col-xs-12 rating-subtitle hidden-xs">
+													<div class="col-xs-12 rating-subtitle2 hidden-xs">
 														<div class="col-xs-12">
-															<h4 class="text-sm-right text-brand"><strong>{{ 'label.product'|trans }}</strong></h4>
+															<p class="text-sm-right text-brand">
+																<strong>{{ 'label.product.symbol'|trans }}</strong>
+															</p>
+														</div>
+													</div>
+													
+													<div class="col-xs-12 vr-space-5"></div>
+													
+													<div class="col-xs-12 rating-subtitle2 hidden-xs">
+														<div class="col-xs-12">
+															<p class="text-sm-right text-brand">
+																<strong>{{ 'label.www'|trans }}</strong>
+															</p>
 														</div>
 													</div>
 												</div>
@@ -512,21 +497,29 @@
 															{% endif %}
 														</div>
 														
-														<div class="col-xs-12 bkg-red rating-subtitle text-center text-white">
-															<a href="{{ path(basePath ~ 'brand_show', {'id': product.brand.id }) }}">
-																{{ product.brand.name }}
- 																</a>
-															</div>
-															
-															<div class="col-xs-12 vr-space-5 bkg-white"></div>
-															
-															<div class="col-xs-12 bkg-brand rating-subtitle text-center text-white">
-																<a class="text-small" href="{{ path(basePath ~ 'product_show', {'id': product.id }) }}">
-																{{ product.name }}
- 																</a>
-															</div>
+														<div class="col-xs-12 bkg-red rating-subtitle1 text-center">
+															<a class="text-white title" href="{{ path(basePath ~ 'brand_show', {'id': product.brand.id }) }}">
+																<h4>{{ product.brand.name }}</h4>
+ 															</a>
 														</div>
-													{% endfor %}
+															
+														<div class="col-xs-12 vr-space-5 bkg-white"></div>
+															
+														<div class="col-xs-12 bkg-brand rating-subtitle2 text-center">
+															<a class="text-small text-white title" href="{{ path(basePath ~ 'product_show', {'id': product.id }) }}">
+																{{ product.name }}
+ 															</a>
+														</div>
+															
+														<div class="col-xs-12 vr-space-5 bkg-white"></div>
+															
+														<div class="col-xs-12 bkg-brand rating-subtitle2 text-center">
+															<a class="text-small text-white title" href="{{ product.brand.www }}">
+																{{ 'label.www'|trans }}
+ 															</a>
+														</div>
+													</div>
+												{% endfor %}
 												
 											</div>
 										</div>

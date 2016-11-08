@@ -675,7 +675,7 @@
             </trans-unit>
             <trans-unit id="label.www">
                 <source>label.www</source>
-                <target>Strona www</target>
+                <target>www</target>
             </trans-unit>
             
             <trans-unit id="label.logout">
@@ -1045,6 +1045,10 @@
             <trans-unit id="label.product.guarantee">
                 <source>label.product.guarantee</source>
                 <target>Gwarancja</target>
+            </trans-unit>
+            <trans-unit id="label.product.symbol">
+                <source>label.product.symbol</source>
+                <target>Symbol</target>
             </trans-unit>
             
             

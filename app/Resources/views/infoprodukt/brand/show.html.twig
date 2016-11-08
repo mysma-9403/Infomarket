@@ -14,53 +14,13 @@
 	</div>
 	<div class="row">
 		{% block logo %}
-		<div class="col-sm-6">
+		<div class="col-sm-6 col-sm-offset-3">
 			<div class="rect-2x1">
 				{% if entry.image %}
 					<img class="div-center img-{{ entry.vertical ? 'v' : '' }}responsive" 
 						alt="{{ entry.name | raw }}" src="{{ asset(entry.getImagePath()) }}">
 				{% endif %}
 			</div>	
-		</div>
-		{% endblock %}
-		
-		{% block summary %}
-		<div class="col-sm-6">
-			<div class="row">
-				<div class="col-xs-4">
-					<p><strong>Producent: </strong></p>
-				</div>
-				<div class="col-xs-8">
-					<p>{{ entry.name | raw }} Sp. z o.o.</p>
-				</div>
-			</div>
-			
-			<div class="row">
-				<div class="col-xs-4">
-					<p><strong>Rok zalozenia: </strong></p>
-				</div>
-				<div class="col-xs-8">
-					<p>1977</p>
-				</div>
-			</div>			
-			
-			<div class="row">
-				<div class="col-xs-4">
-					<p><strong>Kraj: </strong></p>
-				</div>
-				<div class="col-xs-8">
-					<p>Polska</p>
-				</div>
-			</div>	
-			
-			<div class="row">
-				<div class="col-xs-4">
-					<p><strong>Glowna siedziba: </strong></p>
-				</div>
-				<div class="col-xs-8">
-					<p>Warszawa</p>
-				</div>
-			</div>
 		</div>
 		{% endblock %}
 		
@@ -71,6 +31,9 @@
 	<div class="row">
 		<div class="col-xs-12">
 			<p>{{ entry.content | raw }}</p>
+			<p class="text-center title">
+				<a class="text-red" href="{{ entry.www }}">www</a>
+			</p>
 		</div>
 	</div>
 	{% endblock %}
