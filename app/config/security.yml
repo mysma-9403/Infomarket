@@ -35,6 +35,7 @@ security:
         - { path: ^/admin/newsletter, role: ROLE_ADMIN }
         
         - { path: _assignments/delete, role: ROLE_EDITOR }
+        - { path: articles/delete, role: ROLE_EDITOR }
         - { path: /delete, role: ROLE_ADMIN }
         
         - { path: /new, role: ROLE_EDITOR }

@@ -62,6 +62,8 @@ class ArticleFilter extends SimpleEntityFilter {
 		$this->main = $this::ALL_VALUES;
 		
 		$this->pages = [];
+		
+		$this->active = $this::ALL_VALUES;
 	}
 	
 	/**
@@ -91,6 +93,15 @@ class ArticleFilter extends SimpleEntityFilter {
 		
 		$this->featured = $request->get($this->getFilterName() . 'featured', $this::ALL_VALUES);
 		$this->main = $request->get($this->getFilterName() . 'main', $this::ALL_VALUES);
+		
+		
+		$dateFrom = $request->get($this->getFilterName() . 'date_from', null);
+		$this->dateFrom = $dateFrom ? new \DateTime($dateFrom) : null;
+		
+		$dateTo = $request->get($this->getFilterName() . 'date_to', null);
+		$this->dateTo = $dateTo ? new \DateTime($dateTo) : null;
+		
+		$this->active = $request->get($this->getFilterName() . 'active', $this::ALL_VALUES);
 	}
 	
 	/**
@@ -112,6 +123,11 @@ class ArticleFilter extends SimpleEntityFilter {
 		
 		$this->featured = $this::ALL_VALUES;
 		$this->main = $this::ALL_VALUES;
+		
+		$this->dateFrom = null;
+		$this->dateTo = null;
+		
+		$this->active = $this::ALL_VALUES;
 	}
 	
 	/**
@@ -154,6 +170,13 @@ class ArticleFilter extends SimpleEntityFilter {
 			$values[$this->getFilterName() . 'main'] = $this->main;
 		}
 		
+		$values[$this->getFilterName() . 'date_from'] = $this->dateFrom ? $this->dateFrom->format('d-m-Y H:i') : null;
+		$values[$this->getFilterName() . 'date_to'] = $this->dateTo ? $this->dateTo->format('d-m-Y H:i') : null;
+		
+		if($this->active !== $this::ALL_VALUES) {
+			$values[$this->getFilterName() . 'active'] = $this->active;
+		}
+		
 		return $values;
 	}
 	
@@ -194,6 +217,28 @@ class ArticleFilter extends SimpleEntityFilter {
 			if($this->parents) {
 				$expressions[] = $this->getEqualArrayExpression('e.parent', $this->parents);
 			}
+		}
+		
+		if($this->dateFrom !== null) {
+			$expressions[] = 'e.date = \'' . $this->dateFrom->format('Y-m-d H:i') . '\'';
+		}
+		
+		if($this->dateTo !== null) {
+			$expressions[] = 'e.endDate = \'' . $this->dateTo->format('Y-m-d H:i') . '\'';
+		}
+		
+		if($this->active === SimpleEntityFilter::TRUE_VALUES) {
+			$date = new \DateTime();
+			
+			$expressions[] = '(e.date IS NULL OR e.date <= \'' . $date->format('Y-m-d H:i') . '\')';
+			$expressions[] = '(e.endDate IS NULL OR e.endDate >= \'' . $date->format('Y-m-d H:i') . '\')';
+		} else if($this->active === SimpleEntityFilter::FALSE_VALUES) {
+			$date = new \DateTime();
+				
+			$expression = 'e.date > \'' . $date->format('Y-m-d H:i') . '\' OR ';
+			$expression .= 'e.endDate < \'' . $date->format('Y-m-d H:i') . '\'';
+				
+			$expressions[] = $expression;
 		}
 		
 		return $expressions;
@@ -269,6 +314,21 @@ class ArticleFilter extends SimpleEntityFilter {
 	 * @var integer
 	 */
 	private $page;
+	
+	/**
+	 * @var datetime
+	 */
+	protected $dateFrom;
+	
+	/**
+	 * @var datetime
+	 */
+	protected $dateTo;
+	
+	/**
+	 * @var boolean
+	 */
+	protected $active;
 	
 	/**
 	 * Set article categories
@@ -460,5 +520,77 @@ class ArticleFilter extends SimpleEntityFilter {
 	public function getPages()
 	{
 		return $this->pages;
+	}
+	
+	/**
+	 * Set dateFrom
+	 *
+	 * @param \DateTime $dateFrom
+	 *
+	 * @return Advert
+	 */
+	public function setDateFrom($dateFrom)
+	{
+		$this->dateFrom = $dateFrom;
+	
+		return $this;
+	}
+	
+	/**
+	 * Get dateFrom
+	 *
+	 * @return \DateTime
+	 */
+	public function getDateFrom()
+	{
+		return $this->dateFrom;
+	}
+	
+	/**
+	 * Set dateTo
+	 *
+	 * @param \DateTime $dateTo
+	 *
+	 * @return Advert
+	 */
+	public function setDateTo($dateTo)
+	{
+		$this->dateTo = $dateTo;
+	
+		return $this;
+	}
+	
+	/**
+	 * Get dateTo
+	 *
+	 * @return \DateTime
+	 */
+	public function getDateTo()
+	{
+		return $this->dateTo;
+	}
+	
+	/**
+	 * Set active
+	 *
+	 * @param boolean $active
+	 *
+	 * @return SimpleEntityFilter
+	 */
+	public function setActive($active)
+	{
+		$this->active = $active;
+	
+		return $this;
+	}
+	
+	/**
+	 * Is active
+	 *
+	 * @return boolean
+	 */
+	public function isActive()
+	{
+		return $this->active;
 	}
 }

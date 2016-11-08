@@ -381,6 +381,16 @@
             </trans-unit>
             
             
+            <trans-unit id="label.mainCategory.brands">
+                <source>label.mainCategory.brands</source>
+                <target>Marki</target>
+            </trans-unit>
+            <trans-unit id="label.mainCategory.terms">
+                <source>label.mainCategory.terms</source>
+                <target>Pojęcia</target>
+            </trans-unit>
+            
+            
             
             <trans-unit id="label.advert.location.top">
                 <source>label.advert.location.top</source>
@@ -823,13 +833,13 @@
                 <source>label.article.layout</source>
                 <target>Ułożenie</target>
             </trans-unit>
-            <trans-unit id="label.article.displaySided">
-                <source>label.article.displaySided</source>
-                <target>Wyświetl podzielony</target>
+            <trans-unit id="label.article.page">
+                <source>label.article.page</source>
+                <target>Strona</target>
             </trans-unit>
-            <trans-unit id="label.article.displayPaginated">
-                <source>label.article.displayPaginated</source>
-                <target>Wyświetl z paginacją</target>
+            <trans-unit id="label.article.imageSize">
+                <source>label.article.imageSize</source>
+                <target>Rozmiar zdjęcia</target>
             </trans-unit>
             
             <trans-unit id="label.article.main">
@@ -845,6 +855,11 @@
                 <source>label.article.date</source>
                 <target>Data artykułu</target>
             </trans-unit>
+            <trans-unit id="label.article.endDate">
+                <source>label.article.endDate</source>
+                <target>Koniec wyświetlania</target>
+            </trans-unit>
+            
             <trans-unit id="label.article.author">
                 <source>label.article.author</source>
                 <target>Autor</target>

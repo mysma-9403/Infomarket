@@ -35,6 +35,14 @@ class CategoryEntryParamsManager extends EntryParamsManager {
 	const PRODUCTS_AC = 2;
 	const PROMOTIONS_AC = 1;
 	
+	
+	// useful
+	const LAW_AC = 12;
+	const HOME_LINKS_AC = 22;
+	const FOREIGN_LINKS_AC = 23;
+	
+	
+	
 	public function getShowParams(Request $request, array $params, $id) {
 		$params = parent::getShowParams($request, $params, $id);
 		
@@ -66,7 +74,7 @@ class CategoryEntryParamsManager extends EntryParamsManager {
 			$viewParams['mainCategory'] = $articleCategory;
 			
 			$articleFilter->setArticleCategories([$articleCategory]);
-			$articleFilter->setLimit(10);
+			$articleFilter->setLimit(12);
 				
 			$articles = $this->getParamList(Article::class, $articleFilter);
 			$viewParams['mainArticles'] = $articles;
@@ -78,7 +86,7 @@ class CategoryEntryParamsManager extends EntryParamsManager {
 			$viewParams['auxiliaryCategory'] = $articleCategory;
 			
 			$articleFilter->setArticleCategories([$articleCategory]);
-			$articleFilter->setLimit(6);
+			$articleFilter->setLimit(12);
 				
 			$articles = $this->getParamList(Article::class, $articleFilter);
 			$viewParams['auxiliaryArticles'] = $articles;
@@ -90,7 +98,7 @@ class CategoryEntryParamsManager extends EntryParamsManager {
 			$viewParams['questionsCategory'] = $articleCategory;
 				
 			$articleFilter->setArticleCategories([$articleCategory]);
-			$articleFilter->setLimit(6);
+			$articleFilter->setLimit(2);
 			
 			$articles = $this->getParamList(Article::class, $articleFilter);
 			$viewParams['questionsArticles'] = $articles;
@@ -102,7 +110,7 @@ class CategoryEntryParamsManager extends EntryParamsManager {
 			$viewParams['buildsCategory'] = $articleCategory;
 				
 			$articleFilter->setArticleCategories([$articleCategory]);
-			$articleFilter->setLimit(6);
+			$articleFilter->setLimit(2);
 			
 			$articles = $this->getParamList(Article::class, $articleFilter);
 			$viewParams['buildsArticles'] = $articles;
@@ -114,7 +122,7 @@ class CategoryEntryParamsManager extends EntryParamsManager {
 			$viewParams['schemasCategory'] = $articleCategory;
 			
 			$articleFilter->setArticleCategories([$articleCategory]);
-			$articleFilter->setLimit(6);
+			$articleFilter->setLimit(2);
 				
 			$articles = $this->getParamList(Article::class, $articleFilter);
 			$viewParams['schemasArticles'] = $articles;
@@ -126,7 +134,7 @@ class CategoryEntryParamsManager extends EntryParamsManager {
 			$viewParams['moviesCategory'] = $articleCategory;
 				
 			$articleFilter->setArticleCategories([$articleCategory]);
-			$articleFilter->setLimit(6);
+			$articleFilter->setLimit(2);
 			
 			$articles = $this->getParamList(Article::class, $articleFilter);
 			$viewParams['moviesArticles'] = $articles;
@@ -138,10 +146,12 @@ class CategoryEntryParamsManager extends EntryParamsManager {
 			$viewParams['reviewsCategory'] = $articleCategory;
 				
 			$articleFilter->setArticleCategories([$articleCategory]);
-			$articleFilter->setLimit(6);
+			$articleFilter->setLimit(2);
 			
 			$articles = $this->getParamList(Article::class, $articleFilter);
 			$viewParams['reviewsArticles'] = $articles;
+			
+			
 			
 			
 			
@@ -166,6 +176,19 @@ class CategoryEntryParamsManager extends EntryParamsManager {
 				
 			$articles = $this->getParamList(Article::class, $articleFilter);
 			$viewParams['promotionsArticles'] = $articles;
+			
+			
+			
+			
+			//useful article categories
+			$usefulArticleCategories = array();
+			
+			$usefulArticleCategories[] = $articleCategoryRepository->find(self::REVIEWS_AC);
+			$usefulArticleCategories[] = $articleCategoryRepository->find(self::LAW_AC);
+			$usefulArticleCategories[] = $articleCategoryRepository->find(self::HOME_LINKS_AC);
+			$usefulArticleCategories[] = $articleCategoryRepository->find(self::FOREIGN_LINKS_AC);
+			
+			$viewParams['usefulArticleCategories'] = $usefulArticleCategories;
 			
 			
 			

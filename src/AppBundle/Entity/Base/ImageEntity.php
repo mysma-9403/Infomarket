@@ -13,10 +13,6 @@ class ImageEntity extends Image
 		return $this->name;
 	}
 	
-	public function __toString() {
-		return $this->name;
-	}
-	
     /**
      * @var string
      */

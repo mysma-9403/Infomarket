@@ -57,6 +57,7 @@ class InfomarketParamsManager extends ParamsManager {
     	
     	
     	$articleCategoryFilter = new ArticleCategoryFilter($userRepository);
+    	$articleCategoryFilter->setInfomarket(BaseEntityFilter::TRUE_VALUES);
     	$articleCategoryFilter->setPublished(BaseEntityFilter::TRUE_VALUES);
     	$articleCategoryFilter->setFeatured(BaseEntityFilter::TRUE_VALUES);
     	$articleCategoryFilter->setOrderBy('e.orderNumber ASC');

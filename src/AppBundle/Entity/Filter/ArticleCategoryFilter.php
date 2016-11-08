@@ -14,6 +14,10 @@ class ArticleCategoryFilter extends ImageEntityFilter {
 		parent::__construct($userRepository);
 		
 		$this->filterName = 'article_category_filter_';
+		
+		$this->featured = $this::ALL_VALUES;
+		$this->infomarket = $this::ALL_VALUES;
+		$this->infoprodukt = $this::ALL_VALUES;
 	}
 	
 	/**
@@ -25,6 +29,8 @@ class ArticleCategoryFilter extends ImageEntityFilter {
 		parent::initMoreValues($request);
 	
 		$this->featured = $request->get($this->getFilterName() . 'featured', $this::ALL_VALUES);
+		$this->infomarket = $request->get($this->getFilterName() . 'infomarket', $this::ALL_VALUES);
+		$this->infoprodukt = $request->get($this->getFilterName() . 'infoprodukt', $this::ALL_VALUES);
 	}
 	
 	/**
@@ -36,6 +42,8 @@ class ArticleCategoryFilter extends ImageEntityFilter {
 		parent::clearMoreQueryValues();
 	
 		$this->featured = $this::ALL_VALUES;
+		$this->infomarket = $this::ALL_VALUES;
+		$this->infoprodukt = $this::ALL_VALUES;
 	}
 	
 	/**
@@ -49,6 +57,14 @@ class ArticleCategoryFilter extends ImageEntityFilter {
 		if($this->featured !== $this::ALL_VALUES) {
 			$values[$this->getFilterName() . 'featured'] = $this->featured;
 		}
+		
+		if($this->infomarket !== $this::ALL_VALUES) {
+			$values[$this->getFilterName() . 'infomarket'] = $this->infomarket;
+		}
+		
+		if($this->infoprodukt !== $this::ALL_VALUES) {
+			$values[$this->getFilterName() . 'infoprodukt'] = $this->infoprodukt;
+		}
 	
 		return $values;
 	}
@@ -60,6 +76,14 @@ class ArticleCategoryFilter extends ImageEntityFilter {
 			$expressions[] = 'e.featured = ' . $this->featured;
 		}
 		
+		if($this->infomarket !== $this::ALL_VALUES) {
+			$expressions[] = 'e.infomarket = ' . $this->infomarket;
+		}
+		
+		if($this->infoprodukt !== $this::ALL_VALUES) {
+			$expressions[] = 'e.infoprodukt = ' . $this->infoprodukt;
+		}
+		
 		return $expressions;
 	}
 	
@@ -67,6 +91,16 @@ class ArticleCategoryFilter extends ImageEntityFilter {
 	 * @var boolean
 	 */
 	private $featured;
+	
+	/**
+	 * @var boolean
+	 */
+	private $infomarket;
+	
+	/**
+	 * @var boolean
+	 */
+	private $infoprodukt;
 	
 	/**
 	 * Set featured
@@ -90,5 +124,53 @@ class ArticleCategoryFilter extends ImageEntityFilter {
 	public function isFeatured()
 	{
 		return $this->featured;
+	}
+	
+	/**
+	 * Set infomarket
+	 *
+	 * @param boolean $infomarket
+	 *
+	 * @return SimpleEntityFilter
+	 */
+	public function setInfomarket($infomarket)
+	{
+		$this->infomarket = $infomarket;
+	
+		return $this;
+	}
+	
+	/**
+	 * Is infomarket
+	 *
+	 * @return boolean
+	 */
+	public function isInfomarket()
+	{
+		return $this->infomarket;
+	}
+	
+	/**
+	 * Set infoprodukt
+	 *
+	 * @param boolean $infoprodukt
+	 *
+	 * @return SimpleEntityFilter
+	 */
+	public function setInfoprodukt($infoprodukt)
+	{
+		$this->infoprodukt = $infoprodukt;
+	
+		return $this;
+	}
+	
+	/**
+	 * Is infoprodukt
+	 *
+	 * @return boolean
+	 */
+	public function isInfoprodukt()
+	{
+		return $this->infoprodukt;
 	}
 }

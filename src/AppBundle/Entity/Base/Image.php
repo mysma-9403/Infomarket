@@ -15,6 +15,10 @@ class Image extends Audit {
 		return $this->id;
 	}
 	
+	public function __toString() {
+		return $this->getDisplayName();
+	}
+	
 	public function getUploadPath()
 	{
 		return '../web/upload/images/';

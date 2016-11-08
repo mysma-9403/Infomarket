@@ -564,4 +564,33 @@ class Article extends ImageEntity
     {
         return $this->author;
     }
+    /**
+     * @var \DateTime
+     */
+    private $endDate;
+
+
+    /**
+     * Set endDate
+     *
+     * @param \DateTime $endDate
+     *
+     * @return Article
+     */
+    public function setEndDate($endDate)
+    {
+        $this->endDate = $endDate;
+
+        return $this;
+    }
+
+    /**
+     * Get endDate
+     *
+     * @return \DateTime
+     */
+    public function getEndDate()
+    {
+        return $this->endDate;
+    }
 }

@@ -10,17 +10,17 @@ use AppBundle\Entity\Filter\Base\BaseEntityFilter;
 use AppBundle\Entity\Filter\Base\SimpleEntityFilter;
 use AppBundle\Entity\NewsletterUser;
 use AppBundle\Entity\User;
+use AppBundle\Form\Filter\Base\SearchFilterType;
 use AppBundle\Form\Filter\Base\SimpleEntityFilterType;
 use AppBundle\Form\Filter\Infoprodukt\ArticleFilterType;
 use AppBundle\Form\NewsletterUserType;
+use AppBundle\Manager\Entity\Base\EntityManager;
 use AppBundle\Manager\Entity\Common\ArticleManager;
-use AppBundle\Manager\Filter\Common\ArticleFilterManager;
+use AppBundle\Manager\Filter\Base\FilterManager;
+use AppBundle\Manager\Filter\Infoprodukt\IPArticleFilterManager;
+use AppBundle\Manager\Params\EntryParams\Common\ArticleEntryParamsManager;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-use AppBundle\Form\Filter\Base\SearchFilterType;
-use AppBundle\Manager\Entity\Base\EntityManager;
-use AppBundle\Manager\Params\EntryParams\Common\ArticleEntryParamsManager;
-use AppBundle\Manager\Filter\Base\FilterManager;
 
 class ArticleController extends InfoproduktController
 {   
@@ -109,7 +109,7 @@ class ArticleController extends InfoproduktController
 		
 		$articleFilter = $viewParams['entryFilter'];
 		
-		$articleFilterForm = $this->createForm(ArticleFilterType::class, $articleFilter);
+		$articleFilterForm = $this->createForm(ArticleFilterType::class, $articleFilter, ['attr' => ['infoprodukt']]);
 		$articleFilterForm->handleRequest($request);
 		
 		if ($articleFilterForm->isSubmitted() && $articleFilterForm->isValid()) {
@@ -228,7 +228,7 @@ class ArticleController extends InfoproduktController
 	}
 	
 	protected function getEntryFilterManager($doctrine) {
-		return new ArticleFilterManager($doctrine);
+		return new IPArticleFilterManager($doctrine);
 	}
 	
 	protected function isFilterByCategories() {

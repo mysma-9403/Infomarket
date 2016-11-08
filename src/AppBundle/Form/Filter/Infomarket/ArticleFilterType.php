@@ -1,6 +1,6 @@
 <?php
 
-namespace AppBundle\Form\Filter\Infoprodukt;
+namespace AppBundle\Form\Filter\Infomarket;
 
 use AppBundle\Entity\ArticleCategory;
 use AppBundle\Entity\Filter\ArticleFilter;
@@ -24,7 +24,7 @@ class ArticleFilterType extends SimpleEntityFilterType
 				'class'			=> ArticleCategory::class,
 				'query_builder' => function (ArticleCategoryRepository $repository) {
 					return $repository->createQueryBuilder('e')
-					->where('e.infoprodukt = ' . BaseEntityFilter::TRUE_VALUES)
+					->where('e.infomarket = ' . BaseEntityFilter::TRUE_VALUES)
 					->orderBy('e.published DESC, e.name', 'ASC');
 				},
 				'choice_label' 	=> 'displayname',

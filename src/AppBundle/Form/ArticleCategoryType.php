@@ -19,12 +19,21 @@ class ArticleCategoryType extends ImageEntityType
 	protected function addMoreFields(FormBuilderInterface $builder, array $options) {
 		
 		$builder
-			->add('featured', null, array(
-					'required' => false
-			))
 			->add('subname', TextType::class, array(
 					'required' => false
 			))
+		
+			->add('featured', null, array(
+					'required' => false
+			))
+			
+			->add('infomarket', null, array(
+					'required' => false
+			))
+			->add('infoprodukt', null, array(
+					'required' => false
+			))
+			
 			->add('orderNumber', NumberType::class, array(
 					'required' => true
 			))

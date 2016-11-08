@@ -21,12 +21,14 @@
 				<a href="{{ path(basePath ~ mainPath ~ extPath, { id: entry.id, page: page-1, category: categoryId }) }}">
 					<span class="fa fa-angle-double-left"></span></a>
 			</li>
+			
 			{% for num in 1 .. pages %}
-			<li class={{ num == page ? 'active' : '' }}>
-				<a href="{{ path(basePath ~ mainPath ~ extPath, { id: entry.id, page: num, category: categoryId }) }}">
-					{{ num }}</a>
-			</li>
+				<li class={{ num == page ? 'active' : '' }}>
+					<a href="{{ path(basePath ~ mainPath ~ extPath, { id: entry.id, page: num, category: categoryId }) }}">
+						{{ num }}</a>
+				</li>
 			{% endfor %}
+			
 			<li class={{ page == pages ? 'disabled' : '' }}>
 				<a href="{{ path(basePath ~ mainPath ~ extPath, { id: entry.id, page: page+1, category: categoryId }) }}">
 					<span class="fa fa-angle-double-right"></span></a>

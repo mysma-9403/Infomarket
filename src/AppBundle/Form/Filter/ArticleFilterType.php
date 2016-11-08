@@ -24,7 +24,7 @@ class ArticleFilterType extends ImageEntityFilterType
 	 * @see \AppBundle\Form\Base\BaseFormType::addMoreFields()
 	 */
 	protected function addMoreFields(FormBuilderInterface $builder, array $options) {
-	
+		
 		$featuredChoices = array(
 				'label.all'			=> SimpleEntityFilter::ALL_VALUES,
 				'label.featured' 	=> SimpleEntityFilter::TRUE_VALUES,
@@ -44,7 +44,6 @@ class ArticleFilterType extends ImageEntityFilterType
 					return $repository->createQueryBuilder('e')
 					->orderBy('e.published DESC, e.name', 'ASC');
 				},
-				'choice_label' 	=> 'name',
 				'required'		=> false,
 				'expanded'      => false,
 				'multiple'      => true,
@@ -56,7 +55,6 @@ class ArticleFilterType extends ImageEntityFilterType
 					return $repository->createQueryBuilder('e')
 					->orderBy('e.published DESC, e.name', 'ASC');
 				},
-				'choice_label' 	=> 'name',
 				'required'		=> false,
 				'expanded'      => false,
 				'multiple'      => true,
@@ -65,10 +63,9 @@ class ArticleFilterType extends ImageEntityFilterType
 		->add('brands', EntityType::class, array(
 				'class'			=> Brand::class,
 				'query_builder' => function (BrandRepository $repository) {
-				return $repository->createQueryBuilder('e')
-				->orderBy('e.published DESC, e.name', 'ASC');
+					return $repository->createQueryBuilder('e')
+					->orderBy('e.published DESC, e.name', 'ASC');
 				},
-				'choice_label' 	=> 'name',
 				'required'		=> false,
 				'expanded'      => false,
 				'multiple'      => true,

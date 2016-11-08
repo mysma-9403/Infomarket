@@ -4,15 +4,15 @@ namespace AppBundle\Controller\Infomarket;
 
 use AppBundle\Controller\Infomarket\Base\InfomarketController;
 use AppBundle\Entity\Article;
-use AppBundle\Manager\Entity\Common\ArticleManager;
-use AppBundle\Manager\Filter\Common\ArticleFilterManager;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Entity\NewsletterUser;
 use AppBundle\Form\NewsletterUserType;
-use AppBundle\Manager\Params\EntryParams\Common\ArticleEntryParamsManager;
 use AppBundle\Manager\Entity\Base\EntityManager;
+use AppBundle\Manager\Entity\Common\ArticleManager;
 use AppBundle\Manager\Filter\Base\FilterManager;
+use AppBundle\Manager\Filter\Infomarket\IMArticleFilterManager;
+use AppBundle\Manager\Params\EntryParams\Common\ArticleEntryParamsManager;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 
 class ArticleController extends InfomarketController
 {   
@@ -133,7 +133,7 @@ class ArticleController extends InfomarketController
 	}
 	
 	protected function getEntryFilterManager($doctrine) {
-		return new ArticleFilterManager($doctrine);
+		return new IMArticleFilterManager($doctrine);
 	}
 	
 	protected function isFilterByCategories() {

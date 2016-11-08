@@ -1,0 +1,36 @@
+<h3>
+	<span class="text-brand">{{ articleCategory.name | raw }}</span>
+	<span class="branch-color-{{ branch.id }}">{{ articleCategory.subname | raw }}</span>
+</h3>
+
+{% for article in articles %}
+<div class="vr-space-20"></div>
+<div class="row">
+	<div class="col-sm-4">
+		<div class="rect">
+			{% include 'common/image/image_entry.html.twig' with { 'entry': article, 'tile': true } %}
+		</div>
+	</div>
+	<div class="col-sm-8">
+		<h4 class="title">
+			<span class="text-brand">{{ article.name }}</span>
+			<span class="branch-color-{{ branch.id }}">{{ article.subname }}</span>
+		</h4>
+		<p>{{ article.intro | raw }}</p>
+		<p>
+		<a class="branch-color-{{ branch.id }}" href="{{ path(basePath ~ 'article_show', { id: article.id }) }}">
+			{{ 'label.more'|trans }}
+		</a>
+		</p>
+	</div>
+</div>
+{% endfor %}
+
+<div class="row">
+	<div class="col-xs-12 col-sm-3 col-sm-offset-9 padding-5">
+		<a class="branch-color-{{ branch.id }} title no-padding" href={{ path(basePath ~ 'article', 
+			{ article_filter_article_categories: articleCategory.id }) }}>
+			{{ 'label.more'|trans }}
+		</a>
+	</div>
+</div>

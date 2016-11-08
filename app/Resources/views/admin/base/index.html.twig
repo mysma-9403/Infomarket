@@ -1,6 +1,6 @@
 {% extends 'admin/list.html.twig' %}
 
-
+{% set deleteRole = deleteRole | default('ROLE_ADMIN') %}
 
 
 {# Filter section #}
@@ -134,7 +134,7 @@
 	</li>
 	
 	{% set hidden='hidden' %}
-	{% if is_granted('ROLE_ADMIN') or (is_granted('ROLE_EDITOR') and '_assignment' in mainPath ) %}
+	{% if is_granted(deleteRole) or (is_granted('ROLE_EDITOR') and '_assignment' in mainPath ) %}
 		{% set hidden="" %}
 	{% endif %}
 		
@@ -206,7 +206,7 @@
 			</div>
 		{% endif %}
 		
-		{% if is_granted('ROLE_ADMIN') or (is_granted('ROLE_EDITOR') and '_assignment' in mainPath ) %}
+		{% if is_granted(deleteRole) or (is_granted('ROLE_EDITOR') and '_assignment' in mainPath ) %}
 			<a type="button" class="btn btn-sm btn-danger" onclick="return confirm('{{ 'confirm.delete'|trans }}')"
 				href="{{ path('admin_' ~ mainPath ~ '_delete', { id: item.id }) }}">
 				<i class="fa fa-trash"></i>{{ 'action.delete'|trans }}

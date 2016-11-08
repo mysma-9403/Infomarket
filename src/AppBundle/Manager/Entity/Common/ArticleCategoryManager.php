@@ -19,7 +19,11 @@ class ArticleCategoryManager extends SimpleEntityManager {
 		$entry = parent::createFromRequest($request);
 		
 		$entry->setFeatured($request->get('featured'));
-		$entry->setOrderNumber($request->get('order_number'));
+		
+		$entry->setInfomarket($request->get('infomarket'));
+		$entry->setInfoprodukt($request->get('infoprodukt'));
+		
+		$entry->setOrderNumber($request->get('order_number', 99));
 		
 		return $entry;
 	}
@@ -35,6 +39,10 @@ class ArticleCategoryManager extends SimpleEntityManager {
 		$entry = parent::createFromTemplate($template);
 		
 		$entry->setFeatured($template->getFeatured());
+		
+		$entry->setInfomarket($template->getInfomarket());
+		$entry->setInfoprodukt($template->getInfoprodukt());
+		
 		$entry->setOrderNumber($template->getOrderNumber());
 		
 		return $entry;

@@ -20,6 +20,8 @@
         <field name="imageSize" type="integer" default="0"/>
         
         <field name="date" type="datetime" nullable="false" />
+        <field name="endDate" type="datetime" nullable="true" />
+        
         <many-to-one field="author" target-entity="AppBundle\Entity\User">
         </many-to-one>
         

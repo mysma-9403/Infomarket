@@ -1,5 +1,7 @@
 {% extends 'admin/image/editor.html.twig' %}
 
+{% set deleteRole = deleteRole | default('ROLE_EDITOR') %}
+
 {% set title = 'title.articles'|trans %}
 {% set mainPath = 'article' %}
 {% set gender = 'm.' %}
@@ -23,6 +25,14 @@
 		<label>{{ 'label.article.date'|trans }}</label>
 		<div class='input-group date' id='datetimepicker1'>
 			{{ form_widget(form.date) }}
+			<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+	    </div>
+    </div>
+    
+    <div class="form-group">
+		<label>{{ 'label.article.endDate'|trans }}</label>
+		<div class='input-group date' id='datetimepicker1'>
+			{{ form_widget(form.endDate) }}
 			<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 	    </div>
     </div>

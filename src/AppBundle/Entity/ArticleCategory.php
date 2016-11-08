@@ -161,4 +161,62 @@ class ArticleCategory extends ImageEntity
     {
         return $this->subname;
     }
+    /**
+     * @var boolean
+     */
+    private $infomarket;
+
+    /**
+     * @var boolean
+     */
+    private $infoprodukt;
+
+
+    /**
+     * Set infomarket
+     *
+     * @param boolean $infomarket
+     *
+     * @return ArticleCategory
+     */
+    public function setInfomarket($infomarket)
+    {
+        $this->infomarket = $infomarket;
+
+        return $this;
+    }
+
+    /**
+     * Get infomarket
+     *
+     * @return boolean
+     */
+    public function getInfomarket()
+    {
+        return $this->infomarket;
+    }
+
+    /**
+     * Set infoprodukt
+     *
+     * @param boolean $infoprodukt
+     *
+     * @return ArticleCategory
+     */
+    public function setInfoprodukt($infoprodukt)
+    {
+        $this->infoprodukt = $infoprodukt;
+
+        return $this;
+    }
+
+    /**
+     * Get infoprodukt
+     *
+     * @return boolean
+     */
+    public function getInfoprodukt()
+    {
+        return $this->infoprodukt;
+    }
 }

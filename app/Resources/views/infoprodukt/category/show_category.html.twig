@@ -32,18 +32,18 @@
 </div>
 
 {% block mainArticles %}
-	<div class="container">
-		<div class="row">
-			<h4 class="title padding-5">
-				<span class="text-red">{{ mainCategory.name }}</span> 
-				<span class="text-brand">{{ mainCategory.subname }}</span>
-			</h4>
-		</div>
-		
-		<div class="row">	
-			{% block magazine %}
-				<div class="col-sm-2 col-sm-push-10 padding-5">
-					{% if entry.magazine %}
+	{% if entry.magazine %}	
+		<div class="container">
+			<div class="row">
+				<h4 class="title padding-5">
+					<span class="text-red">{{ mainCategory.name }}</span> 
+					<span class="text-brand">{{ mainCategory.subname }}</span>
+				</h4>
+			</div>
+			
+			<div class="row">
+				{% block magazine %}
+					<div class="col-sm-2 col-sm-push-10 padding-5">
 						<a href="{{ asset(entry.magazine.magazineFile) }}">
 							<div class="col-xs-12 bkg-red padding-5">
 				  				<img class="img-responsive" 
@@ -56,80 +56,85 @@
 		    					</h3>
 		    				</div>
 				  		</a>
-			  		{% endif %}
-				</div>
-			{% endblock %}
-			
-			{% for article in mainArticles | slice(0,5) %}
-				<div class="col-sm-2 col-sm-pull-2 padding-5">
-					<a class="text-white" href="{{ path(basePath ~ 'article_show', 
-						{ id: article.id, category: entry.id, article_filter_article_categories: mainCategory.id }) }}">
-						<div class="rect col-bottom bkg-white">
-							{% if article.image %}
-								<img class="div-center img-{{ article.vertical ? '' : 'v' }}responsive" 
-									alt="{{ article.name | raw }}" src="{{ asset(article.getImagePath()) }}">
-							{% endif %}
-							
-							<div class="col-xs-12 div-bottom bkg-black-50">
-								<div class="rect-2x1 default-tile">
-									<div class="div-top">
-										<h5 class="title">
-											{% for articleBrandAssignment in article.articleBrandAssignments %}
-							      				{{ articleBrandAssignment.brand.name }} 
-						      				{% endfor %}
-						      				&nbsp
-					      				</h5>
-										<h5 class="subtitle">
-											{{ article.name | raw }}
-										</h5>
+					</div>
+				{% endblock %}
+				
+				{% for article in mainArticles | slice(0,5) %}
+					<div class="col-sm-2 col-sm-pull-2 padding-5">
+						<a class="text-white" href="{{ path(basePath ~ 'article_show', 
+							{ id: article.id, category: entry.id, article_filter_article_categories: mainCategory.id }) }}">
+							<div class="rect col-bottom bkg-white">
+								{% if article.image %}
+									<img class="div-center img-{{ article.vertical ? '' : 'v' }}responsive" 
+										alt="{{ article.name | raw }}" src="{{ asset(article.getImagePath()) }}">
+								{% endif %}
+								
+								<div class="col-xs-12 div-bottom bkg-black-50">
+									<div class="rect-2x1 default-tile">
+										<div class="div-top">
+											<h5 class="title">
+												{% for articleBrandAssignment in article.articleBrandAssignments %}
+								      				{{ articleBrandAssignment.brand.name }} 
+							      				{% endfor %}
+							      				&nbsp
+						      				</h5>
+											<h5 class="subtitle">
+												{{ article.name | raw }}
+												{{ article.subname | raw }}
+											</h5>
+										</div>
 									</div>
 								</div>
 							</div>
-						</div>
-					</a>
-				</div>
-			{% endfor %}
-			
-			{% for article in mainArticles | slice(5,10) %}
-				<div class="col-sm-2 col-sm-pull-2 padding-5">
-					<a class="text-white" href="{{ path(basePath ~ 'article_show', 
-						{ id: article.id, category: entry.id, article_filter_article_categories: mainCategory.id }) }}">
-						<div class="rect col-bottom bkg-white">
-							{% if article.image %}
-								<img class="div-center img-{{ article.vertical ? '' : 'v' }}responsive" 
-									alt="{{ article.name | raw }}" src="{{ asset(article.getImagePath()) }}">
-							{% endif %}
-							
-							<div class="col-xs-12 div-bottom bkg-black-50">
-								<div class="rect-2x1 default-tile">
-									<div class="div-top">
-										<h5 class="title">
-											{% for articleBrandAssignment in article.articleBrandAssignments %}
-							      				{{ articleBrandAssignment.brand.name }} 
-						      				{% endfor %}
-						      				&nbsp
-					      				</h5>
-										<h5 class="subtitle">
-											{{ article.name | raw }}
-										</h5>
+						</a>
+					</div>
+				{% endfor %}
+				
+				{% for article in mainArticles | slice(5,10) %}
+					<div class="col-sm-2 col-sm-pull-2 padding-5">
+						<a class="text-white" href="{{ path(basePath ~ 'article_show', 
+							{ id: article.id, category: entry.id, article_filter_article_categories: mainCategory.id }) }}">
+							<div class="rect col-bottom bkg-white">
+								{% if article.image %}
+									<img class="div-center img-{{ article.vertical ? '' : 'v' }}responsive" 
+										alt="{{ article.name | raw }}" src="{{ asset(article.getImagePath()) }}">
+								{% endif %}
+								
+								<div class="col-xs-12 div-bottom bkg-black-50">
+									<div class="rect-2x1 default-tile">
+										<div class="div-top">
+											<h5 class="title">
+												{% for articleBrandAssignment in article.articleBrandAssignments %}
+								      				{{ articleBrandAssignment.brand.name }} 
+							      				{% endfor %}
+							      				&nbsp
+						      				</h5>
+											<h5 class="subtitle">
+												{{ article.name | raw }}
+												{{ article.subname | raw }}
+											</h5>
+										</div>
 									</div>
 								</div>
 							</div>
-						</div>
+						</a>
+					</div>
+				{% endfor %}
+			</div>
+			
+			<div class="row">
+				<div class="col-sm-2 col-sm-push-10 padding-5">
+					<a class="text-red title no-padding" href={{ path('infoprodukt_article', 
+						{ category: entry.id, article_filter_article_categories: mainCategory.id }) }}>
+						{{ 'label.more'|trans }}
 					</a>
 				</div>
-			{% endfor %}
-		</div>
-		
-		<div class="row">
-			<div class="col-sm-2 col-sm-push-10 padding-5">
-				<a class="text-red title no-padding" href={{ path('infoprodukt_article', 
-					{ category: entry.id, article_filter_article_categories: mainCategory.id }) }}>
-					{{ 'label.more'|trans }}
-				</a>
 			</div>
 		</div>
-	</div>
+	{% else %}
+		{% include 'infoprodukt/category/article_category_articles.html.twig' with 
+			{ category: mainCategory, articles: mainArticles, numOfArticles: 12 } %}
+	{% endif %}
 {% endblock %}
 
 {% block auxiliaryArticlesBlock %}
@@ -141,8 +146,15 @@
 			</h4>
 		</div>
 		
+		{% set auxiliarySize = 11 %}
+		{% if questionsArticles | length > 0 %} {% set auxiliarySize = auxiliarySize - 1 %} {% endif %}
+		{% if buildsArticles | length > 0 %} {% set auxiliarySize = auxiliarySize - 1 %} {% endif %}
+		{% if schemasArticles | length > 0 %} {% set auxiliarySize = auxiliarySize - 1 %} {% endif %}
+		{% if moviesArticles | length > 0 %} {% set auxiliarySize = auxiliarySize - 1 %} {% endif %}
+		{% if reviewsArticles | length > 0 %} {% set auxiliarySize = auxiliarySize - 1 %} {% endif %}
+		
 		<div class="row">
-			{% for article in auxiliaryArticles | slice(0,6) %}
+			{% for article in auxiliaryArticles | slice(0, auxiliarySize) %}
 				<div class="col-sm-2 padding-5">
 					<a class="text-white" href="{{ path(basePath ~ 'article_show', 
 						{ id: article.id, category: entry.id, article_filter_article_categories: auxiliaryCategory.id }) }}">
@@ -163,6 +175,7 @@
 					      				</h5>
 										<h5 class="subtitle">
 											{{ article.name | raw }}
+											{{ article.subname | raw }}
 										</h5>
 									</div>
 								</div>
@@ -171,25 +184,33 @@
 					</a>
 				</div>
 			{% endfor %}
-		</div>
-		
-		<div class="row">
-			{% include 'infoprodukt/category/article_category_tile.html.twig' with 
-				{ articleCategory: questionsCategory, articles: questionsArticles } %}
+			
+			{% if questionsArticles | length > 0 %}
+				{% include 'infoprodukt/category/article_category_tile.html.twig' with 
+					{ articleCategory: questionsCategory, articles: questionsArticles } %}
+			{% endif %}
 			
 			{% include 'infoprodukt/category/ratings_tile.html.twig' %}
+			
+			{% if buildsArticles | length > 0 %}	
+				{% include 'infoprodukt/category/article_category_tile.html.twig' with 
+					{ articleCategory: buildsCategory, articles: buildsArticles } %}
+			{% endif %}
 				
-			{% include 'infoprodukt/category/article_category_tile.html.twig' with 
-				{ articleCategory: buildsCategory, articles: buildsArticles } %}
+			{% if schemasArticles | length > 0 %}
+				{% include 'infoprodukt/category/article_category_tile.html.twig' with 
+					{ articleCategory: schemasCategory, articles: schemasArticles } %}
+			{% endif %}
 				
-			{% include 'infoprodukt/category/article_category_tile.html.twig' with 
-				{ articleCategory: schemasCategory, articles: schemasArticles } %}
+			{% if moviesArticles | length > 0 %}
+				{% include 'infoprodukt/category/article_category_tile.html.twig' with 
+					{ articleCategory: moviesCategory, articles: moviesArticles } %}
+			{% endif %}
 				
-			{% include 'infoprodukt/category/article_category_tile.html.twig' with 
-				{ articleCategory: moviesCategory, articles: moviesArticles } %}
-				
-			{% include 'infoprodukt/category/article_category_tile.html.twig' with 
-				{ articleCategory: reviewsCategory, articles: reviewsArticles } %}
+			{% if reviewsArticles | length > 0 %}
+				{% include 'infoprodukt/category/article_category_tile.html.twig' with 
+					{ articleCategory: reviewsCategory, articles: reviewsArticles } %}
+			{% endif %}
 		</div>
 		
 		<div class="row">
@@ -203,54 +224,58 @@
 {% endblock %}
 
 {% block featuredBrands %}
-	<div class="container">
-		<div class="row bkg-black-15">
-			
-			<h4 class="title no-padding">
-				<span class="bkg-brand text-white">
-					&nbsp{{ 'header.featuredBrands.1'|trans }}&nbsp
-				</span><span class="bkg-red text-white">
-					&nbsp{{ 'header.featuredBrands.2'|trans }}&nbsp
-				</span>
-			</h4>
-			
-			{% for brand in brands | slice(0,6) %}
-				<div class="col-sm-2">
-					<a href={{ path(basePath ~ 'brand_show', { id: brand.id, category: entry.id }) }}>
-						<div class="rect">
-							<img class="div-center img-{{ brand.vertical ? 'v' : '' }}responsive" 
-								alt="{{ brand.name | raw }}" src="{{ asset(brand.getImagePath()) }}">
-						</div>
-					</a>
-				</div>
-			{% endfor %}
-		</div>
-	</div>    
+	{% if brands | length > 0 %}
+		<div class="container">
+			<div class="row bkg-black-15">
+				
+				<h4 class="title no-padding">
+					<span class="bkg-brand text-white">
+						&nbsp{{ 'header.featuredBrands.1'|trans }}&nbsp
+					</span><span class="bkg-red text-white">
+						&nbsp{{ 'header.featuredBrands.2'|trans }}&nbsp
+					</span>
+				</h4>
+				
+				{% for brand in brands | slice(0,6) %}
+					<div class="col-sm-2">
+						<a href={{ path(basePath ~ 'brand_show', { id: brand.id, category: entry.id }) }}>
+							<div class="rect">
+								<img class="div-center img-{{ brand.vertical ? 'v' : '' }}responsive" 
+									alt="{{ brand.name | raw }}" src="{{ asset(brand.getImagePath()) }}">
+							</div>
+						</a>
+					</div>
+				{% endfor %}
+			</div>
+		</div>    
+	{% endif %}
 {% endblock %}
 
 {% block featuredAds %}
-	<div class="container">
-		<div class="row">
-			<h4 class="title padding-5">
-				<span class="text-red">{{ 'header.featuredAds.1'|trans }}</span> 
-				<span class="text-brand">{{ 'header.featuredAds.2'|trans }}</span>
-			</h4>
-		</div>
-		
-		<div class="row">
-			<div class="col-xs-12 padding-5">
-				<div id="featuredAdsCarousel" class="carousel slide carousel-fade" data-ride="carousel">
-				  	<div class="carousel-inner" role="listbox">
-						{% for advert in featuredAds %}
-				    		<div class="item rect-3x1 {{ loop.index == 1 ? 'active' : '' }}">
-					    		{% include 'common/advert/advert_entry.html.twig' with { 'entry': advert } %}
-						    </div>
-					    {% endfor %}
+	{% if featuredAds | length > 0 %}
+		<div class="container">
+			<div class="row">
+				<h4 class="title padding-5">
+					<span class="text-red">{{ 'header.featuredAds.1'|trans }}</span> 
+					<span class="text-brand">{{ 'header.featuredAds.2'|trans }}</span>
+				</h4>
+			</div>
+			
+			<div class="row">
+				<div class="col-xs-12 padding-5">
+					<div id="featuredAdsCarousel" class="carousel slide carousel-fade" data-ride="carousel">
+					  	<div class="carousel-inner" role="listbox">
+							{% for advert in featuredAds %}
+					    		<div class="item rect-3x1 {{ loop.index == 1 ? 'active' : '' }}">
+						    		{% include 'common/advert/advert_entry.html.twig' with { 'entry': advert } %}
+							    </div>
+						    {% endfor %}
+					  	</div>
 				  	</div>
 			  	</div>
 		  	</div>
-	  	</div>
-	</div>
+		</div>
+	{% endif %}
 {% endblock %}
 
 {% block productsArticlesBlock %}
@@ -265,6 +290,8 @@
 
 
 {% block usefulItemsBlock %}
+	{% set categoryId = category is defined ? category.id : null %}
+
 	<div class="container">
 		<div class="row">
 			<h4 class="title padding-5">
@@ -273,8 +300,42 @@
 			</h4>
 		</div>
 		
-		<br>
-		<br>
-		<br>
+		<div class="row">
+			<div class="col-xs-2 col-sm-1 padding-5">
+				<a href="{{ path(basePath ~ 'brand', { category: categoryId }) }}">
+					<div class="rect bkg-brand">
+						
+					</div>
+					<div class="bkg-red text-white text-center">
+						<h4 class="title">{{ 'label.mainCategory.brands'|trans }}</h4>
+					</div>
+				</a>
+			</div>
+			
+			<div class="col-xs-2 col-sm-1 padding-5">
+				<a href="{{ path(basePath ~ 'term', { category: categoryId }) }}">
+					<div class="rect bkg-brand">
+						
+					</div>
+					<div class="bkg-red text-white text-center">
+						<h4 class="title">{{ 'label.mainCategory.terms'|trans }}</h4>
+					</div>
+				</a>
+			</div>
+			
+			{% for articleCategory in usefulArticleCategories %}
+				<div class="col-xs-2 col-sm-1 padding-5">
+					<a href="{{ path(basePath ~ 'article', { category: categoryId, article_filter_article_categories: articleCategory.id }) }}">
+						<div class="rect bkg-brand">
+							<img class="div-center img-responsive" alt="{{ articleCategory.name }}"
+								src="{{ asset(articleCategory.getImagePath()) }}" />
+						</div>
+						<div class="bkg-red text-white text-center">
+							<h4 class="title">{{ articleCategory.name }}</h4>
+						</div>
+					</a>
+				</div>
+			{% endfor %}
+		</div>
 	</div>    
 {% endblock %}

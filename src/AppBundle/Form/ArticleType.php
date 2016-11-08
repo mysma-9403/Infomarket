@@ -51,7 +51,6 @@ class ArticleType extends ImageEntityType
 						return $repository->createQueryBuilder('e')
 						->orderBy('e.published DESC, e.name', 'ASC');
 					},
-					'choice_label' 	=> 'name',
 					'required' 		=> false,
 					'expanded'      => false,
 					'multiple'      => false,
@@ -97,6 +96,18 @@ class ArticleType extends ImageEntityType
 							'placeholder' => 'label.article.date'
 					]
 			))
+			->add('endDate', DateTimeType::class, array(
+					'widget' => 'single_text',
+					'format' => 'dd/MM/yyyy HH:mm',
+					'required' => false,
+					'attr' => [
+							'class' => 'form-control input-inline datetimepicker',
+							'data-provide' => 'datetimepicker',
+							'data-date-format' => 'DD/MM/YYYY HH:mm',
+							'placeholder' => 'label.article.endDate'
+					]
+			))
+			
 			->add('author', EntityType::class, array(
 					'class'			=> User::class,
 					'query_builder' => function (UserRepository $repository) {

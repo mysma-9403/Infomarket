@@ -13,17 +13,15 @@
 {% endblock %}
 
 {% block moreFields3 %}
-	<div class="row">
-		<div class="col-xs-12 col-sm-6 col-md-3">
-			<strong>{{ 'label.fm.featured'|trans }}: </strong>
-		</div>
-		<div class="col-xs-12 col-sm-6 col-md-9">
-			<p class="{{ entry.featured ? 'text-green' : 'text-red' }}">
-				{{ entry.featured ? 'label.yes'|trans : 'label.no'|trans }}
-			</p>
-		</div>
-	</div>
+	{% include 'common/fields/bool_field.html.twig' with 
+		{ 'label': ('label.' ~ gender ~ 'featured')|trans, 'value': entry.featured } %}
+		
+	{% include 'common/fields/bool_field.html.twig' with 
+		{ 'label': ('label.infomarket')|trans, 'value': entry.infomarket } %}
+		
+	{% include 'common/fields/bool_field.html.twig' with 
+		{ 'label': ('label.infoprodukt')|trans, 'value': entry.infoprodukt } %}
 	
 	{% include 'common/fields/text_field.html.twig' with 
-	{ 'label': 'label.orderNumber'|trans, 'value': entry.orderNumber } %}
+		{ 'label': 'label.orderNumber'|trans, 'value': entry.orderNumber } %}
 {% endblock %}

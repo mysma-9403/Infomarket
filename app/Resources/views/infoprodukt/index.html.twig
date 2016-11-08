@@ -257,7 +257,7 @@
 					      		</div>
 					      		
 					      		<div class="col-xs-6">
-					      			{% for entry in menuPages|slice(half+1) %}
+					      			{% for entry in menuPages|slice(half) %}
 							      		<div>
 							      			<a href="{{ path('infoprodukt_page_show', { id: entry.id}) }}">{{ entry.name }}</a>
 						      			</div>

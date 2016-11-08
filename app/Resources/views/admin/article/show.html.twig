@@ -1,5 +1,7 @@
 {% extends 'admin/image/show.html.twig' %}
 
+{% set deleteRole = deleteRole | default('ROLE_EDITOR') %}
+
 {% set title = 'title.articles'|trans %}
 {% set mainPath = 'article' %}
 {% set gender = 'm.' %}
@@ -16,11 +18,46 @@
 	{% include 'common/fields/bool_field.html.twig' with 
 	{ 'label': ('label.' ~ gender ~ 'featured')|trans, 'value': entry.featured } %}
 	
+	
+	
+	<div class="lowered-25"></div>
+	
+	{% include 'common/fields/simple_field.html.twig' with 
+		{ 'label': 'label.article.parent', 'value': entry.parent,
+			'object': 'article', 'routeId': entry.id } %}
+	
+	
+	<div class="lowered-25"></div>
+	
+	{% include 'common/fields/text_field.html.twig' with 
+		{ 'label': 'label.article.page'|trans, 'value': entry.page } %}
+	
+	{% include 'common/fields/text_field.html.twig' with 
+		{ 'label': 'label.orderNumber'|trans, 'value': entry.orderNumber } %}
+	
+	
+	<div class="lowered-25"></div>
+	
+	{% include 'common/fields/text_field.html.twig' with 
+		{ 'label': 'label.article.layout'|trans, 'value': entry.layout } %}
+	
+	{% include 'common/fields/text_field.html.twig' with 
+		{ 'label': 'label.article.imageSize'|trans, 'value': entry.imageSize} %}
+	
+	
+	
+	<div class="lowered-25"></div>
+	
 	{% include 'common/fields/date_field.html.twig' with 
 	{ 'label': 'label.article.date'|trans, 'value': entry.date } %}
 	
+	{% include 'common/fields/date_field.html.twig' with 
+	{ 'label': 'label.article.endDate'|trans, 'value': entry.endDate } %}
+	
 	{% include 'common/fields/user_field.html.twig' with 
 	{ 'label': 'label.article.author', 'value': entry.author } %}
+	
+	
 	
 	<div class="row">
 		<div class="col-sm-9">
@@ -39,24 +76,6 @@
 			{{ entry.content | raw }}
 		</div>
 	</div>
-	
-	<div class="lowered-25"></div>
-	
-	{% include 'common/fields/simple_field.html.twig' with 
-	{ 'label': 'label.article.parent', 'value': entry.parent,
-		'object': 'article', 'routeId': entry.id } %}
-	
-	{% include 'common/fields/text_field.html.twig' with 
-	{ 'label': 'label.orderNumber'|trans, 'value': entry.orderNumber } %}
-	
-	{% include 'common/fields/text_field.html.twig' with 
-	{ 'label': 'label.article.layout'|trans, 'value': entry.layout } %}
-	
-	{% include 'common/fields/bool_field.html.twig' with 
-	{ 'label': 'label.article.displaySided'|trans, 'value': entry.displaySided } %}
-	
-	{% include 'common/fields/bool_field.html.twig' with 
-	{ 'label': 'label.article.displayPaginated'|trans, 'value': entry.displayPaginated } %}
 	
 {% endblock %}
 
