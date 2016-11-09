@@ -90,7 +90,7 @@
 					</div>
 				{% endfor %}
 				
-				{% for article in mainArticles | slice(5,10) %}
+				{% for article in mainArticles | slice(5,5) %}
 					<div class="col-sm-2 col-sm-pull-2 padding-5">
 						<a class="text-white" href="{{ path(basePath ~ 'article_show', 
 							{ id: article.id, category: entry.id, article_filter_article_categories: mainCategory.id }) }}">
