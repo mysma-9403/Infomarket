@@ -183,7 +183,7 @@ class CategoryEntryParamsManager extends EntryParamsManager {
 			//useful article categories
 			$usefulArticleCategories = array();
 			
-			$usefulArticleCategories[] = $articleCategoryRepository->find(self::REVIEWS_AC);
+			//$usefulArticleCategories[] = $articleCategoryRepository->find(self::REVIEWS_AC);
 			$usefulArticleCategories[] = $articleCategoryRepository->find(self::LAW_AC);
 			$usefulArticleCategories[] = $articleCategoryRepository->find(self::HOME_LINKS_AC);
 			$usefulArticleCategories[] = $articleCategoryRepository->find(self::FOREIGN_LINKS_AC);
