@@ -644,4 +644,33 @@ class Category extends ImageTree
     {
         return $this->termCategoryAssignments;
     }
+    /**
+     * @var string
+     */
+    private $iconImage;
+
+
+    /**
+     * Set iconImage
+     *
+     * @param string $iconImage
+     *
+     * @return Category
+     */
+    public function setIconImage($iconImage)
+    {
+        $this->iconImage = $iconImage;
+
+        return $this;
+    }
+
+    /**
+     * Get iconImage
+     *
+     * @return string
+     */
+    public function getIconImage()
+    {
+        return $this->iconImage;
+    }
 }

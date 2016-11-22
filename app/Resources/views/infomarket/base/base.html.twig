@@ -22,6 +22,14 @@
 			<div class="col-xs-12 well">
 			
 				{% block sidebarContent %}
+					{% block sectionsBlock %}
+						<h1>{{ 'label.sections'|trans }}</h1>
+						{% include 'infomarket/common/sections.html.twig' %}
+					{% endblock %}
+				
+					{% block moreSidebarContent %}
+					{% endblock %}
+						
 				{% endblock %}
 			</div>
 			

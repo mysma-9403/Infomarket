@@ -1,38 +1,36 @@
-{% extends 'infomarket/index.html.twig' %}
+{% extends 'infomarket/base/index.html.twig' %}
 
 {% set title = 'title.magazines'|trans %}
 {% set type = 'title.magazines'|trans %}
 {% set mainPath = 'magazine' %}
 		
-{% block content %}
-	<div class="container">
-		{% block magazines %}
-		<div class="row">
-			{% for entry in entries %}
-				<div class="col-sm-2 padding-5">
-					<a href="{{ asset(entry.magazineFile) }}">
-						<div class="col-xs-12 bkg-red padding-5">
-			  				<img class="img-responsive" 
-			    				alt="{{ entry.name | raw }}" src="{{ asset(entry.getImagePath()) }}">
-	    				</div>
-	    				<div class="col-xs-12 bkg-brand padding-5">
-	    					<h4 class="title text-white">
-	    						{{ entry.name }}
-	    					</h4>
-	    				</div>
-			  		</a>
-				</div>
-			{% endfor %}
-		</div>
-		{% endblock %}
-		
-		{% block paginator %}
-		<div class="row">
-			<div class="col-xs-12">
-		        {{ knp_pagination_render(entries) }}
+{% block mainContent %}
+	{% block magazines %}
+	<div class="row">
+		{% for entry in entries %}
+			<div class="col-sm-2 padding-5">
+				<a href="{{ asset(entry.magazineFile) }}">
+					<div class="col-xs-12 bkg-red padding-5">
+		  				<img class="img-responsive" 
+		    				alt="{{ entry.name | raw }}" src="{{ asset(entry.getImagePath()) }}">
+    				</div>
+    				<div class="col-xs-12 bkg-brand padding-5">
+    					<h4 class="title text-white">
+    						{{ entry.name }}
+    					</h4>
+    				</div>
+		  		</a>
 			</div>
-		</div>
-		{% endblock %}
+		{% endfor %}
 	</div>
+	{% endblock %}
+	
+	{% block paginator %}
+	<div class="row">
+		<div class="col-xs-12">
+	        {{ knp_pagination_render(entries) }}
+		</div>
+	</div>
+	{% endblock %}
 	
 {% endblock %}

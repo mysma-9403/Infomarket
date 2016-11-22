@@ -11,15 +11,15 @@
 					{% include 'common/image/image_entry.html.twig' with { 'entry': article, 'tile': true } %}
 				</div>
 			</div>
-			<div class="col-xs-12 bkg-brand">
-				<h4 class="text-white">
-					{{ article.name | raw }}
+			<div class="col-xs-12 tile bkg-brand">
+				<h4 class="text-white title">
+					<strong>{{ article.name | raw }}</strong>
 				</h4>
 			</div>
 			<div class="col-xs-12 tile branch-{{ branch.id }}">
-				<h5 class="text-white title">
+				<p class="text-white subtitle">
 					{{ article.subname | raw }}&nbsp
-				</h5>
+				</p>
 			</div>
 		</a>
 	</div>

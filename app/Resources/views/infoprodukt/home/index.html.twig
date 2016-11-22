@@ -9,15 +9,28 @@
 		<div class="row">
 			<div id="myCarousel" class="carousel slide carousel-fade" data-ride="carousel">
 				<ol class="carousel-indicators">
-				    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-				    <li data-target="#myCarousel" data-slide-to="1"></li>
-				    <li data-target="#myCarousel" data-slide-to="2"></li>
+					{% for category in categories | slice(0, 4) %}
+				    	<li data-target="#myCarousel" data-slide-to="{{ loop.index-1 }}" class="{{ loop.index == 1 ? 'active' : '' }}"></li>
+			    	{% endfor %}
 			  	</ol>
 			  	
 			  	<div class="align-right carousel-inner">
-			  		<img class="item active img-responsive" alt="image" src="img/template/kategoria-01.jpg">
-					<img class="item img-vresponsive" alt="image" src="img/template/kategoria-02.jpg">
-		    		<img class="item img-responsive" alt="image" src="img/template/kategoria-03.jpg">
+			  		{% for category in categories | slice(0, 4) %}
+				    	<div class="rect-3x1 item {{ loop.index == 1 ? 'active' : '' }}">
+				    		<img class="div-center img-responsive" 
+				    			alt="image" src="{{ asset(category.featuredImage) }}">
+				    			
+		    				<div class="col-xs-12 div-bottom bkg-black-50 text-white">
+								<div class="container lifted-bottom">
+									<div class="row">
+										<h3 class="padding-5">
+											{{ category.name | raw }} {{ category.subname | raw }}
+										</h3>
+									</div>
+								</div>
+							</div>
+				    	</div>
+			    	{% endfor %}
 			  	</div>
 		  	</div>
 		</div>

@@ -41,15 +41,7 @@ class CategoryEntryParamsManager extends EntryParamsManager {
 		$viewParams['brands'] = array();
 		$viewParams['products'] = array();
 		
-		foreach ($segments as $segment) {
-			$brandFilter = new BrandFilter($userRepository, $categoryRepository, $segmentRepository);
-			$brandFilter->setPublished(BaseEntityFilter::TRUE_VALUES);
-			$brandFilter->setCategories([$entry]);
-			$brandFilter->setSegments([$segment]);
-			
-			$brands = $brandRepository->findSelected($brandFilter);	
-			$viewParams['brands'][$segment->getId()] = $brands;
-				
+		foreach ($segments as $segment) {				
 			$productFilter = new ProductFilter($userRepository, $categoryRepository, $brandRepository, $segmentRepository);
 			$productFilter->setPublished(BaseEntityFilter::TRUE_VALUES);
 			$productFilter->setCategories([$entry]);
@@ -57,6 +49,22 @@ class CategoryEntryParamsManager extends EntryParamsManager {
 			
 			$products = $productRepository->findSelected($productFilter);	
 			$viewParams['products'][$segment->getId()] = $products;
+			
+// 			$brandFilter = new BrandFilter($userRepository, $categoryRepository, $segmentRepository);
+// 			$brandFilter->setPublished(BaseEntityFilter::TRUE_VALUES);
+// 			$brandFilter->setCategories([$entry]);
+// 			$brandFilter->setSegments([$segment]);
+				
+// 			$brands = $brandRepository->findSelected($brandFilter);
+// 			$viewParams['brands'][$segment->getId()] = $brands;
+
+			$brands = [];
+			
+			foreach($products as $product) {
+				$brands[$product->getBrand()->getId()] = $product->getBrand();
+			}
+			
+			$viewParams['brands'][$segment->getId()] = $brands;
 		}
 		
 		
@@ -75,15 +83,7 @@ class CategoryEntryParamsManager extends EntryParamsManager {
 			$viewParams['subbrands'][$category->getId()] = array();
 			$viewParams['subproducts'][$category->getId()] = array();
 			
-			foreach ($segments as $segment) {
-				$brandFilter = new BrandFilter($userRepository, $categoryRepository, $segmentRepository);
-				$brandFilter->setPublished(BaseEntityFilter::TRUE_VALUES);
-				$brandFilter->setCategories([$category]);
-				$brandFilter->setSegments([$segment]);
-					
-				$brands = $brandRepository->findSelected($brandFilter);
-				$viewParams['subbrands'][$category->getId()][$segment->getId()] = $brands;
-					
+			foreach ($segments as $segment) {	
 				$productFilter = new ProductFilter($userRepository, $categoryRepository, $brandRepository, $segmentRepository);
 				$productFilter->setPublished(BaseEntityFilter::TRUE_VALUES);
 				$productFilter->setCategories([$category]);
@@ -91,6 +91,22 @@ class CategoryEntryParamsManager extends EntryParamsManager {
 				
 				$products = $productRepository->findSelected($productFilter);
 				$viewParams['subproducts'][$category->getId()][$segment->getId()] = $products;
+				
+// 				$brandFilter = new BrandFilter($userRepository, $categoryRepository, $segmentRepository);
+// 				$brandFilter->setPublished(BaseEntityFilter::TRUE_VALUES);
+// 				$brandFilter->setCategories([$category]);
+// 				$brandFilter->setSegments([$segment]);
+					
+// 				$brands = $brandRepository->findSelected($brandFilter);
+// 				$viewParams['subbrands'][$category->getId()][$segment->getId()] = $brands;
+
+				$brands = [];
+				
+				foreach($products as $product) {
+					$brands[$product->getBrand()->getId()] = $product->getBrand();
+				}
+					
+				$viewParams['subbrands'][$category->getId()][$segment->getId()] = $brands;
 			}
 		}
 		

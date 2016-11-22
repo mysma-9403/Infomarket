@@ -1,5 +1,6 @@
 {% set bkgColor = bkgColor | default('bkg-black-50') %}
 {% set numOfArticles = numOfArticles | default(6) %}
+{% set showTitle = showTitle | default(false) %}
 
 <div class="container">
 	<div class="row">
@@ -20,20 +21,21 @@
 								alt="{{ article.name | raw }}" src="{{ asset(article.getImagePath()) }}">
 						{% endif %}
 						
-						<div class="col-xs-12 div-bottom {{ bkgColor }}">
-							<div class="rect-2x1 default-tile">
-								<div class="div-top">
+						<div class="col-xs-12 div-bottom padding-5 {{ bkgColor }}">
+							<div class="default-tile">
+								{% if showTitle %}
 									<h5 class="title">
 										{% for articleBrandAssignment in article.articleBrandAssignments %}
 						      				{{ articleBrandAssignment.brand.name }} 
 					      				{% endfor %}
 					      				&nbsp
 				      				</h5>
-									<h5 class="subtitle">
-										{{ article.name | raw }}
-										{{ article.subname | raw }}
-									</h5>
-								</div>
+			      				{% endif %}
+			      				
+								<h5 class="subtitle">
+									{{ article.name | raw }}
+									{{ article.subname | raw }}
+								</h5>
 							</div>
 						</div>
 					</div>

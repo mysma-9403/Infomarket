@@ -20,6 +20,7 @@
         <field name="icon" type="string" length="64" nullable="true" />
         
         <field name="featuredImage" type="string" length="256" nullable="true"/>
+        <field name="iconImage" type="string" length="256" nullable="true"/>
         
         <field name="featured" type="boolean" default="false" />
         <field name="preleaf" type="boolean" default="false" />

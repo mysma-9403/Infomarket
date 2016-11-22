@@ -26,6 +26,18 @@
 	{{ form_row(form.featured, { 'label': 'label.fm.featured' }) }}
 	{{ form_row(form.preleaf, { 'label': 'label.category.preleaf' }) }}
 	
+	{% if entry.iconImage %}
+	<div class="row">
+	    <div class="col-xs-1">
+	    	<div class="rect">
+				<img alt="{{ entry.name | raw }}" src="{{ asset(entry.iconImage) }}" class="div-center" />
+			</div>
+		</div>
+	</div>
+	{% endif %}
+	
+	{{ form_row(form.iconImage, { 'label': 'label.category.iconImage' }) }}
+	
 	{{ form_row(form.icon, { 'label': 'label.icon' }) }}
 	
 	{{ form_row(form.parent, { 'label': 'label.category.parent' }) }}

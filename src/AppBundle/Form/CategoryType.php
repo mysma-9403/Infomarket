@@ -28,6 +28,10 @@ class CategoryType extends ImageEntityType
 			->add('icon', null, array(
 					'required' => false
 			))
+			->add('iconImage', ElFinderType::class, array(
+					'instance'=>'icon',
+					'required' => false
+			))
 			->add('featuredImage', ElFinderType::class, array(
 					'instance'=>'featured',
 					'required' => false

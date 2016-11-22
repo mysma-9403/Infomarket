@@ -31,6 +31,16 @@
 	{% include 'common/fields/bool_field.html.twig' with 
 	{ 'label': ('label.category.preleaf')|trans, 'value': entry.preleaf } %}
 	
+	{% if entry.iconImage %}
+	<div class="row">
+	    <div class="col-xs-1">
+	    	<div class="rect">
+				<img alt="{{ entry.name | raw }}" src="{{ asset(entry.iconImage) }}" class="div-center" />
+			</div>
+		</div>
+	</div>
+	{% endif %}
+	
 	{% include 'common/fields/text_field.html.twig' with 
 	{ 'label': ('label.icon')|trans, 'value': entry.icon } %}
 	

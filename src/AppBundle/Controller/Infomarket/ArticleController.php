@@ -13,6 +13,8 @@ use AppBundle\Manager\Filter\Infomarket\IMArticleFilterManager;
 use AppBundle\Manager\Params\EntryParams\Common\ArticleEntryParamsManager;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Form\Filter\Infomarket\ArticleFilterType;
+use AppBundle\Entity\Filter\Base\BaseEntityFilter;
 
 class ArticleController extends InfomarketController
 {   
@@ -46,6 +48,93 @@ class ArticleController extends InfomarketController
 	//---------------------------------------------------------------------------
 	// Internal actions
 	//---------------------------------------------------------------------------
+	
+	/**
+	 *
+	 * @param Request $request
+	 * @param integer $page current page number
+	 *
+	 * @return \Symfony\Component\HttpFoundation\Response
+	 */
+	protected function indexActionInternal(Request $request, $page)
+	{
+		$params = $this->createParams($this->getIndexRoute());
+		$params = $this->getIndexParams($request, $params, $page);
+	
+		$rm = $this->getRouteManager();
+		$rm->register($request, $params['route'], $params['routeParams']);
+	
+		$am = $this->getAnalyticsManager();
+		$am->sendPageviewAnalytics($params['domain'], $params['route']);
+	
+		$viewParams = $params['viewParams'];
+	
+	
+	
+	
+		// 		$userRepository = $this->getDoctrine()->getRepository(User::class);
+	
+		// 		$searchFilter = new SimpleEntityFilter($userRepository);
+		// 		$searchFilter->initValues($request);
+	
+		// 		$searchFilterForm = $this->createForm(SimpleEntityFilterType::class, $searchFilter);
+		// 		$searchFilterForm->handleRequest($request);
+	
+		// 		if ($searchFilterForm->isSubmitted() && $searchFilterForm->isValid()) {
+		// 			if ($searchFilterForm->get('search')->isClicked()) {
+		// 				return $this->redirectToRoute($this->getSearchRoute(), $searchFilter->getValues());
+		// 			}
+		// 		}
+		// 		$viewParams['searchFilterForm'] = $searchFilterForm->createView();
+	
+	
+	
+		$newsletter = new NewsletterUser();
+	
+		$newsletterForm = $this->createForm(NewsletterUserType::class, $newsletter);
+		$newsletterForm->handleRequest($request);
+	
+		if ($newsletterForm->isSubmitted() && $newsletterForm->isValid()) {
+			if ($newsletterForm->get('save')->isClicked()) {
+				$this->subscribe($newsletter);
+			}
+		}
+		$viewParams['newsletterForm'] = $newsletterForm->createView();
+	
+	
+	
+		$articleFilter = $viewParams['entryFilter'];
+		
+		$articleFilterForm = $this->createForm(ArticleFilterType::class, $articleFilter);
+		$articleFilterForm->handleRequest($request);
+		
+		if ($articleFilterForm->isSubmitted() && $articleFilterForm->isValid()) {
+		
+			if ($articleFilterForm->get('search')->isClicked()) {
+				$articleFilter->setPublished(BaseEntityFilter::ALL_VALUES);
+				$articleFilter->setMain(BaseEntityFilter::ALL_VALUES);
+				$articleFilter->setCategories(array());
+		
+				$routingParams = array();
+				$routingParams = array_merge($routingParams, $articleFilter->getValues());
+		
+				return $this->redirectToRoute($this->getIndexRoute(), $routingParams);
+			}
+		
+			if ($articleFilterForm->get('clear')->isClicked()) {
+				$routingParams = array();
+		
+				return $this->redirectToRoute($this->getIndexRoute(), $routingParams);
+			}
+		}
+		$viewParams['articleFilterForm'] = $articleFilterForm->createView();
+		$viewParams['tags'] = $articleFilter->getTags();
+		
+		
+		
+		return $this->render($this->getIndexView(), $viewParams);
+	}
+	
 	/**
 	 *
 	 * @param Request $request

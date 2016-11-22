@@ -61,9 +61,9 @@
 							{% form_theme searchFilterForm 'form/fields.html.twig' %}
 						
 							{{ form_start(searchFilterForm) }}
-								<ul class="list-inline">
-									<li>
-										<div class='input-group input-sm search'>
+								<ul class="list-inline no-padding">
+									<li class="no-padding">
+										<div class='input-group input-sm search no-padding'>
 											{{ form_widget(searchFilterForm.name, { 'label': 'label.name', 'attr': { 'class': 'input-sm' }  }) }}
 											<span class="input-group-btn">
 												{{ form_widget(searchFilterForm.search, { 'icon': 'fa fa-search', 'label': ' ', 'attr': { 'class': 'input-sm btn-danger' }  }) }}
@@ -93,32 +93,12 @@
 						{% block navigationLinks %}
 						<div class="collapse navbar-collapse" id="catbar">
 							<ul class="nav navbar-nav navbar-center">
-{# 								{% for branch in menuBranches %}#}
-{# 									<li>#}
-{# 										<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">#}
-{# 											<span class="fa fa-{{ branch.icon }}"></span> {{ branch.name | raw }} <span class="caret"></span>#}
-{# 										</a>#}
-{# 										<ul class="dropdown-menu">#}
-{# 											{% for category in menuCategories %}#}
-													
-{# 													{% set show = false %}#}
-{# 													{% for branchCategoryAssignment in category.branchCategoryAssignments if show == false %}#}
-{# 														{% if branchCategoryAssignment.branch.id == branch.id %}#}
-{# 															{% set show = true %}#}
-{# 														{% endif %}#}
-{# 													{% endfor %}#}
-													
-{# 													{% if show %}#}
-{# 														{% include 'common/category/menu_entry.html.twig' with { 'entry': category } %}#}
-{# 													{% endif %}#}
-{# 											{% endfor %}#}
-{# 										</ul>#}
-{# 									</li>#}
-{# 								{% endfor %}#}
+							
 								{% for category in menuCategories %}
 								<li>
 									<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-										<span class="fa {{ category.icon }}"></span>
+										<img style="vertical-align: bottom;" alt="{{ 'label.category.icon'|trans }}" 
+											src="{{ asset(category.iconImage ? category.iconImage : 'img/template/icon.png') }}">
 										<span class="text-red"> {{ category.name }} {{ category.subname }}</span>
 										<span class="caret"></span>
 									</a>
@@ -127,7 +107,7 @@
 											{% include 'common/category/menu_entry.html.twig' with { 'entry': subcategory } %}
 										{% endfor %}
 										
-										{% if category.children | length >= 10 %}
+										{% if category.menuChildren | length >= 10 %}
 											<li role="separator" class="divider"></li>
 											<li>
 												<a href="{{ path(basePath ~ 'category_show', { id: category.id }) }}">
@@ -141,9 +121,12 @@
 								{% endfor %}
 								<li>
 									<a href="{{ path(basePath ~ 'category') }}">
-										{{ 'label.all'|trans }}
+										<img style="vertical-align: bottom;" alt="{{ 'label.category.icon'|trans }}" 
+											src="{{ asset('img/template/icon-all.png') }}">
+										<span class="text-brand"> {{ 'label.all'|trans }}</span>
 									</a>
 								</li>
+								
 							</ul>
 						</div>
 						{% endblock %}

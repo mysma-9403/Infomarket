@@ -6,14 +6,16 @@ use AppBundle\Entity\Filter\Base\SimpleEntityFilter;
 use AppBundle;
 use AppBundle\Entity\ArticleArticleCategoryAssignment;
 use AppBundle\Entity\ArticleBrandAssignment;
+use AppBundle\Entity\ArticleCategory;
 use AppBundle\Entity\ArticleCategoryAssignment;
+use AppBundle\Entity\ArticleTagAssignment;
+use AppBundle\Entity\Filter\Base\BaseEntityFilter;
 use AppBundle\Repository\ArticleCategoryRepository;
 use AppBundle\Repository\BrandRepository;
 use AppBundle\Repository\CategoryRepository;
-use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Repository\TagRepository;
-use AppBundle\Entity\ArticleTagAssignment;
 use AppBundle\Repository\UserRepository;
+use Symfony\Component\HttpFoundation\Request;
 
 class ArticleFilter extends SimpleEntityFilter {
 	
@@ -64,6 +66,9 @@ class ArticleFilter extends SimpleEntityFilter {
 		$this->pages = [];
 		
 		$this->active = $this::ALL_VALUES;
+		
+		$this->infomarket = $this::ALL_VALUES;
+		$this->infoprodukt = $this::ALL_VALUES;
 	}
 	
 	/**
@@ -102,6 +107,9 @@ class ArticleFilter extends SimpleEntityFilter {
 		$this->dateTo = $dateTo ? new \DateTime($dateTo) : null;
 		
 		$this->active = $request->get($this->getFilterName() . 'active', $this::ALL_VALUES);
+		
+		$this->infomarket = $request->get($this->getFilterName() . 'infomarket', $this::ALL_VALUES);
+		$this->infoprodukt = $request->get($this->getFilterName() . 'infoprodukt', $this::ALL_VALUES);
 	}
 	
 	/**
@@ -128,6 +136,9 @@ class ArticleFilter extends SimpleEntityFilter {
 		$this->dateTo = null;
 		
 		$this->active = $this::ALL_VALUES;
+		
+		$this->infomarket = $this::ALL_VALUES;
+		$this->infoprodukt = $this::ALL_VALUES;
 	}
 	
 	/**
@@ -175,6 +186,13 @@ class ArticleFilter extends SimpleEntityFilter {
 		
 		if($this->active !== $this::ALL_VALUES) {
 			$values[$this->getFilterName() . 'active'] = $this->active;
+		}
+		
+		if($this->infomarket !== $this::ALL_VALUES) {
+			$values[$this->getFilterName() . 'infomarket'] = $this->infomarket;
+		}
+		if($this->infoprodukt !== $this::ALL_VALUES) {
+			$values[$this->getFilterName() . 'infoprodukt'] = $this->infoprodukt;
 		}
 		
 		return $values;
@@ -241,6 +259,13 @@ class ArticleFilter extends SimpleEntityFilter {
 			$expressions[] = $expression;
 		}
 		
+		if($this->infomarket !== SimpleEntityFilter::ALL_VALUES) {
+			$expressions[] = 'ac.infomarket = ' . $this->infomarket;
+		}
+		if($this->infoprodukt !== SimpleEntityFilter::ALL_VALUES) {
+			$expressions[] = 'ac.infoprodukt = ' . $this->infoprodukt;
+		}
+		
 		return $expressions;
 	}
 	
@@ -252,8 +277,12 @@ class ArticleFilter extends SimpleEntityFilter {
 	protected function getJoinExpressions() {
 		$expressions = parent::getJoinExpressions();
 	
-		if($this->articleCategories) {
+		if($this->articleCategories || $this->infomarket !== BaseEntityFilter::ALL_VALUES || $this->infoprodukt !== BaseEntityFilter::ALL_VALUES) {
 			$expressions[] = ArticleArticleCategoryAssignment::class . ' aaca WITH aaca.article = e.id';
+			
+			if($this->infomarket !== BaseEntityFilter::ALL_VALUES || $this->infoprodukt !== BaseEntityFilter::ALL_VALUES) {
+				$expressions[] = ArticleCategory::class . ' ac WITH aaca.articleCategory = ac.id';
+			}
 		}
 		
 		if($this->categories) {
@@ -329,6 +358,16 @@ class ArticleFilter extends SimpleEntityFilter {
 	 * @var boolean
 	 */
 	protected $active;
+	
+	/**
+	 * @var boolean
+	 */
+	protected $infomarket;
+	
+	/**
+	 * @var boolean
+	 */
+	protected $infoprodukt;
 	
 	/**
 	 * Set article categories
@@ -592,5 +631,53 @@ class ArticleFilter extends SimpleEntityFilter {
 	public function isActive()
 	{
 		return $this->active;
+	}
+	
+	/**
+	 * Set infomarket
+	 *
+	 * @param boolean $infomarket
+	 *
+	 * @return SimpleEntityFilter
+	 */
+	public function setInfomarket($infomarket)
+	{
+		$this->infomarket = $infomarket;
+	
+		return $this;
+	}
+	
+	/**
+	 * Is infomarket
+	 *
+	 * @return boolean
+	 */
+	public function isInfomarket()
+	{
+		return $this->infomarket;
+	}
+	
+	/**
+	 * Set infoprodukt
+	 *
+	 * @param boolean $infoprodukt
+	 *
+	 * @return SimpleEntityFilter
+	 */
+	public function setInfoprodukt($infoprodukt)
+	{
+		$this->infoprodukt = $infoprodukt;
+	
+		return $this;
+	}
+	
+	/**
+	 * Is infoprodukt
+	 *
+	 * @return boolean
+	 */
+	public function isInfoprodukt()
+	{
+		return $this->infoprodukt;
 	}
 }

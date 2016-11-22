@@ -367,6 +367,10 @@
                 <source>label.category</source>
                 <target>Kategoria</target>
             </trans-unit>
+            <trans-unit id="label.page">
+                <source>label.page</source>
+                <target>Strona</target>
+            </trans-unit>
             <trans-unit id="label.product">
                 <source>label.product</source>
                 <target>Produkt</target>
@@ -891,6 +895,10 @@
             <trans-unit id="label.category.featuredImage">
                 <source>label.category.featuredImage</source>
                 <target>Zdjęcie wyróżnione</target>
+            </trans-unit>
+            <trans-unit id="label.category.iconImage">
+                <source>label.category.iconImage</source>
+                <target>Ikonka własna</target>
             </trans-unit>
             
             

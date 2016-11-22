@@ -109,7 +109,7 @@ class ArticleController extends InfoproduktController
 		
 		$articleFilter = $viewParams['entryFilter'];
 		
-		$articleFilterForm = $this->createForm(ArticleFilterType::class, $articleFilter, ['attr' => ['infoprodukt']]);
+		$articleFilterForm = $this->createForm(ArticleFilterType::class, $articleFilter);
 		$articleFilterForm->handleRequest($request);
 		
 		if ($articleFilterForm->isSubmitted() && $articleFilterForm->isValid()) {
