@@ -19,7 +19,7 @@ class NewsletterUserType extends SimpleEntityType
 	
 		$builder
 		->add('name', EmailType::class, array(
-				'attr' => array('autofocus' => true),
+				'attr' => array('autofocus' => false),
 				'required' => true
 		))
 		;
