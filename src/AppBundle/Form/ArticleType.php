@@ -29,6 +29,7 @@ class ArticleType extends ImageEntityType
 				'label.article.layout.left'			=> Article::LEFT_LAYOUT,
 				'label.article.layout.mid'			=> Article::MID_LAYOUT,
 				'label.article.layout.right'		=> Article::RIGHT_LAYOUT,
+				'label.article.layout.bottom'		=> Article::BOTTOM_LAYOUT,
 		);
 		
 		$imageSizeChoices = array(

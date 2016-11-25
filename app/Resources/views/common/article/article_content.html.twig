@@ -2,6 +2,8 @@
 	{% include 'common/article/layouts/mid_layout.html.twig' %}
 {% elseif article.layout == constant('AppBundle\\Entity\\Article::RIGHT_LAYOUT') %}
 	{% include 'common/article/layouts/right_layout.html.twig' %}
-{% else %}
+{% elseif article.layout == constant('AppBundle\\Entity\\Article::LEFT_LAYOUT') %}
 	{% include 'common/article/layouts/left_layout.html.twig' %}
+{% elseif article.layout == constant('AppBundle\\Entity\\Article::BOTTOM_LAYOUT') %}
+	{% include 'common/article/layouts/bottom_layout.html.twig' %}
 {% endif %}

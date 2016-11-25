@@ -13,6 +13,7 @@ class Article extends ImageEntity
 	const LEFT_LAYOUT = 0;
 	const MID_LAYOUT = 1;
 	const RIGHT_LAYOUT = 2;
+	const BOTTOM_LAYOUT = 3;
 	
 	const LARGE_IMAGE = 0;
 	const MEDIUM_IMAGE = 1;

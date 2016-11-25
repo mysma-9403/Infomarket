@@ -459,6 +459,10 @@
                 <source>label.article.layout.right</source>
                 <target>Do prawej</target>
             </trans-unit>
+            <trans-unit id="label.article.layout.bottom">
+                <source>label.article.layout.bottom</source>
+                <target>Na dole</target>
+            </trans-unit>
             
             
             <trans-unit id="label.article.imageSize.small">
@@ -835,7 +839,7 @@
             </trans-unit>
             <trans-unit id="label.article.layout">
                 <source>label.article.layout</source>
-                <target>Ułożenie</target>
+                <target>Ułożenie zdjęcia</target>
             </trans-unit>
             <trans-unit id="label.article.page">
                 <source>label.article.page</source>
