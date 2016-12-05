@@ -41,8 +41,12 @@ abstract class EntityManager extends ParamsManager {
 	
 	public function getEntries($filter, $page) {
 		$repository = $this->getRepository();
-		$query = $repository->querySelected($filter);
-		return $this->paginator->paginate($query, $page, $this->entriesPerPage);
+		if($this->entriesPerPage > 0) {
+			$query = $repository->querySelected($filter);
+			return $this->paginator->paginate($query, $page, $this->entriesPerPage);
+		} else {
+			return $repository->findSelected($filter);
+		}
 	}
 	
 	protected function getRepository() {

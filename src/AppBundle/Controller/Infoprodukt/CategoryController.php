@@ -46,7 +46,9 @@ class CategoryController extends InfoproduktController
 	}
 	
 	protected function getEntityManager($doctrine, $paginator) {
-		return new CategoryManager($doctrine, $paginator);
+		$em = new CategoryManager($doctrine, $paginator);
+		$em->setEntriesPerPage(0);
+		return $em;
 	}
 	
 	protected function getEntryFilterManager($doctrine) {
