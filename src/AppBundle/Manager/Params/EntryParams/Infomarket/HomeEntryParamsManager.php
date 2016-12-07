@@ -15,6 +15,8 @@ use AppBundle\Entity\User;
 use AppBundle\Manager\Params\EntryParams\Base\EntryParamsManager;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Entity\Filter\ArticleCategoryFilter;
+use AppBundle\Entity\Filter\AdvertFilter;
+use AppBundle\Entity\Advert;
 
 class HomeEntryParamsManager extends EntryParamsManager {
 	
@@ -23,7 +25,13 @@ class HomeEntryParamsManager extends EntryParamsManager {
 	const EVENTS_AC = 14;
 	const PROMOTIONS_AC = 1;
 	const PRODUCTS_AC = 2;
+	
+	// useful
 	const REVIEWS_AC = 15;
+	const LAW_AC = 12;
+	const HOME_LINKS_AC = 22;
+	const FOREIGN_LINKS_AC = 23;
+	const MOVIES_AC = 11;
 	
 	public function getIndexParams(Request $request, array $params, $page) {
 		$params = parent::getIndexParams($request, $params, $page);
@@ -33,10 +41,16 @@ class HomeEntryParamsManager extends EntryParamsManager {
 		$branch = $viewParams['branch'];
 		$categories = array();
 		
+		$ratingsCategory = null;
+		
 		foreach ($branch->getBranchCategoryAssignments() as $branchCategoryAssignment) {
 			$category = $branchCategoryAssignment->getCategory();
 			if($category->getPublished()) {
 				$categories[] = $category;
+				
+				if($category->getParent() != null && $category->getParent()->getPreleaf() == true) {
+					$ratingsCategory = $category;
+				}
 			}
 		}
 		
@@ -70,6 +84,10 @@ class HomeEntryParamsManager extends EntryParamsManager {
     	$articleFilter->setFeatured(BaseEntityFilter::ALL_VALUES);
     	
     	
+    	
+    	
+    	$articleFilter->setLimit(12);
+    	
     	$articleCategory = $articleCategoryRepository->find(self::NEWS_AC);
     	$articleFilter->setArticleCategories([$articleCategory]);
     	$viewParams['newsCategory'] = $articleCategory;
@@ -77,6 +95,10 @@ class HomeEntryParamsManager extends EntryParamsManager {
     	$articles = $this->getParamList(Article::class, $articleFilter);
     	$viewParams['newsArticles'] = $articles;
     	
+    	
+    	
+    	
+    	$articleFilter->setLimit(6);
     	
     	$articleCategory = $articleCategoryRepository->find(self::INTERVIEWS_AC);
     	$articleFilter->setArticleCategories([$articleCategory]);
@@ -86,8 +108,9 @@ class HomeEntryParamsManager extends EntryParamsManager {
     	$viewParams['interviewsArticles'] = $articles;
     	
     	
-    	$articleFilter->setLimit(2);
     	
+    	
+    	$articleFilter->setLimit(3);
     	
     	$articleCategory = $articleCategoryRepository->find(self::EVENTS_AC);
     	$articleFilter->setArticleCategories([$articleCategory]);
@@ -97,6 +120,10 @@ class HomeEntryParamsManager extends EntryParamsManager {
     	$viewParams['eventsArticles'] = $articles;
     	
     	
+    	
+    	
+    	$articleFilter->setLimit(8);
+    	
     	$articleCategory = $articleCategoryRepository->find(self::PROMOTIONS_AC);
     	$articleFilter->setArticleCategories([$articleCategory]);
     	$viewParams['promotionsCategory'] = $articleCategory;
@@ -104,6 +131,9 @@ class HomeEntryParamsManager extends EntryParamsManager {
     	$articles = $this->getParamList(Article::class, $articleFilter);
     	$viewParams['promotionsArticles'] = $articles;
     	
+    	
+    	
+    	$articleFilter->setLimit(8);
     	
     	$articleCategory = $articleCategoryRepository->find(self::PRODUCTS_AC);
     	$articleFilter->setArticleCategories([$articleCategory]);
@@ -113,22 +143,47 @@ class HomeEntryParamsManager extends EntryParamsManager {
     	$viewParams['productsArticles'] = $articles;
     	
     	
-    	$articleCategory = $articleCategoryRepository->find(self::REVIEWS_AC);
-    	$articleFilter->setArticleCategories([$articleCategory]);
-    	$viewParams['reviewsCategory'] = $articleCategory;
     	
-    	$articles = $this->getParamList(Article::class, $articleFilter);
-    	$viewParams['reviewsArticles'] = $articles;
+    	
+    	//useful article categories
+    	$usefulArticleCategories = array();
+    		
+    	$usefulArticleCategories[] = $articleCategoryRepository->find(self::REVIEWS_AC);
+    	$usefulArticleCategories[] = $articleCategoryRepository->find(self::LAW_AC);
+    	$usefulArticleCategories[] = $articleCategoryRepository->find(self::HOME_LINKS_AC);
+    	$usefulArticleCategories[] = $articleCategoryRepository->find(self::FOREIGN_LINKS_AC);
+    	$usefulArticleCategories[] = $articleCategoryRepository->find(self::MOVIES_AC);
+    		
+    	$viewParams['usefulArticleCategories'] = $usefulArticleCategories;
+    	
+    	
     	
     	
     	$magazineFilter = new MagazineFilter($userRepository, $categoryRepository);
     	$magazineFilter->setPublished(BaseEntityFilter::TRUE_VALUES);
     	$magazineFilter->setInfomarket(BaseEntityFilter::TRUE_VALUES);
     	$magazineFilter->setOrderBy('e.orderNumber ASC, e.name DESC');
-    	$magazineFilter->setLimit(3);
+    	$magazineFilter->setLimit(4);
     	
     	$magazines = $this->getParamList(Magazine::class, $magazineFilter);
     	$viewParams['magazines'] = $magazines;
+    	
+    	
+    	
+    	$advertFilter = new AdvertFilter($userRepository, $categoryRepository);
+    	$advertFilter->setPublished(BaseEntityFilter::TRUE_VALUES);
+    	$advertFilter->setActive(BaseEntityFilter::TRUE_VALUES);
+		$advertFilter->setCategories($categories);
+			
+		$advertFilter->setLocations([Advert::FEATURED_LOCATION]);
+			
+		$featuredAds = $this->getParamList(Advert::class, $advertFilter);
+		shuffle($featuredAds);
+		$featuredAds = array_slice($featuredAds, 0, 3);
+		$viewParams['featuredAds'] = $featuredAds;
+		
+		
+		$viewParams['ratingsCategory'] = $ratingsCategory;
     	
     	
     	$params['viewParams'] = $viewParams;

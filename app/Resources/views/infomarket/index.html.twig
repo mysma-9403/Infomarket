@@ -64,6 +64,10 @@
 							<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 				      			<ul class="nav navbar-nav navbar-right">
 									{% block navigationMenu %}
+										<li class="{% if mainPath == 'home' %}active{% endif %} branch-{{ branch.id }}">
+											<a href="{{ path(basePath ~ 'home') }}">
+												<span class="fa fa-search"></span> {{ 'title.infomarket.home'|trans }}</a>
+										</li>
 										<li class="{% if mainPath == 'article' %}active{% endif %} branch-{{ branch.id }}">
 											<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
 												<span class="fa fa-file-text-o"></span> {{ 'title.articles'|trans }} <span class="caret">
@@ -134,8 +138,8 @@
 			<div class="row">
 				<div class="col-sm-8">
 					<h4 class="title padding-5">
-						<span class="text-red">{{ 'header.contact.1'|trans }}</span> 
-						<span class="text-brand">{{ 'header.contact.2'|trans }}</span>
+						<span class="text-brand">{{ 'header.contact.1'|trans }}</span> 
+						<span class="branch-color-{{ branch.id }}">{{ 'header.contact.2'|trans }}</span>
 					</h4>
 					
 					<p>
@@ -153,8 +157,8 @@
 				
 				<div class="col-sm-4">
 					<h4 class="title padding-5">
-						<span class="text-red">{{ 'header.newsletter.1'|trans }}</span> 
-						<span class="text-brand">{{ 'header.newsletter.2'|trans }}</span>
+						<span class="text-brand">{{ 'header.newsletter.1'|trans }}</span> 
+						<span class="branch-color-{{ branch.id }}">{{ 'header.newsletter.2'|trans }}</span>
 					</h4>
 					
 					{% form_theme newsletterForm 'form/fields.html.twig' %}

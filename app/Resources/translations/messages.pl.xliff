@@ -238,6 +238,11 @@
             </trans-unit>
             
             
+            <trans-unit id="title.infomarket.home">
+                <source>title.infomarket.home</source>
+                <target>Dział</target>
+            </trans-unit>
+            
             <trans-unit id="title.infoprodukt.terms">
                 <source>title.infoprodukt.terms</source>
                 <target>Leksykon pojęć</target>
@@ -259,6 +264,10 @@
             <trans-unit id="header.magazines">
                 <source>header.magazines</source>
                 <target>Magazyny</target>
+            </trans-unit>
+            <trans-unit id="header.ratings">
+                <source>header.ratings</source>
+                <target>Ratingi</target>
             </trans-unit>
             
             
@@ -328,6 +337,15 @@
             <trans-unit id="header.newsletter.2">
                 <source>header.newsletter.2</source>
                 <target>do newslettera</target>
+            </trans-unit>
+            
+            <trans-unit id="header.currentMagazines.1">
+                <source>header.currentMagazines.1</source>
+                <target>Aktualne</target>
+            </trans-unit>
+            <trans-unit id="header.currentMagazines.2">
+                <source>header.currentMagazines.2</source>
+                <target>Magazyny</target>
             </trans-unit>
             
             

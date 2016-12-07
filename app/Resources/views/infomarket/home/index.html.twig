@@ -40,75 +40,376 @@
 	  	</div>
 	</div>
 	
-	<div class="row">
-		<div class="col-xs-12">
-			{% block magazineBlock %}
-			<div class="col-sm-2 no-padding">
-				<div id="magazinesCarousel" class="carousel slide carousel-fade" data-ride="carousel">
-				  	<div class="carousel-inner" role="listbox">
-				  		{% for magazine in magazines %}
-							<a class="item {{ loop.index == 1 ? 'active' : '' }}" href="{{ asset(magazine.magazineFile) }}">
-								<div class="col-xs-12 bkg-red padding-5">
-					  				<img class="img-responsive" 
-					    				alt="{{ magazine.name | raw }}" src="{{ asset(magazine.getImagePath()) }}">
-			    				</div>
-			    				<div class="col-xs-12 bkg-brand padding-5">
-			    					<h3 class="title text-center">
-			    						<span class="text-red">Pobierz</span>
-			    						<span class="text-white">aktualny <br> numer</span>
-			    					</h3>
-			    				</div>
-					  		</a>
-				  		{% endfor %}
-				  	</div>
-			  	</div>
+	{% block newsBlock %}
+		<div class="row">
+			<div class="col-xs-12">
+				<h4 class="section title">
+					<span class="text-brand">{{ newsCategory.name | raw }}</span>
+					<span class="branch-color-{{ branch.id }}">{{ newsCategory.subname | raw }}</span>
+				</h4>
 			</div>
-			{% endblock %}
+		</div>
+		
+		<div class="row">			
+			{% if newsArticles | length > 0 %}
+				{% set article = newsArticles|first %}
+				<div class="col-md-4 padding-5">
+					<a class="text-white" href="{{ path(basePath ~ 'article_show', 
+						{ id: article.id, article_filter_article_categories: newsCategory.id }) }}">
+						<div class="rect col-bottom bkg-white">
+							{% if article.image %}
+								<img class="div-center img-{{ article.vertical ? '' : 'v' }}responsive" 
+									alt="{{ article.name | raw }}" src="{{ asset(article.getImagePath()) }}">
+							{% endif %}
+							
+							<div class="col-xs-12 div-bottom bkg-black-50">
+								<div class="default-tile">
+									<h5 class="subtitle">
+										{{ article.name | raw }}
+										{{ article.subname | raw }}
+									</h5>
+								</div>
+							</div>
+						</div>
+					</a>
+				</div>					
+			{% endif %}
 			
-			{% block articlesBlock %}
-			<div class="col-sm-10 no-padding">
-				<div class="col-xs-12 bkg-white">
-					
-					<div class="row">
-						<div class="col-sm-6">
-							{% include 'infomarket/common/articles/featured_articles.html.twig' with
-							{ articleCategory: newsCategory, articles: newsArticles } %}
+			{% if newsArticles | length > 1 %}
+				{% set article = newsArticles|slice(1)|first %}
+				<div class="col-md-4 padding-5">
+					<a class="text-white" href="{{ path(basePath ~ 'article_show', 
+						{ id: article.id, article_filter_article_categories: newsCategory.id }) }}">
+						<div class="rect col-bottom bkg-white">
+							{% if article.image %}
+								<img class="div-center img-{{ article.vertical ? '' : 'v' }}responsive" 
+									alt="{{ article.name | raw }}" src="{{ asset(article.getImagePath()) }}">
+							{% endif %}
+							
+							<div class="col-xs-12 div-bottom bkg-black-50">
+								<div class="default-tile">
+									<h5 class="subtitle">
+										{{ article.name | raw }}
+										{{ article.subname | raw }}
+									</h5>
+								</div>
+							</div>
 						</div>
-						
-						<div class="col-sm-6">
-							{% include 'infomarket/common/articles/featured_articles.html.twig' with
-							{ articleCategory: interviewsCategory, articles: interviewsArticles } %}
+					</a>
+				</div>					
+			{% endif %}
+			
+			{% if newsArticles | length > 2 %}
+				<div class="col-md-4 padding-5">
+					<ul>
+						{% for article in newsArticles|slice(2) %}
+							<li type="square" class="text-brand">
+								<a class="branch-color-{{ branch.id }}" href="{{ path(basePath ~ 'article_show', { id: article.id }) }}">
+									{{ article.name | raw }} {{ article.subname | raw }}
+								</a>
+							</li>
+						{% endfor %}
+					</ul>
+				</div>					
+			{% endif %}
+		</div>
+		
+		<div class="row">
+			<div class="col-xs-12 col-sm-3 col-sm-offset-9">
+				<a class="branch-color-{{ branch.id }} title no-padding" href={{ path(basePath ~ 'article', 
+					{ article_filter_article_categories: newsCategory.id }) }}>
+					{{ 'label.more'|trans }}
+				</a>
+			</div>
+		</div>
+	{% endblock %}
+		
+	{% block interviewsBlock %}
+		<div class="row">
+			<div class="col-xs-12">
+				<h4 class="section title">
+					<span class="text-brand">{{ interviewsCategory.name | raw }}</span>
+					<span class="branch-color-{{ branch.id }}">{{ interviewsCategory.subname | raw }}</span>
+				</h4>
+			</div>
+		</div>
+		
+		<div class="row">
+			{% for article in interviewsArticles %}
+				<div class="col-sm-2 padding-5">
+					<a class="branch-color-{{ branch.id }}" href="{{ path(basePath ~ 'article_show', 
+						{ id: article.id, article_filter_article_categories: interviewsCategory.id }) }}">
+						<div class="rect bkg-white">
+							{% if article.image %}
+								<img class="div-center img-{{ article.vertical ? '' : 'v' }}responsive" 
+									alt="{{ article.name | raw }}" src="{{ asset(article.getImagePath()) }}">
+							{% endif %}
 						</div>
-					</div>
-					
-					<div class="row">
-						<div class="col-sm-6">
-							{% include 'infomarket/common/articles/featured_articles.html.twig' with
-							{ articleCategory: eventsCategory, articles: eventsArticles } %}
+						<div class="col-xs-12 tile bkg-brand">
+							<p class="text-white title">
+								{{ article.name | raw }}
+							</p>
 						</div>
-						
-						<div class="col-sm-6">
-							{% include 'infomarket/common/articles/featured_articles.html.twig' with
-							{ articleCategory: promotionsCategory, articles: promotionsArticles } %}
+						<div class="col-xs-12 tile branch-{{ branch.id }}">
+							<p class="text-white subtitle">
+								{{ article.subname | raw }}&nbsp
+							</p>
 						</div>
-					</div>
-					
-					<div class="row">
-						<div class="col-sm-6">
-							{% include 'infomarket/common/articles/featured_articles.html.twig' with
-							{ articleCategory: productsCategory, articles: productsArticles } %}
-						</div>
-						
-						<div class="col-sm-6">
-							{% include 'infomarket/common/articles/featured_articles.html.twig' with
-							{ articleCategory: reviewsCategory, articles: reviewsArticles } %}
-						</div>
-					</div>
-					
+					</a>
+				</div>
+			{% endfor %}
+		</div>
+		
+		<div class="row">
+			<div class="col-xs-12 col-sm-3 col-sm-offset-9">
+				<a class="branch-color-{{ branch.id }} title no-padding" href={{ path(basePath ~ 'article', 
+					{ article_filter_article_categories: interviewsCategory.id }) }}>
+					{{ 'label.more'|trans }}
+				</a>
+			</div>
+		</div>
+	{% endblock %}
+	
+	{% block featuredAdsBlock %}
+		{% if featuredAds | length > 0 %}
+			<div class="row">
+				<div class="col-xs-12">
+					<h4 class="section title">
+						<span class="text-red">{{ 'header.featuredAds.1'|trans }}</span> 
+						<span class="text-brand">{{ 'header.featuredAds.2'|trans }}</span>
+					</h4>
 				</div>
 			</div>
-			{% endblock %}
+			
+			<div class="row">
+				<div class="col-xs-12">
+					<div id="featuredAdsCarousel" class="carousel slide carousel-fade" data-ride="carousel">
+					  	<div class="carousel-inner" role="listbox">
+							{% for advert in featuredAds %}
+					    		<div class="item rect-3x1 {{ loop.index == 1 ? 'active' : '' }}">
+						    		{% include 'common/advert/advert_entry.html.twig' with { 'entry': advert } %}
+							    </div>
+						    {% endfor %}
+					  	</div>
+				  	</div>
+			  	</div>
+		  	</div>
+		{% endif %}
+	{% endblock %}
+	
+	{% block eventsBlock %}
+		<div class="row">
+			<div class="col-xs-12">
+				<h4 class="section title">
+					<span class="text-brand">{{ eventsCategory.name | raw }}</span>
+					<span class="branch-color-{{ branch.id }}">{{ eventsCategory.subname | raw }}</span>
+				</h4>
+			</div>
 		</div>
-	</div>
+		
+		<div class="row">
+			{% for article in eventsArticles %}
+				<div class="col-sm-4 padding-5">
+					<a class="text-white" href="{{ path(basePath ~ 'article_show', 
+						{ id: article.id, article_filter_article_categories: eventsCategory.id }) }}">
+						<div class="rect col-bottom bkg-white">
+							{% if article.image %}
+								<img class="div-center img-{{ article.vertical ? '' : 'v' }}responsive" 
+									alt="{{ article.name | raw }}" src="{{ asset(article.getImagePath()) }}">
+							{% endif %}
+							
+							<div class="col-xs-12 div-bottom bkg-black-50">
+								<div class="default-tile">
+									<h5 class="subtitle">
+										{{ article.name | raw }}
+										{{ article.subname | raw }}
+									</h5>
+								</div>
+							</div>
+						</div>
+					</a>
+				</div>
+			{% endfor %}
+		</div>
+		
+		<div class="row">
+			<div class="col-xs-12 col-sm-3 col-sm-offset-9">
+				<a class="branch-color-{{ branch.id }} title no-padding" href={{ path(basePath ~ 'article', 
+					{ article_filter_article_categories: eventsCategory.id }) }}>
+					{{ 'label.more'|trans }}
+				</a>
+			</div>
+		</div>
+	{% endblock %}
+	
+	{% block promotionsBlock %}
+		<div class="row">
+			<div class="col-xs-12">
+				<h4 class="section title">
+					<span class="text-brand">{{ promotionsCategory.name | raw }}</span>
+					<span class="branch-color-{{ branch.id }}">{{ promotionsCategory.subname | raw }}</span>
+				</h4>
+			</div>
+		</div>
+		
+		<div class="row">
+			{% for article in promotionsArticles %}
+				<div class="col-sm-3 padding-5">
+					<a class="text-white" href="{{ path(basePath ~ 'article_show', 
+						{ id: article.id, article_filter_article_categories: promotionsCategory.id }) }}">
+						<div class="rect col-bottom bkg-white">
+							{% if article.image %}
+								<img class="div-center img-{{ article.vertical ? '' : 'v' }}responsive" 
+									alt="{{ article.name | raw }}" src="{{ asset(article.getImagePath()) }}">
+							{% endif %}
+							
+							<div class="col-xs-12 div-bottom bkg-black-50">
+								<div class="default-tile">
+									<h5 class="subtitle">
+										{{ article.name | raw }}
+										{{ article.subname | raw }}
+									</h5>
+								</div>
+							</div>
+						</div>
+					</a>
+				</div>
+			{% endfor %}
+		</div>
+		
+		<div class="row">
+			<div class="col-xs-12 col-sm-3 col-sm-offset-9">
+				<a class="branch-color-{{ branch.id }} title no-padding" href={{ path(basePath ~ 'article', 
+					{ article_filter_article_categories: promotionsCategory.id }) }}>
+					{{ 'label.more'|trans }}
+				</a>
+			</div>
+		</div>
+	{% endblock %}
+	
+	{% block magazinesBlock %}
+		<div class="row">
+			<div class="col-xs-12">
+				<h4 class="section title">
+					<span class="text-brand">{{ 'header.currentMagazines.1'|trans }}</span>
+					<span class="branch-color-{{ branch.id }}">{{ 'header.currentMagazines.2'|trans }}</span>
+				</h4>
+			</div>
+		</div>
+		
+		<div class="row">
+			{% for magazine in magazines %}
+				<div class="col-sm-3 padding-5">
+					<a href="{{ asset(magazine.magazineFile) }}">
+						<div class="col-xs-12 bkg-branch-{{ branch.id }} padding-5">
+			  				<img class="img-responsive" 
+			    				alt="{{ magazine.name | raw }}" src="{{ asset(magazine.getImagePath()) }}">
+	    				</div>
+	    				<div class="col-xs-12 bkg-brand">
+	    					<h4 class="title text-center padding-5">
+	    						<span class="text-red">Pobierz</span>
+	    						<span class="text-white">cyfrowy numer</span>
+	    					</h4>
+	    				</div>
+			  		</a>
+				</div>
+			{% endfor %}
+		</div>
+		
+		<div class="row">
+			<div class="col-xs-12 col-sm-3 col-sm-offset-9">
+				<a class="branch-color-{{ branch.id }} title no-padding" href="{{ path(basePath ~ 'magazine') }}">
+					{{ 'label.more'|trans }}
+				</a>
+			</div>
+		</div>
+	{% endblock %}
+	
+	{% block productsBlock %}
+		<div class="row">
+			<div class="col-xs-12">
+				<h4 class="section title">
+					<span class="text-brand">{{ productsCategory.name | raw }}</span>
+					<span class="branch-color-{{ branch.id }}">{{ productsCategory.subname | raw }}</span>
+				</h4>
+			</div>
+		</div>
+		
+		<div class="row">
+			{% for article in productsArticles %}
+				<div class="col-sm-3 padding-5">
+					<a class="text-white" href="{{ path(basePath ~ 'article_show', 
+						{ id: article.id, article_filter_article_categories: productsCategory.id }) }}">
+						<div class="rect col-bottom bkg-white">
+							{% if article.image %}
+								<img class="div-center img-{{ article.vertical ? '' : 'v' }}responsive" 
+									alt="{{ article.name | raw }}" src="{{ asset(article.getImagePath()) }}">
+							{% endif %}
+							
+							<div class="col-xs-12 div-bottom bkg-black-50">
+								<div class="default-tile">
+									<h5 class="subtitle">
+										{{ article.name | raw }}
+										{{ article.subname | raw }}
+									</h5>
+								</div>
+							</div>
+						</div>
+					</a>
+				</div>
+			{% endfor %}
+		</div>
+		
+		<div class="row">
+			<div class="col-xs-12 col-sm-3 col-sm-offset-9">
+				<a class="branch-color-{{ branch.id }} title no-padding" href={{ path(basePath ~ 'article', 
+					{ article_filter_article_categories: productsCategory.id }) }}>
+					{{ 'label.more'|trans }}
+				</a>
+			</div>
+		</div>
+	{% endblock %}
+	
+	{% block usefulItemsBlock %}
+		<div class="row">
+			<h4 class="title padding-5">
+				<span class="text-brand">{{ 'header.usefulItems.1'|trans }}</span> 
+				<span class="branch-color-{{ branch.id }}">{{ 'header.usefulItems.2'|trans }}</span>
+			</h4>
+		</div>
+		
+		<div class="row">
+			{% for articleCategory in usefulArticleCategories %}
+				<div class="col-xs-2 padding-5">
+					<div class="col-xs-12 bkg-white padding-5">
+						<a href="{{ path(basePath ~ 'article', { article_filter_article_categories: articleCategory.id }) }}">
+							<div class="rect bkg-brand">
+								<img class="div-center img-responsive" alt="{{ articleCategory.name }}"
+									src="{{ asset(articleCategory.getImagePath()) }}" />
+							</div>
+							<div class="bkg-branch-{{ branch.id }} text-white text-center">
+								<h4 class="title">{{ articleCategory.name }}</h4>
+							</div>
+						</a>
+					</div>
+				</div>
+			{% endfor %}
+			
+			<div class="col-xs-2 padding-5">
+				<div class="col-xs-12 bkg-white padding-5">
+					<a href="{{ path(basePath ~ 'category_show', { id: ratingsCategory.id }) }}">
+						<div class="rect bkg-brand">
+							<img class="div-center img-responsive" alt="{{ 'header.ratings'|trans }}"
+									src="{{ asset('img/template/useful-ratings.png') }}" />
+						</div>
+						<div class="bkg-branch-{{ branch.id }} text-white text-center">
+							<h4 class="title">{{ 'header.ratings'|trans }}</h4>
+						</div>
+					</a>
+				</div>
+			</div>
+		</div>
+	{% endblock %}
+	
 </div>
 {% endblock %}
