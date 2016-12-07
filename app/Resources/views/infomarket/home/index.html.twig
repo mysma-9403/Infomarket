@@ -44,8 +44,8 @@
 		<div class="row">
 			<div class="col-xs-12">
 				<h4 class="section title">
-					<span class="text-brand">{{ newsCategory.name | raw }}</span>
-					<span class="branch-color-{{ branch.id }}">{{ newsCategory.subname | raw }}</span>
+					<span class="branch-color-{{ branch.id }}">{{ newsCategory.name | raw }}</span>
+					<span class="text-brand">{{ newsCategory.subname | raw }}</span>
 				</h4>
 			</div>
 		</div>
@@ -64,10 +64,12 @@
 							
 							<div class="col-xs-12 div-bottom bkg-black-50">
 								<div class="default-tile">
-									<h5 class="subtitle">
-										{{ article.name | raw }}
-										{{ article.subname | raw }}
-									</h5>
+									<div class="tile default">
+										<h4 class="title">
+											{{ article.name | raw }}<br>
+											{{ article.subname | raw }}
+										</h4>
+									</div>
 								</div>
 							</div>
 						</div>
@@ -87,11 +89,11 @@
 							{% endif %}
 							
 							<div class="col-xs-12 div-bottom bkg-black-50">
-								<div class="default-tile">
-									<h5 class="subtitle">
-										{{ article.name | raw }}
+								<div class="tile default">
+									<h4 class="title">
+										{{ article.name | raw }}<br>
 										{{ article.subname | raw }}
-									</h5>
+									</h4>
 								</div>
 							</div>
 						</div>
@@ -101,7 +103,7 @@
 			
 			{% if newsArticles | length > 2 %}
 				<div class="col-md-4 padding-5">
-					<ul>
+					<ul class="news">
 						{% for article in newsArticles|slice(2) %}
 							<li type="square" class="text-brand">
 								<a class="branch-color-{{ branch.id }}" href="{{ path(basePath ~ 'article_show', { id: article.id }) }}">
@@ -128,8 +130,8 @@
 		<div class="row">
 			<div class="col-xs-12">
 				<h4 class="section title">
-					<span class="text-brand">{{ interviewsCategory.name | raw }}</span>
-					<span class="branch-color-{{ branch.id }}">{{ interviewsCategory.subname | raw }}</span>
+					<span class="branch-color-{{ branch.id }}">{{ interviewsCategory.name | raw }}</span>
+					<span class="text-brand">{{ interviewsCategory.subname | raw }}</span>
 				</h4>
 			</div>
 		</div>
@@ -145,13 +147,13 @@
 									alt="{{ article.name | raw }}" src="{{ asset(article.getImagePath()) }}">
 							{% endif %}
 						</div>
-						<div class="col-xs-12 tile bkg-brand">
+						<div class="col-xs-12 tile bottom-rect bkg-brand">
 							<p class="text-white title">
 								{{ article.name | raw }}
 							</p>
 						</div>
-						<div class="col-xs-12 tile branch-{{ branch.id }}">
-							<p class="text-white subtitle">
+						<div class="col-xs-12 tile bottom-rect bkg-branch-{{ branch.id }}">
+							<p class="text-white title">
 								{{ article.subname | raw }}&nbsp
 							</p>
 						</div>
@@ -175,7 +177,7 @@
 			<div class="row">
 				<div class="col-xs-12">
 					<h4 class="section title">
-						<span class="text-red">{{ 'header.featuredAds.1'|trans }}</span> 
+						<span class="branch-color-{{ branch.id }}">{{ 'header.featuredAds.1'|trans }}</span> 
 						<span class="text-brand">{{ 'header.featuredAds.2'|trans }}</span>
 					</h4>
 				</div>
@@ -201,8 +203,8 @@
 		<div class="row">
 			<div class="col-xs-12">
 				<h4 class="section title">
-					<span class="text-brand">{{ eventsCategory.name | raw }}</span>
-					<span class="branch-color-{{ branch.id }}">{{ eventsCategory.subname | raw }}</span>
+					<span class="branch-color-{{ branch.id }}">{{ eventsCategory.name | raw }}</span>
+					<span class="text-brand">{{ eventsCategory.subname | raw }}</span>
 				</h4>
 			</div>
 		</div>
@@ -219,11 +221,11 @@
 							{% endif %}
 							
 							<div class="col-xs-12 div-bottom bkg-black-50">
-								<div class="default-tile">
-									<h5 class="subtitle">
-										{{ article.name | raw }}
+								<div class="tile default">
+									<h4 class="title">
+										{{ article.name | raw }}<br>
 										{{ article.subname | raw }}
-									</h5>
+									</h4>
 								</div>
 							</div>
 						</div>
@@ -246,8 +248,8 @@
 		<div class="row">
 			<div class="col-xs-12">
 				<h4 class="section title">
-					<span class="text-brand">{{ promotionsCategory.name | raw }}</span>
-					<span class="branch-color-{{ branch.id }}">{{ promotionsCategory.subname | raw }}</span>
+					<span class="branch-color-{{ branch.id }}">{{ promotionsCategory.name | raw }}</span>
+					<span class="text-brand">{{ promotionsCategory.subname | raw }}</span>
 				</h4>
 			</div>
 		</div>
@@ -264,11 +266,11 @@
 							{% endif %}
 							
 							<div class="col-xs-12 div-bottom bkg-black-50">
-								<div class="default-tile">
-									<h5 class="subtitle">
-										{{ article.name | raw }}
+								<div class="tile default">
+									<h4 class="title">
+										{{ article.name | raw }}<br>
 										{{ article.subname | raw }}
-									</h5>
+									</h4>
 								</div>
 							</div>
 						</div>
@@ -291,8 +293,8 @@
 		<div class="row">
 			<div class="col-xs-12">
 				<h4 class="section title">
-					<span class="text-brand">{{ 'header.currentMagazines.1'|trans }}</span>
-					<span class="branch-color-{{ branch.id }}">{{ 'header.currentMagazines.2'|trans }}</span>
+					<span class="branch-color-{{ branch.id }}">{{ 'header.currentMagazines.1'|trans }}</span>
+					<span class="text-brand">{{ 'header.currentMagazines.2'|trans }}</span>
 				</h4>
 			</div>
 		</div>
@@ -329,8 +331,8 @@
 		<div class="row">
 			<div class="col-xs-12">
 				<h4 class="section title">
-					<span class="text-brand">{{ productsCategory.name | raw }}</span>
-					<span class="branch-color-{{ branch.id }}">{{ productsCategory.subname | raw }}</span>
+					<span class="branch-color-{{ branch.id }}">{{ productsCategory.name | raw }}</span>
+					<span class="text-brand">{{ productsCategory.subname | raw }}</span>
 				</h4>
 			</div>
 		</div>
@@ -347,11 +349,11 @@
 							{% endif %}
 							
 							<div class="col-xs-12 div-bottom bkg-black-50">
-								<div class="default-tile">
-									<h5 class="subtitle">
-										{{ article.name | raw }}
+								<div class="tile default">
+									<h4 class="title">
+										{{ article.name | raw }}<br>
 										{{ article.subname | raw }}
-									</h5>
+									</h4>
 								</div>
 							</div>
 						</div>
@@ -373,8 +375,8 @@
 	{% block usefulItemsBlock %}
 		<div class="row">
 			<h4 class="title padding-5">
-				<span class="text-brand">{{ 'header.usefulItems.1'|trans }}</span> 
-				<span class="branch-color-{{ branch.id }}">{{ 'header.usefulItems.2'|trans }}</span>
+				<span class="branch-color-{{ branch.id }}">{{ 'header.usefulItems.1'|trans }}</span> 
+				<span class="text-brand">{{ 'header.usefulItems.2'|trans }}</span>
 			</h4>
 		</div>
 		
@@ -390,6 +392,7 @@
 							<div class="bkg-branch-{{ branch.id }} text-white text-center">
 								<h4 class="title">{{ articleCategory.name }}</h4>
 							</div>
+							<div class="useful-tile-bottom bkg-brand"></div>
 						</a>
 					</div>
 				</div>
@@ -405,6 +408,7 @@
 						<div class="bkg-branch-{{ branch.id }} text-white text-center">
 							<h4 class="title">{{ 'header.ratings'|trans }}</h4>
 						</div>
+						<div class="useful-tile-bottom bkg-brand"></div>
 					</a>
 				</div>
 			</div>
