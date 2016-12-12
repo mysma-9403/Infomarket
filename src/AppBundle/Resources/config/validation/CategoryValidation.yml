@@ -8,6 +8,7 @@ AppBundle\Entity\Category:
     properties:
         name:
             - NotBlank: ~
+            - AppBundle\Validator\Constraints\ContainsSeparator: ~
         orderNumber:
             - NotBlank: ~
             - Range:

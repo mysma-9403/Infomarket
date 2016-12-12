@@ -42,6 +42,9 @@ class ArticleType extends ImageEntityType
 			->add('featured', null, array(
 					'required' => false
 			))
+			->add('archived', null, array(
+					'required' => false
+			))
 			->add('subname', TextType::class, array(
 					'required' => false
 			))

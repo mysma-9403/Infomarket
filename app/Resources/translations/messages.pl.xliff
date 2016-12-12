@@ -32,6 +32,14 @@
                 <source>title.adverts</source>
                 <target>Reklamy</target>
             </trans-unit>
+            <trans-unit id="title.archivedArticle">
+                <source>title.archivedArticle</source>
+                <target>Artykuł archiwalny</target>
+            </trans-unit>
+            <trans-unit id="title.archivedArticles">
+                <source>title.archivedArticles</source>
+                <target>Artykuły archiwalne</target>
+            </trans-unit>
             <trans-unit id="title.article">
                 <source>title.article</source>
                 <target>Artykuł</target>
@@ -866,6 +874,10 @@
             <trans-unit id="label.article.imageSize">
                 <source>label.article.imageSize</source>
                 <target>Rozmiar zdjęcia</target>
+            </trans-unit>
+            <trans-unit id="label.article.archived">
+                <source>label.article.archived</source>
+                <target>Archiwalny</target>
             </trans-unit>
             
             <trans-unit id="label.article.main">

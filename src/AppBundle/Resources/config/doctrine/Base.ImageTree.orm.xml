@@ -16,7 +16,7 @@
         </field>
         
         <field name="treePath" type="string" length="1024" nullable="true">
-            <gedmo:tree-path separator="/" append-id="false" />
+            <gedmo:tree-path separator="#" append-id="false" />
         </field>
         
         <gedmo:tree type="materializedPath" />

@@ -249,7 +249,48 @@ admin_article_preview:
 admin_article:
     path:      /admin/articles/{page}
     defaults:  { _controller: "AppBundle:Admin/Article:index", page: 1 }
+
+
+# Admin Archived Articles Routing    
+admin_archived_article_show:
+    path:      /admin/archived_articles/show/{id}
+    defaults:  { _controller: "AppBundle:Admin/ArchivedArticle:show" }
     
+admin_archived_article_new:
+    path:      /admin/archived_articles/new/
+    defaults:  { _controller: "AppBundle:Admin/ArchivedArticle:new" }
+    
+admin_archived_article_copy:
+    path:      /admin/archived_articles/copy/{id}
+    defaults:  { _controller: "AppBundle:Admin/ArchivedArticle:copy" }
+    
+admin_archived_article_edit:
+    path:      /admin/archived_articles/edit/{id}
+    defaults:  { _controller: "AppBundle:Admin/ArchivedArticle:edit" }
+    
+admin_archived_article_delete:
+    path:      /admin/archived_articles/delete/{id}
+    defaults:  { _controller: "AppBundle:Admin/ArchivedArticle:delete" }
+    
+admin_archived_article_remove_image:
+    path:      /admin/archived_articles/remove_image/{id}
+    defaults:  { _controller: "AppBundle:Admin/ArchivedArticle:removeImage" }
+    
+admin_archived_article_set_published:
+    path:      /admin/archived_articles/set_published/{id}
+    defaults:  { _controller: "AppBundle:Admin/ArchivedArticle:setPublished" }
+
+admin_archived_article_set_featured:
+    path:      /admin/archived_articles/set_featured/{id}
+    defaults:  { _controller: "AppBundle:Admin/ArchivedArticle:setFeatured" }
+
+admin_archived_article_preview:
+    path:      /admin/archived_articles/preview/{id}/{page}
+    defaults:  { _controller: "AppBundle:Admin/ArchivedArticle:preview", page: '1' }
+        
+admin_archived_article:
+    path:      /admin/archived_articles/{page}
+    defaults:  { _controller: "AppBundle:Admin/ArchivedArticle:index", page: 1 }    
 
 # Admin ArticleArticleCategoryAssignments Routing    
 admin_article_article_category_assignment_show:

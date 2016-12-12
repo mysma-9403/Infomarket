@@ -50,14 +50,15 @@
 					      		
 								{% block navigationBrand %}
 								<a class="navbar-brand" href="{{ path('infoprodukt_home') }}">
-									<img class="brand-image" src="{{ asset('img/template/logo-infoprodukt.png') }}">
+									<img class="brand-image hidden-xs" src="{{ asset('img/logo-infoprodukt.png') }}">
+									<img class="brand-image hidden-sm hidden-md hidden-lg" src="{{ asset('img/logo-infoprodukt-mobile.png') }}">
 								</a>
 								{% endblock %}
 					    	</div>
 				    	{% endblock %}
 						
 						{% block navigationSearch %}
-						<div class="navbar-form navbar-right navbar-input-group hidden-md" role="search">
+						<div class="navbar-form navbar-right navbar-input-group hidden-xs hidden-sm hidden-md" role="search">
 							{% form_theme searchFilterForm 'form/fields.html.twig' %}
 						
 							{{ form_start(searchFilterForm) }}
@@ -98,7 +99,7 @@
 								<li>
 									<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
 										<img style="vertical-align: bottom;" alt="{{ 'label.category.icon'|trans }}" 
-											src="{{ asset(category.iconImage ? category.iconImage : 'img/template/icon.png') }}">
+											src="{{ asset(category.iconImage ? category.iconImage : 'img/icon.png') }}">
 										<span class="text-red"> {{ category.name }} {{ category.subname }}</span>
 										<span class="caret"></span>
 									</a>
@@ -122,7 +123,7 @@
 								<li>
 									<a href="{{ path(basePath ~ 'category') }}">
 										<img style="vertical-align: bottom;" alt="{{ 'label.category.icon'|trans }}" 
-											src="{{ asset('img/template/icon-all.png') }}">
+											src="{{ asset('img/icon-all.png') }}">
 										<span class="text-brand"> {{ 'label.all'|trans }}</span>
 									</a>
 								</li>
@@ -154,13 +155,13 @@
 					
 					<p class="padding-5">
 						<a href="http://krk.infoprodukt.pl">
-							<img src="{{ asset('img/template/twitter.png') }}">
+							<img src="{{ asset('img/twitter.png') }}">
 						</a>
 						<a href="http://www.facebook.com/infomarket1">
-							<img src="{{ asset('img/template/facebook.png') }}">
+							<img src="{{ asset('img/facebook.png') }}">
 						</a>
 						<a href="https://www.youtube.com/channel/UCpH2PHKAxnNlX-zSgJXyjpA">
-							<img src="{{ asset('img/template/youtube.png') }}">
+							<img src="{{ asset('img/youtube.png') }}">
 						</a>
 					</p>
 				</div>

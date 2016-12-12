@@ -61,6 +61,7 @@ class ArticleFilter extends SimpleEntityFilter {
 		$this->filterName = 'article_filter_';
 		
 		$this->featured = $this::ALL_VALUES;
+		$this->archived = $this::ALL_VALUES;
 		$this->main = $this::ALL_VALUES;
 		
 		$this->pages = [];
@@ -97,6 +98,7 @@ class ArticleFilter extends SimpleEntityFilter {
 		$this->pages = $request->get($this->getFilterName() . 'pages', array());
 		
 		$this->featured = $request->get($this->getFilterName() . 'featured', $this::ALL_VALUES);
+		$this->archived = $request->get($this->getFilterName() . 'archived', $this::ALL_VALUES);
 		$this->main = $request->get($this->getFilterName() . 'main', $this::ALL_VALUES);
 		
 		
@@ -130,6 +132,7 @@ class ArticleFilter extends SimpleEntityFilter {
 		$this->pages = array();
 		
 		$this->featured = $this::ALL_VALUES;
+		$this->archived = $this::ALL_VALUES;
 		$this->main = $this::ALL_VALUES;
 		
 		$this->dateFrom = null;
@@ -175,6 +178,10 @@ class ArticleFilter extends SimpleEntityFilter {
 	
 		if($this->featured !== $this::ALL_VALUES) {
 			$values[$this->getFilterName() . 'featured'] = $this->featured;
+		}
+		
+		if($this->archived !== $this::ALL_VALUES) {
+			$values[$this->getFilterName() . 'archived'] = $this->archived;
 		}
 		
 		if($this->main !== $this::ALL_VALUES) {
@@ -223,6 +230,10 @@ class ArticleFilter extends SimpleEntityFilter {
 		
 		if($this->featured !== SimpleEntityFilter::ALL_VALUES) {
 			$expressions[] = 'e.featured = ' . $this->featured;
+		}
+		
+		if($this->archived !== SimpleEntityFilter::ALL_VALUES) {
+			$expressions[] = 'e.archived = ' . $this->archived;
 		}
 		
 		if($this->main === SimpleEntityFilter::TRUE_VALUES) {
@@ -333,6 +344,11 @@ class ArticleFilter extends SimpleEntityFilter {
 	 * @var boolean
 	 */
 	private $featured;
+	
+	/**
+	 * @var boolean
+	 */
+	private $archived;
 	
 	/**
 	 * @var boolean
@@ -511,6 +527,30 @@ class ArticleFilter extends SimpleEntityFilter {
 	public function isFeatured()
 	{
 		return $this->featured;
+	}
+	
+	/**
+	 * Set archived
+	 *
+	 * @param boolean $archived
+	 *
+	 * @return SimpleEntityFilter
+	 */
+	public function setArchived($archived)
+	{
+		$this->archived = $archived;
+	
+		return $this;
+	}
+	
+	/**
+	 * Is archived
+	 *
+	 * @return boolean
+	 */
+	public function isArchived()
+	{
+		return $this->archived;
 	}
 	
 	/**

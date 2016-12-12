@@ -594,4 +594,33 @@ class Article extends ImageEntity
     {
         return $this->endDate;
     }
+    /**
+     * @var boolean
+     */
+    private $archived;
+
+
+    /**
+     * Set archived
+     *
+     * @param boolean $archived
+     *
+     * @return Article
+     */
+    public function setArchived($archived)
+    {
+        $this->archived = $archived;
+
+        return $this;
+    }
+
+    /**
+     * Get archived
+     *
+     * @return boolean
+     */
+    public function getArchived()
+    {
+        return $this->archived;
+    }
 }

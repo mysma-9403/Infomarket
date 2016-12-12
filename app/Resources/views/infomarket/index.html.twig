@@ -55,7 +55,8 @@
 					      		{% block navigationBrand %}
 					      		<div class="row bkg-gray-light">
 									<a class="navbar-brand" href="{{ path('infomarket_home') }}">
-										<img class="brand-image" src="{{ asset('img/template/logo-infomarket.png') }}">
+										<img class="brand-image hidden-xs" src="{{ asset('img/logo-infomarket.png') }}">
+										<img class="brand-image hidden-sm hidden-md hidden-lg" src="{{ asset('img/logo-infomarket-mobile.png') }}">
 									</a>
 								</div>
 								{% endblock %}
@@ -146,13 +147,13 @@
 					
 					<p>
 						<a class="padding-5" href="http://krk.infoprodukt.pl">
-							<img src="{{ asset('img/template/twitter.png') }}">
+							<img src="{{ asset('img/twitter.png') }}">
 						</a>
 						<a href="http://www.facebook.com/infomarket1">
-							<img src="{{ asset('img/template/facebook.png') }}">
+							<img src="{{ asset('img/facebook.png') }}">
 						</a>
 						<a href="https://www.youtube.com/channel/UCpH2PHKAxnNlX-zSgJXyjpA">
-							<img src="{{ asset('img/template/youtube.png') }}">
+							<img src="{{ asset('img/youtube.png') }}">
 						</a>
 					</p>
 				</div>

@@ -1,0 +1,40 @@
+{% extends 'admin/image/index.html.twig' %}
+
+{% set title = 'title.archivedArticles'|trans %}
+{% set mainPath = 'archived_article' %}
+
+{% set deleteRole = deleteRole | default('ROLE_EDITOR') %}
+
+{% block filterMoreFields1 %}
+	<li class="col-xs-12 col-sm-6 col-md-4 col-lg-2">
+		{{ form_widget(filter.articleCategories, { 'label': 'label.articleCategories' }) }}
+	</li>
+	<li class="col-xs-12 col-sm-6 col-md-4 col-lg-2">
+		{{ form_widget(filter.categories, { 'label': 'label.categories' }) }}
+	</li>
+	<li class="col-xs-12 col-sm-6 col-md-4 col-lg-2">
+		{{ form_widget(filter.brands, { 'label': 'label.brands' }) }}
+	</li>
+{% endblock %}
+
+{% block filterMoreFields3 %}
+	<li class="col-xs-12 col-sm-6 col-md-4 col-lg-2">
+		{{ form_widget(filter.featured, { 'label': 'label.featured' }) }}
+	</li>
+	<li class="col-xs-12 col-sm-6 col-md-4 col-lg-2">
+		{{ form_widget(filter.main, { 'label': 'label.main' }) }}
+	</li>
+{% endblock %}
+
+{% block headerMoreFields2 %}
+	<th><i class="fa fa-star"></i>{{ 'label.featured'|trans }}</th>
+{% endblock %}
+
+{% block entryMoreFields2 %}
+	<td>
+		{% include 'common/fields/bool_action_field.html.twig' with 
+			{ 'id': item.id, 'value': item.featured, 'extPath': '_set_featured',
+				'trueTooltip': 'label.featured'|trans, 'falseTooltip': 'label.notFeatured'|trans,
+				'trueIcon': 'fa-star', 'falseIcon': 'fa-star-o' } %}
+	</td>
+{% endblock %}
