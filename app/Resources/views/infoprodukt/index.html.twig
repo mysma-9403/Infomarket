@@ -4,6 +4,14 @@
 
 {% block title %}{{ title }}{% endblock %}
 
+{% block baseMoreStyles %}
+	{% for key, menuWidth in menuWidths %}
+		.category-menu-{{ key }} {
+			width:  {{ menuWidth }}px !important;
+		}
+	{% endfor %}
+{% endblock %}
+
 {% block baseMoreJavascripts %}
 	<script type="text/javascript">
 		$(function(){
@@ -103,17 +111,16 @@
 										<span class="text-red"> {{ category.name }} {{ category.subname }}</span>
 										<span class="caret"></span>
 									</a>
-									<ul class="dropdown-menu">
+									<ul class="dropdown-menu category-menu-{{ category.id }}">
 										{% for subcategory in category.menuChildren | slice(0, 10) %}
 											{% include 'common/category/menu_entry.html.twig' with { 'entry': subcategory } %}
 										{% endfor %}
 										
-										{% if category.menuChildren | length >= 10 %}
+										{% if category.menuChildren|length > 10 or category.menuChildren|length < category.children|length %}
 											<li role="separator" class="divider"></li>
 											<li>
 												<a href="{{ path(basePath ~ 'category_show', { id: category.id }) }}">
-													<span class="text-red">{{ 'label.all' | trans }}</span>
-													<span class="fa fa-x5 fa-caret-right"></span>
+													<span class="text-red">{{ 'label.more' | trans }}</span>
 												</a>
 											</li>
 										{% endif %}

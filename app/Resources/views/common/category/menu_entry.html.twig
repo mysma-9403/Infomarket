@@ -5,14 +5,23 @@
 		{% set showAll = false %}
 	{% endif %}
 	
-	{% if (showAll and entry.children|length > 0) or (showAll != true and entry.preleaf != true) %}
+	{% if (showAll and entry.menuChildren|length > 0) or (showAll != true and entry.preleaf != true) %}
 		<a class="trigger right-caret {{ caretClass }}">
 			{{ entry.name | raw }} {{ entry.subname | raw }}
 		</a>
-		<ul class="dropdown-menu sub-menu">
-			{% for subentry in entry.children %}
+		<ul class="dropdown-menu sub-menu category-menu-{{ entry.id }}">
+			{% for subentry in entry.menuChildren %}
 				{% include 'common/category/menu_entry.html.twig' with { 'entry': subentry } %}
 			{% endfor %}
+			
+			{% if entry.menuChildren|length > 10 or entry.menuChildren|length < entry.children|length %}
+				<li role="separator" class="divider"></li>
+				<li>
+					<a href="{{ path(basePath ~ 'category_show', { id: entry.id }) }}">
+						<span class="text-red">{{ 'label.more' | trans }}</span>
+					</a>
+				</li>
+			{% endif %}
 		</ul>
 	{% else %}
 		<a href="{{ path(basePath ~ 'category_show', { id: entry.id }) }}">

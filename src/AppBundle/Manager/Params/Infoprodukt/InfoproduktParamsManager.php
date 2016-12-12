@@ -51,6 +51,7 @@ class InfoproduktParamsManager extends ParamsManager {
     	}
     	
     	$viewParams['menuCategories'] = $categories;
+    	$viewParams['menuWidths'] = $this->getMenuWidths($categories);
     	
     	
     	
@@ -82,5 +83,31 @@ class InfoproduktParamsManager extends ParamsManager {
 	
 	protected function getCategory(Request $request) {
 		return $this->getParam($request, Category::class);
+	}
+	
+	protected function getMenuWidths(array $categories) {
+		$result = array();
+		
+		foreach ($categories as $category) {
+			$max = 0;
+			
+			foreach ($category->getMenuChildren() as $child) {
+				$length = 60 + (strlen($child->getName()) + strlen($child->getSubname())) * 7;
+				if($max < $length) {
+					$max = $length;
+				}
+			}
+			
+			if($max > 0) {
+				$result[$category->getId()] = $max;
+				
+				$subresults = $this->getMenuWidths($category->getMenuChildren());
+				foreach ($subresults as $key => $subresult) {
+					$result[$key] = $subresult;
+				}
+			}
+		}
+	
+		return $result;
 	}
 }
