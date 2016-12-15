@@ -70,6 +70,7 @@ class HomeEntryParamsManager extends EntryParamsManager {
 		
     	$articleFilter = new ArticleFilter($userRepository, $articleCategoryRepository, $categoryRepository, $brandRepository, $tagRepository);
     	$articleFilter->setPublished(BaseEntityFilter::TRUE_VALUES);
+    	$articleFilter->setArchived(BaseEntityFilter::FALSE_VALUES);
     	$articleFilter->setFeatured(BaseEntityFilter::TRUE_VALUES);
     	$articleFilter->setMain(BaseEntityFilter::TRUE_VALUES);
     	$articleFilter->setArticleCategories($articleCategories);

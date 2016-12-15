@@ -64,6 +64,7 @@ class CategoryEntryParamsManager extends EntryParamsManager {
 			$articleFilter = new ArticleFilter($userRepository, $articleCategoryRepository, $categoryRepository, $brandRepository, $tagRepository);
 			$articleFilter->setCategories([$entry]);
 			$articleFilter->setPublished(BaseEntityFilter::TRUE_VALUES);
+			$articleFilter->setArchived(BaseEntityFilter::FALSE_VALUES);
 			$articleFilter->setMain(BaseEntityFilter::TRUE_VALUES);
 			$articleFilter->setOrderBy('e.publishedAt ASC');
 			

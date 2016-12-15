@@ -16,6 +16,7 @@ use AppBundle\Entity\Term;
 use AppBundle\Entity\User;
 use AppBundle\Manager\Params\EntryParams\Base\EntryParamsManager;
 use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Entity\Filter\Base\BaseEntityFilter;
 
 class SearchEntryParamsManager extends EntryParamsManager {
 	
@@ -37,7 +38,7 @@ class SearchEntryParamsManager extends EntryParamsManager {
 		$simpleFilter = new SimpleEntityFilter($userRepository);
 		$simpleFilter->setAddNameDecorators(true);
 		$simpleFilter->initValues($request);
-		$simpleFilter->setPublished(SimpleEntityFilter::ALL_VALUES);
+		$simpleFilter->setPublished(SimpleEntityFilter::TRUE_VALUES);
 		
 		$brandRepository = $this->doctrine->getRepository(Brand::class);
 		$brands = $brandRepository->findSelected($simpleFilter);
@@ -51,6 +52,7 @@ class SearchEntryParamsManager extends EntryParamsManager {
 		
 		if(count($brands) > 0) {
 			$productFilter = new ProductFilter($userRepository, $categoryRepository, $brandRepository, $segmentRepository);
+			$productFilter->setPublished(BaseEntityFilter::TRUE_VALUES);
 			$productFilter->setBrands($brands);
 			$products = array_merge($products, $productRepository->findSelected($productFilter));
 		}
@@ -59,11 +61,24 @@ class SearchEntryParamsManager extends EntryParamsManager {
 		
 		
 		
+		
+		$articleFilter = new ArticleFilter($userRepository, $articleCategoryRepository, $categoryRepository, $brandRepository, $tagRepository);
+		$articleFilter->setAddNameDecorators(true);
+		$articleFilter->setName($simpleFilter->getName());
+		$articleFilter->setInfoprodukt(SimpleEntityFilter::TRUE_VALUES);
+		$articleFilter->setPublished(SimpleEntityFilter::TRUE_VALUES);
+		$articleFilter->setArchived(SimpleEntityFilter::FALSE_VALUES);
+		$articleFilter->setMain(SimpleEntityFilter::TRUE_VALUES);
+		
 		$articleRepository = $this->doctrine->getRepository(Article::class);
-		$articles = $articleRepository->findSelected($simpleFilter);
+		$articles = $articleRepository->findSelected($articleFilter);
 		
 		if(count($brands) > 0) {
 			$articleFilter = new ArticleFilter($userRepository, $articleCategoryRepository, $categoryRepository, $brandRepository, $tagRepository);
+			$articleFilter->setInfoprodukt(SimpleEntityFilter::TRUE_VALUES);
+			$articleFilter->setPublished(SimpleEntityFilter::TRUE_VALUES);
+			$articleFilter->setArchived(SimpleEntityFilter::FALSE_VALUES);
+			$articleFilter->setMain(SimpleEntityFilter::TRUE_VALUES);
 			$articleFilter->setBrands($brands);
 			$articles = array_merge($articles, $articleRepository->findSelected($articleFilter));
 		}
