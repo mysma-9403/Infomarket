@@ -6,6 +6,12 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class Image extends Audit {
 	
+	public function __construct() {
+		parent::__construct();
+		
+		$this->vertical = false;
+	}
+	
 	/**
 	 * 
 	 * {@inheritDoc}

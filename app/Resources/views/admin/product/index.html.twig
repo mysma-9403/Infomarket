@@ -12,3 +12,21 @@
 		{{ form_widget(filter.brands, { 'label': 'label.brands' }) }}
 	</li>
 {% endblock %}
+
+	
+{% block baseHeaderMoreActions %}
+	{% set hidden='hidden' %}
+	{% if is_granted('ROLE_RATING_EDITOR') %}
+		{% set hidden="" %}
+	{% endif %}
+		
+	{% set confirm = 'return confirm("' ~ 'confirm.deleteUnused'|trans ~ '")' %}
+	<li>
+		<div class="{{ hidden }}">
+			<a type="button" class="btn btn-danger" onclick="{{ confirm }}"
+				href="{{ path(basePath ~ mainPath ~ '_delete_unused') }}">
+				<i class="fa fa-trash"></i> {{ 'action.product.deleteUnused'|trans }}
+			</a>
+		</div>
+	</li>
+{% endblock %}

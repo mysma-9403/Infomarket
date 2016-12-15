@@ -614,6 +614,10 @@ admin_category_ratings:
     path:      /admin/categories/ratings/{id}
     defaults:  { _controller: "AppBundle:Admin/Category:ratings" }
     
+admin_category_clear_ratings:
+    path:      /admin/categories/clear_ratings/{id}
+    defaults:  { _controller: "AppBundle:Admin/Category:clearRatings" }
+    
 admin_category_tree:
     path:      /admin/categories/tree/
     defaults:  { _controller: "AppBundle:Admin/Category:tree" }
@@ -876,6 +880,10 @@ admin_product_set_published:
     path:      /admin/products/set_published/{id}
     defaults:  { _controller: "AppBundle:Admin/Product:setPublished" }
 
+admin_product_delete_unused:
+    path:      /admin/products/delete_unused/
+    defaults:  { _controller: "AppBundle:Admin/Product:deleteUnused" }
+    
 admin_product:
     path:      /admin/products/{page}
     defaults:  { _controller: "AppBundle:Admin/Product:index", page: 1 }                

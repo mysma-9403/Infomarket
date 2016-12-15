@@ -18,4 +18,9 @@ class ClassUtils {
 		
 		return substr($name, 1);
 	}
+	
+	public static function getClean($string) {
+		$string = str_replace(' ', '-', $string);
+		return preg_replace('/[^A-Za-z0-9\-]/', '', $string);
+	}
 }

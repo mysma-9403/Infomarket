@@ -8,10 +8,10 @@
 	<h2>{{ entry.name }} {{ entry.subname }}</h2>
 	
 	{% for segment in segments %}
-		<div class="row">
+		<div class="col-xs-12">
 			<h3>{{ 'label.segment'|trans }} {{ segment.name }}</h3>
 			
-			<div class="row equal">
+			<div class="col-xs-12 equal">
 			
 				<div class="col-md-6">
 					<div class="row equal">
@@ -133,9 +133,41 @@
 
 	<div class="row lowered-25">
 	
-	<div class="btn-group col-xs-12">
+	<div class="col-xs-12">
+		{% set hidden='hidden' %}
+		{% if is_granted('ROLE_RATING_EDITOR') %}
+			{% set hidden="" %}
+		{% endif %}
+		
+		<div class="{{ hidden }}">
+			{% form_theme importRatingsForm 'form/fields.html.twig' %}
+								
+			{{ form_start(importRatingsForm) }}
+				<ul class="list-inline">
+					<li>
+						<div class='input-group input-sm'>
+							{{ form_widget(importRatingsForm.importFile, { 'label': 'label.category.importFile', 'attr': { 'class': 'input-sm' }  }) }}
+	{# 						<span class="input-group-btn">#}
+								{{ form_widget(importRatingsForm.save, { 'label': 'action.category.importRatings', 'attr': { 'class': 'input-sm btn-success' }  }) }}
+	{# 				      	</span>#}
+						</div>
+					</li>
+				</ul>
+			{{ form_end(importRatingsForm) }}
+		</div>
+		
+		{% block errorsBlock %}
+			{% include 'common/errors.html.twig' %}
+		{% endblock %}
+		
+		{% set confirm = 'return confirm("' ~ 'confirm.clearRatings'|trans ~ '")' %}
+		<a type="button" class="btn btn-danger {{ hidden }}" onclick="{{ confirm }}"
+			href="{{ path(basePath ~ mainPath ~ '_clear_ratings', { id: entry.id }) }}">
+			<i class="fa fa-trash"></i> {{ 'action.category.clearRatings'|trans }}
+		</a>
+		
 		<a type="button" class="btn btn-primary" href="{{ path(basePath ~ mainPath) }}">
-			<i class="fa fa-close"></i>{{ 'action.back'|trans }}
+			<i class="fa fa-close"></i> {{ 'action.back'|trans }}
 		</a>
 	</div>
 		

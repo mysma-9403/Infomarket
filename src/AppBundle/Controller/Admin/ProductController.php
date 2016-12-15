@@ -112,6 +112,37 @@ class ProductController extends ImageEntityController {
 		return $this->setFeaturedActionInternal($request, $id);
 	}
 	
+	public function deleteUnusedAction(Request $request) {
+		return $this->deleteUnusedActionInternal($request);
+	}
+
+	//---------------------------------------------------------------------------
+	// Internal actions
+	//---------------------------------------------------------------------------
+	protected function deleteUnusedActionInternal(Request $request) 
+	{
+		$this->denyAccessUnlessGranted('ROLE_RATING_EDITOR', null, 'Unable to access this page!');
+		
+		$result = $this->deleteUnused();
+		$errors = $result['errors'];
+		if (count($errors) > 0) {
+			foreach ($errors as $error) {
+				$this->addFlash('error', $error);
+			}
+		} else {
+			$translator = $this->get('translator');
+			
+			$count = $result['count'];
+				
+			$msg = $translator->trans('success.product.unusedRemoved');
+			$msg = nl2br($msg);
+				
+			$msg = str_replace('%count%', $count, $msg);
+			$this->addFlash('success', $msg);
+		}
+		
+		return $this->redirectToReferer($request);
+	}
 	
 	//---------------------------------------------------------------------------
 	// Internal logic
@@ -131,6 +162,45 @@ class ProductController extends ImageEntityController {
 		$em->flush();
 	
 		return array();
+	}
+	
+	protected function deleteUnused()
+	{
+		$result = array();
+		$errors = array();
+		
+		$repository = $this->getDoctrine()->getRepository($this->getEntityType());
+		$all = $repository->findAll();
+		
+		$entries = array();
+		/** @var Product $entry */
+		foreach($all as $entry) {
+			if(count($entry->getProductCategoryAssignments()) <= 0) {
+				$entries[] = $entry;
+			}
+		}
+	
+		$count = 0;
+		
+		$em = $this->getDoctrine()->getManager();
+		$em->getConnection()->beginTransaction();
+	
+		try {
+			foreach ($entries as $entry) {
+				$em->remove($entry);
+				$count++;
+			}
+			$em->flush();
+				
+			$em->getConnection()->commit();
+		} catch (Exception $ex) {
+			$em->getConnection()->rollback();
+			$errors[] = $ex->getMessage();
+		}
+		
+		$result['count'] = $count;
+		$result['errors'] = $errors;
+		return $result;
 	}
 	
 	//---------------------------------------------------------------------------

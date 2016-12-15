@@ -3,6 +3,8 @@
 namespace AppBundle\Entity;
 
 use AppBundle\Entity\Base\ImageEntity;
+use AppBundle\Entity\Base\Image;
+use AppBundle\Utils\ClassUtils;
 
 /**
  * Product
@@ -26,7 +28,8 @@ class Product extends ImageEntity
 	 */
 	public function getUploadPath()
 	{
-		return '../web/uploads/products/' . substr($this->getBrand()->getName(), 0, 1) . '/' . $this->getBrand()->getName();
+		$brandName = strtolower(ClassUtils::getClean($this->getBrand()->getName()));
+		return '../web/uploads/products/' . substr($brandName, 0, 1) . '/' . $brandName;
 	}
 	
     /**
@@ -52,8 +55,8 @@ class Product extends ImageEntity
     /**
      * Constructor
      */
-    public function __construct()
-    {
+    public function __construct() {
+    	parent::__construct();
         $this->productCategoryAssignments = new \Doctrine\Common\Collections\ArrayCollection();
     }
 

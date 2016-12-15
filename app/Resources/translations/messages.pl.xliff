@@ -1123,6 +1123,10 @@
                 <source>label.user.email</source>
                 <target>E-mail</target>
             </trans-unit>
+            <trans-unit id="label.user.roles">
+                <source>label.user.roles</source>
+                <target>Uprawnienia</target>
+            </trans-unit>
             
             
             
@@ -1282,6 +1286,26 @@
             
             
             
+            
+            <trans-unit id="action.category.clearRatings">
+                <source>action.category.clearRatings</source>
+                <target>Wyczyść ratingi</target>
+            </trans-unit>
+            <trans-unit id="action.category.importRatings">
+                <source>action.category.importRatings</source>
+                <target>Importuj rating</target>
+            </trans-unit>
+            
+            
+            
+            
+            <trans-unit id="action.product.deleteUnused">
+                <source>action.product.deleteUnused</source>
+                <target>Usuń nieużywane</target>
+            </trans-unit>
+            
+            
+            
             <trans-unit id="action.user.changePassword">
                 <source>action.user.changePassword</source>
                 <target>Zmień hasło</target>
@@ -1297,6 +1321,14 @@
                 <source>confirm.deleteSelected</source>
                 <target>Jesteś pewien, że chcesz usunąć zaznaczone obiekty?</target>
             </trans-unit>
+            <trans-unit id="confirm.deleteUnused">
+                <source>confirm.deleteUnused</source>
+                <target>Jesteś pewien, że chcesz usunąć nieużywane obiekty?</target>
+            </trans-unit>
+            <trans-unit id="confirm.clearRatings">
+                <source>confirm.clearRatings</source>
+                <target>Jesteś pewien, że chcesz usunąć wszystkie powiązania?</target>
+            </trans-unit>
             
             
             
@@ -1311,6 +1343,41 @@
                 <target>Adres został z powodzeniem dodany do newslettera.</target>
             </trans-unit>
             
+            <trans-unit id="success.category.ratingsImported">
+                <source>success.category.ratingsImported</source>
+                <target>Rating produktów został pomyślnie zaimportowany:
+                
+                	- Przetworzone wiersze: %lines% 
+                	
+                	- Produkty:
+                	-- dodane: %createdProducts% 
+                	-- zmienione: %updatedProducts%
+                	-- duplikaty: %duplicateProducts%  
+                	-- wszystkie: %allProducts%
+                	
+                	- Powiązania:
+                	-- dodane: %createdAssignments% 
+                	-- zmienione: %updatedAssignments% 
+                	-- wszystkie: %allAssignments% 
+               	</target>
+            </trans-unit>
+            
+            <trans-unit id="success.category.ratingsCleared">
+                <source>success.category.ratingsCleared</source>
+                <target>Rating produktów został pomyślnie wyczyszczony:
+                
+                	- Usunięte powiązania: %count%
+               	</target>
+            </trans-unit>
+            
+            <trans-unit id="success.product.unusedRemoved">
+                <source>success.product.unusedRemoved</source>
+                <target>Nieużywane produkty zostały pomyślnie usunięte:
+                
+                	- Usunięte produkty: %count%
+               	</target>
+            </trans-unit>
+            
             
             
             
@@ -1323,6 +1390,51 @@
                 <target>Kupuj głową, nie ceną.</target>
             </trans-unit>
             
+            
+            <trans-unit id="error.importRatings.lineNumber">
+                <source>error.importRatings.lineNumber</source>
+                <target>Wiersz %number%: </target>
+            </trans-unit>
+            
+            <trans-unit id="error.importRatings.lineNumbers">
+                <source>error.importRatings.lineNumbers</source>
+                <target>Wiersze %prevNumber% i %nextNumber%: </target>
+            </trans-unit>
+            
+            <trans-unit id="error.importRatings.brand.empty">
+                <source>error.importRatings.brand.empty</source>
+                <target>Nazwa marki jest pusta.</target>
+            </trans-unit>
+            <trans-unit id="error.importRatings.segment.empty">
+                <source>error.importRatings.segment.empty</source>
+                <target>Nazwa segmentu jest pusta.</target>
+            </trans-unit>
+            <trans-unit id="error.importRatings.category.empty">
+                <source>error.importRatings.category.empty</source>
+                <target>Nazwa kategorii jest pusta.</target>
+            </trans-unit>
+            
+            <trans-unit id="error.importRatings.brand.notExists">
+                <source>error.importRatings.brand.notExists</source>
+                <target>Marka o nazwie "%name%" nie istnieje.</target>
+            </trans-unit>
+            <trans-unit id="error.importRatings.segment.notExists">
+                <source>error.importRatings.segment.notExists</source>
+                <target>Segment o nazwie "%name%" nie istnieje.</target>
+            </trans-unit>
+            <trans-unit id="error.importRatings.category.notExists">
+                <source>error.importRatings.category.notExists</source>
+                <target>Kategoria o nazwie "%name% %subname%" nie istnieje.</target>
+            </trans-unit>
+            
+            <trans-unit id="error.importRatings.product.inconsistentData">
+                <source>error.importRatings.product.inconsistentData</source>
+                <target>Wykryto sprzeczne dane dla produktu "%brandName% %productName%".</target>
+            </trans-unit>
+            <trans-unit id="error.importRatings.product.sameCategory">
+                <source>error.importRatings.product.sameCategory</source>
+                <target>Produkt "%brandName% %productName%" jest przypisany do kategorii "%categoryName% %categorySubname%" więcej niż raz.</target>
+            </trans-unit>
             
         </body>
     </file>

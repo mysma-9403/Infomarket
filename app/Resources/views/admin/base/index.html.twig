@@ -144,6 +144,9 @@
 			{{ form_widget(form.deleteSelected, { 'icon': 'fa-trash', 'label': 'action.deleteSelected', 'attr': {'class': 'btn btn-danger', 'type': 'button', 'onclick': confirm } }) }}
 		</div>
 	</li>
+	
+	{% block baseHeaderMoreActions %}
+	{% endblock %}
 {% endblock %}
 
 

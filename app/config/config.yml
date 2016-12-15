@@ -117,6 +117,18 @@ ivory_ck_editor:
 fm_elfinder:
     #assets_path: / # default is /assets, this is where css/js elfinder files are
     instances:
+        csv:
+            editor: form
+            include_assets: true
+            visible_mime_types: ['text', 'csv', 'text/csv', 'application/csv']
+            connector:
+                roots:
+                    uploads:
+                        driver: LocalFileSystem
+                        path: uploads/categories/ratings
+                        upload_allow: ['text', 'csv', 'text/csv', 'application/csv']
+                        upload_deny: ['all']
+                        upload_max_size: 512K
         icon:
             editor: form
             include_assets: true
