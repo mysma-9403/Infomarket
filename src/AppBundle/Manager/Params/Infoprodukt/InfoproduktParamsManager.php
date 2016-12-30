@@ -99,12 +99,14 @@ class InfoproduktParamsManager extends ParamsManager {
 			}
 			
 			if($max > 0) {
-				$result[$category->getId()] = $max;
-				
 				$subresults = $this->getMenuWidths($category->getMenuChildren());
-				foreach ($subresults as $key => $subresult) {
-					$result[$key] = $subresult;
+				foreach ($subresults as $subresult) {
+					if($max < $subresult) {
+						$max = $subresult;
+					}
 				}
+				
+				$result[$category->getId()] = $max;
 			}
 		}
 	

@@ -105,9 +105,9 @@
 				<div class="col-md-4 padding-5">
 					<ul class="news">
 						{% for article in newsArticles|slice(2) %}
-							<li type="square" class="text-brand">
-								<a class="branch-color-{{ branch.id }}" href="{{ path(basePath ~ 'article_show', { id: article.id }) }}">
-									{{ article.name | raw }} {{ article.subname | raw }}
+							<li>
+								<a href="{{ path(basePath ~ 'article_show', { id: article.id }) }}">
+									<span>{{ article.name | raw }} {{ article.subname | raw }}</span>
 								</a>
 							</li>
 						{% endfor %}
@@ -303,7 +303,7 @@
 			{% for magazine in magazines %}
 				<div class="col-sm-3 padding-5">
 					<a href="{{ asset(magazine.magazineFile) }}">
-						<div class="col-xs-12 bkg-branch-{{ branch.id }} padding-5">
+						<div class="col-xs-12 bkg-white no-padding">
 			  				<img class="img-responsive" 
 			    				alt="{{ magazine.name | raw }}" src="{{ asset(magazine.getImagePath()) }}">
 	    				</div>
@@ -372,48 +372,48 @@
 		</div>
 	{% endblock %}
 	
-	{% block usefulItemsBlock %}
-		<div class="row">
-			<h4 class="title padding-5">
-				<span class="branch-color-{{ branch.id }}">{{ 'header.usefulItems.1'|trans }}</span> 
-				<span class="text-brand">{{ 'header.usefulItems.2'|trans }}</span>
-			</h4>
-		</div>
+{# 	{% block usefulItemsBlock %}#}
+{# 		<div class="row">#}
+{# 			<h4 class="title padding-5">#}
+{# 				<span class="branch-color-{{ branch.id }}">{{ 'header.usefulItems.1'|trans }}</span> #}
+{# 				<span class="text-brand">{{ 'header.usefulItems.2'|trans }}</span>#}
+{# 			</h4>#}
+{# 		</div>#}
 		
-		<div class="row">
-			{% for articleCategory in usefulArticleCategories %}
-				<div class="col-xs-2 padding-5">
-					<div class="col-xs-12 bkg-white padding-5">
-						<a href="{{ path(basePath ~ 'article', { article_filter_article_categories: articleCategory.id }) }}">
-							<div class="rect bkg-brand">
-								<img class="div-center img-responsive" alt="{{ articleCategory.name }}"
-									src="{{ asset(articleCategory.getImagePath()) }}" />
-							</div>
-							<div class="bkg-branch-{{ branch.id }} text-white text-center">
-								<h4 class="title">{{ articleCategory.name }}</h4>
-							</div>
-							<div class="useful-tile-bottom bkg-brand"></div>
-						</a>
-					</div>
-				</div>
-			{% endfor %}
+{# 		<div class="row">#}
+{# 			{% for articleCategory in usefulArticleCategories %}#}
+{# 				<div class="col-xs-2 padding-5">#}
+{# 					<div class="col-xs-12 bkg-white padding-5">#}
+{# 						<a href="{{ path(basePath ~ 'article', { article_filter_article_categories: articleCategory.id }) }}">#}
+{# 							<div class="rect bkg-brand">#}
+{# 								<img class="div-center img-responsive" alt="{{ articleCategory.name }}"#}
+{# 									src="{{ asset(articleCategory.getImagePath()) }}" />#}
+{# 							</div>#}
+{# 							<div class="bkg-branch-{{ branch.id }} text-white text-center">#}
+{# 								<h4 class="title">{{ articleCategory.name }}</h4>#}
+{# 							</div>#}
+{# 							<div class="useful-tile-bottom bkg-brand"></div>#}
+{# 						</a>#}
+{# 					</div>#}
+{# 				</div>#}
+{# 			{% endfor %}#}
 			
-			<div class="col-xs-2 padding-5">
-				<div class="col-xs-12 bkg-white padding-5">
-					<a href="{{ path(basePath ~ 'category_show', { id: ratingsCategory.id }) }}">
-						<div class="rect bkg-brand">
-							<img class="div-center img-responsive" alt="{{ 'header.ratings'|trans }}"
-									src="{{ asset('img/useful-ratings.png') }}" />
-						</div>
-						<div class="bkg-branch-{{ branch.id }} text-white text-center">
-							<h4 class="title">{{ 'header.ratings'|trans }}</h4>
-						</div>
-						<div class="useful-tile-bottom bkg-brand"></div>
-					</a>
-				</div>
-			</div>
-		</div>
-	{% endblock %}
+{# 			<div class="col-xs-2 padding-5">#}
+{# 				<div class="col-xs-12 bkg-white padding-5">#}
+{# 					<a href="{{ path(basePath ~ 'category_show', { id: ratingsCategory.id }) }}">#}
+{# 						<div class="rect bkg-brand">#}
+{# 							<img class="div-center img-responsive" alt="{{ 'header.ratings'|trans }}"#}
+{# 									src="{{ asset('img/useful-ratings.png') }}" />#}
+{# 						</div>#}
+{# 						<div class="bkg-branch-{{ branch.id }} text-white text-center">#}
+{# 							<h4 class="title">{{ 'header.ratings'|trans }}</h4>#}
+{# 						</div>#}
+{# 						<div class="useful-tile-bottom bkg-brand"></div>#}
+{# 					</a>#}
+{# 				</div>#}
+{# 			</div>#}
+{# 		</div>#}
+{# 	{% endblock %}#}
 	
 </div>
 {% endblock %}

@@ -109,7 +109,7 @@ class AdvertFilter extends SimpleEntityFilter {
 		$values[$this->getFilterName() . 'click_count'] = $this->clickCount;
 		$values[$this->getFilterName() . 'click_limit'] = $this->clickLimit;
 		
-		if($this->active !== $this::ALL_VALUES) {
+		if($this->active != $this::ALL_VALUES) {
 			$values[$this->getFilterName() . 'active'] = $this->active;
 		}
 		
@@ -127,29 +127,29 @@ class AdvertFilter extends SimpleEntityFilter {
 			$expressions[] = $this->getEqualNumberArrayExpression('e.location', $this->locations);
 		}
 		
-		if($this->dateFrom !== null) {
+		if($this->dateFrom != null) {
 			$expressions[] = 'e.dateFrom = \'' . $this->dateFrom->format('Y-m-d H:i') . '\'';
 		}
 		
-		if($this->dateTo !== null) {
+		if($this->dateTo != null) {
 			$expressions[] = 'e.dateTo = \'' . $this->dateTo->format('Y-m-d H:i') . '\'';
 		}
 		
-		if($this->link !== null) $expressions[] = $this->getStringsExpression('e.link', $this->link);
+		if($this->link != null) $expressions[] = $this->getStringsExpression('e.link', $this->link);
 		
-		if($this->showCount !== null) $expressions[] = 'e.showCount = ' . $this->showCount;
-		if($this->showLimit !== null) $expressions[] = 'e.showLimit = ' . $this->showLimit;
-		if($this->clickCount !== null) $expressions[] = 'e.clickCount = ' . $this->clickCount;
-		if($this->clickLimit !== null) $expressions[] = 'e.clickLimit = ' . $this->clickLimit;
+		if($this->showCount != null) $expressions[] = 'e.showCount = ' . $this->showCount;
+		if($this->showLimit != null) $expressions[] = 'e.showLimit = ' . $this->showLimit;
+		if($this->clickCount != null) $expressions[] = 'e.clickCount = ' . $this->clickCount;
+		if($this->clickLimit != null) $expressions[] = 'e.clickLimit = ' . $this->clickLimit;
 		
-		if($this->active === SimpleEntityFilter::TRUE_VALUES) {
+		if($this->active == SimpleEntityFilter::TRUE_VALUES) {
 			$date = new \DateTime();
 			$expressions[] = '(e.dateFrom IS NULL OR e.dateFrom <= \'' . $date->format('Y-m-d H:i') . '\')';
 			$expressions[] = '(e.dateTo IS NULL OR e.dateTo >= \'' . $date->format('Y-m-d H:i') . '\')';
 			
 			$expressions[] = '(e.showLimit IS NULL OR e.showLimit <= 0 OR e.showCount <= e.showLimit)';
 			$expressions[] = '(e.clickLimit IS NULL OR e.clickLimit <= 0 OR e.clickCount <= e.clickLimit)';
-		} else if($this->active === SimpleEntityFilter::FALSE_VALUES) {
+		} else if($this->active == SimpleEntityFilter::FALSE_VALUES) {
 			$date = new \DateTime();
 			
 			$expression = 'e.dateFrom > \'' . $date->format('Y-m-d H:i') . '\' OR ';

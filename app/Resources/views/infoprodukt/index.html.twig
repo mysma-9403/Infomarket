@@ -7,7 +7,7 @@
 {% block baseMoreStyles %}
 	{% for key, menuWidth in menuWidths %}
 		.category-menu-{{ key }} {
-			width:  {{ menuWidth }}px !important;
+			width: {{ menuWidth }}px !important;
 		}
 	{% endfor %}
 {% endblock %}
@@ -58,21 +58,21 @@
 					      		
 								{% block navigationBrand %}
 								<a class="navbar-brand" href="{{ path('infoprodukt_home') }}">
-									<img class="brand-image hidden-xs" src="{{ asset('img/logo-infoprodukt.png') }}">
-									<img class="brand-image hidden-sm hidden-md hidden-lg" src="{{ asset('img/logo-infoprodukt-mobile.png') }}">
+									<img class="brand-image hidden-xs hidden-sm" src="{{ asset('img/logo-infoprodukt.png') }}">
+									<img class="brand-image hidden-md hidden-lg" src="{{ asset('img/logo-infoprodukt-mobile.png') }}">
 								</a>
 								{% endblock %}
 					    	</div>
 				    	{% endblock %}
 						
 						{% block navigationSearch %}
-						<div class="navbar-form navbar-right navbar-input-group hidden-xs hidden-sm hidden-md" role="search">
+						<div class="navbar-search navbar-form navbar-right navbar-input-group hidden-xs hidden-sm hidden-md" role="search">
 							{% form_theme searchFilterForm 'form/fields.html.twig' %}
 						
 							{{ form_start(searchFilterForm) }}
-								<ul class="list-inline no-padding">
-									<li class="no-padding">
-										<div class='input-group input-sm search no-padding'>
+								<ul class="list-inline"">
+									<li>
+										<div class='input-group input-sm search'>
 											{{ form_widget(searchFilterForm.name, { 'label': 'label.name', 'attr': { 'class': 'input-sm' }  }) }}
 											<span class="input-group-btn">
 												{{ form_widget(searchFilterForm.search, { 'icon': 'fa fa-search', 'label': ' ', 'attr': { 'class': 'input-sm btn-danger' }  }) }}
@@ -116,7 +116,7 @@
 											{% include 'common/category/menu_entry.html.twig' with { 'entry': subcategory } %}
 										{% endfor %}
 										
-										{% if category.menuChildren|length > 10 or category.menuChildren|length < category.children|length %}
+										{% if category.menuChildren|length > 10 %}
 											<li role="separator" class="divider"></li>
 											<li>
 												<a href="{{ path(basePath ~ 'category_show', { id: category.id }) }}">

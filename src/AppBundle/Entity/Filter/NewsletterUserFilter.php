@@ -51,7 +51,7 @@ class NewsletterUserFilter extends SimpleEntityFilter {
 	public function getValues() {
 		$values = parent::getValues();
 		
-		if($this->subscribed !== $this::ALL_VALUES) {
+		if($this->subscribed != $this::ALL_VALUES) {
 			$values[$this->getFilterName() . 'subscribed'] = $this->subscribed;
 		}
 		
@@ -61,7 +61,7 @@ class NewsletterUserFilter extends SimpleEntityFilter {
 	protected function getWhereExpressions() {
 		$expressions = parent::getWhereExpressions();
 		
-		if($this->subscribed !== SimpleEntityFilter::ALL_VALUES) {
+		if($this->subscribed != SimpleEntityFilter::ALL_VALUES) {
 			$expressions[] = 'e.subscribed = ' . $this->subscribed;
 		}
 		

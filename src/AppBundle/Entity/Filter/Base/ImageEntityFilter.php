@@ -30,7 +30,7 @@ class ImageEntityFilter extends SimpleEntityFilter {
 	public function getValues() {
 		$values = parent::getValues();
 	
-		if($this->withImage !== $this::ALL_VALUES) {
+		if($this->withImage != $this::ALL_VALUES) {
 			$values[$this->getFilterName() . 'withImage'] = $this->withImage;
 		}
 	
@@ -40,10 +40,10 @@ class ImageEntityFilter extends SimpleEntityFilter {
 	protected function getWhereExpressions() {
 		$expressions = parent::getWhereExpressions();
 		
-		if($this->withImage === $this::TRUE_VALUES) {
+		if($this->withImage == $this::TRUE_VALUES) {
 			$expressions[] = 'e.image IS NOT NULL';
 		}
-		else if($this->withImage === $this::FALSE_VALUES) {
+		else if($this->withImage == $this::FALSE_VALUES) {
 			$expressions[] = 'e.image IS NULL';
 		}
 		

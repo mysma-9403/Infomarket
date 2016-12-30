@@ -47,7 +47,7 @@ class PageFilter extends SimpleEntityFilter {
 	public function getValues() {
 		$values = parent::getValues();
 	
-		if($this->featured !== $this::ALL_VALUES) {
+		if($this->featured != $this::ALL_VALUES) {
 			$values[$this->getFilterName() . 'featured'] = $this->featured;
 		}
 	
@@ -57,7 +57,7 @@ class PageFilter extends SimpleEntityFilter {
 	protected function getWhereExpressions() {
 		$expressions = parent::getWhereExpressions();
 		
-		if($this->featured !== SimpleEntityFilter::ALL_VALUES) {
+		if($this->featured != SimpleEntityFilter::ALL_VALUES) {
 			$expressions[] = 'e.featured = ' . $this->featured;
 		}
 		

@@ -53,6 +53,7 @@ class ArticleType extends ImageEntityType
 					'class'			=> $this->getEntityType(),
 					'query_builder' => function (ArticleRepository $repository) {
 						return $repository->createQueryBuilder('e')
+						->where('e.parent IS NULL')
 						->orderBy('e.published DESC, e.name', 'ASC');
 					},
 					'required' 		=> false,

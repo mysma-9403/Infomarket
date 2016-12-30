@@ -73,15 +73,15 @@ class MagazineFilter extends SimpleEntityFilter {
 			$values[$this->getFilterName() . 'categories'] = $this->getIdValues($this->categories);
 		}
 		
-		if($this->featured !== $this::ALL_VALUES) {
+		if($this->featured != $this::ALL_VALUES) {
 			$values[$this->getFilterName() . 'featured'] = $this->featured;
 		}
 		
-		if($this->infomarket !== $this::ALL_VALUES) {
+		if($this->infomarket != $this::ALL_VALUES) {
 			$values[$this->getFilterName() . 'infomarket'] = $this->infomarket;
 		}
 		
-		if($this->infoprodukt !== $this::ALL_VALUES) {
+		if($this->infoprodukt != $this::ALL_VALUES) {
 			$values[$this->getFilterName() . 'infoprodukt'] = $this->infoprodukt;
 		}
 		
@@ -100,15 +100,15 @@ class MagazineFilter extends SimpleEntityFilter {
 			$expressions[] = $this->getEqualArrayExpression('c.id', $this->categories);
 		}
 		
-		if($this->featured !== SimpleEntityFilter::ALL_VALUES) {
+		if($this->featured != SimpleEntityFilter::ALL_VALUES) {
 			$expressions[] = 'e.featured = ' . $this->featured;
 		}
 		
-		if($this->infomarket !== SimpleEntityFilter::ALL_VALUES) {
+		if($this->infomarket != SimpleEntityFilter::ALL_VALUES) {
 			$expressions[] = 'e.infomarket = ' . $this->infomarket;
 		}
 		
-		if($this->infoprodukt !== SimpleEntityFilter::ALL_VALUES) {
+		if($this->infoprodukt != SimpleEntityFilter::ALL_VALUES) {
 			$expressions[] = 'e.infoprodukt = ' . $this->infoprodukt;
 		}
 	

@@ -176,29 +176,29 @@ class ArticleFilter extends SimpleEntityFilter {
 			$values[$this->getFilterName() . 'pages'] = $this->pages;
 		}
 	
-		if($this->featured !== $this::ALL_VALUES) {
+		if($this->featured != $this::ALL_VALUES) {
 			$values[$this->getFilterName() . 'featured'] = $this->featured;
 		}
 		
-		if($this->archived !== $this::ALL_VALUES) {
+		if($this->archived != $this::ALL_VALUES) {
 			$values[$this->getFilterName() . 'archived'] = $this->archived;
 		}
 		
-		if($this->main !== $this::ALL_VALUES) {
+		if($this->main != $this::ALL_VALUES) {
 			$values[$this->getFilterName() . 'main'] = $this->main;
 		}
 		
 		$values[$this->getFilterName() . 'date_from'] = $this->dateFrom ? $this->dateFrom->format('d-m-Y H:i') : null;
 		$values[$this->getFilterName() . 'date_to'] = $this->dateTo ? $this->dateTo->format('d-m-Y H:i') : null;
 		
-		if($this->active !== $this::ALL_VALUES) {
+		if($this->active != $this::ALL_VALUES) {
 			$values[$this->getFilterName() . 'active'] = $this->active;
 		}
 		
-		if($this->infomarket !== $this::ALL_VALUES) {
+		if($this->infomarket != $this::ALL_VALUES) {
 			$values[$this->getFilterName() . 'infomarket'] = $this->infomarket;
 		}
-		if($this->infoprodukt !== $this::ALL_VALUES) {
+		if($this->infoprodukt != $this::ALL_VALUES) {
 			$values[$this->getFilterName() . 'infoprodukt'] = $this->infoprodukt;
 		}
 		
@@ -228,18 +228,18 @@ class ArticleFilter extends SimpleEntityFilter {
 			$expressions[] = $this->getEqualNumberArrayExpression('e.page', $this->pages);
 		}
 		
-		if($this->featured !== SimpleEntityFilter::ALL_VALUES) {
+		if($this->featured != SimpleEntityFilter::ALL_VALUES) {
 			$expressions[] = 'e.featured = ' . $this->featured;
 		}
 		
-		if($this->archived !== SimpleEntityFilter::ALL_VALUES) {
+		if($this->archived != SimpleEntityFilter::ALL_VALUES) {
 			$expressions[] = 'e.archived = ' . $this->archived;
 		}
 		
-		if($this->main === SimpleEntityFilter::TRUE_VALUES) {
+		if($this->main == SimpleEntityFilter::TRUE_VALUES) {
 			$expressions[] = 'e.parent IS NULL';
 		} else {
-			if($this->main === SimpleEntityFilter::FALSE_VALUES) {
+			if($this->main == SimpleEntityFilter::FALSE_VALUES) {
 				$expressions[] = 'e.parent IS NOT NULL';
 			}
 			
@@ -248,20 +248,20 @@ class ArticleFilter extends SimpleEntityFilter {
 			}
 		}
 		
-		if($this->dateFrom !== null) {
+		if($this->dateFrom != null) {
 			$expressions[] = 'e.date = \'' . $this->dateFrom->format('Y-m-d H:i') . '\'';
 		}
 		
-		if($this->dateTo !== null) {
+		if($this->dateTo != null) {
 			$expressions[] = 'e.endDate = \'' . $this->dateTo->format('Y-m-d H:i') . '\'';
 		}
 		
-		if($this->active === SimpleEntityFilter::TRUE_VALUES) {
+		if($this->active == SimpleEntityFilter::TRUE_VALUES) {
 			$date = new \DateTime();
 			
 			$expressions[] = '(e.date IS NULL OR e.date <= \'' . $date->format('Y-m-d H:i') . '\')';
 			$expressions[] = '(e.endDate IS NULL OR e.endDate >= \'' . $date->format('Y-m-d H:i') . '\')';
-		} else if($this->active === SimpleEntityFilter::FALSE_VALUES) {
+		} else if($this->active == SimpleEntityFilter::FALSE_VALUES) {
 			$date = new \DateTime();
 				
 			$expression = 'e.date > \'' . $date->format('Y-m-d H:i') . '\' OR ';
@@ -270,10 +270,10 @@ class ArticleFilter extends SimpleEntityFilter {
 			$expressions[] = $expression;
 		}
 		
-		if($this->infomarket !== SimpleEntityFilter::ALL_VALUES) {
+		if($this->infomarket != SimpleEntityFilter::ALL_VALUES) {
 			$expressions[] = 'ac.infomarket = ' . $this->infomarket;
 		}
-		if($this->infoprodukt !== SimpleEntityFilter::ALL_VALUES) {
+		if($this->infoprodukt != SimpleEntityFilter::ALL_VALUES) {
 			$expressions[] = 'ac.infoprodukt = ' . $this->infoprodukt;
 		}
 		
@@ -288,10 +288,10 @@ class ArticleFilter extends SimpleEntityFilter {
 	protected function getJoinExpressions() {
 		$expressions = parent::getJoinExpressions();
 	
-		if($this->articleCategories || $this->infomarket !== BaseEntityFilter::ALL_VALUES || $this->infoprodukt !== BaseEntityFilter::ALL_VALUES) {
+		if($this->articleCategories || $this->infomarket != BaseEntityFilter::ALL_VALUES || $this->infoprodukt != BaseEntityFilter::ALL_VALUES) {
 			$expressions[] = ArticleArticleCategoryAssignment::class . ' aaca WITH aaca.article = e.id';
 			
-			if($this->infomarket !== BaseEntityFilter::ALL_VALUES || $this->infoprodukt !== BaseEntityFilter::ALL_VALUES) {
+			if($this->infomarket != BaseEntityFilter::ALL_VALUES || $this->infoprodukt != BaseEntityFilter::ALL_VALUES) {
 				$expressions[] = ArticleCategory::class . ' ac WITH aaca.articleCategory = ac.id';
 			}
 		}

@@ -121,7 +121,7 @@ class BaseEntityFilter {
 		
 		$values[$this->getFilterName() . 'selected'] = $this->selected;
 		
-		if($this->published !== $this::ALL_VALUES) {
+		if($this->published != $this::ALL_VALUES) {
 			$values[$this->getFilterName() . 'published'] = $this->published;
 		}
 		
@@ -217,33 +217,33 @@ class BaseEntityFilter {
 	protected function getWhereExpressions() {
 		$expressions = array();
 		
-		if($this->published !== SimpleEntityFilter::ALL_VALUES) {
+		if($this->published != SimpleEntityFilter::ALL_VALUES) {
 			$expressions[] = 'e.published = ' . $this->published;
 		}
 		
 		
 		
-		if($this->publishedAfter !== null) {
+		if($this->publishedAfter != null) {
 			$expressions[] = 'e.publishedAt > \'' . $this->publishedAfter->format('Y-m-d H:i') . '\'';
 		}
 		
-		if($this->publishedBefore !== null) {
+		if($this->publishedBefore != null) {
 			$expressions[] = 'e.publishedAt < \'' . $this->publishedBefore->format('Y-m-d H:i') . '\'';
 		}
 		
-		if($this->updatedAfter !== null) {
+		if($this->updatedAfter != null) {
 			$expressions[] = 'e.updatedAt > \'' . $this->updatedAfter->format('Y-m-d H:i') . '\'';
 		}
 		
-		if($this->updatedBefore !== null) {
+		if($this->updatedBefore != null) {
 			$expressions[] = 'e.updatedAt < \'' . $this->updatedBefore->format('Y-m-d H:i') . '\'';
 		}
 		
-		if($this->createdAfter !== null) {
+		if($this->createdAfter != null) {
 			$expressions[] = 'e.createdAt > \'' . $this->createdAfter->format('Y-m-d H:i') . '\'';
 		}
 		
-		if($this->createdBefore !== null) {
+		if($this->createdBefore != null) {
 			$expressions[] = 'e.createdAt < \'' . $this->createdBefore->format('Y-m-d H:i') . '\'';
 		}
 		
@@ -266,7 +266,7 @@ class BaseEntityFilter {
 	}
 	
 	public function getOrderByExpression() {
-		if($this->orderBy !== '') {
+		if($this->orderBy != '') {
 			return ' ORDER BY ' . $this->orderBy;
 		}
 		return '';

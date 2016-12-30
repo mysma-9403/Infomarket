@@ -51,7 +51,7 @@ class LinkFilter extends SimpleEntityFilter {
 	public function getValues() {
 		$values = parent::getValues();
 	
-		if($this->featured !== $this::ALL_VALUES) {
+		if($this->featured != $this::ALL_VALUES) {
 			$values[$this->getFilterName() . 'featured'] = $this->featured;
 		}
 		

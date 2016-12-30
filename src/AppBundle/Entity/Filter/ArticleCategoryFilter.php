@@ -54,15 +54,15 @@ class ArticleCategoryFilter extends ImageEntityFilter {
 	public function getValues() {
 		$values = parent::getValues();
 	
-		if($this->featured !== $this::ALL_VALUES) {
+		if($this->featured != $this::ALL_VALUES) {
 			$values[$this->getFilterName() . 'featured'] = $this->featured;
 		}
 		
-		if($this->infomarket !== $this::ALL_VALUES) {
+		if($this->infomarket != $this::ALL_VALUES) {
 			$values[$this->getFilterName() . 'infomarket'] = $this->infomarket;
 		}
 		
-		if($this->infoprodukt !== $this::ALL_VALUES) {
+		if($this->infoprodukt != $this::ALL_VALUES) {
 			$values[$this->getFilterName() . 'infoprodukt'] = $this->infoprodukt;
 		}
 	
@@ -72,15 +72,15 @@ class ArticleCategoryFilter extends ImageEntityFilter {
 	protected function getWhereExpressions() {
 		$expressions = parent::getWhereExpressions();
 		
-		if($this->featured !== $this::ALL_VALUES) {
+		if($this->featured != $this::ALL_VALUES) {
 			$expressions[] = 'e.featured = ' . $this->featured;
 		}
 		
-		if($this->infomarket !== $this::ALL_VALUES) {
+		if($this->infomarket != $this::ALL_VALUES) {
 			$expressions[] = 'e.infomarket = ' . $this->infomarket;
 		}
 		
-		if($this->infoprodukt !== $this::ALL_VALUES) {
+		if($this->infoprodukt != $this::ALL_VALUES) {
 			$expressions[] = 'e.infoprodukt = ' . $this->infoprodukt;
 		}
 		

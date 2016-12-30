@@ -103,15 +103,15 @@ class CategoryFilter extends SimpleEntityFilter {
 			$values[$this->getFilterName() . 'subname'] = $this->subname;
 		}
 		
-		if($this->featured !== $this::ALL_VALUES) {
+		if($this->featured != $this::ALL_VALUES) {
 			$values[$this->getFilterName() . 'featured'] = $this->featured;
 		}
 		
-		if($this->preleaf !== $this::ALL_VALUES) {
+		if($this->preleaf != $this::ALL_VALUES) {
 			$values[$this->getFilterName() . 'preleaf'] = $this->preleaf;
 		}
 		
-		if($this->root !== $this::ALL_VALUES) {
+		if($this->root != $this::ALL_VALUES) {
 			$values[$this->getFilterName() . 'root'] = $this->root;
 		}
 	
@@ -134,18 +134,18 @@ class CategoryFilter extends SimpleEntityFilter {
 			$expressions[] = $this->getStringsExpression('e.subname', $this->subname, $this->addSubnameDecorators);
 		}
 		
-		if($this->featured !== $this::ALL_VALUES) {
+		if($this->featured != $this::ALL_VALUES) {
 			$expressions[] = 'e.featured = ' . $this->featured;
 		}
 		
-		if($this->preleaf !== $this::ALL_VALUES) {
+		if($this->preleaf != $this::ALL_VALUES) {
 			$expressions[] = 'e.preleaf = ' . $this->preleaf;
 		}
 		
-		if($this->root === $this::TRUE_VALUES) {
+		if($this->root == $this::TRUE_VALUES) {
 			$expressions[] = 'e.parent IS NULL';
 		} else {
-			if($this->root === $this::FALSE_VALUES) {
+			if($this->root == $this::FALSE_VALUES) {
 				$expressions[] = 'e.parent IS NOT NULL';
 			}
 			if($this->parents) {

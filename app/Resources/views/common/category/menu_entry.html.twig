@@ -1,20 +1,16 @@
 <li>
 	{% set caretClass = caretClass|default('') %}
 	
-	{% if showAll is not defined %}
-		{% set showAll = false %}
-	{% endif %}
-	
-	{% if (showAll and entry.menuChildren|length > 0) or (showAll != true and entry.preleaf != true) %}
+	{% if entry.preleaf != true and entry.menuChildren|length > 0 %}
 		<a class="trigger right-caret {{ caretClass }}">
 			{{ entry.name | raw }} {{ entry.subname | raw }}
 		</a>
-		<ul class="dropdown-menu sub-menu category-menu-{{ entry.id }}">
+		<ul class="dropdown-menu sub-menu">
 			{% for subentry in entry.menuChildren %}
 				{% include 'common/category/menu_entry.html.twig' with { 'entry': subentry } %}
 			{% endfor %}
 			
-			{% if entry.menuChildren|length > 10 or entry.menuChildren|length < entry.children|length %}
+			{% if entry.menuChildren|length > 10 %}
 				<li role="separator" class="divider"></li>
 				<li>
 					<a href="{{ path(basePath ~ 'category_show', { id: entry.id }) }}">

@@ -33,11 +33,11 @@
 {% block body %}
 	
 	{% block navigationBar %}
-		<nav class="navbar navbar-default navbar-fixed-top no-padding">
-			<div class="container no-padding">
+		<nav class="navbar navbar-default navbar-fixed-top">
+			<div class="container">
 				
-				<div class="row no-padding">
-					<div class="col-xs-12 no-padding">
+				<div class="row">
+					<div class="col-xs-12">
 						{% block navigationHeader %}
 							<div class="navbar-header">
 								{% block navigationButton %}
@@ -53,7 +53,7 @@
 					      		{% endblock %}
 					      		
 					      		{% block navigationBrand %}
-					      		<div class="row bkg-gray-light">
+					      		<div class="row">
 									<a class="navbar-brand" href="{{ path('infomarket_home') }}">
 										<img class="brand-image hidden-xs" src="{{ asset('img/logo-infomarket.png') }}">
 										<img class="brand-image hidden-sm hidden-md hidden-lg" src="{{ asset('img/logo-infomarket-mobile.png') }}">
@@ -67,9 +67,10 @@
 							<div class="collapse navbar-collapse no-padding" id="bs-example-navbar-collapse-1">
 				      			<ul class="nav navbar-nav navbar-right no-padding">
 									{% block navigationMenu %}
-										<li class="{% if mainPath == 'home' %}active{% endif %} branch-{{ branch.id }} no-padding">
+										<li class="{% if mainPath == 'home' %}active{% endif %} branch-{{ branch.id }}">
 											<a href="{{ path(basePath ~ 'home') }}">
-												<span class="fa fa-search"></span> {{ 'title.infomarket.home'|trans }}</a>
+												<span class="fa fa-search"></span> {{ 'title.infomarket.home'|trans }}
+												</a>
 										</li>
 										<li class="{% if mainPath == 'article' %}active{% endif %} branch-{{ branch.id }}">
 											<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
