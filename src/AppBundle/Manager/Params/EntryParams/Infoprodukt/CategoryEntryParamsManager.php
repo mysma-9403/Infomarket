@@ -256,6 +256,8 @@ class CategoryEntryParamsManager extends EntryParamsManager {
 			$viewParams['brands'] = array();
 			$viewParams['products'] = array();
 				
+			$brands = [];
+			
 			foreach ($segments as $segment) {
 				$productFilter = new ProductFilter($userRepository, $categoryRepository, $brandRepository, $segmentRepository);
 				$productFilter->setCategories([$entry]);
@@ -275,13 +277,9 @@ class CategoryEntryParamsManager extends EntryParamsManager {
 // 				$brandRepository = $this->doctrine->getRepository(Brand::class);
 // 				$brands = $brandRepository->findSelected($brandFilter);
 				
-				$brands = [];
-				
 				foreach($products as $product) {
 					$brands[$product->getBrand()->getId()] = $product->getBrand();
 				}
-				
-				$viewParams['brands'][$segment->getId()] = $brands;
 			}
 				
 				
@@ -320,15 +318,13 @@ class CategoryEntryParamsManager extends EntryParamsManager {
 // 					$brandRepository = $this->doctrine->getRepository(Brand::class);
 // 					$brands = $brandRepository->findSelected($brandFilter);
 					
-					$brands = [];
-						
 					foreach($products as $product) {
 						$brands[$product->getBrand()->getId()] = $product->getBrand();
 					}
-					
-					$viewParams['subbrands'][$category->getId()][$segment->getId()] = $brands;
 				}
 			}
+			
+			$viewParams['brands'] = $brands;
 				
 			$termFilter = new TermFilter($userRepository, $categoryRepository);
 			// 		$termFilter->setCategories([$entry]);

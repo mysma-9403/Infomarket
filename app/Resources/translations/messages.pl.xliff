@@ -509,11 +509,11 @@
             
             <trans-unit id="label.rating.brands">
                 <source>label.rating.brands</source>
-                <target>Wiodące marki</target>
+                <target>Zalecane marki</target>
             </trans-unit>
             <trans-unit id="label.rating.products">
                 <source>label.rating.products</source>
-                <target>Najlepsze produkty</target>
+                <target>Zalecane produkty</target>
             </trans-unit>
             <trans-unit id="label.rating.topModels">
                 <source>label.rating.topModels</source>

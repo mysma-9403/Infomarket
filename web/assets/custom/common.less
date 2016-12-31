@@ -855,7 +855,29 @@ ul.nav-tree
 
 
 
+.brand-container {
+	overflow: hidden;
+}
 
+@keyframes brands {
+    from { left: 2000px; }
+    to { left: -2000px; }
+}
+
+.brand-strip {
+	width: 10000px;
+    position: relative;
+    animation-name: brands;
+    animation-duration: 20s;
+    //animation-direction: alternate;
+	animation-timing-function: linear;
+	animation-iteration-count: infinite;
+}
+
+.brand-item {
+	width: 200px;
+	float: left;
+}
 
 
 

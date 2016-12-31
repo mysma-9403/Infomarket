@@ -26,7 +26,6 @@
 	<buildpathentry kind="src" path="vendor/happyr/google-analytics-bundle"/>
 	<buildpathentry kind="src" path="vendor/doctrine/inflector/lib"/>
 	<buildpathentry kind="src" path="vendor/symfony/symfony/src/Symfony/Bridge/Doctrine"/>
-	<buildpathentry kind="src" path="vendor/psr/log"/>
 	<buildpathentry kind="src" path="vendor/cache/void-adapter"/>
 	<buildpathentry kind="src" path="vendor/gedmo/doctrine-extensions/lib"/>
 	<buildpathentry kind="src" path="vendor/robloach/component-installer/src"/>
@@ -39,6 +38,7 @@
 	<buildpathentry kind="src" path="vendor/egeloen/json-builder/src"/>
 	<buildpathentry kind="src" path="vendor/behat/transliterator/src"/>
 	<buildpathentry kind="src" path="vendor/swiftmailer/swiftmailer/lib"/>
+	<buildpathentry kind="src" path="vendor/psr/log/Psr/Log"/>
 	<buildpathentry kind="src" path="vendor/intervention/image/src/Intervention/Image"/>
 	<buildpathentry kind="src" path="vendor/symfony/symfony/src/Symfony/Bridge/Monolog"/>
 	<buildpathentry kind="src" path="vendor/php-http/client-common/src"/>
