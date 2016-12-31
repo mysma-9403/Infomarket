@@ -1,3 +1,26 @@
+<style>
+@-webkit-keyframes brands {
+  from {
+  	left: 0px;
+  }
+  to {
+    left: {{ -200*brands | length }}px;
+  }
+}
+@keyframes brands {
+  from {
+    left: 0px;
+  }
+  to {
+    left: {{ -200*brands | length }}px;
+  }
+}
+.brand-strip {
+	-webkit-animation-duration: {{ 2*brands | length }}s;
+	animation-duration: {{ 2*brands | length }}s;
+}
+</style>
+
 {% if brands | length > 0 %}		
 	<div class="col-xs-12 no-side-padding well">
 		<div class="col-xs-12">
@@ -7,6 +30,15 @@
 		<div class="col-xs-12 brand-container">
 			<div class="brand-strip">
 				{% for brand in brands %}
+					<div class="brand-item">
+						<div class="rect-2x1">
+							<a class="text-white" href="{{ path('infomarket_brand_show', { id: brand.id }) }}">
+								{% include 'common/image/image_entry.html.twig' with { 'entry': brand, 'tile': false } %}
+							</a>
+						</div>
+					</div>
+				{% endfor %}
+				{% for brand in brands | slice(0,4) %}
 					<div class="brand-item">
 						<div class="rect-2x1">
 							<a class="text-white" href="{{ path('infomarket_brand_show', { id: brand.id }) }}">
