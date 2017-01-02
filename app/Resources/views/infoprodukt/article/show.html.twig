@@ -8,3 +8,52 @@
 {% block mainContent %}
 	{% include 'common/article/article.html.twig' with { 'entry': entry } %}
 {% endblock %}
+
+{% block moreContent %}
+	{% if prevArticle or nextArticle %}
+		<div class="col-xs-12 well">
+			<div class="col-xs-6 col-sm-3">
+				{% if prevArticle %}
+					<a href="{{ path(basePath ~ mainPath ~ extPath, { id: prevArticle.id } ) }}">
+						<span class="fa fa-angle-double-left"></span> {{ 'label.prev'|trans }}
+					</a>
+					{% include 'common/default_tile.html.twig' with {'entry': prevArticle } %}
+				{% endif %}		
+			</div>
+			
+			<div class="xs-hidden col-sm-6">
+			</div>
+			
+			<div class="col-xs-6 col-sm-3 text-right">
+				{% if nextArticle %}
+					<a href="{{ path(basePath ~ mainPath ~ extPath, { id: nextArticle.id } ) }}">
+						{{ 'label.next'|trans }} <span class="fa fa-angle-double-right"></span>
+					</a>
+					{% include 'common/default_tile.html.twig' with {'entry': nextArticle } %}
+				{% endif %}
+			</div>
+		</div>
+	{% endif %}
+{% endblock %}
+
+{% block moreSidebar %}
+	<div class="col-xs-12 well">
+		<h3>{{ 'label.latestArticles'|trans }}</h3>
+		
+		<div id="myCarousel" class="carousel slide" data-ride="carousel">
+			<ol class="carousel-indicators">
+				{% for article in lastArticles %}
+			    	<li data-target="#myCarousel" data-slide-to="{{ loop.index-1 }}" class="{{ loop.index == 1 ? 'active' : '' }}"></li>
+		    	{% endfor %}
+		  	</ol>
+		  	
+		  	<div class="carousel-inner">
+		  		{% for article in lastArticles | slice(0, 4) %}
+			    	<div class="item {{ loop.index == 1 ? 'active' : '' }}">
+						{% include 'common/default_tile.html.twig' with {'entry': article } %}			    		
+			    	</div>
+		    	{% endfor %}
+		  	</div>
+	  	</div>
+	</div>
+{% endblock %}

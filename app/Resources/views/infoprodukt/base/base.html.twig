@@ -24,13 +24,13 @@
 				{% block sidebarContent %}	
 							
 					{% block sectionsBlock %}
-						<h1>{{ 'label.sections'|trans }}</h1>
+						<h3>{{ 'label.sections'|trans }}</h3>
 						{% include 'infoprodukt/common/sections.html.twig' with { 'category': category is defined ? category : null } %}
 					{% endblock %}
 					
 					{% block categoriesBlock %}
 						{% if category is defined and category.preleaf == false %}
-							<h1>{{ 'label.categories'|trans }}</h1>
+							<h3>{{ 'label.categories'|trans }}</h3>
 							
 							<ul class="nav nav-pills nav-stacked">
 								{% for subcategory in category.parent.children %}
@@ -65,6 +65,9 @@
 				{% endblock %}
 			</div>
 			
+			{% block moreSidebar %}
+			{% endblock %}
+			
 		</div>
 		{% endblock %}
 		
@@ -87,6 +90,9 @@
 					  	</div>
 				  	</div>
 			  	</div>
+			{% endblock %}
+			
+			{% block moreContent %}
 			{% endblock %}
 		</div>
 		{% endblock %}

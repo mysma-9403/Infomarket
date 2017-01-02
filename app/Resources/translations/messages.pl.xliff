@@ -578,11 +578,25 @@
                 <target>Początek strony</target>
             </trans-unit>
             
+            <trans-unit id="label.prev">
+                <source>label.prev</source>
+                <target>Poprzedni</target>
+            </trans-unit>
+            <trans-unit id="label.next">
+                <source>label.next</source>
+                <target>Następny</target>
+            </trans-unit>
+            
             
             
             <trans-unit id="label.sections">
                 <source>label.sections</source>
                 <target>Sekcje</target>
+            </trans-unit>
+            
+            <trans-unit id="label.latestArticles">
+                <source>label.latestArticles</source>
+                <target>Najnowsze</target>
             </trans-unit>
             
             

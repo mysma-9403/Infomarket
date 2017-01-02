@@ -19,7 +19,19 @@ class ArticleEntryParamsManager extends EntryParamsManager {
 		$params = parent::getShowParams($request, $params, $id);
 		
 		$viewParams = $params['viewParams'];
+		$category = key_exists('category', $viewParams) ? $viewParams['category'] : null;
+		/** @var Article $entry */
 		$entry = $viewParams['entry'];
+		
+		$categories = [];
+		if($category) {
+			$categories[] = $category;
+		} else if($entry) {
+			$acas = $entry->getArticleCategoryAssignments();
+			foreach($acas as $aca) {
+				$categories[] = $aca->getCategory();
+			}
+		}
 		
 		
 		$articleRepository = $this->doctrine->getRepository(Article::class);
@@ -53,6 +65,38 @@ class ArticleEntryParamsManager extends EntryParamsManager {
 		
 		$subarticles = $articleRepository->findSelected($articleFilter);
 		$viewParams['subarticles'] = $subarticles;
+		
+		
+		
+		$articleFilter = new ArticleFilter($userRepository, $articleCategoryRepository, $categoryRepository, $brandRepository, $tagRepository);
+		$articleFilter->setPublished(BaseEntityFilter::TRUE_VALUES);
+		$articleFilter->setArchived(BaseEntityFilter::FALSE_VALUES);
+		$articleFilter->setCategories($categories);
+		$articleFilter->setOrderBy('e.date DESC');
+		
+		$articles = $articleRepository->findSelected($articleFilter);
+		
+		
+		$size = count($articles);
+		for($i = 0; $i < $size; $i++) {
+			$curr = $articles[$i];
+			if($curr->getId() == $entry->getId()) {
+				if($i > 0) $viewParams['prevArticle'] = $articles[$i-1];
+				if($i < $size-1) $viewParams['nextArticle'] = $articles[$i+1];
+				break;
+			}
+		}
+			
+			
+		$lastArticles = [];
+		$size = min($size, 3);
+		for($i = 0; $i < $size; $i++) {
+			$lastArticles[] = $articles[$i];
+		}
+		
+		$viewParams['lastArticles'] = $lastArticles;
+		
+		
 		
 		$params['viewParams'] = $viewParams;
     	return $params;
