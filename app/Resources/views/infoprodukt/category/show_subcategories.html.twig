@@ -45,9 +45,11 @@
 			<div class="col-sm-9 col-sm-pull-3">
 				<div class="col-xs-12 well">
 					{% for subcategory in entry.children %}
-						<div class="col-sm-3">
-							{% include 'common/bottom_rect_tile.html.twig' with {'entry': subcategory } %}
-						</div>
+						{% if subcategory.published %}
+							<div class="col-sm-3">
+								{% include 'common/bottom_rect_tile.html.twig' with {'entry': subcategory } %}
+							</div>
+						{% endif %}
 					{% endfor %}
 				</div>
 			</div>
