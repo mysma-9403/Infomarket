@@ -10,13 +10,15 @@
 {% endblock %}
 
 {% block moreContent %}
-	{% if prevArticle or nextArticle %}
+	{% if prevArticle is defined or nextArticle is defined %}
 		<div class="col-xs-12 well">
 			<div class="col-xs-6 col-sm-3">
-				{% if prevArticle %}
-					<a href="{{ path(basePath ~ mainPath ~ extPath, { id: prevArticle.id } ) }}">
-						<span class="fa fa-angle-double-left"></span> {{ 'label.prev'|trans }}
-					</a>
+				{% if prevArticle is defined %}
+					<p>
+						<a href="{{ path(basePath ~ mainPath ~ extPath, { id: prevArticle.id } ) }}">
+							<span class="fa fa-angle-double-left"></span> {{ 'label.prev'|trans }}
+						</a>
+					</p>
 					{% include 'common/default_tile.html.twig' with {'entry': prevArticle } %}
 				{% endif %}		
 			</div>
@@ -24,11 +26,13 @@
 			<div class="xs-hidden col-sm-6">
 			</div>
 			
-			<div class="col-xs-6 col-sm-3 text-right">
-				{% if nextArticle %}
-					<a href="{{ path(basePath ~ mainPath ~ extPath, { id: nextArticle.id } ) }}">
-						{{ 'label.next'|trans }} <span class="fa fa-angle-double-right"></span>
-					</a>
+			<div class="col-xs-6 col-sm-3">
+				{% if nextArticle is defined %}
+					<p class="text-right">
+						<a href="{{ path(basePath ~ mainPath ~ extPath, { id: nextArticle.id } ) }}">
+							{{ 'label.next'|trans }} <span class="fa fa-angle-double-right"></span>
+						</a>
+					</p>
 					{% include 'common/default_tile.html.twig' with {'entry': nextArticle } %}
 				{% endif %}
 			</div>

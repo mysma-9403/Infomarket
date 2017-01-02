@@ -18,7 +18,7 @@ use AppBundle\Manager\Entity\Base\EntityManager;
 use AppBundle\Manager\Entity\Common\ArticleManager;
 use AppBundle\Manager\Filter\Base\FilterManager;
 use AppBundle\Manager\Filter\Infoprodukt\IPArticleFilterManager;
-use AppBundle\Manager\Params\EntryParams\Common\ArticleEntryParamsManager;
+use AppBundle\Manager\Params\EntryParams\Infoprodukt\IPArticleEntryParamsManager;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -219,7 +219,7 @@ class ArticleController extends InfoproduktController
 	//---------------------------------------------------------------------------
 	
 	protected function getInternalEntryParamsManager(EntityManager $em, FilterManager $fm, $doctrine) {
-		return new ArticleEntryParamsManager($em, $fm, $doctrine);
+		return new IPArticleEntryParamsManager($em, $fm, $doctrine);
 	}
 	
 	protected function getEntityManager($doctrine, $paginator) {

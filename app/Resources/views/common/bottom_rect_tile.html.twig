@@ -29,11 +29,11 @@
 		</div>
 		
 		<div class="title {{ alternate and loop.index % 2 ? bkgSecondary : bkgPrimary }}">
-			<h3>{{ entry.getName() | raw }}</h3>
+			<h3>{{ entry.name | raw }}</h3>
 		</div>
 		
 		<div class="subtitle {{ alternate and loop.index % 2 ? bkgPrimary : bkgSecondary }}">
-			<h4>{{ entry.subname }}</h4>
+			<h4>{{ entry.subname | raw }}</h4>
 		</div>
 	</div>
 	

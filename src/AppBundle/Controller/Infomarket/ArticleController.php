@@ -4,17 +4,17 @@ namespace AppBundle\Controller\Infomarket;
 
 use AppBundle\Controller\Infomarket\Base\InfomarketController;
 use AppBundle\Entity\Article;
+use AppBundle\Entity\Filter\Base\BaseEntityFilter;
 use AppBundle\Entity\NewsletterUser;
+use AppBundle\Form\Filter\Infomarket\ArticleFilterType;
 use AppBundle\Form\NewsletterUserType;
 use AppBundle\Manager\Entity\Base\EntityManager;
 use AppBundle\Manager\Entity\Common\ArticleManager;
 use AppBundle\Manager\Filter\Base\FilterManager;
 use AppBundle\Manager\Filter\Infomarket\IMArticleFilterManager;
-use AppBundle\Manager\Params\EntryParams\Common\ArticleEntryParamsManager;
+use AppBundle\Manager\Params\EntryParams\Infomarket\IMArticleEntryParamsManager;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-use AppBundle\Form\Filter\Infomarket\ArticleFilterType;
-use AppBundle\Entity\Filter\Base\BaseEntityFilter;
 
 class ArticleController extends InfomarketController
 {   
@@ -213,7 +213,7 @@ class ArticleController extends InfomarketController
 	//---------------------------------------------------------------------------
 	
 	protected function getInternalEntryParamsManager(EntityManager $em, FilterManager $fm, $doctrine) {
-		return new ArticleEntryParamsManager($em, $fm, $doctrine);
+		return new IMArticleEntryParamsManager($em, $fm, $doctrine);
 	}
 	
 	protected function getEntityManager($doctrine, $paginator) {
