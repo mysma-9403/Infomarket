@@ -59,10 +59,15 @@ class CategoryEntryParamsManager extends EntryParamsManager {
 			$segmentRepository = $this->doctrine->getRepository(Segment::class);
 			$tagRepository = $this->doctrine->getRepository(Tag::class);
 			
-			
+			$categories = [$entry];
+			$prev = $entry;
+			while($prev->getParent()) {
+				$prev = $prev->getParent();
+				$categories[] = $prev;
+			}
 			
 			$articleFilter = new ArticleFilter($userRepository, $articleCategoryRepository, $categoryRepository, $brandRepository, $tagRepository);
-			$articleFilter->setCategories([$entry]);
+			$articleFilter->setCategories($categories);
 			$articleFilter->setPublished(BaseEntityFilter::TRUE_VALUES);
 			$articleFilter->setArchived(BaseEntityFilter::FALSE_VALUES);
 			$articleFilter->setMain(BaseEntityFilter::TRUE_VALUES);
