@@ -45,7 +45,7 @@ class InfoproduktParamsManager extends ParamsManager {
     	if($temp) {
 	    	if(count($temp->getMenuChildren()) < 1) {
 		    	$categoryFilter->setRoot(BaseEntityFilter::FALSE_VALUES);
-		    	$categoryFilter->setLimit(10);
+		    	$categoryFilter->setLimit(11);
 		    	$categories = $this->prepareCategories($categories, $categoryFilter);
 	    	}
     	}
