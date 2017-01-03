@@ -70,8 +70,9 @@ class CategoryEntryParamsManager extends EntryParamsManager {
 			$articleFilter->setCategories($categories);
 			$articleFilter->setPublished(BaseEntityFilter::TRUE_VALUES);
 			$articleFilter->setArchived(BaseEntityFilter::FALSE_VALUES);
+			$articleFilter->setActive(BaseEntityFilter::TRUE_VALUES);
 			$articleFilter->setMain(BaseEntityFilter::TRUE_VALUES);
-			$articleFilter->setOrderBy('e.publishedAt ASC');
+			$articleFilter->setOrderBy('e.date DESC');
 			
 			
 			

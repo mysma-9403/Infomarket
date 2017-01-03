@@ -4,11 +4,11 @@ namespace AppBundle\Controller\Admin\Base;
 
 use AppBundle\Controller\Base\BaseEntityController;
 use AppBundle\Entity\Lists\Base\BaseEntityList;
+use AppBundle\Form\Base\BaseFormType;
 use AppBundle\Form\Filter\Base\FilterFormType;
 use AppBundle\Form\Lists\Base\BaseEntityListType;
-use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Manager\Route\RouteManager;
-use AppBundle\Form\Base\BaseFormType;
+use Symfony\Component\HttpFoundation\Request;
 
 abstract class AdminEntityController extends BaseEntityController {
 	
