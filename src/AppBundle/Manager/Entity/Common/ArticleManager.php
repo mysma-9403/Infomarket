@@ -3,7 +3,6 @@
 namespace AppBundle\Manager\Entity\Common;
 
 use AppBundle\Entity\Article;
-use AppBundle\Entity\User;
 use AppBundle\Manager\Entity\Base\SimpleEntityManager;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -35,9 +34,6 @@ class ArticleManager extends SimpleEntityManager {
 		
 		$entry->setDate($request->get('date', new \DateTime()));
 		$entry->setEndDate($request->get('end_date'));
-		
-		$user = $this->tokenStorage->getToken()->getUser();
-		$entry->setAuthor($this->getParamWithName($request, User::class, 'author', $user));
 		
 		$entry->setLayout($request->get('layout', Article::LEFT_LAYOUT));
 		$entry->setImageSize($request->get('image_size', Article::MEDIUM_IMAGE));

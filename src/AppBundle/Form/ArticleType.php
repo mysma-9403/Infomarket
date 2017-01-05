@@ -112,7 +112,6 @@ class ArticleType extends ImageEntityType
 							'placeholder' => 'label.article.endDate'
 					]
 			))
-			
 			->add('author', EntityType::class, array(
 					'class'			=> User::class,
 					'query_builder' => function (UserRepository $repository) {
@@ -120,7 +119,7 @@ class ArticleType extends ImageEntityType
 					->orderBy('e.surname ASC, e.forename', 'ASC');
 					},
 					'choice_label' 	=> 'displayname',
-					'required' 		=> true,
+					'required' 		=> false,
 					'expanded'      => false,
 					'multiple'      => false,
 					'placeholder'	=> 'label.choose.user'

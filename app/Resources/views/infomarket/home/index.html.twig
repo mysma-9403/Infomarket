@@ -9,13 +9,13 @@
 		<div class="col-xs-12">
 			<div id="myCarousel" class="carousel slide" data-ride="carousel">
 				<ol class="carousel-indicators">
-					{% for article in featuredArticles %}
+					{% for article in featuredArticles | slice(0,3) %}
 				    	<li data-target="#myCarousel" data-slide-to="{{ loop.index-1 }}" class="{{ loop.index == 1 ? 'active' : '' }}"></li>
 				    {% endfor %}
 			  	</ol>
 			  	
 			  	<div class="carousel-inner" role="listbox">
-			  		{% for article in featuredArticles %}
+			  		{% for article in featuredArticles | slice(0,3) %}
 				  		<div class="item rect-3x1 {{ loop.index == 1 ? 'active' : '' }}">
 				  			{% include 'common/image/image_entry.html.twig' with { 'entry': article, 'tile': false } %}
 			  				
@@ -53,7 +53,7 @@
 		<div class="row">			
 			{% if newsArticles | length > 0 %}
 				{% set article = newsArticles|first %}
-				<div class="col-md-4 padding-5">
+				<div class="col-sm-4 padding-5">
 					<a class="text-white" href="{{ path(basePath ~ 'article_show', 
 						{ id: article.id, article_filter_article_categories: newsCategory.id }) }}">
 						<div class="rect col-bottom bkg-white">
@@ -79,7 +79,7 @@
 			
 			{% if newsArticles | length > 1 %}
 				{% set article = newsArticles|slice(1)|first %}
-				<div class="col-md-4 padding-5">
+				<div class="col-sm-4 padding-5">
 					<a class="text-white" href="{{ path(basePath ~ 'article_show', 
 						{ id: article.id, article_filter_article_categories: newsCategory.id }) }}">
 						<div class="rect col-bottom bkg-white">
@@ -102,10 +102,24 @@
 			{% endif %}
 			
 			{% if newsArticles | length > 2 %}
-				<div class="col-md-4 padding-5">
+				<div class="col-sm-4 padding-5">
 					<ul class="news">
-						{% for article in newsArticles|slice(2) %}
+						{% for article in newsArticles|slice(2, 6) %}
 							<li>
+								<a href="{{ path(basePath ~ 'article_show', { id: article.id }) }}">
+									<span>{{ article.name | raw }} {{ article.subname | raw }}</span>
+								</a>
+							</li>
+						{% endfor %}
+						{% for article in newsArticles|slice(8, 6) %}
+							<li class="hidden-xs hidden-sm">
+								<a href="{{ path(basePath ~ 'article_show', { id: article.id }) }}">
+									<span>{{ article.name | raw }} {{ article.subname | raw }}</span>
+								</a>
+							</li>
+						{% endfor %}
+						{% for article in newsArticles|slice(14, 2) %}
+							<li class="hidden-xs hidden-sm hidden-md">
 								<a href="{{ path(basePath ~ 'article_show', { id: article.id }) }}">
 									<span>{{ article.name | raw }} {{ article.subname | raw }}</span>
 								</a>
@@ -137,7 +151,7 @@
 		</div>
 		
 		<div class="row">
-			{% for article in interviewsArticles %}
+			{% for article in interviewsArticles | slice(0,6) %}
 				<div class="col-sm-2 padding-5">
 					<a class="branch-color-{{ branch.id }}" href="{{ path(basePath ~ 'article_show', 
 						{ id: article.id, article_filter_article_categories: interviewsCategory.id }) }}">
@@ -147,12 +161,12 @@
 									alt="{{ article.name | raw }}" src="{{ asset(article.getImagePath()) }}">
 							{% endif %}
 						</div>
-						<div class="col-xs-12 tile bottom-rect bkg-brand">
+						<div class="col-xs-12 tile bottom-rect bkg-branch-{{ branch.id }}">
 							<p class="text-white title">
 								{{ article.name | raw }}
 							</p>
 						</div>
-						<div class="col-xs-12 tile bottom-rect bkg-branch-{{ branch.id }}">
+						<div class="col-xs-12 tile bottom-rect bkg-brand">
 							<p class="text-white title">
 								{{ article.subname | raw }}&nbsp
 							</p>
@@ -210,7 +224,7 @@
 		</div>
 		
 		<div class="row">
-			{% for article in eventsArticles %}
+			{% for article in eventsArticles | slice(0,3) %}
 				<div class="col-sm-4 padding-5">
 					<a class="text-white" href="{{ path(basePath ~ 'article_show', 
 						{ id: article.id, article_filter_article_categories: eventsCategory.id }) }}">
@@ -255,7 +269,7 @@
 		</div>
 		
 		<div class="row">
-			{% for article in promotionsArticles %}
+			{% for article in promotionsArticles | slice(0,8) %}
 				<div class="col-sm-3 padding-5">
 					<a class="text-white" href="{{ path(basePath ~ 'article_show', 
 						{ id: article.id, article_filter_article_categories: promotionsCategory.id }) }}">
@@ -338,7 +352,7 @@
 		</div>
 		
 		<div class="row">
-			{% for article in productsArticles %}
+			{% for article in productsArticles | slice(0,8)%}
 				<div class="col-sm-3 padding-5">
 					<a class="text-white" href="{{ path(basePath ~ 'article_show', 
 						{ id: article.id, article_filter_article_categories: productsCategory.id }) }}">
@@ -371,6 +385,54 @@
 			</div>
 		</div>
 	{% endblock %}
+	
+	
+	
+	{% block reviewsBlock %}
+		<div class="row">
+			<div class="col-xs-12">
+				<h4 class="section title">
+					<span class="branch-color-{{ branch.id }}">{{ reviewsCategory.name | raw }}</span>
+					<span class="text-brand">{{ reviewsCategory.subname | raw }}</span>
+				</h4>
+			</div>
+		</div>
+		
+		<div class="row">
+			{% for article in reviewsArticles  | slice(0,4)%}
+				<div class="col-sm-3 padding-5">
+					<a class="text-white" href="{{ path(basePath ~ 'article_show', 
+						{ id: article.id, article_filter_article_categories: reviewsCategory.id }) }}">
+						<div class="rect col-bottom bkg-white">
+							{% if article.image %}
+								<img class="div-center img-{{ article.vertical ? '' : 'v' }}responsive" 
+									alt="{{ article.name | raw }}" src="{{ asset(article.getImagePath()) }}">
+							{% endif %}
+							
+							<div class="col-xs-12 div-bottom bkg-black-50">
+								<div class="tile default">
+									<h4 class="title">
+										{{ article.name | raw }}<br>
+										{{ article.subname | raw }}
+									</h4>
+								</div>
+							</div>
+						</div>
+					</a>
+				</div>
+			{% endfor %}
+		</div>
+		
+		<div class="row">
+			<div class="col-xs-12 col-sm-3 col-sm-offset-9">
+				<a class="branch-color-{{ branch.id }} title no-padding" href={{ path(basePath ~ 'article', 
+					{ article_filter_article_categories: reviewsCategory.id }) }}>
+					{{ 'label.more'|trans }}
+				</a>
+			</div>
+		</div>
+	{% endblock %}
+	
 	
 {# 	{% block usefulItemsBlock %}#}
 {# 		<div class="row">#}

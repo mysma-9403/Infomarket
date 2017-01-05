@@ -77,7 +77,7 @@ class HomeEntryParamsManager extends EntryParamsManager {
     	$articleFilter->setArticleCategories($articleCategories);
     	$articleFilter->setCategories($categories);
     	$articleFilter->setOrderBy('e.date DESC');
-    	$articleFilter->setLimit(3);
+    	$articleFilter->setLimit(100);
     	
     	$articles = $this->getParamList(Article::class, $articleFilter);
     	$viewParams['featuredArticles'] = $articles;
@@ -88,8 +88,6 @@ class HomeEntryParamsManager extends EntryParamsManager {
     	
     	
     	
-    	$articleFilter->setLimit(12);
-    	
     	$articleCategory = $articleCategoryRepository->find(self::NEWS_AC);
     	$articleFilter->setArticleCategories([$articleCategory]);
     	$viewParams['newsCategory'] = $articleCategory;
@@ -99,9 +97,6 @@ class HomeEntryParamsManager extends EntryParamsManager {
     	
     	
     	
-    	
-    	$articleFilter->setLimit(6);
-    	
     	$articleCategory = $articleCategoryRepository->find(self::INTERVIEWS_AC);
     	$articleFilter->setArticleCategories([$articleCategory]);
     	$viewParams['interviewsCategory'] = $articleCategory;
@@ -110,10 +105,7 @@ class HomeEntryParamsManager extends EntryParamsManager {
     	$viewParams['interviewsArticles'] = $articles;
     	
     	
-    	
-    	
-    	$articleFilter->setLimit(3);
-    	
+    
     	$articleCategory = $articleCategoryRepository->find(self::EVENTS_AC);
     	$articleFilter->setArticleCategories([$articleCategory]);
     	$viewParams['eventsCategory'] = $articleCategory;
@@ -122,9 +114,6 @@ class HomeEntryParamsManager extends EntryParamsManager {
     	$viewParams['eventsArticles'] = $articles;
     	
     	
-    	
-    	
-    	$articleFilter->setLimit(8);
     	
     	$articleCategory = $articleCategoryRepository->find(self::PROMOTIONS_AC);
     	$articleFilter->setArticleCategories([$articleCategory]);
@@ -135,14 +124,21 @@ class HomeEntryParamsManager extends EntryParamsManager {
     	
     	
     	
-    	$articleFilter->setLimit(8);
-    	
     	$articleCategory = $articleCategoryRepository->find(self::PRODUCTS_AC);
     	$articleFilter->setArticleCategories([$articleCategory]);
     	$viewParams['productsCategory'] = $articleCategory;
     	
     	$articles = $this->getParamList(Article::class, $articleFilter);
     	$viewParams['productsArticles'] = $articles;
+    	
+    	
+    	
+    	$articleCategory = $articleCategoryRepository->find(self::REVIEWS_AC);
+    	$articleFilter->setArticleCategories([$articleCategory]);
+    	$viewParams['reviewsCategory'] = $articleCategory;
+    	 
+    	$articles = $this->getParamList(Article::class, $articleFilter);
+    	$viewParams['reviewsArticles'] = $articles;
     	
     	
     	
