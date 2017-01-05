@@ -144,7 +144,7 @@
 			</td>
 			<td>
 				<a href="{{ path('admin_article_category_show', { id: articleArticleCategoryAssignment.articleCategory.id }) }}">
-					{{ articleArticleCategoryAssignment.articleCategory.name }}
+					{{ articleArticleCategoryAssignment.articleCategory.name }} {{ articleArticleCategoryAssignment.articleCategory.subname }}
 				</a>
 			</td>
 			{% if is_granted('ROLE_EDITOR') %}
@@ -199,7 +199,7 @@
 			</td>
 			<td>
 				<a href="{{ path('admin_category_show', { id: articleCategoryAssignment.category.id }) }}">
-					{{ articleCategoryAssignment.category.name }}
+					{{ articleCategoryAssignment.category.name }} {{ articleCategoryAssignment.category.subname }}
 				</a>
 			</td>
 			{% if is_granted('ROLE_EDITOR') %}

@@ -11,6 +11,7 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\FormBuilderInterface;
 use AppBundle\Repository\ArticleRepository;
 use AppBundle\Repository\CategoryRepository;
+use Doctrine\ORM\Query\Expr\Join;
 
 class ArticleCategoryAssignmentType extends BaseFormType
 {
@@ -37,6 +38,8 @@ class ArticleCategoryAssignmentType extends BaseFormType
 					'class'			=> Category::class,
 					'query_builder' => function (CategoryRepository $repository) {
 						return $repository->createQueryBuilder('e')
+						->leftJoin(Category::class, 'c', Join::WITH, 'e.parent = c.id')
+						->where('e.parent IS NULL OR c.preleaf <> true')
 						->orderBy('e.treePath', 'ASC');
 					},
 					'choice_label' 	=> 'displayName',

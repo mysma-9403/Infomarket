@@ -1,4 +1,4 @@
-AppBundle\Entity\Segment:
+AppBundle\Entity\NewsletterBlock:
     properties:
         name:
             - NotBlank: ~
