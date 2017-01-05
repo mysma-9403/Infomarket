@@ -45,12 +45,10 @@ class HomeEntryParamsManager extends EntryParamsManager {
 		
 		foreach ($branch->getBranchCategoryAssignments() as $branchCategoryAssignment) {
 			$category = $branchCategoryAssignment->getCategory();
-			if($category->getPublished()) {
-				$categories[] = $category;
-				
-				if($category->getParent() != null && $category->getParent()->getPreleaf() == true) {
-					$ratingsCategory = $category;
-				}
+			$categories[] = $category;
+			
+			if($category->getParent() != null && $category->getParent()->getPreleaf() == true) {
+				$ratingsCategory = $category;
 			}
 		}
 		
