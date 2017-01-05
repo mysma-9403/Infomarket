@@ -66,9 +66,13 @@
 								<div class="default-tile">
 									<div class="tile default">
 										<h4 class="title">
-											{{ article.name | raw }}<br>
-											{{ article.subname | raw }}
-										</h4>
+											{% for articleBrandAssignment in article.articleBrandAssignments %}
+							      				{{ articleBrandAssignment.brand.name }} 
+						      				{% endfor %}&nbsp
+					      				</h4>
+						      			<h5>
+						      				{{ article.name }} {{ article.subname }}
+					      				</h5>
 									</div>
 								</div>
 							</div>
@@ -91,9 +95,13 @@
 							<div class="col-xs-12 div-bottom bkg-black-50">
 								<div class="tile default">
 									<h4 class="title">
-										{{ article.name | raw }}<br>
-										{{ article.subname | raw }}
-									</h4>
+										{% for articleBrandAssignment in article.articleBrandAssignments %}
+						      				{{ articleBrandAssignment.brand.name }} 
+					      				{% endfor %}&nbsp
+				      				</h4>
+					      			<h5>
+					      				{{ article.name }} {{ article.subname }}
+				      				</h5>
 								</div>
 							</div>
 						</div>
@@ -107,6 +115,11 @@
 						{% for article in newsArticles|slice(2, 6) %}
 							<li>
 								<a href="{{ path(basePath ~ 'article_show', { id: article.id }) }}">
+									<span class="text-red">
+										{% for articleBrandAssignment in article.articleBrandAssignments %}
+					      					{{ articleBrandAssignment.brand.name }} 
+				      					{% endfor %}
+									</span> 
 									<span>{{ article.name | raw }} {{ article.subname | raw }}</span>
 								</a>
 							</li>
@@ -163,12 +176,14 @@
 						</div>
 						<div class="col-xs-12 tile bottom-rect bkg-branch-{{ branch.id }}">
 							<p class="text-white title">
-								{{ article.name | raw }}
+								{% for articleBrandAssignment in article.articleBrandAssignments %}
+				      				{{ articleBrandAssignment.brand.name }} 
+			      				{% endfor %}&nbsp
 							</p>
 						</div>
-						<div class="col-xs-12 tile bottom-rect bkg-brand">
-							<p class="text-white title">
-								{{ article.subname | raw }}&nbsp
+						<div class="col-xs-12 tile bottom-rect-3 bkg-brand">
+							<p class="text-white">
+								{{ article.name | raw }} {{ article.subname | raw }}&nbsp
 							</p>
 						</div>
 					</a>
