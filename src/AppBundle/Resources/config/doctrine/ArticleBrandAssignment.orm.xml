@@ -8,8 +8,8 @@
         table="article_brand_assignments"
         repository-class="AppBundle\Repository\ArticleBrandAssignmentRepository">
         
-        <many-to-one field="article" target-entity="Article" />
-        <many-to-one field="brand" target-entity="Brand" />
+        <many-to-one field="article" target-entity="Article" inversed-by="articleBrandAssignments" />
+        <many-to-one field="brand" target-entity="Brand" inversed-by="articleBrandAssignments" />
         
     </entity>
     

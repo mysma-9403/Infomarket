@@ -8,8 +8,8 @@
         table="branch_category_assignments"
         repository-class="AppBundle\Repository\BranchCategoryAssignmentRepository">
         
-        <many-to-one field="branch" target-entity="Branch" />
-        <many-to-one field="category" target-entity="Category" />
+        <many-to-one field="branch" target-entity="Branch" inversed-by="branchCategoryAssignments" />
+        <many-to-one field="category" target-entity="Category" inversed-by="branchCategoryAssignments" />
         
     </entity>
     

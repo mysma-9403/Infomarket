@@ -27,7 +27,7 @@
         
         <field name="content" type="text" nullable="true" />
         
-        <many-to-one field="parent" target-entity="Category" nullable="true">
+        <many-to-one field="parent" target-entity="Category" inversed-by="children" nullable="true">
             <gedmo:tree-parent />
         </many-to-one>
         

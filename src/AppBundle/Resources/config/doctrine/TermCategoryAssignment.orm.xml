@@ -8,8 +8,8 @@
         table="term_category_assignments"
         repository-class="AppBundle\Repository\TermCategoryAssignmentRepository">
         
-        <many-to-one field="term" target-entity="Term" />
-        <many-to-one field="category" target-entity="Category" />
+        <many-to-one field="term" target-entity="Term" inversed-by="termCategoryAssignments" />
+        <many-to-one field="category" target-entity="Category" inversed-by="termCategoryAssignments" />
         
     </entity>
     

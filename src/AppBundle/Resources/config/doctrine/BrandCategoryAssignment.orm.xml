@@ -8,9 +8,9 @@
         table="brand_category_assignments"
         repository-class="AppBundle\Repository\BrandCategoryAssignmentRepository">
         
-        <many-to-one field="brand" target-entity="Brand" />
-        <many-to-one field="segment" target-entity="Segment" />
-        <many-to-one field="category" target-entity="Category" />
+        <many-to-one field="brand" target-entity="Brand" inversed-by="brandCategoryAssignments" />
+        <many-to-one field="segment" target-entity="Segment" inversed-by="brandCategoryAssignments" />
+        <many-to-one field="category" target-entity="Category" inversed-by="brandCategoryAssignments" />
         
         <field name="orderNumber" type="integer" default="1"/>
         

@@ -28,11 +28,6 @@ class Brand extends ImageEntity
     private $brandCategoryAssignments;
 
     /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    private $products;
-
-    /**
      * Constructor
      */
     public function __construct()
@@ -99,39 +94,6 @@ class Brand extends ImageEntity
         return $this->brandCategoryAssignments;
     }
 
-    /**
-     * Add product
-     *
-     * @param \AppBundle\Entity\Product $product
-     *
-     * @return Brand
-     */
-    public function addProduct(\AppBundle\Entity\Product $product)
-    {
-        $this->products[] = $product;
-
-        return $this;
-    }
-
-    /**
-     * Remove product
-     *
-     * @param \AppBundle\Entity\Product $product
-     */
-    public function removeProduct(\AppBundle\Entity\Product $product)
-    {
-        $this->products->removeElement($product);
-    }
-
-    /**
-     * Get products
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getProducts()
-    {
-        return $this->products;
-    }
     /**
      * @var \Doctrine\Common\Collections\Collection
      */

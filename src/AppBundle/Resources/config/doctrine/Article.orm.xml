@@ -12,7 +12,7 @@
         <field name="featured" type="boolean" default="false" />
         <field name="archived" type="boolean" default="false" />
         
-        <many-to-one field="parent" target-entity="Article" nullable="true" />
+        <many-to-one field="parent" target-entity="Article" inversed-by="children" nullable="true" />
         
         <field name="page" type="integer" default="1"/>
         <field name="orderNumber" type="integer" default="1" />
@@ -23,8 +23,7 @@
         <field name="date" type="datetime" nullable="false" />
         <field name="endDate" type="datetime" nullable="true" />
         
-        <many-to-one field="author" target-entity="AppBundle\Entity\User">
-        </many-to-one>
+        <many-to-one field="author" target-entity="AppBundle\Entity\User" />
         
         <field name="intro" type="text" nullable="true" />
         <field name="content" type="text" nullable="true" />

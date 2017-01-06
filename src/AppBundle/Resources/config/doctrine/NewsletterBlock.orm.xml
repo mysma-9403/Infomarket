@@ -10,7 +10,7 @@
         
         <field name="orderNumber" type="integer" default="1" nullable="true" />
         
-        <many-to-one field="newsletterPage" target-entity="NewsletterPage" nullable="false" />
+        <many-to-one field="newsletterPage" target-entity="NewsletterPage" inversed-by="newsletterBlocks" nullable="false" />
         
         <many-to-one field="newsletterBlockTemplate" target-entity="NewsletterBlockTemplate" nullable="false" />
         
