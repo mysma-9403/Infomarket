@@ -14,6 +14,23 @@
 {% endfor %}
 
 {% if show %}
+
+	{% block segmentStylesheet %}
+	<style>
+		<!--
+			{% for segment in segments %}
+				.color-segment-{{ segment.id }} {
+					color: {{ segment.color }};
+				}
+				
+				.bkg-segment-{{ segment.id }} {
+					background-color: {{ segment.color }};
+				}
+			{% endfor %}
+		-->
+	</style>
+	{% endblock %}
+	
 	<div class="col-xs-12 no-side-padding well">
 		
 		<div class="col-xs-12">

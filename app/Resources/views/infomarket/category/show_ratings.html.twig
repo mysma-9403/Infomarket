@@ -1,20 +1,4 @@
-{% block segmentStylesheet %}
-	<style>
-		<!--
-			{% for segment in segments %}
-				.color-segment-{{ segment.id }} {
-					color: {{ segment.color }};
-				}
-				
-				.bkg-segment-{{ segment.id }} {
-					background-color: {{ segment.color }};
-				}
-			{% endfor %}
-		-->
-	</style>
-{% endblock %}
-	
-{% block main %}				
+{% block main %}
 	<div class="col-sm-3">
 		<div class="rect bkg-white">
 			{% if entry.image %}
