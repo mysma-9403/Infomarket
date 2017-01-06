@@ -20,11 +20,10 @@ class HomeController extends InfoproduktController
 	/**
 	 * 
 	 * @param Request $request
-	 * @param unknown $page
 	 */
-	public function indexAction(Request $request, $page)
+	public function indexAction(Request $request)
 	{
-		return $this->indexActionInternal($request, $page);
+		return $this->indexActionInternal($request, 1);
 	}
 	
 	//---------------------------------------------------------------------------
