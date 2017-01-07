@@ -9,8 +9,19 @@ use AppBundle\Entity\Link;
 use AppBundle\Entity\Page;
 use AppBundle\Entity\User;
 use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Manager\Params\Base\ParamsManager;
 
 class FooterParamsManager extends ParamsManager {
+	
+	protected $infomarket;
+	protected $infoprodukt;
+	
+	public function __construct($doctrine) {
+		parent::__construct($doctrine);
+		
+		$this->infomarket = false;
+		$this->infoprodukt = false;
+	}
 	
 	public function getParams(Request $request, array $params) {
 		$viewParams = $params['viewParams'];
@@ -20,7 +31,8 @@ class FooterParamsManager extends ParamsManager {
     	
 		
     	$pageFilter = new PageFilter($userRepository);
-    	$pageFilter->setPublished(BaseEntityFilter::TRUE_VALUES);
+    	if($this->infomarket) $pageFilter->setInfomarket(BaseEntityFilter::TRUE_VALUES);
+    	if($this->infoprodukt) $pageFilter->setInfoprodukt(BaseEntityFilter::TRUE_VALUES);
     	$pageFilter->setFeatured(BaseEntityFilter::TRUE_VALUES);
     	$pageFilter->setOrderBy('e.orderNumber ASC');
     	
@@ -29,7 +41,8 @@ class FooterParamsManager extends ParamsManager {
     	
     	 
     	$linkFilter = new LinkFilter($userRepository);
-    	$linkFilter->setPublished(BaseEntityFilter::TRUE_VALUES);
+    	if($this->infomarket) $linkFilter->setInfomarket(BaseEntityFilter::TRUE_VALUES);
+    	if($this->infoprodukt) $linkFilter->setInfoprodukt(BaseEntityFilter::TRUE_VALUES);
     	$linkFilter->setFeatured(BaseEntityFilter::TRUE_VALUES);
     	$linkFilter->setTypes([Link::FOOTER_LINK]);
     	$linkFilter->setOrderBy('e.orderNumber ASC');

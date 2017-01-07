@@ -25,7 +25,7 @@ class InfoproduktParamsManager extends ParamsManager {
 		
 		
     	$branchFilter = new BranchFilter($userRepository, $categoryRepository);
-    	$branchFilter->setPublished(BaseEntityFilter::TRUE_VALUES);
+    	$branchFilter->setInfoprodukt(BaseEntityFilter::TRUE_VALUES);
     	$branchFilter->setOrderBy('e.orderNumber ASC, e.name ASC');
     	
     	$branches = $this->getParamList(Branch::class, $branchFilter);
@@ -33,7 +33,7 @@ class InfoproduktParamsManager extends ParamsManager {
     	
     	
     	$categoryFilter = new CategoryFilter($userRepository, $branchRepository, $categoryRepository);
-    	$categoryFilter->setPublished(BaseEntityFilter::TRUE_VALUES);
+    	$categoryFilter->setInfoprodukt(BaseEntityFilter::TRUE_VALUES);
     	$categoryFilter->setFeatured(BaseEntityFilter::TRUE_VALUES);
     	$categoryFilter->setRoot(BaseEntityFilter::TRUE_VALUES);
     	$categoryFilter->setOrderBy('e.name ASC');

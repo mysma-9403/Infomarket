@@ -129,7 +129,7 @@ class NewsletterUserController extends SimpleEntityController {
 	{
 		$this->denyAccessUnlessGranted($this->getEditRole(), null, 'Unable to access this page!');
 	
-		$params = $this->createParams($this->getSetPublishedRoute());
+		$params = $this->createParams($this->getSetInfomarketRoute());
 		$params = $this->getEditParams($request, $params, $id);
 	
 		$viewParams = $params['viewParams'];

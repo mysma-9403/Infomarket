@@ -24,7 +24,7 @@ class BranchCategoryAssignmentEditorType extends BaseEntityEditorType
 					'class'			=> Branch::class,
 					'query_builder' => function (BranchRepository $repository) {
 						return $repository->createQueryBuilder('e')
-						->orderBy('e.published DESC, e.name', 'ASC');
+						->orderBy('e.name', 'ASC');
 					},
 					'required' 		=> false,
 					'expanded'      => false,
@@ -35,7 +35,7 @@ class BranchCategoryAssignmentEditorType extends BaseEntityEditorType
 					'class'			=> Category::class,
 					'query_builder' => function (CategoryRepository $repository) {
 						return $repository->createQueryBuilder('e')
-						->orderBy('e.published DESC, e.name', 'ASC');
+						->orderBy('e.name', 'ASC');
 					},
 					'required' 		=> false,
 					'expanded'      => false,

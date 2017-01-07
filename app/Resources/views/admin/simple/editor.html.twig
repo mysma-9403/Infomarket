@@ -5,7 +5,10 @@
 {%  endblock %}
 
 {% block mainFields2 %}
+	{# TODO remove in 2nd refactoring #}
+	<div class="hidden">
 	{{ form_row(form.published, { 'label': 'label.published' }) }}
+	</div>
 	{{ form_row(form.infomarket, { 'label': 'label.infomarket' }) }}
 	{{ form_row(form.infoprodukt, { 'label': 'label.infoprodukt' }) }}
 {% endblock %}

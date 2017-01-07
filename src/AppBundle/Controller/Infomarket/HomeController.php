@@ -4,13 +4,13 @@ namespace AppBundle\Controller\Infomarket;
 
 use AppBundle\Controller\Infomarket\Base\InfomarketController;
 use AppBundle\Entity\Branch;
+use AppBundle\Manager\Entity\Base\EntityManager;
 use AppBundle\Manager\Entity\Common\BranchManager;
+use AppBundle\Manager\Filter\Base\FilterManager;
 use AppBundle\Manager\Filter\Infomarket\IMBranchFilterManager;
+use AppBundle\Manager\Params\EntryParams\Infomarket\HomeEntryParamsManager;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-use AppBundle\Manager\Entity\Base\EntityManager;
-use AppBundle\Manager\Filter\Base\FilterManager;
-use AppBundle\Manager\Params\EntryParams\Infomarket\HomeEntryParamsManager;
 
 class HomeController extends InfomarketController
 {

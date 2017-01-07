@@ -79,21 +79,6 @@
 									      	</span>
 										</div>
 									</li>
-									
-									<li class="hidden"> {{ form_widget(searchFilterForm.clear) }} </li>
-									
-									<li class="hidden"> {{ form_widget(searchFilterForm.published) }} </li>
-									
-									<li class="hidden"> {{ form_widget(searchFilterForm.publishedAfter) }} </li>
-									<li class="hidden"> {{ form_widget(searchFilterForm.publishedBefore) }} </li>
-									<li class="hidden"> {{ form_widget(searchFilterForm.updatedAfter) }} </li>
-								    <li class="hidden"> {{ form_widget(searchFilterForm.updatedBefore) }} </li>
-								    <li class="hidden"> {{ form_widget(searchFilterForm.createdAfter) }} </li>
-								    <li class="hidden"> {{ form_widget(searchFilterForm.createdBefore) }} </li>
-								    
-								    <li class="hidden"> {{ form_widget(searchFilterForm.publishedBy) }} </li>
-								    <li class="hidden"> {{ form_widget(searchFilterForm.createdBy) }} </li>
-								    <li class="hidden"> {{ form_widget(searchFilterForm.updatedBy) }} </li>
 								</ul>			
 							{{ form_end(searchFilterForm) }}
 						</div>
@@ -194,6 +179,8 @@
 										</div>
 									</li>
 									<li class="hidden"> {{ form_widget(newsletterForm.published) }} </li>
+									<li class="hidden"> {{ form_widget(newsletterForm.infomarket) }} </li>
+									<li class="hidden"> {{ form_widget(newsletterForm.infoprodukt) }} </li>
 									<li class="hidden"> {{ form_widget(newsletterForm.subscribed) }} </li>
 								</ul>
 							{{ form_end(newsletterForm) }}

@@ -2,10 +2,10 @@
 
 namespace AppBundle\Manager\Entity\Base;
 
-use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Entity\Base\Audit;
 use AppBundle\Manager\Params\Base\ParamsManager;
 use Doctrine\ORM\Query\Expr\Base;
-use AppBundle\Entity\Base\Audit;
+use Symfony\Component\HttpFoundation\Request;
 
 abstract class EntityManager extends ParamsManager {
 	
@@ -62,9 +62,7 @@ abstract class EntityManager extends ParamsManager {
 	 */
 	public function createFromRequest(Request $request) {
 		/** @var Audit $entry */
-		$entry = $this->create(); 
-		
-		$entry->setPublished($request->get('published'));
+		$entry = $this->create();
 		
 		return $entry;
 	}
@@ -78,9 +76,7 @@ abstract class EntityManager extends ParamsManager {
 	 */
 	public function createFromTemplate($template) {
 		/** @var Audit $entry */
-		$entry = $this->create(); 
-		
-		$entry->setPublished($template->getPublished());
+		$entry = $this->create();
 		
 		return $entry;
 	}

@@ -6,7 +6,7 @@ use AppBundle\Entity\Branch;
 use AppBundle\Entity\Brand;
 use AppBundle\Entity\Category;
 use AppBundle\Entity\Filter\Base\BaseEntityFilter;
-use AppBundle\Entity\Filter\BrandFilter;
+use AppBundle\Entity\Filter\Base\SimpleEntityFilter;
 use AppBundle\Entity\Filter\CategoryFilter;
 use AppBundle\Entity\Filter\ProductFilter;
 use AppBundle\Entity\Product;
@@ -31,8 +31,8 @@ class CategoryEntryParamsManager extends EntryParamsManager {
 		$productRepository = $this->doctrine->getRepository(Product::class);
 		
 		
-		$segmentFilter = new BaseEntityFilter($userRepository);
-		$segmentFilter->setPublished(BaseEntityFilter::TRUE_VALUES);
+		$segmentFilter = new SimpleEntityFilter($userRepository);
+		$segmentFilter->setInfomarket(BaseEntityFilter::TRUE_VALUES);
 		
 		$segments = $segmentRepository->findSelected($segmentFilter);
 		$viewParams['segments'] = $segments;
@@ -45,20 +45,12 @@ class CategoryEntryParamsManager extends EntryParamsManager {
 		
 		foreach ($segments as $segment) {				
 			$productFilter = new ProductFilter($userRepository, $categoryRepository, $brandRepository, $segmentRepository);
-			$productFilter->setPublished(BaseEntityFilter::TRUE_VALUES);
+			$productFilter->setInfomarket(BaseEntityFilter::TRUE_VALUES);
 			$productFilter->setCategories([$entry]);
 			$productFilter->setSegments([$segment]);
 			
 			$products = $productRepository->findSelected($productFilter);	
 			$viewParams['products'][$segment->getId()] = $products;
-			
-// 			$brandFilter = new BrandFilter($userRepository, $categoryRepository, $segmentRepository);
-// 			$brandFilter->setPublished(BaseEntityFilter::TRUE_VALUES);
-// 			$brandFilter->setCategories([$entry]);
-// 			$brandFilter->setSegments([$segment]);
-				
-// 			$brands = $brandRepository->findSelected($brandFilter);
-// 			$viewParams['brands'][$segment->getId()] = $brands;
 			
 			foreach($products as $product) {
 				$brands[$product->getBrand()->getId()] = $product->getBrand();
@@ -83,20 +75,12 @@ class CategoryEntryParamsManager extends EntryParamsManager {
 			
 			foreach ($segments as $segment) {	
 				$productFilter = new ProductFilter($userRepository, $categoryRepository, $brandRepository, $segmentRepository);
-				$productFilter->setPublished(BaseEntityFilter::TRUE_VALUES);
+				$productFilter->setInfomarket(BaseEntityFilter::TRUE_VALUES);
 				$productFilter->setCategories([$category]);
 				$productFilter->setSegments([$segment]);
 				
 				$products = $productRepository->findSelected($productFilter);
 				$viewParams['subproducts'][$category->getId()][$segment->getId()] = $products;
-				
-// 				$brandFilter = new BrandFilter($userRepository, $categoryRepository, $segmentRepository);
-// 				$brandFilter->setPublished(BaseEntityFilter::TRUE_VALUES);
-// 				$brandFilter->setCategories([$category]);
-// 				$brandFilter->setSegments([$segment]);
-					
-// 				$brands = $brandRepository->findSelected($brandFilter);
-// 				$viewParams['subbrands'][$category->getId()][$segment->getId()] = $brands;
 				
 				foreach($products as $product) {
 					$brands[$product->getBrand()->getId()] = $product->getBrand();

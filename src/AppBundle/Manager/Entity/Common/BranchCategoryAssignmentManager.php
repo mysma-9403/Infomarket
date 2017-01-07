@@ -5,10 +5,10 @@ namespace AppBundle\Manager\Entity\Common;
 use AppBundle\Entity\Branch;
 use AppBundle\Entity\BranchCategoryAssignment;
 use AppBundle\Entity\Category;
-use AppBundle\Manager\Entity\Base\EntityManager;
+use AppBundle\Manager\Entity\Base\BaseEntityManager;
 use Symfony\Component\HttpFoundation\Request;
 
-class BranchCategoryAssignmentManager extends EntityManager {
+class BranchCategoryAssignmentManager extends BaseEntityManager {
 	
 	/**
 	 * Create new entry with request parameters.

@@ -9,12 +9,11 @@ use AppBundle\Entity\NewsletterUser;
 use AppBundle\Entity\Page;
 use AppBundle\Entity\User;
 use AppBundle\Form\Editor\NewsletterUserEditorType;
-use AppBundle\Form\Filter\Base\SimpleEntityFilterType;
 use AppBundle\Form\Search\Base\SimpleEntitySearchType;
-use AppBundle\Manager\Filter\Infoprodukt\Base\InfoproduktFilterManager;
-use AppBundle\Manager\Params\Base\AdvertParamsManager;
-use AppBundle\Manager\Params\Base\FooterParamsManager;
+use AppBundle\Manager\Filter\Decorator\InfoproduktFilterManager;
 use AppBundle\Manager\Params\Infoprodukt\InfoproduktParamsManager;
+use AppBundle\Manager\Params\Infoprodukt\IPAdvertParamsManager;
+use AppBundle\Manager\Params\Infoprodukt\IPFooterParamsManager;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -52,7 +51,7 @@ abstract class InfoproduktController extends StandardController
 		$searchFilter = new SimpleEntityFilter($userRepository);
 		$searchFilter->initValues($request);
 		
-		$searchFilterForm = $this->createForm(SimpleEntityFilterType::class, $searchFilter);
+		$searchFilterForm = $this->createForm(SimpleEntitySearchType::class, $searchFilter);
 		$searchFilterForm->handleRequest($request);
 		
 		if ($searchFilterForm->isSubmitted() && $searchFilterForm->isValid()) {
@@ -170,13 +169,13 @@ abstract class InfoproduktController extends StandardController
 		$doctrine = $this->getDoctrine();
 		$advertLocations = [Advert::TOP_LOCATION, Advert::SIDE_LOCATION];
 	
-		return new AdvertParamsManager($doctrine, $advertLocations);
+		return new IPAdvertParamsManager($doctrine, $advertLocations);
 	}
 	
 	protected function getFooterParamsManager() {
 		$doctrine = $this->getDoctrine();
 	
-		return new FooterParamsManager($doctrine);
+		return new IPFooterParamsManager($doctrine);
 	}
 	
 	
@@ -221,7 +220,7 @@ abstract class InfoproduktController extends StandardController
 				$em->flush();
 			}
 		} else {
-			$entry->setPublished(true);
+			$entry->setInfoprodukt(true);
 			$entry->setSubscribed(true);
 			
 			$em->persist($entry);

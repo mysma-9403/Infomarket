@@ -18,6 +18,7 @@ class BaseEntityEditorType extends EditorType
 	protected function addMainFields(FormBuilderInterface $builder, array $options) {
 		parent::addMainFields($builder, $options);
 	
+		//TODO remove in 2nd refactoring
 		$builder
 		->add('published', CheckboxType::class, array(
 				'required' => false

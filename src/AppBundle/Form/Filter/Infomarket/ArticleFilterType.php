@@ -25,7 +25,7 @@ class ArticleFilterType extends SimpleEntityFilterType
 				'query_builder' => function (ArticleCategoryRepository $repository) {
 					return $repository->createQueryBuilder('e')
 					->where('e.infomarket = ' . BaseEntityFilter::TRUE_VALUES)
-					->orderBy('e.published DESC, e.name', 'ASC');
+					->orderBy('e.name', 'ASC');
 				},
 				'required'		=> false,
 				'expanded'      => true,

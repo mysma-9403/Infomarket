@@ -5,11 +5,11 @@ namespace AppBundle\Manager\Entity\Common;
 use AppBundle\Entity\Brand;
 use AppBundle\Entity\BrandCategoryAssignment;
 use AppBundle\Entity\Category;
-use AppBundle\Manager\Entity\Base\EntityManager;
-use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Entity\Segment;
+use AppBundle\Manager\Entity\Base\BaseEntityManager;
+use Symfony\Component\HttpFoundation\Request;
 
-class BrandCategoryAssignmentManager extends EntityManager {
+class BrandCategoryAssignmentManager extends BaseEntityManager {
 	
 	/**
 	 * Create new entry with request parameters.

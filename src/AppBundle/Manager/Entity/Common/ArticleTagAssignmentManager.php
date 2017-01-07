@@ -5,10 +5,10 @@ namespace AppBundle\Manager\Entity\Common;
 use AppBundle\Entity\Article;
 use AppBundle\Entity\ArticleTagAssignment;
 use AppBundle\Entity\Tag;
-use AppBundle\Manager\Entity\Base\EntityManager;
+use AppBundle\Manager\Entity\Base\BaseEntityManager;
 use Symfony\Component\HttpFoundation\Request;
 
-class ArticleTagAssignmentManager extends EntityManager {
+class ArticleTagAssignmentManager extends BaseEntityManager {
 	
 	/**
 	 * Create new entry with request parameters.

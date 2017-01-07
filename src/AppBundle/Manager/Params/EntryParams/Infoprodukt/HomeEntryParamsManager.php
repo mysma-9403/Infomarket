@@ -25,7 +25,7 @@ class HomeEntryParamsManager extends EntryParamsManager {
 		
 		
     	$categoryFilter = new CategoryFilter($userRepository, $branchRepository, $categoryRepository);
-    	$categoryFilter->setPublished(BaseEntityFilter::TRUE_VALUES);
+    	$categoryFilter->setInfoprodukt(BaseEntityFilter::TRUE_VALUES);
     	$categoryFilter->setFeatured(BaseEntityFilter::TRUE_VALUES);
     	$categoryFilter->setPreleaf(BaseEntityFilter::TRUE_VALUES);
     	$categoryFilter->setOrderBy('e.orderNumber ASC, e.name ASC');
@@ -36,7 +36,7 @@ class HomeEntryParamsManager extends EntryParamsManager {
     	
     	
     	$magazineFilter = new MagazineFilter($userRepository, $categoryRepository);
-    	$magazineFilter->setPublished(BaseEntityFilter::TRUE_VALUES);
+    	$magazineFilter->setInfoprodukt(BaseEntityFilter::TRUE_VALUES);
     	$magazineFilter->setFeatured(BaseEntityFilter::TRUE_VALUES);
     	$magazineFilter->setOrderBy('e.orderNumber ASC, e.name ASC');
     	$magazineFilter->setLimit(6);

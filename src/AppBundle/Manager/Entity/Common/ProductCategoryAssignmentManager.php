@@ -2,14 +2,14 @@
 
 namespace AppBundle\Manager\Entity\Common;
 
+use AppBundle\Entity\Category;
 use AppBundle\Entity\Product;
 use AppBundle\Entity\ProductCategoryAssignment;
-use AppBundle\Entity\Category;
-use AppBundle\Manager\Entity\Base\EntityManager;
-use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Entity\Segment;
+use AppBundle\Manager\Entity\Base\BaseEntityManager;
+use Symfony\Component\HttpFoundation\Request;
 
-class ProductCategoryAssignmentManager extends EntityManager {
+class ProductCategoryAssignmentManager extends BaseEntityManager {
 	
 	/**
 	 * Create new entry with request parameters.

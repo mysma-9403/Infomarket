@@ -1,6 +1,6 @@
 <?php
 
-namespace AppBundle\Manager\Filter\Infoprodukt\Base;
+namespace AppBundle\Manager\Filter\Decorator;
 
 use AppBundle\Entity\Filter\Base\BaseEntityFilter;
 use AppBundle\Manager\Filter\Base\FilterManager;
@@ -37,9 +37,10 @@ class InfoproduktFilterManager extends FilterManager {
 	protected function create() {}
 	
 	public function adaptToView(BaseEntityFilter $filter, array $params) { 
+		/** @var \AppBundle\Entity\Filter\Base\SimpleEntityFilter $filter */
 		$filter = $this->fm->adaptToView($filter, $params);
 		
-		$filter->setPublished(BaseEntityFilter::TRUE_VALUES);
+		$filter->setInfoprodukt(BaseEntityFilter::TRUE_VALUES);
 		
 		if($this->filterByCategories) {
 			$filter->setCategories($this->getCategories($params));

@@ -28,7 +28,7 @@ class NewsletterBlockFilterType extends SimpleEntityFilterType
 					'class'			=> NewsletterPage::class,
 					'query_builder' => function (NewsletterPageRepository $repository) {
 						return $repository->createQueryBuilder('e')
-						->orderBy('e.published DESC, e.name', 'ASC');
+						->orderBy('e.name', 'ASC');
 					},
 					'required'		=> false,
 					'expanded'      => false,
@@ -39,7 +39,7 @@ class NewsletterBlockFilterType extends SimpleEntityFilterType
 					'class'			=> NewsletterBlockTemplate::class,
 					'query_builder' => function (NewsletterBlockTemplateRepository $repository) {
 						return $repository->createQueryBuilder('e')
-						->orderBy('e.published DESC, e.name', 'ASC');
+						->orderBy('e.name', 'ASC');
 					},
 					'required'		=> false,
 					'expanded'      => false,
@@ -50,7 +50,6 @@ class NewsletterBlockFilterType extends SimpleEntityFilterType
 					'class'			=> Advert::class,
 					'query_builder' => function (AdvertRepository $repository) {
 					return $repository->createQueryBuilder('e')
-					->where('e.published = true')
 					->orderBy('e.name', 'ASC');
 					},
 					'required'		=> false,
@@ -62,7 +61,7 @@ class NewsletterBlockFilterType extends SimpleEntityFilterType
 					'class'			=> Article::class,
 					'query_builder' => function (ArticleRepository $repository) {
 					return $repository->createQueryBuilder('e')
-					->where('e.published = true AND e.parent IS NULL')
+					->where('e.archived = false AND e.parent IS NULL')
 					->orderBy('e.name', 'ASC');
 					},
 					'required'		=> false,

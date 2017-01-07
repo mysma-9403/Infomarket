@@ -10,10 +10,22 @@ use AppBundle\Entity\Filter\ArticleFilter;
 use AppBundle\Entity\Filter\Base\BaseEntityFilter;
 use AppBundle\Entity\Tag;
 use AppBundle\Entity\User;
+use AppBundle\Manager\Entity\Base\EntityManager;
+use AppBundle\Manager\Filter\Base\FilterManager;
 use AppBundle\Manager\Params\EntryParams\Base\EntryParamsManager;
 use Symfony\Component\HttpFoundation\Request;
 
 class ArticleEntryParamsManager extends EntryParamsManager {
+	
+	protected $infomarket;
+	protected $infoprodukt;
+	
+	public function __construct(EntityManager $em, FilterManager $fm, $doctrine) {
+		parent::__construct($em, $fm, $doctrine);
+		
+		$this->infomarket = false;
+		$this->infoprodukt = false;
+	}
 	
 	public function getPreviewParams(Request $request, array $params, $id, $page) {
 		$params = parent::getShowParams($request, $params, $id);
@@ -43,7 +55,8 @@ class ArticleEntryParamsManager extends EntryParamsManager {
 		$tagRepository = $this->doctrine->getRepository(Tag::class);
 		
 		$articleFilter = new ArticleFilter($userRepository, $articleCategoryRepository, $categoryRepository, $brandRepository, $tagRepository);
-		$articleFilter->setPublished(BaseEntityFilter::TRUE_VALUES);
+		if($this->infomarket) $articleFilter->setInfomarket(BaseEntityFilter::TRUE_VALUES);
+		if($this->infoprodukt) $articleFilter->setInfoprodukt(BaseEntityFilter::TRUE_VALUES);
 		$articleFilter->setArchived(BaseEntityFilter::FALSE_VALUES);
 		$articleFilter->setParents([$entry]);
 		$articleFilter->setLimit(1);
@@ -69,7 +82,8 @@ class ArticleEntryParamsManager extends EntryParamsManager {
 		
 		
 		$articleFilter = new ArticleFilter($userRepository, $articleCategoryRepository, $categoryRepository, $brandRepository, $tagRepository);
-		$articleFilter->setPublished(BaseEntityFilter::TRUE_VALUES);
+		if($this->infomarket) $articleFilter->setInfomarket(BaseEntityFilter::TRUE_VALUES);
+		if($this->infoprodukt) $articleFilter->setInfoprodukt(BaseEntityFilter::TRUE_VALUES);
 		$articleFilter->setArchived(BaseEntityFilter::FALSE_VALUES);
 		$articleFilter->setCategories($categories);
 		$articleFilter->setOrderBy('e.date DESC');

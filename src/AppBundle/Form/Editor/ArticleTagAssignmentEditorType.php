@@ -25,7 +25,7 @@ class ArticleTagAssignmentEditorType extends BaseEntityEditorType
 					'class'			=> Article::class,
 					'query_builder' => function (ArticleRepository $repository) {
 						return $repository->createQueryBuilder('e')
-						->orderBy('e.published DESC, e.name', 'ASC');
+						->orderBy('e.name', 'ASC');
 					},
 					'required' 		=> true,
 					'expanded'      => false,
@@ -36,7 +36,7 @@ class ArticleTagAssignmentEditorType extends BaseEntityEditorType
 					'class'			=> Tag::class,
 					'query_builder' => function (TagRepository $repository) {
 						return $repository->createQueryBuilder('e')
-						->orderBy('e.published DESC, e.name', 'ASC');
+						->orderBy('e.name', 'ASC');
 					},
 					'required' 		=> false,
 					'expanded'      => false,

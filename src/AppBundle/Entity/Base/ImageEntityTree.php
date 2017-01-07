@@ -8,15 +8,36 @@ namespace AppBundle\Entity\Base;
 class ImageEntityTree extends Image
 {
 	/**
-	 *
+	 * 
 	 * {@inheritDoc}
 	 * @see \AppBundle\Entity\Base\Audit::getDisplayName()
 	 */
 	public function getDisplayName() {
-		$result = '<empty>';
-		if($this->name) $result = ' ' . $this->name;
-		return $result;
+		$name = '<empty>';
+		
+		if($this->name) $name = $this->name;
+	
+		$parent = $this->getParent();
+		if($parent) {
+			$name .= ' / ';
+			$name .= $parent->getDisplayName();
+		}
+	
+		return $name;
 	}
+	
+	public function getParentChain() {
+		$chain = array();
+	
+		$parent = $this->getParent();
+		while($parent) {
+			array_unshift($chain, $parent);
+			$parent = $parent->getParent();
+		}
+	
+		return $chain;
+	}
+	
 	
     /**
      * @var string

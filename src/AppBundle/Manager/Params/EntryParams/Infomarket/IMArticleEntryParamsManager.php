@@ -12,8 +12,16 @@ use AppBundle\Entity\Tag;
 use AppBundle\Entity\User;
 use AppBundle\Manager\Params\EntryParams\Common\ArticleEntryParamsManager;
 use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Manager\Entity\Base\EntityManager;
+use AppBundle\Manager\Filter\Base\FilterManager;
 
 class IMArticleEntryParamsManager extends ArticleEntryParamsManager {
+	
+	public function __construct(EntityManager $em, FilterManager $fm, $doctrine) {
+		parent::__construct($em, $fm, $doctrine);
+	
+		$this->infomarket = true;
+	}
 	
 	public function getPreviewParams(Request $request, array $params, $id, $page) {
 		$params = parent::getPreviewParams($request, $params, $id, $page);
@@ -65,7 +73,7 @@ class IMArticleEntryParamsManager extends ArticleEntryParamsManager {
 		
 		
 		$articleFilter = new ArticleFilter($userRepository, $articleCategoryRepository, $categoryRepository, $brandRepository, $tagRepository);
-		$articleFilter->setPublished(BaseEntityFilter::TRUE_VALUES);
+		$articleFilter->setInfomarket(BaseEntityFilter::TRUE_VALUES);
 		$articleFilter->setArchived(BaseEntityFilter::FALSE_VALUES);
 		$articleFilter->setArticleCategories($articleCategories);
 		$articleFilter->setCategories($categories);

@@ -7,7 +7,7 @@
 		{% set preleafCategory = category.preleaf ? category : category.parent %}
 		{% set preleafCategoryId = preleafCategory ? preleafCategory.id : null %}
 		
-		{% set childCategory = category.preleaf ? category.getDefaultChildCategory() : category %}
+		{% set childCategory = category.preleaf ? category.getDefaultIPChildCategory() : category %}
 		{% set childCategoryId = childCategory ? childCategory.id : null %}
 	{% endif %}
 	

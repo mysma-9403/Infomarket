@@ -5,10 +5,10 @@ namespace AppBundle\Manager\Entity\Common;
 use AppBundle\Entity\Advert;
 use AppBundle\Entity\AdvertCategoryAssignment;
 use AppBundle\Entity\Category;
-use AppBundle\Manager\Entity\Base\EntityManager;
+use AppBundle\Manager\Entity\Base\BaseEntityManager;
 use Symfony\Component\HttpFoundation\Request;
 
-class AdvertCategoryAssignmentManager extends EntityManager {
+class AdvertCategoryAssignmentManager extends BaseEntityManager {
 	
 	/**
 	 * Create new entry with request parameters.

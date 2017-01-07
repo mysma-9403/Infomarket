@@ -2,11 +2,11 @@
 
 namespace AppBundle\Controller\Base;
 
-use AppBundle\Manager\Entity\Base\EntityManager;
 use AppBundle\Manager\Filter\Base\FilterManager;
 use AppBundle\Manager\Params\EntryParams\Base\EntryParamsManager;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Manager\Entity\Base\EntityManager;
 
 abstract class StandardController extends DummyController
 {	

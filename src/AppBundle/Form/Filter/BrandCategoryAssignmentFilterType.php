@@ -28,7 +28,7 @@ class BrandCategoryAssignmentFilterType extends BaseEntityFilterType
 				'class'			=> Brand::class,
 				'query_builder' => function (BrandRepository $repository) {
 					return $repository->createQueryBuilder('e')
-					->orderBy('e.published DESC, e.name', 'ASC');
+					->orderBy('e.name', 'ASC');
 				},
 				'required'		=> false,
 				'expanded'      => false,
@@ -39,7 +39,7 @@ class BrandCategoryAssignmentFilterType extends BaseEntityFilterType
 				'class'			=> Segment::class,
 				'query_builder' => function (SegmentRepository $repository) {
 				return $repository->createQueryBuilder('e')
-				->orderBy('e.published DESC, e.name', 'ASC');
+				->orderBy('e.name', 'ASC');
 				},
 				'required'		=> false,
 				'expanded'      => false,
@@ -50,7 +50,7 @@ class BrandCategoryAssignmentFilterType extends BaseEntityFilterType
 				'class'			=> Category::class,
 				'query_builder' => function (CategoryRepository $repository) {
 					return $repository->createQueryBuilder('e')
-					->orderBy('e.published DESC, e.name', 'ASC');
+					->orderBy('e.name', 'ASC');
 				},
 				'required'		=> false,
 				'expanded'      => false,

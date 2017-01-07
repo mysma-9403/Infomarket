@@ -43,7 +43,6 @@ class CategoryEntryParamsManager extends EntryParamsManager {
 		
 		
 		$segmentFilter = new BaseEntityFilter($userRepository);
-		$segmentFilter->setPublished(BaseEntityFilter::TRUE_VALUES);
 		
 		$segments = $segmentRepository->findSelected($segmentFilter);
 		$viewParams['segments'] = $segments;

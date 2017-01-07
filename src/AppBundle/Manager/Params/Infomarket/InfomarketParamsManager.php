@@ -35,7 +35,7 @@ class InfomarketParamsManager extends ParamsManager {
 		
     	
 		$branchFilter = new BranchFilter($userRepository, $categoryRepository);
-		$branchFilter->setPublished(BaseEntityFilter::TRUE_VALUES);
+		$branchFilter->setInfomarket(BaseEntityFilter::TRUE_VALUES);
 		$branchFilter->setOrderBy('e.orderNumber ASC, e.name ASC');
 		
 		$branches = $this->getParamList(Branch::class, $branchFilter);
@@ -47,7 +47,7 @@ class InfomarketParamsManager extends ParamsManager {
     	
     	
     	$categoryFilter = new CategoryFilter($userRepository, $branchRepository, $categoryRepository);
-    	$categoryFilter->setPublished(BaseEntityFilter::TRUE_VALUES);
+    	$categoryFilter->setInfomarket(BaseEntityFilter::TRUE_VALUES);
     	$categoryFilter->setRoot(BaseEntityFilter::TRUE_VALUES);
     	$categoryFilter->setBranches(array($branch));
     	$categoryFilter->setOrderBy('e.name ASC');
@@ -58,7 +58,6 @@ class InfomarketParamsManager extends ParamsManager {
     	
     	$articleCategoryFilter = new ArticleCategoryFilter($userRepository);
     	$articleCategoryFilter->setInfomarket(BaseEntityFilter::TRUE_VALUES);
-    	$articleCategoryFilter->setPublished(BaseEntityFilter::TRUE_VALUES);
     	$articleCategoryFilter->setFeatured(BaseEntityFilter::TRUE_VALUES);
     	$articleCategoryFilter->setOrderBy('e.orderNumber ASC');
     	 

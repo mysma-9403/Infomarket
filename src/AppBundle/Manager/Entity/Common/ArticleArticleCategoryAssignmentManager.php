@@ -5,10 +5,10 @@ namespace AppBundle\Manager\Entity\Common;
 use AppBundle\Entity\Article;
 use AppBundle\Entity\ArticleArticleCategoryAssignment;
 use AppBundle\Entity\ArticleCategory;
-use AppBundle\Manager\Entity\Base\EntityManager;
+use AppBundle\Manager\Entity\Base\BaseEntityManager;
 use Symfony\Component\HttpFoundation\Request;
 
-class ArticleArticleCategoryAssignmentManager extends EntityManager {
+class ArticleArticleCategoryAssignmentManager extends BaseEntityManager {
 	
 	/**
 	 * Create new entry with request parameters.

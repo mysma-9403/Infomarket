@@ -24,7 +24,7 @@ class AdvertCategoryAssignmentEditorType extends BaseEntityEditorType
 					'class'			=> Advert::class,
 					'query_builder' => function (AdvertRepository $repository) {
 						return $repository->createQueryBuilder('e')
-						->orderBy('e.published DESC, e.name', 'ASC');
+						->orderBy('e.name', 'ASC');
 					},
 					'required' 		=> true,
 					'expanded'      => false,
@@ -36,7 +36,7 @@ class AdvertCategoryAssignmentEditorType extends BaseEntityEditorType
 					'query_builder' => function (CategoryRepository $repository) {
 						return $repository->createQueryBuilder('e')
 						->where('e.preleaf = true')
-						->orderBy('e.published DESC, e.name', 'ASC');
+						->orderBy('e.name', 'ASC');
 					},
 					'required' 		=> true,
 					'expanded'      => false,

@@ -23,7 +23,7 @@ class NewsletterPageEditorType extends SimpleEntityEditorType
 					'class'			=> NewsletterPageTemplate::class,
 					'query_builder' => function (NewsletterPageTemplateRepository $repository) {
 						return $repository->createQueryBuilder('e')
-						->orderBy('e.published DESC, e.name', 'ASC');
+						->orderBy('e.name', 'ASC');
 					},
 					'required' 		=> true,
 					'expanded'      => false,

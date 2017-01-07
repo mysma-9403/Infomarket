@@ -1,6 +1,6 @@
 <?php
 
-namespace AppBundle\Manager\Filter\Infomarket\Base;
+namespace AppBundle\Manager\Filter\Decorator;
 
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Entity\Filter\Base\BaseEntityFilter;
@@ -36,10 +36,11 @@ class InfomarketFilterManager extends FilterManager {
 	
 	protected function create() {}
 	
-	public function adaptToView(BaseEntityFilter $filter, array $params) { 
+	public function adaptToView(BaseEntityFilter $filter, array $params) {
+		/** @var \AppBundle\Entity\Filter\Base\SimpleEntityFilter $filter */
 		$filter = $this->fm->adaptToView($filter, $params);
 		
-		$filter->setPublished(BaseEntityFilter::TRUE_VALUES);
+		$filter->setInfomarket(BaseEntityFilter::TRUE_VALUES);
 		
 		if($this->filterByBranches) {
 			$filter->setBranches($this->getBranches($params));

@@ -5,10 +5,10 @@ namespace AppBundle\Manager\Entity\Common;
 use AppBundle\Entity\Article;
 use AppBundle\Entity\ArticleBrandAssignment;
 use AppBundle\Entity\Brand;
-use AppBundle\Manager\Entity\Base\EntityManager;
+use AppBundle\Manager\Entity\Base\BaseEntityManager;
 use Symfony\Component\HttpFoundation\Request;
 
-class ArticleBrandAssignmentManager extends EntityManager {
+class ArticleBrandAssignmentManager extends BaseEntityManager {
 	
 	/**
 	 * Create new entry with request parameters.

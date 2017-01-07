@@ -7,9 +7,9 @@ use AppBundle\Controller\Base\StandardController;
 use AppBundle\Entity\Advert;
 use AppBundle\Entity\NewsletterUser;
 use AppBundle\Form\Editor\NewsletterUserEditorType;
-use AppBundle\Manager\Filter\Infomarket\Base\InfomarketFilterManager;
-use AppBundle\Manager\Params\Base\AdvertParamsManager;
-use AppBundle\Manager\Params\Base\FooterParamsManager;
+use AppBundle\Manager\Filter\Decorator\InfomarketFilterManager;
+use AppBundle\Manager\Params\Infomarket\IMAdvertParamsManager;
+use AppBundle\Manager\Params\Infomarket\IMFooterParamsManager;
 use AppBundle\Manager\Params\Infomarket\InfomarketParamsManager;
 use AppBundle\Manager\Route\RouteManager;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -177,13 +177,13 @@ abstract class InfomarketController extends StandardController
 		$doctrine = $this->getDoctrine();
 		$advertLocations = [Advert::TOP_LOCATION, Advert::SIDE_LOCATION];
 	
-		return new AdvertParamsManager($doctrine, $advertLocations);
+		return new IMAdvertParamsManager($doctrine, $advertLocations);
 	}
 	
 	protected function getFooterParamsManager() {
 		$doctrine = $this->getDoctrine();
 		
-		return new FooterParamsManager($doctrine);
+		return new IMFooterParamsManager($doctrine);
 	}
     
 	
@@ -228,7 +228,7 @@ abstract class InfomarketController extends StandardController
 				$em->flush();
 			}
 		} else {
-			$entry->setPublished(true);
+			$entry->setInfomarket(true);
 			$entry->setSubscribed(true);
 	
 			$em->persist($entry);

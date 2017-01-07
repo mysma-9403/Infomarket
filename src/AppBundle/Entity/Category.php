@@ -34,37 +34,36 @@ class Category extends ImageEntityTree
 		return '../web/uploads/categories';
 	}
 	
-	public function getDefaultChildCategory() {
+	public function getDefaultIMChildCategory() {
 		
 		foreach ($this->getChildren() as $child) {
-			if($child->getPublished())
+			if($child->getInfomarket())
 				return $child;
 		}
 		
 		return null;
 	}
 	
-	/**
-	 * 
-	 * {@inheritDoc}
-	 * @see \AppBundle\Entity\Base\Image::getDisplayName()
-	 */
+	public function getDefaultIPChildCategory() {
+	
+		foreach ($this->getChildren() as $child) {
+			if($child->getInfoprodukt())
+				return $child;
+		}
+	
+		return null;
+	}
+	
 	public function getDisplayName() {
-		$name = $this->name;
-		$name .= ' ' . $this->subname;
-		
+		$name = '<empty>';
+	
+		if($this->name) $name = $this->name;
+		if($this->subname) $name .= $this->subname;
+	
 		$parent = $this->getParent();
 		if($parent) {
-			$name .= ' (';
-			$name .= $parent->getName();
-		
-			$parent = $parent->getParent();
-			while($parent) {
-				$name .= '/';
-				$name .= $parent->getName();
-				$parent = $parent->getParent();
-			}
-			$name .= ')';
+			$name .= ' / ';
+			$name .= $parent->getDisplayName();
 		}
 	
 		return $name;

@@ -2,10 +2,13 @@
 
 namespace AppBundle\Manager\Params\EntryParams\Infomarket;
 
+use AppBundle\Entity\Advert;
 use AppBundle\Entity\Article;
 use AppBundle\Entity\ArticleCategory;
 use AppBundle\Entity\Brand;
 use AppBundle\Entity\Category;
+use AppBundle\Entity\Filter\AdvertFilter;
+use AppBundle\Entity\Filter\ArticleCategoryFilter;
 use AppBundle\Entity\Filter\ArticleFilter;
 use AppBundle\Entity\Filter\Base\BaseEntityFilter;
 use AppBundle\Entity\Filter\MagazineFilter;
@@ -14,9 +17,6 @@ use AppBundle\Entity\Tag;
 use AppBundle\Entity\User;
 use AppBundle\Manager\Params\EntryParams\Base\EntryParamsManager;
 use Symfony\Component\HttpFoundation\Request;
-use AppBundle\Entity\Filter\ArticleCategoryFilter;
-use AppBundle\Entity\Filter\AdvertFilter;
-use AppBundle\Entity\Advert;
 
 class HomeEntryParamsManager extends EntryParamsManager {
 	
@@ -60,14 +60,13 @@ class HomeEntryParamsManager extends EntryParamsManager {
     	
     	
     	$articleCategoryFilter = new ArticleCategoryFilter($userRepository);
-    	$articleCategoryFilter->setPublished(BaseEntityFilter::TRUE_VALUES);
     	$articleCategoryFilter->setInfomarket(BaseEntityFilter::TRUE_VALUES);
     	
     	$articleCategories = $articleCategoryRepository->findSelected($articleCategoryFilter);
 		
 		
     	$articleFilter = new ArticleFilter($userRepository, $articleCategoryRepository, $categoryRepository, $brandRepository, $tagRepository);
-    	$articleFilter->setPublished(BaseEntityFilter::TRUE_VALUES);
+    	$articleFilter->setInfomarket(BaseEntityFilter::TRUE_VALUES);
     	$articleFilter->setArchived(BaseEntityFilter::FALSE_VALUES);
     	$articleFilter->setFeatured(BaseEntityFilter::TRUE_VALUES);
     	$articleFilter->setActive(BaseEntityFilter::TRUE_VALUES);
@@ -156,7 +155,6 @@ class HomeEntryParamsManager extends EntryParamsManager {
     	
     	
     	$magazineFilter = new MagazineFilter($userRepository, $categoryRepository);
-    	$magazineFilter->setPublished(BaseEntityFilter::TRUE_VALUES);
     	$magazineFilter->setInfomarket(BaseEntityFilter::TRUE_VALUES);
     	$magazineFilter->setOrderBy('e.orderNumber ASC, e.name DESC');
     	$magazineFilter->setLimit(4);
@@ -167,7 +165,7 @@ class HomeEntryParamsManager extends EntryParamsManager {
     	
     	
     	$advertFilter = new AdvertFilter($userRepository, $categoryRepository);
-    	$advertFilter->setPublished(BaseEntityFilter::TRUE_VALUES);
+    	$advertFilter->setInfomarket(BaseEntityFilter::TRUE_VALUES);
     	$advertFilter->setActive(BaseEntityFilter::TRUE_VALUES);
 		$advertFilter->setCategories($categories);
 			

@@ -29,7 +29,7 @@ class ProductCategoryAssignmentEditorType extends BaseEntityEditorType
 					'query_builder' => function (ProductRepository $repository) {
 						return $repository->createQueryBuilder('e')
 						->leftJoin(Brand::class, 'b', null, 'WITH b.id = e.brand')
-						->orderBy('e.published DESC, b.name ASC, e.name', 'ASC');
+						->orderBy('b.name ASC, e.name', 'ASC');
 					},
 					'required' 		=> true,
 					'expanded'      => false,
@@ -40,7 +40,7 @@ class ProductCategoryAssignmentEditorType extends BaseEntityEditorType
 					'class'			=> Segment::class,
 					'query_builder' => function (SegmentRepository $repository) {
 						return $repository->createQueryBuilder('e')
-						->orderBy('e.published DESC, e.id', 'ASC');
+						->orderBy('e.id', 'ASC');
 					},
 					'required' 		=> true,
 					'expanded'      => false,
@@ -52,7 +52,7 @@ class ProductCategoryAssignmentEditorType extends BaseEntityEditorType
 					'query_builder' => function (CategoryRepository $repository) {
 						return $repository->createQueryBuilder('e')
 						->where('e.preleaf = false')
-						->orderBy('e.published DESC, e.name', 'ASC');
+						->orderBy('e.name', 'ASC');
 					},
 					'required' 		=> true,
 					'expanded'      => false,

@@ -24,7 +24,7 @@ class TermCategoryAssignmentEditorType extends BaseEntityEditorType
 					'class'			=> Term::class,
 					'query_builder' => function (TermRepository $repository) {
 						return $repository->createQueryBuilder('e')
-						->orderBy('e.published DESC, e.name', 'ASC');
+						->orderBy('e.name', 'ASC');
 					},
 					'required' 		=> true,
 					'expanded'      => false,
@@ -36,7 +36,7 @@ class TermCategoryAssignmentEditorType extends BaseEntityEditorType
 					'query_builder' => function (CategoryRepository $repository) {
 						return $repository->createQueryBuilder('e')
 						->where('e.preleaf = true')
-						->orderBy('e.published DESC, e.name', 'ASC');
+						->orderBy('e.name', 'ASC');
 					},
 					'required' 		=> true,
 					'expanded'      => false,

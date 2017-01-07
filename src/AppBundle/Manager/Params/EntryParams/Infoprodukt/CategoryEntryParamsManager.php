@@ -68,7 +68,7 @@ class CategoryEntryParamsManager extends EntryParamsManager {
 			
 			$articleFilter = new ArticleFilter($userRepository, $articleCategoryRepository, $categoryRepository, $brandRepository, $tagRepository);
 			$articleFilter->setCategories($categories);
-			$articleFilter->setPublished(BaseEntityFilter::TRUE_VALUES);
+			$articleFilter->setInfoprodukt(BaseEntityFilter::TRUE_VALUES);
 			$articleFilter->setArchived(BaseEntityFilter::FALSE_VALUES);
 			$articleFilter->setActive(BaseEntityFilter::TRUE_VALUES);
 			$articleFilter->setMain(BaseEntityFilter::TRUE_VALUES);
@@ -214,7 +214,7 @@ class CategoryEntryParamsManager extends EntryParamsManager {
 			$categories = array_merge($categories, $subcategories);
 			
 			$brandFilter = new BrandFilter($userRepository, $categoryRepository, $segmentRepository);
-			$brandFilter->setPublished(BaseEntityFilter::TRUE_VALUES);
+			$brandFilter->setInfoprodukt(BaseEntityFilter::TRUE_VALUES);
 			$brandFilter->setCategories($categories);
 			$brandFilter->setLimit(6);
 			
@@ -225,7 +225,7 @@ class CategoryEntryParamsManager extends EntryParamsManager {
 			
 			//adverts	
 			$advertFilter = new AdvertFilter($userRepository, $categoryRepository);
-			$advertFilter->setPublished(BaseEntityFilter::TRUE_VALUES);
+			$advertFilter->setInfoprodukt(BaseEntityFilter::TRUE_VALUES);
 			$advertFilter->setActive(BaseEntityFilter::TRUE_VALUES);
 			$advertFilter->setCategories([$entry]);
 				
@@ -268,20 +268,12 @@ class CategoryEntryParamsManager extends EntryParamsManager {
 				$productFilter = new ProductFilter($userRepository, $categoryRepository, $brandRepository, $segmentRepository);
 				$productFilter->setCategories([$entry]);
 				$productFilter->setSegments([$segment]);
-				$productFilter->setPublished(BaseEntityFilter::TRUE_VALUES);
+				$productFilter->setInfoprodukt(BaseEntityFilter::TRUE_VALUES);
 		
 				$productRepository = $this->doctrine->getRepository(Product::class);
 				$products = $productRepository->findSelected($productFilter);
 		
 				$viewParams['products'][$segment->getId()] = $products;
-				
-// 				$brandFilter = new BrandFilter($userRepository, $categoryRepository, $segmentRepository);
-// 				$brandFilter->setCategories([$entry]);
-// 				$brandFilter->setSegments([$segment]);
-// 				$brandFilter->setPublished(BaseEntityFilter::TRUE_VALUES);
-
-// 				$brandRepository = $this->doctrine->getRepository(Brand::class);
-// 				$brands = $brandRepository->findSelected($brandFilter);
 				
 				foreach($products as $product) {
 					$brands[$product->getBrand()->getId()] = $product->getBrand();
@@ -308,21 +300,12 @@ class CategoryEntryParamsManager extends EntryParamsManager {
 					$productFilter = new ProductFilter($userRepository, $categoryRepository, $brandRepository, $segmentRepository);
 					$productFilter->setCategories([$category]);
 					$productFilter->setSegments([$segment]);
-					$productFilter->setPublished(BaseEntityFilter::TRUE_VALUES);
+					$productFilter->setInfoprodukt(BaseEntityFilter::TRUE_VALUES);
 		
 					$productRepository = $this->doctrine->getRepository(Product::class);
 					$products = $productRepository->findSelected($productFilter);
 		
 					$viewParams['subproducts'][$category->getId()][$segment->getId()] = $products;
-					
-					
-// 					$brandFilter = new BrandFilter($userRepository, $categoryRepository, $segmentRepository);
-// 					$brandFilter->setCategories([$category]);
-// 					$brandFilter->setSegments([$segment]);
-// 					$brandFilter->setPublished(BaseEntityFilter::TRUE_VALUES);
-					
-// 					$brandRepository = $this->doctrine->getRepository(Brand::class);
-// 					$brands = $brandRepository->findSelected($brandFilter);
 					
 					foreach($products as $product) {
 						$brands[$product->getBrand()->getId()] = $product->getBrand();
@@ -334,7 +317,7 @@ class CategoryEntryParamsManager extends EntryParamsManager {
 				
 			$termFilter = new TermFilter($userRepository, $categoryRepository);
 			// 		$termFilter->setCategories([$entry]);
-			$termFilter->setPublished(BaseEntityFilter::TRUE_VALUES);
+			$termFilter->setInfoprodukt(BaseEntityFilter::TRUE_VALUES);
 			$termRepository = $this->doctrine->getRepository(Term::class);
 			$terms = $termRepository->findSelected($termFilter);
 				

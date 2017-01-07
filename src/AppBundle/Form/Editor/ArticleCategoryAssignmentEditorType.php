@@ -25,7 +25,7 @@ class ArticleCategoryAssignmentEditorType extends BaseEntityEditorType
 					'class'			=> Article::class,
 					'query_builder' => function (ArticleRepository $repository) {
 						return $repository->createQueryBuilder('e')
-						->orderBy('e.published DESC, e.name', 'ASC');
+						->orderBy('e.name', 'ASC');
 					},
 					'required' 		=> true,
 					'expanded'      => false,

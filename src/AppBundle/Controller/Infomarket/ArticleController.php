@@ -111,8 +111,8 @@ class ArticleController extends InfomarketController
 		if ($articleFilterForm->isSubmitted() && $articleFilterForm->isValid()) {
 		
 			if ($articleFilterForm->get('search')->isClicked()) {
-				$articleFilter->setPublished(BaseEntityFilter::ALL_VALUES);
-				$articleFilter->setMain(BaseEntityFilter::ALL_VALUES);
+				$articleFilter->setInfomarket(BaseEntityFilter::TRUE_VALUES);
+				$articleFilter->setMain(BaseEntityFilter::TRUE_VALUES);
 				$articleFilter->setCategories(array());
 		
 				$routingParams = array();

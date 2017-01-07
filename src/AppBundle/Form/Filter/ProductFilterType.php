@@ -24,7 +24,7 @@ class ProductFilterType extends SimpleEntityFilterType
 					'class'			=> Category::class,
 					'query_builder' => function (CategoryRepository $repository) {
 						return $repository->createQueryBuilder('e')
-						->orderBy('e.published DESC, e.name', 'ASC');
+						->orderBy('e.name', 'ASC');
 					},
 					'required'		=> false,
 					'expanded'      => false,
@@ -35,7 +35,7 @@ class ProductFilterType extends SimpleEntityFilterType
 					'class'			=> Brand::class,
 					'query_builder' => function (BrandRepository $repository) {
 						return $repository->createQueryBuilder('e')
-						->orderBy('e.published DESC, e.name', 'ASC');
+						->orderBy('e.name', 'ASC');
 					},
 					'required'		=> false,
 					'expanded'      => false,

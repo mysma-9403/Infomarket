@@ -38,7 +38,7 @@ class SearchEntryParamsManager extends EntryParamsManager {
 		$simpleFilter = new SimpleEntityFilter($userRepository);
 		$simpleFilter->setAddNameDecorators(true);
 		$simpleFilter->initValues($request);
-		$simpleFilter->setPublished(SimpleEntityFilter::TRUE_VALUES);
+		$simpleFilter->setInfoprodukt(SimpleEntityFilter::TRUE_VALUES);
 		
 		$brandRepository = $this->doctrine->getRepository(Brand::class);
 		$brands = $brandRepository->findSelected($simpleFilter);
@@ -52,7 +52,7 @@ class SearchEntryParamsManager extends EntryParamsManager {
 		
 		if(count($brands) > 0) {
 			$productFilter = new ProductFilter($userRepository, $categoryRepository, $brandRepository, $segmentRepository);
-			$productFilter->setPublished(BaseEntityFilter::TRUE_VALUES);
+			$productFilter->setInfoprodukt(BaseEntityFilter::TRUE_VALUES);
 			$productFilter->setBrands($brands);
 			$products = array_merge($products, $productRepository->findSelected($productFilter));
 		}
@@ -66,7 +66,6 @@ class SearchEntryParamsManager extends EntryParamsManager {
 		$articleFilter->setAddNameDecorators(true);
 		$articleFilter->setName($simpleFilter->getName());
 		$articleFilter->setInfoprodukt(SimpleEntityFilter::TRUE_VALUES);
-		$articleFilter->setPublished(SimpleEntityFilter::TRUE_VALUES);
 		$articleFilter->setArchived(SimpleEntityFilter::FALSE_VALUES);
 		$articleFilter->setMain(SimpleEntityFilter::TRUE_VALUES);
 		
@@ -76,7 +75,6 @@ class SearchEntryParamsManager extends EntryParamsManager {
 		if(count($brands) > 0) {
 			$articleFilter = new ArticleFilter($userRepository, $articleCategoryRepository, $categoryRepository, $brandRepository, $tagRepository);
 			$articleFilter->setInfoprodukt(SimpleEntityFilter::TRUE_VALUES);
-			$articleFilter->setPublished(SimpleEntityFilter::TRUE_VALUES);
 			$articleFilter->setArchived(SimpleEntityFilter::FALSE_VALUES);
 			$articleFilter->setMain(SimpleEntityFilter::TRUE_VALUES);
 			$articleFilter->setBrands($brands);

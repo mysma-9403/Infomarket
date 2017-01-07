@@ -13,10 +13,16 @@ class AdvertParamsManager extends ParamsManager {
 	
 	protected $advertLocations;
 	
+	protected $infomarket;
+	protected $infoprodukt;
+	
 	public function __construct($doctrine, array $advertLocations) {
 		parent::__construct($doctrine);
 		
 		$this->advertLocations = $advertLocations;
+		
+		$this->infomarket = false;
+		$this->infoprodukt = false;
 	}
 	
 	public function getParams(Request $request, array $params) {
@@ -28,7 +34,8 @@ class AdvertParamsManager extends ParamsManager {
 			
 			
 			$advertFilter = new AdvertFilter($userRepository, $categoryRepository);
-			$advertFilter->setPublished(BaseEntityFilter::TRUE_VALUES);
+			if($this->infomarket) $advertFilter->setInfomarket(BaseEntityFilter::TRUE_VALUES);
+    		if($this->infoprodukt) $advertFilter->setInfoprodukt(BaseEntityFilter::TRUE_VALUES);
 			$advertFilter->setActive(BaseEntityFilter::TRUE_VALUES);
 		
 			if(array_key_exists('branch', $viewParams)) {
@@ -37,7 +44,10 @@ class AdvertParamsManager extends ParamsManager {
 				$categories = array();
 				foreach ($branch->getBranchCategoryAssignments() as $branchCategoryAssignment) {
 					$category = $branchCategoryAssignment->getCategory();
-					if($category->getPublished()) {
+					if($this->infomarket && $category->getInfomarket()) {
+						$categories[] = $category;
+					}
+					if($this->infoprodukt && $category->getInfoprodukt()) {
 						$categories[] = $category;
 					}
 				}

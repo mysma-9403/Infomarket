@@ -32,6 +32,7 @@ class Article extends ImageEntity
 			else 
 				$result .= ' ' . $this->subname;
 		}
+		
 		return $result;
 	}
 	

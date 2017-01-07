@@ -606,7 +606,8 @@ class CategoryController extends ImageEntityController {
 			if(!$product) {
 				$product = new Product();
 				$product->setName($productName);
-				$product->setPublished(true);
+				$product->setInfomarket(true);
+				$product->setInfoprodukt(true);
 				$product->setBrand($brand);
 				
 				$image = $this->getImage($product, $imageName, $imageType);
@@ -704,7 +705,6 @@ class CategoryController extends ImageEntityController {
 				$assignment->setSegment($segment);
 				$assignment->setCategory($category);
 				$assignment->setOrderNumber(99);
-				$assignment->setPublished(true);
 				
 				$dataBaseEntry['assignmentForUpdate'] = true;
 			} else if($assignment->getSegment()->getId() != $segment->getId()) {

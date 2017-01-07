@@ -3,9 +3,9 @@
 namespace AppBundle\Manager\Params\EntryParams\Base;
 
 use AppBundle\Manager\Entity\Base\EntityManager;
-use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Manager\Filter\Base\FilterManager;
 use AppBundle\Manager\Params\Base\ParamsManager;
+use Symfony\Component\HttpFoundation\Request;
 
 class EntryParamsManager extends ParamsManager {
 	

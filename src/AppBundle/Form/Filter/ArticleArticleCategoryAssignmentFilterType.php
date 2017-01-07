@@ -26,7 +26,7 @@ class ArticleArticleCategoryAssignmentFilterType extends BaseEntityFilterType
 				'class'			=> Article::class,
 				'query_builder' => function (ArticleRepository $repository) {
 					return $repository->createQueryBuilder('e')
-					->orderBy('e.published DESC, e.name', 'ASC');
+					->orderBy('e.name', 'ASC');
 				},
 				'required'		=> false,
 				'expanded'      => false,
@@ -37,7 +37,7 @@ class ArticleArticleCategoryAssignmentFilterType extends BaseEntityFilterType
 				'class'			=> ArticleCategory::class,
 				'query_builder' => function (ArticleCategoryRepository $repository) {
 					return $repository->createQueryBuilder('e')
-					->orderBy('e.published DESC, e.name', 'ASC');
+					->orderBy('e.name', 'ASC');
 				},
 				'required'		=> false,
 				'expanded'      => false,

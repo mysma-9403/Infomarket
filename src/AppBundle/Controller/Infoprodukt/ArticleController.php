@@ -11,7 +11,6 @@ use AppBundle\Entity\Filter\Base\SimpleEntityFilter;
 use AppBundle\Entity\NewsletterUser;
 use AppBundle\Entity\User;
 use AppBundle\Form\Editor\NewsletterUserEditorType;
-use AppBundle\Form\Filter\Base\SimpleEntityFilterType;
 use AppBundle\Form\Filter\Infoprodukt\ArticleFilterType;
 use AppBundle\Form\Search\Base\SimpleEntitySearchType;
 use AppBundle\Manager\Entity\Base\EntityManager;
@@ -75,11 +74,11 @@ class ArticleController extends InfoproduktController
 		$userRepository = $this->getDoctrine()->getRepository(User::class);
 		
 		
-		
+		//TODO refactoring - it's the same as in base
 		$searchFilter = new SimpleEntityFilter($userRepository);
 		$searchFilter->initValues($request);
 		
-		$searchFilterForm = $this->createForm(SimpleEntityFilterType::class, $searchFilter);
+		$searchFilterForm = $this->createForm(SimpleEntitySearchType::class, $searchFilter);
 		$searchFilterForm->handleRequest($request);
 		
 		if ($searchFilterForm->isSubmitted() && $searchFilterForm->isValid()) {
@@ -115,8 +114,8 @@ class ArticleController extends InfoproduktController
 		if ($articleFilterForm->isSubmitted() && $articleFilterForm->isValid()) {
 		
 			if ($articleFilterForm->get('search')->isClicked()) {
-				$articleFilter->setPublished(BaseEntityFilter::ALL_VALUES);
-				$articleFilter->setMain(BaseEntityFilter::ALL_VALUES);
+				$articleFilter->setInfoprodukt(BaseEntityFilter::TRUE_VALUES);
+				$articleFilter->setMain(BaseEntityFilter::TRUE_VALUES);
 				$articleFilter->setCategories(array());
 		
 				$routingParams = array();
