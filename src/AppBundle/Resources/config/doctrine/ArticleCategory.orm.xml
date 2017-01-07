@@ -12,9 +12,6 @@
         <field name="subname" type="string" length="64" nullable="true"/>
         <field name="featured" type="boolean" default="false" />
         
-        <field name="infomarket" type="boolean" default="false" />
-        <field name="infoprodukt" type="boolean" default="false" />
-        
         <field name="orderNumber" type="integer" default="99" />
         
         <one-to-many field="articleArticleCategoryAssignments" target-entity="ArticleArticleCategoryAssignment" mapped-by="articleCategory">

@@ -1,32 +1,21 @@
 {% extends 'admin/show.html.twig' %}
 
 {% set deleteRole = deleteRole | default('ROLE_ADMIN') %}
-
-{% block mainFields2 %}
-	<div class="row lowered-25"></div>
-	{% include 'common/fields/bool_field.html.twig' with 
-	{ 'label': ('label.' ~ gender ~ 'published')|trans, 'value': entry.published } %}
-{% endblock %}
             
 {% block auditFields %}
 	<div class="row lowered-25"></div>
-	{% include 'common/fields/date_field.html.twig' with 
-	{ 'label': ('label.' ~ gender ~ 'publishedAt')|trans, 'value': entry.publishedAt } %}
-	{% include 'common/fields/user_field.html.twig' with 
-	{ 'label': ('label.' ~ gender ~ 'publishedBy')|trans, 'value': entry.publishedBy, 'routeId': entry.id } %}
-	
 	{% if is_granted('ROLE_ADMIN') %}
 		<div class="row lowered-25"></div>
 		{% include 'common/fields/date_field.html.twig' with 
-		{ 'label': ('label.' ~ gender ~ 'updatedAt')|trans, 'value': entry.updatedAt } %}
+		{ 'label': 'label.' ~ gender ~ 'updatedAt', 'value': entry.updatedAt } %}
 		{% include 'common/fields/user_field.html.twig' with 
-		{ 'label': ('label.' ~ gender ~ 'updatedBy')|trans, 'value': entry.updatedBy, 'routeId': entry.id } %}
+		{ 'label': 'label.' ~ gender ~ 'updatedBy', 'value': entry.updatedBy, 'routeId': entry.id } %}
 		
 		<div class="row lowered-25"></div>
 		{% include 'common/fields/date_field.html.twig' with 
-		{ 'label': ('label.' ~ gender ~ 'createdAt')|trans, 'value': entry.createdAt } %}
+		{ 'label': 'label.' ~ gender ~ 'createdAt', 'value': entry.createdAt } %}
 		{% include 'common/fields/user_field.html.twig' with 
-		{ 'label': ('label.' ~ gender ~ 'createdBy')|trans, 'value': entry.createdBy, 'routeId': entry.id } %}
+		{ 'label': 'label.' ~ gender ~ 'createdBy', 'value': entry.createdBy, 'routeId': entry.id } %}
 	{% endif %}
 {% endblock %}
 

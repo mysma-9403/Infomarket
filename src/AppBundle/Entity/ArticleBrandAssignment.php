@@ -9,6 +9,15 @@ use AppBundle\Entity\Base\Audit;
  */
 class ArticleBrandAssignment extends Audit
 {
+	/**
+	 *
+	 * {@inheritDoc}
+	 * @see \AppBundle\Entity\Base\Audit::getDisplayName()
+	 */
+	public function getDisplayName() {
+		return $this->brand->getDisplayName();
+	}
+	
     /**
      * @var \AppBundle\Entity\Article
      */

@@ -3,3 +3,9 @@
 {% block mainFields1 %}	
     {{ form_row(form.name, { 'label': 'label.name' }) }}
 {%  endblock %}
+
+{% block mainFields2 %}
+	{{ form_row(form.published, { 'label': 'label.published' }) }}
+	{{ form_row(form.infomarket, { 'label': 'label.infomarket' }) }}
+	{{ form_row(form.infoprodukt, { 'label': 'label.infoprodukt' }) }}
+{% endblock %}

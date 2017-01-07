@@ -5,9 +5,9 @@ namespace AppBundle\Manager\Filter\Common;
 use AppBundle\Entity\Category;
 use AppBundle\Entity\Filter\BranchFilter;
 use AppBundle\Entity\User;
-use AppBundle\Manager\Filter\Base\BaseFilterManager;
+use AppBundle\Manager\Filter\Base\BaseEntityFilterManager;
 
-class BranchFilterManager extends BaseFilterManager {
+class BranchFilterManager extends BaseEntityFilterManager {
 	
 	protected function create() {
 		$userRepository = $this->doctrine->getRepository(User::class);

@@ -22,9 +22,6 @@
         <field name="updatedAt" type="datetime" nullable="true">
             <gedmo:timestampable on="update"/>
         </field>
-		<field name="publishedAt" type="datetime" nullable="true">
-            <gedmo:timestampable on="change" field="published" value="true"/>
-        </field>
         
         <many-to-one field="createdBy" target-entity="AppBundle\Entity\User">
             <join-column name="created_by" referenced-column-name="id"/>
@@ -34,11 +31,6 @@
         <many-to-one field="updatedBy" target-entity="AppBundle\Entity\User">
             <join-column name="updated_by" referenced-column-name="id"/>
             <gedmo:blameable on="update"/>
-        </many-to-one>
-        
-        <many-to-one field="publishedBy" target-entity="AppBundle\Entity\User">
-            <join-column name="published_by" referenced-column-name="id"/>
-            <gedmo:blameable on="change" field="published" value="true"/>
         </many-to-one>
         
     </mapped-superclass>

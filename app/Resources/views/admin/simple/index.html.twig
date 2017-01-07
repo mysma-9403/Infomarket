@@ -9,3 +9,50 @@
 		{{ form_widget(filter.name, { 'label': 'label.name' }) }}
 	</li>
 {% endblock %}
+
+{% block filterMainFields2 %}
+	<li class="col-xs-12 col-sm-6 col-md-4 col-lg-2">
+		{{ form_widget(filter.infomarket, { 'label': 'label.infomarket' }) }}
+	</li>
+	<li class="col-xs-12 col-sm-6 col-md-4 col-lg-2">
+		{{ form_widget(filter.infoprodukt, { 'label': 'label.infoprodukt' }) }}
+	</li>
+{% endblock %}
+
+{# Header section #}
+{% block headerMainFields2 %}
+	<th><i class="fa fa-check"></i> {{ 'label.infomarket'|trans }}</th>
+	<th><i class="fa fa-check"></i> {{ 'label.infoprodukt'|trans }}</th>
+{% endblock %}
+
+{% block baseHeaderMoreActions %}
+	<li>
+		<div class="btn-group {{ hidden }}">
+			{{ form_widget(form.imPublishSelected, { 'icon': 'fa-check-square-o', 'label': 'action.imPublishSelected', 'attr': {'class': 'btn btn-primary', 'type': 'button'} }) }}
+			{{ form_widget(form.imUnpublishSelected, { 'icon': 'fa-square-o', 'label': 'action.imUnpublishSelected', 'attr': {'class': 'btn btn-primary', 'type': 'button'} }) }}
+		</div>
+	</li>
+	<li>	
+		<div class="btn-group {{ hidden }}">
+			{{ form_widget(form.ipPublishSelected, { 'icon': 'fa-check-square-o', 'label': 'action.ipPublishSelected', 'attr': {'class': 'btn btn-primary', 'type': 'button'} }) }}
+			{{ form_widget(form.ipUnpublishSelected, { 'icon': 'fa-square-o', 'label': 'action.ipUnpublishSelected', 'attr': {'class': 'btn btn-primary', 'type': 'button'} }) }}
+		</div>
+	</li>
+	
+	{% block simpleHeaderMoreActions %}
+	{% endblock %}
+{% endblock %}
+
+{# Entry section #}
+{% block entryMainFields2 %}
+	<td>
+		{% include 'common/fields/bool_action_field.html.twig' with 
+			{ 'id': item.id, 'value': item.infomarket, 'extPath': '_set_im_published',
+				'trueTooltip': 'label.published'|trans, 'falseTooltip': 'label.unpublished'|trans } %}
+	</td>
+	<td>
+		{% include 'common/fields/bool_action_field.html.twig' with 
+			{ 'id': item.id, 'value': item.infoprodukt, 'extPath': '_set_ip_published',
+				'trueTooltip': 'label.published'|trans, 'falseTooltip': 'label.unpublished'|trans } %}
+	</td>
+{% endblock %}

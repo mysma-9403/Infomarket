@@ -29,7 +29,6 @@ class BaseEntityFilter {
 		
 		$this->published = $this::ALL_VALUES;
 		
-		$this->publishedBy = array();
 		$this->createdBy = array();
 		$this->updatedBy = array();
 	}
@@ -46,12 +45,6 @@ class BaseEntityFilter {
 		
 		
 		
-		$publishedAfter = $request->get($this->getFilterName() . 'publishedAfter', null);
-		$this->publishedAfter = $publishedAfter ? new \DateTime($publishedAfter) : null;
-		
-		$publishedBefore = $request->get($this->getFilterName() . 'publishedBefore', null);
-		$this->publishedBefore = $publishedBefore ? new \DateTime($publishedBefore) : null;
-		
 		$updatedAfter = $request->get($this->getFilterName() . 'updatedAfter', null);
 		$this->updatedAfter = $updatedAfter ? new \DateTime($updatedAfter) : null;
 		
@@ -65,9 +58,6 @@ class BaseEntityFilter {
 		$this->createdBefore = $createdBefore ? new \DateTime($createdBefore) : null;
 		
 		
-		
-		$publishedBy = $request->get($this->getFilterName() . 'published_by', array());
-		$this->publishedBy = $this->userRepository->findBy(array('id' => $publishedBy));
 		
 		$createdBy = $request->get($this->getFilterName() . 'created_by', array());
 		$this->createdBy = $this->userRepository->findBy(array('id' => $createdBy));
@@ -90,14 +80,13 @@ class BaseEntityFilter {
 	public function clearQueryValues() {
 		$this->published = $this::ALL_VALUES;
 		
-		$this->publishedAfter = null;
-		$this->publishedBefore = null;
+		
 		$this->createdAfter = null;
 		$this->createdBefore = null;
 		$this->updatedAfter = null;
 		$this->updatedBefore = null;
 		
-		$this->publishedBy = array();
+		
 		$this->createdBy = array();
 		$this->updatedBy = array();
 		
@@ -126,17 +115,12 @@ class BaseEntityFilter {
 		}
 		
 		
-		$values[$this->getFilterName() . 'publishedAfter'] = $this->publishedAfter ? $this->publishedAfter->format('d-m-Y H:i') : null;
-		$values[$this->getFilterName() . 'publishedBefore'] = $this->publishedBefore ? $this->publishedBefore->format('d-m-Y H:i') : null;
 		$values[$this->getFilterName() . 'updatedAfter'] = $this->updatedAfter ? $this->updatedAfter->format('d-m-Y H:i') : null;
 		$values[$this->getFilterName() . 'updatedBefore'] = $this->updatedBefore ? $this->updatedBefore->format('d-m-Y H:i') : null;
 		$values[$this->getFilterName() . 'createdAfter'] = $this->createdAfter ? $this->createdAfter->format('d-m-Y H:i') : null;
 		$values[$this->getFilterName() . 'createdBefore'] = $this->createdBefore ? $this->createdBefore->format('d-m-Y H:i') : null;
 		
 		
-		if($this->publishedBy) {
-			$values[$this->getFilterName() . 'published_by'] = $this->getIdValues($this->publishedBy);
-		}
 		
 		if($this->createdBy) {
 			$values[$this->getFilterName() . 'created_by'] = $this->getIdValues($this->createdBy);
@@ -223,14 +207,6 @@ class BaseEntityFilter {
 		
 		
 		
-		if($this->publishedAfter != null) {
-			$expressions[] = 'e.publishedAt > \'' . $this->publishedAfter->format('Y-m-d H:i') . '\'';
-		}
-		
-		if($this->publishedBefore != null) {
-			$expressions[] = 'e.publishedAt < \'' . $this->publishedBefore->format('Y-m-d H:i') . '\'';
-		}
-		
 		if($this->updatedAfter != null) {
 			$expressions[] = 'e.updatedAt > \'' . $this->updatedAfter->format('Y-m-d H:i') . '\'';
 		}
@@ -248,11 +224,6 @@ class BaseEntityFilter {
 		}
 		
 		
-		
-		
-		if($this->publishedBy) {
-			$expressions[] = $this->getEqualArrayExpression('e.publishedBy', $this->publishedBy);
-		}
 		
 		if($this->createdBy) {
 			$expressions[] = $this->getEqualArrayExpression('e.createdBy', $this->createdBy);
@@ -378,16 +349,6 @@ class BaseEntityFilter {
 	/**
 	 * @var datetime
 	 */
-	protected $publishedAfter;
-	
-	/**
-	 * @var datetime
-	 */
-	protected $publishedBefore;
-	
-	/**
-	 * @var datetime
-	 */
 	protected $createdAfter;
 	
 	/**
@@ -404,11 +365,6 @@ class BaseEntityFilter {
 	 * @var datetime
 	 */
 	protected $updatedBefore;
-	
-	/**
-	 * @var array
-	 */
-	protected $publishedBy;
 	
 	/**
 	 * @var array
@@ -532,54 +488,6 @@ class BaseEntityFilter {
 	}
 	
 	/**
-	 * Set publishedAfter
-	 *
-	 * @param datetime $publishedAfter
-	 *
-	 * @return SimpleEntityFilter
-	 */
-	public function setPublishedAfter($publishedAfter)
-	{
-		$this->publishedAfter = $publishedAfter;
-	
-		return $this;
-	}
-	
-	/**
-	 * Get publishedAfter
-	 *
-	 * @return datetime
-	 */
-	public function getPublishedAfter()
-	{
-		return $this->publishedAfter;
-	}
-	
-	/**
-	 * Set publishedBefore
-	 *
-	 * @param datetime $publishedBefore
-	 *
-	 * @return SimpleEntityFilter
-	 */
-	public function setPublishedBefore($publishedBefore)
-	{
-		$this->publishedBefore = $publishedBefore;
-	
-		return $this;
-	}
-	
-	/**
-	 * Get publishedBefore
-	 *
-	 * @return datetime
-	 */
-	public function getPublishedBefore()
-	{
-		return $this->publishedBefore;
-	}
-	
-	/**
 	 * Set createdBefore
 	 *
 	 * @param datetime $createdBefore
@@ -673,30 +581,6 @@ class BaseEntityFilter {
 	public function getUpdatedBefore()
 	{
 		return $this->updatedBefore;
-	}
-	
-	/**
-	 * Set publishedBy
-	 *
-	 * @param array $publishedBy
-	 *
-	 * @return ArticleFilter
-	 */
-	public function setPublishedBy($publishedBy)
-	{
-		$this->publishedBy = $publishedBy;
-	
-		return $this;
-	}
-	
-	/**
-	 * Get publishedBy
-	 *
-	 * @return array
-	 */
-	public function getPublishedBy()
-	{
-		return $this->publishedBy;
 	}
 	
 	/**

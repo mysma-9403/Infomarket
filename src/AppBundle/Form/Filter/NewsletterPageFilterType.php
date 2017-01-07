@@ -24,7 +24,6 @@ class NewsletterPageFilterType extends SimpleEntityFilterType
 						return $repository->createQueryBuilder('e')
 						->orderBy('e.published DESC, e.name', 'ASC');
 					},
-					'choice_label' 	=> 'name',
 					'required'		=> false,
 					'expanded'      => false,
 					'multiple'      => true,

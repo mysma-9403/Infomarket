@@ -15,7 +15,7 @@ class ProductCategoryAssignment extends Audit
 	 * @see \AppBundle\Entity\Base\Audit::getDisplayName()
 	 */
 	public function getDisplayName() {
-		return $this->category->getName();
+		return $this->category->getDisplayName();
 	}
 	
     /**

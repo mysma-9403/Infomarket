@@ -4,11 +4,11 @@ namespace AppBundle\Controller\Admin;
 
 use AppBundle\Controller\Admin\Base\SimpleEntityController;
 use AppBundle\Entity\NewsletterPageTemplate;
+use AppBundle\Form\Editor\NewsletterPageTemplateEditorType;
 use AppBundle\Form\Filter\NewsletterPageTemplateFilterType;
-use AppBundle\Form\NewsletterPageTemplateType;
-use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Manager\Entity\Common\NewsletterPageTemplateManager;
 use AppBundle\Manager\Filter\Common\NewsletterPageTemplateFilterManager;
+use Symfony\Component\HttpFoundation\Request;
 
 class NewsletterPageTemplateController extends SimpleEntityController {
 	
@@ -93,9 +93,21 @@ class NewsletterPageTemplateController extends SimpleEntityController {
 	 * 
 	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
 	 */
-	public function setPublishedAction(Request $request, $id)
+	public function setIMPublishedAction(Request $request, $id)
 	{
-		return $this->setPublishedActionInternal($request, $id);
+		return $this->setIMPublishedActionInternal($request, $id);
+	}
+	
+	/**
+	 *
+	 * @param Request $request
+	 * @param integer $id
+	 *
+	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
+	 */
+	public function setIPPublishedAction(Request $request, $id)
+	{
+		return $this->setIPPublishedActionInternal($request, $id);
 	}
 	
 	/**
@@ -151,8 +163,8 @@ class NewsletterPageTemplateController extends SimpleEntityController {
 	 * {@inheritDoc}
 	 * @see \AppBundle\Controller\Admin\Base\SimpleEntityController::getFormType()
 	 */
-	protected function getFormType() {
-		return NewsletterPageTemplateType::class;
+	protected function getEditorFormType() {
+		return NewsletterPageTemplateEditorType::class;
 	}
 	
 	/**

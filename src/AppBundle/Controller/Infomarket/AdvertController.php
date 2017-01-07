@@ -2,12 +2,12 @@
 
 namespace AppBundle\Controller\Infomarket;
 
-use AppBundle\Controller\Base\BaseController;
+use AppBundle\Controller\Base\DummyController;
 use AppBundle\Entity\Advert;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
-class AdvertController extends BaseController
+class AdvertController extends DummyController
 {   
 	//---------------------------------------------------------------------------
 	// Actions

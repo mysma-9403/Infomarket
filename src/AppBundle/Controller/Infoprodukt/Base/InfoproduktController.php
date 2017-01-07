@@ -2,15 +2,15 @@
 
 namespace AppBundle\Controller\Infoprodukt\Base;
 
-use AppBundle\Controller\Base\BaseEntityController;
+use AppBundle\Controller\Base\StandardController;
 use AppBundle\Entity\Advert;
 use AppBundle\Entity\Filter\Base\SimpleEntityFilter;
 use AppBundle\Entity\NewsletterUser;
 use AppBundle\Entity\Page;
 use AppBundle\Entity\User;
-use AppBundle\Form\Filter\Base\SearchFilterType;
+use AppBundle\Form\Editor\NewsletterUserEditorType;
 use AppBundle\Form\Filter\Base\SimpleEntityFilterType;
-use AppBundle\Form\NewsletterUserType;
+use AppBundle\Form\Search\Base\SimpleEntitySearchType;
 use AppBundle\Manager\Filter\Infoprodukt\Base\InfoproduktFilterManager;
 use AppBundle\Manager\Params\Base\AdvertParamsManager;
 use AppBundle\Manager\Params\Base\FooterParamsManager;
@@ -18,7 +18,7 @@ use AppBundle\Manager\Params\Infoprodukt\InfoproduktParamsManager;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
-abstract class InfoproduktController extends BaseEntityController
+abstract class InfoproduktController extends StandardController
 {	
 	//---------------------------------------------------------------------------
 	// Internal actions
@@ -66,7 +66,7 @@ abstract class InfoproduktController extends BaseEntityController
 		
 		$newsletter = new NewsletterUser();
 		
-		$newsletterForm = $this->createForm(NewsletterUserType::class, $newsletter);
+		$newsletterForm = $this->createForm(NewsletterUserEditorType::class, $newsletter);
 		$newsletterForm->handleRequest($request);
 		
 		if ($newsletterForm->isSubmitted() && $newsletterForm->isValid()) {
@@ -108,7 +108,7 @@ abstract class InfoproduktController extends BaseEntityController
 		$searchFilter = new SimpleEntityFilter($userRepository);
 		$searchFilter->initValues($request);
 		
-		$searchFilterForm = $this->createForm(SearchFilterType::class, $searchFilter);
+		$searchFilterForm = $this->createForm(SimpleEntitySearchType::class, $searchFilter);
 		$searchFilterForm->handleRequest($request);
 		
 		if ($searchFilterForm->isSubmitted() && $searchFilterForm->isValid()) {
@@ -122,7 +122,7 @@ abstract class InfoproduktController extends BaseEntityController
 		
 		$newsletter = new NewsletterUser();
 		
-		$newsletterForm = $this->createForm(NewsletterUserType::class, $newsletter);
+		$newsletterForm = $this->createForm(NewsletterUserEditorType::class, $newsletter);
 		$newsletterForm->handleRequest($request);
 		
 		if ($newsletterForm->isSubmitted() && $newsletterForm->isValid()) {

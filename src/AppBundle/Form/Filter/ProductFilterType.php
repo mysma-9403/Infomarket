@@ -6,13 +6,12 @@ use AppBundle\Entity\Brand;
 use AppBundle\Entity\Category;
 use AppBundle\Entity\Filter\ProductFilter;
 use AppBundle\Form\Filter\Base\SimpleEntityFilterType;
+use AppBundle\Repository\BrandRepository;
+use AppBundle\Repository\CategoryRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\FormBuilderInterface;
-use AppBundle\Form\Filter\Base\ImageEntityFilterType;
-use AppBundle\Repository\CategoryRepository;
-use AppBundle\Repository\BrandRepository;
 
-class ProductFilterType extends ImageEntityFilterType
+class ProductFilterType extends SimpleEntityFilterType
 {
 	/**
 	 * 
@@ -27,11 +26,10 @@ class ProductFilterType extends ImageEntityFilterType
 						return $repository->createQueryBuilder('e')
 						->orderBy('e.published DESC, e.name', 'ASC');
 					},
-					'choice_label' 	=> 'name',
 					'required'		=> false,
 					'expanded'      => false,
 					'multiple'      => true,
-					'placeholder'	=> 'Choose category'
+					'placeholder'	=> 'label.choose.category'
 			))
 			->add('brands', EntityType::class, array(
 					'class'			=> Brand::class,
@@ -39,11 +37,10 @@ class ProductFilterType extends ImageEntityFilterType
 						return $repository->createQueryBuilder('e')
 						->orderBy('e.published DESC, e.name', 'ASC');
 					},
-					'choice_label' 	=> 'name',
 					'required'		=> false,
 					'expanded'      => false,
 					'multiple'      => true,
-					'placeholder'	=> 'Choose brand'
+					'placeholder'	=> 'label.choose.brand'
 			))
 		;
 	}

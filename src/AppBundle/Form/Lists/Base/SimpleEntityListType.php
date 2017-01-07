@@ -3,7 +3,7 @@
 namespace AppBundle\Form\Lists\Base;
 
 use AppBundle\Entity\Base\SimpleEntity;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 
 class SimpleEntityListType extends BaseEntityListType
@@ -11,17 +11,17 @@ class SimpleEntityListType extends BaseEntityListType
 	/**
 	 * 
 	 * {@inheritDoc}
-	 * @see \AppBundle\Form\Base\FormType::addMainFields()
+	 * @see \AppBundle\Form\Base\FormType::addActions()
 	 */
-	protected function addMainFields(FormBuilderInterface $builder, array $options) {
+	protected function addActions(FormBuilderInterface $builder, array $options) {
+		parent::addActions($builder, $options);
+		
 		$builder
-			->add('entries', EntityType::class, array(
-					'class'			=> $this->getChoiceType(),
-					'choice_label' 	=> 'name',
-					'choices'		=> $options['choices'],
-					'expanded'      => true,
-					'multiple'      => true
-			));
+		->add('imPublishSelected', SubmitType::class)
+		->add('imUnpublishSelected', SubmitType::class)
+		->add('ipPublishSelected', SubmitType::class)
+		->add('ipUnpublishSelected', SubmitType::class)
+		;
 	}
 	
 	/**

@@ -5,14 +5,14 @@ namespace AppBundle\Form\Filter;
 use AppBundle\Entity\Advert;
 use AppBundle\Entity\Category;
 use AppBundle\Entity\Filter\AdvertCategoryAssignmentFilter;
-use AppBundle\Form\Filter\Base\FilterFormType;
+use AppBundle\Form\Filter\Base\BaseEntityFilterType;
 use AppBundle\Form\Filter\Base\SimpleEntityFilterType;
 use AppBundle\Repository\AdvertRepository;
 use AppBundle\Repository\CategoryRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\FormBuilderInterface;
 
-class AdvertCategoryAssignmentFilterType extends FilterFormType
+class AdvertCategoryAssignmentFilterType extends BaseEntityFilterType
 {	
 	/**
 	 * 
@@ -28,7 +28,6 @@ class AdvertCategoryAssignmentFilterType extends FilterFormType
 					return $repository->createQueryBuilder('e')
 					->orderBy('e.published DESC, e.name', 'ASC');
 				},
-				'choice_label' 	=> 'name',
 				'required'		=> false,
 				'expanded'      => false,
 				'multiple'      => true,
@@ -40,7 +39,6 @@ class AdvertCategoryAssignmentFilterType extends FilterFormType
 					return $repository->createQueryBuilder('e')
 					->orderBy('e.published DESC, e.name', 'ASC');
 				},
-				'choice_label' 	=> 'name',
 				'required'		=> false,
 				'expanded'      => false,
 				'multiple'      => true,

@@ -3,3 +3,17 @@
 {% set mainPath = 'page' %}
 {% set title = 'title.pages'|trans %}
 {% set gender = 'fm.' %}
+
+{% block moreFields2 %}
+	<div class="row">
+		<div class="col-xs-12">
+			<h4>{{ entry.subname | raw }}</h4>
+		</div>
+	</div>
+{% endblock %}
+
+{% block moreFields3 %}
+	<div class="lowered-25"></div>
+	{% include 'common/fields/text_field.html.twig' with 
+		{ 'label': 'label.orderNumber'|trans, 'value': entry.orderNumber } %}
+{% endblock %}

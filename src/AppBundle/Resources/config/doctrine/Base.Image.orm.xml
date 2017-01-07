@@ -6,7 +6,7 @@
         http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
 
     <mapped-superclass name="AppBundle\Entity\Base\Image">
-
+        
         <field name="mimeType" column="mime" type="string" nullable="true">
             <gedmo:uploadable-file-mime-type />
         </field>
@@ -28,7 +28,7 @@
             append-number="true"
             path-method="getUploadPath"
             file-generator="alphanumeric"/>
-
+        
     </mapped-superclass>
-
+    
 </doctrine-mapping>

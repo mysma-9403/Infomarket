@@ -6,9 +6,9 @@ use AppBundle\Entity\Category;
 use AppBundle\Entity\Filter\TermCategoryAssignmentFilter;
 use AppBundle\Entity\Term;
 use AppBundle\Entity\User;
-use AppBundle\Manager\Filter\Base\BaseFilterManager;
+use AppBundle\Manager\Filter\Base\BaseEntityFilterManager;
 
-class TermCategoryAssignmentFilterManager extends BaseFilterManager {
+class TermCategoryAssignmentFilterManager extends BaseEntityFilterManager {
 	
 	protected function create() {
 		$userRepository = $this->doctrine->getRepository(User::class);

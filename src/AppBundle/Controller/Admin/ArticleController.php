@@ -5,14 +5,14 @@ namespace AppBundle\Controller\Admin;
 use AppBundle\Controller\Admin\Base\ImageEntityController;
 use AppBundle\Controller\Admin\Base\SimpleEntityController;
 use AppBundle\Entity\Article;
-use AppBundle\Form\ArticleType;
+use AppBundle\Form\Editor\ArticleEditorType;
 use AppBundle\Form\Filter\ArticleFilterType;
-use AppBundle\Manager\Entity\Common\ArticleManager;
-use AppBundle\Manager\Filter\Common\ArticleFilterManager;
-use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Manager\Entity\Base\EntityManager;
+use AppBundle\Manager\Entity\Common\ArticleManager;
 use AppBundle\Manager\Filter\Base\FilterManager;
+use AppBundle\Manager\Filter\Common\ArticleFilterManager;
 use AppBundle\Manager\Params\EntryParams\Common\ArticleEntryParamsManager;
+use Symfony\Component\HttpFoundation\Request;
 
 class ArticleController extends ImageEntityController {
 	
@@ -97,9 +97,21 @@ class ArticleController extends ImageEntityController {
 	 * 
 	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
 	 */
-	public function setPublishedAction(Request $request, $id)
+	public function setIMPublishedAction(Request $request, $id)
 	{
-		return $this->setPublishedActionInternal($request, $id);
+		return $this->setIMPublishedActionInternal($request, $id);
+	}
+	
+	/**
+	 *
+	 * @param Request $request
+	 * @param integer $id
+	 *
+	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
+	 */
+	public function setIPPublishedAction(Request $request, $id)
+	{
+		return $this->setIPPublishedActionInternal($request, $id);
 	}
 	
 	/**
@@ -239,8 +251,8 @@ class ArticleController extends ImageEntityController {
 	 * {@inheritDoc}
 	 * @see \AppBundle\Controller\Admin\Base\SimpleEntityController::getFormType()
 	 */
-	protected function getFormType() {
-		return ArticleType::class;
+	protected function getEditorFormType() {
+		return ArticleEditorType::class;
 	}
 	
 	/**

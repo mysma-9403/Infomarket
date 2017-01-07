@@ -5,11 +5,11 @@ namespace AppBundle\Controller\Admin;
 use AppBundle\Controller\Admin\Base\ImageEntityController;
 use AppBundle\Controller\Admin\Base\SimpleEntityController;
 use AppBundle\Entity\Product;
+use AppBundle\Form\Editor\ProductEditorType;
 use AppBundle\Form\Filter\ProductFilterType;
-use AppBundle\Form\ProductType;
-use Symfony\Component\HttpFoundation\Request;
-use AppBundle\Manager\Filter\Common\ProductFilterManager;
 use AppBundle\Manager\Entity\Common\ProductManager;
+use AppBundle\Manager\Filter\Common\ProductFilterManager;
+use Symfony\Component\HttpFoundation\Request;
 
 class ProductController extends ImageEntityController {
 	
@@ -95,9 +95,21 @@ class ProductController extends ImageEntityController {
 	 *
 	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
 	 */
-	public function setPublishedAction(Request $request, $id)
+	public function setIMPublishedAction(Request $request, $id)
 	{
-		return $this->setPublishedActionInternal($request, $id);
+		return $this->setIMPublishedActionInternal($request, $id);
+	}
+	
+	/**
+	 *
+	 * @param Request $request
+	 * @param integer $id
+	 *
+	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
+	 */
+	public function setIPPublishedAction(Request $request, $id)
+	{
+		return $this->setIPPublishedActionInternal($request, $id);
 	}
 	
 	/**
@@ -239,8 +251,8 @@ class ProductController extends ImageEntityController {
 	 * {@inheritDoc}
 	 * @see \AppBundle\Controller\Admin\Base\SimpleEntityController::getFormType()
 	 */
-	protected function getFormType() {
-		return ProductType::class;
+	protected function getEditorFormType() {
+		return ProductEditorType::class;
 	}
 	
 	/**

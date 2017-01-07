@@ -3,20 +3,19 @@
 namespace AppBundle\Form\Filter;
 
 use AppBundle\Entity\ArticleCategory;
+use AppBundle\Entity\Brand;
 use AppBundle\Entity\Category;
 use AppBundle\Entity\Filter\ArticleFilter;
 use AppBundle\Entity\Filter\Base\SimpleEntityFilter;
-use AppBundle\Form\Filter\Base\ImageEntityFilterType;
 use AppBundle\Form\Filter\Base\SimpleEntityFilterType;
 use AppBundle\Repository\ArticleCategoryRepository;
+use AppBundle\Repository\BrandRepository;
 use AppBundle\Repository\CategoryRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
-use AppBundle\Entity\Brand;
-use AppBundle\Repository\BrandRepository;
 
-class ArticleFilterType extends ImageEntityFilterType
+class ArticleFilterType extends SimpleEntityFilterType
 {	
 	/**
 	 * 

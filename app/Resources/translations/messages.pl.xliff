@@ -409,6 +409,10 @@
                 <source>label.tag</source>
                 <target>Tag</target>
             </trans-unit>
+            <trans-unit id="label.term">
+                <source>label.term</source>
+                <target>Pojęcie</target>
+            </trans-unit>
             
             
             <trans-unit id="label.mainCategory.brands">
@@ -1030,9 +1034,21 @@
                 <source>label.choose.segment</source>
                 <target>Wybierz segment</target>
             </trans-unit>
+            <trans-unit id="label.choose.page">
+                <source>label.choose.page</source>
+                <target>Wybierz stronę</target>
+            </trans-unit>
+            <trans-unit id="label.choose.pageCategory">
+                <source>label.choose.pageCategory</source>
+                <target>Wybierz kategorię strony</target>
+            </trans-unit>
             <trans-unit id="label.choose.product">
                 <source>label.choose.product</source>
                 <target>Wybierz produkt</target>
+            </trans-unit>
+            <trans-unit id="label.choose.term">
+                <source>label.choose.term</source>
+                <target>Wybierz pojęcie</target>
             </trans-unit>
             <trans-unit id="label.choose.tag">
                 <source>label.choose.tag</source>
@@ -1198,13 +1214,21 @@
                 <source>action.deleteSelected</source>
                 <target>Usuń zaznaczone</target>
             </trans-unit>
-            <trans-unit id="action.publishSelected">
-                <source>action.publishSelected</source>
-                <target>Publikuj zaznaczone</target>
+            <trans-unit id="action.imPublishSelected">
+                <source>action.imPublishSelected</source>
+                <target>Publikuj zaznaczone (IM)</target>
             </trans-unit>
-            <trans-unit id="action.unpublishSelected">
-                <source>action.unpublishSelected</source>
-                <target>Nie publikuj zaznaczonych</target>
+            <trans-unit id="action.imUnpublishSelected">
+                <source>action.imUnpublishSelected</source>
+                <target>Nie publikuj zaznaczonych (IM)</target>
+            </trans-unit>
+            <trans-unit id="action.ipPublishSelected">
+                <source>action.ipPublishSelected</source>
+                <target>Publikuj zaznaczone (IP)</target>
+            </trans-unit>
+            <trans-unit id="action.ipUnpublishSelected">
+                <source>action.ipUnpublishSelected</source>
+                <target>Nie publikuj zaznaczonych (IP)</target>
             </trans-unit>
             
             
@@ -1448,6 +1472,23 @@
             <trans-unit id="error.importRatings.product.sameCategory">
                 <source>error.importRatings.product.sameCategory</source>
                 <target>Produkt "%brandName% %productName%" jest przypisany do kategorii "%categoryName% %categorySubname%" więcej niż raz.</target>
+            </trans-unit>
+            
+            
+            
+            
+            <trans-unit id="knp.label.next">
+                <source>Next</source>
+                <target>Następny</target>
+            </trans-unit>
+            <trans-unit id="knp.label.previous">
+                <source>Previous</source>
+                <target>Poprzedni</target>
+            </trans-unit>
+            
+            <trans-unit id="form.label.entries">
+                <source>Entries</source>
+                <target>Brak wpisów</target>
             </trans-unit>
             
         </body>

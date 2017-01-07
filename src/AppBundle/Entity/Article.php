@@ -25,7 +25,14 @@ class Article extends ImageEntity
 	 * @see \AppBundle\Entity\Base\Image::getDisplayName()
 	 */
 	public function getDisplayName() {
-		return $this->name . ' ' . $this->subname;
+		$result = parent::getDisplayName();
+		if($this->subname) {
+			if($result == '<empty>')
+				$result = $this->subname;
+			else 
+				$result .= ' ' . $this->subname;
+		}
+		return $result;
 	}
 	
 	/**

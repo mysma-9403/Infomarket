@@ -12,8 +12,9 @@
         
         <field name="www" type="string" length="256" nullable="true" />
         
-        <one-to-many field="articleBrandAssignments" target-entity="ArticleBrandAssignment" mapped-by="brand">
-        </one-to-many>
+        <one-to-many field="products" target-entity="Product" mapped-by="brand" />
+        
+        <one-to-many field="articleBrandAssignments" target-entity="ArticleBrandAssignment" mapped-by="brand" />
         
         <one-to-many field="brandCategoryAssignments" target-entity="BrandCategoryAssignment" mapped-by="brand">
             <order-by>

@@ -6,12 +6,12 @@ use AppBundle\Entity\ArticleCategory;
 use AppBundle\Entity\Brand;
 use AppBundle\Entity\Category;
 use AppBundle\Entity\Filter\ArticleFilter;
+use AppBundle\Entity\Filter\Base\BaseEntityFilter;
 use AppBundle\Entity\Tag;
 use AppBundle\Entity\User;
-use AppBundle\Manager\Filter\Base\BaseFilterManager;
-use AppBundle\Entity\Filter\Base\BaseEntityFilter;
+use AppBundle\Manager\Filter\Base\BaseEntityFilterManager;
 
-class ArticleFilterManager extends BaseFilterManager {
+class ArticleFilterManager extends BaseEntityFilterManager {
 	
 	public function adaptToView(BaseEntityFilter $filter, array $params) {
 		/** @var ArticleFilter $filter */

@@ -18,7 +18,11 @@
 	</a>
 	
 	{% include 'common/fields/bool_action_field.html.twig' with 
-		{ 'id': entry.id, 'value': entry.published, 'extPath': '_set_published',
+		{ 'id': entry.id, 'value': entry.infomarket, 'extPath': '_set_im_published',
+			'trueTooltip': 'label.published'|trans, 'falseTooltip': 'label.unpublished'|trans } %}
+			
+	{% include 'common/fields/bool_action_field.html.twig' with 
+		{ 'id': entry.id, 'value': entry.infoprodukt, 'extPath': '_set_ip_published',
 			'trueTooltip': 'label.published'|trans, 'falseTooltip': 'label.unpublished'|trans } %}
 	
 	{% include 'common/fields/bool_action_field.html.twig' with 

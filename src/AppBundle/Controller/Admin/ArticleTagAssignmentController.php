@@ -2,15 +2,15 @@
 
 namespace AppBundle\Controller\Admin;
 
-use AppBundle\Controller\Admin\Base\AdminEntityController;
+use AppBundle\Controller\Admin\Base\BaseEntityController;
 use AppBundle\Entity\ArticleTagAssignment;
-use AppBundle\Form\ArticleTagAssignmentType;
+use AppBundle\Form\Editor\ArticleTagAssignmentEditorType;
 use AppBundle\Form\Filter\ArticleTagAssignmentFilterType;
 use AppBundle\Manager\Entity\Common\ArticleTagAssignmentManager;
 use AppBundle\Manager\Filter\Common\ArticleTagAssignmentFilterManager;
 use Symfony\Component\HttpFoundation\Request;
 
-class ArticleTagAssignmentController extends AdminEntityController {
+class ArticleTagAssignmentController extends BaseEntityController {
 	
 	//---------------------------------------------------------------------------
 	// Actions
@@ -87,18 +87,6 @@ class ArticleTagAssignmentController extends AdminEntityController {
 		return $this->deleteActionInternal($request, $id);
 	}
 	
-	/**
-	 *
-	 * @param Request $request
-	 * @param integer $id
-	 *
-	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
-	 */
-	public function setPublishedAction(Request $request, $id)
-	{
-		return $this->setPublishedActionInternal($request, $id);
-	}
-	
 	//---------------------------------------------------------------------------
 	// Managers
 	//---------------------------------------------------------------------------
@@ -146,8 +134,8 @@ class ArticleTagAssignmentController extends AdminEntityController {
 	 * {@inheritDoc}
 	 * @see \AppBundle\Controller\Admin\Base\AdminEntityController::getFormType()
 	 */
-	protected function getFormType() {
-		return ArticleTagAssignmentType::class;
+	protected function getEditorFormType() {
+		return ArticleTagAssignmentEditorType::class;
 	}
 	
 	/**

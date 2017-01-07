@@ -8,7 +8,7 @@
         table="products"
         repository-class="AppBundle\Repository\ProductRepository">
         
-        <many-to-one field="brand" target-entity="Brand" nullable="false" />
+        <many-to-one field="brand" target-entity="Brand" inversed-by="products" nullable="false" />
         
         <field name="price" type="decimal" precision="10" scale="2" nullable="true" />
         <field name="guarantee" type="integer" nullable="true" />

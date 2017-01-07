@@ -5,7 +5,7 @@ namespace AppBundle\Controller\Admin;
 use AppBundle\Controller\Admin\Base\ImageEntityController;
 use AppBundle\Controller\Admin\Base\SimpleEntityController;
 use AppBundle\Entity\Brand;
-use AppBundle\Form\BrandType;
+use AppBundle\Form\Editor\BrandEditorType;
 use AppBundle\Form\Filter\BrandFilterType;
 use AppBundle\Manager\Entity\Common\BrandManager;
 use AppBundle\Manager\Filter\Common\BrandFilterManager;
@@ -89,15 +89,27 @@ class BrandController extends ImageEntityController {
 	}
 	
 	/**
+	 * 
+	 * @param Request $request
+	 * @param integer $id
+	 * 
+	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
+	 */
+	public function setIMPublishedAction(Request $request, $id)
+	{
+		return $this->setIMPublishedActionInternal($request, $id);
+	}
+	
+	/**
 	 *
 	 * @param Request $request
 	 * @param integer $id
 	 *
 	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
 	 */
-	public function setPublishedAction(Request $request, $id)
+	public function setIPPublishedAction(Request $request, $id)
 	{
-		return $this->setPublishedActionInternal($request, $id);
+		return $this->setIPPublishedActionInternal($request, $id);
 	}
 	
 	/**
@@ -168,8 +180,8 @@ class BrandController extends ImageEntityController {
 	 * {@inheritDoc}
 	 * @see \AppBundle\Controller\Admin\Base\SimpleEntityController::getFormType()
 	 */
-	protected function getFormType() {
-		return BrandType::class;
+	protected function getEditorFormType() {
+		return BrandEditorType::class;
 	}
 	
 	/**

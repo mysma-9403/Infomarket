@@ -5,14 +5,14 @@ namespace AppBundle\Form\Filter;
 use AppBundle\Entity\Branch;
 use AppBundle\Entity\Category;
 use AppBundle\Entity\Filter\BranchCategoryAssignmentFilter;
-use AppBundle\Form\Filter\Base\FilterFormType;
+use AppBundle\Form\Filter\Base\BaseEntityFilterType;
 use AppBundle\Form\Filter\Base\SimpleEntityFilterType;
 use AppBundle\Repository\BranchRepository;
 use AppBundle\Repository\CategoryRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\FormBuilderInterface;
 
-class BranchCategoryAssignmentFilterType extends FilterFormType
+class BranchCategoryAssignmentFilterType extends BaseEntityFilterType
 {	
 	/**
 	 * 
@@ -28,11 +28,10 @@ class BranchCategoryAssignmentFilterType extends FilterFormType
 					return $repository->createQueryBuilder('e')
 					->orderBy('e.published DESC, e.name', 'ASC');
 				},
-				'choice_label' 	=> 'name',
 				'required'		=> false,
 				'expanded'      => false,
 				'multiple'      => true,
-				'placeholder'	=> 'Choose branch'
+				'placeholder'	=> 'label.choose.branch'
 		))
 		->add('categories', EntityType::class, array(
 				'class'			=> Category::class,
@@ -40,11 +39,10 @@ class BranchCategoryAssignmentFilterType extends FilterFormType
 					return $repository->createQueryBuilder('e')
 					->orderBy('e.published DESC, e.name', 'ASC');
 				},
-				'choice_label' 	=> 'name',
 				'required'		=> false,
 				'expanded'      => false,
 				'multiple'      => true,
-				'placeholder'	=> 'Choose category'
+				'placeholder'	=> 'label.choose.category'
 		))
 		;
 	}

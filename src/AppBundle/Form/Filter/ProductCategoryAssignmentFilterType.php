@@ -6,7 +6,7 @@ use AppBundle\Entity\Category;
 use AppBundle\Entity\Filter\ProductCategoryAssignmentFilter;
 use AppBundle\Entity\Product;
 use AppBundle\Entity\Segment;
-use AppBundle\Form\Filter\Base\FilterFormType;
+use AppBundle\Form\Filter\Base\BaseEntityFilterType;
 use AppBundle\Form\Filter\Base\SimpleEntityFilterType;
 use AppBundle\Repository\CategoryRepository;
 use AppBundle\Repository\ProductRepository;
@@ -14,7 +14,7 @@ use AppBundle\Repository\SegmentRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\FormBuilderInterface;
 
-class ProductCategoryAssignmentFilterType extends FilterFormType
+class ProductCategoryAssignmentFilterType extends BaseEntityFilterType
 {	
 	/**
 	 * 
@@ -30,11 +30,10 @@ class ProductCategoryAssignmentFilterType extends FilterFormType
 					return $repository->createQueryBuilder('e')
 					->orderBy('e.published DESC, e.name', 'ASC');
 				},
-				'choice_label' 	=> 'name',
 				'required'		=> false,
 				'expanded'      => false,
 				'multiple'      => true,
-				'placeholder'	=> 'Choose product'
+				'placeholder'	=> 'label.choose.product'
 		))
 		->add('segments', EntityType::class, array(
 				'class'			=> Segment::class,
@@ -42,11 +41,10 @@ class ProductCategoryAssignmentFilterType extends FilterFormType
 				return $repository->createQueryBuilder('e')
 				->orderBy('e.published DESC, e.name', 'ASC');
 				},
-				'choice_label' 	=> 'name',
 				'required'		=> false,
 				'expanded'      => false,
 				'multiple'      => true,
-				'placeholder'	=> 'Choose segment'
+				'placeholder'	=> 'label.choose.segment'
 		))
 		->add('categories', EntityType::class, array(
 				'class'			=> Category::class,
@@ -54,11 +52,10 @@ class ProductCategoryAssignmentFilterType extends FilterFormType
 					return $repository->createQueryBuilder('e')
 					->orderBy('e.published DESC, e.name', 'ASC');
 				},
-				'choice_label' 	=> 'name',
 				'required'		=> false,
 				'expanded'      => false,
 				'multiple'      => true,
-				'placeholder'	=> 'Choose category'
+				'placeholder'	=> 'label.choose.category'
 		))
 		;
 	}

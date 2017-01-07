@@ -4,7 +4,7 @@ namespace AppBundle\Controller\Admin;
 
 use AppBundle\Controller\Admin\Base\SimpleEntityController;
 use AppBundle\Entity\Term;
-use AppBundle\Form\TermType;
+use AppBundle\Form\Editor\TermEditorType;
 use AppBundle\Manager\Entity\Common\TermManager;
 use AppBundle\Manager\Filter\Common\TermFilterManager;
 use Symfony\Component\HttpFoundation\Request;
@@ -87,15 +87,27 @@ class TermController extends SimpleEntityController {
 	}
 	
 	/**
+	 * 
+	 * @param Request $request
+	 * @param integer $id
+	 * 
+	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
+	 */
+	public function setIMPublishedAction(Request $request, $id)
+	{
+		return $this->setIMPublishedActionInternal($request, $id);
+	}
+	
+	/**
 	 *
 	 * @param Request $request
 	 * @param integer $id
 	 *
 	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
 	 */
-	public function setPublishedAction(Request $request, $id)
+	public function setIPPublishedAction(Request $request, $id)
 	{
-		return $this->setPublishedActionInternal($request, $id);
+		return $this->setIPPublishedActionInternal($request, $id);
 	}
 	
 	/**
@@ -146,7 +158,7 @@ class TermController extends SimpleEntityController {
 	 * {@inheritDoc}
 	 * @see \AppBundle\Controller\Admin\Base\SimpleEntityController::getFormType()
 	 */
-	protected function getFormType() {
-		return TermType::class;
+	protected function getEditorFormType() {
+		return TermEditorType::class;
 	}
 }

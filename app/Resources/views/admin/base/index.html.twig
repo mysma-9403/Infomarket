@@ -4,27 +4,8 @@
 
 
 {# Filter section #}
-{% block filterMainFields2 %}
-	<li class="col-xs-12 col-sm-6 col-md-4 col-lg-2">
-		{{ form_widget(filter.published, { 'label': 'label.published' }) }}
-	</li>
-{% endblock %}
-
 {% block filterMainFields3 %}
-	<li class="col-xs-12 col-sm-6 col-md-4 col-lg-2">
-		<div class='input-group date' id='datetimepicker1'>
-			{{ form_widget(filter.publishedAfter) }}
-			<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-	    </div>
-    </li>
-    
-    <li class="col-xs-12 col-sm-6 col-md-4 col-lg-2">
-		<div class='input-group date' id='datetimepicker2'>
-			{{ form_widget(filter.publishedBefore) }}
-			<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-	    </div>
-    </li>
-    
+
     {% set hidden = "hidden" %}
     {% if is_granted('ROLE_ADMIN') %}
     	{% set hidden = "" %}
@@ -57,11 +38,6 @@
 			<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 	    </div>
     </li>
-    
-    
-    <li class="col-xs-12 col-sm-6 col-md-4 col-lg-2">
-		{{ form_widget(filter.publishedBy, { 'label': 'label.publishedBy' }) }}
-	</li>
 	
 	<li class="col-xs-12 col-sm-6 col-md-4 col-lg-2">
 		{{ form_widget(filter.updatedBy, { 'label': 'label.updatedBy' }) }}
@@ -70,7 +46,6 @@
 	<li class="col-xs-12 col-sm-6 col-md-4 col-lg-2">
 		{{ form_widget(filter.createdBy, { 'label': 'label.createdBy' }) }}
 	</li>
-    
     
     <script type="text/javascript">
 		$(function () {
@@ -91,15 +66,8 @@
 	    	
 
 
-{# Header section #}
-{% block headerMainFields2 %}
-	<th><i class="fa fa-check"></i> {{ 'label.published'|trans }}</th>
-{% endblock %}
-	
+{# Header section #}	
 {% block headerMainFields3 %}
-	<th><i class="fa fa-calendar-check-o"></i> {{ 'label.publishedAt'|trans }}</th>
-	<th><i class="fa fa-user"></i> {{ 'label.publishedBy'|trans }}</th>
-	
 	{% if is_granted('ROLE_ADMIN') %}
 		<th><i class="fa fa-calendar-o"></i> {{ 'label.updatedAt'|trans }}</th>
 		<th><i class="fa fa-user"></i> {{ 'label.updatedBy'|trans }}</th>
@@ -109,8 +77,7 @@
 	
 	<th><i class="fa fa-play"></i> {{ 'label.actions'|trans }}</th>
 {% endblock %}
-		
-		
+
 {% block headerActions %}
 	{% set hidden="hidden" %}
 	{% if is_granted('ROLE_EDITOR') %}
@@ -124,12 +91,6 @@
 		<div class="btn-group {{ hidden }}">
 			{{ form_widget(form.selectAll, { 'icon': 'fa-check-square-o', 'label': 'action.selectAll', 'attr': {'class': 'btn btn-primary', 'type': 'button'} }) }}
 			{{ form_widget(form.selectNone, { 'icon': 'fa-square-o', 'label': 'action.selectNone', 'attr': {'class': 'btn btn-primary', 'type': 'button'} }) }}
-		</div>
-	</li>
-	<li>
-		<div class="btn-group {{ hidden }}">
-			{{ form_widget(form.publishSelected, { 'icon': 'fa-check-square-o', 'label': 'action.publishSelected', 'attr': {'class': 'btn btn-primary', 'type': 'button'} }) }}
-			{{ form_widget(form.unpublishSelected, { 'icon': 'fa-square-o', 'label': 'action.unpublishSelected', 'attr': {'class': 'btn btn-primary', 'type': 'button'} }) }}
 		</div>
 	</li>
 	
@@ -153,24 +114,7 @@
 
 
 {# Entry section #}
-{% block entryMainFields2 %}
-	<td>
-		{% include 'common/fields/bool_action_field.html.twig' with 
-			{ 'id': item.id, 'value': item.published, 'extPath': '_set_published',
-				'trueTooltip': 'label.published'|trans, 'falseTooltip': 'label.unpublished'|trans } %}
-	</td>
-{% endblock %}
-
 {% block entryMainFields3 %}	
-	<td>
-		{% if item.publishedAt > date("01-01-1900") %}
-    		{{ item.publishedAt|date('d.m.Y H:i:s') }}
-		{% endif %}
-	</td>
-	<td>
-		{% include 'common/links/user_link.html.twig' with { value: item.publishedBy } %}
-	</td>
-	
 	{% if is_granted('ROLE_ADMIN') %}
 		<td>
 			{% if item.updatedAt > date("01-01-1900") %}

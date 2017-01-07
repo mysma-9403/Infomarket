@@ -1,4 +1,4 @@
-{% extends 'admin/simple/index.html.twig' %}
+{% extends 'admin/base/index.html.twig' %}
 
 {% set mainPath = 'user' %}
 {% set title = 'title.users'|trans %}
@@ -45,6 +45,7 @@
 		
 		
 {% block headerActions %}
+	{#TODO override from base, make hook / variable for delete role #}
 	{% set hidden="hidden" %}
 	{% if is_granted('ROLE_SUPER_ADMIN') %}
 		{% set hidden="" %}
@@ -57,12 +58,6 @@
 		<div class="btn-group {{ hidden }}">
 			{{ form_widget(form.selectAll, { 'icon': 'fa-check-square-o', 'label': 'action.selectAll', 'attr': {'class': 'btn btn-primary', 'type': 'button'} }) }}
 			{{ form_widget(form.selectNone, { 'icon': 'fa-square-o', 'label': 'action.selectNone', 'attr': {'class': 'btn btn-primary', 'type': 'button'} }) }}
-		</div>
-	</li>
-	<li>
-		<div class="btn-group hidden">
-			{{ form_widget(form.publishSelected, { 'icon': 'fa-check-square-o', 'label': 'action.publishSelected', 'attr': {'class': 'btn btn-primary', 'type': 'button'} }) }}
-			{{ form_widget(form.unpublishSelected, { 'icon': 'fa-square-o', 'label': 'action.unpublishSelected', 'attr': {'class': 'btn btn-primary', 'type': 'button'} }) }}
 		</div>
 	</li>
 		

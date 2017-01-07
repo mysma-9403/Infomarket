@@ -6,9 +6,9 @@ use AppBundle\Entity\Branch;
 use AppBundle\Entity\Category;
 use AppBundle\Entity\Filter\BranchCategoryAssignmentFilter;
 use AppBundle\Entity\User;
-use AppBundle\Manager\Filter\Base\BaseFilterManager;
+use AppBundle\Manager\Filter\Base\BaseEntityFilterManager;
 
-class BranchCategoryAssignmentFilterManager extends BaseFilterManager {
+class BranchCategoryAssignmentFilterManager extends BaseEntityFilterManager {
 	
 	protected function create() {
 		$userRepository = $this->doctrine->getRepository(User::class);

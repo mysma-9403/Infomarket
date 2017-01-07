@@ -143,18 +143,6 @@ class MagazineFilter extends SimpleEntityFilter {
 	private $featured;
 	
 	/**
-	 *
-	 * @var
-	 */
-	private $infomarket;
-	
-	/**
-	 *
-	 * @var
-	 */
-	private $infoprodukt;
-	
-	/**
 	 * Set categories
 	 *
 	 * @param array $categories
@@ -200,53 +188,5 @@ class MagazineFilter extends SimpleEntityFilter {
 	public function getFeatured()
 	{
 		return $this->featured;
-	}
-	
-	/**
-	 * Set infomarket
-	 *
-	 * @param boolean $infomarket
-	 *
-	 * @return SimpleEntityFilter
-	 */
-	public function setInfomarket($infomarket)
-	{
-		$this->infomarket = $infomarket;
-	
-		return $this;
-	}
-	
-	/**
-	 * Get infomarket
-	 *
-	 * @return boolean
-	 */
-	public function getInfomarket()
-	{
-		return $this->infomarket;
-	}
-	
-	/**
-	 * Set infoprodukt
-	 *
-	 * @param boolean $infoprodukt
-	 *
-	 * @return SimpleEntityFilter
-	 */
-	public function setInfoprodukt($infoprodukt)
-	{
-		$this->infoprodukt = $infoprodukt;
-	
-		return $this;
-	}
-	
-	/**
-	 * Get infoprodukt
-	 *
-	 * @return boolean
-	 */
-	public function getInfoprodukt()
-	{
-		return $this->infoprodukt;
 	}
 }

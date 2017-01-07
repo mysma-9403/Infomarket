@@ -6,9 +6,9 @@ use AppBundle\Entity\Filter\Base\BaseEntityFilter;
 use AppBundle\Entity\Filter\NewsletterPageFilter;
 use AppBundle\Entity\NewsletterPageTemplate;
 use AppBundle\Entity\User;
-use AppBundle\Manager\Filter\Base\BaseFilterManager;
+use AppBundle\Manager\Filter\Base\BaseEntityFilterManager;
 
-class NewsletterPageFilterManager extends BaseFilterManager {
+class NewsletterPageFilterManager extends BaseEntityFilterManager {
 	
 	public function adaptToView(BaseEntityFilter $filter, array $params) {
 		/** @var NewsletterPageFilter $filter */

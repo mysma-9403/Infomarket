@@ -4,12 +4,11 @@ namespace AppBundle\Form\Filter;
 
 use AppBundle\Entity\Filter\Base\SimpleEntityFilter;
 use AppBundle\Entity\Filter\MagazineFilter;
-use AppBundle\Form\Filter\Base\ImageEntityFilterType;
 use AppBundle\Form\Filter\Base\SimpleEntityFilterType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 
-class MagazineFilterType extends ImageEntityFilterType
+class MagazineFilterType extends SimpleEntityFilterType
 {	
 	protected function addMoreFields(FormBuilderInterface $builder, array $options) {
 	

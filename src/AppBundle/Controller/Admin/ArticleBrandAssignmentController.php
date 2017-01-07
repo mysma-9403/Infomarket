@@ -2,15 +2,15 @@
 
 namespace AppBundle\Controller\Admin;
 
-use AppBundle\Controller\Admin\Base\AdminEntityController;
+use AppBundle\Controller\Admin\Base\BaseEntityController;
 use AppBundle\Entity\ArticleBrandAssignment;
-use AppBundle\Form\ArticleBrandAssignmentType;
+use AppBundle\Form\Editor\ArticleBrandAssignmentEditorType;
 use AppBundle\Form\Filter\ArticleBrandAssignmentFilterType;
 use AppBundle\Manager\Entity\Common\ArticleBrandAssignmentManager;
 use AppBundle\Manager\Filter\Common\ArticleBrandAssignmentFilterManager;
 use Symfony\Component\HttpFoundation\Request;
 
-class ArticleBrandAssignmentController extends AdminEntityController {
+class ArticleBrandAssignmentController extends BaseEntityController {
 	
 	//---------------------------------------------------------------------------
 	// Actions
@@ -87,18 +87,6 @@ class ArticleBrandAssignmentController extends AdminEntityController {
 		return $this->deleteActionInternal($request, $id);
 	}
 	
-	/**
-	 *
-	 * @param Request $request
-	 * @param integer $id
-	 *
-	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
-	 */
-	public function setPublishedAction(Request $request, $id)
-	{
-		return $this->setPublishedActionInternal($request, $id);
-	}
-	
 	//---------------------------------------------------------------------------
 	// Managers
 	//---------------------------------------------------------------------------
@@ -146,8 +134,8 @@ class ArticleBrandAssignmentController extends AdminEntityController {
 	 * {@inheritDoc}
 	 * @see \AppBundle\Controller\Admin\Base\AdminEntityController::getFormType()
 	 */
-	protected function getFormType() {
-		return ArticleBrandAssignmentType::class;
+	protected function getEditorFormType() {
+		return ArticleBrandAssignmentEditorType::class;
 	}
 	
 	/**

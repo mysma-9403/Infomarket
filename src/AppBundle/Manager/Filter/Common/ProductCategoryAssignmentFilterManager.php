@@ -2,14 +2,14 @@
 
 namespace AppBundle\Manager\Filter\Common;
 
-use AppBundle\Entity\Product;
 use AppBundle\Entity\Category;
 use AppBundle\Entity\Filter\ProductCategoryAssignmentFilter;
-use AppBundle\Entity\User;
-use AppBundle\Manager\Filter\Base\BaseFilterManager;
+use AppBundle\Entity\Product;
 use AppBundle\Entity\Segment;
+use AppBundle\Entity\User;
+use AppBundle\Manager\Filter\Base\BaseEntityFilterManager;
 
-class ProductCategoryAssignmentFilterManager extends BaseFilterManager {
+class ProductCategoryAssignmentFilterManager extends BaseEntityFilterManager {
 	
 	protected function create() {
 		$userRepository = $this->doctrine->getRepository(User::class);

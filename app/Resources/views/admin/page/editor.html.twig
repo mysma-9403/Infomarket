@@ -5,6 +5,11 @@
 {% set gender = 'fm.' %}
 
 {% block moreFields2 %}
-	{{ form_row(form.featured, { 'label': 'label.featured' }) }}	
-    {{ form_row(form.content, { 'label': 'label.content' }) }}
+	{{ form_row(form.subname, { 'label': 'label.subname' }) }}
+{% endblock %}
+
+{% block moreFields3 %}
+	{{ form_row(form.featured, { 'label': 'label.fm.featured' }) }}	
+	{{ form_row(form.orderNumber, { 'label': 'label.orderNumber' }) }}
+	{{ form_row(form.content, { 'label': 'label.content' }) }}
 {% endblock %}

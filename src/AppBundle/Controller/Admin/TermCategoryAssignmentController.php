@@ -2,15 +2,15 @@
 
 namespace AppBundle\Controller\Admin;
 
-use AppBundle\Controller\Admin\Base\AdminEntityController;
+use AppBundle\Controller\Admin\Base\BaseEntityController;
 use AppBundle\Entity\TermCategoryAssignment;
+use AppBundle\Form\Editor\TermCategoryAssignmentEditorType;
 use AppBundle\Form\Filter\TermCategoryAssignmentFilterType;
-use AppBundle\Form\TermCategoryAssignmentType;
 use AppBundle\Manager\Entity\Common\TermCategoryAssignmentManager;
 use AppBundle\Manager\Filter\Common\TermCategoryAssignmentFilterManager;
 use Symfony\Component\HttpFoundation\Request;
 
-class TermCategoryAssignmentController extends AdminEntityController {
+class TermCategoryAssignmentController extends BaseEntityController {
 	
 	//---------------------------------------------------------------------------
 	// Actions
@@ -87,18 +87,6 @@ class TermCategoryAssignmentController extends AdminEntityController {
 		return $this->deleteActionInternal($request, $id);
 	}
 	
-	/**
-	 *
-	 * @param Request $request
-	 * @param integer $id
-	 *
-	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
-	 */
-	public function setPublishedAction(Request $request, $id)
-	{
-		return $this->setPublishedActionInternal($request, $id);
-	}
-	
 	//---------------------------------------------------------------------------
 	// Managers
 	//---------------------------------------------------------------------------
@@ -146,8 +134,8 @@ class TermCategoryAssignmentController extends AdminEntityController {
 	 * {@inheritDoc}
 	 * @see \AppBundle\Controller\Admin\Base\AdminEntityController::getFormType()
 	 */
-	protected function getFormType() {
-		return TermCategoryAssignmentType::class;
+	protected function getEditorFormType() {
+		return TermCategoryAssignmentEditorType::class;
 	}
 	
 	/**

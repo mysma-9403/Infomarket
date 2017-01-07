@@ -9,9 +9,9 @@ use AppBundle\Entity\Filter\NewsletterBlockFilter;
 use AppBundle\Entity\NewsletterBlockTemplate;
 use AppBundle\Entity\NewsletterPage;
 use AppBundle\Entity\User;
-use AppBundle\Manager\Filter\Base\BaseFilterManager;
+use AppBundle\Manager\Filter\Base\BaseEntityFilterManager;
 
-class NewsletterBlockFilterManager extends BaseFilterManager {
+class NewsletterBlockFilterManager extends BaseEntityFilterManager {
 	
 	public function adaptToView(BaseEntityFilter $filter, array $params) {
 		/** @var NewsletterBlockFilter $filter */

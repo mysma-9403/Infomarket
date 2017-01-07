@@ -4,57 +4,10 @@ namespace AppBundle\Form\Lists\Base;
 
 use AppBundle\Entity\Base\Audit;
 use AppBundle\Entity\Lists\Base\BaseEntityList;
-use AppBundle\Form\Base\BaseFormType;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\FormBuilderInterface;
+use AppBundle\Form\Base\ListType;
 
-class BaseEntityListType extends BaseFormType
-{	
-	/**
-	 * 
-	 * {@inheritDoc}
-	 * @see \AppBundle\Form\Base\FormType::addMainFields()
-	 */
-	protected function addMainFields(FormBuilderInterface $builder, array $options) {
-		$builder
-			->add('entries', EntityType::class, array(
-					'class'			=> $this->getChoiceType(),
-					'choice_label' 	=> 'displayName',
-					'choices'		=> $options['choices'],
-					'expanded'      => true,
-					'multiple'      => true
-			));
-	}
-	
-	/**
-	 * 
-	 * {@inheritDoc}
-	 * @see \AppBundle\Form\Base\FormType::addActions()
-	 */
-	protected function addActions(FormBuilderInterface $builder, array $options) {
-		$builder
-			->add('new', SubmitType::class)
-			->add('selectAll', SubmitType::class)
-			->add('selectNone', SubmitType::class)
-			->add('deleteSelected', SubmitType::class)
-			->add('publishSelected', SubmitType::class)
-			->add('unpublishSelected', SubmitType::class)
-		;
-	}
-	
-	/**
-	 * 
-	 * {@inheritDoc}
-	 * @see \AppBundle\Form\Base\FormType::initDefaultOptions()
-	 */
-	protected function getDefaultOptions() {
-		$options = parent::getDefaultOptions();
-		$options['choices'] = array();
-		
-		return $options;
-	}
-	
+class BaseEntityListType extends ListType
+{
 	/**
 	 * 
 	 * {@inheritDoc}
@@ -65,9 +18,9 @@ class BaseEntityListType extends BaseFormType
 	}
 	
 	/**
-	 * Get listed entitys' type.
-	 *
-	 * @return mixed (e.g <strong>Product::class</strong>)
+	 * 
+	 * {@inheritDoc}
+	 * @see \AppBundle\Form\Base\ListType::getChoiceType()
 	 */
 	protected function getChoiceType() {
 		return Audit::class;

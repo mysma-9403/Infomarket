@@ -4,10 +4,10 @@ namespace AppBundle\Controller\Admin;
 
 use AppBundle\Controller\Admin\Base\ImageEntityController;
 use AppBundle\Entity\Segment;
-use AppBundle\Form\SegmentType;
-use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Form\Editor\SegmentEditorType;
 use AppBundle\Manager\Entity\Common\SegmentManager;
 use AppBundle\Manager\Filter\Common\SegmentFilterManager;
+use Symfony\Component\HttpFoundation\Request;
 
 class SegmentController extends ImageEntityController {
 	
@@ -92,9 +92,21 @@ class SegmentController extends ImageEntityController {
 	 * 
 	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
 	 */
-	public function setPublishedAction(Request $request, $id)
+	public function setIMPublishedAction(Request $request, $id)
 	{
-		return $this->setPublishedActionInternal($request, $id);
+		return $this->setIMPublishedActionInternal($request, $id);
+	}
+	
+	/**
+	 *
+	 * @param Request $request
+	 * @param integer $id
+	 *
+	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
+	 */
+	public function setIPPublishedAction(Request $request, $id)
+	{
+		return $this->setIPPublishedActionInternal($request, $id);
 	}
 	
 	//---------------------------------------------------------------------------
@@ -127,7 +139,7 @@ class SegmentController extends ImageEntityController {
 	 * {@inheritDoc}
 	 * @see \AppBundle\Controller\Admin\Base\SimpleEntityController::getFormType()
 	 */
-	protected function getFormType() {
-		return SegmentType::class;
+	protected function getEditorFormType() {
+		return SegmentEditorType::class;
 	}
 }

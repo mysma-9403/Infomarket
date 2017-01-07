@@ -6,10 +6,10 @@ use AppBundle\Controller\Admin\Base\ImageEntityController;
 use AppBundle\Controller\Admin\Base\SimpleEntityController;
 use AppBundle\Entity\Magazine;
 use AppBundle\Form\Filter\MagazineFilterType;
-use AppBundle\Form\MagazineType;
 use AppBundle\Manager\Entity\Common\MagazineManager;
 use AppBundle\Manager\Filter\Common\MagazineFilterManager;
 use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Form\Editor\MagazineEditorType;
 
 class MagazineController extends ImageEntityController {
 	
@@ -89,15 +89,27 @@ class MagazineController extends ImageEntityController {
 	}
 	
 	/**
+	 * 
+	 * @param Request $request
+	 * @param integer $id
+	 * 
+	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
+	 */
+	public function setIMPublishedAction(Request $request, $id)
+	{
+		return $this->setIMPublishedActionInternal($request, $id);
+	}
+	
+	/**
 	 *
 	 * @param Request $request
 	 * @param integer $id
 	 *
 	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
 	 */
-	public function setPublishedAction(Request $request, $id)
+	public function setIPPublishedAction(Request $request, $id)
 	{
-		return $this->setPublishedActionInternal($request, $id);
+		return $this->setIPPublishedActionInternal($request, $id);
 	}
 	
 	/**
@@ -148,8 +160,8 @@ class MagazineController extends ImageEntityController {
 	 * {@inheritDoc}
 	 * @see \AppBundle\Controller\Admin\Base\SimpleEntityController::getFormType()
 	 */
-	protected function getFormType() {
-		return MagazineType::class;
+	protected function getEditorFormType() {
+		return MagazineEditorType::class;
 	}
 	
 	/**

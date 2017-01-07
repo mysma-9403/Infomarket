@@ -10,6 +10,15 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
  */
 class ArticleTagAssignment extends Audit
 {
+	/**
+	 *
+	 * {@inheritDoc}
+	 * @see \AppBundle\Entity\Base\Audit::getDisplayName()
+	 */
+	public function getDisplayName() {
+		return $this->tag->getDisplayName();
+	}
+	
 	public function validate(ExecutionContextInterface $context, $payload)
 	{	
 		if ($this->tag == null && $this->newTagName == null) {

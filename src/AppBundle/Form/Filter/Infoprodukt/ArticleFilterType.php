@@ -27,7 +27,6 @@ class ArticleFilterType extends SimpleEntityFilterType
 					->where('e.infoprodukt = ' . BaseEntityFilter::TRUE_VALUES)
 					->orderBy('e.published DESC, e.name', 'ASC');
 				},
-				'choice_label' 	=> 'displayname',
 				'required'		=> false,
 				'expanded'      => true,
 				'multiple'      => true,

@@ -2,15 +2,14 @@
 
 namespace AppBundle\Form\Filter;
 
-use AppBundle\Entity\Filter\CategoryFilter;
-use AppBundle\Form\Filter\Base\ImageEntityFilterType;
-use AppBundle\Form\Filter\Base\SimpleEntityFilterType;
-use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use AppBundle\Entity\Filter\Base\SimpleEntityFilter;
+use AppBundle\Entity\Filter\CategoryFilter;
+use AppBundle\Form\Filter\Base\SimpleEntityFilterType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\FormBuilderInterface;
 
-class CategoryFilterType extends ImageEntityFilterType
+class CategoryFilterType extends SimpleEntityFilterType
 {	
 	protected function addMoreFields(FormBuilderInterface $builder, array $options) {
 	

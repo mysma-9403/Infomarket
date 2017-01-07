@@ -6,8 +6,8 @@ use AppBundle\Controller\Infomarket\Base\InfomarketController;
 use AppBundle\Entity\Article;
 use AppBundle\Entity\Filter\Base\BaseEntityFilter;
 use AppBundle\Entity\NewsletterUser;
+use AppBundle\Form\Editor\NewsletterUserEditorType;
 use AppBundle\Form\Filter\Infomarket\ArticleFilterType;
-use AppBundle\Form\NewsletterUserType;
 use AppBundle\Manager\Entity\Base\EntityManager;
 use AppBundle\Manager\Entity\Common\ArticleManager;
 use AppBundle\Manager\Filter\Base\FilterManager;
@@ -91,7 +91,7 @@ class ArticleController extends InfomarketController
 	
 		$newsletter = new NewsletterUser();
 	
-		$newsletterForm = $this->createForm(NewsletterUserType::class, $newsletter);
+		$newsletterForm = $this->createForm(NewsletterUserEditorType::class, $newsletter);
 		$newsletterForm->handleRequest($request);
 	
 		if ($newsletterForm->isSubmitted() && $newsletterForm->isValid()) {
@@ -179,7 +179,7 @@ class ArticleController extends InfomarketController
 	
 		$newsletter = new NewsletterUser();
 	
-		$newsletterForm = $this->createForm(NewsletterUserType::class, $newsletter);
+		$newsletterForm = $this->createForm(NewsletterUserEditorType::class, $newsletter);
 		$newsletterForm->handleRequest($request);
 	
 		if ($newsletterForm->isSubmitted() && $newsletterForm->isValid()) {

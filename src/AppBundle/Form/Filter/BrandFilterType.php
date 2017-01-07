@@ -3,10 +3,9 @@
 namespace AppBundle\Form\Filter;
 
 use AppBundle\Entity\Filter\BrandFilter;
-use AppBundle\Form\Filter\Base\ImageEntityFilterType;
 use AppBundle\Form\Filter\Base\SimpleEntityFilterType;
 
-class BrandFilterType extends ImageEntityFilterType
+class BrandFilterType extends SimpleEntityFilterType
 {	
 	/**
 	 * 

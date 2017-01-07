@@ -11,10 +11,9 @@
         <field name="subname" type="string" length="64" nullable="true"/>
         
         <field name="featured" type="boolean" default="false" />
+        <field name="orderNumber" type="integer" default="0"/>
         
         <field name="content" type="text" nullable="true" />
-        
-        <field name="orderNumber" type="integer" default="0"/>
     </entity>
     
 </doctrine-mapping>

@@ -2,10 +2,6 @@
 
 {% set deleteRole = deleteRole | default('ROLE_ADMIN') %}
 
-{% block mainFields2 %}
-	{{ form_row(form.published, { 'label': 'label.' ~ gender ~ 'published' }) }}
-{% endblock %}
-
 {% block mainActions %}
 	<div class="btn-group">
 		{{ form_widget(form.save, { 'icon': 'fa-save', 'label': 'action.save', 'attr': {'class': 'btn btn-success'} }) }}

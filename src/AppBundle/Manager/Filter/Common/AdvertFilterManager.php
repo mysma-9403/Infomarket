@@ -7,9 +7,9 @@ use AppBundle\Entity\Category;
 use AppBundle\Entity\Filter\AdvertFilter;
 use AppBundle\Entity\Filter\Base\BaseEntityFilter;
 use AppBundle\Entity\User;
-use AppBundle\Manager\Filter\Base\BaseFilterManager;
+use AppBundle\Manager\Filter\Base\BaseEntityFilterManager;
 
-class AdvertFilterManager extends BaseFilterManager {
+class AdvertFilterManager extends BaseEntityFilterManager {
 	
 	public function adaptToView(BaseEntityFilter $filter, array $params) {
 		/** @var Advert $filter */

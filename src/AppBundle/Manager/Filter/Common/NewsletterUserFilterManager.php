@@ -4,9 +4,9 @@ namespace AppBundle\Manager\Filter\Common;
 
 use AppBundle\Entity\Filter\NewsletterUserFilter;
 use AppBundle\Entity\User;
-use AppBundle\Manager\Filter\Base\BaseFilterManager;
+use AppBundle\Manager\Filter\Base\BaseEntityFilterManager;
 
-class NewsletterUserFilterManager extends BaseFilterManager {
+class NewsletterUserFilterManager extends BaseEntityFilterManager {
 	
 	protected function create() {
 		$userRepository = $this->doctrine->getRepository(User::class);

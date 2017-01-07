@@ -6,15 +6,15 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use AppBundle\Controller\Admin\Base\SimpleEntityController;
 use AppBundle\Entity\User;
+use AppBundle\Form\Editor\UserEditorType;
 use AppBundle\Form\Filter\UserFilterType;
 use AppBundle\Form\Lists\UserListType;
-use AppBundle\Form\UserType;
-use AppBundle\Manager\Entity\Common\UserManager;
-use AppBundle\Manager\Filter\Common\UserFilterManager;
-use Symfony\Component\HttpFoundation\Request;
-use AppBundle\Manager\Params\EntryParams\Admin\UserEntryParamsManager;
 use AppBundle\Manager\Entity\Base\EntityManager;
+use AppBundle\Manager\Entity\Common\UserManager;
 use AppBundle\Manager\Filter\Base\FilterManager;
+use AppBundle\Manager\Filter\Common\UserFilterManager;
+use AppBundle\Manager\Params\EntryParams\Admin\UserEntryParamsManager;
+use Symfony\Component\HttpFoundation\Request;
 
 class UserController extends SimpleEntityController
 {
@@ -104,7 +104,7 @@ class UserController extends SimpleEntityController
 		
 		$this->denyAccessUnlessGranted('edit', $entry);
 	
-		$form = $this->createForm($this->getFormType(), $entry);
+		$form = $this->createForm($this->getEditorFormType(), $entry);
 		$form->handleRequest($request);
 	
 		if ($form->isSubmitted() && $form->isValid())
@@ -185,8 +185,8 @@ class UserController extends SimpleEntityController
 	 * {@inheritDoc}
 	 * @see \AppBundle\Controller\Admin\Base\SimpleEntityController::getFormType()
 	 */
-	protected function getFormType() {
-		return UserType::class;
+	protected function getEditorFormType() {
+		return UserEditorType::class;
 	}
 	
 	/**

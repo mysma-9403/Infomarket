@@ -11,6 +11,7 @@ class Link extends SimpleEntity
 {
 	const FOOTER_LINK = 1;
 	
+    
     /**
      * @var string
      */
@@ -20,6 +21,16 @@ class Link extends SimpleEntity
      * @var integer
      */
     private $type;
+
+    /**
+     * @var boolean
+     */
+    private $featured;
+
+    /**
+     * @var integer
+     */
+    private $orderNumber;
 
 
     /**
@@ -69,16 +80,6 @@ class Link extends SimpleEntity
     {
         return $this->type;
     }
-    /**
-     * @var boolean
-     */
-    private $featured;
-
-    /**
-     * @var integer
-     */
-    private $orderNumber;
-
 
     /**
      * Set featured

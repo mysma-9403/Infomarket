@@ -10,10 +10,10 @@ use AppBundle\Entity\Filter\Base\BaseEntityFilter;
 use AppBundle\Entity\Filter\Base\SimpleEntityFilter;
 use AppBundle\Entity\NewsletterUser;
 use AppBundle\Entity\User;
-use AppBundle\Form\Filter\Base\SearchFilterType;
+use AppBundle\Form\Editor\NewsletterUserEditorType;
 use AppBundle\Form\Filter\Base\SimpleEntityFilterType;
 use AppBundle\Form\Filter\Infoprodukt\ArticleFilterType;
-use AppBundle\Form\NewsletterUserType;
+use AppBundle\Form\Search\Base\SimpleEntitySearchType;
 use AppBundle\Manager\Entity\Base\EntityManager;
 use AppBundle\Manager\Entity\Common\ArticleManager;
 use AppBundle\Manager\Filter\Base\FilterManager;
@@ -93,7 +93,7 @@ class ArticleController extends InfoproduktController
 		
 		$newsletter = new NewsletterUser();
 		
-		$newsletterForm = $this->createForm(NewsletterUserType::class, $newsletter);
+		$newsletterForm = $this->createForm(NewsletterUserEditorType::class, $newsletter);
 		$newsletterForm->handleRequest($request);
 		
 		if ($newsletterForm->isSubmitted() && $newsletterForm->isValid()) {
@@ -170,7 +170,7 @@ class ArticleController extends InfoproduktController
 		$searchFilter = new SimpleEntityFilter($userRepository);
 		$searchFilter->initValues($request);
 	
-		$searchFilterForm = $this->createForm(SearchFilterType::class, $searchFilter);
+		$searchFilterForm = $this->createForm(SimpleEntitySearchType::class, $searchFilter);
 		$searchFilterForm->handleRequest($request);
 	
 		if ($searchFilterForm->isSubmitted() && $searchFilterForm->isValid()) {
@@ -184,7 +184,7 @@ class ArticleController extends InfoproduktController
 	
 		$newsletter = new NewsletterUser();
 	
-		$newsletterForm = $this->createForm(NewsletterUserType::class, $newsletter);
+		$newsletterForm = $this->createForm(NewsletterUserEditorType::class, $newsletter);
 		$newsletterForm->handleRequest($request);
 	
 		if ($newsletterForm->isSubmitted() && $newsletterForm->isValid()) {

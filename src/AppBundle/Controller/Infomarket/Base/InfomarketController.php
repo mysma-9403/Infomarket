@@ -3,19 +3,19 @@
 namespace AppBundle\Controller\Infomarket\Base;
 
 use AppBundle\AppBundle;
-use AppBundle\Controller\Base\BaseEntityController;
+use AppBundle\Controller\Base\StandardController;
 use AppBundle\Entity\Advert;
+use AppBundle\Entity\NewsletterUser;
+use AppBundle\Form\Editor\NewsletterUserEditorType;
+use AppBundle\Manager\Filter\Infomarket\Base\InfomarketFilterManager;
 use AppBundle\Manager\Params\Base\AdvertParamsManager;
 use AppBundle\Manager\Params\Base\FooterParamsManager;
 use AppBundle\Manager\Params\Infomarket\InfomarketParamsManager;
 use AppBundle\Manager\Route\RouteManager;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-use AppBundle\Manager\Filter\Infomarket\Base\InfomarketFilterManager;
-use AppBundle\Entity\NewsletterUser;
-use AppBundle\Form\NewsletterUserType;
 
-abstract class InfomarketController extends BaseEntityController
+abstract class InfomarketController extends StandardController
 {
 	//---------------------------------------------------------------------------
 	// Internal actions
@@ -63,7 +63,7 @@ abstract class InfomarketController extends BaseEntityController
 	
 		$newsletter = new NewsletterUser();
 	
-		$newsletterForm = $this->createForm(NewsletterUserType::class, $newsletter);
+		$newsletterForm = $this->createForm(NewsletterUserEditorType::class, $newsletter);
 		$newsletterForm->handleRequest($request);
 	
 		if ($newsletterForm->isSubmitted() && $newsletterForm->isValid()) {
@@ -121,7 +121,7 @@ abstract class InfomarketController extends BaseEntityController
 	
 		$newsletter = new NewsletterUser();
 	
-		$newsletterForm = $this->createForm(NewsletterUserType::class, $newsletter);
+		$newsletterForm = $this->createForm(NewsletterUserEditorType::class, $newsletter);
 		$newsletterForm->handleRequest($request);
 	
 		if ($newsletterForm->isSubmitted() && $newsletterForm->isValid()) {

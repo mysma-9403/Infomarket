@@ -93,16 +93,6 @@ class ArticleCategoryFilter extends ImageEntityFilter {
 	private $featured;
 	
 	/**
-	 * @var boolean
-	 */
-	private $infomarket;
-	
-	/**
-	 * @var boolean
-	 */
-	private $infoprodukt;
-	
-	/**
 	 * Set featured
 	 *
 	 * @param boolean $featured
@@ -124,53 +114,5 @@ class ArticleCategoryFilter extends ImageEntityFilter {
 	public function isFeatured()
 	{
 		return $this->featured;
-	}
-	
-	/**
-	 * Set infomarket
-	 *
-	 * @param boolean $infomarket
-	 *
-	 * @return SimpleEntityFilter
-	 */
-	public function setInfomarket($infomarket)
-	{
-		$this->infomarket = $infomarket;
-	
-		return $this;
-	}
-	
-	/**
-	 * Is infomarket
-	 *
-	 * @return boolean
-	 */
-	public function isInfomarket()
-	{
-		return $this->infomarket;
-	}
-	
-	/**
-	 * Set infoprodukt
-	 *
-	 * @param boolean $infoprodukt
-	 *
-	 * @return SimpleEntityFilter
-	 */
-	public function setInfoprodukt($infoprodukt)
-	{
-		$this->infoprodukt = $infoprodukt;
-	
-		return $this;
-	}
-	
-	/**
-	 * Is infoprodukt
-	 *
-	 * @return boolean
-	 */
-	public function isInfoprodukt()
-	{
-		return $this->infoprodukt;
 	}
 }

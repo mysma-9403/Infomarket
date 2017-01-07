@@ -3,20 +3,19 @@
 namespace AppBundle\Form\Filter;
 
 use AppBundle\Entity\Advert;
+use AppBundle\Entity\Category;
 use AppBundle\Entity\Filter\AdvertFilter;
 use AppBundle\Entity\Filter\Base\SimpleEntityFilter;
-use AppBundle\Form\Filter\Base\ImageEntityFilterType;
 use AppBundle\Form\Filter\Base\SimpleEntityFilterType;
+use AppBundle\Repository\CategoryRepository;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
-use AppBundle\Entity\Category;
-use AppBundle\Repository\CategoryRepository;
 
-class AdvertFilterType extends ImageEntityFilterType
+class AdvertFilterType extends SimpleEntityFilterType
 {	
 	/**
 	 * 
@@ -45,7 +44,6 @@ class AdvertFilterType extends ImageEntityFilterType
 				return $repository->createQueryBuilder('e')
 				->orderBy('e.published DESC, e.name', 'ASC');
 				},
-				'choice_label' 	=> 'name',
 				'required'		=> false,
 				'expanded'      => false,
 				'multiple'      => true,

@@ -5,7 +5,7 @@ namespace AppBundle\Controller\Admin;
 use AppBundle\Controller\Admin\Base\ImageEntityController;
 use AppBundle\Controller\Admin\Base\SimpleEntityController;
 use AppBundle\Entity\ArticleCategory;
-use AppBundle\Form\ArticleCategoryType;
+use AppBundle\Form\Editor\ArticleCategoryEditorType;
 use AppBundle\Form\Filter\ArticleCategoryFilterType;
 use AppBundle\Manager\Entity\Common\ArticleCategoryManager;
 use AppBundle\Manager\Filter\Common\ArticleCategoryFilterManager;
@@ -89,15 +89,27 @@ class ArticleCategoryController extends ImageEntityController {
 	}
 	
 	/**
+	 * 
+	 * @param Request $request
+	 * @param integer $id
+	 * 
+	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
+	 */
+	public function setIMPublishedAction(Request $request, $id)
+	{
+		return $this->setIMPublishedActionInternal($request, $id);
+	}
+	
+	/**
 	 *
 	 * @param Request $request
 	 * @param integer $id
 	 *
 	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
 	 */
-	public function setPublishedAction(Request $request, $id)
+	public function setIPPublishedAction(Request $request, $id)
 	{
-		return $this->setPublishedActionInternal($request, $id);
+		return $this->setIPPublishedActionInternal($request, $id);
 	}
 	
 	/**
@@ -148,8 +160,8 @@ class ArticleCategoryController extends ImageEntityController {
 	 * {@inheritDoc}
 	 * @see \AppBundle\Controller\Admin\Base\SimpleEntityController::getFormType()
 	 */
-	protected function getFormType() {
-		return ArticleCategoryType::class;
+	protected function getEditorFormType() {
+		return ArticleCategoryEditorType::class;
 	}
 	
 	/**

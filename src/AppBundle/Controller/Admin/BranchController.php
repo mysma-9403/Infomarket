@@ -5,7 +5,7 @@ namespace AppBundle\Controller\Admin;
 use AppBundle\Controller\Admin\Base\ImageEntityController;
 use AppBundle\Controller\Admin\Base\SimpleEntityController;
 use AppBundle\Entity\Branch;
-use AppBundle\Form\BranchType;
+use AppBundle\Form\Editor\BranchEditorType;
 use AppBundle\Manager\Entity\Common\BranchManager;
 use AppBundle\Manager\Filter\Common\BranchFilterManager;
 use Symfony\Component\HttpFoundation\Request;
@@ -88,15 +88,27 @@ class BranchController extends ImageEntityController {
 	}
 	
 	/**
+	 * 
+	 * @param Request $request
+	 * @param integer $id
+	 * 
+	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
+	 */
+	public function setIMPublishedAction(Request $request, $id)
+	{
+		return $this->setIMPublishedActionInternal($request, $id);
+	}
+	
+	/**
 	 *
 	 * @param Request $request
 	 * @param integer $id
 	 *
 	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
 	 */
-	public function setPublishedAction(Request $request, $id)
+	public function setIPPublishedAction(Request $request, $id)
 	{
-		return $this->setPublishedActionInternal($request, $id);
+		return $this->setIPPublishedActionInternal($request, $id);
 	}
 	
 	/**
@@ -147,7 +159,7 @@ class BranchController extends ImageEntityController {
 	 * {@inheritDoc}
 	 * @see \AppBundle\Controller\Admin\Base\SimpleEntityController::getFormType()
 	 */
-	protected function getFormType() {
-		return BranchType::class;
+	protected function getEditorFormType() {
+		return BranchEditorType::class;
 	}
 }

@@ -29,9 +29,6 @@ class Advert extends ImageEntity
 		}
 	}
 	
-	
-	
-	
 	/**
 	 * {@inheritDoc}
 	 */

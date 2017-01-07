@@ -4,9 +4,9 @@ namespace AppBundle\Manager\Filter\Common;
 
 use AppBundle\Entity\Filter\SegmentFilter;
 use AppBundle\Entity\User;
-use AppBundle\Manager\Filter\Base\BaseFilterManager;
+use AppBundle\Manager\Filter\Base\BaseEntityFilterManager;
 
-class SegmentFilterManager extends BaseFilterManager {
+class SegmentFilterManager extends BaseEntityFilterManager {
 	
 	protected function create() {
 		$userRepository = $this->doctrine->getRepository(User::class);

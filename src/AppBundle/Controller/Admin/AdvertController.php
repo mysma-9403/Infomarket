@@ -5,7 +5,7 @@ namespace AppBundle\Controller\Admin;
 use AppBundle\Controller\Admin\Base\ImageEntityController;
 use AppBundle\Controller\Admin\Base\SimpleEntityController;
 use AppBundle\Entity\Advert;
-use AppBundle\Form\AdvertType;
+use AppBundle\Form\Editor\AdvertEditorType;
 use AppBundle\Form\Filter\AdvertFilterType;
 use AppBundle\Manager\Entity\Common\AdvertManager;
 use AppBundle\Manager\Filter\Common\AdvertFilterManager;
@@ -94,9 +94,21 @@ class AdvertController extends ImageEntityController {
 	 * 
 	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
 	 */
-	public function setPublishedAction(Request $request, $id)
+	public function setIMPublishedAction(Request $request, $id)
 	{
-		return $this->setPublishedActionInternal($request, $id);
+		return $this->setIMPublishedActionInternal($request, $id);
+	}
+	
+	/**
+	 *
+	 * @param Request $request
+	 * @param integer $id
+	 *
+	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
+	 */
+	public function setIPPublishedAction(Request $request, $id)
+	{
+		return $this->setIPPublishedActionInternal($request, $id);
 	}
 	
 	//------------------------------------------------------------------------
@@ -155,8 +167,8 @@ class AdvertController extends ImageEntityController {
 	 * {@inheritDoc}
 	 * @see \AppBundle\Controller\Admin\Base\SimpleEntityController::getFormType()
 	 */
-	protected function getFormType() {
-		return AdvertType::class;
+	protected function getEditorFormType() {
+		return AdvertEditorType::class;
 	}
 	
 	/**

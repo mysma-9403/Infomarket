@@ -3,12 +3,12 @@
 namespace AppBundle\Manager\Filter\Common;
 
 use AppBundle\Entity\Article;
-use AppBundle\Entity\Tag;
 use AppBundle\Entity\Filter\ArticleTagAssignmentFilter;
+use AppBundle\Entity\Tag;
 use AppBundle\Entity\User;
-use AppBundle\Manager\Filter\Base\BaseFilterManager;
+use AppBundle\Manager\Filter\Base\BaseEntityFilterManager;
 
-class ArticleTagAssignmentFilterManager extends BaseFilterManager {
+class ArticleTagAssignmentFilterManager extends BaseEntityFilterManager {
 	
 	protected function create() {
 		$userRepository = $this->doctrine->getRepository(User::class);

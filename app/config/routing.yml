@@ -253,9 +253,13 @@ admin_advert_remove_image:
     path:      /admin/adverts/remove_image/{id}
     defaults:  { _controller: "AppBundle:Admin/Advert:removeImage" }
     
-admin_advert_set_published:
-    path:      /admin/adverts/set_published/{id}
-    defaults:  { _controller: "AppBundle:Admin/Advert:setPublished" }
+admin_advert_set_im_published:
+    path:      /admin/adverts/set_im_published/{id}
+    defaults:  { _controller: "AppBundle:Admin/Advert:setIMPublished" }
+    
+admin_advert_set_ip_published:
+    path:      /admin/adverts/set_ip_published/{id}
+    defaults:  { _controller: "AppBundle:Admin/Advert:setIPPublished" }
         
 admin_advert:
     path:      /admin/adverts/{page}
@@ -281,10 +285,6 @@ admin_advert_category_assignment_edit:
 admin_advert_category_assignment_delete:
     path:      /admin/advert-category_assignments/delete/{id}
     defaults:  { _controller: "AppBundle:Admin/AdvertCategoryAssignment:delete" }
-    
-admin_advert_category_assignment_set_published:
-    path:      /admin/advert-category_assignments/set_published/{id}
-    defaults:  { _controller: "AppBundle:Admin/AdvertCategoryAssignment:setPublished" }
 
 admin_advert_category_assignment:
     path:      /admin/advert-category_assignments/{page}
@@ -315,9 +315,13 @@ admin_article_remove_image:
     path:      /admin/articles/remove_image/{id}
     defaults:  { _controller: "AppBundle:Admin/Article:removeImage" }
     
-admin_article_set_published:
-    path:      /admin/articles/set_published/{id}
-    defaults:  { _controller: "AppBundle:Admin/Article:setPublished" }
+admin_article_set_im_published:
+    path:      /admin/articles/set_im_published/{id}
+    defaults:  { _controller: "AppBundle:Admin/Article:setIMPublished" }
+    
+admin_article_set_ip_published:
+    path:      /admin/articles/set_ip_published/{id}
+    defaults:  { _controller: "AppBundle:Admin/Article:setIPPublished" }
 
 admin_article_set_featured:
     path:      /admin/articles/set_featured/{id}
@@ -357,9 +361,13 @@ admin_archived_article_remove_image:
     path:      /admin/archived_articles/remove_image/{id}
     defaults:  { _controller: "AppBundle:Admin/ArchivedArticle:removeImage" }
     
-admin_archived_article_set_published:
-    path:      /admin/archived_articles/set_published/{id}
-    defaults:  { _controller: "AppBundle:Admin/ArchivedArticle:setPublished" }
+admin_archived_article_set_im_published:
+    path:      /admin/archived_articles/set_im_published/{id}
+    defaults:  { _controller: "AppBundle:Admin/ArchivedArticle:setIMPublished" }
+    
+admin_archived_article_set_ip_published:
+    path:      /admin/archived_articles/set_ip_published/{id}
+    defaults:  { _controller: "AppBundle:Admin/ArchivedArticle:setIPPublished" }
 
 admin_archived_article_set_featured:
     path:      /admin/archived_articles/set_featured/{id}
@@ -393,10 +401,6 @@ admin_article_article_category_assignment_edit:
 admin_article_article_category_assignment_delete:
     path:      /admin/article-article_category_assignments/delete/{id}
     defaults:  { _controller: "AppBundle:Admin/ArticleArticleCategoryAssignment:delete" }
-    
-admin_article_article_category_assignment_set_published:
-    path:      /admin/article-article_category_assignments/set_published/{id}
-    defaults:  { _controller: "AppBundle:Admin/ArticleArticleCategoryAssignment:setPublished" }
 
 admin_article_article_category_assignment:
     path:      /admin/article-article_category_assignments/{page}
@@ -422,10 +426,6 @@ admin_article_brand_assignment_edit:
 admin_article_brand_assignment_delete:
     path:      /admin/article-brand_assignments/delete/{id}
     defaults:  { _controller: "AppBundle:Admin/ArticleBrandAssignment:delete" }
-    
-admin_article_brand_assignment_set_published:
-    path:      /admin/article-brand_assignments/set_published/{id}
-    defaults:  { _controller: "AppBundle:Admin/ArticleBrandAssignment:setPublished" }
 
 admin_article_brand_assignment:
     path:      /admin/article-brand_assignments/{page}
@@ -451,10 +451,6 @@ admin_article_category_assignment_edit:
 admin_article_category_assignment_delete:
     path:      /admin/article-category_assignments/delete/{id}
     defaults:  { _controller: "AppBundle:Admin/ArticleCategoryAssignment:delete" }
-    
-admin_article_category_assignment_set_published:
-    path:      /admin/article-category_assignments/set_published/{id}
-    defaults:  { _controller: "AppBundle:Admin/ArticleCategoryAssignment:setPublished" }
 
 admin_article_category_assignment:
     path:      /admin/article-category_assignments/{page}
@@ -480,10 +476,6 @@ admin_article_tag_assignment_edit:
 admin_article_tag_assignment_delete:
     path:      /admin/article-tag_assignments/delete/{id}
     defaults:  { _controller: "AppBundle:Admin/ArticleTagAssignment:delete" }
-    
-admin_article_tag_assignment_set_published:
-    path:      /admin/article-tag_assignments/set_published/{id}
-    defaults:  { _controller: "AppBundle:Admin/ArticleTagAssignment:setPublished" }
 
 admin_article_tag_assignment:
     path:      /admin/article-tag_assignments/{page}
@@ -514,9 +506,13 @@ admin_article_category_remove_image:
     path:      /admin/article_categories/remove_image/{id}
     defaults:  { _controller: "AppBundle:Admin/ArticleCategory:removeImage" }
     
-admin_article_category_set_published:
-    path:      /admin/article_categories/set_published/{id}
-    defaults:  { _controller: "AppBundle:Admin/ArticleCategory:setPublished" }
+admin_article_category_set_im_published:
+    path:      /admin/article_categories/set_im_published/{id}
+    defaults:  { _controller: "AppBundle:Admin/ArticleCategory:setIMPublished" }
+    
+admin_article_category_set_ip_published:
+    path:      /admin/article_categories/set_ip_published/{id}
+    defaults:  { _controller: "AppBundle:Admin/ArticleCategory:setIPPublished" }
 
 admin_article_category_set_featured:
     path:      /admin/article_categories/set_featured/{id}
@@ -552,9 +548,13 @@ admin_branch_remove_image:
     path:      /admin/branches/remove_image/{id}
     defaults:  { _controller: "AppBundle:Admin/Branch:removeImage" }
     
-admin_branch_set_published:
-    path:      /admin/branches/set_published/{id}
-    defaults:  { _controller: "AppBundle:Admin/Branch:setPublished" }
+admin_branch_set_im_published:
+    path:      /admin/branches/set_im_published/{id}
+    defaults:  { _controller: "AppBundle:Admin/Branch:setIMPublished" }
+    
+admin_branch_set_ip_published:
+    path:      /admin/branches/set_ip_published/{id}
+    defaults:  { _controller: "AppBundle:Admin/Branch:setIPPublished" }
 
 admin_branch:
     path:      /admin/branches/{page}
@@ -580,10 +580,6 @@ admin_branch_category_assignment_edit:
 admin_branch_category_assignment_delete:
     path:      /admin/branch-category_assignments/delete/{id}
     defaults:  { _controller: "AppBundle:Admin/BranchCategoryAssignment:delete" }
-    
-admin_branch_category_assignment_set_published:
-    path:      /admin/branch-category_assignments/set_published/{id}
-    defaults:  { _controller: "AppBundle:Admin/BranchCategoryAssignment:setPublished" }
 
 admin_branch_category_assignment:
     path:      /admin/branch-category_assignments/{page}
@@ -615,9 +611,13 @@ admin_brand_remove_image:
     path:      /admin/brands/remove_image/{id}
     defaults:  { _controller: "AppBundle:Admin/Brand:removeImage" }
     
-admin_brand_set_published:
-    path:      /admin/brands/set_published/{id}
-    defaults:  { _controller: "AppBundle:Admin/Brand:setPublished" }
+admin_brand_set_im_published:
+    path:      /admin/brands/set_im_published/{id}
+    defaults:  { _controller: "AppBundle:Admin/Brand:setIMPublished" }
+    
+admin_brand_set_ip_published:
+    path:      /admin/brands/set_ip_published/{id}
+    defaults:  { _controller: "AppBundle:Admin/Brand:setIPPublished" }
 
 admin_brand:
     path:      /admin/brands/{page}
@@ -644,10 +644,6 @@ admin_brand_category_assignment_edit:
 admin_brand_category_assignment_delete:
     path:      /admin/brand-category_assignments/delete/{id}
     defaults:  { _controller: "AppBundle:Admin/BrandCategoryAssignment:delete" }
-    
-admin_brand_category_assignment_set_published:
-    path:      /admin/brand-category_assignments/set_published/{id}
-    defaults:  { _controller: "AppBundle:Admin/BrandCategoryAssignment:setPublished" }
 
 admin_brand_category_assignment:
     path:      /admin/brand-category_assignments/{page}
@@ -679,9 +675,13 @@ admin_category_remove_image:
     path:      /admin/categories/remove_image/{id}
     defaults:  { _controller: "AppBundle:Admin/Category:removeImage" }
     
-admin_category_set_published:
-    path:      /admin/categories/set_published/{id}
-    defaults:  { _controller: "AppBundle:Admin/Category:setPublished" }
+admin_category_set_im_published:
+    path:      /admin/categories/set_im_published/{id}
+    defaults:  { _controller: "AppBundle:Admin/Category:setIMPublished" }
+    
+admin_category_set_ip_published:
+    path:      /admin/categories/set_ip_published/{id}
+    defaults:  { _controller: "AppBundle:Admin/Category:setIPPublished" }
     
 admin_category_set_featured:
     path:      /admin/categories/set_featured/{id}
@@ -732,9 +732,13 @@ admin_magazine_remove_image:
     path:      /admin/magazines/remove_image/{id}
     defaults:  { _controller: "AppBundle:Admin/Magazine:removeImage" }
     
-admin_magazine_set_published:
-    path:      /admin/magazines/set_published/{id}
-    defaults:  { _controller: "AppBundle:Admin/Magazine:setPublished" }
+admin_magazine_set_im_published:
+    path:      /admin/magazines/set_im_published/{id}
+    defaults:  { _controller: "AppBundle:Admin/Magazine:setIMPublished" }
+    
+admin_magazine_set_ip_published:
+    path:      /admin/magazines/set_ip_published/{id}
+    defaults:  { _controller: "AppBundle:Admin/Magazine:setIPPublished" }
     
 admin_magazine_set_featured:
     path:      /admin/magazines/set_featured/{id}
@@ -765,9 +769,13 @@ admin_newsletter_block_delete:
     path:      /admin/newsletter_blocks/delete/{id}
     defaults:  { _controller: "AppBundle:Admin/NewsletterBlock:delete" }
     
-admin_newsletter_block_set_published:
-    path:      /admin/newsletter_blocks/set_published/{id}
-    defaults:  { _controller: "AppBundle:Admin/NewsletterBlock:setPublished" }
+admin_newsletter_block_set_im_published:
+    path:      /admin/newsletter_blocks/set_im_published/{id}
+    defaults:  { _controller: "AppBundle:Admin/NewsletterBlock:setIMPublished" }
+    
+admin_newsletter_block_set_ip_published:
+    path:      /admin/newsletter_blocks/set_ip_published/{id}
+    defaults:  { _controller: "AppBundle:Admin/NewsletterBlock:setIPPublished" }
         
 admin_newsletter_block:
     path:      /admin/newsletter_blocks/{page}
@@ -794,10 +802,14 @@ admin_newsletter_block_template_delete:
     path:      /admin/newsletter_block_templates/delete/{id}
     defaults:  { _controller: "AppBundle:Admin/NewsletterBlockTemplate:delete" }
     
-admin_newsletter_block_template_set_published:
-    path:      /admin/newsletter_block_templates/set_published/{id}
-    defaults:  { _controller: "AppBundle:Admin/NewsletterBlockTemplate:setPublished" }
-        
+admin_newsletter_block_template_set_im_published:
+    path:      /admin/newsletter_block_templates/set_im_published/{id}
+    defaults:  { _controller: "AppBundle:Admin/NewsletterBlockTemplate:setIMPublished" }
+
+admin_newsletter_block_template_set_ip_published:
+    path:      /admin/newsletter_block_templates/set_ip_published/{id}
+    defaults:  { _controller: "AppBundle:Admin/NewsletterBlockTemplate:setIPPublished" }
+            
 admin_newsletter_block_template:
     path:      /admin/newsletter_block_templates/{page}
     defaults:  { _controller: "AppBundle:Admin/NewsletterBlockTemplate:index", page: 1 }
@@ -823,9 +835,13 @@ admin_newsletter_page_delete:
     path:      /admin/newsletter_pages/delete/{id}
     defaults:  { _controller: "AppBundle:Admin/NewsletterPage:delete" }
     
-admin_newsletter_page_set_published:
-    path:      /admin/newsletter_pages/set_published/{id}
-    defaults:  { _controller: "AppBundle:Admin/NewsletterPage:setPublished" }
+admin_newsletter_page_set_im_published:
+    path:      /admin/newsletter_pages/set_im_published/{id}
+    defaults:  { _controller: "AppBundle:Admin/NewsletterPage:setIMPublished" }
+
+admin_newsletter_page_set_ip_published:
+    path:      /admin/newsletter_pages/set_ip_published/{id}
+    defaults:  { _controller: "AppBundle:Admin/NewsletterPage:setIPPublished" }
         
 admin_newsletter_page:
     path:      /admin/newsletter_pages/{page}
@@ -852,10 +868,14 @@ admin_newsletter_page_template_delete:
     path:      /admin/newsletter_page_templates/delete/{id}
     defaults:  { _controller: "AppBundle:Admin/NewsletterPageTemplate:delete" }
     
-admin_newsletter_page_template_set_published:
-    path:      /admin/newsletter_page_templates/set_published/{id}
-    defaults:  { _controller: "AppBundle:Admin/NewsletterPageTemplate:setPublished" }
-        
+admin_newsletter_page_template_set_im_published:
+    path:      /admin/newsletter_page_templates/set_im_published/{id}
+    defaults:  { _controller: "AppBundle:Admin/NewsletterPageTemplate:setIMPublished" }
+
+admin_newsletter_page_template_set_ip_published:
+    path:      /admin/newsletter_page_templates/set_ip_published/{id}
+    defaults:  { _controller: "AppBundle:Admin/NewsletterPageTemplate:setIPPublished" }
+            
 admin_newsletter_page_template:
     path:      /admin/newsletter_page_templates/{page}
     defaults:  { _controller: "AppBundle:Admin/NewsletterPageTemplate:index", page: 1 }
@@ -881,10 +901,14 @@ admin_newsletter_user_delete:
     path:      /admin/newsletter_users/delete/{id}
     defaults:  { _controller: "AppBundle:Admin/NewsletterUser:delete" }
     
-admin_newsletter_user_set_published:
-    path:      /admin/newsletter_users/set_published/{id}
-    defaults:  { _controller: "AppBundle:Admin/NewsletterUser:setPublished" }
-    
+admin_newsletter_user_set_im_published:
+    path:      /admin/newsletter_users/set_im_published/{id}
+    defaults:  { _controller: "AppBundle:Admin/NewsletterUser:setIMPublished" }
+
+admin_newsletter_user_set_ip_published:
+    path:      /admin/newsletter_users/set_ip_published/{id}
+    defaults:  { _controller: "AppBundle:Admin/NewsletterUser:setIPPublished" }
+        
 admin_newsletter_user_set_subscribed:
     path:      /admin/newsletter_users/set_subscribed/{id}
     defaults:  { _controller: "AppBundle:Admin/NewsletterUser:setSubscribed" }
@@ -918,10 +942,14 @@ admin_page_remove_image:
     path:      /admin/pages/remove_image/{id}
     defaults:  { _controller: "AppBundle:Admin/Page:removeImage" }
     
-admin_page_set_published:
-    path:      /admin/pages/set_published/{id}
-    defaults:  { _controller: "AppBundle:Admin/Page:setPublished" }
+admin_page_set_im_published:
+    path:      /admin/pages/set_im_published/{id}
+    defaults:  { _controller: "AppBundle:Admin/Page:setIMPublished" }
 
+admin_page_set_ip_published:
+    path:      /admin/pages/set_ip_published/{id}
+    defaults:  { _controller: "AppBundle:Admin/Page:setIPPublished" }
+    
 admin_page_set_featured:
     path:      /admin/pages/set_featured/{id}
     defaults:  { _controller: "AppBundle:Admin/Page:setFeatured" }
@@ -957,10 +985,14 @@ admin_product_remove_image:
     path:      /admin/products/remove_image/{id}
     defaults:  { _controller: "AppBundle:Admin/Product:removeImage" }
     
-admin_product_set_published:
-    path:      /admin/products/set_published/{id}
-    defaults:  { _controller: "AppBundle:Admin/Product:setPublished" }
+admin_product_set_im_published:
+    path:      /admin/products/set_im_published/{id}
+    defaults:  { _controller: "AppBundle:Admin/Product:setIMPublished" }
 
+admin_product_set_ip_published:
+    path:      /admin/products/set_ip_published/{id}
+    defaults:  { _controller: "AppBundle:Admin/Product:setIPPublished" }
+    
 admin_product_delete_unused:
     path:      /admin/products/delete_unused/
     defaults:  { _controller: "AppBundle:Admin/Product:deleteUnused" }
@@ -991,10 +1023,6 @@ admin_product_category_assignment_delete:
     path:      /admin/product-category_assignments/delete/{id}
     defaults:  { _controller: "AppBundle:Admin/ProductCategoryAssignment:delete" }
     
-admin_product_category_assignment_set_published:
-    path:      /admin/product-category_assignments/set_published/{id}
-    defaults:  { _controller: "AppBundle:Admin/ProductCategoryAssignment:setPublished" }
-
 admin_product_category_assignment:
     path:      /admin/product-category_assignments/{page}
     defaults:  { _controller: "AppBundle:Admin/ProductCategoryAssignment:index", page: 1 }
@@ -1025,10 +1053,14 @@ admin_segment_remove_image:
     path:      /admin/segments/remove_image/{id}
     defaults:  { _controller: "AppBundle:Admin/Segment:removeImage" }
     
-admin_segment_set_published:
-    path:      /admin/segments/set_published/{id}
-    defaults:  { _controller: "AppBundle:Admin/Segment:setPublished" }
+admin_segment_set_im_published:
+    path:      /admin/segments/set_im_published/{id}
+    defaults:  { _controller: "AppBundle:Admin/Segment:setIMPublished" }
 
+admin_segment_set_ip_published:
+    path:      /admin/segments/set_ip_published/{id}
+    defaults:  { _controller: "AppBundle:Admin/Segment:setIPPublished" }
+    
 admin_segment:
     path:      /admin/segments/{page}
     defaults:  { _controller: "AppBundle:Admin/Segment:index", page: 1 }
@@ -1054,10 +1086,14 @@ admin_tag_delete:
     path:      /admin/tags/delete/{id}
     defaults:  { _controller: "AppBundle:Admin/Tag:delete" }
     
-admin_tag_set_published:
-    path:      /admin/tags/set_published/{id}
-    defaults:  { _controller: "AppBundle:Admin/Tag:setPublished" }
-        
+admin_tag_set_im_published:
+    path:      /admin/tags/set_im_published/{id}
+    defaults:  { _controller: "AppBundle:Admin/Tag:setIMPublished" }
+
+admin_tag_set_ip_published:
+    path:      /admin/tags/set_ip_published/{id}
+    defaults:  { _controller: "AppBundle:Admin/Tag:setIPPublished" }
+            
 admin_tag:
     path:      /admin/tags/{page}
     defaults:  { _controller: "AppBundle:Admin/Tag:index", page: 1 }
@@ -1083,10 +1119,14 @@ admin_term_delete:
     path:      /admin/terms/delete/{id}
     defaults:  { _controller: "AppBundle:Admin/Term:delete" }
     
-admin_term_set_published:
-    path:      /admin/terms/set_published/{id}
-    defaults:  { _controller: "AppBundle:Admin/Term:setPublished" }
-        
+admin_term_set_im_published:
+    path:      /admin/terms/set_im_published/{id}
+    defaults:  { _controller: "AppBundle:Admin/Term:setIMPublished" }
+
+admin_term_set_ip_published:
+    path:      /admin/terms/set_ip_published/{id}
+    defaults:  { _controller: "AppBundle:Admin/Term:setIPPublished" }
+            
 admin_term:
     path:      /admin/terms/{page}
     defaults:  { _controller: "AppBundle:Admin/Term:index", page: 1 }
@@ -1112,10 +1152,6 @@ admin_term_category_assignment_delete:
     path:      /admin/term-category_assignments/delete/{id}
     defaults:  { _controller: "AppBundle:Admin/TermCategoryAssignment:delete" }
     
-admin_term_category_assignment_set_published:
-    path:      /admin/term-category_assignments/set_published/{id}
-    defaults:  { _controller: "AppBundle:Admin/TermCategoryAssignment:setPublished" }
-
 admin_term_category_assignment:
     path:      /admin/term-category_assignments/{page}
     defaults:  { _controller: "AppBundle:Admin/TermCategoryAssignment:index", page: 1 }

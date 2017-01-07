@@ -4,8 +4,8 @@ namespace AppBundle\Controller\Admin;
 
 use AppBundle\Controller\Admin\Base\SimpleEntityController;
 use AppBundle\Entity\NewsletterUser;
+use AppBundle\Form\Editor\NewsletterUserEditorType;
 use AppBundle\Form\Filter\NewsletterUserFilterType;
-use AppBundle\Form\NewsletterUserType;
 use AppBundle\Manager\Entity\Common\NewsletterUserManager;
 use AppBundle\Manager\Filter\Common\NewsletterUserFilterManager;
 use Symfony\Component\HttpFoundation\Request;
@@ -93,9 +93,21 @@ class NewsletterUserController extends SimpleEntityController {
 	 * 
 	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
 	 */
-	public function setPublishedAction(Request $request, $id)
+	public function setIMPublishedAction(Request $request, $id)
 	{
-		return $this->setPublishedActionInternal($request, $id);
+		return $this->setIMPublishedActionInternal($request, $id);
+	}
+	
+	/**
+	 *
+	 * @param Request $request
+	 * @param integer $id
+	 *
+	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
+	 */
+	public function setIPPublishedAction(Request $request, $id)
+	{
+		return $this->setIPPublishedActionInternal($request, $id);
 	}
 	
 	/**
@@ -180,8 +192,8 @@ class NewsletterUserController extends SimpleEntityController {
 	 * {@inheritDoc}
 	 * @see \AppBundle\Controller\Admin\Base\SimpleEntityController::getFormType()
 	 */
-	protected function getFormType() {
-		return NewsletterUserType::class;
+	protected function getEditorFormType() {
+		return NewsletterUserEditorType::class;
 	}
 	
 	/**

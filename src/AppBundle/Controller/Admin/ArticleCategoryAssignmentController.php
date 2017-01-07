@@ -2,15 +2,15 @@
 
 namespace AppBundle\Controller\Admin;
 
-use AppBundle\Controller\Admin\Base\AdminEntityController;
+use AppBundle\Controller\Admin\Base\BaseEntityController;
 use AppBundle\Entity\ArticleCategoryAssignment;
-use AppBundle\Form\ArticleCategoryAssignmentType;
+use AppBundle\Form\Editor\ArticleCategoryAssignmentEditorType;
 use AppBundle\Form\Filter\ArticleCategoryAssignmentFilterType;
 use AppBundle\Manager\Entity\Common\ArticleCategoryAssignmentManager;
 use AppBundle\Manager\Filter\Common\ArticleCategoryAssignmentFilterManager;
 use Symfony\Component\HttpFoundation\Request;
 
-class ArticleCategoryAssignmentController extends AdminEntityController {
+class ArticleCategoryAssignmentController extends BaseEntityController {
 	
 	//---------------------------------------------------------------------------
 	// Actions
@@ -87,18 +87,6 @@ class ArticleCategoryAssignmentController extends AdminEntityController {
 		return $this->deleteActionInternal($request, $id);
 	}
 	
-	/**
-	 *
-	 * @param Request $request
-	 * @param integer $id
-	 *
-	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
-	 */
-	public function setPublishedAction(Request $request, $id)
-	{
-		return $this->setPublishedActionInternal($request, $id);
-	}
-	
 	//---------------------------------------------------------------------------
 	// Managers
 	//---------------------------------------------------------------------------
@@ -146,8 +134,8 @@ class ArticleCategoryAssignmentController extends AdminEntityController {
 	 * {@inheritDoc}
 	 * @see \AppBundle\Controller\Admin\Base\AdminEntityController::getFormType()
 	 */
-	protected function getFormType() {
-		return ArticleCategoryAssignmentType::class;
+	protected function getEditorFormType() {
+		return ArticleCategoryAssignmentEditorType::class;
 	}
 	
 	/**

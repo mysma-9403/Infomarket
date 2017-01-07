@@ -5,14 +5,14 @@ namespace AppBundle\Form\Filter;
 use AppBundle\Entity\Category;
 use AppBundle\Entity\Filter\TermCategoryAssignmentFilter;
 use AppBundle\Entity\Term;
-use AppBundle\Form\Filter\Base\FilterFormType;
+use AppBundle\Form\Filter\Base\BaseEntityFilterType;
 use AppBundle\Form\Filter\Base\SimpleEntityFilterType;
 use AppBundle\Repository\CategoryRepository;
 use AppBundle\Repository\TermRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\FormBuilderInterface;
 
-class TermCategoryAssignmentFilterType extends FilterFormType
+class TermCategoryAssignmentFilterType extends BaseEntityFilterType
 {	
 	/**
 	 * 
@@ -28,11 +28,10 @@ class TermCategoryAssignmentFilterType extends FilterFormType
 					return $repository->createQueryBuilder('e')
 					->orderBy('e.published DESC, e.name', 'ASC');
 				},
-				'choice_label' 	=> 'name',
 				'required'		=> false,
 				'expanded'      => false,
 				'multiple'      => true,
-				'placeholder'	=> 'Choose term'
+				'placeholder'	=> 'label.choose.term'
 		))
 		->add('categories', EntityType::class, array(
 				'class'			=> Category::class,
@@ -40,11 +39,10 @@ class TermCategoryAssignmentFilterType extends FilterFormType
 					return $repository->createQueryBuilder('e')
 					->orderBy('e.published DESC, e.name', 'ASC');
 				},
-				'choice_label' 	=> 'name',
 				'required'		=> false,
 				'expanded'      => false,
 				'multiple'      => true,
-				'placeholder'	=> 'Choose category'
+				'placeholder'	=> 'label.choose.category'
 		))
 		;
 	}

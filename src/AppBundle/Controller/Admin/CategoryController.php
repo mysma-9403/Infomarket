@@ -4,23 +4,23 @@ namespace AppBundle\Controller\Admin;
 
 use AppBundle\Controller\Admin\Base\ImageEntityController;
 use AppBundle\Controller\Admin\Base\SimpleEntityController;
+use AppBundle\Entity\Brand;
 use AppBundle\Entity\Category;
-use AppBundle\Form\CategoryType;
+use AppBundle\Entity\ImportRatings;
+use AppBundle\Entity\Product;
+use AppBundle\Entity\ProductCategoryAssignment;
+use AppBundle\Entity\Segment;
+use AppBundle\Form\Editor\CategoryEditorType;
+use AppBundle\Form\Editor\ImportRatingsEditorType;
 use AppBundle\Form\Filter\CategoryFilterType;
 use AppBundle\Manager\Entity\Base\EntityManager;
 use AppBundle\Manager\Entity\Common\CategoryManager;
 use AppBundle\Manager\Filter\Admin\ACategoryFilterManager;
 use AppBundle\Manager\Filter\Base\FilterManager;
 use AppBundle\Manager\Params\EntryParams\Admin\CategoryEntryParamsManager;
-use Symfony\Component\HttpFoundation\Request;
-use AppBundle\Entity\ImportRatings;
-use AppBundle\Form\ImportRatingsType;
 use AppBundle\Repository\ProductRepository;
-use AppBundle\Entity\Product;
-use AppBundle\Entity\Segment;
-use AppBundle\Entity\Brand;
-use AppBundle\Entity\ProductCategoryAssignment;
 use AppBundle\Utils\ClassUtils;
+use Symfony\Component\HttpFoundation\Request;
 
 class CategoryController extends ImageEntityController {
 	
@@ -105,9 +105,21 @@ class CategoryController extends ImageEntityController {
 	 * 
 	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
 	 */
-	public function setPublishedAction(Request $request, $id)
+	public function setIMPublishedAction(Request $request, $id)
 	{
-		return $this->setPublishedActionInternal($request, $id);
+		return $this->setIMPublishedActionInternal($request, $id);
+	}
+	
+	/**
+	 *
+	 * @param Request $request
+	 * @param integer $id
+	 *
+	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
+	 */
+	public function setIPPublishedAction(Request $request, $id)
+	{
+		return $this->setIPPublishedActionInternal($request, $id);
 	}
 	
 	/**
@@ -236,7 +248,7 @@ class CategoryController extends ImageEntityController {
 		
 		$importRatings = new ImportRatings();
 		
-		$importRatingsForm = $this->createForm(ImportRatingsType::class, $importRatings);
+		$importRatingsForm = $this->createForm(ImportRatingsEditorType::class, $importRatings);
 		$importRatingsForm->handleRequest($request);
 		
 		if ($importRatingsForm->isSubmitted() && $importRatingsForm->isValid()) {
@@ -964,8 +976,8 @@ class CategoryController extends ImageEntityController {
 	 * {@inheritDoc}
 	 * @see \AppBundle\Controller\Admin\Base\SimpleEntityController::getFormType()
 	 */
-	protected function getFormType() {
-		return CategoryType::class;
+	protected function getEditorFormType() {
+		return CategoryEditorType::class;
 	}
 
 	/**

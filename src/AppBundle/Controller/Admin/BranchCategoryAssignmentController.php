@@ -2,15 +2,15 @@
 
 namespace AppBundle\Controller\Admin;
 
-use AppBundle\Controller\Admin\Base\AdminEntityController;
+use AppBundle\Controller\Admin\Base\BaseEntityController;
 use AppBundle\Entity\BranchCategoryAssignment;
-use AppBundle\Form\BranchCategoryAssignmentType;
+use AppBundle\Form\Editor\BranchCategoryAssignmentEditorType;
 use AppBundle\Form\Filter\BranchCategoryAssignmentFilterType;
 use AppBundle\Manager\Entity\Common\BranchCategoryAssignmentManager;
 use AppBundle\Manager\Filter\Common\BranchCategoryAssignmentFilterManager;
 use Symfony\Component\HttpFoundation\Request;
 
-class BranchCategoryAssignmentController extends AdminEntityController {
+class BranchCategoryAssignmentController extends BaseEntityController {
 	
 	//---------------------------------------------------------------------------
 	// Actions
@@ -87,18 +87,6 @@ class BranchCategoryAssignmentController extends AdminEntityController {
 		return $this->deleteActionInternal($request, $id);
 	}
 	
-	/**
-	 *
-	 * @param Request $request
-	 * @param integer $id
-	 *
-	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
-	 */
-	public function setPublishedAction(Request $request, $id)
-	{
-		return $this->setPublishedActionInternal($request, $id);
-	}
-	
 	//---------------------------------------------------------------------------
 	// Managers
 	//---------------------------------------------------------------------------
@@ -146,8 +134,8 @@ class BranchCategoryAssignmentController extends AdminEntityController {
 	 * {@inheritDoc}
 	 * @see \AppBundle\Controller\Admin\Base\AdminEntityController::getFormType()
 	 */
-	protected function getFormType() {
-		return BranchCategoryAssignmentType::class;
+	protected function getEditorFormType() {
+		return BranchCategoryAssignmentEditorType::class;
 	}
 	
 	/**

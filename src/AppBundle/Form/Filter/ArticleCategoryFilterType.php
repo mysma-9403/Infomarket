@@ -3,13 +3,12 @@
 namespace AppBundle\Form\Filter;
 
 use AppBundle\Entity\Filter\ArticleCategoryFilter;
-use AppBundle\Form\Filter\Base\ImageEntityFilterType;
-use AppBundle\Form\Filter\Base\SimpleEntityFilterType;
-use Symfony\Component\Form\FormBuilderInterface;
 use AppBundle\Entity\Filter\Base\SimpleEntityFilter;
+use AppBundle\Form\Filter\Base\SimpleEntityFilterType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\FormBuilderInterface;
 
-class ArticleCategoryFilterType extends ImageEntityFilterType
+class ArticleCategoryFilterType extends SimpleEntityFilterType
 {	
 	/**
 	 * 

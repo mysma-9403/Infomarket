@@ -2,12 +2,12 @@
 
 namespace AppBundle\Entity;
 
-use AppBundle\Entity\Base\ImageTree;
+use AppBundle\Entity\Base\ImageEntityTree;
 
 /**
  * Category
  */
-class Category extends ImageTree
+class Category extends ImageEntityTree
 {
 	/** @var array */
 	protected $menuChildren;

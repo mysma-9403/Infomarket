@@ -31,8 +31,6 @@ class AdvertManager extends SimpleEntityManager {
 		$entry->setShowCount($request->get('show_count'));
 		$entry->setShowLimit($request->get('show_limit'));
 		
-		$entry->setParent($this->getParamWithName($request, Advert::class, 'parent'));
-		
 		return $entry;
 	}
 	

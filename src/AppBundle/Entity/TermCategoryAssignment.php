@@ -9,6 +9,15 @@ use AppBundle\Entity\Base\Audit;
  */
 class TermCategoryAssignment extends Audit
 {
+	/**
+	 *
+	 * {@inheritDoc}
+	 * @see \AppBundle\Entity\Base\Audit::getDisplayName()
+	 */
+	public function getDisplayName() {
+		return $this->category->getDisplayName();
+	}
+	
     /**
      * @var \AppBundle\Entity\Term
      */

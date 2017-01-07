@@ -54,7 +54,7 @@ class ImageEntityFilter extends SimpleEntityFilter {
 	 *
 	 * @var boolean
 	 */
-	private $withImage;
+	protected $withImage;
 	
 	/**
 	 * Set with image

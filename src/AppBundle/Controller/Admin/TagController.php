@@ -4,7 +4,7 @@ namespace AppBundle\Controller\Admin;
 
 use AppBundle\Controller\Admin\Base\SimpleEntityController;
 use AppBundle\Entity\Tag;
-use AppBundle\Form\TagType;
+use AppBundle\Form\Editor\TagEditorType;
 use AppBundle\Manager\Entity\Common\TagManager;
 use AppBundle\Manager\Filter\Common\TagFilterManager;
 use Symfony\Component\HttpFoundation\Request;
@@ -93,9 +93,21 @@ class TagController extends SimpleEntityController {
 	 *
 	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
 	 */
-	public function setPublishedAction(Request $request, $id)
+	public function setIMPublishedAction(Request $request, $id)
 	{
-		return $this->setPublishedActionInternal($request, $id);
+		return $this->setIMPublishedActionInternal($request, $id);
+	}
+	
+	/**
+	 *
+	 * @param Request $request
+	 * @param integer $id
+	 *
+	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
+	 */
+	public function setIPPublishedAction(Request $request, $id)
+	{
+		return $this->setIPPublishedActionInternal($request, $id);
 	}
 	
 	/**
@@ -146,7 +158,7 @@ class TagController extends SimpleEntityController {
 	 * {@inheritDoc}
 	 * @see \AppBundle\Controller\Admin\Base\SimpleEntityController::getFormType()
 	 */
-	protected function getFormType() {
-		return TagType::class;
+	protected function getEditorFormType() {
+		return TagEditorType::class;
 	}
 }

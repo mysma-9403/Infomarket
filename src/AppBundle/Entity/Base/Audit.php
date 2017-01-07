@@ -16,7 +16,7 @@ class Audit
 	}
 	
 	public function __toString() {
-		return $this->id;
+		return $this->getDisplayName();
 	}
 	
     /**
@@ -35,11 +35,6 @@ class Audit
     protected $updatedAt;
 
     /**
-     * @var \DateTime
-     */
-    protected $publishedAt;
-
-    /**
      * @var integer
      */
     protected $id;
@@ -53,11 +48,6 @@ class Audit
      * @var \AppBundle\Entity\User
      */
     protected $updatedBy;
-
-    /**
-     * @var \AppBundle\Entity\User
-     */
-    protected $publishedBy;
 
 
     /**
@@ -133,30 +123,6 @@ class Audit
     }
 
     /**
-     * Set publishedAt
-     *
-     * @param \DateTime $publishedAt
-     *
-     * @return Audit
-     */
-    public function setPublishedAt($publishedAt)
-    {
-        $this->publishedAt = $publishedAt;
-
-        return $this;
-    }
-
-    /**
-     * Get publishedAt
-     *
-     * @return \DateTime
-     */
-    public function getPublishedAt()
-    {
-        return $this->publishedAt;
-    }
-
-    /**
      * Get id
      *
      * @return integer
@@ -212,29 +178,5 @@ class Audit
     public function getUpdatedBy()
     {
         return $this->updatedBy;
-    }
-
-    /**
-     * Set publishedBy
-     *
-     * @param \AppBundle\Entity\User $publishedBy
-     *
-     * @return Audit
-     */
-    public function setPublishedBy(\AppBundle\Entity\User $publishedBy = null)
-    {
-        $this->publishedBy = $publishedBy;
-
-        return $this;
-    }
-
-    /**
-     * Get publishedBy
-     *
-     * @return \AppBundle\Entity\User
-     */
-    public function getPublishedBy()
-    {
-        return $this->publishedBy;
     }
 }

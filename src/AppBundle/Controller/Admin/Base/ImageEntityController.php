@@ -8,6 +8,7 @@ use Symfony\Component\HttpFoundation\Request;
 
 abstract class ImageEntityController extends SimpleEntityController {
 	
+	//TODO make ActionInternal
 	public function removeImageAction(Request $request, $id) {
 		
 		$this->denyAccessUnlessGranted('ROLE_EDITOR', null, 'Unable to access this page!');
