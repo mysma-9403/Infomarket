@@ -2,27 +2,14 @@
 
 namespace AppBundle\Entity\Base;
 
-use Symfony\Component\HttpFoundation\File\UploadedFile;
 
-class Image extends Audit {
+
+class Image extends Simple {
 	
 	public function __construct() {
 		parent::__construct();
 		
 		$this->vertical = false;
-	}
-	
-	/**
-	 * 
-	 * {@inheritDoc}
-	 * @see \AppBundle\Entity\Base\Audit::getDisplayName()
-	 */
-	public function getDisplayName() {
-		return $this->id;
-	}
-	
-	public function __toString() {
-		return $this->getDisplayName();
 	}
 	
 	public function getUploadPath()
@@ -64,18 +51,30 @@ class Image extends Audit {
      * @var string
      */
     protected $image;
-    
+
     /**
      * @var boolean
      */
     protected $vertical;
-    
+
+    /**
+     * @var integer
+     */
+    protected $forcedWidth;
+
+    /**
+     * @var integer
+     */
+    protected $forcedHeight;
+
+
     /**
      * Set file
      *
      * @param UploadedFile $file
      *
      * @return Image
+     * @var integer
      */
     public function setFile($file)
     {
@@ -88,6 +87,7 @@ class Image extends Audit {
      * Get file.
      *
      * @return UploadedFile
+     * @var integer
      */
     public function getFile()
     {
@@ -143,7 +143,7 @@ class Image extends Audit {
     }
 
     /**
-     * Set image path
+     * Set image
      *
      * @param string $image
      *
@@ -157,7 +157,7 @@ class Image extends Audit {
     }
 
     /**
-     * Get image path
+     * Get image
      *
      * @return string
      */
@@ -189,16 +189,6 @@ class Image extends Audit {
     {
         return $this->vertical;
     }
-    /**
-     * @var integer
-     */
-    private $forcedWidth;
-
-    /**
-     * @var integer
-     */
-    private $forcedHeight;
-
 
     /**
      * Set forcedWidth
