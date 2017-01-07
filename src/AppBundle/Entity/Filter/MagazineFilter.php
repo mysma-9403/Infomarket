@@ -24,8 +24,6 @@ class MagazineFilter extends SimpleEntityFilter {
 		$this->filterName = 'magazine_filter_';
 		
 		$this->featured = $this::ALL_VALUES;
-		$this->infomarket = $this::ALL_VALUES;
-		$this->infoprodukt = $this::ALL_VALUES;
 		
 		$this->orderBy = 'e.name ASC';
 	}
@@ -42,8 +40,6 @@ class MagazineFilter extends SimpleEntityFilter {
 		$this->categories = $this->categoryRepository->findBy(array('id' => $categories));
 		
 		$this->featured = $request->get($this->getFilterName() . 'featured', $this::ALL_VALUES);
-		$this->infomarket = $request->get($this->getFilterName() . 'infomarket', $this::ALL_VALUES);
-		$this->infoprodukt = $request->get($this->getFilterName() . 'infoprodukt', $this::ALL_VALUES);
 	}
 	
 	/**
@@ -57,8 +53,6 @@ class MagazineFilter extends SimpleEntityFilter {
 		$this->categories = array();
 		
 		$this->featured = $this::ALL_VALUES;
-		$this->infomarket = $this::ALL_VALUES;
-		$this->infoprodukt = $this::ALL_VALUES;
 	}
 	
 	/**
@@ -75,14 +69,6 @@ class MagazineFilter extends SimpleEntityFilter {
 		
 		if($this->featured != $this::ALL_VALUES) {
 			$values[$this->getFilterName() . 'featured'] = $this->featured;
-		}
-		
-		if($this->infomarket != $this::ALL_VALUES) {
-			$values[$this->getFilterName() . 'infomarket'] = $this->infomarket;
-		}
-		
-		if($this->infoprodukt != $this::ALL_VALUES) {
-			$values[$this->getFilterName() . 'infoprodukt'] = $this->infoprodukt;
 		}
 		
 		return $values;
@@ -102,14 +88,6 @@ class MagazineFilter extends SimpleEntityFilter {
 		
 		if($this->featured != SimpleEntityFilter::ALL_VALUES) {
 			$expressions[] = 'e.featured = ' . $this->featured;
-		}
-		
-		if($this->infomarket != SimpleEntityFilter::ALL_VALUES) {
-			$expressions[] = 'e.infomarket = ' . $this->infomarket;
-		}
-		
-		if($this->infoprodukt != SimpleEntityFilter::ALL_VALUES) {
-			$expressions[] = 'e.infoprodukt = ' . $this->infoprodukt;
 		}
 	
 		return $expressions;
