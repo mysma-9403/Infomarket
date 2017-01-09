@@ -66,7 +66,19 @@ class InfomarketFilterManager extends FilterManager {
 			
 		$categories = array();
 		foreach ($branch->getBranchCategoryAssignments() as $branchCategoryAssignment) {
-			$categories[] = $branchCategoryAssignment->getCategory();
+			$category = $branchCategoryAssignment->getCategory();
+			
+			$categories = array_merge($categories, $this->getSubcategories($category));
+		}
+	
+		return $categories;
+	}
+	
+	protected function getSubcategories($category) {
+		$categories = [$category];
+	
+		foreach($category->getChildren() as $subcategory) {
+			$categories = array_merge($categories, $this->getSubcategories($subcategory));
 		}
 	
 		return $categories;

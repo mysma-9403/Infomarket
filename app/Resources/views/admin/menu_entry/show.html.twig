@@ -1,0 +1,30 @@
+{% extends 'admin/simple/show.html.twig' %}
+
+{% set mainPath = 'menu_entry' %}
+{% set title = 'title.menuEntries'|trans %}
+
+{% block moreFields3 %}
+	{% include 'common/fields/text_field.html.twig' with 
+	{ 'label': 'label.menu'|trans, 'value': entry.menu } %}
+	
+	{% include 'common/fields/simple_field.html.twig' with 
+	{ 'label': 'label.menuEntry.parent', 'value': entry.parent, 'object': 'menuEntry', 'routeId': entry.id } %}
+		
+	{% include 'common/fields/text_field.html.twig' with 
+	{ 'label': 'label.orderNumber'|trans, 'value': entry.orderNumber } %}
+	
+	{% include 'common/fields/simple_field.html.twig' with 
+	{ 'label': 'label.menuEntry.page', 'value': entry.page, 'object': 'page', 'routeId': entry.id } %}
+		
+	{% include 'common/fields/simple_field.html.twig' with 
+	{ 'label': 'label.menuEntry.link', 'value': entry.link, 'object': 'link', 'routeId': entry.id } %}
+	
+	<div class="row">
+		<div class="col-xs-12">
+			<h4>{{ 'label.content'|trans }}</h4>
+		</div>
+		<div class="col-xs-12">
+			{{ entry.content | raw }}
+		</div>
+	</div>
+{% endblock %}

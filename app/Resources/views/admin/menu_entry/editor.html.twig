@@ -1,0 +1,13 @@
+{% extends 'admin/simple/editor.html.twig' %}
+
+{% set mainPath = 'menu_entry' %}
+{% set title = 'title.menuEntries'|trans %}
+
+{% block moreFields3 %}
+	{{ form_row(form.menu, { 'label': 'label.menu' }) }}
+	{{ form_row(form.parent, { 'label': 'label.menuEntry.parent' }) }}
+	{{ form_row(form.orderNumber, { 'label': 'label.orderNumber' }) }}
+	
+	{{ form_row(form.page, { 'label': 'label.menuEntry.page' }) }}
+	{{ form_row(form.link, { 'label': 'label.menuEntry.link' }) }}
+{% endblock %}

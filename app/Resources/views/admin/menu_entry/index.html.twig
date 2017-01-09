@@ -1,0 +1,28 @@
+{% extends 'admin/simple/index.html.twig' %}
+
+{% set mainPath = 'menu_entry' %}
+{% set title = 'title.menuEntries'|trans %}
+
+{% block filterMoreFields3 %}
+	<li class="col-xs-12 col-sm-6 col-md-4 col-lg-2">
+		{{ form_widget(filter.parents, { 'label': 'label.menuEntry.parents' }) }}
+	</li>
+	<li class="col-xs-12 col-sm-6 col-md-4 col-lg-2">
+		{{ form_widget(filter.pages, { 'label': 'label.pages' }) }}
+	</li>
+	<li class="col-xs-12 col-sm-6 col-md-4 col-lg-2">
+		{{ form_widget(filter.links, { 'label': 'label.links' }) }}
+	</li>
+{% endblock %}
+
+{% block headerMoreFields2 %}
+	<th><i class="fa fa-sitemap"></i> {{ 'label.menuEntry.parents'|trans }}</th>
+	<th><i class="fa fa-file-o"></i> {{ 'label.menuEntry.pages'|trans }}</th>
+	<th><i class="fa fa-link"></i> {{ 'label.menuEntry.links'|trans }}</th>
+{% endblock %}
+
+{% block entryMoreFields2 %}
+	<td>{{ item.parent ? item.parent.displayName : '-' }}</td>
+	<td>{{ item.page ? item.page.displayName : '-' }}</td>
+	<td>{{ item.link ? item.link.displayName : '-' }}</td>
+{% endblock %}

@@ -41,16 +41,12 @@ class HomeEntryParamsManager extends EntryParamsManager {
 		$branch = $viewParams['branch'];
 		$categories = array();
 		
-		$ratingsCategory = null;
-		
 		foreach ($branch->getBranchCategoryAssignments() as $branchCategoryAssignment) {
 			$category = $branchCategoryAssignment->getCategory();
-			$categories[] = $category;
-			
-			if($category->getParent() != null && $category->getParent()->getPreleaf() == true) {
-				$ratingsCategory = $category;
-			}
+			$categories = array_merge($categories, $this->getSubcategories($category));
 		}
+		
+		$ratingsCategory = $this->getFirstRatingsCategory($categories);
 		
 		$userRepository = $this->doctrine->getRepository(User::class);
 		$brandRepository = $this->doctrine->getRepository(Brand::class);
@@ -182,5 +178,24 @@ class HomeEntryParamsManager extends EntryParamsManager {
     	
     	$params['viewParams'] = $viewParams;
     	return $params;
+	}
+	
+	protected function getSubcategories($category) {
+		$categories = [$category];
+		
+		foreach($category->getChildren() as $subcategory) {
+			$categories = array_merge($categories, $this->getSubcategories($subcategory));
+		}
+		
+		return $categories;
+	}
+	
+	protected function getFirstRatingsCategory($categories) {
+		foreach($categories as $category) {
+			if($category->getParent() != null && $category->getParent()->getPreleaf() == true) {
+				return $category;
+			}
+		}
+		return null;
 	}
 }

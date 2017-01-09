@@ -3,13 +3,13 @@
 namespace AppBundle\Manager\Params\Base;
 
 use AppBundle\Entity\Filter\Base\BaseEntityFilter;
-use AppBundle\Entity\Filter\LinkFilter;
-use AppBundle\Entity\Filter\PageFilter;
+use AppBundle\Entity\Filter\MenuEntryFilter;
 use AppBundle\Entity\Link;
+use AppBundle\Entity\MenuEntry;
 use AppBundle\Entity\Page;
 use AppBundle\Entity\User;
-use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Manager\Params\Base\ParamsManager;
+use Symfony\Component\HttpFoundation\Request;
 
 class FooterParamsManager extends ParamsManager {
 	
@@ -28,28 +28,18 @@ class FooterParamsManager extends ParamsManager {
 		
 		
 		$userRepository = $this->doctrine->getRepository(User::class); //TODO bedzie usuniete
-    	
+		$pageRepository = $this->doctrine->getRepository(Page::class);
+		$linkRepository = $this->doctrine->getRepository(Link::class);
+		$menuEntryRepository = $this->doctrine->getRepository(MenuEntry::class);
 		
-    	$pageFilter = new PageFilter($userRepository);
-    	if($this->infomarket) $pageFilter->setInfomarket(BaseEntityFilter::TRUE_VALUES);
-    	if($this->infoprodukt) $pageFilter->setInfoprodukt(BaseEntityFilter::TRUE_VALUES);
-    	$pageFilter->setFeatured(BaseEntityFilter::TRUE_VALUES);
-    	$pageFilter->setOrderBy('e.orderNumber ASC');
+		$menuEntryFilter = new MenuEntryFilter($userRepository, $menuEntryRepository, $pageRepository, $linkRepository);
+    	if($this->infomarket) $menuEntryFilter->setInfomarket(BaseEntityFilter::TRUE_VALUES);
+    	if($this->infoprodukt) $menuEntryFilter->setInfoprodukt(BaseEntityFilter::TRUE_VALUES);
+    	$menuEntryFilter->setRoot(BaseEntityFilter::TRUE_VALUES);
+    	$menuEntryFilter->setOrderBy('e.orderNumber ASC');
     	
-    	$pages = $this->getParamList(Page::class, $pageFilter);
-    	$viewParams['menuPages'] = $pages;
-    	
-    	 
-    	$linkFilter = new LinkFilter($userRepository);
-    	if($this->infomarket) $linkFilter->setInfomarket(BaseEntityFilter::TRUE_VALUES);
-    	if($this->infoprodukt) $linkFilter->setInfoprodukt(BaseEntityFilter::TRUE_VALUES);
-    	$linkFilter->setFeatured(BaseEntityFilter::TRUE_VALUES);
-    	$linkFilter->setTypes([Link::FOOTER_LINK]);
-    	$linkFilter->setOrderBy('e.orderNumber ASC');
-    	
-    	$links = $this->getParamList(Link::class, $linkFilter);
-    	$viewParams['menuLinks'] = $links;
-    	
+    	$menuEntries = $this->getParamList(MenuEntry::class, $menuEntryFilter);
+    	$viewParams['menuEntries'] = $menuEntries;
     	
     	$params['viewParams'] = $viewParams;
     	return $params;

@@ -80,6 +80,14 @@
                 <source>title.magazines</source>
                 <target>Magazyny</target>
             </trans-unit>
+            <trans-unit id="title.menuEntry">
+                <source>title.menuEntry</source>
+                <target>Pozycja menu</target>
+            </trans-unit>
+            <trans-unit id="title.menuEntries">
+                <source>title.menuEntries</source>
+                <target>Pozycje menu</target>
+            </trans-unit>
             <trans-unit id="title.newsletter">
                 <source>title.newsletter</source>
                 <target>Newsletter</target>
@@ -960,6 +968,41 @@
                 <target>Plik magazynu</target>
             </trans-unit>
             
+            <trans-unit id="label.menu">
+                <source>label.menu</source>
+                <target>Menu</target>
+            </trans-unit>
+            
+            <trans-unit id="label.menuEntry.link">
+                <source>label.menuEntry.link</source>
+                <target>Powiązany link</target>
+            </trans-unit>
+            <trans-unit id="label.menuEntry.links">
+                <source>label.menuEntry.links</source>
+                <target>Powiązane linki</target>
+            </trans-unit>
+            <trans-unit id="label.menuEntry.page">
+                <source>label.menuEntry.page</source>
+                <target>Powiązana strona</target>
+            </trans-unit>
+            <trans-unit id="label.menuEntry.pages">
+                <source>label.menuEntry.pages</source>
+                <target>Powiązane strony</target>
+            </trans-unit>
+            <trans-unit id="label.menuEntry.parent">
+                <source>label.menuEntry.parent</source>
+                <target>Pozycja nadrzędna</target>
+            </trans-unit>
+            <trans-unit id="label.menuEntry.parents">
+                <source>label.menuEntry.parents</source>
+                <target>Pozycje nadrzędne</target>
+            </trans-unit>
+            
+            <trans-unit id="label.menuEntry.menu.footer">
+                <source>label.menuEntry.menu.footer</source>
+                <target>Stopka</target>
+            </trans-unit>
+            
             
             <trans-unit id="label.newsletterBlock">
                 <source>label.newsletterBlock</source>
@@ -1025,6 +1068,10 @@
             <trans-unit id="label.choose.category">
                 <source>label.choose.category</source>
                 <target>Wybierz kategorię</target>
+            </trans-unit>
+            <trans-unit id="label.choose.link">
+                <source>label.choose.link</source>
+                <target>Wybierz link</target>
             </trans-unit>
             <trans-unit id="label.choose.magazine">
                 <source>label.choose.magazine</source>
@@ -1156,6 +1203,52 @@
             <trans-unit id="label.user.roles">
                 <source>label.user.roles</source>
                 <target>Uprawnienia</target>
+            </trans-unit>
+            
+            
+            
+            
+            <trans-unit id="label.infomarket.footer.title">
+                <source>label.infomarket.footer.title</source>
+                <target>Infomarket Sp z o.o.</target>
+            </trans-unit>
+            <trans-unit id="label.infomarket.footer.address1">
+                <source>label.infomarket.footer.address1</source>
+                <target>ul. Trylogii 2/16,</target>
+            </trans-unit>
+            <trans-unit id="label.infomarket.footer.address2">
+                <source>label.infomarket.footer.address2</source>
+                <target>01-982 Warszawa</target>
+            </trans-unit>
+            <trans-unit id="label.infomarket.footer.phone">
+                <source>label.infomarket.footer.phone</source>
+                <target>tel./fax: (22) 835 19 17</target>
+            </trans-unit>
+            <trans-unit id="label.infomarket.footer.mail">
+                <source>label.infomarket.footer.mail</source>
+                <target>redakcja@infomarket.edu.pl</target>
+            </trans-unit>
+            
+            
+            <trans-unit id="label.infoprodukt.footer.title">
+                <source>label.infoprodukt.footer.title</source>
+                <target>Elekstrospecjaliści Sp z o.o.</target>
+            </trans-unit>
+            <trans-unit id="label.infoprodukt.footer.address1">
+                <source>label.infoprodukt.footer.address1</source>
+                <target>ul. Trylogii 2/16,</target>
+            </trans-unit>
+            <trans-unit id="label.infoprodukt.footer.address2">
+                <source>label.infoprodukt.footer.address2</source>
+                <target>01-982 Warszawa</target>
+            </trans-unit>
+            <trans-unit id="label.infoprodukt.footer.phone">
+                <source>label.infoprodukt.footer.phone</source>
+                <target>tel./fax: (22) 835 19 17</target>
+            </trans-unit>
+            <trans-unit id="label.infoprodukt.footer.mail">
+                <source>label.infoprodukt.footer.mail</source>
+                <target>redakcja@infoprodukt.pl</target>
             </trans-unit>
             
             

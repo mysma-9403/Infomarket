@@ -748,6 +748,39 @@ admin_magazine:
     path:      /admin/magazines/{page}
     defaults:  { _controller: "AppBundle:Admin/Magazine:index", page: 1 }
 
+# Admin MenuEntrys Routing    
+admin_menu_entry_show:
+    path:      /admin/menu_entries/show/{id}
+    defaults:  { _controller: "AppBundle:Admin/MenuEntry:show" }
+    
+admin_menu_entry_new:
+    path:      /admin/menu_entries/new/
+    defaults:  { _controller: "AppBundle:Admin/MenuEntry:new" }
+    
+admin_menu_entry_copy:
+    path:      /admin/menu_entries/copy/{id}
+    defaults:  { _controller: "AppBundle:Admin/MenuEntry:copy" }
+    
+admin_menu_entry_edit:
+    path:      /admin/menu_entries/edit/{id}
+    defaults:  { _controller: "AppBundle:Admin/MenuEntry:edit" }
+    
+admin_menu_entry_delete:
+    path:      /admin/menu_entries/delete/{id}
+    defaults:  { _controller: "AppBundle:Admin/MenuEntry:delete" }
+    
+admin_menu_entry_set_im_published:
+    path:      /admin/menu_entries/set_im_published/{id}
+    defaults:  { _controller: "AppBundle:Admin/MenuEntry:setIMPublished" }
+    
+admin_menu_entry_set_ip_published:
+    path:      /admin/menu_entries/set_ip_published/{id}
+    defaults:  { _controller: "AppBundle:Admin/MenuEntry:setIPPublished" }
+
+admin_menu_entry:
+    path:      /admin/menu_entries/{page}
+    defaults:  { _controller: "AppBundle:Admin/MenuEntry:index", page: 1 }
+    
 # Admin NewsletterBlocks Routing    
 admin_newsletter_block_show:
     path:      /admin/newsletter_blocks/show/{id}

@@ -207,50 +207,42 @@
 	  		<div class="container-fluid">
 		    	<div class="container">
 		      		<div class="row">
-			      		<div class="col-sm-3">
-			      			<h3>InfoMarket Sp. z o.o.</h3>
+		      			
+		      			<div class="col-sm-3">
+			      			<h3>{{ 'label.infomarket.footer.title'|trans }}</h3>
 			      			<hr>
 			      			<p>
-			      				ul. Trylogii 2/16,<br>
-			      				01-982 Warszawa<br>
-			      				tel./fax: (22) 835 19 17<br>
-			      				e-mail: <a href="mailto:redakcja@infomarket.edu.pl">redakcja@infomarket.edu.pl</a>
+			      				{{ 'label.infomarket.footer.address1'|trans }}<br>
+			      				{{ 'label.infomarket.footer.address2'|trans }}<br>
+			      				{{ 'label.infomarket.footer.phone'|trans }}<br>
+			      				e-mail: <a href="mailto:{{ 'label.infomarket.footer.mail'|trans }}">{{ 'label.infomarket.footer.mail'|trans }}</a>
 		      				</p>
 			      		</div>
-			      		<div class="col-sm-6">
-			      			<h3>{{ 'title.footer.office'|trans }}</h3>
-			      			<hr>
-			      			
-			      			{% set half = menuPages|length / 2 %}
-			      			
+			      		
+			      		<div class="col-sm-9">
 			      			<div class="row">
-				      			<div class="col-xs-6">
-					      			{% for entry in menuPages|slice(0, half) %}
-							      		<div>
-							      			<a href="{{ path(basePath ~ 'page_show', { id: entry.id}) }}">{{ entry.name }}</a>
-						      			</div>
-						      		{% endfor %}
-					      		</div>
-					      		
-					      		<div class="col-xs-6">
-					      			{% for entry in menuPages|slice(half) %}
-							      		<div>
-							      			<a href="{{ path(basePath ~ 'page_show', { id: entry.id}) }}">{{ entry.name }}</a>
-						      			</div>
-						      		{% endfor %}
-					      		</div>
+				      			{% for entry in menuEntries %}
+				      				<div class="col-xs-6 col-sm-3">
+					      				<h3>{{ entry.name }}</h3>
+					      				<hr>
+				      					{% for subentry in entry.children %}
+				      						{% if subentry.infomarket %}
+									      		<div>
+									      			{% if subentry.page %}
+									      				<a href="{{ path(basePath ~ 'page_show', { id: subentry.page.id}) }}">{{ subentry.name }}</a>
+									      			{% elseif subentry.link %}
+									      				<a href="{{ subentry.link.url }}">{{ subentry.name }}</a>
+								      				{% else %}
+								      					{{ subentry.name }}
+									      			{% endif %}
+								      			</div>
+							      			{% endif %}
+						      			{% endfor %}
+					      			</div>
+					      		{% endfor %}
 				      		</div>
 			      		</div>
-			      		<div class="col-sm-3">
-			      			<h3>{{ 'title.footer.magazine'|trans }}</h3>
-			      			<hr>
-			      			
-			      			{% for entry in menuLinks %}
-					      		<div>
-					      			<a href="{{ entry.url }}">{{ entry.name }}</a>
-				      			</div>
-				      		{% endfor %}
-			      		</div>
+			      		
 		      		</div>
 		    	</div>
 		  	</div>

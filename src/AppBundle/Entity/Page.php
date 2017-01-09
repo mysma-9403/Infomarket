@@ -23,19 +23,9 @@ class Page extends ImageEntity
     private $subname;
 
     /**
-     * @var boolean
-     */
-    private $featured;
-
-    /**
      * @var string
      */
     private $content;
-
-    /**
-     * @var integer
-     */
-    private $orderNumber;
 
 
     /**
@@ -63,30 +53,6 @@ class Page extends ImageEntity
     }
 
     /**
-     * Set featured
-     *
-     * @param boolean $featured
-     *
-     * @return Page
-     */
-    public function setFeatured($featured)
-    {
-        $this->featured = $featured;
-
-        return $this;
-    }
-
-    /**
-     * Get featured
-     *
-     * @return boolean
-     */
-    public function getFeatured()
-    {
-        return $this->featured;
-    }
-
-    /**
      * Set content
      *
      * @param string $content
@@ -108,29 +74,5 @@ class Page extends ImageEntity
     public function getContent()
     {
         return $this->content;
-    }
-
-    /**
-     * Set orderNumber
-     *
-     * @param integer $orderNumber
-     *
-     * @return Page
-     */
-    public function setOrderNumber($orderNumber)
-    {
-        $this->orderNumber = $orderNumber;
-
-        return $this;
-    }
-
-    /**
-     * Get orderNumber
-     *
-     * @return integer
-     */
-    public function getOrderNumber()
-    {
-        return $this->orderNumber;
     }
 }
