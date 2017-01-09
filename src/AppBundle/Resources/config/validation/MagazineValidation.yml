@@ -1,6 +1,10 @@
 AppBundle\Entity\Magazine:
     constraints:
-        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: name
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
+            fields: [name, date]
+            errorPath: name
+            ignoreNull: false
+            message: 'magazine.nameDate.unique'
     properties:
         name:
             - NotBlank: ~

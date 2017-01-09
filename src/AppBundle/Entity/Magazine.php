@@ -9,6 +9,15 @@ use AppBundle\Entity\Base\ImageEntity;
  */
 class Magazine extends ImageEntity
 {
+	public function getDisplayName() {
+		$result = parent::getDisplayName();
+		if($this->date) {
+			$result = $this->date->format('Y-m') . ' ' . $result;
+		}
+		
+		return $result;
+	}
+	
 	/**
 	 * {@inheritDoc}
 	 */
@@ -132,5 +141,131 @@ class Magazine extends ImageEntity
     public function getContent()
     {
         return $this->content;
+    }
+    /**
+     * @var \DateTime
+     */
+    private $date;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $children;
+
+    /**
+     * @var \AppBundle\Entity\Magazine
+     */
+    private $parent;
+
+
+    /**
+     * Set date
+     *
+     * @param \DateTime $date
+     *
+     * @return Magazine
+     */
+    public function setDate($date)
+    {
+        $this->date = $date;
+
+        return $this;
+    }
+
+    /**
+     * Get date
+     *
+     * @return \DateTime
+     */
+    public function getDate()
+    {
+        return $this->date;
+    }
+
+    /**
+     * Add child
+     *
+     * @param \AppBundle\Entity\Magazine $child
+     *
+     * @return Magazine
+     */
+    public function addChild(\AppBundle\Entity\Magazine $child)
+    {
+        $this->children[] = $child;
+
+        return $this;
+    }
+
+    /**
+     * Remove child
+     *
+     * @param \AppBundle\Entity\Magazine $child
+     */
+    public function removeChild(\AppBundle\Entity\Magazine $child)
+    {
+        $this->children->removeElement($child);
+    }
+
+    /**
+     * Get children
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getChildren()
+    {
+        return $this->children;
+    }
+
+    /**
+     * Set parent
+     *
+     * @param \AppBundle\Entity\Magazine $parent
+     *
+     * @return Magazine
+     */
+    public function setParent(\AppBundle\Entity\Magazine $parent = null)
+    {
+        $this->parent = $parent;
+
+        return $this;
+    }
+
+    /**
+     * Get parent
+     *
+     * @return \AppBundle\Entity\Magazine
+     */
+    public function getParent()
+    {
+        return $this->parent;
+    }
+    /**
+     * @var boolean
+     */
+    private $main;
+
+
+    /**
+     * Set main
+     *
+     * @param boolean $main
+     *
+     * @return Magazine
+     */
+    public function setMain($main)
+    {
+        $this->main = $main;
+
+        return $this;
+    }
+
+    /**
+     * Get main
+     *
+     * @return boolean
+     */
+    public function getMain()
+    {
+        return $this->main;
     }
 }

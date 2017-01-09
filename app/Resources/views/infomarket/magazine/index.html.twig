@@ -8,15 +8,20 @@
 	{% block magazines %}
 	<div class="row">
 		{% for entry in entries %}
-			<div class="col-sm-2 padding-5">
-				<a href="{{ asset(entry.magazineFile) }}">
-					<div class="col-xs-12 bkg-white no-padding">
+			<div class="col-sm-3 padding-5">
+				<a href="{{ path(basePath ~ mainPath ~ '_show', { id: entry.id }) }}">
+					<div class="col-xs-12 bkg-brand padding-5">
 		  				<img class="img-responsive" 
 		    				alt="{{ entry.name | raw }}" src="{{ asset(entry.getImagePath()) }}">
     				</div>
-    				<div class="col-xs-12 bkg-brand padding-5">
-    					<h4 class="title text-white">
-    						{{ entry.name }}
+    				<div class="col-xs-12 bottom-rect bkg-brand padding-5">
+    					<h4 class="title text-white text-center">
+    						{{ entry.name }}&nbsp
+    					</h4>
+    				</div>
+    				<div class="col-xs-12 bottom-rect bkg-red padding-5">
+    					<h4 class="title text-white text-center">
+    						{{ entry.date|date('Y-m') }}&nbsp
     					</h4>
     				</div>
 		  		</a>

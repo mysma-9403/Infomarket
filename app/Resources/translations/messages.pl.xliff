@@ -865,6 +865,15 @@
             
             
             
+            <trans-unit id="label.main">
+                <source>label.main</source>
+                <target>Główny</target>
+            </trans-unit>
+            <trans-unit id="label.notMain">
+                <source>label.notMain</source>
+                <target>Wkładka</target>
+            </trans-unit>
+            
             <trans-unit id="label.infomarket">
                 <source>label.infomarket</source>
                 <target>Infomarket</target>
@@ -963,9 +972,29 @@
             
             
             
+            <trans-unit id="label.magazine.date">
+                <source>label.magazine.date</source>
+                <target>Data wydania</target>
+            </trans-unit>
             <trans-unit id="label.magazine.magazineFile">
                 <source>label.magazine.magazineFile</source>
                 <target>Plik magazynu</target>
+            </trans-unit>
+            <trans-unit id="label.magazine.main">
+                <source>label.magazine.main</source>
+                <target>Główny / wkładka</target>
+            </trans-unit>
+            <trans-unit id="label.magazine.parents">
+                <source>label.magazine.parents</source>
+                <target>Magazyny główne</target>
+            </trans-unit>
+            <trans-unit id="label.magazine.parent">
+                <source>label.magazine.parent</source>
+                <target>Magazyn główny</target>
+            </trans-unit>
+            <trans-unit id="label.magazine.children">
+                <source>label.magazine.children</source>
+                <target>Wkładki</target>
             </trans-unit>
             
             <trans-unit id="label.menu">
@@ -1112,6 +1141,11 @@
             <trans-unit id="label.choose.user">
                 <source>label.choose.user</source>
                 <target>Wybierz użytkownika</target>
+            </trans-unit>
+            
+            <trans-unit id="label.choose.magazine.parent">
+                <source>label.choose.magazine.parent</source>
+                <target>Wybierz magazyn główny</target>
             </trans-unit>
             
             <trans-unit id="label.choose.newsletterBlock">

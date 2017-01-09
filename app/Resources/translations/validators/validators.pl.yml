@@ -3,6 +3,8 @@ article.name.notnull: Tytuł głównego artykułu nie może być pusty.
 
 category.name.unique: Podana nazwa jest już wykorzystywana w innej podkategorii wybranej kategorii głównej.
 
+magazine.nameDate.unique: Połączenie nazwy i daty magazynu musi być unikalne.
+
 # Assignment uniqueness
 articleArticleCategoryAssignment.unique: Artykuł jest już powiązany z wybraną kategorią artykułów.
 articleBrandAssignment.unique: Artykuł jest już powiązany z wybraną marką.

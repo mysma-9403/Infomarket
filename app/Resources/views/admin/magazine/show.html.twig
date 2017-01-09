@@ -8,6 +8,13 @@
 	{% include 'common/fields/bool_field.html.twig' with 
 	{ 'label': ('label.' ~ gender ~ 'featured')|trans, 'value': entry.featured } %}
 	
+	{% include 'common/fields/bool_field.html.twig' with 
+	{ 'label': ('label.main')|trans, 'value': entry.main } %}
+	
+	{% include 'common/fields/simple_field.html.twig' with 
+		{ 'label': 'label.magazine.parent', 'value': entry.parent,
+			'object': 'magazine', 'routeId': entry.id } %}
+	
 	{% include 'common/fields/text_field.html.twig' with 
 	{ 'label': 'label.orderNumber'|trans, 'value': entry.orderNumber } %}
 	

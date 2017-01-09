@@ -68,9 +68,18 @@
 				      			<ul class="nav navbar-nav navbar-right no-padding">
 									{% block navigationMenu %}
 										<li class="{% if mainPath == 'home' %}active{% endif %} branch-{{ branch.id }}">
-											<a href="{{ path(basePath ~ 'home') }}">
-												<span class="fa fa-search"></span> {{ 'title.infomarket.home'|trans }}
-												</a>
+											<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+												<span class="fa fa-search"></span> {{ 'title.infomarket.home'|trans }} <span class="caret">
+											</a>
+											<ul class="dropdown-menu">
+												{% for branch in menuBranches %}
+													<li>
+														<a href="{{ path(basePath ~ 'home', { branch: branch.id }) }}">
+															{{ branch.name }}
+														</a>
+													</li>
+												{% endfor %}
+											</ul>
 										</li>
 										<li class="{% if mainPath == 'article' %}active{% endif %} branch-{{ branch.id }}">
 											<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">

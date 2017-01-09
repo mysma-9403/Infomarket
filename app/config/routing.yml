@@ -213,7 +213,11 @@ infomarket_term:
 infomarket_term_show:
     path:      /terms/show/{id}
     defaults:  { _controller: "AppBundle:Infomarket/Term:show" }
-        
+
+infomarket_magazine_show:
+    path:      /magazines/show/{id}
+    defaults:  { _controller: "AppBundle:Infomarket/Magazine:show" }
+            
 infomarket_magazine:
     path:      /magazine/{page}
     defaults:  { _controller: "AppBundle:Infomarket/Magazine:index", page: 1 }
