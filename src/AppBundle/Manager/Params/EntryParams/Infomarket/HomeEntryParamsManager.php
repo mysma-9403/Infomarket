@@ -152,6 +152,8 @@ class HomeEntryParamsManager extends EntryParamsManager {
     	 
     	$magazineFilter = new MagazineFilter($userRepository, $magazineRepository, $categoryRepository);
     	$magazineFilter->setInfomarket(BaseEntityFilter::TRUE_VALUES);
+    	$magazineFilter->setFeatured(BaseEntityFilter::TRUE_VALUES);
+    	$magazineFilter->setMain(BaseEntityFilter::TRUE_VALUES);
     	$magazineFilter->setOrderBy('e.orderNumber ASC, e.name DESC');
     	$magazineFilter->setLimit(4);
     	

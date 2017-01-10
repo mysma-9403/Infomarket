@@ -331,18 +331,12 @@
 		<div class="row">
 			{% for magazine in magazines %}
 				<div class="col-sm-3 padding-5">
-					<a href="{{ asset(magazine.magazineFile) }}">
-						<div class="col-xs-12 bkg-white no-padding">
-			  				<img class="img-responsive" 
-			    				alt="{{ magazine.name | raw }}" src="{{ asset(magazine.getImagePath()) }}">
-	    				</div>
-	    				<div class="col-xs-12 bkg-brand">
-	    					<h4 class="title text-center padding-5">
-	    						<span class="text-red">Pobierz</span>
-	    						<span class="text-white">cyfrowy numer</span>
-	    					</h4>
-	    				</div>
-			  		</a>
+					{% include 'common/tiles/magazine_tile.html.twig' with { 
+						entry: magazine, 
+						link: path(basePath ~ 'magazine_show', { id: magazine.id }),
+						title: 'label.magazine.download'|trans,
+						subtitle: 'label.magazine.digitalNumber'|trans
+					} %}
 				</div>
 			{% endfor %}
 		</div>

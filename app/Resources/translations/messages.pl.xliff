@@ -997,6 +997,21 @@
                 <target>Wkładki</target>
             </trans-unit>
             
+            <trans-unit id="label.magazine.download">
+                <source>label.magazine.download</source>
+                <target>Pobierz</target>
+            </trans-unit>
+            <trans-unit id="label.magazine.digitalNumber">
+                <source>label.magazine.digitalNumber</source>
+                <target>cyfrowy numer</target>
+            </trans-unit>
+            <trans-unit id="label.magazine.currentNumber">
+                <source>label.magazine.currentNumber</source>
+                <target>aktualny numer</target>
+            </trans-unit>
+            
+            
+            
             <trans-unit id="label.menu">
                 <source>label.menu</source>
                 <target>Menu</target>

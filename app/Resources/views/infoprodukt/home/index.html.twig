@@ -83,14 +83,11 @@
 			<div class="row">
 				{% for magazine in magazines | slice (0,6) %}
 					<div class="col-sm-2 padding-5">
-						<div class="col-xs-12 bkg-white no-padding">
-					  		<a href="{{ path(basePath ~ 'magazine_show', { id: magazine.id }) }}">
-					  			{% if magazine.image %}
-					  				<img class="img-responsive" 
-										alt="{{ magazine.name | raw }}" src="{{ asset(magazine.getImagePath()) }}">
-								{% endif %}
-					  		</a>
-				  		</div>
+						{% include 'common/tiles/magazine_tile.html.twig' with { 
+							entry: magazine, 
+							title: 'label.magazine.download'|trans,
+							subtitle: 'label.magazine.digitalNumber'|trans
+						} %}
 				  	</div>
 			  	{% endfor %}
 		  	</div>

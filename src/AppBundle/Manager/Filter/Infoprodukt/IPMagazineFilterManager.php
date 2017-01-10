@@ -12,7 +12,6 @@ class IPMagazineFilterManager extends MagazineFilterManager {
 		/** @var MagazineFilter $filter */
 		$filter = parent::adaptToView($filter, $params);
 		
-		$filter->setInfoprodukt(BaseEntityFilter::TRUE_VALUES);
 		$filter->setOrderBy('e.orderNumber ASC, e.name ASC');
 		
 		return $filter;
