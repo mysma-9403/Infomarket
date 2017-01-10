@@ -9,7 +9,7 @@
 	<div class="row">
 		{% for entry in entries %}
 			<div class="col-sm-3 padding-5">
-				{% include 'common/tiles/magazine_tile.html.twig' with { entry: entry, link: path(basePath ~ mainPath ~ '_show', { id: entry.id }) } %}
+				{% include 'common/tiles/magazine_tile.html.twig' with { entry: entry, magazineLink: path(basePath ~ mainPath ~ '_show', { id: entry.id }) } %}
 			</div>
 		{% endfor %}
 	</div>

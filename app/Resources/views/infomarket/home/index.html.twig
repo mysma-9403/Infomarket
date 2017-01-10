@@ -333,9 +333,9 @@
 				<div class="col-sm-3 padding-5">
 					{% include 'common/tiles/magazine_tile.html.twig' with { 
 						entry: magazine, 
-						link: path(basePath ~ 'magazine_show', { id: magazine.id }),
-						title: 'label.magazine.download'|trans,
-						subtitle: 'label.magazine.digitalNumber'|trans
+						magazineLink: path(basePath ~ 'magazine_show', { id: magazine.id }),
+						magazineTitle: 'label.magazine.download'|trans,
+						magazineSubtitle: 'label.magazine.digitalNumber'|trans
 					} %}
 				</div>
 			{% endfor %}
