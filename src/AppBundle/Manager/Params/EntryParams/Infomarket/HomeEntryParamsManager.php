@@ -53,6 +53,7 @@ class HomeEntryParamsManager extends EntryParamsManager {
     	$categoryRepository = $this->doctrine->getRepository(Category::class);
     	$articleCategoryRepository = $this->doctrine->getRepository(ArticleCategory::class);
     	$tagRepository = $this->doctrine->getRepository(Tag::class);
+    	$magazineRepository = $this->doctrine->getRepository(Magazine::class);
     	
     	
     	$articleCategoryFilter = new ArticleCategoryFilter($userRepository);
@@ -148,9 +149,8 @@ class HomeEntryParamsManager extends EntryParamsManager {
     	$viewParams['usefulArticleCategories'] = $usefulArticleCategories;
     	
     	
-    	
-    	
-    	$magazineFilter = new MagazineFilter($userRepository, $categoryRepository);
+    	 
+    	$magazineFilter = new MagazineFilter($userRepository, $magazineRepository, $categoryRepository);
     	$magazineFilter->setInfomarket(BaseEntityFilter::TRUE_VALUES);
     	$magazineFilter->setOrderBy('e.orderNumber ASC, e.name DESC');
     	$magazineFilter->setLimit(4);

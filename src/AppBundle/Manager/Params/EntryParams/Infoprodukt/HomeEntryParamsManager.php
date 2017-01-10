@@ -22,7 +22,7 @@ class HomeEntryParamsManager extends EntryParamsManager {
 		$userRepository = $this->doctrine->getRepository(User::class);
 		$branchRepository = $this->doctrine->getRepository(Branch::class);
     	$categoryRepository = $this->doctrine->getRepository(Category::class);
-		
+    	$magazineRepository = $this->doctrine->getRepository(Magazine::class);
 		
     	$categoryFilter = new CategoryFilter($userRepository, $branchRepository, $categoryRepository);
     	$categoryFilter->setInfoprodukt(BaseEntityFilter::TRUE_VALUES);
@@ -35,7 +35,8 @@ class HomeEntryParamsManager extends EntryParamsManager {
     	$viewParams['categories'] = $categories;
     	
     	
-    	$magazineFilter = new MagazineFilter($userRepository, $categoryRepository);
+    	
+    	$magazineFilter = new MagazineFilter($userRepository, $magazineRepository, $categoryRepository);
     	$magazineFilter->setInfoprodukt(BaseEntityFilter::TRUE_VALUES);
     	$magazineFilter->setFeatured(BaseEntityFilter::TRUE_VALUES);
     	$magazineFilter->setOrderBy('e.orderNumber ASC, e.name ASC');
