@@ -46,14 +46,26 @@ class InfomarketParamsManager extends ParamsManager {
     	$viewParams['branch'] = $branch;
     	
     	
+    	
     	$categoryFilter = new CategoryFilter($userRepository, $branchRepository, $categoryRepository);
     	$categoryFilter->setInfomarket(BaseEntityFilter::TRUE_VALUES);
     	$categoryFilter->setRoot(BaseEntityFilter::TRUE_VALUES);
     	$categoryFilter->setBranches(array($branch));
     	$categoryFilter->setOrderBy('e.name ASC');
+    	$categoryFilter->setLimit(11);
     	
     	$categories = $this->getParamList(Category::class, $categoryFilter);
+    	
+    	
+    	if(count($categories) > 0) {
+			$categoryFilter->setRoot(BaseEntityFilter::FALSE_VALUES);
+			$categoryFilter->setBranches(array());
+			$categories = $this->prepareCategories($categories, $categoryFilter);
+    	}
+    	
     	$viewParams['menuCategories'] = $categories;
+    	$viewParams['menuWidth'] = $this->getMenuWidth($categories);
+    	
     	
     	
     	$articleCategoryFilter = new ArticleCategoryFilter($userRepository);
@@ -85,5 +97,41 @@ class InfomarketParamsManager extends ParamsManager {
 		}
 		
 		return $branch;
+	}
+	
+	protected function prepareCategories(array $categories, CategoryFilter $categoryFilter) {
+		foreach ($categories as $category) {
+			$categoryFilter->setParents([$category]);
+				
+			$subcategories = $this->getParamList(Category::class, $categoryFilter);
+			$subcategories = $this->prepareCategories($subcategories, $categoryFilter);
+				
+			$category->setMenuChildren($subcategories);
+		}
+	
+		return $categories;
+	}
+	
+	protected function getMenuWidth(array $categories) {
+		$max = 0;
+	
+		foreach ($categories as $category) {
+			
+			foreach ($category->getMenuChildren() as $child) {
+				$length = 60 + (strlen($child->getName()) + strlen($child->getSubname())) * 7;
+				if($max < $length) {
+					$max = $length;
+				}
+			}
+				
+			if($max > 0) {
+				$length = $this->getMenuWidth($category->getMenuChildren());
+				if($max < $length) {
+					$max = $length;
+				}
+			}
+		}
+	
+		return $max;
 	}
 }

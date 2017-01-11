@@ -8,6 +8,12 @@
 
 {% block title %}{{ title|trans }}{% endblock %}
 
+{% block baseMoreStyles %}
+	.category-menu {
+		width: {{ menuWidth }}px !important;
+	}
+{% endblock %}
+
 {% block baseMoreJavascripts %}
 	<script type="text/javascript">
 		$(function(){
@@ -64,17 +70,18 @@
 				    	
 				    	{% block navigationList %}
 							<div class="collapse navbar-collapse no-padding" id="bs-example-navbar-collapse-1">
-				      			<ul class="nav navbar-nav navbar-right no-padding">
+				      			<ul class="nav navbar-nav navbar-center">
 									{% block navigationMenu %}
 										<li class="{% if mainPath == 'home' %}active{% endif %} branch-{{ branch.id }}">
 											<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
 												<span class="fa fa-search"></span> {{ 'title.infomarket.home'|trans }} <span class="caret">
 											</a>
 											<ul class="dropdown-menu">
-												{% for branch in menuBranches %}
-													<li>
-														<a href="{{ path(basePath ~ 'home', { branch: branch.id }) }}">
-															{{ branch.name }}
+												{% for menuBranch in menuBranches %}
+													{% set active = menuBranch.id == branch.id ? 'active' : '' %}
+													<li class="{{ active }} branch-{{ branch.id }}">
+														<a href="{{ path(basePath ~ 'home', { branch: menuBranch.id }) }}">
+															{{ menuBranch.name }}
 														</a>
 													</li>
 												{% endfor %}
@@ -104,21 +111,20 @@
 											<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
 												<span class="fa fa-camera-retro"></span> {{ 'title.products'|trans }} <span class="caret">
 											</a>
-											<ul class="dropdown-menu">
-												{% for category in menuCategories %}
-														
-														{% set show = false %}
-														{% for branchCategoryAssignment in category.branchCategoryAssignments if show == false %}
-															{% if branchCategoryAssignment.branch.id == branch.id %}
-																{% set show = true %}
-															{% endif %}
-														{% endfor %}
-														
-														{% if show %}
-															{% include 'common/category/menu_entry.html.twig' with 
-																{ 'entry': category, 'showAll': true, 'caretClass': 'branch-color-' ~ branch.id } %}
-														{% endif %}
+											<ul class="dropdown-menu category-menu">
+												{% for category in menuCategories | slice(0,10) %}
+													{% include 'common/category/menu_entry.html.twig' with
+														{ 'entry': category, 'caretClass': 'branch-color-' ~ branch.id } %}
 												{% endfor %}
+												
+												{% if menuCategories | length > 10 %}
+													<li role="separator" class="divider"></li>
+													<li>
+														<a href="{{ path(basePath ~ 'category') }}">
+															<span class="text-red">{{ 'label.more' | trans }}</span>
+														</a>
+													</li>
+												{% endif %}
 											</ul>
 										</li>
 										<li class="{% if mainPath == 'magazine' %}active{% endif %} branch-{{ branch.id }}">
