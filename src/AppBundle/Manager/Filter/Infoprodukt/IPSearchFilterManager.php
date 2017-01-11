@@ -6,7 +6,7 @@ use AppBundle\Manager\Filter\Common\CategoryFilterManager;
 use AppBundle\Entity\Filter\Base\BaseEntityFilter;
 use AppBundle\Entity\Filter\CategoryFilter;
 
-class SearchFilterManager extends CategoryFilterManager {
+class IPSearchFilterManager extends CategoryFilterManager {
 	
 	public function adaptToView(BaseEntityFilter $filter, array $params) {
 		/** @var CategoryFilter $filter */

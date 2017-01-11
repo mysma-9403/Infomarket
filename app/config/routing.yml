@@ -221,7 +221,11 @@ infomarket_magazine_show:
 infomarket_magazine:
     path:      /magazine/{page}
     defaults:  { _controller: "AppBundle:Infomarket/Magazine:index", page: 1 }
-        
+
+infomarket_search:
+    path:      /search
+    defaults:  { _controller: "AppBundle:Infomarket/Search:index" }
+            
 infomarket_home:
     path:      /
     defaults:  { _controller: "AppBundle:Infomarket/Home:index" }

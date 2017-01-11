@@ -5,7 +5,9 @@ namespace AppBundle\Controller\Infomarket\Base;
 use AppBundle\AppBundle;
 use AppBundle\Controller\Base\StandardController;
 use AppBundle\Entity\Advert;
+use AppBundle\Entity\Filter\Base\SimpleEntityFilter;
 use AppBundle\Entity\NewsletterUser;
+use AppBundle\Entity\User;
 use AppBundle\Form\Editor\NewsletterUserEditorType;
 use AppBundle\Manager\Filter\Decorator\InfomarketFilterManager;
 use AppBundle\Manager\Params\Infomarket\IMAdvertParamsManager;
@@ -14,6 +16,7 @@ use AppBundle\Manager\Params\Infomarket\InfomarketParamsManager;
 use AppBundle\Manager\Route\RouteManager;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Form\Search\Base\SimpleEntitySearchType;
 
 abstract class InfomarketController extends StandardController
 {
@@ -44,20 +47,20 @@ abstract class InfomarketController extends StandardController
 	
 	
 	
-// 		$userRepository = $this->getDoctrine()->getRepository(User::class);
+		$userRepository = $this->getDoctrine()->getRepository(User::class);
 	
-// 		$searchFilter = new SimpleEntityFilter($userRepository);
-// 		$searchFilter->initValues($request);
+		$searchFilter = new SimpleEntityFilter($userRepository);
+		$searchFilter->initValues($request);
 	
-// 		$searchFilterForm = $this->createForm(SimpleEntityFilterType::class, $searchFilter);
-// 		$searchFilterForm->handleRequest($request);
+		$searchFilterForm = $this->createForm(SimpleEntitySearchType::class, $searchFilter);
+		$searchFilterForm->handleRequest($request);
 	
-// 		if ($searchFilterForm->isSubmitted() && $searchFilterForm->isValid()) {
-// 			if ($searchFilterForm->get('search')->isClicked()) {
-// 				return $this->redirectToRoute($this->getSearchRoute(), $searchFilter->getValues());
-// 			}
-// 		}
-// 		$viewParams['searchFilterForm'] = $searchFilterForm->createView();
+		if ($searchFilterForm->isSubmitted() && $searchFilterForm->isValid()) {
+			if ($searchFilterForm->get('search')->isClicked()) {
+				return $this->redirectToRoute($this->getSearchRoute(), $searchFilter->getValues());
+			}
+		}
+		$viewParams['searchFilterForm'] = $searchFilterForm->createView();
 	
 	
 	
@@ -102,20 +105,20 @@ abstract class InfomarketController extends StandardController
 	
 		
 		
-// 		$userRepository = $this->getDoctrine()->getRepository(User::class);
+		$userRepository = $this->getDoctrine()->getRepository(User::class);
 	
-// 		$searchFilter = new SimpleEntityFilter($userRepository);
-// 		$searchFilter->initValues($request);
+		$searchFilter = new SimpleEntityFilter($userRepository);
+		$searchFilter->initValues($request);
 	
-// 		$searchFilterForm = $this->createForm(SearchFilterType::class, $searchFilter);
-// 		$searchFilterForm->handleRequest($request);
+		$searchFilterForm = $this->createForm(SimpleEntitySearchType::class, $searchFilter);
+		$searchFilterForm->handleRequest($request);
 	
-// 		if ($searchFilterForm->isSubmitted() && $searchFilterForm->isValid()) {
-// 			if ($searchFilterForm->get('search')->isClicked()) {
-// 				return $this->redirectToRoute($this->getSearchRoute(), $searchFilter->getValues());
-// 			}
-// 		}
-// 		$viewParams['searchFilterForm'] = $searchFilterForm->createView();
+		if ($searchFilterForm->isSubmitted() && $searchFilterForm->isValid()) {
+			if ($searchFilterForm->get('search')->isClicked()) {
+				return $this->redirectToRoute($this->getSearchRoute(), $searchFilter->getValues());
+			}
+		}
+		$viewParams['searchFilterForm'] = $searchFilterForm->createView();
 	
 	
 	
@@ -243,6 +246,11 @@ abstract class InfomarketController extends StandardController
     //---------------------------------------------------------------------------
     protected function getHomeRoute() {
     	return array('route' => $this->getIndexView(), 'routeParams' => array());
+    }
+    
+    protected function getSearchRoute()
+    {
+    	return $this->getDomain() . "_search";
     }
 	
     //---------------------------------------------------------------------------

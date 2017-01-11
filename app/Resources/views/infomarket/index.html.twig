@@ -68,6 +68,25 @@
 					    	</div>
 				    	{% endblock %}
 				    	
+				    	{% block navigationSearch %}
+						<div class="navbar-search navbar-form navbar-right navbar-input-group hidden-xs hidden-sm hidden-md" role="search">
+							{% form_theme searchFilterForm 'form/fields.html.twig' %}
+						
+							{{ form_start(searchFilterForm) }}
+								<ul class="list-inline">
+									<li>
+										<div class='input-group input-sm search'>
+											{{ form_widget(searchFilterForm.name, { 'label': 'label.name', 'attr': { 'class': 'input-sm' }  }) }}
+											<span class="input-group-btn">
+												{{ form_widget(searchFilterForm.search, { 'icon': 'fa fa-search', 'label': ' ', 'attr': { 'class': 'input-sm btn-danger' }  }) }}
+									      	</span>
+										</div>
+									</li>
+								</ul>			
+							{{ form_end(searchFilterForm) }}
+						</div>
+						{% endblock %}
+				    	
 				    	{% block navigationList %}
 							<div class="collapse navbar-collapse no-padding" id="bs-example-navbar-collapse-1">
 				      			<ul class="nav navbar-nav navbar-center">

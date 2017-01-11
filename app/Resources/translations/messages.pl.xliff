@@ -160,6 +160,10 @@
                 <source>title.settings</source>
                 <target>Ustawienia</target>
             </trans-unit>
+            <trans-unit id="title.search">
+                <source>title.search</source>
+                <target>Wyszukiwanie</target>
+            </trans-unit>
             <trans-unit id="title.tags">
                 <source>title.tags</source>
                 <target>Tagi</target>

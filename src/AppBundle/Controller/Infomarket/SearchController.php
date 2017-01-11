@@ -1,18 +1,18 @@
 <?php
 
-namespace AppBundle\Controller\Infoprodukt;
+namespace AppBundle\Controller\Infomarket;
 
-use AppBundle\Controller\Infoprodukt\Base\InfoproduktController;
+use AppBundle\Controller\Infomarket\Base\InfomarketController;
 use AppBundle\Entity\Category;
 use AppBundle\Manager\Entity\Base\EntityManager;
 use AppBundle\Manager\Entity\Common\CategoryManager;
 use AppBundle\Manager\Filter\Base\FilterManager;
-use AppBundle\Manager\Filter\Infoprodukt\IPSearchFilterManager;
-use AppBundle\Manager\Params\EntryParams\Infoprodukt\SearchEntryParamsManager;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Manager\Params\EntryParams\Infomarket\SearchEntryParamsManager;
+use AppBundle\Manager\Filter\Infomarket\IMSearchFilterManager;
 
-class SearchController extends InfoproduktController
+class SearchController extends InfomarketController
 {
 	//---------------------------------------------------------------------------
 	// Actions
@@ -40,7 +40,7 @@ class SearchController extends InfoproduktController
 	}
 	
 	protected function getEntryFilterManager($doctrine) {
-		return new IPSearchFilterManager($doctrine);
+		return new IMSearchFilterManager($doctrine);
 	}
 	
 	//---------------------------------------------------------------------------

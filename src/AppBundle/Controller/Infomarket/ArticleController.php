@@ -15,6 +15,9 @@ use AppBundle\Manager\Filter\Infomarket\IMArticleFilterManager;
 use AppBundle\Manager\Params\EntryParams\Infomarket\IMArticleEntryParamsManager;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Form\Search\Base\SimpleEntitySearchType;
+use AppBundle\Entity\User;
+use AppBundle\Entity\Filter\Base\SimpleEntityFilter;
 
 class ArticleController extends InfomarketController
 {   
@@ -72,20 +75,20 @@ class ArticleController extends InfomarketController
 	
 	
 	
-		// 		$userRepository = $this->getDoctrine()->getRepository(User::class);
-	
-		// 		$searchFilter = new SimpleEntityFilter($userRepository);
-		// 		$searchFilter->initValues($request);
-	
-		// 		$searchFilterForm = $this->createForm(SimpleEntityFilterType::class, $searchFilter);
-		// 		$searchFilterForm->handleRequest($request);
-	
-		// 		if ($searchFilterForm->isSubmitted() && $searchFilterForm->isValid()) {
-		// 			if ($searchFilterForm->get('search')->isClicked()) {
-		// 				return $this->redirectToRoute($this->getSearchRoute(), $searchFilter->getValues());
-		// 			}
-		// 		}
-		// 		$viewParams['searchFilterForm'] = $searchFilterForm->createView();
+		$userRepository = $this->getDoctrine()->getRepository(User::class);
+
+		$searchFilter = new SimpleEntityFilter($userRepository);
+		$searchFilter->initValues($request);
+
+		$searchFilterForm = $this->createForm(SimpleEntitySearchType::class, $searchFilter);
+		$searchFilterForm->handleRequest($request);
+
+		if ($searchFilterForm->isSubmitted() && $searchFilterForm->isValid()) {
+			if ($searchFilterForm->get('search')->isClicked()) {
+				return $this->redirectToRoute($this->getSearchRoute(), $searchFilter->getValues());
+			}
+		}
+		$viewParams['searchFilterForm'] = $searchFilterForm->createView();
 	
 	
 	
@@ -160,20 +163,20 @@ class ArticleController extends InfomarketController
 	
 	
 	
-		// 		$userRepository = $this->getDoctrine()->getRepository(User::class);
-	
-		// 		$searchFilter = new SimpleEntityFilter($userRepository);
-		// 		$searchFilter->initValues($request);
-	
-		// 		$searchFilterForm = $this->createForm(SearchFilterType::class, $searchFilter);
-		// 		$searchFilterForm->handleRequest($request);
-	
-		// 		if ($searchFilterForm->isSubmitted() && $searchFilterForm->isValid()) {
-		// 			if ($searchFilterForm->get('search')->isClicked()) {
-		// 				return $this->redirectToRoute($this->getSearchRoute(), $searchFilter->getValues());
-		// 			}
-		// 		}
-		// 		$viewParams['searchFilterForm'] = $searchFilterForm->createView();
+		$userRepository = $this->getDoctrine()->getRepository(User::class);
+
+		$searchFilter = new SimpleEntityFilter($userRepository);
+		$searchFilter->initValues($request);
+
+		$searchFilterForm = $this->createForm(SimpleEntitySearchType::class, $searchFilter);
+		$searchFilterForm->handleRequest($request);
+
+		if ($searchFilterForm->isSubmitted() && $searchFilterForm->isValid()) {
+			if ($searchFilterForm->get('search')->isClicked()) {
+				return $this->redirectToRoute($this->getSearchRoute(), $searchFilter->getValues());
+			}
+		}
+		$viewParams['searchFilterForm'] = $searchFilterForm->createView();
 	
 	
 	
