@@ -10,6 +10,24 @@ use AppBundle\Entity\Base\SimpleEntityTree;
 class MenuEntry extends SimpleEntityTree
 { 
 	const FOOTER_MENU = 1;
+	const MAIN_MENU = 2;
+	
+	/** @var array */
+	protected $menuChildren;
+	
+	public function getMenuChildren() {
+		return $this->menuChildren;
+	}
+	
+	/**
+	 *
+	 * @param array $children
+	 * @return \AppBundle\Entity\Category
+	 */
+	public function setMenuChildren($children) {
+		$this->menuChildren = $children;
+		return $this;
+	}
 	
 	/**
 	 * @var integer

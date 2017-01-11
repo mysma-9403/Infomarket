@@ -222,22 +222,20 @@
 			      		
 			      		<div class="col-sm-9">
 			      			<div class="row">
-				      			{% for entry in menuEntries %}
+				      			{% for entry in footerMenuEntries %}
 				      				<div class="col-xs-6 col-sm-3">
 					      				<h3>{{ entry.name }}</h3>
 					      				<hr>
-				      					{% for subentry in entry.children %}
-				      						{% if subentry.infoprodukt %}
-									      		<div>
-									      			{% if subentry.page %}
-									      				<a href="{{ path(basePath ~ 'page_show', { id: subentry.page.id}) }}">{{ subentry.name }}</a>
-									      			{% elseif subentry.link %}
-									      				<a href="{{ subentry.link.url }}">{{ subentry.name }}</a>
-								      				{% else %}
-								      					{{ subentry.name }}
-									      			{% endif %}
-								      			</div>
-							      			{% endif %}
+				      					{% for subentry in entry.menuChildren %}
+								      		<div>
+								      			{% if subentry.page %}
+								      				<a href="{{ path(basePath ~ 'page_show', { id: subentry.page.id}) }}">{{ subentry.name }}</a>
+								      			{% elseif subentry.link %}
+								      				<a href="{{ subentry.link.url }}">{{ subentry.name }}</a>
+							      				{% else %}
+							      					{{ subentry.name }}
+								      			{% endif %}
+							      			</div>
 						      			{% endfor %}
 					      			</div>
 					      		{% endfor %}

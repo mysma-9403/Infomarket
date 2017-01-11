@@ -334,8 +334,7 @@
 					{% include 'common/tiles/magazine_tile.html.twig' with { 
 						entry: magazine, 
 						magazineLink: path(basePath ~ 'magazine_show', { id: magazine.id }),
-						magazineTitle: 'label.magazine.download'|trans,
-						magazineSubtitle: 'label.magazine.digitalNumber'|trans
+						magazineTitle: 'label.magazine.download'|trans
 					} %}
 				</div>
 			{% endfor %}

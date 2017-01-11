@@ -150,9 +150,16 @@
 											<a href="{{ path(basePath ~ 'magazine') }}">
 												<span class="fa fa-newspaper-o"></span> {{ 'title.magazines'|trans }}</a>
 										</li>
+										
 										<li class="{% if mainPath == 'advertisement' or mainPath == 'brand' %}active{% endif %} branch-{{ branch.id }}">
-											<a href="{{ path(basePath ~ 'home') }}">
-												<span class="fa fa-globe"></span> {{ 'Reklama'|trans }}</a>
+											<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+												<span class="fa fa-globe"></span> {{ 'label.more'|trans }} <span class="caret">
+											</a>
+											<ul class="dropdown-menu category-menu">
+												{% for menuEntry in mainMenuEntries %}
+													{% include 'common/menu/menu_entry.html.twig' with { 'entry': menuEntry } %}
+												{% endfor %}
+											</ul>
 										</li>
 									{% endblock %}
 								</ul>
@@ -254,22 +261,20 @@
 			      		
 			      		<div class="col-sm-9">
 			      			<div class="row">
-				      			{% for entry in menuEntries %}
+				      			{% for menuEntry in footerMenuEntries %}
 				      				<div class="col-xs-6 col-sm-3">
-					      				<h3>{{ entry.name }}</h3>
+					      				<h3>{{ menuEntry.name }}</h3>
 					      				<hr>
-				      					{% for subentry in entry.children %}
-				      						{% if subentry.infomarket %}
-									      		<div>
-									      			{% if subentry.page %}
-									      				<a href="{{ path(basePath ~ 'page_show', { id: subentry.page.id}) }}">{{ subentry.name }}</a>
-									      			{% elseif subentry.link %}
-									      				<a href="{{ subentry.link.url }}">{{ subentry.name }}</a>
-								      				{% else %}
-								      					{{ subentry.name }}
-									      			{% endif %}
-								      			</div>
-							      			{% endif %}
+				      					{% for subentry in menuEntry.menuChildren %}
+								      		<div>
+								      			{% if subentry.page %}
+								      				<a href="{{ path(basePath ~ 'page_show', { id: subentry.page.id}) }}">{{ subentry.name }}</a>
+								      			{% elseif subentry.link %}
+								      				<a href="{{ subentry.link.url }}">{{ subentry.name }}</a>
+							      				{% else %}
+							      					{{ subentry.name }}
+								      			{% endif %}
+							      			</div>
 						      			{% endfor %}
 					      			</div>
 					      		{% endfor %}

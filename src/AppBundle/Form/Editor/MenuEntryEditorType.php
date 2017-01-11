@@ -21,7 +21,8 @@ class MenuEntryEditorType extends SimpleEntityEditorType
 	protected function addMoreFields(FormBuilderInterface $builder, array $options) {
 		
 		$menuChoices = array(
-				'label.menuEntry.menu.footer'			=> MenuEntry::FOOTER_MENU
+			'label.menuEntry.menu.footer' => MenuEntry::FOOTER_MENU,
+			'label.menuEntry.menu.main' => MenuEntry::MAIN_MENU
 		);
 		
 		$builder

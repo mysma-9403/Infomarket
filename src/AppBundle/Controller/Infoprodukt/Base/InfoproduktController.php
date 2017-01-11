@@ -13,7 +13,7 @@ use AppBundle\Form\Search\Base\SimpleEntitySearchType;
 use AppBundle\Manager\Filter\Decorator\InfoproduktFilterManager;
 use AppBundle\Manager\Params\Infoprodukt\InfoproduktParamsManager;
 use AppBundle\Manager\Params\Infoprodukt\IPAdvertParamsManager;
-use AppBundle\Manager\Params\Infoprodukt\IPFooterParamsManager;
+use AppBundle\Manager\Params\Infoprodukt\IPMenuParamsManager;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -175,7 +175,7 @@ abstract class InfoproduktController extends StandardController
 	protected function getFooterParamsManager() {
 		$doctrine = $this->getDoctrine();
 	
-		return new IPFooterParamsManager($doctrine);
+		return new IPMenuParamsManager($doctrine);
 	}
 	
 	

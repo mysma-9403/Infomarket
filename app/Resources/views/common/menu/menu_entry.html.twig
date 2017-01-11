@@ -1,0 +1,22 @@
+<li>
+	{% set caretClass = caretClass|default('') %}
+	
+	{% if entry.menuChildren|length > 0 %}
+		<a class="trigger right-caret {{ caretClass }}">
+			{{ entry.name | raw }}
+		</a>
+		<ul class="dropdown-menu sub-menu">
+			{% for subentry in entry.menuChildren %}
+				{% include 'common/menu/menu_entry.html.twig' with { 'entry': subentry } %}
+			{% endfor %}
+		</ul>
+	{% else %}
+		{% if entry.page %}
+			<a href="{{ path(basePath ~ 'page_show', { id: entry.page.id}) }}">{{ entry.name }}</a>
+		{% elseif entry.link %}
+			<a href="{{ entry.link.url }}">{{ entry.name }}</a>
+		{% else %}
+			{{ entry.name }}
+		{% endif %}
+	{% endif %}
+</li>

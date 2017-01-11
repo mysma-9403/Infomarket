@@ -2,9 +2,9 @@
 
 namespace AppBundle\Manager\Params\Infoprodukt;
 
-use AppBundle\Manager\Params\Base\FooterParamsManager;
+use AppBundle\Manager\Params\Base\MenuParamsManager;
 
-class IPFooterParamsManager extends FooterParamsManager {
+class IPMenuParamsManager extends MenuParamsManager {
 	
 	public function __construct($doctrine) {
 		parent::__construct($doctrine);

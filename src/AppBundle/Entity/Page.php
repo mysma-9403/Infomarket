@@ -9,6 +9,18 @@ use AppBundle\Entity\Base\ImageEntity;
  */
 class Page extends ImageEntity
 {	
+	public function getDisplayName() {
+		$result = parent::getDisplayName();
+		if($this->subname) {
+			if($result == '<empty>')
+				$result = $this->subname;
+				else
+					$result .= ' ' . $this->subname;
+		}
+	
+		return $result;
+	}
+	
 	/**
 	 * {@inheritDoc}
 	 */

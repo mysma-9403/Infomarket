@@ -9,14 +9,14 @@ use AppBundle\Entity\Filter\Base\SimpleEntityFilter;
 use AppBundle\Entity\NewsletterUser;
 use AppBundle\Entity\User;
 use AppBundle\Form\Editor\NewsletterUserEditorType;
+use AppBundle\Form\Search\Base\SimpleEntitySearchType;
 use AppBundle\Manager\Filter\Decorator\InfomarketFilterManager;
 use AppBundle\Manager\Params\Infomarket\IMAdvertParamsManager;
-use AppBundle\Manager\Params\Infomarket\IMFooterParamsManager;
+use AppBundle\Manager\Params\Infomarket\IMMenuParamsManager;
 use AppBundle\Manager\Params\Infomarket\InfomarketParamsManager;
 use AppBundle\Manager\Route\RouteManager;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-use AppBundle\Form\Search\Base\SimpleEntitySearchType;
 
 abstract class InfomarketController extends StandardController
 {
@@ -186,7 +186,7 @@ abstract class InfomarketController extends StandardController
 	protected function getFooterParamsManager() {
 		$doctrine = $this->getDoctrine();
 		
-		return new IMFooterParamsManager($doctrine);
+		return new IMMenuParamsManager($doctrine);
 	}
     
 	

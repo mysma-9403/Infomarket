@@ -11,7 +11,7 @@ use AppBundle\Entity\User;
 use AppBundle\Manager\Params\Base\ParamsManager;
 use Symfony\Component\HttpFoundation\Request;
 
-class FooterParamsManager extends ParamsManager {
+class MenuParamsManager extends ParamsManager {
 	
 	protected $infomarket;
 	protected $infoprodukt;
@@ -38,10 +38,36 @@ class FooterParamsManager extends ParamsManager {
     	$menuEntryFilter->setRoot(BaseEntityFilter::TRUE_VALUES);
     	$menuEntryFilter->setOrderBy('e.orderNumber ASC');
     	
+    	$menuEntryFilter->setMenus(array(MenuEntry::FOOTER_MENU));
     	$menuEntries = $this->getParamList(MenuEntry::class, $menuEntryFilter);
-    	$viewParams['menuEntries'] = $menuEntries;
+    	$menuEntries = $this->prepareMenuEntries($menuEntries, $menuEntryFilter);
+    	$viewParams['footerMenuEntries'] = $menuEntries;
+    	
+    	
+    	$menuEntryFilter->setRoot(BaseEntityFilter::TRUE_VALUES);
+    	$menuEntryFilter->setParents([]);
+    	
+    	$menuEntryFilter->setMenus(array(MenuEntry::MAIN_MENU));
+    	$menuEntries = $this->getParamList(MenuEntry::class, $menuEntryFilter);
+    	$menuEntries = $this->prepareMenuEntries($menuEntries, $menuEntryFilter);
+    	$viewParams['mainMenuEntries'] = $menuEntries;
     	
     	$params['viewParams'] = $viewParams;
     	return $params;
+	}
+	
+	protected function prepareMenuEntries(array $entries, MenuEntryFilter $menuEntryFilter) {
+		$menuEntryFilter->setRoot(BaseEntityFilter::FALSE_VALUES);
+		
+		foreach ($entries as $entry) {
+			$menuEntryFilter->setParents([$entry]);
+				
+			$subentries = $this->getParamList(MenuEntry::class, $menuEntryFilter);
+			$subentries = $this->prepareMenuEntries($subentries, $menuEntryFilter);
+				
+			$entry->setMenuChildren($subentries);
+		}
+	
+		return $entries;
 	}
 }

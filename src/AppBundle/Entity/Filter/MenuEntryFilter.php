@@ -64,6 +64,9 @@ class MenuEntryFilter extends SimpleEntityFilter {
 		$links = $request->get($this->getFilterName() . 'links', array());
 		$this->links = $this->linkRepository->findBy(array('id' => $links));
 		
+		$menus = $request->get($this->getFilterName() . 'menus', array());
+		$this->menus = $menus;
+		
 		$this->root = $request->get($this->getFilterName() . 'root', $this::ALL_VALUES);
 	}
 	
@@ -79,6 +82,8 @@ class MenuEntryFilter extends SimpleEntityFilter {
 		
 		$this->pages= array();
 		$this->links = array();
+		
+		$this->menus = array();
 		
 		$this->root = $this::ALL_VALUES;
 	}
@@ -103,6 +108,10 @@ class MenuEntryFilter extends SimpleEntityFilter {
 			$values[$this->getFilterName() . 'links'] = $this->getIdValues($this->links);
 		}
 		
+		if($this->menus) {
+			$values[$this->getFilterName() . 'menus'] = $this->menus;
+		}
+		
 		if($this->root != $this::ALL_VALUES) {
 			$values[$this->getFilterName() . 'root'] = $this->root;
 		}
@@ -124,6 +133,10 @@ class MenuEntryFilter extends SimpleEntityFilter {
 		
 		if($this->links) {
 			$expressions[] = $this->getEqualArrayExpression('e.link', $this->links);
+		}
+		
+		if($this->menus) {
+			$expressions[] = $this->getEqualNumberArrayExpression('e.menu', $this->menus);
 		}
 		
 		if($this->root == $this::TRUE_VALUES) {
@@ -157,6 +170,12 @@ class MenuEntryFilter extends SimpleEntityFilter {
 	 * @var array
 	 */
 	private $links;
+	
+	/**
+	 *
+	 * @var boolean
+	 */
+	private $menus;
 	
 	/**
 	 *
@@ -234,6 +253,30 @@ class MenuEntryFilter extends SimpleEntityFilter {
 	public function getLinks()
 	{
 		return $this->links;
+	}
+	
+	/**
+	 * Set menu entry menus
+	 *
+	 * @param array $menus
+	 *
+	 * @return MenuEntryFilter
+	 */
+	public function setMenus($menus)
+	{
+		$this->menus = $menus;
+	
+		return $this;
+	}
+	
+	/**
+	 * Get menu entry menus
+	 *
+	 * @return array
+	 */
+	public function getMenus()
+	{
+		return $this->menus;
 	}
 	
 	/**

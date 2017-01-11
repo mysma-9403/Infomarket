@@ -1050,6 +1050,10 @@
                 <source>label.menuEntry.menu.footer</source>
                 <target>Stopka</target>
             </trans-unit>
+            <trans-unit id="label.menuEntry.menu.main">
+                <source>label.menuEntry.menu.main</source>
+                <target>Menu główne</target>
+            </trans-unit>
             
             
             <trans-unit id="label.newsletterBlock">
