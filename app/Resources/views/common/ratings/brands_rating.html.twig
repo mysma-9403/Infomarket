@@ -32,7 +32,8 @@
 				{% for brand in brands %}
 					<div class="brand-item">
 						<div class="rect-2x1">
-							<a class="text-white" href="{{ path('infomarket_brand_show', { id: brand.id }) }}">
+{# 							<a class="text-white" href="{{ path('infomarket_brand_show', { id: brand.id }) }}">#}
+							<a class="text-white" href="#">
 								{% include 'common/image/image_entry.html.twig' with { 'entry': brand, 'tile': false } %}
 							</a>
 						</div>
@@ -41,7 +42,8 @@
 				{% for brand in brands | slice(0,4) %}
 					<div class="brand-item">
 						<div class="rect-2x1">
-							<a class="text-white" href="{{ path('infomarket_brand_show', { id: brand.id }) }}">
+{# 							<a class="text-white" href="{{ path('infomarket_brand_show', { id: brand.id }) }}">#}
+							<a class="text-white" href="#">
 								{% include 'common/image/image_entry.html.twig' with { 'entry': brand, 'tile': false } %}
 							</a>
 						</div>

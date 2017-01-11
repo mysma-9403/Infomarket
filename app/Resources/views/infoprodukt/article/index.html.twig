@@ -53,7 +53,8 @@
 							</div>
 							<div class="col-sm-9">
 								{% for articleBrandAssignment in entry.articleBrandAssignments %}
-									<a href="{{ path(basePath ~ 'brand_show', { id: articleBrandAssignment.brand.id, category: category is defined ? category.id : null }) }}">
+{# 									<a href="{{ path(basePath ~ 'brand_show', { id: articleBrandAssignment.brand.id, category: category is defined ? category.id : null }) }}">#}
+									<a href="#">
 										<h3 class="text-red">{{ articleBrandAssignment.brand.name | raw }} </h3>
 									</a> 
 								{% endfor %}

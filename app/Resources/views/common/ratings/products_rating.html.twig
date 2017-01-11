@@ -113,7 +113,8 @@
 									</div>
 									
 									<div class="col-xs-12 bkg-red rating-subtitle1 text-center">
-										<a class="text-white title" href="{{ path(basePath ~ 'brand_show', {'id': product.brand.id }) }}">
+{# 										<a class="text-white title" href="{{ path(basePath ~ 'brand_show', {'id': product.brand.id }) }}">#}
+										<a class="text-white title" href="#">
 											{% if product.brand.name|length > 28 %}
 												{% set style="font-size: 8px; padding-top: 5px" %}
 											{% elseif product.brand.name|length > 20 %}
@@ -245,7 +246,8 @@
 										</div>
 										
 										<div class="col-xs-12 bkg-red rating-subtitle1 text-center">
-											<a class="text-white title" href="{{ path(basePath ~ 'brand_show', {'id': product.brand.id }) }}">
+{# 											<a class="text-white title" href="{{ path(basePath ~ 'brand_show', {'id': product.brand.id }) }}">#}
+											<a class="text-white title" href="#">
 												{% if product.brand.name|length > 28 %}
 													{% set style="font-size: 8px; padding-top: 5px" %}
 												{% elseif product.brand.name|length > 20 %}

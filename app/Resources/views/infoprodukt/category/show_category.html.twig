@@ -210,7 +210,8 @@
 				
 				{% for brand in brands | slice(0,6) %}
 					<div class="col-sm-2">
-						<a href={{ path(basePath ~ 'brand_show', { id: brand.id, category: entry.id }) }}>
+{# 						<a href="{{ path(basePath ~ 'brand_show', { id: brand.id, category: entry.id }) }}">#}
+						<a href="#">
 							<div class="rect">
 								<img class="div-center img-{{ brand.vertical ? 'v' : '' }}responsive" 
 									alt="{{ brand.name | raw }}" src="{{ asset(brand.getImagePath()) }}">
