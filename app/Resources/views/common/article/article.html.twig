@@ -6,14 +6,14 @@
 		{% if entry.articleBrandAssignments | length > 0 %}
 			<h2>
 				{% set assignment = entry.articleBrandAssignments|first %}
-				<a class="text-red" href="{{ path(basePath ~ 'brand_show', { id: assignment.brand.id }) }}">
-{# 				<a class="text-red" href="#">#}
+{# 				<a class="text-red" href="{{ path(basePath ~ 'brand_show', { id: assignment.brand.id }) }}">#}
+				<a class="text-red" href="#">
 					{{ assignment.brand.name }}
 				</a>
 				{% for assignment in entry.articleBrandAssignments | slice(1) %}
 					,
-					<a class="text-red" href="{{ path(basePath ~ 'brand_show', { id: assignment.brand.id }) }}"> 
-{# 					<a class="text-red" href="#">#}
+{# 					<a class="text-red" href="{{ path(basePath ~ 'brand_show', { id: assignment.brand.id }) }}"> #}
+					<a class="text-red" href="#">
 						{{ assignment.brand.name }}
 					</a>
 				{% endfor %}
