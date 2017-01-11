@@ -14,6 +14,12 @@
 
 {% block moreFields3 %}
 	<div class="lowered-25"></div>
-	{% include 'common/fields/text_field.html.twig' with 
-		{ 'label': 'label.orderNumber'|trans, 'value': entry.orderNumber } %}
+	<div class="row">
+		<div class="col-sm-9">
+			<h4>{{ 'label.content'|trans }}</h4>
+		</div>
+		<div class="col-sm-9">
+			{{ entry.content | raw }}
+		</div>
+	</div>
 {% endblock %}

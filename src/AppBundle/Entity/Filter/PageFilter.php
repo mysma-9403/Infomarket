@@ -12,7 +12,7 @@ class PageFilter extends SimpleEntityFilter {
 	public function __construct(UserRepository $userRepository) {
 		parent::__construct($userRepository);
 		
-		$this->filterSubname = 'page_filter_';
+		$this->filterName = 'page_filter_';
 		
 		$this->orderBy = 'e.subname ASC, e.subname ASC';
 		
@@ -27,7 +27,7 @@ class PageFilter extends SimpleEntityFilter {
 	protected function initMoreValues(Request $request) {
 		parent::initMoreValues($request);
 	
-		$this->subname = $request->get($this->getFilterSubname() . 'subname', null);
+		$this->subname = $request->get($this->getFilterName() . 'subname', null);
 	}
 	
 	/**
@@ -49,7 +49,7 @@ class PageFilter extends SimpleEntityFilter {
 	public function getValues() {
 		$values = parent::getValues();
 	
-		$values[$this->getFilterSubname() . 'subname'] = $this->subname;
+		$values[$this->getFilterName() . 'subname'] = $this->subname;
 	
 		return $values;
 	}
