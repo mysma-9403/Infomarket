@@ -20,11 +20,7 @@ class PageManager extends SimpleEntityManager {
 		
 		$entry->setSubname($request->get('subname'));
 		
-		$entry->setFeatured($request->get('featured'));
-		
 		$entry->setContent($request->get('content'));
-		
-		$entry->setOrderNumber($request->get('order_number'));
 		
 		return $entry;
 	}
@@ -41,11 +37,7 @@ class PageManager extends SimpleEntityManager {
 		
 		$entry->setSubname($template->getSubname());
 		
-		$entry->setFeatured($template->getFeatured());
-		
 		$entry->setContent($template->getContent());
-		
-		$entry->setOrderNumber($template->getOrderNumber());
 		
 		return $entry;
 	}
