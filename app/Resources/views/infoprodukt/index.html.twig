@@ -41,7 +41,7 @@
 		<div class="navbar-default">
 			<div class="container">
 				<div class="row">
-					<div class="col-xs-12 padding-5">
+					<div class="col-xs-12">
 						{% block navigationHeader %}
 							<div class="navbar-header">
 								{% block navigationButton %}
@@ -58,8 +58,7 @@
 					      		
 								{% block navigationBrand %}
 								<a class="navbar-brand" href="{{ path('infoprodukt_home') }}">
-									<img class="brand-image hidden-xs hidden-sm" src="{{ asset('img/logo-infoprodukt.png') }}">
-									<img class="brand-image hidden-md hidden-lg" src="{{ asset('img/logo-infoprodukt-mobile.png') }}">
+									<img class="brand-image" src="{{ asset('img/logo-infoprodukt.png') }}">
 								</a>
 								{% endblock %}
 					    	</div>
