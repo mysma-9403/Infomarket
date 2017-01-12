@@ -29,3 +29,7 @@
 		});
 	</script>
 {% endblock %}
+
+{% block assignments %}
+	{% include 'admin/magazine/assignments.html.twig' with { 'entry': entry } %}
+{% endblock %}

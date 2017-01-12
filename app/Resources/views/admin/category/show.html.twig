@@ -62,10 +62,6 @@
 	{% include 'common/fields/text_field.html.twig' with 
 	{ 'label': 'label.orderNumber'|trans, 'value': entry.orderNumber } %}
 	
-	{% include 'common/fields/simple_field.html.twig' with 
-	{ 'label': 'label.category.magazine', 'value': entry.magazine,
-		'object': 'magazine' } %}
-	
 {% endblock %}
 
 {% block moreActions1 %}

@@ -789,6 +789,56 @@ admin_magazine:
     path:      /admin/magazines/{page}
     defaults:  { _controller: "AppBundle:Admin/Magazine:index", page: 1 }
 
+# Admin MagazineBranchAssignments Routing    
+admin_magazine_branch_assignment_show:
+    path:      /admin/magazine-branch_assignments/show/{id}
+    defaults:  { _controller: "AppBundle:Admin/MagazineBranchAssignment:show" }
+    
+admin_magazine_branch_assignment_new:
+    path:      /admin/magazine-branch_assignments/new/
+    defaults:  { _controller: "AppBundle:Admin/MagazineBranchAssignment:new" }
+    
+admin_magazine_branch_assignment_copy:
+    path:      /admin/magazine-branch_assignments/copy/{id}
+    defaults:  { _controller: "AppBundle:Admin/MagazineBranchAssignment:copy" }
+    
+admin_magazine_branch_assignment_edit:
+    path:      /admin/magazine-branch_assignments/edit/{id}
+    defaults:  { _controller: "AppBundle:Admin/MagazineBranchAssignment:edit" }
+    
+admin_magazine_branch_assignment_delete:
+    path:      /admin/magazine-branch_assignments/delete/{id}
+    defaults:  { _controller: "AppBundle:Admin/MagazineBranchAssignment:delete" }
+
+admin_magazine_branch_assignment:
+    path:      /admin/magazine-branch_assignments/{page}
+    defaults:  { _controller: "AppBundle:Admin/MagazineBranchAssignment:index", page: 1 }
+    
+# Admin MagazineCategoryAssignments Routing    
+admin_magazine_category_assignment_show:
+    path:      /admin/magazine-category_assignments/show/{id}
+    defaults:  { _controller: "AppBundle:Admin/MagazineCategoryAssignment:show" }
+    
+admin_magazine_category_assignment_new:
+    path:      /admin/magazine-category_assignments/new/
+    defaults:  { _controller: "AppBundle:Admin/MagazineCategoryAssignment:new" }
+    
+admin_magazine_category_assignment_copy:
+    path:      /admin/magazine-category_assignments/copy/{id}
+    defaults:  { _controller: "AppBundle:Admin/MagazineCategoryAssignment:copy" }
+    
+admin_magazine_category_assignment_edit:
+    path:      /admin/magazine-category_assignments/edit/{id}
+    defaults:  { _controller: "AppBundle:Admin/MagazineCategoryAssignment:edit" }
+    
+admin_magazine_category_assignment_delete:
+    path:      /admin/magazine-category_assignments/delete/{id}
+    defaults:  { _controller: "AppBundle:Admin/MagazineCategoryAssignment:delete" }
+
+admin_magazine_category_assignment:
+    path:      /admin/magazine-category_assignments/{page}
+    defaults:  { _controller: "AppBundle:Admin/MagazineCategoryAssignment:index", page: 1 }
+    
 # Admin Menus Routing    
 admin_menu_show:
     path:      /admin/menus/show/{id}

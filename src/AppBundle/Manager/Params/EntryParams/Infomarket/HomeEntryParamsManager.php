@@ -17,6 +17,7 @@ use AppBundle\Entity\Tag;
 use AppBundle\Entity\User;
 use AppBundle\Manager\Params\EntryParams\Base\EntryParamsManager;
 use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Entity\Branch;
 
 class HomeEntryParamsManager extends EntryParamsManager {
 	
@@ -50,11 +51,11 @@ class HomeEntryParamsManager extends EntryParamsManager {
 		
 		$userRepository = $this->doctrine->getRepository(User::class);
 		$brandRepository = $this->doctrine->getRepository(Brand::class);
+		$branchRepository = $this->doctrine->getRepository(Branch::class);
     	$categoryRepository = $this->doctrine->getRepository(Category::class);
     	$articleCategoryRepository = $this->doctrine->getRepository(ArticleCategory::class);
     	$tagRepository = $this->doctrine->getRepository(Tag::class);
     	$magazineRepository = $this->doctrine->getRepository(Magazine::class);
-    	
     	
     	$articleCategoryFilter = new ArticleCategoryFilter($userRepository);
     	$articleCategoryFilter->setInfomarket(BaseEntityFilter::TRUE_VALUES);
@@ -150,10 +151,11 @@ class HomeEntryParamsManager extends EntryParamsManager {
     	
     	
     	 
-    	$magazineFilter = new MagazineFilter($userRepository, $magazineRepository, $categoryRepository);
+    	$magazineFilter = new MagazineFilter($userRepository, $magazineRepository, $categoryRepository, $branchRepository);
     	$magazineFilter->setInfomarket(BaseEntityFilter::TRUE_VALUES);
     	$magazineFilter->setFeatured(BaseEntityFilter::TRUE_VALUES);
     	$magazineFilter->setMain(BaseEntityFilter::TRUE_VALUES);
+    	$magazineFilter->setBranches([$branch]);
     	$magazineFilter->setOrderBy('e.orderNumber ASC, e.name DESC');
     	$magazineFilter->setLimit(4);
     	

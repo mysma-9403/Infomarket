@@ -32,7 +32,8 @@
 </div>
 
 {% block mainArticles %}
-	{% if entry.magazine %}	
+	{% if entry.magazineCategoryAssignments | length > 0 %}	
+		{% set magazine = entry.magazineCategoryAssignments|first.magazine %}
 		<div class="container">
 			<div class="row">
 				<h4 class="title padding-5">
@@ -42,10 +43,10 @@
 			</div>
 			
 			<div class="row">
-				{% block magazine %}
+				{% block magazineBlock %}
 					<div class="col-sm-2 col-sm-push-10 padding-5">
 						{% include 'common/tiles/magazine_tile.html.twig' with { 
-						entry: entry.magazine, 
+						entry: magazine, 
 						magazineTitle: 'label.magazine.download'|trans,
 						magazineSubtitle: 'label.magazine.currentNumber'|trans
 					} %}

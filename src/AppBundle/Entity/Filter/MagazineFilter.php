@@ -9,6 +9,10 @@ use AppBundle\Repository\UserRepository;
 use AppBundle\Repository\CategoryRepository;
 use AppBundle\Entity\Category;
 use AppBundle\Repository\MagazineRepository;
+use AppBundle\Repository\BranchRepository;
+use AppBundle\Entity\Branch;
+use AppBundle\Entity\MagazineCategoryAssignment;
+use AppBundle\Entity\MagazineBranchAssignment;
 
 class MagazineFilter extends SimpleEntityFilter {
 
@@ -22,11 +26,21 @@ class MagazineFilter extends SimpleEntityFilter {
 	 */
 	protected $categoryRepository;
 	
-	public function __construct(UserRepository $userRepository, MagazineRepository $magazineRepository, CategoryRepository $categoryRepository) {
+	/**
+	 * @var BranchRepository
+	 */
+	protected $branchRepository;
+	
+	public function __construct(
+			UserRepository $userRepository, 
+			MagazineRepository $magazineRepository, 
+			CategoryRepository $categoryRepository, 
+			BranchRepository $branchRepository) {
 		parent::__construct($userRepository);
 		
 		$this->magazineRepository = $magazineRepository;
 		$this->categoryRepository = $categoryRepository;
+		$this->branchRepository = $branchRepository;
 		
 		$this->filterName = 'magazine_filter_';
 		
@@ -51,6 +65,9 @@ class MagazineFilter extends SimpleEntityFilter {
 		$categories = $request->get($this->getFilterName() . 'categories', array());
 		$this->categories = $this->categoryRepository->findBy(array('id' => $categories));
 		
+		$branches = $request->get($this->getFilterName() . 'branches', array());
+		$this->branches = $this->branchRepository->findBy(array('id' => $branches));
+		
 		$this->featured = $request->get($this->getFilterName() . 'featured', $this::ALL_VALUES);
 		$this->root = $request->get($this->getFilterName() . 'root', $this::ALL_VALUES);
 		$this->main = $request->get($this->getFilterName() . 'main', $this::ALL_VALUES);
@@ -66,6 +83,7 @@ class MagazineFilter extends SimpleEntityFilter {
 		
 		$this->parents = array();
 		$this->categories = array();
+		$this->branches = array();
 		
 		$this->featured = $this::ALL_VALUES;
 		$this->root = $this::ALL_VALUES;
@@ -86,6 +104,10 @@ class MagazineFilter extends SimpleEntityFilter {
 		
 		if($this->categories) {
 			$values[$this->getFilterName() . 'categories'] = $this->getIdValues($this->categories);
+		}
+		
+		if($this->branches) {
+			$values[$this->getFilterName() . 'branches'] = $this->getIdValues($this->branches);
 		}
 		
 		if($this->featured != $this::ALL_VALUES) {
@@ -112,7 +134,11 @@ class MagazineFilter extends SimpleEntityFilter {
 		$expressions = parent::getWhereExpressions();
 	
 		if($this->categories) {
-			$expressions[] = $this->getEqualArrayExpression('c.id', $this->categories);
+			$expressions[] = $this->getEqualArrayExpression('mca.category', $this->categories);
+		}
+		
+		if($this->branches) {
+			$expressions[] = $this->getEqualArrayExpression('mba.branch', $this->branches);
 		}
 		
 		if($this->featured != SimpleEntityFilter::ALL_VALUES) {
@@ -146,7 +172,11 @@ class MagazineFilter extends SimpleEntityFilter {
 		$expressions = parent::getJoinExpressions();
 	
 		if($this->categories) {
-			$expressions[] = Category::class . ' c WITH c.magazine = e.id';
+			$expressions[] = MagazineCategoryAssignment::class . ' mca WITH mca.magazine = e.id';
+		}
+		
+		if($this->branches) {
+			$expressions[] = MagazineBranchAssignment::class . ' mba WITH mba.magazine = e.id';
 		}
 		
 		return $expressions;
@@ -163,6 +193,12 @@ class MagazineFilter extends SimpleEntityFilter {
 	 * @var array
 	 */
 	private $categories;
+	
+	/**
+	 *
+	 * @var array
+	 */
+	private $branches;
 	
 	/**
 	 *
@@ -228,6 +264,30 @@ class MagazineFilter extends SimpleEntityFilter {
 	public function getCategories()
 	{
 		return $this->categories;
+	}
+	
+	/**
+	 * Set branches
+	 *
+	 * @param array $branches
+	 *
+	 * @return ArticleFilter
+	 */
+	public function setBranches($branches)
+	{
+		$this->branches = $branches;
+	
+		return $this;
+	}
+	
+	/**
+	 * Get branches
+	 *
+	 * @return array
+	 */
+	public function getBranches()
+	{
+		return $this->branches;
 	}
 	
 	/**

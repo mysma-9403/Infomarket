@@ -1,0 +1,9 @@
+{% extends 'admin/base/editor.html.twig' %}
+
+{% set mainPath = 'magazine_branch_assignment' %}
+{% set title = 'title.magazine_branch_assignments'|trans %}
+
+{% block moreFields2 %}
+	{{ form_row(form.magazine, { 'label': 'label.magazine' }) }}
+	{{ form_row(form.branch, { 'label': 'label.branch' }) }}
+{% endblock %}

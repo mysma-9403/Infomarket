@@ -1,0 +1,7 @@
+AppBundle\Entity\MagazineCategoryAssignment:
+    constraints:
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
+            fields: [magazine, category]
+            ignoreNull: false
+            message: 'magazineCategoryAssignment.unique'
+                

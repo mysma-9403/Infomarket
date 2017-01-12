@@ -36,7 +36,7 @@ class HomeEntryParamsManager extends EntryParamsManager {
     	
     	
     	
-    	$magazineFilter = new MagazineFilter($userRepository, $magazineRepository, $categoryRepository);
+    	$magazineFilter = new MagazineFilter($userRepository, $magazineRepository, $categoryRepository, $branchRepository);
     	$magazineFilter->setInfoprodukt(BaseEntityFilter::TRUE_VALUES);
     	$magazineFilter->setFeatured(BaseEntityFilter::TRUE_VALUES);
     	$magazineFilter->setOrderBy('e.orderNumber ASC, e.name ASC');

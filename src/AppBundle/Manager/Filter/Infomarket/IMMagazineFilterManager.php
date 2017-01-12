@@ -12,7 +12,11 @@ class IMMagazineFilterManager extends MagazineFilterManager {
 		/** @var MagazineFilter $filter */
 		$filter = parent::adaptToView($filter, $params);
 		
+		$viewParams = $params['viewParams'];
+		$branch = $viewParams['branch'];
+		
 		$filter->setInfomarket(BaseEntityFilter::TRUE_VALUES);
+		$filter->setBranches([$branch]);
 		$filter->setMain(BaseEntityFilter::TRUE_VALUES);
 		$filter->setOrderBy('e.orderNumber ASC, e.name DESC');
 		

@@ -192,7 +192,7 @@
 				{% endif %}
 				<li {% if 'menu' in mainPath %} class="active" {% endif %} class="dropdown">
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-						<span class="txt-success "></span> {{ 'title.menu'|trans }} <span class="caret"></span>
+						<span class="txt-success "></span> {{ 'title.menus'|trans }} <span class="caret"></span>
 					</a>
 					<ul class="dropdown-menu">
 						<li>
@@ -213,9 +213,9 @@
 						</li>
 					</ul>
 				</li>
-				<li {% if 'other' in mainPath %} class="active" {% endif %} class="dropdown">
+				<li {% if 'magazine' in mainPath %} class="active" {% endif %} class="dropdown">
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-						<span class="txt-success "></span> {{ 'title.others'|trans }} <span class="caret"></span>
+						<span class="txt-success "></span> {{ 'title.magazines'|trans }} <span class="caret"></span>
 					</a>
 					<ul class="dropdown-menu">
 						<li>
@@ -223,6 +223,24 @@
 								{{ 'title.magazines'|trans }}
 							</a>
 						</li>
+						<li class="divider"></li>
+						<li>
+							<a href="{{ path(basePath ~ 'magazine_branch_assignment') }}">
+								{{ 'title.magazine_branch_assignments'|trans }}
+							</a>
+						</li>
+						<li>
+							<a href="{{ path(basePath ~ 'magazine_category_assignment') }}">
+								{{ 'title.magazine_category_assignments'|trans }}
+							</a>
+						</li>
+					</ul>
+				</li>
+				<li {% if 'other' in mainPath %} class="active" {% endif %} class="dropdown">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+						<span class="txt-success "></span> {{ 'title.others'|trans }} <span class="caret"></span>
+					</a>
+					<ul class="dropdown-menu">
 						<li>
 							<a href="{{ path(basePath ~ 'page') }}">
 								{{ 'title.pages'|trans }}

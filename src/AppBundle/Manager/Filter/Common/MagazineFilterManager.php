@@ -7,6 +7,7 @@ use AppBundle\Entity\Filter\MagazineFilter;
 use AppBundle\Entity\User;
 use AppBundle\Manager\Filter\Base\BaseEntityFilterManager;
 use AppBundle\Entity\Magazine;
+use AppBundle\Entity\Branch;
 
 class MagazineFilterManager extends BaseEntityFilterManager {
 	
@@ -14,7 +15,8 @@ class MagazineFilterManager extends BaseEntityFilterManager {
 		$userRepository = $this->doctrine->getRepository(User::class);
     	$magazineRepository = $this->doctrine->getRepository(Magazine::class);
     	$categoryRepository = $this->doctrine->getRepository(Category::class);
+    	$branchRepository = $this->doctrine->getRepository(Branch::class);
     	
-    	return new MagazineFilter($userRepository, $magazineRepository, $categoryRepository);
+    	return new MagazineFilter($userRepository, $magazineRepository, $categoryRepository, $branchRepository);
 	}
 }

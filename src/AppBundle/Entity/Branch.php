@@ -179,4 +179,43 @@ class Branch extends ImageEntity
     {
         return $this->branchCategoryAssignments;
     }
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $magazineBranchAssignments;
+
+
+    /**
+     * Add magazineBranchAssignment
+     *
+     * @param \AppBundle\Entity\MagazineBranchAssignment $magazineBranchAssignment
+     *
+     * @return Branch
+     */
+    public function addMagazineBranchAssignment(\AppBundle\Entity\MagazineBranchAssignment $magazineBranchAssignment)
+    {
+        $this->magazineBranchAssignments[] = $magazineBranchAssignment;
+
+        return $this;
+    }
+
+    /**
+     * Remove magazineBranchAssignment
+     *
+     * @param \AppBundle\Entity\MagazineBranchAssignment $magazineBranchAssignment
+     */
+    public function removeMagazineBranchAssignment(\AppBundle\Entity\MagazineBranchAssignment $magazineBranchAssignment)
+    {
+        $this->magazineBranchAssignments->removeElement($magazineBranchAssignment);
+    }
+
+    /**
+     * Get magazineBranchAssignments
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getMagazineBranchAssignments()
+    {
+        return $this->magazineBranchAssignments;
+    }
 }

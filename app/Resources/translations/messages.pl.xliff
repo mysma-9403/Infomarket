@@ -243,6 +243,14 @@
                 <source>title.brand_category_assignments</source>
                 <target>Marki - Kategorie</target>
             </trans-unit>
+            <trans-unit id="title.magazine_branch_assignments">
+                <source>title.magazine_branch_assignments</source>
+                <target>Magazyny - Branże</target>
+            </trans-unit>
+            <trans-unit id="title.magazine_category_assignments">
+                <source>title.magazine_category_assignments</source>
+                <target>Magazyny - Kategorie</target>
+            </trans-unit>
             <trans-unit id="title.product_category_assignments">
                 <source>title.product_category_assignments</source>
                 <target>Produkty - Kategorie</target>
@@ -1005,6 +1013,10 @@
             
             
             
+            <trans-unit id="label.magazine">
+                <source>label.magazine</source>
+                <target>Magazyn</target>
+            </trans-unit>
             <trans-unit id="label.magazine.date">
                 <source>label.magazine.date</source>
                 <target>Data wydania</target>

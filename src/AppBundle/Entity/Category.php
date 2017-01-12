@@ -541,35 +541,7 @@ class Category extends ImageEntityTree
     {
         return $this->parent;
     }
-    /**
-     * @var \AppBundle\Entity\Magazine
-     */
-    private $magazine;
-
-
-    /**
-     * Set magazine
-     *
-     * @param \AppBundle\Entity\Magazine $magazine
-     *
-     * @return Category
-     */
-    public function setMagazine(\AppBundle\Entity\Magazine $magazine = null)
-    {
-        $this->magazine = $magazine;
-
-        return $this;
-    }
-
-    /**
-     * Get magazine
-     *
-     * @return \AppBundle\Entity\Magazine
-     */
-    public function getMagazine()
-    {
-        return $this->magazine;
-    }
+    
     /**
      * @var \Doctrine\Common\Collections\Collection
      */
@@ -676,5 +648,44 @@ class Category extends ImageEntityTree
     public function getIconImage()
     {
         return $this->iconImage;
+    }
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $magazineCategoryAssignments;
+
+
+    /**
+     * Add magazineCategoryAssignment
+     *
+     * @param \AppBundle\Entity\MagazineCategoryAssignments $magazineCategoryAssignment
+     *
+     * @return Category
+     */
+    public function addMagazineCategoryAssignment(\AppBundle\Entity\MagazineCategoryAssignment $magazineCategoryAssignment)
+    {
+        $this->magazineCategoryAssignments[] = $magazineCategoryAssignment;
+
+        return $this;
+    }
+
+    /**
+     * Remove magazineCategoryAssignment
+     *
+     * @param \AppBundle\Entity\MagazineCategoryAssignments $magazineCategoryAssignment
+     */
+    public function removeMagazineCategoryAssignment(\AppBundle\Entity\MagazineCategoryAssignment $magazineCategoryAssignment)
+    {
+        $this->magazineCategoryAssignments->removeElement($magazineCategoryAssignment);
+    }
+
+    /**
+     * Get magazineCategoryAssignments
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getMagazineCategoryAssignments()
+    {
+        return $this->magazineCategoryAssignments;
     }
 }

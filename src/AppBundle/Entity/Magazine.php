@@ -268,4 +268,82 @@ class Magazine extends ImageEntity
     {
         return $this->main;
     }
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $magazineBranchAssignments;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $magazineCategoryAssignments;
+
+
+    /**
+     * Add magazineBranchAssignment
+     *
+     * @param \AppBundle\Entity\MagazineBranchAssignment $magazineBranchAssignment
+     *
+     * @return Magazine
+     */
+    public function addMagazineBranchAssignment(\AppBundle\Entity\MagazineBranchAssignment $magazineBranchAssignment)
+    {
+        $this->magazineBranchAssignments[] = $magazineBranchAssignment;
+
+        return $this;
+    }
+
+    /**
+     * Remove magazineBranchAssignment
+     *
+     * @param \AppBundle\Entity\MagazineBranchAssignment $magazineBranchAssignment
+     */
+    public function removeMagazineBranchAssignment(\AppBundle\Entity\MagazineBranchAssignment $magazineBranchAssignment)
+    {
+        $this->magazineBranchAssignments->removeElement($magazineBranchAssignment);
+    }
+
+    /**
+     * Get magazineBranchAssignments
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getMagazineBranchAssignments()
+    {
+        return $this->magazineBranchAssignments;
+    }
+
+    /**
+     * Add magazineCategoryAssignment
+     *
+     * @param \AppBundle\Entity\MagazineCategoryAssignment $magazineCategoryAssignment
+     *
+     * @return Magazine
+     */
+    public function addMagazineCategoryAssignment(\AppBundle\Entity\MagazineCategoryAssignment $magazineCategoryAssignment)
+    {
+        $this->magazineCategoryAssignments[] = $magazineCategoryAssignment;
+
+        return $this;
+    }
+
+    /**
+     * Remove magazineCategoryAssignment
+     *
+     * @param \AppBundle\Entity\MagazineCategoryAssignment $magazineCategoryAssignment
+     */
+    public function removeMagazineCategoryAssignment(\AppBundle\Entity\MagazineCategoryAssignment $magazineCategoryAssignment)
+    {
+        $this->magazineCategoryAssignments->removeElement($magazineCategoryAssignment);
+    }
+
+    /**
+     * Get magazineCategoryAssignments
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getMagazineCategoryAssignments()
+    {
+        return $this->magazineCategoryAssignments;
+    }
 }

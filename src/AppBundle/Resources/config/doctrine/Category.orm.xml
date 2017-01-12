@@ -31,8 +31,6 @@
             <gedmo:tree-parent />
         </many-to-one>
         
-        <many-to-one field="magazine" target-entity="Magazine" nullable="true" />
-        
         <one-to-many field="children" target-entity="Category" mapped-by="parent">
             <order-by>
                 <order-by-field name="treePath" direction="ASC" />
@@ -63,6 +61,9 @@
         </one-to-many>
         
         <one-to-many field="termCategoryAssignments" target-entity="TermCategoryAssignment" mapped-by="category">
+        </one-to-many>
+        
+        <one-to-many field="magazineCategoryAssignments" target-entity="MagazineCategoryAssignment" mapped-by="category">
         </one-to-many>
         
     </entity>

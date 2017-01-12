@@ -1,0 +1,14 @@
+{% extends 'admin/base/show.html.twig' %}
+
+{% set mainPath = 'magazine_category_assignment' %}
+{% set title = 'title.magazine_category_assignments'|trans %}
+
+{% block mainFields1 %}	
+	{% include 'common/fields/simple_field.html.twig' with 
+	{ 'label': 'label.magazine', 'value': entry.magazine,
+		'object': 'magazine', 'routeId': entry.id } %}
+		
+	{% include 'common/fields/simple_field.html.twig' with 
+	{ 'label': 'label.category', 'value': entry.category,
+		'object': 'category', 'routeId': entry.id } %}
+{% endblock %}
