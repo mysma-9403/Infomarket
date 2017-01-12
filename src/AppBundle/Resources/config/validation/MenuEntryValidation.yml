@@ -1,0 +1,4 @@
+AppBundle\Entity\MenuEntry:
+    properties:
+        name:
+            - NotBlank: ~

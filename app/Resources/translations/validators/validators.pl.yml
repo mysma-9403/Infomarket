@@ -19,6 +19,7 @@ productCategoryAssignment.unique: Produkt jest już przypisany do ratingu produk
 
 termCategoryAssignment.unique: Kategoria jest już powiązana z wybranym terminem.
 
+menuMenuEntryAssignment.unique: Pozycja menu jest już powiązana z wybranym menu.
 
 # Assignment delete errors
 articleCategory.usedIn.articleArticleCategoryAssignments: Kategoria artykułów jest używana w niektórych artykułach i nie może być usunięta.
@@ -38,6 +39,9 @@ segment.usedIn.brandCategoryAssignments: Segment jest używany w niektórych rat
 segment.usedIn.productCategoryAssignments: Segment jest używany w niektórych ratingach produktów i nie może być usunięty.
 
 tag.usedIn.articleTagAssignments: Tag jest używany w niektórych artykułach i nie może być usunięty.
+
+menu.usedIn.menuMenuEntryAssignments: Menu jest używane w niektórych pozycjach menu i nie może być usunięte.
+
 
 #Assignment delete warnings
 article.usedIn.children: Artykuł posiada podartykuły. Usunięcie artykułu spowoduje usunięcie tych podartykułów.

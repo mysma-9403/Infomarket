@@ -1,0 +1,14 @@
+{% extends 'admin/base/editor.html.twig' %}
+
+{% set mainPath = 'menu_menu_entry_assignment' %}
+{% set title = 'title.menuMenuEntryAssignments'|trans %}
+{% set gender = '' %}
+
+{% block mainFields1 %}
+{% endblock %}
+
+{% block moreFields2 %}
+	{{ form_row(form.menu, { 'label': 'label.menu' }) }}
+	{{ form_row(form.menuEntry, { 'label': 'label.menuEntry' }) }}
+	{{ form_row(form.orderNumber, { 'label': 'label.orderNumber' }) }}
+{% endblock %}

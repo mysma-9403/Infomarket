@@ -1,0 +1,21 @@
+{% extends 'admin/base/index.html.twig' %}
+
+{% set mainPath = 'menu_menu_entry_assignment' %}
+{% set title = 'title.menuMenuEntryAssignments'|trans %}
+
+{% block filterMoreFields1 %}
+	<li class="col-xs-12 col-sm-6 col-md-4 col-lg-2">
+		{{ form_widget(filter.menus, { 'label': 'label.menus' }) }}
+	</li>
+	<li class="col-xs-12 col-sm-6 col-md-4 col-lg-2">
+		{{ form_widget(filter.menuEntries, { 'label': 'label.menuEntries' }) }}
+	</li>
+{% endblock %}
+
+{% block headerMainFields1 %}
+	<th><i class="fa fa-file-o"></i> {{ 'label.menuEntry'|trans }}</th>
+{% endblock %}
+
+{% block entryMainFields1 %}
+	<td>{{ item.menuEntry.name }}</td>
+{% endblock %}

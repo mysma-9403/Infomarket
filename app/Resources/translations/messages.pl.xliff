@@ -80,6 +80,14 @@
                 <source>title.magazines</source>
                 <target>Magazyny</target>
             </trans-unit>
+           	<trans-unit id="title.menu">
+                <source>title.menu</source>
+                <target>Menu</target>
+            </trans-unit>
+            <trans-unit id="title.menus">
+                <source>title.menus</source>
+                <target>Menu</target>
+            </trans-unit>
             <trans-unit id="title.menuEntry">
                 <source>title.menuEntry</source>
                 <target>Pozycja menu</target>
@@ -87,6 +95,14 @@
             <trans-unit id="title.menuEntries">
                 <source>title.menuEntries</source>
                 <target>Pozycje menu</target>
+            </trans-unit>
+            <trans-unit id="title.menuMenuEntryAssignment">
+                <source>title.menuMenuEntryAssignment</source>
+                <target>Menu - Pozycja menu</target>
+            </trans-unit>
+            <trans-unit id="title.menuMenuEntryAssignments">
+                <source>title.menuMenuEntryAssignments</source>
+                <target>Menu - Pozycje menu</target>
             </trans-unit>
             <trans-unit id="title.newsletter">
                 <source>title.newsletter</source>
@@ -1021,6 +1037,10 @@
                 <target>Menu</target>
             </trans-unit>
             
+            <trans-unit id="label.menuEntry">
+                <source>label.menuEntry</source>
+                <target>Pozycja menu</target>
+            </trans-unit>
             <trans-unit id="label.menuEntry.link">
                 <source>label.menuEntry.link</source>
                 <target>Powiązany link</target>
@@ -1128,6 +1148,14 @@
             <trans-unit id="label.choose.magazine">
                 <source>label.choose.magazine</source>
                 <target>Wybierz magazyn</target>
+            </trans-unit>
+            <trans-unit id="label.choose.menu">
+                <source>label.choose.menu</source>
+                <target>Wybierz menu</target>
+            </trans-unit>
+            <trans-unit id="label.choose.menuEntry">
+                <source>label.choose.menuEntry</source>
+                <target>Wybierz pozycję menu</target>
             </trans-unit>
             <trans-unit id="label.choose.segment">
                 <source>label.choose.segment</source>
@@ -1448,6 +1476,10 @@
                 <source>action.assignCategory</source>
                 <target>Przypisz kategorię</target>
             </trans-unit>
+            <trans-unit id="action.assignMenu">
+                <source>action.assignMenu</source>
+                <target>Przypisz menu</target>
+            </trans-unit>
             <trans-unit id="action.assignProduct">
                 <source>action.assignProduct</source>
                 <target>Przypisz product</target>
@@ -1459,6 +1491,11 @@
             <trans-unit id="action.assignTag">
                 <source>action.assignTag</source>
                 <target>Przypisz tag</target>
+            </trans-unit>
+            
+            <trans-unit id="action.menuEntry.createSubentry">
+                <source>action.menuEntry.createSubentry</source>
+                <target>Stwórz podpozycję menu</target>
             </trans-unit>
             
             

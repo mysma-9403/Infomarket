@@ -8,32 +8,7 @@ use AppBundle\Entity\Base\SimpleEntityTree;
  * MenuEntry
  */
 class MenuEntry extends SimpleEntityTree
-{ 
-	const FOOTER_MENU = 1;
-	const MAIN_MENU = 2;
-	
-	/** @var array */
-	protected $menuChildren;
-	
-	public function getMenuChildren() {
-		return $this->menuChildren;
-	}
-	
-	/**
-	 *
-	 * @param array $children
-	 * @return \AppBundle\Entity\Category
-	 */
-	public function setMenuChildren($children) {
-		$this->menuChildren = $children;
-		return $this;
-	}
-	
-	/**
-	 * @var integer
-	 */
-	private $menu;
-	
+{
     /**
      * @var integer
      */
@@ -65,29 +40,6 @@ class MenuEntry extends SimpleEntityTree
     private $link;
 
 
-    /**
-     * Set menu
-     *
-     * @param integer $menu
-     *
-     * @return MenuEntry
-     */
-    public function setMenu($menu)
-    {
-    	$this->menu = $menu;
-    
-    	return $this;
-    }
-    
-    /**
-     * Get menu
-     *
-     * @return integer
-     */
-    public function getMenu()
-    {
-    	return $this->menu;
-    }
     
     /**
      * Set orderNumber
@@ -241,5 +193,45 @@ class MenuEntry extends SimpleEntityTree
     public function getLink()
     {
         return $this->link;
+    }
+    
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $menuMenuEntryAssignments;
+
+
+    /**
+     * Add menuMenuEntryAssignment
+     *
+     * @param \AppBundle\Entity\MenuMenuEntryAssignment $menuMenuEntryAssignment
+     *
+     * @return MenuEntry
+     */
+    public function addMenuMenuEntryAssignment(\AppBundle\Entity\MenuMenuEntryAssignment $menuMenuEntryAssignment)
+    {
+        $this->menuMenuEntryAssignments[] = $menuMenuEntryAssignment;
+
+        return $this;
+    }
+
+    /**
+     * Remove menuMenuEntryAssignment
+     *
+     * @param \AppBundle\Entity\MenuMenuEntryAssignment $menuMenuEntryAssignment
+     */
+    public function removeMenuMenuEntryAssignment(\AppBundle\Entity\MenuMenuEntryAssignment $menuMenuEntryAssignment)
+    {
+        $this->menuMenuEntryAssignments->removeElement($menuMenuEntryAssignment);
+    }
+
+    /**
+     * Get menuMenuEntryAssignments
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getMenuMenuEntryAssignments()
+    {
+        return $this->menuMenuEntryAssignments;
     }
 }

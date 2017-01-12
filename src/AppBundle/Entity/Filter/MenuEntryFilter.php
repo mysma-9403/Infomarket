@@ -10,6 +10,8 @@ use AppBundle\Repository\MenuEntryRepository;
 use AppBundle\Repository\PageRepository;
 use AppBundle\Repository\UserRepository;
 use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Entity\MenuMenuEntryAssignment;
+use AppBundle\Repository\MenuRepository;
 
 class MenuEntryFilter extends SimpleEntityFilter {
 
@@ -18,10 +20,17 @@ class MenuEntryFilter extends SimpleEntityFilter {
 	 * @param BranchRepository $branchRepository
 	 * @param MenuEntryRepository $categoryRepository
 	 */
-	public function __construct(UserRepository $userRepository, MenuEntryRepository $menuEntryRepository, PageRepository $pageRepository, LinkRepository $linkRepository) {
+	public function __construct(
+			UserRepository $userRepository, 
+			MenuEntryRepository $menuEntryRepository,
+			MenuRepository $menuRepository,
+			PageRepository $pageRepository, 
+			LinkRepository $linkRepository) {
+		
 		parent::__construct($userRepository);
 		
 		$this->menuEntryRepository = $menuEntryRepository;
+		$this->menuRepository = $menuRepository;
 		$this->pageRepository = $pageRepository;
 		$this->linkRepository = $linkRepository;
 		
@@ -36,6 +45,11 @@ class MenuEntryFilter extends SimpleEntityFilter {
 	 * @var MenuEntryRepository 
 	 */
 	protected $menuEntryRepository;
+	
+	/**
+	 * @var MenuRepository
+	 */
+	protected $menuRepository;
 	
 	/**
 	 * @var PageRepository
@@ -58,14 +72,14 @@ class MenuEntryFilter extends SimpleEntityFilter {
 		$parents = $request->get($this->getFilterName() . 'parents', array());
 		$this->parents = $this->menuEntryRepository->findBy(array('id' => $parents));
 		
+		$menus = $request->get($this->getFilterName() . 'menus', array());
+		$this->menus = $this->menuRepository->findBy(array('id' => $menus));
+		
 		$pages = $request->get($this->getFilterName() . 'pages', array());
 		$this->pages = $this->pageRepository->findBy(array('id' => $pages));
 		
 		$links = $request->get($this->getFilterName() . 'links', array());
 		$this->links = $this->linkRepository->findBy(array('id' => $links));
-		
-		$menus = $request->get($this->getFilterName() . 'menus', array());
-		$this->menus = $menus;
 		
 		$this->root = $request->get($this->getFilterName() . 'root', $this::ALL_VALUES);
 	}
@@ -80,10 +94,9 @@ class MenuEntryFilter extends SimpleEntityFilter {
 		
 		$this->parents = array();
 		
+		$this->menus= array();
 		$this->pages= array();
 		$this->links = array();
-		
-		$this->menus = array();
 		
 		$this->root = $this::ALL_VALUES;
 	}
@@ -100,6 +113,10 @@ class MenuEntryFilter extends SimpleEntityFilter {
 			$values[$this->getFilterName() . 'parents'] = $this->getIdValues($this->parents);
 		}
 		
+		if($this->menus) {
+			$values[$this->getFilterName() . 'menus'] = $this->getIdValues($this->menus);
+		}
+		
 		if($this->pages) {
 			$values[$this->getFilterName() . 'pages'] = $this->getIdValues($this->pages);
 		}
@@ -108,15 +125,21 @@ class MenuEntryFilter extends SimpleEntityFilter {
 			$values[$this->getFilterName() . 'links'] = $this->getIdValues($this->links);
 		}
 		
-		if($this->menus) {
-			$values[$this->getFilterName() . 'menus'] = $this->menus;
-		}
-		
 		if($this->root != $this::ALL_VALUES) {
 			$values[$this->getFilterName() . 'root'] = $this->root;
 		}
 	
 		return $values;
+	}
+	
+	protected function getJoinExpressions() {
+		$expressions = parent::getJoinExpressions();
+	
+		if($this->menus) {
+			$expressions[] = MenuMenuEntryAssignment::class . ' mme WITH mme.menuEntry = e.id';
+		}
+	
+		return $expressions;
 	}
 	
 	/**
@@ -127,16 +150,16 @@ class MenuEntryFilter extends SimpleEntityFilter {
 	protected function getWhereExpressions() {
 		$expressions = parent::getWhereExpressions();
 		
+		if($this->menus) {
+			$expressions[] = $this->getEqualArrayExpression('mme.menu', $this->menus);
+		}
+		
 		if($this->pages) {
 			$expressions[] = $this->getEqualArrayExpression('e.page', $this->pages);
 		}
 		
 		if($this->links) {
 			$expressions[] = $this->getEqualArrayExpression('e.link', $this->links);
-		}
-		
-		if($this->menus) {
-			$expressions[] = $this->getEqualNumberArrayExpression('e.menu', $this->menus);
 		}
 		
 		if($this->root == $this::TRUE_VALUES) {
@@ -163,6 +186,12 @@ class MenuEntryFilter extends SimpleEntityFilter {
 	 *
 	 * @var array
 	 */
+	private $menus;
+	
+	/**
+	 *
+	 * @var array
+	 */
 	private $pages;
 	
 	/**
@@ -170,12 +199,6 @@ class MenuEntryFilter extends SimpleEntityFilter {
 	 * @var array
 	 */
 	private $links;
-	
-	/**
-	 *
-	 * @var boolean
-	 */
-	private $menus;
 	
 	/**
 	 *
@@ -205,6 +228,30 @@ class MenuEntryFilter extends SimpleEntityFilter {
 	public function getParents()
 	{
 		return $this->parents;
+	}
+	
+	/**
+	 * Set menu entry menus
+	 *
+	 * @param array $menus
+	 *
+	 * @return MenuEntryFilter
+	 */
+	public function setMenus($menus)
+	{
+		$this->menus = $menus;
+	
+		return $this;
+	}
+	
+	/**
+	 * Get menu entry menus
+	 *
+	 * @return array
+	 */
+	public function getMenus()
+	{
+		return $this->menus;
 	}
 	
 	/**
@@ -253,30 +300,6 @@ class MenuEntryFilter extends SimpleEntityFilter {
 	public function getLinks()
 	{
 		return $this->links;
-	}
-	
-	/**
-	 * Set menu entry menus
-	 *
-	 * @param array $menus
-	 *
-	 * @return MenuEntryFilter
-	 */
-	public function setMenus($menus)
-	{
-		$this->menus = $menus;
-	
-		return $this;
-	}
-	
-	/**
-	 * Get menu entry menus
-	 *
-	 * @return array
-	 */
-	public function getMenus()
-	{
-		return $this->menus;
 	}
 	
 	/**

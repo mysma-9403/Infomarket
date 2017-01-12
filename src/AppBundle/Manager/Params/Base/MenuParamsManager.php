@@ -5,6 +5,7 @@ namespace AppBundle\Manager\Params\Base;
 use AppBundle\Entity\Filter\Base\BaseEntityFilter;
 use AppBundle\Entity\Filter\MenuEntryFilter;
 use AppBundle\Entity\Link;
+use AppBundle\Entity\Menu;
 use AppBundle\Entity\MenuEntry;
 use AppBundle\Entity\Page;
 use AppBundle\Entity\User;
@@ -28,46 +29,34 @@ class MenuParamsManager extends ParamsManager {
 		
 		
 		$userRepository = $this->doctrine->getRepository(User::class); //TODO bedzie usuniete
+		/** @var \AppBundle\Repository\MenuRepository $menuRepository */
+		$menuRepository = $this->doctrine->getRepository(Menu::class);
 		$pageRepository = $this->doctrine->getRepository(Page::class);
 		$linkRepository = $this->doctrine->getRepository(Link::class);
 		$menuEntryRepository = $this->doctrine->getRepository(MenuEntry::class);
 		
-		$menuEntryFilter = new MenuEntryFilter($userRepository, $menuEntryRepository, $pageRepository, $linkRepository);
+		$menuEntryFilter = new MenuEntryFilter($userRepository, $menuEntryRepository, $menuRepository, $pageRepository, $linkRepository);
     	if($this->infomarket) $menuEntryFilter->setInfomarket(BaseEntityFilter::TRUE_VALUES);
     	if($this->infoprodukt) $menuEntryFilter->setInfoprodukt(BaseEntityFilter::TRUE_VALUES);
     	$menuEntryFilter->setRoot(BaseEntityFilter::TRUE_VALUES);
     	$menuEntryFilter->setOrderBy('e.orderNumber ASC');
     	
-    	$menuEntryFilter->setMenus(array(MenuEntry::FOOTER_MENU));
+    	
+    	$footerMenu = $menuRepository->find(Menu::FOOTER_MENU);
+    	$menuEntryFilter->setMenus(array($footerMenu));
     	$menuEntries = $this->getParamList(MenuEntry::class, $menuEntryFilter);
-    	$menuEntries = $this->prepareMenuEntries($menuEntries, $menuEntryFilter);
     	$viewParams['footerMenuEntries'] = $menuEntries;
     	
     	
     	$menuEntryFilter->setRoot(BaseEntityFilter::TRUE_VALUES);
     	$menuEntryFilter->setParents([]);
     	
-    	$menuEntryFilter->setMenus(array(MenuEntry::MAIN_MENU));
+    	$mainMenu = $menuRepository->find(Menu::MAIN_MENU);
+    	$menuEntryFilter->setMenus(array($mainMenu));
     	$menuEntries = $this->getParamList(MenuEntry::class, $menuEntryFilter);
-    	$menuEntries = $this->prepareMenuEntries($menuEntries, $menuEntryFilter);
     	$viewParams['mainMenuEntries'] = $menuEntries;
     	
     	$params['viewParams'] = $viewParams;
     	return $params;
-	}
-	
-	protected function prepareMenuEntries(array $entries, MenuEntryFilter $menuEntryFilter) {
-		$menuEntryFilter->setRoot(BaseEntityFilter::FALSE_VALUES);
-		
-		foreach ($entries as $entry) {
-			$menuEntryFilter->setParents([$entry]);
-				
-			$subentries = $this->getParamList(MenuEntry::class, $menuEntryFilter);
-			$subentries = $this->prepareMenuEntries($subentries, $menuEntryFilter);
-				
-			$entry->setMenuChildren($subentries);
-		}
-	
-		return $entries;
 	}
 }

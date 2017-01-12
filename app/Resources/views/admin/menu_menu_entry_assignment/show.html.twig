@@ -1,0 +1,18 @@
+{% extends 'admin/base/show.html.twig' %}
+
+{% set mainPath = 'menu_menu_entry_assignment' %}
+{% set title = 'title.menuMenuEntryAssignments'|trans %}
+{% set gender = '' %}
+
+{% block mainFields1 %}	
+	{% include 'common/fields/simple_field.html.twig' with 
+	{ 'label': 'label.menu', 'value': entry.menu,
+		'object': 'menu', 'routeId': entry.id } %}
+		
+	{% include 'common/fields/simple_field.html.twig' with 
+	{ 'label': 'label.menuEntry', 'value': entry.menuEntry,
+		'object': 'menuEntry', 'routeId': entry.id } %}
+		
+	{% include 'common/fields/text_field.html.twig' with 
+	{ 'label': 'label.orderNumber', 'value': entry.orderNumber } %}
+{% endblock %}

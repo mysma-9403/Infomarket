@@ -9,8 +9,6 @@
         table="menu_entries"
         repository-class="AppBundle\Repository\MenuEntryRepository">
         
-        <field name="menu" type="integer" default="1" />
-        
         <field name="orderNumber" type="integer" default="1" />
         
         <field name="slug" type="string" length="256">
@@ -32,6 +30,8 @@
         
         <many-to-one field="link" target-entity="Link" nullable="true" />
         
+        <one-to-many field="menuMenuEntryAssignments" target-entity="MenuMenuEntryAssignment" mapped-by="menuEntry">
+        </one-to-many>
     </entity>
     
 </doctrine-mapping>

@@ -4,10 +4,13 @@
 {% set title = 'title.menuEntries'|trans %}
 
 {% block moreFields3 %}
-	{{ form_row(form.menu, { 'label': 'label.menu' }) }}
 	{{ form_row(form.parent, { 'label': 'label.menuEntry.parent' }) }}
 	{{ form_row(form.orderNumber, { 'label': 'label.orderNumber' }) }}
 	
 	{{ form_row(form.page, { 'label': 'label.menuEntry.page' }) }}
 	{{ form_row(form.link, { 'label': 'label.menuEntry.link' }) }}
+{% endblock %}
+
+{% block assignments %}
+	{% include 'admin/menu_entry/assignments.html.twig' with { 'entry': entry } %}
 {% endblock %}

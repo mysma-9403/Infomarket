@@ -756,7 +756,24 @@ admin_magazine:
     path:      /admin/magazines/{page}
     defaults:  { _controller: "AppBundle:Admin/Magazine:index", page: 1 }
 
-# Admin MenuEntrys Routing    
+# Admin Menus Routing    
+admin_menu_show:
+    path:      /admin/menus/show/{id}
+    defaults:  { _controller: "AppBundle:Admin/Menu:show" }
+    
+admin_menu_set_im_published:
+    path:      /admin/menus/set_im_published/{id}
+    defaults:  { _controller: "AppBundle:Admin/Menu:setIMPublished" }
+    
+admin_menu_set_ip_published:
+    path:      /admin/menus/set_ip_published/{id}
+    defaults:  { _controller: "AppBundle:Admin/Menu:setIPPublished" }
+
+admin_menu:
+    path:      /admin/menus/{page}
+    defaults:  { _controller: "AppBundle:Admin/Menu:index", page: 1 }
+    
+# Admin MenuEntries Routing    
 admin_menu_entry_show:
     path:      /admin/menu_entries/show/{id}
     defaults:  { _controller: "AppBundle:Admin/MenuEntry:show" }
@@ -788,6 +805,39 @@ admin_menu_entry_set_ip_published:
 admin_menu_entry:
     path:      /admin/menu_entries/{page}
     defaults:  { _controller: "AppBundle:Admin/MenuEntry:index", page: 1 }
+    
+# Admin MenuMenuEntries Routing    
+admin_menu_menu_entry_assignment_show:
+    path:      /admin/menu_menu_entry_assignments/show/{id}
+    defaults:  { _controller: "AppBundle:Admin/MenuMenuEntryAssignment:show" }
+    
+admin_menu_menu_entry_assignment_new:
+    path:      /admin/menu_menu_entry_assignments/new/
+    defaults:  { _controller: "AppBundle:Admin/MenuMenuEntryAssignment:new" }
+    
+admin_menu_menu_entry_assignment_copy:
+    path:      /admin/menu_menu_entry_assignments/copy/{id}
+    defaults:  { _controller: "AppBundle:Admin/MenuMenuEntryAssignment:copy" }
+    
+admin_menu_menu_entry_assignment_edit:
+    path:      /admin/menu_menu_entry_assignments/edit/{id}
+    defaults:  { _controller: "AppBundle:Admin/MenuMenuEntryAssignment:edit" }
+    
+admin_menu_menu_entry_assignment_delete:
+    path:      /admin/menu_menu_entry_assignments/delete/{id}
+    defaults:  { _controller: "AppBundle:Admin/MenuMenuEntryAssignment:delete" }
+    
+admin_menu_menu_entry_assignment_set_im_published:
+    path:      /admin/menu_menu_entry_assignments/set_im_published/{id}
+    defaults:  { _controller: "AppBundle:Admin/MenuMenuEntryAssignment:setIMPublished" }
+    
+admin_menu_menu_entry_assignment_set_ip_published:
+    path:      /admin/menu_menu_entry_assignments/set_ip_published/{id}
+    defaults:  { _controller: "AppBundle:Admin/MenuMenuEntryAssignment:setIPPublished" }
+
+admin_menu_menu_entry_assignment:
+    path:      /admin/menu_menu_entry_assignments/{page}
+    defaults:  { _controller: "AppBundle:Admin/MenuMenuEntryAssignment:index", page: 1 }
     
 # Admin NewsletterBlocks Routing    
 admin_newsletter_block_show:

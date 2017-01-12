@@ -2,11 +2,11 @@
 
 namespace AppBundle\Manager\Entity\Common;
 
+use AppBundle\Entity\Link;
 use AppBundle\Entity\MenuEntry;
+use AppBundle\Entity\Page;
 use AppBundle\Manager\Entity\Base\SimpleEntityManager;
 use Symfony\Component\HttpFoundation\Request;
-use AppBundle\Entity\Page;
-use AppBundle\Entity\Link;
 
 class MenuEntryManager extends SimpleEntityManager {
 	
@@ -22,11 +22,10 @@ class MenuEntryManager extends SimpleEntityManager {
 		
 		$entry->setParent($this->getParamWithName($request, MenuEntry::class, 'parent'));
 		
-		$entry->setMenu($request->get('menu'));
-		$entry->setOrderNumber($request->get('order_number', 99));
-		
 		$entry->setPage($this->getParam($request, Page::class));
 		$entry->setLink($this->getParam($request, Link::class));
+		
+		$entry->setOrderNumber($request->get('order_number', 99));
 		
 		return $entry;
 	}
@@ -43,11 +42,10 @@ class MenuEntryManager extends SimpleEntityManager {
 		
 		$entry->setParent($template->getParent());
 		
-		$entry->setMenu($template->getMenu());
-		$entry->setOrderNumber($template->getOrderNumber());
-		
 		$entry->setPage($template->getPage());
 		$entry->setLink($template->getLink());
+		
+		$entry->setOrderNumber($template->getOrderNumber());
 		
 		return $entry;
 	}

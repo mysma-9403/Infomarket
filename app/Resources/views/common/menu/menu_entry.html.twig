@@ -1,13 +1,18 @@
+{% set infomarket = infomarket | default(false) %}
+{% set infoprodukt = infoprodukt | default(false) %}
+
 <li>
 	{% set caretClass = caretClass|default('') %}
 	
-	{% if entry.menuChildren|length > 0 %}
+	{% if entry.children | length > 0 %}
 		<a class="trigger right-caret {{ caretClass }}">
 			{{ entry.name | raw }}
 		</a>
 		<ul class="dropdown-menu sub-menu">
-			{% for subentry in entry.menuChildren %}
-				{% include 'common/menu/menu_entry.html.twig' with { 'entry': subentry } %}
+			{% for subentry in entry.children %}
+				{% if (infomarket and subentry.infomarket) or (infoprodukt and subentry.infoprodukt) %}
+					{% include 'common/menu/menu_entry.html.twig' with { 'entry': subentry } %}
+				{% endif %}
 			{% endfor %}
 		</ul>
 	{% else %}
@@ -16,7 +21,7 @@
 		{% elseif entry.link %}
 			<a href="{{ entry.link.url }}">{{ entry.name }}</a>
 		{% else %}
-			{{ entry.name }}
+			<a href="#">{{ entry.name }}</a>
 		{% endif %}
 	{% endif %}
 </li>

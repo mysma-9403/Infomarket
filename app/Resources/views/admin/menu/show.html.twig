@@ -1,0 +1,10 @@
+{% extends 'admin/simple/show.html.twig' %}
+
+{% set mainPath = 'menu' %}
+{% set title = 'title.menu'|trans %}
+
+{% block mainActions %}
+	<a type="button" class="btn btn-primary" href="{{ path(basePath ~ mainPath) }}">
+    	<i class="fa fa-close"></i>{{ 'action.back'|trans }}
+	</a>
+{% endblock %}

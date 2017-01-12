@@ -226,7 +226,8 @@
 				      				<div class="col-xs-6 col-sm-3">
 					      				<h3>{{ entry.name }}</h3>
 					      				<hr>
-				      					{% for subentry in entry.menuChildren %}
+				      					{% for subentry in entry.children %}
+				      						{% if subentry.infoprodukt %}
 								      		<div>
 								      			{% if subentry.page %}
 								      				<a href="{{ path(basePath ~ 'page_show', { id: subentry.page.id}) }}">{{ subentry.name }}</a>
@@ -236,6 +237,7 @@
 							      					{{ subentry.name }}
 								      			{% endif %}
 							      			</div>
+							      			{% endif %}
 						      			{% endfor %}
 					      			</div>
 					      		{% endfor %}
