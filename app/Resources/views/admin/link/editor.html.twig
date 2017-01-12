@@ -1,0 +1,9 @@
+{% extends 'admin/simple/editor.html.twig' %}
+
+{% set mainPath = 'link' %}
+{% set title = 'title.links'|trans %}
+{% set gender = 'm.' %}
+
+{%  block moreFields3 %}
+	{{ form_row(form.url, { 'label': 'label.url' }) }}
+{%  endblock %}

@@ -3,14 +3,14 @@
 namespace AppBundle\Controller\Admin;
 
 use AppBundle\Controller\Admin\Base\SimpleEntityController;
-use AppBundle\Entity\Menu;
-use AppBundle\Form\Editor\MenuEditorType;
-use AppBundle\Form\Filter\MenuFilterType;
-use AppBundle\Manager\Entity\Common\MenuManager;
-use AppBundle\Manager\Filter\Common\MenuFilterManager;
+use AppBundle\Entity\Link;
+use AppBundle\Form\Editor\LinkEditorType;
+use AppBundle\Form\Filter\LinkFilterType;
+use AppBundle\Manager\Entity\Common\LinkManager;
+use AppBundle\Manager\Filter\Common\LinkFilterManager;
 use Symfony\Component\HttpFoundation\Request;
 
-class MenuController extends SimpleEntityController {
+class LinkController extends SimpleEntityController {
 	
 	//---------------------------------------------------------------------------
 	// Actions
@@ -42,6 +42,53 @@ class MenuController extends SimpleEntityController {
 	/**
 	 * 
 	 * @param Request $request
+	 * 
+	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
+	 */
+	public function newAction(Request $request)
+	{
+		return $this->newActionInternal($request);
+	}
+	
+	/**
+	 * 
+	 * @param Request $request
+	 * @param integer $id
+	 * 
+	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
+	 */
+	public function copyAction(Request $request, $id)
+	{
+		return $this->copyActionInternal($request, $id);
+	}
+	
+	/**
+	 * 
+	 * @param Request $request
+	 * @param integer $id
+	 * 
+	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
+	 */
+	public function editAction(Request $request, $id)
+	{
+		return $this->editActionInternal($request, $id);
+	}
+	
+	/**
+	 * 
+	 * @param Request $request
+	 * @param integer $id
+	 * 
+	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
+	 */
+	public function deleteAction(Request $request, $id)
+	{
+		return $this->deleteActionInternal($request, $id);
+	}
+	
+	/**
+	 * 
+	 * @param Request $request
 	 * @param integer $id
 	 * 
 	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
@@ -68,11 +115,11 @@ class MenuController extends SimpleEntityController {
 	//---------------------------------------------------------------------------
 	
 	protected function getEntityManager($doctrine, $paginator) {
-		return new MenuManager($doctrine, $paginator);
+		return new LinkManager($doctrine, $paginator);
 	}
 	
 	protected function getFilterManager($doctrine) {
-		return new MenuFilterManager($doctrine);
+		return new LinkFilterManager($doctrine);
 	}
 	
 	//---------------------------------------------------------------------------
@@ -85,7 +132,7 @@ class MenuController extends SimpleEntityController {
 	 * @see \AppBundle\Controller\Admin\Base\SimpleEntityController::getEntityType()
 	 */
 	protected function getEntityType() {
-		return Menu::class;
+		return Link::class;
 	}
 	
 	
@@ -99,7 +146,7 @@ class MenuController extends SimpleEntityController {
 	 * @see \AppBundle\Controller\Admin\Base\SimpleEntityController::getFormType()
 	 */
 	protected function getEditorFormType() {
-		return MenuEditorType::class;
+		return LinkEditorType::class;
 	}
 
 	/**
@@ -108,6 +155,6 @@ class MenuController extends SimpleEntityController {
 	 * @see \AppBundle\Controller\Admin\Base\SimpleEntityController::getFilterFormType()
 	 */
 	protected function getFilterFormType() {
-		return MenuFilterType::class;
+		return LinkFilterType::class;
 	}
 }

@@ -714,7 +714,40 @@ admin_category_tree:
 admin_category:
     path:      /admin/categories/{page}
     defaults:  { _controller: "AppBundle:Admin/Category:index", page: 1 }
+
+# Admin Links Routing    
+admin_link_show:
+    path:      /admin/links/show/{id}
+    defaults:  { _controller: "AppBundle:Admin/Link:show" }
     
+admin_link_new:
+    path:      /admin/links/new/
+    defaults:  { _controller: "AppBundle:Admin/Link:new" }
+    
+admin_link_copy:
+    path:      /admin/links/copy/{id}
+    defaults:  { _controller: "AppBundle:Admin/Link:copy" }
+    
+admin_link_edit:
+    path:      /admin/links/edit/{id}
+    defaults:  { _controller: "AppBundle:Admin/Link:edit" }
+    
+admin_link_delete:
+    path:      /admin/links/delete/{id}
+    defaults:  { _controller: "AppBundle:Admin/Link:delete" }
+    
+admin_link_set_im_published:
+    path:      /admin/links/set_im_published/{id}
+    defaults:  { _controller: "AppBundle:Admin/Link:setIMPublished" }
+    
+admin_link_set_ip_published:
+    path:      /admin/links/set_ip_published/{id}
+    defaults:  { _controller: "AppBundle:Admin/Link:setIPPublished" }
+
+admin_link:
+    path:      /admin/links/{page}
+    defaults:  { _controller: "AppBundle:Admin/Link:index", page: 1 }
+        
 # Admin Magazines Routing    
 admin_magazine_show:
     path:      /admin/magazines/show/{id}

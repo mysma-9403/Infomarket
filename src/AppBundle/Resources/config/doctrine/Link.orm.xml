@@ -9,10 +9,6 @@
         repository-class="AppBundle\Repository\LinkRepository">
         
         <field name="url" type="string" length="256"/>
-        <field name="type" type="integer"/>
-        
-        <field name="featured" type="boolean" default="false" />
-        <field name="orderNumber" type="integer" default="0"/>
     </entity>
     
 </doctrine-mapping>

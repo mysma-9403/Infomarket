@@ -1,0 +1,12 @@
+{% extends 'admin/simple/show.html.twig' %}
+
+{% set mainPath = 'link' %}
+{% set title = 'title.link'|trans %}
+{% set gender = 'm.' %}
+
+{% block moreFields3 %}
+	
+	{% include 'common/fields/text_field.html.twig' with 
+	{ 'label': 'label.url'|trans, 'value': entry.url } %}
+	
+{% endblock %}

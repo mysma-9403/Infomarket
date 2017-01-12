@@ -72,6 +72,14 @@
                 <source>title.categories</source>
                 <target>Kategorie</target>
             </trans-unit>
+           	<trans-unit id="title.link">
+                <source>title.link</source>
+                <target>Link</target>
+            </trans-unit>
+            <trans-unit id="title.links">
+                <source>title.links</source>
+                <target>Linki</target>
+            </trans-unit>
             <trans-unit id="title.magazine">
                 <source>title.magazine</source>
                 <target>Magazyn</target>
@@ -756,6 +764,11 @@
             <trans-unit id="label.www">
                 <source>label.www</source>
                 <target>www</target>
+            </trans-unit>
+            
+            <trans-unit id="label.url">
+                <source>label.url</source>
+                <target>Adres URL</target>
             </trans-unit>
             
             <trans-unit id="label.logout">
