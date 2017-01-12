@@ -187,4 +187,33 @@ class Segment extends ImageEntity
     {
         return $this->color;
     }
+    /**
+     * @var string
+     */
+    private $subname;
+
+
+    /**
+     * Set subname
+     *
+     * @param string $subname
+     *
+     * @return Segment
+     */
+    public function setSubname($subname)
+    {
+        $this->subname = $subname;
+
+        return $this;
+    }
+
+    /**
+     * Get subname
+     *
+     * @return string
+     */
+    public function getSubname()
+    {
+        return $this->subname;
+    }
 }

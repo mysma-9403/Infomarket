@@ -4,6 +4,10 @@
 {% set title = 'title.segments'|trans %}
 {% set gender = 'm.' %}
 
+{% block moreFields2 %}
+	{{ form_row(form.subname, { 'label': 'label.subname' }) }}
+{% endblock %}
+
 {%  block moreFields3 %}
 	{{ form_row(form.color, { 'label': 'label.color' }) }}	
 	

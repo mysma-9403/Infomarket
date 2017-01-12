@@ -11,7 +11,7 @@ class SimpleEntity extends Simple
 	 */
 	public function getDisplayName() {
 		$result = '<empty>';
-		if($this->name) $result = ' ' . $this->name;
+		if($this->name) $result = $this->name;
 		return $result;
 	}
 	

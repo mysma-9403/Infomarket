@@ -63,7 +63,7 @@
 										<img class="div-center img-{{ segment.vertical ? 'v' : '' }}responsive" 
 											alt="{{ segment.name | raw }}" src="{{ asset(segment.getImagePath()) }}">
 									{% endif %}
-									<p class="segment-subtitle div-bottom">{{ segment.name | raw }}</p>
+									<p class="segment-subtitle div-bottom">{{ segment.subname | raw }}</p>
 								</div>
 								
 								<div class="col-xs-12 rating-subtitle1 hidden-xs">
@@ -195,7 +195,7 @@
 											<img class="div-center img-{{ segment.vertical ? 'v' : '' }}responsive" 
 												alt="{{ segment.name | raw }}" src="{{ asset(segment.getImagePath()) }}">
 										{% endif %}
-										<p class="segment-subtitle div-bottom">{{ segment.name | raw }}</p>
+										<p class="segment-subtitle div-bottom">{{ segment.subname | raw }}</p>
 									</div>
 									
 									<div class="col-xs-12 rating-subtitle1 hidden-xs">

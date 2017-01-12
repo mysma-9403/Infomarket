@@ -55,18 +55,23 @@ class Category extends ImageEntityTree
 	}
 	
 	public function getDisplayName() {
-		$name = '<empty>';
-	
-		if($this->name) $name = $this->name;
-		if($this->subname) $name .= $this->subname;
+		$result = '<empty>';
+		if($this->name) $result = $this->name;
+		
+		if($this->subname) {
+			if($result == '<empty>')
+				$result = $this->subname;
+			else 
+				$result .= ' ' . $this->subname;
+		}
 	
 		$parent = $this->getParent();
 		if($parent) {
-			$name .= ' / ';
-			$name .= $parent->getDisplayName();
+			$result .= ' / ';
+			$result .= $parent->getDisplayName();
 		}
 	
-		return $name;
+		return $result;
 	}
 	
     /**

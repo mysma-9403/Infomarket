@@ -18,12 +18,15 @@ class SegmentEditorType extends ImageEntityEditorType
 	protected function addMoreFields(FormBuilderInterface $builder, array $options) {
 	
 		$builder
+		->add('subname', TextType::class, array(
+				'required' => true
+		))
 		->add('color', TextType::class, array(
 					'required' => true
-			))
+		))
 		->add('orderNumber', NumberType::class, array(
 					'required' => true
-			))
+		))
 			;
 	}
 	

@@ -6,7 +6,7 @@ class ImageEntity extends Image
 {	
 	public function getDisplayName() {
 		$result = '<empty>';
-		if($this->name) $result = ' ' . $this->name;
+		if($this->name) $result = $this->name;
 		return $result;
 	}
 	
