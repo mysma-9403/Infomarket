@@ -1,4 +1,4 @@
-@import "common.less";
+@import "../common/common.less";
 
 
 .content {
@@ -196,47 +196,6 @@ video {
     -ms-transform: translate(-50%,-50%);
     transform: translate(-50%,-50%);
     z-index: -1;
-}
-
-
-
-// social icons
-.social-menu {
-	position: fixed;
-	top: 200px;
-	right: 10px;
-}
-
-.social-menu > .row {
-	margin-bottom: 5px;
-}
-
-a .social-button {
-	position: relative;
-	width: 50px;
-	height: 50px;
-	font-size: 24px;
-	font-weight: bold;
-
-	color: @white;
-	background-color: @brand-primary;
-}
-
-a:focus .social-button,
-a:hover .social-button {	
-	color: @brand-primary;
-	background-color: @white;
-}
-
-a .social-button.red {
-	color: @white;
-	background-color: @red;
-}
-
-a:focus .social-button.red,
-a:hover .social-button.red {	
-	color: @red;
-	background-color: @white;
 }
 
 
