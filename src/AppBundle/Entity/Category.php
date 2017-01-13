@@ -688,4 +688,43 @@ class Category extends ImageEntityTree
     {
         return $this->magazineCategoryAssignments;
     }
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $menuEntryCategoryAssignments;
+
+
+    /**
+     * Add menuEntryCategoryAssignment
+     *
+     * @param \AppBundle\Entity\MenuEntryCategoryAssignment $menuEntryCategoryAssignment
+     *
+     * @return Category
+     */
+    public function addMenuEntryCategoryAssignment(\AppBundle\Entity\MenuEntryCategoryAssignment $menuEntryCategoryAssignment)
+    {
+        $this->menuEntryCategoryAssignments[] = $menuEntryCategoryAssignment;
+
+        return $this;
+    }
+
+    /**
+     * Remove menuEntryCategoryAssignment
+     *
+     * @param \AppBundle\Entity\MenuEntryCategoryAssignment $menuEntryCategoryAssignment
+     */
+    public function removeMenuEntryCategoryAssignment(\AppBundle\Entity\MenuEntryCategoryAssignment $menuEntryCategoryAssignment)
+    {
+        $this->menuEntryCategoryAssignments->removeElement($menuEntryCategoryAssignment);
+    }
+
+    /**
+     * Get menuEntryCategoryAssignments
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getMenuEntryCategoryAssignments()
+    {
+        return $this->menuEntryCategoryAssignments;
+    }
 }

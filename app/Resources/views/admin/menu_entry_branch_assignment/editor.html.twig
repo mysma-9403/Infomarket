@@ -1,0 +1,9 @@
+{% extends 'admin/base/editor.html.twig' %}
+
+{% set mainPath = 'menu_entry_branch_assignment' %}
+{% set title = 'title.menuEntryBranchAssignments'|trans %}
+
+{% block moreFields2 %}
+	{{ form_row(form.menuEntry, { 'label': 'label.menuEntry' }) }}
+	{{ form_row(form.branch, { 'label': 'label.branch' }) }}
+{% endblock %}

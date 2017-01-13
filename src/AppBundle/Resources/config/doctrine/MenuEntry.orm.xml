@@ -32,6 +32,12 @@
         
         <one-to-many field="menuMenuEntryAssignments" target-entity="MenuMenuEntryAssignment" mapped-by="menuEntry">
         </one-to-many>
+        
+        <one-to-many field="menuEntryBranchAssignments" target-entity="MenuEntryBranchAssignment" mapped-by="menuEntry">
+        </one-to-many>
+        
+        <one-to-many field="menuEntryCategoryAssignments" target-entity="MenuEntryCategoryAssignment" mapped-by="menuEntry">
+        </one-to-many>
     </entity>
     
 </doctrine-mapping>

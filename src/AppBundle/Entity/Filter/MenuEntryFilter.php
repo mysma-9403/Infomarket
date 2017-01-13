@@ -12,6 +12,9 @@ use AppBundle\Repository\UserRepository;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Entity\MenuMenuEntryAssignment;
 use AppBundle\Repository\MenuRepository;
+use AppBundle\Repository\CategoryRepository;
+use AppBundle\Entity\MenuEntryBranchAssignment;
+use AppBundle\Entity\MenuEntryCategoryAssignment;
 
 class MenuEntryFilter extends SimpleEntityFilter {
 
@@ -25,7 +28,9 @@ class MenuEntryFilter extends SimpleEntityFilter {
 			MenuEntryRepository $menuEntryRepository,
 			MenuRepository $menuRepository,
 			PageRepository $pageRepository, 
-			LinkRepository $linkRepository) {
+			LinkRepository $linkRepository,
+			BranchRepository $branchRepository,
+			CategoryRepository $categoryRepository) {
 		
 		parent::__construct($userRepository);
 		
@@ -33,6 +38,8 @@ class MenuEntryFilter extends SimpleEntityFilter {
 		$this->menuRepository = $menuRepository;
 		$this->pageRepository = $pageRepository;
 		$this->linkRepository = $linkRepository;
+		$this->branchRepository = $branchRepository;
+		$this->categoryRepository = $categoryRepository;
 		
 		$this->filterName = 'menu_entry_filter_';
 		
@@ -62,6 +69,16 @@ class MenuEntryFilter extends SimpleEntityFilter {
 	protected $linkRepository;
 	
 	/**
+	 * @var BranchRepository
+	 */
+	protected $branchRepository;
+	
+	/**
+	 * @var CategoryRepository
+	 */
+	protected $categoryRepository;
+	
+	/**
 	 *
 	 * {@inheritDoc}
 	 * @see \AppBundle\Entity\Filter\Base\SimpleEntityFilter::initMoreValues()
@@ -81,6 +98,12 @@ class MenuEntryFilter extends SimpleEntityFilter {
 		$links = $request->get($this->getFilterName() . 'links', array());
 		$this->links = $this->linkRepository->findBy(array('id' => $links));
 		
+		$branches = $request->get($this->getFilterName() . 'branches', array());
+		$this->branches = $this->branchRepository->findBy(array('id' => $branches));
+		
+		$categories = $request->get($this->getFilterName() . 'categories', array());
+		$this->categories = $this->categoryRepository->findBy(array('id' => $categories));
+		
 		$this->root = $request->get($this->getFilterName() . 'root', $this::ALL_VALUES);
 	}
 	
@@ -97,6 +120,8 @@ class MenuEntryFilter extends SimpleEntityFilter {
 		$this->menus= array();
 		$this->pages= array();
 		$this->links = array();
+		$this->branches = array();
+		$this->categories = array();
 		
 		$this->root = $this::ALL_VALUES;
 	}
@@ -125,6 +150,14 @@ class MenuEntryFilter extends SimpleEntityFilter {
 			$values[$this->getFilterName() . 'links'] = $this->getIdValues($this->links);
 		}
 		
+		if($this->branches) {
+			$values[$this->getFilterName() . 'branches'] = $this->getIdValues($this->branches);
+		}
+		
+		if($this->categories) {
+			$values[$this->getFilterName() . 'categories'] = $this->getIdValues($this->categories);
+		}
+		
 		if($this->root != $this::ALL_VALUES) {
 			$values[$this->getFilterName() . 'root'] = $this->root;
 		}
@@ -136,7 +169,15 @@ class MenuEntryFilter extends SimpleEntityFilter {
 		$expressions = parent::getJoinExpressions();
 	
 		if($this->menus) {
-			$expressions[] = MenuMenuEntryAssignment::class . ' mme WITH mme.menuEntry = e.id';
+			$expressions[] = MenuMenuEntryAssignment::class . ' mmea WITH mmea.menuEntry = e.id';
+		}
+		
+		if($this->branches) {
+			$expressions[] = MenuEntryBranchAssignment::class . ' meba WITH meba.menuEntry = e.id';
+		}
+		
+		if($this->categories) {
+			$expressions[] = MenuEntryCategoryAssignment::class . ' meca WITH meca.menuEntry = e.id';
 		}
 	
 		return $expressions;
@@ -151,7 +192,7 @@ class MenuEntryFilter extends SimpleEntityFilter {
 		$expressions = parent::getWhereExpressions();
 		
 		if($this->menus) {
-			$expressions[] = $this->getEqualArrayExpression('mme.menu', $this->menus);
+			$expressions[] = $this->getEqualArrayExpression('mmea.menu', $this->menus);
 		}
 		
 		if($this->pages) {
@@ -160,6 +201,14 @@ class MenuEntryFilter extends SimpleEntityFilter {
 		
 		if($this->links) {
 			$expressions[] = $this->getEqualArrayExpression('e.link', $this->links);
+		}
+		
+		if($this->branches) {
+			$expressions[] = $this->getEqualArrayExpression('meba.branch', $this->branches);
+		}
+		
+		if($this->categories) {
+			$expressions[] = $this->getEqualArrayExpression('meca.category', $this->categories);
 		}
 		
 		if($this->root == $this::TRUE_VALUES) {
@@ -199,6 +248,18 @@ class MenuEntryFilter extends SimpleEntityFilter {
 	 * @var array
 	 */
 	private $links;
+	
+	/**
+	 *
+	 * @var array
+	 */
+	private $branches;
+	
+	/**
+	 *
+	 * @var array
+	 */
+	private $categories;
 	
 	/**
 	 *
@@ -300,6 +361,54 @@ class MenuEntryFilter extends SimpleEntityFilter {
 	public function getLinks()
 	{
 		return $this->links;
+	}
+	
+	/**
+	 * Set menu entry branches
+	 *
+	 * @param array $branches
+	 *
+	 * @return MenuEntryFilter
+	 */
+	public function setBranches($branches)
+	{
+		$this->branches = $branches;
+	
+		return $this;
+	}
+	
+	/**
+	 * Get menu entry branches
+	 *
+	 * @return array
+	 */
+	public function getBranches()
+	{
+		return $this->branches;
+	}
+	
+	/**
+	 * Set menu entry categories
+	 *
+	 * @param array $categories
+	 *
+	 * @return MenuEntryFilter
+	 */
+	public function setCategories($categories)
+	{
+		$this->categories = $categories;
+	
+		return $this;
+	}
+	
+	/**
+	 * Get menu entry categories
+	 *
+	 * @return array
+	 */
+	public function getCategories()
+	{
+		return $this->categories;
 	}
 	
 	/**

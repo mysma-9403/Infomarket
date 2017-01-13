@@ -9,6 +9,8 @@ use AppBundle\Entity\Page;
 use AppBundle\Entity\User;
 use AppBundle\Manager\Filter\Base\BaseEntityFilterManager;
 use AppBundle\Entity\Menu;
+use AppBundle\Entity\Branch;
+use AppBundle\Entity\Category;
 
 class MenuEntryFilterManager extends BaseEntityFilterManager {
 	
@@ -18,7 +20,9 @@ class MenuEntryFilterManager extends BaseEntityFilterManager {
 		$pageRepository = $this->doctrine->getRepository(Page::class);
 		$linkRepository = $this->doctrine->getRepository(Link::class);
 		$menuEntryRepository = $this->doctrine->getRepository(MenuEntry::class);
+		$branchRepository = $this->doctrine->getRepository(Branch::class);
+		$categoryRepository = $this->doctrine->getRepository(Category::class);
 		
-		return new MenuEntryFilter($userRepository, $menuEntryRepository, $menuRepository, $pageRepository, $linkRepository);
+		return new MenuEntryFilter($userRepository, $menuEntryRepository, $menuRepository, $pageRepository, $linkRepository, $branchRepository, $categoryRepository);
 	}
 }

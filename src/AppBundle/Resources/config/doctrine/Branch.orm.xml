@@ -21,6 +21,9 @@
         <one-to-many field="magazineBranchAssignments" target-entity="MagazineBranchAssignment" mapped-by="branch">
         </one-to-many>
         
+        <one-to-many field="menuEntryBranchAssignments" target-entity="MenuEntryBranchAssignment" mapped-by="branch">
+        </one-to-many>
+        
     </entity>
     
 </doctrine-mapping>

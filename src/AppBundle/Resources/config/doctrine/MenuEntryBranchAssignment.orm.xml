@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+        http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <entity name="AppBundle\Entity\MenuEntryBranchAssignment" 
+        table="menu_entry_branch_assignments"
+        repository-class="AppBundle\Repository\MenuEntryBranchAssignmentRepository">
+        
+        <many-to-one field="menuEntry" target-entity="MenuEntry" inversed-by="menuEntryBranchAssignments" />
+        <many-to-one field="branch" target-entity="Branch" inversed-by="menuEntryBranchAssignments" />
+        
+    </entity>
+    
+</doctrine-mapping>

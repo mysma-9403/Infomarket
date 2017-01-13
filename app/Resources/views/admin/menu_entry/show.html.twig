@@ -5,7 +5,7 @@
 
 {% block moreFields3 %}
 	{% include 'common/fields/simple_field.html.twig' with 
-	{ 'label': 'label.menuEntry.parent', 'value': entry.parent, 'object': 'menuEntry', 'routeId': entry.id } %}
+	{ 'label': 'label.menuEntry.parent', 'value': entry.parent, 'object': 'menu_entry', 'routeId': entry.id } %}
 		
 	{% include 'common/fields/text_field.html.twig' with 
 	{ 'label': 'label.orderNumber'|trans, 'value': entry.orderNumber } %}

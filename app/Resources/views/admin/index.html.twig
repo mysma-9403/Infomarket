@@ -211,6 +211,17 @@
 								{{ 'title.menuMenuEntryAssignments'|trans }}
 							</a>
 						</li>
+						<li class="divider"></li>
+						<li>
+							<a href="{{ path(basePath ~ 'menu_entry_branch_assignment') }}">
+								{{ 'title.menuEntryBranchAssignments'|trans }}
+							</a>
+						</li>
+						<li>
+							<a href="{{ path(basePath ~ 'menu_entry_category_assignment') }}">
+								{{ 'title.menuEntryCategoryAssignments'|trans }}
+							</a>
+						</li>
 					</ul>
 				</li>
 				<li {% if 'magazine' in mainPath %} class="active" {% endif %} class="dropdown">

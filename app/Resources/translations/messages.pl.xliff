@@ -251,6 +251,14 @@
                 <source>title.magazine_category_assignments</source>
                 <target>Magazyny - Kategorie</target>
             </trans-unit>
+            <trans-unit id="title.menuEntryBranchAssignments">
+                <source>title.menuEntryBranchAssignments</source>
+                <target>Pozycje menu - Branże</target>
+            </trans-unit>
+            <trans-unit id="title.menuEntryCategoryAssignments">
+                <source>title.menuEntryCategoryAssignments</source>
+                <target>Pozycje menu - Kategorie</target>
+            </trans-unit>
             <trans-unit id="title.product_category_assignments">
                 <source>title.product_category_assignments</source>
                 <target>Produkty - Kategorie</target>

@@ -267,15 +267,24 @@
 					      				<hr>
 				      					{% for subentry in menuEntry.children %}
 				      						{% if subentry.infomarket %}
-									      		<div>
-									      			{% if subentry.page %}
-									      				<a href="{{ path(basePath ~ 'page_show', { id: subentry.page.id}) }}">{{ subentry.name }}</a>
-									      			{% elseif subentry.link %}
-									      				<a href="{{ subentry.link.url }}">{{ subentry.name }}</a>
-								      				{% else %}
-								      					{{ subentry.name }}
-									      			{% endif %}
-								      			</div>
+				      							{% set show = false %}
+				      							{% for menuEntryBranchAssignment in subentry.menuEntryBranchAssignments if show == false %}
+				      								{% if menuEntryBranchAssignment.branch.id == branch.id %}
+				      									{% set show = true %}
+				      								{% endif %}
+				      							{% endfor %}
+				      							
+				      							{% if show %}
+										      		<div>
+										      			{% if subentry.page %}
+										      				<a href="{{ path(basePath ~ 'page_show', { id: subentry.page.id}) }}">{{ subentry.name }}</a>
+										      			{% elseif subentry.link %}
+										      				<a href="{{ subentry.link.url }}">{{ subentry.name }}</a>
+									      				{% else %}
+									      					{{ subentry.name }}
+										      			{% endif %}
+									      			</div>
+								      			{% endif %}
 							      			{% endif %}
 						      			{% endfor %}
 					      			</div>

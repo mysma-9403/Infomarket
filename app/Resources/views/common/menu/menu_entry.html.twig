@@ -10,9 +10,24 @@
 		</a>
 		<ul class="dropdown-menu sub-menu">
 			{% for subentry in entry.children %}
-				{% if (infomarket and subentry.infomarket) or (infoprodukt and subentry.infoprodukt) %}
+			
+				{% if infomarket and subentry.infomarket %}
+					{% set show = false %}
+					
+					{% for menuEntryBranchAssignment in subentry.menuEntryBranchAssignments if show == false %}
+						{% if menuEntryBranchAssignment.branch.id == branch.id %}
+							{% set show = true %}
+						{% endif %}
+					{% endfor %}
+	      							
+					{% if show %}
+						{% include 'common/menu/menu_entry.html.twig' with { 'entry': subentry } %}
+					{% endif %}
+				
+				{% elseif infoprodukt and subentry.infoprodukt %}
 					{% include 'common/menu/menu_entry.html.twig' with { 'entry': subentry } %}
 				{% endif %}
+				
 			{% endfor %}
 		</ul>
 	{% else %}

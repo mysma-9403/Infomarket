@@ -218,4 +218,43 @@ class Branch extends ImageEntity
     {
         return $this->magazineBranchAssignments;
     }
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $menuEntryBranchAssignments;
+
+
+    /**
+     * Add menuEntryBranchAssignment
+     *
+     * @param \AppBundle\Entity\MenuEntryBranchAssignment $menuEntryBranchAssignment
+     *
+     * @return Branch
+     */
+    public function addMenuEntryBranchAssignment(\AppBundle\Entity\MenuEntryBranchAssignment $menuEntryBranchAssignment)
+    {
+        $this->menuEntryBranchAssignments[] = $menuEntryBranchAssignment;
+
+        return $this;
+    }
+
+    /**
+     * Remove menuEntryBranchAssignment
+     *
+     * @param \AppBundle\Entity\MenuEntryBranchAssignment $menuEntryBranchAssignment
+     */
+    public function removeMenuEntryBranchAssignment(\AppBundle\Entity\MenuEntryBranchAssignment $menuEntryBranchAssignment)
+    {
+        $this->menuEntryBranchAssignments->removeElement($menuEntryBranchAssignment);
+    }
+
+    /**
+     * Get menuEntryBranchAssignments
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getMenuEntryBranchAssignments()
+    {
+        return $this->menuEntryBranchAssignments;
+    }
 }

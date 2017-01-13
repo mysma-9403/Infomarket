@@ -11,6 +11,8 @@ use AppBundle\Entity\Page;
 use AppBundle\Entity\User;
 use AppBundle\Manager\Params\Base\ParamsManager;
 use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Entity\Branch;
+use AppBundle\Entity\Category;
 
 class MenuParamsManager extends ParamsManager {
 	
@@ -34,10 +36,19 @@ class MenuParamsManager extends ParamsManager {
 		$pageRepository = $this->doctrine->getRepository(Page::class);
 		$linkRepository = $this->doctrine->getRepository(Link::class);
 		$menuEntryRepository = $this->doctrine->getRepository(MenuEntry::class);
+		$branchRepository = $this->doctrine->getRepository(Branch::class);
+		$categoryRepository = $this->doctrine->getRepository(Category::class);
 		
-		$menuEntryFilter = new MenuEntryFilter($userRepository, $menuEntryRepository, $menuRepository, $pageRepository, $linkRepository);
-    	if($this->infomarket) $menuEntryFilter->setInfomarket(BaseEntityFilter::TRUE_VALUES);
-    	if($this->infoprodukt) $menuEntryFilter->setInfoprodukt(BaseEntityFilter::TRUE_VALUES);
+		$menuEntryFilter = new MenuEntryFilter($userRepository, $menuEntryRepository, $menuRepository, $pageRepository, $linkRepository, $branchRepository, $categoryRepository);
+    	if($this->infomarket) {
+    		$menuEntryFilter->setInfomarket(BaseEntityFilter::TRUE_VALUES);
+    		
+    		$branch = $viewParams['branch'];
+    		$menuEntryFilter->setBranches([$branch]);
+    	}
+    	if($this->infoprodukt) {
+    		$menuEntryFilter->setInfoprodukt(BaseEntityFilter::TRUE_VALUES);
+    	}
     	$menuEntryFilter->setRoot(BaseEntityFilter::TRUE_VALUES);
     	$menuEntryFilter->setOrderBy('e.orderNumber ASC');
     	

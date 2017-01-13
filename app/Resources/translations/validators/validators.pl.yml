@@ -15,11 +15,16 @@ branchCategoryAssignment.unique: Kategoria jest już powiązana z wybraną bran�
 
 brandCategoryAssignment.unique: Marka jest już przypisana do ratingu marek w danym segmencie dla wybranej kategorii.
 
+magazineBranchAssignment.unique: Magazyn jest już powiązany z wybraną branżą.
+magazineCategoryAssignment.unique: Magazyn jest już powiązany z wybraną kategorią.
+
+menuEntryBranchAssignment.unique: Pozycja menu jest już powiązana z wybraną branżą.
+menuEntryCategoryAssignment.unique: Pozycja menu jest już powiązana z wybraną kategorią.
+menuMenuEntryAssignment.unique: Pozycja menu jest już powiązana z wybranym menu.
+
 productCategoryAssignment.unique: Produkt jest już przypisany do ratingu produktów w danym segmencie dla wybranej kategorii.
 
 termCategoryAssignment.unique: Kategoria jest już powiązana z wybranym terminem.
-
-menuMenuEntryAssignment.unique: Pozycja menu jest już powiązana z wybranym menu.
 
 # Assignment delete errors
 articleCategory.usedIn.articleArticleCategoryAssignments: Kategoria artykułów jest używana w niektórych artykułach i nie może być usunięta.

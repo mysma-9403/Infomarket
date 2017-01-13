@@ -234,4 +234,82 @@ class MenuEntry extends SimpleEntityTree
     {
         return $this->menuMenuEntryAssignments;
     }
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $menuEntryBranchAssignments;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $menuEntryCategoryAssignments;
+
+
+    /**
+     * Add menuEntryBranchAssignment
+     *
+     * @param \AppBundle\Entity\MenuEntryBranchAssignment $menuEntryBranchAssignment
+     *
+     * @return MenuEntry
+     */
+    public function addMenuEntryBranchAssignment(\AppBundle\Entity\MenuEntryBranchAssignment $menuEntryBranchAssignment)
+    {
+        $this->menuEntryBranchAssignments[] = $menuEntryBranchAssignment;
+
+        return $this;
+    }
+
+    /**
+     * Remove menuEntryBranchAssignment
+     *
+     * @param \AppBundle\Entity\MenuEntryBranchAssignment $menuEntryBranchAssignment
+     */
+    public function removeMenuEntryBranchAssignment(\AppBundle\Entity\MenuEntryBranchAssignment $menuEntryBranchAssignment)
+    {
+        $this->menuEntryBranchAssignments->removeElement($menuEntryBranchAssignment);
+    }
+
+    /**
+     * Get menuEntryBranchAssignments
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getMenuEntryBranchAssignments()
+    {
+        return $this->menuEntryBranchAssignments;
+    }
+
+    /**
+     * Add menuEntryCategoryAssignment
+     *
+     * @param \AppBundle\Entity\MenuEntryCategoryAssignment $menuEntryCategoryAssignment
+     *
+     * @return MenuEntry
+     */
+    public function addMenuEntryCategoryAssignment(\AppBundle\Entity\MenuEntryCategoryAssignment $menuEntryCategoryAssignment)
+    {
+        $this->menuEntryCategoryAssignments[] = $menuEntryCategoryAssignment;
+
+        return $this;
+    }
+
+    /**
+     * Remove menuEntryCategoryAssignment
+     *
+     * @param \AppBundle\Entity\MenuEntryCategoryAssignment $menuEntryCategoryAssignment
+     */
+    public function removeMenuEntryCategoryAssignment(\AppBundle\Entity\MenuEntryCategoryAssignment $menuEntryCategoryAssignment)
+    {
+        $this->menuEntryCategoryAssignments->removeElement($menuEntryCategoryAssignment);
+    }
+
+    /**
+     * Get menuEntryCategoryAssignments
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getMenuEntryCategoryAssignments()
+    {
+        return $this->menuEntryCategoryAssignments;
+    }
 }

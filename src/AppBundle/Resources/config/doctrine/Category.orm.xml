@@ -66,6 +66,9 @@
         <one-to-many field="magazineCategoryAssignments" target-entity="MagazineCategoryAssignment" mapped-by="category">
         </one-to-many>
         
+        <one-to-many field="menuEntryCategoryAssignments" target-entity="MenuEntryCategoryAssignment" mapped-by="category">
+        </one-to-many>
+        
     </entity>
     
 </doctrine-mapping>

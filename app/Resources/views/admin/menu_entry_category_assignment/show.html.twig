@@ -1,0 +1,14 @@
+{% extends 'admin/base/show.html.twig' %}
+
+{% set mainPath = 'menu_entry_category_assignment' %}
+{% set title = 'title.menuEntryCategoryAssignments'|trans %}
+
+{% block mainFields1 %}	
+	{% include 'common/fields/simple_field.html.twig' with 
+	{ 'label': 'label.menuEntry', 'value': entry.menuEntry,
+		'object': 'menu_entry', 'routeId': entry.id } %}
+		
+	{% include 'common/fields/simple_field.html.twig' with 
+	{ 'label': 'label.category', 'value': entry.category,
+		'object': 'category', 'routeId': entry.id } %}
+{% endblock %}

@@ -889,6 +889,56 @@ admin_menu_entry:
     path:      /admin/menu_entries/{page}
     defaults:  { _controller: "AppBundle:Admin/MenuEntry:index", page: 1 }
     
+# Admin MenuEntryBranchAssignments Routing    
+admin_menu_entry_branch_assignment_show:
+    path:      /admin/menu_entry-branch_assignments/show/{id}
+    defaults:  { _controller: "AppBundle:Admin/MenuEntryBranchAssignment:show" }
+    
+admin_menu_entry_branch_assignment_new:
+    path:      /admin/menu_entry-branch_assignments/new/
+    defaults:  { _controller: "AppBundle:Admin/MenuEntryBranchAssignment:new" }
+    
+admin_menu_entry_branch_assignment_copy:
+    path:      /admin/menu_entry-branch_assignments/copy/{id}
+    defaults:  { _controller: "AppBundle:Admin/MenuEntryBranchAssignment:copy" }
+    
+admin_menu_entry_branch_assignment_edit:
+    path:      /admin/menu_entry-branch_assignments/edit/{id}
+    defaults:  { _controller: "AppBundle:Admin/MenuEntryBranchAssignment:edit" }
+    
+admin_menu_entry_branch_assignment_delete:
+    path:      /admin/menu_entry-branch_assignments/delete/{id}
+    defaults:  { _controller: "AppBundle:Admin/MenuEntryBranchAssignment:delete" }
+
+admin_menu_entry_branch_assignment:
+    path:      /admin/menu_entry-branch_assignments/{page}
+    defaults:  { _controller: "AppBundle:Admin/MenuEntryBranchAssignment:index", page: 1 }
+    
+# Admin MenuEntryCategoryAssignments Routing    
+admin_menu_entry_category_assignment_show:
+    path:      /admin/menu_entry-category_assignments/show/{id}
+    defaults:  { _controller: "AppBundle:Admin/MenuEntryCategoryAssignment:show" }
+    
+admin_menu_entry_category_assignment_new:
+    path:      /admin/menu_entry-category_assignments/new/
+    defaults:  { _controller: "AppBundle:Admin/MenuEntryCategoryAssignment:new" }
+    
+admin_menu_entry_category_assignment_copy:
+    path:      /admin/menu_entry-category_assignments/copy/{id}
+    defaults:  { _controller: "AppBundle:Admin/MenuEntryCategoryAssignment:copy" }
+    
+admin_menu_entry_category_assignment_edit:
+    path:      /admin/menu_entry-category_assignments/edit/{id}
+    defaults:  { _controller: "AppBundle:Admin/MenuEntryCategoryAssignment:edit" }
+    
+admin_menu_entry_category_assignment_delete:
+    path:      /admin/menu_entry-category_assignments/delete/{id}
+    defaults:  { _controller: "AppBundle:Admin/MenuEntryCategoryAssignment:delete" }
+
+admin_menu_entry_category_assignment:
+    path:      /admin/menu_entry-category_assignments/{page}
+    defaults:  { _controller: "AppBundle:Admin/MenuEntryCategoryAssignment:index", page: 1 }
+    
 # Admin MenuMenuEntries Routing    
 admin_menu_menu_entry_assignment_show:
     path:      /admin/menu_menu_entry_assignments/show/{id}
