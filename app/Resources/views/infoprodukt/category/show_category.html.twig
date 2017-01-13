@@ -1,6 +1,6 @@
 <div class="row">
 	<div class="rect-3x1 bkg-white">
-		{% if entry.image %}
+		{% if entry.featuredImage %}
 			<img class="div-center img-responsive" 
 				src="{{ asset(entry.featuredImage) }}">
 		{% endif %}
@@ -20,11 +20,11 @@
 	<div class="container">
 		<div class="row lifted-top">
 			{% for subentry in entry.children %}
+				{% if subentry.infoprodukt %}
 				<div class="col-sm-2 padding-5">
 					{% include 'common/bottom_rect_tile.html.twig' with {entry: subentry, entryPath: 'category', routeParams: { category: subentry.id } } %}
 				</div>
-			{% else %}
-				<p>{{ 'label.noEntries'|trans }}</p>
+				{% endif %}
 			{% endfor %}
 		</div>
 	</div>
