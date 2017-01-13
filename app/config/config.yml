@@ -168,15 +168,14 @@ fm_elfinder:
         default:
             editor: ckeditor
             include_assets: true
-            visible_mime_types: ['image/png', 'image/jpg', 'image/jpeg']
+            visible_mime_types: ['all']
             connector:
                 roots:
                     uploads:
                         driver: LocalFileSystem
                         path: uploads
-                        upload_allow: ['image/png', 'image/jpg', 'image/jpeg']
-                        upload_deny: ['all']
-                        upload_max_size: 2M
+                        upload_allow: ['all']
+                        upload_max_size: 100M
                         
                         
 # Google Analytics
