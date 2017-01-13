@@ -9,9 +9,8 @@ use AppBundle\Entity\Category;
 use AppBundle\Repository\BrandRepository;
 use AppBundle\Repository\CategoryRepository;
 use AppBundle\Repository\SegmentRepository;
-use Symfony\Component\HttpFoundation\Request;
-use AppBundle\Entity\Segment;
 use AppBundle\Repository\UserRepository;
+use Symfony\Component\HttpFoundation\Request;
 
 class BrandCategoryAssignmentFilter extends SimpleEntityFilter {
 	
@@ -24,18 +23,16 @@ class BrandCategoryAssignmentFilter extends SimpleEntityFilter {
 	public function __construct(
 			UserRepository $userRepository, 
 			BrandRepository $brandRepository, 
-			CategoryRepository $categoryRepository, 
-			SegmentRepository $segmentRepository) {
+			CategoryRepository $categoryRepository) {
 		
 		parent::__construct($userRepository);
 		
 		$this->brandRepository = $brandRepository;
 		$this->categoryRepository = $categoryRepository;
-		$this->segmentRepository = $segmentRepository;
 		
 		$this->filterName = 'brand_category_assignment_filter_';
 		
-		$this->orderBy = 'c.name ASC, c.subname ASC, s.orderNumber ASC, b.name ASC';
+		$this->orderBy = 'c.name ASC, c.subname ASC, b.name ASC';
 	}
 	
 	/**
@@ -47,11 +44,6 @@ class BrandCategoryAssignmentFilter extends SimpleEntityFilter {
 	 * @var CategoryRepository
 	 */
 	protected $categoryRepository;
-	
-	/**
-	 * @var SegmentRepository
-	 */
-	protected $segmentRepository;
 	
 	/**
 	 *
@@ -66,9 +58,6 @@ class BrandCategoryAssignmentFilter extends SimpleEntityFilter {
 		
 		$categories = $request->get($this->getFilterName() . 'categories', array());
 		$this->categories = $this->categoryRepository->findBy(array('id' => $categories));
-		
-		$segments = $request->get($this->getFilterName() . 'segments', array());
-		$this->segments = $this->segmentRepository->findBy(array('id' => $segments));
 	}
 	
 	/**
@@ -81,7 +70,6 @@ class BrandCategoryAssignmentFilter extends SimpleEntityFilter {
 	
 		$this->brands = array();
 		$this->categories = array();
-		$this->segments = array();
 	}
 	
 	/**
@@ -100,10 +88,6 @@ class BrandCategoryAssignmentFilter extends SimpleEntityFilter {
 			$values[$this->getFilterName() . 'categories'] = $this->getIdValues($this->categories);
 		}
 		
-		if($this->segments) {
-			$values[$this->getFilterName() . 'segments'] = $this->getIdValues($this->segments);
-		}
-		
 		return $values;
 	}
 	
@@ -116,10 +100,6 @@ class BrandCategoryAssignmentFilter extends SimpleEntityFilter {
 		
 		if($this->categories) {
 			$expressions[] = $this->getEqualArrayExpression('e.category', $this->categories);
-		}
-		
-		if($this->segments) {
-			$expressions[] = $this->getEqualArrayExpression('e.segment', $this->segments);
 		}
 		
 		return $expressions;
@@ -135,7 +115,6 @@ class BrandCategoryAssignmentFilter extends SimpleEntityFilter {
 		
 		$expressions[] = Brand::class . ' b WITH e.brand = b.id';
 		$expressions[] = Category::class . ' c WITH e.category = c.id';
-		$expressions[] = Segment::class . ' s WITH e.segment = s.id';
 	
 		return $expressions;
 	}
@@ -151,12 +130,6 @@ class BrandCategoryAssignmentFilter extends SimpleEntityFilter {
 	 * @var array
 	 */
 	private $categories;
-	
-	/**
-	 *
-	 * @var array
-	 */
-	private $segments;
 	
 	/**
 	 * Set brands
@@ -204,29 +177,5 @@ class BrandCategoryAssignmentFilter extends SimpleEntityFilter {
 	public function getCategories()
 	{
 		return $this->categories;
-	}
-	
-	/**
-	 * Set segments
-	 *
-	 * @param array $segments
-	 *
-	 * @return BrandCategoryAssignmentFilter
-	 */
-	public function setSegments($segments)
-	{
-		$this->segments = $segments;
-	
-		return $this;
-	}
-	
-	/**
-	 * Get brand segments
-	 *
-	 * @return array
-	 */
-	public function getSegments()
-	{
-		return $this->segments;
 	}
 }

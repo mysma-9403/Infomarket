@@ -30,11 +30,6 @@ class Segment extends ImageEntity
     private $productCategoryAssignments;
 
     /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    private $brandCategoryAssignments;
-
-    /**
      * Constructor
      */
     public function __construct()
@@ -125,39 +120,6 @@ class Segment extends ImageEntity
         return $this->productCategoryAssignments;
     }
 
-    /**
-     * Add brandCategoryAssignment
-     *
-     * @param \AppBundle\Entity\BrandCategoryAssignment $brandCategoryAssignment
-     *
-     * @return Segment
-     */
-    public function addBrandCategoryAssignment(\AppBundle\Entity\BrandCategoryAssignment $brandCategoryAssignment)
-    {
-        $this->brandCategoryAssignments[] = $brandCategoryAssignment;
-
-        return $this;
-    }
-
-    /**
-     * Remove brandCategoryAssignment
-     *
-     * @param \AppBundle\Entity\BrandCategoryAssignment $brandCategoryAssignment
-     */
-    public function removeBrandCategoryAssignment(\AppBundle\Entity\BrandCategoryAssignment $brandCategoryAssignment)
-    {
-        $this->brandCategoryAssignments->removeElement($brandCategoryAssignment);
-    }
-
-    /**
-     * Get brandCategoryAssignments
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getBrandCategoryAssignments()
-    {
-        return $this->brandCategoryAssignments;
-    }
     /**
      * @var string
      */

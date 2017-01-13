@@ -13,7 +13,7 @@ articleTagAssignment.unique: Artykuł jest już powiązany z wybranym tagiem.
 
 branchCategoryAssignment.unique: Kategoria jest już powiązana z wybraną branżą.
 
-brandCategoryAssignment.unique: Marka jest już przypisana do ratingu marek w danym segmencie dla wybranej kategorii.
+brandCategoryAssignment.unique: Marka jest już przypisana do wybranej kategorii.
 
 magazineBranchAssignment.unique: Magazyn jest już powiązany z wybraną branżą.
 magazineCategoryAssignment.unique: Magazyn jest już powiązany z wybraną kategorią.

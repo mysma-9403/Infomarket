@@ -29,11 +29,6 @@ class BrandCategoryAssignment extends Audit
     private $brand;
 
     /**
-     * @var \AppBundle\Entity\Segment
-     */
-    private $segment;
-
-    /**
      * @var \AppBundle\Entity\Category
      */
     private $category;
@@ -85,30 +80,6 @@ class BrandCategoryAssignment extends Audit
     public function getBrand()
     {
         return $this->brand;
-    }
-
-    /**
-     * Set segment
-     *
-     * @param \AppBundle\Entity\Segment $segment
-     *
-     * @return BrandCategoryAssignment
-     */
-    public function setSegment(\AppBundle\Entity\Segment $segment = null)
-    {
-        $this->segment = $segment;
-
-        return $this;
-    }
-
-    /**
-     * Get segment
-     *
-     * @return \AppBundle\Entity\Segment
-     */
-    public function getSegment()
-    {
-        return $this->segment;
     }
 
     /**

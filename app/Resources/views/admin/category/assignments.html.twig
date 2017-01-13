@@ -1,14 +1,14 @@
 <div class="col-xs-12">
 	<div class="row equal">
 		<div class="col-xs-6 col-sm-2">
-			<h2>{{ 'label.category.children'|trans }}</h2>
+			<h2>{{ 'label.rating.topBrands'|trans }}</h2>
 		</div>
 		{% if is_granted('ROLE_EDITOR') %}
 			<div class="col-xs-6 col-sm-2">
-				<a href="{{ path('admin_category_new', { parent: entry.id }) }}"
+				<a href="{{ path('admin_brand_category_assignment_new', { category: entry.id }) }}"
 					class="btn btn-success text-xs-bottom-mm">
 					<span class="fa fa-plus"></span> 
-					{{ 'action.createSubcategory'|trans }} 
+					{{ 'action.assignBrand'|trans }} 
 				</a>
 			</div>
 		{% endif %}
@@ -17,39 +17,39 @@
 
 <table class="table table-striped vert-align">
 	<tbody>
-	{% for category in entry.children %}
+	{% for brandCategoryAssignment in entry.brandCategoryAssignments %}
 		<tr>
 			<td>
 				<div class="table-circle-30 bkg-white">
-					{% if category.image %}
-						<img class="div-center img-{{ category.vertical ? '' : 'v' }}responsive"
-							alt="{{ category.image }}" src="{{ asset(category.getImagePath()) }}" />
+					{% if brandCategoryAssignment.brand.image %}
+						<img class="div-center img-{{ brandCategoryAssignment.brand.vertical ? '' : 'v' }}responsive"
+							alt="{{ brandCategoryAssignment.brand.image }}" src="{{ asset(brandCategoryAssignment.brand.getImagePath()) }}" />
 					{% endif %}
 				</div>
 			</td>
 			<td>
-				<a href="{{ path('admin_category_show', { id: category.id }) }}">
-					{{ category.name }} {{ category.subname }}
+				<a href="{{ path('admin_brand_show', { id: brandCategoryAssignment.brand.id }) }}">
+					{{ brandCategoryAssignment.brand.name }}
 				</a>
 			</td>
 			{% if is_granted('ROLE_EDITOR') %}
 				<td>
-					<a href="{{ path('admin_category_edit', { id: category.id }) }}" class="btn btn-warning">
+					<a href="{{ path('admin_brand_category_assignment_edit', { id: brandCategoryAssignment.id }) }}" class="btn btn-warning">
 						<span class="fa fa-edit"></span> 
 						{{ 'action.edit'|trans }}
 					</a>
-					{% if is_granted('ROLE_ADMIN') %}
-						<a href="{{ path('admin_category_delete', { id: category.id }) }}" class="btn btn-danger">
-							<span class="fa fa-trash"></span> 
-							{{ 'action.delete'|trans }}
-						</a>
-					{% endif %}
+					<a href="{{ path('admin_brand_category_assignment_delete', { id: brandCategoryAssignment.id }) }}" class="btn btn-danger">
+						<span class="fa fa-trash"></span> 
+						{{ 'action.delete'|trans }}
+					</a>
 				</td>
 			{% endif %}
 		</tr>
 	{% endfor %}
 	</tbody>
 </table>
+
+
 
 
 
@@ -97,6 +97,62 @@
 						<span class="fa fa-trash"></span> 
 						{{ 'action.delete'|trans }}
 					</a>
+				</td>
+			{% endif %}
+		</tr>
+	{% endfor %}
+	</tbody>
+</table>
+
+
+
+
+<div class="col-xs-12">
+	<div class="row equal">
+		<div class="col-xs-6 col-sm-2">
+			<h2>{{ 'label.category.children'|trans }}</h2>
+		</div>
+		{% if is_granted('ROLE_EDITOR') %}
+			<div class="col-xs-6 col-sm-2">
+				<a href="{{ path('admin_category_new', { parent: entry.id }) }}"
+					class="btn btn-success text-xs-bottom-mm">
+					<span class="fa fa-plus"></span> 
+					{{ 'action.createSubcategory'|trans }} 
+				</a>
+			</div>
+		{% endif %}
+	</div>
+</div>
+
+<table class="table table-striped vert-align">
+	<tbody>
+	{% for category in entry.children %}
+		<tr>
+			<td>
+				<div class="table-circle-30 bkg-white">
+					{% if category.image %}
+						<img class="div-center img-{{ category.vertical ? '' : 'v' }}responsive"
+							alt="{{ category.image }}" src="{{ asset(category.getImagePath()) }}" />
+					{% endif %}
+				</div>
+			</td>
+			<td>
+				<a href="{{ path('admin_category_show', { id: category.id }) }}">
+					{{ category.name }} {{ category.subname }}
+				</a>
+			</td>
+			{% if is_granted('ROLE_EDITOR') %}
+				<td>
+					<a href="{{ path('admin_category_edit', { id: category.id }) }}" class="btn btn-warning">
+						<span class="fa fa-edit"></span> 
+						{{ 'action.edit'|trans }}
+					</a>
+					{% if is_granted('ROLE_ADMIN') %}
+						<a href="{{ path('admin_category_delete', { id: category.id }) }}" class="btn btn-danger">
+							<span class="fa fa-trash"></span> 
+							{{ 'action.delete'|trans }}
+						</a>
+					{% endif %}
 				</td>
 			{% endif %}
 		</tr>

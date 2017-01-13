@@ -571,6 +571,18 @@
                 <source>label.rating.products</source>
                 <target>Zalecane produkty</target>
             </trans-unit>
+            <trans-unit id="label.rating.topBrand">
+                <source>label.rating.topBrand</source>
+                <target>Top marka</target>
+            </trans-unit>
+           	<trans-unit id="label.rating.topBrands">
+                <source>label.rating.topBrands</source>
+                <target>Top marki</target>
+            </trans-unit>
+            <trans-unit id="label.rating.topProduct">
+                <source>label.rating.topProduct</source>
+                <target>Top produkt</target>
+            </trans-unit>
             <trans-unit id="label.rating.topProducts">
                 <source>label.rating.topProducts</source>
                 <target>Top produkty</target>
