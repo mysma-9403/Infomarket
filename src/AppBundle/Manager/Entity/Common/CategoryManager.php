@@ -34,8 +34,6 @@ class CategoryManager extends SimpleEntityManager {
 		
 		$entry->setOrderNumber($request->get('order_number'));
 		
-		$entry->setMagazine($this->getParam($request, Magazine::class));
-		
 		return $entry;
 	}
 	
@@ -63,8 +61,6 @@ class CategoryManager extends SimpleEntityManager {
 		$entry->setContent($template->getContent());
 		
 		$entry->setOrderNumber($template->getOrderNumber());
-		
-		$entry->setMagazine($template->getMagazine());
 		
 		return $entry;
 	}
