@@ -47,7 +47,7 @@
 					{% for subcategory in entry.children %}
 						{% if subcategory.infoprodukt %}
 							<div class="col-sm-3">
-								{% include 'common/bottom_rect_tile.html.twig' with {'entry': subcategory } %}
+								{% include 'common/bottom_rect_tile.html.twig' with {'entry': subcategory, routeParams: { top_products: 1 } } %}
 							</div>
 						{% endif %}
 					{% endfor %}

@@ -7,7 +7,7 @@
 
 {% block content %}
 	
-	{% if entry.preleaf %}
+	{% if topProducts == false and entry.preleaf %}
 		{% include 'infoprodukt/category/show_category.html.twig' %}
 	{% elseif entry.parent and entry.parent.preleaf %}
 		{% include 'infoprodukt/category/show_ratings.html.twig' %}

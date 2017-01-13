@@ -571,9 +571,9 @@
                 <source>label.rating.products</source>
                 <target>Zalecane produkty</target>
             </trans-unit>
-            <trans-unit id="label.rating.topModels">
-                <source>label.rating.topModels</source>
-                <target>Top modele</target>
+            <trans-unit id="label.rating.topProducts">
+                <source>label.rating.topProducts</source>
+                <target>Top produkty</target>
             </trans-unit>
             
             

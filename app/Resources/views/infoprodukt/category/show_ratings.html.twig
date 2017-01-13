@@ -41,11 +41,13 @@
 							
 							<ul class="nav nav-pills nav-stacked">
 								{% for subcategory in category.parent.children %}
-									<li role="presentation" class="{{ subcategory.id == category.id ? 'active' : ''}}">
-										<a href="{{ path(basePath ~ mainPath ~ '_show', { id: subcategory.id, category: subcategory.id }) }}">
-											{{ subcategory.name }} {{ subcategory.subname }}
-										</a>
-									</li>
+									{% if subcategory.infoprodukt %}
+										<li role="presentation" class="{{ subcategory.id == category.id ? 'active' : ''}}">
+											<a href="{{ path(basePath ~ mainPath ~ '_show', { id: subcategory.id, category: subcategory.id }) }}">
+												{{ subcategory.name }} {{ subcategory.subname }}
+											</a>
+										</li>
+									{% endif %}
 								{% endfor %}
 							</ul>
 						{% endif %}

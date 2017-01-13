@@ -16,13 +16,13 @@
 	</li>
 	
 	<li role="presentation" class="{{ mainPath == 'category' ? 'active' : ''}}">
-		<a href="{{ path(basePath ~ 'category' ~ (childCategoryId ? '_show' : ''), { id: childCategoryId, category: childCategoryId }) }}">
-			{{ childCategoryId ? 'title.ratings'|trans : 'title.categories'|trans }}
+		<a href="{{ path(basePath ~ 'category' ~ (preleafCategoryId ? '_show' : ''), { id: preleafCategoryId, category: preleafCategoryId, top_products: 1 }) }}">
+			{{ childCategoryId ? 'label.rating.topProducts'|trans : 'title.categories'|trans }}
 		</a>
 	</li>
 	
-	<li role="presentation" class="{{ mainPath == 'term' ? 'active' : ''}}">
-		<a href="{{ path(basePath ~ 'term', { category: preleafCategoryId }) }}">{{ 'title.terms'|trans }}</a>
-	</li>
+{# 	<li role="presentation" class="{{ mainPath == 'term' ? 'active' : ''}}">#}
+{# 		<a href="{{ path(basePath ~ 'term', { category: preleafCategoryId }) }}">{{ 'title.terms'|trans }}</a>#}
+{# 	</li>#}
 		
 </ul>

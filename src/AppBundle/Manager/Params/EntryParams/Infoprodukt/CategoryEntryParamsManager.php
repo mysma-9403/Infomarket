@@ -50,7 +50,10 @@ class CategoryEntryParamsManager extends EntryParamsManager {
 		
 		$entry = $viewParams['entry'];
 		
-		if($entry->getPreleaf()) {
+		$topProducts = $request->get('top_products', false);
+		$viewParams['topProducts'] = $topProducts;
+		
+		if(!$topProducts && $entry->getPreleaf()) {
 			$userRepository = $this->doctrine->getRepository(User::class);
 			$articleCategoryRepository = $this->doctrine->getRepository(ArticleCategory::class);
 			$categoryRepository = $this->doctrine->getRepository(Category::class);

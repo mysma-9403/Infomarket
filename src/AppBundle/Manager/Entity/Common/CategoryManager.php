@@ -5,7 +5,6 @@ namespace AppBundle\Manager\Entity\Common;
 use AppBundle\Entity\Category;
 use AppBundle\Manager\Entity\Base\SimpleEntityManager;
 use Symfony\Component\HttpFoundation\Request;
-use AppBundle\Entity\Magazine;
 
 class CategoryManager extends SimpleEntityManager {
 	
