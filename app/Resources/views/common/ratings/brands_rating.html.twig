@@ -1,10 +1,13 @@
+{% set duration = 2 * brands | length %}
+{% set distance = -150 * brands | length %}
+
 <style>
 @-webkit-keyframes brands {
   from {
   	left: 0px;
   }
   to {
-    left: {{ -200*brands | length }}px;
+    left: {{ distance }}px;
   }
 }
 @keyframes brands {
@@ -12,12 +15,12 @@
     left: 0px;
   }
   to {
-    left: {{ -200*brands | length }}px;
+    left: {{ distance }}px;
   }
 }
 .brand-strip {
-	-webkit-animation-duration: {{ 2*brands | length }}s;
-	animation-duration: {{ 2*brands | length }}s;
+	-webkit-animation-duration: {{ duration }}s;
+	animation-duration: {{ duration }}s;
 }
 </style>
 
@@ -29,6 +32,7 @@
 
 		<div class="col-xs-12 brand-container">
 			<div class="brand-strip">
+				
 				{% for brand in brands %}
 					<div class="brand-item">
 						<div class="rect-2x1">
@@ -39,15 +43,21 @@
 						</div>
 					</div>
 				{% endfor %}
-				{% for brand in brands | slice(0,4) %}
-					<div class="brand-item">
-						<div class="rect-2x1">
-{# 							<a class="text-white" href="{{ path('infomarket_brand_show', { id: brand.id }) }}">#}
-							<a class="text-white" href="#">
-								{% include 'common/image/image_entry.html.twig' with { 'entry': brand, 'tile': false } %}
-							</a>
+				
+				{% set indx = 0 %}
+					
+				{% for i in 0 .. 6 if indx <= 6 %}
+					{% for brand in brands if indx <= 7 %}
+						<div class="brand-item">
+							<div class="rect-2x1">
+{# 								<a class="text-white" href="{{ path('infomarket_brand_show', { id: brand.id }) }}">#}
+								<a class="text-white" href="#">
+									{% include 'common/image/image_entry.html.twig' with { 'entry': brand, 'tile': false } %}
+								</a>
+							</div>
 						</div>
-					</div>
+						{% set indx = indx + 1 %}
+					{% endfor %}
 				{% endfor %}
 			</div>
 		</div>

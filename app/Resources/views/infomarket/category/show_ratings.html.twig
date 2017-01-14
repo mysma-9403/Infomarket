@@ -1,20 +1,5 @@
 {% block main %}
-	<div class="col-sm-3">
-		<div class="rect bkg-white">
-			{% if entry.image %}
-				<img class="div-center img-{{ entry.vertical ? 'v' : '' }}responsive" 
-					alt="{{ entry.name | raw }}" src="{{ asset(entry.getImagePath()) }}">
-			{% endif %}
-		</div>
-	</div>
-	
-	<div class="col-sm-9">
-		<h2>
-			<span class="text-red">{{ entry.name | raw }}</span> 
-			<span class="text-primary">{{ entry.subname | raw }}</span>
-		</h2>
-		<p>{{ entry.content | raw }}</p>
-	</div>
+	{% include 'common/ratings/ratings_header.html.twig' %}
 {% endblock %}
 		
 		

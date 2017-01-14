@@ -216,7 +216,7 @@ class CategoryEntryParamsManager extends EntryParamsManager {
 			$subcategories = $categoryRepository->findSelected($categoryFilter);
 			$categories = array_merge($categories, $subcategories);
 			
-			$brandFilter = new BrandFilter($userRepository, $categoryRepository, $segmentRepository);
+			$brandFilter = new BrandFilter($userRepository, $categoryRepository);
 			$brandFilter->setInfoprodukt(BaseEntityFilter::TRUE_VALUES);
 			$brandFilter->setCategories($categories);
 			$brandFilter->setLimit(6);
@@ -259,6 +259,15 @@ class CategoryEntryParamsManager extends EntryParamsManager {
 			$segmentRepository = $this->doctrine->getRepository(Segment::class);
 			$branchRepository = $this->doctrine->getRepository(Branch::class);
 				
+			
+			$brandFilter = new BrandFilter($userRepository, $categoryRepository);
+			$brandFilter->setInfoprodukt(BaseEntityFilter::TRUE_VALUES);
+			$brandFilter->setCategories([$entry]);
+			
+			$topBrands = $brandRepository->findSelected($brandFilter);
+			$viewParams['topBrands'] = $topBrands;
+			
+			
 			$segments = $segmentRepository->findAll();
 			$viewParams['segments'] = $segments;
 				

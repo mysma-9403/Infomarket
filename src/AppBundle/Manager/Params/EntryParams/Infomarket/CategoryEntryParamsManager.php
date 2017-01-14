@@ -14,6 +14,7 @@ use AppBundle\Entity\Segment;
 use AppBundle\Entity\User;
 use AppBundle\Manager\Params\EntryParams\Base\EntryParamsManager;
 use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Entity\Filter\BrandFilter;
 
 class CategoryEntryParamsManager extends EntryParamsManager {
 	
@@ -29,6 +30,16 @@ class CategoryEntryParamsManager extends EntryParamsManager {
 		$segmentRepository = $this->doctrine->getRepository(Segment::class);
 		$branchRepository = $this->doctrine->getRepository(Branch::class);
 		$productRepository = $this->doctrine->getRepository(Product::class);
+		
+		
+		
+		$brandFilter = new BrandFilter($userRepository, $categoryRepository);
+		$brandFilter->setInfoprodukt(BaseEntityFilter::TRUE_VALUES);
+		$brandFilter->setCategories([$entry]);
+			
+		$topBrands = $brandRepository->findSelected($brandFilter);
+		$viewParams['topBrands'] = $topBrands;
+		
 		
 		
 		$segmentFilter = new SimpleEntityFilter($userRepository);

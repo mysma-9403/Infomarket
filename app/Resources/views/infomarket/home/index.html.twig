@@ -127,6 +127,11 @@
 						{% for article in newsArticles|slice(8, 6) %}
 							<li class="hidden-xs hidden-sm">
 								<a href="{{ path(basePath ~ 'article_show', { id: article.id }) }}">
+									<span class="text-red">
+										{% for articleBrandAssignment in article.articleBrandAssignments %}
+					      					{{ articleBrandAssignment.brand.name }} 
+				      					{% endfor %}
+									</span> 
 									<span>{{ article.name | raw }} {{ article.subname | raw }}</span>
 								</a>
 							</li>
@@ -134,6 +139,11 @@
 						{% for article in newsArticles|slice(14, 2) %}
 							<li class="hidden-xs hidden-sm hidden-md">
 								<a href="{{ path(basePath ~ 'article_show', { id: article.id }) }}">
+									<span class="text-red">
+										{% for articleBrandAssignment in article.articleBrandAssignments %}
+					      					{{ articleBrandAssignment.brand.name }} 
+				      					{% endfor %}
+									</span> 
 									<span>{{ article.name | raw }} {{ article.subname | raw }}</span>
 								</a>
 							</li>

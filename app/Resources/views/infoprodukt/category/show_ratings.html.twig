@@ -77,28 +77,7 @@
 				
 				{% block categoryHeader %}
 					<div class="col-xs-12 well">
-						
-						<div class="row">
-							<div class="col-xs-12">
-								<h2>
-									<span class="text-red">{{ entry.name | raw }}</span>
-									<span class="text-brand">{{ entry.subname | raw }}</span>
-								</h2>
-							</div>
-						</div>
-
-						<div class="row">
-							<div class="col-xs-12">
-								{% if entry.image %}
-									<img class="img-responsive img-sm-left-25" alt="{{ entry.name | raw }}" src="{{ asset(entry.getImagePath()) }}">
-								{% endif %}
-								
-								{% if entry.content %}
-									<p>{{ entry.content | raw }}</p>
-								{% endif %}
-							</div>
-						</div>
-						
+						{% include 'common/ratings/ratings_header.html.twig' %}
 					</div>
 				{% endblock %}
 				

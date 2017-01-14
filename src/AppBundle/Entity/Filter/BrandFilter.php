@@ -14,14 +14,13 @@ class BrandFilter extends SimpleEntityFilter {
 
 	/**
 	 * 
+	 * @param UserRepository $userRepository
 	 * @param CategoryRepository $categoryRepository
-	 * @param SegmentRepository $segmentRepository
 	 */
-	public function __construct(UserRepository $userRepository, CategoryRepository $categoryRepository, SegmentRepository $segmentRepository) {
+	public function __construct(UserRepository $userRepository, CategoryRepository $categoryRepository) {
 		parent::__construct($userRepository);
 		
 		$this->categoryRepository = $categoryRepository;
-		$this->segmentRepository = $segmentRepository;
 		
 		$this->filterName = 'brand_filter_';
 	}
@@ -30,11 +29,6 @@ class BrandFilter extends SimpleEntityFilter {
 	 * @var CategoryRepository
 	 */
 	protected $categoryRepository;
-	
-	/**
-	 * @var SegmentRepository
-	 */
-	protected $segmentRepository;
 	
 	/**
 	 *
@@ -46,9 +40,6 @@ class BrandFilter extends SimpleEntityFilter {
 	
 		$categories = $request->get($this->getFilterName() . 'categories', array());
 		$this->categories = $this->categoryRepository->findBy(array('id' => $categories));
-		
-		$segments = $request->get($this->getFilterName() . 'segments', array());
-		$this->segments = $this->segmentRepository->findBy(array('id' => $segments));
 	}
 	
 	/**
@@ -60,7 +51,6 @@ class BrandFilter extends SimpleEntityFilter {
 		parent::clearMoreQueryValues();
 	
 		$this->categories = array();
-		$this->segments = array();
 	}
 	
 	/**
@@ -73,10 +63,6 @@ class BrandFilter extends SimpleEntityFilter {
 	
 		if($this->categories) {
 			$values[$this->getFilterName() . 'categories'] = $this->getIdValues($this->categories);
-		}
-		
-		if($this->segments) {
-			$values[$this->getFilterName() . 'segments'] = $this->getIdValues($this->segments);
 		}
 	
 		return $values;
@@ -94,10 +80,6 @@ class BrandFilter extends SimpleEntityFilter {
 			$expressions[] = $this->getEqualArrayExpression('bca.category', $this->categories);
 		}
 	
-		if($this->segments) {
-			$expressions[] = $this->getEqualArrayExpression('bca.segment', $this->segments);
-		}
-	
 		return $expressions;
 	}
 	
@@ -109,7 +91,7 @@ class BrandFilter extends SimpleEntityFilter {
 	protected function getJoinExpressions() {
 		$expressions = parent::getJoinExpressions();
 	
-		if($this->categories || $this->segments)
+		if($this->categories)
 			$expressions[] = BrandCategoryAssignment::class . ' bca WITH bca.brand = e.id';
 	
 		return $expressions;
@@ -120,12 +102,6 @@ class BrandFilter extends SimpleEntityFilter {
 	 * @var integer
 	 */
 	private $categories;
-	
-	/**
-	 *
-	 * @var integer
-	 */
-	private $segments;
 	
 	/**
 	 * Set brand categories
@@ -149,29 +125,5 @@ class BrandFilter extends SimpleEntityFilter {
 	public function getCategories()
 	{
 		return $this->categories;
-	}
-	
-	/**
-	 * Set brand segments
-	 *
-	 * @param array $segments
-	 *
-	 * @return BrandFilter
-	 */
-	public function setSegments($segments)
-	{
-		$this->segments = $segments;
-	
-		return $this;
-	}
-	
-	/**
-	 * Get segments
-	 *
-	 * @return array
-	 */
-	public function getSegments()
-	{
-		return $this->segments;
 	}
 }
