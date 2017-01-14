@@ -87,6 +87,44 @@ class ProductCategoryAssignmentController extends BaseEntityController {
 		return $this->deleteActionInternal($request, $id);
 	}
 	
+	/**
+	 *
+	 * @param Request $request
+	 * @param integer $id
+	 *
+	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
+	 */
+	public function setFeaturedAction(Request $request, $id)
+	{
+		return $this->setFeaturedActionInternal($request, $id);
+	}
+	
+	//---------------------------------------------------------------------------
+	// Internal actions
+	//---------------------------------------------------------------------------
+	//TODO should be moved to FeaturedEntityController ???
+	//TODO copy from SimpleEntityController ://
+	protected function setFeaturedActionInternal(Request $request, $id)
+	{
+		$this->denyAccessUnlessGranted($this->getEditRole(), null, 'Unable to access this page!');
+	
+		$params = $this->createParams($this->getSetFeaturedRoute());
+		$params = $this->getEditParams($request, $params, $id);
+	
+		$viewParams = $params['viewParams'];
+		$entry = $viewParams['entry'];
+	
+		$featured = $request->get('value', false);
+	
+		$em = $this->getDoctrine()->getManager();
+	
+		$entry->setFeatured($featured);
+		$em->persist($entry);
+		$em->flush();
+	
+		return $this->redirectToReferer($request);
+	}
+	
 	//---------------------------------------------------------------------------
 	// Managers
 	//---------------------------------------------------------------------------
@@ -114,6 +152,17 @@ class ProductCategoryAssignmentController extends BaseEntityController {
 	//---------------------------------------------------------------------------
 	protected function getDeleteRole() {
 		return 'ROLE_EDITOR';
+	}
+	
+	//---------------------------------------------------------------------------
+	// Routes
+	//---------------------------------------------------------------------------
+	
+	//TODO should be moved to FeaturedEntityController ???
+	//TODO copied from SimpleEntityController :/
+	protected function getSetFeaturedRoute()
+	{
+		return $this->getIndexRoute() . 'set_featured';
 	}
 	
 	//------------------------------------------------------------------------

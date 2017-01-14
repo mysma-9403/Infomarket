@@ -26,6 +26,9 @@ class ProductCategoryAssignmentManager extends BaseEntityManager {
 		$entry->setCategory($this->getParam($request, Category::class));
 		$entry->setSegment($this->getParam($request, Segment::class));
 		
+		$entry->setOrderNumber($request->get('order_number', 99));
+		$entry->setFeatured($request->get('featured', false));
+		
 		return $entry;
 	}
 	
@@ -43,6 +46,9 @@ class ProductCategoryAssignmentManager extends BaseEntityManager {
 		$entry->setProduct($template->getProduct());
 		$entry->setCategory($template->getCategory());
 		$entry->setSegment($template->getSegment());
+		
+		$entry->setOrderNumber($template->getOrderNumber());
+		$entry->setFeatured($template->getFeatured());
 		
 		return $entry;
 	}

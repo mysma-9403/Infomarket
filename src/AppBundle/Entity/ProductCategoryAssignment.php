@@ -134,4 +134,33 @@ class ProductCategoryAssignment extends Audit
     {
         return $this->category;
     }
+    /**
+     * @var boolean
+     */
+    private $featured;
+
+
+    /**
+     * Set featured
+     *
+     * @param boolean $featured
+     *
+     * @return ProductCategoryAssignment
+     */
+    public function setFeatured($featured)
+    {
+        $this->featured = $featured;
+
+        return $this;
+    }
+
+    /**
+     * Get featured
+     *
+     * @return boolean
+     */
+    public function getFeatured()
+    {
+        return $this->featured;
+    }
 }

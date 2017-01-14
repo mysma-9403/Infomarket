@@ -110,6 +110,26 @@
 											<img class="div-center img-{{ product.vertical ? 'v' : '' }}responsive" 
 												alt="{{ product.name }}" src="{{ asset(product.getImagePath()) }}">
 										{% endif %}
+										
+										{% set showTopProduct = false %}
+										{% for productCategoryAssignment in product.productCategoryAssignments %}
+											{% if productCategoryAssignment.category.id == entry.id 
+												and productCategoryAssignment.segment.id == segment.id 
+												and productCategoryAssignment.featured %}
+												
+												{% set showTopProduct = true %}
+											{% endif %}
+										{% endfor %}
+										
+										{% if showTopProduct %}
+											<div class="div-top">
+												<div class="top-product-tile">
+													<a href="{{ asset('img/top-product.png') }}">
+														<img class="img-responsive" alt="{{ 'label.topProduct'|trans }}" src="{{ asset('img/top-product.png') }}">
+													</a>
+												</div>
+											</div>
+										{% endif %}
 									</div>
 									
 									<div class="col-xs-12 bkg-red rating-subtitle1 text-center">
@@ -242,6 +262,26 @@
 											{% if product.image %}
 												<img class="div-center img-{{ product.vertical ? 'v' : '' }}responsive" 
 													alt="{{ product.name }}" src="{{ asset(product.getImagePath()) }}">
+											{% endif %}
+											
+											{% set showTopProduct = false %}
+											{% for productCategoryAssignment in product.productCategoryAssignments %}
+												{% if productCategoryAssignment.category.id == category.id 
+													and productCategoryAssignment.segment.id == segment.id 
+													and productCategoryAssignment.featured %}
+													
+													{% set showTopProduct = true %}
+												{% endif %}
+											{% endfor %}
+											
+											{% if showTopProduct %}
+												<div class="div-top">
+													<div class="top-product-tile">
+														<a href="{{ asset('img/top-product.png') }}">
+															<img class="img-responsive" alt="{{ 'label.topProduct'|trans }}" src="{{ asset('img/top-product.png') }}">
+														</a>
+													</div>
+												</div>
 											{% endif %}
 										</div>
 										

@@ -36,6 +36,8 @@ class ProductCategoryAssignmentFilter extends SimpleEntityFilter {
 		$this->filterName = 'product_category_assignment_filter_';
 		
 		$this->orderBy = 'c.name ASC, c.subname ASC, s.orderNumber ASC, p.name ASC';
+		
+		$this->featured = $this::ALL_VALUES;
 	}
 	
 	/**
@@ -69,6 +71,8 @@ class ProductCategoryAssignmentFilter extends SimpleEntityFilter {
 		
 		$segments = $request->get($this->getFilterName() . 'segments', array());
 		$this->segments = $this->segmentRepository->findBy(array('id' => $segments));
+		
+		$this->featured = $request->get($this->getFilterName() . 'featured', $this::ALL_VALUES);
 	}
 	
 	/**
@@ -82,6 +86,8 @@ class ProductCategoryAssignmentFilter extends SimpleEntityFilter {
 		$this->products = array();
 		$this->categories = array();
 		$this->segments = array();
+		
+		$this->featured = $this::ALL_VALUES;
 	}
 	
 	/**
@@ -104,6 +110,10 @@ class ProductCategoryAssignmentFilter extends SimpleEntityFilter {
 			$values[$this->getFilterName() . 'segments'] = $this->getIdValues($this->segments);
 		}
 		
+		if($this->featured != $this::ALL_VALUES) {
+			$values[$this->getFilterName() . 'featured'] = $this->featured;
+		}
+		
 		return $values;
 	}
 	
@@ -120,6 +130,10 @@ class ProductCategoryAssignmentFilter extends SimpleEntityFilter {
 		
 		if($this->segments) {
 			$expressions[] = $this->getEqualArrayExpression('e.segment', $this->segments);
+		}
+		
+		if($this->featured != SimpleEntityFilter::ALL_VALUES) {
+			$expressions[] = 'e.featured = ' . $this->featured;
 		}
 		
 		return $expressions;
@@ -157,6 +171,11 @@ class ProductCategoryAssignmentFilter extends SimpleEntityFilter {
 	 * @var array
 	 */
 	private $segments;
+	
+	/**
+	 * @var boolean
+	 */
+	private $featured;
 	
 	/**
 	 * Set products
@@ -228,5 +247,29 @@ class ProductCategoryAssignmentFilter extends SimpleEntityFilter {
 	public function getSegments()
 	{
 		return $this->segments;
+	}
+	
+	/**
+	 * Set featured
+	 *
+	 * @param boolean $featured
+	 *
+	 * @return ProductCategoryAssignmentFilter
+	 */
+	public function setFeatured($featured)
+	{
+		$this->featured = $featured;
+	
+		return $this;
+	}
+	
+	/**
+	 * Is featured
+	 *
+	 * @return boolean
+	 */
+	public function isFeatured()
+	{
+		return $this->featured;
 	}
 }

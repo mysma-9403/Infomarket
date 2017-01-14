@@ -62,6 +62,9 @@ class ProductCategoryAssignmentEditorType extends BaseEntityEditorType
 			->add('orderNumber', NumberType::class, array(
 					'required' => true
 			))
+			->add('featured', null, array(
+					'required' => false
+			))
 		;
 	}
 	

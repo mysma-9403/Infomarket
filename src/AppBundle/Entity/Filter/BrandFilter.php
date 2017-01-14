@@ -6,9 +6,8 @@ use AppBundle\Entity\Filter\Base\SimpleEntityFilter;
 use AppBundle;
 use AppBundle\Entity\BrandCategoryAssignment;
 use AppBundle\Repository\CategoryRepository;
-use AppBundle\Repository\SegmentRepository;
-use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Repository\UserRepository;
+use Symfony\Component\HttpFoundation\Request;
 
 class BrandFilter extends SimpleEntityFilter {
 

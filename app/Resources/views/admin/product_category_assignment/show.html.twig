@@ -2,7 +2,6 @@
 
 {% set mainPath = 'product_category_assignment' %}
 {% set title = 'title.product_category_assignments'|trans %}
-{% set gender = '' %}
 
 {% block mainFields1 %}
 	{% include 'common/fields/simple_field.html.twig' with 
@@ -19,4 +18,7 @@
 		
 	{% include 'common/fields/text_field.html.twig' with 
 	{ 'label': 'label.orderNumber', 'value': entry.orderNumber } %}
+	
+	{% include 'common/fields/bool_field.html.twig' with 
+	{ 'label': ('label.' ~ gender ~ 'featured')|trans, 'value': entry.featured } %}
 {% endblock %}

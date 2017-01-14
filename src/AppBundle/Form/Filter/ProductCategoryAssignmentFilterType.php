@@ -13,6 +13,8 @@ use AppBundle\Repository\ProductRepository;
 use AppBundle\Repository\SegmentRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use AppBundle\Entity\Filter\Base\SimpleEntityFilter;
 
 class ProductCategoryAssignmentFilterType extends BaseEntityFilterType
 {	
@@ -23,6 +25,12 @@ class ProductCategoryAssignmentFilterType extends BaseEntityFilterType
 	 */
 	protected function addMoreFields(FormBuilderInterface $builder, array $options) {
 	
+		$featuredChoices = array(
+				'label.all'			=> SimpleEntityFilter::ALL_VALUES,
+				'label.featured' 	=> SimpleEntityFilter::TRUE_VALUES,
+				'label.notFeatured' => SimpleEntityFilter::FALSE_VALUES
+		);
+		
 		$builder
 		->add('products', EntityType::class, array(
 				'class'			=> Product::class,
@@ -56,6 +64,12 @@ class ProductCategoryAssignmentFilterType extends BaseEntityFilterType
 				'expanded'      => false,
 				'multiple'      => true,
 				'placeholder'	=> 'label.choose.category'
+		))
+		->add('featured', ChoiceType::class, array(
+				'choices'		=> $featuredChoices,
+				'expanded'      => false,
+				'multiple'      => false,
+				'required' 		=> true
 		))
 		;
 	}

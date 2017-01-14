@@ -14,6 +14,8 @@
         
         <field name="orderNumber" type="integer" default="1"/>
         
+        <field name="featured" type="boolean" default="false" />
+        
     </entity>
     
 </doctrine-mapping>

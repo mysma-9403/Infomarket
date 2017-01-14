@@ -1246,7 +1246,11 @@ admin_product_category_assignment_edit:
 admin_product_category_assignment_delete:
     path:      /admin/product-category_assignments/delete/{id}
     defaults:  { _controller: "AppBundle:Admin/ProductCategoryAssignment:delete" }
-    
+
+admin_product_category_assignment_set_featured:
+    path:      /admin/product-category_assignments/set_featured/{id}
+    defaults:  { _controller: "AppBundle:Admin/ProductCategoryAssignment:setFeatured" }
+        
 admin_product_category_assignment:
     path:      /admin/product-category_assignments/{page}
     defaults:  { _controller: "AppBundle:Admin/ProductCategoryAssignment:index", page: 1 }

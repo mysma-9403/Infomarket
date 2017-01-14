@@ -2,7 +2,6 @@
 
 {% set mainPath = 'product_category_assignment' %}
 {% set title = 'title.product_category_assignments'|trans %}
-{% set gender = '' %}
 
 {% block mainFields1 %}
 {% endblock %}
@@ -12,4 +11,5 @@
 	{{ form_row(form.segment, { 'label': 'label.segment' }) }}
 	{{ form_row(form.category, { 'label': 'label.category' }) }}
 	{{ form_row(form.orderNumber, { 'label': 'label.orderNumber' }) }}
+	{{ form_row(form.featured, { 'label': 'label.' ~ gender ~ 'featured' }) }}
 {% endblock %}
