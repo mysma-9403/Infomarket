@@ -1708,6 +1708,20 @@
             
             
             
+            <trans-unit id="info.cookies.main1">
+                <source>info.cookies.main1</source>
+                <target>Strona korzysta z plików cookies w celu realizacji usług i zgodnie z</target>
+            </trans-unit>
+            <trans-unit id="info.cookies.link">
+                <source>info.cookies.link</source>
+                <target>Polityką Plików Cookies</target>
+            </trans-unit>
+            <trans-unit id="info.cookies.main2">
+                <source>info.cookies.main2</source>
+                <target>. Możesz określić warunki przechowywania lub dostępu do plików cookies w Twojej przeglądarce.</target>
+            </trans-unit>
+            
+            
             
             <trans-unit id="knp.label.next">
                 <source>Next</source>

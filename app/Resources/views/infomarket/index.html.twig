@@ -33,6 +33,14 @@
 				root.find('.sub-menu:visible').hide();
 			});
 		});
+
+		$('body').cookiefy({
+			displayedHtml: '{{ 'info.cookies.main1'|trans }} <a href="{{ asset('files/cookies.pdf') }}">{{ 'info.cookies.link'|trans }}</a>{{ 'info.cookies.main2'|trans }}',
+		    backgroundColor: '#004373',
+		    borderTop: '0px',
+		    zIndex: '1050',
+		    closeButtonUrl: '{{ asset('img/close-button.png') }}'
+		});
 	</script>
 {% endblock %}
 

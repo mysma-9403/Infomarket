@@ -42,6 +42,7 @@ module.exports = function (grunt) {
             scripts: {
                 files: {
                     'js/jquery.js': 'jquery/dist/jquery.js',
+                    'js/jquery.cookiefy.js': 'jquery.cookiefy/dist/jquery.cookiefy.js',
                     'js/moment.js': 'moment/min/moment.min.js',
                     'js/pl.js': 'moment/locale/pl.js',
                     'js/bootstrap.js': 'bootstrap/dist/js/bootstrap.js',
@@ -58,6 +59,7 @@ module.exports = function (grunt) {
 	        js: {
 	            files: {
 	                'web/js/jquery.min.js': ['web/js/jquery.js'],
+	                'web/js/jquery.cookiefy.min.js': ['web/js/jquery.cookiefy.js'],
 	                'web/js/moment.min.js': ['web/js/moment.js'],
 	                'web/js/pl.min.js': ['web/js/pl.js'],
 	                'web/js/bootstrap.min.js': ['web/js/bootstrap.js'],
