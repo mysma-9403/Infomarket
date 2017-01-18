@@ -4,11 +4,6 @@ AppBundle\Entity\Segment:
     properties:
         name:
             - NotBlank: ~
-        brandCategoryAssignments:
-            - Count:
-                groups: [removal]
-                max: 0
-                exactMessage: segment.usedIn.brandCategoryAssignments
         productCategoryAssignments:
             - Count:
                 groups: [removal]
