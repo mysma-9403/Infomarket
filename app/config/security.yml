@@ -42,7 +42,7 @@ security:
         - { path: /resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
         
         # IP, IM sites
-        - { path: /magazines/open, role: IS_AUTHENTICATED_FULLY }
+        # - { path: /magazines/open, role: IS_AUTHENTICATED_FULLY }
         
         # Admin site
         - { path: ^/admin/settings, role: ROLE_EDITOR }
