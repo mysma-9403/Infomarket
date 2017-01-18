@@ -2,23 +2,13 @@
 
 {% trans_default_domain 'FOSUserBundle' %}
 
-{% set title = 'title.login' %}
-
 {% block fos_user_content %}
-	{% if error %}
-	    <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-	{% endif %}
-	
+{% if error %}
+    <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+{% endif %}
+
 	<div class="form-signin">
-		<form class="form-signin" action="{{ path("fos_user_security_check") }}" method="post">
-			
-			<p>
-				{{ 'login.main1'|trans }} 
-				<a href="{{ path('fos_user_registration_register') }}">
-					{{ 'login.link'|trans }}	
-				</a>
-				{{ 'login.main2'|trans }}
-			</p>
+		<form class="form-signin" action="{{ path("admin_login_check") }}" method="post">
 			
 			<h2 class="form-signin-heading">{{ 'layout.login'|trans }}</h2>
 			
@@ -32,16 +22,12 @@
 		
 	    	<input type="checkbox" id="remember_me" name="_remember_me" value="on" />
 	    	<label for="remember_me">{{ 'security.login.remember_me'|trans }}</label>
-		
+	    			
 	    	<input class="btn btn-primary btn-block" type="submit" id="_submit" name="_submit" value="{{ 'security.login.submit'|trans }}" />
 	    	
-	    	<a class="btn btn-success btn-block" href="{{ path('fos_user_registration_register') }}">
-				{{ 'layout.register'|trans }}
-			</a>
-			<a class="btn btn-success btn-block" href="{{ path('fos_user_resetting_request') }}">
+	    	<a class="btn btn-success btn-block" href="{{ path('fos_user_resetting_request') }}">
 				{{ 'resetting.request.submit'|trans }}
 			</a>
 		</form>
-		
 	</div>
 {% endblock fos_user_content %}

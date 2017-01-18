@@ -22,8 +22,13 @@
 			<div class="col-xs-12 well">
 			
 				{% block sidebarContent %}
+					{% block userBlock %}
+						<h3>{{ 'title.user'|trans }}</h3>
+						{% include 'common/menu/user_menu.html.twig' %}
+					{% endblock %}
+					
 					{% block sectionsBlock %}
-						<h1>{{ 'label.sections'|trans }}</h1>
+						<h3>{{ 'label.sections'|trans }}</h3>
 						{% include 'infomarket/common/sections.html.twig' %}
 					{% endblock %}
 				

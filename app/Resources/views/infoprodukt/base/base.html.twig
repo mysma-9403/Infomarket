@@ -23,6 +23,11 @@
 			
 				{% block sidebarContent %}	
 							
+					{% block userBlock %}
+						<h3>{{ 'title.user'|trans }}</h3>
+						{% include 'common/menu/user_menu.html.twig' %}
+					{% endblock %}
+					
 					{% block sectionsBlock %}
 						<h3>{{ 'label.sections'|trans }}</h3>
 						{% include 'infoprodukt/common/sections.html.twig' with { 'category': category is defined ? category : null } %}

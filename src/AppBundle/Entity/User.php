@@ -117,4 +117,178 @@ class User extends BaseUser
     {
         return $this->pseudonym;
     }
+    /**
+     * @var string
+     */
+    private $street;
+
+    /**
+     * @var string
+     */
+    private $city;
+
+    /**
+     * @var string
+     */
+    private $zipCode;
+
+    /**
+     * @var boolean
+     */
+    private $digitalSubscription;
+
+    /**
+     * @var boolean
+     */
+    private $physicalSubscription;
+
+    /**
+     * @var boolean
+     */
+    private $dataProcessingAgreement;
+
+
+    /**
+     * Set street
+     *
+     * @param string $street
+     *
+     * @return User
+     */
+    public function setStreet($street)
+    {
+        $this->street = $street;
+
+        return $this;
+    }
+
+    /**
+     * Get street
+     *
+     * @return string
+     */
+    public function getStreet()
+    {
+        return $this->street;
+    }
+
+    /**
+     * Set city
+     *
+     * @param string $city
+     *
+     * @return User
+     */
+    public function setCity($city)
+    {
+        $this->city = $city;
+
+        return $this;
+    }
+
+    /**
+     * Get city
+     *
+     * @return string
+     */
+    public function getCity()
+    {
+        return $this->city;
+    }
+
+    /**
+     * Set zipCode
+     *
+     * @param string $zipCode
+     *
+     * @return User
+     */
+    public function setZipCode($zipCode)
+    {
+        $this->zipCode = $zipCode;
+
+        return $this;
+    }
+
+    /**
+     * Get zipCode
+     *
+     * @return string
+     */
+    public function getZipCode()
+    {
+        return $this->zipCode;
+    }
+
+    /**
+     * Set digitalSubscription
+     *
+     * @param boolean $digitalSubscription
+     *
+     * @return User
+     */
+    public function setDigitalSubscription($digitalSubscription)
+    {
+        $this->digitalSubscription = $digitalSubscription;
+
+        return $this;
+    }
+
+    /**
+     * Get digitalSubscription
+     *
+     * @return boolean
+     */
+    public function getDigitalSubscription()
+    {
+        return $this->digitalSubscription;
+    }
+
+    /**
+     * Set physicalSubscription
+     *
+     * @param boolean $physicalSubscription
+     *
+     * @return User
+     */
+    public function setPhysicalSubscription($physicalSubscription)
+    {
+        $this->physicalSubscription = $physicalSubscription;
+
+        return $this;
+    }
+
+    /**
+     * Get physicalSubscription
+     *
+     * @return boolean
+     */
+    public function getPhysicalSubscription()
+    {
+        return $this->physicalSubscription;
+    }
+
+    /**
+     * Set dataProcessingAgreement
+     *
+     * @param boolean $dataProcessingAgreement
+     *
+     * @return User
+     */
+    public function setDataProcessingAgreement($dataProcessingAgreement)
+    {
+        $this->dataProcessingAgreement = $dataProcessingAgreement;
+
+        return $this;
+    }
+
+    /**
+     * Get dataProcessingAgreement
+     *
+     * @return boolean
+     */
+    public function getDataProcessingAgreement()
+    {
+        return $this->dataProcessingAgreement;
+    }
 }

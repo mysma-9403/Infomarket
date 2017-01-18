@@ -276,6 +276,22 @@
                 <target>Ratingi</target>
             </trans-unit>
             
+            <trans-unit id="title.welcome">
+                <source>title.welcome</source>
+                <target>Witaj!</target>
+            </trans-unit>
+            <trans-unit id="title.login">
+                <source>title.login</source>
+                <target>Logowanie</target>
+            </trans-unit>
+            <trans-unit id="title.register">
+                <source>title.register</source>
+                <target>Rejestracja</target>
+            </trans-unit>
+            <trans-unit id="title.resetting">
+                <source>title.resetting</source>
+                <target>Resetowanie</target>
+            </trans-unit>
             
             <trans-unit id="title.featured">
                 <source>title.featured</source>
@@ -606,6 +622,10 @@
             <trans-unit id="label.home">
                 <source>label.home</source>
                 <target>Strona domowa</target>
+            </trans-unit>
+            <trans-unit id="label.welcome">
+                <source>label.welcome</source>
+                <target>Witaj</target>
             </trans-unit>
             
             <trans-unit id="label.all">
@@ -1334,6 +1354,30 @@
                 <source>label.user.roles</source>
                 <target>Uprawnienia</target>
             </trans-unit>
+            <trans-unit id="label.user.street">
+                <source>label.user.street</source>
+                <target>Ulica</target>
+            </trans-unit>
+            <trans-unit id="label.user.zipCode">
+                <source>label.user.zipCode</source>
+                <target>Kod pocztowy</target>
+            </trans-unit>
+            <trans-unit id="label.user.city">
+                <source>label.user.city</source>
+                <target>Miasto</target>
+            </trans-unit>
+            <trans-unit id="label.user.digitalSubscription">
+                <source>label.user.digitalSubscription</source>
+                <target>Chcę otrzymywać poradniki drogą elektroniczną</target>
+            </trans-unit>
+            <trans-unit id="label.user.physicalSubscription">
+                <source>label.user.physicalSubscription</source>
+                <target>Chcę otrzymywać poradniki drogą pocztową</target>
+            </trans-unit>
+            <trans-unit id="label.user.dataProcessingAgreement">
+                <source>label.user.dataProcessingAgreement</source>
+                <target>Wyrażam zgodę na przetwarzanie moich danych osobowych do celów marketingowych zgodnie z ustawą z dnia 29 sierpnia 1997 r. o ochronie danych osobowych (Dz.U. nr 133, poz. 883) przez Elektrospecjaliści Sp. z o.o., ul. Trylogii 2/16, 01-982 Warszawa.</target>
+            </trans-unit>
             
             
             
@@ -1362,7 +1406,7 @@
             
             <trans-unit id="label.infoprodukt.footer.title">
                 <source>label.infoprodukt.footer.title</source>
-                <target>Elekstrospecjaliści Sp z o.o.</target>
+                <target>Elektrospecjaliści Sp z o.o.</target>
             </trans-unit>
             <trans-unit id="label.infoprodukt.footer.address1">
                 <source>label.infoprodukt.footer.address1</source>
@@ -1452,6 +1496,21 @@
             <trans-unit id="action.ipUnpublishSelected">
                 <source>action.ipUnpublishSelected</source>
                 <target>Nie publikuj zaznaczonych (IP)</target>
+            </trans-unit>
+            
+            
+            
+            <trans-unit id="action.login">
+                <source>action.login</source>
+                <target>Zaloguj</target>
+            </trans-unit>
+            <trans-unit id="action.register">
+                <source>action.register</source>
+                <target>Zarejestruj</target>
+            </trans-unit>
+            <trans-unit id="action.logout">
+                <source>action.logout</source>
+                <target>Wyloguj</target>
             </trans-unit>
             
             

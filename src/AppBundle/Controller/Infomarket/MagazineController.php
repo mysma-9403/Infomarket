@@ -38,6 +38,35 @@ class MagazineController extends InfomarketController
 		return $this->showActionInternal($request, $id);
 	}
 	
+	public function openAction(Request $request, $id)
+	{
+		return $this->openActionInternal($request, $id);
+	}
+	
+	//---------------------------------------------------------------------------
+	// Internal actions
+	//---------------------------------------------------------------------------
+	
+	protected function openActionInternal(Request $request, $id) {
+		
+		$params = $this->createParams($this->getOpenRoute());
+		$params = $this->getShowParams($request, $params, $id);
+		
+		$rm = $this->getRouteManager();
+		$rm->register($request, $params['route'], $params['routeParams']);
+		
+		$am = $this->getAnalyticsManager();
+		$am->sendPageviewAnalytics($params['domain'], $params['route']);
+		$am->sendEventAnalytics($this->getEntityName(), 'open', $id);
+		
+		
+		$viewParams = $params['viewParams'];
+		
+		$entry = $viewParams['entry'];
+		
+		return $this->redirect($entry->getMagazineFile());
+	}
+	
 	//---------------------------------------------------------------------------
 	// Managers
 	//---------------------------------------------------------------------------
@@ -51,6 +80,14 @@ class MagazineController extends InfomarketController
 	
 	protected function getEntryFilterManager($doctrine) {
 		return new IMMagazineFilterManager($doctrine);
+	}
+	
+	//---------------------------------------------------------------------------
+	// Routes
+	//---------------------------------------------------------------------------
+	protected function getOpenRoute()
+	{
+		return $this->getIndexRoute() . '_open';
 	}
 	
 	//---------------------------------------------------------------------------

@@ -10,15 +10,21 @@ services:
 #        class: AppBundle\Directory\ClassName
 #        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]
     
-    form_extention.form_icon:
+    form_extension.form_icon:
         class: AppBundle\Form\Extension\FormTypeIconExtension
         tags:
             - { name: form.type_extension, extended_type: Symfony\Component\Form\Extension\Core\Type\FormType }
-    form_extention.button_icon:
+    form_extension.button_icon:
         class: AppBundle\Form\Extension\ButtonTypeIconExtension
         tags:
             - { name: form.type_extension, extended_type: Symfony\Component\Form\Extension\Core\Type\ButtonType }
             
+            
+            
+    app.form.registration:
+        class: AppBundle\Form\Registration\UserRegistrationType
+        tags:
+            - { name: form.type, alias: app_user_registration }
             
             
             

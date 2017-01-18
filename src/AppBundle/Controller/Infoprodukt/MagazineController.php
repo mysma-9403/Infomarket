@@ -26,41 +26,33 @@ class MagazineController extends InfoproduktController
 		return $this->indexActionInternal($request, $page);
 	}
 	
-	/**
-	 *
-	 * @param Request $request
-	 * @param integer $id
-	 *
-	 * @return \Symfony\Component\HttpFoundation\Response
-	 */
-	public function showAction(Request $request, $id)
+	public function openAction(Request $request, $id)
 	{
-		return $this->showActionInternal($request, $id);
+		return $this->openActionInternal($request, $id);
 	}
 	
 	//---------------------------------------------------------------------------
 	// Internal actions
 	//---------------------------------------------------------------------------
 	
-	protected function showActionInternal(Request $request, $id)
-	{
-		$params = $this->createParams($this->getShowRoute());
+	protected function openActionInternal(Request $request, $id) {
+	
+		$params = $this->createParams($this->getOpenRoute());
 		$params = $this->getShowParams($request, $params, $id);
-		
+	
 		$rm = $this->getRouteManager();
 		$rm->register($request, $params['route'], $params['routeParams']);
-		
+	
 		$am = $this->getAnalyticsManager();
 		$am->sendPageviewAnalytics($params['domain'], $params['route']);
-		$am->sendEventAnalytics($this->getEntityName(), 'show', $id);
-		
+		$am->sendEventAnalytics($this->getEntityName(), 'open', $id);
+	
+	
 		$viewParams = $params['viewParams'];
+	
 		$entry = $viewParams['entry'];
 	
-		$baseUrl = $request->getScheme() . '://' . $request->getHttpHost();
-		$fileUrl = $entry->getMagazineFile();
-	
-		return $this->redirect($baseUrl . $fileUrl);
+		return $this->redirect($entry->getMagazineFile());
 	}
 	
 	//---------------------------------------------------------------------------
@@ -76,6 +68,14 @@ class MagazineController extends InfoproduktController
 	
 	protected function getEntryFilterManager($doctrine) {
 		return new IPMagazineFilterManager($doctrine);
+	}
+	
+	//---------------------------------------------------------------------------
+	// Routes
+	//---------------------------------------------------------------------------
+	protected function getOpenRoute()
+	{
+		return $this->getIndexRoute() . '_open';
 	}
 	
 	//---------------------------------------------------------------------------

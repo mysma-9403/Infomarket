@@ -39,11 +39,11 @@ infoprodukt_category_show:
     host:      infoprodukt.loc
     defaults:  { _controller: "AppBundle:Infoprodukt/Category:show" }
 
-infoprodukt_magazine_show:
-    path:      /magazines/show/{id}
+infoprodukt_magazine_open:
+    path:      /magazines/open/{id}
     host:      infoprodukt.loc
-    defaults:  { _controller: "AppBundle:Infoprodukt/Magazine:show" }
-    
+    defaults:  { _controller: "AppBundle:Infoprodukt/Magazine:open" }
+        
 infoprodukt_magazine:
     path:      /magazines/{page}
     host:      infoprodukt.loc
@@ -119,11 +119,11 @@ infoprodukt_category_show_subdomain:
     path:      /categories/show/{id}
     host:      "{subdomain}.infoprodukt.loc"
     defaults:  { _controller: "AppBundle:Infoprodukt/Category:show", subdomain: "" }
-
-infoprodukt_magazine_show_subdomain:
-    path:      /magazines/show/{id}
+    
+infoprodukt_magazine_open_subdomain:
+    path:      /magazines/open/{id}
     host:      "{subdomain}.infoprodukt.loc"
-    defaults:  { _controller: "AppBundle:Infoprodukt/Magazine:show", subdomain: "" }
+    defaults:  { _controller: "AppBundle:Infoprodukt/Magazine:open", subdomain: "" }
     
 infoprodukt_magazine_subdomain:
     path:      /magazines/{page}
@@ -213,13 +213,17 @@ infomarket_term:
 infomarket_term_show:
     path:      /terms/show/{id}
     defaults:  { _controller: "AppBundle:Infomarket/Term:show" }
-
+    
 infomarket_magazine_show:
     path:      /magazines/show/{id}
     defaults:  { _controller: "AppBundle:Infomarket/Magazine:show" }
-            
+
+infomarket_magazine_open:
+    path:      /magazines/open/{id}
+    defaults:  { _controller: "AppBundle:Infomarket/Magazine:open" }
+                
 infomarket_magazine:
-    path:      /magazine/{page}
+    path:      /magazines/{page}
     defaults:  { _controller: "AppBundle:Infomarket/Magazine:index", page: 1 }
 
 infomarket_search:
@@ -232,6 +236,22 @@ infomarket_home:
     
     
 # Admin Routing
+admin_login:
+    path:  /admin/login
+    defaults: { _controller: "FOSUserBundle:Security:login" }
+
+admin_login_check:
+    path:  /admin/login_check
+    defaults: { _controller: "FOSUserBundle:Security:check" }
+
+admin_logout:
+    path:  /admin/logout
+    defaults: { _controller: "FOSUserBundle:Security:logout" }
+    
+admin_register:
+    path:     /admin/register
+    defaults: { _controller: "FOSUserBundle:Security:register" }
+    
 admin:
     path:      /admin/
     defaults:  { _controller: "AppBundle:Admin/Admin:index" }

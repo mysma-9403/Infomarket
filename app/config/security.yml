@@ -14,20 +14,35 @@ security:
             id: fos_user.user_provider.username
 
     firewalls:
+        admin:
+            pattern: ^/admin
+            form_login:
+                provider:       fos_userbundle
+                login_path:     admin_login
+                check_path:     admin_login_check
+                default_target_path: admin
+            logout:
+                path:           admin_logout
+                target:         admin_login
+            anonymous:        true
+            context:          application
         main:
             pattern: ^/
             form_login:
                 provider: fos_userbundle
                 csrf_token_generator: security.csrf.token_manager
-
             logout:       true
             anonymous:    true
 
     access_control:
         # Registration
-        - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: /login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: /logout$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: /register, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: /resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        
+        # IP, IM sites
+        - { path: /magazines/open, role: IS_AUTHENTICATED_FULLY }
         
         # Admin site
         - { path: ^/admin/settings, role: ROLE_EDITOR }
@@ -45,7 +60,7 @@ security:
         - { path: /set_published, role: ROLE_EDITOR }
         - { path: /set_featured, role: ROLE_EDITOR }
         
-        - { path: ^/admin, role: ROLE_USER }
+        - { path: ^/admin, role: ROLE_EDITOR }
         
         # Uploads
         - { path: ^/efconnect, role: ROLE_EDITOR }

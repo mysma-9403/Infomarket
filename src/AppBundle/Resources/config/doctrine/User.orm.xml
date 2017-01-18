@@ -15,6 +15,14 @@
         
         <field name="pseudonym" type="string" length="64" nullable="true" />
         
+        <field name="street" type="string" length="64" nullable="true" />
+        <field name="city" type="string" length="64" nullable="true" />
+        <field name="zipCode" type="string" length="10" nullable="true" />
+        
+        <field name="digitalSubscription" type="boolean" nullable="false" default="false" />
+        <field name="physicalSubscription" type="boolean" nullable="false" default="false" />
+        <field name="dataProcessingAgreement" type="boolean" nullable="false" default="false" />
+        
     </entity>
     
 </doctrine-mapping>

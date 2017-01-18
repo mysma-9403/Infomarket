@@ -13,9 +13,12 @@
 			<div class="col-xs-12">
 				<h1>{{ title }}</h1>
 				
-				<div>
-					<a href="{{ path('fos_user_security_logout') }}">{{ 'label.logout'|trans }}</a>
-				</div>
+				<p>
+					{{ 'label.welcome'|trans }} <strong>{{ app.user.username }}</strong>, <br>
+					<a href="{{ path('admin_logout') }}">
+						{{ 'label.logout'|trans }}
+					</a>
+				</p>
 			</div>	
 		</div>
 	{% endblock %}

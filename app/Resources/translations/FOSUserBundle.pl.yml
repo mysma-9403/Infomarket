@@ -1,0 +1,9 @@
+login:
+    main1: 'Dostęp do magazynów mają tylko zalogowani użytkownicy. Jeśli nie masz konta,'
+    link: 'zarejestruj się'
+    main2: 'za darmo!'
+register:
+    info1: 'Jesli chcesz pobrać darmowy poradnik lub otrzymać go bezpłatnie pocztą, musisz wypełnić swoje dane.'
+    info2: 'Uwaga! Każdego miesiąca pierwszych 5000 osób otrzyma od nas wraz z poradnikiem cenne nagrody, których łączna wartość przekracza 100 tys. złotych!'
+    
+    addressData: 'Dane adresowe'

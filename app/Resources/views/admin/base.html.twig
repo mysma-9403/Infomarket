@@ -1,9 +1,11 @@
+{% set title = title|default('title.welcome') %}
+
 <!DOCTYPE html>
 <html>
     <head>
     	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" charset="UTF-8" />
     	
-        <title>{% block title %}Welcome!{% endblock %}</title>
+        <title>{% block titleBlock %}{{ title|trans }}{% endblock %}</title>
         
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
         

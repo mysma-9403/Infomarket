@@ -391,7 +391,7 @@ abstract class AdminController extends StandardController {
 	//---------------------------------------------------------------------------
 	
 	protected function getShowRole() {
-		return 'ROLE_EDITOR';
+		return 'ROLE_USER';
 	}
 	
 	protected function getEditRole() {

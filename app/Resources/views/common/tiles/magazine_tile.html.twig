@@ -1,9 +1,8 @@
-{% set magazineLink = magazineLink|default(asset(entry.magazineFile)) %}
 {% set magazineTitle = magazineTitle|default(entry.name) %}
 {% set magazineSubtitle = magazineSubtitle|default(entry.date|date('Y-m')) %}
 
 <div class="magazine-tile">
-	<a href="{{ magazineLink }}">
+	<a href="{{ path(basePath ~ 'magazine_open', { id: entry.id }) }}">
 		<div class="col-xs-12 magazine-img-tile">
 			<div class="magazine-img-rect">
 				<img class="div-center img-responsive" alt="{{ entry.name | raw }}" 

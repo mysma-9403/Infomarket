@@ -94,6 +94,9 @@ fos_user:
     db_driver: orm
     firewall_name: main
     user_class: AppBundle\Entity\User
+    registration:
+        form:
+            type: AppBundle\Form\Registration\UserRegistrationType
 
 # Short term fix for this bug: https://github.com/FriendsOfSymfony/FOSUserBundle/issues/2048    
 services:
