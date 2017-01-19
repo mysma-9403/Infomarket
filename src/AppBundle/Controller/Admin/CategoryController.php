@@ -486,6 +486,8 @@ class CategoryController extends ImageEntityController {
 		$imageName = count($fileEntry) > 6 ? $fileEntry[6] : '';
 		if(strlen($imageName) <= 0) $imageName = strtolower(ClassUtils::getClean($productName));
 		
+		$featured = count($fileEntry) > 7 && strlen($fileEntry[7]) > 0 ? true : false;
+		
 		$entry['lineNumber'] = $i;
 		$entry['productName'] = $productName;
 		$entry['brandName'] = $brandName;
@@ -494,6 +496,7 @@ class CategoryController extends ImageEntityController {
 		$entry['categorySubname'] = $categorySubname;
 		$entry['imageType'] = $imageType;
 		$entry['imageName'] = $imageName;
+		$entry['featured'] = $featured;
 		$entry['duplicate'] = false;
 		$entry['errors'] = $errors;
 		
@@ -631,6 +634,8 @@ class CategoryController extends ImageEntityController {
 			$entry['product'] = $product;
 		}
 		
+		$entry['featured'] = $preparedEntry['featured'];
+		
 		$entry['errors'] = $errors;
 		return $entry;
 	}
@@ -674,7 +679,7 @@ class CategoryController extends ImageEntityController {
 				$productName = $product->getName();
 				
 				$product = $productRepository->findOneBy(['name' => $product->getName(), 'brand' => $brand]);
-				if(!$product) $errors[] = 'Produkt ' . $brand->getName() . ' ' . $productName . ' nie zosta³ poprawnie zapisany.';
+				if(!$product) $errors[] = 'Produkt ' . $brand->getName() . ' ' . $productName . ' nie zostaï¿½ poprawnie zapisany.';
 				else $dataBaseEntry['product'] = $product;
 				
 				$dataBaseEntry['errors'] = $errors;
@@ -695,6 +700,7 @@ class CategoryController extends ImageEntityController {
 			$product = $dataBaseEntry['product'];
 			$segment = $dataBaseEntry['segment'];
 			$category = $dataBaseEntry['category'];
+			$featured = $dataBaseEntry['featured'];
 
 			$assignment = $assignmentRepository->findOneBy(['product' => $product, 'category' => $category]);
 			
@@ -704,6 +710,7 @@ class CategoryController extends ImageEntityController {
 				$assignment->setProduct($product);
 				$assignment->setSegment($segment);
 				$assignment->setCategory($category);
+				$assignment->setFeatured($featured);
 				$assignment->setOrderNumber(99);
 				
 				$dataBaseEntry['assignmentForUpdate'] = true;
