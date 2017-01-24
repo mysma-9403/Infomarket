@@ -1580,6 +1580,10 @@
                 <source>action.assignCategory</source>
                 <target>Przypisz kategorię</target>
             </trans-unit>
+            <trans-unit id="action.assignMagazine">
+                <source>action.assignMagazine</source>
+                <target>Przypisz magazyn</target>
+            </trans-unit>
             <trans-unit id="action.assignMenu">
                 <source>action.assignMenu</source>
                 <target>Przypisz menu</target>
