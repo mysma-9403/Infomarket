@@ -6,13 +6,16 @@
 
 {% block moreSidebarContent %}
 	{% block articleCategoriesBlock %}
-		<h1>{{ 'title.articleCategories'|trans }}</h1>
-		
 		{% form_theme articleFilterForm 'form/fields.html.twig' %}
 		
 		<div class="col-xs-12">
 			{{ form_start(articleFilterForm) }}
+			
+				<h3>{{ 'title.articleCategories'|trans }}</h3>
 				{{ form_row(articleFilterForm.articleCategories, { 'label': ' ' }) }}
+				
+				<h3>{{ 'title.categories'|trans }}</h3>
+				{{ form_row(articleFilterForm.categories, { 'label': ' ' }) }}
 				
 				<div class="btn-group">
 					{{ form_widget(articleFilterForm.search, { 'icon': 'fa-search', 'label': 'action.search', 'attr': {'class': 'btn btn-primary'} }) }}

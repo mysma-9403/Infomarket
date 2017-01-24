@@ -3,6 +3,7 @@
 namespace AppBundle\Manager\Filter\Common;
 
 use AppBundle\Entity\ArticleCategory;
+use AppBundle\Entity\Branch;
 use AppBundle\Entity\Brand;
 use AppBundle\Entity\Category;
 use AppBundle\Entity\Filter\ArticleFilter;

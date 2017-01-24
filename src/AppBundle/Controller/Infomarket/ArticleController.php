@@ -5,9 +5,12 @@ namespace AppBundle\Controller\Infomarket;
 use AppBundle\Controller\Infomarket\Base\InfomarketController;
 use AppBundle\Entity\Article;
 use AppBundle\Entity\Filter\Base\BaseEntityFilter;
+use AppBundle\Entity\Filter\Base\SimpleEntityFilter;
 use AppBundle\Entity\NewsletterUser;
+use AppBundle\Entity\User;
 use AppBundle\Form\Editor\NewsletterUserEditorType;
 use AppBundle\Form\Filter\Infomarket\ArticleFilterType;
+use AppBundle\Form\Search\Base\SimpleEntitySearchType;
 use AppBundle\Manager\Entity\Base\EntityManager;
 use AppBundle\Manager\Entity\Common\ArticleManager;
 use AppBundle\Manager\Filter\Base\FilterManager;
@@ -15,9 +18,6 @@ use AppBundle\Manager\Filter\Infomarket\IMArticleFilterManager;
 use AppBundle\Manager\Params\EntryParams\Infomarket\IMArticleEntryParamsManager;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-use AppBundle\Form\Search\Base\SimpleEntitySearchType;
-use AppBundle\Entity\User;
-use AppBundle\Entity\Filter\Base\SimpleEntityFilter;
 
 class ArticleController extends InfomarketController
 {   
@@ -106,17 +106,21 @@ class ArticleController extends InfomarketController
 	
 	
 	
+		$branch = $viewParams['branch'];
+		
 		$articleFilter = $viewParams['entryFilter'];
 		
-		$articleFilterForm = $this->createForm(ArticleFilterType::class, $articleFilter);
+		$articleFilterForm = $this->createForm(ArticleFilterType::class, $articleFilter, ['branch' => $branch->getId()]);
 		$articleFilterForm->handleRequest($request);
 		
 		if ($articleFilterForm->isSubmitted() && $articleFilterForm->isValid()) {
 		
 			if ($articleFilterForm->get('search')->isClicked()) {
-				$articleFilter->setInfomarket(BaseEntityFilter::TRUE_VALUES);
-				$articleFilter->setMain(BaseEntityFilter::TRUE_VALUES);
-				$articleFilter->setCategories(array());
+				$articleFilter->setInfomarket(BaseEntityFilter::ALL_VALUES);
+				$articleFilter->setArchived(BaseEntityFilter::ALL_VALUES);
+				$articleFilter->setActive(BaseEntityFilter::ALL_VALUES);
+				$articleFilter->setMain(BaseEntityFilter::ALL_VALUES);
+				$articleFilter->setHiddenCategories(array());
 		
 				$routingParams = array();
 				$routingParams = array_merge($routingParams, $articleFilter->getValues());
@@ -226,10 +230,6 @@ class ArticleController extends InfomarketController
 	
 	protected function getEntryFilterManager($doctrine) {
 		return new IMArticleFilterManager($doctrine);
-	}
-	
-	protected function isFilterByCategories() {
-		return true;
 	}
 	
 	//---------------------------------------------------------------------------

@@ -16,7 +16,7 @@ use AppBundle\Form\Search\Base\SimpleEntitySearchType;
 use AppBundle\Manager\Entity\Base\EntityManager;
 use AppBundle\Manager\Entity\Common\ArticleManager;
 use AppBundle\Manager\Filter\Base\FilterManager;
-use AppBundle\Manager\Filter\Infoprodukt\IPArticleFilterManager;
+use AppBundle\Manager\Filter\Common\ArticleFilterManager;
 use AppBundle\Manager\Params\EntryParams\Infoprodukt\IPArticleEntryParamsManager;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -227,7 +227,7 @@ class ArticleController extends InfoproduktController
 	}
 	
 	protected function getEntryFilterManager($doctrine) {
-		return new IPArticleFilterManager($doctrine);
+		return new ArticleFilterManager($doctrine);
 	}
 	
 	protected function isFilterByCategories() {

@@ -9,8 +9,10 @@ use AppBundle\Entity\ArticleBrandAssignment;
 use AppBundle\Entity\ArticleCategory;
 use AppBundle\Entity\ArticleCategoryAssignment;
 use AppBundle\Entity\ArticleTagAssignment;
+use AppBundle\Entity\BranchCategoryAssignment;
 use AppBundle\Entity\Filter\Base\BaseEntityFilter;
 use AppBundle\Repository\ArticleCategoryRepository;
+use AppBundle\Repository\BranchRepository;
 use AppBundle\Repository\BrandRepository;
 use AppBundle\Repository\CategoryRepository;
 use AppBundle\Repository\TagRepository;
@@ -47,7 +49,7 @@ class ArticleFilter extends SimpleEntityFilter {
 	public function __construct(
 			UserRepository $userRepository,
 			ArticleCategoryRepository $articleCategoryRepository, 
-			CategoryRepository $categoryRepository, 
+			CategoryRepository $categoryRepository,
 			BrandRepository $brandRepository, 
 			TagRepository $tagRepository) {
 		
@@ -82,6 +84,9 @@ class ArticleFilter extends SimpleEntityFilter {
 		
 		$categories = $request->get($this->getFilterName() . 'categories', array());
 		$this->categories = $this->categoryRepository->findBy(array('id' => $categories));
+		
+		$hiddenCategories = $request->get($this->getFilterName() . 'hidden_categories', array());
+		$this->hiddenCategories = $this->categoryRepository->findBy(array('id' => $hiddenCategories));
 		
 		$brands = $request->get($this->getFilterName() . 'brands', array());
 		$this->brands = $this->brandRepository->findBy(array('id' => $brands));
@@ -118,6 +123,7 @@ class ArticleFilter extends SimpleEntityFilter {
 	
 		$this->articleCategories = array();
 		$this->categories = array();
+		$this->hiddenCategories = array();
 		$this->brands = array();
 		$this->tags= array();
 		
@@ -149,6 +155,10 @@ class ArticleFilter extends SimpleEntityFilter {
 		
 		if($this->categories) {
 			$values[$this->getFilterName() . 'categories'] = $this->getIdValues($this->categories);
+		}
+		
+		if($this->hiddenCategories) {
+			$values[$this->getFilterName() . 'hidden_categories'] = $this->getIdValues($this->hiddenCategories);
 		}
 		
 		if($this->brands) {
@@ -198,6 +208,14 @@ class ArticleFilter extends SimpleEntityFilter {
 		
 		if($this->categories) {
 			$expressions[] = $this->getEqualArrayExpression('aca.category', $this->categories);
+		}
+		
+		if($this->hiddenCategories) {
+			$expressions[] = $this->getEqualArrayExpression('aca.category', $this->hiddenCategories);
+		}
+		
+		if($this->branches) {
+			$expressions[] = $this->getEqualArrayExpression('bca.branch', $this->branches);
 		}
 		
 		if($this->brands) {
@@ -269,7 +287,7 @@ class ArticleFilter extends SimpleEntityFilter {
 			$expressions[] = ArticleArticleCategoryAssignment::class . ' aaca WITH aaca.article = e.id';
 		}
 		
-		if($this->categories) {
+		if($this->categories || $this->hiddenCategories) {
 			$expressions[] = ArticleCategoryAssignment::class . ' aca WITH aca.article = e.id';
 		}
 		
@@ -300,7 +318,19 @@ class ArticleFilter extends SimpleEntityFilter {
 	 *
 	 * @var array
 	 */
+	private $hiddenCategories;
+	
+	/**
+	 *
+	 * @var array
+	 */
 	private $brands;
+	
+	/**
+	 *
+	 * @var array
+	 */
+	private $branches;
 	
 	/**
 	 *
@@ -394,6 +424,30 @@ class ArticleFilter extends SimpleEntityFilter {
 	public function getCategories()
 	{
 		return $this->categories;
+	}
+	
+	/**
+	 * Set hiddenCategories
+	 *
+	 * @param array $hiddenCategories
+	 *
+	 * @return ArticleFilter
+	 */
+	public function setHiddenCategories($hiddenCategories)
+	{
+		$this->hiddenCategories = $hiddenCategories;
+	
+		return $this;
+	}
+	
+	/**
+	 * Get hiddenCategories
+	 *
+	 * @return array
+	 */
+	public function getHiddenCategories()
+	{
+		return $this->hiddenCategories;
 	}
 	
 	/**
