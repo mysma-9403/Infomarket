@@ -23,19 +23,19 @@
 		             $(this)
 		                 .parent()
 		                 .children('a')
-		                 .find(".fa-caret-right")
+		                 .find(".fa-caret-square-o-right")
 		                 .filter(":first")
-		                 .removeClass("fa-caret-right")
-		                 .addClass("fa-caret-down");
+		                 .removeClass("fa-caret-square-o-right")
+		                 .addClass("fa-caret-square-o-down");
 		             })
 		         .on('hidden.bs.collapse', function() {
 		             $(this)
 		                 .parent()
 		                 .children('a')
-		                 .find(".fa-caret-down")
+		                 .find(".fa-caret-square-o-down")
 		                 .filter(":first")
-		                 .removeClass("fa-caret-down")
-		                 .addClass("fa-caret-right");
+		                 .removeClass("fa-caret-square-o-down")
+		                 .addClass("fa-caret-square-o-right");
 		             });
          });
     </script>
