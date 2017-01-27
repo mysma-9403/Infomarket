@@ -56,6 +56,13 @@
 						</td>
 						{% if is_granted('ROLE_EDITOR') %}
 							<td>
+								{% include 'common/fields/bool_action_field.html.twig' with 
+									{ 'id': productCategoryAssignment.id, 'value': productCategoryAssignment.featured, 
+										'mainPath': 'product_category_assignment', 'extPath': '_set_featured',
+										'trueTooltip': 'label.featured'|trans, 'falseTooltip': 'label.notFeatured'|trans,
+										'trueIcon': 'fa-star', 'falseIcon': 'fa-star-o' } %}
+							</td>
+							<td>
 								<a href="{{ path('admin_product_category_assignment_edit', { id: productCategoryAssignment.id }) }}" class="btn btn-warning">
 									<span class="fa fa-edit"></span> 
 									{{ 'action.edit'|trans }}
