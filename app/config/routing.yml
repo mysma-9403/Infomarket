@@ -1160,7 +1160,82 @@ admin_newsletter_user_set_subscribed:
 admin_newsletter_user:
     path:      /admin/newsletter_users/{page}
     defaults:  { _controller: "AppBundle:Admin/NewsletterUser:index", page: 1 }
-                
+
+# Admin NewsletterBlockAdvertAssignments Routing    
+admin_newsletter_block_advert_assignment_show:
+    path:      /admin/newsletter_block-advert_assignments/show/{id}
+    defaults:  { _controller: "AppBundle:Admin/NewsletterBlockAdvertAssignment:show" }
+    
+admin_newsletter_block_advert_assignment_new:
+    path:      /admin/newsletter_block-advert_assignments/new/
+    defaults:  { _controller: "AppBundle:Admin/NewsletterBlockAdvertAssignment:new" }
+    
+admin_newsletter_block_advert_assignment_copy:
+    path:      /admin/newsletter_block-advert_assignments/copy/{id}
+    defaults:  { _controller: "AppBundle:Admin/NewsletterBlockAdvertAssignment:copy" }
+    
+admin_newsletter_block_advert_assignment_edit:
+    path:      /admin/newsletter_block-advert_assignments/edit/{id}
+    defaults:  { _controller: "AppBundle:Admin/NewsletterBlockAdvertAssignment:edit" }
+    
+admin_newsletter_block_advert_assignment_delete:
+    path:      /admin/newsletter_block-advert_assignments/delete/{id}
+    defaults:  { _controller: "AppBundle:Admin/NewsletterBlockAdvertAssignment:delete" }
+
+admin_newsletter_block_advert_assignment:
+    path:      /admin/newsletter_block-advert_assignments/{page}
+    defaults:  { _controller: "AppBundle:Admin/NewsletterBlockAdvertAssignment:index", page: 1 }   
+
+# Admin NewsletterBlockArticleAssignments Routing    
+admin_newsletter_block_article_assignment_show:
+    path:      /admin/newsletter_block-article_assignments/show/{id}
+    defaults:  { _controller: "AppBundle:Admin/NewsletterBlockArticleAssignment:show" }
+    
+admin_newsletter_block_article_assignment_new:
+    path:      /admin/newsletter_block-article_assignments/new/
+    defaults:  { _controller: "AppBundle:Admin/NewsletterBlockArticleAssignment:new" }
+    
+admin_newsletter_block_article_assignment_copy:
+    path:      /admin/newsletter_block-article_assignments/copy/{id}
+    defaults:  { _controller: "AppBundle:Admin/NewsletterBlockArticleAssignment:copy" }
+    
+admin_newsletter_block_article_assignment_edit:
+    path:      /admin/newsletter_block-article_assignments/edit/{id}
+    defaults:  { _controller: "AppBundle:Admin/NewsletterBlockArticleAssignment:edit" }
+    
+admin_newsletter_block_article_assignment_delete:
+    path:      /admin/newsletter_block-article_assignments/delete/{id}
+    defaults:  { _controller: "AppBundle:Admin/NewsletterBlockArticleAssignment:delete" }
+
+admin_newsletter_block_article_assignment:
+    path:      /admin/newsletter_block-article_assignments/{page}
+    defaults:  { _controller: "AppBundle:Admin/NewsletterBlockArticleAssignment:index", page: 1 }
+
+# Admin NewsletterBlockMagazineAssignments Routing    
+admin_newsletter_block_magazine_assignment_show:
+    path:      /admin/newsletter_block-magazine_assignments/show/{id}
+    defaults:  { _controller: "AppBundle:Admin/NewsletterBlockMagazineAssignment:show" }
+    
+admin_newsletter_block_magazine_assignment_new:
+    path:      /admin/newsletter_block-magazine_assignments/new/
+    defaults:  { _controller: "AppBundle:Admin/NewsletterBlockMagazineAssignment:new" }
+    
+admin_newsletter_block_magazine_assignment_copy:
+    path:      /admin/newsletter_block-magazine_assignments/copy/{id}
+    defaults:  { _controller: "AppBundle:Admin/NewsletterBlockMagazineAssignment:copy" }
+    
+admin_newsletter_block_magazine_assignment_edit:
+    path:      /admin/newsletter_block-magazine_assignments/edit/{id}
+    defaults:  { _controller: "AppBundle:Admin/NewsletterBlockMagazineAssignment:edit" }
+    
+admin_newsletter_block_magazine_assignment_delete:
+    path:      /admin/newsletter_block-magazine_assignments/delete/{id}
+    defaults:  { _controller: "AppBundle:Admin/NewsletterBlockMagazineAssignment:delete" }
+
+admin_newsletter_block_magazine_assignment:
+    path:      /admin/newsletter_block-magazine_assignments/{page}
+    defaults:  { _controller: "AppBundle:Admin/NewsletterBlockMagazineAssignment:index", page: 1 }   
+                        
 # Admin Pages Routing    
 admin_page_show:
     path:      /admin/pages/show/{id}

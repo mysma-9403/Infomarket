@@ -10,6 +10,9 @@
         
         <field name="style" type="text" nullable="true" />
         <field name="content" type="text" nullable="false" />
+        <field name="advertContent" type="text" nullable="true" />
+        <field name="articleContent" type="text" nullable="true" />
+        <field name="magazineContent" type="text" nullable="true" />
     </entity>
     
 </doctrine-mapping>

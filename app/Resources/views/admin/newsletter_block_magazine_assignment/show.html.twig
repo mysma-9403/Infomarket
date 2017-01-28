@@ -1,0 +1,15 @@
+{% extends 'admin/base/show.html.twig' %}
+
+{% set mainPath = 'newsletter_block_magazine_assignment' %}
+{% set title = 'title.newsletter_block_magazine_assignments'|trans %}
+{% set gender = '' %}
+
+{% block mainFields1 %}	
+	{% include 'common/fields/simple_field.html.twig' with 
+	{ 'label': 'label.newsletterBlock', 'value': entry.newsletterBlock,
+		'object': 'newsletter_block', 'routeId': entry.id } %}
+		
+	{% include 'common/fields/simple_field.html.twig' with 
+	{ 'label': 'label.magazine', 'value': entry.magazine,
+		'object': 'magazine', 'routeId': entry.id } %}
+{% endblock %}

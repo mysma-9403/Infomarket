@@ -42,7 +42,7 @@ class ArticleTagAssignmentFilterType extends BaseEntityFilterType
 				'required'		=> false,
 				'expanded'      => false,
 				'multiple'      => true,
-				'placeholder'	=> 'label.choose.category'
+				'placeholder'	=> 'label.choose.tag'
 		))
 		;
 	}

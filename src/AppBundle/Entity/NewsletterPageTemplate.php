@@ -36,4 +36,33 @@ class NewsletterPageTemplate extends SimpleEntity
     {
         return $this->content;
     }
+    /**
+     * @var string
+     */
+    private $style;
+
+
+    /**
+     * Set style
+     *
+     * @param string $style
+     *
+     * @return NewsletterPageTemplate
+     */
+    public function setStyle($style)
+    {
+        $this->style = $style;
+
+        return $this;
+    }
+
+    /**
+     * Get style
+     *
+     * @return string
+     */
+    public function getStyle()
+    {
+        return $this->style;
+    }
 }

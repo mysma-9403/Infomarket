@@ -23,6 +23,9 @@
         <one-to-many field="advertCategoryAssignments" target-entity="AdvertCategoryAssignment" mapped-by="advert">
         </one-to-many>
         
+        <one-to-many field="newsletterBlockAdvertAssignments" target-entity="NewsletterBlockAdvertAssignment" mapped-by="advert">
+        </one-to-many>
+        
     </entity>
     
 </doctrine-mapping>

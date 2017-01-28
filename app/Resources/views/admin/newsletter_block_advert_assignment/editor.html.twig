@@ -1,0 +1,10 @@
+{% extends 'admin/base/editor.html.twig' %}
+
+{% set mainPath = 'newsletter_block_advert_assignment' %}
+{% set title = 'title.newsletter_block_advert_assignments'|trans %}
+{% set gender = '' %}
+
+{% block moreFields2 %}
+	{{ form_row(form.newsletterBlock, { 'label': 'label.newsletterBlock' }) }}
+	{{ form_row(form.advert, { 'label': 'label.advert' }) }}
+{% endblock %}

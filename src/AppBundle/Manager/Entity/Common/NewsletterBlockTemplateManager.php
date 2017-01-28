@@ -18,8 +18,11 @@ class NewsletterBlockTemplateManager extends SimpleEntityManager {
 		/** @var NewsletterBlockTemplate $entry */
 		$entry = parent::createFromRequest($request);
 		
-		$entry->setContent($request->get('content'));
 		$entry->setStyle($request->get('style'));
+		$entry->setContent($request->get('content'));
+		$entry->setAdvertContent($request->get('advert_content'));
+		$entry->setArticleContent($request->get('article_content'));
+		$entry->setMagazineContent($request->get('magazine_content'));
 		
 		return $entry;
 	}
@@ -34,8 +37,11 @@ class NewsletterBlockTemplateManager extends SimpleEntityManager {
 		/** @var NewsletterBlockTemplate $entry */
 		$entry = parent::createFromTemplate($template);
 		
-		$entry->setContent($template->getContent());
 		$entry->setStyle($template->getStyle());
+		$entry->setContent($template->getContent());
+		$entry->setAdvertContent($template->getAdvertContent());
+		$entry->setArticleContent($template->getArticleContent());
+		$entry->setMagazineContent($template->getMagazineContent());
 		
 		return $entry;
 	}

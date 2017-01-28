@@ -19,6 +19,8 @@ class NewsletterPageManager extends SimpleEntityManager {
 		/** @var NewsletterPage $entry */
 		$entry = parent::createFromRequest($request);
 		
+		$entry->setSubname($request->get('subname'));
+		
 		$entry->setNewsletterPageTemplate($this->getParam($request, NewsletterPageTemplate::class));
 		
 		return $entry;
@@ -33,6 +35,8 @@ class NewsletterPageManager extends SimpleEntityManager {
 	public function createFromTemplate($template) {
 		/** @var NewsletterPage $entry */
 		$entry = parent::createFromTemplate($template);
+		
+		$entry->setSubname($template->getSubname());
 		
 		$entry->setNewsletterPageTemplate($template->getNewsletterPageTemplate());
 		

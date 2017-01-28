@@ -9,27 +9,46 @@ class NewsletterPage extends SimpleEntity
 	public function getNewsletterCode() {
 		$content = $this->newsletterPageTemplate->getContent();
 		
-		$style = '';
+		$styles = $this->newsletterPageTemplate->getStyle();
 		$blocks = '';
 		
 		$usedStyles = array();
 		
-		foreach ($this->newsletterBlocks as $newsletterBlock) {
-			$template = $newsletterBlock->getNewsletterBlockTemplate();
-			$name = $template->getName();
-			if(!in_array($name, $usedStyles)) {
-				$usedStyles[] = $name;
+		if($this->newsletterBlocks) {
+			foreach ($this->newsletterBlocks as $newsletterBlock) {
+				$template = $newsletterBlock->getNewsletterBlockTemplate();
+				$name = $template->getName();
+				if(!in_array($name, $usedStyles)) {
+					$usedStyles[] = $name;
+					
+					$styles .= "\r\n" . $template->getStyle();
+				}
 				
-				$style .= $template->getStyle() . "\r\n";
+				$blocks .= $newsletterBlock->getNewsletterCode() . "\r\n";
 			}
-			
-			$blocks .= $newsletterBlock->getNewsletterCode() . "\r\n";
 		}
 		
-		$content = str_replace("{style}", $style, $content);
+		$content = str_replace("{styles}", $styles, $content);
 		$content = str_replace("{blocks}", $blocks, $content);
 		
+		$title = $this->name;
+		if($this->subname) $title .= ' ' . $this->subname;
+		
+		$content = str_replace("{pageTitle}", $title, $content);
+		
 		return $content;
+	}
+	
+	public function getDisplayName() {
+		$result = parent::getDisplayName();
+		if($this->subname) {
+			if($result == '<empty>')
+				$result = $this->subname;
+				else
+					$result .= ' ' . $this->subname;
+		}
+	
+		return $result;
 	}
 	
     /**
@@ -99,5 +118,34 @@ class NewsletterPage extends SimpleEntity
     public function getNewsletterPageTemplate()
     {
         return $this->newsletterPageTemplate;
+    }
+    /**
+     * @var string
+     */
+    private $subname;
+
+
+    /**
+     * Set subname
+     *
+     * @param string $subname
+     *
+     * @return NewsletterPage
+     */
+    public function setSubname($subname)
+    {
+        $this->subname = $subname;
+
+        return $this;
+    }
+
+    /**
+     * Get subname
+     *
+     * @return string
+     */
+    public function getSubname()
+    {
+        return $this->subname;
     }
 }

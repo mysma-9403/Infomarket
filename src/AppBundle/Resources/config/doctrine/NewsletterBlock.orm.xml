@@ -8,14 +8,31 @@
         table="newsletter_blocks"
         repository-class="AppBundle\Repository\NewsletterBlockRepository">
         
+        <field name="subname" type="string" length="128" nullable="true"/>
+        
         <field name="orderNumber" type="integer" default="1" nullable="true" />
+        
+        <field name="xAdvertRatio" type="integer" default="1" nullable="true" />
+        <field name="yAdvertRatio" type="integer" default="1" nullable="true" />
+        
+        <field name="xArticleRatio" type="integer" default="1" nullable="true" />
+        <field name="yArticleRatio" type="integer" default="1" nullable="true" />
+        
+        <field name="xMagazineRatio" type="integer" default="1" nullable="true" />
+        <field name="yMagazineRatio" type="integer" default="1" nullable="true" />
         
         <many-to-one field="newsletterPage" target-entity="NewsletterPage" inversed-by="newsletterBlocks" nullable="false" />
         
         <many-to-one field="newsletterBlockTemplate" target-entity="NewsletterBlockTemplate" nullable="false" />
         
-        <many-to-one field="advert" target-entity="Advert" nullable="true" />
-        <many-to-one field="article" target-entity="Article" nullable="true" />
+        <one-to-many field="newsletterBlockAdvertAssignments" target-entity="NewsletterBlockAdvertAssignment" mapped-by="newsletterBlock">
+        </one-to-many>
+        
+        <one-to-many field="newsletterBlockArticleAssignments" target-entity="NewsletterBlockArticleAssignment" mapped-by="newsletterBlock">
+        </one-to-many>
+        
+        <one-to-many field="newsletterBlockMagazineAssignments" target-entity="NewsletterBlockMagazineAssignment" mapped-by="newsletterBlock">
+        </one-to-many>
     </entity>
     
 </doctrine-mapping>

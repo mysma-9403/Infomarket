@@ -631,4 +631,43 @@ class Article extends ImageEntity
     {
         return $this->archived;
     }
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $newsletterBlockArticleAssignments;
+
+
+    /**
+     * Add newsletterBlockArticleAssignment
+     *
+     * @param \AppBundle\Entity\NewsletterBlockArticleAssignment $newsletterBlockArticleAssignment
+     *
+     * @return Article
+     */
+    public function addNewsletterBlockArticleAssignment(\AppBundle\Entity\NewsletterBlockArticleAssignment $newsletterBlockArticleAssignment)
+    {
+        $this->newsletterBlockArticleAssignments[] = $newsletterBlockArticleAssignment;
+
+        return $this;
+    }
+
+    /**
+     * Remove newsletterBlockArticleAssignment
+     *
+     * @param \AppBundle\Entity\NewsletterBlockArticleAssignment $newsletterBlockArticleAssignment
+     */
+    public function removeNewsletterBlockArticleAssignment(\AppBundle\Entity\NewsletterBlockArticleAssignment $newsletterBlockArticleAssignment)
+    {
+        $this->newsletterBlockArticleAssignments->removeElement($newsletterBlockArticleAssignment);
+    }
+
+    /**
+     * Get newsletterBlockArticleAssignments
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getNewsletterBlockArticleAssignments()
+    {
+        return $this->newsletterBlockArticleAssignments;
+    }
 }

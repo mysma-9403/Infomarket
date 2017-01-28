@@ -8,6 +8,8 @@
         table="newsletter_pages"
         repository-class="AppBundle\Repository\NewsletterPageRepository">
         
+        <field name="subname" type="string" length="128" nullable="true"/>
+        
         <many-to-one field="newsletterPageTemplate" target-entity="NewsletterPageTemplate" nullable="false" />
         
         <one-to-many field="newsletterBlocks" target-entity="NewsletterBlock" mapped-by="newsletterPage">

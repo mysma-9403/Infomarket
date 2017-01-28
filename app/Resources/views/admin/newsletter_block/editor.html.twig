@@ -3,11 +3,26 @@
 {% set title = 'title.newsletterBlocks'|trans %}
 {% set mainPath = 'newsletter_block' %}
 {% set gender = 'm.' %}
+
+{% block moreFields2 %}
+	{{ form_row(form.subname, { 'label': 'label.subname' }) }}
+{% endblock %}
 	
 {% block moreFields3 %}
 	{{ form_row(form.newsletterPage, { 'label': 'label.newsletterPage' }) }}
 	{{ form_row(form.orderNumber, { 'label': 'label.orderNumber' }) }}
 	{{ form_row(form.newsletterBlockTemplate, { 'label': 'label.newsletterBlockTemplate' }) }}
-	{{ form_row(form.article, { 'label': 'label.article' }) }}
-	{{ form_row(form.advert, { 'label': 'label.advert' }) }}
+	
+	{{ form_row(form.xAdvertRatio, { 'label': 'label.newsletterBlock.xAdvertRatio' }) }}
+	{{ form_row(form.yAdvertRatio, { 'label': 'label.newsletterBlock.yAdvertRatio' }) }}
+	
+	{{ form_row(form.xArticleRatio, { 'label': 'label.newsletterBlock.xArticleRatio' }) }}
+	{{ form_row(form.yArticleRatio, { 'label': 'label.newsletterBlock.yArticleRatio' }) }}
+	
+	{{ form_row(form.xMagazineRatio, { 'label': 'label.newsletterBlock.xMagazineRatio' }) }}
+	{{ form_row(form.yMagazineRatio, { 'label': 'label.newsletterBlock.yMagazineRatio' }) }}
+{% endblock %}
+
+{% block assignments %}
+	{% include 'admin/newsletter_block/assignments.html.twig' %}
 {% endblock %}

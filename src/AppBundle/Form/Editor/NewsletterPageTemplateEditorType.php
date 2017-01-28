@@ -17,8 +17,12 @@ class NewsletterPageTemplateEditorType extends SimpleEntityEditorType
 	protected function addMoreFields(FormBuilderInterface $builder, array $options) {
 		
 		$builder
+			->add('style', TextareaType::class, array(
+					'attr' => array('rows' => '9'),
+					'required' => false
+			))
 			->add('content', TextareaType::class, array(
-					'attr' => array('rows' => '28'),
+					'attr' => array('rows' => '17'),
 					'required' => true
 			))
 		;

@@ -8,6 +8,7 @@
         table="newsletter_page_templates"
         repository-class="AppBundle\Repository\NewsletterPageTemplateRepository">
         
+        <field name="style" type="text" nullable="true" />
         <field name="content" type="text" nullable="false" />
     </entity>
     

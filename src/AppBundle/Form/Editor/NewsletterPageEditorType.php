@@ -8,6 +8,7 @@ use AppBundle\Form\Editor\Base\SimpleEntityEditorType;
 use AppBundle\Repository\NewsletterPageTemplateRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 class NewsletterPageEditorType extends SimpleEntityEditorType
 {
@@ -17,8 +18,12 @@ class NewsletterPageEditorType extends SimpleEntityEditorType
 	 * @see \AppBundle\Form\Base\SimpleEntityType::addMoreFields()
 	 */
 	protected function addMoreFields(FormBuilderInterface $builder, array $options) {
+		parent::addMoreFields($builder, $options);
 		
 		$builder
+			->add('subname', TextType::class, array(
+					'required' => false
+			))
 			->add('newsletterPageTemplate', EntityType::class, array(
 					'class'			=> NewsletterPageTemplate::class,
 					'query_builder' => function (NewsletterPageTemplateRepository $repository) {

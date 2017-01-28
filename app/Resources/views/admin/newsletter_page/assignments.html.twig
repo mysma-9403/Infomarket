@@ -5,7 +5,7 @@
 		</div>
 		{% if is_granted('ROLE_EDITOR') %}
 			<div class="col-xs-6 col-sm-2">
-				<a href="{{ path('admin_newsletter_block_new', { newsletterPage: entry.id }) }}"
+				<a href="{{ path('admin_newsletter_block_new', { newsletter_page: entry.id }) }}"
 					class="btn btn-success text-xs-bottom-mm">
 					<span class="fa fa-plus"></span> 
 					{{ 'action.create.newsletterBlock'|trans }} 
@@ -21,7 +21,7 @@
 		<tr>
 			<td>
 				<a href="{{ path('admin_newsletter_block_show', { id: newsletterBlock.id }) }}">
-					{{ newsletterBlock.name }}
+					{{ newsletterBlock.name }} {{ newsletterBlock.subname }}
 				</a>
 			</td>
 			<td>

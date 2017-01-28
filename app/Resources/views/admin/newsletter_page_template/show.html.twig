@@ -7,10 +7,19 @@
 {% block moreFields3 %}
 	<div class="row">
 		<div class="col-sm-9">
+			<h4>{{ 'label.newsletterPageTemplate.style'|trans }}</h4>
+		</div>
+		<div class="col-sm-9">
+			{{ entry.style }}
+		</div>
+	</div>
+	
+	<div class="row">
+		<div class="col-sm-9">
 			<h4>{{ 'label.content'|trans }}</h4>
 		</div>
 		<div class="col-sm-9">
-			{{ entry.content | raw }}
+			{{ entry.content }}
 		</div>
 	</div>
 {% endblock %}

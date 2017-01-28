@@ -47,6 +47,9 @@
         <one-to-many field="articleTagAssignments" target-entity="ArticleTagAssignment" mapped-by="article">
         </one-to-many>
         
+        <one-to-many field="newsletterBlockArticleAssignments" target-entity="NewsletterBlockArticleAssignment" mapped-by="article">
+        </one-to-many>
+        
     </entity>
     
 </doctrine-mapping>

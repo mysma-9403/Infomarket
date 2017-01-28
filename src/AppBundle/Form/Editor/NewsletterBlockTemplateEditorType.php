@@ -22,8 +22,20 @@ class NewsletterBlockTemplateEditorType extends SimpleEntityEditorType
 					'required' => false
 			))
 			->add('content', TextareaType::class, array(
-					'attr' => array('rows' => '17'),
+					'attr' => array('rows' => '10'),
 					'required' => true
+			))
+			->add('advertContent', TextareaType::class, array(
+					'attr' => array('rows' => '10'),
+					'required' => false
+			))
+			->add('articleContent', TextareaType::class, array(
+					'attr' => array('rows' => '10'),
+					'required' => false
+			))
+			->add('magazineContent', TextareaType::class, array(
+					'attr' => array('rows' => '10'),
+					'required' => false
 			))
 		;
 	}

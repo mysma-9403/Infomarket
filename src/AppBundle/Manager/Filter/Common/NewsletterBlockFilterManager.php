@@ -2,8 +2,6 @@
 
 namespace AppBundle\Manager\Filter\Common;
 
-use AppBundle\Entity\Advert;
-use AppBundle\Entity\Article;
 use AppBundle\Entity\Filter\Base\BaseEntityFilter;
 use AppBundle\Entity\Filter\NewsletterBlockFilter;
 use AppBundle\Entity\NewsletterBlockTemplate;
@@ -26,9 +24,7 @@ class NewsletterBlockFilterManager extends BaseEntityFilterManager {
 		$userRepository = $this->doctrine->getRepository(User::class);
 		$newsletterPageRepository = $this->doctrine->getRepository(NewsletterPage::class);
 		$newsletterBlockTemplateRepository = $this->doctrine->getRepository(NewsletterBlockTemplate::class);
-		$advertRepository = $this->doctrine->getRepository(Advert::class);
-		$articleRepository = $this->doctrine->getRepository(Article::class);
     	
-    	return new NewsletterBlockFilter($userRepository, $newsletterPageRepository, $newsletterBlockTemplateRepository, $advertRepository, $articleRepository);
+    	return new NewsletterBlockFilter($userRepository, $newsletterPageRepository, $newsletterBlockTemplateRepository);
 	}
 }

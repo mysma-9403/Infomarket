@@ -346,4 +346,43 @@ class Magazine extends ImageEntity
     {
         return $this->magazineCategoryAssignments;
     }
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $newsletterBlockMagazineAssignments;
+
+
+    /**
+     * Add newsletterBlockMagazineAssignment
+     *
+     * @param \AppBundle\Entity\NewsletterBlockMagazineAssignment $newsletterBlockMagazineAssignment
+     *
+     * @return Magazine
+     */
+    public function addNewsletterBlockMagazineAssignment(\AppBundle\Entity\NewsletterBlockMagazineAssignment $newsletterBlockMagazineAssignment)
+    {
+        $this->newsletterBlockMagazineAssignments[] = $newsletterBlockMagazineAssignment;
+
+        return $this;
+    }
+
+    /**
+     * Remove newsletterBlockMagazineAssignment
+     *
+     * @param \AppBundle\Entity\NewsletterBlockMagazineAssignment $newsletterBlockMagazineAssignment
+     */
+    public function removeNewsletterBlockMagazineAssignment(\AppBundle\Entity\NewsletterBlockMagazineAssignment $newsletterBlockMagazineAssignment)
+    {
+        $this->newsletterBlockMagazineAssignments->removeElement($newsletterBlockMagazineAssignment);
+    }
+
+    /**
+     * Get newsletterBlockMagazineAssignments
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getNewsletterBlockMagazineAssignments()
+    {
+        return $this->newsletterBlockMagazineAssignments;
+    }
 }

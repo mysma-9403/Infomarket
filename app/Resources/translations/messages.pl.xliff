@@ -231,7 +231,7 @@
                 <source>title.article_category_assignments</source>
                 <target>Artykuły - Kategorie</target>
             </trans-unit>
-             <trans-unit id="title.article_tag_assignments">
+            <trans-unit id="title.article_tag_assignments">
                 <source>title.article_tag_assignments</source>
                 <target>Artykuły - Tagi</target>
             </trans-unit>
@@ -258,6 +258,18 @@
             <trans-unit id="title.menuEntryCategoryAssignments">
                 <source>title.menuEntryCategoryAssignments</source>
                 <target>Pozycje menu - Kategorie</target>
+            </trans-unit>
+            <trans-unit id="title.newsletter_block_advert_assignments">
+                <source>title.newsletter_block_advert_assignments</source>
+                <target>Bloki newslettera - Reklamy</target>
+            </trans-unit>
+            <trans-unit id="title.newsletter_block_article_assignments">
+                <source>title.newsletter_block_article_assignments</source>
+                <target>Bloki newslettera - Artykuły</target>
+            </trans-unit>
+            <trans-unit id="title.newsletter_block_magazine_assignments">
+                <source>title.newsletter_block_magazine_assignments</source>
+                <target>Bloki newslettera - Magazyny</target>
             </trans-unit>
             <trans-unit id="title.product_category_assignments">
                 <source>title.product_category_assignments</source>
@@ -1300,10 +1312,60 @@
             
             
             
+            <trans-unit id="label.newsletterBlock.xAdvertRatio">
+                <source>label.newsletterBlock.xAdvertRatio</source>
+                <target>Proporcja x (reklama)</target>
+            </trans-unit>
+            <trans-unit id="label.newsletterBlock.yAdvertRatio">
+                <source>label.newsletterBlock.yAdvertRatio</source>
+                <target>Proporcja y (reklama)</target>
+            </trans-unit>
+            
+            <trans-unit id="label.newsletterBlock.xArticleRatio">
+                <source>label.newsletterBlock.xArticleRatio</source>
+                <target>Proporcja x (artykuł)</target>
+            </trans-unit>
+            <trans-unit id="label.newsletterBlock.yArticleRatio">
+                <source>label.newsletterBlock.yArticleRatio</source>
+                <target>Proporcja y (artykuł)</target>
+            </trans-unit>
+            
+            <trans-unit id="label.newsletterBlock.xMagazineRatio">
+                <source>label.newsletterBlock.xMagazineRatio</source>
+                <target>Proporcja x (magazyn)</target>
+            </trans-unit>
+            <trans-unit id="label.newsletterBlock.yMagazineRatio">
+                <source>label.newsletterBlock.yMagazineRatio</source>
+                <target>Proporcja y (magazyn)</target>
+            </trans-unit>
+            
             
             
             <trans-unit id="label.newsletterBlockTemplate.style">
                 <source>label.newsletterBlockTemplate.style</source>
+                <target>Styl (CSS)</target>
+            </trans-unit>
+            
+            <trans-unit id="label.newsletterBlockTemplate.content">
+                <source>label.newsletterBlockTemplate.content</source>
+                <target>Treść główna (lista)</target>
+            </trans-unit>
+            
+            <trans-unit id="label.newsletterBlockTemplate.advertContent">
+                <source>label.newsletterBlockTemplate.advertContent</source>
+                <target>Treść reklamy (element listy)</target>
+            </trans-unit>
+            <trans-unit id="label.newsletterBlockTemplate.articleContent">
+                <source>label.newsletterBlockTemplate.articleContent</source>
+                <target>Treść artykułu (element listy)</target>
+            </trans-unit>
+            <trans-unit id="label.newsletterBlockTemplate.magazineContent">
+                <source>label.newsletterBlockTemplate.magazineContent</source>
+                <target>Treść magazynu (element listy)</target>
+            </trans-unit>
+            
+            <trans-unit id="label.newsletterPageTemplate.style">
+                <source>label.newsletterPageTemplate.style</source>
                 <target>Styl (CSS)</target>
             </trans-unit>
             
@@ -1560,6 +1622,10 @@
             
             
             
+            <trans-unit id="action.assignAdvert">
+                <source>action.assignAdvert</source>
+                <target>Przypisz reklamę</target>
+            </trans-unit>
             <trans-unit id="action.assignArticle">
                 <source>action.assignArticle</source>
                 <target>Przypisz artykuł</target>

@@ -315,4 +315,43 @@ class Advert extends ImageEntity
     {
         return $this->advertCategoryAssignments;
     }
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $newsletterBlockAdvertAssignments;
+
+
+    /**
+     * Add newsletterBlockAdvertAssignment
+     *
+     * @param \AppBundle\Entity\NewsletterBlockAdvertAssignment $newsletterBlockAdvertAssignment
+     *
+     * @return Advert
+     */
+    public function addNewsletterBlockAdvertAssignment(\AppBundle\Entity\NewsletterBlockAdvertAssignment $newsletterBlockAdvertAssignment)
+    {
+        $this->newsletterBlockAdvertAssignments[] = $newsletterBlockAdvertAssignment;
+
+        return $this;
+    }
+
+    /**
+     * Remove newsletterBlockAdvertAssignment
+     *
+     * @param \AppBundle\Entity\NewsletterBlockAdvertAssignment $newsletterBlockAdvertAssignment
+     */
+    public function removeNewsletterBlockAdvertAssignment(\AppBundle\Entity\NewsletterBlockAdvertAssignment $newsletterBlockAdvertAssignment)
+    {
+        $this->newsletterBlockAdvertAssignments->removeElement($newsletterBlockAdvertAssignment);
+    }
+
+    /**
+     * Get newsletterBlockAdvertAssignments
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getNewsletterBlockAdvertAssignments()
+    {
+        return $this->newsletterBlockAdvertAssignments;
+    }
 }

@@ -6,5 +6,8 @@
 	
 {% block moreFields3 %}
 	{{ form_row(form.style, { 'label': 'label.newsletterBlockTemplate.style' }) }}	
-    {{ form_row(form.content, { 'label': 'label.content' }) }}
+    {{ form_row(form.content, { 'label': 'label.newsletterBlockTemplate.content' }) }}
+    {{ form_row(form.advertContent, { 'label': 'label.newsletterBlockTemplate.advertContent' }) }}
+    {{ form_row(form.articleContent, { 'label': 'label.newsletterBlockTemplate.articleContent' }) }}
+    {{ form_row(form.magazineContent, { 'label': 'label.newsletterBlockTemplate.magazineContent' }) }}
 {% endblock %}

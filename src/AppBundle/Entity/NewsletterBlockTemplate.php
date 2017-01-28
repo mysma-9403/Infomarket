@@ -65,4 +65,92 @@ class NewsletterBlockTemplate extends SimpleEntity
     {
         return $this->content;
     }
+    
+    /**
+     * @var string
+     */
+    private $advertContent;
+
+    /**
+     * @var string
+     */
+    private $articleContent;
+
+    /**
+     * @var string
+     */
+    private $magazineContent;
+
+
+    /**
+     * Set advertContent
+     *
+     * @param string $advertContent
+     *
+     * @return NewsletterBlockTemplate
+     */
+    public function setAdvertContent($advertContent)
+    {
+        $this->advertContent = $advertContent;
+
+        return $this;
+    }
+
+    /**
+     * Get advertContent
+     *
+     * @return string
+     */
+    public function getAdvertContent()
+    {
+        return $this->advertContent;
+    }
+
+    /**
+     * Set articleContent
+     *
+     * @param string $articleContent
+     *
+     * @return NewsletterBlockTemplate
+     */
+    public function setArticleContent($articleContent)
+    {
+        $this->articleContent = $articleContent;
+
+        return $this;
+    }
+
+    /**
+     * Get articleContent
+     *
+     * @return string
+     */
+    public function getArticleContent()
+    {
+        return $this->articleContent;
+    }
+
+    /**
+     * Set magazineContent
+     *
+     * @param string $magazineContent
+     *
+     * @return NewsletterBlockTemplate
+     */
+    public function setMagazineContent($magazineContent)
+    {
+        $this->magazineContent = $magazineContent;
+
+        return $this;
+    }
+
+    /**
+     * Get magazineContent
+     *
+     * @return string
+     */
+    public function getMagazineContent()
+    {
+        return $this->magazineContent;
+    }
 }

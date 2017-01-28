@@ -1,0 +1,8 @@
+AppBundle\Entity\NewsletterBlockMagazineAssignment:
+    constraints:
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
+            fields: [newsletterBlock, magazine]
+            errorPath: magazine
+            ignoreNull: false
+            message: 'newsletterBlockMagazineAssignment.unique'
+                

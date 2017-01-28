@@ -3,25 +3,13 @@
 {% set title = 'title.newsletterPages'|trans %}
 {% set mainPath = 'newsletter_page' %}
 {% set gender = 'fm.' %}
+
+{% block moreFields2 %}
+	{{ form_row(form.subname, { 'label': 'label.subname' }) }}
+{% endblock %}
 	
 {% block moreFields3 %}
 	{{ form_row(form.newsletterPageTemplate, { 'label': 'label.newsletterPageTemplate' }) }}
-	
-	<div class="modal fade" id="codemodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-		<div class="modal-dialog">
-			<div class="modal-content">              
-				<div class="modal-body">
-					<button type="button" class="close" data-dismiss="modal">
-						<span aria-hidden="true">&times;</span>
-						<span class="sr-only">Close</span>
-					</button>
-					
-					<textarea id="newsletterCode" type="text" cols="85" rows="20">{{ entry.getNewsletterCode() | raw }}</textarea>
-{# 					<input type="submit" value="Copy" data-clipboard-target="#newsletterCode">#}
-				</div>
-			</div>
-		</div>
-	</div>
 {% endblock %}
 
 {% block moreActions1 %}
@@ -32,6 +20,23 @@
 
 {% block assignments %}
 	{% include 'admin/newsletter_page/assignments.html.twig' with { 'entry': entry } %}
+{% endblock %}
+
+{% block moreContent %}
+	<div class="modal fade" id="codemodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">              
+				<div class="modal-body">
+					<button type="button" class="close" data-dismiss="modal">
+						<span aria-hidden="true">&times;</span>
+						<span class="sr-only">Close</span>
+					</button>
+					
+					<textarea id="newsletterCode" type="text" cols="85" rows="20">{{ entry.getNewsletterCode() | raw }}</textarea>
+				</div>
+			</div>
+		</div>
+	</div>
 {% endblock %}
 
 {% block moreJavascripts %}

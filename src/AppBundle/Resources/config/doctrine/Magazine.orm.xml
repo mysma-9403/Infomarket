@@ -34,5 +34,8 @@
         <one-to-many field="magazineCategoryAssignments" target-entity="MagazineCategoryAssignment" mapped-by="magazine">
         </one-to-many>
         
+        <one-to-many field="newsletterBlockMagazineAssignments" target-entity="NewsletterBlockMagazineAssignment" mapped-by="magazine">
+        </one-to-many>
+        
     </entity>
 </doctrine-mapping>

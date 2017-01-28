@@ -26,6 +26,10 @@ productCategoryAssignment.unique: Produkt jest już przypisany do ratingu produk
 
 termCategoryAssignment.unique: Kategoria jest już powiązana z wybranym terminem.
 
+newsletterBlockAdvertAssignment.unique: Reklama jest już powiązana z wybranym blokiem newslettera.
+newsletterBlockArticleAssignment.unique: Artykuł jest już powiązany z wybranym blokiem newslettera.
+newsletterBlockMagazineAssignment.unique: Magazyn jest już powiązany z wybranym blokiem newslettera.
+
 # Assignment delete errors
 articleCategory.usedIn.articleArticleCategoryAssignments: Kategoria artykułów jest używana w niektórych artykułach i nie może być usunięta.
 

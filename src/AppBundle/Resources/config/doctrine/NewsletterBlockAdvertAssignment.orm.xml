@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+        http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <entity name="AppBundle\Entity\NewsletterBlockAdvertAssignment" 
+        table="newsletter_block_advert_assignments"
+        repository-class="AppBundle\Repository\NewsletterBlockAdvertAssignmentRepository">
+        
+        <many-to-one field="newsletterBlock" target-entity="NewsletterBlock" inversed-by="newsletterBlockAdvertAssignments" />
+        <many-to-one field="advert" target-entity="Advert" inversed-by="newsletterBlockAdvertAssignments" />
+        
+        <field name="orderNumber" type="integer" default="1" nullable="true" />
+        
+    </entity>
+    
+</doctrine-mapping>

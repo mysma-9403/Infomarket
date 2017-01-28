@@ -10,16 +10,43 @@
 			<h4>{{ 'label.newsletterBlockTemplate.style'|trans }}</h4>
 		</div>
 		<div class="col-sm-9">
-			{{ entry.style | raw }}
+			{{ entry.style }}
 		</div>
 	</div>
 	
 	<div class="row">
 		<div class="col-sm-9">
-			<h4>{{ 'label.content'|trans }}</h4>
+			<h4>{{ 'label.newsletterBlockTemplate.content'|trans }}</h4>
 		</div>
 		<div class="col-sm-9">
-			{{ entry.content | raw }}
+			{{ entry.content }}
+		</div>
+	</div>
+	
+	<div class="row">
+		<div class="col-sm-9">
+			<h4>{{ 'label.newsletterBlockTemplate.advertContent'|trans }}</h4>
+		</div>
+		<div class="col-sm-9">
+			{{ entry.advertContent }}
+		</div>
+	</div>
+	
+	<div class="row">
+		<div class="col-sm-9">
+			<h4>{{ 'label.newsletterBlockTemplate.articleContent'|trans }}</h4>
+		</div>
+		<div class="col-sm-9">
+			{{ entry.articleContent }}
+		</div>
+	</div>
+	
+	<div class="row">
+		<div class="col-sm-9">
+			<h4>{{ 'label.newsletterBlockTemplate.magazineContent'|trans }}</h4>
+		</div>
+		<div class="col-sm-9">
+			{{ entry.magazineContent }}
 		</div>
 	</div>
 {% endblock %}
