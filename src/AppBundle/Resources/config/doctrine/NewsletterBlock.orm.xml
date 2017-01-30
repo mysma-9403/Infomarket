@@ -21,6 +21,8 @@
         <field name="xMagazineRatio" type="integer" default="1" nullable="true" />
         <field name="yMagazineRatio" type="integer" default="1" nullable="true" />
         
+        <field name="magazinePadding" type="integer" default="0" nullable="true" />
+        
         <many-to-one field="newsletterPage" target-entity="NewsletterPage" inversed-by="newsletterBlocks" nullable="false" />
         
         <many-to-one field="newsletterBlockTemplate" target-entity="NewsletterBlockTemplate" nullable="false" />

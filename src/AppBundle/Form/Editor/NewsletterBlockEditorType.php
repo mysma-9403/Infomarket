@@ -48,6 +48,9 @@ class NewsletterBlockEditorType extends SimpleEntityEditorType
 			->add('yMagazineRatio', NumberType::class, array(
 					'required' => true
 			))
+			->add('magazinePadding', NumberType::class, array(
+					'required' => true
+			))
 			->add('newsletterPage', EntityType::class, array(
 					'class'			=> NewsletterPage::class,
 					'query_builder' => function (NewsletterPageRepository $repository) {

@@ -1339,6 +1339,11 @@
                 <target>Proporcja y (magazyn)</target>
             </trans-unit>
             
+            <trans-unit id="label.newsletterBlock.magazinePadding">
+                <source>label.newsletterBlock.magazinePadding</source>
+                <target>Marginesy (magazyn)</target>
+            </trans-unit>
+            
             
             
             <trans-unit id="label.newsletterBlockTemplate.style">

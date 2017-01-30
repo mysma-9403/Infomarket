@@ -37,6 +37,8 @@ class NewsletterBlockManager extends SimpleEntityManager {
 		$entry->setXMagazineRatio($request->get('x_magazine_ratio', 1));
 		$entry->setYMagazineRatio($request->get('y_magazine_ratio', 1));
 		
+		$entry->setMagazinePadding($request->get('magazine_padding', 3));
+		
 		return $entry;
 	}
 	
@@ -66,6 +68,8 @@ class NewsletterBlockManager extends SimpleEntityManager {
 		
 		$entry->setXMagazineRatio($template->getXMagazineRatio());
 		$entry->setYMagazineRatio($template->getYMagazineRatio());
+		
+		$entry->setMagazinePadding($template->getMagazinePadding());
 		
 		return $entry;
 	}

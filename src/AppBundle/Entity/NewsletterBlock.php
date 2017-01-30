@@ -101,10 +101,20 @@ class NewsletterBlock extends SimpleEntity
 		if($magazines != '') {
 			$magazinesCount = count($this->newsletterBlockMagazineAssignments);
 			if($magazinesCount < 1) $magazinesCount = 1;
+			
 			$magazineImageWidth = 600 / $magazinesCount - 10;
 			$magazineImageHeight = $magazineImageWidth * $this->getYMagazineRatio() / $this->getXMagazineRatio();
+			
+			$paddedMagazineImageWidth = $magazineImageWidth - 2*$this->getMagazinePadding();
+			$paddedMagazineImageHeight = $magazineImageHeight - 2*$this->getMagazinePadding();
+			
+			$content = str_replace("{magazinePadding}", $this->getMagazinePadding(), $content);
+			
 			$content = str_replace("{magazineImageWidth}", $magazineImageWidth, $content);
 			$content = str_replace("{magazineImageHeight}", $magazineImageHeight, $content);
+			
+			$content = str_replace("{paddedMagazineImageWidth}", $paddedMagazineImageWidth, $content);
+			$content = str_replace("{paddedMagazineImageHeight}", $paddedMagazineImageHeight, $content);
 		}
 		
 		return $content;
@@ -528,5 +538,34 @@ class NewsletterBlock extends SimpleEntity
     public function getNewsletterBlockMagazineAssignments()
     {
         return $this->newsletterBlockMagazineAssignments;
+    }
+    /**
+     * @var integer
+     */
+    private $magazinePadding;
+
+
+    /**
+     * Set magazinePadding
+     *
+     * @param integer $magazinePadding
+     *
+     * @return NewsletterBlock
+     */
+    public function setMagazinePadding($magazinePadding)
+    {
+        $this->magazinePadding = $magazinePadding;
+
+        return $this;
+    }
+
+    /**
+     * Get magazinePadding
+     *
+     * @return integer
+     */
+    public function getMagazinePadding()
+    {
+        return $this->magazinePadding;
     }
 }
