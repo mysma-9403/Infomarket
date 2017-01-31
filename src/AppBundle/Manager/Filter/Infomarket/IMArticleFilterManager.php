@@ -12,6 +12,8 @@ class IMArticleFilterManager extends ArticleFilterManager {
 		/** @var ArticleFilter $filter */
 		$filter = parent::adaptToView($filter, $params);
 		
+		$filter->setActive(BaseEntityFilter::TRUE_VALUES);
+		
 		if(count($filter->getCategories()) == 0) {
 			$filter->setHiddenCategories($this->getCategories($params));
 		} else {

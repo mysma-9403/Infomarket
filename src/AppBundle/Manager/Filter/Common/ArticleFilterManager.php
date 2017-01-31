@@ -18,7 +18,6 @@ class ArticleFilterManager extends BaseEntityFilterManager {
 		$filter = parent::adaptToView($filter, $params);
 		 
 		$filter->setArchived(BaseEntityFilter::FALSE_VALUES);
-		$filter->setActive(BaseEntityFilter::TRUE_VALUES);
 		$filter->setMain(BaseEntityFilter::TRUE_VALUES);
 		$filter->setOrderBy('e.date DESC');
 		
