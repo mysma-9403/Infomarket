@@ -484,7 +484,7 @@ class CategoryController extends ImageEntityController {
 		if(strlen($imageType) <= 0) $imageType = 'jpg';
 		
 		$imageName = count($fileEntry) > 6 ? $fileEntry[6] : '';
-		if(strlen($imageName) <= 0) $imageName = strtolower(ClassUtils::getClean($productName));
+		if(strlen($imageName) <= 0) $imageName = strtolower($productName);
 		
 		$featured = count($fileEntry) > 7 && strlen($fileEntry[7]) > 0 ? true : false;
 		
@@ -895,7 +895,7 @@ class CategoryController extends ImageEntityController {
 	
 	
 	protected function getImage($product, $imageName, $imageType) {
-		return $product->getUploadPath() . '/' . $imageName . '.' . $imageType;
+		return ClassUtils::getClean($product->getUploadPath() . '/' . $imageName . '.' . $imageType);
 	}
 	
 	//---------------------------------------------------------------------------
