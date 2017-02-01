@@ -481,7 +481,7 @@ class CategoryController extends ImageEntityController {
 		$categorySubname = count($fileEntry) > 4 ? $fileEntry[4] : '';
 		
 		$imageType = count($fileEntry) > 5 ? $fileEntry[5] : '';
-		if(strlen($imageType) <= 0) $imageType = 'jpg';
+		if(strlen($imageType) <= 0) $imageType = 'png';
 		
 		$imageName = count($fileEntry) > 6 ? $fileEntry[6] : '';
 		if(strlen($imageName) <= 0) $imageName = strtolower($productName);
