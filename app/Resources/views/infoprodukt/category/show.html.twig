@@ -1,6 +1,6 @@
 {% extends 'infoprodukt/index.html.twig' %}
 
-{% set title = (entry.name ~ ' ' ~ entry.subname)|raw %}
+{% set title = entry.getDisplayName()|raw %}
 {% set mainPath = 'category' %}
 	
 {% set listName = 'title.categories'|trans %}

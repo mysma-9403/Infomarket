@@ -1,6 +1,6 @@
 {% extends 'infomarket/index.html.twig' %}
 
-{% set title = 'Home' %}
+{% set title = 'InfoMarket' %}
 {% set mainPath = 'home' %}
 		
 {% block content %}
@@ -262,9 +262,13 @@
 							<div class="col-xs-12 div-bottom bkg-black-50">
 								<div class="tile default">
 									<h4 class="title">
-										{{ article.name | raw }}<br>
-										{{ article.subname | raw }}
-									</h4>
+										{% for articleBrandAssignment in article.articleBrandAssignments %}
+						      				{{ articleBrandAssignment.brand.name }} 
+					      				{% endfor %}&nbsp
+					      			</h4>
+									<h5 class="title">
+										{{ article.name | raw }} {{ article.subname | raw }}
+									</h5>
 								</div>
 							</div>
 						</div>
@@ -307,9 +311,13 @@
 							<div class="col-xs-12 div-bottom bkg-black-50">
 								<div class="tile default">
 									<h4 class="title">
-										{{ article.name | raw }}<br>
-										{{ article.subname | raw }}
-									</h4>
+										{% for articleBrandAssignment in article.articleBrandAssignments %}
+						      				{{ articleBrandAssignment.brand.name }} 
+					      				{% endfor %}&nbsp
+					      			</h4>
+									<h5 class="title">
+										{{ article.name | raw }} {{ article.subname | raw }}
+									</h5>
 								</div>
 							</div>
 						</div>
@@ -383,9 +391,13 @@
 							<div class="col-xs-12 div-bottom bkg-black-50">
 								<div class="tile default">
 									<h4 class="title">
-										{{ article.name | raw }}<br>
-										{{ article.subname | raw }}
-									</h4>
+										{% for articleBrandAssignment in article.articleBrandAssignments %}
+						      				{{ articleBrandAssignment.brand.name }} 
+					      				{% endfor %}&nbsp
+					      			</h4>
+									<h5 class="title">
+										{{ article.name | raw }} {{ article.subname | raw }}
+									</h5>
 								</div>
 							</div>
 						</div>
@@ -430,9 +442,13 @@
 							<div class="col-xs-12 div-bottom bkg-black-50">
 								<div class="tile default">
 									<h4 class="title">
-										{{ article.name | raw }}<br>
-										{{ article.subname | raw }}
-									</h4>
+										{% for articleBrandAssignment in article.articleBrandAssignments %}
+						      				{{ articleBrandAssignment.brand.name }} 
+					      				{% endfor %}&nbsp
+					      			</h4>
+									<h5 class="title">
+										{{ article.name | raw }} {{ article.subname | raw }}
+									</h5>
 								</div>
 							</div>
 						</div>

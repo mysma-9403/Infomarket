@@ -1,5 +1,6 @@
 {% extends 'infoprodukt/base/base.html.twig' %}
 
+{% set title = title|default(entry.getDisplayName()|raw) %}
 {% set extPath = extPath|default('_show') %}
 
 {% block moreBreadcrumbs %}

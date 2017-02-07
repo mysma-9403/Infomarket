@@ -82,21 +82,21 @@ class InfoproduktParamsManager extends ParamsManager {
 		return $this->getParam($request, Category::class);
 	}
 	
-	protected function getMenuWidths(array $categories) {
+	protected function getMenuWidths(array $categories, $level = 1) {
 		$result = array();
 		
 		foreach ($categories as $category) {
 			$max = 0;
 			
 			foreach ($category->getMenuChildren() as $child) {
-				$length = 60 + (strlen($child->getName()) + strlen($child->getSubname())) * 7;
+				$length = $level * 50 + (strlen($child->getName()) + strlen($child->getSubname()) + 1) * 7;
 				if($max < $length) {
 					$max = $length;
 				}
 			}
 			
 			if($max > 0) {
-				$subresults = $this->getMenuWidths($category->getMenuChildren());
+				$subresults = $this->getMenuWidths($category->getMenuChildren(), $level+1);
 				foreach ($subresults as $subresult) {
 					if($max < $subresult) {
 						$max = $subresult;

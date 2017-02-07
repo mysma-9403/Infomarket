@@ -188,7 +188,9 @@
 		
 		<div class="row">
 			<div class="col-sm-2 col-sm-push-10 padding-5">
-				<a href={{ path('infoprodukt_article', { category: entry.id, article_filter_article_categories: auxiliaryCategory.id }) }} class="text-red">
+				<a href={{ path('infoprodukt_article', { category: entry.id, article_filter_article_categories: 
+					{ auxiliary: auxiliaryCategory.id, questions: questionsCategory.id, builds: buildsCategory.id, 
+					schemas: schemasCategory.id, movies: moviesCategory.id, reviews: reviewsCategory.id } }) }} class="text-red">
 					<h5 class="title">{{ 'label.more'|trans }}</h5>
 				</a>
 			</div>
