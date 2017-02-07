@@ -28,7 +28,7 @@ class Product extends ImageEntity
 	 */
 	public function getUploadPath()
 	{
-		$brandName = strtolower(ClassUtils::getClean($this->getBrand()->getName()));
+		$brandName = ClassUtils::getCleanName($this->getBrand()->getName());
 		return '../web/uploads/products/' . substr($brandName, 0, 1) . '/' . $brandName;
 	}
 	
@@ -164,5 +164,34 @@ class Product extends ImageEntity
     public function getBrand()
     {
         return $this->brand;
+    }
+    /**
+     * @var string
+     */
+    private $topProduktImage;
+
+
+    /**
+     * Set topProduktImage
+     *
+     * @param string $topProduktImage
+     *
+     * @return Product
+     */
+    public function setTopProduktImage($topProduktImage)
+    {
+        $this->topProduktImage = $topProduktImage;
+
+        return $this;
+    }
+
+    /**
+     * Get topProduktImage
+     *
+     * @return string
+     */
+    public function getTopProduktImage()
+    {
+        return $this->topProduktImage;
     }
 }

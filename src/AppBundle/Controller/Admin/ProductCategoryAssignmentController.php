@@ -9,6 +9,7 @@ use AppBundle\Form\Filter\ProductCategoryAssignmentFilterType;
 use AppBundle\Manager\Entity\Common\ProductCategoryAssignmentManager;
 use AppBundle\Manager\Filter\Common\ProductCategoryAssignmentFilterManager;
 use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Utils\ClassUtils;
 
 class ProductCategoryAssignmentController extends BaseEntityController {
 	
@@ -102,8 +103,7 @@ class ProductCategoryAssignmentController extends BaseEntityController {
 	//---------------------------------------------------------------------------
 	// Internal actions
 	//---------------------------------------------------------------------------
-	//TODO should be moved to FeaturedEntityController ???
-	//TODO copy from SimpleEntityController ://
+	
 	protected function setFeaturedActionInternal(Request $request, $id)
 	{
 		$this->denyAccessUnlessGranted($this->getEditRole(), null, 'Unable to access this page!');
@@ -115,11 +115,24 @@ class ProductCategoryAssignmentController extends BaseEntityController {
 		$entry = $viewParams['entry'];
 	
 		$featured = $request->get('value', false);
+		$entry->setFeatured($featured);
 	
 		$em = $this->getDoctrine()->getManager();
-	
-		$entry->setFeatured($featured);
 		$em->persist($entry);
+		
+		if($featured) {
+			$product = $entry->getProduct();
+			
+			$brandName = ClassUtils::getCleanName($product->getBrand()->getName());
+			$productName = ClassUtils::getCleanName($product->getName());
+			
+			$path = '/uploads/products/top-produkt/' . substr($brandName, 0, 1) . '/' . $brandName . '/';
+			
+			$product->setTopProduktImage($path . $productName . '.png');
+			
+			$em->persist($product);
+		}
+		
 		$em->flush();
 	
 		return $this->redirectToReferer($request);

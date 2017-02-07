@@ -10,6 +10,8 @@ use AppBundle\Form\Filter\ProductFilterType;
 use AppBundle\Manager\Entity\Common\ProductManager;
 use AppBundle\Manager\Filter\Common\ProductFilterManager;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\StreamedResponse;
+use AppBundle\Utils\ClassUtils;
 
 class ProductController extends ImageEntityController {
 	
@@ -112,25 +114,50 @@ class ProductController extends ImageEntityController {
 		return $this->setIPPublishedActionInternal($request, $id);
 	}
 	
-	/**
-	 * 
-	 * @param Request $request
-	 * @param integer $id
-	 * 
-	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
-	 */
-	public function setFeaturedAction(Request $request, $id)
-	{
-		return $this->setFeaturedActionInternal($request, $id);
-	}
-	
 	public function deleteUnusedAction(Request $request) {
 		return $this->deleteUnusedActionInternal($request);
+	}
+	
+	public function getTopProductsAction(Request $request) {
+		return $this->getTopProductsActionInternal($request);
 	}
 
 	//---------------------------------------------------------------------------
 	// Internal actions
 	//---------------------------------------------------------------------------
+	
+	protected function getTopProductsActionInternal(Request $request) {
+		$response = new StreamedResponse();
+		$response->setCallback(function() {
+			$handle = fopen('php://output', 'w+');
+			
+			$connection = $this->get('database_connection');
+			
+			$results = $connection->fetchAll("SELECT p.name AS productName, b.name AS brandName FROM products p JOIN brands b ON b.id = p.brand_id JOIN product_category_assignments pca ON pca.product_id = p.id WHERE pca.featured = true");
+			
+			if(count($results) > 0) {
+				foreach ($results as $row) {
+					$productName = $row['productName'];
+					$brandName = ClassUtils::getCleanName($row['brandName']);
+					$path = '/uploads/products/top-produkt/' . substr($brandName, 0, 1) . '/' . $brandName;
+					
+					$fields = array($productName, $path);
+					fputs($handle, implode($fields, ';')."\n");
+				}
+			} else {
+				fputcsv($handle, array(''), ';');
+			}
+		
+			fclose($handle);
+		});
+		
+		$response->setStatusCode(200);
+		$response->headers->set('Content-Type', 'text/csv; charset=utf-8');
+		$response->headers->set('Content-Disposition', 'attachment; filename="top-produkt.csv"');
+	
+		return $response;
+	}
+	
 	protected function deleteUnusedActionInternal(Request $request) 
 	{
 		$this->denyAccessUnlessGranted('ROLE_RATING_EDITOR', null, 'Unable to access this page!');

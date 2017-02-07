@@ -12,6 +12,16 @@
 			</div>
 		</div>
 	{% endif %}
+	
+	{% if entry.topProduktImage %}
+	<div class="row">
+	    <div class="col-xs-12">
+	    	<div class="rect-1x1">
+				<img alt="{{ entry.name | raw }}" src="{{ asset(entry.topProduktImage) }}" class="div-center" />
+			</div>
+		</div>
+	</div>
+	{% endif %}
 {% endblock %}
 
 {% block moreFields3 %}

@@ -156,6 +156,18 @@ fm_elfinder:
                         upload_allow: ['image/png', 'image/jpg', 'image/jpeg']
                         upload_deny: ['all']
                         upload_max_size: 2M
+        topProdukt:
+            editor: form
+            include_assets: true
+            visible_mime_types: ['image/png', 'image/jpg', 'image/jpeg']
+            connector:
+                roots:
+                    uploads:
+                        driver: LocalFileSystem
+                        path: uploads/products/top-produkt
+                        upload_allow: ['image/png', 'image/jpg', 'image/jpeg']
+                        upload_deny: ['all']
+                        upload_max_size: 2M
         magazine:
             editor: form
             include_assets: true

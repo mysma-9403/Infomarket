@@ -1315,7 +1315,11 @@ admin_product_set_ip_published:
 admin_product_delete_unused:
     path:      /admin/products/delete_unused/
     defaults:  { _controller: "AppBundle:Admin/Product:deleteUnused" }
-    
+
+admin_product_get_top_products:
+    path:      /admin/products/get_top_products/
+    defaults:  { _controller: "AppBundle:Admin/Product:getTopProducts" }
+        
 admin_product:
     path:      /admin/products/{page}
     defaults:  { _controller: "AppBundle:Admin/Product:index", page: 1 }                

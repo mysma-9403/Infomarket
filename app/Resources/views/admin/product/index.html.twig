@@ -27,6 +27,10 @@
 				href="{{ path(basePath ~ mainPath ~ '_delete_unused') }}">
 				<i class="fa fa-trash"></i> {{ 'action.product.deleteUnused'|trans }}
 			</a>
+			<a type="button" class="btn btn-primary""
+				href="{{ path(basePath ~ mainPath ~ '_get_top_products') }}">
+				<i class="fa fa-file-text-o"></i> {{ 'action.product.getTopProducts'|trans }}
+			</a>
 		</div>
 	</li>
 {% endblock %}

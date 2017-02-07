@@ -10,6 +10,7 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\FormBuilderInterface;
+use FM\ElfinderBundle\Form\Type\ElFinderType;
 
 class ProductEditorType extends ImageEntityEditorType
 {
@@ -31,6 +32,10 @@ class ProductEditorType extends ImageEntityEditorType
 					'expanded'      => false,
 					'multiple'      => false,
 					'placeholder'	=> 'label.choose.brand'
+			))
+			->add('topProduktImage', ElFinderType::class, array(
+					'instance'=>'topProdukt',
+					'required' => false
 			))
 			->add('price', NumberType::class, array(
 					'required' => false,

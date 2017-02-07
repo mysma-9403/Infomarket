@@ -4,6 +4,20 @@
 {% set title = 'title.products'|trans %}
 {% set gender = 'm.' %}
 
+{% block moreFields1 %}
+	{% if entry.topProduktImage %}
+	<div class="row">
+	    <div class="col-xs-12">
+	    	<div class="rect-2x1">
+				<img alt="{{ entry.name | raw }}" src="{{ asset(entry.topProduktImage) }}" class="div-center" />
+			</div>
+		</div>
+	</div>
+	{% endif %}
+	
+	{{ form_row(form.topProduktImage, { 'label': 'label.product.topProduktImage' }) }}
+{% endblock %}
+
 {%  block moreFields2 %}	
     {{ form_row(form.brand, { 'label': 'label.brand' }) }}
 {% endblock %}

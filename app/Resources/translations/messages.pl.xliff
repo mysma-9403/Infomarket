@@ -1374,6 +1374,10 @@
                 <target>Styl (CSS)</target>
             </trans-unit>
             
+            <trans-unit id="label.product.topProduktImage">
+                <source>label.product.topProduktImage</source>
+                <target>Logo TOP PRODUKT</target>
+            </trans-unit>
             <trans-unit id="label.product.price">
                 <source>label.product.price</source>
                 <target>Cena</target>
@@ -1706,6 +1710,11 @@
             <trans-unit id="action.product.deleteUnused">
                 <source>action.product.deleteUnused</source>
                 <target>Usuń nieużywane</target>
+            </trans-unit>
+            
+            <trans-unit id="action.product.getTopProducts">
+                <source>action.product.getTopProducts</source>
+                <target>Pobierz listę TOP PRODUKT</target>
             </trans-unit>
             
             
