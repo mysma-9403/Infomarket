@@ -41,7 +41,7 @@ class Article extends ImageEntity
 	 */
 	public function getUploadPath()
 	{
-		return '../web/uploads/articles/' . $this->createdAt->format('Y/m/');
+		return 'uploads/articles/' . $this->createdAt->format('Y/m/');
 	}
 	
 	/**

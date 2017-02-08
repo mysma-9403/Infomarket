@@ -14,7 +14,7 @@ class Branch extends ImageEntity
 	 */
 	public function getUploadPath()
 	{
-		return '../web/uploads/branches';
+		return 'uploads/branches';
 	}
 	
     /**

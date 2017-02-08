@@ -18,7 +18,7 @@
 					<div class="rect col-bottom bkg-white">
 						{% if article.image %}
 							<img class="div-center img-{{ article.vertical ? '' : 'v' }}responsive" 
-								alt="{{ article.name | raw }}" src="{{ asset(article.getImagePath()) }}">
+								alt="{{ article.name | raw }}" src="{{ asset(article.image) }}">
 						{% endif %}
 						
 						<div class="col-xs-12 div-bottom padding-5 {{ bkgColor }}">

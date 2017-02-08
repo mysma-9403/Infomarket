@@ -38,7 +38,7 @@
 							<div class="table-circle-30 bkg-white">
 								{% if productCategoryAssignment.product.image %}
 									<img class="div-center img-{{ productCategoryAssignment.product.vertical ? '' : 'v' }}responsive"
-										alt="{{ productCategoryAssignment.product.image }}" src="{{ asset(productCategoryAssignment.product.getImagePath()) }}" />
+										alt="{{ productCategoryAssignment.product.image }}" src="{{ asset(productCategoryAssignment.product.image) }}" />
 								{% endif %}
 							</div>
 						</td>

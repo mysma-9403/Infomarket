@@ -59,7 +59,7 @@
 						<div class="rect col-bottom bkg-white">
 							{% if article.image %}
 								<img class="div-center img-{{ article.vertical ? '' : 'v' }}responsive" 
-									alt="{{ article.name | raw }}" src="{{ asset(article.getImagePath()) }}">
+									alt="{{ article.name | raw }}" src="{{ asset(article.image) }}">
 							{% endif %}
 							
 							<div class="col-xs-12 div-bottom bkg-black-50">
@@ -89,7 +89,7 @@
 						<div class="rect col-bottom bkg-white">
 							{% if article.image %}
 								<img class="div-center img-{{ article.vertical ? '' : 'v' }}responsive" 
-									alt="{{ article.name | raw }}" src="{{ asset(article.getImagePath()) }}">
+									alt="{{ article.name | raw }}" src="{{ asset(article.image) }}">
 							{% endif %}
 							
 							<div class="col-xs-12 div-bottom bkg-black-50">
@@ -181,7 +181,7 @@
 						<div class="rect bkg-white">
 							{% if article.image %}
 								<img class="div-center img-{{ article.vertical ? '' : 'v' }}responsive" 
-									alt="{{ article.name | raw }}" src="{{ asset(article.getImagePath()) }}">
+									alt="{{ article.name | raw }}" src="{{ asset(article.image) }}">
 							{% endif %}
 						</div>
 						<div class="col-xs-12 tile bottom-rect bkg-branch-{{ branch.id }}">
@@ -256,7 +256,7 @@
 						<div class="rect col-bottom bkg-white">
 							{% if article.image %}
 								<img class="div-center img-{{ article.vertical ? '' : 'v' }}responsive" 
-									alt="{{ article.name | raw }}" src="{{ asset(article.getImagePath()) }}">
+									alt="{{ article.name | raw }}" src="{{ asset(article.image) }}">
 							{% endif %}
 							
 							<div class="col-xs-12 div-bottom bkg-black-50">
@@ -305,7 +305,7 @@
 						<div class="rect col-bottom bkg-white">
 							{% if article.image %}
 								<img class="div-center img-{{ article.vertical ? '' : 'v' }}responsive" 
-									alt="{{ article.name | raw }}" src="{{ asset(article.getImagePath()) }}">
+									alt="{{ article.name | raw }}" src="{{ asset(article.image) }}">
 							{% endif %}
 							
 							<div class="col-xs-12 div-bottom bkg-black-50">
@@ -385,7 +385,7 @@
 						<div class="rect col-bottom bkg-white">
 							{% if article.image %}
 								<img class="div-center img-{{ article.vertical ? '' : 'v' }}responsive" 
-									alt="{{ article.name | raw }}" src="{{ asset(article.getImagePath()) }}">
+									alt="{{ article.name | raw }}" src="{{ asset(article.image) }}">
 							{% endif %}
 							
 							<div class="col-xs-12 div-bottom bkg-black-50">
@@ -436,7 +436,7 @@
 						<div class="rect col-bottom bkg-white">
 							{% if article.image %}
 								<img class="div-center img-{{ article.vertical ? '' : 'v' }}responsive" 
-									alt="{{ article.name | raw }}" src="{{ asset(article.getImagePath()) }}">
+									alt="{{ article.name | raw }}" src="{{ asset(article.image) }}">
 							{% endif %}
 							
 							<div class="col-xs-12 div-bottom bkg-black-50">
@@ -483,7 +483,7 @@
 {# 						<a href="{{ path(basePath ~ 'article', { article_filter_article_categories: articleCategory.id }) }}">#}
 {# 							<div class="rect bkg-brand">#}
 {# 								<img class="div-center img-responsive" alt="{{ articleCategory.name }}"#}
-{# 									src="{{ asset(articleCategory.getImagePath()) }}" />#}
+{# 									src="{{ asset(articleCategory.image) }}" />#}
 {# 							</div>#}
 {# 							<div class="bkg-branch-{{ branch.id }} text-white text-center">#}
 {# 								<h4 class="title">{{ articleCategory.name }}</h4>#}

@@ -31,7 +31,7 @@ class Category extends ImageEntityTree
 	 */
 	public function getUploadPath()
 	{
-		return '../web/uploads/categories';
+		return 'uploads/categories';
 	}
 	
 	public function getDefaultIMChildCategory() {

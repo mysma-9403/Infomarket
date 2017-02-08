@@ -23,7 +23,7 @@ class Magazine extends ImageEntity
 	 */
 	public function getUploadPath()
 	{
-		return '../web/uploads/magazines';
+		return 'uploads/magazines';
 	}
 
     /**

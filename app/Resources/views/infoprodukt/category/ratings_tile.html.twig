@@ -5,7 +5,7 @@
 		<div class="rect col-bottom bkg-white">
 			{% if entry.image %}
 				<img class="div-center img-{{ entry.vertical ? '' : 'v' }}responsive" 
-					alt="{{ entry.name | raw }}" src="{{ asset(entry.getImagePath()) }}">
+					alt="{{ entry.name | raw }}" src="{{ asset(entry.image) }}">
 			{% endif %}
 			
 			<div class="col-xs-12 bkg-red">

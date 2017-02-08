@@ -23,7 +23,7 @@
 				<div class="table-circle-30 bkg-white">
 					{% if brandCategoryAssignment.brand.image %}
 						<img class="div-center img-{{ brandCategoryAssignment.brand.vertical ? '' : 'v' }}responsive"
-							alt="{{ brandCategoryAssignment.brand.image }}" src="{{ asset(brandCategoryAssignment.brand.getImagePath()) }}" />
+							alt="{{ brandCategoryAssignment.brand.image }}" src="{{ asset(brandCategoryAssignment.brand.image) }}" />
 					{% endif %}
 				</div>
 			</td>
@@ -78,7 +78,7 @@
 				<div class="table-circle-30 bkg-white">
 					{% if magazineCategoryAssignment.magazine.image %}
 						<img class="div-center img-{{ magazineCategoryAssignment.magazine.vertical ? '' : 'v' }}responsive"
-							alt="{{ magazineCategoryAssignment.magazine.image }}" src="{{ asset(magazineCategoryAssignment.magazine.getImagePath()) }}" />
+							alt="{{ magazineCategoryAssignment.magazine.image }}" src="{{ asset(magazineCategoryAssignment.magazine.image) }}" />
 					{% endif %}
 				</div>
 			</td>
@@ -133,7 +133,7 @@
 				<div class="table-circle-30 bkg-white">
 					{% if branchCategoryAssignment.branch.image %}
 						<img class="div-center img-{{ branchCategoryAssignment.branch.vertical ? '' : 'v' }}responsive"
-							alt="{{ branchCategoryAssignment.branch.image }}" src="{{ asset(branchCategoryAssignment.branch.getImagePath()) }}" />
+							alt="{{ branchCategoryAssignment.branch.image }}" src="{{ asset(branchCategoryAssignment.branch.image) }}" />
 					{% endif %}
 				</div>
 			</td>
@@ -187,7 +187,7 @@
 				<div class="table-circle-30 bkg-white">
 					{% if category.image %}
 						<img class="div-center img-{{ category.vertical ? '' : 'v' }}responsive"
-							alt="{{ category.image }}" src="{{ asset(category.getImagePath()) }}" />
+							alt="{{ category.image }}" src="{{ asset(category.image) }}" />
 					{% endif %}
 				</div>
 			</td>

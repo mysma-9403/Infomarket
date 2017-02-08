@@ -61,7 +61,7 @@
 								<div class="rect">
 									{% if segment.image %}
 										<img class="div-center img-{{ segment.vertical ? 'v' : '' }}responsive" 
-											alt="{{ segment.name | raw }}" src="{{ asset(segment.getImagePath()) }}">
+											alt="{{ segment.name | raw }}" src="{{ asset(segment.image) }}">
 									{% endif %}
 									<p class="segment-subtitle div-bottom">{{ segment.subname | raw }}</p>
 								</div>
@@ -108,7 +108,7 @@
 									<div class="rect bkg-white">
 										{% if product.image %}
 											<img class="div-center img-{{ product.vertical ? 'v' : '' }}responsive" 
-												alt="{{ product.name }}" src="{{ asset(product.getImagePath()) }}">
+												alt="{{ product.name }}" src="{{ asset(product.image) }}">
 										{% endif %}
 										
 										{% set showTopProduct = false %}
@@ -213,7 +213,7 @@
 									<div class="rect">
 										{% if segment.image %}
 											<img class="div-center img-{{ segment.vertical ? 'v' : '' }}responsive" 
-												alt="{{ segment.name | raw }}" src="{{ asset(segment.getImagePath()) }}">
+												alt="{{ segment.name | raw }}" src="{{ asset(segment.image) }}">
 										{% endif %}
 										<p class="segment-subtitle div-bottom">{{ segment.subname | raw }}</p>
 									</div>
@@ -261,7 +261,7 @@
 										<div class="rect bkg-white">
 											{% if product.image %}
 												<img class="div-center img-{{ product.vertical ? 'v' : '' }}responsive" 
-													alt="{{ product.name }}" src="{{ asset(product.getImagePath()) }}">
+													alt="{{ product.name }}" src="{{ asset(product.image) }}">
 											{% endif %}
 											
 											{% set showTopProduct = false %}

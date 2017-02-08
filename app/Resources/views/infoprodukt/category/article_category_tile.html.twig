@@ -11,7 +11,7 @@
 		<div class="rect col-bottom bkg-white">
 			{% if articleCategory.image %}
 				<img class="div-center img-{{ articleCategory.vertical ? '' : 'v' }}responsive" 
-					alt="{{ articleCategory.name | raw }}" src="{{ asset(articles|first.getImagePath()) }}">
+					alt="{{ articleCategory.name | raw }}" src="{{ asset(articles|first.image) }}">
 			{% endif %}
 			
 			<div class="col-xs-12 bkg-red">

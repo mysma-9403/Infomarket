@@ -47,7 +47,7 @@
 								<div class="rect">
 									{% if entry.image %}
 										<img class="div-center img-{{ entry.vertical ? 'v' : '' }}responsive" 
-											alt="{{ entry.name | raw }}" src="{{ asset(entry.getImagePath()) }}">
+											alt="{{ entry.name | raw }}" src="{{ asset(entry.image) }}">
 									{% endif %}
 								</div>
 							</div>

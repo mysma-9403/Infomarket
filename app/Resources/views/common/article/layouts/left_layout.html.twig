@@ -28,7 +28,7 @@
 <div class="row">
 	<div class="col-xs-12">
 		{% if article.image %}
-			<img class="img-responsive {{ imageClass }}" alt="{{ article.name | raw }}" src="{{ asset(article.getImagePath()) }}">
+			<img class="img-responsive {{ imageClass }}" alt="{{ article.name | raw }}" src="{{ asset(article.image) }}">
 		{% endif %}
 	
 		{% if article.intro %}

@@ -29,7 +29,7 @@ class Product extends ImageEntity
 	public function getUploadPath()
 	{
 		$brandName = ClassUtils::getCleanName($this->getBrand()->getName());
-		return '../web/uploads/products/' . substr($brandName, 0, 1) . '/' . $brandName;
+		return 'uploads/products/' . substr($brandName, 0, 1) . '/' . $brandName;
 	}
 	
     /**

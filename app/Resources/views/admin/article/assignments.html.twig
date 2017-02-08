@@ -23,7 +23,7 @@
 				<div class="table-circle-30 bkg-white" width="20" height="20">
 					{% if article.image %}
 						<img class="div-center img-{{ article.vertical ? '' : 'v' }}responsive"
-							alt="{{ article.image }}" src="{{ asset(article.getImagePath()) }}" />
+							alt="{{ article.image }}" src="{{ asset(article.image) }}" />
 					{% endif %}
 				</div>
 			</td>
@@ -83,7 +83,7 @@
 				<div class="table-circle-30 bkg-white" width="20" height="20">
 					{% if articleBrandAssignment.brand.image %}
 						<img class="div-center img-{{ articleBrandAssignment.brand.vertical ? '' : 'v' }}responsive"
-							alt="{{ articleBrandAssignment.brand.image }}" src="{{ asset(articleBrandAssignment.brand.getImagePath()) }}" />
+							alt="{{ articleBrandAssignment.brand.image }}" src="{{ asset(articleBrandAssignment.brand.image) }}" />
 					{% endif %}
 				</div>
 			</td>
@@ -138,7 +138,7 @@
 				<div class="table-circle-30 bkg-white" width="20" height="20">
 					{% if articleArticleCategoryAssignment.articleCategory.image %}
 						<img class="div-center img-{{ articleArticleCategoryAssignment.articleCategory.vertical ? '' : 'v' }}responsive"
-							alt="{{ articleArticleCategoryAssignment.articleCategory.image }}" src="{{ asset(articleArticleCategoryAssignment.articleCategory.getImagePath()) }}" />
+							alt="{{ articleArticleCategoryAssignment.articleCategory.image }}" src="{{ asset(articleArticleCategoryAssignment.articleCategory.image) }}" />
 					{% endif %}
 				</div>
 			</td>
@@ -193,7 +193,7 @@
 				<div class="table-circle-30 bkg-white">
 					{% if articleCategoryAssignment.category.image %}
 						<img class="div-center img-{{ articleCategoryAssignment.category.vertical ? '' : 'v' }}responsive"
-							alt="{{ articleCategoryAssignment.category.image }}" src="{{ asset(articleCategoryAssignment.category.getImagePath()) }}" />
+							alt="{{ articleCategoryAssignment.category.image }}" src="{{ asset(articleCategoryAssignment.category.image) }}" />
 					{% endif %}
 				</div>
 			</td>

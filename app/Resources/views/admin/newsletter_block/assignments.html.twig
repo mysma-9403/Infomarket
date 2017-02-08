@@ -24,7 +24,7 @@
 				<div class="table-circle-30 bkg-white" width="20" height="20">
 					{% if advert.image %}
 						<img class="div-center img-{{ advert.vertical ? '' : 'v' }}responsive"
-							alt="{{ advert.image }}" src="{{ asset(advert.getImagePath()) }}" />
+							alt="{{ advert.image }}" src="{{ asset(advert.image) }}" />
 					{% endif %}
 				</div>
 			</td>
@@ -81,7 +81,7 @@
 				<div class="table-circle-30 bkg-white" width="20" height="20">
 					{% if article.image %}
 						<img class="div-center img-{{ article.vertical ? '' : 'v' }}responsive"
-							alt="{{ article.image }}" src="{{ asset(article.getImagePath()) }}" />
+							alt="{{ article.image }}" src="{{ asset(article.image) }}" />
 					{% endif %}
 				</div>
 			</td>
@@ -137,7 +137,7 @@
 				<div class="table-circle-30 bkg-white" width="20" height="20">
 					{% if magazine.image %}
 						<img class="div-center img-{{ magazine.vertical ? '' : 'v' }}responsive"
-							alt="{{ magazine.image }}" src="{{ asset(magazine.getImagePath()) }}" />
+							alt="{{ magazine.image }}" src="{{ asset(magazine.image) }}" />
 					{% endif %}
 				</div>
 			</td>

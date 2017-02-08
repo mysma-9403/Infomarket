@@ -20,7 +20,7 @@ abstract class ImageEntityController extends SimpleEntityController {
 		$entry = $viewParams['entry'];
 		
 		if($entry) {
-			if(file_exists($entry->getImagePath())) {
+			if(file_exists($entry->getImage())) {
 				unlink($entry->getImage());
 			}
 			 

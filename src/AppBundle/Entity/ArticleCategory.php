@@ -33,7 +33,7 @@ class ArticleCategory extends ImageEntity
 	 */
 	public function getUploadPath()
 	{
-		return '../web/uploads/article-categories';
+		return 'uploads/article-categories';
 	}
 	
     /**

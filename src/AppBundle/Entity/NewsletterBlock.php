@@ -20,7 +20,7 @@ class NewsletterBlock extends SimpleEntity
 			
 			$entryContent = str_replace("{advertId}", $advert->getId(), $entryContent);
 			$entryContent = str_replace("{advertName}", $advert->getName(), $entryContent);
-			$entryContent = str_replace("{advertImage}", $advert->getImagePath(), $entryContent);
+			$entryContent = str_replace("{advertImage}", $advert->getImage(), $entryContent);
 			
 			$adverts .= $entryContent . "\r\n";
 		}
@@ -34,7 +34,7 @@ class NewsletterBlock extends SimpleEntity
 			$entryContent = str_replace("{articleId}", $article->getId(), $entryContent);
 			$entryContent = str_replace("{articleName}", $article->getName(), $entryContent);
 			$entryContent = str_replace("{articleSubname}", $article->getSubname(), $entryContent);
-			$entryContent = str_replace("{articleImage}", $article->getImagePath(), $entryContent);
+			$entryContent = str_replace("{articleImage}", $article->getImage(), $entryContent);
 			$entryContent = str_replace("{articleIntro}", $article->getIntro(), $entryContent);
 				
 			if($article->getArticleBrandAssignments()) {
@@ -66,7 +66,7 @@ class NewsletterBlock extends SimpleEntity
 				
 			$entryContent = str_replace("{magazineId}", $magazine->getId(), $entryContent);
 			$entryContent = str_replace("{magazineName}", $magazine->getName(), $entryContent);
-			$entryContent = str_replace("{magazineImage}", $magazine->getImagePath(), $entryContent);
+			$entryContent = str_replace("{magazineImage}", $magazine->getImage(), $entryContent);
 				
 			$magazines .= $entryContent . "\r\n";
 		}

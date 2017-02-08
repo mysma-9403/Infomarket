@@ -14,7 +14,7 @@ class Brand extends ImageEntity
 	 */
 	public function getUploadPath()
 	{
-		return '../web/uploads/brands/' . substr($this->name, 0, 1);
+		return 'uploads/brands/' . substr($this->name, 0, 1);
 	}
 	
     /**

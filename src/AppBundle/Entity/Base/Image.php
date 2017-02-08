@@ -14,14 +14,7 @@ class Image extends Simple {
 	
 	public function getUploadPath()
 	{
-		return '../web/upload/images/';
-	}
-	
-	public function getImagePath()
-	{
-		if($this->image === null) return null;
-		return str_replace('../web/', '', $this->image);
-		
+		return 'upload/images/';
 	}
 	
 	public function removeImage() {

@@ -125,7 +125,7 @@
 				<div class="table-circle-30 bkg-white">
 					{% if menuEntryBranchAssignment.branch.image %}
 						<img class="div-center img-{{ menuEntryBranchAssignment.branch.vertical ? '' : 'v' }}responsive"
-							alt="{{ menuEntryBranchAssignment.branch.name }}" src="{{ asset(menuEntryBranchAssignment.branch.getImagePath()) }}" />
+							alt="{{ menuEntryBranchAssignment.branch.name }}" src="{{ asset(menuEntryBranchAssignment.branch.image) }}" />
 					{% endif %}
 				</div>
 			</td>
@@ -176,7 +176,7 @@
 				<div class="table-circle-30 bkg-white">
 					{% if menuEntryCategoryAssignment.category.image %}
 						<img class="div-center img-{{ menuEntryCategoryAssignment.category.vertical ? '' : 'v' }}responsive"
-							alt="{{ menuEntryCategoryAssignment.category.name }}" src="{{ asset(menuEntryCategoryAssignment.category.getImagePath()) }}" />
+							alt="{{ menuEntryCategoryAssignment.category.name }}" src="{{ asset(menuEntryCategoryAssignment.category.image) }}" />
 					{% endif %}
 				</div>
 			</td>

@@ -23,7 +23,7 @@
 				<div class="table-circle-30 bkg-white">
 					{% if magazineBranchAssignment.branch.image %}
 						<img class="div-center img-{{ magazineBranchAssignment.branch.vertical ? '' : 'v' }}responsive"
-							alt="{{ magazineBranchAssignment.branch.name }}" src="{{ asset(magazineBranchAssignment.branch.getImagePath()) }}" />
+							alt="{{ magazineBranchAssignment.branch.name }}" src="{{ asset(magazineBranchAssignment.branch.image) }}" />
 					{% endif %}
 				</div>
 			</td>
@@ -74,7 +74,7 @@
 				<div class="table-circle-30 bkg-white">
 					{% if magazineCategoryAssignment.category.image %}
 						<img class="div-center img-{{ magazineCategoryAssignment.category.vertical ? '' : 'v' }}responsive"
-							alt="{{ magazineCategoryAssignment.category.name }}" src="{{ asset(magazineCategoryAssignment.category.getImagePath()) }}" />
+							alt="{{ magazineCategoryAssignment.category.name }}" src="{{ asset(magazineCategoryAssignment.category.image) }}" />
 					{% endif %}
 				</div>
 			</td>

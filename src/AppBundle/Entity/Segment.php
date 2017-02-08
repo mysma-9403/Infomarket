@@ -11,7 +11,7 @@ class Segment extends ImageEntity
 	 */
 	public function getUploadPath()
 	{
-		return '../web/uploads/segments';
+		return 'uploads/segments';
 	}
 	
     /**

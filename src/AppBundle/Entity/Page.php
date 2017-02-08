@@ -26,7 +26,7 @@ class Page extends ImageEntity
 	 */
 	public function getUploadPath()
 	{
-		return '../web/uploads/pages';
+		return 'uploads/pages';
 	}
 	
     /**
