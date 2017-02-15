@@ -4,10 +4,15 @@ namespace AppBundle\Controller\Admin;
 
 use AppBundle\Controller\Admin\Base\SimpleEntityController;
 use AppBundle\Entity\NewsletterBlock;
+use AppBundle\Entity\NewsletterBlockTemplate;
+use AppBundle\Entity\NewsletterPage;
+use AppBundle\Filter\Admin\Main\NewsletterBlockFilter;
 use AppBundle\Form\Editor\NewsletterBlockEditorType;
-use AppBundle\Form\Filter\NewsletterBlockFilterType;
+use AppBundle\Form\Filter\Admin\Main\NewsletterBlockFilterType;
 use AppBundle\Manager\Entity\Common\NewsletterBlockManager;
-use AppBundle\Manager\Filter\Common\NewsletterBlockFilterManager;
+use AppBundle\Manager\Filter\Base\FilterManager;
+use AppBundle\Repository\Admin\Main\NewsletterBlockTemplateRepository;
+use AppBundle\Repository\Admin\Main\NewsletterPageRepository;
 use Symfony\Component\HttpFoundation\Request;
 
 class NewsletterBlockController extends SimpleEntityController {
@@ -112,6 +117,24 @@ class NewsletterBlockController extends SimpleEntityController {
 	}
 	
 	//---------------------------------------------------------------------------
+	// Internal logic
+	//---------------------------------------------------------------------------
+	
+	protected function getFormOptions() {
+		$options = parent::getFormOptions();
+	
+		/** @var NewsletterPageRepository $newsletterPageRepository */
+		$newsletterPageRepository = $this->getDoctrine()->getRepository(NewsletterPage::class);
+		$options['newsletterPages'] = $newsletterPageRepository->findFilterItems();
+		
+		/** @var NewsletterBlockTemplateRepository $newsletterBlockTemplateRepository */
+		$newsletterBlockTemplateRepository = $this->getDoctrine()->getRepository(NewsletterBlockTemplate::class);
+		$options['newsletterBlockTemplates'] = $newsletterBlockTemplateRepository->findFilterItems();
+	
+		return $options;
+	}
+	
+	//---------------------------------------------------------------------------
 	// Managers
 	//---------------------------------------------------------------------------
 	
@@ -120,7 +143,7 @@ class NewsletterBlockController extends SimpleEntityController {
 	}
 	
 	protected function getFilterManager($doctrine) {
-		return new NewsletterBlockFilterManager($doctrine);
+		return new FilterManager(new NewsletterBlockFilter());
 	}
 	
 	//---------------------------------------------------------------------------

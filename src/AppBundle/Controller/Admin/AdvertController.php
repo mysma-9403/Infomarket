@@ -5,10 +5,13 @@ namespace AppBundle\Controller\Admin;
 use AppBundle\Controller\Admin\Base\ImageEntityController;
 use AppBundle\Controller\Admin\Base\SimpleEntityController;
 use AppBundle\Entity\Advert;
+use AppBundle\Entity\Category;
+use AppBundle\Filter\Admin\Main\AdvertFilter;
 use AppBundle\Form\Editor\AdvertEditorType;
-use AppBundle\Form\Filter\AdvertFilterType;
+use AppBundle\Form\Filter\Admin\Main\AdvertFilterType;
 use AppBundle\Manager\Entity\Common\AdvertManager;
-use AppBundle\Manager\Filter\Common\AdvertFilterManager;
+use AppBundle\Manager\Filter\Base\FilterManager;
+use AppBundle\Repository\Admin\Main\CategoryRepository;
 use Symfony\Component\HttpFoundation\Request;
 
 class AdvertController extends ImageEntityController {
@@ -115,6 +118,16 @@ class AdvertController extends ImageEntityController {
 	// Internal logic
 	//------------------------------------------------------------------------
 	
+	protected function getFormOptions() {
+		$options = parent::getFormOptions();
+	
+		/** @var CategoryRepository $categoryRepository */
+		$categoryRepository = $this->getDoctrine()->getRepository(Category::class);
+		$options['categories'] = $categoryRepository->findFilterItems();
+	
+		return $options;
+	}
+	
 	/**
 	 *
 	 * {@inheritDoc}
@@ -140,7 +153,7 @@ class AdvertController extends ImageEntityController {
 	}
 	
 	protected function getFilterManager($doctrine) {
-		return new AdvertFilterManager($doctrine);
+		return new FilterManager(new AdvertFilter());
 	}
 	
 	

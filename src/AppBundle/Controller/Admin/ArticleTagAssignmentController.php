@@ -3,11 +3,16 @@
 namespace AppBundle\Controller\Admin;
 
 use AppBundle\Controller\Admin\Base\BaseEntityController;
+use AppBundle\Entity\Article;
 use AppBundle\Entity\ArticleTagAssignment;
+use AppBundle\Entity\Tag;
+use AppBundle\Filter\Admin\Assignments\ArticleTagAssignmentFilter;
 use AppBundle\Form\Editor\ArticleTagAssignmentEditorType;
-use AppBundle\Form\Filter\ArticleTagAssignmentFilterType;
+use AppBundle\Form\Filter\Admin\Assignments\ArticleTagAssignmentFilterType;
 use AppBundle\Manager\Entity\Common\ArticleTagAssignmentManager;
-use AppBundle\Manager\Filter\Common\ArticleTagAssignmentFilterManager;
+use AppBundle\Manager\Filter\Base\FilterManager;
+use AppBundle\Repository\Admin\Main\ArticleRepository;
+use AppBundle\Repository\Admin\Main\TagRepository;
 use Symfony\Component\HttpFoundation\Request;
 
 class ArticleTagAssignmentController extends BaseEntityController {
@@ -88,6 +93,24 @@ class ArticleTagAssignmentController extends BaseEntityController {
 	}
 	
 	//---------------------------------------------------------------------------
+	// Internal logic
+	//---------------------------------------------------------------------------
+	
+	protected function getFormOptions() {
+		$options = parent::getFormOptions();
+	
+		/** @var ArticleRepository $articleRepository */
+		$articleRepository = $this->getDoctrine()->getRepository(Article::class);
+		$options['articles'] = $articleRepository->findFilterItems();
+	
+		/** @var TagRepository $tagRepository */
+		$tagRepository = $this->getDoctrine()->getRepository(Tag::class);
+		$options['tags'] = $tagRepository->findFilterItems();
+	
+		return $options;
+	}
+	
+	//---------------------------------------------------------------------------
 	// Managers
 	//---------------------------------------------------------------------------
 	
@@ -106,7 +129,7 @@ class ArticleTagAssignmentController extends BaseEntityController {
 	 * @see \AppBundle\Controller\Base\BaseEntityController::getFilterManager()
 	 */
 	protected function getFilterManager($doctrine) {
-		return new ArticleTagAssignmentFilterManager($doctrine);
+		return new FilterManager(new ArticleTagAssignmentFilter());
 	}
 	
 	//---------------------------------------------------------------------------

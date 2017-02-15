@@ -3,11 +3,16 @@
 namespace AppBundle\Controller\Admin;
 
 use AppBundle\Controller\Admin\Base\BaseEntityController;
+use AppBundle\Entity\Article;
 use AppBundle\Entity\ArticleCategoryAssignment;
+use AppBundle\Entity\Category;
+use AppBundle\Filter\Admin\Assignments\ArticleCategoryAssignmentFilter;
 use AppBundle\Form\Editor\ArticleCategoryAssignmentEditorType;
-use AppBundle\Form\Filter\ArticleCategoryAssignmentFilterType;
+use AppBundle\Form\Filter\Admin\Assignments\ArticleCategoryAssignmentFilterType;
 use AppBundle\Manager\Entity\Common\ArticleCategoryAssignmentManager;
-use AppBundle\Manager\Filter\Common\ArticleCategoryAssignmentFilterManager;
+use AppBundle\Manager\Filter\Base\FilterManager;
+use AppBundle\Repository\Admin\Main\ArticleRepository;
+use AppBundle\Repository\Admin\Main\CategoryRepository;
 use Symfony\Component\HttpFoundation\Request;
 
 class ArticleCategoryAssignmentController extends BaseEntityController {
@@ -88,6 +93,24 @@ class ArticleCategoryAssignmentController extends BaseEntityController {
 	}
 	
 	//---------------------------------------------------------------------------
+	// Internal logic
+	//---------------------------------------------------------------------------
+	
+	protected function getFormOptions() {
+		$options = parent::getFormOptions();
+	
+		/** @var ArticleRepository $articleRepository */
+		$articleRepository = $this->getDoctrine()->getRepository(Article::class);
+		$options['articles'] = $articleRepository->findFilterItems();
+	
+		/** @var CategoryRepository $categoryRepository */
+		$categoryRepository = $this->getDoctrine()->getRepository(Category::class);
+		$options['categories'] = $categoryRepository->findFilterItems();
+	
+		return $options;
+	}
+	
+	//---------------------------------------------------------------------------
 	// Managers
 	//---------------------------------------------------------------------------
 	
@@ -106,7 +129,7 @@ class ArticleCategoryAssignmentController extends BaseEntityController {
 	 * @see \AppBundle\Controller\Base\BaseEntityController::getFilterManager()
 	 */
 	protected function getFilterManager($doctrine) {
-		return new ArticleCategoryAssignmentFilterManager($doctrine);
+		return new FilterManager(new ArticleCategoryAssignmentFilter());
 	}
 	
 	//---------------------------------------------------------------------------

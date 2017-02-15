@@ -6,7 +6,7 @@
 
     <entity name="AppBundle\Entity\Magazine" 
         table="magazines"
-        repository-class="AppBundle\Repository\MagazineRepository">
+        repository-class="AppBundle\Repository\Admin\Main\MagazineRepository">
         
         <field name="featured" type="boolean" default="false" />
         <field name="main" type="boolean" default="false" />

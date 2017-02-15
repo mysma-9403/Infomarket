@@ -3,12 +3,17 @@
 namespace AppBundle\Controller\Admin;
 
 use AppBundle\Controller\Admin\Base\BaseEntityController;
+use AppBundle\Entity\Article;
 use AppBundle\Entity\ArticleArticleCategoryAssignment;
+use AppBundle\Entity\ArticleCategory;
+use AppBundle\Filter\Admin\Assignments\ArticleArticleCategoryAssignmentFilter;
 use AppBundle\Form\Editor\ArticleArticleCategoryAssignmentEditorType;
-use AppBundle\Form\Filter\ArticleArticleCategoryAssignmentFilterType;
 use AppBundle\Manager\Entity\Common\ArticleArticleCategoryAssignmentManager;
-use AppBundle\Manager\Filter\Common\ArticleArticleCategoryAssignmentFilterManager;
+use AppBundle\Manager\Filter\Base\FilterManager;
+use AppBundle\Repository\Admin\Main\ArticleCategoryRepository;
+use AppBundle\Repository\Admin\Main\ArticleRepository;
 use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Form\Filter\Admin\Assignments\ArticleArticleCategoryAssignmentFilterType;
 
 class ArticleArticleCategoryAssignmentController extends BaseEntityController {
 	
@@ -88,6 +93,24 @@ class ArticleArticleCategoryAssignmentController extends BaseEntityController {
 	}
 	
 	//---------------------------------------------------------------------------
+	// Internal logic
+	//---------------------------------------------------------------------------
+	
+	protected function getFormOptions() {
+		$options = parent::getFormOptions();
+	
+		/** @var ArticleRepository $articleRepository */
+		$articleRepository = $this->getDoctrine()->getRepository(Article::class);
+		$options['articles'] = $articleRepository->findFilterItems();
+	
+		/** @var ArticleCategoryRepository $articleArticleCategoryRepository */
+		$articleCategoryRepository = $this->getDoctrine()->getRepository(ArticleCategory::class);
+		$options['articleCategories'] = $articleCategoryRepository->findFilterItems();
+	
+		return $options;
+	}
+	
+	//---------------------------------------------------------------------------
 	// Managers
 	//---------------------------------------------------------------------------
 	
@@ -106,7 +129,7 @@ class ArticleArticleCategoryAssignmentController extends BaseEntityController {
 	 * @see \AppBundle\Controller\Base\BaseEntityController::getFilterManager()
 	 */
 	protected function getFilterManager($doctrine) {
-		return new ArticleArticleCategoryAssignmentFilterManager($doctrine);
+		return new FilterManager(new ArticleArticleCategoryAssignmentFilter());
 	}
 	
 	//---------------------------------------------------------------------------

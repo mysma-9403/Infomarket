@@ -727,4 +727,34 @@ class Category extends ImageEntityTree
     {
         return $this->menuEntryCategoryAssignments;
     }
+    
+    /**
+     * @var integer
+     */
+    private $rootId;
+
+
+    /**
+     * Set rootId
+     *
+     * @param integer $rootId
+     *
+     * @return Category
+     */
+    public function setRootId($rootId)
+    {
+        $this->rootId = $rootId;
+
+        return $this;
+    }
+
+    /**
+     * Get rootId
+     *
+     * @return integer
+     */
+    public function getRootId()
+    {
+        return $this->rootId;
+    }
 }

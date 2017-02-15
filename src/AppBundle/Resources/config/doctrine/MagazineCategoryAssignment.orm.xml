@@ -6,7 +6,7 @@
 
     <entity name="AppBundle\Entity\MagazineCategoryAssignment" 
         table="magazine_category_assignments"
-        repository-class="AppBundle\Repository\MagazineCategoryAssignmentRepository">
+        repository-class="AppBundle\Repository\Admin\Assignments\MagazineCategoryAssignmentRepository">
         
         <many-to-one field="magazine" target-entity="Magazine" inversed-by="magazineCategoryAssignments" />
         <many-to-one field="category" target-entity="Category" inversed-by="magazineCategoryAssignments" />

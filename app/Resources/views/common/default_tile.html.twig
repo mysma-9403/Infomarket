@@ -19,7 +19,7 @@
 		<div class="col-xs-12 div-bottom bkg-black-50">
 			<div class="rect-3x1">
 				<p class="div-top">
-					{{ entry.getDisplayName() | raw }}
+					{{ entry.name }} {{ entry.subname is defined ? entry.subname : '' }}
 				</p>
 			</div>
 		</div>

@@ -5,10 +5,10 @@ namespace AppBundle\Controller\Infoprodukt;
 use AppBundle\Controller\Infoprodukt\Base\InfoproduktController;
 use AppBundle\Entity\Category;
 use AppBundle\Manager\Entity\Base\EntityManager;
-use AppBundle\Manager\Entity\Common\CategoryManager;
+use AppBundle\Manager\Entity\Infoprodukt\CategoryManager;
 use AppBundle\Manager\Filter\Base\FilterManager;
-use AppBundle\Manager\Filter\Infoprodukt\IPCategoryFilterManager;
 use AppBundle\Manager\Params\EntryParams\Infoprodukt\CategoryEntryParamsManager;
+use AppBundle\Manager\Params\Infoprodukt\AdvertParamsManager;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -49,10 +49,6 @@ class CategoryController extends InfoproduktController
 		$em = new CategoryManager($doctrine, $paginator);
 		$em->setEntriesPerPage(0);
 		return $em;
-	}
-	
-	protected function getEntryFilterManager($doctrine) {
-		return new IPCategoryFilterManager($doctrine);
 	}
 	
 	//---------------------------------------------------------------------------

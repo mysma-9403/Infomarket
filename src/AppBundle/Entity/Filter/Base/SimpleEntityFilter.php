@@ -2,9 +2,8 @@
 
 namespace AppBundle\Entity\Filter\Base;
 
-use AppBundle\Entity\Filter\Base\BaseEntityFilter;
-use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Repository\UserRepository;
+use Symfony\Component\HttpFoundation\Request;
 
 class SimpleEntityFilter extends BaseEntityFilter {
 	

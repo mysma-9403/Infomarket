@@ -3,11 +3,16 @@
 namespace AppBundle\Controller\Admin;
 
 use AppBundle\Controller\Admin\Base\BaseEntityController;
+use AppBundle\Entity\Advert;
+use AppBundle\Entity\NewsletterBlock;
 use AppBundle\Entity\NewsletterBlockAdvertAssignment;
+use AppBundle\Filter\Admin\Assignments\NewsletterBlockAdvertAssignmentFilter;
 use AppBundle\Form\Editor\NewsletterBlockAdvertAssignmentEditorType;
-use AppBundle\Form\Filter\NewsletterBlockAdvertAssignmentFilterType;
+use AppBundle\Form\Filter\Admin\Assignments\NewsletterBlockAdvertAssignmentFilterType;
 use AppBundle\Manager\Entity\Common\NewsletterBlockAdvertAssignmentManager;
-use AppBundle\Manager\Filter\Common\NewsletterBlockAdvertAssignmentFilterManager;
+use AppBundle\Manager\Filter\Base\FilterManager;
+use AppBundle\Repository\Admin\Main\AdvertRepository;
+use AppBundle\Repository\Admin\Main\NewsletterBlockRepository;
 use Symfony\Component\HttpFoundation\Request;
 
 class NewsletterBlockAdvertAssignmentController extends BaseEntityController {
@@ -88,6 +93,24 @@ class NewsletterBlockAdvertAssignmentController extends BaseEntityController {
 	}
 	
 	//---------------------------------------------------------------------------
+	// Internal logic
+	//---------------------------------------------------------------------------
+	
+	protected function getFormOptions() {
+		$options = parent::getFormOptions();
+	
+		/** @var NewsletterBlockRepository $newsletterBlockRepository */
+		$newsletterBlockRepository = $this->getDoctrine()->getRepository(NewsletterBlock::class);
+		$options['newsletterBlocks'] = $newsletterBlockRepository->findFilterItems();
+	
+		/** @var AdvertRepository $advertRepository */
+		$advertRepository = $this->getDoctrine()->getRepository(Advert::class);
+		$options['adverts'] = $advertRepository->findFilterItems();
+	
+		return $options;
+	}
+	
+	//---------------------------------------------------------------------------
 	// Managers
 	//---------------------------------------------------------------------------
 	
@@ -106,7 +129,7 @@ class NewsletterBlockAdvertAssignmentController extends BaseEntityController {
 	 * @see \AppBundle\Controller\Base\BaseEntityController::getFilterManager()
 	 */
 	protected function getFilterManager($doctrine) {
-		return new NewsletterBlockAdvertAssignmentFilterManager($doctrine);
+		return new FilterManager(new NewsletterBlockAdvertAssignmentFilter());
 	}
 	
 	//---------------------------------------------------------------------------

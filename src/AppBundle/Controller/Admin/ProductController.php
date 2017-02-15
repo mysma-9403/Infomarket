@@ -4,14 +4,19 @@ namespace AppBundle\Controller\Admin;
 
 use AppBundle\Controller\Admin\Base\ImageEntityController;
 use AppBundle\Controller\Admin\Base\SimpleEntityController;
+use AppBundle\Entity\Brand;
+use AppBundle\Entity\Category;
 use AppBundle\Entity\Product;
+use AppBundle\Filter\Admin\Main\ProductFilter;
 use AppBundle\Form\Editor\ProductEditorType;
-use AppBundle\Form\Filter\ProductFilterType;
+use AppBundle\Form\Filter\Admin\Main\ProductFilterType;
 use AppBundle\Manager\Entity\Common\ProductManager;
-use AppBundle\Manager\Filter\Common\ProductFilterManager;
+use AppBundle\Manager\Filter\Base\FilterManager;
+use AppBundle\Repository\Admin\Main\BrandRepository;
+use AppBundle\Repository\Admin\Main\CategoryRepository;
+use AppBundle\Utils\ClassUtils;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\StreamedResponse;
-use AppBundle\Utils\ClassUtils;
 
 class ProductController extends ImageEntityController {
 	
@@ -187,6 +192,20 @@ class ProductController extends ImageEntityController {
 	// Internal logic
 	//---------------------------------------------------------------------------
 	
+	protected function getFormOptions() {
+		$options = parent::getFormOptions();
+	
+		/** @var BrandRepository $brandRepository */
+		$brandRepository = $this->getDoctrine()->getRepository(Brand::class);
+		$options['brands'] = $brandRepository->findFilterItems();
+	
+		/** @var CategoryRepository $categoryRepository */
+		$categoryRepository = $this->getDoctrine()->getRepository(Category::class);
+		$options['categories'] = $categoryRepository->findFilterItems();
+	
+		return $options;
+	}
+	
 	/**
 	 *
 	 * {@inheritDoc}
@@ -251,7 +270,7 @@ class ProductController extends ImageEntityController {
 	}
 	
 	protected function getFilterManager($doctrine) {
-		return new ProductFilterManager($doctrine);
+		return new FilterManager(new ProductFilter());
 	}
 	
 	

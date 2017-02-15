@@ -10,11 +10,11 @@ use AppBundle\Entity\NewsletterUser;
 use AppBundle\Entity\User;
 use AppBundle\Form\Editor\NewsletterUserEditorType;
 use AppBundle\Form\Search\Base\SimpleEntitySearchType;
-use AppBundle\Manager\Filter\Decorator\InfomarketFilterManager;
-use AppBundle\Manager\Params\Infomarket\IMAdvertParamsManager;
-use AppBundle\Manager\Params\Infomarket\IMMenuParamsManager;
-use AppBundle\Manager\Params\Infomarket\InfomarketParamsManager;
+use AppBundle\Manager\Params\Infomarket\AdvertParamsManager;
+use AppBundle\Manager\Params\Infomarket\ContextParamsManager;
+use AppBundle\Manager\Params\Infomarket\MenuParamsManager;
 use AppBundle\Manager\Route\RouteManager;
+use AppBundle\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -47,7 +47,9 @@ abstract class InfomarketController extends StandardController
 	
 	
 	
-		$userRepository = $this->getDoctrine()->getRepository(User::class);
+		$em = $this->getDoctrine()->getManager();
+		
+		$userRepository = new UserRepository($em, $em->getClassMetadata(User::class)); //TODO make better SearchForm
 	
 		$searchFilter = new SimpleEntityFilter($userRepository);
 		$searchFilter->initValues($request);
@@ -105,7 +107,9 @@ abstract class InfomarketController extends StandardController
 	
 		
 		
-		$userRepository = $this->getDoctrine()->getRepository(User::class);
+		$em = $this->getDoctrine()->getManager();
+		
+		$userRepository = new UserRepository($em, $em->getClassMetadata(User::class)); //TODO make better SearchForm
 	
 		$searchFilter = new SimpleEntityFilter($userRepository);
 		$searchFilter->initValues($request);
@@ -152,7 +156,7 @@ abstract class InfomarketController extends StandardController
 		$apm = $this->getAdvertParamsManager();
 		$params = $apm->getParams($request, $params);
 		
-		$fpm = $this->getFooterParamsManager();
+		$fpm = $this->getMenuParamsManager();
 		$params = $fpm->getParams($request, $params);
 		
 		return $params;
@@ -173,45 +177,20 @@ abstract class InfomarketController extends StandardController
 			$lastRouteParams = array();
 		}
 	
-		return new InfomarketParamsManager($doctrine, $lastRouteParams);
+		return new ContextParamsManager($doctrine, $lastRouteParams);
 	}
 	
 	protected function getAdvertParamsManager() {
 		$doctrine = $this->getDoctrine();
 		$advertLocations = [Advert::TOP_LOCATION, Advert::SIDE_LOCATION];
 	
-		return new IMAdvertParamsManager($doctrine, $advertLocations);
+		return new AdvertParamsManager($doctrine, $advertLocations);
 	}
 	
-	protected function getFooterParamsManager() {
+	protected function getMenuParamsManager() {
 		$doctrine = $this->getDoctrine();
 		
-		return new IMMenuParamsManager($doctrine);
-	}
-    
-	
-	
-	
-	protected final function getFilterManager($doctrine) {
-		$efm = $this->getEntryFilterManager($doctrine);
-		$fm = new InfomarketFilterManager($efm);
-	
-		$fm->setFilterByBranches($this->isFilterByBranches());
-		$fm->setFilterByCategories($this->isFilterByCategories());
-	
-		return $fm;
-	}
-	
-	protected abstract function getEntryFilterManager($doctrine);
-	
-	
-	
-	protected function isFilterByBranches() {
-		return false;
-	}
-	
-	protected function isFilterByCategories() {
-		return false;
+		return new MenuParamsManager($doctrine);
 	}
 	
 	//---------------------------------------------------------------------------
@@ -244,6 +223,7 @@ abstract class InfomarketController extends StandardController
     //---------------------------------------------------------------------------
     // Routes
     //---------------------------------------------------------------------------
+    
     protected function getHomeRoute() {
     	return array('route' => $this->getIndexView(), 'routeParams' => array());
     }

@@ -7,10 +7,10 @@ use AppBundle\Entity\Category;
 use AppBundle\Manager\Entity\Base\EntityManager;
 use AppBundle\Manager\Entity\Common\CategoryManager;
 use AppBundle\Manager\Filter\Base\FilterManager;
+use AppBundle\Manager\Filter\Infomarket\IMSearchFilterManager;
+use AppBundle\Manager\Params\EntryParams\Infomarket\SearchEntryParamsManager;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-use AppBundle\Manager\Params\EntryParams\Infomarket\SearchEntryParamsManager;
-use AppBundle\Manager\Filter\Infomarket\IMSearchFilterManager;
 
 class SearchController extends InfomarketController
 {

@@ -4,10 +4,11 @@ namespace AppBundle\Controller\Admin;
 
 use AppBundle\Controller\Admin\Base\SimpleEntityController;
 use AppBundle\Entity\Link;
+use AppBundle\Filter\Admin\Main\LinkFilter;
 use AppBundle\Form\Editor\LinkEditorType;
-use AppBundle\Form\Filter\LinkFilterType;
+use AppBundle\Form\Filter\Admin\Main\LinkFilterType;
 use AppBundle\Manager\Entity\Common\LinkManager;
-use AppBundle\Manager\Filter\Common\LinkFilterManager;
+use AppBundle\Manager\Filter\Base\FilterManager;
 use Symfony\Component\HttpFoundation\Request;
 
 class LinkController extends SimpleEntityController {
@@ -119,7 +120,7 @@ class LinkController extends SimpleEntityController {
 	}
 	
 	protected function getFilterManager($doctrine) {
-		return new LinkFilterManager($doctrine);
+		return new FilterManager(new LinkFilter());
 	}
 	
 	//---------------------------------------------------------------------------

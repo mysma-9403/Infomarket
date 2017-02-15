@@ -7,7 +7,6 @@
 	<li class="col-xs-12 col-sm-6 col-md-4 col-lg-2">
 		{{ form_widget(filter.categories, { 'label': 'label.categories' }) }}
 	</li>
-	
 	<li class="col-xs-12 col-sm-6 col-md-4 col-lg-2">
 		{{ form_widget(filter.brands, { 'label': 'label.brands' }) }}
 	</li>
@@ -33,4 +32,14 @@
 			</a>
 		</div>
 	</li>
+{% endblock %}
+
+{% block headerMainFields1 %}
+	<th><i class="fa fa-"></i> {{ 'label.brand'|trans }}</th>
+{% endblock %}
+
+{% block entryMainFields1 %}
+	<td>
+		{% include 'common/links/simple_link.html.twig' with { type: 'brand', value: { id: item.brandId, name: item.brandName } } %}
+	</td>
 {% endblock %}

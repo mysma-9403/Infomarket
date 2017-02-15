@@ -3,11 +3,16 @@
 namespace AppBundle\Controller\Admin;
 
 use AppBundle\Controller\Admin\Base\BaseEntityController;
+use AppBundle\Entity\Article;
+use AppBundle\Entity\NewsletterBlock;
 use AppBundle\Entity\NewsletterBlockArticleAssignment;
+use AppBundle\Filter\Admin\Assignments\NewsletterBlockArticleAssignmentFilter;
 use AppBundle\Form\Editor\NewsletterBlockArticleAssignmentEditorType;
-use AppBundle\Form\Filter\NewsletterBlockArticleAssignmentFilterType;
+use AppBundle\Form\Filter\Admin\Assignments\NewsletterBlockArticleAssignmentFilterType;
 use AppBundle\Manager\Entity\Common\NewsletterBlockArticleAssignmentManager;
-use AppBundle\Manager\Filter\Common\NewsletterBlockArticleAssignmentFilterManager;
+use AppBundle\Manager\Filter\Base\FilterManager;
+use AppBundle\Repository\Admin\Main\ArticleRepository;
+use AppBundle\Repository\Admin\Main\NewsletterBlockRepository;
 use Symfony\Component\HttpFoundation\Request;
 
 class NewsletterBlockArticleAssignmentController extends BaseEntityController {
@@ -88,6 +93,24 @@ class NewsletterBlockArticleAssignmentController extends BaseEntityController {
 	}
 	
 	//---------------------------------------------------------------------------
+	// Internal logic
+	//---------------------------------------------------------------------------
+	
+	protected function getFormOptions() {
+		$options = parent::getFormOptions();
+	
+		/** @var NewsletterBlockRepository $newsletterBlockRepository */
+		$newsletterBlockRepository = $this->getDoctrine()->getRepository(NewsletterBlock::class);
+		$options['newsletterBlocks'] = $newsletterBlockRepository->findFilterItems();
+	
+		/** @var ArticleRepository $articleRepository */
+		$articleRepository = $this->getDoctrine()->getRepository(Article::class);
+		$options['articles'] = $articleRepository->findFilterItems();
+	
+		return $options;
+	}
+	
+	//---------------------------------------------------------------------------
 	// Managers
 	//---------------------------------------------------------------------------
 	
@@ -106,7 +129,7 @@ class NewsletterBlockArticleAssignmentController extends BaseEntityController {
 	 * @see \AppBundle\Controller\Base\BaseEntityController::getFilterManager()
 	 */
 	protected function getFilterManager($doctrine) {
-		return new NewsletterBlockArticleAssignmentFilterManager($doctrine);
+		return new FilterManager(new NewsletterBlockArticleAssignmentFilter());
 	}
 	
 	//---------------------------------------------------------------------------

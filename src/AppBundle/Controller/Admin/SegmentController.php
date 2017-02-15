@@ -6,7 +6,6 @@ use AppBundle\Controller\Admin\Base\ImageEntityController;
 use AppBundle\Entity\Segment;
 use AppBundle\Form\Editor\SegmentEditorType;
 use AppBundle\Manager\Entity\Common\SegmentManager;
-use AppBundle\Manager\Filter\Common\SegmentFilterManager;
 use Symfony\Component\HttpFoundation\Request;
 
 class SegmentController extends ImageEntityController {
@@ -115,10 +114,6 @@ class SegmentController extends ImageEntityController {
 	
 	protected function getEntityManager($doctrine, $paginator) {
 		return new SegmentManager($doctrine, $paginator);
-	}
-	
-	protected function getFilterManager($doctrine) {
-		return new SegmentFilterManager($doctrine);
 	}
 	
 	//------------------------------------------------------------------------

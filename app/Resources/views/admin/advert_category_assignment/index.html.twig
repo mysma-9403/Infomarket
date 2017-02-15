@@ -14,8 +14,14 @@
 
 {% block headerMainFields1 %}
 	<th><i class="fa fa-photo"></i> {{ 'label.advert'|trans }}</th>
+	<th><i class="fa fa-list"></i> {{ 'label.category'|trans }}</th>
 {% endblock %}
 
 {% block entryMainFields1 %}
-	<td>{{ item.advert.name }}</td>
+	<td>
+		{% include 'common/links/simple_link.html.twig' with { type: 'advert', value: { id: item.advertId, name: item.advertName } } %}
+	</td>
+	<td>
+		{% include 'common/links/simple_link.html.twig' with { type: 'category', value: { id: item.categoryId, name: item.categoryName } } %}
+	</td>
 {% endblock %}

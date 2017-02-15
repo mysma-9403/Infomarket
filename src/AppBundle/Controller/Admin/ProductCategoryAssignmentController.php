@@ -3,13 +3,20 @@
 namespace AppBundle\Controller\Admin;
 
 use AppBundle\Controller\Admin\Base\BaseEntityController;
+use AppBundle\Entity\Category;
+use AppBundle\Entity\Product;
 use AppBundle\Entity\ProductCategoryAssignment;
+use AppBundle\Filter\Admin\Assignments\ProductCategoryAssignmentFilter;
 use AppBundle\Form\Editor\ProductCategoryAssignmentEditorType;
-use AppBundle\Form\Filter\ProductCategoryAssignmentFilterType;
+use AppBundle\Form\Filter\Admin\Assignments\ProductCategoryAssignmentFilterType;
 use AppBundle\Manager\Entity\Common\ProductCategoryAssignmentManager;
-use AppBundle\Manager\Filter\Common\ProductCategoryAssignmentFilterManager;
-use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Manager\Filter\Base\FilterManager;
+use AppBundle\Repository\Admin\Main\CategoryRepository;
+use AppBundle\Repository\Admin\Main\ProductRepository;
 use AppBundle\Utils\ClassUtils;
+use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Entity\Brand;
+use AppBundle\Entity\Segment;
 
 class ProductCategoryAssignmentController extends BaseEntityController {
 	
@@ -139,6 +146,32 @@ class ProductCategoryAssignmentController extends BaseEntityController {
 	}
 	
 	//---------------------------------------------------------------------------
+	// Internal logic
+	//---------------------------------------------------------------------------
+	
+	protected function getFormOptions() {
+		$options = parent::getFormOptions();
+	
+		/** @var ProductRepository $productRepository */
+		$productRepository = $this->getDoctrine()->getRepository(Product::class);
+		$options['products'] = $productRepository->findFilterItems();
+	
+		/** @var BrandRepository $brandRepository */
+		$brandRepository = $this->getDoctrine()->getRepository(Brand::class);
+		$options['brands'] = $brandRepository->findFilterItems();
+		
+		/** @var SegmentRepository $segmentRepository */
+		$segmentRepository = $this->getDoctrine()->getRepository(Segment::class);
+		$options['segments'] = $segmentRepository->findFilterItems();
+		
+		/** @var CategoryRepository $categoryRepository */
+		$categoryRepository = $this->getDoctrine()->getRepository(Category::class);
+		$options['categories'] = $categoryRepository->findFilterItems();
+	
+		return $options;
+	}
+	
+	//---------------------------------------------------------------------------
 	// Managers
 	//---------------------------------------------------------------------------
 	
@@ -157,7 +190,7 @@ class ProductCategoryAssignmentController extends BaseEntityController {
 	 * @see \AppBundle\Controller\Base\BaseEntityController::getFilterManager()
 	 */
 	protected function getFilterManager($doctrine) {
-		return new ProductCategoryAssignmentFilterManager($doctrine);
+		return new FilterManager(new ProductCategoryAssignmentFilter());
 	}
 	
 	//---------------------------------------------------------------------------

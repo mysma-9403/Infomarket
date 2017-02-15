@@ -4,8 +4,7 @@ namespace AppBundle\Controller\Infoprodukt;
 
 use AppBundle\Controller\Infoprodukt\Base\InfoproduktController;
 use AppBundle\Entity\Magazine;
-use AppBundle\Manager\Entity\Common\MagazineManager;
-use AppBundle\Manager\Filter\Infoprodukt\IPMagazineFilterManager;
+use AppBundle\Manager\Entity\Infoprodukt\MagazineManager;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -64,10 +63,6 @@ class MagazineController extends InfoproduktController
 		$em->setEntriesPerPage(12);
 		
 		return $em;
-	}
-	
-	protected function getEntryFilterManager($doctrine) {
-		return new IPMagazineFilterManager($doctrine);
 	}
 	
 	//---------------------------------------------------------------------------

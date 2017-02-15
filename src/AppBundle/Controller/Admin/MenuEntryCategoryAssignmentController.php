@@ -3,11 +3,16 @@
 namespace AppBundle\Controller\Admin;
 
 use AppBundle\Controller\Admin\Base\BaseEntityController;
+use AppBundle\Entity\Category;
+use AppBundle\Entity\MenuEntry;
 use AppBundle\Entity\MenuEntryCategoryAssignment;
+use AppBundle\Filter\Admin\Assignments\MenuEntryCategoryAssignmentFilter;
 use AppBundle\Form\Editor\MenuEntryCategoryAssignmentEditorType;
-use AppBundle\Form\Filter\MenuEntryCategoryAssignmentFilterType;
+use AppBundle\Form\Filter\Admin\Assignments\MenuEntryCategoryAssignmentFilterType;
 use AppBundle\Manager\Entity\Common\MenuEntryCategoryAssignmentManager;
-use AppBundle\Manager\Filter\Common\MenuEntryCategoryAssignmentFilterManager;
+use AppBundle\Manager\Filter\Base\FilterManager;
+use AppBundle\Repository\Admin\Main\CategoryRepository;
+use AppBundle\Repository\Admin\Main\MenuEntryRepository;
 use Symfony\Component\HttpFoundation\Request;
 
 class MenuEntryCategoryAssignmentController extends BaseEntityController {
@@ -88,6 +93,24 @@ class MenuEntryCategoryAssignmentController extends BaseEntityController {
 	}
 	
 	//---------------------------------------------------------------------------
+	// Internal logic
+	//---------------------------------------------------------------------------
+	
+	protected function getFormOptions() {
+		$options = parent::getFormOptions();
+	
+		/** @var MenuEntryRepository $menuEntryRepository */
+		$menuEntryRepository = $this->getDoctrine()->getRepository(MenuEntry::class);
+		$options['menuEntries'] = $menuEntryRepository->findFilterItems();
+	
+		/** @var CategoryRepository $categoryRepository */
+		$categoryRepository = $this->getDoctrine()->getRepository(Category::class);
+		$options['categories'] = $categoryRepository->findFilterItems();
+	
+		return $options;
+	}
+	
+	//---------------------------------------------------------------------------
 	// Managers
 	//---------------------------------------------------------------------------
 	
@@ -106,7 +129,7 @@ class MenuEntryCategoryAssignmentController extends BaseEntityController {
 	 * @see \AppBundle\Controller\Base\BaseEntityController::getFilterManager()
 	 */
 	protected function getFilterManager($doctrine) {
-		return new MenuEntryCategoryAssignmentFilterManager($doctrine);
+		return new FilterManager(new MenuEntryCategoryAssignmentFilter());
 	}
 	
 	//---------------------------------------------------------------------------

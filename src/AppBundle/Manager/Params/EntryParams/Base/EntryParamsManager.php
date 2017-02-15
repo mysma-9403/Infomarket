@@ -30,18 +30,16 @@ class EntryParamsManager extends ParamsManager {
 	public function getIndexParams(Request $request, array $params, $page) {
 		$viewParams = $params['viewParams'];
 		$routeParams = $params['routeParams'];
-	
+		$contextParams = $params['contextParams'];
 		
-		$filter = $this->fm->createFromRequest($request, $params);
-		$routeParams = array_merge($routeParams, $filter->getValues()); //TODO getValues -> getParams?
-		$routeParams['page'] = $page;
-		
-		$filter = $this->fm->adaptToView($filter, $params);
+		$filter = $this->fm->createFromRequest($request, $contextParams);
 		$viewParams['entryFilter'] = $filter;
 	
 		$entries = $this->em->getEntries($filter, $page);
 		$viewParams['entries'] = $entries;
 	
+		$routeParams = array_merge($routeParams, $filter->getRequestValues()); //TODO getValues -> getParams?
+		$routeParams['page'] = $page;
 	
 		$params['viewParams'] = $viewParams;
 		$params['routeParams'] = $routeParams;

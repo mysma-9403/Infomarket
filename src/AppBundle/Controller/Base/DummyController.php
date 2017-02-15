@@ -38,6 +38,7 @@ abstract class DummyController extends Controller
 		
 		$params['domain'] = $this->getDomain();
 		$params['route'] = $route;
+		$params['contextParams'] = array();
 		$params['routeParams'] = array();
 		$params['viewParams'] = array();
 		

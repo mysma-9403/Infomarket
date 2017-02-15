@@ -6,7 +6,7 @@
 
     <entity name="AppBundle\Entity\Page" 
         table="pages"
-        repository-class="AppBundle\Repository\PageRepository">
+        repository-class="AppBundle\Repository\Admin\Main\PageRepository">
         
         <field name="subname" type="string" length="128" nullable="true"/>
         

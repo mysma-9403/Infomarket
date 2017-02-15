@@ -122,6 +122,13 @@ class Audit
         return $this->updatedAt;
     }
 
+    public function setId($id)
+    {
+    	$this->id = $id;
+    	
+    	return $this;
+    }
+    
     /**
      * Get id
      *

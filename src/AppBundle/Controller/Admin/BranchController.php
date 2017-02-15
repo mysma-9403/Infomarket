@@ -7,7 +7,6 @@ use AppBundle\Controller\Admin\Base\SimpleEntityController;
 use AppBundle\Entity\Branch;
 use AppBundle\Form\Editor\BranchEditorType;
 use AppBundle\Manager\Entity\Common\BranchManager;
-use AppBundle\Manager\Filter\Common\BranchFilterManager;
 use Symfony\Component\HttpFoundation\Request;
 
 class BranchController extends ImageEntityController {
@@ -129,10 +128,6 @@ class BranchController extends ImageEntityController {
 	
 	protected function getEntityManager($doctrine, $paginator) {
 		return new BranchManager($doctrine, $paginator);
-	}
-	
-	protected function getFilterManager($doctrine) {
-		return new BranchFilterManager($doctrine);
 	}
 	
 	

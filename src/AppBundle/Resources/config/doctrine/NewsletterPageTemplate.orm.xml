@@ -6,7 +6,7 @@
 
     <entity name="AppBundle\Entity\NewsletterPageTemplate" 
         table="newsletter_page_templates"
-        repository-class="AppBundle\Repository\NewsletterPageTemplateRepository">
+        repository-class="AppBundle\Repository\Admin\Main\NewsletterPageTemplateRepository">
         
         <field name="style" type="text" nullable="true" />
         <field name="content" type="text" nullable="false" />

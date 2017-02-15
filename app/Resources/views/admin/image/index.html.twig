@@ -9,14 +9,14 @@
 {% block entryMainFields1 %}
 	<td>
 		<div class="table-circle-30 bkg-white">
-			{% if item.image %}
-				{% if item.mimeType == "application/x-shockwave-flash" %}
-					<embed class="div-center img-{{ item.vertical ? '' : 'v' }}responsive" src="{{ asset(item.image) }}">
-				{% else %}
-					<img class="div-center img-{{ item.vertical ? '' : 'v' }}responsive" 
-						alt="{{ item.name | raw }}" src="{{ asset(item.image) }}" />
-				{% endif %}
-			{% endif %}
+{# 			{% if item.image %}#}
+{# 				{% if item.mimeType == "application/x-shockwave-flash" %}#}
+{# 					<embed class="div-center img-{{ item.vertical ? '' : 'v' }}responsive" src="{{ asset(item.image) }}">#}
+{# 				{% else %}#}
+{# 					<img class="div-center img-{{ item.vertical ? '' : 'v' }}responsive" #}
+{# 						alt="{{ item.name | raw }}" src="{{ asset(item.image) }}" />#}
+{# 				{% endif %}#}
+{# 			{% endif %}#}
 		</div>
 	</td>
 {% endblock %}	        

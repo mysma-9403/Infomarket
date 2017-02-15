@@ -8,25 +8,14 @@
 		{{ form_widget(filter.locations, { 'label': 'label.advert.locations' }) }}
 	</li>
 	<li class="col-xs-12 col-sm-6 col-md-4 col-lg-2">
+		{{ form_widget(filter.categories, { 'label': 'label.categories' }) }}
+	</li>
+	<li class="col-xs-12 col-sm-6 col-md-4 col-lg-2">
 		{{ form_widget(filter.link, { 'label': 'label.advert.link' }) }}
-	</li>
-	<li class="col-xs-12 col-sm-6 col-md-4 col-lg-2">
-		{{ form_widget(filter.showCount, { 'label': 'label.advert.showCount' }) }}
-	</li>
-	<li class="col-xs-12 col-sm-6 col-md-4 col-lg-2">
-		{{ form_widget(filter.showLimit, { 'label': 'label.advert.showLimit' }) }}
-	</li>
-	<li class="col-xs-12 col-sm-6 col-md-4 col-lg-2">
-		{{ form_widget(filter.clickCount, { 'label': 'label.advert.clickCount' }) }}
-	</li>
-	<li class="col-xs-12 col-sm-6 col-md-4 col-lg-2">
-		{{ form_widget(filter.clickLimit, { 'label': 'label.advert.clickLimit' }) }}
 	</li>
 {% endblock %}
 
-{% block headerMoreFields2 %}
-	<th><i class="fa fa-arrows"></i> {{ 'label.advert.location'|trans }}</th>
-	
+{% block headerMoreFields3 %}
 	<th><i class="fa fa-globe"></i> {{ 'label.advert.link'|trans }}</th>
 	
 	<th><i class="fa fa-eye"></i> {{ 'label.advert.showCount'|trans }}</th>
@@ -35,9 +24,7 @@
 	<th><i class="fa fa-hand-stop-o"></i> {{ 'label.advert.clickLimit'|trans }}</th>
 {% endblock %}
 
-{% block entryMoreFields2 %}
-	<td>{{ item.location }}</td>
-	
+{% block entryMoreFields3 %}
 	<td>{{ item.link}}</td>
 	
 	<td>{{ item.showCount }}</td>

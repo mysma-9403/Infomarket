@@ -9,6 +9,7 @@ use AppBundle\Entity\ArticleBrandAssignment;
 use AppBundle\Entity\ArticleCategory;
 use AppBundle\Entity\ArticleCategoryAssignment;
 use AppBundle\Entity\ArticleTagAssignment;
+use AppBundle\Entity\Category;
 use AppBundle\Entity\Filter\Base\BaseEntityFilter;
 use AppBundle\Repository\ArticleCategoryRepository;
 use AppBundle\Repository\BrandRepository;
@@ -19,31 +20,6 @@ use Symfony\Component\HttpFoundation\Request;
 
 class ArticleFilter extends SimpleEntityFilter {
 	
-	/**
-	 * @var ArticleCategoryRepository
-	 */
-	protected $articleCategoryRepository;
-	
-	/**
-	 * @var CategoryRepository
-	 */
-	protected $categoryRepository;
-	
-	/**
-	 * @var BrandRepository
-	 */
-	protected $brandRepository;
-	
-	/**
-	 * @var TagRepository
-	 */
-	protected $tagRepository;
-	
-	/**
-	 * 
-	 * @param ArticleCategoryRepository $articleCategoryRepository
-	 * @param CategoryRepository $categoryRepository
-	 */
 	public function __construct(
 			UserRepository $userRepository,
 			ArticleCategoryRepository $articleCategoryRepository, 
@@ -52,11 +28,6 @@ class ArticleFilter extends SimpleEntityFilter {
 			TagRepository $tagRepository) {
 		
 		parent::__construct($userRepository);
-		
-		$this->articleCategoryRepository = $articleCategoryRepository;
-		$this->categoryRepository = $categoryRepository;
-		$this->brandRepository = $brandRepository;
-		$this->tagRepository = $tagRepository;
 		
 		$this->filterName = 'article_filter_';
 		
@@ -77,23 +48,17 @@ class ArticleFilter extends SimpleEntityFilter {
 	protected function initMoreValues(Request $request) {
 		parent::initMoreValues($request);
 	
-		$articleCategories = $request->get($this->getFilterName() . 'article_categories', array());
-		$this->articleCategories = $this->articleCategoryRepository->findBy(array('id' => $articleCategories));
+		$this->articleCategories = $request->get($this->getFilterName() . 'article_categories', array());
 		
-		$categories = $request->get($this->getFilterName() . 'categories', array());
-		$this->categories = $this->categoryRepository->findBy(array('id' => $categories));
+		$this->categories = $request->get($this->getFilterName() . 'categories', array());
 		
-		$hiddenCategories = $request->get($this->getFilterName() . 'hidden_categories', array());
-		$this->hiddenCategories = $this->categoryRepository->findBy(array('id' => $hiddenCategories));
+		$this->hiddenCategories = $request->get($this->getFilterName() . 'hidden_categories', array());
 		
-		$brands = $request->get($this->getFilterName() . 'brands', array());
-		$this->brands = $this->brandRepository->findBy(array('id' => $brands));
+		$this->brands = $request->get($this->getFilterName() . 'brands', array());
 		
-		$tags = $request->get($this->getFilterName() . 'tags', array());
-		$this->tags = $this->tagRepository->findBy(array('id' => $tags));
+		$this->tags = $request->get($this->getFilterName() . 'tags', array());
 		
-		$parents = $request->get($this->getFilterName() . 'parents', array());
-		$this->parents = $this->categoryRepository->findBy(array('id' => $parents));
+		$this->parents = $request->get($this->getFilterName() . 'parents', array());
 		
 		$this->pages = $request->get($this->getFilterName() . 'pages', array());
 		
@@ -148,27 +113,27 @@ class ArticleFilter extends SimpleEntityFilter {
 		$values = parent::getValues();
 	
 		if($this->articleCategories) {
-			$values[$this->getFilterName() . 'article_categories'] = $this->getIdValues($this->articleCategories);
+			$values[$this->getFilterName() . 'article_categories'] = $this->articleCategories;
 		}
 		
 		if($this->categories) {
-			$values[$this->getFilterName() . 'categories'] = $this->getIdValues($this->categories);
+			$values[$this->getFilterName() . 'categories'] = $this->categories;
 		}
 		
 		if($this->hiddenCategories) {
-			$values[$this->getFilterName() . 'hidden_categories'] = $this->getIdValues($this->hiddenCategories);
+			$values[$this->getFilterName() . 'hidden_categories'] = $this->hiddenCategories;
 		}
 		
 		if($this->brands) {
-			$values[$this->getFilterName() . 'brands'] = $this->getIdValues($this->brands);
+			$values[$this->getFilterName() . 'brands'] = $this->brands;
 		}
 		
 		if($this->tags) {
-			$values[$this->getFilterName() . 'tags'] = $this->getIdValues($this->tags);
+			$values[$this->getFilterName() . 'tags'] = $this->tags;
 		}
 		
 		if($this->parents) {
-			$values[$this->getFilterName() . 'parents'] = $this->getIdValues($this->parents);
+			$values[$this->getFilterName() . 'parents'] = $this->parents;
 		}
 		
 		if($this->pages) {
@@ -201,27 +166,27 @@ class ArticleFilter extends SimpleEntityFilter {
 		$expressions = parent::getWhereExpressions();
 		
 		if($this->articleCategories) {
-			$expressions[] = $this->getEqualArrayExpression('aaca.articleCategory', $this->articleCategories);
+			$expressions[] = $this->getEqualNumberArrayExpression('aaca.articleCategory', $this->articleCategories);
 		}
 		
 		if($this->categories) {
-			$expressions[] = $this->getEqualArrayExpression('aca.category', $this->categories);
+			$expressions[] = $this->getEqualNumberArrayExpression('aca.category', $this->categories);
 		}
 		
 		if($this->hiddenCategories) {
-			$expressions[] = $this->getEqualArrayExpression('aca.category', $this->hiddenCategories);
+			$expressions[] = $this->getEqualNumberArrayExpression('aca.category', $this->hiddenCategories);
 		}
 		
 		if($this->branches) {
-			$expressions[] = $this->getEqualArrayExpression('bca.branch', $this->branches);
+			$expressions[] = $this->getEqualNumberArrayExpression('bca.branch', $this->branches);
 		}
 		
 		if($this->brands) {
-			$expressions[] = $this->getEqualArrayExpression('aba.brand', $this->brands);
+			$expressions[] = $this->getEqualNumberArrayExpression('aba.brand', $this->brands);
 		}
 		
 		if($this->tags) {
-			$expressions[] = $this->getEqualArrayExpression('ata.tag', $this->tags);
+			$expressions[] = $this->getEqualNumberArrayExpression('ata.tag', $this->tags);
 		}
 		
 		if($this->pages) {
@@ -244,7 +209,7 @@ class ArticleFilter extends SimpleEntityFilter {
 			}
 			
 			if($this->parents) {
-				$expressions[] = $this->getEqualArrayExpression('e.parent', $this->parents);
+				$expressions[] = $this->getEqualNumberArrayExpression('e.parent', $this->parents);
 			}
 		}
 		

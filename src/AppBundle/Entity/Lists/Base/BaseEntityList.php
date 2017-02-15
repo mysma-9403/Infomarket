@@ -2,17 +2,11 @@
 
 namespace AppBundle\Entity\Lists\Base;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 
 class BaseEntityList
 {
-	protected $entries;
-
-	public function __construct()
-	{
-		$this->entries = new ArrayCollection();
-	}
+	protected $entries = array();
 
     /**
      * Add entry
@@ -35,7 +29,9 @@ class BaseEntityList
      */
     public function removeEntry($entry)
     {
-        $this->entries->removeElement($entry);
+    	if(($key = array_search($entry, $this->entries)) !== false) {
+    		unset($this->entries[$key]);
+    	}
     }
 
     /**

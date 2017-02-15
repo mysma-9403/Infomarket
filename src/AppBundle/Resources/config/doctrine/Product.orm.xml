@@ -6,7 +6,7 @@
 
     <entity name="AppBundle\Entity\Product" 
         table="products"
-        repository-class="AppBundle\Repository\ProductRepository">
+        repository-class="AppBundle\Repository\Admin\Main\ProductRepository">
         
         <many-to-one field="brand" target-entity="Brand" inversed-by="products" nullable="false" />
         

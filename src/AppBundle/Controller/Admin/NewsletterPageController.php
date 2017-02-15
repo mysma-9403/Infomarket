@@ -4,10 +4,13 @@ namespace AppBundle\Controller\Admin;
 
 use AppBundle\Controller\Admin\Base\SimpleEntityController;
 use AppBundle\Entity\NewsletterPage;
+use AppBundle\Entity\NewsletterPageTemplate;
+use AppBundle\Filter\Admin\Main\NewsletterPageFilter;
 use AppBundle\Form\Editor\NewsletterPageEditorType;
-use AppBundle\Form\Filter\NewsletterPageFilterType;
+use AppBundle\Form\Filter\Admin\Main\NewsletterPageFilterType;
 use AppBundle\Manager\Entity\Common\NewsletterPageManager;
-use AppBundle\Manager\Filter\Common\NewsletterPageFilterManager;
+use AppBundle\Manager\Filter\Base\FilterManager;
+use AppBundle\Repository\Admin\Main\NewsletterPageTemplateRepository;
 use Symfony\Component\HttpFoundation\Request;
 
 class NewsletterPageController extends SimpleEntityController {
@@ -112,6 +115,20 @@ class NewsletterPageController extends SimpleEntityController {
 	}
 	
 	//---------------------------------------------------------------------------
+	// Internal logic
+	//---------------------------------------------------------------------------
+	
+	protected function getFormOptions() {
+		$options = parent::getFormOptions();
+	
+		/** @var NewsletterPageTemplateRepository $newsletterPageTemplateRepository */
+		$newsletterPageTemplateRepository = $this->getDoctrine()->getRepository(NewsletterPageTemplate::class);
+		$options['newsletterPageTemplates'] = $newsletterPageTemplateRepository->findFilterItems();
+	
+		return $options;
+	}
+	
+	//---------------------------------------------------------------------------
 	// Managers
 	//---------------------------------------------------------------------------
 	
@@ -120,7 +137,7 @@ class NewsletterPageController extends SimpleEntityController {
 	}
 	
 	protected function getFilterManager($doctrine) {
-		return new NewsletterPageFilterManager($doctrine);
+		return new FilterManager(new NewsletterPageFilter());
 	}
 	
 	//---------------------------------------------------------------------------

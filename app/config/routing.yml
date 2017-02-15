@@ -39,6 +39,11 @@ infoprodukt_category_show:
     host:      infoprodukt.loc
     defaults:  { _controller: "AppBundle:Infoprodukt/Category:show" }
 
+infoprodukt_link_show:
+    path:      /links/show/{id}
+    host:      infoprodukt.loc
+    defaults:  { _controller: "AppBundle:Infoprodukt/Link:show" }
+    
 infoprodukt_magazine_open:
     path:      /magazines/open/{id}
     host:      infoprodukt.loc
@@ -48,7 +53,7 @@ infoprodukt_magazine:
     path:      /magazines/{page}
     host:      infoprodukt.loc
     defaults:  { _controller: "AppBundle:Infoprodukt/Magazine:index", page: 1 }
-    
+        
 infoprodukt_page_show:
     path:      /pages/show/{id}
     host:      infoprodukt.loc
@@ -119,7 +124,12 @@ infoprodukt_category_show_subdomain:
     path:      /categories/show/{id}
     host:      "{subdomain}.infoprodukt.loc"
     defaults:  { _controller: "AppBundle:Infoprodukt/Category:show", subdomain: "" }
-    
+
+infoprodukt_link_show_subdomain:
+    path:      /links/show/{id}
+    host:      "{subdomain}.infoprodukt.loc"
+    defaults:  { _controller: "AppBundle:Infoprodukt/Link:show", subdomain: "" }
+        
 infoprodukt_magazine_open_subdomain:
     path:      /magazines/open/{id}
     host:      "{subdomain}.infoprodukt.loc"
@@ -194,6 +204,22 @@ infomarket_category_show:
     path:      /categories/show/{id}
     defaults:  { _controller: "AppBundle:Infomarket/Category:show" }
 
+infomarket_link_show:
+    path:      /links/show/{id}
+    defaults:  { _controller: "AppBundle:Infomarket/Link:show" }
+
+infomarket_magazine_show:
+    path:      /magazines/show/{id}
+    defaults:  { _controller: "AppBundle:Infomarket/Magazine:show" }
+
+infomarket_magazine_open:
+    path:      /magazines/open/{id}
+    defaults:  { _controller: "AppBundle:Infomarket/Magazine:open" }
+                
+infomarket_magazine:
+    path:      /magazines/{page}
+    defaults:  { _controller: "AppBundle:Infomarket/Magazine:index", page: 1 }
+        
 infomarket_page_show:
     path:      /pages/show/{id}
     defaults:  { _controller: "AppBundle:Infomarket/Page:show" }
@@ -213,18 +239,6 @@ infomarket_term:
 infomarket_term_show:
     path:      /terms/show/{id}
     defaults:  { _controller: "AppBundle:Infomarket/Term:show" }
-    
-infomarket_magazine_show:
-    path:      /magazines/show/{id}
-    defaults:  { _controller: "AppBundle:Infomarket/Magazine:show" }
-
-infomarket_magazine_open:
-    path:      /magazines/open/{id}
-    defaults:  { _controller: "AppBundle:Infomarket/Magazine:open" }
-                
-infomarket_magazine:
-    path:      /magazines/{page}
-    defaults:  { _controller: "AppBundle:Infomarket/Magazine:index", page: 1 }
 
 infomarket_search:
     path:      /search

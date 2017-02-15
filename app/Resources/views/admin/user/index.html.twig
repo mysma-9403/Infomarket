@@ -24,9 +24,6 @@
 	<li class="col-xs-12 col-sm-6 col-md-4 col-lg-2">
 		{{ form_widget(filter.forename, { 'label': 'label.user.forename' }) }}
 	</li>
-	<li class="col-xs-12 col-sm-6 col-md-4 col-lg-2">
-		{{ form_widget(filter.email, { 'label': 'label.user.email' }) }}
-	</li>
 {% endblock %}
 
 
@@ -36,7 +33,6 @@
 {% block headerMainFields2 %}
 	<th>{{ 'label.user.surname'|trans }}</th>
 	<th>{{ 'label.user.forename'|trans }}</th>
-	<th>{{ 'label.user.email'|trans }}</th>
 {% endblock %}
 	
 {% block headerMainFields3 %}
@@ -51,9 +47,6 @@
 		{% set hidden="" %}
 	{% endif %}
 	
-	<li class="hidden">
-		{{ form_widget(form.new, { 'icon': 'fa-file-o', 'label': 'action.new', 'attr': {'class': 'btn btn-success', 'type': 'button'} }) }}
-	</li>
 	<li>
 		<div class="btn-group {{ hidden }}">
 			{{ form_widget(form.selectAll, { 'icon': 'fa-check-square-o', 'label': 'action.selectAll', 'attr': {'class': 'btn btn-primary', 'type': 'button'} }) }}
@@ -73,7 +66,6 @@
 {% block entryMainFields2 %}
 	<td>{{ item.surname }}</td>
 	<td>{{ item.forename }}</td>
-	<td>{{ item.email }}</td>
 {% endblock %}
 
 {% block entryMainFields3 %}

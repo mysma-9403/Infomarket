@@ -6,7 +6,6 @@ use AppBundle\Controller\Admin\Base\SimpleEntityController;
 use AppBundle\Entity\Tag;
 use AppBundle\Form\Editor\TagEditorType;
 use AppBundle\Manager\Entity\Common\TagManager;
-use AppBundle\Manager\Filter\Common\TagFilterManager;
 use Symfony\Component\HttpFoundation\Request;
 
 class TagController extends SimpleEntityController {
@@ -128,10 +127,6 @@ class TagController extends SimpleEntityController {
 	
 	protected function getEntityManager($doctrine, $paginator) {
 		return new TagManager($doctrine, $paginator);
-	}
-	
-	protected function getFilterManager($doctrine) {
-		return new TagFilterManager($doctrine);
 	}
 	
 	

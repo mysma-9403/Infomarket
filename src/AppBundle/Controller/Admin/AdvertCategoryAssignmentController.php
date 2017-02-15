@@ -3,11 +3,16 @@
 namespace AppBundle\Controller\Admin;
 
 use AppBundle\Controller\Admin\Base\BaseEntityController;
+use AppBundle\Entity\Advert;
 use AppBundle\Entity\AdvertCategoryAssignment;
+use AppBundle\Entity\Category;
+use AppBundle\Filter\Admin\Assignments\AdvertCategoryAssignmentFilter;
 use AppBundle\Form\Editor\AdvertCategoryAssignmentEditorType;
-use AppBundle\Form\Filter\AdvertCategoryAssignmentFilterType;
+use AppBundle\Form\Filter\Admin\Assignments\AdvertCategoryAssignmentFilterType;
 use AppBundle\Manager\Entity\Common\AdvertCategoryAssignmentManager;
-use AppBundle\Manager\Filter\Common\AdvertCategoryAssignmentFilterManager;
+use AppBundle\Manager\Filter\Base\FilterManager;
+use AppBundle\Repository\Admin\Main\AdvertRepository;
+use AppBundle\Repository\Admin\Main\CategoryRepository;
 use Symfony\Component\HttpFoundation\Request;
 
 class AdvertCategoryAssignmentController extends BaseEntityController {
@@ -88,6 +93,24 @@ class AdvertCategoryAssignmentController extends BaseEntityController {
 	}
 	
 	//---------------------------------------------------------------------------
+	// Internal logic
+	//---------------------------------------------------------------------------
+	
+	protected function getFormOptions() {
+		$options = parent::getFormOptions();
+	
+		/** @var AdvertRepository $advertRepository */
+		$advertRepository = $this->getDoctrine()->getRepository(Advert::class);
+		$options['adverts'] = $advertRepository->findFilterItems();
+		
+		/** @var CategoryRepository $categoryRepository */
+		$categoryRepository = $this->getDoctrine()->getRepository(Category::class);
+		$options['categories'] = $categoryRepository->findFilterItems();
+	
+		return $options;
+	}
+	
+	//---------------------------------------------------------------------------
 	// Managers
 	//---------------------------------------------------------------------------
 	
@@ -106,7 +129,7 @@ class AdvertCategoryAssignmentController extends BaseEntityController {
 	 * @see \AppBundle\Controller\Base\BaseEntityController::getFilterManager()
 	 */
 	protected function getFilterManager($doctrine) {
-		return new AdvertCategoryAssignmentFilterManager($doctrine);
+		return new FilterManager(new AdvertCategoryAssignmentFilter());
 	}
 	
 	//---------------------------------------------------------------------------

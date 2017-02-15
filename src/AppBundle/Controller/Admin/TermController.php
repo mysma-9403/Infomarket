@@ -3,10 +3,14 @@
 namespace AppBundle\Controller\Admin;
 
 use AppBundle\Controller\Admin\Base\SimpleEntityController;
+use AppBundle\Entity\Category;
 use AppBundle\Entity\Term;
+use AppBundle\Filter\Admin\Main\TermFilter;
 use AppBundle\Form\Editor\TermEditorType;
+use AppBundle\Form\Filter\Admin\Main\TermFilterType;
 use AppBundle\Manager\Entity\Common\TermManager;
-use AppBundle\Manager\Filter\Common\TermFilterManager;
+use AppBundle\Manager\Filter\Base\FilterManager;
+use AppBundle\Repository\Admin\Main\CategoryRepository;
 use Symfony\Component\HttpFoundation\Request;
 
 class TermController extends SimpleEntityController {
@@ -123,6 +127,20 @@ class TermController extends SimpleEntityController {
 	}
 	
 	//---------------------------------------------------------------------------
+	// Internal logic
+	//---------------------------------------------------------------------------
+	
+	protected function getFormOptions() {
+		$options = parent::getFormOptions();
+	
+		/** @var CategoryRepository $categoryRepository */
+		$categoryRepository = $this->getDoctrine()->getRepository(Category::class);
+		$options['categories'] = $categoryRepository->findFilterItems();
+	
+		return $options;
+	}
+	
+	//---------------------------------------------------------------------------
 	// Managers
 	//---------------------------------------------------------------------------
 	
@@ -131,7 +149,7 @@ class TermController extends SimpleEntityController {
 	}
 	
 	protected function getFilterManager($doctrine) {
-		return new TermFilterManager($doctrine);
+		return new FilterManager(new TermFilter());
 	}
 	
 	
@@ -160,5 +178,9 @@ class TermController extends SimpleEntityController {
 	 */
 	protected function getEditorFormType() {
 		return TermEditorType::class;
+	}
+	
+	protected function getFilterFormType() {
+		return TermFilterType::class;
 	}
 }

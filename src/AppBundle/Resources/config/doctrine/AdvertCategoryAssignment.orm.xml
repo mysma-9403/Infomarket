@@ -6,7 +6,7 @@
 
     <entity name="AppBundle\Entity\AdvertCategoryAssignment" 
         table="advert_category_assignments"
-        repository-class="AppBundle\Repository\AdvertCategoryAssignmentRepository">
+        repository-class="AppBundle\Repository\Admin\Assignments\AdvertCategoryAssignmentRepository">
         
         <many-to-one field="advert" target-entity="Advert" inversed-by="advertCategoryAssignments" />
         <many-to-one field="category" target-entity="Category" inversed-by="advertCategoryAssignments" />

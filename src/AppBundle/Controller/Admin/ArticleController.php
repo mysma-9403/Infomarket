@@ -5,14 +5,20 @@ namespace AppBundle\Controller\Admin;
 use AppBundle\Controller\Admin\Base\ImageEntityController;
 use AppBundle\Controller\Admin\Base\SimpleEntityController;
 use AppBundle\Entity\Article;
+use AppBundle\Entity\ArticleCategory;
+use AppBundle\Entity\Category;
+use AppBundle\Filter\Admin\Main\ArticleFilter;
 use AppBundle\Form\Editor\ArticleEditorType;
-use AppBundle\Form\Filter\ArticleFilterType;
+use AppBundle\Form\Filter\Admin\Main\ArticleFilterType;
 use AppBundle\Manager\Entity\Base\EntityManager;
 use AppBundle\Manager\Entity\Common\ArticleManager;
 use AppBundle\Manager\Filter\Base\FilterManager;
-use AppBundle\Manager\Filter\Common\ArticleFilterManager;
 use AppBundle\Manager\Params\EntryParams\Common\ArticleEntryParamsManager;
+use AppBundle\Repository\Admin\Main\ArticleCategoryRepository;
+use AppBundle\Repository\Admin\Main\CategoryRepository;
 use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Repository\Admin\Main\BrandRepository;
+use AppBundle\Entity\Brand;
 
 class ArticleController extends ImageEntityController {
 	
@@ -171,6 +177,28 @@ class ArticleController extends ImageEntityController {
 	}
 	
 	//---------------------------------------------------------------------------
+	// Internal logic
+	//---------------------------------------------------------------------------
+	
+	protected function getFormOptions() {
+		$options = parent::getFormOptions();
+	
+		/** @var BrandRepository $brandRepository */
+		$brandRepository = $this->getDoctrine()->getRepository(Brand::class);
+		$options['brands'] = $brandRepository->findFilterItems();
+		
+		/** @var CategoryRepository $categoryRepository */
+		$categoryRepository = $this->getDoctrine()->getRepository(Category::class);
+		$options['categories'] = $categoryRepository->findFilterItems();
+		
+		/** @var ArticleCategoryRepository $branchRepository */
+		$articleCategoryRepository = $this->getDoctrine()->getRepository(ArticleCategory::class);
+		$options['articleCategories'] = $articleCategoryRepository->findFilterItems();
+	
+		return $options;
+	}
+	
+	//---------------------------------------------------------------------------
 	// Managers
 	//---------------------------------------------------------------------------
 	
@@ -184,7 +212,7 @@ class ArticleController extends ImageEntityController {
 	}
 	
 	protected function getFilterManager($doctrine) {
-		return new ArticleFilterManager($doctrine);
+		return new FilterManager(new ArticleFilter());
 	}
 	
 	//---------------------------------------------------------------------------

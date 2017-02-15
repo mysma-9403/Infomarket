@@ -4,6 +4,7 @@ namespace AppBundle\Entity\Filter\Base;
 
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Repository\UserRepository;
+use AppBundle\Entity\User;
 
 class BaseEntityFilter {
 	
@@ -169,7 +170,13 @@ class BaseEntityFilter {
 	/**
 	 * @return array
 	 */
-	protected function getJoinExpressions() { }
+	protected function getJoinExpressions() { 
+		return array();
+	}
+	
+	public function getJoins() {
+		return array('u' => User::class);
+	}
 	
 	//TODO check if simple findBy can replace this
 	/**

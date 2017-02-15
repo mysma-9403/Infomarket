@@ -7,7 +7,7 @@
 
     <entity name="AppBundle\Entity\MenuEntry" 
         table="menu_entries"
-        repository-class="AppBundle\Repository\MenuEntryRepository">
+        repository-class="AppBundle\Repository\Admin\Main\MenuEntryRepository">
         
         <field name="orderNumber" type="integer" default="1" />
         

@@ -2,7 +2,6 @@
 
 namespace AppBundle\Form\Lists\Base;
 
-use AppBundle\Entity\Base\SimpleEntity;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 
@@ -22,14 +21,5 @@ class SimpleEntityListType extends BaseEntityListType
 		->add('ipPublishSelected', SubmitType::class)
 		->add('ipUnpublishSelected', SubmitType::class)
 		;
-	}
-	
-	/**
-	 * Get listed entitys' type.
-	 *
-	 * @return mixed (e.g <strong>Product::class</strong>)
-	 */
-	protected function getChoiceType() {
-		return SimpleEntity::class;
 	}
 }

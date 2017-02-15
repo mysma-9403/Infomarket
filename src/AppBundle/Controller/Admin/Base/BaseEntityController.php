@@ -2,18 +2,33 @@
 
 namespace AppBundle\Controller\Admin\Base;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use AppBundle\Entity\Lists\Base\BaseEntityList;
-use AppBundle\Form\Lists\Base\BaseEntityListType;
+use AppBundle\Entity\User;
+use AppBundle\Filter\Admin\Base\AuditFilter;
 use AppBundle\Form\Editor\Base\BaseEntityEditorType;
 use AppBundle\Form\Filter\Base\BaseEntityFilterType;
-use AppBundle\Manager\Filter\Base\BaseEntityFilterManager;
+use AppBundle\Form\Lists\Base\BaseEntityListType;
+use AppBundle\Manager\Filter\Base\FilterManager;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use AppBundle\Repository\Admin\Main\UserRepository;
 
 
 
 abstract class BaseEntityController extends AdminController
-{
+{	
+	//---------------------------------------------------------------------------
+	// Internal logic
+	//---------------------------------------------------------------------------
 	
+	protected function getFormOptions() {
+		$options = parent::getFormOptions();
+		
+		/** @var UserRepository $userRepository */
+		$userRepository = $this->getDoctrine()->getRepository(User::class);
+		$options['users'] = $userRepository->findFilterItems();
+		
+		return $options;
+	}
 	
 	//---------------------------------------------------------------------------
 	// Managers
@@ -24,7 +39,7 @@ abstract class BaseEntityController extends AdminController
 	 * @see \AppBundle\Controller\Base\BaseEntityController::getFilterManager()
 	 */
 	protected function getFilterManager($doctrine) {	
-		return new BaseEntityFilterManager($doctrine);
+		return new FilterManager(new AuditFilter());
 	}
 	
 	//---------------------------------------------------------------------------

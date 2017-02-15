@@ -23,9 +23,9 @@
 								<div class="article-rect">
 					      			<a class="text-white" href="{{ path('infomarket_article_show', { id: article.id }) }}">
 						      			<h3>
-											{% for articleBrandAssignment in article.articleBrandAssignments %}
-							      				{{ articleBrandAssignment.brand.name }} 
-						      				{% endfor %}&nbsp
+{# 											{% for articleBrandAssignment in article.articleBrandAssignments %}#}
+{# 							      				{{ articleBrandAssignment.brand.name }} #}
+{# 						      				{% endfor %}&nbsp#}
 					      				</h3>
 						      			<h4>
 						      				{{ article.name }} {{ article.subname }}
@@ -44,15 +44,14 @@
 		<div class="row">
 			<div class="col-xs-12">
 				<h4 class="section title">
-					<span class="branch-color-{{ branch.id }}">{{ newsCategory.name | raw }}</span>
+					<span class="branch-color-{{ contextBranchId }}">{{ newsCategory.name | raw }}</span>
 					<span class="text-brand">{{ newsCategory.subname | raw }}</span>
 				</h4>
 			</div>
 		</div>
 		
 		<div class="row">			
-			{% if newsArticles | length > 0 %}
-				{% set article = newsArticles|first %}
+			{% for article in newsArticles %}
 				<div class="col-sm-4 padding-5">
 					<a class="text-white" href="{{ path(basePath ~ 'article_show', 
 						{ id: article.id, article_filter_article_categories: newsCategory.id }) }}">
@@ -66,9 +65,9 @@
 								<div class="default-tile">
 									<div class="tile default">
 										<h4 class="title">
-											{% for articleBrandAssignment in article.articleBrandAssignments %}
-							      				{{ articleBrandAssignment.brand.name }} 
-						      				{% endfor %}&nbsp
+{# 											{% for articleBrandAssignment in article.articleBrandAssignments %}#}
+{# 							      				{{ articleBrandAssignment.brand.name }} #}
+{# 						      				{% endfor %}&nbsp#}
 					      				</h4>
 						      			<h5>
 						      				{{ article.name }} {{ article.subname }}
@@ -79,70 +78,42 @@
 						</div>
 					</a>
 				</div>					
-			{% endif %}
+			{% endfor %}
 			
-			{% if newsArticles | length > 1 %}
-				{% set article = newsArticles|slice(1)|first %}
-				<div class="col-sm-4 padding-5">
-					<a class="text-white" href="{{ path(basePath ~ 'article_show', 
-						{ id: article.id, article_filter_article_categories: newsCategory.id }) }}">
-						<div class="rect col-bottom bkg-white">
-							{% if article.image %}
-								<img class="div-center img-{{ article.vertical ? '' : 'v' }}responsive" 
-									alt="{{ article.name | raw }}" src="{{ asset(article.image) }}">
-							{% endif %}
-							
-							<div class="col-xs-12 div-bottom bkg-black-50">
-								<div class="tile default">
-									<h4 class="title">
-										{% for articleBrandAssignment in article.articleBrandAssignments %}
-						      				{{ articleBrandAssignment.brand.name }} 
-					      				{% endfor %}&nbsp
-				      				</h4>
-					      			<h5>
-					      				{{ article.name }} {{ article.subname }}
-				      				</h5>
-								</div>
-							</div>
-						</div>
-					</a>
-				</div>					
-			{% endif %}
-			
-			{% if newsArticles | length > 2 %}
+			{% if newsListArticles | length > 0 %}
 				<div class="col-sm-4 padding-5">
 					<ul class="news">
-						{% for article in newsArticles|slice(2, 6) %}
+						{% for article in newsListArticles|slice(0, 6) %}
 							<li>
 								<a href="{{ path(basePath ~ 'article_show', { id: article.id }) }}">
 									<span class="text-red">
-										{% for articleBrandAssignment in article.articleBrandAssignments %}
-					      					{{ articleBrandAssignment.brand.name }} 
-				      					{% endfor %}
+{# 										{% for articleBrandAssignment in article.articleBrandAssignments %}#}
+{# 					      					{{ articleBrandAssignment.brand.name }} #}
+{# 				      					{% endfor %}#}
 									</span> 
 									<span>{{ article.name | raw }} {{ article.subname | raw }}</span>
 								</a>
 							</li>
 						{% endfor %}
-						{% for article in newsArticles|slice(8, 6) %}
+						{% for article in newsArticles|slice(6, 6) %}
 							<li class="hidden-xs hidden-sm">
 								<a href="{{ path(basePath ~ 'article_show', { id: article.id }) }}">
 									<span class="text-red">
-										{% for articleBrandAssignment in article.articleBrandAssignments %}
-					      					{{ articleBrandAssignment.brand.name }} 
-				      					{% endfor %}
+{# 										{% for articleBrandAssignment in article.articleBrandAssignments %}#}
+{# 					      					{{ articleBrandAssignment.brand.name }} #}
+{# 				      					{% endfor %}#}
 									</span> 
 									<span>{{ article.name | raw }} {{ article.subname | raw }}</span>
 								</a>
 							</li>
 						{% endfor %}
-						{% for article in newsArticles|slice(14, 2) %}
+						{% for article in newsArticles|slice(12, 2) %}
 							<li class="hidden-xs hidden-sm hidden-md">
 								<a href="{{ path(basePath ~ 'article_show', { id: article.id }) }}">
 									<span class="text-red">
-										{% for articleBrandAssignment in article.articleBrandAssignments %}
-					      					{{ articleBrandAssignment.brand.name }} 
-				      					{% endfor %}
+{# 										{% for articleBrandAssignment in article.articleBrandAssignments %}#}
+{# 					      					{{ articleBrandAssignment.brand.name }} #}
+{# 				      					{% endfor %}#}
 									</span> 
 									<span>{{ article.name | raw }} {{ article.subname | raw }}</span>
 								</a>
@@ -155,7 +126,7 @@
 		
 		<div class="row">
 			<div class="col-xs-12 col-sm-3 col-sm-offset-9">
-				<a class="branch-color-{{ branch.id }} title no-padding" href={{ path(basePath ~ 'article', 
+				<a class="branch-color-{{ contextBranchId }} title no-padding" href={{ path(basePath ~ 'article', 
 					{ article_filter_article_categories: newsCategory.id }) }}>
 					{{ 'label.more'|trans }}
 				</a>
@@ -167,7 +138,7 @@
 		<div class="row">
 			<div class="col-xs-12">
 				<h4 class="section title">
-					<span class="branch-color-{{ branch.id }}">{{ interviewsCategory.name | raw }}</span>
+					<span class="branch-color-{{ contextBranchId }}">{{ interviewsCategory.name | raw }}</span>
 					<span class="text-brand">{{ interviewsCategory.subname | raw }}</span>
 				</h4>
 			</div>
@@ -176,7 +147,7 @@
 		<div class="row">
 			{% for article in interviewsArticles | slice(0,6) %}
 				<div class="col-sm-2 padding-5">
-					<a class="branch-color-{{ branch.id }}" href="{{ path(basePath ~ 'article_show', 
+					<a class="branch-color-{{ contextBranchId }}" href="{{ path(basePath ~ 'article_show', 
 						{ id: article.id, article_filter_article_categories: interviewsCategory.id }) }}">
 						<div class="rect bkg-white">
 							{% if article.image %}
@@ -184,11 +155,11 @@
 									alt="{{ article.name | raw }}" src="{{ asset(article.image) }}">
 							{% endif %}
 						</div>
-						<div class="col-xs-12 tile bottom-rect bkg-branch-{{ branch.id }}">
+						<div class="col-xs-12 tile bottom-rect bkg-branch-{{ contextBranchId }}">
 							<p class="text-white title">
-								{% for articleBrandAssignment in article.articleBrandAssignments %}
-				      				{{ articleBrandAssignment.brand.name }} 
-			      				{% endfor %}&nbsp
+{# 								{% for articleBrandAssignment in article.articleBrandAssignments %}#}
+{# 				      				{{ articleBrandAssignment.brand.name }} #}
+{# 			      				{% endfor %}&nbsp#}
 							</p>
 						</div>
 						<div class="col-xs-12 tile bottom-rect-3 bkg-brand">
@@ -203,7 +174,7 @@
 		
 		<div class="row">
 			<div class="col-xs-12 col-sm-3 col-sm-offset-9">
-				<a class="branch-color-{{ branch.id }} title no-padding" href={{ path(basePath ~ 'article', 
+				<a class="branch-color-{{ contextBranchId }} title no-padding" href={{ path(basePath ~ 'article', 
 					{ article_filter_article_categories: interviewsCategory.id }) }}>
 					{{ 'label.more'|trans }}
 				</a>
@@ -216,7 +187,7 @@
 			<div class="row">
 				<div class="col-xs-12">
 					<h4 class="section title">
-						<span class="branch-color-{{ branch.id }}">{{ 'header.featuredAds.1'|trans }}</span> 
+						<span class="branch-color-{{ contextBranchId }}">{{ 'header.featuredAds.1'|trans }}</span> 
 						<span class="text-brand">{{ 'header.featuredAds.2'|trans }}</span>
 					</h4>
 				</div>
@@ -242,7 +213,7 @@
 		<div class="row">
 			<div class="col-xs-12">
 				<h4 class="section title">
-					<span class="branch-color-{{ branch.id }}">{{ eventsCategory.name | raw }}</span>
+					<span class="branch-color-{{ contextBranchId }}">{{ eventsCategory.name | raw }}</span>
 					<span class="text-brand">{{ eventsCategory.subname | raw }}</span>
 				</h4>
 			</div>
@@ -262,9 +233,9 @@
 							<div class="col-xs-12 div-bottom bkg-black-50">
 								<div class="tile default">
 									<h4 class="title">
-										{% for articleBrandAssignment in article.articleBrandAssignments %}
-						      				{{ articleBrandAssignment.brand.name }} 
-					      				{% endfor %}&nbsp
+{# 										{% for articleBrandAssignment in article.articleBrandAssignments %}#}
+{# 						      				{{ articleBrandAssignment.brand.name }} #}
+{# 					      				{% endfor %}&nbsp#}
 					      			</h4>
 									<h5 class="title">
 										{{ article.name | raw }} {{ article.subname | raw }}
@@ -279,7 +250,7 @@
 		
 		<div class="row">
 			<div class="col-xs-12 col-sm-3 col-sm-offset-9">
-				<a class="branch-color-{{ branch.id }} title no-padding" href={{ path(basePath ~ 'article', 
+				<a class="branch-color-{{ contextBranchId }} title no-padding" href={{ path(basePath ~ 'article', 
 					{ article_filter_article_categories: eventsCategory.id }) }}>
 					{{ 'label.more'|trans }}
 				</a>
@@ -291,7 +262,7 @@
 		<div class="row">
 			<div class="col-xs-12">
 				<h4 class="section title">
-					<span class="branch-color-{{ branch.id }}">{{ promotionsCategory.name | raw }}</span>
+					<span class="branch-color-{{ contextBranchId }}">{{ promotionsCategory.name | raw }}</span>
 					<span class="text-brand">{{ promotionsCategory.subname | raw }}</span>
 				</h4>
 			</div>
@@ -311,9 +282,9 @@
 							<div class="col-xs-12 div-bottom bkg-black-50">
 								<div class="tile default">
 									<h4 class="title">
-										{% for articleBrandAssignment in article.articleBrandAssignments %}
-						      				{{ articleBrandAssignment.brand.name }} 
-					      				{% endfor %}&nbsp
+{# 										{% for articleBrandAssignment in article.articleBrandAssignments %}#}
+{# 						      				{{ articleBrandAssignment.brand.name }} #}
+{# 					      				{% endfor %}&nbsp#}
 					      			</h4>
 									<h5 class="title">
 										{{ article.name | raw }} {{ article.subname | raw }}
@@ -328,7 +299,7 @@
 		
 		<div class="row">
 			<div class="col-xs-12 col-sm-3 col-sm-offset-9">
-				<a class="branch-color-{{ branch.id }} title no-padding" href={{ path(basePath ~ 'article', 
+				<a class="branch-color-{{ contextBranchId }} title no-padding" href={{ path(basePath ~ 'article', 
 					{ article_filter_article_categories: promotionsCategory.id }) }}>
 					{{ 'label.more'|trans }}
 				</a>
@@ -340,7 +311,7 @@
 		<div class="row">
 			<div class="col-xs-12">
 				<h4 class="section title">
-					<span class="branch-color-{{ branch.id }}">{{ 'header.currentMagazines.1'|trans }}</span>
+					<span class="branch-color-{{ contextBranchId }}">{{ 'header.currentMagazines.1'|trans }}</span>
 					<span class="text-brand">{{ 'header.currentMagazines.2'|trans }}</span>
 				</h4>
 			</div>
@@ -360,7 +331,7 @@
 		
 		<div class="row">
 			<div class="col-xs-12 col-sm-3 col-sm-offset-9">
-				<a class="branch-color-{{ branch.id }} title no-padding" href="{{ path(basePath ~ 'magazine') }}">
+				<a class="branch-color-{{ contextBranchId }} title no-padding" href="{{ path(basePath ~ 'magazine') }}">
 					{{ 'label.more'|trans }}
 				</a>
 			</div>
@@ -371,7 +342,7 @@
 		<div class="row">
 			<div class="col-xs-12">
 				<h4 class="section title">
-					<span class="branch-color-{{ branch.id }}">{{ productsCategory.name | raw }}</span>
+					<span class="branch-color-{{ contextBranchId }}">{{ productsCategory.name | raw }}</span>
 					<span class="text-brand">{{ productsCategory.subname | raw }}</span>
 				</h4>
 			</div>
@@ -391,9 +362,9 @@
 							<div class="col-xs-12 div-bottom bkg-black-50">
 								<div class="tile default">
 									<h4 class="title">
-										{% for articleBrandAssignment in article.articleBrandAssignments %}
-						      				{{ articleBrandAssignment.brand.name }} 
-					      				{% endfor %}&nbsp
+{# 										{% for articleBrandAssignment in article.articleBrandAssignments %}#}
+{# 						      				{{ articleBrandAssignment.brand.name }} #}
+{# 					      				{% endfor %}&nbsp#}
 					      			</h4>
 									<h5 class="title">
 										{{ article.name | raw }} {{ article.subname | raw }}
@@ -408,7 +379,7 @@
 		
 		<div class="row">
 			<div class="col-xs-12 col-sm-3 col-sm-offset-9">
-				<a class="branch-color-{{ branch.id }} title no-padding" href={{ path(basePath ~ 'article', 
+				<a class="branch-color-{{ contextBranchId }} title no-padding" href={{ path(basePath ~ 'article', 
 					{ article_filter_article_categories: productsCategory.id }) }}>
 					{{ 'label.more'|trans }}
 				</a>
@@ -422,7 +393,7 @@
 		<div class="row">
 			<div class="col-xs-12">
 				<h4 class="section title">
-					<span class="branch-color-{{ branch.id }}">{{ reviewsCategory.name | raw }}</span>
+					<span class="branch-color-{{ contextBranchId }}">{{ reviewsCategory.name | raw }}</span>
 					<span class="text-brand">{{ reviewsCategory.subname | raw }}</span>
 				</h4>
 			</div>
@@ -442,9 +413,9 @@
 							<div class="col-xs-12 div-bottom bkg-black-50">
 								<div class="tile default">
 									<h4 class="title">
-										{% for articleBrandAssignment in article.articleBrandAssignments %}
-						      				{{ articleBrandAssignment.brand.name }} 
-					      				{% endfor %}&nbsp
+{# 										{% for articleBrandAssignment in article.articleBrandAssignments %}#}
+{# 						      				{{ articleBrandAssignment.brand.name }} #}
+{# 					      				{% endfor %}&nbsp#}
 					      			</h4>
 									<h5 class="title">
 										{{ article.name | raw }} {{ article.subname | raw }}
@@ -459,7 +430,7 @@
 		
 		<div class="row">
 			<div class="col-xs-12 col-sm-3 col-sm-offset-9">
-				<a class="branch-color-{{ branch.id }} title no-padding" href={{ path(basePath ~ 'article', 
+				<a class="branch-color-{{ contextBranchId }} title no-padding" href={{ path(basePath ~ 'article', 
 					{ article_filter_article_categories: reviewsCategory.id }) }}>
 					{{ 'label.more'|trans }}
 				</a>
@@ -471,7 +442,7 @@
 {# 	{% block usefulItemsBlock %}#}
 {# 		<div class="row">#}
 {# 			<h4 class="title padding-5">#}
-{# 				<span class="branch-color-{{ branch.id }}">{{ 'header.usefulItems.1'|trans }}</span> #}
+{# 				<span class="branch-color-{{ contextBranchId }}">{{ 'header.usefulItems.1'|trans }}</span> #}
 {# 				<span class="text-brand">{{ 'header.usefulItems.2'|trans }}</span>#}
 {# 			</h4>#}
 {# 		</div>#}
@@ -485,7 +456,7 @@
 {# 								<img class="div-center img-responsive" alt="{{ articleCategory.name }}"#}
 {# 									src="{{ asset(articleCategory.image) }}" />#}
 {# 							</div>#}
-{# 							<div class="bkg-branch-{{ branch.id }} text-white text-center">#}
+{# 							<div class="bkg-branch-{{ contextBranchId }} text-white text-center">#}
 {# 								<h4 class="title">{{ articleCategory.name }}</h4>#}
 {# 							</div>#}
 {# 							<div class="useful-tile-bottom bkg-brand"></div>#}
@@ -501,7 +472,7 @@
 {# 							<img class="div-center img-responsive" alt="{{ 'header.ratings'|trans }}"#}
 {# 									src="{{ asset('img/useful-ratings.png') }}" />#}
 {# 						</div>#}
-{# 						<div class="bkg-branch-{{ branch.id }} text-white text-center">#}
+{# 						<div class="bkg-branch-{{ contextBranchId }} text-white text-center">#}
 {# 							<h4 class="title">{{ 'header.ratings'|trans }}</h4>#}
 {# 						</div>#}
 {# 						<div class="useful-tile-bottom bkg-brand"></div>#}

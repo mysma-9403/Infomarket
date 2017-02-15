@@ -2,32 +2,31 @@
 
 namespace AppBundle\Manager\Filter\Base;
 
+use AppBundle\Filter\Base\Filter;
 use Symfony\Component\HttpFoundation\Request;
-use AppBundle\Entity\Filter\Base\BaseEntityFilter;
 
-abstract class FilterManager {
+class FilterManager {
+	
+	/**
+	 * 
+	 * @var Filter
+	 */
+	protected $filter;
+	
+	public function __construct(Filter $filter = null) {
+		$this->filter = $filter ? $filter : new Filter();
+	}
 	
 	/**
 	 * 
 	 * @param Request $request
-	 * 
-	 * @return BaseEntityFilter
+	 * @param array $contextParams
+	 * @return Filter
 	 */
-	public function createFromRequest(Request $request, array $params) {
-		$filter = $this->create();
+	public function createFromRequest(Request $request, array $contextParams) {
+		$this->filter->initContextParams($contextParams);
+		$this->filter->initRequestValues($request);
 		
-		$filter->initValues($request);
-		
-		return $filter;
+		return $this->filter;
 	}
-	
-	/**
-	 * 
-	 * @param BaseEntityFilter $filter
-	 */
-	public function adaptToView(BaseEntityFilter $filter, array $params) { 
-		return $filter;
-	}
-	
-	protected abstract function create();
 }

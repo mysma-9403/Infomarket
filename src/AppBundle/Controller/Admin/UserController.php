@@ -6,17 +6,20 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use AppBundle\Controller\Admin\Base\SimpleEntityController;
 use AppBundle\Entity\User;
+use AppBundle\Filter\Admin\Main\UserFilter;
 use AppBundle\Form\Editor\UserEditorType;
-use AppBundle\Form\Filter\UserFilterType;
+use AppBundle\Form\Filter\Admin\Main\UserFilterType;
 use AppBundle\Form\Lists\UserListType;
 use AppBundle\Manager\Entity\Base\EntityManager;
 use AppBundle\Manager\Entity\Common\UserManager;
 use AppBundle\Manager\Filter\Base\FilterManager;
-use AppBundle\Manager\Filter\Common\UserFilterManager;
 use AppBundle\Manager\Params\EntryParams\Admin\UserEntryParamsManager;
 use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Controller\Admin\Base\AdminController as BaseAdminController; //TODO change AdminController to HomeController
 
-class UserController extends SimpleEntityController
+use AppBundle\Entity\Lists\Base\BaseEntityList;
+
+class UserController extends BaseAdminController
 {
 	//---------------------------------------------------------------------------
 	// Actions
@@ -124,6 +127,18 @@ class UserController extends SimpleEntityController
 	}
 	
 	//---------------------------------------------------------------------------
+	// Internal logic
+	//---------------------------------------------------------------------------
+	
+	protected function getListItems($items) {
+		$listItems = array();
+		foreach($items as $item) {
+			$listItems[$item['username']] = $item['id'];
+		}
+		return $listItems;
+	}
+	
+	//---------------------------------------------------------------------------
 	// Managers
 	//---------------------------------------------------------------------------
 	
@@ -137,7 +152,7 @@ class UserController extends SimpleEntityController
 	}
 	
 	protected function getFilterManager($doctrine) {
-		return new UserFilterManager($doctrine);
+		return new FilterManager(new UserFilter());
 	}
 	
 	//---------------------------------------------------------------------------
@@ -170,6 +185,10 @@ class UserController extends SimpleEntityController
 	//------------------------------------------------------------------------
 	// EntityType related
 	//------------------------------------------------------------------------
+	
+	protected function createNewList() {
+		return new BaseEntityList();
+	}
 	
 	/**
 	 *

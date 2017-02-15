@@ -3,11 +3,16 @@
 namespace AppBundle\Controller\Admin;
 
 use AppBundle\Controller\Admin\Base\BaseEntityController;
+use AppBundle\Entity\Branch;
 use AppBundle\Entity\BranchCategoryAssignment;
+use AppBundle\Entity\Category;
+use AppBundle\Filter\Admin\Assignments\BranchCategoryAssignmentFilter;
 use AppBundle\Form\Editor\BranchCategoryAssignmentEditorType;
-use AppBundle\Form\Filter\BranchCategoryAssignmentFilterType;
+use AppBundle\Form\Filter\Admin\Assignments\BranchCategoryAssignmentFilterType;
 use AppBundle\Manager\Entity\Common\BranchCategoryAssignmentManager;
-use AppBundle\Manager\Filter\Common\BranchCategoryAssignmentFilterManager;
+use AppBundle\Manager\Filter\Base\FilterManager;
+use AppBundle\Repository\Admin\Main\BranchRepository;
+use AppBundle\Repository\Admin\Main\CategoryRepository;
 use Symfony\Component\HttpFoundation\Request;
 
 class BranchCategoryAssignmentController extends BaseEntityController {
@@ -88,6 +93,24 @@ class BranchCategoryAssignmentController extends BaseEntityController {
 	}
 	
 	//---------------------------------------------------------------------------
+	// Internal logic
+	//---------------------------------------------------------------------------
+	
+	protected function getFormOptions() {
+		$options = parent::getFormOptions();
+	
+		/** @var BranchRepository $branchRepository */
+		$branchRepository = $this->getDoctrine()->getRepository(Branch::class);
+		$options['branches'] = $branchRepository->findFilterItems();
+	
+		/** @var CategoryRepository $categoryRepository */
+		$categoryRepository = $this->getDoctrine()->getRepository(Category::class);
+		$options['categories'] = $categoryRepository->findFilterItems();
+	
+		return $options;
+	}
+	
+	//---------------------------------------------------------------------------
 	// Managers
 	//---------------------------------------------------------------------------
 	
@@ -106,7 +129,7 @@ class BranchCategoryAssignmentController extends BaseEntityController {
 	 * @see \AppBundle\Controller\Base\BaseEntityController::getFilterManager()
 	 */
 	protected function getFilterManager($doctrine) {
-		return new BranchCategoryAssignmentFilterManager($doctrine);
+		return new FilterManager(new BranchCategoryAssignmentFilter());
 	}
 	
 	//---------------------------------------------------------------------------

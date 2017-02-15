@@ -6,7 +6,7 @@
 
     <entity name="AppBundle\Entity\NewsletterUser" 
         table="newsletter_users"
-        repository-class="AppBundle\Repository\NewsletterUserRepository">
+        repository-class="AppBundle\Repository\Admin\Main\NewsletterUserRepository">
         
         <field name="subscribed" type="boolean" default="1" />
         

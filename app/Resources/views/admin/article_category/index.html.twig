@@ -9,11 +9,19 @@
 	</li>
 {% endblock %}
 
-{% block headerMoreFields2 %}
-	<th><i class="fa fa-star"></i>{{ 'label.featured'|trans }}</th>
+{% block headerMoreFields1 %}
+	<th><i class="fa fa-tag"></i> {{ 'label.subname'|trans }}</th>
 {% endblock %}
 
-{% block entryMoreFields2 %}
+{% block headerMoreFields3 %}
+	<th><i class="fa fa-star"></i> {{ 'label.featured'|trans }}</th>
+{% endblock %}
+
+{% block entryMoreFields1 %}
+	<td>{{ item.subname }}</td>
+{% endblock %}
+
+{% block entryMoreFields3 %}
 	<td>
 		{% include 'common/fields/bool_action_field.html.twig' with 
 			{ 'id': item.id, 'value': item.featured, 'extPath': '_set_featured',

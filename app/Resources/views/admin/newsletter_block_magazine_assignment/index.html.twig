@@ -13,9 +13,15 @@
 {% endblock %}
 
 {% block headerMainFields1 %}
-	<th><i class="fa fa-file-o"></i> {{ 'label.article'|trans }}</th>
+	<th><i class="fa fa-"></i> {{ 'label.newsletterBlock'|trans }}</th>
+	<th><i class="fa fa-"></i> {{ 'label.magazine'|trans }}</th>
 {% endblock %}
 
 {% block entryMainFields1 %}
-	<td>{{ item.newsletterBlock.name }} {{ item.newsletterBlock.subname }}</td>
+	<td>
+		{% include 'common/links/simple_link.html.twig' with { type: 'newsletter_block', value: { id: item.newsletterBlockId, name: item.newsletterBlockName } } %}
+	</td>
+	<td>
+		{% include 'common/links/simple_link.html.twig' with { type: 'magazine', value: { id: item.magazineId, name: item.magazineName } } %}
+	</td>
 {% endblock %}

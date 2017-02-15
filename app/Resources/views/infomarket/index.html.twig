@@ -99,14 +99,14 @@
 							<div class="collapse navbar-collapse no-padding" id="bs-example-navbar-collapse-1">
 				      			<ul class="nav navbar-nav navbar-center">
 									{% block navigationMenu %}
-										<li class="{% if mainPath == 'home' %}active{% endif %} branch-{{ branch.id }}">
+										<li class="{% if mainPath == 'home' %}active{% endif %} branch-{{ contextBranchId }}">
 											<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
 												<span class="fa fa-search"></span> {{ 'title.infomarket.home'|trans }} <span class="caret">
 											</a>
 											<ul class="dropdown-menu">
 												{% for menuBranch in menuBranches %}
-													{% set active = menuBranch.id == branch.id ? 'active' : '' %}
-													<li class="{{ active }} branch-{{ branch.id }}">
+													{% set active = menuBranch.id == contextBranchId ? 'active' : '' %}
+													<li class="{{ active }} branch-{{ contextBranchId }}">
 														<a href="{{ path(basePath ~ 'home', { branch: menuBranch.id }) }}">
 															{{ menuBranch.name }}
 														</a>
@@ -114,14 +114,14 @@
 												{% endfor %}
 											</ul>
 										</li>
-										<li class="{% if mainPath == 'article' %}active{% endif %} branch-{{ branch.id }}">
+										<li class="{% if mainPath == 'article' %}active{% endif %} branch-{{ contextBranchId }}">
 											<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
 												<span class="fa fa-file-text-o"></span> {{ 'title.articles'|trans }} <span class="caret">
 											</a>
 											<ul class="dropdown-menu">
 												{% for articleCategory in menuArticleCategories %}
 													<li>
-														<a href="{{ path(basePath ~ 'article', { 'article_filter_article_categories': articleCategory.id }) }}">
+														<a href="{{ path(basePath ~ 'article', { 'article_filter_article_categories': [ articleCategory.id ] }) }}">
 															{{ articleCategory.name }}
 														</a>
 													</li>
@@ -129,19 +129,19 @@
 												<li class="divider"></li>
 												<li>
 													<a href="{{ path(basePath ~ 'article') }}">
-														{{ 'label.all'|trans }} <span class="fa fa-caret-right branch-color-{{ branch.id }}"></span>
+														{{ 'label.all'|trans }} <span class="fa fa-caret-right branch-color-{{ contextBranchId }}"></span>
 													</a>
 												</li>
 											</ul>
 										</li>
-										<li class="{% if mainPath == 'category' %}active{% endif %} branch-{{ branch.id }}">
+										<li class="{% if mainPath == 'category' %}active{% endif %} branch-{{ contextBranchId }}">
 											<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
 												<span class="fa fa-camera-retro"></span> {{ 'title.products'|trans }} <span class="caret">
 											</a>
 											<ul class="dropdown-menu category-menu">
 												{% for category in menuCategories | slice(0,10) %}
 													{% include 'common/category/menu_entry.html.twig' with
-														{ 'entry': category, 'caretClass': 'branch-color-' ~ branch.id } %}
+														{ 'entry': category, 'caretClass': 'branch-color-' ~ contextBranchId } %}
 												{% endfor %}
 												
 												{% if menuCategories | length > 10 %}
@@ -154,12 +154,12 @@
 												{% endif %}
 											</ul>
 										</li>
-										<li class="{% if mainPath == 'magazine' %}active{% endif %} branch-{{ branch.id }}">
+										<li class="{% if mainPath == 'magazine' %}active{% endif %} branch-{{ contextBranchId }}">
 											<a href="{{ path(basePath ~ 'magazine') }}">
 												<span class="fa fa-newspaper-o"></span> {{ 'title.magazines'|trans }}</a>
 										</li>
 										
-										<li class="{% if mainPath == 'advertisement' or mainPath == 'brand' %}active{% endif %} branch-{{ branch.id }}">
+										<li class="{% if mainPath == 'advertisement' or mainPath == 'brand' %}active{% endif %} branch-{{ contextBranchId }}">
 											<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
 												<span class="fa fa-globe"></span> {{ 'label.more'|trans }} <span class="caret">
 											</a>
@@ -190,7 +190,7 @@
 			<div class="row">
 				<div class="col-sm-8">
 					<h4 class="title padding-5">
-						<span class="branch-color-{{ branch.id }}">{{ 'header.contact.1'|trans }}</span> 
+						<span class="branch-color-{{ contextBranchId }}">{{ 'header.contact.1'|trans }}</span> 
 						<span class="text-brand">{{ 'header.contact.2'|trans }}</span>
 					</h4>
 					
@@ -209,7 +209,7 @@
 				
 				<div class="col-sm-4">
 					<h4 class="title padding-5">
-						<span class="branch-color-{{ branch.id }}">{{ 'header.newsletter.1'|trans }}</span> 
+						<span class="branch-color-{{ contextBranchId }}">{{ 'header.newsletter.1'|trans }}</span> 
 						<span class="text-brand">{{ 'header.newsletter.2'|trans }}</span>
 					</h4>
 					
@@ -274,26 +274,15 @@
 					      				<h3>{{ menuEntry.name }}</h3>
 					      				<hr>
 				      					{% for subentry in menuEntry.children %}
-				      						{% if subentry.infomarket %}
-				      							{% set show = false %}
-				      							{% for menuEntryBranchAssignment in subentry.menuEntryBranchAssignments if show == false %}
-				      								{% if menuEntryBranchAssignment.branch.id == branch.id %}
-				      									{% set show = true %}
-				      								{% endif %}
-				      							{% endfor %}
-				      							
-				      							{% if show %}
-										      		<div>
-										      			{% if subentry.page %}
-										      				<a href="{{ path(basePath ~ 'page_show', { id: subentry.page.id}) }}">{{ subentry.name }}</a>
-										      			{% elseif subentry.link %}
-										      				<a href="{{ subentry.link.url }}">{{ subentry.name }}</a>
-									      				{% else %}
-									      					{{ subentry.name }}
-										      			{% endif %}
-									      			</div>
+								      		<div>
+								      			{% if subentry.page %}
+								      				<a href="{{ path(basePath ~ 'page_show', { id: subentry.page }) }}">{{ subentry.name }}</a>
+								      			{% elseif subentry.link %}
+								      				<a href="{{ path(basePath ~ 'link_show', { id: subentry.link }) }}">{{ subentry.name }}</a>
+							      				{% else %}
+							      					{{ subentry.name }}
 								      			{% endif %}
-							      			{% endif %}
+							      			</div>
 						      			{% endfor %}
 					      			</div>
 					      		{% endfor %}
@@ -314,7 +303,7 @@
 	      			<ul class="nav navbar-nav navbar-center nav-horizontal">
 						{% block branchMenu %}
 							{% for entry in menuBranches %}
-								{% if branch != null and branch.name == entry.name %}
+								{% if entry.id == contextBranchId %}
 									{% set active='active' %}
 								{% else %}
 									{% set active='' %}

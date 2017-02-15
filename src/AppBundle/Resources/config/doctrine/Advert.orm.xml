@@ -6,7 +6,7 @@
 
     <entity name="AppBundle\Entity\Advert" 
         table="adverts"
-        repository-class="AppBundle\Repository\AdvertRepository">
+        repository-class="AppBundle\Repository\Admin\Main\AdvertRepository">
         
         <field name="dateFrom" type="datetime" nullable="true" />
         <field name="dateTo" type="datetime" nullable="true" />

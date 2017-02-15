@@ -1,0 +1,5 @@
+{% if value and value.id %}
+	<a href="{{ path(basePath ~ type ~ '_show', { id: value.id }) }}">
+		{{ value.name }} {{ value.subname is defined ? value.subname : '' }}
+	</a>
+{% endif %}

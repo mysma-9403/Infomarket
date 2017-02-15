@@ -6,6 +6,7 @@ use AppBundle\Entity\Base\Audit;
 use AppBundle\Manager\Params\Base\ParamsManager;
 use Doctrine\ORM\Query\Expr\Base;
 use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Repository\Base\BaseEntityRepository;
 
 abstract class EntityManager extends ParamsManager {
 	
@@ -42,13 +43,17 @@ abstract class EntityManager extends ParamsManager {
 	public function getEntries($filter, $page) {
 		$repository = $this->getRepository();
 		if($this->entriesPerPage > 0) {
-			$query = $repository->querySelected($filter);
+			$query = $repository->queryItems($filter);
 			return $this->paginator->paginate($query, $page, $this->entriesPerPage);
 		} else {
-			return $repository->findSelected($filter);
+			return $repository->findItems($filter);
 		}
 	}
 	
+	/**
+	 * 
+	 * @return BaseEntityRepository
+	 */
 	protected function getRepository() {
 		return $this->doctrine->getRepository($this->getEntityType());
 	}

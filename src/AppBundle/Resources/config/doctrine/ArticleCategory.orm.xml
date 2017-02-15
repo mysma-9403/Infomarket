@@ -7,7 +7,7 @@
 
     <entity name="AppBundle\Entity\ArticleCategory" 
         table="article_categories"
-        repository-class="AppBundle\Repository\ArticleCategoryRepository">
+        repository-class="AppBundle\Repository\Admin\Main\ArticleCategoryRepository">
         
         <field name="subname" type="string" length="128" nullable="true"/>
         <field name="featured" type="boolean" default="false" />

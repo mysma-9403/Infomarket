@@ -7,7 +7,6 @@ use AppBundle\Controller\Admin\Base\SimpleEntityController;
 use AppBundle\Entity\Page;
 use AppBundle\Form\Editor\PageEditorType;
 use AppBundle\Manager\Entity\Common\PageManager;
-use AppBundle\Manager\Filter\Common\PageFilterManager;
 use Symfony\Component\HttpFoundation\Request;
 
 class PageController extends ImageEntityController {
@@ -128,10 +127,6 @@ class PageController extends ImageEntityController {
 	
 	protected function getEntityManager($doctrine, $paginator) {
 		return new PageManager($doctrine, $paginator);
-	}
-	
-	protected function getFilterManager($doctrine) {
-		return new PageFilterManager($doctrine);
 	}
 	
 	//------------------------------------------------------------------------

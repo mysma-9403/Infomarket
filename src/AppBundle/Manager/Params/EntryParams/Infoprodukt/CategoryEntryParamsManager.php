@@ -8,20 +8,22 @@ use AppBundle\Entity\ArticleCategory;
 use AppBundle\Entity\Branch;
 use AppBundle\Entity\Brand;
 use AppBundle\Entity\Category;
-use AppBundle\Entity\Filter\AdvertFilter;
-use AppBundle\Entity\Filter\ArticleFilter;
 use AppBundle\Entity\Filter\Base\BaseEntityFilter;
 use AppBundle\Entity\Filter\BrandFilter;
 use AppBundle\Entity\Filter\CategoryFilter;
 use AppBundle\Entity\Filter\ProductFilter;
-use AppBundle\Entity\Filter\TermFilter;
 use AppBundle\Entity\Product;
 use AppBundle\Entity\Segment;
-use AppBundle\Entity\Tag;
-use AppBundle\Entity\Term;
 use AppBundle\Entity\User;
 use AppBundle\Manager\Params\EntryParams\Base\EntryParamsManager;
+use AppBundle\Repository\Infoprodukt\AdvertRepository;
+use AppBundle\Repository\Infoprodukt\ArticleCategoryRepository;
+use AppBundle\Repository\Infoprodukt\ArticleRepository;
+use AppBundle\Repository\Infoprodukt\BrandRepository;
 use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Repository\Infoprodukt\SegmentRepository;
+use AppBundle\Repository\Infoprodukt\ProductRepository;
+use AppBundle\Repository\Infoprodukt\CategoryRepository;
 
 class CategoryEntryParamsManager extends EntryParamsManager {
 	
@@ -53,112 +55,83 @@ class CategoryEntryParamsManager extends EntryParamsManager {
 		$topProducts = $request->get('top_products', false);
 		$viewParams['topProducts'] = $topProducts;
 		
+		$advertLocations = array();
+		
 		if(!$topProducts && $entry->getPreleaf()) {
-			$userRepository = $this->doctrine->getRepository(User::class);
-			$articleCategoryRepository = $this->doctrine->getRepository(ArticleCategory::class);
-			$categoryRepository = $this->doctrine->getRepository(Category::class);
-			$brandRepository = $this->doctrine->getRepository(Brand::class);
-			$branchRepository = $this->doctrine->getRepository(Branch::class);
-			$segmentRepository = $this->doctrine->getRepository(Segment::class);
-			$tagRepository = $this->doctrine->getRepository(Tag::class);
+			$advertLocations[] = Advert::FEATURED_LOCATION;
+			
 			
 			$categories = [$entry];
-			$prev = $entry;
-			while($prev->getParent()) {
-				$prev = $prev->getParent();
-				$categories[] = $prev;
-			}
+			//TODO repository->findBreadcrumbItems($entry);
+// 			$categories = [$entry];
+// 			$prev = $entry;
+// 			while($prev->getParent()) {
+// 				$prev = $prev->getParent();
+// 				$categories[] = $prev;
+// 			}
+
+			$em = $this->doctrine->getManager();
 			
-			$articleFilter = new ArticleFilter($userRepository, $articleCategoryRepository, $categoryRepository, $brandRepository, $tagRepository);
-			$articleFilter->setCategories($categories);
-			$articleFilter->setInfoprodukt(BaseEntityFilter::TRUE_VALUES);
-			$articleFilter->setArchived(BaseEntityFilter::FALSE_VALUES);
-			$articleFilter->setActive(BaseEntityFilter::TRUE_VALUES);
-			$articleFilter->setMain(BaseEntityFilter::TRUE_VALUES);
-			$articleFilter->setOrderBy('e.date DESC');
+			/** @var ArticleCategoryRepository $articleCategoryRepository */
+			$articleCategoryRepository = new ArticleCategoryRepository($em, $em->getClassMetadata(ArticleCategory::class));
+			$articleCategories = $articleCategoryRepository->findHomeItems();
+			
+			/** @var ArticleRepository $articleRepository */
+			$articleRepository = new ArticleRepository($em, $em->getClassMetadata(Article::class));
 			
 			
-			
-			//main articles
-			$articleCategory = $this->doctrine->getRepository(ArticleCategory::class)->find(self::MAIN_AC);
-			$viewParams['mainCategory'] = $articleCategory;
-			
-			$articleFilter->setArticleCategories([$articleCategory]);
-			$articleFilter->setLimit(12);
-				
-			$articles = $this->getParamList(Article::class, $articleFilter);
+			//main articles //TODO refactoring if method is such big that needs comments -> make smaller submethods instead of comments :P
+			$viewParams['mainCategory'] = $this->getArticleCategory($articleCategories, self::MAIN_AC);
+			 
+			$articles = $articleRepository->findCategoryItems($entry->getId(), self::MAIN_AC, 12);
 			$viewParams['mainArticles'] = $articles;
 			
 			
 			
 			//auxiliary articles
-			$articleCategory = $this->doctrine->getRepository(ArticleCategory::class)->find(self::AUXILIARY_AC);
-			$viewParams['auxiliaryCategory'] = $articleCategory;
+			$viewParams['auxiliaryCategory'] = $this->getArticleCategory($articleCategories, self::AUXILIARY_AC);
 			
-			$articleFilter->setArticleCategories([$articleCategory]);
-			$articleFilter->setLimit(12);
-				
-			$articles = $this->getParamList(Article::class, $articleFilter);
+			$articles = $articleRepository->findCategoryItems($entry->getId(), self::AUXILIARY_AC, 12);
 			$viewParams['auxiliaryArticles'] = $articles;
 			
 			
 			
 			//questions articles
-			$articleCategory = $this->doctrine->getRepository(ArticleCategory::class)->find(self::QUESTIONS_AC);
-			$viewParams['questionsCategory'] = $articleCategory;
+			$viewParams['questionsCategory'] = $this->getArticleCategory($articleCategories, self::QUESTIONS_AC);
 				
-			$articleFilter->setArticleCategories([$articleCategory]);
-			$articleFilter->setLimit(2);
-			
-			$articles = $this->getParamList(Article::class, $articleFilter);
+			$articles = $articleRepository->findCategoryItems($entry->getId(), self::QUESTIONS_AC, 2);
 			$viewParams['questionsArticles'] = $articles;
 			
 			
 			
 			//builds articles
-			$articleCategory = $this->doctrine->getRepository(ArticleCategory::class)->find(self::BUILDS_AC);
-			$viewParams['buildsCategory'] = $articleCategory;
-				
-			$articleFilter->setArticleCategories([$articleCategory]);
-			$articleFilter->setLimit(2);
+			$viewParams['buildsCategory'] = $this->getArticleCategory($articleCategories, self::BUILDS_AC);
 			
-			$articles = $this->getParamList(Article::class, $articleFilter);
+			$articles = $articleRepository->findCategoryItems($entry->getId(), self::BUILDS_AC, 2);
 			$viewParams['buildsArticles'] = $articles;
 			
 			
 			
 			//schemas articles
-			$articleCategory = $this->doctrine->getRepository(ArticleCategory::class)->find(self::SCHEMAS_AC);
-			$viewParams['schemasCategory'] = $articleCategory;
-			
-			$articleFilter->setArticleCategories([$articleCategory]);
-			$articleFilter->setLimit(2);
+			$viewParams['schemasCategory'] = $this->getArticleCategory($articleCategories, self::SCHEMAS_AC);
 				
-			$articles = $this->getParamList(Article::class, $articleFilter);
+			$articles = $articleRepository->findCategoryItems($entry->getId(), self::SCHEMAS_AC, 2);
 			$viewParams['schemasArticles'] = $articles;
 			
 			
 			
 			//movies articles
-			$articleCategory = $this->doctrine->getRepository(ArticleCategory::class)->find(self::MOVIES_AC);
-			$viewParams['moviesCategory'] = $articleCategory;
-				
-			$articleFilter->setArticleCategories([$articleCategory]);
-			$articleFilter->setLimit(2);
+			$viewParams['moviesCategory'] = $this->getArticleCategory($articleCategories, self::MOVIES_AC);
 			
-			$articles = $this->getParamList(Article::class, $articleFilter);
+			$articles = $articleRepository->findCategoryItems($entry->getId(), self::MOVIES_AC, 2);
 			$viewParams['moviesArticles'] = $articles;
 			
 			
 			
 			//reviews articles
-			$articleCategory = $this->doctrine->getRepository(ArticleCategory::class)->find(self::REVIEWS_AC);
-			$viewParams['reviewsCategory'] = $articleCategory;
+			$viewParams['reviewsCategory'] = $this->getArticleCategory($articleCategories, self::REVIEWS_AC);
 				
-			$articleFilter->setArticleCategories([$articleCategory]);
-			$articleFilter->setLimit(2);
-			
-			$articles = $this->getParamList(Article::class, $articleFilter);
+			$articles = $articleRepository->findCategoryItems($entry->getId(), self::REVIEWS_AC, 2);
 			$viewParams['reviewsArticles'] = $articles;
 			
 			
@@ -166,25 +139,17 @@ class CategoryEntryParamsManager extends EntryParamsManager {
 			
 			
 			//products articles
-			$articleCategory = $this->doctrine->getRepository(ArticleCategory::class)->find(self::PRODUCTS_AC);
-			$viewParams['productsCategory'] = $articleCategory;
-				
-			$articleFilter->setArticleCategories([$articleCategory]);
-			$articleFilter->setLimit(6);
+			$viewParams['productsCategory'] = $this->getArticleCategory($articleCategories, self::PRODUCTS_AC);
 			
-			$articles = $this->getParamList(Article::class, $articleFilter);
+			$articles = $articleRepository->findCategoryItems($entry->getId(), self::PRODUCTS_AC, 6);
 			$viewParams['productsArticles'] = $articles;
 			
 			
 			
 			//promotions articles
-			$articleCategory = $this->doctrine->getRepository(ArticleCategory::class)->find(self::PROMOTIONS_AC);
-			$viewParams['promotionsCategory'] = $articleCategory;
-			
-			$articleFilter->setArticleCategories([$articleCategory]);
-			$articleFilter->setLimit(6);
+			$viewParams['promotionsCategory'] = $this->getArticleCategory($articleCategories, self::PROMOTIONS_AC);
 				
-			$articles = $this->getParamList(Article::class, $articleFilter);
+			$articles = $articleRepository->findCategoryItems($entry->getId(), self::PROMOTIONS_AC, 6);
 			$viewParams['promotionsArticles'] = $articles;
 			
 			
@@ -193,154 +158,112 @@ class CategoryEntryParamsManager extends EntryParamsManager {
 			//useful article categories
 			$usefulArticleCategories = array();
 			
-			//$usefulArticleCategories[] = $articleCategoryRepository->find(self::REVIEWS_AC);
-			$usefulArticleCategories[] = $articleCategoryRepository->find(self::LAW_AC);
-			$usefulArticleCategories[] = $articleCategoryRepository->find(self::HOME_LINKS_AC);
-			$usefulArticleCategories[] = $articleCategoryRepository->find(self::FOREIGN_LINKS_AC);
+			//$usefulArticleCategories[] = $this->getArticleCategory($articleCategories, self::REVIEWS_AC);
+			$usefulArticleCategories[] = $this->getArticleCategory($articleCategories, self::LAW_AC);
+			$usefulArticleCategories[] = $this->getArticleCategory($articleCategories, self::HOME_LINKS_AC);
+			$usefulArticleCategories[] = $this->getArticleCategory($articleCategories, self::FOREIGN_LINKS_AC);
 			
 			$viewParams['usefulArticleCategories'] = $usefulArticleCategories;
 			
 			
 			
 			//brands
-			$categories = [$entry];
+			$brandRepository = new BrandRepository($em, $em->getClassMetadata(Brand::class));
+			$viewParams['brands'] = $brandRepository->findTopItems($entry->getId());
 			
-			$categoryFilter = new CategoryFilter($userRepository, $branchRepository, $categoryRepository);
-			$categoryFilter->setOrderBy('e.orderNumber ASC, e.name ASC');
+		} else if($entry->getParent() && $entry->getParent()->getPreleaf()) {
 			
-			$categoryFilter->setParents([$entry]);
-			$subcategories = $categoryRepository->findSelected($categoryFilter);
-			$categories = array_merge($categories, $subcategories);
-			
-			$categoryFilter->setParents($subcategories);
-			$subcategories = $categoryRepository->findSelected($categoryFilter);
-			$categories = array_merge($categories, $subcategories);
-			
-			$brandFilter = new BrandFilter($userRepository, $categoryRepository);
-			$brandFilter->setInfoprodukt(BaseEntityFilter::TRUE_VALUES);
-			$brandFilter->setCategories($categories);
-			$brandFilter->setLimit(6);
-			
-			$brands = $this->getParamList(Brand::class, $brandFilter);
-			$viewParams['brands'] = $brands;
-			
-			
-			
-			//adverts	
-			$advertFilter = new AdvertFilter($userRepository, $categoryRepository);
-			$advertFilter->setInfoprodukt(BaseEntityFilter::TRUE_VALUES);
-			$advertFilter->setActive(BaseEntityFilter::TRUE_VALUES);
-			$advertFilter->setCategories([$entry]);
-				
-			$advertFilter->setLocations([Advert::FEATURED_LOCATION]);
-				
-			$featuredAds = $this->getParamList(Advert::class, $advertFilter);
-			shuffle($featuredAds);
-			$featuredAds = array_slice($featuredAds, 0, 3);
-			$viewParams['featuredAds'] = $featuredAds;
-				
-				
-				
-				
 			$em = $this->doctrine->getManager();
-		
-			foreach($featuredAds as $ad) {
-				$ad->setShowCount($ad->getShowCount()+1);
-				$em->persist($ad);
-			}
-			$em->flush();
-				
-		} else {
-			//TODO use as setters as they are useless in many cases!!! (like here)
-			//TODO @up - not sure - they are needed in initValues!
-			$userRepository = $this->doctrine->getRepository(User::class);
-			$categoryRepository = $this->doctrine->getRepository(Category::class);
-			$brandRepository = $this->doctrine->getRepository(Brand::class);
-			$segmentRepository = $this->doctrine->getRepository(Segment::class);
-			$branchRepository = $this->doctrine->getRepository(Branch::class);
-				
 			
-			$brandFilter = new BrandFilter($userRepository, $categoryRepository);
-			$brandFilter->setInfoprodukt(BaseEntityFilter::TRUE_VALUES);
-			$brandFilter->setCategories([$entry]);
+			$brandRepository = new BrandRepository($em, $em->getClassMetadata(Brand::class));
+			$viewParams['topBrands'] = $brandRepository->findTopItems($entry->getId());
 			
-			$topBrands = $brandRepository->findSelected($brandFilter);
-			$viewParams['topBrands'] = $topBrands;
+			$segmentRepository = new SegmentRepository($em, $em->getClassMetadata(Segment::class));
+			$viewParams['segments'] = $segments = $segmentRepository->findTopItems();
 			
 			
-			$segments = $segmentRepository->findAll();
-			$viewParams['segments'] = $segments;
-				
 			$viewParams['brands'] = array();
 			$viewParams['products'] = array();
-				
+			
 			$brands = [];
 			
+			$productRepository = new ProductRepository($em, $em->getClassMetadata(Product::class));
+			
 			foreach ($segments as $segment) {
-				$productFilter = new ProductFilter($userRepository, $categoryRepository, $brandRepository, $segmentRepository);
-				$productFilter->setCategories([$entry]);
-				$productFilter->setSegments([$segment]);
-				$productFilter->setInfoprodukt(BaseEntityFilter::TRUE_VALUES);
-		
-				$productRepository = $this->doctrine->getRepository(Product::class);
-				$products = $productRepository->findSelected($productFilter);
-		
-				$viewParams['products'][$segment->getId()] = $products;
-				
+					
+				$products = $productRepository->findTopItems($entry->getId(), $segment['id']);
+				$viewParams['products'][$segment['id']] = $products;
+					
 				foreach($products as $product) {
-					$brands[$product->getBrand()->getId()] = $product->getBrand();
+					$brands[$product['brandId']] = ['id' => $product['brandId'], 'name' => $product['brandName'],
+							'image' => $product['brandImage'], 'mimeType' => $product['brandMimeType'],
+							'forcedWidth' => $product['brandForcedWidth'], 'forcedHeight' => $product['brandForcedHeight'], 'vertical' => $product['brandVertical']
+					];
 				}
 			}
-				
-				
-				
+			
+			$categoryRepository = new CategoryRepository($em, $em->getClassMetadata(Category::class));
+			$categories = $categoryRepository->findSubcategories($entry->getId());
+			$viewParams['subcategories'] = $categories;
+			
+			
 			$viewParams['subbrands'] = array();
 			$viewParams['subproducts'] = array();
-				
-			$categoryFilter = new CategoryFilter($userRepository, $branchRepository, $categoryRepository);
-			$categoryFilter->setParents([$entry]);
-			$categoryFilter->setOrderBy('e.orderNumber ASC, e.name ASC');
-		
-			$categories = $categoryRepository->findSelected($categoryFilter);
-			$viewParams['subcategories'] = $categories;
-				
+			
 			foreach ($categories as $category) {
-				$viewParams['subbrands'][$category->getId()] = array();
-				$viewParams['subproducts'][$category->getId()] = array();
-		
-				foreach ($segments as $segment) {
-					$productFilter = new ProductFilter($userRepository, $categoryRepository, $brandRepository, $segmentRepository);
-					$productFilter->setCategories([$category]);
-					$productFilter->setSegments([$segment]);
-					$productFilter->setInfoprodukt(BaseEntityFilter::TRUE_VALUES);
-		
-					$productRepository = $this->doctrine->getRepository(Product::class);
-					$products = $productRepository->findSelected($productFilter);
-		
-					$viewParams['subproducts'][$category->getId()][$segment->getId()] = $products;
+				$viewParams['subbrands'][$category['id']] = array();
+				$viewParams['subproducts'][$category['id']] = array();
 					
+				foreach ($segments as $segment) {
+					$products = $productRepository->findTopItems($category['id'], $segment['id']);
+					$viewParams['subproducts'][$category['id']][$segment['id']] = $products;
+			
 					foreach($products as $product) {
-						$brands[$product->getBrand()->getId()] = $product->getBrand();
+						$brands[$product['brandId']] = ['id' => $product['brandId'], 'name' => $product['brandName'],
+								'image' => $product['brandImage'], 'mimeType' => $product['brandMimeType'],
+								'forcedWidth' => $product['brandForcedWidth'], 'forcedHeight' => $product['brandForcedHeight'], 'vertical' => $product['brandVertical']
+						];
 					}
 				}
 			}
 			
 			$viewParams['brands'] = $brands;
-				
-			$termFilter = new TermFilter($userRepository, $categoryRepository);
-			// 		$termFilter->setCategories([$entry]);
-			$termFilter->setInfoprodukt(BaseEntityFilter::TRUE_VALUES);
-			$termRepository = $this->doctrine->getRepository(Term::class);
-			$terms = $termRepository->findSelected($termFilter);
-				
-			$params['terms'] = $terms;
 		}
+		
+		
+		if(count($advertLocations) > 0) {
+			$advertRepository = new AdvertRepository($em, $em->getClassMetadata(Advert::class));
+			
+			foreach($advertLocations as $advertLocation) {
+				$adverts = $advertRepository->findAdvertItems($advertLocation, $entry->getId());
+				$viewParams[Advert::getLocationName($advertLocation)] = $adverts;
+				
+				if(count($adverts) > 0) {
+					$advertsIds = $advertRepository->getIds($adverts);
+					$advertRepository->updateAdvertsShowCounts($advertsIds);
+				}
+			}
+		}
+		
 		
 		$viewParams['category'] = $entry;
 		
 		$params['viewParams'] = $viewParams;
     	return $params;
 	}
+	
+	
+	
+	protected function getArticleCategory(array $articleCategories, $id) {
+		foreach($articleCategories as $articleCategory) {
+			if($articleCategory['id'] == $id) {
+				return $articleCategory;
+			}
+		}
+		return null;
+	}
+	
+	
 	
 	protected function getEntityType() {
 		return Category::class;

@@ -3,12 +3,13 @@
 namespace AppBundle\Controller\Infomarket;
 
 use AppBundle\Controller\Infomarket\Base\InfomarketController;
+use AppBundle\Entity\Advert;
 use AppBundle\Entity\Branch;
 use AppBundle\Manager\Entity\Base\EntityManager;
-use AppBundle\Manager\Entity\Common\BranchManager;
+use AppBundle\Manager\Entity\Infomarket\CategoryManager;
 use AppBundle\Manager\Filter\Base\FilterManager;
-use AppBundle\Manager\Filter\Infomarket\IMBranchFilterManager;
 use AppBundle\Manager\Params\EntryParams\Infomarket\HomeEntryParamsManager;
+use AppBundle\Manager\Params\Infomarket\AdvertParamsManager;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -29,18 +30,6 @@ class HomeController extends InfomarketController
 		return $this->indexActionInternal($request, 1);
 	}
 	
-	/**
-	 *
-	 * @param Request $request
-	 * @param integer $id
-	 *
-	 * @return \Symfony\Component\HttpFoundation\Response
-	 */
-	public function showAction(Request $request, $id)
-	{
-		return $this->showActionInternal($request, $id);
-	}
-	
 	//---------------------------------------------------------------------------
 	// Managers
 	//---------------------------------------------------------------------------
@@ -49,12 +38,16 @@ class HomeController extends InfomarketController
 		return new HomeEntryParamsManager($em, $fm, $doctrine);
 	}
 	
-	protected function getEntityManager($doctrine, $paginator) {
-		return new BranchManager($doctrine, $paginator);
+	protected function getAdvertParamsManager() {
+		$doctrine = $this->getDoctrine();
+		$advertLocations = [Advert::FEATURED_LOCATION];
+	
+		return new AdvertParamsManager($doctrine, $advertLocations);
 	}
 	
-	protected function getEntryFilterManager($doctrine) {
-		return new IMBranchFilterManager($doctrine);
+	protected function getEntityManager($doctrine, $paginator) { 
+		//TODO not needed change class hierarchy?
+		return new CategoryManager($doctrine, $paginator);
 	}
 	
 	//---------------------------------------------------------------------------

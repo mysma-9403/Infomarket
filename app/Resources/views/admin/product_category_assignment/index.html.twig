@@ -23,22 +23,26 @@
 
 
 {% block headerMainFields1 %}
-	<th><i class="fa fa-file-o"></i> {{ 'label.brand'|trans }}</th>
-	<th><i class="fa fa-file-o"></i> {{ 'label.product'|trans }}</th>
+	<th><i class="fa fa-"></i> {{ 'label.category'|trans }}</th>
+	<th><i class="fa fa-"></i> {{ 'label.segment'|trans }}</th>
+	<th><i class="fa fa-"></i> {{ 'label.brand'|trans }}</th>
+	<th><i class="fa fa-"></i> {{ 'label.product'|trans }}</th>
+	<th><i class="fa fa-star"></i> {{ 'label.featured'|trans }}</th>
 {% endblock %}
-
-{% block headerMoreFields2 %}
-	<th><i class="fa fa-star"></i>{{ 'label.featured'|trans }}</th>
-{% endblock %}
-
-
 
 {% block entryMainFields1 %}
-	<td>{{ item.product.brand ? item.product.brand.name : '-' }}</td>
-	<td>{{ item.product.name }}</td>
-{% endblock %}
-
-{% block entryMoreFields2 %}
+	<td>
+		{% include 'common/links/simple_link.html.twig' with { type: 'category', value: { id: item.categoryId, name: item.categoryName } } %}
+	</td>
+	<td>
+		{% include 'common/links/simple_link.html.twig' with { type: 'segment', value: { id: item.segmentId, name: item.segmentName } } %}
+	</td>
+	<td>
+		{% include 'common/links/simple_link.html.twig' with { type: 'brand', value: { id: item.brandId, name: item.brandName } } %}
+	</td>
+	<td>
+		{% include 'common/links/simple_link.html.twig' with { type: 'product', value: { id: item.productId, name: item.productName } } %}
+	</td>
 	<td>
 		{% include 'common/fields/bool_action_field.html.twig' with 
 			{ 'id': item.id, 'value': item.featured, 'extPath': '_set_featured',

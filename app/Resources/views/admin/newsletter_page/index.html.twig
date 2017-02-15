@@ -15,7 +15,6 @@
 
 {% block entryMoreFields2 %}
 	<td>
-		{% include 'common/table_fields/simple_field.html.twig' with 
-			{ 'value': item.newsletterPageTemplate, 'object': 'newsletter_page_template' } %}
+		{% include 'common/links/simple_link.html.twig' with { 'type': 'newsletter_page_template', 'value': { id: item.newsletterPageTemplateId, name: item.newsletterPageTemplateName } } %}
 	</td>
 {% endblock %}

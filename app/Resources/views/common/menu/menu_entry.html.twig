@@ -10,31 +10,14 @@
 		</a>
 		<ul class="dropdown-menu sub-menu">
 			{% for subentry in entry.children %}
-			
-				{% if infomarket and subentry.infomarket %}
-					{% set show = false %}
-					
-					{% for menuEntryBranchAssignment in subentry.menuEntryBranchAssignments if show == false %}
-						{% if menuEntryBranchAssignment.branch.id == branch.id %}
-							{% set show = true %}
-						{% endif %}
-					{% endfor %}
-	      							
-					{% if show %}
-						{% include 'common/menu/menu_entry.html.twig' with { 'entry': subentry } %}
-					{% endif %}
-				
-				{% elseif infoprodukt and subentry.infoprodukt %}
-					{% include 'common/menu/menu_entry.html.twig' with { 'entry': subentry } %}
-				{% endif %}
-				
+				{% include 'common/menu/menu_entry.html.twig' with { 'entry': subentry } %}
 			{% endfor %}
 		</ul>
 	{% else %}
 		{% if entry.page %}
-			<a href="{{ path(basePath ~ 'page_show', { id: entry.page.id}) }}">{{ entry.name }}</a>
+			<a href="{{ path(basePath ~ 'page_show', { id: entry.page }) }}">{{ entry.name }}</a>
 		{% elseif entry.link %}
-			<a href="{{ entry.link.url }}">{{ entry.name }}</a>
+			<a href="{{ path(basePath ~ 'link_show', { id: entry.link }) }}">{{ entry.name }}</a>
 		{% else %}
 			<a href="#">{{ entry.name }}</a>
 		{% endif %}

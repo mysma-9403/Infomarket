@@ -70,6 +70,7 @@ abstract class BaseType extends AbstractType
 	 */
 	protected function getDefaultOptions() {
 		$options = array();
+		
 		$options['data_class'] = $this->getEntityType();
 		
 		return $options;

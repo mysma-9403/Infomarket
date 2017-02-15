@@ -2,15 +2,13 @@
 
 namespace AppBundle\Form\Filter\Infoprodukt;
 
-use AppBundle\Entity\ArticleCategory;
-use AppBundle\Entity\Filter\ArticleFilter;
-use AppBundle\Entity\Filter\Base\BaseEntityFilter;
+use AppBundle\Form\Base\FilterType;
 use AppBundle\Form\Filter\Base\SimpleEntityFilterType;
-use AppBundle\Repository\ArticleCategoryRepository;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
+use AppBundle\Filter\Infoprodukt\Main\ArticleFilter;
 
-class ArticleFilterType extends SimpleEntityFilterType
+class ArticleFilterType extends FilterType
 {	
 	/**
 	 * 
@@ -19,20 +17,24 @@ class ArticleFilterType extends SimpleEntityFilterType
 	 */
 	protected function addMainFields(FormBuilderInterface $builder, array $options) {
 		
+		$articleCategories = $options['articleCategories'];
+		
 		$builder
-		->add('articleCategories', EntityType::class, array(
-				'class'			=> ArticleCategory::class,
-				'query_builder' => function (ArticleCategoryRepository $repository) {
-					return $repository->createQueryBuilder('e')
-					->where('e.infoprodukt = ' . BaseEntityFilter::TRUE_VALUES)
-					->orderBy('e.name', 'ASC');
-				},
+		->add('articleCategories', ChoiceType::class, array(
+				'choices' 		=> $articleCategories, 
 				'required'		=> false,
 				'expanded'      => true,
-				'multiple'      => true,
-				'placeholder'	=> 'label.choose.articleCategory'
+				'multiple'      => true
 		))
 		;
+	}
+	
+	protected function getDefaultOptions() {
+		$options = parent::getDefaultOptions();
+		
+		$options['articleCategories'] = array();
+	
+		return $options;
 	}
 	
 	/**

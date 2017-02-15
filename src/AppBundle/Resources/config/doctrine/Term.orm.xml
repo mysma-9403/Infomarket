@@ -6,7 +6,7 @@
 
     <entity name="AppBundle\Entity\Term" 
         table="terms"
-        repository-class="AppBundle\Repository\TermRepository">
+        repository-class="AppBundle\Repository\Admin\Main\TermRepository">
         
         <field name="content" type="text" nullable="true" />
         

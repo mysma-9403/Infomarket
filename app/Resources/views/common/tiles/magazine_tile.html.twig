@@ -1,6 +1,6 @@
 {% set magazineLink = magazineLink|default(path(basePath ~ 'magazine_open', { id: entry.id })) %}
 {% set magazineTitle = magazineTitle|default(entry.name) %}
-{% set magazineSubtitle = magazineSubtitle|default(entry.date|date('Y-m')) %}
+{% set magazineSubtitle = magazineSubtitle|default('label.magazine.digitalNumber'|trans) %}
 
 <div class="magazine-tile">
 	<a href="{{ magazineLink }}">

@@ -3,26 +3,28 @@
 {% set mainPath = 'menu_entry' %}
 {% set title = 'title.menuEntries'|trans %}
 
-{% block filterMoreFields3 %}
+{% block filterMoreFields1 %}
 	<li class="col-xs-12 col-sm-6 col-md-4 col-lg-2">
-		{{ form_widget(filter.parents, { 'label': 'label.menuEntry.parents' }) }}
+		{{ form_widget(filter.branches, { 'label': 'label.branches' }) }}
 	</li>
 	<li class="col-xs-12 col-sm-6 col-md-4 col-lg-2">
-		{{ form_widget(filter.pages, { 'label': 'label.pages' }) }}
+		{{ form_widget(filter.categories, { 'label': 'label.categories' }) }}
 	</li>
 	<li class="col-xs-12 col-sm-6 col-md-4 col-lg-2">
-		{{ form_widget(filter.links, { 'label': 'label.links' }) }}
+		{{ form_widget(filter.parents, { 'label': 'label.magazine.parents' }) }}
 	</li>
 {% endblock %}
 
-{% block headerMoreFields2 %}
-	<th><i class="fa fa-sitemap"></i> {{ 'label.menuEntry.parents'|trans }}</th>
+{% block headerMoreFields3 %}
 	<th><i class="fa fa-file-o"></i> {{ 'label.menuEntry.pages'|trans }}</th>
 	<th><i class="fa fa-link"></i> {{ 'label.menuEntry.links'|trans }}</th>
 {% endblock %}
 
-{% block entryMoreFields2 %}
-	<td>{{ item.parent ? item.parent.displayName : '-' }}</td>
-	<td>{{ item.page ? item.page.displayName : '-' }}</td>
-	<td>{{ item.link ? item.link.displayName : '-' }}</td>
+{% block entryMoreFields3 %}
+	<td>
+		{% include 'common/links/simple_link.html.twig' with { type: 'page', value: { id: item.pageId, name: item.pageName } } %}
+	</td>
+	<td>
+		{% include 'common/links/simple_link.html.twig' with { type: 'link', value: { id: item.linkId, name: item.linkName } } %}
+	</td>
 {% endblock %}

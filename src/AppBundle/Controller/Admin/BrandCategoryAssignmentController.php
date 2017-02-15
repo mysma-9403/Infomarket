@@ -3,11 +3,16 @@
 namespace AppBundle\Controller\Admin;
 
 use AppBundle\Controller\Admin\Base\BaseEntityController;
+use AppBundle\Entity\Brand;
 use AppBundle\Entity\BrandCategoryAssignment;
+use AppBundle\Entity\Category;
+use AppBundle\Filter\Admin\Assignments\BrandCategoryAssignmentFilter;
 use AppBundle\Form\Editor\BrandCategoryAssignmentEditorType;
-use AppBundle\Form\Filter\BrandCategoryAssignmentFilterType;
+use AppBundle\Form\Filter\Admin\Assignments\BrandCategoryAssignmentFilterType;
 use AppBundle\Manager\Entity\Common\BrandCategoryAssignmentManager;
-use AppBundle\Manager\Filter\Common\BrandCategoryAssignmentFilterManager;
+use AppBundle\Manager\Filter\Base\FilterManager;
+use AppBundle\Repository\Admin\Main\BrandRepository;
+use AppBundle\Repository\Admin\Main\CategoryRepository;
 use Symfony\Component\HttpFoundation\Request;
 
 class BrandCategoryAssignmentController extends BaseEntityController {
@@ -88,6 +93,24 @@ class BrandCategoryAssignmentController extends BaseEntityController {
 	}
 	
 	//---------------------------------------------------------------------------
+	// Internal logic
+	//---------------------------------------------------------------------------
+	
+	protected function getFormOptions() {
+		$options = parent::getFormOptions();
+	
+		/** @var BrandRepository $brandRepository */
+		$brandRepository = $this->getDoctrine()->getRepository(Brand::class);
+		$options['brands'] = $brandRepository->findFilterItems();
+	
+		/** @var CategoryRepository $categoryRepository */
+		$categoryRepository = $this->getDoctrine()->getRepository(Category::class);
+		$options['categories'] = $categoryRepository->findFilterItems();
+	
+		return $options;
+	}
+	
+	//---------------------------------------------------------------------------
 	// Managers
 	//---------------------------------------------------------------------------
 	
@@ -106,7 +129,7 @@ class BrandCategoryAssignmentController extends BaseEntityController {
 	 * @see \AppBundle\Controller\Base\BaseEntityController::getFilterManager()
 	 */
 	protected function getFilterManager($doctrine) {
-		return new BrandCategoryAssignmentFilterManager($doctrine);
+		return new FilterManager(new BrandCategoryAssignmentFilter());
 	}
 	
 	//---------------------------------------------------------------------------

@@ -43,12 +43,12 @@
 								</div>
 							</div>
 							<div class="col-sm-9">
-								{% for articleBrandAssignment in entry.articleBrandAssignments %}
-{# 									<a href="{{ path(basePath ~ 'brand_show', { id: articleBrandAssignment.brand.id }) }}">#}
-									<a href="#">
-										<h3 class="text-red">{{ articleBrandAssignment.brand.name | raw }} </h3>
-									</a> 
-								{% endfor %}
+{# 								{% for articleBrandAssignment in entry.articleBrandAssignments %}#}
+{# {# 									<a href="{{ path(basePath ~ 'brand_show', { id: articleBrandAssignment.brand.id }) }}">#}#}
+{# 									<a href="#">#}
+{# 										<h3 class="text-red">{{ articleBrandAssignment.brand.name | raw }} </h3>#}
+{# 									</a> #}
+{# 								{% endfor %}#}
 								
 								<a href="{{ path(basePath ~ mainPath ~ '_show', { 'id': entry.id }) }}">
 									<h3>
@@ -63,26 +63,26 @@
 									{% endif %}
 								</div>
 								
-								<div class="col-xs-6 text-muted">
-									{% if entry.author %}
-										<span class="fa fa-user"></span> {{ entry.author }}
-									{% endif %}
-								</div>
+{# 								<div class="col-xs-6 text-muted">#}
+{# 									{% if entry.author %}#}
+{# 										<span class="fa fa-user"></span> {{ entry.author }}#}
+{# 									{% endif %}#}
+{# 								</div>#}
 								
-								<div class="col-xs-12 text-muted">
-									{% if entry.articleTagAssignments | length > 0 %}
-										<span class="fa fa-tags"></span> 
-										{% spaceless %}
-										{% for articleTagAssignment in entry.articleTagAssignments %}
-											{{- loop.index > 1 ? ', ' : '' -}}
-											<a href="{{ path(basePath ~ mainPath, { article_filter_tags: articleTagAssignment.tag.id }) }}">
-												{{- articleTagAssignment.tag.name -}}
-											</a>
+{# 								<div class="col-xs-12 text-muted">#}
+{# 									{% if entry.articleTagAssignments | length > 0 %}#}
+{# 										<span class="fa fa-tags"></span> #}
+{# 										{% spaceless %}#}
+{# 										{% for articleTagAssignment in entry.articleTagAssignments %}#}
+{# 											{{- loop.index > 1 ? ', ' : '' -}}#}
+{# 											<a href="{{ path(basePath ~ mainPath, { article_filter_tags: articleTagAssignment.tag.id }) }}">#}
+{# 												{{- articleTagAssignment.tag.name -}}#}
+{# 											</a>#}
 											 
-										{% endfor %}
-										{% endspaceless %}
-									{% endif %}
-								</div>
+{# 										{% endfor %}#}
+{# 										{% endspaceless %}#}
+{# 									{% endif %}#}
+{# 								</div>#}
 								
 								<div class="col-xs-12">
 									<p>

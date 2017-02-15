@@ -6,7 +6,7 @@
 
     <entity name="AppBundle\Entity\NewsletterBlock" 
         table="newsletter_blocks"
-        repository-class="AppBundle\Repository\NewsletterBlockRepository">
+        repository-class="AppBundle\Repository\Admin\Main\NewsletterBlockRepository">
         
         <field name="subname" type="string" length="128" nullable="true"/>
         

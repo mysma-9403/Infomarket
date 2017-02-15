@@ -6,7 +6,7 @@
 
     <entity name="AppBundle\Entity\BranchCategoryAssignment" 
         table="branch_category_assignments"
-        repository-class="AppBundle\Repository\BranchCategoryAssignmentRepository">
+        repository-class="AppBundle\Repository\Admin\Assignments\BranchCategoryAssignmentRepository">
         
         <many-to-one field="branch" target-entity="Branch" inversed-by="branchCategoryAssignments" />
         <many-to-one field="category" target-entity="Category" inversed-by="branchCategoryAssignments" />

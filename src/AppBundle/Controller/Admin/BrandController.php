@@ -6,9 +6,7 @@ use AppBundle\Controller\Admin\Base\ImageEntityController;
 use AppBundle\Controller\Admin\Base\SimpleEntityController;
 use AppBundle\Entity\Brand;
 use AppBundle\Form\Editor\BrandEditorType;
-use AppBundle\Form\Filter\BrandFilterType;
 use AppBundle\Manager\Entity\Common\BrandManager;
-use AppBundle\Manager\Filter\Common\BrandFilterManager;
 use Symfony\Component\HttpFoundation\Request;
 
 class BrandController extends ImageEntityController {
@@ -152,11 +150,6 @@ class BrandController extends ImageEntityController {
 		return new BrandManager($doctrine, $paginator);
 	}
 	
-	protected function getFilterManager($doctrine) {
-		return new BrandFilterManager($doctrine);
-	}
-	
-	
 	//------------------------------------------------------------------------
 	// EntityType related
 	//------------------------------------------------------------------------
@@ -182,14 +175,5 @@ class BrandController extends ImageEntityController {
 	 */
 	protected function getEditorFormType() {
 		return BrandEditorType::class;
-	}
-	
-	/**
-	 *
-	 * {@inheritDoc}
-	 * @see \AppBundle\Controller\Admin\Base\SimpleEntityController::getFilterFormType()
-	 */
-	protected function getFilterFormType() {
-		return BrandFilterType::class;
 	}
 }

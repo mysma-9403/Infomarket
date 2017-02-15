@@ -10,10 +10,11 @@ use AppBundle\Entity\Page;
 use AppBundle\Entity\User;
 use AppBundle\Form\Editor\NewsletterUserEditorType;
 use AppBundle\Form\Search\Base\SimpleEntitySearchType;
-use AppBundle\Manager\Filter\Decorator\InfoproduktFilterManager;
-use AppBundle\Manager\Params\Infoprodukt\InfoproduktParamsManager;
-use AppBundle\Manager\Params\Infoprodukt\IPAdvertParamsManager;
-use AppBundle\Manager\Params\Infoprodukt\IPMenuParamsManager;
+use AppBundle\Manager\Params\Infoprodukt\AdvertParamsManager;
+use AppBundle\Manager\Params\Infoprodukt\ContextParamsManager;
+use AppBundle\Manager\Params\Infoprodukt\MenuParamsManager;
+use AppBundle\Manager\Route\RouteManager;
+use AppBundle\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -46,7 +47,9 @@ abstract class InfoproduktController extends StandardController
 		
 		
 		
-		$userRepository = $this->getDoctrine()->getRepository(User::class);
+		$em = $this->getDoctrine()->getManager();
+		
+		$userRepository = new UserRepository($em, $em->getClassMetadata(User::class)); //TODO make better SearchForm
 		
 		$searchFilter = new SimpleEntityFilter($userRepository);
 		$searchFilter->initValues($request);
@@ -102,7 +105,9 @@ abstract class InfoproduktController extends StandardController
 		
 		$viewParams = $params['viewParams'];
 		
-		$userRepository = $this->getDoctrine()->getRepository(User::class);
+		$em = $this->getDoctrine()->getManager();
+		
+		$userRepository = new UserRepository($em, $em->getClassMetadata(User::class)); //TODO make better SearchForm
 		
 		$searchFilter = new SimpleEntityFilter($userRepository);
 		$searchFilter->initValues($request);
@@ -149,7 +154,7 @@ abstract class InfoproduktController extends StandardController
 		$apm = $this->getAdvertParamsManager();
 		$params = $apm->getParams($request, $params);
 	
-		$fpm = $this->getFooterParamsManager();
+		$fpm = $this->getMenuParamsManager();
 		$params = $fpm->getParams($request, $params);
 	
 		return $params;
@@ -162,50 +167,34 @@ abstract class InfoproduktController extends StandardController
 	protected function getContextParamsManager(Request $request) {
 		$doctrine = $this->getDoctrine();
 	
-		return new InfoproduktParamsManager($doctrine);
+		$rm = new RouteManager();
+		$lastRoute = $rm->getLastRoute($request, $this->getHomeRoute());
+		$lastRouteParams = $lastRoute['routeParams'];
+	
+		if(!$lastRouteParams) {
+			$lastRouteParams = array();
+		}
+	
+		return new ContextParamsManager($doctrine, $lastRouteParams);
 	}
 	
 	protected function getAdvertParamsManager() {
 		$doctrine = $this->getDoctrine();
 		$advertLocations = [Advert::TOP_LOCATION, Advert::SIDE_LOCATION];
 	
-		return new IPAdvertParamsManager($doctrine, $advertLocations);
+		return new AdvertParamsManager($doctrine, $advertLocations);
 	}
 	
-	protected function getFooterParamsManager() {
+	protected function getMenuParamsManager() {
 		$doctrine = $this->getDoctrine();
 	
-		return new IPMenuParamsManager($doctrine);
-	}
-	
-	
-	
-	
-	protected final function getFilterManager($doctrine) {
-		$efm = $this->getEntryFilterManager($doctrine);
-		$fm = new InfoproduktFilterManager($efm);
-	
-		$fm->setFilterByCategories($this->isFilterByCategories());
-		$fm->setFilterBySubcategories($this->isFilterBySubcategories());
-	
-		return $fm;
-	}
-	
-	protected abstract function getEntryFilterManager($doctrine);
-	
-	
-	
-	protected function isFilterByCategories() {
-		return false;
-	}
-	
-	protected function isFilterBySubcategories() {
-		return false;
+		return new MenuParamsManager($doctrine);
 	}
 	
 	//---------------------------------------------------------------------------
 	// Internal logic
 	//---------------------------------------------------------------------------
+	
 	protected function subscribe($entry) {
 		$em = $this->getDoctrine()->getManager();
 		
@@ -231,9 +220,13 @@ abstract class InfoproduktController extends StandardController
 	}
 	
 	//---------------------------------------------------------------------------
-	// Routes
-	//---------------------------------------------------------------------------
-	
+    // Routes
+    //---------------------------------------------------------------------------
+    
+    protected function getHomeRoute() {
+    	return array('route' => $this->getIndexView(), 'routeParams' => array());
+    }
+    
 	protected function getSearchRoute()
 	{
 		return $this->getDomain() . "_search";

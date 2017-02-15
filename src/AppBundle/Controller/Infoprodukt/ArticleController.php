@@ -4,20 +4,20 @@ namespace AppBundle\Controller\Infoprodukt;
 
 use AppBundle\Controller\Infoprodukt\Base\InfoproduktController;
 use AppBundle\Entity\Article;
-use AppBundle\Entity\Category;
-use AppBundle\Entity\Filter\ArticleFilter;
-use AppBundle\Entity\Filter\Base\BaseEntityFilter;
+use AppBundle\Entity\ArticleCategory;
 use AppBundle\Entity\Filter\Base\SimpleEntityFilter;
 use AppBundle\Entity\NewsletterUser;
 use AppBundle\Entity\User;
+use AppBundle\Filter\Infoprodukt\Main\ArticleFilter;
 use AppBundle\Form\Editor\NewsletterUserEditorType;
 use AppBundle\Form\Filter\Infoprodukt\ArticleFilterType;
 use AppBundle\Form\Search\Base\SimpleEntitySearchType;
 use AppBundle\Manager\Entity\Base\EntityManager;
-use AppBundle\Manager\Entity\Common\ArticleManager;
+use AppBundle\Manager\Entity\Infoprodukt\ArticleManager;
 use AppBundle\Manager\Filter\Base\FilterManager;
-use AppBundle\Manager\Filter\Infoprodukt\IPArticleFilterManager;
-use AppBundle\Manager\Params\EntryParams\Infoprodukt\IPArticleEntryParamsManager;
+use AppBundle\Manager\Params\EntryParams\Infoprodukt\ArticleEntryParamsManager;
+use AppBundle\Repository\Infoprodukt\ArticleCategoryRepository;
+use AppBundle\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -71,7 +71,9 @@ class ArticleController extends InfoproduktController
 		
 		
 		
-		$userRepository = $this->getDoctrine()->getRepository(User::class);
+		$em = $this->getDoctrine()->getManager();
+		
+		$userRepository = new UserRepository($em, $em->getClassMetadata(User::class)); //TODO make better SearchForm
 		
 		
 		//TODO refactoring - it's the same as in base
@@ -104,39 +106,36 @@ class ArticleController extends InfoproduktController
 	
 	
 		
+		/** @var Filter $itemFilter */
+		$itemFilter = $viewParams['entryFilter'];
 		
+		$em = $this->getDoctrine()->getManager();
 		
-		$articleFilter = $viewParams['entryFilter'];
+		/** @var ArticleCategoryRepository $articleCategoryRepository */
+		$articleCategoryRepository = new ArticleCategoryRepository($em, $em->getClassMetadata(ArticleCategory::class));
+		$articleCategories = $articleCategoryRepository->findFilterItems();
 		
-		$articleFilterForm = $this->createForm(ArticleFilterType::class, $articleFilter);
+		$articleFilterForm = $this->createForm(ArticleFilterType::class, $itemFilter, ['articleCategories' => $articleCategories]);
 		$articleFilterForm->handleRequest($request);
 		
 		if ($articleFilterForm->isSubmitted() && $articleFilterForm->isValid()) {
 		
-			if ($articleFilterForm->get('search')->isClicked()) {
-				$articleFilter->setInfoprodukt(BaseEntityFilter::TRUE_VALUES);
-				$articleFilter->setMain(BaseEntityFilter::TRUE_VALUES);
-				$articleFilter->setCategories(array());
-		
+		if ($articleFilterForm->get('search')->isClicked()) {		
 				$routingParams = array();
-				$routingParams['category'] = $viewParams['category']->getId();
-				$routingParams = array_merge($routingParams, $articleFilter->getValues());
+				$routingParams = array_merge($routingParams, $itemFilter->getRequestValues());
 		
 				return $this->redirectToRoute($this->getIndexRoute(), $routingParams);
 			}
 		
 			if ($articleFilterForm->get('clear')->isClicked()) {
 				$routingParams = array();
-				$routingParams['category'] = $viewParams['category']->getId();
 		
 				return $this->redirectToRoute($this->getIndexRoute(), $routingParams);
 			}
 		}
+		
 		$viewParams['articleFilterForm'] = $articleFilterForm->createView();
-		$viewParams['tags'] = $articleFilter->getTags();
-		
-		
-		
+// 		$viewParams['tags'] = $articleFilter->getTags();
 		
 		return $this->render($this->getIndexView(), $viewParams);
 	}
@@ -164,7 +163,9 @@ class ArticleController extends InfoproduktController
 	
 		$viewParams = $params['viewParams'];
 	
-		$userRepository = $this->getDoctrine()->getRepository(User::class);
+		$em = $this->getDoctrine()->getManager();
+		
+		$userRepository = new UserRepository($em, $em->getClassMetadata(User::class)); //TODO make better SearchForm
 	
 		$searchFilter = new SimpleEntityFilter($userRepository);
 		$searchFilter->initValues($request);
@@ -218,7 +219,7 @@ class ArticleController extends InfoproduktController
 	//---------------------------------------------------------------------------
 	
 	protected function getInternalEntryParamsManager(EntityManager $em, FilterManager $fm, $doctrine) {
-		return new IPArticleEntryParamsManager($em, $fm, $doctrine);
+		return new ArticleEntryParamsManager($em, $fm, $doctrine);
 	}
 	
 	protected function getEntityManager($doctrine, $paginator) {
@@ -226,12 +227,8 @@ class ArticleController extends InfoproduktController
 		return new ArticleManager($doctrine, $paginator, $tokenStorage);
 	}
 	
-	protected function getEntryFilterManager($doctrine) {
-		return new IPArticleFilterManager($doctrine);
-	}
-	
-	protected function isFilterByCategories() {
-		return true;
+	protected function getFilterManager($doctrine) {
+		return new FilterManager(new ArticleFilter());
 	}
 	
 	//---------------------------------------------------------------------------

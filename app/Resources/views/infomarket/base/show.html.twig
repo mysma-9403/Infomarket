@@ -1,6 +1,6 @@
 {% extends 'infomarket/base/base.html.twig' %}
 
-{% set title = title|default(entry.getDisplayName()|raw) %}
+{% set title = title|default(entry.name) %}
 
 {% set extPath = extPath|default('_show') %}
 

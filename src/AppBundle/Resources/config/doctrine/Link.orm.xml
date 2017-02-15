@@ -6,7 +6,7 @@
 
     <entity name="AppBundle\Entity\Link" 
         table="links"
-        repository-class="AppBundle\Repository\LinkRepository">
+        repository-class="AppBundle\Repository\Admin\Main\LinkRepository">
         
         <field name="url" type="string" length="256"/>
     </entity>

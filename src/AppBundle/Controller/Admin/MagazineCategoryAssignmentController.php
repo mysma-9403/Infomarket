@@ -3,11 +3,16 @@
 namespace AppBundle\Controller\Admin;
 
 use AppBundle\Controller\Admin\Base\BaseEntityController;
+use AppBundle\Entity\Category;
+use AppBundle\Entity\Magazine;
 use AppBundle\Entity\MagazineCategoryAssignment;
+use AppBundle\Filter\Admin\Assignments\MagazineCategoryAssignmentFilter;
 use AppBundle\Form\Editor\MagazineCategoryAssignmentEditorType;
-use AppBundle\Form\Filter\MagazineCategoryAssignmentFilterType;
+use AppBundle\Form\Filter\Admin\Assignments\MagazineCategoryAssignmentFilterType;
 use AppBundle\Manager\Entity\Common\MagazineCategoryAssignmentManager;
-use AppBundle\Manager\Filter\Common\MagazineCategoryAssignmentFilterManager;
+use AppBundle\Manager\Filter\Base\FilterManager;
+use AppBundle\Repository\Admin\Main\CategoryRepository;
+use AppBundle\Repository\Admin\Main\MagazineRepository;
 use Symfony\Component\HttpFoundation\Request;
 
 class MagazineCategoryAssignmentController extends BaseEntityController {
@@ -88,6 +93,24 @@ class MagazineCategoryAssignmentController extends BaseEntityController {
 	}
 	
 	//---------------------------------------------------------------------------
+	// Internal logic
+	//---------------------------------------------------------------------------
+	
+	protected function getFormOptions() {
+		$options = parent::getFormOptions();
+	
+		/** @var MagazineRepository $magazineRepository */
+		$magazineRepository = $this->getDoctrine()->getRepository(Magazine::class);
+		$options['magazines'] = $magazineRepository->findFilterItems();
+	
+		/** @var CategoryRepository $categoryRepository */
+		$categoryRepository = $this->getDoctrine()->getRepository(Category::class);
+		$options['categories'] = $categoryRepository->findFilterItems();
+	
+		return $options;
+	}
+	
+	//---------------------------------------------------------------------------
 	// Managers
 	//---------------------------------------------------------------------------
 	
@@ -106,7 +129,7 @@ class MagazineCategoryAssignmentController extends BaseEntityController {
 	 * @see \AppBundle\Controller\Base\BaseEntityController::getFilterManager()
 	 */
 	protected function getFilterManager($doctrine) {
-		return new MagazineCategoryAssignmentFilterManager($doctrine);
+		return new FilterManager(new MagazineCategoryAssignmentFilter());
 	}
 	
 	//---------------------------------------------------------------------------

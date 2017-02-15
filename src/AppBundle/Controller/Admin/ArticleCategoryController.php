@@ -5,10 +5,11 @@ namespace AppBundle\Controller\Admin;
 use AppBundle\Controller\Admin\Base\ImageEntityController;
 use AppBundle\Controller\Admin\Base\SimpleEntityController;
 use AppBundle\Entity\ArticleCategory;
+use AppBundle\Filter\Admin\Main\ArticleCategoryFilter;
 use AppBundle\Form\Editor\ArticleCategoryEditorType;
-use AppBundle\Form\Filter\ArticleCategoryFilterType;
+use AppBundle\Form\Filter\Admin\Main\ArticleCategoryFilterType;
 use AppBundle\Manager\Entity\Common\ArticleCategoryManager;
-use AppBundle\Manager\Filter\Common\ArticleCategoryFilterManager;
+use AppBundle\Manager\Filter\Base\FilterManager;
 use Symfony\Component\HttpFoundation\Request;
 
 class ArticleCategoryController extends ImageEntityController {
@@ -133,7 +134,7 @@ class ArticleCategoryController extends ImageEntityController {
 	}
 	
 	protected function getFilterManager($doctrine) {
-		return new ArticleCategoryFilterManager($doctrine);
+		return new FilterManager(new ArticleCategoryFilter());
 	}
 	
 	

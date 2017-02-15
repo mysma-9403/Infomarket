@@ -4,20 +4,23 @@ namespace AppBundle\Controller\Admin;
 
 use AppBundle\Controller\Admin\Base\ImageEntityController;
 use AppBundle\Controller\Admin\Base\SimpleEntityController;
+use AppBundle\Entity\Branch;
 use AppBundle\Entity\Brand;
 use AppBundle\Entity\Category;
 use AppBundle\Entity\ImportRatings;
 use AppBundle\Entity\Product;
 use AppBundle\Entity\ProductCategoryAssignment;
 use AppBundle\Entity\Segment;
+use AppBundle\Filter\Admin\Main\CategoryFilter;
 use AppBundle\Form\Editor\CategoryEditorType;
 use AppBundle\Form\Editor\ImportRatingsEditorType;
-use AppBundle\Form\Filter\CategoryFilterType;
+use AppBundle\Form\Filter\Admin\Main\CategoryFilterType;
 use AppBundle\Manager\Entity\Base\EntityManager;
 use AppBundle\Manager\Entity\Common\CategoryManager;
-use AppBundle\Manager\Filter\Admin\ACategoryFilterManager;
 use AppBundle\Manager\Filter\Base\FilterManager;
 use AppBundle\Manager\Params\EntryParams\Admin\CategoryEntryParamsManager;
+use AppBundle\Repository\Admin\Main\BranchRepository;
+use AppBundle\Repository\Admin\Main\CategoryRepository;
 use AppBundle\Repository\ProductRepository;
 use AppBundle\Utils\ClassUtils;
 use Symfony\Component\HttpFoundation\Request;
@@ -333,6 +336,36 @@ class CategoryController extends ImageEntityController {
 	//---------------------------------------------------------------------------
 	// Internal logic
 	//---------------------------------------------------------------------------
+	
+	protected function getFormOptions() {
+		$options = parent::getFormOptions();
+	
+		/** @var CategoryRepository $categoryRepository */
+		$categoryRepository = $this->getDoctrine()->getRepository(Category::class);
+		$options['parents'] = $categoryRepository->findFilterItems();
+		
+		/** @var BranchRepository $branchRepository */
+		$branchRepository = $this->getDoctrine()->getRepository(Branch::class);
+		$options['branches'] = $branchRepository->findFilterItems();
+	
+		return $options;
+	}
+	
+	/**
+	 * 
+	 * {@inheritDoc}
+	 * @see \AppBundle\Controller\Admin\Base\ImageEntityController::prepareEntry()
+	 * 
+	 */
+	protected function prepareEntry($entry) {
+		/** @var Category $entry */
+		$parent = $entry->getParent();
+		if($parent) {
+			$rootId = $parent->getRootId();
+			$entry->setRootId($rootId);
+		}
+	}
+	
 	/**
 	 * 
 	 * @param Category $entry
@@ -911,7 +944,7 @@ class CategoryController extends ImageEntityController {
 	}
 	
 	protected function getFilterManager($doctrine) {
-		return new ACategoryFilterManager($doctrine);
+		return new FilterManager(new CategoryFilter());
 	}
 	
 	//---------------------------------------------------------------------------

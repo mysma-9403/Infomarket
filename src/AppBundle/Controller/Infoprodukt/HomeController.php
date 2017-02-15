@@ -5,9 +5,8 @@ namespace AppBundle\Controller\Infoprodukt;
 use AppBundle\Controller\Infoprodukt\Base\InfoproduktController;
 use AppBundle\Entity\Category;
 use AppBundle\Manager\Entity\Base\EntityManager;
-use AppBundle\Manager\Entity\Common\BranchManager;
+use AppBundle\Manager\Entity\Infoprodukt\CategoryManager;
 use AppBundle\Manager\Filter\Base\FilterManager;
-use AppBundle\Manager\Filter\Infoprodukt\IPBranchFilterManager;
 use AppBundle\Manager\Params\EntryParams\Infoprodukt\HomeEntryParamsManager;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -35,11 +34,7 @@ class HomeController extends InfoproduktController
 	}
 	
 	protected function getEntityManager($doctrine, $paginator) {
-		return new BranchManager($doctrine, $paginator);
-	}
-	
-	protected function getEntryFilterManager($doctrine) {
-		return new IPBranchFilterManager($doctrine);
+		return new CategoryManager($doctrine, $paginator);
 	}
 	
 	//---------------------------------------------------------------------------

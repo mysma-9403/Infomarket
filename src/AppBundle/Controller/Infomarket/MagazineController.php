@@ -4,8 +4,9 @@ namespace AppBundle\Controller\Infomarket;
 
 use AppBundle\Controller\Infomarket\Base\InfomarketController;
 use AppBundle\Entity\Magazine;
-use AppBundle\Manager\Entity\Common\MagazineManager;
-use AppBundle\Manager\Filter\Infomarket\IMMagazineFilterManager;
+use AppBundle\Filter\Infomarket\Base\BranchDependentFilter;
+use AppBundle\Manager\Entity\Infomarket\MagazineManager;
+use AppBundle\Manager\Filter\Base\FilterManager;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -78,8 +79,8 @@ class MagazineController extends InfomarketController
 		return $em;
 	}
 	
-	protected function getEntryFilterManager($doctrine) {
-		return new IMMagazineFilterManager($doctrine);
+	protected function getFilterManager($doctrine) {
+		return new FilterManager(new BranchDependentFilter());
 	}
 	
 	//---------------------------------------------------------------------------

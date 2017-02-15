@@ -4,12 +4,18 @@ namespace AppBundle\Controller\Admin;
 
 use AppBundle\Controller\Admin\Base\ImageEntityController;
 use AppBundle\Controller\Admin\Base\SimpleEntityController;
+use AppBundle\Entity\Branch;
+use AppBundle\Entity\Category;
 use AppBundle\Entity\Magazine;
-use AppBundle\Form\Filter\MagazineFilterType;
-use AppBundle\Manager\Entity\Common\MagazineManager;
-use AppBundle\Manager\Filter\Common\MagazineFilterManager;
-use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Filter\Admin\Main\MagazineFilter;
 use AppBundle\Form\Editor\MagazineEditorType;
+use AppBundle\Form\Filter\Admin\Main\MagazineFilterType;
+use AppBundle\Manager\Entity\Common\MagazineManager;
+use AppBundle\Manager\Filter\Base\FilterManager;
+use AppBundle\Repository\Admin\Main\BranchRepository;
+use AppBundle\Repository\Admin\Main\CategoryRepository;
+use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Repository\Admin\Main\MagazineRepository;
 
 class MagazineController extends ImageEntityController {
 	
@@ -125,6 +131,28 @@ class MagazineController extends ImageEntityController {
 	}
 	
 	//---------------------------------------------------------------------------
+	// Internal logic
+	//---------------------------------------------------------------------------
+	
+	protected function getFormOptions() {
+		$options = parent::getFormOptions();
+	
+		/** @var MagazineRepository $magazineRepository */
+		$magazineRepository = $this->getDoctrine()->getRepository(Magazine::class);
+		$options['parents'] = $magazineRepository->findFilterItems();
+		
+		/** @var BranchRepository $branchRepository */
+		$branchRepository = $this->getDoctrine()->getRepository(Branch::class);
+		$options['branches'] = $branchRepository->findFilterItems();
+		
+		/** @var CategoryRepository $categoryRepository */
+		$categoryRepository = $this->getDoctrine()->getRepository(Category::class);
+		$options['categories'] = $categoryRepository->findFilterItems();
+	
+		return $options;
+	}
+	
+	//---------------------------------------------------------------------------
 	// Managers
 	//---------------------------------------------------------------------------
 	
@@ -133,7 +161,7 @@ class MagazineController extends ImageEntityController {
 	}
 	
 	protected function getFilterManager($doctrine) {
-		return new MagazineFilterManager($doctrine);
+		return new FilterManager(new MagazineFilter());
 	}
 	
 	

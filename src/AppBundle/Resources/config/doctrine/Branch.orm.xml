@@ -6,7 +6,7 @@
 
     <entity name="AppBundle\Entity\Branch" 
         table="branches"
-        repository-class="AppBundle\Repository\BranchRepository">
+        repository-class="AppBundle\Repository\Admin\Main\BranchRepository">
         
         <field name="content" type="text" nullable="true" />
         

@@ -6,7 +6,7 @@
 
     <entity name="AppBundle\Entity\Brand" 
         table="brands"
-        repository-class="AppBundle\Repository\BrandRepository">
+        repository-class="AppBundle\Repository\Admin\Main\BrandRepository">
         
         <field name="content" type="text" nullable="true" />
         

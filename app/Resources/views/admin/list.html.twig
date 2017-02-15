@@ -56,7 +56,7 @@
 					{% endblock %}
 					<li>
 						<a class="btn btn-primary toggle" data-toggle="collapse" data-parent="#accodrion" href="#filter">
-							<i class="fa fa-filter"></i>{{ 'action.filter'|trans }}
+							<i class="fa fa-filter"></i> {{ 'action.filter'|trans }}
 						</a>
 					</li>
 				</ul>
@@ -89,14 +89,14 @@
 						{% endblock %}
 					</thead>
 					<tbody>
-						{% block tableBody %}
-							{% for entry in form.entries%}
-							    {% set index = entry.vars.value %}{# get array index #}
-							    {% set item = form.entries.vars.choices[index].data %}{# get entity object #}
+						{% block tableBody %} 
+							{% for key in form.entries|keys %}
+							    {% set formEntry = form.entries[key] %}
+							    {% set item = entries[key] %}
 							    {% block tableRow %}
 							    <tr>
 							    	{% block tableEntry %}
-							    		<td>{{ form_widget(entry) }}</td>
+							    		<td>{{ form_widget(formEntry) }}</td>
 							    		
 								    	{% block entryMoreFields1 %}
 										{% endblock %}

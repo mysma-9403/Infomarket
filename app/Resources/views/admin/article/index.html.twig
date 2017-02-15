@@ -19,18 +19,26 @@
 
 {% block filterMoreFields3 %}
 	<li class="col-xs-12 col-sm-6 col-md-4 col-lg-2">
-		{{ form_widget(filter.featured, { 'label': 'label.featured' }) }}
+		{{ form_widget(filter.subname, { 'label': 'label.subname' }) }}
 	</li>
 	<li class="col-xs-12 col-sm-6 col-md-4 col-lg-2">
-		{{ form_widget(filter.main, { 'label': 'label.main' }) }}
+		{{ form_widget(filter.featured, { 'label': 'label.featured' }) }}
 	</li>
 {% endblock %}
 
-{% block headerMoreFields2 %}
-	<th><i class="fa fa-star"></i>{{ 'label.featured'|trans }}</th>
+{% block headerMoreFields1 %}
+	<th><i class="fa fa-tag"></i> {{ 'label.subname'|trans }}</th>
 {% endblock %}
 
-{% block entryMoreFields2 %}
+{% block entryMoreFields1 %}
+	<td>{{ item.subname }}</td>
+{% endblock %}
+
+{% block headerMoreFields3 %}
+	<th><i class="fa fa-star"></i> {{ 'label.featured'|trans }}</th>
+{% endblock %}
+
+{% block entryMoreFields3 %}
 	<td>
 		{% include 'common/fields/bool_action_field.html.twig' with 
 			{ 'id': item.id, 'value': item.featured, 'extPath': '_set_featured',

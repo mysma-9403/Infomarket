@@ -1,7 +1,5 @@
-{% if value %}
+{% if value and value.id %}
 	<a href="{{ path(basePath ~ 'user_show', { id: value.id }) }}">
 		{{ value.surname }} {{ value.forename }}
 	</a>
-{% else %}
-	-
 {% endif %}

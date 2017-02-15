@@ -10,11 +10,11 @@
 	</li>
 {% endblock %}
 
-{% block headerMoreFields2 %}
+{% block headerMoreFields3 %}
 	<th><i class="fa fa-envelope-o"></i> {{ 'label.newsletter.subscribed'|trans }}</th>
 {% endblock %}
 
-{% block entryMoreFields2 %}
+{% block entryMoreFields3 %}
 	<td>
 		{% include 'common/fields/bool_action_field.html.twig' with 
 			{ 'id': item.id, 'value': item.subscribed, 'extPath': '_set_subscribed',

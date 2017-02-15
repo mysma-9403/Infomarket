@@ -4,18 +4,23 @@ namespace AppBundle\Controller\Infomarket;
 
 use AppBundle\Controller\Infomarket\Base\InfomarketController;
 use AppBundle\Entity\Article;
-use AppBundle\Entity\Filter\Base\BaseEntityFilter;
+use AppBundle\Entity\ArticleCategory;
+use AppBundle\Entity\Category;
 use AppBundle\Entity\Filter\Base\SimpleEntityFilter;
 use AppBundle\Entity\NewsletterUser;
 use AppBundle\Entity\User;
+use AppBundle\Filter\Base\Filter;
+use AppBundle\Filter\Infomarket\Main\ArticleFilter;
 use AppBundle\Form\Editor\NewsletterUserEditorType;
 use AppBundle\Form\Filter\Infomarket\ArticleFilterType;
 use AppBundle\Form\Search\Base\SimpleEntitySearchType;
 use AppBundle\Manager\Entity\Base\EntityManager;
-use AppBundle\Manager\Entity\Common\ArticleManager;
+use AppBundle\Manager\Entity\Infomarket\ArticleManager;
 use AppBundle\Manager\Filter\Base\FilterManager;
-use AppBundle\Manager\Filter\Infomarket\IMArticleFilterManager;
-use AppBundle\Manager\Params\EntryParams\Infomarket\IMArticleEntryParamsManager;
+use AppBundle\Manager\Params\EntryParams\Infomarket\ArticleEntryParamsManager;
+use AppBundle\Repository\Infomarket\ArticleCategoryRepository;
+use AppBundle\Repository\Infomarket\CategoryRepository;
+use AppBundle\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -63,7 +68,7 @@ class ArticleController extends InfomarketController
 	{
 		$params = $this->createParams($this->getIndexRoute());
 		$params = $this->getIndexParams($request, $params, $page);
-	
+		
 		$rm = $this->getRouteManager();
 		$rm->register($request, $params['route'], $params['routeParams']);
 	
@@ -74,8 +79,9 @@ class ArticleController extends InfomarketController
 	
 	
 	
+		$em = $this->getDoctrine()->getManager();
 	
-		$userRepository = $this->getDoctrine()->getRepository(User::class);
+		$userRepository = new UserRepository($em, $em->getClassMetadata(User::class));
 
 		$searchFilter = new SimpleEntityFilter($userRepository);
 		$searchFilter->initValues($request);
@@ -103,27 +109,30 @@ class ArticleController extends InfomarketController
 			}
 		}
 		$viewParams['newsletterForm'] = $newsletterForm->createView();
-	
-	
-	
-		$branch = $viewParams['branch'];
 		
-		$articleFilter = $viewParams['entryFilter'];
+		/** @var Filter $itemFilter */ 
+		$itemFilter = $viewParams['entryFilter'];
+
+		$branchId = $viewParams['contextBranchId'];
 		
-		$articleFilterForm = $this->createForm(ArticleFilterType::class, $articleFilter, ['branch' => $branch->getId()]);
+		$em = $this->getDoctrine()->getManager();
+		
+		/** @var ArticleCategoryRepository $articleCategoryRepository */
+		$articleCategoryRepository = new ArticleCategoryRepository($em, $em->getClassMetadata(ArticleCategory::class));
+		$articleCategories = $articleCategoryRepository->findFilterItems();
+		
+		/** @var CategoryRepository $categoryRepository */
+		$categoryRepository = new CategoryRepository($em, $em->getClassMetadata(Category::class));
+		$categories = $categoryRepository->findFilterItemsByBranch($branchId);
+		
+		$articleFilterForm = $this->createForm(ArticleFilterType::class, $itemFilter, ['articleCategories' => $articleCategories, 'categories' => $categories]);
 		$articleFilterForm->handleRequest($request);
 		
 		if ($articleFilterForm->isSubmitted() && $articleFilterForm->isValid()) {
 		
-			if ($articleFilterForm->get('search')->isClicked()) {
-				$articleFilter->setInfomarket(BaseEntityFilter::ALL_VALUES);
-				$articleFilter->setArchived(BaseEntityFilter::ALL_VALUES);
-				$articleFilter->setActive(BaseEntityFilter::ALL_VALUES);
-				$articleFilter->setMain(BaseEntityFilter::ALL_VALUES);
-				$articleFilter->setHiddenCategories(array());
-		
+			if ($articleFilterForm->get('search')->isClicked()) {		
 				$routingParams = array();
-				$routingParams = array_merge($routingParams, $articleFilter->getValues());
+				$routingParams = array_merge($routingParams, $itemFilter->getRequestValues());
 		
 				return $this->redirectToRoute($this->getIndexRoute(), $routingParams);
 			}
@@ -135,7 +144,7 @@ class ArticleController extends InfomarketController
 			}
 		}
 		$viewParams['articleFilterForm'] = $articleFilterForm->createView();
-		$viewParams['tags'] = $articleFilter->getTags();
+// 		$viewParams['tags'] = $articleFilter->getTags();
 		
 		
 		
@@ -166,8 +175,10 @@ class ArticleController extends InfomarketController
 		$viewParams = $params['viewParams'];
 	
 	
+		//TODO make better search filter
+		$em = $this->getDoctrine()->getManager();
 	
-		$userRepository = $this->getDoctrine()->getRepository(User::class);
+		$userRepository = new UserRepository($em, $em->getClassMetadata(User::class));
 
 		$searchFilter = new SimpleEntityFilter($userRepository);
 		$searchFilter->initValues($request);
@@ -201,6 +212,10 @@ class ArticleController extends InfomarketController
 		return $this->render($this->getShowView(), $viewParams);
 	}
 	
+	//---------------------------------------------------------------------------
+	// Internal logic
+	//---------------------------------------------------------------------------
+	
 	/**
 	 *
 	 * @param array $params
@@ -220,7 +235,7 @@ class ArticleController extends InfomarketController
 	//---------------------------------------------------------------------------
 	
 	protected function getInternalEntryParamsManager(EntityManager $em, FilterManager $fm, $doctrine) {
-		return new IMArticleEntryParamsManager($em, $fm, $doctrine);
+		return new ArticleEntryParamsManager($em, $fm, $doctrine);
 	}
 	
 	protected function getEntityManager($doctrine, $paginator) {
@@ -228,13 +243,10 @@ class ArticleController extends InfomarketController
 		return new ArticleManager($doctrine, $paginator, $tokenStorage);
 	}
 	
-	protected function getEntryFilterManager($doctrine) {
-		return new IMArticleFilterManager($doctrine);
+	protected function getFilterManager($doctrine) {
+		return new FilterManager(new ArticleFilter());
 	}
-	
-	//---------------------------------------------------------------------------
-	// EntityType related
-	//---------------------------------------------------------------------------
+		
     /**
      * 
      * {@inheritDoc}

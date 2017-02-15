@@ -3,3 +3,17 @@
 {% set mainPath = 'link' %}
 {% set title = 'title.links'|trans %}
 {% set gender = 'm.' %}
+
+{% block filterMoreFields3 %}
+	<li class="col-xs-12 col-sm-6 col-md-4 col-lg-2">
+		{{ form_widget(filter.url, { 'label': 'label.link.url' }) }}
+	</li>
+{% endblock %}
+
+{% block headerMoreFields3 %}
+	<th><i class="fa fa-star"></i> {{ 'label.link.url'|trans }}</th>
+{% endblock %}
+
+{% block entryMoreFields3 %}
+	<td>{{ item.url }}</td>
+{% endblock %}

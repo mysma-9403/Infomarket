@@ -3,10 +3,8 @@
 namespace AppBundle\Form\Filter\Base;
 
 use AppBundle\Entity\Filter\Base\BaseEntityFilter;
-use AppBundle\Entity\User;
 use AppBundle\Form\Base\FilterType;
-use AppBundle\Repository\UserRepository;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\FormBuilderInterface;
 
@@ -18,7 +16,9 @@ class BaseEntityFilterType extends FilterType
 	 * @see \AppBundle\Form\Base\FormType::addMainFields()
 	 */
 	protected function addMainFields(FormBuilderInterface $builder, array $options) {
-	
+		
+		$users = $options['users'];
+		
 		$builder
 		->add('updatedAfter', DateTimeType::class, array(
 				'widget' => 'single_text',
@@ -64,29 +64,27 @@ class BaseEntityFilterType extends FilterType
 						'placeholder' => 'label.createdBefore'
 				]
 		))
-		->add('updatedBy', EntityType::class, array(
-				'class'			=> User::class,
-				'query_builder' => function (UserRepository $repository) {
-				return $repository->createQueryBuilder('e')
-				->orderBy('e.surname ASC, e.forename', 'ASC');
-				},
+		->add('updatedBy', ChoiceType::class, array(
+				'choices' 		=> $users,
 				'required'		=> false,
 				'expanded'      => false,
-				'multiple'      => true,
-				'placeholder'	=> 'label.choose.user'
+				'multiple'      => true
 		))
-		->add('createdBy', EntityType::class, array(
-				'class'			=> User::class,
-				'query_builder' => function (UserRepository $repository) {
-				return $repository->createQueryBuilder('e')
-				->orderBy('e.surname ASC, e.forename', 'ASC');
-				},
+		->add('createdBy', ChoiceType::class, array(
+				'choices' 		=> $users,
 				'required'		=> false,
 				'expanded'      => false,
-				'multiple'      => true,
-				'placeholder'	=> 'label.choose.user'
+				'multiple'      => true
 		))
 		;
+	}
+	
+	protected function getDefaultOptions() {
+		$options = parent::getDefaultOptions();
+	
+		$options['users'] = array();
+	
+		return $options;
 	}
 	
 	/**

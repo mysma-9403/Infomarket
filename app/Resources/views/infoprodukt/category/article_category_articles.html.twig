@@ -14,7 +14,7 @@
 		{% for article in articles | slice(0, numOfArticles) %}
 			<div class="col-sm-2 padding-5">
 				<a class="text-white" href="{{ path(basePath ~ 'article_show', 
-					{ id: article.id, category: entry.id, article_filter_article_categories: category.id }) }}">
+					{ id: article.id, category: entry.id, article_filter_article_categories: [category.id] }) }}">
 					<div class="rect col-bottom bkg-white">
 						{% if article.image %}
 							<img class="div-center img-{{ article.vertical ? '' : 'v' }}responsive" 
@@ -25,9 +25,9 @@
 							<div class="default-tile">
 								{% if showTitle %}
 									<h5 class="title">
-										{% for articleBrandAssignment in article.articleBrandAssignments %}
-						      				{{ articleBrandAssignment.brand.name }} 
-					      				{% endfor %}
+{# 										{% for articleBrandAssignment in article.articleBrandAssignments %}#}
+{# 						      				{{ articleBrandAssignment.brand.name }} #}
+{# 					      				{% endfor %}#}
 					      				&nbsp
 				      				</h5>
 			      				{% endif %}
@@ -46,7 +46,7 @@
 	
 	<div class="row">
 		<div class="col-sm-2 col-sm-push-10 padding-5">
-			<a href={{ path('infoprodukt_article', { category: entry.id, article_filter_article_categories: category.id }) }} class="text-red">
+			<a href={{ path('infoprodukt_article', { category: entry.id, article_filter_article_categories: [category.id] }) }} class="text-red">
 				<h5 class="title">{{ 'label.more'|trans }}</h5>
 			</a>
 		</div>

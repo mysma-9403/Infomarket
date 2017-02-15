@@ -4,12 +4,13 @@
 {% set mainPath = 'article' %}
 
 {% block moreMoreBreadcrumbs%}
-	{% if tags | length > 0 %}
-		/
-		<a href="{{ path(basePath ~ mainPath, { category: categoryId, article_filter_tags: tags[0].id }) }}">
-			{{ tags[0].name }}
-		</a>
-	{% endif %}
+{# TODO what about tags? #}
+{# 	{% if tags | length > 0 %}#}
+{# 		/#}
+{# 		<a href="{{ path(basePath ~ mainPath, { category: categoryId, article_filter_tags: tags[0].id }) }}">#}
+{# 			{{ tags[0].name }}#}
+{# 		</a>#}
+{# 	{% endif %}#}
 {% endblock %}
 			
 {% block moreSidebarContent %}
@@ -52,12 +53,12 @@
 								</div>
 							</div>
 							<div class="col-sm-9">
-								{% for articleBrandAssignment in entry.articleBrandAssignments %}
-{# 									<a href="{{ path(basePath ~ 'brand_show', { id: articleBrandAssignment.brand.id, category: category is defined ? category.id : null }) }}">#}
-									<a href="#">
-										<h3 class="text-red">{{ articleBrandAssignment.brand.name | raw }} </h3>
-									</a> 
-								{% endfor %}
+{# 								{% for articleBrandAssignment in entry.articleBrandAssignments %}#}
+{# {# 									<a href="{{ path(basePath ~ 'brand_show', { id: articleBrandAssignment.brand.id, category: category is defined ? category.id : null }) }}">#}#}
+{# 									<a href="#">#}
+{# 										<h3 class="text-red">{{ articleBrandAssignment.brand.name | raw }} </h3>#}
+{# 									</a> #}
+{# 								{% endfor %}#}
 								
 								<a href="{{ path('infoprodukt_' ~ mainPath ~ '_show', { 'id': entry.id, category: category is defined ? category.id : null }) }}">
 									<h3>
@@ -73,26 +74,26 @@
 								</div>
 								
 								<div class="col-xs-6 text-muted">
-									{% if entry.author %}
-										<span class="fa fa-user"></span> {{ entry.author }}
+									{% if entry.authorPseudonym %}
+										<span class="fa fa-user"></span> {{ entry.authorPseudonym }}
 									{% endif %}
 								</div>
 								
-								<div class="col-xs-12 text-muted">
-									{% if entry.articleTagAssignments | length > 0 %}
-										<span class="fa fa-tags"></span> 
-										{% spaceless %}
-										{% for articleTagAssignment in entry.articleTagAssignments %}
-											{{- loop.index > 1 ? ', ' : '' -}}
-											<a href="{{ path(basePath ~ mainPath, 
-												{ category: category is defined and category ? category.id : null, article_filter_tags: articleTagAssignment.tag.id }) }}">
-												{{- articleTagAssignment.tag.name -}}
-											</a>
+{# 								<div class="col-xs-12 text-muted">#}
+{# 									{% if entry.articleTagAssignments | length > 0 %}#}
+{# 										<span class="fa fa-tags"></span> #}
+{# 										{% spaceless %}#}
+{# 										{% for articleTagAssignment in entry.articleTagAssignments %}#}
+{# 											{{- loop.index > 1 ? ', ' : '' -}}#}
+{# 											<a href="{{ path(basePath ~ mainPath, #}
+{# 												{ category: category is defined and category ? category.id : null, article_filter_tags: articleTagAssignment.tag.id }) }}">#}
+{# 												{{- articleTagAssignment.tag.name -}}#}
+{# 											</a>#}
 											 
-										{% endfor %}
-										{% endspaceless %}
-									{% endif %}
-								</div>
+{# 										{% endfor %}#}
+{# 										{% endspaceless %}#}
+{# 									{% endif %}#}
+{# 								</div>#}
 								
 								<div class="col-xs-12">
 									<p>

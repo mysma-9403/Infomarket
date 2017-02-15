@@ -2,11 +2,14 @@
 
 namespace AppBundle\Controller\Admin\Base;
 
-use AppBundle\Entity\Filter\Base\BaseEntityFilter;
+use AppBundle\Filter\Admin\Base\AuditFilter;
+use AppBundle\Filter\Admin\Base\SimpleEntityFilter;
+use AppBundle\Filter\Base\Filter;
 use AppBundle\Form\Editor\Base\SimpleEntityEditorType;
-use AppBundle\Form\Filter\Base\SimpleEntityFilterType;
+use AppBundle\Form\Filter\Admin\Base\SimpleEntityFilterType;
 use AppBundle\Form\Lists\Base\SimpleEntityListType;
-use AppBundle\Manager\Filter\Base\SimpleEntityFilterManager;
+use AppBundle\Manager\Filter\Base\FilterManager;
+use AppBundle\Repository\Admin\Base\SimpleRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Request;
@@ -24,41 +27,37 @@ abstract class SimpleEntityController extends BaseEntityController
 	 * @param Request $request
 	 * @param BaseFormType $form
 	 */
-	protected function listFormActionInternal(Request $request, Form $form, BaseEntityFilter $filter, $allEntries) {
+	protected function listFormActionInternal(Request $request, Form $form, AuditFilter $filter, array $listItems) {
 		
 		if ($form->get('imPublishSelected')->isClicked()) {
 			$data = $form->getData();
 			$entries = $data->getEntries();
-			$this->setIMPublishedSelected($entries, true);
-	
-			return $this->redirectToReferer($request);
+			$filter->setSelected($entries);
+			$this->setIMPublishedSelected($entries, 1);
 		}
 	
 		if ($form->get('imUnpublishSelected')->isClicked()) {
 			$data = $form->getData();
 			$entries = $data->getEntries();
-			$this->setIMPublishedSelected($entries, false);
-	
-			return $this->redirectToReferer($request);
+			$filter->setSelected($entries);
+			$this->setIMPublishedSelected($entries, 0);
 		}
 		
 		if ($form->get('ipPublishSelected')->isClicked()) {
 			$data = $form->getData();
 			$entries = $data->getEntries();
-			$this->setIPPublishedSelected($entries, true);
-		
-			return $this->redirectToReferer($request);
+			$filter->setSelected($entries);
+			$this->setIPPublishedSelected($entries, 1);
 		}
 		
 		if ($form->get('ipUnpublishSelected')->isClicked()) {
 			$data = $form->getData();
 			$entries = $data->getEntries();
-			$this->setIPPublishedSelected($entries, false);
-		
-			return $this->redirectToReferer($request);
+			$filter->setSelected($entries);
+			$this->setIPPublishedSelected($entries, 0);
 		}
 	
-		return parent::listFormActionInternal($request, $form, $filter, $allEntries);
+		return parent::listFormActionInternal($request, $form, $filter, $listItems);
 	}
 	
 	protected function setIMPublishedActionInternal(Request $request, $id)
@@ -129,23 +128,12 @@ abstract class SimpleEntityController extends BaseEntityController
 	// Internal logic
 	//---------------------------------------------------------------------------
 	
-	/**
-	 *
-	 * @param unknown $entries
-	 * @param unknown $published
-	 */
-	protected function setIMPublishedSelected($entries, $published)
-	{
-		$this->denyAccessUnlessGranted($this->getEditRole(), null, 'Unable to access this page!');
-	
-		$em = $this->getDoctrine()->getManager();
-	
-		foreach ($entries as $entry) {
-			$entry->setInfomarket($published);
-			$em->persist($entry);
+	protected function getListItems($items) {
+		$listItems = array();
+		foreach($items as $item) {
+			$listItems[$item['name']] = $item['id'];
 		}
-	
-		$em->flush();
+		return $listItems;
 	}
 	
 	/**
@@ -153,18 +141,31 @@ abstract class SimpleEntityController extends BaseEntityController
 	 * @param unknown $entries
 	 * @param unknown $published
 	 */
-	protected function setIPPublishedSelected($entries, $published)
+	protected function setIMPublishedSelected($items, $published)
 	{
 		$this->denyAccessUnlessGranted($this->getEditRole(), null, 'Unable to access this page!');
 	
-		$em = $this->getDoctrine()->getManager();
-	
-		foreach ($entries as $entry) {
-			$entry->setInfoprodukt($published);
-			$em->persist($entry);
+		if(count($items) > 0) {
+			/** @var SimpleRepository $repository */
+			$repository = $this->getRepository();
+			$repository->setIMPublished($items, $published);
 		}
+	}
 	
-		$em->flush();
+	/**
+	 *
+	 * @param unknown $entries
+	 * @param unknown $published
+	 */
+	protected function setIPPublishedSelected($items, $published)
+	{
+		$this->denyAccessUnlessGranted($this->getEditRole(), null, 'Unable to access this page!');
+	
+		if(count($items) > 0) {
+			/** @var SimpleRepository $repository */
+			$repository = $this->getRepository();
+			$repository->setIPPublished($items, $published);
+		}
 	}
 	
 	//---------------------------------------------------------------------------
@@ -172,7 +173,7 @@ abstract class SimpleEntityController extends BaseEntityController
 	//---------------------------------------------------------------------------
 	
 	protected function getFilterManager($doctrine) {	
-		return new SimpleEntityFilterManager($doctrine);
+		return new FilterManager(new SimpleEntityFilter());
 	}
 	
 	//---------------------------------------------------------------------------

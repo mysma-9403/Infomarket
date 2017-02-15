@@ -26,11 +26,6 @@ class MagazineFilter extends SimpleEntityFilter {
 	 */
 	protected $categoryRepository;
 	
-	/**
-	 * @var BranchRepository
-	 */
-	protected $branchRepository;
-	
 	public function __construct(
 			UserRepository $userRepository, 
 			MagazineRepository $magazineRepository, 
@@ -40,7 +35,6 @@ class MagazineFilter extends SimpleEntityFilter {
 		
 		$this->magazineRepository = $magazineRepository;
 		$this->categoryRepository = $categoryRepository;
-		$this->branchRepository = $branchRepository;
 		
 		$this->filterName = 'magazine_filter_';
 		
@@ -65,8 +59,7 @@ class MagazineFilter extends SimpleEntityFilter {
 		$categories = $request->get($this->getFilterName() . 'categories', array());
 		$this->categories = $this->categoryRepository->findBy(array('id' => $categories));
 		
-		$branches = $request->get($this->getFilterName() . 'branches', array());
-		$this->branches = $this->branchRepository->findBy(array('id' => $branches));
+		$this->branches = $request->get($this->getFilterName() . 'branches', array());
 		
 		$this->featured = $request->get($this->getFilterName() . 'featured', $this::ALL_VALUES);
 		$this->root = $request->get($this->getFilterName() . 'root', $this::ALL_VALUES);
@@ -107,7 +100,7 @@ class MagazineFilter extends SimpleEntityFilter {
 		}
 		
 		if($this->branches) {
-			$values[$this->getFilterName() . 'branches'] = $this->getIdValues($this->branches);
+			$values[$this->getFilterName() . 'branches'] = $this->branches;
 		}
 		
 		if($this->featured != $this::ALL_VALUES) {
@@ -138,7 +131,7 @@ class MagazineFilter extends SimpleEntityFilter {
 		}
 		
 		if($this->branches) {
-			$expressions[] = $this->getEqualArrayExpression('mba.branch', $this->branches);
+			$expressions[] = $this->getEqualNumberArrayExpression('mba.branch', $this->branches);
 		}
 		
 		if($this->featured != SimpleEntityFilter::ALL_VALUES) {

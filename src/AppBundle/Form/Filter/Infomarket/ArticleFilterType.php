@@ -2,18 +2,13 @@
 
 namespace AppBundle\Form\Filter\Infomarket;
 
-use AppBundle\Entity\ArticleCategory;
-use AppBundle\Entity\Filter\ArticleFilter;
-use AppBundle\Entity\Filter\Base\BaseEntityFilter;
+use AppBundle\Form\Base\FilterType;
 use AppBundle\Form\Filter\Base\SimpleEntityFilterType;
-use AppBundle\Repository\ArticleCategoryRepository;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
-use AppBundle\Entity\Category;
-use AppBundle\Repository\CategoryRepository;
-use AppBundle\Entity\BranchCategoryAssignment;
+use AppBundle\Filter\Infomarket\Main\ArticleFilter;
 
-class ArticleFilterType extends SimpleEntityFilterType
+class ArticleFilterType extends FilterType
 {	
 	/**
 	 * 
@@ -22,40 +17,30 @@ class ArticleFilterType extends SimpleEntityFilterType
 	 */
 	protected function addMainFields(FormBuilderInterface $builder, array $options) {
 		
-		$branch = $options['branch'];
+		$articleCategories = $options['articleCategories'];
+		$categories = $options['categories'];
 		
 		$builder
-		->add('articleCategories', EntityType::class, array(
-				'class'			=> ArticleCategory::class,
-				'query_builder' => function (ArticleCategoryRepository $repository) {
-					return $repository->createQueryBuilder('e')
-					->where('e.infomarket = ' . BaseEntityFilter::TRUE_VALUES)
-					->orderBy('e.name', 'ASC');
-				},
+		->add('articleCategories', ChoiceType::class, array(
+				'choices' 		=> $articleCategories, 
 				'required'		=> false,
 				'expanded'      => true,
-				'multiple'      => true,
-				'placeholder'	=> 'label.choose.articleCategory'
+				'multiple'      => true
 		))
-		->add('categories', EntityType::class, array(
-				'class'			=> Category::class,
-				'query_builder' => function (CategoryRepository $repository) use(&$branch) {
-					return $repository->createQueryBuilder('e')
-					->join(BranchCategoryAssignment::class, 'bca', 'WITH', 'e.id = bca.category')
-					->where('e.infomarket = ' . BaseEntityFilter::TRUE_VALUES . ' AND e.parent IS NULL AND bca.branch = ' . $branch)
-					->orderBy('e.name', 'ASC');
-				},
+		->add('categories', ChoiceType::class, array(
+				'choices'		=> $categories, 
 				'required'		=> false,
 				'expanded'      => true,
-				'multiple'      => true,
-				'placeholder'	=> 'label.choose.category'
+				'multiple'      => true
 		))
 		;
 	}
 	
 	protected function getDefaultOptions() {
 		$options = parent::getDefaultOptions();
-		$options['branch'] = 1;
+		
+		$options['articleCategories'] = array();
+		$options['categories'] = array();
 	
 		return $options;
 	}

@@ -4,10 +4,10 @@ namespace AppBundle\Controller\Infomarket;
 
 use AppBundle\Controller\Infomarket\Base\InfomarketController;
 use AppBundle\Entity\Category;
+use AppBundle\Filter\Infomarket\Base\BranchDependentFilter;
 use AppBundle\Manager\Entity\Base\EntityManager;
-use AppBundle\Manager\Entity\Common\CategoryManager;
+use AppBundle\Manager\Entity\Infomarket\CategoryManager;
 use AppBundle\Manager\Filter\Base\FilterManager;
-use AppBundle\Manager\Filter\Infomarket\IMCategoryFilterManager;
 use AppBundle\Manager\Params\EntryParams\Infomarket\CategoryEntryParamsManager;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -49,12 +49,8 @@ class CategoryController extends InfomarketController
 		return new CategoryManager($doctrine, $paginator);
 	}
 	
-	protected function getEntryFilterManager($doctrine) {
-		return new IMCategoryFilterManager($doctrine);
-	}
-	
-	protected function isFilterByBranches() {
-		return true;
+	protected function getFilterManager($doctrine) {
+		return new FilterManager(new BranchDependentFilter());
 	}
 	
 	//---------------------------------------------------------------------------

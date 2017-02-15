@@ -3,11 +3,16 @@
 namespace AppBundle\Controller\Admin;
 
 use AppBundle\Controller\Admin\Base\BaseEntityController;
+use AppBundle\Entity\Category;
+use AppBundle\Entity\Term;
 use AppBundle\Entity\TermCategoryAssignment;
+use AppBundle\Filter\Admin\Assignments\TermCategoryAssignmentFilter;
 use AppBundle\Form\Editor\TermCategoryAssignmentEditorType;
-use AppBundle\Form\Filter\TermCategoryAssignmentFilterType;
+use AppBundle\Form\Filter\Admin\Assignments\TermCategoryAssignmentFilterType;
 use AppBundle\Manager\Entity\Common\TermCategoryAssignmentManager;
-use AppBundle\Manager\Filter\Common\TermCategoryAssignmentFilterManager;
+use AppBundle\Manager\Filter\Base\FilterManager;
+use AppBundle\Repository\Admin\Main\CategoryRepository;
+use AppBundle\Repository\Admin\Main\TermRepository;
 use Symfony\Component\HttpFoundation\Request;
 
 class TermCategoryAssignmentController extends BaseEntityController {
@@ -88,6 +93,24 @@ class TermCategoryAssignmentController extends BaseEntityController {
 	}
 	
 	//---------------------------------------------------------------------------
+	// Internal logic
+	//---------------------------------------------------------------------------
+	
+	protected function getFormOptions() {
+		$options = parent::getFormOptions();
+	
+		/** @var TermRepository $termRepository */
+		$termRepository = $this->getDoctrine()->getRepository(Term::class);
+		$options['terms'] = $termRepository->findFilterItems();
+	
+		/** @var CategoryRepository $categoryRepository */
+		$categoryRepository = $this->getDoctrine()->getRepository(Category::class);
+		$options['categories'] = $categoryRepository->findFilterItems();
+	
+		return $options;
+	}
+	
+	//---------------------------------------------------------------------------
 	// Managers
 	//---------------------------------------------------------------------------
 	
@@ -106,7 +129,7 @@ class TermCategoryAssignmentController extends BaseEntityController {
 	 * @see \AppBundle\Controller\Base\BaseEntityController::getFilterManager()
 	 */
 	protected function getFilterManager($doctrine) {
-		return new TermCategoryAssignmentFilterManager($doctrine);
+		return new FilterManager(new TermCategoryAssignmentFilter());
 	}
 	
 	//---------------------------------------------------------------------------

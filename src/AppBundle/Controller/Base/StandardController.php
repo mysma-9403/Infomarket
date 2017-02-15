@@ -7,6 +7,7 @@ use AppBundle\Manager\Params\EntryParams\Base\EntryParamsManager;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Manager\Entity\Base\EntityManager;
+use AppBundle\Filter\Base\Filter;
 
 abstract class StandardController extends DummyController
 {	
@@ -109,7 +110,9 @@ abstract class StandardController extends DummyController
 		
 	protected abstract function getEntityManager($doctrine, $paginator);
 	
-	protected abstract function getFilterManager($doctrine);
+	protected function getFilterManager($doctrine) {
+		return new FilterManager(new Filter());
+	}
 	
     //---------------------------------------------------------------------------
     // Views

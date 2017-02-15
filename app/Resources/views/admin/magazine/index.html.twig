@@ -3,23 +3,29 @@
 {% set mainPath = 'magazine' %}
 {% set title = 'title.magazines'|trans %}
 
-{% block filterMoreFields3 %}
+{% block filterMoreFields1 %}
 	<li class="col-xs-12 col-sm-6 col-md-4 col-lg-2">
-		{{ form_widget(filter.featured, { 'label': 'label.featured' }) }}
+		{{ form_widget(filter.branches, { 'label': 'label.branches' }) }}
 	</li>
 	<li class="col-xs-12 col-sm-6 col-md-4 col-lg-2">
-		{{ form_widget(filter.main, { 'label': 'label.magazine.main' }) }}
+		{{ form_widget(filter.categories, { 'label': 'label.categories' }) }}
 	</li>
 	<li class="col-xs-12 col-sm-6 col-md-4 col-lg-2">
 		{{ form_widget(filter.parents, { 'label': 'label.magazine.parents' }) }}
 	</li>
 {% endblock %}
 
-{% block headerMoreFields2 %}
+{% block filterMoreFields3 %}
+	<li class="col-xs-12 col-sm-6 col-md-4 col-lg-2">
+		{{ form_widget(filter.featured, { 'label': 'label.featured' }) }}
+	</li>
+{% endblock %}
+
+{% block headerMoreFields3 %}
 	<th><i class="fa fa-star"></i> {{ 'label.featured'|trans }}</th>
 {% endblock %}
 
-{% block entryMoreFields2 %}
+{% block entryMoreFields3 %}
 	<td>
 		{% include 'common/fields/bool_action_field.html.twig' with 
 			{ 'id': item.id, 'value': item.featured, 'extPath': '_set_featured',

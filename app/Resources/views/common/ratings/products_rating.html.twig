@@ -111,17 +111,7 @@
 												alt="{{ product.name }}" src="{{ asset(product.image) }}">
 										{% endif %}
 										
-										{% set showTopProduct = false %}
-										{% for productCategoryAssignment in product.productCategoryAssignments %}
-											{% if productCategoryAssignment.category.id == entry.id 
-												and productCategoryAssignment.segment.id == segment.id 
-												and productCategoryAssignment.featured %}
-												
-												{% set showTopProduct = true %}
-											{% endif %}
-										{% endfor %}
-										
-										{% if showTopProduct %}
+										{% if product.featured %}
 											<div class="div-top">
 												<div class="top-product-tile">
 													<a href="{{ asset(product.topProduktImage()) }}">
@@ -135,20 +125,20 @@
 									<div class="col-xs-12 bkg-red rating-subtitle1 text-center">
 {# 										<a class="text-white title" href="{{ path(basePath ~ 'brand_show', {'id': product.brand.id }) }}">#}
 										<a class="text-white title" href="#">
-											{% if product.brand.name|length > 28 %}
+											{% if product.brandName|length > 28 %}
 												{% set style="font-size: 8px; padding-top: 5px" %}
-											{% elseif product.brand.name|length > 20 %}
+											{% elseif product.brandName|length > 20 %}
 												{% set style="font-size: 10px; padding-top: 4px" %}
-											{% elseif product.brand.name|length > 14 %}
+											{% elseif product.brandName|length > 14 %}
 												{% set style="font-size: 12px; padding-top: 3px" %}
-											{% elseif product.brand.name|length > 10 %}
+											{% elseif product.brandName|length > 10 %}
 												{% set style="font-size: 14px; padding-top: 2px" %}
-											{% elseif product.brand.name|length > 8 %}
+											{% elseif product.brandName|length > 8 %}
 												{% set style="font-size: 16px; padding-top: 1px" %}
 											{% else %}
 												{% set style="" %}
 											{% endif %}
-											<h4 style="{{ style }}">{{ product.brand.name }}</h4>
+											<h4 style="{{ style }}">{{ product.brandName }}</h4>
 										</a>
 									</div>
 											
@@ -163,7 +153,7 @@
 									<div class="col-xs-12 vr-space-5 bkg-white"></div>
 									
 									<div class="col-xs-12 bkg-brand rating-subtitle2 text-center">
-										<a class="text-small text-white title" href="{{ product.brand.www }}">
+										<a class="text-small text-white title" href="{{ product.brandWww }}">
 											{{ 'label.www'|trans }}
 										</a>
 									</div>
@@ -264,17 +254,7 @@
 													alt="{{ product.name }}" src="{{ asset(product.image) }}">
 											{% endif %}
 											
-											{% set showTopProduct = false %}
-											{% for productCategoryAssignment in product.productCategoryAssignments %}
-												{% if productCategoryAssignment.category.id == category.id 
-													and productCategoryAssignment.segment.id == segment.id 
-													and productCategoryAssignment.featured %}
-													
-													{% set showTopProduct = true %}
-												{% endif %}
-											{% endfor %}
-											
-											{% if showTopProduct %}
+											{% if product.featured %}
 												<div class="div-top">
 													<div class="top-product-tile">
 														<a href="{{ asset('img/top-product.png') }}">
@@ -288,20 +268,20 @@
 										<div class="col-xs-12 bkg-red rating-subtitle1 text-center">
 {# 											<a class="text-white title" href="{{ path(basePath ~ 'brand_show', {'id': product.brand.id }) }}">#}
 											<a class="text-white title" href="#">
-												{% if product.brand.name|length > 28 %}
+												{% if product.brandName|length > 28 %}
 													{% set style="font-size: 8px; padding-top: 5px" %}
-												{% elseif product.brand.name|length > 20 %}
+												{% elseif product.brandName|length > 20 %}
 													{% set style="font-size: 10px; padding-top: 4px" %}
-												{% elseif product.brand.name|length > 14 %}
+												{% elseif product.brandName|length > 14 %}
 													{% set style="font-size: 12px; padding-top: 3px" %}
-												{% elseif product.brand.name|length > 10 %}
+												{% elseif product.brandName|length > 10 %}
 													{% set style="font-size: 14px; padding-top: 2px" %}
-												{% elseif product.brand.name|length > 8 %}
+												{% elseif product.brandName|length > 8 %}
 													{% set style="font-size: 16px; padding-top: 1px" %}
 												{% else %}
 													{% set style="" %}
 												{% endif %}
-												<h4 style="{{ style }}">{{ product.brand.name }}</h4>
+												<h4 style="{{ style }}">{{ product.brandName }}</h4>
 											</a>
 										</div>
 															
@@ -316,7 +296,7 @@
 										<div class="col-xs-12 vr-space-5 bkg-white"></div>
 											
 										<div class="col-xs-12 bkg-brand rating-subtitle2 text-center">
-											<a class="text-small text-white title" href="{{ product.brand.www }}">
+											<a class="text-small text-white title" href="{{ product.brandWww }}">
 												{{ 'label.www'|trans }}
 											</a>
 										</div>

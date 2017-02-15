@@ -4,10 +4,11 @@ namespace AppBundle\Controller\Admin;
 
 use AppBundle\Controller\Admin\Base\SimpleEntityController;
 use AppBundle\Entity\NewsletterUser;
+use AppBundle\Filter\Admin\Main\NewsletterUserFilter;
 use AppBundle\Form\Editor\NewsletterUserEditorType;
-use AppBundle\Form\Filter\NewsletterUserFilterType;
+use AppBundle\Form\Filter\Admin\Main\NewsletterUserFilterType;
 use AppBundle\Manager\Entity\Common\NewsletterUserManager;
-use AppBundle\Manager\Filter\Common\NewsletterUserFilterManager;
+use AppBundle\Manager\Filter\Base\FilterManager;
 use Symfony\Component\HttpFoundation\Request;
 
 class NewsletterUserController extends SimpleEntityController {
@@ -155,7 +156,7 @@ class NewsletterUserController extends SimpleEntityController {
 	}
 	
 	protected function getFilterManager($doctrine) {
-		return new NewsletterUserFilterManager($doctrine);
+		return new FilterManager(new NewsletterUserFilter());
 	}
 	
 	//---------------------------------------------------------------------------

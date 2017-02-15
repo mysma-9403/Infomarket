@@ -3,11 +3,15 @@
 namespace AppBundle\Controller\Admin;
 
 use AppBundle\Controller\Admin\Base\SimpleEntityController;
+use AppBundle\Entity\Branch;
+use AppBundle\Entity\Category;
+use AppBundle\Entity\Menu;
 use AppBundle\Entity\MenuEntry;
+use AppBundle\Filter\Admin\Main\MenuEntryFilter;
 use AppBundle\Form\Editor\MenuEntryEditorType;
-use AppBundle\Form\Filter\MenuEntryFilterType;
+use AppBundle\Form\Filter\Admin\Main\MenuEntryFilterType;
 use AppBundle\Manager\Entity\Common\MenuEntryManager;
-use AppBundle\Manager\Filter\Common\MenuEntryFilterManager;
+use AppBundle\Manager\Filter\Base\FilterManager;
 use Symfony\Component\HttpFoundation\Request;
 
 class MenuEntryController extends SimpleEntityController {
@@ -111,6 +115,32 @@ class MenuEntryController extends SimpleEntityController {
 	}
 	
 	//---------------------------------------------------------------------------
+	// Internal logic
+	//---------------------------------------------------------------------------
+	
+	protected function getFormOptions() {
+		$options = parent::getFormOptions();
+	
+		/** @var MenuRepository $menuRepository */
+		$menuRepository = $this->getDoctrine()->getRepository(Menu::class);
+		$options['menus'] = $menuRepository->findFilterItems();
+		
+		/** @var MenuEntryRepository $menuEntryRepository */
+		$menuEntryRepository = $this->getDoctrine()->getRepository(MenuEntry::class);
+		$options['parents'] = $menuEntryRepository->findFilterItems();
+	
+		/** @var BranchRepository $branchRepository */
+		$branchRepository = $this->getDoctrine()->getRepository(Branch::class);
+		$options['branches'] = $branchRepository->findFilterItems();
+	
+		/** @var CategoryRepository $categoryRepository */
+		$categoryRepository = $this->getDoctrine()->getRepository(Category::class);
+		$options['categories'] = $categoryRepository->findFilterItems();
+	
+		return $options;
+	}
+	
+	//---------------------------------------------------------------------------
 	// Managers
 	//---------------------------------------------------------------------------
 	
@@ -119,7 +149,7 @@ class MenuEntryController extends SimpleEntityController {
 	}
 	
 	protected function getFilterManager($doctrine) {
-		return new MenuEntryFilterManager($doctrine);
+		return new FilterManager(new MenuEntryFilter());
 	}
 	
 	//---------------------------------------------------------------------------

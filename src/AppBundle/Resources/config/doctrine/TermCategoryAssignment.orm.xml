@@ -6,7 +6,7 @@
 
     <entity name="AppBundle\Entity\TermCategoryAssignment" 
         table="term_category_assignments"
-        repository-class="AppBundle\Repository\TermCategoryAssignmentRepository">
+        repository-class="AppBundle\Repository\Admin\Assignments\TermCategoryAssignmentRepository">
         
         <many-to-one field="term" target-entity="Term" inversed-by="termCategoryAssignments" />
         <many-to-one field="category" target-entity="Category" inversed-by="termCategoryAssignments" />

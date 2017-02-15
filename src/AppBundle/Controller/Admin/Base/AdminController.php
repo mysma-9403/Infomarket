@@ -3,11 +3,12 @@
 namespace AppBundle\Controller\Admin\Base;
 
 use AppBundle\Controller\Base\StandardController;
-use AppBundle\Entity\Filter\Base\BaseEntityFilter;
 use AppBundle\Entity\Lists\Base\BaseEntityList;
+use AppBundle\Filter\Base\Filter;
 use AppBundle\Manager\Route\RouteManager;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Filter\Admin\Base\AuditFilter;
 
 abstract class AdminController extends StandardController {
 	
@@ -40,19 +41,20 @@ abstract class AdminController extends StandardController {
 		
 		
 		$filter = $viewParams['entryFilter'];
+		$options = $this->getFormOptions();
 	
-		$filterForm = $this->createForm($this->getFilterFormType(), $filter);
+		$filterForm = $this->createForm($this->getFilterFormType(), $filter, $options);
 		$filterForm->handleRequest($request);
 	
 		if ($filterForm->isSubmitted() && $filterForm->isValid()) {
 			
 			if ($filterForm->get('search')->isClicked()) {
-				return $this->redirectToRoute($this->getIndexRoute(), $filter->getValues());
+				return $this->redirectToRoute($this->getIndexRoute(), $filter->getRequestValues());
 			}
 			
 			if ($filterForm->get('clear')->isClicked()) {
-				$filter->clearQueryValues();
-				return $this->redirectToRoute($this->getIndexRoute(), $filter->getValues());
+				$filter->clearRequestValues();
+				return $this->redirectToRoute($this->getIndexRoute(), $filter->getRequestValues());
 			}
 		}
 		$viewParams['filter'] = $filterForm->createView();
@@ -60,15 +62,17 @@ abstract class AdminController extends StandardController {
 		
 		
 		
-		$allEntries = $viewParams['entries'];
-		$selectedEntries = $this->getSelectedEntries($filter, $allEntries);
+		$items = $viewParams['entries'];
+		$selectedEntries = $this->getSelectedEntries($filter, $items);
 		
-		$form = $this->createForm($this->getListFormType(), $selectedEntries, array('choices' => $allEntries));
+		$listItems = $this->getListItems($items);
+		
+		$form = $this->createForm($this->getListFormType(), $selectedEntries, ['choices' => $listItems]);
 		$form->handleRequest($request);
 		
 		if ($form->isSubmitted() && $form->isValid())
 		{
-			return $this->listFormActionInternal($request, $form, $filter, $allEntries);
+			return $this->listFormActionInternal($request, $form, $filter, $listItems);
 		}
 		$viewParams['form'] = $form->createView();
 		
@@ -81,19 +85,16 @@ abstract class AdminController extends StandardController {
 	 * 
 	 * @param Request $request
 	 * @param Form $form
-	 * @param BaseEntityFilter $filter
+	 * @param Filter $filter
 	 * @param unknown $allEntries
 	 * 
 	 * @return \Symfony\Component\HttpFoundation\RedirectResponse|\AppBundle\Controller\Base\RedirectResponse
 	 */
-	protected function listFormActionInternal(Request $request, Form $form, BaseEntityFilter $filter, $allEntries) {
-		if ($form->get('new')->isClicked()) {
-			return $this->redirectToRoute($this->getNewRoute());
-		}
+	protected function listFormActionInternal(Request $request, Form $form, AuditFilter $filter, array $listItems) {
 		
 		if ($form->get('selectAll')->isClicked()) {
-			foreach ($allEntries as $entry) {
-				$filter->addSelected($entry->getId());
+			foreach ($listItems as $item) {
+				$filter->addSelected($item);
 			}
 		}
 		
@@ -104,12 +105,11 @@ abstract class AdminController extends StandardController {
 		if ($form->get('deleteSelected')->isClicked()) {
 			$data = $form->getData();
 			$entries = $data->getEntries();
+			$filter->clearSelected();
 			$this->deleteSelected($entries);
-		
-			return $this->redirectToReferer($request);
 		}
 		
-		return $this->redirectToRoute($this->getIndexRoute(), $filter->getValues());
+		return $this->redirectToRoute($this->getIndexRoute(), $filter->getRequestValues());
 	}
 	
 	protected function showActionInternal(Request $request, $id) {
@@ -250,6 +250,19 @@ abstract class AdminController extends StandardController {
 	//---------------------------------------------------------------------------
 	// Internal logic
 	//---------------------------------------------------------------------------
+	
+	protected function getFormOptions() {
+		return array();
+	}
+	
+	protected function getListItems($items) {
+		$listItems = array();
+		foreach($items as $item) {
+			$listItems[$item['id']] = $item['id'];
+		}
+		return $listItems;
+	}
+	
 	/**
 	 * Get entries selected by the list checkboxes.
 	 *
@@ -258,14 +271,15 @@ abstract class AdminController extends StandardController {
 	 *
 	 * @return BaseEntityList
 	 */
-	protected function getSelectedEntries($filter, $allEntries) {
+	protected function getSelectedEntries($filter, $listItems) {
 		$result = $this->createNewList();
 	
-		foreach ($allEntries as $entry) {
-			if(in_array($entry->getId(), $filter->getSelected())) {
-				$result->addEntry($entry);
+		foreach ($listItems as $item) {
+			if(in_array($item['id'], $filter->getSelected())) {
+				$result->addEntry($item['id']);
 			}
 		}
+		
 		return $result;
 	}
 	
@@ -282,6 +296,8 @@ abstract class AdminController extends StandardController {
 		$validator = $this->get('validator');
 	
 		foreach ($entries as $entry) {
+			$entry = $this->getEntry($entry);
+			
 			$entryErrors = $validator->validate($entry, null, array('removal'));
 			
 			if (count($entryErrors) > 0) {

@@ -2,9 +2,9 @@
 
 namespace AppBundle\Manager\Params\Base;
 
-use Symfony\Component\HttpFoundation\Request;
-use AppBundle\Utils\ClassUtils;
 use AppBundle\Entity\Filter\Base\BaseEntityFilter;
+use AppBundle\Utils\ClassUtils;
+use Symfony\Component\HttpFoundation\Request;
 
 class ParamsManager {
 	
@@ -66,5 +66,27 @@ class ParamsManager {
 	{
 		$repository = $this->doctrine->getRepository($paramClass);
 		return $repository->findSelected($filter);
+	}
+	
+	/**
+	 *
+	 * @param Request $request
+	 * @param class $paramClass
+	 * @param integer $template
+	 *
+	 * @return integer
+	 */
+	protected function getParamId($request, $paramClass, $template = null)
+	{
+		$paramName = ClassUtils::getClassName($paramClass);
+		$id = $request->get($paramName, null);
+		
+		if($id !== null) return $id;
+		
+		if(array_key_exists($paramName, $this->lastRouteParams)) {
+			return $this->lastRouteParams[$paramName];
+		}
+		
+		return $template;
 	}
 }

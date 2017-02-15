@@ -6,7 +6,7 @@
 
     <entity name="AppBundle\Entity\Tag" 
         table="tags"
-        repository-class="AppBundle\Repository\TagRepository">
+        repository-class="AppBundle\Repository\Admin\Main\TagRepository">
         
         <one-to-many field="articleTagAssignments" target-entity="ArticleTagAssignment" mapped-by="tag">
         </one-to-many>

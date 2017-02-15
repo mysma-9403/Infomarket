@@ -6,7 +6,7 @@
 
     <entity name="AppBundle\Entity\MenuEntryBranchAssignment" 
         table="menu_entry_branch_assignments"
-        repository-class="AppBundle\Repository\MenuEntryBranchAssignmentRepository">
+        repository-class="AppBundle\Repository\Admin\Assignments\MenuEntryBranchAssignmentRepository">
         
         <many-to-one field="menuEntry" target-entity="MenuEntry" inversed-by="menuEntryBranchAssignments" />
         <many-to-one field="branch" target-entity="Branch" inversed-by="menuEntryBranchAssignments" />

@@ -3,14 +3,11 @@
 namespace AppBundle\Manager\Params\EntryParams\Infoprodukt;
 
 use AppBundle\Entity\Category;
-use AppBundle\Entity\Filter\Base\BaseEntityFilter;
-use AppBundle\Entity\Filter\MagazineFilter;
 use AppBundle\Entity\Magazine;
-use AppBundle\Entity\User;
 use AppBundle\Manager\Params\EntryParams\Base\EntryParamsManager;
+use AppBundle\Repository\Infoprodukt\CategoryRepository;
+use AppBundle\Repository\Infoprodukt\MagazineRepository;
 use Symfony\Component\HttpFoundation\Request;
-use AppBundle\Entity\Filter\CategoryFilter;
-use AppBundle\Entity\Branch;
 
 class HomeEntryParamsManager extends EntryParamsManager {
 	
@@ -19,32 +16,13 @@ class HomeEntryParamsManager extends EntryParamsManager {
 		
 		$viewParams = $params['viewParams'];
 		
-		$userRepository = $this->doctrine->getRepository(User::class);
-		$branchRepository = $this->doctrine->getRepository(Branch::class);
-    	$categoryRepository = $this->doctrine->getRepository(Category::class);
-    	$magazineRepository = $this->doctrine->getRepository(Magazine::class);
+		$em = $this->doctrine->getManager();
 		
-    	$categoryFilter = new CategoryFilter($userRepository, $branchRepository, $categoryRepository);
-    	$categoryFilter->setInfoprodukt(BaseEntityFilter::TRUE_VALUES);
-    	$categoryFilter->setFeatured(BaseEntityFilter::TRUE_VALUES);
-    	$categoryFilter->setPreleaf(BaseEntityFilter::TRUE_VALUES);
-    	$categoryFilter->setOrderBy('e.orderNumber ASC, e.name ASC');
-    	$categoryFilter->setLimit(12);
-    	 
-    	$categories = $this->getParamList(Category::class, $categoryFilter);
-    	$viewParams['categories'] = $categories;
+    	$categoryRepository = new CategoryRepository($em, $em->getClassMetadata(Category::class));
+    	$viewParams['categories'] = $categoryRepository->findHomeItems();
     	
-    	
-    	
-    	$magazineFilter = new MagazineFilter($userRepository, $magazineRepository, $categoryRepository, $branchRepository);
-    	$magazineFilter->setInfoprodukt(BaseEntityFilter::TRUE_VALUES);
-    	$magazineFilter->setFeatured(BaseEntityFilter::TRUE_VALUES);
-    	$magazineFilter->setOrderBy('e.orderNumber ASC, e.name ASC');
-    	$magazineFilter->setLimit(6);
-    	
-    	$magazines = $this->getParamList(Magazine::class, $magazineFilter);
-    	$viewParams['magazines'] = $magazines;
-    	
+    	$magazineRepository = new MagazineRepository($em, $em->getClassMetadata(Magazine::class));
+    	$viewParams['magazines'] = $magazineRepository->findHomeItems();
     	
     	$params['viewParams'] = $viewParams;
     	return $params;

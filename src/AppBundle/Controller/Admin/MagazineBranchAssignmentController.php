@@ -3,11 +3,16 @@
 namespace AppBundle\Controller\Admin;
 
 use AppBundle\Controller\Admin\Base\BaseEntityController;
+use AppBundle\Entity\Branch;
+use AppBundle\Entity\Magazine;
 use AppBundle\Entity\MagazineBranchAssignment;
+use AppBundle\Filter\Admin\Assignments\MagazineBranchAssignmentFilter;
 use AppBundle\Form\Editor\MagazineBranchAssignmentEditorType;
-use AppBundle\Form\Filter\MagazineBranchAssignmentFilterType;
+use AppBundle\Form\Filter\Admin\Assignments\MagazineBranchAssignmentFilterType;
 use AppBundle\Manager\Entity\Common\MagazineBranchAssignmentManager;
-use AppBundle\Manager\Filter\Common\MagazineBranchAssignmentFilterManager;
+use AppBundle\Manager\Filter\Base\FilterManager;
+use AppBundle\Repository\Admin\Main\BranchRepository;
+use AppBundle\Repository\Admin\Main\MagazineRepository;
 use Symfony\Component\HttpFoundation\Request;
 
 class MagazineBranchAssignmentController extends BaseEntityController {
@@ -88,6 +93,24 @@ class MagazineBranchAssignmentController extends BaseEntityController {
 	}
 	
 	//---------------------------------------------------------------------------
+	// Internal logic
+	//---------------------------------------------------------------------------
+	
+	protected function getFormOptions() {
+		$options = parent::getFormOptions();
+	
+		/** @var MagazineRepository $magazineRepository */
+		$magazineRepository = $this->getDoctrine()->getRepository(Magazine::class);
+		$options['magazines'] = $magazineRepository->findFilterItems();
+	
+		/** @var BranchRepository $branchRepository */
+		$branchRepository = $this->getDoctrine()->getRepository(Branch::class);
+		$options['branches'] = $branchRepository->findFilterItems();
+	
+		return $options;
+	}
+	
+	//---------------------------------------------------------------------------
 	// Managers
 	//---------------------------------------------------------------------------
 	
@@ -106,7 +129,7 @@ class MagazineBranchAssignmentController extends BaseEntityController {
 	 * @see \AppBundle\Controller\Base\BaseEntityController::getFilterManager()
 	 */
 	protected function getFilterManager($doctrine) {
-		return new MagazineBranchAssignmentFilterManager($doctrine);
+		return new FilterManager(new MagazineBranchAssignmentFilter());
 	}
 	
 	//---------------------------------------------------------------------------

@@ -13,9 +13,15 @@
 {% endblock %}
 
 {% block headerMainFields1 %}
-	<th><i class="fa fa-photo"></i> {{ 'label.term'|trans }}</th>
+	<th><i class="fa fa-"></i> {{ 'label.term'|trans }}</th>
+	<th><i class="fa fa-"></i> {{ 'label.category'|trans }}</th>
 {% endblock %}
 
 {% block entryMainFields1 %}
-	<td>{{ item.term.name }}</td>
+	<td>
+		{% include 'common/links/simple_link.html.twig' with { type: 'term', value: { id: item.termId, name: item.termName } } %}
+	</td>
+	<td>
+		{% include 'common/links/simple_link.html.twig' with { type: 'category', value: { id: item.categoryId, name: item.categoryName } } %}
+	</td>
 {% endblock %}

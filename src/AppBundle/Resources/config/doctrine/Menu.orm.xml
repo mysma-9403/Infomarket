@@ -7,7 +7,7 @@
 
     <entity name="AppBundle\Entity\Menu" 
         table="menus"
-        repository-class="AppBundle\Repository\MenuRepository">
+        repository-class="AppBundle\Repository\Admin\Main\MenuRepository">
         
         <one-to-many field="menuMenuEntryAssignments" target-entity="MenuMenuEntryAssignment" mapped-by="menu">
         </one-to-many>

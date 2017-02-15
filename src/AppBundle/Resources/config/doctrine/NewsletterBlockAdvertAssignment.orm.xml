@@ -6,7 +6,7 @@
 
     <entity name="AppBundle\Entity\NewsletterBlockAdvertAssignment" 
         table="newsletter_block_advert_assignments"
-        repository-class="AppBundle\Repository\NewsletterBlockAdvertAssignmentRepository">
+        repository-class="AppBundle\Repository\Admin\Assignments\NewsletterBlockAdvertAssignmentRepository">
         
         <many-to-one field="newsletterBlock" target-entity="NewsletterBlock" inversed-by="newsletterBlockAdvertAssignments" />
         <many-to-one field="advert" target-entity="Advert" inversed-by="newsletterBlockAdvertAssignments" />

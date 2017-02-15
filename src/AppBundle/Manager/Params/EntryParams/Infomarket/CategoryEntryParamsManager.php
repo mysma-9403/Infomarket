@@ -2,19 +2,16 @@
 
 namespace AppBundle\Manager\Params\EntryParams\Infomarket;
 
-use AppBundle\Entity\Branch;
 use AppBundle\Entity\Brand;
 use AppBundle\Entity\Category;
-use AppBundle\Entity\Filter\Base\BaseEntityFilter;
-use AppBundle\Entity\Filter\Base\SimpleEntityFilter;
-use AppBundle\Entity\Filter\CategoryFilter;
-use AppBundle\Entity\Filter\ProductFilter;
 use AppBundle\Entity\Product;
 use AppBundle\Entity\Segment;
-use AppBundle\Entity\User;
 use AppBundle\Manager\Params\EntryParams\Base\EntryParamsManager;
+use AppBundle\Repository\Infomarket\BrandRepository;
+use AppBundle\Repository\Infomarket\CategoryRepository;
+use AppBundle\Repository\Infomarket\ProductRepository;
+use AppBundle\Repository\Infomarket\SegmentRepository;
 use Symfony\Component\HttpFoundation\Request;
-use AppBundle\Entity\Filter\BrandFilter;
 
 class CategoryEntryParamsManager extends EntryParamsManager {
 	
@@ -24,29 +21,14 @@ class CategoryEntryParamsManager extends EntryParamsManager {
 		$viewParams = $params['viewParams'];
 		$entry = $viewParams['entry'];
 		
-		$userRepository = $this->doctrine->getRepository(User::class);
-		$categoryRepository = $this->doctrine->getRepository(Category::class);
-		$brandRepository = $this->doctrine->getRepository(Brand::class);
-		$segmentRepository = $this->doctrine->getRepository(Segment::class);
-		$branchRepository = $this->doctrine->getRepository(Branch::class);
-		$productRepository = $this->doctrine->getRepository(Product::class);
+		$em = $this->doctrine->getManager();
+		
+		$brandRepository = new BrandRepository($em, $em->getClassMetadata(Brand::class));
+		$viewParams['topBrands'] = $brandRepository->findTopItems($entry->getId());
 		
 		
-		
-		$brandFilter = new BrandFilter($userRepository, $categoryRepository);
-		$brandFilter->setInfoprodukt(BaseEntityFilter::TRUE_VALUES);
-		$brandFilter->setCategories([$entry]);
-			
-		$topBrands = $brandRepository->findSelected($brandFilter);
-		$viewParams['topBrands'] = $topBrands;
-		
-		
-		
-		$segmentFilter = new SimpleEntityFilter($userRepository);
-		$segmentFilter->setInfomarket(BaseEntityFilter::TRUE_VALUES);
-		
-		$segments = $segmentRepository->findSelected($segmentFilter);
-		$viewParams['segments'] = $segments;
+		$segmentRepository = new SegmentRepository($em, $em->getClassMetadata(Segment::class));
+		$viewParams['segments'] = $segments = $segmentRepository->findTopItems();
 		
 		
 		$viewParams['brands'] = array();
@@ -54,26 +36,23 @@ class CategoryEntryParamsManager extends EntryParamsManager {
 		
 		$brands = [];
 		
+		$productRepository = new ProductRepository($em, $em->getClassMetadata(Product::class));
+		
 		foreach ($segments as $segment) {				
-			$productFilter = new ProductFilter($userRepository, $categoryRepository, $brandRepository, $segmentRepository);
-			$productFilter->setInfomarket(BaseEntityFilter::TRUE_VALUES);
-			$productFilter->setCategories([$entry]);
-			$productFilter->setSegments([$segment]);
 			
-			$products = $productRepository->findSelected($productFilter);	
-			$viewParams['products'][$segment->getId()] = $products;
+			$products = $productRepository->findTopItems($entry->getId(), $segment['id']);
+			$viewParams['products'][$segment['id']] = $products;
 			
 			foreach($products as $product) {
-				$brands[$product->getBrand()->getId()] = $product->getBrand();
+				$brands[$product['brandId']] = ['id' => $product['brandId'], 'name' => $product['brandName'], 
+						'image' => $product['brandImage'], 'mimeType' => $product['brandMimeType'],
+						'forcedWidth' => $product['brandForcedWidth'], 'forcedHeight' => $product['brandForcedHeight'], 'vertical' => $product['brandVertical']
+				];
 			}
 		}
 		
-		
-		$categoryFilter = new CategoryFilter($userRepository, $branchRepository, $categoryRepository);
-		$categoryFilter->setParents([$entry]);
-		$categoryFilter->setOrderBy('e.orderNumber ASC, e.name ASC');
-			
-		$categories = $categoryRepository->findSelected($categoryFilter);
+		$categoryRepository = new CategoryRepository($em, $em->getClassMetadata(Category::class));
+		$categories = $categoryRepository->findSubcategories($entry->getId());
 		$viewParams['subcategories'] = $categories;
 		
 		
@@ -81,20 +60,18 @@ class CategoryEntryParamsManager extends EntryParamsManager {
 		$viewParams['subproducts'] = array();
 		
 		foreach ($categories as $category) {
-			$viewParams['subbrands'][$category->getId()] = array();
-			$viewParams['subproducts'][$category->getId()] = array();
+			$viewParams['subbrands'][$category['id']] = array();
+			$viewParams['subproducts'][$category['id']] = array();
 			
-			foreach ($segments as $segment) {	
-				$productFilter = new ProductFilter($userRepository, $categoryRepository, $brandRepository, $segmentRepository);
-				$productFilter->setInfomarket(BaseEntityFilter::TRUE_VALUES);
-				$productFilter->setCategories([$category]);
-				$productFilter->setSegments([$segment]);
-				
-				$products = $productRepository->findSelected($productFilter);
-				$viewParams['subproducts'][$category->getId()][$segment->getId()] = $products;
+			foreach ($segments as $segment) {
+				$products = $productRepository->findTopItems($category['id'], $segment['id']);
+				$viewParams['subproducts'][$category['id']][$segment['id']] = $products;
 				
 				foreach($products as $product) {
-					$brands[$product->getBrand()->getId()] = $product->getBrand();
+					$brands[$product['brandId']] = ['id' => $product['brandId'], 'name' => $product['brandName'], 
+							'image' => $product['brandImage'], 'mimeType' => $product['brandMimeType'],
+							'forcedWidth' => $product['brandForcedWidth'], 'forcedHeight' => $product['brandForcedHeight'], 'vertical' => $product['brandVertical']
+					];
 				}
 			}
 		}

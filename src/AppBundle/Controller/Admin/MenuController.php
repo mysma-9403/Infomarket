@@ -5,9 +5,7 @@ namespace AppBundle\Controller\Admin;
 use AppBundle\Controller\Admin\Base\SimpleEntityController;
 use AppBundle\Entity\Menu;
 use AppBundle\Form\Editor\MenuEditorType;
-use AppBundle\Form\Filter\MenuFilterType;
 use AppBundle\Manager\Entity\Common\MenuManager;
-use AppBundle\Manager\Filter\Common\MenuFilterManager;
 use Symfony\Component\HttpFoundation\Request;
 
 class MenuController extends SimpleEntityController {
@@ -71,10 +69,6 @@ class MenuController extends SimpleEntityController {
 		return new MenuManager($doctrine, $paginator);
 	}
 	
-	protected function getFilterManager($doctrine) {
-		return new MenuFilterManager($doctrine);
-	}
-	
 	//---------------------------------------------------------------------------
 	// EntityType related
 	//---------------------------------------------------------------------------
@@ -100,14 +94,5 @@ class MenuController extends SimpleEntityController {
 	 */
 	protected function getEditorFormType() {
 		return MenuEditorType::class;
-	}
-
-	/**
-	 * 
-	 * {@inheritDoc}
-	 * @see \AppBundle\Controller\Admin\Base\SimpleEntityController::getFilterFormType()
-	 */
-	protected function getFilterFormType() {
-		return MenuFilterType::class;
 	}
 }
