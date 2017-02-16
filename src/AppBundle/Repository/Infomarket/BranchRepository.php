@@ -3,10 +3,10 @@
 namespace AppBundle\Repository\Infomarket;
 
 use AppBundle\Entity\Branch;
-use AppBundle\Repository\Base\BaseEntityRepository;
+use AppBundle\Repository\Base\BaseRepository;
 use Doctrine\ORM\QueryBuilder;
 
-class BranchRepository extends BaseEntityRepository
+class BranchRepository extends BaseRepository
 {	
 	public function findMenuItems() {
 		return $this->queryMenuItems()->getScalarResult();

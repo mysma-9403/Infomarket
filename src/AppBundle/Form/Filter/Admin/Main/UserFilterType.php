@@ -4,7 +4,6 @@ namespace AppBundle\Form\Filter\Admin\Main;
 
 use AppBundle\Filter\Admin\Main\UserFilter;
 use AppBundle\Form\Base\FilterType;
-use AppBundle\Form\Filter\Base\SimpleEntityFilterType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 

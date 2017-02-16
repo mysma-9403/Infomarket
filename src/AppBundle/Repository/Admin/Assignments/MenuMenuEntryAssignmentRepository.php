@@ -9,6 +9,7 @@ use AppBundle\Filter\Base\Filter;
 use AppBundle\Repository\Admin\Base\AuditRepository;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\ORM\Query\Expr\Join;
+use AppBundle\Filter\Admin\Assignments\MenuMenuEntryAssignmentFilter;
 
 class MenuMenuEntryAssignmentRepository extends AuditRepository
 {
@@ -27,8 +28,23 @@ class MenuMenuEntryAssignmentRepository extends AuditRepository
 	protected function buildJoins(QueryBuilder &$builder, Filter $filter) {
 		parent::buildJoins($builder, $filter);
 		
-		$builder->leftJoin(Menu::class, 'm', Join::WITH, 'm.id = e.menu');
-		$builder->leftJoin(MenuEntry::class, 'me', Join::WITH, 'me.id = e.menuEntry');
+		$builder->innerJoin(Menu::class, 'm', Join::WITH, 'm.id = e.menu');
+		$builder->innerJoin(MenuEntry::class, 'me', Join::WITH, 'me.id = e.menuEntry');
+	}
+	
+	protected function getWhere(QueryBuilder &$builder, Filter $filter) {
+		/** @var MenuMenuEntryAssignmentFilter $filter */
+		$where = parent::getWhere($builder, $filter);
+	
+		if(count($filter->getMenus()) > 0) {
+			$where->add($builder->expr()->in('e.menu', $filter->getMenus()));
+		}
+		
+		if(count($filter->getMenuEntries()) > 0) {
+			$where->add($builder->expr()->in('e.menuEntry', $filter->getMenuEntries()));
+		}
+	
+		return $where;
 	}
 	
 	protected function buildOrderBy(QueryBuilder &$builder, Filter $filter) {

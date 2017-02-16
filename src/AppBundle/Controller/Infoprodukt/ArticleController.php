@@ -5,19 +5,17 @@ namespace AppBundle\Controller\Infoprodukt;
 use AppBundle\Controller\Infoprodukt\Base\InfoproduktController;
 use AppBundle\Entity\Article;
 use AppBundle\Entity\ArticleCategory;
-use AppBundle\Entity\Filter\Base\SimpleEntityFilter;
 use AppBundle\Entity\NewsletterUser;
-use AppBundle\Entity\User;
+use AppBundle\Filter\Common\SearchFilter;
 use AppBundle\Filter\Infoprodukt\Main\ArticleFilter;
+use AppBundle\Form\Base\SearchFilterType;
 use AppBundle\Form\Editor\NewsletterUserEditorType;
 use AppBundle\Form\Filter\Infoprodukt\ArticleFilterType;
-use AppBundle\Form\Search\Base\SimpleEntitySearchType;
 use AppBundle\Manager\Entity\Base\EntityManager;
 use AppBundle\Manager\Entity\Infoprodukt\ArticleManager;
 use AppBundle\Manager\Filter\Base\FilterManager;
 use AppBundle\Manager\Params\EntryParams\Infoprodukt\ArticleEntryParamsManager;
 use AppBundle\Repository\Infoprodukt\ArticleCategoryRepository;
-use AppBundle\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -65,27 +63,19 @@ class ArticleController extends InfoproduktController
 		$am = $this->getAnalyticsManager();
 		$am->sendPageviewAnalytics($params['domain'], $params['route']);
 	
+		
 		$viewParams = $params['viewParams'];
 	
 		
+		$searchFilter = new SearchFilter();
+		$searchFilter->initRequestValues($request);
 		
-		
-		
-		$em = $this->getDoctrine()->getManager();
-		
-		$userRepository = new UserRepository($em, $em->getClassMetadata(User::class)); //TODO make better SearchForm
-		
-		
-		//TODO refactoring - it's the same as in base
-		$searchFilter = new SimpleEntityFilter($userRepository);
-		$searchFilter->initValues($request);
-		
-		$searchFilterForm = $this->createForm(SimpleEntitySearchType::class, $searchFilter);
+		$searchFilterForm = $this->createForm(SearchFilterType::class, $searchFilter);
 		$searchFilterForm->handleRequest($request);
 		
 		if ($searchFilterForm->isSubmitted() && $searchFilterForm->isValid()) {
 			if ($searchFilterForm->get('search')->isClicked()) {
-				return $this->redirectToRoute($this->getSearchRoute(), $searchFilter->getValues());
+				return $this->redirectToRoute($this->getSearchRoute(), $searchFilter->getRequestValues());
 			}
 		}
 		$viewParams['searchFilterForm'] = $searchFilterForm->createView();
@@ -163,19 +153,16 @@ class ArticleController extends InfoproduktController
 	
 		$viewParams = $params['viewParams'];
 	
-		$em = $this->getDoctrine()->getManager();
 		
-		$userRepository = new UserRepository($em, $em->getClassMetadata(User::class)); //TODO make better SearchForm
-	
-		$searchFilter = new SimpleEntityFilter($userRepository);
-		$searchFilter->initValues($request);
-	
-		$searchFilterForm = $this->createForm(SimpleEntitySearchType::class, $searchFilter);
+		$searchFilter = new SearchFilter();
+		$searchFilter->initRequestValues($request);
+		
+		$searchFilterForm = $this->createForm(SearchFilterType::class, $searchFilter);
 		$searchFilterForm->handleRequest($request);
 	
 		if ($searchFilterForm->isSubmitted() && $searchFilterForm->isValid()) {
 			if ($searchFilterForm->get('search')->isClicked()) {
-				return $this->redirectToRoute($this->getSearchRoute(), $searchFilter->getValues());
+				return $this->redirectToRoute($this->getSearchRoute(), $searchFilter->getRequestValues());
 			}
 		}
 		$viewParams['searchFilterForm'] = $searchFilterForm->createView();

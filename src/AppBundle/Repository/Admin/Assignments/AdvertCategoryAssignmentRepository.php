@@ -9,6 +9,7 @@ use AppBundle\Filter\Base\Filter;
 use AppBundle\Repository\Admin\Base\AuditRepository;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\ORM\Query\Expr\Join;
+use AppBundle\Filter\Admin\Assignments\AdvertCategoryAssignmentFilter;
 
 class AdvertCategoryAssignmentRepository extends AuditRepository
 {
@@ -28,8 +29,23 @@ class AdvertCategoryAssignmentRepository extends AuditRepository
 	protected function buildJoins(QueryBuilder &$builder, Filter $filter) {
 		parent::buildJoins($builder, $filter);
 		
-		$builder->leftJoin(Advert::class, 'a', Join::WITH, 'a.id = e.advert');
-		$builder->leftJoin(Category::class, 'c', Join::WITH, 'c.id = e.category');
+		$builder->innerJoin(Advert::class, 'a', Join::WITH, 'a.id = e.advert');
+		$builder->innerJoin(Category::class, 'c', Join::WITH, 'c.id = e.category');
+	}
+	
+	protected function getWhere(QueryBuilder &$builder, Filter $filter) {
+		/** @var AdvertCategoryAssignmentFilter $filter */
+		$where = parent::getWhere($builder, $filter);
+	
+		if(count($filter->getAdverts()) > 0) {
+			$where->add($builder->expr()->in('e.advert', $filter->getAdverts()));
+		}
+	
+		if(count($filter->getCategories()) > 0) {
+			$where->add($builder->expr()->in('e.category', $filter->getCategories()));
+		}
+	
+		return $where;
 	}
 	
 	protected function buildOrderBy(QueryBuilder &$builder, Filter $filter) {

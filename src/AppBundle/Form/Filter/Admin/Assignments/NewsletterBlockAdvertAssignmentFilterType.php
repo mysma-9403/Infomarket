@@ -4,9 +4,9 @@ namespace AppBundle\Form\Filter\Admin\Assignments;
 
 use AppBundle\Filter\Admin\Assignments\NewsletterBlockAdvertAssignmentFilter;
 use AppBundle\Form\Filter\Admin\Base\AdminFilterType;
-use AppBundle\Form\Filter\Base\SimpleEntityFilterType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
+use AppBundle\Utils\FormUtils;
 
 class NewsletterBlockAdvertAssignmentFilterType extends AdminFilterType
 {	
@@ -24,12 +24,16 @@ class NewsletterBlockAdvertAssignmentFilterType extends AdminFilterType
 		$builder
 		->add('newsletterBlocks', ChoiceType::class, array(
 				'choices' 		=> $newsletterBlocks, 
+				'choice_label' => function ($value, $key, $index) { return FormUtils::getListLabel($value, $key, $index); },
+				'translation_domain' => false,
 				'required'		=> false,
 				'expanded'      => false,
 				'multiple'      => true
 		))
 		->add('adverts', ChoiceType::class, array(
 				'choices'		=> $adverts, 
+				'choice_label' => function ($value, $key, $index) { return FormUtils::getListLabel($value, $key, $index); },
+				'translation_domain' => false,
 				'required'		=> false,
 				'expanded'      => false,
 				'multiple'      => true

@@ -4,13 +4,13 @@ namespace AppBundle\Repository\Infoprodukt;
 
 use AppBundle\Entity\Advert;
 use AppBundle\Entity\AdvertCategoryAssignment;
-use AppBundle\Repository\Base\BaseEntityRepository;
+use AppBundle\Repository\Base\BaseRepository;
 use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\ORM\QueryBuilder;
 use Symfony\Component\Validator\Constraints\Date;
 use AppBundle\Entity\Category;
 
-class AdvertRepository extends BaseEntityRepository
+class AdvertRepository extends BaseRepository
 {	
 	public function findAdvertItems($location, $category) {
 		$result = $this->queryAdvertsIds($location, $category)->getScalarResult();

@@ -258,9 +258,14 @@ abstract class AdminController extends StandardController {
 	protected function getListItems($items) {
 		$listItems = array();
 		foreach($items as $item) {
-			$listItems[$item['id']] = $item['id'];
+			$key = implode(' ', $this->getListItemKeyFields($item));
+			$listItems[$key] = $item['id'];
 		}
 		return $listItems;
+	}
+	
+	protected function getListItemKeyFields($item) {
+		return [$item['id']];
 	}
 	
 	/**

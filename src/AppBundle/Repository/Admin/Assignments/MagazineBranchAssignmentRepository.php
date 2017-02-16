@@ -27,8 +27,23 @@ class MagazineBranchAssignmentRepository extends AuditRepository
 	protected function buildJoins(QueryBuilder &$builder, Filter $filter) {
 		parent::buildJoins($builder, $filter);
 		
-		$builder->leftJoin(Magazine::class, 'm', Join::WITH, 'm.id = e.magazine');
-		$builder->leftJoin(Branch::class, 'b', Join::WITH, 'b.id = e.branch');
+		$builder->innerJoin(Magazine::class, 'm', Join::WITH, 'm.id = e.magazine');
+		$builder->innerJoin(Branch::class, 'b', Join::WITH, 'b.id = e.branch');
+	}
+	
+	protected function getWhere(QueryBuilder &$builder, Filter $filter) {
+		/** @var MagazineBranchAssignmentFilter $filter */
+		$where = parent::getWhere($builder, $filter);
+	
+		if(count($filter->getMagazines()) > 0) {
+			$where->add($builder->expr()->in('e.magazine', $filter->getMagazines()));
+		}
+	
+		if(count($filter->getBranches()) > 0) {
+			$where->add($builder->expr()->in('e.branch', $filter->getBranches()));
+		}
+	
+		return $where;
 	}
 	
 	protected function buildOrderBy(QueryBuilder &$builder, Filter $filter) {

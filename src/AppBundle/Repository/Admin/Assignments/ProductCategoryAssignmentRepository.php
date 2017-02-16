@@ -38,10 +38,33 @@ class ProductCategoryAssignmentRepository extends AuditRepository
 	protected function buildJoins(QueryBuilder &$builder, Filter $filter) {
 		parent::buildJoins($builder, $filter);
 		
-		$builder->leftJoin(Product::class, 'p', Join::WITH, 'p.id = e.product');
-		$builder->leftJoin(Brand::class, 'b', Join::WITH, 'b.id = p.brand');
-		$builder->leftJoin(Segment::class, 's', Join::WITH, 's.id = e.segment');
-		$builder->leftJoin(Category::class, 'c', Join::WITH, 'c.id = e.category');
+		$builder->innerJoin(Product::class, 'p', Join::WITH, 'p.id = e.product');
+		$builder->innerJoin(Brand::class, 'b', Join::WITH, 'b.id = p.brand');
+		$builder->innerJoin(Segment::class, 's', Join::WITH, 's.id = e.segment');
+		$builder->innerJoin(Category::class, 'c', Join::WITH, 'c.id = e.category');
+	}
+	
+	protected function getWhere(QueryBuilder &$builder, Filter $filter) {
+		/** @var ProductCategoryAssignmentFilter $filter */
+		$where = parent::getWhere($builder, $filter);
+	
+		if(count($filter->getProducts()) > 0) {
+			$where->add($builder->expr()->in('e.product', $filter->getProducts()));
+		}
+		
+		if(count($filter->getBrands()) > 0) {
+			$where->add($builder->expr()->in('p.brand', $filter->getBrands()));
+		}
+		
+		if(count($filter->getSegments()) > 0) {
+			$where->add($builder->expr()->in('e.segment', $filter->getSegments()));
+		}
+	
+		if(count($filter->getCategories()) > 0) {
+			$where->add($builder->expr()->in('e.category', $filter->getCategories()));
+		}
+	
+		return $where;
 	}
 	
 	protected function buildOrderBy(QueryBuilder &$builder, Filter $filter) {

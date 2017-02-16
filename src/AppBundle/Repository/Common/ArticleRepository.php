@@ -3,10 +3,10 @@
 namespace AppBundle\Repository\Common;
 
 use AppBundle\Entity\Article;
-use AppBundle\Repository\Base\BaseEntityRepository;
+use AppBundle\Repository\Base\BaseRepository;
 use Doctrine\ORM\QueryBuilder;
 
-abstract class ArticleRepository extends BaseEntityRepository
+abstract class ArticleRepository extends BaseRepository
 {
 	protected function getItemSelectFields(QueryBuilder &$builder) {
 		$fields = parent::getItemSelectFields($builder);
@@ -101,6 +101,31 @@ abstract class ArticleRepository extends BaseEntityRepository
 	}
 	
 	protected abstract function queryItemsIds($categories);
+	
+	
+	
+	public function assignItems($items, array $assignments, $type) {
+		$size = count($items);
+		for($i = 0; $i < $size; $i++) {
+			$items[$i] = $this->assignItem($items[$i], $assignments, $type);
+		}
+	
+		return $items;
+	}
+	
+	public function assignItem(array $item, array $assignments, $type) {
+		$itemAssignments = array();
+		foreach ($assignments as $assignment) {
+			if($assignment['article'] == $item['id']) {
+				$itemAssignments[] = $assignment;
+			}
+		}
+		$item[$type] = $itemAssignments;
+	
+		return $item;
+	}
+	
+	
 	
     /**
 	 * {@inheritdoc}

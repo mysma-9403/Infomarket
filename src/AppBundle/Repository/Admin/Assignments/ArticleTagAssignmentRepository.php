@@ -28,8 +28,23 @@ class ArticleTagAssignmentRepository extends AuditRepository
 	protected function buildJoins(QueryBuilder &$builder, Filter $filter) {
 		parent::buildJoins($builder, $filter);
 		
-		$builder->leftJoin(Article::class, 'a', Join::WITH, 'a.id = e.article');
-		$builder->leftJoin(Tag::class, 't', Join::WITH, 't.id = e.tag');
+		$builder->innerJoin(Article::class, 'a', Join::WITH, 'a.id = e.article');
+		$builder->innerJoin(Tag::class, 't', Join::WITH, 't.id = e.tag');
+	}
+	
+	protected function getWhere(QueryBuilder &$builder, Filter $filter) {
+		/** @var ArticleTagAssignmentFilter $filter */
+		$where = parent::getWhere($builder, $filter);
+	
+		if(count($filter->getArticles()) > 0) {
+			$where->add($builder->expr()->in('e.article', $filter->getArticles()));
+		}
+	
+		if(count($filter->getTags()) > 0) {
+			$where->add($builder->expr()->in('e.tag', $filter->getTags()));
+		}
+	
+		return $where;
 	}
 	
 	protected function buildOrderBy(QueryBuilder &$builder, Filter $filter) {

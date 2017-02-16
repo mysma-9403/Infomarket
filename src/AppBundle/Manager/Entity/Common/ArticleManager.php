@@ -3,6 +3,8 @@
 namespace AppBundle\Manager\Entity\Common;
 
 use AppBundle\Entity\Article;
+use AppBundle\Entity\Brand;
+use AppBundle\Entity\Tag;
 use AppBundle\Manager\Entity\Base\SimpleEntityManager;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -13,6 +15,32 @@ class ArticleManager extends SimpleEntityManager {
 	public function __construct($doctrine, $paginator, $tokenStorage) {
 		parent::__construct($doctrine, $paginator);
 		$this->tokenStorage = $tokenStorage;
+	}
+	
+	public function getEntries($filter, $page) {
+		$repository = $this->getRepository();
+		$items = parent::getEntries($filter, $page);
+		$itemsIds = $repository->getIds($items);
+	
+		$brandRepository = $this->getBrandRepository();
+		$brands = $brandRepository->findItemsByArticles($itemsIds);
+	
+		$items = $repository->assignItems($items, $brands, 'brands');
+		
+		$tagRepository = $this->getTagRepository();
+		$tags = $tagRepository->findItemsByArticles($itemsIds);
+		
+		$items = $repository->assignItems($items, $tags, 'tags');
+	
+		return $items;
+	}
+	
+	protected function getBrandRepository() {
+		return $this->doctrine->getRepository(Brand::class);
+	}
+	
+	protected function getTagRepository() {
+		return $this->doctrine->getRepository(Tag::class);
 	}
 	
 	/**

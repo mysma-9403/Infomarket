@@ -8,7 +8,6 @@ use AppBundle\Manager\Entity\Base\EntityManager;
 use AppBundle\Manager\Entity\Infoprodukt\CategoryManager;
 use AppBundle\Manager\Filter\Base\FilterManager;
 use AppBundle\Manager\Params\EntryParams\Infoprodukt\CategoryEntryParamsManager;
-use AppBundle\Manager\Params\Infoprodukt\AdvertParamsManager;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -16,7 +15,7 @@ class CategoryController extends InfoproduktController
 {
 	//---------------------------------------------------------------------------
 	// Actions
-	//---------------------------------------------------------------------------x
+	//---------------------------------------------------------------------------
 	/**
 	 * 
 	 * {@inheritDoc}

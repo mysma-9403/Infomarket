@@ -7,6 +7,7 @@ use AppBundle\Filter\Base\Filter;
 use AppBundle\Form\Filter\Admin\Base\SimpleEntityFilterType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
+use AppBundle\Utils\FormUtils;
 
 class MagazineFilterType extends SimpleEntityFilterType
 {	
@@ -31,18 +32,24 @@ class MagazineFilterType extends SimpleEntityFilterType
 		$builder
 		->add('parents', ChoiceType::class, array(
 				'choices'		=> $parents,
+				'choice_label' => function ($value, $key, $index) { return FormUtils::getListLabel($value, $key, $index); },
+				'translation_domain' => false,
 				'required'		=> false,
 				'expanded'      => false,
 				'multiple'      => true
 		))
 		->add('branches', ChoiceType::class, array(
 				'choices'		=> $branches,
+				'choice_label' => function ($value, $key, $index) { return FormUtils::getListLabel($value, $key, $index); },
+				'translation_domain' => false,
 				'required'		=> false,
 				'expanded'      => false,
 				'multiple'      => true
 		))
 		->add('categories', ChoiceType::class, array(
 				'choices'		=> $categories, 
+				'choice_label' => function ($value, $key, $index) { return FormUtils::getListLabel($value, $key, $index); },
+				'translation_domain' => false,
 				'required'		=> false,
 				'expanded'      => false,
 				'multiple'      => true

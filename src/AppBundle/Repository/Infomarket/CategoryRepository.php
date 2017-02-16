@@ -4,12 +4,12 @@ namespace AppBundle\Repository\Infomarket;
 
 use AppBundle\Entity\BranchCategoryAssignment;
 use AppBundle\Entity\Category;
-use AppBundle\Repository\Base\BaseEntityRepository;
+use AppBundle\Repository\Base\BaseRepository;
 use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\ORM\QueryBuilder;
 use AppBundle\Filter\Base\Filter;
 
-class CategoryRepository extends BaseEntityRepository
+class CategoryRepository extends BaseRepository
 {
 	protected function buildJoins(QueryBuilder &$builder, Filter $filter) {
 		$builder->innerJoin(BranchCategoryAssignment::class, 'bca', Join::WITH, 'e.id = bca.category');
@@ -52,13 +52,7 @@ class CategoryRepository extends BaseEntityRepository
 	
 	public function findFilterItemsByBranch($branchId) {
 		$items = $this->queryFilterItemsByBranch($branchId)->getScalarResult();
-		
-		$filterItems = array();
-		foreach ($items as $item) {
-			$filterItems[$item['name'] . ' ' . $item['subname']] = $item['id'];
-		}
-		
-		return $filterItems;
+		return $this->getFilterItems($items);
 	}
 	
 	protected function queryFilterItemsByBranch($branchId)
@@ -80,6 +74,14 @@ class CategoryRepository extends BaseEntityRepository
 		$builder->orderBy('e.name', 'ASC');
 			
 		return $builder->getQuery();
+	}
+	
+	protected function getFilterItemKeyFields($item) {
+		$fields = parent::getFilterItemKeyFields($item);
+	
+		$fields[] = $item['subname'];
+	
+		return $fields;
 	}
 	
 	

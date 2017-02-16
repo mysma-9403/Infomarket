@@ -5,13 +5,13 @@ namespace AppBundle\Repository\Infomarket;
 use AppBundle\Entity\Magazine;
 use AppBundle\Entity\MagazineBranchAssignment;
 use AppBundle\Filter\Base\Filter;
-use AppBundle\Repository\Base\BaseEntityRepository;
+use AppBundle\Repository\Base\BaseRepository;
 use Doctrine\ORM\AbstractQuery;
 use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\ORM\QueryBuilder;
 use AppBundle\Filter\Infomarket\Base\BranchDependentFilter;
 
-class MagazineRepository extends BaseEntityRepository
+class MagazineRepository extends BaseRepository
 {
 	protected function buildJoins(QueryBuilder &$builder, Filter $filter) {
 		$builder->innerJoin(MagazineBranchAssignment::class, 'mba', Join::WITH, 'e.id = mba.magazine');

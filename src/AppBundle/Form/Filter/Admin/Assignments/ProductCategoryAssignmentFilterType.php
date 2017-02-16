@@ -5,9 +5,9 @@ namespace AppBundle\Form\Filter\Admin\Assignments;
 use AppBundle\Filter\Admin\Assignments\ProductCategoryAssignmentFilter;
 use AppBundle\Filter\Base\Filter;
 use AppBundle\Form\Filter\Admin\Base\AdminFilterType;
-use AppBundle\Form\Filter\Base\SimpleEntityFilterType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
+use AppBundle\Utils\FormUtils;
 
 class ProductCategoryAssignmentFilterType extends AdminFilterType
 {	
@@ -33,24 +33,32 @@ class ProductCategoryAssignmentFilterType extends AdminFilterType
 		$builder
 		->add('products', ChoiceType::class, array(
 				'choices' 		=> $products, 
+				'choice_label' => function ($value, $key, $index) { return FormUtils::getListLabel($value, $key, $index); },
+				'translation_domain' => false,
 				'required'		=> false,
 				'expanded'      => false,
 				'multiple'      => true
 		))
 		->add('brands', ChoiceType::class, array(
 				'choices'		=> $brands,
+				'choice_label' => function ($value, $key, $index) { return FormUtils::getListLabel($value, $key, $index); },
+				'translation_domain' => false,
 				'required'		=> false,
 				'expanded'      => false,
 				'multiple'      => true
 		))
 		->add('segments', ChoiceType::class, array(
 				'choices'		=> $segments,
+				'choice_label' => function ($value, $key, $index) { return FormUtils::getListLabel($value, $key, $index); },
+				'translation_domain' => false,
 				'required'		=> false,
 				'expanded'      => false,
 				'multiple'      => true
 		))
 		->add('categories', ChoiceType::class, array(
 				'choices'		=> $categories, 
+				'choice_label' => function ($value, $key, $index) { return FormUtils::getListLabel($value, $key, $index); },
+				'translation_domain' => false,
 				'required'		=> false,
 				'expanded'      => false,
 				'multiple'      => true

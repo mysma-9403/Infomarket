@@ -27,8 +27,23 @@ class MenuEntryBranchAssignmentRepository extends AuditRepository
 	protected function buildJoins(QueryBuilder &$builder, Filter $filter) {
 		parent::buildJoins($builder, $filter);
 		
-		$builder->leftJoin(MenuEntry::class, 'me', Join::WITH, 'me.id = e.menuEntry');
-		$builder->leftJoin(Branch::class, 'b', Join::WITH, 'b.id = e.branch');
+		$builder->innerJoin(MenuEntry::class, 'me', Join::WITH, 'me.id = e.menuEntry');
+		$builder->innerJoin(Branch::class, 'b', Join::WITH, 'b.id = e.branch');
+	}
+	
+	protected function getWhere(QueryBuilder &$builder, Filter $filter) {
+		/** @var MenuEntryBranchAssignmentFilter $filter */
+		$where = parent::getWhere($builder, $filter);
+	
+		if(count($filter->getMenuEntries()) > 0) {
+			$where->add($builder->expr()->in('e.menuEntry', $filter->getMenuEntries()));
+		}
+	
+		if(count($filter->getBranches()) > 0) {
+			$where->add($builder->expr()->in('e.branch', $filter->getBranches()));
+		}
+	
+		return $where;
 	}
 	
 	protected function buildOrderBy(QueryBuilder &$builder, Filter $filter) {

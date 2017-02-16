@@ -9,6 +9,7 @@ use AppBundle\Filter\Base\Filter;
 use AppBundle\Repository\Admin\Base\AuditRepository;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\ORM\Query\Expr\Join;
+use AppBundle\Filter\Admin\Assignments\MenuEntryCategoryAssignmentFilter;
 
 class MenuEntryCategoryAssignmentRepository extends AuditRepository
 {
@@ -28,8 +29,23 @@ class MenuEntryCategoryAssignmentRepository extends AuditRepository
 	protected function buildJoins(QueryBuilder &$builder, Filter $filter) {
 		parent::buildJoins($builder, $filter);
 		
-		$builder->leftJoin(MenuEntry::class, 'me', Join::WITH, 'me.id = e.menuEntry');
-		$builder->leftJoin(Category::class, 'c', Join::WITH, 'c.id = e.category');
+		$builder->innerJoin(MenuEntry::class, 'me', Join::WITH, 'me.id = e.menuEntry');
+		$builder->innerJoin(Category::class, 'c', Join::WITH, 'c.id = e.category');
+	}
+	
+	protected function getWhere(QueryBuilder &$builder, Filter $filter) {
+		/** @var MenuEntryCategoryAssignmentFilter $filter */
+		$where = parent::getWhere($builder, $filter);
+	
+		if(count($filter->getMenuEntries()) > 0) {
+			$where->add($builder->expr()->in('e.menuEntry', $filter->getMenuEntries()));
+		}
+	
+		if(count($filter->getCategories()) > 0) {
+			$where->add($builder->expr()->in('e.category', $filter->getCategories()));
+		}
+	
+		return $where;
 	}
 	
 	protected function buildOrderBy(QueryBuilder &$builder, Filter $filter) {

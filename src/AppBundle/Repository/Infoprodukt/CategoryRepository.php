@@ -4,11 +4,11 @@ namespace AppBundle\Repository\Infoprodukt;
 
 use AppBundle\Entity\Category;
 use AppBundle\Filter\Base\Filter;
-use AppBundle\Repository\Base\BaseEntityRepository;
+use AppBundle\Repository\Base\BaseRepository;
 use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\ORM\QueryBuilder;
 
-class CategoryRepository extends BaseEntityRepository
+class CategoryRepository extends BaseRepository
 {
 	protected function buildOrderBy(QueryBuilder &$builder, Filter $filter) {
 		$builder->addOrderBy('e.name', 'ASC');

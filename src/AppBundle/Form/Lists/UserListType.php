@@ -13,6 +13,6 @@ class UserListType extends BaseEntityListType
 	 * @see \AppBundle\Form\Lists\Base\BaseEntityListType::getChoiceType()
 	 */
 	protected function getChoiceType() {
-		return User::class;
+		return User::class; //TODO remove - not needed>>
 	}
 }

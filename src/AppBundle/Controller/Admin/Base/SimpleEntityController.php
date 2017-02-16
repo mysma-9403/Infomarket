@@ -128,12 +128,12 @@ abstract class SimpleEntityController extends BaseEntityController
 	// Internal logic
 	//---------------------------------------------------------------------------
 	
-	protected function getListItems($items) {
-		$listItems = array();
-		foreach($items as $item) {
-			$listItems[$item['name']] = $item['id'];
-		}
-		return $listItems;
+	protected function getListItemKeyFields($item) {
+		$fields = parent::getListItemKeyFields($item);
+		
+		$fields[] = $item['name'];
+		
+		return $fields;
 	}
 	
 	/**

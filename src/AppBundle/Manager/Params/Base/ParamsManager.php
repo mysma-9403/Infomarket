@@ -2,7 +2,6 @@
 
 namespace AppBundle\Manager\Params\Base;
 
-use AppBundle\Entity\Filter\Base\BaseEntityFilter;
 use AppBundle\Utils\ClassUtils;
 use Symfony\Component\HttpFoundation\Request;
 

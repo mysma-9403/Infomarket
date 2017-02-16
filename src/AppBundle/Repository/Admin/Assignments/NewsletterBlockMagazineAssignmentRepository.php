@@ -28,8 +28,23 @@ class NewsletterBlockMagazineAssignmentRepository extends AuditRepository
 	protected function buildJoins(QueryBuilder &$builder, Filter $filter) {
 		parent::buildJoins($builder, $filter);
 		
-		$builder->leftJoin(NewsletterBlock::class, 'nb', Join::WITH, 'nb.id = e.newsletterBlock');
-		$builder->leftJoin(Magazine::class, 'm', Join::WITH, 'm.id = e.magazine');
+		$builder->innerJoin(NewsletterBlock::class, 'nb', Join::WITH, 'nb.id = e.newsletterBlock');
+		$builder->innerJoin(Magazine::class, 'm', Join::WITH, 'm.id = e.magazine');
+	}
+	
+	protected function getWhere(QueryBuilder &$builder, Filter $filter) {
+		/** @var NewsletterBlockMagazineAssignmentFilter $filter */
+		$where = parent::getWhere($builder, $filter);
+	
+		if(count($filter->getNewsletterBlocks()) > 0) {
+			$where->add($builder->expr()->in('e.newsletterBlock', $filter->getNewsletterBlocks()));
+		}
+	
+		if(count($filter->getMagazines()) > 0) {
+			$where->add($builder->expr()->in('e.magazine', $filter->getMagazines()));
+		}
+	
+		return $where;
 	}
 	
 	protected function buildOrderBy(QueryBuilder &$builder, Filter $filter) {

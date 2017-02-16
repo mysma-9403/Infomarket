@@ -4,11 +4,11 @@ namespace AppBundle\Repository\Infoprodukt;
 
 use AppBundle\Entity\Magazine;
 use AppBundle\Filter\Base\Filter;
-use AppBundle\Repository\Base\BaseEntityRepository;
+use AppBundle\Repository\Base\BaseRepository;
 use Doctrine\ORM\AbstractQuery;
 use Doctrine\ORM\QueryBuilder;
 
-class MagazineRepository extends BaseEntityRepository
+class MagazineRepository extends BaseRepository
 {	
 	protected function buildOrderBy(QueryBuilder &$builder, Filter $filter) {
 		$builder->addOrderBy('e.name', 'ASC');

@@ -6,21 +6,19 @@ use AppBundle\Controller\Infomarket\Base\InfomarketController;
 use AppBundle\Entity\Article;
 use AppBundle\Entity\ArticleCategory;
 use AppBundle\Entity\Category;
-use AppBundle\Entity\Filter\Base\SimpleEntityFilter;
 use AppBundle\Entity\NewsletterUser;
-use AppBundle\Entity\User;
 use AppBundle\Filter\Base\Filter;
+use AppBundle\Filter\Common\SearchFilter;
 use AppBundle\Filter\Infomarket\Main\ArticleFilter;
+use AppBundle\Form\Base\SearchFilterType;
 use AppBundle\Form\Editor\NewsletterUserEditorType;
 use AppBundle\Form\Filter\Infomarket\ArticleFilterType;
-use AppBundle\Form\Search\Base\SimpleEntitySearchType;
 use AppBundle\Manager\Entity\Base\EntityManager;
 use AppBundle\Manager\Entity\Infomarket\ArticleManager;
 use AppBundle\Manager\Filter\Base\FilterManager;
 use AppBundle\Manager\Params\EntryParams\Infomarket\ArticleEntryParamsManager;
 use AppBundle\Repository\Infomarket\ArticleCategoryRepository;
 use AppBundle\Repository\Infomarket\CategoryRepository;
-use AppBundle\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -75,23 +73,19 @@ class ArticleController extends InfomarketController
 		$am = $this->getAnalyticsManager();
 		$am->sendPageviewAnalytics($params['domain'], $params['route']);
 	
+		
 		$viewParams = $params['viewParams'];
 	
-	
-	
-		$em = $this->getDoctrine()->getManager();
-	
-		$userRepository = new UserRepository($em, $em->getClassMetadata(User::class));
-
-		$searchFilter = new SimpleEntityFilter($userRepository);
-		$searchFilter->initValues($request);
-
-		$searchFilterForm = $this->createForm(SimpleEntitySearchType::class, $searchFilter);
+		
+		$searchFilter = new SearchFilter();
+		$searchFilter->initRequestValues($request);
+		
+		$searchFilterForm = $this->createForm(SearchFilterType::class, $searchFilter);
 		$searchFilterForm->handleRequest($request);
 
 		if ($searchFilterForm->isSubmitted() && $searchFilterForm->isValid()) {
 			if ($searchFilterForm->get('search')->isClicked()) {
-				return $this->redirectToRoute($this->getSearchRoute(), $searchFilter->getValues());
+				return $this->redirectToRoute($this->getSearchRoute(), $searchFilter->getRequestValues());
 			}
 		}
 		$viewParams['searchFilterForm'] = $searchFilterForm->createView();
@@ -175,20 +169,15 @@ class ArticleController extends InfomarketController
 		$viewParams = $params['viewParams'];
 	
 	
-		//TODO make better search filter
-		$em = $this->getDoctrine()->getManager();
-	
-		$userRepository = new UserRepository($em, $em->getClassMetadata(User::class));
-
-		$searchFilter = new SimpleEntityFilter($userRepository);
-		$searchFilter->initValues($request);
-
-		$searchFilterForm = $this->createForm(SimpleEntitySearchType::class, $searchFilter);
+		$searchFilter = new SearchFilter();
+		$searchFilter->initRequestValues($request);
+		
+		$searchFilterForm = $this->createForm(SearchFilterType::class, $searchFilter);
 		$searchFilterForm->handleRequest($request);
 
 		if ($searchFilterForm->isSubmitted() && $searchFilterForm->isValid()) {
 			if ($searchFilterForm->get('search')->isClicked()) {
-				return $this->redirectToRoute($this->getSearchRoute(), $searchFilter->getValues());
+				return $this->redirectToRoute($this->getSearchRoute(), $searchFilter->getRequestValues());
 			}
 		}
 		$viewParams['searchFilterForm'] = $searchFilterForm->createView();

@@ -5,11 +5,11 @@ namespace AppBundle\Repository\Admin\Base;
 use AppBundle\Entity\User;
 use AppBundle\Filter\Admin\Base\AuditFilter;
 use AppBundle\Filter\Base\Filter;
-use AppBundle\Repository\Base\BaseEntityRepository;
-use Doctrine\ORM\QueryBuilder;
+use AppBundle\Repository\Base\BaseRepository;
 use Doctrine\ORM\Query\Expr\Join;
+use Doctrine\ORM\QueryBuilder;
 
-abstract class AuditRepository extends BaseEntityRepository
+abstract class AuditRepository extends BaseRepository
 {
 	protected function getSelectFields(QueryBuilder &$builder, Filter $filter) {
 		$fields = parent::getSelectFields($builder, $filter);

@@ -3,39 +3,44 @@
 namespace AppBundle\Repository\Infomarket;
 
 use AppBundle\Entity\ArticleCategory;
-use AppBundle\Repository\Base\BaseEntityRepository;
+use AppBundle\Repository\Base\BaseRepository;
 use Doctrine\ORM\QueryBuilder;
 
-class ArticleCategoryRepository extends BaseEntityRepository
+class ArticleCategoryRepository extends BaseRepository
 {
-	//TODO inherit from parent!
-	public function findFilterItems() {
-		$items = $this->queryFilterItems()->getScalarResult();
-		
-		$filterItems = array();
-		foreach ($items as $item) {
-			$filterItems[$item['name'] . ' ' . $item['subname']] = $item['id'];
-		}
-		
-		return $filterItems;
+	protected function buildFilterOrderBy(QueryBuilder &$builder) {
+		parent::buildFilterOrderBy($builder);
+		$builder->addOrderBy('e.subname', 'ASC');
 	}
 	
-	public function queryFilterItems()
-	{
-		$builder = new QueryBuilder($this->getEntityManager());
-			
-		$builder->select("e.id, e.name, e.subname");
-		$builder->from($this->getEntityType(), "e");
 	
-		$where = $builder->expr()->andX();
-		$where->add($builder->expr()->eq('e.infomarket', 1));
-		$builder->where($where);
+	
+	protected function getFilterSelectFields(QueryBuilder &$builder) {
+		$fields = parent::getFilterSelectFields($builder);
 		
-		$builder->addOrderBy('e.name', 'ASC');
-	
-		return $builder->getQuery();
+		$fields[] = 'e.subname';
+		
+		return $fields;
 	}
 	
+	protected function getFilterWhere(QueryBuilder &$builder) {
+		$where = parent::getFilterWhere($builder);
+		
+		$expr = $builder->expr();
+		$where->add($expr->eq('e.infomarket', 1));
+		
+		return $where;
+	}
+	
+	
+	
+	protected function getFilterItemKeyFields($item) {
+		$fields = parent::getFilterItemKeyFields($item);
+		
+		$fields[] = $item['subname'];
+		
+		return $fields;
+	}
 	
 	
 	

@@ -5,10 +5,10 @@ namespace AppBundle\Repository\Admin\Main;
 use AppBundle\Entity\User;
 use AppBundle\Filter\Admin\Main\UserFilter;
 use AppBundle\Filter\Base\Filter;
-use AppBundle\Repository\Base\BaseEntityRepository;
 use Doctrine\ORM\QueryBuilder;
+use AppBundle\Repository\Base\BaseRepository;
 
-class UserRepository extends BaseEntityRepository
+class UserRepository extends BaseRepository
 {
 	protected function buildOrderBy(QueryBuilder &$builder, Filter $filter) {
 		$builder->addOrderBy('e.surname', 'ASC');
@@ -83,8 +83,9 @@ class UserRepository extends BaseEntityRepository
 	}
 	
 	
-	protected function getFilterItemName($item) {
-		return $item['surname'] . ' ' . $item['forename'];
+	
+	protected function getFilterItemKeyFields($item) {
+		return [$item['id'], $item['surname'], $item['forename']];
 	}
 	
 	

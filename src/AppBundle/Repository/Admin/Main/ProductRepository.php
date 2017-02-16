@@ -2,14 +2,13 @@
 
 namespace AppBundle\Repository\Admin\Main;
 
-use AppBundle\Entity\Product;
-use AppBundle\Repository\Admin\Base\SimpleEntityRepository;
-use Doctrine\ORM\QueryBuilder;
 use AppBundle\Entity\Brand;
-use Doctrine\ORM\Query\Expr\Join;
-use AppBundle\Filter\Base\Filter;
+use AppBundle\Entity\Product;
 use AppBundle\Entity\ProductCategoryAssignment;
-use AppBundle\Entity\Filter\ProductFilter;
+use AppBundle\Filter\Base\Filter;
+use AppBundle\Repository\Admin\Base\SimpleEntityRepository;
+use Doctrine\ORM\Query\Expr\Join;
+use Doctrine\ORM\QueryBuilder;
 
 class ProductRepository extends SimpleEntityRepository
 {	
@@ -72,9 +71,14 @@ class ProductRepository extends SimpleEntityRepository
 	protected function getFilterSelectFields(QueryBuilder &$builder) {
 		$fields = parent::getFilterSelectFields($builder);
 		
-		$fields[] = 'b.name';
+		$fields[] = 'b.name AS brandName';
 		
 		return $fields;
+	}
+	
+	
+	protected function getFilterItemKeyFields($item) {
+		return [$item['id'], $item['brandName'], $item['name']];
 	}
 	
     /**

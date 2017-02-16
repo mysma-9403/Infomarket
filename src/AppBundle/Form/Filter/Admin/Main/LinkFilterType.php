@@ -3,9 +3,9 @@
 namespace AppBundle\Form\Filter\Admin\Main;
 
 use AppBundle\Filter\Admin\Main\LinkFilter;
-use AppBundle\Form\Filter\Base\SimpleEntityFilterType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
+use AppBundle\Form\Filter\Admin\Base\SimpleEntityFilterType;
 
 class LinkFilterType extends SimpleEntityFilterType
 {

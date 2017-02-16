@@ -2,15 +2,15 @@
 
 namespace AppBundle\Repository\Infoprodukt;
 
-use AppBundle\Entity\Product;
-use AppBundle\Repository\Base\BaseEntityRepository;
-use Doctrine\ORM\QueryBuilder;
 use AppBundle\Entity\Brand;
-use Doctrine\ORM\Query\Expr\Join;
+use AppBundle\Entity\Product;
 use AppBundle\Entity\ProductCategoryAssignment;
+use AppBundle\Repository\Base\BaseRepository;
+use Doctrine\ORM\Query\Expr\Join;
+use Doctrine\ORM\QueryBuilder;
 
-class ProductRepository extends BaseEntityRepository
-{	
+class ProductRepository extends BaseRepository
+{
 	public function findTopItems($category, $segment) {
 		return $this->queryTopItems($category, $segment)->getScalarResult();
 	}

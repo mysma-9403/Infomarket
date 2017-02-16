@@ -4,10 +4,10 @@ namespace AppBundle\Form\Filter\Admin\Main;
 
 use AppBundle\Filter\Admin\Main\ArticleCategoryFilter;
 use AppBundle\Filter\Base\Filter;
-use AppBundle\Form\Filter\Base\SimpleEntityFilterType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
+use AppBundle\Form\Filter\Admin\Base\SimpleEntityFilterType;
 
 class ArticleCategoryFilterType extends SimpleEntityFilterType
 {

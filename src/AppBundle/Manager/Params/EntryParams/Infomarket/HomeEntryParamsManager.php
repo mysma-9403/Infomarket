@@ -11,6 +11,8 @@ use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Repository\Infomarket\ArticleCategoryRepository;
 use AppBundle\Repository\Infomarket\ArticleRepository;
 use AppBundle\Repository\Infomarket\MagazineRepository;
+use AppBundle\Repository\Infomarket\BrandRepository;
+use AppBundle\Entity\Brand;
 
 class HomeEntryParamsManager extends EntryParamsManager {
 	
@@ -39,6 +41,8 @@ class HomeEntryParamsManager extends EntryParamsManager {
 		
 		$em = $this->doctrine->getManager();
 		
+		$brandRepository = new BrandRepository($em, $em->getClassMetadata(Brand::class));
+		
 		/** @var ArticleCategoryRepository $articleCategoryRepository */
 		$articleCategoryRepository = new ArticleCategoryRepository($em, $em->getClassMetadata(ArticleCategory::class));
     	$articleCategories = $articleCategoryRepository->findHomeItems();
@@ -48,45 +52,85 @@ class HomeEntryParamsManager extends EntryParamsManager {
     	/** @var ArticleRepository $articleRepository */
     	$articleRepository = new ArticleRepository($em, $em->getClassMetadata(Article::class));
 		$articles = $articleRepository->findHomeFeaturedItems($categories, $articleCategoriesIds, 3);
+		if(count($articles) > 0) {
+			$articlesIds = $articleRepository->getIds($articles);
+			$brands = $brandRepository->findItemsByArticles($articlesIds);
+			$articles = $articleRepository->assignItems($articles, $brands, 'brands');
+		}
     	$viewParams['featuredArticles'] = $articles;
     	
     	
     	$viewParams['newsCategory'] = $this->getArticleCategory($articleCategories, self::NEWS_AC);
     	
     	$articles = $articleRepository->findHomeTileItems($categories, self::NEWS_AC, 2);
+		if(count($articles) > 0) {
+			$articlesIds = $articleRepository->getIds($articles);
+			$brands = $brandRepository->findItemsByArticles($articlesIds);
+			$articles = $articleRepository->assignItems($articles, $brands, 'brands');
+		}
     	$viewParams['newsArticles'] = $articles;
     	
     	$articles = $articleRepository->findHomeListItems($categories, self::NEWS_AC, 2, 14);
+		if(count($articles) > 0) {
+			$articlesIds = $articleRepository->getIds($articles);
+			$brands = $brandRepository->findItemsByArticles($articlesIds);
+			$articles = $articleRepository->assignItems($articles, $brands, 'brands');
+		}
     	$viewParams['newsListArticles'] = $articles;
     	
     	
     	$viewParams['interviewsCategory'] = $this->getArticleCategory($articleCategories, self::INTERVIEWS_AC);
     	
     	$articles = $articleRepository->findHomeTileItems($categories, self::INTERVIEWS_AC, 6);
+		if(count($articles) > 0) {
+			$articlesIds = $articleRepository->getIds($articles);
+			$brands = $brandRepository->findItemsByArticles($articlesIds);
+			$articles = $articleRepository->assignItems($articles, $brands, 'brands');
+		}
     	$viewParams['interviewsArticles'] = $articles;
     	
     	
     	$viewParams['eventsCategory'] = $this->getArticleCategory($articleCategories, self::EVENTS_AC);
     	
     	$articles = $articleRepository->findHomeTileItems($categories, self::EVENTS_AC, 3);
+		if(count($articles) > 0) {
+			$articlesIds = $articleRepository->getIds($articles);
+			$brands = $brandRepository->findItemsByArticles($articlesIds);
+			$articles = $articleRepository->assignItems($articles, $brands, 'brands');
+		}
     	$viewParams['eventsArticles'] = $articles;
     	
     	
     	$viewParams['promotionsCategory'] = $this->getArticleCategory($articleCategories, self::PROMOTIONS_AC);
     	
     	$articles = $articleRepository->findHomeTileItems($categories, self::PROMOTIONS_AC, 8);
+		if(count($articles) > 0) {
+			$articlesIds = $articleRepository->getIds($articles);
+			$brands = $brandRepository->findItemsByArticles($articlesIds);
+			$articles = $articleRepository->assignItems($articles, $brands, 'brands');
+		}
     	$viewParams['promotionsArticles'] = $articles;
     	
     	
     	$viewParams['productsCategory'] = $this->getArticleCategory($articleCategories, self::PRODUCTS_AC);
     	
     	$articles = $articleRepository->findHomeTileItems($categories, self::PRODUCTS_AC, 8);
+		if(count($articles) > 0) {
+			$articlesIds = $articleRepository->getIds($articles);
+			$brands = $brandRepository->findItemsByArticles($articlesIds);
+			$articles = $articleRepository->assignItems($articles, $brands, 'brands');
+		}
     	$viewParams['productsArticles'] = $articles;
     	
     	
     	$viewParams['reviewsCategory'] = $this->getArticleCategory($articleCategories, self::REVIEWS_AC);
     	 
     	$articles = $articleRepository->findHomeTileItems($categories, self::REVIEWS_AC, 4);
+		if(count($articles) > 0) {
+			$articlesIds = $articleRepository->getIds($articles);
+			$brands = $brandRepository->findItemsByArticles($articlesIds);
+			$articles = $articleRepository->assignItems($articles, $brands, 'brands');
+		}
     	$viewParams['reviewsArticles'] = $articles;
     	
     	

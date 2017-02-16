@@ -2,11 +2,11 @@
 
 namespace AppBundle\Form\Filter\Infomarket;
 
+use AppBundle\Filter\Infomarket\Main\ArticleFilter;
 use AppBundle\Form\Base\FilterType;
-use AppBundle\Form\Filter\Base\SimpleEntityFilterType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
-use AppBundle\Filter\Infomarket\Main\ArticleFilter;
+use AppBundle\Utils\FormUtils;
 
 class ArticleFilterType extends FilterType
 {	
@@ -23,12 +23,16 @@ class ArticleFilterType extends FilterType
 		$builder
 		->add('articleCategories', ChoiceType::class, array(
 				'choices' 		=> $articleCategories, 
+				'choice_label' => function ($value, $key, $index) { return FormUtils::getListLabel($value, $key, $index); },
+				'translation_domain' => false,
 				'required'		=> false,
 				'expanded'      => true,
 				'multiple'      => true
 		))
 		->add('categories', ChoiceType::class, array(
 				'choices'		=> $categories, 
+				'choice_label' => function ($value, $key, $index) { return FormUtils::getListLabel($value, $key, $index); },
+				'translation_domain' => false,
 				'required'		=> false,
 				'expanded'      => true,
 				'multiple'      => true

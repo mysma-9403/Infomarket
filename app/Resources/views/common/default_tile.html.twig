@@ -19,6 +19,9 @@
 		<div class="col-xs-12 div-bottom bkg-black-50">
 			<div class="rect-3x1">
 				<p class="div-top">
+					{% if entry.brandName is defined %}
+						<strong>{{ entry.brandName }}</strong></br>
+					{% endif %}
 					{{ entry.name }} {{ entry.subname is defined ? entry.subname : '' }}
 				</p>
 			</div>

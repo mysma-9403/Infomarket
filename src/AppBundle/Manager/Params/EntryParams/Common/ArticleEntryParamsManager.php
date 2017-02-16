@@ -7,7 +7,7 @@ use AppBundle\Manager\Params\EntryParams\Base\EntryParamsManager;
 use AppBundle\Repository\Common\ArticleRepository;
 use Symfony\Component\HttpFoundation\Request;
 
-abstract class ArticleEntryParamsManager extends EntryParamsManager {
+class ArticleEntryParamsManager extends EntryParamsManager {
 	
 	public function getPreviewParams(Request $request, array $params, $id, $page) {
 		$params = parent::getShowParams($request, $params, $id);
@@ -66,5 +66,7 @@ abstract class ArticleEntryParamsManager extends EntryParamsManager {
 	 * 
 	 * @return ArticleRepository
 	 */
-	protected abstract function getRepository($em);
+	protected function getRepository($em) {
+		return $this->doctrine->getRepository(Article::class);
+	}
 }

@@ -53,18 +53,18 @@
 								</div>
 							</div>
 							<div class="col-sm-9">
-{# 								{% for articleBrandAssignment in entry.articleBrandAssignments %}#}
-{# {# 									<a href="{{ path(basePath ~ 'brand_show', { id: articleBrandAssignment.brand.id, category: category is defined ? category.id : null }) }}">#}#}
-{# 									<a href="#">#}
-{# 										<h3 class="text-red">{{ articleBrandAssignment.brand.name | raw }} </h3>#}
-{# 									</a> #}
-{# 								{% endfor %}#}
+								{% for brand in entry.brands %}
+{# 									<a href="{{ path(basePath ~ 'brand_show', { id: articleBrandAssignment.brand.id, category: category is defined ? category.id : null }) }}">#}
+									<a href="#">
+										<h3 class="text-red">{{ brand.name }}</h3> 
+									</a> 
+								{% endfor %}
 								
 								<a href="{{ path('infoprodukt_' ~ mainPath ~ '_show', { 'id': entry.id, category: category is defined ? category.id : null }) }}">
-									<h3>
-										<span class="text-brand">{{ entry.name | raw }}</span> 
-										<span class="text-red">{{ entry.subname | raw }}</span>
-									</h3>
+									<h4>
+										<span class="text-brand">{{ entry.name }}</span> 
+										<span class="text-red">{{ entry.subname }}</span>
+									</h4>
 								</a>
 								
 								<div class="col-xs-6 text-muted">
@@ -79,21 +79,21 @@
 									{% endif %}
 								</div>
 								
-{# 								<div class="col-xs-12 text-muted">#}
-{# 									{% if entry.articleTagAssignments | length > 0 %}#}
-{# 										<span class="fa fa-tags"></span> #}
-{# 										{% spaceless %}#}
-{# 										{% for articleTagAssignment in entry.articleTagAssignments %}#}
-{# 											{{- loop.index > 1 ? ', ' : '' -}}#}
-{# 											<a href="{{ path(basePath ~ mainPath, #}
-{# 												{ category: category is defined and category ? category.id : null, article_filter_tags: articleTagAssignment.tag.id }) }}">#}
-{# 												{{- articleTagAssignment.tag.name -}}#}
-{# 											</a>#}
+								<div class="col-xs-12 text-muted">
+									{% if entry.tags | length > 0 %}
+										<span class="fa fa-tags"></span> 
+										{% spaceless %}
+										{% for tag in entry.tags %}
+											{{- loop.index > 1 ? ', ' : '' -}}
+											<a href="{{ path(basePath ~ mainPath, 
+												{ category: category is defined and category ? category.id : null, article_filter_tags: [tag.id] }) }}">
+												{{- tag.name -}}
+											</a>
 											 
-{# 										{% endfor %}#}
-{# 										{% endspaceless %}#}
-{# 									{% endif %}#}
-{# 								</div>#}
+										{% endfor %}
+										{% endspaceless %}
+									{% endif %}
+								</div>
 								
 								<div class="col-xs-12">
 									<p>

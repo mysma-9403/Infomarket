@@ -6,6 +6,7 @@ use AppBundle\Filter\Admin\Main\NewsletterPageFilter;
 use AppBundle\Form\Filter\Admin\Base\SimpleEntityFilterType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
+use AppBundle\Utils\FormUtils;
 
 class NewsletterPageFilterType extends SimpleEntityFilterType
 {	
@@ -22,6 +23,8 @@ class NewsletterPageFilterType extends SimpleEntityFilterType
 		$builder
 		->add('newsletterPageTemplates', ChoiceType::class, array(
 				'choices'		=> $newsletterPageTemplates, 
+				'choice_label' => function ($value, $key, $index) { return FormUtils::getListLabel($value, $key, $index); },
+				'translation_domain' => false,
 				'required'		=> false,
 				'expanded'      => false,
 				'multiple'      => true

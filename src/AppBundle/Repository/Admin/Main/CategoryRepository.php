@@ -69,6 +69,12 @@ class CategoryRepository extends SimpleEntityRepository
 	
 	
 	
+	protected function buildFilterJoins(QueryBuilder &$builder) {
+		parent::buildFilterJoins($builder);
+		
+		$builder->leftJoin(Category::class, 'p', Join::WITH, 'p.id = e.parent');
+	}
+	
 	protected function buildFilterOrderBy(QueryBuilder &$builder) {
 		parent::buildFilterOrderBy($builder);
 	
@@ -81,7 +87,23 @@ class CategoryRepository extends SimpleEntityRepository
 		$fields = parent::getFilterSelectFields($builder);
 	
 		$fields[] = 'e.subname';
+		$fields[] = 'p.name AS parentName';
+		$fields[] = 'p.subname AS parentSubname';
 	
+		return $fields;
+	}
+	
+	
+	
+	protected function getFilterItemKeyFields($item) {
+		$fields = parent::getFilterItemKeyFields($item);
+		
+		$fields[] = $item['subname'];
+		if($item['parentName']) {
+			$fields[] = '(' . $item['parentName'];
+			$fields[] = $item['parentSubname'] . ')';
+		}
+		
 		return $fields;
 	}
 	

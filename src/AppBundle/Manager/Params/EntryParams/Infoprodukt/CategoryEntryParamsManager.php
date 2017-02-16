@@ -5,25 +5,19 @@ namespace AppBundle\Manager\Params\EntryParams\Infoprodukt;
 use AppBundle\Entity\Advert;
 use AppBundle\Entity\Article;
 use AppBundle\Entity\ArticleCategory;
-use AppBundle\Entity\Branch;
 use AppBundle\Entity\Brand;
 use AppBundle\Entity\Category;
-use AppBundle\Entity\Filter\Base\BaseEntityFilter;
-use AppBundle\Entity\Filter\BrandFilter;
-use AppBundle\Entity\Filter\CategoryFilter;
-use AppBundle\Entity\Filter\ProductFilter;
 use AppBundle\Entity\Product;
 use AppBundle\Entity\Segment;
-use AppBundle\Entity\User;
 use AppBundle\Manager\Params\EntryParams\Base\EntryParamsManager;
 use AppBundle\Repository\Infoprodukt\AdvertRepository;
 use AppBundle\Repository\Infoprodukt\ArticleCategoryRepository;
 use AppBundle\Repository\Infoprodukt\ArticleRepository;
 use AppBundle\Repository\Infoprodukt\BrandRepository;
-use Symfony\Component\HttpFoundation\Request;
-use AppBundle\Repository\Infoprodukt\SegmentRepository;
-use AppBundle\Repository\Infoprodukt\ProductRepository;
 use AppBundle\Repository\Infoprodukt\CategoryRepository;
+use AppBundle\Repository\Infoprodukt\ProductRepository;
+use AppBundle\Repository\Infoprodukt\SegmentRepository;
+use Symfony\Component\HttpFoundation\Request;
 
 class CategoryEntryParamsManager extends EntryParamsManager {
 	
@@ -71,6 +65,11 @@ class CategoryEntryParamsManager extends EntryParamsManager {
 // 			}
 
 			$em = $this->doctrine->getManager();
+			
+			//brands
+			$brandRepository = new BrandRepository($em, $em->getClassMetadata(Brand::class));
+			$viewParams['brands'] = $brandRepository->findTopItems($entry->getId());
+			
 			
 			/** @var ArticleCategoryRepository $articleCategoryRepository */
 			$articleCategoryRepository = new ArticleCategoryRepository($em, $em->getClassMetadata(ArticleCategory::class));
@@ -142,6 +141,11 @@ class CategoryEntryParamsManager extends EntryParamsManager {
 			$viewParams['productsCategory'] = $this->getArticleCategory($articleCategories, self::PRODUCTS_AC);
 			
 			$articles = $articleRepository->findCategoryItems($entry->getId(), self::PRODUCTS_AC, 6);
+			if(count($articles) > 0) {
+				$articlesIds = $articleRepository->getIds($articles);
+				$brands = $brandRepository->findItemsByArticles($articlesIds);
+				$articles = $articleRepository->assignItems($articles, $brands, 'brands');
+			}
 			$viewParams['productsArticles'] = $articles;
 			
 			
@@ -150,6 +154,11 @@ class CategoryEntryParamsManager extends EntryParamsManager {
 			$viewParams['promotionsCategory'] = $this->getArticleCategory($articleCategories, self::PROMOTIONS_AC);
 				
 			$articles = $articleRepository->findCategoryItems($entry->getId(), self::PROMOTIONS_AC, 6);
+			if(count($articles) > 0) {
+				$articlesIds = $articleRepository->getIds($articles);
+				$brands = $brandRepository->findItemsByArticles($articlesIds);
+				$articles = $articleRepository->assignItems($articles, $brands, 'brands');
+			}
 			$viewParams['promotionsArticles'] = $articles;
 			
 			
@@ -164,12 +173,6 @@ class CategoryEntryParamsManager extends EntryParamsManager {
 			$usefulArticleCategories[] = $this->getArticleCategory($articleCategories, self::FOREIGN_LINKS_AC);
 			
 			$viewParams['usefulArticleCategories'] = $usefulArticleCategories;
-			
-			
-			
-			//brands
-			$brandRepository = new BrandRepository($em, $em->getClassMetadata(Brand::class));
-			$viewParams['brands'] = $brandRepository->findTopItems($entry->getId());
 			
 		} else if($entry->getParent() && $entry->getParent()->getPreleaf()) {
 			

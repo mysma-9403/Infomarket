@@ -43,18 +43,18 @@
 								</div>
 							</div>
 							<div class="col-sm-9">
-{# 								{% for articleBrandAssignment in entry.articleBrandAssignments %}#}
-{# {# 									<a href="{{ path(basePath ~ 'brand_show', { id: articleBrandAssignment.brand.id }) }}">#}#}
-{# 									<a href="#">#}
-{# 										<h3 class="text-red">{{ articleBrandAssignment.brand.name | raw }} </h3>#}
-{# 									</a> #}
-{# 								{% endfor %}#}
-								
+								<h3>
+									{% for brand in entry.brands %}
+										<a href="#" class="text-red">
+											{{ brand.name }}
+										</a> 
+									{% endfor %}
+								</h3>
 								<a href="{{ path(basePath ~ mainPath ~ '_show', { 'id': entry.id }) }}">
-									<h3>
-										<span class="text-brand">{{ entry.name | raw }}</span> 
-										<span class="text-red">{{ entry.subname | raw }}</span>
-									</h3>
+									<h4>
+										<span class="text-brand">{{ entry.name }}</span> 
+										<span class="text-red">{{ entry.subname }}</span>
+									</h4>
 								</a>
 								
 								<div class="col-xs-6 text-muted">

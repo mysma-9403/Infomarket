@@ -130,12 +130,13 @@ class UserController extends BaseAdminController
 	// Internal logic
 	//---------------------------------------------------------------------------
 	
-	protected function getListItems($items) {
-		$listItems = array();
-		foreach($items as $item) {
-			$listItems[$item['username']] = $item['id'];
-		}
-		return $listItems;
+	protected function getListItemKeyFields($item) {
+		$fields = parent::getListItemKeyFields($item);
+		
+		$fields[] = $item['surname'];
+		$fields[] = $item['forename'];
+		
+		return $fields;
 	}
 	
 	//---------------------------------------------------------------------------

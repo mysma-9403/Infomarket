@@ -4,9 +4,9 @@ namespace AppBundle\Form\Filter\Admin\Assignments;
 
 use AppBundle\Filter\Admin\Assignments\MagazineCategoryAssignmentFilter;
 use AppBundle\Form\Filter\Admin\Base\AdminFilterType;
-use AppBundle\Form\Filter\Base\SimpleEntityFilterType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
+use AppBundle\Utils\FormUtils;
 
 class MagazineCategoryAssignmentFilterType extends AdminFilterType
 {	
@@ -24,12 +24,16 @@ class MagazineCategoryAssignmentFilterType extends AdminFilterType
 		$builder
 		->add('magazines', ChoiceType::class, array(
 				'choices' 		=> $magazines, 
+				'choice_label' => function ($value, $key, $index) { return FormUtils::getListLabel($value, $key, $index); },
+				'translation_domain' => false,
 				'required'		=> false,
 				'expanded'      => false,
 				'multiple'      => true
 		))
 		->add('categories', ChoiceType::class, array(
 				'choices'		=> $categories, 
+				'choice_label' => function ($value, $key, $index) { return FormUtils::getListLabel($value, $key, $index); },
+				'translation_domain' => false,
 				'required'		=> false,
 				'expanded'      => false,
 				'multiple'      => true

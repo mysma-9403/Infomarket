@@ -3,11 +3,10 @@
 namespace AppBundle\Manager\Params\EntryParams\Admin;
 
 use AppBundle\Entity\Category;
-use AppBundle\Entity\Filter\Base\BaseEntityFilter;
 use AppBundle\Entity\Segment;
-use AppBundle\Entity\User;
 use AppBundle\Manager\Params\EntryParams\Base\EntryParamsManager;
 use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Repository\Admin\Main\SegmentRepository;
 
 class CategoryEntryParamsManager extends EntryParamsManager {
 	
@@ -17,7 +16,7 @@ class CategoryEntryParamsManager extends EntryParamsManager {
 	
 	
 		$filter = $this->fm->createFromRequest($request, $params);
-		$routeParams = array_merge($routeParams, $filter->getValues()); //TODO getValues -> getParams?
+		$routeParams = array_merge($routeParams, $filter->getRequestValues());
 	
 		$filter = $this->fm->adaptToTreeView($filter, $params);
 		$viewParams['entryFilter'] = $filter;
@@ -38,13 +37,9 @@ class CategoryEntryParamsManager extends EntryParamsManager {
 		
 		$viewParams = $params['viewParams'];
 		
-		$userRepository = $this->doctrine->getRepository(User::class);
+		/** @var SegmentRepository $segmentRepository */
 		$segmentRepository = $this->doctrine->getRepository(Segment::class);
-		
-		
-		$segmentFilter = new BaseEntityFilter($userRepository);
-		
-		$segments = $segmentRepository->findSelected($segmentFilter);
+		$segments = $segmentRepository->findFilterItems();
 		$viewParams['segments'] = $segments;
 		
 		$params['viewParams'] = $viewParams;

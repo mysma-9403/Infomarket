@@ -21,7 +21,6 @@ use AppBundle\Manager\Filter\Base\FilterManager;
 use AppBundle\Manager\Params\EntryParams\Admin\CategoryEntryParamsManager;
 use AppBundle\Repository\Admin\Main\BranchRepository;
 use AppBundle\Repository\Admin\Main\CategoryRepository;
-use AppBundle\Repository\ProductRepository;
 use AppBundle\Utils\ClassUtils;
 use Symfony\Component\HttpFoundation\Request;
 

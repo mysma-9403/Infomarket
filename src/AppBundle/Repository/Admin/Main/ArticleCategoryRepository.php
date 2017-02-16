@@ -59,6 +59,15 @@ class ArticleCategoryRepository extends SimpleEntityRepository
 		return $fields;
 	}
 	
+	
+	protected function getFilterItemKeyFields($item) {
+		$fields = parent::getFilterItemKeyFields($item);
+	
+		$fields[] = $item['subname'];
+	
+		return $fields;
+	}
+	
     /**
 	 * {@inheritdoc}
 	 */

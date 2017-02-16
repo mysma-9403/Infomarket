@@ -25,9 +25,9 @@
 							<div class="default-tile">
 								{% if showTitle %}
 									<h5 class="title">
-{# 										{% for articleBrandAssignment in article.articleBrandAssignments %}#}
-{# 						      				{{ articleBrandAssignment.brand.name }} #}
-{# 					      				{% endfor %}#}
+										{% for brand in article.brands %}
+						      				{{ brand.name }}  
+					      				{% endfor %}
 					      				&nbsp
 				      				</h5>
 			      				{% endif %}

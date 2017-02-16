@@ -8,6 +8,7 @@ use AppBundle\Form\Filter\Admin\Base\SimpleEntityFilterType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use AppBundle\Utils\FormUtils;
 
 class CategoryFilterType extends SimpleEntityFilterType
 {	
@@ -37,23 +38,29 @@ class CategoryFilterType extends SimpleEntityFilterType
 		$builder
 		->add('parents', ChoiceType::class, array(
 				'choices'		=> $parents,
+				'choice_label' => function ($value, $key, $index) { return FormUtils::getListLabel($value, $key, $index); },
+				'translation_domain' => false,
 				'required'		=> false,
 				'expanded'      => false,
 				'multiple'      => true
 		))
 		->add('branches', ChoiceType::class, array(
 				'choices'		=> $branches,
+				'choice_label' => function ($value, $key, $index) { return FormUtils::getListLabel($value, $key, $index); },
+				'translation_domain' => false,
 				'required'		=> false,
 				'expanded'      => false,
 				'multiple'      => true
 		))
 		->add('featured', ChoiceType::class, array(
 				'choices'		=> $featuredChoices,
+				'translation_domain' => false,
 				'expanded'      => false,
 				'multiple'      => false
 		))
 		->add('preleaf', ChoiceType::class, array(
 				'choices'		=> $preleafChoices,
+				'translation_domain' => false,
 				'expanded'      => false,
 				'multiple'      => false
 		))

@@ -9,6 +9,7 @@ use AppBundle\Filter\Base\Filter;
 use AppBundle\Repository\Admin\Base\AuditRepository;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\ORM\Query\Expr\Join;
+use AppBundle\Filter\Admin\Assignments\BranchCategoryAssignmentFilter;
 
 class BranchCategoryAssignmentRepository extends AuditRepository
 {
@@ -28,8 +29,23 @@ class BranchCategoryAssignmentRepository extends AuditRepository
 	protected function buildJoins(QueryBuilder &$builder, Filter $filter) {
 		parent::buildJoins($builder, $filter);
 		
-		$builder->leftJoin(Branch::class, 'b', Join::WITH, 'b.id = e.branch');
-		$builder->leftJoin(Category::class, 'c', Join::WITH, 'c.id = e.category');
+		$builder->innerJoin(Branch::class, 'b', Join::WITH, 'b.id = e.branch');
+		$builder->innerJoin(Category::class, 'c', Join::WITH, 'c.id = e.category');
+	}
+	
+	protected function getWhere(QueryBuilder &$builder, Filter $filter) {
+		/** @var BranchCategoryAssignmentFilter $filter */
+		$where = parent::getWhere($builder, $filter);
+	
+		if(count($filter->getBranches()) > 0) {
+			$where->add($builder->expr()->in('e.branch', $filter->getBranches()));
+		}
+	
+		if(count($filter->getCategories()) > 0) {
+			$where->add($builder->expr()->in('e.category', $filter->getCategories()));
+		}
+	
+		return $where;
 	}
 	
 	protected function buildOrderBy(QueryBuilder &$builder, Filter $filter) {

@@ -29,8 +29,23 @@ class ArticleArticleCategoryAssignmentRepository extends AuditRepository
 	protected function buildJoins(QueryBuilder &$builder, Filter $filter) {
 		parent::buildJoins($builder, $filter);
 		
-		$builder->leftJoin(Article::class, 'a', Join::WITH, 'a.id = e.article');
-		$builder->leftJoin(ArticleCategory::class, 'ac', Join::WITH, 'ac.id = e.articleCategory');
+		$builder->innerJoin(Article::class, 'a', Join::WITH, 'a.id = e.article');
+		$builder->innerJoin(ArticleCategory::class, 'ac', Join::WITH, 'ac.id = e.articleCategory');
+	}
+	
+	protected function getWhere(QueryBuilder &$builder, Filter $filter) {
+		/** @var ArticleArticleCategoryAssignmentFilter $filter */
+		$where = parent::getWhere($builder, $filter);
+	
+		if(count($filter->getArticles()) > 0) {
+			$where->add($builder->expr()->in('e.article', $filter->getArticles()));
+		}
+	
+		if(count($filter->getArticleCategories()) > 0) {
+			$where->add($builder->expr()->in('e.articleCategory', $filter->getArticleCategories()));
+		}
+	
+		return $where;
 	}
 	
 	protected function buildOrderBy(QueryBuilder &$builder, Filter $filter) {

@@ -8,6 +8,7 @@ use AppBundle\Form\Filter\Admin\Base\SimpleEntityFilterType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
+use AppBundle\Utils\FormUtils;
 
 class AdvertFilterType extends SimpleEntityFilterType
 {	
@@ -25,6 +26,8 @@ class AdvertFilterType extends SimpleEntityFilterType
 		$builder
 		->add('categories', ChoiceType::class, array(
 				'choices'		=> $categories, 
+				'choice_label' => function ($value, $key, $index) { return FormUtils::getListLabel($value, $key, $index); },
+				'translation_domain' => false,
 				'required'		=> false,
 				'expanded'      => false,
 				'multiple'      => true

@@ -3,20 +3,18 @@
 namespace AppBundle\Manager\Params\EntryParams\Infoprodukt;
 
 use AppBundle\Entity\Article;
-use AppBundle\Entity\ArticleCategory;
 use AppBundle\Entity\Brand;
-use AppBundle\Entity\Category;
-use AppBundle\Entity\Filter\ArticleFilter;
-use AppBundle\Entity\Filter\Base\SimpleEntityFilter;
-use AppBundle\Entity\Filter\ProductFilter;
 use AppBundle\Entity\Product;
-use AppBundle\Entity\Segment;
-use AppBundle\Entity\Tag;
 use AppBundle\Entity\Term;
-use AppBundle\Entity\User;
+use AppBundle\Filter\Common\BrandCategorySearchFilter;
 use AppBundle\Manager\Params\EntryParams\Base\EntryParamsManager;
+use AppBundle\Repository\Infoprodukt\BrandRepository;
+use AppBundle\Repository\Infoprodukt\ProductRepository;
+use AppBundle\Repository\Search\Infoprodukt\ArticleSearchRepository;
+use AppBundle\Repository\Search\Infoprodukt\BrandSearchRepository;
+use AppBundle\Repository\Search\Infoprodukt\ProductSearchRepository;
+use AppBundle\Repository\Search\Infoprodukt\TermSearchRepository;
 use Symfony\Component\HttpFoundation\Request;
-use AppBundle\Entity\Filter\Base\BaseEntityFilter;
 
 class SearchEntryParamsManager extends EntryParamsManager {
 	
@@ -25,73 +23,68 @@ class SearchEntryParamsManager extends EntryParamsManager {
 		
 		$viewParams = $params['viewParams'];
 		
+		$categories = $viewParams['entries'];
+		
+		$filter = new BrandCategorySearchFilter();
+		$filter->initRequestValues($request);
+		
+		$em = $this->doctrine->getManager();
+		
+		$brandRepository = new BrandSearchRepository($em, $em->getClassMetadata(Brand::class));
+		$brands = $brandRepository->findItems($filter);
 		
 		
-		$userRepository = $this->doctrine->getRepository(User::class);
-		$articleCategoryRepository = $this->doctrine->getRepository(ArticleCategory::class);
-		$categoryRepository = $this->doctrine->getRepository(Category::class);
-		$segmentRepository = $this->doctrine->getRepository(Segment::class);
-		$tagRepository = $this->doctrine->getRepository(Tag::class);
+		$articleRepository = new ArticleSearchRepository($em, $em->getClassMetadata(Article::class));
+		$articles = $articleRepository->findItems($filter);
 		
 		
+		$productRepository = new ProductSearchRepository($em, $em->getClassMetadata(Product::class));
+		$products = $productRepository->findItems($filter);
 		
-		$simpleFilter = new SimpleEntityFilter($userRepository);
-		$simpleFilter->setAddNameDecorators(true);
-		$simpleFilter->initValues($request);
-		$simpleFilter->setInfoprodukt(SimpleEntityFilter::TRUE_VALUES);
 		
-		$brandRepository = $this->doctrine->getRepository(Brand::class);
-		$brands = $brandRepository->findSelected($simpleFilter);
+		$termRepository = new TermSearchRepository($em, $em->getClassMetadata(Term::class));
+		$terms = $termRepository->findItems($filter);
+		
+		
+		if(count($brands) > 0) {
+			//TODO should be done by some array utils class
+			$brandsIds = $brandRepository->getIds($brands);
+			
+			$filter->setBrands($brandsIds);
+			
+			if(count($articles) < 8) {
+				$articles = array_merge($articles, $articleRepository->findItems($filter));
+			}
+			
+			if(count($products) < 8) {
+				$products = array_merge($products, $productRepository->findItems($filter));
+			}
+		}
+		
+		if(count($categories) > 0) {
+			//TODO should be done by some array utils class
+			$categoriesIds = $brandRepository->getIds($categories);
+			
+			$filter->setCategories($categoriesIds);
+			
+			if(count($articles) < 8) {
+				$articles = array_merge($articles, $articleRepository->findItems($filter));
+			}
+			
+			if(count($products) < 8) {
+				$products = array_merge($products, $productRepository->findItems($filter));
+			}
+			
+			if(count($terms) < 8) {
+				$terms = array_merge($terms, $termRepository->findItems($filter));
+			}
+		}
 		
 		$viewParams['brands'] = $brands;
-		
-		
-		
-		$productRepository = $this->doctrine->getRepository(Product::class);
-		$products = $productRepository->findSelected($simpleFilter);
-		
-		if(count($brands) > 0) {
-			$productFilter = new ProductFilter($userRepository, $categoryRepository, $brandRepository, $segmentRepository);
-			$productFilter->setInfoprodukt(BaseEntityFilter::TRUE_VALUES);
-			$productFilter->setBrands($brands);
-			$products = array_merge($products, $productRepository->findSelected($productFilter));
-		}
-		
-		$viewParams['products'] = $products;
-		
-		
-		
-		
-		$articleFilter = new ArticleFilter($userRepository, $articleCategoryRepository, $categoryRepository, $brandRepository, $tagRepository);
-		$articleFilter->setAddNameDecorators(true);
-		$articleFilter->setName($simpleFilter->getName());
-		$articleFilter->setInfoprodukt(SimpleEntityFilter::TRUE_VALUES);
-		$articleFilter->setArchived(SimpleEntityFilter::FALSE_VALUES);
-		$articleFilter->setMain(SimpleEntityFilter::TRUE_VALUES);
-		
-		$articleRepository = $this->doctrine->getRepository(Article::class);
-		$articles = $articleRepository->findSelected($articleFilter);
-		
-		if(count($brands) > 0) {
-			$articleFilter = new ArticleFilter($userRepository, $articleCategoryRepository, $categoryRepository, $brandRepository, $tagRepository);
-			$articleFilter->setInfoprodukt(SimpleEntityFilter::TRUE_VALUES);
-			$articleFilter->setArchived(SimpleEntityFilter::FALSE_VALUES);
-			$articleFilter->setMain(SimpleEntityFilter::TRUE_VALUES);
-			$articleFilter->setBrands($brands);
-			$articles = array_merge($articles, $articleRepository->findSelected($articleFilter));
-		}
-		
 		$viewParams['articles'] = $articles;
-		
-		
-		
-		$termRepository = $this->doctrine->getRepository(Term::class);
-		$terms = $termRepository->findSelected($simpleFilter);
-		
+		$viewParams['products'] = $products;
 		$viewParams['terms'] = $terms;
 		
-    	
-    	
     	$params['viewParams'] = $viewParams;
     	return $params;
 	}

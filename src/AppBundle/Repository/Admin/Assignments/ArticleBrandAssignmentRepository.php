@@ -9,6 +9,7 @@ use AppBundle\Filter\Base\Filter;
 use AppBundle\Repository\Admin\Base\AuditRepository;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\ORM\Query\Expr\Join;
+use AppBundle\Filter\Admin\Assignments\ArticleBrandAssignmentFilter;
 
 class ArticleBrandAssignmentRepository extends AuditRepository
 {
@@ -27,9 +28,24 @@ class ArticleBrandAssignmentRepository extends AuditRepository
 	
 	protected function buildJoins(QueryBuilder &$builder, Filter $filter) {
 		parent::buildJoins($builder, $filter);
+	
+		$builder->innerJoin(Article::class, 'a', Join::WITH, 'a.id = e.article');
+		$builder->innerJoin(Brand::class, 'b', Join::WITH, 'b.id = e.brand');
+	}
+	
+	protected function getWhere(QueryBuilder &$builder, Filter $filter) {
+		/** @var ArticleBrandAssignmentFilter $filter */
+		$where = parent::getWhere($builder, $filter);
 		
-		$builder->leftJoin(Article::class, 'a', Join::WITH, 'a.id = e.article');
-		$builder->leftJoin(Brand::class, 'b', Join::WITH, 'b.id = e.brand');
+		if(count($filter->getArticles()) > 0) {
+			$where->add($builder->expr()->in('e.article', $filter->getArticles()));
+		}
+		
+		if(count($filter->getBrands()) > 0) {
+			$where->add($builder->expr()->in('e.brand', $filter->getBrands()));
+		}
+		
+		return $where;
 	}
 	
 	protected function buildOrderBy(QueryBuilder &$builder, Filter $filter) {

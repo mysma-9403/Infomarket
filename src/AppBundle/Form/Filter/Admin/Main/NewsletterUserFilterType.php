@@ -2,11 +2,11 @@
 
 namespace AppBundle\Form\Filter\Admin\Main;
 
-use AppBundle\Entity\Filter\Base\SimpleEntityFilter;
 use AppBundle\Filter\Admin\Main\NewsletterUserFilter;
-use AppBundle\Form\Filter\Base\SimpleEntityFilterType;
+use AppBundle\Filter\Base\Filter;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
+use AppBundle\Form\Filter\Admin\Base\SimpleEntityFilterType;
 
 class NewsletterUserFilterType extends SimpleEntityFilterType
 {
@@ -14,9 +14,9 @@ class NewsletterUserFilterType extends SimpleEntityFilterType
 		parent::addMoreFields($builder, $options);
 		
 		$subscribedChoices = array(
-				'label.all'			=> SimpleEntityFilter::ALL_VALUES,
-				'label.newsletter.subscribed' 	=> SimpleEntityFilter::TRUE_VALUES,
-				'label.newsletter.unsubscribed' => SimpleEntityFilter::FALSE_VALUES
+				'label.all'						=> Filter::ALL_VALUES,
+				'label.newsletter.subscribed' 	=> Filter::TRUE_VALUES,
+				'label.newsletter.unsubscribed' => Filter::FALSE_VALUES
 		);
 	
 		$builder

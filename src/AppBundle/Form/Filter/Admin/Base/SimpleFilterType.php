@@ -2,8 +2,8 @@
 
 namespace AppBundle\Form\Filter\Admin\Base;
 
-use AppBundle\Entity\Filter\Base\SimpleEntityFilter;
 use AppBundle\Filter\Admin\Base\SimpleFilter;
+use AppBundle\Filter\Base\Filter;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 
@@ -18,9 +18,9 @@ class SimpleFilterType extends AdminFilterType
 		parent::addMainFields($builder, $options);
 		
 		$publishChoices = array(
-				'label.all'			=> SimpleEntityFilter::ALL_VALUES,
-				'label.published' 	=> SimpleEntityFilter::TRUE_VALUES,
-				'label.unpublished' => SimpleEntityFilter::FALSE_VALUES
+				'label.all'			=> Filter::ALL_VALUES,
+				'label.published' 	=> Filter::TRUE_VALUES,
+				'label.unpublished' => Filter::FALSE_VALUES
 		);
 		
 		$builder

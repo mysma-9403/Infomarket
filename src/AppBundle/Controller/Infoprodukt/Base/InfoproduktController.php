@@ -4,17 +4,15 @@ namespace AppBundle\Controller\Infoprodukt\Base;
 
 use AppBundle\Controller\Base\StandardController;
 use AppBundle\Entity\Advert;
-use AppBundle\Entity\Filter\Base\SimpleEntityFilter;
 use AppBundle\Entity\NewsletterUser;
 use AppBundle\Entity\Page;
-use AppBundle\Entity\User;
+use AppBundle\Filter\Common\SearchFilter;
+use AppBundle\Form\Base\SearchFilterType;
 use AppBundle\Form\Editor\NewsletterUserEditorType;
-use AppBundle\Form\Search\Base\SimpleEntitySearchType;
 use AppBundle\Manager\Params\Infoprodukt\AdvertParamsManager;
 use AppBundle\Manager\Params\Infoprodukt\ContextParamsManager;
 use AppBundle\Manager\Params\Infoprodukt\MenuParamsManager;
 use AppBundle\Manager\Route\RouteManager;
-use AppBundle\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -42,24 +40,19 @@ abstract class InfoproduktController extends StandardController
 		$am = $this->getAnalyticsManager();
 		$am->sendPageviewAnalytics($params['domain'], $params['route']);
 		
+		
 		$viewParams = $params['viewParams'];
 		
+		//TODO make reusable blocks for seach, newsletter, article filters
+		$searchFilter = new SearchFilter();
+		$searchFilter->initRequestValues($request);
 		
-		
-		
-		$em = $this->getDoctrine()->getManager();
-		
-		$userRepository = new UserRepository($em, $em->getClassMetadata(User::class)); //TODO make better SearchForm
-		
-		$searchFilter = new SimpleEntityFilter($userRepository);
-		$searchFilter->initValues($request);
-		
-		$searchFilterForm = $this->createForm(SimpleEntitySearchType::class, $searchFilter);
+		$searchFilterForm = $this->createForm(SearchFilterType::class, $searchFilter);
 		$searchFilterForm->handleRequest($request);
 		
 		if ($searchFilterForm->isSubmitted() && $searchFilterForm->isValid()) {
 			if ($searchFilterForm->get('search')->isClicked()) {
-				return $this->redirectToRoute($this->getSearchRoute(), $searchFilter->getValues());
+				return $this->redirectToRoute($this->getSearchRoute(), $searchFilter->getRequestValues());
 			}
 		}
 		$viewParams['searchFilterForm'] = $searchFilterForm->createView();
@@ -105,19 +98,16 @@ abstract class InfoproduktController extends StandardController
 		
 		$viewParams = $params['viewParams'];
 		
-		$em = $this->getDoctrine()->getManager();
 		
-		$userRepository = new UserRepository($em, $em->getClassMetadata(User::class)); //TODO make better SearchForm
+		$searchFilter = new SearchFilter();
+		$searchFilter->initRequestValues($request);
 		
-		$searchFilter = new SimpleEntityFilter($userRepository);
-		$searchFilter->initValues($request);
-		
-		$searchFilterForm = $this->createForm(SimpleEntitySearchType::class, $searchFilter);
+		$searchFilterForm = $this->createForm(SearchFilterType::class, $searchFilter);
 		$searchFilterForm->handleRequest($request);
 		
 		if ($searchFilterForm->isSubmitted() && $searchFilterForm->isValid()) {
 			if ($searchFilterForm->get('search')->isClicked()) {
-				return $this->redirectToRoute($this->getSearchRoute(), $searchFilter->getValues());
+				return $this->redirectToRoute($this->getSearchRoute(), $searchFilter->getRequestValues());
 			}
 		}
 		$viewParams['searchFilterForm'] = $searchFilterForm->createView();

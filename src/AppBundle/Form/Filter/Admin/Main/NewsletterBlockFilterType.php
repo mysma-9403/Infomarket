@@ -6,6 +6,7 @@ use AppBundle\Filter\Admin\Main\NewsletterBlockFilter;
 use AppBundle\Form\Filter\Admin\Base\SimpleEntityFilterType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
+use AppBundle\Utils\FormUtils;
 
 class NewsletterBlockFilterType extends SimpleEntityFilterType
 {	
@@ -23,12 +24,16 @@ class NewsletterBlockFilterType extends SimpleEntityFilterType
 		$builder
 		->add('newsletterPages', ChoiceType::class, array(
 				'choices'		=> $newsletterPages,
+				'choice_label' => function ($value, $key, $index) { return FormUtils::getListLabel($value, $key, $index); },
+				'translation_domain' => false,
 				'required'		=> false,
 				'expanded'      => false,
 				'multiple'      => true
 		))
 		->add('newsletterBlockTemplates', ChoiceType::class, array(
 				'choices'		=> $newsletterBlockTemplates, 
+				'choice_label' => function ($value, $key, $index) { return FormUtils::getListLabel($value, $key, $index); },
+				'translation_domain' => false,
 				'required'		=> false,
 				'expanded'      => false,
 				'multiple'      => true

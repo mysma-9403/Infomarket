@@ -6,7 +6,6 @@ use AppBundle\Entity\Base\Audit;
 use AppBundle\Manager\Params\Base\ParamsManager;
 use Doctrine\ORM\Query\Expr\Base;
 use Symfony\Component\HttpFoundation\Request;
-use AppBundle\Repository\Base\BaseEntityRepository;
 
 abstract class EntityManager extends ParamsManager {
 	

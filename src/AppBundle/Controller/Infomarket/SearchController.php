@@ -4,10 +4,10 @@ namespace AppBundle\Controller\Infomarket;
 
 use AppBundle\Controller\Infomarket\Base\InfomarketController;
 use AppBundle\Entity\Category;
+use AppBundle\Filter\Common\SearchFilter;
 use AppBundle\Manager\Entity\Base\EntityManager;
-use AppBundle\Manager\Entity\Common\CategoryManager;
+use AppBundle\Manager\Entity\Infomarket\SearchManager;
 use AppBundle\Manager\Filter\Base\FilterManager;
-use AppBundle\Manager\Filter\Infomarket\IMSearchFilterManager;
 use AppBundle\Manager\Params\EntryParams\Infomarket\SearchEntryParamsManager;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -36,11 +36,11 @@ class SearchController extends InfomarketController
 	}
 	
 	protected function getEntityManager($doctrine, $paginator) {
-		return new CategoryManager($doctrine, $paginator);
+		return new SearchManager($doctrine, $paginator);
 	}
 	
-	protected function getEntryFilterManager($doctrine) {
-		return new IMSearchFilterManager($doctrine);
+	protected function getFilterManager($doctrine) {
+		return new FilterManager(new SearchFilter());
 	}
 	
 	//---------------------------------------------------------------------------

@@ -1498,6 +1498,13 @@
             
             
             
+            <trans-unit id="label.search.string">
+                <source>label.search.string</source>
+                <target>Wyszukaj</target>
+            </trans-unit>
+            
+            
+            
             <trans-unit id="action.search">
                 <source>action.search</source>
                 <target>Szukaj</target>

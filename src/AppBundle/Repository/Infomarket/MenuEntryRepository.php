@@ -6,11 +6,11 @@ use AppBundle\Entity\Branch;
 use AppBundle\Entity\MenuEntry;
 use AppBundle\Entity\MenuEntryBranchAssignment;
 use AppBundle\Entity\MenuMenuEntryAssignment;
-use AppBundle\Repository\Base\BaseEntityRepository;
+use AppBundle\Repository\Base\BaseRepository;
 use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\ORM\QueryBuilder;
 
-class MenuEntryRepository extends BaseEntityRepository
+class MenuEntryRepository extends BaseRepository
 {	
 	public function findMenuItems($menuId, $branchId) {
 		$items = $this->queryMenuItems($menuId, $branchId)->getScalarResult();

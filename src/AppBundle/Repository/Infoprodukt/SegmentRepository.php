@@ -3,10 +3,10 @@
 namespace AppBundle\Repository\Infoprodukt;
 
 use AppBundle\Entity\Segment;
-use AppBundle\Repository\Base\BaseEntityRepository;
+use AppBundle\Repository\Base\BaseRepository;
 use Doctrine\ORM\QueryBuilder;
 
-class SegmentRepository extends BaseEntityRepository
+class SegmentRepository extends BaseRepository
 {	
 	public function findTopItems() {
 		return $this->queryTopItems()->getScalarResult();

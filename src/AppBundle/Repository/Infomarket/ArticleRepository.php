@@ -18,6 +18,7 @@ class ArticleRepository extends BaseArticleRepository
 		/** @var ArticleFilter $filter */
 		if(count($filter->getCategories()) > 0 || count($filter->getContextCategories()) > 0) {
 			$builder->innerJoin(ArticleCategoryAssignment::class, 'aca', Join::WITH, 'e.id = aca.article');
+			$builder->innerJoin(Category::class, 'c', Join::WITH, 'c.id = aca.category');
 		}
 		
 		if(count($filter->getArticleCategories()) > 0) {
@@ -62,9 +63,17 @@ class ArticleRepository extends BaseArticleRepository
 		$where->add('e.endDate IS NULL OR e.endDate >= \'' . $date->format('Y-m-d H:i') . "\'");
 		
 		if(count($filter->getCategories()) > 0) {
-			$where->add($builder->expr()->in('aca.category', $filter->getCategories()));
+			$rootWhere = $builder->expr()->orX();
+			$rootWhere->add($builder->expr()->in('c.rootId', $filter->getCategories()));
+			$rootWhere->add($builder->expr()->in('c.id', $filter->getCategories()));
+			
+			$where->add($rootWhere);
 		} else if(count($filter->getContextCategories()) > 0) {
-			$where->add($builder->expr()->in('aca.category', $filter->getContextCategories()));
+			$rootWhere = $builder->expr()->orX();
+			$rootWhere->add($builder->expr()->in('c.rootId', $filter->getContextCategories()));
+			$rootWhere->add($builder->expr()->in('c.id', $filter->getContextCategories()));
+			
+			$where->add($rootWhere);
 		}
 		
 		if(count($filter->getArticleCategories()) > 0) {
@@ -112,8 +121,9 @@ class ArticleRepository extends BaseArticleRepository
 			
 		$builder->where($where);
 	
-		$builder->orderBy('e.date', 'DESC');
-		$builder->groupBy('e.id');
+		$builder->addOrderBy('e.date', 'DESC');
+		$builder->addOrderBy('e.name', 'ASC');
+		$builder->addOrderBy('e.subname', 'ASC');
 			
 		return $builder->getQuery();
 	}
@@ -167,8 +177,9 @@ class ArticleRepository extends BaseArticleRepository
 			
 		$builder->where($where);
 		
-		$builder->orderBy('e.date', 'DESC');
-		$builder->groupBy('e.id');
+		$builder->addOrderBy('e.date', 'DESC');
+		$builder->addOrderBy('e.name', 'ASC');
+		$builder->addOrderBy('e.subname', 'ASC');
 		
 		$builder->setMaxResults($limit);
 			
@@ -187,7 +198,7 @@ class ArticleRepository extends BaseArticleRepository
 		$builder->select("e.id, e.name, e.subname, e.image, e.mimeType, e.vertical, e.forcedWidth, e.forcedHeight");
 		$builder->distinct();
 		$builder->from($this->getEntityType(), "e");
-	
+		
 		if(count($categories) > 0) {
 			$builder->innerJoin(ArticleCategoryAssignment::class, 'aca', Join::WITH, 'e.id = aca.article');
 			$builder->innerJoin(Category::class, 'c', Join::WITH, 'c.id = aca.category');
@@ -221,8 +232,9 @@ class ArticleRepository extends BaseArticleRepository
 			
 		$builder->where($where);
 	
-		$builder->orderBy('e.date', 'DESC');
-		$builder->groupBy('e.id');
+		$builder->addOrderBy('e.date', 'DESC');
+		$builder->addOrderBy('e.name', 'ASC');
+		$builder->addOrderBy('e.subname', 'ASC');
 	
 		$builder->setMaxResults($limit);
 			
@@ -241,7 +253,7 @@ class ArticleRepository extends BaseArticleRepository
 		$builder->select("e.id, e.name, e.subname");
 		$builder->distinct();
 		$builder->from($this->getEntityType(), "e");
-	
+		
 		if(count($categories) > 0) {
 			$builder->innerJoin(ArticleCategoryAssignment::class, 'aca', Join::WITH, 'e.id = aca.article');
 			$builder->innerJoin(Category::class, 'c', Join::WITH, 'c.id = aca.category');
@@ -275,8 +287,9 @@ class ArticleRepository extends BaseArticleRepository
 			
 		$builder->where($where);
 	
-		$builder->orderBy('e.date', 'DESC');
-		$builder->groupBy('e.id');
+		$builder->addOrderBy('e.date', 'DESC');
+		$builder->addOrderBy('e.name', 'ASC');
+		$builder->addOrderBy('e.subname', 'ASC');
 	
 		$builder->setFirstResult($offset);
 		$builder->setMaxResults($limit);

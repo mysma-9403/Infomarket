@@ -1,131 +1,126 @@
-{% extends 'infoprodukt/index.html.twig' %}
+{% extends 'infoprodukt/base/index.html.twig' %}
 
 {% set title = 'title.search'|trans %}
 {% set mainPath = 'search' %}
 		
-{% block content %}
-	<div class="container">
-		<div class="col-xs-12 well">
+{% block mainContent %}
 		
-			{% block categories %}
-			{% if entries|length > 0 %}
-				<div class="row">
-					<div class="col-xs-12">
-						<a href="{{ path('infoprodukt_category') }}">
-							<h2>{{ 'title.categories'|trans }}</h2>
-						</a>
-						
-						{% include 'common/tile_list.html.twig' with {'entries': entries, 'entryPath': 'category', 'limit': 12} %}
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-xs-12 text-center lowered">					
-						{% if entries|length > 12 %}
-							<a class="btn btn-danger" href="{{ path('infoprodukt_category') }}">{{ 'label.readMore'|trans }}</a>
-						{% endif %}	
-					</div>
-				</div>
-			{% endif %}
-			{% endblock %}
-			
-			
-			{% block products %}
-			{% if products|length > 0 %}
-				<div class="row">
-					<div class="col-xs-12">
-						<a href="{{ path('infoprodukt_product') }}">
-							<h2>{{ 'title.products'|trans }}</h2>
-						</a>
-						
-						{% include 'common/tile_list.html.twig' with {'entries': products, 'entryPath': 'product', 'limit': 12} %}
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-xs-12 text-center lowered">
-						{% if products|length > 12 %}
-							<a class="btn btn-danger" href="{{ path('infoprodukt_product') }}">{{ 'label.readMore'|trans }}</a>
-						{% endif %}	
-					</div>
-				</div>
-			{% endif %}
-			{% endblock %}
-			
-			
-			{% block articles %}
-			{% if articles|length > 0 %}
-				<div class="row">
-					<div class="col-xs-12">
-						<a href="{{ path('infoprodukt_article') }}">
-							<h2>{{ 'title.articles'|trans }}</h2>
-						</a>
-						
-						{% include 'common/tile_list.html.twig' with {'entries': articles, 'entryPath': 'article', 'limit': 12} %}	
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-xs-12 text-center lowered">
-						{% if articles|length > 12 %}
-							<a class="btn btn-danger" href="{{ path('infoprodukt_article') }}">{{ 'label.readMore'|trans }}</a>
-						{% endif %}
-					</div>
-				</div>
-			{% endif %}
-			{% endblock %}
-			
-			
-			{% block brands %}
-			{% if brands|length > 0 %}
-			<div class="row">
-				<div class="col-xs-12">
-					<a href="{{ path('infoprodukt_brand') }}">
-						<h2>{{ 'title.brands'|trans }}</h2>
-					</a>
-					
-					{% include 'common/tile_list.html.twig' with {'entries': brands, 'entryPath': 'brand', 'limit': 12} %}
-				</div>
+	{% block categories %}
+	{% if entries|length > 0 %}
+		<div class="row">
+			<div class="col-xs-12">
+				<a href="{{ path('infoprodukt_category') }}">
+					<h2>{{ 'title.categories'|trans }}</h2>
+				</a>
+				
+				{% include 'common/tile_list.html.twig' with {'entries': entries, 'entryPath': 'category', 'limit': 12} %}
 			</div>
-			<div class="row">
-				<div class="col-xs-12 text-center lowered">
-					{% if brands|length > 12 %}
-						<a class="btn btn-danger" href="{{ path('infoprodukt_brand') }}">{{ 'label.readMore'|trans }}</a>
-					{% endif %}	
-				</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-12 text-center lowered">					
+				{% if entries|length > 12 %}
+					<a class="btn btn-danger" href="{{ path('infoprodukt_category') }}">{{ 'label.readMore'|trans }}</a>
+				{% endif %}	
 			</div>
-			{% endif %}
-			{% endblock %}
+		</div>
+	{% endif %}
+	{% endblock %}
+	
+	
+	{% block products %}
+	{% if products|length > 0 %}
+		<div class="row">
+			<div class="col-xs-12">
+				<a href="{{ path('infoprodukt_product') }}">
+					<h2>{{ 'title.products'|trans }}</h2>
+				</a>
+				
+				{% include 'common/tile_list.html.twig' with {'entries': products, 'entryPath': 'product', 'limit': 12} %}
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-12 text-center lowered">
+				{% if products|length > 12 %}
+					<a class="btn btn-danger" href="{{ path('infoprodukt_product') }}">{{ 'label.readMore'|trans }}</a>
+				{% endif %}	
+			</div>
+		</div>
+	{% endif %}
+	{% endblock %}
+	
+	
+	{% block articles %}
+	{% if articles|length > 0 %}
+		<div class="row">
+			<div class="col-xs-12">
+				<a href="{{ path('infoprodukt_article') }}">
+					<h2>{{ 'title.articles'|trans }}</h2>
+				</a>
+				
+				{% include 'common/tile_list.html.twig' with {'entries': articles, 'entryPath': 'article', 'limit': 12} %}	
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-12 text-center lowered">
+				{% if articles|length > 12 %}
+					<a class="btn btn-danger" href="{{ path('infoprodukt_article') }}">{{ 'label.readMore'|trans }}</a>
+				{% endif %}
+			</div>
+		</div>
+	{% endif %}
+	{% endblock %}
+	
+	
+	{% block brands %}
+	{% if brands|length > 0 %}
+	<div class="row">
+		<div class="col-xs-12">
+			<a href="{{ path('infoprodukt_brand') }}">
+				<h2>{{ 'title.brands'|trans }}</h2>
+			</a>
 			
-			
-			{% block terms %}
-			{% if terms|length > 0 %}
-				<div class="row">
-					<div class="col-xs-12">
-						<a href="{{ path('infoprodukt_term') }}">
-							<h2>{{ 'title.terms'|trans }}</h2>
-						</a>
-						
-						{% for entry in terms %}
-							{% if loop.index <= 12 %}
-								<div class="col-sm-3">
-									<a href="{{ path('infoprodukt_term_show', { 'id': entry.id }) }}">
-										{{ entry.name | raw }}
-									</a>
-								</div>
-							{% endif %}
-						{% else %}
-							<p>{{ 'label.noEntries'|trans }}</p>
-						{% endfor %}		
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-xs-12 text-center lowered">
-						{% if terms|length > 12 %}
-							<a class="btn btn-danger" href="{{ path('infoprodukt_term') }}">{{ 'label.readMore'|trans }}</a>
-						{% endif %}			
-					</div>
-				</div>
-			{% endif %}
-			{% endblock %}
-			
+			{% include 'common/tile_list.html.twig' with {'entries': brands, 'entryPath': 'brand', 'limit': 12} %}
 		</div>
 	</div>
+	<div class="row">
+		<div class="col-xs-12 text-center lowered">
+			{% if brands|length > 12 %}
+				<a class="btn btn-danger" href="{{ path('infoprodukt_brand') }}">{{ 'label.readMore'|trans }}</a>
+			{% endif %}	
+		</div>
+	</div>
+	{% endif %}
+	{% endblock %}
+	
+	
+	{% block terms %}
+	{% if terms|length > 0 %}
+		<div class="row">
+			<div class="col-xs-12">
+				<a href="{{ path('infoprodukt_term') }}">
+					<h2>{{ 'title.terms'|trans }}</h2>
+				</a>
+				
+				{% for entry in terms %}
+					{% if loop.index <= 12 %}
+						<div class="col-sm-3">
+							<a href="{{ path('infoprodukt_term_show', { 'id': entry.id }) }}">
+								{{ entry.name | raw }}
+							</a>
+						</div>
+					{% endif %}
+				{% else %}
+					<p>{{ 'label.noEntries'|trans }}</p>
+				{% endfor %}		
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-12 text-center lowered">
+				{% if terms|length > 12 %}
+					<a class="btn btn-danger" href="{{ path('infoprodukt_term') }}">{{ 'label.readMore'|trans }}</a>
+				{% endif %}			
+			</div>
+		</div>
+	{% endif %}
+	{% endblock %}
 {% endblock %}

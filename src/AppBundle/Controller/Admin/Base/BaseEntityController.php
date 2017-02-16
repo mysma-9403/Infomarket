@@ -6,11 +6,11 @@ use AppBundle\Entity\Lists\Base\BaseEntityList;
 use AppBundle\Entity\User;
 use AppBundle\Filter\Admin\Base\AuditFilter;
 use AppBundle\Form\Editor\Base\BaseEntityEditorType;
-use AppBundle\Form\Filter\Base\BaseEntityFilterType;
+use AppBundle\Form\Filter\Admin\Base\AdminFilterType;
 use AppBundle\Form\Lists\Base\BaseEntityListType;
 use AppBundle\Manager\Filter\Base\FilterManager;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use AppBundle\Repository\Admin\Main\UserRepository;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 
 
@@ -65,7 +65,7 @@ abstract class BaseEntityController extends AdminController
 	 * @return FilterFormType
 	 */
 	protected function getFilterFormType() {
-		return BaseEntityFilterType::class;
+		return AdminFilterType::class;
 	}
 	
 	/**
