@@ -2,15 +2,15 @@
 
 namespace AppBundle\Repository\Admin\Main;
 
-use AppBundle\Entity\Category;
-use AppBundle\Repository\Admin\Base\SimpleEntityRepository;
-use Doctrine\ORM\QueryBuilder;
-use AppBundle\Filter\Base\Filter;
 use AppBundle\Entity\BranchCategoryAssignment;
-use Doctrine\ORM\Query\Expr\Join;
+use AppBundle\Entity\Category;
 use AppBundle\Filter\Admin\Main\CategoryFilter;
+use AppBundle\Filter\Base\Filter;
+use AppBundle\Repository\Admin\Base\ImageEntityRepository;
+use Doctrine\ORM\Query\Expr\Join;
+use Doctrine\ORM\QueryBuilder;
 
-class CategoryRepository extends SimpleEntityRepository
+class CategoryRepository extends ImageEntityRepository
 {	
 	protected function  buildJoins(QueryBuilder &$builder, Filter $filter) {
 		/** @var CategoryFilter $filter */
@@ -106,6 +106,37 @@ class CategoryRepository extends SimpleEntityRepository
 		
 		return $fields;
 	}
+	
+	
+	
+	public function findTreeItems() {
+		$items = $this->queryTreeItems()->getScalarResult();
+	
+		$rootItems = $this->getRootItems($items);
+	
+		$index = 0;
+		$size = count($rootItems);
+		for($i = 0; $i < $size; $i++) {
+			$rootItem = $rootItems[$i];
+			$rootItems[$i] = $this->assignChildren($rootItem, $items, $index);
+		}
+	
+		return $rootItems;
+	}
+	
+	protected function queryTreeItems()
+	{
+		$builder = new QueryBuilder($this->getEntityManager());
+			
+		$builder->select("e.id, IDENTITY(e.parent) AS parent, e.name, e.subname, e.infomarket, e.infoprodukt, e.featured, e.preleaf");
+		$builder->from($this->getEntityType(), "e");
+	
+		$builder->orderBy('e.treePath', 'ASC');
+			
+		return $builder->getQuery();
+	}
+	
+	
 	
     /**
 	 * {@inheritdoc}

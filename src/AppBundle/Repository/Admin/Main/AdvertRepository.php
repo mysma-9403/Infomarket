@@ -3,14 +3,14 @@
 namespace AppBundle\Repository\Admin\Main;
 
 use AppBundle\Entity\Advert;
-use AppBundle\Repository\Admin\Base\SimpleEntityRepository;
-use AppBundle\Filter\Base\Filter;
-use AppBundle\Filter\Admin\Main\AdvertFilter;
-use Doctrine\ORM\Query\Expr\Join;
 use AppBundle\Entity\AdvertCategoryAssignment;
+use AppBundle\Filter\Admin\Main\AdvertFilter;
+use AppBundle\Filter\Base\Filter;
+use AppBundle\Repository\Admin\Base\ImageEntityRepository;
+use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\ORM\QueryBuilder;
 
-class AdvertRepository extends SimpleEntityRepository
+class AdvertRepository extends ImageEntityRepository
 {	
 	protected function  buildJoins(QueryBuilder &$builder, Filter $filter) {
 		/** @var AdvertFilter $filter */

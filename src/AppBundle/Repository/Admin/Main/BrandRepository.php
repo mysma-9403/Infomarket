@@ -3,9 +3,9 @@
 namespace AppBundle\Repository\Admin\Main;
 
 use AppBundle\Entity\Brand;
-use AppBundle\Repository\Admin\Base\SimpleEntityRepository;
+use AppBundle\Repository\Admin\Base\ImageEntityRepository;
 
-class BrandRepository extends SimpleEntityRepository
+class BrandRepository extends ImageEntityRepository
 {	
     /**
 	 * {@inheritdoc}

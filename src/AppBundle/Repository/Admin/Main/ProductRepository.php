@@ -6,11 +6,11 @@ use AppBundle\Entity\Brand;
 use AppBundle\Entity\Product;
 use AppBundle\Entity\ProductCategoryAssignment;
 use AppBundle\Filter\Base\Filter;
-use AppBundle\Repository\Admin\Base\SimpleEntityRepository;
+use AppBundle\Repository\Admin\Base\ImageEntityRepository;
 use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\ORM\QueryBuilder;
 
-class ProductRepository extends SimpleEntityRepository
+class ProductRepository extends ImageEntityRepository
 {	
 	protected function  buildJoins(QueryBuilder &$builder, Filter $filter) {
 		/** @var ProductFilter $filter */

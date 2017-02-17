@@ -8,11 +8,11 @@ use AppBundle\Entity\ArticleBrandAssignment;
 use AppBundle\Entity\ArticleCategoryAssignment;
 use AppBundle\Filter\Admin\Main\ArticleFilter;
 use AppBundle\Filter\Base\Filter;
-use AppBundle\Repository\Admin\Base\SimpleEntityRepository;
+use AppBundle\Repository\Admin\Base\ImageEntityRepository;
 use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\ORM\QueryBuilder;
 
-class ArchivedArticleRepository extends SimpleEntityRepository
+class ArchivedArticleRepository extends ImageEntityRepository
 {	
 	protected function  buildJoins(QueryBuilder &$builder, Filter $filter) {
 		/** @var ArticleFilter $filter */

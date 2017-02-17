@@ -7,28 +7,20 @@ use AppBundle\Entity\Segment;
 use AppBundle\Manager\Params\EntryParams\Base\EntryParamsManager;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Repository\Admin\Main\SegmentRepository;
+use AppBundle\Repository\Admin\Main\CategoryRepository;
 
 class CategoryEntryParamsManager extends EntryParamsManager {
 	
 	public function getTreeParams(Request $request, array $params) {
 		$viewParams = $params['viewParams'];
-		$routeParams = $params['routeParams'];
 	
-	
-		$filter = $this->fm->createFromRequest($request, $params);
-		$routeParams = array_merge($routeParams, $filter->getRequestValues());
-	
-		$filter = $this->fm->adaptToTreeView($filter, $params);
-		$viewParams['entryFilter'] = $filter;
-	
+		/** @var CategoryRepository $categoryRepository */
 		$categoryRepository = $this->doctrine->getRepository(Category::class);
-		$entries = $categoryRepository->findSelected($filter);
+		$entries = $categoryRepository->findTreeItems();
 		
 		$viewParams['entries'] = $entries;
-	
-	
+		
 		$params['viewParams'] = $viewParams;
-		$params['routeParams'] = $routeParams;
 		return $params;
 	}
 	
@@ -39,7 +31,7 @@ class CategoryEntryParamsManager extends EntryParamsManager {
 		
 		/** @var SegmentRepository $segmentRepository */
 		$segmentRepository = $this->doctrine->getRepository(Segment::class);
-		$segments = $segmentRepository->findFilterItems();
+		$segments = $segmentRepository->findTopItems();
 		$viewParams['segments'] = $segments;
 		
 		$params['viewParams'] = $viewParams;

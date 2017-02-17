@@ -34,11 +34,11 @@
 	</li>
 {% endblock %}
 
-{% block headerMainFields1 %}
+{% block headerMainFields2 %}
 	<th><i class="fa fa-"></i> {{ 'label.brand'|trans }}</th>
 {% endblock %}
 
-{% block entryMainFields1 %}
+{% block entryMainFields2 %}
 	<td>
 		{% include 'common/links/simple_link.html.twig' with { type: 'brand', value: { id: item.brandId, name: item.brandName } } %}
 	</td>

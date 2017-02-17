@@ -3,15 +3,15 @@
 namespace AppBundle\Repository\Admin\Main;
 
 use AppBundle\Entity\Magazine;
-use AppBundle\Repository\Admin\Base\SimpleEntityRepository;
-use AppBundle\Filter\Base\Filter;
-use Doctrine\ORM\QueryBuilder;
-use AppBundle\Entity\MagazineCategoryAssignment;
-use Doctrine\ORM\Query\Expr\Join;
 use AppBundle\Entity\MagazineBranchAssignment;
+use AppBundle\Entity\MagazineCategoryAssignment;
 use AppBundle\Filter\Admin\Main\MagazineFilter;
+use AppBundle\Filter\Base\Filter;
+use AppBundle\Repository\Admin\Base\ImageEntityRepository;
+use Doctrine\ORM\Query\Expr\Join;
+use Doctrine\ORM\QueryBuilder;
 
-class MagazineRepository extends SimpleEntityRepository
+class MagazineRepository extends ImageEntityRepository
 {
 	protected function  buildJoins(QueryBuilder &$builder, Filter $filter) {
 		/** @var MagazineFilter $filter */

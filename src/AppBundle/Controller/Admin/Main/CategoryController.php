@@ -211,23 +211,23 @@ class CategoryController extends ImageEntityController {
 		
 		
 		
-		$filter = $viewParams['entryFilter'];
+// 		$filter = $viewParams['entryFilter'];
 		
-		$filterForm = $this->createForm($this->getFilterFormType(), $filter);
-		$filterForm->handleRequest($request);
+// 		$filterForm = $this->createForm($this->getFilterFormType(), $filter);
+// 		$filterForm->handleRequest($request);
 		
-		if ($filterForm->isSubmitted() && $filterForm->isValid()) {
+// 		if ($filterForm->isSubmitted() && $filterForm->isValid()) {
 		
-			if ($filterForm->get('search')->isClicked()) {
-				return $this->redirectToRoute($this->getTreeRoute(), $filter->getValues());
-			}
+// 			if ($filterForm->get('search')->isClicked()) {
+// 				return $this->redirectToRoute($this->getTreeRoute(), $filter->getValues());
+// 			}
 		
-			if ($filterForm->get('clear')->isClicked()) {
-				$filter->clearQueryValues();
-				return $this->redirectToRoute($this->getTreeRoute(), $filter->getValues());
-			}
-		}
-		$viewParams['filter'] = $filterForm->createView();
+// 			if ($filterForm->get('clear')->isClicked()) {
+// 				$filter->clearQueryValues();
+// 				return $this->redirectToRoute($this->getTreeRoute(), $filter->getValues());
+// 			}
+// 		}
+// 		$viewParams['filter'] = $filterForm->createView();
 		
 		
 		
@@ -927,7 +927,7 @@ class CategoryController extends ImageEntityController {
 	
 	
 	protected function getImage($product, $imageName, $imageType) {
-		return ClassUtils::getClean($product->getUploadPath() . '/' . $imageName . '.' . $imageType);
+		return ClassUtils::getCleanPath($product->getUploadPath()) . '/' . ClassUtils::getCleanName($imageName) . '.' . $imageType;
 	}
 	
 	//---------------------------------------------------------------------------

@@ -3,9 +3,9 @@
 namespace AppBundle\Repository\Admin\Main;
 
 use AppBundle\Entity\Page;
-use AppBundle\Repository\Admin\Base\SimpleEntityRepository;
+use AppBundle\Repository\Admin\Base\ImageEntityRepository;
 
-class PageRepository extends SimpleEntityRepository
+class PageRepository extends ImageEntityRepository
 {	
     /**
 	 * {@inheritdoc}
