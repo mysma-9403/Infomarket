@@ -11,7 +11,7 @@ use AppBundle\Filter\Base\Filter;
 use AppBundle\Filter\Common\SearchFilter;
 use AppBundle\Filter\Infomarket\Main\ArticleFilter;
 use AppBundle\Form\Base\SearchFilterType;
-use AppBundle\Form\Editor\NewsletterUserEditorType;
+use AppBundle\Form\Editor\Main\NewsletterUserEditorType;
 use AppBundle\Form\Filter\Infomarket\ArticleFilterType;
 use AppBundle\Manager\Entity\Base\EntityManager;
 use AppBundle\Manager\Entity\Infomarket\ArticleManager;

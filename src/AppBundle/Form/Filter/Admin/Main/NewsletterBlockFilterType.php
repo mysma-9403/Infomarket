@@ -25,7 +25,7 @@ class NewsletterBlockFilterType extends SimpleEntityFilterType
 		->add('newsletterPages', ChoiceType::class, array(
 				'choices'		=> $newsletterPages,
 				'choice_label' => function ($value, $key, $index) { return FormUtils::getListLabel($value, $key, $index); },
-				'translation_domain' => false,
+				'choice_translation_domain' => false,
 				'required'		=> false,
 				'expanded'      => false,
 				'multiple'      => true
@@ -33,7 +33,7 @@ class NewsletterBlockFilterType extends SimpleEntityFilterType
 		->add('newsletterBlockTemplates', ChoiceType::class, array(
 				'choices'		=> $newsletterBlockTemplates, 
 				'choice_label' => function ($value, $key, $index) { return FormUtils::getListLabel($value, $key, $index); },
-				'translation_domain' => false,
+				'choice_translation_domain' => false,
 				'required'		=> false,
 				'expanded'      => false,
 				'multiple'      => true

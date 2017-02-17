@@ -39,7 +39,7 @@ class CategoryFilterType extends SimpleEntityFilterType
 		->add('parents', ChoiceType::class, array(
 				'choices'		=> $parents,
 				'choice_label' => function ($value, $key, $index) { return FormUtils::getListLabel($value, $key, $index); },
-				'translation_domain' => false,
+				'choice_translation_domain' => false,
 				'required'		=> false,
 				'expanded'      => false,
 				'multiple'      => true
@@ -47,20 +47,20 @@ class CategoryFilterType extends SimpleEntityFilterType
 		->add('branches', ChoiceType::class, array(
 				'choices'		=> $branches,
 				'choice_label' => function ($value, $key, $index) { return FormUtils::getListLabel($value, $key, $index); },
-				'translation_domain' => false,
+				'choice_translation_domain' => false,
 				'required'		=> false,
 				'expanded'      => false,
 				'multiple'      => true
 		))
 		->add('featured', ChoiceType::class, array(
 				'choices'		=> $featuredChoices,
-				'translation_domain' => false,
+				'choice_translation_domain' => false,
 				'expanded'      => false,
 				'multiple'      => false
 		))
 		->add('preleaf', ChoiceType::class, array(
 				'choices'		=> $preleafChoices,
-				'translation_domain' => false,
+				'choice_translation_domain' => false,
 				'expanded'      => false,
 				'multiple'      => false
 		))

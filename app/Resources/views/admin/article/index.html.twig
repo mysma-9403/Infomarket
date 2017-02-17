@@ -1,7 +1,7 @@
 {% extends 'admin/image/index.html.twig' %}
 
-{% set mainPath = 'article' %}
-{% set title = 'title.articles'|trans %}
+{% set mainPath = mainPath|default('article') %}
+{% set title = title|default('title.articles'|trans) %}
 
 {% set deleteRole = deleteRole | default('ROLE_EDITOR') %}
 

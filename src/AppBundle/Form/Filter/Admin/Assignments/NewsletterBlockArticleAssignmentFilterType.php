@@ -25,7 +25,7 @@ class NewsletterBlockArticleAssignmentFilterType extends AdminFilterType
 		->add('newsletterBlocks', ChoiceType::class, array(
 				'choices' 		=> $newsletterBlocks, 
 				'choice_label' => function ($value, $key, $index) { return FormUtils::getListLabel($value, $key, $index); },
-				'translation_domain' => false,
+				'choice_translation_domain' => false,
 				'required'		=> false,
 				'expanded'      => false,
 				'multiple'      => true
@@ -33,7 +33,7 @@ class NewsletterBlockArticleAssignmentFilterType extends AdminFilterType
 		->add('articles', ChoiceType::class, array(
 				'choices'		=> $articles, 
 				'choice_label' => function ($value, $key, $index) { return FormUtils::getListLabel($value, $key, $index); },
-				'translation_domain' => false,
+				'choice_translation_domain' => false,
 				'required'		=> false,
 				'expanded'      => false,
 				'multiple'      => true

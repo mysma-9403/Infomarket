@@ -268,1255 +268,1255 @@ admin_register:
     
 admin:
     path:      /admin/
-    defaults:  { _controller: "AppBundle:Admin/Admin:index" }
+    defaults:  { _controller: "AppBundle:Admin/Main/Admin:index" }
 
 # Admin Adverts Routing    
 admin_advert_show:
     path:      /admin/adverts/show/{id}
-    defaults:  { _controller: "AppBundle:Admin/Advert:show" }
+    defaults:  { _controller: "AppBundle:Admin/Main/Advert:show" }
     
 admin_advert_new:
     path:      /admin/adverts/new/
-    defaults:  { _controller: "AppBundle:Admin/Advert:new" }
+    defaults:  { _controller: "AppBundle:Admin/Main/Advert:new" }
     
 admin_advert_copy:
     path:      /admin/adverts/copy/{id}
-    defaults:  { _controller: "AppBundle:Admin/Advert:copy" }
+    defaults:  { _controller: "AppBundle:Admin/Main/Advert:copy" }
     
 admin_advert_edit:
     path:      /admin/adverts/edit/{id}
-    defaults:  { _controller: "AppBundle:Admin/Advert:edit" }
+    defaults:  { _controller: "AppBundle:Admin/Main/Advert:edit" }
     
 admin_advert_delete:
     path:      /admin/adverts/delete/{id}
-    defaults:  { _controller: "AppBundle:Admin/Advert:delete" }
+    defaults:  { _controller: "AppBundle:Admin/Main/Advert:delete" }
     
 admin_advert_remove_image:
     path:      /admin/adverts/remove_image/{id}
-    defaults:  { _controller: "AppBundle:Admin/Advert:removeImage" }
+    defaults:  { _controller: "AppBundle:Admin/Main/Advert:removeImage" }
     
 admin_advert_set_im_published:
     path:      /admin/adverts/set_im_published/{id}
-    defaults:  { _controller: "AppBundle:Admin/Advert:setIMPublished" }
+    defaults:  { _controller: "AppBundle:Admin/Main/Advert:setIMPublished" }
     
 admin_advert_set_ip_published:
     path:      /admin/adverts/set_ip_published/{id}
-    defaults:  { _controller: "AppBundle:Admin/Advert:setIPPublished" }
+    defaults:  { _controller: "AppBundle:Admin/Main/Advert:setIPPublished" }
         
 admin_advert:
     path:      /admin/adverts/{page}
-    defaults:  { _controller: "AppBundle:Admin/Advert:index", page: 1 }
+    defaults:  { _controller: "AppBundle:Admin/Main/Advert:index", page: 1 }
 
 # Admin AdvertCategoryAssignments Routing    
 admin_advert_category_assignment_show:
     path:      /admin/advert-category_assignments/show/{id}
-    defaults:  { _controller: "AppBundle:Admin/AdvertCategoryAssignment:show" }
+    defaults:  { _controller: "AppBundle:Admin/Assignments/AdvertCategoryAssignment:show" }
     
 admin_advert_category_assignment_new:
     path:      /admin/advert-category_assignments/new/
-    defaults:  { _controller: "AppBundle:Admin/AdvertCategoryAssignment:new" }
+    defaults:  { _controller: "AppBundle:Admin/Assignments/AdvertCategoryAssignment:new" }
     
 admin_advert_category_assignment_copy:
     path:      /admin/advert-category_assignments/copy/{id}
-    defaults:  { _controller: "AppBundle:Admin/AdvertCategoryAssignment:copy" }
+    defaults:  { _controller: "AppBundle:Admin/Assignments/AdvertCategoryAssignment:copy" }
     
 admin_advert_category_assignment_edit:
     path:      /admin/advert-category_assignments/edit/{id}
-    defaults:  { _controller: "AppBundle:Admin/AdvertCategoryAssignment:edit" }
+    defaults:  { _controller: "AppBundle:Admin/Assignments/AdvertCategoryAssignment:edit" }
     
 admin_advert_category_assignment_delete:
     path:      /admin/advert-category_assignments/delete/{id}
-    defaults:  { _controller: "AppBundle:Admin/AdvertCategoryAssignment:delete" }
+    defaults:  { _controller: "AppBundle:Admin/Assignments/AdvertCategoryAssignment:delete" }
 
 admin_advert_category_assignment:
     path:      /admin/advert-category_assignments/{page}
-    defaults:  { _controller: "AppBundle:Admin/AdvertCategoryAssignment:index", page: 1 }
+    defaults:  { _controller: "AppBundle:Admin/Assignments/AdvertCategoryAssignment:index", page: 1 }
             
 # Admin Articles Routing    
 admin_article_show:
     path:      /admin/articles/show/{id}
-    defaults:  { _controller: "AppBundle:Admin/Article:show" }
+    defaults:  { _controller: "AppBundle:Admin/Main/Article:show" }
     
 admin_article_new:
     path:      /admin/articles/new/
-    defaults:  { _controller: "AppBundle:Admin/Article:new" }
+    defaults:  { _controller: "AppBundle:Admin/Main/Article:new" }
     
 admin_article_copy:
     path:      /admin/articles/copy/{id}
-    defaults:  { _controller: "AppBundle:Admin/Article:copy" }
+    defaults:  { _controller: "AppBundle:Admin/Main/Article:copy" }
     
 admin_article_edit:
     path:      /admin/articles/edit/{id}
-    defaults:  { _controller: "AppBundle:Admin/Article:edit" }
+    defaults:  { _controller: "AppBundle:Admin/Main/Article:edit" }
     
 admin_article_delete:
     path:      /admin/articles/delete/{id}
-    defaults:  { _controller: "AppBundle:Admin/Article:delete" }
+    defaults:  { _controller: "AppBundle:Admin/Main/Article:delete" }
     
 admin_article_remove_image:
     path:      /admin/articles/remove_image/{id}
-    defaults:  { _controller: "AppBundle:Admin/Article:removeImage" }
+    defaults:  { _controller: "AppBundle:Admin/Main/Article:removeImage" }
     
 admin_article_set_im_published:
     path:      /admin/articles/set_im_published/{id}
-    defaults:  { _controller: "AppBundle:Admin/Article:setIMPublished" }
+    defaults:  { _controller: "AppBundle:Admin/Main/Article:setIMPublished" }
     
 admin_article_set_ip_published:
     path:      /admin/articles/set_ip_published/{id}
-    defaults:  { _controller: "AppBundle:Admin/Article:setIPPublished" }
+    defaults:  { _controller: "AppBundle:Admin/Main/Article:setIPPublished" }
 
 admin_article_set_featured:
     path:      /admin/articles/set_featured/{id}
-    defaults:  { _controller: "AppBundle:Admin/Article:setFeatured" }
+    defaults:  { _controller: "AppBundle:Admin/Main/Article:setFeatured" }
 
 admin_article_preview:
     path:      /admin/articles/preview/{id}/{page}
-    defaults:  { _controller: "AppBundle:Admin/Article:preview", page: '1' }
+    defaults:  { _controller: "AppBundle:Admin/Main/Article:preview", page: '1' }
         
 admin_article:
     path:      /admin/articles/{page}
-    defaults:  { _controller: "AppBundle:Admin/Article:index", page: 1 }
+    defaults:  { _controller: "AppBundle:Admin/Main/Article:index", page: 1 }
 
 
 # Admin Archived Articles Routing    
 admin_archived_article_show:
     path:      /admin/archived_articles/show/{id}
-    defaults:  { _controller: "AppBundle:Admin/ArchivedArticle:show" }
+    defaults:  { _controller: "AppBundle:Admin/Main/ArchivedArticle:show" }
     
 admin_archived_article_new:
     path:      /admin/archived_articles/new/
-    defaults:  { _controller: "AppBundle:Admin/ArchivedArticle:new" }
+    defaults:  { _controller: "AppBundle:Admin/Main/ArchivedArticle:new" }
     
 admin_archived_article_copy:
     path:      /admin/archived_articles/copy/{id}
-    defaults:  { _controller: "AppBundle:Admin/ArchivedArticle:copy" }
+    defaults:  { _controller: "AppBundle:Admin/Main/ArchivedArticle:copy" }
     
 admin_archived_article_edit:
     path:      /admin/archived_articles/edit/{id}
-    defaults:  { _controller: "AppBundle:Admin/ArchivedArticle:edit" }
+    defaults:  { _controller: "AppBundle:Admin/Main/ArchivedArticle:edit" }
     
 admin_archived_article_delete:
     path:      /admin/archived_articles/delete/{id}
-    defaults:  { _controller: "AppBundle:Admin/ArchivedArticle:delete" }
+    defaults:  { _controller: "AppBundle:Admin/Main/ArchivedArticle:delete" }
     
 admin_archived_article_remove_image:
     path:      /admin/archived_articles/remove_image/{id}
-    defaults:  { _controller: "AppBundle:Admin/ArchivedArticle:removeImage" }
+    defaults:  { _controller: "AppBundle:Admin/Main/ArchivedArticle:removeImage" }
     
 admin_archived_article_set_im_published:
     path:      /admin/archived_articles/set_im_published/{id}
-    defaults:  { _controller: "AppBundle:Admin/ArchivedArticle:setIMPublished" }
+    defaults:  { _controller: "AppBundle:Admin/Main/ArchivedArticle:setIMPublished" }
     
 admin_archived_article_set_ip_published:
     path:      /admin/archived_articles/set_ip_published/{id}
-    defaults:  { _controller: "AppBundle:Admin/ArchivedArticle:setIPPublished" }
+    defaults:  { _controller: "AppBundle:Admin/Main/ArchivedArticle:setIPPublished" }
 
 admin_archived_article_set_featured:
     path:      /admin/archived_articles/set_featured/{id}
-    defaults:  { _controller: "AppBundle:Admin/ArchivedArticle:setFeatured" }
+    defaults:  { _controller: "AppBundle:Admin/Main/ArchivedArticle:setFeatured" }
 
 admin_archived_article_preview:
     path:      /admin/archived_articles/preview/{id}/{page}
-    defaults:  { _controller: "AppBundle:Admin/ArchivedArticle:preview", page: '1' }
+    defaults:  { _controller: "AppBundle:Admin/Main/ArchivedArticle:preview", page: '1' }
         
 admin_archived_article:
     path:      /admin/archived_articles/{page}
-    defaults:  { _controller: "AppBundle:Admin/ArchivedArticle:index", page: 1 }    
+    defaults:  { _controller: "AppBundle:Admin/Main/ArchivedArticle:index", page: 1 }    
 
 # Admin ArticleArticleCategoryAssignments Routing    
 admin_article_article_category_assignment_show:
     path:      /admin/article-article_category_assignments/show/{id}
-    defaults:  { _controller: "AppBundle:Admin/ArticleArticleCategoryAssignment:show" }
+    defaults:  { _controller: "AppBundle:Admin/Assignments/ArticleArticleCategoryAssignment:show" }
     
 admin_article_article_category_assignment_new:
     path:      /admin/article-article_category_assignments/new/
-    defaults:  { _controller: "AppBundle:Admin/ArticleArticleCategoryAssignment:new" }
+    defaults:  { _controller: "AppBundle:Admin/Assignments/ArticleArticleCategoryAssignment:new" }
     
 admin_article_article_category_assignment_copy:
     path:      /admin/article-article_category_assignments/copy/{id}
-    defaults:  { _controller: "AppBundle:Admin/ArticleArticleCategoryAssignment:copy" }
+    defaults:  { _controller: "AppBundle:Admin/Assignments/ArticleArticleCategoryAssignment:copy" }
     
 admin_article_article_category_assignment_edit:
     path:      /admin/article-article_category_assignments/edit/{id}
-    defaults:  { _controller: "AppBundle:Admin/ArticleArticleCategoryAssignment:edit" }
+    defaults:  { _controller: "AppBundle:Admin/Assignments/ArticleArticleCategoryAssignment:edit" }
     
 admin_article_article_category_assignment_delete:
     path:      /admin/article-article_category_assignments/delete/{id}
-    defaults:  { _controller: "AppBundle:Admin/ArticleArticleCategoryAssignment:delete" }
+    defaults:  { _controller: "AppBundle:Admin/Assignments/ArticleArticleCategoryAssignment:delete" }
 
 admin_article_article_category_assignment:
     path:      /admin/article-article_category_assignments/{page}
-    defaults:  { _controller: "AppBundle:Admin/ArticleArticleCategoryAssignment:index", page: 1 }
+    defaults:  { _controller: "AppBundle:Admin/Assignments/ArticleArticleCategoryAssignment:index", page: 1 }
 
 # Admin ArticleBrandAssignments Routing    
 admin_article_brand_assignment_show:
     path:      /admin/article-brand_assignments/show/{id}
-    defaults:  { _controller: "AppBundle:Admin/ArticleBrandAssignment:show" }
+    defaults:  { _controller: "AppBundle:Admin/Assignments/ArticleBrandAssignment:show" }
     
 admin_article_brand_assignment_new:
     path:      /admin/article-brand_assignments/new/
-    defaults:  { _controller: "AppBundle:Admin/ArticleBrandAssignment:new" }
+    defaults:  { _controller: "AppBundle:Admin/Assignments/ArticleBrandAssignment:new" }
     
 admin_article_brand_assignment_copy:
     path:      /admin/article-brand_assignments/copy/{id}
-    defaults:  { _controller: "AppBundle:Admin/ArticleBrandAssignment:copy" }
+    defaults:  { _controller: "AppBundle:Admin/Assignments/ArticleBrandAssignment:copy" }
     
 admin_article_brand_assignment_edit:
     path:      /admin/article-brand_assignments/edit/{id}
-    defaults:  { _controller: "AppBundle:Admin/ArticleBrandAssignment:edit" }
+    defaults:  { _controller: "AppBundle:Admin/Assignments/ArticleBrandAssignment:edit" }
     
 admin_article_brand_assignment_delete:
     path:      /admin/article-brand_assignments/delete/{id}
-    defaults:  { _controller: "AppBundle:Admin/ArticleBrandAssignment:delete" }
+    defaults:  { _controller: "AppBundle:Admin/Assignments/ArticleBrandAssignment:delete" }
 
 admin_article_brand_assignment:
     path:      /admin/article-brand_assignments/{page}
-    defaults:  { _controller: "AppBundle:Admin/ArticleBrandAssignment:index", page: 1 }
+    defaults:  { _controller: "AppBundle:Admin/Assignments/ArticleBrandAssignment:index", page: 1 }
         
 # Admin ArticleCategoryAssignments Routing    
 admin_article_category_assignment_show:
     path:      /admin/article-category_assignments/show/{id}
-    defaults:  { _controller: "AppBundle:Admin/ArticleCategoryAssignment:show" }
+    defaults:  { _controller: "AppBundle:Admin/Assignments/ArticleCategoryAssignment:show" }
     
 admin_article_category_assignment_new:
     path:      /admin/article-category_assignments/new/
-    defaults:  { _controller: "AppBundle:Admin/ArticleCategoryAssignment:new" }
+    defaults:  { _controller: "AppBundle:Admin/Assignments/ArticleCategoryAssignment:new" }
     
 admin_article_category_assignment_copy:
     path:      /admin/article-category_assignments/copy/{id}
-    defaults:  { _controller: "AppBundle:Admin/ArticleCategoryAssignment:copy" }
+    defaults:  { _controller: "AppBundle:Admin/Assignments/ArticleCategoryAssignment:copy" }
     
 admin_article_category_assignment_edit:
     path:      /admin/article-category_assignments/edit/{id}
-    defaults:  { _controller: "AppBundle:Admin/ArticleCategoryAssignment:edit" }
+    defaults:  { _controller: "AppBundle:Admin/Assignments/ArticleCategoryAssignment:edit" }
     
 admin_article_category_assignment_delete:
     path:      /admin/article-category_assignments/delete/{id}
-    defaults:  { _controller: "AppBundle:Admin/ArticleCategoryAssignment:delete" }
+    defaults:  { _controller: "AppBundle:Admin/Assignments/ArticleCategoryAssignment:delete" }
 
 admin_article_category_assignment:
     path:      /admin/article-category_assignments/{page}
-    defaults:  { _controller: "AppBundle:Admin/ArticleCategoryAssignment:index", page: 1 }
+    defaults:  { _controller: "AppBundle:Admin/Assignments/ArticleCategoryAssignment:index", page: 1 }
 
 # Admin ArticleTagAssignments Routing    
 admin_article_tag_assignment_show:
     path:      /admin/article-tag_assignments/show/{id}
-    defaults:  { _controller: "AppBundle:Admin/ArticleTagAssignment:show" }
+    defaults:  { _controller: "AppBundle:Admin/Assignments/ArticleTagAssignment:show" }
     
 admin_article_tag_assignment_new:
     path:      /admin/article-tag_assignments/new/
-    defaults:  { _controller: "AppBundle:Admin/ArticleTagAssignment:new" }
+    defaults:  { _controller: "AppBundle:Admin/Assignments/ArticleTagAssignment:new" }
     
 admin_article_tag_assignment_copy:
     path:      /admin/article-tag_assignments/copy/{id}
-    defaults:  { _controller: "AppBundle:Admin/ArticleTagAssignment:copy" }
+    defaults:  { _controller: "AppBundle:Admin/Assignments/ArticleTagAssignment:copy" }
     
 admin_article_tag_assignment_edit:
     path:      /admin/article-tag_assignments/edit/{id}
-    defaults:  { _controller: "AppBundle:Admin/ArticleTagAssignment:edit" }
+    defaults:  { _controller: "AppBundle:Admin/Assignments/ArticleTagAssignment:edit" }
     
 admin_article_tag_assignment_delete:
     path:      /admin/article-tag_assignments/delete/{id}
-    defaults:  { _controller: "AppBundle:Admin/ArticleTagAssignment:delete" }
+    defaults:  { _controller: "AppBundle:Admin/Assignments/ArticleTagAssignment:delete" }
 
 admin_article_tag_assignment:
     path:      /admin/article-tag_assignments/{page}
-    defaults:  { _controller: "AppBundle:Admin/ArticleTagAssignment:index", page: 1 }    
+    defaults:  { _controller: "AppBundle:Admin/Assignments/ArticleTagAssignment:index", page: 1 }    
     
 # Admin ArticleCategories Routing    
 admin_article_category_show:
     path:      /admin/article_categories/show/{id}
-    defaults:  { _controller: "AppBundle:Admin/ArticleCategory:show" }
+    defaults:  { _controller: "AppBundle:Admin/Main/ArticleCategory:show" }
     
 admin_article_category_new:
     path:      /admin/article_categories/new/
-    defaults:  { _controller: "AppBundle:Admin/ArticleCategory:new" }
+    defaults:  { _controller: "AppBundle:Admin/Main/ArticleCategory:new" }
     
 admin_article_category_copy:
     path:      /admin/article_categories/copy/{id}
-    defaults:  { _controller: "AppBundle:Admin/ArticleCategory:copy" }
+    defaults:  { _controller: "AppBundle:Admin/Main/ArticleCategory:copy" }
     
 admin_article_category_edit:
     path:      /admin/article_categories/edit/{id}
-    defaults:  { _controller: "AppBundle:Admin/ArticleCategory:edit" }
+    defaults:  { _controller: "AppBundle:Admin/Main/ArticleCategory:edit" }
     
 admin_article_category_delete:
     path:      /admin/article_categories/delete/{id}
-    defaults:  { _controller: "AppBundle:Admin/ArticleCategory:delete" }
+    defaults:  { _controller: "AppBundle:Admin/Main/ArticleCategory:delete" }
     
 admin_article_category_remove_image:
     path:      /admin/article_categories/remove_image/{id}
-    defaults:  { _controller: "AppBundle:Admin/ArticleCategory:removeImage" }
+    defaults:  { _controller: "AppBundle:Admin/Main/ArticleCategory:removeImage" }
     
 admin_article_category_set_im_published:
     path:      /admin/article_categories/set_im_published/{id}
-    defaults:  { _controller: "AppBundle:Admin/ArticleCategory:setIMPublished" }
+    defaults:  { _controller: "AppBundle:Admin/Main/ArticleCategory:setIMPublished" }
     
 admin_article_category_set_ip_published:
     path:      /admin/article_categories/set_ip_published/{id}
-    defaults:  { _controller: "AppBundle:Admin/ArticleCategory:setIPPublished" }
+    defaults:  { _controller: "AppBundle:Admin/Main/ArticleCategory:setIPPublished" }
 
 admin_article_category_set_featured:
     path:      /admin/article_categories/set_featured/{id}
-    defaults:  { _controller: "AppBundle:Admin/ArticleCategory:setFeatured" }
+    defaults:  { _controller: "AppBundle:Admin/Main/ArticleCategory:setFeatured" }
     
 admin_article_category:
     path:      /admin/article_categories/{page}
-    defaults:  { _controller: "AppBundle:Admin/ArticleCategory:index", page: 1 }
+    defaults:  { _controller: "AppBundle:Admin/Main/ArticleCategory:index", page: 1 }
     
         
 # Admin Branches Routing    
 admin_branch_show:
     path:      /admin/branches/show/{id}
-    defaults:  { _controller: "AppBundle:Admin/Branch:show" }
+    defaults:  { _controller: "AppBundle:Admin/Main/Branch:show" }
     
 admin_branch_new:
     path:      /admin/branches/new/
-    defaults:  { _controller: "AppBundle:Admin/Branch:new" }
+    defaults:  { _controller: "AppBundle:Admin/Main/Branch:new" }
     
 admin_branch_copy:
     path:      /admin/branches/copy/{id}
-    defaults:  { _controller: "AppBundle:Admin/Branch:copy" }
+    defaults:  { _controller: "AppBundle:Admin/Main/Branch:copy" }
     
 admin_branch_edit:
     path:      /admin/branches/edit/{id}
-    defaults:  { _controller: "AppBundle:Admin/Branch:edit" }
+    defaults:  { _controller: "AppBundle:Admin/Main/Branch:edit" }
     
 admin_branch_delete:
     path:      /admin/branches/delete/{id}
-    defaults:  { _controller: "AppBundle:Admin/Branch:delete" }
+    defaults:  { _controller: "AppBundle:Admin/Main/Branch:delete" }
     
 admin_branch_remove_image:
     path:      /admin/branches/remove_image/{id}
-    defaults:  { _controller: "AppBundle:Admin/Branch:removeImage" }
+    defaults:  { _controller: "AppBundle:Admin/Main/Branch:removeImage" }
     
 admin_branch_set_im_published:
     path:      /admin/branches/set_im_published/{id}
-    defaults:  { _controller: "AppBundle:Admin/Branch:setIMPublished" }
+    defaults:  { _controller: "AppBundle:Admin/Main/Branch:setIMPublished" }
     
 admin_branch_set_ip_published:
     path:      /admin/branches/set_ip_published/{id}
-    defaults:  { _controller: "AppBundle:Admin/Branch:setIPPublished" }
+    defaults:  { _controller: "AppBundle:Admin/Main/Branch:setIPPublished" }
 
 admin_branch:
     path:      /admin/branches/{page}
-    defaults:  { _controller: "AppBundle:Admin/Branch:index", page: 1 }
+    defaults:  { _controller: "AppBundle:Admin/Main/Branch:index", page: 1 }
         
 # Admin BranchCategoryAssignments Routing    
 admin_branch_category_assignment_show:
     path:      /admin/branch-category_assignments/show/{id}
-    defaults:  { _controller: "AppBundle:Admin/BranchCategoryAssignment:show" }
+    defaults:  { _controller: "AppBundle:Admin/Assignments/BranchCategoryAssignment:show" }
     
 admin_branch_category_assignment_new:
     path:      /admin/branch-category_assignments/new/
-    defaults:  { _controller: "AppBundle:Admin/BranchCategoryAssignment:new" }
+    defaults:  { _controller: "AppBundle:Admin/Assignments/BranchCategoryAssignment:new" }
     
 admin_branch_category_assignment_copy:
     path:      /admin/branch-category_assignments/copy/{id}
-    defaults:  { _controller: "AppBundle:Admin/BranchCategoryAssignment:copy" }
+    defaults:  { _controller: "AppBundle:Admin/Assignments/BranchCategoryAssignment:copy" }
     
 admin_branch_category_assignment_edit:
     path:      /admin/branch-category_assignments/edit/{id}
-    defaults:  { _controller: "AppBundle:Admin/BranchCategoryAssignment:edit" }
+    defaults:  { _controller: "AppBundle:Admin/Assignments/BranchCategoryAssignment:edit" }
     
 admin_branch_category_assignment_delete:
     path:      /admin/branch-category_assignments/delete/{id}
-    defaults:  { _controller: "AppBundle:Admin/BranchCategoryAssignment:delete" }
+    defaults:  { _controller: "AppBundle:Admin/Assignments/BranchCategoryAssignment:delete" }
 
 admin_branch_category_assignment:
     path:      /admin/branch-category_assignments/{page}
-    defaults:  { _controller: "AppBundle:Admin/BranchCategoryAssignment:index", page: 1 }
+    defaults:  { _controller: "AppBundle:Admin/Assignments/BranchCategoryAssignment:index", page: 1 }
 
 
 # Admin Brands Routing    
 admin_brand_show:
     path:      /admin/brands/show/{id}
-    defaults:  { _controller: "AppBundle:Admin/Brand:show" }
+    defaults:  { _controller: "AppBundle:Admin/Main/Brand:show" }
     
 admin_brand_new:
     path:      /admin/brands/new/
-    defaults:  { _controller: "AppBundle:Admin/Brand:new" }
+    defaults:  { _controller: "AppBundle:Admin/Main/Brand:new" }
     
 admin_brand_copy:
     path:      /admin/brands/copy/{id}
-    defaults:  { _controller: "AppBundle:Admin/Brand:copy" }
+    defaults:  { _controller: "AppBundle:Admin/Main/Brand:copy" }
     
 admin_brand_edit:
     path:      /admin/brands/edit/{id}
-    defaults:  { _controller: "AppBundle:Admin/Brand:edit" }
+    defaults:  { _controller: "AppBundle:Admin/Main/Brand:edit" }
     
 admin_brand_delete:
     path:      /admin/brands/delete/{id}
-    defaults:  { _controller: "AppBundle:Admin/Brand:delete" }
+    defaults:  { _controller: "AppBundle:Admin/Main/Brand:delete" }
     
 admin_brand_remove_image:
     path:      /admin/brands/remove_image/{id}
-    defaults:  { _controller: "AppBundle:Admin/Brand:removeImage" }
+    defaults:  { _controller: "AppBundle:Admin/Main/Brand:removeImage" }
     
 admin_brand_set_im_published:
     path:      /admin/brands/set_im_published/{id}
-    defaults:  { _controller: "AppBundle:Admin/Brand:setIMPublished" }
+    defaults:  { _controller: "AppBundle:Admin/Main/Brand:setIMPublished" }
     
 admin_brand_set_ip_published:
     path:      /admin/brands/set_ip_published/{id}
-    defaults:  { _controller: "AppBundle:Admin/Brand:setIPPublished" }
+    defaults:  { _controller: "AppBundle:Admin/Main/Brand:setIPPublished" }
 
 admin_brand:
     path:      /admin/brands/{page}
-    defaults:  { _controller: "AppBundle:Admin/Brand:index", page: 1 }
+    defaults:  { _controller: "AppBundle:Admin/Main/Brand:index", page: 1 }
     
 
 # Admin BrandCategoryAssignments Routing    
 admin_brand_category_assignment_show:
     path:      /admin/brand-category_assignments/show/{id}
-    defaults:  { _controller: "AppBundle:Admin/BrandCategoryAssignment:show" }
+    defaults:  { _controller: "AppBundle:Admin/Assignments/BrandCategoryAssignment:show" }
     
 admin_brand_category_assignment_new:
     path:      /admin/brand-category_assignments/new/
-    defaults:  { _controller: "AppBundle:Admin/BrandCategoryAssignment:new" }
+    defaults:  { _controller: "AppBundle:Admin/Assignments/BrandCategoryAssignment:new" }
     
 admin_brand_category_assignment_copy:
     path:      /admin/brand-category_assignments/copy/{id}
-    defaults:  { _controller: "AppBundle:Admin/BrandCategoryAssignment:copy" }
+    defaults:  { _controller: "AppBundle:Admin/Assignments/BrandCategoryAssignment:copy" }
     
 admin_brand_category_assignment_edit:
     path:      /admin/brand-category_assignments/edit/{id}
-    defaults:  { _controller: "AppBundle:Admin/BrandCategoryAssignment:edit" }
+    defaults:  { _controller: "AppBundle:Admin/Assignments/BrandCategoryAssignment:edit" }
     
 admin_brand_category_assignment_delete:
     path:      /admin/brand-category_assignments/delete/{id}
-    defaults:  { _controller: "AppBundle:Admin/BrandCategoryAssignment:delete" }
+    defaults:  { _controller: "AppBundle:Admin/Assignments/BrandCategoryAssignment:delete" }
 
 admin_brand_category_assignment:
     path:      /admin/brand-category_assignments/{page}
-    defaults:  { _controller: "AppBundle:Admin/BrandCategoryAssignment:index", page: 1 }
+    defaults:  { _controller: "AppBundle:Admin/Assignments/BrandCategoryAssignment:index", page: 1 }
     
         
 # Admin Categories Routing    
 admin_category_show:
     path:      /admin/categories/show/{id}
-    defaults:  { _controller: "AppBundle:Admin/Category:show" }
+    defaults:  { _controller: "AppBundle:Admin/Main/Category:show" }
     
 admin_category_new:
     path:      /admin/categories/new/
-    defaults:  { _controller: "AppBundle:Admin/Category:new" }
+    defaults:  { _controller: "AppBundle:Admin/Main/Category:new" }
     
 admin_category_copy:
     path:      /admin/categories/copy/{id}
-    defaults:  { _controller: "AppBundle:Admin/Category:copy" }
+    defaults:  { _controller: "AppBundle:Admin/Main/Category:copy" }
     
 admin_category_edit:
     path:      /admin/categories/edit/{id}
-    defaults:  { _controller: "AppBundle:Admin/Category:edit" }
+    defaults:  { _controller: "AppBundle:Admin/Main/Category:edit" }
     
 admin_category_delete:
     path:      /admin/categories/delete/{id}
-    defaults:  { _controller: "AppBundle:Admin/Category:delete" }
+    defaults:  { _controller: "AppBundle:Admin/Main/Category:delete" }
     
 admin_category_remove_image:
     path:      /admin/categories/remove_image/{id}
-    defaults:  { _controller: "AppBundle:Admin/Category:removeImage" }
+    defaults:  { _controller: "AppBundle:Admin/Main/Category:removeImage" }
     
 admin_category_set_im_published:
     path:      /admin/categories/set_im_published/{id}
-    defaults:  { _controller: "AppBundle:Admin/Category:setIMPublished" }
+    defaults:  { _controller: "AppBundle:Admin/Main/Category:setIMPublished" }
     
 admin_category_set_ip_published:
     path:      /admin/categories/set_ip_published/{id}
-    defaults:  { _controller: "AppBundle:Admin/Category:setIPPublished" }
+    defaults:  { _controller: "AppBundle:Admin/Main/Category:setIPPublished" }
     
 admin_category_set_featured:
     path:      /admin/categories/set_featured/{id}
-    defaults:  { _controller: "AppBundle:Admin/Category:setFeatured" }
+    defaults:  { _controller: "AppBundle:Admin/Main/Category:setFeatured" }
     
 admin_category_set_preleaf:
     path:      /admin/categories/set_preleaf/{id}
-    defaults:  { _controller: "AppBundle:Admin/Category:setPreleaf" }
+    defaults:  { _controller: "AppBundle:Admin/Main/Category:setPreleaf" }
 
 admin_category_ratings:
     path:      /admin/categories/ratings/{id}
-    defaults:  { _controller: "AppBundle:Admin/Category:ratings" }
+    defaults:  { _controller: "AppBundle:Admin/Main/Category:ratings" }
     
 admin_category_clear_ratings:
     path:      /admin/categories/clear_ratings/{id}
-    defaults:  { _controller: "AppBundle:Admin/Category:clearRatings" }
+    defaults:  { _controller: "AppBundle:Admin/Main/Category:clearRatings" }
     
 admin_category_tree:
     path:      /admin/categories/tree/
-    defaults:  { _controller: "AppBundle:Admin/Category:tree" }
+    defaults:  { _controller: "AppBundle:Admin/Main/Category:tree" }
     
 admin_category:
     path:      /admin/categories/{page}
-    defaults:  { _controller: "AppBundle:Admin/Category:index", page: 1 }
+    defaults:  { _controller: "AppBundle:Admin/Main/Category:index", page: 1 }
 
 # Admin Links Routing    
 admin_link_show:
     path:      /admin/links/show/{id}
-    defaults:  { _controller: "AppBundle:Admin/Link:show" }
+    defaults:  { _controller: "AppBundle:Admin/Main/Link:show" }
     
 admin_link_new:
     path:      /admin/links/new/
-    defaults:  { _controller: "AppBundle:Admin/Link:new" }
+    defaults:  { _controller: "AppBundle:Admin/Main/Link:new" }
     
 admin_link_copy:
     path:      /admin/links/copy/{id}
-    defaults:  { _controller: "AppBundle:Admin/Link:copy" }
+    defaults:  { _controller: "AppBundle:Admin/Main/Link:copy" }
     
 admin_link_edit:
     path:      /admin/links/edit/{id}
-    defaults:  { _controller: "AppBundle:Admin/Link:edit" }
+    defaults:  { _controller: "AppBundle:Admin/Main/Link:edit" }
     
 admin_link_delete:
     path:      /admin/links/delete/{id}
-    defaults:  { _controller: "AppBundle:Admin/Link:delete" }
+    defaults:  { _controller: "AppBundle:Admin/Main/Link:delete" }
     
 admin_link_set_im_published:
     path:      /admin/links/set_im_published/{id}
-    defaults:  { _controller: "AppBundle:Admin/Link:setIMPublished" }
+    defaults:  { _controller: "AppBundle:Admin/Main/Link:setIMPublished" }
     
 admin_link_set_ip_published:
     path:      /admin/links/set_ip_published/{id}
-    defaults:  { _controller: "AppBundle:Admin/Link:setIPPublished" }
+    defaults:  { _controller: "AppBundle:Admin/Main/Link:setIPPublished" }
 
 admin_link:
     path:      /admin/links/{page}
-    defaults:  { _controller: "AppBundle:Admin/Link:index", page: 1 }
+    defaults:  { _controller: "AppBundle:Admin/Main/Link:index", page: 1 }
         
 # Admin Magazines Routing    
 admin_magazine_show:
     path:      /admin/magazines/show/{id}
-    defaults:  { _controller: "AppBundle:Admin/Magazine:show" }
+    defaults:  { _controller: "AppBundle:Admin/Main/Magazine:show" }
     
 admin_magazine_new:
     path:      /admin/magazines/new/
-    defaults:  { _controller: "AppBundle:Admin/Magazine:new" }
+    defaults:  { _controller: "AppBundle:Admin/Main/Magazine:new" }
     
 admin_magazine_copy:
     path:      /admin/magazines/copy/{id}
-    defaults:  { _controller: "AppBundle:Admin/Magazine:copy" }
+    defaults:  { _controller: "AppBundle:Admin/Main/Magazine:copy" }
     
 admin_magazine_edit:
     path:      /admin/magazines/edit/{id}
-    defaults:  { _controller: "AppBundle:Admin/Magazine:edit" }
+    defaults:  { _controller: "AppBundle:Admin/Main/Magazine:edit" }
     
 admin_magazine_delete:
     path:      /admin/magazines/delete/{id}
-    defaults:  { _controller: "AppBundle:Admin/Magazine:delete" }
+    defaults:  { _controller: "AppBundle:Admin/Main/Magazine:delete" }
     
 admin_magazine_remove_image:
     path:      /admin/magazines/remove_image/{id}
-    defaults:  { _controller: "AppBundle:Admin/Magazine:removeImage" }
+    defaults:  { _controller: "AppBundle:Admin/Main/Magazine:removeImage" }
     
 admin_magazine_set_im_published:
     path:      /admin/magazines/set_im_published/{id}
-    defaults:  { _controller: "AppBundle:Admin/Magazine:setIMPublished" }
+    defaults:  { _controller: "AppBundle:Admin/Main/Magazine:setIMPublished" }
     
 admin_magazine_set_ip_published:
     path:      /admin/magazines/set_ip_published/{id}
-    defaults:  { _controller: "AppBundle:Admin/Magazine:setIPPublished" }
+    defaults:  { _controller: "AppBundle:Admin/Main/Magazine:setIPPublished" }
     
 admin_magazine_set_featured:
     path:      /admin/magazines/set_featured/{id}
-    defaults:  { _controller: "AppBundle:Admin/Magazine:setFeatured" }
+    defaults:  { _controller: "AppBundle:Admin/Main/Magazine:setFeatured" }
 
 admin_magazine:
     path:      /admin/magazines/{page}
-    defaults:  { _controller: "AppBundle:Admin/Magazine:index", page: 1 }
+    defaults:  { _controller: "AppBundle:Admin/Main/Magazine:index", page: 1 }
 
 # Admin MagazineBranchAssignments Routing    
 admin_magazine_branch_assignment_show:
     path:      /admin/magazine-branch_assignments/show/{id}
-    defaults:  { _controller: "AppBundle:Admin/MagazineBranchAssignment:show" }
+    defaults:  { _controller: "AppBundle:Admin/Assignments/MagazineBranchAssignment:show" }
     
 admin_magazine_branch_assignment_new:
     path:      /admin/magazine-branch_assignments/new/
-    defaults:  { _controller: "AppBundle:Admin/MagazineBranchAssignment:new" }
+    defaults:  { _controller: "AppBundle:Admin/Assignments/MagazineBranchAssignment:new" }
     
 admin_magazine_branch_assignment_copy:
     path:      /admin/magazine-branch_assignments/copy/{id}
-    defaults:  { _controller: "AppBundle:Admin/MagazineBranchAssignment:copy" }
+    defaults:  { _controller: "AppBundle:Admin/Assignments/MagazineBranchAssignment:copy" }
     
 admin_magazine_branch_assignment_edit:
     path:      /admin/magazine-branch_assignments/edit/{id}
-    defaults:  { _controller: "AppBundle:Admin/MagazineBranchAssignment:edit" }
+    defaults:  { _controller: "AppBundle:Admin/Assignments/MagazineBranchAssignment:edit" }
     
 admin_magazine_branch_assignment_delete:
     path:      /admin/magazine-branch_assignments/delete/{id}
-    defaults:  { _controller: "AppBundle:Admin/MagazineBranchAssignment:delete" }
+    defaults:  { _controller: "AppBundle:Admin/Assignments/MagazineBranchAssignment:delete" }
 
 admin_magazine_branch_assignment:
     path:      /admin/magazine-branch_assignments/{page}
-    defaults:  { _controller: "AppBundle:Admin/MagazineBranchAssignment:index", page: 1 }
+    defaults:  { _controller: "AppBundle:Admin/Assignments/MagazineBranchAssignment:index", page: 1 }
     
 # Admin MagazineCategoryAssignments Routing    
 admin_magazine_category_assignment_show:
     path:      /admin/magazine-category_assignments/show/{id}
-    defaults:  { _controller: "AppBundle:Admin/MagazineCategoryAssignment:show" }
+    defaults:  { _controller: "AppBundle:Admin/Assignments/MagazineCategoryAssignment:show" }
     
 admin_magazine_category_assignment_new:
     path:      /admin/magazine-category_assignments/new/
-    defaults:  { _controller: "AppBundle:Admin/MagazineCategoryAssignment:new" }
+    defaults:  { _controller: "AppBundle:Admin/Assignments/MagazineCategoryAssignment:new" }
     
 admin_magazine_category_assignment_copy:
     path:      /admin/magazine-category_assignments/copy/{id}
-    defaults:  { _controller: "AppBundle:Admin/MagazineCategoryAssignment:copy" }
+    defaults:  { _controller: "AppBundle:Admin/Assignments/MagazineCategoryAssignment:copy" }
     
 admin_magazine_category_assignment_edit:
     path:      /admin/magazine-category_assignments/edit/{id}
-    defaults:  { _controller: "AppBundle:Admin/MagazineCategoryAssignment:edit" }
+    defaults:  { _controller: "AppBundle:Admin/Assignments/MagazineCategoryAssignment:edit" }
     
 admin_magazine_category_assignment_delete:
     path:      /admin/magazine-category_assignments/delete/{id}
-    defaults:  { _controller: "AppBundle:Admin/MagazineCategoryAssignment:delete" }
+    defaults:  { _controller: "AppBundle:Admin/Assignments/MagazineCategoryAssignment:delete" }
 
 admin_magazine_category_assignment:
     path:      /admin/magazine-category_assignments/{page}
-    defaults:  { _controller: "AppBundle:Admin/MagazineCategoryAssignment:index", page: 1 }
+    defaults:  { _controller: "AppBundle:Admin/Assignments/MagazineCategoryAssignment:index", page: 1 }
     
 # Admin Menus Routing    
 admin_menu_show:
     path:      /admin/menus/show/{id}
-    defaults:  { _controller: "AppBundle:Admin/Menu:show" }
+    defaults:  { _controller: "AppBundle:Admin/Main/Menu:show" }
     
 admin_menu_set_im_published:
     path:      /admin/menus/set_im_published/{id}
-    defaults:  { _controller: "AppBundle:Admin/Menu:setIMPublished" }
+    defaults:  { _controller: "AppBundle:Admin/Main/Menu:setIMPublished" }
     
 admin_menu_set_ip_published:
     path:      /admin/menus/set_ip_published/{id}
-    defaults:  { _controller: "AppBundle:Admin/Menu:setIPPublished" }
+    defaults:  { _controller: "AppBundle:Admin/Main/Menu:setIPPublished" }
 
 admin_menu:
     path:      /admin/menus/{page}
-    defaults:  { _controller: "AppBundle:Admin/Menu:index", page: 1 }
+    defaults:  { _controller: "AppBundle:Admin/Main/Menu:index", page: 1 }
     
 # Admin MenuEntries Routing    
 admin_menu_entry_show:
     path:      /admin/menu_entries/show/{id}
-    defaults:  { _controller: "AppBundle:Admin/MenuEntry:show" }
+    defaults:  { _controller: "AppBundle:Admin/Main/MenuEntry:show" }
     
 admin_menu_entry_new:
     path:      /admin/menu_entries/new/
-    defaults:  { _controller: "AppBundle:Admin/MenuEntry:new" }
+    defaults:  { _controller: "AppBundle:Admin/Main/MenuEntry:new" }
     
 admin_menu_entry_copy:
     path:      /admin/menu_entries/copy/{id}
-    defaults:  { _controller: "AppBundle:Admin/MenuEntry:copy" }
+    defaults:  { _controller: "AppBundle:Admin/Main/MenuEntry:copy" }
     
 admin_menu_entry_edit:
     path:      /admin/menu_entries/edit/{id}
-    defaults:  { _controller: "AppBundle:Admin/MenuEntry:edit" }
+    defaults:  { _controller: "AppBundle:Admin/Main/MenuEntry:edit" }
     
 admin_menu_entry_delete:
     path:      /admin/menu_entries/delete/{id}
-    defaults:  { _controller: "AppBundle:Admin/MenuEntry:delete" }
+    defaults:  { _controller: "AppBundle:Admin/Main/MenuEntry:delete" }
     
 admin_menu_entry_set_im_published:
     path:      /admin/menu_entries/set_im_published/{id}
-    defaults:  { _controller: "AppBundle:Admin/MenuEntry:setIMPublished" }
+    defaults:  { _controller: "AppBundle:Admin/Main/MenuEntry:setIMPublished" }
     
 admin_menu_entry_set_ip_published:
     path:      /admin/menu_entries/set_ip_published/{id}
-    defaults:  { _controller: "AppBundle:Admin/MenuEntry:setIPPublished" }
+    defaults:  { _controller: "AppBundle:Admin/Main/MenuEntry:setIPPublished" }
 
 admin_menu_entry:
     path:      /admin/menu_entries/{page}
-    defaults:  { _controller: "AppBundle:Admin/MenuEntry:index", page: 1 }
+    defaults:  { _controller: "AppBundle:Admin/Main/MenuEntry:index", page: 1 }
     
 # Admin MenuEntryBranchAssignments Routing    
 admin_menu_entry_branch_assignment_show:
     path:      /admin/menu_entry-branch_assignments/show/{id}
-    defaults:  { _controller: "AppBundle:Admin/MenuEntryBranchAssignment:show" }
+    defaults:  { _controller: "AppBundle:Admin/Assignments/MenuEntryBranchAssignment:show" }
     
 admin_menu_entry_branch_assignment_new:
     path:      /admin/menu_entry-branch_assignments/new/
-    defaults:  { _controller: "AppBundle:Admin/MenuEntryBranchAssignment:new" }
+    defaults:  { _controller: "AppBundle:Admin/Assignments/MenuEntryBranchAssignment:new" }
     
 admin_menu_entry_branch_assignment_copy:
     path:      /admin/menu_entry-branch_assignments/copy/{id}
-    defaults:  { _controller: "AppBundle:Admin/MenuEntryBranchAssignment:copy" }
+    defaults:  { _controller: "AppBundle:Admin/Assignments/MenuEntryBranchAssignment:copy" }
     
 admin_menu_entry_branch_assignment_edit:
     path:      /admin/menu_entry-branch_assignments/edit/{id}
-    defaults:  { _controller: "AppBundle:Admin/MenuEntryBranchAssignment:edit" }
+    defaults:  { _controller: "AppBundle:Admin/Assignments/MenuEntryBranchAssignment:edit" }
     
 admin_menu_entry_branch_assignment_delete:
     path:      /admin/menu_entry-branch_assignments/delete/{id}
-    defaults:  { _controller: "AppBundle:Admin/MenuEntryBranchAssignment:delete" }
+    defaults:  { _controller: "AppBundle:Admin/Assignments/MenuEntryBranchAssignment:delete" }
 
 admin_menu_entry_branch_assignment:
     path:      /admin/menu_entry-branch_assignments/{page}
-    defaults:  { _controller: "AppBundle:Admin/MenuEntryBranchAssignment:index", page: 1 }
+    defaults:  { _controller: "AppBundle:Admin/Assignments/MenuEntryBranchAssignment:index", page: 1 }
     
 # Admin MenuEntryCategoryAssignments Routing    
 admin_menu_entry_category_assignment_show:
     path:      /admin/menu_entry-category_assignments/show/{id}
-    defaults:  { _controller: "AppBundle:Admin/MenuEntryCategoryAssignment:show" }
+    defaults:  { _controller: "AppBundle:Admin/Assignments/MenuEntryCategoryAssignment:show" }
     
 admin_menu_entry_category_assignment_new:
     path:      /admin/menu_entry-category_assignments/new/
-    defaults:  { _controller: "AppBundle:Admin/MenuEntryCategoryAssignment:new" }
+    defaults:  { _controller: "AppBundle:Admin/Assignments/MenuEntryCategoryAssignment:new" }
     
 admin_menu_entry_category_assignment_copy:
     path:      /admin/menu_entry-category_assignments/copy/{id}
-    defaults:  { _controller: "AppBundle:Admin/MenuEntryCategoryAssignment:copy" }
+    defaults:  { _controller: "AppBundle:Admin/Assignments/MenuEntryCategoryAssignment:copy" }
     
 admin_menu_entry_category_assignment_edit:
     path:      /admin/menu_entry-category_assignments/edit/{id}
-    defaults:  { _controller: "AppBundle:Admin/MenuEntryCategoryAssignment:edit" }
+    defaults:  { _controller: "AppBundle:Admin/Assignments/MenuEntryCategoryAssignment:edit" }
     
 admin_menu_entry_category_assignment_delete:
     path:      /admin/menu_entry-category_assignments/delete/{id}
-    defaults:  { _controller: "AppBundle:Admin/MenuEntryCategoryAssignment:delete" }
+    defaults:  { _controller: "AppBundle:Admin/Assignments/MenuEntryCategoryAssignment:delete" }
 
 admin_menu_entry_category_assignment:
     path:      /admin/menu_entry-category_assignments/{page}
-    defaults:  { _controller: "AppBundle:Admin/MenuEntryCategoryAssignment:index", page: 1 }
+    defaults:  { _controller: "AppBundle:Admin/Assignments/MenuEntryCategoryAssignment:index", page: 1 }
     
 # Admin MenuMenuEntries Routing    
 admin_menu_menu_entry_assignment_show:
     path:      /admin/menu_menu_entry_assignments/show/{id}
-    defaults:  { _controller: "AppBundle:Admin/MenuMenuEntryAssignment:show" }
+    defaults:  { _controller: "AppBundle:Admin/Assignments/MenuMenuEntryAssignment:show" }
     
 admin_menu_menu_entry_assignment_new:
     path:      /admin/menu_menu_entry_assignments/new/
-    defaults:  { _controller: "AppBundle:Admin/MenuMenuEntryAssignment:new" }
+    defaults:  { _controller: "AppBundle:Admin/Assignments/MenuMenuEntryAssignment:new" }
     
 admin_menu_menu_entry_assignment_copy:
     path:      /admin/menu_menu_entry_assignments/copy/{id}
-    defaults:  { _controller: "AppBundle:Admin/MenuMenuEntryAssignment:copy" }
+    defaults:  { _controller: "AppBundle:Admin/Assignments/MenuMenuEntryAssignment:copy" }
     
 admin_menu_menu_entry_assignment_edit:
     path:      /admin/menu_menu_entry_assignments/edit/{id}
-    defaults:  { _controller: "AppBundle:Admin/MenuMenuEntryAssignment:edit" }
+    defaults:  { _controller: "AppBundle:Admin/Assignments/MenuMenuEntryAssignment:edit" }
     
 admin_menu_menu_entry_assignment_delete:
     path:      /admin/menu_menu_entry_assignments/delete/{id}
-    defaults:  { _controller: "AppBundle:Admin/MenuMenuEntryAssignment:delete" }
+    defaults:  { _controller: "AppBundle:Admin/Assignments/MenuMenuEntryAssignment:delete" }
     
 admin_menu_menu_entry_assignment_set_im_published:
     path:      /admin/menu_menu_entry_assignments/set_im_published/{id}
-    defaults:  { _controller: "AppBundle:Admin/MenuMenuEntryAssignment:setIMPublished" }
+    defaults:  { _controller: "AppBundle:Admin/Assignments/MenuMenuEntryAssignment:setIMPublished" }
     
 admin_menu_menu_entry_assignment_set_ip_published:
     path:      /admin/menu_menu_entry_assignments/set_ip_published/{id}
-    defaults:  { _controller: "AppBundle:Admin/MenuMenuEntryAssignment:setIPPublished" }
+    defaults:  { _controller: "AppBundle:Admin/Assignments/MenuMenuEntryAssignment:setIPPublished" }
 
 admin_menu_menu_entry_assignment:
     path:      /admin/menu_menu_entry_assignments/{page}
-    defaults:  { _controller: "AppBundle:Admin/MenuMenuEntryAssignment:index", page: 1 }
+    defaults:  { _controller: "AppBundle:Admin/Assignments/MenuMenuEntryAssignment:index", page: 1 }
     
 # Admin NewsletterBlocks Routing    
 admin_newsletter_block_show:
     path:      /admin/newsletter_blocks/show/{id}
-    defaults:  { _controller: "AppBundle:Admin/NewsletterBlock:show" }
+    defaults:  { _controller: "AppBundle:Admin/Main/NewsletterBlock:show" }
     
 admin_newsletter_block_new:
     path:      /admin/newsletter_blocks/new/
-    defaults:  { _controller: "AppBundle:Admin/NewsletterBlock:new" }
+    defaults:  { _controller: "AppBundle:Admin/Main/NewsletterBlock:new" }
     
 admin_newsletter_block_copy:
     path:      /admin/newsletter_blocks/copy/{id}
-    defaults:  { _controller: "AppBundle:Admin/NewsletterBlock:copy" }
+    defaults:  { _controller: "AppBundle:Admin/Main/NewsletterBlock:copy" }
     
 admin_newsletter_block_edit:
     path:      /admin/newsletter_blocks/edit/{id}
-    defaults:  { _controller: "AppBundle:Admin/NewsletterBlock:edit" }
+    defaults:  { _controller: "AppBundle:Admin/Main/NewsletterBlock:edit" }
     
 admin_newsletter_block_delete:
     path:      /admin/newsletter_blocks/delete/{id}
-    defaults:  { _controller: "AppBundle:Admin/NewsletterBlock:delete" }
+    defaults:  { _controller: "AppBundle:Admin/Main/NewsletterBlock:delete" }
     
 admin_newsletter_block_set_im_published:
     path:      /admin/newsletter_blocks/set_im_published/{id}
-    defaults:  { _controller: "AppBundle:Admin/NewsletterBlock:setIMPublished" }
+    defaults:  { _controller: "AppBundle:Admin/Main/NewsletterBlock:setIMPublished" }
     
 admin_newsletter_block_set_ip_published:
     path:      /admin/newsletter_blocks/set_ip_published/{id}
-    defaults:  { _controller: "AppBundle:Admin/NewsletterBlock:setIPPublished" }
+    defaults:  { _controller: "AppBundle:Admin/Main/NewsletterBlock:setIPPublished" }
         
 admin_newsletter_block:
     path:      /admin/newsletter_blocks/{page}
-    defaults:  { _controller: "AppBundle:Admin/NewsletterBlock:index", page: 1 }
+    defaults:  { _controller: "AppBundle:Admin/Main/NewsletterBlock:index", page: 1 }
     
 # Admin NewsletterBlockTemplates Routing    
 admin_newsletter_block_template_show:
     path:      /admin/newsletter_block_templates/show/{id}
-    defaults:  { _controller: "AppBundle:Admin/NewsletterBlockTemplate:show" }
+    defaults:  { _controller: "AppBundle:Admin/Main/NewsletterBlockTemplate:show" }
     
 admin_newsletter_block_template_new:
     path:      /admin/newsletter_block_templates/new/
-    defaults:  { _controller: "AppBundle:Admin/NewsletterBlockTemplate:new" }
+    defaults:  { _controller: "AppBundle:Admin/Main/NewsletterBlockTemplate:new" }
     
 admin_newsletter_block_template_copy:
     path:      /admin/newsletter_block_templates/copy/{id}
-    defaults:  { _controller: "AppBundle:Admin/NewsletterBlockTemplate:copy" }
+    defaults:  { _controller: "AppBundle:Admin/Main/NewsletterBlockTemplate:copy" }
     
 admin_newsletter_block_template_edit:
     path:      /admin/newsletter_block_templates/edit/{id}
-    defaults:  { _controller: "AppBundle:Admin/NewsletterBlockTemplate:edit" }
+    defaults:  { _controller: "AppBundle:Admin/Main/NewsletterBlockTemplate:edit" }
     
 admin_newsletter_block_template_delete:
     path:      /admin/newsletter_block_templates/delete/{id}
-    defaults:  { _controller: "AppBundle:Admin/NewsletterBlockTemplate:delete" }
+    defaults:  { _controller: "AppBundle:Admin/Main/NewsletterBlockTemplate:delete" }
     
 admin_newsletter_block_template_set_im_published:
     path:      /admin/newsletter_block_templates/set_im_published/{id}
-    defaults:  { _controller: "AppBundle:Admin/NewsletterBlockTemplate:setIMPublished" }
+    defaults:  { _controller: "AppBundle:Admin/Main/NewsletterBlockTemplate:setIMPublished" }
 
 admin_newsletter_block_template_set_ip_published:
     path:      /admin/newsletter_block_templates/set_ip_published/{id}
-    defaults:  { _controller: "AppBundle:Admin/NewsletterBlockTemplate:setIPPublished" }
+    defaults:  { _controller: "AppBundle:Admin/Main/NewsletterBlockTemplate:setIPPublished" }
             
 admin_newsletter_block_template:
     path:      /admin/newsletter_block_templates/{page}
-    defaults:  { _controller: "AppBundle:Admin/NewsletterBlockTemplate:index", page: 1 }
+    defaults:  { _controller: "AppBundle:Admin/Main/NewsletterBlockTemplate:index", page: 1 }
 
 # Admin NewsletterPages Routing    
 admin_newsletter_page_show:
     path:      /admin/newsletter_pages/show/{id}
-    defaults:  { _controller: "AppBundle:Admin/NewsletterPage:show" }
+    defaults:  { _controller: "AppBundle:Admin/Main/NewsletterPage:show" }
     
 admin_newsletter_page_new:
     path:      /admin/newsletter_pages/new/
-    defaults:  { _controller: "AppBundle:Admin/NewsletterPage:new" }
+    defaults:  { _controller: "AppBundle:Admin/Main/NewsletterPage:new" }
     
 admin_newsletter_page_copy:
     path:      /admin/newsletter_pages/copy/{id}
-    defaults:  { _controller: "AppBundle:Admin/NewsletterPage:copy" }
+    defaults:  { _controller: "AppBundle:Admin/Main/NewsletterPage:copy" }
     
 admin_newsletter_page_edit:
     path:      /admin/newsletter_pages/edit/{id}
-    defaults:  { _controller: "AppBundle:Admin/NewsletterPage:edit" }
+    defaults:  { _controller: "AppBundle:Admin/Main/NewsletterPage:edit" }
     
 admin_newsletter_page_delete:
     path:      /admin/newsletter_pages/delete/{id}
-    defaults:  { _controller: "AppBundle:Admin/NewsletterPage:delete" }
+    defaults:  { _controller: "AppBundle:Admin/Main/NewsletterPage:delete" }
     
 admin_newsletter_page_set_im_published:
     path:      /admin/newsletter_pages/set_im_published/{id}
-    defaults:  { _controller: "AppBundle:Admin/NewsletterPage:setIMPublished" }
+    defaults:  { _controller: "AppBundle:Admin/Main/NewsletterPage:setIMPublished" }
 
 admin_newsletter_page_set_ip_published:
     path:      /admin/newsletter_pages/set_ip_published/{id}
-    defaults:  { _controller: "AppBundle:Admin/NewsletterPage:setIPPublished" }
+    defaults:  { _controller: "AppBundle:Admin/Main/NewsletterPage:setIPPublished" }
         
 admin_newsletter_page:
     path:      /admin/newsletter_pages/{page}
-    defaults:  { _controller: "AppBundle:Admin/NewsletterPage:index", page: 1 }
+    defaults:  { _controller: "AppBundle:Admin/Main/NewsletterPage:index", page: 1 }
     
 # Admin NewsletterPageTemplates Routing    
 admin_newsletter_page_template_show:
     path:      /admin/newsletter_page_templates/show/{id}
-    defaults:  { _controller: "AppBundle:Admin/NewsletterPageTemplate:show" }
+    defaults:  { _controller: "AppBundle:Admin/Main/NewsletterPageTemplate:show" }
     
 admin_newsletter_page_template_new:
     path:      /admin/newsletter_page_templates/new/
-    defaults:  { _controller: "AppBundle:Admin/NewsletterPageTemplate:new" }
+    defaults:  { _controller: "AppBundle:Admin/Main/NewsletterPageTemplate:new" }
     
 admin_newsletter_page_template_copy:
     path:      /admin/newsletter_page_templates/copy/{id}
-    defaults:  { _controller: "AppBundle:Admin/NewsletterPageTemplate:copy" }
+    defaults:  { _controller: "AppBundle:Admin/Main/NewsletterPageTemplate:copy" }
     
 admin_newsletter_page_template_edit:
     path:      /admin/newsletter_page_templates/edit/{id}
-    defaults:  { _controller: "AppBundle:Admin/NewsletterPageTemplate:edit" }
+    defaults:  { _controller: "AppBundle:Admin/Main/NewsletterPageTemplate:edit" }
     
 admin_newsletter_page_template_delete:
     path:      /admin/newsletter_page_templates/delete/{id}
-    defaults:  { _controller: "AppBundle:Admin/NewsletterPageTemplate:delete" }
+    defaults:  { _controller: "AppBundle:Admin/Main/NewsletterPageTemplate:delete" }
     
 admin_newsletter_page_template_set_im_published:
     path:      /admin/newsletter_page_templates/set_im_published/{id}
-    defaults:  { _controller: "AppBundle:Admin/NewsletterPageTemplate:setIMPublished" }
+    defaults:  { _controller: "AppBundle:Admin/Main/NewsletterPageTemplate:setIMPublished" }
 
 admin_newsletter_page_template_set_ip_published:
     path:      /admin/newsletter_page_templates/set_ip_published/{id}
-    defaults:  { _controller: "AppBundle:Admin/NewsletterPageTemplate:setIPPublished" }
+    defaults:  { _controller: "AppBundle:Admin/Main/NewsletterPageTemplate:setIPPublished" }
             
 admin_newsletter_page_template:
     path:      /admin/newsletter_page_templates/{page}
-    defaults:  { _controller: "AppBundle:Admin/NewsletterPageTemplate:index", page: 1 }
+    defaults:  { _controller: "AppBundle:Admin/Main/NewsletterPageTemplate:index", page: 1 }
 
 # Admin NewsletterUsers Routing    
 admin_newsletter_user_show:
     path:      /admin/newsletter_users/show/{id}
-    defaults:  { _controller: "AppBundle:Admin/NewsletterUser:show" }
+    defaults:  { _controller: "AppBundle:Admin/Main/NewsletterUser:show" }
     
 admin_newsletter_user_new:
     path:      /admin/newsletter_users/new/
-    defaults:  { _controller: "AppBundle:Admin/NewsletterUser:new" }
+    defaults:  { _controller: "AppBundle:Admin/Main/NewsletterUser:new" }
     
 admin_newsletter_user_copy:
     path:      /admin/newsletter_users/copy/{id}
-    defaults:  { _controller: "AppBundle:Admin/NewsletterUser:copy" }
+    defaults:  { _controller: "AppBundle:Admin/Main/NewsletterUser:copy" }
     
 admin_newsletter_user_edit:
     path:      /admin/newsletter_users/edit/{id}
-    defaults:  { _controller: "AppBundle:Admin/NewsletterUser:edit" }
+    defaults:  { _controller: "AppBundle:Admin/Main/NewsletterUser:edit" }
     
 admin_newsletter_user_delete:
     path:      /admin/newsletter_users/delete/{id}
-    defaults:  { _controller: "AppBundle:Admin/NewsletterUser:delete" }
+    defaults:  { _controller: "AppBundle:Admin/Main/NewsletterUser:delete" }
     
 admin_newsletter_user_set_im_published:
     path:      /admin/newsletter_users/set_im_published/{id}
-    defaults:  { _controller: "AppBundle:Admin/NewsletterUser:setIMPublished" }
+    defaults:  { _controller: "AppBundle:Admin/Main/NewsletterUser:setIMPublished" }
 
 admin_newsletter_user_set_ip_published:
     path:      /admin/newsletter_users/set_ip_published/{id}
-    defaults:  { _controller: "AppBundle:Admin/NewsletterUser:setIPPublished" }
+    defaults:  { _controller: "AppBundle:Admin/Main/NewsletterUser:setIPPublished" }
         
 admin_newsletter_user_set_subscribed:
     path:      /admin/newsletter_users/set_subscribed/{id}
-    defaults:  { _controller: "AppBundle:Admin/NewsletterUser:setSubscribed" }
+    defaults:  { _controller: "AppBundle:Admin/Main/NewsletterUser:setSubscribed" }
         
 admin_newsletter_user:
     path:      /admin/newsletter_users/{page}
-    defaults:  { _controller: "AppBundle:Admin/NewsletterUser:index", page: 1 }
+    defaults:  { _controller: "AppBundle:Admin/Main/NewsletterUser:index", page: 1 }
 
 # Admin NewsletterBlockAdvertAssignments Routing    
 admin_newsletter_block_advert_assignment_show:
     path:      /admin/newsletter_block-advert_assignments/show/{id}
-    defaults:  { _controller: "AppBundle:Admin/NewsletterBlockAdvertAssignment:show" }
+    defaults:  { _controller: "AppBundle:Admin/Assignments/NewsletterBlockAdvertAssignment:show" }
     
 admin_newsletter_block_advert_assignment_new:
     path:      /admin/newsletter_block-advert_assignments/new/
-    defaults:  { _controller: "AppBundle:Admin/NewsletterBlockAdvertAssignment:new" }
+    defaults:  { _controller: "AppBundle:Admin/Assignments/NewsletterBlockAdvertAssignment:new" }
     
 admin_newsletter_block_advert_assignment_copy:
     path:      /admin/newsletter_block-advert_assignments/copy/{id}
-    defaults:  { _controller: "AppBundle:Admin/NewsletterBlockAdvertAssignment:copy" }
+    defaults:  { _controller: "AppBundle:Admin/Assignments/NewsletterBlockAdvertAssignment:copy" }
     
 admin_newsletter_block_advert_assignment_edit:
     path:      /admin/newsletter_block-advert_assignments/edit/{id}
-    defaults:  { _controller: "AppBundle:Admin/NewsletterBlockAdvertAssignment:edit" }
+    defaults:  { _controller: "AppBundle:Admin/Assignments/NewsletterBlockAdvertAssignment:edit" }
     
 admin_newsletter_block_advert_assignment_delete:
     path:      /admin/newsletter_block-advert_assignments/delete/{id}
-    defaults:  { _controller: "AppBundle:Admin/NewsletterBlockAdvertAssignment:delete" }
+    defaults:  { _controller: "AppBundle:Admin/Assignments/NewsletterBlockAdvertAssignment:delete" }
 
 admin_newsletter_block_advert_assignment:
     path:      /admin/newsletter_block-advert_assignments/{page}
-    defaults:  { _controller: "AppBundle:Admin/NewsletterBlockAdvertAssignment:index", page: 1 }   
+    defaults:  { _controller: "AppBundle:Admin/Assignments/NewsletterBlockAdvertAssignment:index", page: 1 }   
 
 # Admin NewsletterBlockArticleAssignments Routing    
 admin_newsletter_block_article_assignment_show:
     path:      /admin/newsletter_block-article_assignments/show/{id}
-    defaults:  { _controller: "AppBundle:Admin/NewsletterBlockArticleAssignment:show" }
+    defaults:  { _controller: "AppBundle:Admin/Assignments/NewsletterBlockArticleAssignment:show" }
     
 admin_newsletter_block_article_assignment_new:
     path:      /admin/newsletter_block-article_assignments/new/
-    defaults:  { _controller: "AppBundle:Admin/NewsletterBlockArticleAssignment:new" }
+    defaults:  { _controller: "AppBundle:Admin/Assignments/NewsletterBlockArticleAssignment:new" }
     
 admin_newsletter_block_article_assignment_copy:
     path:      /admin/newsletter_block-article_assignments/copy/{id}
-    defaults:  { _controller: "AppBundle:Admin/NewsletterBlockArticleAssignment:copy" }
+    defaults:  { _controller: "AppBundle:Admin/Assignments/NewsletterBlockArticleAssignment:copy" }
     
 admin_newsletter_block_article_assignment_edit:
     path:      /admin/newsletter_block-article_assignments/edit/{id}
-    defaults:  { _controller: "AppBundle:Admin/NewsletterBlockArticleAssignment:edit" }
+    defaults:  { _controller: "AppBundle:Admin/Assignments/NewsletterBlockArticleAssignment:edit" }
     
 admin_newsletter_block_article_assignment_delete:
     path:      /admin/newsletter_block-article_assignments/delete/{id}
-    defaults:  { _controller: "AppBundle:Admin/NewsletterBlockArticleAssignment:delete" }
+    defaults:  { _controller: "AppBundle:Admin/Assignments/NewsletterBlockArticleAssignment:delete" }
 
 admin_newsletter_block_article_assignment:
     path:      /admin/newsletter_block-article_assignments/{page}
-    defaults:  { _controller: "AppBundle:Admin/NewsletterBlockArticleAssignment:index", page: 1 }
+    defaults:  { _controller: "AppBundle:Admin/Assignments/NewsletterBlockArticleAssignment:index", page: 1 }
 
 # Admin NewsletterBlockMagazineAssignments Routing    
 admin_newsletter_block_magazine_assignment_show:
     path:      /admin/newsletter_block-magazine_assignments/show/{id}
-    defaults:  { _controller: "AppBundle:Admin/NewsletterBlockMagazineAssignment:show" }
+    defaults:  { _controller: "AppBundle:Admin/Assignments/NewsletterBlockMagazineAssignment:show" }
     
 admin_newsletter_block_magazine_assignment_new:
     path:      /admin/newsletter_block-magazine_assignments/new/
-    defaults:  { _controller: "AppBundle:Admin/NewsletterBlockMagazineAssignment:new" }
+    defaults:  { _controller: "AppBundle:Admin/Assignments/NewsletterBlockMagazineAssignment:new" }
     
 admin_newsletter_block_magazine_assignment_copy:
     path:      /admin/newsletter_block-magazine_assignments/copy/{id}
-    defaults:  { _controller: "AppBundle:Admin/NewsletterBlockMagazineAssignment:copy" }
+    defaults:  { _controller: "AppBundle:Admin/Assignments/NewsletterBlockMagazineAssignment:copy" }
     
 admin_newsletter_block_magazine_assignment_edit:
     path:      /admin/newsletter_block-magazine_assignments/edit/{id}
-    defaults:  { _controller: "AppBundle:Admin/NewsletterBlockMagazineAssignment:edit" }
+    defaults:  { _controller: "AppBundle:Admin/Assignments/NewsletterBlockMagazineAssignment:edit" }
     
 admin_newsletter_block_magazine_assignment_delete:
     path:      /admin/newsletter_block-magazine_assignments/delete/{id}
-    defaults:  { _controller: "AppBundle:Admin/NewsletterBlockMagazineAssignment:delete" }
+    defaults:  { _controller: "AppBundle:Admin/Assignments/NewsletterBlockMagazineAssignment:delete" }
 
 admin_newsletter_block_magazine_assignment:
     path:      /admin/newsletter_block-magazine_assignments/{page}
-    defaults:  { _controller: "AppBundle:Admin/NewsletterBlockMagazineAssignment:index", page: 1 }   
+    defaults:  { _controller: "AppBundle:Admin/Assignments/NewsletterBlockMagazineAssignment:index", page: 1 }   
                         
 # Admin Pages Routing    
 admin_page_show:
     path:      /admin/pages/show/{id}
-    defaults:  { _controller: "AppBundle:Admin/Page:show" }
+    defaults:  { _controller: "AppBundle:Admin/Main/Page:show" }
     
 admin_page_new:
     path:      /admin/pages/new/
-    defaults:  { _controller: "AppBundle:Admin/Page:new" }
+    defaults:  { _controller: "AppBundle:Admin/Main/Page:new" }
     
 admin_page_copy:
     path:      /admin/pages/copy/{id}
-    defaults:  { _controller: "AppBundle:Admin/Page:copy" }
+    defaults:  { _controller: "AppBundle:Admin/Main/Page:copy" }
     
 admin_page_edit:
     path:      /admin/pages/edit/{id}
-    defaults:  { _controller: "AppBundle:Admin/Page:edit" }
+    defaults:  { _controller: "AppBundle:Admin/Main/Page:edit" }
     
 admin_page_delete:
     path:      /admin/pages/delete/{id}
-    defaults:  { _controller: "AppBundle:Admin/Page:delete" }
+    defaults:  { _controller: "AppBundle:Admin/Main/Page:delete" }
     
 admin_page_remove_image:
     path:      /admin/pages/remove_image/{id}
-    defaults:  { _controller: "AppBundle:Admin/Page:removeImage" }
+    defaults:  { _controller: "AppBundle:Admin/Main/Page:removeImage" }
     
 admin_page_set_im_published:
     path:      /admin/pages/set_im_published/{id}
-    defaults:  { _controller: "AppBundle:Admin/Page:setIMPublished" }
+    defaults:  { _controller: "AppBundle:Admin/Main/Page:setIMPublished" }
 
 admin_page_set_ip_published:
     path:      /admin/pages/set_ip_published/{id}
-    defaults:  { _controller: "AppBundle:Admin/Page:setIPPublished" }
+    defaults:  { _controller: "AppBundle:Admin/Main/Page:setIPPublished" }
     
 admin_page_set_featured:
     path:      /admin/pages/set_featured/{id}
-    defaults:  { _controller: "AppBundle:Admin/Page:setFeatured" }
+    defaults:  { _controller: "AppBundle:Admin/Main/Page:setFeatured" }
     
 admin_page:
     path:      /admin/pages/{page}
-    defaults:  { _controller: "AppBundle:Admin/Page:index", page: 1 }
+    defaults:  { _controller: "AppBundle:Admin/Main/Page:index", page: 1 }
     
     
     
 # Admin Products Routing    
 admin_product_show:
     path:      /admin/products/show/{id}
-    defaults:  { _controller: "AppBundle:Admin/Product:show" }
+    defaults:  { _controller: "AppBundle:Admin/Main/Product:show" }
     
 admin_product_new:
     path:      /admin/products/new/
-    defaults:  { _controller: "AppBundle:Admin/Product:new" }
+    defaults:  { _controller: "AppBundle:Admin/Main/Product:new" }
     
 admin_product_copy:
     path:      /admin/products/copy/{id}
-    defaults:  { _controller: "AppBundle:Admin/Product:copy" }
+    defaults:  { _controller: "AppBundle:Admin/Main/Product:copy" }
     
 admin_product_edit:
     path:      /admin/products/edit/{id}
-    defaults:  { _controller: "AppBundle:Admin/Product:edit" }
+    defaults:  { _controller: "AppBundle:Admin/Main/Product:edit" }
     
 admin_product_delete:
     path:      /admin/products/delete/{id}
-    defaults:  { _controller: "AppBundle:Admin/Product:delete" }
+    defaults:  { _controller: "AppBundle:Admin/Main/Product:delete" }
     
 admin_product_remove_image:
     path:      /admin/products/remove_image/{id}
-    defaults:  { _controller: "AppBundle:Admin/Product:removeImage" }
+    defaults:  { _controller: "AppBundle:Admin/Main/Product:removeImage" }
     
 admin_product_set_im_published:
     path:      /admin/products/set_im_published/{id}
-    defaults:  { _controller: "AppBundle:Admin/Product:setIMPublished" }
+    defaults:  { _controller: "AppBundle:Admin/Main/Product:setIMPublished" }
 
 admin_product_set_ip_published:
     path:      /admin/products/set_ip_published/{id}
-    defaults:  { _controller: "AppBundle:Admin/Product:setIPPublished" }
+    defaults:  { _controller: "AppBundle:Admin/Main/Product:setIPPublished" }
     
 admin_product_delete_unused:
     path:      /admin/products/delete_unused/
-    defaults:  { _controller: "AppBundle:Admin/Product:deleteUnused" }
+    defaults:  { _controller: "AppBundle:Admin/Main/Product:deleteUnused" }
 
 admin_product_get_top_products:
     path:      /admin/products/get_top_products/
-    defaults:  { _controller: "AppBundle:Admin/Product:getTopProducts" }
+    defaults:  { _controller: "AppBundle:Admin/Main/Product:getTopProducts" }
         
 admin_product:
     path:      /admin/products/{page}
-    defaults:  { _controller: "AppBundle:Admin/Product:index", page: 1 }                
+    defaults:  { _controller: "AppBundle:Admin/Main/Product:index", page: 1 }                
       
       
 # Admin ProductCategoryAssignments Routing    
 admin_product_category_assignment_show:
     path:      /admin/product-category_assignments/show/{id}
-    defaults:  { _controller: "AppBundle:Admin/ProductCategoryAssignment:show" }
+    defaults:  { _controller: "AppBundle:Admin/Assignments/ProductCategoryAssignment:show" }
     
 admin_product_category_assignment_new:
     path:      /admin/product-category_assignments/new/
-    defaults:  { _controller: "AppBundle:Admin/ProductCategoryAssignment:new" }
+    defaults:  { _controller: "AppBundle:Admin/Assignments/ProductCategoryAssignment:new" }
     
 admin_product_category_assignment_copy:
     path:      /admin/product-category_assignments/copy/{id}
-    defaults:  { _controller: "AppBundle:Admin/ProductCategoryAssignment:copy" }
+    defaults:  { _controller: "AppBundle:Admin/Assignments/ProductCategoryAssignment:copy" }
     
 admin_product_category_assignment_edit:
     path:      /admin/product-category_assignments/edit/{id}
-    defaults:  { _controller: "AppBundle:Admin/ProductCategoryAssignment:edit" }
+    defaults:  { _controller: "AppBundle:Admin/Assignments/ProductCategoryAssignment:edit" }
     
 admin_product_category_assignment_delete:
     path:      /admin/product-category_assignments/delete/{id}
-    defaults:  { _controller: "AppBundle:Admin/ProductCategoryAssignment:delete" }
+    defaults:  { _controller: "AppBundle:Admin/Assignments/ProductCategoryAssignment:delete" }
 
 admin_product_category_assignment_set_featured:
     path:      /admin/product-category_assignments/set_featured/{id}
-    defaults:  { _controller: "AppBundle:Admin/ProductCategoryAssignment:setFeatured" }
+    defaults:  { _controller: "AppBundle:Admin/Assignments/ProductCategoryAssignment:setFeatured" }
         
 admin_product_category_assignment:
     path:      /admin/product-category_assignments/{page}
-    defaults:  { _controller: "AppBundle:Admin/ProductCategoryAssignment:index", page: 1 }
+    defaults:  { _controller: "AppBundle:Admin/Assignments/ProductCategoryAssignment:index", page: 1 }
     
             
 # Admin Segments Routing    
 admin_segment_show:
     path:      /admin/segments/show/{id}
-    defaults:  { _controller: "AppBundle:Admin/Segment:show" }
+    defaults:  { _controller: "AppBundle:Admin/Main/Segment:show" }
     
 admin_segment_new:
     path:      /admin/segments/new/
-    defaults:  { _controller: "AppBundle:Admin/Segment:new" }
+    defaults:  { _controller: "AppBundle:Admin/Main/Segment:new" }
     
 admin_segment_copy:
     path:      /admin/segments/copy/{id}
-    defaults:  { _controller: "AppBundle:Admin/Segment:copy" }
+    defaults:  { _controller: "AppBundle:Admin/Main/Segment:copy" }
     
 admin_segment_edit:
     path:      /admin/segments/edit/{id}
-    defaults:  { _controller: "AppBundle:Admin/Segment:edit" }
+    defaults:  { _controller: "AppBundle:Admin/Main/Segment:edit" }
     
 admin_segment_delete:
     path:      /admin/segments/delete/{id}
-    defaults:  { _controller: "AppBundle:Admin/Segment:delete" }
+    defaults:  { _controller: "AppBundle:Admin/Main/Segment:delete" }
     
 admin_segment_remove_image:
     path:      /admin/segments/remove_image/{id}
-    defaults:  { _controller: "AppBundle:Admin/Segment:removeImage" }
+    defaults:  { _controller: "AppBundle:Admin/Main/Segment:removeImage" }
     
 admin_segment_set_im_published:
     path:      /admin/segments/set_im_published/{id}
-    defaults:  { _controller: "AppBundle:Admin/Segment:setIMPublished" }
+    defaults:  { _controller: "AppBundle:Admin/Main/Segment:setIMPublished" }
 
 admin_segment_set_ip_published:
     path:      /admin/segments/set_ip_published/{id}
-    defaults:  { _controller: "AppBundle:Admin/Segment:setIPPublished" }
+    defaults:  { _controller: "AppBundle:Admin/Main/Segment:setIPPublished" }
     
 admin_segment:
     path:      /admin/segments/{page}
-    defaults:  { _controller: "AppBundle:Admin/Segment:index", page: 1 }
+    defaults:  { _controller: "AppBundle:Admin/Main/Segment:index", page: 1 }
 
 # Admin Tags Routing    
 admin_tag_show:
     path:      /admin/tags/show/{id}
-    defaults:  { _controller: "AppBundle:Admin/Tag:show" }
+    defaults:  { _controller: "AppBundle:Admin/Main/Tag:show" }
     
 admin_tag_new:
     path:      /admin/tags/new/
-    defaults:  { _controller: "AppBundle:Admin/Tag:new" }
+    defaults:  { _controller: "AppBundle:Admin/Main/Tag:new" }
     
 admin_tag_copy:
     path:      /admin/tags/copy/{id}
-    defaults:  { _controller: "AppBundle:Admin/Tag:copy" }
+    defaults:  { _controller: "AppBundle:Admin/Main/Tag:copy" }
     
 admin_tag_edit:
     path:      /admin/tags/edit/{id}
-    defaults:  { _controller: "AppBundle:Admin/Tag:edit" }
+    defaults:  { _controller: "AppBundle:Admin/Main/Tag:edit" }
     
 admin_tag_delete:
     path:      /admin/tags/delete/{id}
-    defaults:  { _controller: "AppBundle:Admin/Tag:delete" }
+    defaults:  { _controller: "AppBundle:Admin/Main/Tag:delete" }
     
 admin_tag_set_im_published:
     path:      /admin/tags/set_im_published/{id}
-    defaults:  { _controller: "AppBundle:Admin/Tag:setIMPublished" }
+    defaults:  { _controller: "AppBundle:Admin/Main/Tag:setIMPublished" }
 
 admin_tag_set_ip_published:
     path:      /admin/tags/set_ip_published/{id}
-    defaults:  { _controller: "AppBundle:Admin/Tag:setIPPublished" }
+    defaults:  { _controller: "AppBundle:Admin/Main/Tag:setIPPublished" }
             
 admin_tag:
     path:      /admin/tags/{page}
-    defaults:  { _controller: "AppBundle:Admin/Tag:index", page: 1 }
+    defaults:  { _controller: "AppBundle:Admin/Main/Tag:index", page: 1 }
     
 # Admin Terms Routing    
 admin_term_show:
     path:      /admin/terms/show/{id}
-    defaults:  { _controller: "AppBundle:Admin/Term:show" }
+    defaults:  { _controller: "AppBundle:Admin/Main/Term:show" }
     
 admin_term_new:
     path:      /admin/terms/new/
-    defaults:  { _controller: "AppBundle:Admin/Term:new" }
+    defaults:  { _controller: "AppBundle:Admin/Main/Term:new" }
     
 admin_term_copy:
     path:      /admin/terms/copy/{id}
-    defaults:  { _controller: "AppBundle:Admin/Term:copy" }
+    defaults:  { _controller: "AppBundle:Admin/Main/Term:copy" }
     
 admin_term_edit:
     path:      /admin/terms/edit/{id}
-    defaults:  { _controller: "AppBundle:Admin/Term:edit" }
+    defaults:  { _controller: "AppBundle:Admin/Main/Term:edit" }
     
 admin_term_delete:
     path:      /admin/terms/delete/{id}
-    defaults:  { _controller: "AppBundle:Admin/Term:delete" }
+    defaults:  { _controller: "AppBundle:Admin/Main/Term:delete" }
     
 admin_term_set_im_published:
     path:      /admin/terms/set_im_published/{id}
-    defaults:  { _controller: "AppBundle:Admin/Term:setIMPublished" }
+    defaults:  { _controller: "AppBundle:Admin/Main/Term:setIMPublished" }
 
 admin_term_set_ip_published:
     path:      /admin/terms/set_ip_published/{id}
-    defaults:  { _controller: "AppBundle:Admin/Term:setIPPublished" }
+    defaults:  { _controller: "AppBundle:Admin/Main/Term:setIPPublished" }
             
 admin_term:
     path:      /admin/terms/{page}
-    defaults:  { _controller: "AppBundle:Admin/Term:index", page: 1 }
+    defaults:  { _controller: "AppBundle:Admin/Main/Term:index", page: 1 }
 
 # Admin TermCategoryAssignments Routing    
 admin_term_category_assignment_show:
     path:      /admin/term-category_assignments/show/{id}
-    defaults:  { _controller: "AppBundle:Admin/TermCategoryAssignment:show" }
+    defaults:  { _controller: "AppBundle:Admin/Assignments/TermCategoryAssignment:show" }
     
 admin_term_category_assignment_new:
     path:      /admin/term-category_assignments/new/
-    defaults:  { _controller: "AppBundle:Admin/TermCategoryAssignment:new" }
+    defaults:  { _controller: "AppBundle:Admin/Assignments/TermCategoryAssignment:new" }
     
 admin_term_category_assignment_copy:
     path:      /admin/term-category_assignments/copy/{id}
-    defaults:  { _controller: "AppBundle:Admin/TermCategoryAssignment:copy" }
+    defaults:  { _controller: "AppBundle:Admin/Assignments/TermCategoryAssignment:copy" }
     
 admin_term_category_assignment_edit:
     path:      /admin/term-category_assignments/edit/{id}
-    defaults:  { _controller: "AppBundle:Admin/TermCategoryAssignment:edit" }
+    defaults:  { _controller: "AppBundle:Admin/Assignments/TermCategoryAssignment:edit" }
     
 admin_term_category_assignment_delete:
     path:      /admin/term-category_assignments/delete/{id}
-    defaults:  { _controller: "AppBundle:Admin/TermCategoryAssignment:delete" }
+    defaults:  { _controller: "AppBundle:Admin/Assignments/TermCategoryAssignment:delete" }
     
 admin_term_category_assignment:
     path:      /admin/term-category_assignments/{page}
-    defaults:  { _controller: "AppBundle:Admin/TermCategoryAssignment:index", page: 1 }
+    defaults:  { _controller: "AppBundle:Admin/Assignments/TermCategoryAssignment:index", page: 1 }
         
 # Admin Users Routing    
 admin_user_show:
     path:      /admin/users/show/{id}
-    defaults:  { _controller: "AppBundle:Admin/User:show" }
+    defaults:  { _controller: "AppBundle:Admin/Main/User:show" }
     
 admin_user_edit:
     path:      /admin/users/edit/{id}
-    defaults:  { _controller: "AppBundle:Admin/User:edit" }
+    defaults:  { _controller: "AppBundle:Admin/Main/User:edit" }
     
 admin_user_delete:
     path:      /admin/users/delete/{id}
-    defaults:  { _controller: "AppBundle:Admin/User:delete" }
+    defaults:  { _controller: "AppBundle:Admin/Main/User:delete" }
         
 admin_user:
     path:      /admin/users/{page}
-    defaults:  { _controller: "AppBundle:Admin/User:index", page: 1 }
+    defaults:  { _controller: "AppBundle:Admin/Main/User:index", page: 1 }
     
 admin_user_settings:
     path:      /admin/settings
-    defaults:  { _controller: "AppBundle:Admin/User:settings" }
+    defaults:  { _controller: "AppBundle:Admin/Main/User:settings" }
     
 # Friends of Symfony Routing    
 fos_user:

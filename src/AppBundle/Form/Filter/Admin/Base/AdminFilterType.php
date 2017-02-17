@@ -68,7 +68,7 @@ class AdminFilterType extends FilterType
 		->add('updatedBy', ChoiceType::class, array(
 				'choices' 		=> $users,
 				'choice_label' => function ($value, $key, $index) { return FormUtils::getListLabel($value, $key, $index); },
-				'translation_domain' => false,
+				'choice_translation_domain' => false,
 				'required'		=> false,
 				'expanded'      => false,
 				'multiple'      => true
@@ -76,7 +76,7 @@ class AdminFilterType extends FilterType
 		->add('createdBy', ChoiceType::class, array(
 				'choices' 		=> $users,
 				'choice_label' => function ($value, $key, $index) { return FormUtils::getListLabel($value, $key, $index); },
-				'translation_domain' => false,
+				'choice_translation_domain' => false,
 				'required'		=> false,
 				'expanded'      => false,
 				'multiple'      => true

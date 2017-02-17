@@ -24,7 +24,7 @@ class NewsletterPageFilterType extends SimpleEntityFilterType
 		->add('newsletterPageTemplates', ChoiceType::class, array(
 				'choices'		=> $newsletterPageTemplates, 
 				'choice_label' => function ($value, $key, $index) { return FormUtils::getListLabel($value, $key, $index); },
-				'translation_domain' => false,
+				'choice_translation_domain' => false,
 				'required'		=> false,
 				'expanded'      => false,
 				'multiple'      => true

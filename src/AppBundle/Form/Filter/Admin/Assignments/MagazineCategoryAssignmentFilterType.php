@@ -25,7 +25,7 @@ class MagazineCategoryAssignmentFilterType extends AdminFilterType
 		->add('magazines', ChoiceType::class, array(
 				'choices' 		=> $magazines, 
 				'choice_label' => function ($value, $key, $index) { return FormUtils::getListLabel($value, $key, $index); },
-				'translation_domain' => false,
+				'choice_translation_domain' => false,
 				'required'		=> false,
 				'expanded'      => false,
 				'multiple'      => true
@@ -33,7 +33,7 @@ class MagazineCategoryAssignmentFilterType extends AdminFilterType
 		->add('categories', ChoiceType::class, array(
 				'choices'		=> $categories, 
 				'choice_label' => function ($value, $key, $index) { return FormUtils::getListLabel($value, $key, $index); },
-				'translation_domain' => false,
+				'choice_translation_domain' => false,
 				'required'		=> false,
 				'expanded'      => false,
 				'multiple'      => true

@@ -5,7 +5,7 @@ namespace AppBundle\Controller\Admin\Base;
 use AppBundle\Entity\Lists\Base\BaseEntityList;
 use AppBundle\Entity\User;
 use AppBundle\Filter\Admin\Base\AuditFilter;
-use AppBundle\Form\Editor\Base\BaseEntityEditorType;
+use AppBundle\Form\Editor\Main\Base\BaseEntityEditorType;
 use AppBundle\Form\Filter\Admin\Base\AdminFilterType;
 use AppBundle\Form\Lists\Base\BaseEntityListType;
 use AppBundle\Manager\Filter\Base\FilterManager;

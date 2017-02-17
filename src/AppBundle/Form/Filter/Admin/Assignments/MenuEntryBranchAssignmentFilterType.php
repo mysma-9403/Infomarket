@@ -25,7 +25,7 @@ class MenuEntryBranchAssignmentFilterType extends AdminFilterType
 		->add('menuEntries', ChoiceType::class, array(
 				'choices' 		=> $menuEntries, 
 				'choice_label' => function ($value, $key, $index) { return FormUtils::getListLabel($value, $key, $index); },
-				'translation_domain' => false,
+				'choice_translation_domain' => false,
 				'required'		=> false,
 				'expanded'      => false,
 				'multiple'      => true
@@ -33,7 +33,7 @@ class MenuEntryBranchAssignmentFilterType extends AdminFilterType
 		->add('branches', ChoiceType::class, array(
 				'choices'		=> $branches, 
 				'choice_label' => function ($value, $key, $index) { return FormUtils::getListLabel($value, $key, $index); },
-				'translation_domain' => false,
+				'choice_translation_domain' => false,
 				'required'		=> false,
 				'expanded'      => false,
 				'multiple'      => true

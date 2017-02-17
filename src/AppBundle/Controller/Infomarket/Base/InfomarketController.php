@@ -8,7 +8,7 @@ use AppBundle\Entity\Advert;
 use AppBundle\Entity\NewsletterUser;
 use AppBundle\Filter\Common\SearchFilter;
 use AppBundle\Form\Base\SearchFilterType;
-use AppBundle\Form\Editor\NewsletterUserEditorType;
+use AppBundle\Form\Editor\Main\NewsletterUserEditorType;
 use AppBundle\Manager\Params\Infomarket\AdvertParamsManager;
 use AppBundle\Manager\Params\Infomarket\ContextParamsManager;
 use AppBundle\Manager\Params\Infomarket\MenuParamsManager;

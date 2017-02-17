@@ -41,3 +41,129 @@ services:
         tags:
             - { name: security.voter }
         public: false
+        
+        services:
+    
+    
+    app.form.editor.advert_category_assignment:
+        class: AppBundle\Form\Editor\Assignments\AdvertCategoryAssignmentEditorType
+        arguments: ["@doctrine.orm.entity_manager"]
+        tags:
+            - { name: form.type }
+    app.form.editor.article_article_category_assignment:
+        class: AppBundle\Form\Editor\Assignments\ArticleArticleCategoryAssignmentEditorType
+        arguments: ["@doctrine.orm.entity_manager"]
+        tags:
+            - { name: form.type }
+    app.form.editor.article_brand_assignment:
+        class: AppBundle\Form\Editor\Assignments\ArticleBrandAssignmentEditorType
+        arguments: ["@doctrine.orm.entity_manager"]
+        tags:
+            - { name: form.type }
+    app.form.editor.article_category_assignment:
+        class: AppBundle\Form\Editor\Assignments\ArticleCategoryAssignmentEditorType
+        arguments: ["@doctrine.orm.entity_manager"]
+        tags:
+            - { name: form.type }
+    app.form.editor.article_tag_assignment:
+        class: AppBundle\Form\Editor\Assignments\ArticleTagAssignmentEditorType
+        arguments: ["@doctrine.orm.entity_manager"]
+        tags:
+            - { name: form.type }
+    app.form.editor.branch_category_assignment:
+        class: AppBundle\Form\Editor\Assignments\BranchCategoryAssignmentEditorType
+        arguments: ["@doctrine.orm.entity_manager"]
+        tags:
+            - { name: form.type }
+    app.form.editor.brand_category_assignment:
+        class: AppBundle\Form\Editor\Assignments\BrandCategoryAssignmentEditorType
+        arguments: ["@doctrine.orm.entity_manager"]
+        tags:
+            - { name: form.type }
+    app.form.editor.magazine_branch_assignment:
+        class: AppBundle\Form\Editor\Assignments\MagazineBranchAssignmentEditorType
+        arguments: ["@doctrine.orm.entity_manager"]
+        tags:
+            - { name: form.type }
+    app.form.editor.magazine_category_assignment:
+        class: AppBundle\Form\Editor\Assignments\MagazineCategoryAssignmentEditorType
+        arguments: ["@doctrine.orm.entity_manager"]
+        tags:
+            - { name: form.type }
+    app.form.editor.menu_entry_branch_assignment:
+        class: AppBundle\Form\Editor\Assignments\MenuEntryBranchAssignmentEditorType
+        arguments: ["@doctrine.orm.entity_manager"]
+        tags:
+            - { name: form.type }
+    app.form.editor.menu_entry_category_assignment:
+        class: AppBundle\Form\Editor\Assignments\MenuEntryCategoryAssignmentEditorType
+        arguments: ["@doctrine.orm.entity_manager"]
+        tags:
+            - { name: form.type }
+    app.form.editor.menu_menu_entry_assignment:
+        class: AppBundle\Form\Editor\Assignments\MenuMenuEntryAssignmentEditorType
+        arguments: ["@doctrine.orm.entity_manager"]
+        tags:
+            - { name: form.type }
+    app.form.editor.newsletter_block_advert_assignment:
+        class: AppBundle\Form\Editor\Assignments\NewsletterBlockAdvertAssignmentEditorType
+        arguments: ["@doctrine.orm.entity_manager"]
+        tags:
+            - { name: form.type }
+    app.form.editor.newsletter_block_article_assignment:
+        class: AppBundle\Form\Editor\Assignments\NewsletterBlockArticleAssignmentEditorType
+        arguments: ["@doctrine.orm.entity_manager"]
+        tags:
+            - { name: form.type }
+    app.form.editor.newsletter_block_magazine_assignment:
+        class: AppBundle\Form\Editor\Assignments\NewsletterBlockMagazineAssignmentEditorType
+        arguments: ["@doctrine.orm.entity_manager"]
+        tags:
+            - { name: form.type }
+    app.form.editor.product_category_assignment:
+        class: AppBundle\Form\Editor\Assignments\ProductCategoryAssignmentEditorType
+        arguments: ["@doctrine.orm.entity_manager"]
+        tags:
+            - { name: form.type }
+    app.form.editor.term_category_assignment:
+        class: AppBundle\Form\Editor\Assignments\TermCategoryAssignmentEditorType
+        arguments: ["@doctrine.orm.entity_manager"]
+        tags:
+            - { name: form.type }
+            
+            
+    app.form.editor.article:
+        class: AppBundle\Form\Editor\Main\ArticleEditorType
+        arguments: ["@doctrine.orm.entity_manager"]
+        tags:
+            - { name: form.type }
+    app.form.editor.category:
+        class: AppBundle\Form\Editor\Main\CategoryEditorType
+        arguments: ["@doctrine.orm.entity_manager"]
+        tags:
+            - { name: form.type }
+    app.form.editor.magazine:
+        class: AppBundle\Form\Editor\Main\MagazineEditorType
+        arguments: ["@doctrine.orm.entity_manager"]
+        tags:
+            - { name: form.type }
+    app.form.editor.menu_entry:
+        class: AppBundle\Form\Editor\Main\MenuEntryEditorType
+        arguments: ["@doctrine.orm.entity_manager"]
+        tags:
+            - { name: form.type }
+    app.form.editor.newsletter_block:
+        class: AppBundle\Form\Editor\Main\NewsletterBlockEditorType
+        arguments: ["@doctrine.orm.entity_manager"]
+        tags:
+            - { name: form.type }
+    app.form.editor.newsletter_page:
+        class: AppBundle\Form\Editor\Main\NewsletterPageEditorType
+        arguments: ["@doctrine.orm.entity_manager"]
+        tags:
+            - { name: form.type }
+    app.form.editor.product:
+        class: AppBundle\Form\Editor\Main\ProductEditorType
+        arguments: ["@doctrine.orm.entity_manager"]
+        tags:
+            - { name: form.type }

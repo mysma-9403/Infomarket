@@ -9,7 +9,7 @@ use AppBundle\Entity\NewsletterUser;
 use AppBundle\Filter\Common\SearchFilter;
 use AppBundle\Filter\Infoprodukt\Main\ArticleFilter;
 use AppBundle\Form\Base\SearchFilterType;
-use AppBundle\Form\Editor\NewsletterUserEditorType;
+use AppBundle\Form\Editor\Main\NewsletterUserEditorType;
 use AppBundle\Form\Filter\Infoprodukt\ArticleFilterType;
 use AppBundle\Manager\Entity\Base\EntityManager;
 use AppBundle\Manager\Entity\Infoprodukt\ArticleManager;
