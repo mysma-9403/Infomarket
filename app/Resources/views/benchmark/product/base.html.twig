@@ -1,0 +1,33 @@
+{% set title = title|default('title.benchmark')|trans %}
+
+<!DOCTYPE html>
+<html>
+    <head>
+    	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" charset="UTF-8" />
+    	
+        <title>{% block titleBlock %}{{ title }}{% endblock %}</title>
+        
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+        
+		{% block stylesheets %}
+			<link rel="stylesheet" href="{{ asset('css/admin.min.css') }}">
+			<link rel="stylesheet" href="{{ asset('css/font-awesome.min.css') }}">
+		{% endblock %}
+
+    </head>
+    <body>
+        {% block javascripts %}
+        	<script src="{{ asset('js/jquery.min.js') }}"></script>
+        	<script src="{{ asset('js/bootstrap.min.js') }}"></script>
+        	<script src="{{ asset('js/moment.min.js') }}"></script>
+        	<script src="{{ asset('js/pl.js') }}"></script>
+        	<script src="{{ asset('js/bootstrap-datetimepicker.min.js') }}"></script>
+        	
+        	{% block moreJavascripts %}
+        	{% endblock %}
+		{% endblock %}
+		
+		{% block body %}
+        {% endblock %}
+    </body>
+</html>

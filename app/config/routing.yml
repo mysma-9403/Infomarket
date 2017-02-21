@@ -3,6 +3,11 @@ app:
     resource: "@AppBundle/Controller"
     type:     annotation
      
+# Benchmark Routing
+benchmark_product:
+    path:      /benchmark/{page}
+    defaults:  { _controller: "AppBundle:Benchmark/Benchmark:index", page: 1 }
+     
 # Infoprodukt Routing
 infoprodukt_advert_click:
     path:      /adverts/click/{id}

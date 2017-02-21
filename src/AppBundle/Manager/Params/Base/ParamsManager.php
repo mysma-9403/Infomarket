@@ -71,9 +71,9 @@ class ParamsManager {
 	 *
 	 * @param Request $request
 	 * @param class $paramClass
-	 * @param integer $template
+	 * @param mixed $template
 	 *
-	 * @return integer
+	 * @return mixed
 	 */
 	protected function getParamId($request, $paramClass, $template = null)
 	{
@@ -86,6 +86,27 @@ class ParamsManager {
 			return $this->lastRouteParams[$paramName];
 		}
 		
+		return $template;
+	}
+	
+	/**
+	 *
+	 * @param Request $request
+	 * @param string $paramName
+	 * @param mixed $template
+	 *
+	 * @return mixed
+	 */
+	protected function getParamIdByName($request, $paramName, $template = null)
+	{
+		$id = $request->get($paramName, null);
+	
+		if($id !== null) return $id;
+	
+		if(array_key_exists($paramName, $this->lastRouteParams)) {
+			return $this->lastRouteParams[$paramName];
+		}
+	
 		return $template;
 	}
 }

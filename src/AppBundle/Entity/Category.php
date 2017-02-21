@@ -9,22 +9,9 @@ use AppBundle\Entity\Base\ImageEntityTree;
  */
 class Category extends ImageEntityTree
 {
-	/** @var array */
-	protected $menuChildren;
-	
-	public function getMenuChildren() {
-		return $this->menuChildren;
-	}
-		
-	/**
-	 * 
-	 * @param array $children
-	 * @return \AppBundle\Entity\Category
-	 */
-	public function setMenuChildren($children) {
-		$this->menuChildren = $children;
-		return $this;
-	}
+	const WASHER = 11;
+	const CENTRIFUGE = 12;
+	const WASHER_CENTRIFUGE = 13;
 	
 	/**
 	 * {@inheritDoc}
@@ -756,5 +743,63 @@ class Category extends ImageEntityTree
     public function getRootId()
     {
         return $this->rootId;
+    }
+    /**
+     * @var integer
+     */
+    private $benchmark;
+
+
+    /**
+     * Set benchmark
+     *
+     * @param integer $benchmark
+     *
+     * @return Category
+     */
+    public function setBenchmark($benchmark)
+    {
+        $this->benchmark = $benchmark;
+
+        return $this;
+    }
+
+    /**
+     * Get benchmark
+     *
+     * @return integer
+     */
+    public function getBenchmark()
+    {
+        return $this->benchmark;
+    }
+    /**
+     * @var integer
+     */
+    private $benchmarkType;
+
+
+    /**
+     * Set benchmarkType
+     *
+     * @param integer $benchmarkType
+     *
+     * @return Category
+     */
+    public function setBenchmarkType($benchmarkType)
+    {
+        $this->benchmarkType = $benchmarkType;
+
+        return $this;
+    }
+
+    /**
+     * Get benchmarkType
+     *
+     * @return integer
+     */
+    public function getBenchmarkType()
+    {
+        return $this->benchmarkType;
     }
 }

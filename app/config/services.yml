@@ -43,7 +43,8 @@ services:
         public: false
         
         services:
-    
+            
+            
     
     app.form.editor.advert_category_assignment:
         class: AppBundle\Form\Editor\Assignments\AdvertCategoryAssignmentEditorType
@@ -164,6 +165,41 @@ services:
             - { name: form.type }
     app.form.editor.product:
         class: AppBundle\Form\Editor\Main\ProductEditorType
+        arguments: ["@doctrine.orm.entity_manager"]
+        tags:
+            - { name: form.type }
+            
+            
+            
+    app.benchmark.category_filter:
+        class: AppBundle\Form\Benchmark\CategoryFilterType
+        arguments: ["@doctrine.orm.entity_manager"]
+        tags:
+            - { name: form.type }
+    app.benchmark.subcategory_filter:
+        class: AppBundle\Form\Benchmark\SubcategoryFilterType
+        arguments: ["@doctrine.orm.entity_manager"]
+        tags:
+            - { name: form.type }
+    app.benchmark.product_filter:
+        class: AppBundle\Form\Benchmark\ProductFilterType
+        arguments: ["@doctrine.orm.entity_manager"]
+        tags:
+            - { name: form.type }
+            
+    # Washers
+    app.benchmark.washer_filter:
+        class: AppBundle\Form\Benchmark\Washer\WasherFilterType
+        arguments: ["@doctrine.orm.entity_manager"]
+        tags:
+            - { name: form.type }
+    app.benchmark.centrifuge_filter:
+        class: AppBundle\Form\Benchmark\Washer\CentrifugeFilterType
+        arguments: ["@doctrine.orm.entity_manager"]
+        tags:
+            - { name: form.type }
+    app.benchmark.washer_centrifuge_filter:
+        class: AppBundle\Form\Benchmark\Washer\WasherCentrifugeFilterType
         arguments: ["@doctrine.orm.entity_manager"]
         tags:
             - { name: form.type }

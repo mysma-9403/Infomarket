@@ -27,6 +27,9 @@
         
         <field name="content" type="text" nullable="true" />
         
+        <field name="benchmark" type="integer" nullable="false" default="false" />
+        <field name="benchmarkType" type="integer" nullable="true" />
+        
         <field name="rootId" type="integer" nullable="true" />
         
         <many-to-one field="parent" target-entity="Category" inversed-by="children" nullable="true">

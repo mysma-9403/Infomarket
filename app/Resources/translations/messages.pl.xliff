@@ -10,6 +10,10 @@
                 <source>title.admin</source>
                 <target>Panel administratora</target>
             </trans-unit>
+            <trans-unit id="title.benchmark">
+                <source>title.benchmark</source>
+                <target>InfoMarket - Benchmark</target>
+            </trans-unit>
             <trans-unit id="title.home">
                 <source>title.home</source>
                 <target>Strona domowa</target>
@@ -1504,6 +1508,11 @@
             </trans-unit>
             
             
+            
+            <trans-unit id="action.submit">
+                <source>action.submit</source>
+                <target>Zatwierdź</target>
+            </trans-unit>
             
             <trans-unit id="action.search">
                 <source>action.search</source>

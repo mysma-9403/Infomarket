@@ -53,7 +53,7 @@ abstract class BaseRepository extends EntityRepository
 		$this->buildWhere($builder, $filter);
 		$this->buildOrderBy($builder, $filter);
 		$this->buildLimit($builder, $filter);
-	
+		
 		return $builder->getQuery();
 	}
 	

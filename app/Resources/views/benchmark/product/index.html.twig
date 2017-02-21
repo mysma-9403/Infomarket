@@ -1,0 +1,124 @@
+{% extends 'benchmark/product/base.html.twig' %}
+
+{% set basePath = 'benchmark_' %}
+{% set title = title|default('title.benchmark')|trans %}
+
+{% set gender = gender | default('') %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block body %}
+
+	{% block header %}
+		<div class="container-fluid page-header">
+			<div class="col-xs-12">
+				<h1>{{ title }}</h1>
+				
+				<p>
+					{{ 'label.welcome'|trans }} <strong>{{ app.user.username }}</strong>, <br>
+					<a href="{{ path('admin_logout') }}">
+						{{ 'label.logout'|trans }}
+					</a>
+				</p>
+			</div>	
+		</div>
+	{% endblock %}
+	
+	{% block content %}
+		<div class="container-fluid">
+			<div class="col-sm-2">
+				{% block sidebar %}
+					<h3>{{ category.name }} {{ category.subname }}</h3>
+					
+					{% block categoryFilterForm %}
+						{% form_theme categoryFilter 'form/fields.html.twig' %}
+						
+						{{ form_start(categoryFilter) }}
+							<div class="col-xs-12">
+								{{ form_widget(categoryFilter.category) }}
+							</div>
+							<div class="col-xs-12">
+									{{ form_widget(categoryFilter.submit, { 'icon': 'fa-check', 'label': 'action.submit', 'attr': {'class': 'btn btn-success'} }) }}
+							</div>		
+						{{ form_end(categoryFilter) }}
+						
+						{% form_theme subcategoryFilter 'form/fields.html.twig' %}
+						
+						{{ form_start(subcategoryFilter) }}
+							<div class="col-xs-12">
+								{{ form_widget(subcategoryFilter.subcategory) }}
+							</div>
+							<div class="col-xs-12">
+								{{ form_widget(subcategoryFilter.submit, { 'icon': 'fa-check', 'label': 'action.submit', 'attr': {'class': 'btn btn-success'} }) }}
+							</div>	
+						{{ form_end(subcategoryFilter) }}
+						
+						{% form_theme filter 'form/fields.html.twig' %}
+						
+						{{ form_start(filter) }}
+							<div class="col-xs-12">
+								{{ form_widget(filter.categories) }}
+							</div>
+							<div class="col-xs-12">
+								{{ form_widget(filter.brands) }}
+							</div>
+							<div class="col-xs-12">
+								<div class="btn-group">
+									{{ form_widget(filter.search, { 'icon': 'fa-search', 'label': 'action.search', 'attr': {'class': 'btn btn-primary'} }) }}
+									{{ form_widget(filter.clear, { 'icon': 'fa-eraser', 'label': 'action.clear', 'attr': {'class': 'btn btn-warning'} }) }}
+								</div>	
+							</div>
+						{{ form_end(filter) }}
+					{% endblock %}
+				{% endblock %}
+			</div>
+			<div class="col-sm-10">
+				{% block tableContent %}
+					{% set restWidth = 93 - entries|length * 9.3 %}
+					<table class="table table-striped vert-align">
+						<tr>
+							<th width="7%" class="text-right">{{ 'label.category'|trans }}</th>
+							{% for entry in entries %}
+								<td width="9.3%" class="text-center">{{ entry.categoryName }}&nbsp;{{ entry.categorySubname }}</td>
+							{% endfor %}
+							<td width="{{ restWidth }}%"></td>
+						</tr>
+						<tr>
+							<th></th>
+							{% for entry in entries %}
+								<td>
+									<div class="rect">
+										<div class="div-center">
+											<img class="img-responsive" alt="{{ entry.name }}" src="{{ asset(entry.image) }}" />
+										</div>
+									</div>
+								</td>
+							{% endfor %}
+							<td width="{{ restWidth }}%"></td>
+						</tr>
+						<tr>
+							<th class="text-right">{{ 'label.brand'|trans }}</th>
+							{% for entry in entries %}
+								<td class="text-center">{{ entry.brandName }}</td>
+							{% endfor %}
+							<td width="{{ restWidth }}%"></td>
+						</tr>
+						<tr>
+							<th class="text-right">{{ 'label.name'|trans }}</th>
+							{% for entry in entries %}
+								<td class="text-center">{{ entry.name }}</td>
+							{% endfor %}
+							<td width="{{ restWidth }}%"></td>
+						</tr>
+					</table>
+				{% endblock %}
+				
+				{% block tablePaginator %}
+					<div>
+				        {{ knp_pagination_render(entries) }}
+				    </div>
+			    {% endblock %}
+			</div>	
+		</div>
+	{% endblock %}
+{% endblock %}

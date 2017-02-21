@@ -3,6 +3,7 @@ security:
         FOS\UserBundle\Model\UserInterface: bcrypt
 
     role_hierarchy:
+        ROLE_EDITOR:        ROLE_BENCHMARK
         ROLE_EDITOR:        ROLE_USER
         ROLE_PUBLISHER:     ROLE_EDITOR
         ROLE_RATING_EDITOR: ROLE_EDITOR
