@@ -121,6 +121,11 @@ services:
         arguments: ["@doctrine.orm.entity_manager"]
         tags:
             - { name: form.type }
+    app.form.editor.newsletter_user_newsletter_group_assignment:
+        class: AppBundle\Form\Editor\Assignments\NewsletterUserNewsletterGroupAssignmentEditorType
+        arguments: ["@doctrine.orm.entity_manager"]
+        tags:
+            - { name: form.type }
     app.form.editor.product_category_assignment:
         class: AppBundle\Form\Editor\Assignments\ProductCategoryAssignmentEditorType
         arguments: ["@doctrine.orm.entity_manager"]
@@ -168,9 +173,15 @@ services:
         arguments: ["@doctrine.orm.entity_manager"]
         tags:
             - { name: form.type }
+
+    # Others
+    app.benchmark.send_newsletter_filter:
+        class: AppBundle\Form\Filter\Admin\Other\SendNewsletterFilterType
+        arguments: ["@doctrine.orm.entity_manager"]
+        tags:
+            - { name: form.type }            
             
-            
-            
+    # Benchmark        
     app.benchmark.category_filter:
         class: AppBundle\Form\Benchmark\CategoryFilterType
         arguments: ["@doctrine.orm.entity_manager"]
@@ -187,7 +198,7 @@ services:
         tags:
             - { name: form.type }
             
-    # Washers
+    # Washers //TODO change to one common Product filter
     app.benchmark.washer_filter:
         class: AppBundle\Form\Benchmark\Washer\WasherFilterType
         arguments: ["@doctrine.orm.entity_manager"]

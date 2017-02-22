@@ -8,3 +8,7 @@
 	{% include 'common/fields/bool_field.html.twig' with 
 	{ 'label': 'label.newsletter.subscribed'|trans, 'value': entry.subscribed } %}
 {% endblock %}
+
+{% block assignments %}
+	{% include 'admin/newsletter_user/assignments.html.twig' with { 'entry': entry } %}
+{% endblock %}

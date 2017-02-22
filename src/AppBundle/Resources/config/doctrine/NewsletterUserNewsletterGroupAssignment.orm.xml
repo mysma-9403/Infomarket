@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+        http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <entity name="AppBundle\Entity\NewsletterUserNewsletterGroupAssignment" 
+        table="newsletter_user_newsletter_group_assignments"
+        repository-class="AppBundle\Repository\Admin\Assignments\NewsletterUserNewsletterGroupAssignmentRepository">
+        
+        <many-to-one field="newsletterUser" target-entity="NewsletterUser" nullable="false" inversed-by="newsletterUserNewsletterGroupAssignments" />
+        <many-to-one field="newsletterGroup" target-entity="NewsletterGroup" nullable="false" inversed-by="newsletterUserNewsletterGroupAssignments" />
+    </entity>
+    
+</doctrine-mapping>

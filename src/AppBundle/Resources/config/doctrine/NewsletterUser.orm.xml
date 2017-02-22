@@ -10,5 +10,11 @@
         
         <field name="subscribed" type="boolean" default="1" />
         
+        <one-to-many field="newsletterUserNewsletterGroupAssignments" target-entity="NewsletterUserNewsletterGroupAssignment" mapped-by="newsletterUser">
+        </one-to-many>
+        
+        <one-to-many field="newsletterUserNewsletterPageAssignments" target-entity="NewsletterUserNewsletterPageAssignment" mapped-by="newsletterUser">
+        </one-to-many>
     </entity>
+    
 </doctrine-mapping>

@@ -98,6 +98,16 @@ class Filter {
 	}
 	
 	
+	protected function getRequestSimpleBool(Request $request, $name, $template = false) {
+		$key = $this->getKey($name);
+		return $request->get($key, $template) == 1 ? true : false;
+	}
+	
+	protected function setRequestSimpleBool(array &$values, $name, $value) {
+		$values[$this->getKey($name)] = $value ? 1 : 0;
+	}
+	
+	
 	
 	protected function getRequestString(Request $request, $name, $template = null) {
 		$key = $this->getKey($name);

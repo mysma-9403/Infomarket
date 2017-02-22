@@ -1,0 +1,42 @@
+{% extends 'admin/simple/show.html.twig' %}
+
+{% set title = 'title.newsletterPages'|trans %}
+{% set mainPath = 'newsletter_page' %}
+
+{% block content %}
+	<div class="container">
+	
+		{% block errorsBlock %}
+			{% include 'common/errors.html.twig' %}
+		{% endblock %}
+		
+		<h3>{{ 'label.newsletterPage.sendNewsletter.settings'|trans }}</h3>
+			
+		{% include 'common/fields/text_field.html.twig' with 
+			{ 'label': 'label.newsletterPage.sendNewsletter.groups', 'value': sendNewsletterFilter.groups|join(', ') } %}
+			
+		{% include 'common/fields/bool_field.html.twig' with 
+			{ 'label': 'label.newsletterPage.sendNewsletter.embedImages', 'value': sendNewsletterFilter.embedImages } %}
+			
+		{% include 'common/fields/bool_field.html.twig' with 
+			{ 'label': 'label.newsletterPage.sendNewsletter.forceSend', 'value': sendNewsletterFilter.forceSend } %}
+		
+		<h3>{{ 'label.newsletterPage.sendNewsletter.recipients'|trans }}</h3>
+		
+		<div class="row">
+			{% for recipient in recipients %}
+				<div class="col-sm-6 col-md-4 col-lg-3">
+					{% include 'common/links/simple_link.html.twig' with 
+						{ 'value': recipient, 'type': 'newsletter_user' } %}
+				</div>
+			{% endfor %}
+		</div>
+		
+		<a class="btn btn-primary" href="{{ path(basePath ~ mainPath ~ '_send_newsletter_form', sendNewsletterFilter.getRequestValues()|merge({ id: entry.id }) ) }}">
+			<span class="fa fa-arrow-circle-o-left"></span> {{ 'action.back'|trans }}
+		</a>
+		<a class="btn btn-success" href="{{ path(basePath ~ mainPath ~ '_send_newsletter', sendNewsletterFilter.getRequestValues()|merge({ id: entry.id }) ) }}">
+			<span class="fa fa-send"></span> {{ 'action.newsletterPage.sendNewsletter'|trans }}
+		</a>
+	</div>
+{% endblock %}

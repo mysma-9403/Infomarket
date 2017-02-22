@@ -1,0 +1,27 @@
+{% extends 'admin/base/index.html.twig' %}
+
+{% set mainPath = 'newsletter_user_newsletter_group_assignment' %}
+{% set title = 'title.newsletter_user_newsletter_group_assignments'|trans %}
+
+{% block filterMoreFields1 %}
+	<li class="col-xs-12 col-sm-6 col-md-4 col-lg-2">
+		{{ form_widget(filter.newsletterUsers, { 'label': 'label.newsletterUsers' }) }}
+	</li>
+	<li class="col-xs-12 col-sm-6 col-md-4 col-lg-2">
+		{{ form_widget(filter.newsletterGroups, { 'label': 'label.newsletterGroups' }) }}
+	</li>
+{% endblock %}
+
+{% block headerMainFields1 %}
+	<th><i class="fa fa-"></i> {{ 'label.newsletterUser'|trans }}</th>
+	<th><i class="fa fa-"></i> {{ 'label.newsletterGroup'|trans }}</th>
+{% endblock %}
+
+{% block entryMainFields1 %}
+	<td>
+		{% include 'common/links/simple_link.html.twig' with { type: 'newsletter_user', value: { id: item.newsletterUserId, name: item.newsletterUserName } } %}
+	</td>
+	<td>
+		{% include 'common/links/simple_link.html.twig' with { type: 'newsletter_group', value: { id: item.newsletterGroupId, name: item.newsletterGroupName } } %}
+	</td>
+{% endblock %}

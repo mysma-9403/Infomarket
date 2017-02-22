@@ -18,8 +18,17 @@
 {% endblock %}
 
 {% block moreActions1 %}
+	<a class="btn btn-primary" href="{{ path(basePath ~ mainPath ~ '_preview', { id: entry.id }) }}">
+		<span class="fa fa-eye"></span> {{ 'action.newsletterPage.preview'|trans }}
+	</a>
 	<a href="#" class="btn btn-primary pop">
-		<span class="fa fa-eye"></span> {{ 'action.newsletterPage.showCode'|trans }}
+		<span class="fa fa-code"></span> {{ 'action.newsletterPage.showCode'|trans }}
+	</a>
+	<a class="btn btn-primary" href="{{ path(basePath ~ mainPath ~ '_save_file', { id: entry.id }) }}">
+		<span class="fa fa-save"></span> {{ 'action.newsletterPage.saveFile'|trans }}
+	</a>
+	<a class="btn btn-primary" href="{{ path(basePath ~ mainPath ~ '_send_newsletter_form', { id: entry.id }) }}">
+		<span class="fa fa-send"></span> {{ 'action.newsletterPage.sendNewsletter'|trans }}
 	</a>
 {% endblock %}
 

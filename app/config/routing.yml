@@ -1105,7 +1105,27 @@ admin_newsletter_page_set_im_published:
 admin_newsletter_page_set_ip_published:
     path:      /admin/newsletter_pages/set_ip_published/{id}
     defaults:  { _controller: "AppBundle:Admin/Main/NewsletterPage:setIPPublished" }
-        
+
+admin_newsletter_page_preview:
+    path:      /admin/newsletter_pages/preview/{id}
+    defaults:  { _controller: "AppBundle:Admin/Main/NewsletterPage:preview" }
+    
+admin_newsletter_page_save_file:
+    path:      /admin/newsletter_pages/save-file/{id}
+    defaults:  { _controller: "AppBundle:Admin/Main/NewsletterPage:saveFile" }
+
+admin_newsletter_page_send_newsletter_form:
+    path:      /admin/newsletter_pages/send-newsletter-form/{id}
+    defaults:  { _controller: "AppBundle:Admin/Main/NewsletterPage:sendNewsletterForm" }
+    
+admin_newsletter_page_send_newsletter_list:
+    path:      /admin/newsletter_pages/send-newsletter-list/{id}
+    defaults:  { _controller: "AppBundle:Admin/Main/NewsletterPage:sendNewsletterList" }
+            
+admin_newsletter_page_send_newsletter:
+    path:      /admin/newsletter_pages/send-newsletter/{id}
+    defaults:  { _controller: "AppBundle:Admin/Main/NewsletterPage:sendNewsletter" }
+            
 admin_newsletter_page:
     path:      /admin/newsletter_pages/{page}
     defaults:  { _controller: "AppBundle:Admin/Main/NewsletterPage:index", page: 1 }
@@ -1143,6 +1163,39 @@ admin_newsletter_page_template:
     path:      /admin/newsletter_page_templates/{page}
     defaults:  { _controller: "AppBundle:Admin/Main/NewsletterPageTemplate:index", page: 1 }
 
+# Admin NewsletterGroups Routing    
+admin_newsletter_group_show:
+    path:      /admin/newsletter_groups/show/{id}
+    defaults:  { _controller: "AppBundle:Admin/Main/NewsletterGroup:show" }
+    
+admin_newsletter_group_new:
+    path:      /admin/newsletter_groups/new/
+    defaults:  { _controller: "AppBundle:Admin/Main/NewsletterGroup:new" }
+    
+admin_newsletter_group_copy:
+    path:      /admin/newsletter_groups/copy/{id}
+    defaults:  { _controller: "AppBundle:Admin/Main/NewsletterGroup:copy" }
+    
+admin_newsletter_group_edit:
+    path:      /admin/newsletter_groups/edit/{id}
+    defaults:  { _controller: "AppBundle:Admin/Main/NewsletterGroup:edit" }
+    
+admin_newsletter_group_delete:
+    path:      /admin/newsletter_groups/delete/{id}
+    defaults:  { _controller: "AppBundle:Admin/Main/NewsletterGroup:delete" }
+    
+admin_newsletter_group_set_im_published:
+    path:      /admin/newsletter_groups/set_im_published/{id}
+    defaults:  { _controller: "AppBundle:Admin/Main/NewsletterGroup:setIMPublished" }
+
+admin_newsletter_group_set_ip_published:
+    path:      /admin/newsletter_groups/set_ip_published/{id}
+    defaults:  { _controller: "AppBundle:Admin/Main/NewsletterGroup:setIPPublished" }
+        
+admin_newsletter_group:
+    path:      /admin/newsletter_groups/{page}
+    defaults:  { _controller: "AppBundle:Admin/Main/NewsletterGroup:index", page: 1 }
+    
 # Admin NewsletterUsers Routing    
 admin_newsletter_user_show:
     path:      /admin/newsletter_users/show/{id}
@@ -1254,7 +1307,45 @@ admin_newsletter_block_magazine_assignment_delete:
 admin_newsletter_block_magazine_assignment:
     path:      /admin/newsletter_block-magazine_assignments/{page}
     defaults:  { _controller: "AppBundle:Admin/Assignments/NewsletterBlockMagazineAssignment:index", page: 1 }   
-                        
+
+# Admin NewsletterUserNewsletterGroupAssignments Routing    
+admin_newsletter_user_newsletter_group_assignment_show:
+    path:      /admin/newsletter_user-newsletter_group_assignments/show/{id}
+    defaults:  { _controller: "AppBundle:Admin/Assignments/NewsletterUserNewsletterGroupAssignment:show" }
+    
+admin_newsletter_user_newsletter_group_assignment_new:
+    path:      /admin/newsletter_user-newsletter_group_assignments/new/
+    defaults:  { _controller: "AppBundle:Admin/Assignments/NewsletterUserNewsletterGroupAssignment:new" }
+    
+admin_newsletter_user_newsletter_group_assignment_copy:
+    path:      /admin/newsletter_user-newsletter_group_assignments/copy/{id}
+    defaults:  { _controller: "AppBundle:Admin/Assignments/NewsletterUserNewsletterGroupAssignment:copy" }
+    
+admin_newsletter_user_newsletter_group_assignment_edit:
+    path:      /admin/newsletter_user-newsletter_group_assignments/edit/{id}
+    defaults:  { _controller: "AppBundle:Admin/Assignments/NewsletterUserNewsletterGroupAssignment:edit" }
+    
+admin_newsletter_user_newsletter_group_assignment_delete:
+    path:      /admin/newsletter_user-newsletter_group_assignments/delete/{id}
+    defaults:  { _controller: "AppBundle:Admin/Assignments/NewsletterUserNewsletterGroupAssignment:delete" }
+
+admin_newsletter_user_newsletter_group_assignment:
+    path:      /admin/newsletter_user-newsletter_group_assignments/{page}
+    defaults:  { _controller: "AppBundle:Admin/Assignments/NewsletterUserNewsletterGroupAssignment:index", page: 1 }   
+
+# Admin NewsletterUserNewsletterPageAssignments Routing    
+admin_newsletter_user_newsletter_page_assignment_show:
+    path:      /admin/newsletter_user-newsletter_page_assignments/show/{id}
+    defaults:  { _controller: "AppBundle:Admin/Assignments/NewsletterUserNewsletterPageAssignment:show" }
+    
+admin_newsletter_user_newsletter_page_assignment_delete:
+    path:      /admin/newsletter_user-newsletter_page_assignments/delete/{id}
+    defaults:  { _controller: "AppBundle:Admin/Assignments/NewsletterUserNewsletterPageAssignment:delete" }
+
+admin_newsletter_user_newsletter_page_assignment:
+    path:      /admin/newsletter_user-newsletter_page_assignments/{page}
+    defaults:  { _controller: "AppBundle:Admin/Assignments/NewsletterUserNewsletterPageAssignment:index", page: 1 }   
+                                
 # Admin Pages Routing    
 admin_page_show:
     path:      /admin/pages/show/{id}

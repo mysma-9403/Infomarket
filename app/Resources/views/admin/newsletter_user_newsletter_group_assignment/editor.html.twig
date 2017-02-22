@@ -1,0 +1,10 @@
+{% extends 'admin/base/editor.html.twig' %}
+
+{% set mainPath = 'newsletter_user_newsletter_group_assignment' %}
+{% set title = 'title.newsletter_user_newsletter_group_assignments'|trans %}
+{% set gender = '' %}
+
+{% block moreFields2 %}
+	{{ form_row(form.newsletterUser, { 'label': 'label.newsletterUser' }) }}
+	{{ form_row(form.newsletterGroup, { 'label': 'label.newsletterGroup' }) }}
+{% endblock %}

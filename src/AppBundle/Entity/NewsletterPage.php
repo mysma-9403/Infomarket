@@ -148,4 +148,43 @@ class NewsletterPage extends SimpleEntity
     {
         return $this->subname;
     }
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $newsletterUserNewsletterPageAssignments;
+
+
+    /**
+     * Add newsletterUserNewsletterPageAssignment
+     *
+     * @param \AppBundle\Entity\NewsletterUserNewsletterPageAssignment $newsletterUserNewsletterPageAssignment
+     *
+     * @return NewsletterPage
+     */
+    public function addNewsletterUserNewsletterPageAssignment(\AppBundle\Entity\NewsletterUserNewsletterPageAssignment $newsletterUserNewsletterPageAssignment)
+    {
+        $this->newsletterUserNewsletterPageAssignments[] = $newsletterUserNewsletterPageAssignment;
+
+        return $this;
+    }
+
+    /**
+     * Remove newsletterUserNewsletterPageAssignment
+     *
+     * @param \AppBundle\Entity\NewsletterUserNewsletterPageAssignment $newsletterUserNewsletterPageAssignment
+     */
+    public function removeNewsletterUserNewsletterPageAssignment(\AppBundle\Entity\NewsletterUserNewsletterPageAssignment $newsletterUserNewsletterPageAssignment)
+    {
+        $this->newsletterUserNewsletterPageAssignments->removeElement($newsletterUserNewsletterPageAssignment);
+    }
+
+    /**
+     * Get newsletterUserNewsletterPageAssignments
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getNewsletterUserNewsletterPageAssignments()
+    {
+        return $this->newsletterUserNewsletterPageAssignments;
+    }
 }

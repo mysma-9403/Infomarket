@@ -17,6 +17,9 @@
         		<order-by-field name="orderNumber" direction="ASC" />
         	</order-by>
         </one-to-many>
+        
+        <one-to-many field="newsletterUserNewsletterPageAssignments" target-entity="NewsletterUserNewsletterPageAssignment" mapped-by="newsletterPage">
+        </one-to-many>
     </entity>
     
 </doctrine-mapping>

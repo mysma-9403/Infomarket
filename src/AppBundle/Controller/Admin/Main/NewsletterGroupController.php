@@ -3,17 +3,12 @@
 namespace AppBundle\Controller\Admin\Main;
 
 use AppBundle\Controller\Admin\Base\SimpleEntityController;
-use AppBundle\Entity\NewsletterUser;
-use AppBundle\Filter\Admin\Main\NewsletterUserFilter;
-use AppBundle\Form\Editor\Main\NewsletterUserEditorType;
-use AppBundle\Form\Filter\Admin\Main\NewsletterUserFilterType;
-use AppBundle\Manager\Entity\Base\EntityManager;
-use AppBundle\Manager\Entity\Common\NewsletterUserManager;
-use AppBundle\Manager\Filter\Base\FilterManager;
-use AppBundle\Manager\Params\EntryParams\Admin\NewsletterUserEntryParamsManager;
+use AppBundle\Entity\NewsletterGroup;
+use AppBundle\Form\Editor\Main\NewsletterGroupEditorType;
+use AppBundle\Manager\Entity\Common\NewsletterGroupManager;
 use Symfony\Component\HttpFoundation\Request;
 
-class NewsletterUserController extends SimpleEntityController {
+class NewsletterGroupController extends SimpleEntityController {
 	
 	//---------------------------------------------------------------------------
 	// Actions
@@ -153,16 +148,8 @@ class NewsletterUserController extends SimpleEntityController {
 	// Managers
 	//---------------------------------------------------------------------------
 	
-	protected function getInternalEntryParamsManager(EntityManager $em, FilterManager $fm, $doctrine) {
-		return new NewsletterUserEntryParamsManager($em, $fm, $doctrine);
-	}
-	
 	protected function getEntityManager($doctrine, $paginator) {
-		return new NewsletterUserManager($doctrine, $paginator);
-	}
-	
-	protected function getFilterManager($doctrine) {
-		return new FilterManager(new NewsletterUserFilter());
+		return new NewsletterGroupManager($doctrine, $paginator);
 	}
 	
 	//---------------------------------------------------------------------------
@@ -186,7 +173,7 @@ class NewsletterUserController extends SimpleEntityController {
 	 * @see \AppBundle\Controller\Admin\Base\SimpleEntityController::getEntityType()
 	 */
 	protected function getEntityType() {
-		return NewsletterUser::class;
+		return NewsletterGroup::class;
 	}
 	
 	
@@ -200,15 +187,6 @@ class NewsletterUserController extends SimpleEntityController {
 	 * @see \AppBundle\Controller\Admin\Base\SimpleEntityController::getFormType()
 	 */
 	protected function getEditorFormType() {
-		return NewsletterUserEditorType::class;
-	}
-	
-	/**
-	 * 
-	 * {@inheritDoc}
-	 * @see \AppBundle\Controller\Admin\Base\SimpleEntityController::getFilterFormType()
-	 */
-	protected function getFilterFormType() {
-		return NewsletterUserFilterType::class;
+		return NewsletterGroupEditorType::class;
 	}
 }

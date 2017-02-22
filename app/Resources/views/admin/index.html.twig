@@ -168,6 +168,11 @@
 									{{ 'title.newsletterUsers'|trans }}
 								</a>
 							</li>
+							<li>
+								<a href="{{ path(basePath ~ 'newsletter_group') }}">
+									{{ 'title.newsletterGroups'|trans }}
+								</a>
+							</li>
 							<li class="divider"></li>
 							<li>
 								<a href="{{ path(basePath ~ 'newsletter_page') }}">
@@ -188,6 +193,17 @@
 							<li>
 								<a href="{{ path(basePath ~ 'newsletter_block_template') }}">
 									{{ 'title.newsletterBlockTemplates'|trans }}
+								</a>
+							</li>
+							<li class="divider"></li>
+							<li>
+								<a href="{{ path(basePath ~ 'newsletter_user_newsletter_group_assignment') }}">
+									{{ 'title.newsletter_user_newsletter_group_assignments'|trans }}
+								</a>
+							</li>
+							<li>
+								<a href="{{ path(basePath ~ 'newsletter_user_newsletter_page_assignment') }}">
+									{{ 'title.newsletter_user_newsletter_page_assignments'|trans }}
 								</a>
 							</li>
 							<li class="divider"></li>

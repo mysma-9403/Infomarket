@@ -160,6 +160,14 @@
                 <source>title.newsletterUsers</source>
                 <target>Subskrybenci</target>
             </trans-unit>
+            <trans-unit id="title.newsletterGroup">
+                <source>title.newsletterGroup</source>
+                <target>Grupa subskrybentów</target>
+            </trans-unit>
+            <trans-unit id="title.newsletterGroups">
+                <source>title.newsletterGroups</source>
+                <target>Grupy subskrybentów</target>
+            </trans-unit>
             <trans-unit id="title.product">
                 <source>title.product</source>
                 <target>Produkt</target>
@@ -274,6 +282,14 @@
             <trans-unit id="title.newsletter_block_magazine_assignments">
                 <source>title.newsletter_block_magazine_assignments</source>
                 <target>Bloki newslettera - Magazyny</target>
+            </trans-unit>
+            <trans-unit id="title.newsletter_user_newsletter_group_assignments">
+                <source>title.newsletter_user_newsletter_group_assignments</source>
+                <target>Subskrybenci - Grupy subskrybentów</target>
+            </trans-unit>
+            <trans-unit id="title.newsletter_user_newsletter_page_assignments">
+                <source>title.newsletter_user_newsletter_page_assignments</source>
+                <target>Subskrybenci - Wysłane newslettery</target>
             </trans-unit>
             <trans-unit id="title.product_category_assignments">
                 <source>title.product_category_assignments</source>
@@ -1178,6 +1194,50 @@
                 <target>Szablon strony newslettera</target>
             </trans-unit>
             
+            <trans-unit id="label.newsletterPage.sendNewsletter.sources">
+                <source>label.newsletterPage.sendNewsletter.sources</source>
+                <target>Źródła subskrybentów</target>
+            </trans-unit>
+            <trans-unit id="label.newsletterPage.sendNewsletter.groups">
+                <source>label.newsletterPage.sendNewsletter.groups</source>
+                <target>Grupy subskrybentów</target>
+            </trans-unit>
+            <trans-unit id="label.newsletterPage.sendNewsletter.embedImages">
+                <source>label.newsletterPage.sendNewsletter.embedImages</source>
+                <target>Wstaw obrazki do treści newslettera</target>
+            </trans-unit>
+            <trans-unit id="label.newsletterPage.sendNewsletter.forceSend">
+                <source>label.newsletterPage.sendNewsletter.forceSend</source>
+                <target>Wymuś ponowne wysłanie</target>
+            </trans-unit>
+            
+            <trans-unit id="label.newsletterPage.sendNewsletter.settings">
+                <source>label.newsletterPage.sendNewsletter.settings</source>
+                <target>Ustawienia</target>
+            </trans-unit>
+            <trans-unit id="label.newsletterPage.sendNewsletter.recipients">
+                <source>label.newsletterPage.sendNewsletter.recipients</source>
+                <target>Odbiorcy</target>
+            </trans-unit>
+            
+            <trans-unit id="label.newsletterGroup">
+                <source>label.newsletterGroup</source>
+                <target>Grupa subskrybentów</target>
+            </trans-unit>
+            <trans-unit id="label.newsletterGroups">
+                <source>label.newsletterGroups</source>
+                <target>Grupy subskrybentów</target>
+            </trans-unit>
+            
+            <trans-unit id="label.newsletterUser">
+                <source>label.newsletterUser</source>
+                <target>Subskrybent</target>
+            </trans-unit>
+            <trans-unit id="label.newsletterUsers">
+                <source>label.newsletterUsers</source>
+                <target>Subskrybenci</target>
+            </trans-unit>
+            
             
             
             
@@ -1679,6 +1739,10 @@
                 <source>action.assignMenu</source>
                 <target>Przypisz menu</target>
             </trans-unit>
+            <trans-unit id="action.assign.newsletterGroup">
+                <source>action.assign.newsletterGroup</source>
+                <target>Przypisz grupę</target>
+            </trans-unit>
             <trans-unit id="action.assignProduct">
                 <source>action.assignProduct</source>
                 <target>Przypisz product</target>
@@ -1698,9 +1762,21 @@
             </trans-unit>
             
             
+            <trans-unit id="action.newsletterPage.preview">
+                <source>action.newsletterPage.preview</source>
+                <target>Podgląd</target>
+            </trans-unit>
             <trans-unit id="action.newsletterPage.showCode">
                 <source>action.newsletterPage.showCode</source>
                 <target>Pokaż kod wynikowy</target>
+            </trans-unit>
+            <trans-unit id="action.newsletterPage.saveFile">
+                <source>action.newsletterPage.saveFile</source>
+                <target>Zapisz do pliku</target>
+            </trans-unit>
+            <trans-unit id="action.newsletterPage.sendNewsletter">
+                <source>action.newsletterPage.sendNewsletter</source>
+                <target>Wyślij newsletter</target>
             </trans-unit>
             
             <trans-unit id="action.create.newsletterBlock">
@@ -1794,7 +1870,6 @@
             <trans-unit id="success.category.ratingsCleared">
                 <source>success.category.ratingsCleared</source>
                 <target>Rating produktów został pomyślnie wyczyszczony:
-                
                 	- Usunięte powiązania: %count%
                	</target>
             </trans-unit>
@@ -1802,8 +1877,16 @@
             <trans-unit id="success.product.unusedRemoved">
                 <source>success.product.unusedRemoved</source>
                 <target>Nieużywane produkty zostały pomyślnie usunięte:
-                
                 	- Usunięte produkty: %count%
+               	</target>
+            </trans-unit>
+            
+            <trans-unit id="success.newsletterPage.newsletterSent">
+                <source>success.newsletterPage.newsletterSent</source>
+                <target>Newsletter został pomyślnie wysłany:
+                	- Wysłany po raz pierwszy: %firstCount%
+                	- Wysłany ponownie: %secondCount%
+                	- Razem: %totalCount%
                	</target>
             </trans-unit>
             

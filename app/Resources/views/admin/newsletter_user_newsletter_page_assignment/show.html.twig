@@ -1,0 +1,15 @@
+{% extends 'admin/base/show.html.twig' %}
+
+{% set mainPath = 'newsletter_user_newsletter_page_assignment' %}
+{% set title = 'title.newsletter_user_newsletter_page_assignments'|trans %}
+{% set gender = '' %}
+
+{% block mainFields1 %}	
+	{% include 'common/fields/simple_field.html.twig' with 
+	{ 'label': 'label.newsletterUser', 'value': entry.newsletterUser,
+		'object': 'newsletter_user', 'routeId': entry.id } %}
+		
+	{% include 'common/fields/simple_field.html.twig' with 
+	{ 'label': 'label.newsletterGroup', 'value': entry.newsletterGroup,
+		'object': 'newsletter_page', 'routeId': entry.id } %}
+{% endblock %}

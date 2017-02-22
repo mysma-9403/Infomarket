@@ -1,0 +1,36 @@
+{% extends 'admin/simple/show.html.twig' %}
+
+{% set title = 'title.newsletterPages'|trans %}
+{% set mainPath = 'newsletter_page' %}
+
+{% block content %}
+	<div class="container">
+	
+		{% block errorsBlock %}
+			{% include 'common/errors.html.twig' %}
+		{% endblock %}
+		
+		{% block formBlock %}
+			{% form_theme sendNewsletterFilterForm 'form/fields.html.twig' %}
+		
+			<div class="row">
+				<div class="col-xs-12">
+				{{ form_start(sendNewsletterFilterForm) }}
+				
+				{{ form_row(sendNewsletterFilterForm.groups, { 'label': 'label.newsletterPage.sendNewsletter.groups' }) }}
+				{{ form_row(sendNewsletterFilterForm.embedImages, { 'label': 'label.newsletterPage.sendNewsletter.embedImages' }) }}
+				{{ form_row(sendNewsletterFilterForm.forceSend, { 'label': 'label.newsletterPage.sendNewsletter.forceSend' }) }}
+				
+				<a class="btn btn-primary" href="{{ path(basePath ~ mainPath ~ '_show', { id: entry.id }) }}">
+					<span class="fa fa-arrow-circle-o-left"></span> {{ 'action.back'|trans }}
+				</a>
+				
+				{{ form_widget(sendNewsletterFilterForm.submit, { 'icon': 'fa-send', 'label': 'action.submit', 'attr': {'class': 'btn btn-success'} }) }}
+				
+				{{ form_end(sendNewsletterFilterForm) }}
+				</div>
+			</div>
+		{% endblock %}
+		
+	</div>
+{% endblock %}
