@@ -175,11 +175,17 @@ services:
             - { name: form.type }
 
     # Others
-    app.benchmark.send_newsletter_filter:
+    app.form.send_newsletter_filter:
         class: AppBundle\Form\Filter\Admin\Other\SendNewsletterFilterType
         arguments: ["@doctrine.orm.entity_manager"]
         tags:
-            - { name: form.type }            
+            - { name: form.type }      
+            
+    app.form.import_newsletter_users:
+        class: AppBundle\Form\Other\ImportNewsletterUsersType
+        arguments: ["@doctrine.orm.entity_manager"]
+        tags:
+            - { name: form.type }      
             
     # Benchmark        
     app.benchmark.category_filter:

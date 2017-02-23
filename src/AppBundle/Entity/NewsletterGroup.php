@@ -9,7 +9,9 @@ use AppBundle\Entity\Base\SimpleEntity;
  */
 class NewsletterGroup extends SimpleEntity
 {
-
+	const INFOMARKET_GROUP = 1;
+	const INFOPRODUKT_GROUP = 2;
+	
     /**
      * @var \Doctrine\Common\Collections\Collection
      */

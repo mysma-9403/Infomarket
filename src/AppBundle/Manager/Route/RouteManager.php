@@ -19,8 +19,10 @@ class RouteManager {
 		if($currRoute != null) {
 			$session->set('last_route', $currRoute);
 		}
-		 
-		$session->set('curr_route', !$this->isRestricted($newRoute) ? $newRoute : null);
+		
+		if(!$this->isRestricted($newRoute)) {
+			$session->set('curr_route', $newRoute);
+		}
 	}
 	
 	public function remove(Request $request, $id) {
@@ -77,15 +79,21 @@ class RouteManager {
 	}
 	
 	protected function isRestricted($newRoute) {
-		if(strpos($newRoute['route'], '_new') !== false) {
+		$route = $newRoute['route'];
+		$size = strlen($route);
+		
+		$ending = substr($route, $size - 4, 4);
+		if($ending == '_new') {
 			return true;
 		}
-		 
-		if(strpos($newRoute['route'], '_copy') !== false) {
+		
+		$ending = substr($route, $size - 5, 5);
+		if($ending == '_copy') {
 			return true;
 		}
-		 
-		if(strpos($newRoute['route'], '_delete') !== false) {
+		
+		$ending = substr($route, $size - 7, 7);
+		if($ending == '_delete') {
 			return true;
 		}
 	
@@ -94,7 +102,8 @@ class RouteManager {
 	
 	public function getLastRoute(Request $request, $template) {
 		//TODO route stacks
-		return $request->getSession()->get('curr_route', $template);
+		$currRoute = $request->getSession()->get('curr_route', $template);
+		return $currRoute;
 	}
 	
 	public function removeLastRoute(Request $request) {

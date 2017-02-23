@@ -595,7 +595,9 @@ class CategoryController extends ImageEntityController {
 		$entries = array();
 		
 		foreach ($preparedEntries as $preparedEntry) {
-			$entries[] = $this->getDataBaseEntry($preparedEntry);
+			if(!$preparedEntry['duplicate']) {
+				$entries[] = $this->getDataBaseEntry($preparedEntry);
+			}
 		}
 		
 		return $entries;

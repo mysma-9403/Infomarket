@@ -15,7 +15,7 @@ class ImportRatingsType extends BaseEntityEditorType
 	protected function addMainFields(FormBuilderInterface $builder, array $options) {
 		$builder
 			->add('importFile', ElFinderType::class, array(
-					'instance'=>'csv',
+					'instance'=>'ratings',
 					'required' => true
 			))
 			;

@@ -15,6 +15,8 @@ use AppBundle\Manager\Params\Infoprodukt\MenuParamsManager;
 use AppBundle\Manager\Route\RouteManager;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Entity\NewsletterGroup;
+use AppBundle\Entity\NewsletterUserNewsletterGroupAssignment;
 
 abstract class InfoproduktController extends StandardController
 {	
@@ -203,6 +205,15 @@ abstract class InfoproduktController extends StandardController
 			$entry->setSubscribed(true);
 			
 			$em->persist($entry);
+			$em->flush();
+			
+			$group = $em->getReference(NewsletterGroup::class, NewsletterGroup::INFOPRODUKT_GROUP);
+				
+			$groupAssignment = new NewsletterUserNewsletterGroupAssignment();
+			$groupAssignment->setNewsletterUser($entry);
+			$groupAssignment->setNewsletterGroup($group);
+				
+			$em->persist($groupAssignment);
 			$em->flush();
 		}
 		

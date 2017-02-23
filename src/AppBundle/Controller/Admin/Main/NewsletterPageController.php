@@ -21,7 +21,6 @@ use AppBundle\Repository\Admin\Main\NewsletterUserRepository;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\StreamedResponse;
-use Cache\Adapter\Common\Exception\InvalidArgumentException;
 
 class NewsletterPageController extends SimpleEntityController {
 	

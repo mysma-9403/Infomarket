@@ -1,0 +1,44 @@
+{% extends 'admin/index.html.twig' %}
+
+{% set mainPath = 'newsletter_user' %}
+{% set title = 'title.newsletterUsers'|trans  %}
+
+{% block content %}
+	
+	<div class="container">
+		{% set hidden='hidden' %}
+		{% if is_granted('ROLE_ADMIN') %}
+			{% set hidden="" %}
+		{% endif %}
+		
+		<div class="row {{ hidden }}">
+			<div class="col-xs-12">
+				{% form_theme importForm 'form/fields.html.twig' %}
+									
+				{{ form_start(importForm) }}
+				
+					{{ form_row(importForm.importFile, { 'label': 'label.newsletterUser.import.importFile' }) }}
+					{{ form_row(importForm.newsletterGroups, { 'label': 'label.newsletterUser.import.newsletterGroups' }) }}
+					
+					{{ form_widget(importForm.submit, { 'icon': 'fa-upload', 'label': 'action.newsletterUser.import.submit', 'attr': { 'class': 'btn-success' }  }) }}
+					<a type="button" class="btn btn-primary" href="{{ path(basePath ~ mainPath) }}">
+						<i class="fa fa-close"></i> {{ 'action.back'|trans }}
+					</a>
+				
+				{{ form_end(importForm) }}
+			</div>
+		</div>
+		
+		<div class="lowered-25"></div>
+		
+		<div class="row">
+			<div class="col-xs-12">
+				{% block errorsBlock %}
+					{% include 'common/errors.html.twig' %}
+				{% endblock %}
+			</div>
+		</div>
+		
+	</div>
+		
+{% endblock %}

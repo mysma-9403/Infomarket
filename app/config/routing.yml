@@ -1228,6 +1228,10 @@ admin_newsletter_user_set_ip_published:
 admin_newsletter_user_set_subscribed:
     path:      /admin/newsletter_users/set_subscribed/{id}
     defaults:  { _controller: "AppBundle:Admin/Main/NewsletterUser:setSubscribed" }
+    
+admin_newsletter_user_import:
+    path:      /admin/newsletter-users/import
+    defaults:  { _controller: "AppBundle:Admin/Main/NewsletterUser:import" }
         
 admin_newsletter_user:
     path:      /admin/newsletter_users/{page}

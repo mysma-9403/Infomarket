@@ -214,6 +214,7 @@ abstract class AdminController extends StandardController {
 		$rm = $this->getRouteManager();
 		$rm->remove($request, $id);
 		$lastRoute = $rm->getLastRoute($request, ['route' => $this->getIndexRoute(), 'routeParams' => array()]);
+		
 		return $this->redirectToRoute($lastRoute['route'], $lastRoute['routeParams']);
 	}
 	

@@ -1238,6 +1238,19 @@
                 <target>Subskrybenci</target>
             </trans-unit>
             
+            <trans-unit id="label.newsletterUser.import">
+                <source>label.newsletterUser.import</source>
+                <target>Import subskrybentów</target>
+            </trans-unit>
+            <trans-unit id="label.newsletterUser.import.importFile">
+                <source>label.newsletterUser.import.importFile</source>
+                <target>Importowany plik</target>
+            </trans-unit>
+            <trans-unit id="label.newsletterUser.import.newsletterGroups">
+                <source>label.newsletterUser.import.newsletterGroups</source>
+                <target>Przypisz do grup</target>
+            </trans-unit>
+            
             
             
             
@@ -1784,6 +1797,11 @@
                 <target>Dodaj nowy blok newslettera</target>
             </trans-unit>
             
+            <trans-unit id="action.newsletterUser.import.submit">
+                <source>action.newsletterUser.import.submit</source>
+                <target>Importuj</target>
+            </trans-unit>
+            
             
             
             
@@ -1890,6 +1908,25 @@
                	</target>
             </trans-unit>
             
+            <trans-unit id="success.newsletterUser.import">
+                <source>success.newsletterUser.import</source>
+                <target>Lista użytkowników została pomyślnie zaimportowana:
+                
+                	- Przetworzone wiersze: %lines% 
+                	
+                	- Użytkownicy:
+                	-- dodane: %createdItems% 
+                	-- zmienione: %updatedItems%
+                	-- duplikaty: %duplicateItems%  
+                	-- wszystkie: %allItems%
+                	
+                	- Przypisania do grup:
+                	-- dodane: %createdAssignments%
+                	-- zmienione: %updatedAssignments%
+                	-- wszystkie: %allAssignments%
+               	</target>
+            </trans-unit>
+            
             
             
             
@@ -1946,6 +1983,28 @@
             <trans-unit id="error.importRatings.product.sameCategory">
                 <source>error.importRatings.product.sameCategory</source>
                 <target>Produkt "%brandName% %productName%" jest przypisany do kategorii "%categoryName% %categorySubname%" więcej niż raz.</target>
+            </trans-unit>
+            
+            
+            
+            
+            <trans-unit id="error.import.lineNumber">
+                <source>error.import.lineNumber</source>
+                <target>Wiersz %number%: </target>
+            </trans-unit>
+            
+            <trans-unit id="error.import.lineNumbers">
+                <source>error.import.lineNumbers</source>
+                <target>Wiersze %prevNumber% i %nextNumber%: </target>
+            </trans-unit>
+            
+            <trans-unit id="error.newsletterUser.import.inconsistentData">
+                <source>error.newsletterUser.import.inconsistentData</source>
+                <target>Wykryto sprzeczne dane dla adresu %mail%.</target>
+            </trans-unit>
+            <trans-unit id="error.newsletterUser.import.saveFailed">
+                <source>error.newsletterUser.import.saveFailed</source>
+                <target>Subskrybent %name% nie został poprawnie zapisany.</target>
             </trans-unit>
             
             

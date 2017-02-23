@@ -15,6 +15,9 @@ use AppBundle\Manager\Params\Infomarket\MenuParamsManager;
 use AppBundle\Manager\Route\RouteManager;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Entity\NewsletterUserNewsletterGroupAssignment;
+use Doctrine\Common\Persistence\ObjectManager;
+use AppBundle\Entity\NewsletterGroup;
 
 abstract class InfomarketController extends StandardController
 {
@@ -185,6 +188,7 @@ abstract class InfomarketController extends StandardController
 	// Internal logic
 	//---------------------------------------------------------------------------
 	protected function subscribe($entry) {
+		/** @var ObjectManager $em */
 		$em = $this->getDoctrine()->getManager();
 	
 		$repository = $this->getDoctrine()->getRepository(NewsletterUser::class);
@@ -202,6 +206,15 @@ abstract class InfomarketController extends StandardController
 			$entry->setSubscribed(true);
 	
 			$em->persist($entry);
+			$em->flush();
+			
+			$group = $em->getReference(NewsletterGroup::class, NewsletterGroup::INFOMARKET_GROUP);
+			
+			$groupAssignment = new NewsletterUserNewsletterGroupAssignment();
+			$groupAssignment->setNewsletterUser($entry);
+			$groupAssignment->setNewsletterGroup($group);
+			
+			$em->persist($groupAssignment);
 			$em->flush();
 		}
 	
