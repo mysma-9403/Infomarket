@@ -10,6 +10,10 @@
         
         <many-to-one field="newsletterUser" target-entity="NewsletterUser" nullable="false" inversed-by="newsletterUserNewsletterPageAssignments" />
         <many-to-one field="newsletterPage" target-entity="NewsletterPage" nullable="false" inversed-by="newsletterUserNewsletterPageAssignments" />
+        
+        <field name="state" type="integer" nullable="false" />
+        
+        <field name="embedImages" type="boolean" nullable="false" />
     </entity>
     
 </doctrine-mapping>

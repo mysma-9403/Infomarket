@@ -13,7 +13,7 @@
 		<h3>{{ 'label.newsletterPage.sendNewsletter.settings'|trans }}</h3>
 			
 		{% include 'common/fields/text_field.html.twig' with 
-			{ 'label': 'label.newsletterPage.sendNewsletter.groups', 'value': sendNewsletterFilter.groups|join(', ') } %}
+			{ 'label': 'label.newsletterPage.sendNewsletter.groups', 'value': sendNewsletterFilter.newsletterGroups|join(', ') } %}
 			
 		{% include 'common/fields/bool_field.html.twig' with 
 			{ 'label': 'label.newsletterPage.sendNewsletter.embedImages', 'value': sendNewsletterFilter.embedImages } %}

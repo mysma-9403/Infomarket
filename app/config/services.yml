@@ -10,6 +10,29 @@ services:
 #        class: AppBundle\Directory\ClassName
 #        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]
     
+    
+    # Validators
+    validator.node.is_article_tag_assignment_unique:
+        class: AppBundle\Validator\Constraints\IsArticleTagAssignmentUniqueValidator
+        arguments: ['@doctrine']
+        tags:
+            - { name: validator.constraint_validator, alias: is_article_tag_assignment_unique }
+            
+            
+    # Voters 
+    app.user_voter:
+        class: AppBundle\Security\Base\UserVoter
+        tags:
+            - { name: security.voter }
+        public: false
+    
+    # Twig extensions    
+    twig.extension.value_sets:
+        class: AppBundle\Twig\Extension\ValueSetsExtension
+        tags:
+            - { name: 'twig.extension' }
+        
+    # Form extensions          
     form_extension.form_icon:
         class: AppBundle\Form\Extension\FormTypeIconExtension
         tags:
@@ -20,32 +43,14 @@ services:
             - { name: form.type_extension, extended_type: Symfony\Component\Form\Extension\Core\Type\ButtonType }
             
             
-            
+    # Forms        
     app.form.registration:
         class: AppBundle\Form\Registration\UserRegistrationType
         tags:
             - { name: form.type, alias: app_user_registration }
             
             
-            
-    validator.node.is_article_tag_assignment_unique:
-        class: AppBundle\Validator\Constraints\IsArticleTagAssignmentUniqueValidator
-        arguments: ['@doctrine']
-        tags:
-            - { name: validator.constraint_validator, alias: is_article_tag_assignment_unique }
-            
-            
-            
-    app.user_voter:
-        class: AppBundle\Security\Base\UserVoter
-        tags:
-            - { name: security.voter }
-        public: false
-        
-        services:
-            
-            
-    
+    # Editors
     app.form.editor.advert_category_assignment:
         class: AppBundle\Form\Editor\Assignments\AdvertCategoryAssignmentEditorType
         arguments: ["@doctrine.orm.entity_manager"]

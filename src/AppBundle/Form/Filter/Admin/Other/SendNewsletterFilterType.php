@@ -35,7 +35,7 @@ class SendNewsletterFilterType extends BaseType
 		$groups = $groupRepository->findFilterItems();
 		
 		$builder
-		->add('groups', ChoiceType::class, array(
+		->add('newsletterGroups', ChoiceType::class, array(
 				'choices'		=> $groups,
 				'choice_label' => function ($value, $key, $index) { return FormUtils::getListLabel($value, $key, $index); },
 				'choice_translation_domain' => false,

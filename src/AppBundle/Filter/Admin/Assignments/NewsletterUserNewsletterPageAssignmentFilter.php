@@ -21,6 +21,12 @@ class NewsletterUserNewsletterPageAssignmentFilter extends AuditFilter {
 	 */
 	protected $newsletterPages = array();
 	
+	/**
+	 *
+	 * @var array
+	 */
+	protected $states = array();
+	
 	
 	
 	public function initRequestValues(Request $request) {
@@ -28,6 +34,8 @@ class NewsletterUserNewsletterPageAssignmentFilter extends AuditFilter {
 	
 		$this->newsletterUsers = $this->getRequestArray($request, 'newsletter_blocks');
 		$this->newsletterPages = $this->getRequestArray($request, 'newsletter_groups');
+		
+		$this->states = $this->getRequestArray($request, 'states');
 	}
 	
 	public function clearRequestValues() {
@@ -35,6 +43,8 @@ class NewsletterUserNewsletterPageAssignmentFilter extends AuditFilter {
 	
 		$this->newsletterUsers = array();
 		$this->newsletterPages = array();
+		
+		$this->states = array();
 	}
 	
 	public function getRequestValues() {
@@ -42,6 +52,8 @@ class NewsletterUserNewsletterPageAssignmentFilter extends AuditFilter {
 	
 		$this->setRequestArray($values, 'newsletter_blocks', $this->newsletterUsers);
 		$this->setRequestArray($values, 'newsletter_groups', $this->newsletterPages);
+		
+		$this->setRequestArray($values, 'states', $this->states);
 		
 		return $values;
 	}
@@ -92,5 +104,29 @@ class NewsletterUserNewsletterPageAssignmentFilter extends AuditFilter {
 	public function getNewsletterPages()
 	{
 		return $this->newsletterPages;
+	}
+	
+	/**
+	 * Set states
+	 *
+	 * @param array $states
+	 *
+	 * @return NewsletterUserNewsletterPageAssignmentFilter
+	 */
+	public function setStates($states)
+	{
+		$this->states = $states;
+	
+		return $this;
+	}
+	
+	/**
+	 * Get newsletterUser states
+	 *
+	 * @return array
+	 */
+	public function getStates()
+	{
+		return $this->states;
 	}
 }

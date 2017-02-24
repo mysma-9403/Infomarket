@@ -9,6 +9,7 @@ use AppBundle\Filter\Base\Filter;
 use AppBundle\Repository\Admin\Base\AuditRepository;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\ORM\Query\Expr\Join;
+use AppBundle\Filter\Admin\Assignments\NewsletterUserNewsletterPageAssignmentFilter;
 
 class NewsletterUserNewsletterPageAssignmentRepository extends AuditRepository
 {
@@ -20,6 +21,8 @@ class NewsletterUserNewsletterPageAssignmentRepository extends AuditRepository
 	
 		$fields[] = 'np.id AS newsletterPageId';
 		$fields[] = 'np.name AS newsletterPageName';
+		
+		$fields[] = 'e.state';
 	
 		return $fields;
 	}
@@ -41,6 +44,10 @@ class NewsletterUserNewsletterPageAssignmentRepository extends AuditRepository
 	
 		if(count($filter->getNewsletterPages()) > 0) {
 			$where->add($builder->expr()->in('e.newsletterPage', $filter->getNewsletterPages()));
+		}
+		
+		if(count($filter->getStates()) > 0) {
+			$where->add($builder->expr()->in('e.state', $filter->getStates()));
 		}
 	
 		return $where;

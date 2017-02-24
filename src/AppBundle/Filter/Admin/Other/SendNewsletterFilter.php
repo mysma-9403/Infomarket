@@ -12,7 +12,13 @@ class SendNewsletterFilter extends Filter {
 	 *
 	 * @var array
 	 */
-	protected $groups = array();
+	protected $newsletterGroups = array();
+	
+	/**
+	 *
+	 * @var integer
+	 */
+	protected $newsletterPage = null;
 	
 	/**
 	 * @var bool
@@ -24,10 +30,18 @@ class SendNewsletterFilter extends Filter {
 	 */
 	protected $forceSend = false;
 	
+	
+	
+	public function  initContextParams(array $contextParams) {
+		if(key_exists('newsletterPage', $contextParams)) {
+			$this->newsletterPage = $contextParams['newsletterPage'];
+		}
+	}
+	
 	public function initRequestValues(Request $request) {
 		parent::initRequestValues($request);
 		
-		$this->groups = $this->getRequestArray($request, 'groups');
+		$this->newsletterGroups = $this->getRequestArray($request, 'newsletterGroups');
 		
 		$this->embedImages = $this->getRequestSimpleBool($request, 'embed_images');
 		$this->forceSend = $this->getRequestSimpleBool($request, 'force_send');
@@ -36,7 +50,7 @@ class SendNewsletterFilter extends Filter {
 	public function clearRequestValues() {
 		parent::clearRequestValues();
 		
-		$this->groups = array();
+		$this->newsletterGroups = array();
 		
 		$this->embedImages = false;
 		$this->forceSend = false;
@@ -45,7 +59,7 @@ class SendNewsletterFilter extends Filter {
 	public function getRequestValues() {
 		$values = parent::getRequestValues();
 		
-		$this->setRequestArray($values, 'groups', $this->groups);
+		$this->setRequestArray($values, 'newsletterGroups', $this->newsletterGroups);
 		
 		$this->setRequestValue($values, 'embed_images', $this->embedImages);
 		$this->setRequestValue($values, 'force_send', $this->forceSend);
@@ -54,27 +68,51 @@ class SendNewsletterFilter extends Filter {
 	}
 	
 	/**
-	 * Set article groups
+	 * Set article newsletterGroups
 	 *
-	 * @param array $articleGroups
+	 * @param array $articleNewsletterGroups
 	 *
 	 * @return SendNewsletterFilter
 	 */
-	public function setGroups($groups)
+	public function setNewsletterGroups($newsletterGroups)
 	{
-		$this->groups = $groups;
+		$this->newsletterGroups = $newsletterGroups;
 	
 		return $this;
 	}
 	
 	/**
-	 * Get article groups
+	 * Get article newsletterGroups
 	 *
 	 * @return array
 	 */
-	public function getGroups()
+	public function getNewsletterGroups()
 	{
-		return $this->groups;
+		return $this->newsletterGroups;
+	}
+	
+	/**
+	 * Set newsletterPage
+	 *
+	 * @param integer $newsletterPage
+	 *
+	 * @return Advert
+	 */
+	public function setNewsletterPage($newsletterPage)
+	{
+		$this->newsletterPage = $newsletterPage;
+	
+		return $this;
+	}
+	
+	/**
+	 * Get newsletterPage
+	 *
+	 * @return integer
+	 */
+	public function getNewsletterPage()
+	{
+		return $this->newsletterPage;
 	}
 	
 	/**

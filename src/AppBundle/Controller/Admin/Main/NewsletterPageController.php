@@ -21,6 +21,9 @@ use AppBundle\Repository\Admin\Main\NewsletterUserRepository;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\StreamedResponse;
+use Symfony\Component\Process\Process;
+use Symfony\Component\Filesystem\Filesystem;
+use AppBundle\Utils\ClassUtils;
 
 class NewsletterPageController extends SimpleEntityController {
 	
@@ -289,101 +292,80 @@ class NewsletterPageController extends SimpleEntityController {
 		$sendNewsletterFilter = $viewParams['sendNewsletterFilter'];
 		
 		$recipients = $viewParams['recipients'];
-		$bcc = array();
 		$bccIds = array();
 		foreach($recipients as $recipient) {
-			$bcc[] = $recipient['name'];
 			$bccIds[] = $recipient['id'];
 		}
 		
-		//get existing assignments
-		/** @var ObjectManager $em */
-		$em = $this->getDoctrine()->getManager();
-		$newsletterUserRepository = new NewsletterUserRepository($em, $em->getClassMetadata(NewsletterUser::class));
-		$secondTimeRecipientsIds = $newsletterUserRepository->findItemsIdsByNewsletterPage($bccIds, $id);
-		
-		//remove second timers
-		if(!$sendNewsletterFilter->getForceSend()) {
-			foreach ($secondTimeRecipientsIds as $secondTimeRecipientId) {
-				if(($key = array_search($secondTimeRecipientId, $bccIds)) !== false) {
-					unset($bccIds[$key]);
-					unset($bcc[$key]);
-				}	
-			}
-			
-			$secondCount = 0;
-		} else {
-			$secondCount = count($secondTimeRecipientsIds);
-		}
-		
-		$totalCount = count($bcc);
-		$firstCount = $totalCount - $secondCount;
-		
-		$sender = $this->container->getParameter('newsletter_sender');
-		$recipient = $this->container->getParameter('newsletter_recipient');
-		
-		//send
-		$message = \Swift_Message::newInstance()
-		->setSubject('Newsletter send test')
-		->setFrom($sender, 'InfoMarket')
-		->setTo($recipient, 'InfoMarket')
-		->setBcc($bcc);
-		
-		//embed images
-		$body = $entry->getNewsletterCode();
-		
+		//validate newsletters' body / images
 		if($sendNewsletterFilter->getEmbedImages()) {
-			$newBody = $body;
+			$body = $entry->getNewsletterCode();
+			$fs = new Filesystem();
+			
+			$translator = $this->get('translator');
+			
+			$errors = array();
 			
 			while(true) {
 				$index = strpos($body, 'src="http://infomarket.edu.pl');
 				if($index == false) break;
-				
+			
 				$body = substr($body, $index+5);
-				
+			
 				$index = strpos($body, '"');
 				if($index == false) break;
-				
+			
 				$path = substr($body, 0, $index);
 				$body = substr($body, $index+1);
 				
-				$filePath = str_replace('http://infomarket.edu.pl/', '../web/', $path);
-				$embededPath = $message->embed(\Swift_Image::fromPath($filePath));
-				$newBody = str_replace($path, $embededPath, $newBody);
+				$filePath = str_replace('http://infomarket.edu.pl/', 'web/', $path);
+				
+				if(!ClassUtils::isStringValid($filePath)) {
+					$msg = $translator->trans('error.newsletterPage.sendNewsletter.invalidImagePath');
+					$msg = str_replace('%imagePath%', $filePath, $msg);
+					$errors[] = $msg;
+				}
+				
+				if(!$fs->exists('../' . $filePath)) {
+					$msg = $translator->trans('error.newsletterPage.sendNewsletter.imageNotFound');
+					$msg = str_replace('%imagePath%', $filePath, $msg);
+					$errors[] = $msg;
+				}
+				
 				$body = str_replace($path, '', $body);
 			}
 			
-			$body = $newBody;
+			if(count($errors) > 0) {
+				foreach ($errors as $error) {
+					$this->addFlash('error', $error);
+				}
+				return $this->redirectToReferer($request);
+			}
 		}
 		
-		$message->setBody($body, 'text/html');
-	
-		$this->get('mailer')->send($message);
-		
 		//insert assignments
+		/** @var ObjectManager $em */
+		$em = $this->getDoctrine()->getManager();
+		
 		foreach ($bccIds as $bccId) {
-			if(array_search($bccId, $secondTimeRecipientsIds) === false) {
-				$assignment = new NewsletterUserNewsletterPageAssignment();
-				$assignment->setNewsletterUser($em->getReference(NewsletterUser::class, $bccId));
-				$assignment->setNewsletterPage($em->getReference(NewsletterPage::class, $id));
-				
-				$em->persist($assignment);
-			}
+			$assignment = new NewsletterUserNewsletterPageAssignment();
+			$assignment->setNewsletterUser($em->getReference(NewsletterUser::class, $bccId));
+			$assignment->setNewsletterPage($em->getReference(NewsletterPage::class, $id));
+			$assignment->setState(NewsletterUserNewsletterPageAssignment::WAITING_STATE);
+			$assignment->setEmbedImages($sendNewsletterFilter->getEmbedImages());
+			
+			$em->persist($assignment);
 		}
 		
 		$em->flush();
 		
 		//success message
-		
-		
 		$translator = $this->get('translator');
 			
 		$msg = $translator->trans('success.newsletterPage.newsletterSent');
 		$msg = nl2br($msg);
-			
-		$msg = str_replace('%firstCount%', $firstCount, $msg);
-		$msg = str_replace('%secondCount%', $secondCount, $msg);
-		$msg = str_replace('%totalCount%', $totalCount, $msg);
+		
+		$msg = str_replace('%count%', count($bccIds), $msg);
 		$this->addFlash('success', $msg);
 	
 		return $this->redirectToReferer($request);

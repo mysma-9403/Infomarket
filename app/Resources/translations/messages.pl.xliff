@@ -1251,6 +1251,27 @@
                 <target>Przypisz do grup</target>
             </trans-unit>
             
+            <trans-unit id="label.newsletterUserNewsletterPageAssignment.state">
+                <source>label.newsletterUserNewsletterPageAssignment.state</source>
+                <target>Status wysłania</target>
+            </trans-unit>
+            <trans-unit id="label.newsletterUserNewsletterPageAssignment.state.waiting">
+                <source>label.newsletterUserNewsletterPageAssignment.state.waiting</source>
+                <target>Czeka na wysłanie</target>
+            </trans-unit>
+            <trans-unit id="label.newsletterUserNewsletterPageAssignment.state.sending">
+                <source>label.newsletterUserNewsletterPageAssignment.state.sending</source>
+                <target>W trakcie wysyłania</target>
+            </trans-unit>
+            <trans-unit id="label.newsletterUserNewsletterPageAssignment.state.sent">
+                <source>label.newsletterUserNewsletterPageAssignment.state.sent</source>
+                <target>Wysłane poprawnie</target>
+            </trans-unit>
+            <trans-unit id="label.newsletterUserNewsletterPageAssignment.state.error">
+                <source>label.newsletterUserNewsletterPageAssignment.state.error</source>
+                <target>Błąd wysyłania</target>
+            </trans-unit>
+            
             
             
             
@@ -1901,10 +1922,7 @@
             
             <trans-unit id="success.newsletterPage.newsletterSent">
                 <source>success.newsletterPage.newsletterSent</source>
-                <target>Newsletter został pomyślnie wysłany:
-                	- Wysłany po raz pierwszy: %firstCount%
-                	- Wysłany ponownie: %secondCount%
-                	- Razem: %totalCount%
+                <target>Newsletter został pomyślnie zweryfikowany. Trwa wysyłanie %count% wiadomości.
                	</target>
             </trans-unit>
             
@@ -2005,6 +2023,15 @@
             <trans-unit id="error.newsletterUser.import.saveFailed">
                 <source>error.newsletterUser.import.saveFailed</source>
                 <target>Subskrybent %name% nie został poprawnie zapisany.</target>
+            </trans-unit>
+            
+            <trans-unit id="error.newsletterPage.sendNewsletter.invalidImagePath">
+                <source>error.newsletterPage.sendNewsletter.invalidImagePath</source>
+                <target>Ścieżka do zdjęcia '%imagePath%' zawiera niedozwolone znaki.</target>
+            </trans-unit>
+            <trans-unit id="error.newsletterPage.sendNewsletter.imageNotFound">
+                <source>error.newsletterPage.sendNewsletter.imageNotFound</source>
+                <target>Nie można odnaleźć zdjęcia '%imagePath%'.</target>
             </trans-unit>
             
             

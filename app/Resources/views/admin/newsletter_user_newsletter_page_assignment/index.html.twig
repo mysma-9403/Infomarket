@@ -12,11 +12,9 @@
 	<li class="col-xs-12 col-sm-6 col-md-4 col-lg-2">
 		{{ form_widget(filter.newsletterPages, { 'label': 'label.newsletterPages' }) }}
 	</li>
-{% endblock %}
-
-{% block headerMainFields1 %}
-	<th><i class="fa fa-"></i> {{ 'label.newsletterUser'|trans }}</th>
-	<th><i class="fa fa-"></i> {{ 'label.newsletterPage'|trans }}</th>
+	<li class="col-xs-12 col-sm-6 col-md-4 col-lg-2">
+		{{ form_widget(filter.states, { 'label': 'label.newsletterUserNewsletterPageAssginment.state' }) }}
+	</li>
 {% endblock %}
 
 {% block headerActions %}
@@ -48,12 +46,21 @@
 	{% endblock %}
 {% endblock %}
 
+{% block headerMainFields1 %}
+	<th><i class="fa fa-"></i> {{ 'label.newsletterUser'|trans }}</th>
+	<th><i class="fa fa-"></i> {{ 'label.newsletterPage'|trans }}</th>
+	<th><i class="fa fa-"></i> {{ 'label.newsletterUserNewsletterPageAssignment.state'|trans }}</th>
+{% endblock %}
+
 {% block entryMainFields1 %}
 	<td>
 		{% include 'common/links/simple_link.html.twig' with { type: 'newsletter_user', value: { id: item.newsletterUserId, name: item.newsletterUserName } } %}
 	</td>
 	<td>
 		{% include 'common/links/simple_link.html.twig' with { type: 'newsletter_page', value: { id: item.newsletterPageId, name: item.newsletterPageName } } %}
+	</td>
+	<td>
+		{{ newsletterUserNewsletterPageAssignmentStateName(item.state)|trans }}
 	</td>
 {% endblock %}
 

@@ -32,6 +32,9 @@ class NewsletterPageEntryParamsManager extends EntryParamsManager {
 		$contextParams = $params['contextParams'];
 		$viewParams = $params['viewParams'];
 		
+		$entry = $viewParams['entry'];
+		$contextParams['newsletterPage'] = $entry->getId();
+		
 		$sendNewsletterFilter = new SendNewsletterFilter();
 		$sendNewsletterFilter->initContextParams($contextParams);
 		$sendNewsletterFilter->initRequestValues($request);

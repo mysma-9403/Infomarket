@@ -30,7 +30,6 @@
 	<buildpathentry kind="src" path="vendor/gedmo/doctrine-extensions/lib"/>
 	<buildpathentry kind="src" path="vendor/robloach/component-installer/src"/>
 	<buildpathentry kind="src" path="vendor/doctrine/orm/lib"/>
-	<buildpathentry kind="src" path="vendor/pugx/multi-user-bundle"/>
 	<buildpathentry kind="src" path="vendor/doctrine/lexer/lib"/>
 	<buildpathentry kind="src" path="vendor/guzzlehttp/psr7/src"/>
 	<buildpathentry kind="src" path="vendor/knplabs/knp-paginator-bundle"/>
