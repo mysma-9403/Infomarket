@@ -89,9 +89,8 @@ class SendNewsletterCommand extends ContainerAwareCommand
 		
 						$path = substr($body, 0, $index);
 						$body = substr($body, $index+1);
-		
-						$filePath = str_replace('http://infomarket.edu.pl/', 'web/', $path);
-						$embededPath = $message->embed(\Swift_Image::fromPath($filePath));
+						
+						$embededPath = $message->embed(\Swift_Image::fromPath($path));
 						$newBody = str_replace($path, $embededPath, $newBody);
 						$body = str_replace($path, '', $body);
 					}
