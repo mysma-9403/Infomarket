@@ -35,7 +35,7 @@ class SendNewsletterCommand extends ContainerAwareCommand
 		$container = $this->getContainer();
 		
 		$doctrine = $container->get('doctrine');
-		$sender = $container->getParameter('newsletter_sender');
+		$sender = $container->getParameter('mailer_user');
 		
 		/** @var \Swift_Mailer $mailer */
 		$mailer = $container->get('mailer');
@@ -61,13 +61,16 @@ class SendNewsletterCommand extends ContainerAwareCommand
 				$em->persist($assignment);
 				$em->flush();
 				
+				$user = $assignment->getNewsletterUser();
+				$page = $assignment->getNewsletterPage();
+				
 				$start = new \DateTime();
 				
 				//create message
 				$message = \Swift_Message::newInstance()
-				->setSubject('Newsletter send test')
+				->setSubject($page->getDisplayName())
 				->setFrom($sender, 'InfoMarket')
-				->setTo($assignment->getNewsletterUser()->getName());
+				->setTo($user->getName());
 		
 				//embed images
 				$body = $assignment->getNewsletterPage()->getNewsletterCode();
