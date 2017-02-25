@@ -155,4 +155,33 @@ class NewsletterUserNewsletterPageAssignment extends Audit
     {
         return $this->embedImages;
     }
+    /**
+     * @var \DateTime
+     */
+    private $processingTime;
+
+
+    /**
+     * Set processingTime
+     *
+     * @param \DateTime $processingTime
+     *
+     * @return NewsletterUserNewsletterPageAssignment
+     */
+    public function setProcessingTime($processingTime)
+    {
+        $this->processingTime = $processingTime;
+
+        return $this;
+    }
+
+    /**
+     * Get processingTime
+     *
+     * @return \DateTime
+     */
+    public function getProcessingTime()
+    {
+        return $this->processingTime;
+    }
 }

@@ -1272,6 +1272,11 @@
                 <target>Błąd wysyłania</target>
             </trans-unit>
             
+            <trans-unit id="label.newsletterUserNewsletterPageAssignment.processingTime">
+                <source>label.newsletterUserNewsletterPageAssignment.processingTime</source>
+                <target>Czas wysyłania</target>
+            </trans-unit>
+            
             
             
             
@@ -1957,6 +1962,11 @@
                 <target>Kupuj głową, nie ceną.</target>
             </trans-unit>
             
+            
+            <trans-unit id="error.item.notExists">
+                <source>error.item.notExists</source>
+                <target>Obiekt o podanym id (%id%) nie istnieje.</target>
+            </trans-unit>
             
             <trans-unit id="error.importRatings.lineNumber">
                 <source>error.importRatings.lineNumber</source>

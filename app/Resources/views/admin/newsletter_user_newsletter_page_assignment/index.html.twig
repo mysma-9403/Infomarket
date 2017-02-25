@@ -50,6 +50,7 @@
 	<th><i class="fa fa-"></i> {{ 'label.newsletterUser'|trans }}</th>
 	<th><i class="fa fa-"></i> {{ 'label.newsletterPage'|trans }}</th>
 	<th><i class="fa fa-"></i> {{ 'label.newsletterUserNewsletterPageAssignment.state'|trans }}</th>
+	<th><i class="fa fa-timer"></i> {{ 'label.newsletterUserNewsletterPageAssignment.processingTime'|trans }}</th>
 {% endblock %}
 
 {% block entryMainFields1 %}
@@ -61,6 +62,11 @@
 	</td>
 	<td>
 		{{ newsletterUserNewsletterPageAssignmentStateName(item.state)|trans }}
+	</td>
+	<td>
+		{% if item.processingTime %}
+			{{ item.processingTime|date('i:s') }}
+		{% endif %}
 	</td>
 {% endblock %}
 

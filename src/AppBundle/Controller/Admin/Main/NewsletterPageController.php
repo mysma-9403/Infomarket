@@ -17,13 +17,11 @@ use AppBundle\Manager\Entity\Common\NewsletterPageManager;
 use AppBundle\Manager\Filter\Base\FilterManager;
 use AppBundle\Manager\Params\EntryParams\Admin\NewsletterPageEntryParamsManager;
 use AppBundle\Repository\Admin\Main\NewsletterPageTemplateRepository;
-use AppBundle\Repository\Admin\Main\NewsletterUserRepository;
+use AppBundle\Utils\ClassUtils;
 use Doctrine\Common\Persistence\ObjectManager;
+use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\StreamedResponse;
-use Symfony\Component\Process\Process;
-use Symfony\Component\Filesystem\Filesystem;
-use AppBundle\Utils\ClassUtils;
 
 class NewsletterPageController extends SimpleEntityController {
 	
@@ -178,7 +176,10 @@ class NewsletterPageController extends SimpleEntityController {
 		
 			return $response;
 		} else {
-			//TODO error
+			$translator = $this->get('translator');
+			$msg = $translator->trans('error.item.notExists');
+			$msg = str_replace('%id%', $id, $msg);
+			$this->addFlash('error', $msg);
 			return $this->redirectToReferer($request);
 		}
 	}
@@ -207,7 +208,10 @@ class NewsletterPageController extends SimpleEntityController {
 		
 			return $response;
 		} else {
-			//TODO error
+			$translator = $this->get('translator');
+			$msg = $translator->trans('error.item.notExists');
+			$msg = str_replace('%id%', $id, $msg);
+			$this->addFlash('error', $msg);
 			return $this->redirectToReferer($request);
 		}
 	}

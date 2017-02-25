@@ -23,6 +23,7 @@ class NewsletterUserNewsletterPageAssignmentRepository extends AuditRepository
 		$fields[] = 'np.name AS newsletterPageName';
 		
 		$fields[] = 'e.state';
+		$fields[] = 'e.processingTime';
 	
 		return $fields;
 	}

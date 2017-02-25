@@ -49,6 +49,7 @@ class SendNewsletterCommand extends ContainerAwareCommand
 		
 		$assignmentsCount = count($assignments); 
 		if($assignmentsCount > 0) {
+			$output->writeln('//------------------------------------------------------------------------------');
 			$this->logMessage($output, 'Start sending mails: ' . $assignmentsCount . '.');
 			
 			$sentCount = 0;
@@ -60,7 +61,7 @@ class SendNewsletterCommand extends ContainerAwareCommand
 				$em->persist($assignment);
 				$em->flush();
 				
-				
+				$start = new \DateTime();
 				
 				//create message
 				$message = \Swift_Message::newInstance()
@@ -107,6 +108,13 @@ class SendNewsletterCommand extends ContainerAwareCommand
 					$errorCount++;
 				}
 				
+				$end = new \DateTime();
+				
+				$interval = date_diff($start, $end);
+				$processingTime = new \DateTime('0000-01-01');
+				$processingTime->add($interval);
+				
+				$assignment->setProcessingTime($processingTime);
 				$assignment->setState(NewsletterUserNewsletterPageAssignment::SENT_STATE);
 				$em->persist($assignment);
 				$em->flush();
@@ -121,6 +129,6 @@ class SendNewsletterCommand extends ContainerAwareCommand
 	
 	protected function logMessage(OutputInterface $output, $message) {
 		$date = new \DateTime();
-		$output->writeln($date->format('Y-m-d: h:i:s: ') . $message);
+		$output->writeln($date->format('Y-m-d h:i:s: ') . $message);
 	}
 }

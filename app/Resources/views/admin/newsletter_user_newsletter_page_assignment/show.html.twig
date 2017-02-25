@@ -15,6 +15,9 @@
 		
 	{% include 'common/fields/text_field.html.twig' with 
 		{ 'label': 'label.newsletterUserNewsletterPageAssignment.state', 'value': newsletterUserNewsletterPageAssignmentStateName(entry.state)|trans } %}
+		
+	{% include 'common/fields/date_field.html.twig' with 
+		{ 'label': 'label.newsletterUserNewsletterPageAssignment.processingTime', 'value': entry.processingTime, format: 'i:s' } %}
 {% endblock %}
 
 {% block mainActions %}

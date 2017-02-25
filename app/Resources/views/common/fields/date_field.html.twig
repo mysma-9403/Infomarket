@@ -1,10 +1,12 @@
+{% set format = format|default('d.m.Y H:i:s') %}
+
 <div class="row">
 	<div class="col-xs-12 col-sm-6 col-md-3">
 		<strong>{{ label | trans }}: </strong>
 	</div>
 	<div class="col-xs-12 col-sm-6 col-md-9">
 		{% if value > date("01-01-1900") %}
-			{{ value | date('d.m.Y H:i:s') }}
+			{{ value | date(format) }}
 		{% else %}
 			-
 		{% endif %}
