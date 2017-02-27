@@ -124,7 +124,6 @@ class SendNewsletterCommand extends ContainerAwareCommand
 				$em->flush();
 				
 				$commandInterval  = $end->getTimestamp() - $commandStart->getTimestamp();
-				$output->writeln('Interval: ' . $commandInterval);
 				
 				if($commandInterval > 290) {
 					break;
