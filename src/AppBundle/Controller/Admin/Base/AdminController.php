@@ -9,6 +9,7 @@ use AppBundle\Manager\Route\RouteManager;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Filter\Admin\Base\AuditFilter;
+use AppBundle\Utils\ClassUtils;
 
 abstract class AdminController extends StandardController {
 	
@@ -344,7 +345,10 @@ abstract class AdminController extends StandardController {
 		{
 			$this->saveEntry($entry);
 	
-			$this->addFlash('success', 'success.created');
+			$translator = $this->get('translator');
+			$message = $translator->trans('success.created');
+			$message = str_replace('%type%', '<b>' . ClassUtils::getClassName($this->getEntityType()) . '</b>', $message);
+			$this->addFlash('success', $message);
 			
 			if ($form->get('save')->isClicked()) {
 				return $this->redirectToRoute($this->getEditRoute(), array('id' => $entry->getId()));
@@ -367,13 +371,17 @@ abstract class AdminController extends StandardController {
 			
 		$em->persist($entry);
 		$em->flush();
+		
+		$this->saveMore($entry);
 	}
 	
 	/**
 	 * 
 	 * @param unknown $entry
 	 */
-	protected function prepareEntry($entry) { }
+	protected function prepareEntry(&$entry) { }
+	
+	protected function saveMore($entry) { }
 	
 	protected function getRepository() {
 		return $this->getDoctrine()->getRepository($this->getEntityType());

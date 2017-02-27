@@ -1082,6 +1082,10 @@
                 <source>label.category.iconImage</source>
                 <target>Ikonka własna</target>
             </trans-unit>
+            <trans-unit id="label.category.benchmark">
+                <source>label.category.benchmark</source>
+                <target>Benchmarkowa</target>
+            </trans-unit>
             
             
             

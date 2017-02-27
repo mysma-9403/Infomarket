@@ -11,6 +11,7 @@ use Ivory\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use AppBundle\Form\Editor\Transformer\CategoryToNumberTransformer;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 
 class CategoryEditorType extends ImageEntityEditorType
 {
@@ -57,10 +58,13 @@ class CategoryEditorType extends ImageEntityEditorType
 				'multiple'      => false,
 				'placeholder' 	=> 'label.placeholder.none'
 		))
-		->add('preleaf', null, array(
+		->add('benchmark', CheckboxType::class, array(
 				'required' => false
 		))
-		->add('featured', null, array(
+		->add('preleaf', CheckboxType::class, array(
+				'required' => false
+		))
+		->add('featured', CheckboxType::class, array(
 				'required' => false
 		))
 		->add('content', CKEditorType::class, array(

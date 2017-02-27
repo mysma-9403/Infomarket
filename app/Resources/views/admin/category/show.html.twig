@@ -31,6 +31,9 @@
 	{% include 'common/fields/bool_field.html.twig' with 
 	{ 'label': ('label.category.preleaf')|trans, 'value': entry.preleaf } %}
 	
+	{% include 'common/fields/bool_field.html.twig' with 
+	{ 'label': ('label.category.benchmark')|trans, 'value': entry.benchmark } %}
+	
 	{% if entry.iconImage %}
 	<div class="row">
 	    <div class="col-xs-1">

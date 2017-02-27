@@ -738,8 +738,9 @@ class Category extends ImageEntityTree
     {
         return $this->rootId;
     }
+    
     /**
-     * @var integer
+     * @var boolean
      */
     private $benchmark;
 
@@ -747,7 +748,7 @@ class Category extends ImageEntityTree
     /**
      * Set benchmark
      *
-     * @param integer $benchmark
+     * @param boolean $benchmark
      *
      * @return Category
      */
@@ -761,7 +762,7 @@ class Category extends ImageEntityTree
     /**
      * Get benchmark
      *
-     * @return integer
+     * @return boolean
      */
     public function getBenchmark()
     {

@@ -208,31 +208,6 @@ class CategoryController extends ImageEntityController {
 	
 		$viewParams = $params['viewParams'];
 		
-		
-		
-		
-// 		$filter = $viewParams['entryFilter'];
-		
-// 		$filterForm = $this->createForm($this->getFilterFormType(), $filter);
-// 		$filterForm->handleRequest($request);
-		
-// 		if ($filterForm->isSubmitted() && $filterForm->isValid()) {
-		
-// 			if ($filterForm->get('search')->isClicked()) {
-// 				return $this->redirectToRoute($this->getTreeRoute(), $filter->getValues());
-// 			}
-		
-// 			if ($filterForm->get('clear')->isClicked()) {
-// 				$filter->clearQueryValues();
-// 				return $this->redirectToRoute($this->getTreeRoute(), $filter->getValues());
-// 			}
-// 		}
-// 		$viewParams['filter'] = $filterForm->createView();
-		
-		
-		
-		
-		
 		return $this->render($this->getTreeView(), $viewParams);
 	}
 	
@@ -356,12 +331,40 @@ class CategoryController extends ImageEntityController {
 	 * @see \AppBundle\Controller\Admin\Base\ImageEntityController::prepareEntry()
 	 * 
 	 */
-	protected function prepareEntry($entry) {
+	protected function prepareEntry(&$entry) {
+		parent::prepareEntry($entry);
+		
 		/** @var Category $entry */
 		$parent = $entry->getParent();
 		if($parent) {
 			$rootId = $parent->getRootId();
-			$entry->setRootId($rootId);
+			if($rootId) {
+				$entry->setRootId($rootId);
+			} else {
+				$entry->setRootId($parent->getId());
+			}
+		} else {
+			$entry->setRootId(null);
+		}
+	}
+	
+	protected function saveMore($entry) {
+		$parent = $entry->getParent(); 
+		if($parent) {
+			$rootId = $parent->getRootId();
+			if(!$rootId) $rootId = $parent->getId();
+			
+			/** @var CategoryRepository $repository */
+			$repository = $this->getDoctrine()->getRepository(Category::class);
+			$items = $repository->findChildrenIds($entry->getId());
+				
+			$repository->setRootId($items, $rootId);
+		} else {
+			/** @var CategoryRepository $repository */
+			$repository = $this->getDoctrine()->getRepository(Category::class);
+			$items = $repository->findChildrenIds($entry->getId());
+				
+			$repository->setRootId($items, $entry->getId());
 		}
 	}
 	

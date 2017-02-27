@@ -20,6 +20,7 @@ class CategoryManager extends SimpleEntityManager {
 		
 		$entry->setSubname($request->get('subname'));
 		
+		$entry->setBenchmark($request->get('benchmark'));
 		$entry->setFeatured($request->get('featured'));
 		$entry->setPreleaf($request->get('preleaf'));
 		
@@ -48,6 +49,7 @@ class CategoryManager extends SimpleEntityManager {
 		
 		$entry->setSubname($template->getSubname());
 		
+		$entry->setBenchmark($template->getBenchmark());
 		$entry->setFeatured($template->getFeatured());
 		$entry->setPreleaf($template->getPreleaf());
 		
