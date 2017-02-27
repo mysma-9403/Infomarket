@@ -1884,12 +1884,12 @@
             
             <trans-unit id="success.created">
                 <source>success.created</source>
-                <target>Obiekt został poprawnie zapisany.</target>
+                <target>Obiekt typu %type% został poprawnie zapisany.</target>
             </trans-unit>
             
             <trans-unit id="success.subscribed">
                 <source>success.subscribed</source>
-                <target>Adres został z powodzeniem dodany do newslettera.</target>
+                <target>Adres %mail% został z powodzeniem dodany do newslettera.</target>
             </trans-unit>
             
             <trans-unit id="success.category.ratingsImported">

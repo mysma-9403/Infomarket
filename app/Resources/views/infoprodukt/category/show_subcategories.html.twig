@@ -54,7 +54,7 @@
 					{% for subcategory in entry.children %}
 						{% if subcategory.infoprodukt %}
 							<div class="col-sm-3">
-								{% if topProducts %}
+								{% if topProducts and subcategory.preleaf == false %}
 									{% include 'common/bottom_rect_tile.html.twig' with {'entry': subcategory, routeParams: { top_products: topProducts } } %}
 								{% else %}
 									{% include 'common/bottom_rect_tile.html.twig' with {'entry': subcategory } %}

@@ -218,7 +218,10 @@ abstract class InfomarketController extends StandardController
 			$em->flush();
 		}
 	
-		$this->addFlash('success', 'success.subscribed');
+		$translator = $this->get('translator');
+		$message = $translator->trans('success.subscribed');
+		$message = str_replace('%mail%', '<b>' . $entry->getName() . '</b>', $message);
+		$this->addFlash('success', $message);
 	}
 	
     //---------------------------------------------------------------------------
