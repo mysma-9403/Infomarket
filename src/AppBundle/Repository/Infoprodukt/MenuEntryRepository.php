@@ -11,8 +11,8 @@ use Doctrine\ORM\QueryBuilder;
 
 class MenuEntryRepository extends BaseRepository
 {	
-	public function findMenuItems($menuId, $categoryId) {
-		$items = $this->queryMenuItems($menuId, $categoryId)->getScalarResult();
+	public function findMenuItems($menuId, $categories) {
+		$items = $this->queryMenuItems($menuId, $categories)->getScalarResult();
 		
 		$rootItems = $this->getRootItems($items);
 		
@@ -26,7 +26,7 @@ class MenuEntryRepository extends BaseRepository
 		return $rootItems;
 	}
 	
-	protected function queryMenuItems($menuId, $categoryId)
+	protected function queryMenuItems($menuId, $categories)
 	{
 		$builder = new QueryBuilder($this->getEntityManager());
 			
@@ -34,7 +34,7 @@ class MenuEntryRepository extends BaseRepository
 		$builder->from($this->getEntityType(), "e");
 	
 		$builder->innerJoin(MenuMenuEntryAssignment::class, 'mmea', Join::WITH, 'e.id = mmea.menuEntry');
-		if($categoryId) {
+		if(count($categories) > 0) {
 			$builder->innerJoin(MenuEntryCategoryAssignment::class, 'meca', Join::WITH, 'e.id = meca.menuEntry');
 		}
 		
@@ -42,8 +42,8 @@ class MenuEntryRepository extends BaseRepository
 		$where->add($builder->expr()->eq('e.infoprodukt', 1));
 		$where->add($builder->expr()->eq('mmea.menu', $menuId));
 		
-		if($categoryId) {
-			$where->add($builder->expr()->eq('meca.category', $categoryId));
+		if(count($categories) > 0) {
+			$where->add($builder->expr()->in('meca.category', $categories));
 		}
 		
 		$builder->where($where);

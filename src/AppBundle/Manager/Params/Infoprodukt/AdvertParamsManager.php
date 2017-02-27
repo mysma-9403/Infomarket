@@ -24,12 +24,12 @@ class AdvertParamsManager extends ParamsManager {
 			
 			$em = $this->doctrine->getManager();
 			
-			$category = $contextParams['category'];
+			$categories = $contextParams['categories'];
 			
 			/** @var AdvertRepository $advertRepository */
 			$advertRepository = new AdvertRepository($em, $em->getClassMetadata(Advert::class));
 			foreach($this->advertLocations as $advertLocation) {
-				$adverts = $advertRepository->findAdvertItems($advertLocation, $category);
+				$adverts = $advertRepository->findAdvertItems($advertLocation, $categories);
 				$viewParams[Advert::getLocationName($advertLocation)] = $adverts;
 				
 				if(count($adverts) > 0) {

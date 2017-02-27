@@ -38,10 +38,12 @@ class ContextParamsManager extends ParamsManager {
     		$routeParams['category'] = $category->getId();
     		$viewParams['category'] = $category;
     		
-    		$contextParams['categories'] = $categoryRepository->findContextItems($category->getId());
+    		$contextParams['categories'] = $categoryRepository->findContextParents($category->getId());
+    		$contextParams['children'] = $categoryRepository->findContextChildren($category->getId());
     	} else {
     		$contextParams['category'] = null;
     		$contextParams['categories'] = array();
+    		$contextParams['children'] = array();
     	}
     	
     	

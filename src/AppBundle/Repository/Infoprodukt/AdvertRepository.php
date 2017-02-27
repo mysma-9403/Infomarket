@@ -12,8 +12,8 @@ use AppBundle\Entity\Category;
 
 class AdvertRepository extends BaseRepository
 {	
-	public function findAdvertItems($location, $category) {
-		$result = $this->queryAdvertsIds($location, $category)->getScalarResult();
+	public function findAdvertItems($location, $categories) {
+		$result = $this->queryAdvertsIds($location, $categories)->getScalarResult();
 		
 		if(count($result) > 0) {
 			shuffle($result);
@@ -25,7 +25,7 @@ class AdvertRepository extends BaseRepository
 		return array();
 	}
 	
-	protected function queryAdvertsIds($location, $category)
+	protected function queryAdvertsIds($location, $categories)
 	{
 		$date = new \DateTime();
 		
@@ -35,9 +35,8 @@ class AdvertRepository extends BaseRepository
 		$builder->distinct();
 		$builder->from($this->getEntityType(), "e");
 	
-		if($category) {
+		if(count($categories) > 0) {
 			$builder->innerJoin(AdvertCategoryAssignment::class, 'aca', Join::WITH, 'e.id = aca.advert');
-			$builder->innerJoin(Category::class, 'c', Join::WITH, 'c.id = aca.category');
 		}
 	
 		$where = $builder->expr()->andX();
@@ -49,8 +48,8 @@ class AdvertRepository extends BaseRepository
 		$where->add('e.dateFrom IS NULL OR e.dateFrom <= \'' . $date->format('Y-m-d H:i') . "\'");
 		$where->add('e.dateTo IS NULL OR e.dateTo >= \'' . $date->format('Y-m-d H:i') . "\'");
 		
-		if($category) {
-			$where->add($builder->expr()->like('c.treePath', $builder->expr()->literal('%-' . $category . '#%')));
+		if(count($categories) > 0) {
+			$where->add($builder->expr()->in('aca.category', $categories));
 		}
 			
 		$builder->where($where);

@@ -52,12 +52,6 @@ class Category extends ImageEntityTree
 				$result .= ' ' . $this->subname;
 		}
 	
-		$parent = $this->getParent();
-		if($parent) {
-			$result .= ' / ';
-			$result .= $parent->getDisplayName();
-		}
-	
 		return $result;
 	}
 	

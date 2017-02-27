@@ -19,12 +19,12 @@ class MenuParamsManager extends ParamsManager {
 		/** @var MenuEntryRepository $menuEntryRepository */
 		$menuEntryRepository = new MenuEntryRepository($em, $em->getClassMetadata(MenuEntry::class));
     	
-    	$categoryId = $contextParams['category'];
+    	$categories = $contextParams['categories'];
     	
-    	$menuEntries = $menuEntryRepository->findMenuItems(Menu::FOOTER_MENU, $categoryId);
+    	$menuEntries = $menuEntryRepository->findMenuItems(Menu::FOOTER_MENU, $categories);
     	$viewParams['footerMenuEntries'] = $menuEntries;
     	
-    	$menuEntries = $menuEntryRepository->findMenuItems(Menu::MAIN_MENU, $categoryId);
+    	$menuEntries = $menuEntryRepository->findMenuItems(Menu::MAIN_MENU, $categories);
     	$viewParams['mainMenuEntries'] = $menuEntries;
     	
     	$params['viewParams'] = $viewParams;
