@@ -95,7 +95,7 @@ class ArticleRepository extends BaseArticleRepository
 		}
 	
 		$where = $builder->expr()->andX();
-		$where->add($builder->expr()->eq('e.infomarket', 1));
+		$where->add($builder->expr()->eq('e.infoprodukt', 1));
 		$where->add($builder->expr()->eq('e.archived', 0));
 		$where->add('e.parent IS NULL');
 	
@@ -138,7 +138,7 @@ class ArticleRepository extends BaseArticleRepository
 		$expr = $builder->expr();
 	
 		$where = $builder->expr()->andX();
-		$where->add($builder->expr()->eq('e.infomarket', 1));
+		$where->add($builder->expr()->eq('e.infoprodukt', 1));
 		$where->add($builder->expr()->eq('e.archived', 0));
 		$where->add('e.parent IS NULL');
 	

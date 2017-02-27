@@ -27,7 +27,7 @@ class ArticleCategoryRepository extends BaseRepository
 		$where = parent::getFilterWhere($builder);
 		
 		$expr = $builder->expr();
-		$where->add($expr->eq('e.infomarket', 1));
+		$where->add($expr->eq('e.infoprodukt', 1));
 		
 		return $where;
 	}

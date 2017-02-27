@@ -183,7 +183,7 @@ class CategoryRepository extends BaseRepository
 		$expr = $builder->expr();
 		
 		$where = $expr->andX();
-		$where->add($expr->eq('e.infomarket', 1));
+		$where->add($expr->eq('e.infoprodukt', 1));
 		$where->add($expr->eq('e.parent', $category));
 		
 		$builder->where($where);
