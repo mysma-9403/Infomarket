@@ -64,7 +64,14 @@ class CategoryEntryParamsManager extends EntryParamsManager {
 // 				$categories[] = $prev;
 // 			}
 
+			
 			$em = $this->doctrine->getManager();
+			
+			
+			//subcategories
+			$categoryRepository = new CategoryRepository($em, $em->getClassMetadata(Category::class));
+			$categories = $categoryRepository->findSubcategories($entry->getId());
+			$viewParams['subcategories'] = $categories;
 			
 			//brands
 			$brandRepository = new BrandRepository($em, $em->getClassMetadata(Brand::class));

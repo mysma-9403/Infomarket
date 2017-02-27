@@ -177,7 +177,7 @@ class CategoryRepository extends BaseRepository
 	protected function queryTopItems($category) {
 		$builder = new QueryBuilder($this->getEntityManager());
 	
-		$builder->select('e.id, e.name, e.subname');
+		$builder->select('e.id, e.name, e.subname, e.image, e.vertical');
 		$builder->from($this->getEntityType(), "e");
 	
 		$expr = $builder->expr();
