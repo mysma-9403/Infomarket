@@ -95,18 +95,28 @@
 								</a>
 							</li>
 						{% endfor %}
-						{% for article in newsArticles|slice(6, 6) %}
-							<li class="hidden-xs hidden-sm">
+						{% for article in newsListArticles|slice(6, 6) %}
+							<li>
 								<a href="{{ path(basePath ~ 'article_show', { id: article.id }) }}">
-									<span class="text-red">{{ article.brands }}</span>  
+									<span class="text-red">
+										{% for brand in article.brands %}
+											{{ brand.name }}
+										{% endfor %}
+										&nbsp
+									</span> 
 									<span>{{ article.name | raw }} {{ article.subname | raw }}</span>
 								</a>
 							</li>
 						{% endfor %}
-						{% for article in newsArticles|slice(12, 2) %}
-							<li class="hidden-xs hidden-sm hidden-md">
+						{% for article in newsListArticles|slice(12, 2) %}
+							<li>
 								<a href="{{ path(basePath ~ 'article_show', { id: article.id }) }}">
-									<span class="text-red">{{ article.brands }}</span>  
+									<span class="text-red">
+										{% for brand in article.brands %}
+											{{ brand.name }}
+										{% endfor %}
+										&nbsp
+									</span> 
 									<span>{{ article.name | raw }} {{ article.subname | raw }}</span>
 								</a>
 							</li>
