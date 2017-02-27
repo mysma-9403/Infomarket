@@ -7,6 +7,7 @@ use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Filter\Admin\Other\SendNewsletterFilter;
 use AppBundle\Repository\Admin\Other\SendNewsletterRepository;
 use AppBundle\Entity\NewsletterUser;
+use AppBundle\Entity\NewsletterGroup;
 
 class NewsletterPageEntryParamsManager extends EntryParamsManager {
 	
@@ -40,6 +41,9 @@ class NewsletterPageEntryParamsManager extends EntryParamsManager {
 		$sendNewsletterFilter->initRequestValues($request);
 		
 		$viewParams['sendNewsletterFilter'] = $sendNewsletterFilter;
+		
+		$newsletterGroupRepository = $this->doctrine->getRepository(NewsletterGroup::class);
+		$viewParams['newsletterGroups'] = $newsletterGroupRepository->findItemsByIds($sendNewsletterFilter->getNewsletterGroups());
 		
 		$em = $this->doctrine->getManager();
 		

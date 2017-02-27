@@ -32,6 +32,25 @@ class NewsletterGroupRepository extends SimpleEntityRepository
 		return $builder->getQuery();
 	}
 	
+	public function findItemsByIds($ids) {
+		return $this->queryItemsByIds($ids)->getScalarResult();
+	}
+	
+	protected function queryItemsByIds($ids) {
+		$builder = new QueryBuilder($this->getEntityManager());
+	
+		$builder->select('e.id, e.name');
+		$builder->from($this->getEntityType(), "e");
+		
+		$expr = $builder->expr();
+	
+		$builder->where($expr->in('e.id', $ids));
+	
+		$builder->orderBy('e.name', 'ASC');
+	
+		return $builder->getQuery();
+	}
+	
     /**
 	 * {@inheritdoc}
 	 */

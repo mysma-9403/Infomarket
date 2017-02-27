@@ -1,0 +1,18 @@
+<div class="row">
+	<div class="col-xs-12 col-sm-6 col-md-3">
+		<strong>{{ label | trans }}: </strong>
+	</div>
+	<div class="col-xs-12 col-sm-6 col-md-9">
+		{% for value in values %}
+			{% if loop.index > 1 %}, {% endif %}
+			
+			{% if linkPath is not defined %}
+				{% set linkPath = basePath ~ object ~ '_show' %}
+			{% endif %}
+			
+			<a href="{{ path(linkPath, { id: value.id }) }}">
+				{{ value.name }}
+			</a>
+		{% endfor %}
+	</div>
+</div>
