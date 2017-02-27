@@ -60,7 +60,7 @@ abstract class AuditRepository extends BaseRepository
 			$where->add($builder->expr()->in('e.createdBy', $filter->getCreatedBy()));
 		}
 		
-		if(count($filter->getCreatedBy()) > 0) {
+		if(count($filter->getUpdatedBy()) > 0) {
 			$where->add($builder->expr()->in('e.updatedBy', $filter->getUpdatedBy()));
 		}
 		
