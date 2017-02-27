@@ -51,6 +51,8 @@ tag.usedIn.articleTagAssignments: Tag jest używany w niektórych artykułach i 
 
 menu.usedIn.menuMenuEntryAssignments: Menu jest używane w niektórych pozycjach menu i nie może być usunięte.
 
+newsletterGroup.usedIn.newsletterUserNewsletterGroupAssignments: Grupa nie jest pusta (zawiera subskrybentów) i nie może być usunięta.
+
 
 #Assignment delete warnings
 article.usedIn.children: Artykuł posiada podartykuły. Usunięcie artykułu spowoduje usunięcie tych podartykułów.
@@ -68,3 +70,7 @@ tag.tagAndNameAreNull: Jedno z pól - 'Tag', 'Nowy tag' - nie może być puste.
 tag.tagAndNameAreNotNull: Jedno z pól - 'Tag', 'Nowy tag' - musi być puste.
 
 tag.alreadyExists: Podany tag już istnieje.
+
+
+
+newsletterGroup.cannotDelete: Grupa systemowa nie może być usunięta.

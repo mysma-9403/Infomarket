@@ -32,6 +32,8 @@ class SendNewsletterCommand extends ContainerAwareCommand
 			return 0;
 		}
 		
+		$commandStart = new \DateTime();
+		
 		$container = $this->getContainer();
 		
 		$doctrine = $container->get('doctrine');
@@ -120,6 +122,13 @@ class SendNewsletterCommand extends ContainerAwareCommand
 				$assignment->setState(NewsletterUserNewsletterPageAssignment::SENT_STATE);
 				$em->persist($assignment);
 				$em->flush();
+				
+				$commandInterval  = $end->getTimestamp() - $commandStart->getTimestamp();
+				$output->writeln('Interval: ' . $commandInterval);
+				
+				if($commandInterval > 290) {
+					break;
+				}
 			}
 			
 			$this->logMessage($output, 'Newsletter sending finished. Successfully sent: ' . $sentCount . 

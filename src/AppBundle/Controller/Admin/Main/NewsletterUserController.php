@@ -227,6 +227,23 @@ class NewsletterUserController extends SimpleEntityController {
 	// Internal logic
 	//---------------------------------------------------------------------------
 	
+	protected function deleteMore($entry)
+	{
+		$em = $this->getDoctrine()->getManager();
+		
+		foreach ($entry->getNewsletterUserNewsletterGroupAssignments() as $newsletterUserNewsletterGroupAssignment) {
+			$em->remove($newsletterUserNewsletterGroupAssignment);
+		}
+		$em->flush();
+		
+		foreach ($entry->getNewsletterUserNewsletterPageAssignments() as $newsletterUserNewsletterPageAssignment) {
+			$em->remove($newsletterUserNewsletterPageAssignment);
+		}
+		$em->flush();
+	
+		return array();
+	}
+	
 	/**
 	 *
 	 * @param ImportRatings $importRatings
