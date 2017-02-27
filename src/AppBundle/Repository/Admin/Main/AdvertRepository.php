@@ -12,13 +12,17 @@ use Doctrine\ORM\QueryBuilder;
 
 class AdvertRepository extends ImageEntityRepository
 {	
-	protected function  buildJoins(QueryBuilder &$builder, Filter $filter) {
+	protected function buildJoins(QueryBuilder &$builder, Filter $filter) {
 		/** @var AdvertFilter $filter */
 		parent::buildJoins($builder, $filter);
 		
 		if(count($filter->getCategories()) > 0) {
 			$builder->leftJoin(AdvertCategoryAssignment::class, 'aca', Join::WITH, 'e.id = aca.advert');
 		}
+	}
+	
+	protected function buildOrderBy(QueryBuilder &$builder, Filter $filter) {
+		$builder->orderBy('e.createdAt', 'DESC');
 	}
 	
 	

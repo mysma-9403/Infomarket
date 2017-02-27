@@ -31,8 +31,7 @@ class AdvertEditorType extends ImageEntityEditorType
 					'choices'		=> $locationChoices,
 					'expanded'      => false,
 					'multiple'      => false,
-					'required'      => true,
-					'placeholder' => 'label.choose.location'
+					'required'      => true
 			))
 			->add('dateFrom', DateTimeType::class, array(
 					'widget' => 'single_text',

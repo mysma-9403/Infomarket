@@ -54,7 +54,8 @@ class CategoryEditorType extends ImageEntityEditorType
 				'choice_translation_domain' => false,
 				'required'		=> false,
 				'expanded'      => false,
-				'multiple'      => false
+				'multiple'      => false,
+				'placeholder' 	=> 'label.placeholder.none'
 		))
 		->add('preleaf', null, array(
 				'required' => false

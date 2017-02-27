@@ -1553,6 +1553,11 @@
                 <target>Wyrażam zgodę na przetwarzanie moich danych osobowych do celów marketingowych zgodnie z ustawą z dnia 29 sierpnia 1997 r. o ochronie danych osobowych (Dz.U. nr 133, poz. 883) przez Elektrospecjaliści Sp. z o.o., ul. Trylogii 2/16, 01-982 Warszawa.</target>
             </trans-unit>
             
+            <trans-unit id="label.placeholder.none">
+                <source>label.placeholder.none</source>
+                <target>(Brak)</target>
+            </trans-unit>
+            
             
             
             

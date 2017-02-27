@@ -50,7 +50,8 @@ class MenuEntryEditorType extends SimpleEntityEditorType
 				'choice_translation_domain' => false,
 				'required'		=> false,
 				'expanded'      => false,
-				'multiple'      => false
+				'multiple'      => false,
+				'placeholder' 	=> 'label.placeholder.none'
 		))
 		->add('page', ChoiceType::class, array(
 				'choices' 		=> $pages,
@@ -58,7 +59,8 @@ class MenuEntryEditorType extends SimpleEntityEditorType
 				'choice_translation_domain' => false,
 				'required'		=> false,
 				'expanded'      => false,
-				'multiple'      => false
+				'multiple'      => false,
+				'placeholder' 	=> 'label.placeholder.none'
 		))
 		->add('link', ChoiceType::class, array(
 				'choices' 		=> $links,
@@ -66,7 +68,8 @@ class MenuEntryEditorType extends SimpleEntityEditorType
 				'choice_translation_domain' => false,
 				'required'		=> false,
 				'expanded'      => false,
-				'multiple'      => false
+				'multiple'      => false,
+				'placeholder' 	=> 'label.placeholder.none'
 		))
 		;
 		
