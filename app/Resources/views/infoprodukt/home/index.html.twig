@@ -5,6 +5,14 @@
 
 {% block content %}
 	
+	{% block searchBlock %}
+		<div class="row padding-5 hidden-lg hidden-md bkg-white">
+			<div class="col-xs-12">
+				{% include 'common/form/search_form.html.twig' %}
+			</div>
+		</div>
+	{% endblock %}
+
 	{% block images %}
 		<div class="row">
 			<div id="myCarousel" class="carousel slide carousel-fade" data-ride="carousel">

@@ -1,0 +1,10 @@
+{% form_theme searchFilterForm 'form/fields.html.twig' %}
+							
+{{ form_start(searchFilterForm) }}
+	<div class='input-group search'>
+		{{ form_widget(searchFilterForm.string, { 'label': 'label.search.string', 'attr': { 'class': 'input-sm' }  }) }}
+		<span class="input-group-btn">
+			{{ form_widget(searchFilterForm.search, { 'icon': 'fa fa-search', 'label': ' ', 'attr': { 'class': 'input-sm btn-danger' }  }) }}
+      	</span>
+	</div>
+{{ form_end(searchFilterForm) }}

@@ -46,36 +46,10 @@ abstract class InfomarketController extends StandardController
 		
 		$viewParams = $params['viewParams'];
 	
+		$response = $this->initIndexForms($request, $viewParams);
+		if($response) return $response;
 		
-		$searchFilter = new SearchFilter();
-		$searchFilter->initRequestValues($request);
 		
-		$searchFilterForm = $this->createForm(SearchFilterType::class, $searchFilter);
-		$searchFilterForm->handleRequest($request);
-	
-		if ($searchFilterForm->isSubmitted() && $searchFilterForm->isValid()) {
-			if ($searchFilterForm->get('search')->isClicked()) {
-				return $this->redirectToRoute($this->getSearchRoute(), $searchFilter->getRequestValues());
-			}
-		}
-		$viewParams['searchFilterForm'] = $searchFilterForm->createView();
-	
-	
-	
-		$newsletter = new NewsletterUser();
-	
-		$newsletterForm = $this->createForm(NewsletterUserEditorType::class, $newsletter);
-		$newsletterForm->handleRequest($request);
-	
-		if ($newsletterForm->isSubmitted() && $newsletterForm->isValid()) {
-			if ($newsletterForm->get('save')->isClicked()) {
-				$this->subscribe($newsletter);
-			}
-		}
-		$viewParams['newsletterForm'] = $newsletterForm->createView();
-	
-	
-	
 		return $this->render($this->getIndexView(), $viewParams);
 	}
 	
@@ -101,10 +75,39 @@ abstract class InfomarketController extends StandardController
 	
 		$viewParams = $params['viewParams'];
 	
+		$response = $this->initShowForms($request, $viewParams);
+		if($response) return $response;
 		
+	
+		return $this->render($this->getShowView(), $viewParams);
+	}
+	
+	//---------------------------------------------------------------------------
+	// Actions blocks
+	//---------------------------------------------------------------------------
+	
+	protected function initIndexForms(Request $request, array &$viewParams) {
+		return $this->initForms($request, $viewParams);
+	}
+	
+	protected function initShowForms(Request $request, array &$viewParams) {
+		return $this->initForms($request, $viewParams);
+	}
+	
+	protected function initForms(Request $request, array &$viewParams) {
+		$response = $this->initSearchForm($request, $viewParams);
+		if($response) return $response;
+	
+		$response = $this->initNewsletterForm($request, $viewParams);
+		if($response) return $response;
+	
+		return null;
+	}
+	
+	protected function initSearchForm(Request $request, array &$viewParams) {
 		$searchFilter = new SearchFilter();
 		$searchFilter->initRequestValues($request);
-		
+	
 		$searchFilterForm = $this->createForm(SearchFilterType::class, $searchFilter);
 		$searchFilterForm->handleRequest($request);
 	
@@ -113,10 +116,14 @@ abstract class InfomarketController extends StandardController
 				return $this->redirectToRoute($this->getSearchRoute(), $searchFilter->getRequestValues());
 			}
 		}
+	
+		$viewParams['menuSearchFilterForm'] = $searchFilterForm->createView();
 		$viewParams['searchFilterForm'] = $searchFilterForm->createView();
 	
+		return null;
+	}
 	
-	
+	protected function initNewsletterForm(Request $request, array &$viewParams) {
 		$newsletter = new NewsletterUser();
 	
 		$newsletterForm = $this->createForm(NewsletterUserEditorType::class, $newsletter);
@@ -127,11 +134,10 @@ abstract class InfomarketController extends StandardController
 				$this->subscribe($newsletter);
 			}
 		}
+	
 		$viewParams['newsletterForm'] = $newsletterForm->createView();
-	
-	
-	
-		return $this->render($this->getShowView(), $viewParams);
+		
+		return null;
 	}
 	
 	//---------------------------------------------------------------------------

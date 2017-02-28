@@ -6,12 +6,8 @@ use AppBundle\Controller\Infomarket\Base\InfomarketController;
 use AppBundle\Entity\Article;
 use AppBundle\Entity\ArticleCategory;
 use AppBundle\Entity\Category;
-use AppBundle\Entity\NewsletterUser;
 use AppBundle\Filter\Base\Filter;
-use AppBundle\Filter\Common\SearchFilter;
 use AppBundle\Filter\Infomarket\Main\ArticleFilter;
-use AppBundle\Form\Base\SearchFilterType;
-use AppBundle\Form\Editor\Main\NewsletterUserEditorType;
 use AppBundle\Form\Filter\Infomarket\ArticleFilterType;
 use AppBundle\Manager\Entity\Base\EntityManager;
 use AppBundle\Manager\Entity\Infomarket\ArticleManager;
@@ -58,52 +54,51 @@ class ArticleController extends InfomarketController
 	/**
 	 *
 	 * @param Request $request
-	 * @param integer $page current page number
+	 * @param integer $id current entry ID
+	 * @param integer $page page of current entry
 	 *
 	 * @return \Symfony\Component\HttpFoundation\Response
 	 */
-	protected function indexActionInternal(Request $request, $page)
+	protected function previewActionInternal(Request $request, $id, $page)
 	{
-		$params = $this->createParams($this->getIndexRoute());
-		$params = $this->getIndexParams($request, $params, $page);
-		
+		$params = $this->createParams($this->getShowRoute());
+		$params = $this->getPreviewParams($request, $params, $id, $page);
+	
 		$rm = $this->getRouteManager();
 		$rm->register($request, $params['route'], $params['routeParams']);
 	
 		$am = $this->getAnalyticsManager();
 		$am->sendPageviewAnalytics($params['domain'], $params['route']);
+		$am->sendEventAnalytics($this->getEntityName(), 'show', $id);
 	
-		
+	
 		$viewParams = $params['viewParams'];
 	
-		
-		$searchFilter = new SearchFilter();
-		$searchFilter->initRequestValues($request);
-		
-		$searchFilterForm = $this->createForm(SearchFilterType::class, $searchFilter);
-		$searchFilterForm->handleRequest($request);
-
-		if ($searchFilterForm->isSubmitted() && $searchFilterForm->isValid()) {
-			if ($searchFilterForm->get('search')->isClicked()) {
-				return $this->redirectToRoute($this->getSearchRoute(), $searchFilter->getRequestValues());
-			}
-		}
-		$viewParams['searchFilterForm'] = $searchFilterForm->createView();
+		$response = $this->initPreviewForms($request, $viewParams);
+		if($response) return $response;
 	
 	
+		return $this->render($this->getShowView(), $viewParams);
+	}
 	
-		$newsletter = new NewsletterUser();
+	//---------------------------------------------------------------------------
+	// Actions blocks
+	//---------------------------------------------------------------------------
 	
-		$newsletterForm = $this->createForm(NewsletterUserEditorType::class, $newsletter);
-		$newsletterForm->handleRequest($request);
+	protected function initPreviewForms(Request $request, array &$viewParams) {
+		return $this->initShowForms($request, $viewParams);
+	}
 	
-		if ($newsletterForm->isSubmitted() && $newsletterForm->isValid()) {
-			if ($newsletterForm->get('save')->isClicked()) {
-				$this->subscribe($newsletter);
-			}
-		}
-		$viewParams['newsletterForm'] = $newsletterForm->createView();
-		
+	protected function initIndexForms(Request $request, array &$viewParams) {
+		$response = parent::initIndexForms($request, $viewParams);
+	
+		$response = $this->initFilterForm($request, $viewParams);
+		if($response) return $response;
+	
+		return null;
+	}
+	
+	protected function initFilterForm(Request $request, array &$viewParams) {
 		/** @var Filter $itemFilter */ 
 		$itemFilter = $viewParams['entryFilter'];
 
@@ -139,70 +134,12 @@ class ArticleController extends InfomarketController
 		}
 		$viewParams['articleFilterForm'] = $articleFilterForm->createView();
 // 		$viewParams['tags'] = $articleFilter->getTags();
-		
-		
-		
-		return $this->render($this->getIndexView(), $viewParams);
-	}
 	
-	/**
-	 *
-	 * @param Request $request
-	 * @param integer $id current entry ID
-	 * @param integer $page page of current entry
-	 *
-	 * @return \Symfony\Component\HttpFoundation\Response
-	 */
-	protected function previewActionInternal(Request $request, $id, $page)
-	{
-		$params = $this->createParams($this->getShowRoute());
-		$params = $this->getPreviewParams($request, $params, $id, $page);
-	
-		$rm = $this->getRouteManager();
-		$rm->register($request, $params['route'], $params['routeParams']);
-	
-		$am = $this->getAnalyticsManager();
-		$am->sendPageviewAnalytics($params['domain'], $params['route']);
-		$am->sendEventAnalytics($this->getEntityName(), 'show', $id);
-	
-	
-		$viewParams = $params['viewParams'];
-	
-	
-		$searchFilter = new SearchFilter();
-		$searchFilter->initRequestValues($request);
-		
-		$searchFilterForm = $this->createForm(SearchFilterType::class, $searchFilter);
-		$searchFilterForm->handleRequest($request);
-
-		if ($searchFilterForm->isSubmitted() && $searchFilterForm->isValid()) {
-			if ($searchFilterForm->get('search')->isClicked()) {
-				return $this->redirectToRoute($this->getSearchRoute(), $searchFilter->getRequestValues());
-			}
-		}
-		$viewParams['searchFilterForm'] = $searchFilterForm->createView();
-	
-	
-	
-		$newsletter = new NewsletterUser();
-	
-		$newsletterForm = $this->createForm(NewsletterUserEditorType::class, $newsletter);
-		$newsletterForm->handleRequest($request);
-	
-		if ($newsletterForm->isSubmitted() && $newsletterForm->isValid()) {
-			if ($newsletterForm->get('save')->isClicked()) {
-				$this->subscribe($newsletter);
-			}
-		}
-		$viewParams['newsletterForm'] = $newsletterForm->createView();
-	
-	
-	
-		return $this->render($this->getShowView(), $viewParams);
+		return null;
 	}
 	
 	//---------------------------------------------------------------------------
-	// Internal logic
+	// Params
 	//---------------------------------------------------------------------------
 	
 	/**

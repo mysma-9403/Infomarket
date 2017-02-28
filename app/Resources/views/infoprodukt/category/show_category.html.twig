@@ -1,33 +1,43 @@
-<div class="row">
-	<div class="rect-3x1 bkg-white">
-		{% if entry.featuredImage %}
-			<img class="div-center img-responsive" 
-				src="{{ asset(entry.featuredImage) }}">
-		{% endif %}
-		
-		<div class="col-xs-12 div-bottom bkg-black-50 text-white">
-			<div class="container category-lifted-bottom">
-				<div class="row">
-					<h3 class="padding-5">
-						{{ entry.name | raw}} {{ entry.subname | raw }} &ndash; {{ 'label.category.subtitle'|trans }}
-					</h3>
+{% block sidebarSearchBlock %}
+	<div class="row padding-5 hidden-lg hidden-md bkg-white">
+		<div class="col-xs-12">
+			{% include 'common/form/search_form.html.twig' %}
+		</div>
+	</div>
+{% endblock %}
+
+{% block headerBlock %}
+	<div class="row">
+		<div class="rect-3x1 bkg-white">
+			{% if entry.featuredImage %}
+				<img class="div-center img-responsive" 
+					src="{{ asset(entry.featuredImage) }}">
+			{% endif %}
+			
+			<div class="col-xs-12 div-bottom bkg-black-50 text-white">
+				<div class="container category-lifted-bottom">
+					<div class="row">
+						<h3 class="padding-5">
+							{{ entry.name | raw}} {{ entry.subname | raw }} &ndash; {{ 'label.category.subtitle'|trans }}
+						</h3>
+					</div>
 				</div>
 			</div>
 		</div>
-	</div>
-	
-	{% block categories %}
-	<div class="container">
-		<div class="row lifted-top">
-			{% for subentry in subcategories %}
-				<div class="col-sm-2 padding-5">
-					{% include 'common/bottom_rect_tile.html.twig' with {entry: subentry, entryPath: 'category', routeParams: { category: subentry.id } } %}
-				</div>
-			{% endfor %}
+		
+		{% block categories %}
+		<div class="container">
+			<div class="row lifted-top">
+				{% for subentry in subcategories %}
+					<div class="col-sm-2 padding-5">
+						{% include 'common/bottom_rect_tile.html.twig' with {entry: subentry, entryPath: 'category', routeParams: { category: subentry.id } } %}
+					</div>
+				{% endfor %}
+			</div>
 		</div>
+		{% endblock %}
 	</div>
-	{% endblock %}
-</div>
+{% endblock %}
 
 {% block mainArticles %}
 

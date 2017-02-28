@@ -73,21 +73,21 @@
 				    	{% endblock %}
 						
 						{% block navigationSearch %}
-						<div class="navbar-search navbar-form navbar-right navbar-input-group hidden-xs hidden-sm hidden-md" role="search">
-							{% form_theme searchFilterForm 'form/fields.html.twig' %}
+						<div class="navbar-search navbar-form navbar-right navbar-input-group hidden-xs hidden-sm" role="search">
+							{% form_theme menuSearchFilterForm 'form/fields.html.twig' %}
 						
-							{{ form_start(searchFilterForm) }}
+							{{ form_start(menuSearchFilterForm) }}
 								<ul class="list-inline">
 									<li>
 										<div class='input-group input-sm search'>
-											{{ form_widget(searchFilterForm.string, { 'label': 'label.search.string', 'attr': { 'class': 'input-sm' }  }) }}
+											{{ form_widget(menuSearchFilterForm.string, { 'label': 'label.search.string', 'attr': { 'class': 'input-sm' }  }) }}
 											<span class="input-group-btn">
-												{{ form_widget(searchFilterForm.search, { 'icon': 'fa fa-search', 'label': ' ', 'attr': { 'class': 'input-sm btn-danger' }  }) }}
+												{{ form_widget(menuSearchFilterForm.search, { 'icon': 'fa fa-search', 'label': ' ', 'attr': { 'class': 'input-sm btn-danger' }  }) }}
 									      	</span>
 										</div>
 									</li>
 								</ul>			
-							{{ form_end(searchFilterForm) }}
+							{{ form_end(menuSearchFilterForm) }}
 						</div>
 						{% endblock %}
 						
