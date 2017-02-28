@@ -5,7 +5,6 @@ namespace AppBundle\Controller\Infomarket;
 use AppBundle\Controller\Infomarket\Base\InfomarketController;
 use AppBundle\Entity\Brand;
 use AppBundle\Manager\Entity\Common\BrandManager;
-use AppBundle\Manager\Filter\Common\BrandFilterManager;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -44,10 +43,6 @@ class BrandController extends InfomarketController
 	
 	protected function getEntityManager($doctrine, $paginator) {
 		return new BrandManager($doctrine, $paginator);
-	}
-	
-	protected function getEntryFilterManager($doctrine) {
-		return new BrandFilterManager($doctrine);
 	}
 	
 	protected function isFilterByCategories() {

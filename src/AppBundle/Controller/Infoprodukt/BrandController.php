@@ -5,7 +5,6 @@ namespace AppBundle\Controller\Infoprodukt;
 use AppBundle\Controller\Infoprodukt\Base\InfoproduktController;
 use AppBundle\Entity\Brand;
 use AppBundle\Manager\Entity\Common\BrandManager;
-use AppBundle\Manager\Filter\Common\BrandFilterManager;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -46,10 +45,6 @@ class BrandController extends InfoproduktController
 		$em = new BrandManager($doctrine, $paginator);
 		$em->setEntriesPerPage(12);
 		return $em;
-	}
-	
-	protected function getEntryFilterManager($doctrine) {
-		return new BrandFilterManager($doctrine);
 	}
 	
 	protected function isFilterByCategories() {

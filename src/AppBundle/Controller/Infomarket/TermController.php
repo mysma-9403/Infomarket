@@ -5,7 +5,6 @@ namespace AppBundle\Controller\Infomarket;
 use AppBundle\Controller\Infomarket\Base\InfomarketController;
 use AppBundle\Entity\Term;
 use AppBundle\Manager\Entity\Common\TermManager;
-use AppBundle\Manager\Filter\Common\TermFilterManager;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -44,10 +43,6 @@ class TermController extends InfomarketController
 	
 	protected function getEntityManager($doctrine, $paginator) {
 		return new TermManager($doctrine, $paginator);
-	}
-	
-	protected function getEntryFilterManager($doctrine) {
-		return new TermFilterManager($doctrine);
 	}
 	
 	protected function isFilterByCategories() {

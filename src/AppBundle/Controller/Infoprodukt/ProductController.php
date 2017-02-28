@@ -5,7 +5,6 @@ namespace AppBundle\Controller\Infoprodukt;
 use AppBundle\Controller\Infoprodukt\Base\InfoproduktController;
 use AppBundle\Entity\Product;
 use AppBundle\Manager\Entity\Common\ProductManager;
-use AppBundle\Manager\Filter\Common\ProductFilterManager;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -46,10 +45,6 @@ class ProductController extends InfoproduktController
 		$em = new ProductManager($doctrine, $paginator);
 		$em->setEntriesPerPage(12);
 		return $em;
-	}
-	
-	protected function getEntryFilterManager($doctrine) {
-		return new ProductFilterManager($doctrine);
 	}
 	
 	protected function isFilterByCategories() {

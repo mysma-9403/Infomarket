@@ -4,10 +4,9 @@ namespace AppBundle\Controller\Infoprodukt;
 
 use AppBundle\Controller\Infoprodukt\Base\InfoproduktController;
 use AppBundle\Entity\Page;
+use AppBundle\Manager\Entity\Common\PageManager;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-use AppBundle\Manager\Entity\Common\PageManager;
-use AppBundle\Manager\Filter\Common\PageFilterManager;
 
 class PageController extends InfoproduktController
 {   
@@ -44,10 +43,6 @@ class PageController extends InfoproduktController
 	
 	protected function getEntityManager($doctrine, $paginator) {
 		return new PageManager($doctrine, $paginator);
-	}
-	
-	protected function getEntryFilterManager($doctrine) {
-		return new PageFilterManager($doctrine);
 	}
 	
 	//---------------------------------------------------------------------------
