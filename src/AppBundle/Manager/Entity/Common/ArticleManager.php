@@ -20,17 +20,19 @@ class ArticleManager extends SimpleEntityManager {
 	public function getEntries($filter, $page) {
 		$repository = $this->getRepository();
 		$items = parent::getEntries($filter, $page);
-		$itemsIds = $repository->getIds($items);
-	
-		$brandRepository = $this->getBrandRepository();
-		$brands = $brandRepository->findItemsByArticles($itemsIds);
-	
-		$items = $repository->assignItems($items, $brands, 'brands');
+		if(count($items) > 0) {
+			$itemsIds = $repository->getIds($items);
 		
-		$tagRepository = $this->getTagRepository();
-		$tags = $tagRepository->findItemsByArticles($itemsIds);
+			$brandRepository = $this->getBrandRepository();
+			$brands = $brandRepository->findItemsByArticles($itemsIds);
 		
-		$items = $repository->assignItems($items, $tags, 'tags');
+			$items = $repository->assignItems($items, $brands, 'brands');
+			
+			$tagRepository = $this->getTagRepository();
+			$tags = $tagRepository->findItemsByArticles($itemsIds);
+			
+			$items = $repository->assignItems($items, $tags, 'tags');
+		}
 	
 		return $items;
 	}
