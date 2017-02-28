@@ -39,20 +39,20 @@ abstract class AuditRepository extends BaseRepository
 		
 		
 		if($filter->getUpdatedAfter()) {
-			$where->add($builder->expr()->gt('e.updatedAt', $builder->expr()->literal($filter->getUpdatedAfter())));
+			$where->add($builder->expr()->gt('e.updatedAt', $builder->expr()->literal($filter->getUpdatedAfter()->format('Y-m-d h:i:s'))));
 		}
 		
 		if($filter->getUpdatedBefore()) {
-			$where->add($builder->expr()->lt('e.updatedAt', $builder->expr()->literal($filter->getUpdatedBefore())));
+			$where->add($builder->expr()->lt('e.updatedAt', $builder->expr()->literal($filter->getUpdatedBefore()->format('Y-m-d h:i:s'))));
 		}
 		
 		
 		if($filter->getCreatedAfter()) {
-			$where->add($builder->expr()->gt('e.createdAt', $builder->expr()->literal($filter->getCreatedAfter())));
+			$where->add($builder->expr()->gt('e.createdAt', $builder->expr()->literal($filter->getCreatedAfter()->format('Y-m-d h:i:s'))));
 		}
 		
 		if($filter->getCreatedBefore()) {
-			$where->add($builder->expr()->lt('e.createdAt', $builder->expr()->literal($filter->getCreatedBefore())));
+			$where->add($builder->expr()->lt('e.createdAt', $builder->expr()->literal($filter->getCreatedBefore()->format('Y-m-d h:i:s'))));
 		}
 		
 		
