@@ -192,7 +192,6 @@ class CategoryEntryParamsManager extends EntryParamsManager {
 			$viewParams['segments'] = $segments = $segmentRepository->findTopItems();
 			
 			
-			$viewParams['brands'] = array();
 			$viewParams['products'] = array();
 			
 			$brands = [];
