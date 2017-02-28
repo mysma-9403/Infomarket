@@ -47,7 +47,7 @@ class SendNewsletterCommand extends ContainerAwareCommand
 		
 		/** @var NewsletterUserNewsletterPageAssignmentRepository $repository */
 		$repository = $doctrine->getRepository(NewsletterUserNewsletterPageAssignment::class);
-		$assignments = $repository->findBy(['state' => NewsletterUserNewsletterPageAssignment::WAITING_STATE]);
+		$assignments = $repository->findBy(['state' => NewsletterUserNewsletterPageAssignment::WAITING_STATE], null, 100);
 		
 		$assignmentsCount = count($assignments); 
 		if($assignmentsCount > 0) {
@@ -128,6 +128,8 @@ class SendNewsletterCommand extends ContainerAwareCommand
 				if($commandInterval > 280) {
 					break;
 				}
+				
+				sleep(1);
 			}
 			
 			$this->logMessage($output, 'Newsletter sending finished. Successfully sent: ' . $sentCount . 
