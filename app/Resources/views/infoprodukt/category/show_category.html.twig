@@ -55,11 +55,8 @@
 				<div class="row">
 					{% block magazineBlock %}
 						<div class="col-sm-2 col-sm-push-10 padding-5">
-							{% include 'common/tiles/magazine_tile.html.twig' with { 
-							entry: magazine, 
-							magazineTitle: 'label.magazine.download'|trans,
-							magazineSubtitle: 'label.magazine.currentNumber'|trans
-						} %}
+							{% include 'common/tiles/magazine_tile.html.twig' with { entry: magazine, 
+								magazineTitle: 'label.magazine.download'|trans, magazineSubtitle: 'label.magazine.currentNumber'|trans } %}
 						</div>
 					{% endblock %}
 					
@@ -110,14 +107,16 @@
 					{% endfor %}
 				</div>
 				
-				<div class="row">
-					<div class="col-sm-2 col-sm-push-10 padding-5">
-						<a class="text-red title no-padding" href={{ path('infoprodukt_article', 
-							{ category: entry.id, article_filter_article_categories: [mainCategory.id] }) }}>
-							{{ 'label.more'|trans }}
-						</a>
+				{% if mainArticles|length >= 12 or (mainArticles|length >= 10 and entry.magazineCategoryAssignments|length > 0) %}
+					<div class="row">
+						<div class="col-sm-2 col-sm-push-10 padding-5">
+							<a class="text-red title no-padding" href={{ path('infoprodukt_article', 
+								{ category: entry.id, article_filter_article_categories: [mainCategory.id] }) }}>
+								{{ 'label.more'|trans }}
+							</a>
+						</div>
 					</div>
-				</div>
+				{% endif %}
 			</div>
 		{% else %}
 			{% include 'infoprodukt/category/article_category_articles.html.twig' with 
@@ -199,15 +198,17 @@
 				{% endif %}
 			</div>
 			
-			<div class="row">
-				<div class="col-sm-2 col-sm-push-10 padding-5">
-					<a href={{ path('infoprodukt_article', { category: entry.id, article_filter_article_categories: 
-						{ auxiliary: auxiliaryCategory.id, questions: questionsCategory.id, builds: buildsCategory.id, 
-						schemas: schemasCategory.id, movies: moviesCategory.id, reviews: reviewsCategory.id } }) }} class="text-red">
-						<h5 class="title">{{ 'label.more'|trans }}</h5>
-					</a>
+			{% if auxiliaryArticles|length >= auxiliarySize %}
+				<div class="row">
+					<div class="col-sm-2 col-sm-push-10 padding-5">
+						<a href={{ path('infoprodukt_article', { category: entry.id, article_filter_article_categories: 
+							{ auxiliary: auxiliaryCategory.id, questions: questionsCategory.id, builds: buildsCategory.id, 
+							schemas: schemasCategory.id, movies: moviesCategory.id, reviews: reviewsCategory.id } }) }} class="text-red">
+							<h5 class="title">{{ 'label.more'|trans }}</h5>
+						</a>
+					</div>
 				</div>
-			</div>
+			{% endif %}
 		</div>    
 	{% endif %}
 {% endblock %}

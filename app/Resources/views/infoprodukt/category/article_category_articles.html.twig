@@ -44,11 +44,13 @@
 		{% endfor %}
 	</div>
 	
-	<div class="row">
-		<div class="col-sm-2 col-sm-push-10 padding-5">
-			<a href={{ path('infoprodukt_article', { category: entry.id, article_filter_article_categories: [category.id] }) }} class="text-red">
-				<h5 class="title">{{ 'label.more'|trans }}</h5>
-			</a>
+	{% if articles|length >= numOfArticles %}
+		<div class="row">
+			<div class="col-sm-2 col-sm-push-10 padding-5">
+				<a href={{ path('infoprodukt_article', { category: entry.id, article_filter_article_categories: [category.id] }) }} class="text-red">
+					<h5 class="title">{{ 'label.more'|trans }}</h5>
+				</a>
+			</div>
 		</div>
-	</div>
+	{% endif %}
 </div>
