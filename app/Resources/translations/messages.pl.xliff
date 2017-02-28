@@ -577,6 +577,11 @@
             
             
             
+            <trans-unit id="label.article.assignTags">
+                <source>label.article.assignTags</source>
+                <target>Przypisz tagi</target>
+            </trans-unit>
+            
             <trans-unit id="label.article.layout.left">
                 <source>label.article.layout.left</source>
                 <target>Do lewej</target>
@@ -1899,6 +1904,15 @@
             <trans-unit id="success.subscribed">
                 <source>success.subscribed</source>
                 <target>Adres %mail% został z powodzeniem dodany do newslettera.</target>
+            </trans-unit>
+            
+            <trans-unit id="success.article.tagsAssigned">
+                <source>success.article.tagsAssigned</source>
+                <target>Tagi zostały przypisane do artykułu:
+                	- istniejące: %existingCount%
+                	- przypisane: %assignedCount%
+                	- utworzone: %createdCount%
+                </target>
             </trans-unit>
             
             <trans-unit id="success.category.ratingsImported">

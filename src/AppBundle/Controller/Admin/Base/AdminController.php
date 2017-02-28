@@ -6,10 +6,9 @@ use AppBundle\Controller\Base\StandardController;
 use AppBundle\Entity\Lists\Base\BaseEntityList;
 use AppBundle\Filter\Base\Filter;
 use AppBundle\Manager\Route\RouteManager;
+use AppBundle\Utils\ClassUtils;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Request;
-use AppBundle\Filter\Admin\Base\AuditFilter;
-use AppBundle\Utils\ClassUtils;
 
 abstract class AdminController extends StandardController {
 	
@@ -18,104 +17,23 @@ abstract class AdminController extends StandardController {
 	//---------------------------------------------------------------------------
 	
 	/**
-	 *
+	 * 
 	 * {@inheritDoc}
-	 * @see \AppBundle\Controller\Base\BaseEntityController::indexActionInternal()
+	 * @see \AppBundle\Controller\Base\StandardController::indexActionInternal()
 	 */
 	protected function indexActionInternal(Request $request, $page)
 	{
 		$this->denyAccessUnlessGranted($this->getShowRole(), null, 'Unable to access this page!');
-		
-		$params = $this->createParams($this->getIndexRoute());
-		$params = $this->getIndexParams($request, $params, $page);
-		
-		$rm = $this->getRouteManager();
-		$rm->register($request, $params['route'], $params['routeParams']);
-		
-		$am = $this->getAnalyticsManager();
-		$am->sendPageviewAnalytics($params['domain'], $params['route']);
-		
-		
-		$viewParams = $params['viewParams'];
-		
-		
-		
-		
-		$filter = $viewParams['entryFilter'];
-		$options = $this->getFormOptions();
-	
-		$filterForm = $this->createForm($this->getFilterFormType(), $filter, $options);
-		$filterForm->handleRequest($request);
-	
-		if ($filterForm->isSubmitted() && $filterForm->isValid()) {
-			
-			if ($filterForm->get('search')->isClicked()) {
-				return $this->redirectToRoute($this->getIndexRoute(), $filter->getRequestValues());
-			}
-			
-			if ($filterForm->get('clear')->isClicked()) {
-				$filter->clearRequestValues();
-				return $this->redirectToRoute($this->getIndexRoute(), $filter->getRequestValues());
-			}
-		}
-		$viewParams['filter'] = $filterForm->createView();
-		
-		
-		
-		
-		$items = $viewParams['entries'];
-		$selectedEntries = $this->getSelectedEntries($filter, $items);
-		
-		$listItems = $this->getListItems($items);
-		
-		$form = $this->createForm($this->getListFormType(), $selectedEntries, ['choices' => $listItems]);
-		$form->handleRequest($request);
-		
-		if ($form->isSubmitted() && $form->isValid())
-		{
-			return $this->listFormActionInternal($request, $form, $filter, $listItems);
-		}
-		$viewParams['form'] = $form->createView();
-		
-		
-		
-		return $this->render($this->getIndexView(), $viewParams);
+		return parent::indexActionInternal($request, $page);
 	}
 	
 	/**
 	 * 
-	 * @param Request $request
-	 * @param Form $form
-	 * @param Filter $filter
-	 * @param unknown $allEntries
-	 * 
-	 * @return \Symfony\Component\HttpFoundation\RedirectResponse|\AppBundle\Controller\Base\RedirectResponse
+	 * {@inheritDoc}
+	 * @see \AppBundle\Controller\Base\StandardController::showActionInternal()
 	 */
-	protected function listFormActionInternal(Request $request, Form $form, AuditFilter $filter, array $listItems) {
-		
-		if ($form->get('selectAll')->isClicked()) {
-			foreach ($listItems as $item) {
-				$filter->addSelected($item);
-			}
-		}
-		
-		if ($form->get('selectNone')->isClicked()) {
-			$filter->clearSelected();
-		}
-		
-		if ($form->get('deleteSelected')->isClicked()) {
-			$data = $form->getData();
-			$entries = $data->getEntries();
-			$filter->clearSelected();
-			$this->deleteSelected($entries);
-		}
-		
-		return $this->redirectToRoute($this->getIndexRoute(), $filter->getRequestValues());
-	}
-	
 	protected function showActionInternal(Request $request, $id) {
 		$this->denyAccessUnlessGranted($this->getShowRole(), null, 'Unable to access this page!');
-		
 		return parent::showActionInternal($request, $id);
 	}
 	
@@ -130,7 +48,14 @@ abstract class AdminController extends StandardController {
 		$params = $this->createParams($this->getNewRoute());
 		$params = $this->getNewParams($request, $params);
 		
-		return $this->editEntry($request, $params);
+		
+		$viewParams = $params['viewParams'];
+		
+		$response = $this->initNewForms($request, $viewParams);
+		if($response) return $response;
+		
+		
+		return $this->updateActionInternal($request, $params);
 	}
 	
 	/**
@@ -145,7 +70,14 @@ abstract class AdminController extends StandardController {
 		$params = $this->createParams($this->getCopyRoute());
 		$params = $this->getCopyParams($request, $params, $id);
 		
-		return $this->editEntry($request, $params);
+		
+		$viewParams = $params['viewParams'];
+		
+		$response = $this->initCopyForms($request, $viewParams);
+		if($response) return $response;
+		
+		
+		return $this->updateActionInternal($request, $params);
 	}
 	
 	protected function editActionInternal(Request $request, $id)
@@ -162,7 +94,14 @@ abstract class AdminController extends StandardController {
 		$am->sendPageviewAnalytics($params['domain'], $params['route']);
 		$am->sendEventAnalytics($this->getEntityName(), 'show', $id);
 		
-		return $this->editEntry($request, $params);
+		
+		$viewParams = $params['viewParams'];
+		
+		$response = $this->initEditForms($request, $viewParams);
+		if($response) return $response;
+		
+		
+		return $this->render($this->getEditView(), $viewParams);
 	}
 	
 	protected function deleteActionInternal(Request $request, $id)
@@ -217,6 +156,131 @@ abstract class AdminController extends StandardController {
 		$lastRoute = $rm->getLastRoute($request, ['route' => $this->getIndexRoute(), 'routeParams' => array()]);
 		
 		return $this->redirectToRoute($lastRoute['route'], $lastRoute['routeParams']);
+	}
+	
+	//---------------------------------------------------------------------------
+	// Actions blocks
+	//---------------------------------------------------------------------------
+	
+	protected function initIndexForms(Request $request, array &$viewParams) {
+		$response = parent::initIndexForms($request, $viewParams);
+		if($response) return $response;
+		
+		$response = $this->initIndexFilterForm($request, $viewParams);
+		if($response) return $response;
+		
+		$response = $this->initIndexListForm($request, $viewParams);
+		if($response) return $response;
+		
+		return null;
+	}
+	
+	protected function initIndexFilterForm(Request $request, array &$viewParams) {
+		$filter = $viewParams['entryFilter'];
+		$options = $this->getFormOptions();
+		
+		$filterForm = $this->createForm($this->getFilterFormType(), $filter, $options);
+		$filterForm->handleRequest($request);
+		
+		if ($filterForm->isSubmitted() && $filterForm->isValid()) {
+				
+			if ($filterForm->get('search')->isClicked()) {
+				return $this->redirectToRoute($this->getIndexRoute(), $filter->getRequestValues());
+			}
+				
+			if ($filterForm->get('clear')->isClicked()) {
+				$filter->clearRequestValues();
+				return $this->redirectToRoute($this->getIndexRoute(), $filter->getRequestValues());
+			}
+		}
+		
+		$viewParams['filter'] = $filterForm->createView();
+		
+		return null;
+	}
+	
+	protected function initIndexListForm(Request $request, array &$viewParams) {
+		$filter = $viewParams['entryFilter'];
+		$items = $viewParams['entries'];
+		$selectedEntries = $this->getSelectedEntries($filter, $items);
+		
+		$listItems = $this->getListItems($items);
+		
+		$form = $this->createForm($this->getListFormType(), $selectedEntries, ['choices' => $listItems]);
+		$form->handleRequest($request);
+		
+		if ($form->isSubmitted() && $form->isValid())
+		{
+			if ($form->get('selectAll')->isClicked()) {
+			foreach ($listItems as $item) {
+				$filter->addSelected($item);
+			}
+		}
+		
+		if ($form->get('selectNone')->isClicked()) {
+			$filter->clearSelected();
+		}
+		
+		if ($form->get('deleteSelected')->isClicked()) {
+			$data = $form->getData();
+			$entries = $data->getEntries();
+			$filter->clearSelected();
+			$this->deleteSelected($entries);
+		}
+		
+		return $this->redirectToRoute($this->getIndexRoute(), $filter->getRequestValues());
+		}
+		
+		$viewParams['form'] = $form->createView();
+	
+		return null;
+	}
+	
+	
+	
+	protected function initNewForms(Request $request, array &$viewParams) {
+		return $this->initUpdateForms($request, $viewParams);
+	}
+	
+	protected function initCopyForms(Request $request, array &$viewParams) {
+		return $this->initUpdateForms($request, $viewParams);
+	}
+	
+	protected function initEditForms(Request $request, array &$viewParams) {
+		return $this->initUpdateForms($request, $viewParams);
+	}
+	
+	protected function initUpdateForms(Request $request, array &$viewParams) {
+		$response = $this->initUpdateForm($request, $viewParams);
+		if($response) return $response;
+	
+		return null;
+	}
+	
+	protected function initUpdateForm(Request $request, array &$viewParams) {
+		$entry = $viewParams['entry'];
+	
+		$form = $this->createForm($this->getEditorFormType(), $entry);
+	
+		$form->handleRequest($request);
+	
+		if ($form->isSubmitted() && $form->isValid())
+		{
+			$this->saveEntry($entry);
+	
+			$translator = $this->get('translator');
+			$message = $translator->trans('success.created');
+			$message = str_replace('%type%', '<b>' . ClassUtils::getClassName($this->getEntityType()) . '</b>', $message);
+			$this->addFlash('success', $message);
+				
+			if ($form->get('save')->isClicked()) {
+				return $this->redirectToRoute($this->getEditRoute(), array('id' => $entry->getId()));
+			}
+		}
+	
+		$viewParams['form'] = $form->createView();
+	
+		return null;
 	}
 	
 	//---------------------------------------------------------------------------
@@ -325,39 +389,6 @@ abstract class AdminController extends StandardController {
 		}
 		
 		$em->flush();
-	}
-	
-	/**
-	 * 
-	 * @param Request $request
-	 * @param unknown $entry
-	 */
-	protected function editEntry(Request $request, $params)
-	{	
-		$viewParams = $params['viewParams'];
-		$entry = $viewParams['entry'];
-		
-		$form = $this->createForm($this->getEditorFormType(), $entry);
-	
-		$form->handleRequest($request);
-	
-		if ($form->isSubmitted() && $form->isValid())
-		{
-			$this->saveEntry($entry);
-	
-			$translator = $this->get('translator');
-			$message = $translator->trans('success.created');
-			$message = str_replace('%type%', '<b>' . ClassUtils::getClassName($this->getEntityType()) . '</b>', $message);
-			$this->addFlash('success', $message);
-			
-			if ($form->get('save')->isClicked()) {
-				return $this->redirectToRoute($this->getEditRoute(), array('id' => $entry->getId()));
-			}
-		}
-		
-		$viewParams['form'] = $form->createView();
-	
-		return $this->render($this->getEditView(), $viewParams);
 	}
 	
 	/**

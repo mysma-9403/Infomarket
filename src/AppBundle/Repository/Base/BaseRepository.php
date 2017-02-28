@@ -92,8 +92,6 @@ abstract class BaseRepository extends EntityRepository
 	
 	
 	
-	
-	
 	public function findFilterItems() {
 		$items = $this->queryFilterItems()->getScalarResult();
 		return $this->getFilterItems($items);

@@ -19,6 +19,12 @@ use AppBundle\Repository\Admin\Main\BrandRepository;
 use AppBundle\Repository\Admin\Main\CategoryRepository;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Manager\Entity\Admin\ArticleManager;
+use AppBundle\Entity\Other\ArticleTagAssignments;
+use AppBundle\Form\Other\ArticleTagAssignmentsType;
+use AppBundle\Entity\Tag;
+use AppBundle\Repository\Admin\Main\TagRepository;
+use AppBundle\Entity\ArticleTagAssignment;
+use Doctrine\Common\Persistence\ObjectManager;
 
 class ArticleController extends ImageEntityController {
 	
@@ -167,13 +173,137 @@ class ArticleController extends ImageEntityController {
 		return $this->render($this->getPreviewView(), $params['viewParams']);
 	}
 	
-	protected function getPreviewParams(Request $request, array $params, $id, $page) {
-		$params = $this->getParams($request, $params);
+	//---------------------------------------------------------------------------
+	// Actions blocks
+	//---------------------------------------------------------------------------
 	
-		$em = $this->getEntryParamsManager();
-		$params = $em->getPreviewParams($request, $params, $id, $page);
+	protected function initEditForms(Request $request, array &$viewParams) {
+		$response = parent::initEditForms($request, $viewParams);
+		
+		$response = $this->initTagAssignmentsForm($request, $viewParams);
+		if($response) return $response;
+		
+		return null;
+	}
 	
-		return $params;
+	protected function initTagAssignmentsForm(Request $request, array &$viewParams) {
+		$article= $viewParams['entry'];
+	
+		$entry = new ArticleTagAssignments();
+		$entry->setArticle($article);
+		
+		$form = $this->createForm(ArticleTagAssignmentsType::class, $entry);
+	
+		$form->handleRequest($request);
+	
+		if ($form->isSubmitted() && $form->isValid())
+		{	
+			/** @var ObjectManager $em */
+			$em = $this->getDoctrine()->getManager();
+			
+			/** @var TagRepository $tagRepository */
+			$tagRepository = $this->getDoctrine()->getRepository(Tag::class);
+			$tags = $entry->getTags();
+			
+			$assignedCount = 0;
+			$existingCount = 0;
+			$createdCount = 0;
+			
+			if(count($tags) > 0) {
+				$assignedTags = $tagRepository->findAssignedIds($article->getId(), $tags);
+				
+				foreach ($tags as $tag) {
+					if(in_array($tag, $assignedTags)) {
+						$existingCount++;
+					} else {
+						$assignment = new ArticleTagAssignment();
+						$assignment->setArticle($article);
+						$assignment->setTag($em->getReference(Tag::class, $tag));
+						
+						$em->persist($assignment);
+						
+						$assignedCount++;
+					}
+				}
+				$em->flush();
+			}
+			
+			$words = $entry->getTagsString();
+			
+			if(count($words) > 0) {
+				$words = array_map('trim', explode(',', $words));
+				$words = array_map('strtolower', $words);
+				
+				$tagNames = array();
+				foreach ($words as $word) {
+					$tagNames[$word] = $word;
+				}
+				
+				$existingTags = $tagRepository->findItemsByNames($tagNames);
+				$existingTagsIds = $tagRepository->getIds($existingTags);
+				$assignedTags = $tagRepository->findAssignedIds($article->getId(), $existingTagsIds);
+				
+				foreach ($existingTags as $tag) {
+					$id = $tag['id'];
+					$name = $tag['name'];
+					if(in_array($id, $tags)) {
+						$key = array_search(strtolower($name), $tagNames);
+						unset($tagNames[$key]);
+					} else if(in_array($id, $assignedTags)) {
+						$key = array_search(strtolower($name), $tagNames);
+						unset($tagNames[$key]);
+						
+						$existingCount++;
+					} else {
+						$key = array_search(strtolower($name), $tagNames);
+					    unset($tagNames[$key]);
+						
+					    $assignment = new ArticleTagAssignment();
+					    $assignment->setArticle($article);
+					    $assignment->setTag($em->getReference(Tag::class, $id));
+					    	
+					    $em->persist($assignment);
+					    
+					    $assignedCount++;
+					}
+				}
+				$em->flush();
+				
+				foreach ($tagNames as $tagName) {
+					
+					$item = new Tag();
+					$item->setName($tagName);
+					$item->setInfomarket(true);
+					$item->setInfoprodukt(true);
+					
+					$em->persist($item);
+					$em->flush();
+					
+					$assignment = new ArticleTagAssignment();
+					$assignment->setArticle($article);
+					
+					$em->persist($assignment);
+					$em->flush();
+					
+					$createdCount++;
+				}
+			}
+			
+			$translator = $this->get('translator');
+			
+			$message = $translator->trans('success.article.tagsAssigned');
+			$message = nl2br($message);
+			
+			$message = str_replace('%existingCount%', $existingCount, $message);
+			$message = str_replace('%assignedCount%', $assignedCount, $message);
+			$message = str_replace('%createdCount%', $createdCount, $message);
+			
+			$this->addFlash('success', $message);
+		}
+	
+		$viewParams['tagAssignmentsForm'] = $form->createView();
+	
+		return null;
 	}
 	
 	//---------------------------------------------------------------------------
@@ -196,6 +326,19 @@ class ArticleController extends ImageEntityController {
 		$options['articleCategories'] = $articleCategoryRepository->findFilterItems();
 	
 		return $options;
+	}
+	
+	//---------------------------------------------------------------------------
+	// Params
+	//---------------------------------------------------------------------------
+	
+	protected function getPreviewParams(Request $request, array $params, $id, $page) {
+		$params = $this->getParams($request, $params);
+	
+		$em = $this->getEntryParamsManager();
+		$params = $em->getPreviewParams($request, $params, $id, $page);
+	
+		return $params;
 	}
 	
 	//---------------------------------------------------------------------------

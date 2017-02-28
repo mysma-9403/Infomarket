@@ -33,7 +33,14 @@ abstract class StandardController extends DummyController
 		$am = $this->getAnalyticsManager();
 		$am->sendPageviewAnalytics($params['domain'], $params['route']);
 		
-		return $this->render($this->getIndexView(), $params['viewParams']);
+		
+		$viewParams = $params['viewParams'];
+		
+		$response = $this->initIndexForms($request, $viewParams);
+		if($response) return $response;
+		
+		
+		return $this->render($this->getIndexView(), $viewParams);
 	}
 	
 	/**
@@ -55,7 +62,30 @@ abstract class StandardController extends DummyController
 		$am->sendPageviewAnalytics($params['domain'], $params['route']);
 		$am->sendEventAnalytics($this->getEntityName(), 'show', $id);
 		
-		return $this->render($this->getShowView(), $params['viewParams']);
+		
+		$viewParams = $params['viewParams'];
+		
+		$response = $this->initShowForms($request, $viewParams);
+		if($response) return $response;
+		
+		
+		return $this->render($this->getShowView(), $viewParams);
+	}
+	
+	//---------------------------------------------------------------------------
+	// Actions blocks
+	//---------------------------------------------------------------------------
+	
+	protected function initIndexForms(Request $request, array &$viewParams) {
+		return $this->initForms($request, $viewParams);
+	}
+	
+	protected function initShowForms(Request $request, array &$viewParams) {
+		return $this->initForms($request, $viewParams);
+	}
+	
+	protected function initForms(Request $request, array &$viewParams) {
+		return null;
 	}
     
 	//---------------------------------------------------------------------------

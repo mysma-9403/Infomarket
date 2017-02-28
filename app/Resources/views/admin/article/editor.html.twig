@@ -61,5 +61,26 @@
 {% endblock %}
 
 {% block assignments %}
+	<div class="container">
+		{% form_theme tagAssignmentsForm 'form/fields.html.twig' %}
+		
+		<div class="row">
+			<div class="col-xs-12">
+			{{ form_start(tagAssignmentsForm) }}
+			
+			{{ form_row(tagAssignmentsForm.tags, { 'label': 'label.article.assignTags' }) }}
+			{{ form_row(tagAssignmentsForm.tagsString, { 'label': 'label.article.assignTags' }) }}		
+			
+			{{ form_errors(tagAssignmentsForm) }}
+			
+			{{ form_widget(tagAssignmentsForm.submit, { 'icon': 'fa-save', 'label': 'action.save', 'attr': {'class': 'btn btn-success'} }) }}
+			
+			{{ form_end(tagAssignmentsForm) }}
+			</div>
+		</div>
+	</div>
+	
+	<div class="lowered-25"></div>
+		
 	{% include 'admin/article/assignments.html.twig' with { 'entry': entry } %}
 {% endblock %}
