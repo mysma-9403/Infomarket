@@ -115,11 +115,11 @@ class ArticleRepository extends BaseArticleRepository
 	}
 	
 	
-	public function findCategoryItems($category, $articleCategory, $limit) {
-		return $this->queryCategoryItems($category, $articleCategory, $limit)->getScalarResult();
+	public function findCategoryItems($categoriesIds, $articleCategory, $limit) {
+		return $this->queryCategoryItems($categoriesIds, $articleCategory, $limit)->getScalarResult();
 	}
 	
-	protected function queryCategoryItems($category, $articleCategory, $limit) {
+	protected function queryCategoryItems($categoriesIds, $articleCategory, $limit) {
 		$date = new \DateTime();
 	
 		$builder = new QueryBuilder($this->getEntityManager());
@@ -129,7 +129,6 @@ class ArticleRepository extends BaseArticleRepository
 		$builder->from($this->getEntityType(), "e");
 	
 		$builder->innerJoin(ArticleCategoryAssignment::class, 'aca', Join::WITH, 'e.id = aca.article');
-		$builder->innerJoin(Category::class, 'c', Join::WITH, 'c.id = aca.category');
 	
 		if($articleCategory) {
 			$builder->innerJoin(ArticleArticleCategoryAssignment::class, 'aaca', Join::WITH, 'e.id = aaca.article');
@@ -145,10 +144,12 @@ class ArticleRepository extends BaseArticleRepository
 		$where->add('e.date IS NULL OR e.date <= \'' . $date->format('Y-m-d H:i') . "\'");
 		$where->add('e.endDate IS NULL OR e.endDate >= \'' . $date->format('Y-m-d H:i') . "\'");
 	
-		$where->add($expr->like('c.treePath', $expr->literal('%-' . $category . '#%')));
-	
 		if($articleCategory) {
 			$where->add($expr->eq('aaca.articleCategory', $articleCategory));
+		}
+		
+		if(count($categoriesIds) > 0) {
+			$where->add($expr->in('aca.category', $categoriesIds));
 		}
 			
 		$builder->where($where);
