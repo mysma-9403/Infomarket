@@ -138,12 +138,12 @@ class CategoryRepository extends ImageEntityRepository
 	
 	
 	
-	public function findChildrenIds($categoryId) {
-		$items = $this->queryChildrenIds($categoryId)->getScalarResult();
+	public function findChildrenIds($categoryId, $rootId) {
+		$items = $this->queryChildrenIds($categoryId, $rootId)->getScalarResult();
 		return $this->getIds($items);
 	}
 	
-	protected function queryChildrenIds($categoryId)
+	protected function queryChildrenIds($categoryId, $rootId)
 	{
 		$builder = new QueryBuilder($this->getEntityManager());
 			
@@ -155,6 +155,7 @@ class CategoryRepository extends ImageEntityRepository
 		$where = $expr->andX();
 		$where->add($expr->like('e.treePath', $expr->literal('%-' . $categoryId . '#%')));
 		$where->add($expr->neq('e.id', $categoryId));
+		$where->add($expr->neq('e.rootId', $rootId));
 		
 		$builder->where($where);
 			

@@ -356,15 +356,19 @@ class CategoryController extends ImageEntityController {
 			
 			/** @var CategoryRepository $repository */
 			$repository = $this->getDoctrine()->getRepository(Category::class);
-			$items = $repository->findChildrenIds($entry->getId());
-				
-			$repository->setRootId($items, $rootId);
+			$items = $repository->findChildrenIds($entry->getId(), $rootId);
+			
+			if(count($items) > 0) {
+				$repository->setRootId($items, $rootId);
+			}
 		} else {
 			/** @var CategoryRepository $repository */
 			$repository = $this->getDoctrine()->getRepository(Category::class);
-			$items = $repository->findChildrenIds($entry->getId());
-				
-			$repository->setRootId($items, $entry->getId());
+			$items = $repository->findChildrenIds($entry->getId(), $rootId);
+			
+			if(count($items) > 0) {
+				$repository->setRootId($items, $entry->getId());
+			}
 		}
 	}
 	
