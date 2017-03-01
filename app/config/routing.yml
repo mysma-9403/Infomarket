@@ -569,7 +569,31 @@ admin_article_category:
     path:      /admin/article_categories/{page}
     defaults:  { _controller: "AppBundle:Admin/Main/ArticleCategory:index", page: 1 }
     
-        
+# Admin BenchmarkFields Routing    
+admin_benchmark_field_show:
+    path:      /admin/benchmark-fields/show/{id}
+    defaults:  { _controller: "AppBundle:Admin/Main/BenchmarkField:show" }
+    
+admin_benchmark_field_new:
+    path:      /admin/benchmark-fields/new/
+    defaults:  { _controller: "AppBundle:Admin/Main/BenchmarkField:new" }
+    
+admin_benchmark_field_copy:
+    path:      /admin/benchmark-fields/copy/{id}
+    defaults:  { _controller: "AppBundle:Admin/Main/BenchmarkField:copy" }
+    
+admin_benchmark_field_edit:
+    path:      /admin/benchmark-fields/edit/{id}
+    defaults:  { _controller: "AppBundle:Admin/Main/BenchmarkField:edit" }
+    
+admin_benchmark_field_delete:
+    path:      /admin/benchmark-fields/delete/{id}
+    defaults:  { _controller: "AppBundle:Admin/Main/BenchmarkField:delete" }
+    
+admin_benchmark_field:
+    path:      /admin/benchmark-fields/{page}
+    defaults:  { _controller: "AppBundle:Admin/Main/BenchmarkField:index", page: 1 }
+            
 # Admin Branches Routing    
 admin_branch_show:
     path:      /admin/branches/show/{id}

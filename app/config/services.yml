@@ -148,6 +148,11 @@ services:
         arguments: ["@doctrine.orm.entity_manager"]
         tags:
             - { name: form.type }
+    app.form.editor.benchmark_field:
+        class: AppBundle\Form\Editor\Main\BenchmarkFieldEditorType
+        arguments: ["@doctrine.orm.entity_manager"]
+        tags:
+            - { name: form.type }
     app.form.editor.category:
         class: AppBundle\Form\Editor\Main\CategoryEditorType
         arguments: ["@doctrine.orm.entity_manager"]

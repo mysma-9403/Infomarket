@@ -56,6 +56,14 @@
                 <source>title.articleCategories</source>
                 <target>Kategorie artykułów</target>
             </trans-unit>
+            <trans-unit id="title.benchmarkField">
+                <source>title.benchmarkField</source>
+                <target>Pole benchmarku</target>
+            </trans-unit>
+            <trans-unit id="title.benchmarkFields">
+                <source>title.benchmarkFields</source>
+                <target>Pola benchmarku</target>
+            </trans-unit>
             <trans-unit id="title.branch">
                 <source>title.branch</source>
                 <target>Branża</target>
@@ -611,6 +619,109 @@
             <trans-unit id="label.article.imageSize.large">
                 <source>label.article.imageSize.large</source>
                 <target>Duży</target>
+            </trans-unit>
+            
+            <trans-unit id="label.benchmarkField">
+                <source>label.benchmarkField</source>
+                <target>Pole benchmarku</target>
+            </trans-unit>
+            
+            <trans-unit id="label.benchmarkField.valueType">
+                <source>label.benchmarkField.valueType</source>
+                <target>Typ wartości</target>
+            </trans-unit>
+            <trans-unit id="label.benchmarkField.valueNumber">
+                <source>label.benchmarkField.valueNumber</source>
+                <target>Numer wartości</target>
+            </trans-unit>
+            
+            <trans-unit id="label.benchmarkField.fieldName">
+                <source>label.benchmarkField.fieldName</source>
+                <target>Nazwa pola</target>
+            </trans-unit>
+            <trans-unit id="label.benchmarkField.fieldType">
+                <source>label.benchmarkField.fieldType</source>
+                <target>Typ pola</target>
+            </trans-unit>
+            <trans-unit id="label.benchmarkField.fieldNumber">
+                <source>label.benchmarkField.fieldNumber</source>
+                <target>Numer pola</target>
+            </trans-unit>
+            <trans-unit id="label.benchmarkField.showField">
+                <source>label.benchmarkField.showField</source>
+                <target>Pokaż pole</target>
+            </trans-unit>
+            
+            <trans-unit id="label.benchmarkField.filterName">
+                <source>label.benchmarkField.filterName</source>
+                <target>Nazwa filtra</target>
+            </trans-unit>
+            <trans-unit id="label.benchmarkField.filterType">
+                <source>label.benchmarkField.filterType</source>
+                <target>Typ filtra</target>
+            </trans-unit>
+            <trans-unit id="label.benchmarkField.filterNumber">
+                <source>label.benchmarkField.filterNumber</source>
+                <target>Numer filtra</target>
+            </trans-unit>
+            <trans-unit id="label.benchmarkField.showFilter">
+                <source>label.benchmarkField.showFilter</source>
+                <target>Pokaż filtr</target>
+            </trans-unit>
+            
+            <trans-unit id="label.benchmarkField.valueType.decimal">
+                <source>label.benchmarkField.valueType.decimal</source>
+                <target>Liczba zmiennoprzecinkowa</target>
+            </trans-unit>
+            <trans-unit id="label.benchmarkField.valueType.integer">
+                <source>label.benchmarkField.valueType.integer</source>
+                <target>Liczba całkowita</target>
+            </trans-unit>
+            <trans-unit id="label.benchmarkField.valueType.string">
+                <source>label.benchmarkField.valueType.string</source>
+                <target>Tekst</target>
+            </trans-unit>
+            
+            <trans-unit id="label.benchmarkField.fieldType.decimal">
+                <source>label.benchmarkField.fieldType.decimal</source>
+                <target>Pole liczbowe (zmiennoprzecinkowe)</target>
+            </trans-unit>
+            <trans-unit id="label.benchmarkField.fieldType.integer">
+                <source>label.benchmarkField.fieldType.integer</source>
+                <target>Pole liczbowe (całkowite)</target>
+            </trans-unit>
+            <trans-unit id="label.benchmarkField.fieldType.boolean">
+                <source>label.benchmarkField.fieldType.boolean</source>
+                <target>Pole logiczne (tak/nie)</target>
+            </trans-unit>
+            <trans-unit id="label.benchmarkField.fieldType.string">
+                <source>label.benchmarkField.fieldType.string</source>
+                <target>Pole tekstowe</target>
+            </trans-unit>
+            <trans-unit id="label.benchmarkField.fieldType.enum">
+                <source>label.benchmarkField.fieldType.enum</source>
+                <target>Pole wyliczeniowe (lista)</target>
+            </trans-unit>
+            
+            <trans-unit id="label.benchmarkField.filterType.decimal">
+                <source>label.benchmarkField.filterType.decimal</source>
+                <target>Filtr liczbowy (zmiennoprzecinkowy)</target>
+            </trans-unit>
+            <trans-unit id="label.benchmarkField.filterType.integer">
+                <source>label.benchmarkField.filterType.integer</source>
+                <target>Filtr liczbowy (całkowity)</target>
+            </trans-unit>
+            <trans-unit id="label.benchmarkField.filterType.boolean">
+                <source>label.benchmarkField.filterType.boolean</source>
+                <target>Filtr logiczny (tak/nie)</target>
+            </trans-unit>
+            <trans-unit id="label.benchmarkField.filterType.string">
+                <source>label.benchmarkField.filterType.string</source>
+                <target>Filtr tekstowy</target>
+            </trans-unit>
+            <trans-unit id="label.benchmarkField.filterType.enum">
+                <source>label.benchmarkField.filterType.enum</source>
+                <target>Filtr wyliczeniowy (lista)</target>
             </trans-unit>
             
             

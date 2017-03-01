@@ -1,0 +1,22 @@
+{% extends 'admin/base/editor.html.twig' %}
+
+{% set mainPath = 'benchmark_field' %}
+{% set title = 'title.benchmarkFields'|trans %}
+{% set gender = '' %}
+
+{% block mainFields1 %}
+	{{ form_row(form.category, { 'label': 'label.category' }) }}
+{% endblock %}
+
+{% block moreFields2 %}
+	{{ form_row(form.valueNumber, { 'label': 'label.benchmarkField.valueNumber' }) }}
+	
+	{{ form_row(form.fieldType, { 'label': 'label.benchmarkField.fieldType' }) }}
+	{{ form_row(form.fieldName, { 'label': 'label.benchmarkField.fieldName' }) }}
+	{{ form_row(form.fieldNumber, { 'label': 'label.benchmarkField.fieldNumber' }) }}
+	{{ form_row(form.showField, { 'label': 'label.benchmarkField.showField' }) }}
+	
+	{{ form_row(form.filterName, { 'label': 'label.benchmarkField.filterName' }) }}
+	{{ form_row(form.filterNumber, { 'label': 'label.benchmarkField.filterNumber' }) }}
+	{{ form_row(form.showFilter, { 'label': 'label.benchmarkField.showFilter' }) }}
+{% endblock %}

@@ -1,0 +1,44 @@
+{% extends 'admin/base/index.html.twig' %}
+
+{% set mainPath = 'benchmark_field' %}
+{% set title = 'title.benchmarkFields'|trans %}
+
+{% block filterMoreFields1 %}
+	<li class="col-xs-12 col-sm-6 col-md-4 col-lg-2">
+		{{ form_widget(filter.categories) }}
+	</li>
+	<li class="col-xs-12 col-sm-6 col-md-4 col-lg-2">
+		{{ form_widget(filter.fieldTypes) }}
+	</li>
+	<li class="col-xs-12 col-sm-6 col-md-4 col-lg-2">
+		{{ form_widget(filter.fieldName) }}
+	</li>
+{% endblock %}
+
+{% block headerMainFields1 %}
+	<th><i class="fa fa-list"></i> {{ 'label.category'|trans }}</th>
+{% endblock %}
+
+{% block headerMoreFields2 %}
+	<th><i class="fa"></i> {{ 'label.benchmarkField.fieldType'|trans }}</th>
+	<th><i class="fa"></i> {{ 'label.benchmarkField.valueNumber'|trans }}</th>
+	<th><i class="fa fa-eye"></i> {{ 'label.benchmarkField.showField'|trans }}</th>
+{% endblock %}
+
+{% block entryMainFields1 %}
+	<td>
+		{% include 'common/links/simple_link.html.twig' with { type: 'category', value: { id: item.categoryId, name: item.categoryName, subname: item.categorySubname } } %}
+	</td>
+{% endblock %}
+
+{% block entryMoreFields2 %}
+	<td>
+		{{ item.fieldType }}
+	</td>
+	<td>
+		{{ item.valueNumber}}
+	</td>
+	<td>
+		{{ item.showField }}
+	</td>
+{% endblock %}

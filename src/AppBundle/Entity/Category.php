@@ -797,4 +797,43 @@ class Category extends ImageEntityTree
     {
         return $this->benchmarkType;
     }
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $benchmarkFields;
+
+
+    /**
+     * Add benchmarkField
+     *
+     * @param \AppBundle\Entity\BenchmarkField $benchmarkField
+     *
+     * @return Category
+     */
+    public function addBenchmarkField(\AppBundle\Entity\BenchmarkField $benchmarkField)
+    {
+        $this->benchmarkFields[] = $benchmarkField;
+
+        return $this;
+    }
+
+    /**
+     * Remove benchmarkField
+     *
+     * @param \AppBundle\Entity\BenchmarkField $benchmarkField
+     */
+    public function removeBenchmarkField(\AppBundle\Entity\BenchmarkField $benchmarkField)
+    {
+        $this->benchmarkFields->removeElement($benchmarkField);
+    }
+
+    /**
+     * Get benchmarkFields
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getBenchmarkFields()
+    {
+        return $this->benchmarkFields;
+    }
 }
