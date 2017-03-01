@@ -55,7 +55,7 @@ abstract class AdminController extends StandardController {
 		if($response) return $response;
 		
 		
-		return $this->updateActionInternal($request, $params);
+		return $this->render($this->getEditView(), $viewParams);
 	}
 	
 	/**
@@ -77,7 +77,7 @@ abstract class AdminController extends StandardController {
 		if($response) return $response;
 		
 		
-		return $this->updateActionInternal($request, $params);
+		return $this->render($this->getEditView(), $viewParams);
 	}
 	
 	protected function editActionInternal(Request $request, $id)
