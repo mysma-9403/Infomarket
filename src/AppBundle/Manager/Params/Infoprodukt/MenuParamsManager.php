@@ -11,7 +11,7 @@ use AppBundle\Repository\Infoprodukt\MenuEntryRepository;
 class MenuParamsManager extends ParamsManager {
 	
 	public function getParams(Request $request, array $params) {
-		$contextParams = $params['contextParams'];
+// 		$contextParams = $params['contextParams'];
 		$viewParams = $params['viewParams'];
 		
 		$em = $this->doctrine->getManager();
@@ -19,7 +19,7 @@ class MenuParamsManager extends ParamsManager {
 		/** @var MenuEntryRepository $menuEntryRepository */
 		$menuEntryRepository = new MenuEntryRepository($em, $em->getClassMetadata(MenuEntry::class));
     	
-    	$categories = $contextParams['categories'];
+    	$categories = array(); //TODO improve context categories $contextParams['categories'];
     	
     	$menuEntries = $menuEntryRepository->findMenuItems(Menu::FOOTER_MENU, $categories);
     	$viewParams['footerMenuEntries'] = $menuEntries;

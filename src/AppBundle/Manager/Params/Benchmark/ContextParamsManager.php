@@ -27,7 +27,6 @@ class ContextParamsManager extends ParamsManager {
 		$categoryRepository = new CategoryRepository($em, $em->getClassMetadata(Category::class));
 		$categories = $categoryRepository->findFilterItems();
 		
-		
 		$categoryId = $this->getParamId($request, Category::class, $categories[key($categories)]);
 		$category = $categoryRepository->findItem($categoryId);
 		

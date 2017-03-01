@@ -31,21 +31,19 @@ class ContextParamsManager extends ParamsManager {
     	$viewParams['menuWidths'] = $this->getMenuWidths($categories);
     	
     	
-    	$category = $this->getParam($request, Category::class, null);
-//     	$categoryId = $this->getParamId($request, Category::class, null);
-    	if($category) {
-    		$contextParams['category'] = $category->getId();
-    		$routeParams['category'] = $category->getId();
-    		$viewParams['category'] = $category;
+    	$categoryId = $this->getParamId($request, Category::class, null);
+    	if($categoryId) {
+    		$contextParams['category'] = $categoryId;
+    		$routeParams['category'] = $categoryId;
+    		$viewParams['category'] = $categoryRepository->find($categoryId);
     		
-    		$contextParams['categories'] = $categoryRepository->findContextParents($category->getId());
-    		$contextParams['children'] = $categoryRepository->findContextChildren($category->getId());
+    		$contextParams['categories'] = $categoryRepository->findContextParents($categoryId);
+    		$contextParams['children'] = $categoryRepository->findContextChildren($categoryId);
     	} else {
     		$contextParams['category'] = null;
     		$contextParams['categories'] = array();
     		$contextParams['children'] = array();
     	}
-    	
     	
     	$params['contextParams'] = $contextParams;
     	$params['routeParams'] = $routeParams;

@@ -13,14 +13,14 @@
 			{% if entry.children|length > 10 %}
 				<li role="separator" class="divider"></li>
 				<li>
-					<a href="{{ path(basePath ~ 'category_show', { id: entry.id }) }}">
+					<a href="{{ path(basePath ~ 'category_show', { id: entry.id, category: entry.id }) }}">
 						<span class="text-red">{{ 'label.more' | trans }}</span>
 					</a>
 				</li>
 			{% endif %}
 		</ul>
 	{% else %}
-		<a href="{{ path(basePath ~ 'category_show', { id: entry.id }) }}">
+		<a href="{{ path(basePath ~ 'category_show', { id: entry.id, category: entry.id }) }}">
 			{{ entry.name | raw }} {{ entry.subname | raw }}
 		</a>
 	{% endif %}

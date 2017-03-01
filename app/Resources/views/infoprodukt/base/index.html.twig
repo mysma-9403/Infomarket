@@ -4,16 +4,14 @@
 	
 	{% set categoryId = null %}
 	{% if category is defined %}
-		{% set categoryId = category.preleaf ? category.id : category.parent.id %}
-		{% set categoryName = category.preleaf ? category.name : category.parent.name %}
-		{% set categorySubname = category.preleaf ? category.subname : category.parent.subname %}
+		{% set category = category.parent and category.parent.preleaf ? category.parent : category %}
 		/ 
-		<a href="{{ path(basePath ~ 'category_show', { id: categoryId, category: categoryId }) }}">
-			{{ categoryName }} {{ categorySubname }}
+		<a href="{{ path(basePath ~ 'category_show', { id: category.id, category: category.id }) }}">
+			{{ category.name }} {{ category.subname }}
 		</a>
 	{% endif %}
 	/ 
-	<a href="{{ path(basePath ~ mainPath, { category: categoryId }) }}">
+	<a href="{{ path(basePath ~ mainPath, { category: category.id }) }}">
 		{{ title }}
 	</a>
 	{% block moreMoreBreadcrumbs%}

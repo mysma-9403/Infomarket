@@ -43,7 +43,7 @@
 					{% endblock %}
 					
 					{% block categoriesBlock %}
-						{% if category is defined and category.preleaf == false %}
+						{% if category is defined and category.parent and category.parent.preleaf == true %}
 							<h3>{{ 'label.categories'|trans }}</h3>
 							
 							<ul class="nav nav-pills nav-stacked">

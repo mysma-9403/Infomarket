@@ -67,8 +67,11 @@
 		</div>
 		
 		<div class="row">
-			{% include 'common/tile_list.html.twig' with {'entries': categories|slice(0,12), 
-				'entryPath': 'category', 'colSize': 2, 'tile': 'bottom_rect_tile' } %}
+			{% for category in categories|slice(0,12) %}
+				<div class="col-sm-2 padding-5">
+					{% include 'common/bottom_rect_tile.html.twig' with { entry: category, entryPath: 'category', routeParams: { category: category.id } } %}
+				</div>
+			{% endfor %}
 		</div>
 		
 		<div class="row text-center">
