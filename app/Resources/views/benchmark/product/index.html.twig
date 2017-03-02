@@ -1,6 +1,7 @@
 {% extends 'benchmark/product/base.html.twig' %}
 
 {% set basePath = 'benchmark_' %}
+{% set mainPath = 'product' %}
 {% set title = title|default('title.benchmark')|trans %}
 
 {% set gender = gender | default('') %}
@@ -97,6 +98,25 @@
 								</div>	
 							</div>
 						{{ form_end(filter) }}
+					{% endblock %}
+					
+					<div>&nbsp;</div>
+					
+					{% block actions %}
+						<div class="row padding-5">
+							<div class="col-xs-12 padding-5">
+								<a class="btn btn-primary" href="{{ path(basePath ~ mainPath ~ '_export_to_csv', routeParams) }}">
+									<span class="fa fa-download"></span> {{ 'action.benchmark.export.csv'|trans }}
+								</a>
+							</div>
+						</div>
+						<div class="row padding-5">
+							<div class="col-xs-12 padding-5">
+								<a class="btn btn-primary" href="{{ path(basePath ~ mainPath ~ '_export_to_html', routeParams) }}">
+									<span class="fa fa-download"></span> {{ 'action.benchmark.export.html'|trans }}
+								</a>
+							</div>
+						</div>
 					{% endblock %}
 				{% endblock %}
 			</div>

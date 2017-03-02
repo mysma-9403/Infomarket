@@ -763,6 +763,15 @@
                 <target>Nie (-)</target>
             </trans-unit>
             
+            <trans-unit id="action.benchmark.export.csv">
+                <source>action.benchmark.export.csv</source>
+                <target>Eksportuj do csv</target>
+            </trans-unit>
+            <trans-unit id="action.benchmark.export.html">
+                <source>action.benchmark.export.html</source>
+                <target>Eksportuj do html</target>
+            </trans-unit>
+            
             
             
             

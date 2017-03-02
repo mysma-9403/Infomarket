@@ -7,7 +7,15 @@ app:
 benchmark_product:
     path:      /benchmark/{page}
     defaults:  { _controller: "AppBundle:Benchmark/Benchmark:index", page: 1 }
-     
+    
+benchmark_product_export_to_csv:
+    path:      /benchmark/export-to-csv/{page}
+    defaults:  { _controller: "AppBundle:Benchmark/Benchmark:exportToCsv" }
+
+benchmark_product_export_to_html:
+    path:      /benchmark/export-to-html/{page}
+    defaults:  { _controller: "AppBundle:Benchmark/Benchmark:exportToHtml" }
+         
 # Infoprodukt Routing
 infoprodukt_advert_click:
     path:      /adverts/click/{id}
