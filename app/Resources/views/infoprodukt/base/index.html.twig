@@ -10,10 +10,7 @@
 			{{ category.name }} {{ category.subname }}
 		</a>
 	{% endif %}
-	/ 
-	<a href="{{ path(basePath ~ mainPath, { category: category.id }) }}">
-		{{ title }}
-	</a>
+	
 	{% block moreMoreBreadcrumbs%}
 	{% endblock %}
 	
