@@ -39,6 +39,8 @@ class ProductFilterType extends FilterType
 		$category = $options['category'];
 		$fields = $options['fields'];
 		
+		dump($category);
+		
 		$categoryRepository = new CategoryRepository($this->em, $this->em->getClassMetadata(Category::class));
 		$categories = $categoryRepository->findFilterItemsByCategory($category);
 		

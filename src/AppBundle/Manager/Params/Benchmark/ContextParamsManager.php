@@ -35,8 +35,12 @@ class ContextParamsManager extends ParamsManager {
 		
 		
 		$subcategories = $categoryRepository->findFilterItemsByCategory($categoryId);
-		$subcategoryId = $this->getParamIdByName($request, 'subcategory', $subcategories[key($subcategories)]);
+		$subcategoryId = $this->getParamIdByName($request, 'subcategory');
+		if(!in_array($subcategoryId, $subcategories)) {
+			$subcategoryId = $subcategories[key($subcategories)];
+		}
 		$subcategory = $categoryRepository->findItem($subcategoryId);
+		
 		
 		$contextParams['subcategory'] = $subcategoryId;
 		$routeParams['subcategory'] = $subcategoryId;
