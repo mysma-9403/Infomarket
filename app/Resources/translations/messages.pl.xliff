@@ -698,9 +698,13 @@
                 <source>label.benchmarkField.fieldType.string</source>
                 <target>Pole tekstowe</target>
             </trans-unit>
-            <trans-unit id="label.benchmarkField.fieldType.enum">
-                <source>label.benchmarkField.fieldType.enum</source>
-                <target>Pole wyliczeniowe (lista)</target>
+            <trans-unit id="label.benchmarkField.fieldType.singleEnum">
+                <source>label.benchmarkField.fieldType.singleEnum</source>
+                <target>Pole wyliczeniowe (lista jednokrotnego wyboru)</target>
+            </trans-unit>
+            <trans-unit id="label.benchmarkField.fieldType.multiEnum">
+                <source>label.benchmarkField.fieldType.multiEnum</source>
+                <target>Pole wyliczeniowe (lista wielokrotnego wyboru)</target>
             </trans-unit>
             
             <trans-unit id="label.benchmarkField.filterType.decimal">
@@ -719,9 +723,40 @@
                 <source>label.benchmarkField.filterType.string</source>
                 <target>Filtr tekstowy</target>
             </trans-unit>
-            <trans-unit id="label.benchmarkField.filterType.enum">
-                <source>label.benchmarkField.filterType.enum</source>
+            <trans-unit id="label.benchmarkField.filterType.singleEnum">
+                <source>label.benchmarkField.filterType.singleEnum</source>
                 <target>Filtr wyliczeniowy (lista)</target>
+            </trans-unit>
+            <trans-unit id="label.benchmarkField.filterType.multiEnum">
+                <source>label.benchmarkField.filterType.multiEnum</source>
+                <target>Filtr wyliczeniowy (lista)</target>
+            </trans-unit>
+            
+            <trans-unit id="label.benchmark.category">
+                <source>label.benchmark.category</source>
+                <target>Kategoria główna</target>
+            </trans-unit>
+            <trans-unit id="label.benchmark.subcategory">
+                <source>label.benchmark.subcategory</source>
+                <target>Kategoria wewnętrzna</target>
+            </trans-unit>
+            
+            <trans-unit id="label.benchmark.subcategories">
+                <source>label.benchmark.subcategories</source>
+                <target>Podkategorie</target>
+            </trans-unit>
+            <trans-unit id="label.benchmark.brands">
+                <source>label.benchmark.brands</source>
+                <target>Marki</target>
+            </trans-unit>
+            
+            <trans-unit id="label.benchmark.minPrice">
+                <source>label.benchmark.minPrice</source>
+                <target>Cena (min.)</target>
+            </trans-unit>
+            <trans-unit id="label.benchmark.maxPrice">
+                <source>label.benchmark.maxPrice</source>
+                <target>Cena (max.)</target>
             </trans-unit>
             
             

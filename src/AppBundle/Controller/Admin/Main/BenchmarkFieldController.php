@@ -127,9 +127,13 @@ class BenchmarkFieldController extends BaseEntityController {
 				$entry->setValueType(BenchmarkField::STRING_VALUE_TYPE);
 				$entry->setFilterType(BenchmarkField::STRING_FILTER_TYPE);
 				break;
-			case BenchmarkField::ENUM_FIELD_TYPE:
+			case BenchmarkField::SINGLE_ENUM_FIELD_TYPE:
 				$entry->setValueType(BenchmarkField::STRING_VALUE_TYPE);
-				$entry->setFilterType(BenchmarkField::ENUM_FILTER_TYPE);
+				$entry->setFilterType(BenchmarkField::SINGLE_ENUM_FILTER_TYPE);
+				break;
+			case BenchmarkField::MULTI_ENUM_FIELD_TYPE:
+				$entry->setValueType(BenchmarkField::STRING_VALUE_TYPE);
+				$entry->setFilterType(BenchmarkField::MULTI_ENUM_FILTER_TYPE);
 				break;
 		}
 	}

@@ -21,7 +21,8 @@ class BenchmarkField extends Audit
 	const BOOLEAN_FIELD_TYPE = 22;
 	
 	const STRING_FIELD_TYPE = 31;
-	const ENUM_FIELD_TYPE = 32;
+	const SINGLE_ENUM_FIELD_TYPE = 32;
+	const MULTI_ENUM_FIELD_TYPE = 33;
 	
 	
 	
@@ -31,7 +32,8 @@ class BenchmarkField extends Audit
 	const BOOLEAN_FILTER_TYPE = 22;
 	
 	const STRING_FILTER_TYPE = 31;
-	const ENUM_FILTER_TYPE = 32;
+	const SINGLE_ENUM_FILTER_TYPE = 32;
+	const MULTI_ENUM_FILTER_TYPE = 33;
 	
 	public static function getValueTypeDBName($valueType) {
 		switch($valueType) {

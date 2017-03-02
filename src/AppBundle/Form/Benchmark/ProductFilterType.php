@@ -15,6 +15,10 @@ use Symfony\Component\Form\FormBuilderInterface;
 use AppBundle\Filter\Benchmark\ProductFilter;
 use AppBundle\Form\Base\FilterType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use AppBundle\Utils\ClassUtils;
+use AppBundle\Entity\BenchmarkField;
+use AppBundle\Repository\Benchmark\ProductRepository;
+use AppBundle\Entity\Product;
 
 class ProductFilterType extends FilterType
 {	
@@ -33,6 +37,7 @@ class ProductFilterType extends FilterType
 	protected function addMainFields(FormBuilderInterface $builder, array $options) {
 		
 		$category = $options['category'];
+		$fields = $options['fields'];
 		
 		$categoryRepository = new CategoryRepository($this->em, $this->em->getClassMetadata(Category::class));
 		$categories = $categoryRepository->findFilterItemsByCategory($category);
@@ -58,20 +63,46 @@ class ProductFilterType extends FilterType
 				'multiple'      => true
 		))
 		->add('minPrice', NumberType::class, array(
-				'attr' => ['placeholder' => 'label.product.minPrice'],
+				'attr' => ['placeholder' => 'label.benchmark.minPrice'],
 				'required' => false
 		))
 		->add('maxPrice', NumberType::class, array(
-				'attr' => ['placeholder' => 'label.product.maxPrice'],
+				'attr' => ['placeholder' => 'label.benchmark.maxPrice'],
 				'required' => false
 		))
 		;
+		
+		$productRepository = new ProductRepository($this->em, $this->em->getClassMetadata(Product::class));
+		
+		foreach ($fields as $field) {
+			switch($field['filterType']) {
+				case BenchmarkField::SINGLE_ENUM_FILTER_TYPE:
+				case BenchmarkField::MULTI_ENUM_FILTER_TYPE:
+					$choices = $productRepository->findFilterItemsByValue($category, BenchmarkField::getValueTypeDBName($field['valueType']) . $field['valueNumber']);
+					$builder->add(ClassUtils::getCleanName($field['filterName']), ChoiceType::class, array(
+						'choices'		=> $choices,
+						'choice_label' => function ($value, $key, $index) { return $value; },
+						'choice_translation_domain' => false,
+						'required'		=> false,
+						'expanded'      => false,
+						'multiple'      => true
+					));
+					break;
+				default:
+					$builder->add(ClassUtils::getCleanName($field['filterName']), null, array(
+						'attr' => ['placeholder' => $field['filterName']],
+						'required' => false
+					));
+					break;
+			}
+		}
 	}
 	
 	protected function getDefaultOptions() {
 		$options = parent::getDefaultOptions();
 		
 		$options['category'] = null;
+		$options['fields'] = array();
 	
 		return $options;
 	}

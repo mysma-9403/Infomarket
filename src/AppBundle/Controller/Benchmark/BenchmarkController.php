@@ -90,10 +90,10 @@ class BenchmarkController extends DummyController {
 		$viewParams['subcategoryFilter'] = $subcategoryFilterForm->createView();
 		
 		
-		
+		/** @var ProductFilter $filter */
 		$filter = $viewParams['entryFilter'];
 	
-		$filterForm = $this->createForm($this->getFilterFormType(), $filter, ['category' => $subcategory]);
+		$filterForm = $this->createForm($this->getFilterFormType(), $filter, ['category' => $subcategory, 'fields' => $filter->getFilterFields()]);
 		$filterForm->handleRequest($request);
 	
 		if ($filterForm->isSubmitted() && $filterForm->isValid()) {

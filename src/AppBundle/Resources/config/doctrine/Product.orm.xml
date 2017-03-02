@@ -58,27 +58,27 @@
         <field name="integer20" type="integer" nullable="true" />
         
         
-        <field name="string1" type="string" length="128" nullable="true" />
-        <field name="string2" type="string" length="128" nullable="true" />
-        <field name="string3" type="string" length="128" nullable="true" />
-        <field name="string4" type="string" length="128" nullable="true" />
-        <field name="string5" type="string" length="128" nullable="true" />
-        <field name="string6" type="string" length="128" nullable="true" />
-        <field name="string7" type="string" length="128" nullable="true" />
-        <field name="string8" type="string" length="128" nullable="true" />
-        <field name="string9" type="string" length="128" nullable="true" />
-        <field name="string10" type="string" length="128" nullable="true" />
+        <field name="string1" type="string" length="256" nullable="true" />
+        <field name="string2" type="string" length="256" nullable="true" />
+        <field name="string3" type="string" length="256" nullable="true" />
+        <field name="string4" type="string" length="256" nullable="true" />
+        <field name="string5" type="string" length="256" nullable="true" />
+        <field name="string6" type="string" length="256" nullable="true" />
+        <field name="string7" type="string" length="256" nullable="true" />
+        <field name="string8" type="string" length="256" nullable="true" />
+        <field name="string9" type="string" length="256" nullable="true" />
+        <field name="string10" type="string" length="256" nullable="true" />
         
-        <field name="string11" type="string" length="128" nullable="true" />
-        <field name="string12" type="string" length="128" nullable="true" />
-        <field name="string13" type="string" length="128" nullable="true" />
-        <field name="string14" type="string" length="128" nullable="true" />
-        <field name="string15" type="string" length="128" nullable="true" />
-        <field name="string16" type="string" length="128" nullable="true" />
-        <field name="string17" type="string" length="128" nullable="true" />
-        <field name="string18" type="string" length="128" nullable="true" />
-        <field name="string19" type="string" length="128" nullable="true" />
-        <field name="string20" type="string" length="128" nullable="true" />
+        <field name="string11" type="string" length="256" nullable="true" />
+        <field name="string12" type="string" length="256" nullable="true" />
+        <field name="string13" type="string" length="256" nullable="true" />
+        <field name="string14" type="string" length="256" nullable="true" />
+        <field name="string15" type="string" length="256" nullable="true" />
+        <field name="string16" type="string" length="256" nullable="true" />
+        <field name="string17" type="string" length="256" nullable="true" />
+        <field name="string18" type="string" length="256" nullable="true" />
+        <field name="string19" type="string" length="256" nullable="true" />
+        <field name="string20" type="string" length="256" nullable="true" />
         
         
         <one-to-many field="productCategoryAssignments" target-entity="ProductCategoryAssignment" mapped-by="product">

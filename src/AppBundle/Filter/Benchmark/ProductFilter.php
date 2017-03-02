@@ -3,9 +3,11 @@
 namespace AppBundle\Filter\Benchmark;
 
 use AppBundle;
+use AppBundle\Entity\BenchmarkField;
 use AppBundle\Filter\Base\Filter;
-use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Repository\Benchmark\BenchmarkFieldRepository;
+use AppBundle\Utils\ClassUtils;
+use Symfony\Component\HttpFoundation\Request;
 
 class ProductFilter extends Filter {
 	
@@ -26,6 +28,12 @@ class ProductFilter extends Filter {
 	 * @var array
 	 */
 	protected $showFields;
+	
+	/**
+	 *
+	 * @var array
+	 */
+	protected $filterFields;
 	
 	
 	
@@ -64,6 +72,7 @@ class ProductFilter extends Filter {
 		$this->contextCategory = $contextParams['subcategory'];
 		
 		$this->showFields = $this->benchmarkFieldRepository->findShowItemsByCategory($this->contextCategory);
+		$this->filterFields = $this->benchmarkFieldRepository->findFilterItemsByCategory($this->contextCategory);
 	}
 	
 	public function initRequestValues(Request $request) {
@@ -74,6 +83,10 @@ class ProductFilter extends Filter {
 		
 		$this->minPrice = $this->getRequestValue($request, 'min_price');
 		$this->maxPrice = $this->getRequestValue($request, 'max_price');
+		
+		foreach ($this->filterFields as $key => $field) {
+			$this->filterFields[$key]['value'] = $this->getRequestString($request, ClassUtils::getCleanName($field['filterName']));
+		}
 	}
 	
 	public function clearRequestValues() {
@@ -84,6 +97,11 @@ class ProductFilter extends Filter {
 		
 		$this->minPrice = null;
 		$this->maxPrice = null;
+		
+		foreach ($this->filterFields as $key => $field) {
+			$field;
+			$this->filterFields[$key]['value'] = '';
+		}
 	}
 	
 	public function getRequestValues() {
@@ -94,6 +112,18 @@ class ProductFilter extends Filter {
 		
 		$this->setRequestValue($values, 'min_price', $this->minPrice);
 		$this->setRequestValue($values, 'max_price', $this->maxPrice);
+		
+		foreach ($this->filterFields as $field) {
+			switch($field['filterType']) {
+				case BenchmarkField::SINGLE_ENUM_FILTER_TYPE:
+				case BenchmarkField::MULTI_ENUM_FILTER_TYPE:
+					$this->setRequestArray($values, ClassUtils::getCleanName($field['filterName']), $field['value']);
+					break;
+				default:
+					$this->setRequestString($values, ClassUtils::getCleanName($field['filterName']), $field['value']);
+					break;
+			}
+		}
 		
 		return $values;
 	}
@@ -144,6 +174,30 @@ class ProductFilter extends Filter {
 	public function getShowFields()
 	{
 		return $this->showFields;
+	}
+	
+	/**
+	 * Set filterFields
+	 *
+	 * @param array $filterFields
+	 *
+	 * @return ProductFilter
+	 */
+	public function setFilterFields($filterFields)
+	{
+		$this->filterFields = $filterFields;
+	
+		return $this;
+	}
+	
+	/**
+	 * Get filterFields
+	 *
+	 * @return array
+	 */
+	public function getFilterFields()
+	{
+		return $this->filterFields;
 	}
 	
 	/**
@@ -240,5 +294,24 @@ class ProductFilter extends Filter {
 	public function getMaxPrice()
 	{
 		return $this->maxPrice;
+	}
+	
+	public function __get($valueName) {
+		foreach ($this->filterFields as $field) {
+			if(ClassUtils::getCleanName($field['filterName']) == $valueName) {
+				return $field['value'];
+			}
+		}
+		return null;
+	}
+	
+	public function __set($valueName, $value) {
+		foreach ($this->filterFields as $key => $field) {
+			if(ClassUtils::getCleanName($field['filterName']) == $valueName) {
+				$this->filterFields[$key]['value'] = $value;
+				return $this;
+			}
+		}
+		return $this;
 	}
 }

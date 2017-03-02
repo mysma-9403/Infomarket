@@ -33,6 +33,30 @@ class BenchmarkFieldRepository extends AuditRepository
 		return $builder->getQuery();
 	}
 	
+	public function findFilterItemsByCategory($categoryId) {
+		return $this->queryFilterItemsByCategory($categoryId)->getScalarResult();
+	}
+	
+	protected function queryFilterItemsByCategory($categoryId)
+	{
+		$builder = new QueryBuilder($this->getEntityManager());
+			
+		$builder->select("e.valueType, e.valueNumber, e.filterType, e.filterName");
+		$builder->from($this->getEntityType(), "e");
+	
+		$expr = $builder->expr();
+	
+		$where = $expr->andX();
+		$where->add($expr->eq('e.category', $categoryId));
+		$where->add($expr->eq('e.showFilter', 1));
+	
+		$builder->where($where);
+	
+		$builder->orderBy('e.filterNumber', 'ASC');
+			
+		return $builder->getQuery();
+	}
+	
     /**
 	 * {@inheritdoc}
 	 */

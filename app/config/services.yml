@@ -26,7 +26,12 @@ services:
             - { name: security.voter }
         public: false
     
-    # Twig extensions    
+    # Twig extensions
+    twig.extension.clean_name:
+        class: AppBundle\Twig\Extension\CleanNameExtension
+        tags:
+            - { name: 'twig.extension' }
+                
     twig.extension.value_sets:
         class: AppBundle\Twig\Extension\ValueSetsExtension
         tags:

@@ -28,17 +28,19 @@
 		<div class="container-fluid">
 			<div class="col-sm-2">
 				{% block sidebar %}
-					<h3>{{ category.name }} {{ category.subname }}</h3>
+					<div class="col-xs-12">
+						<h3>{{ category.name }} {{ category.subname }}</h3>
+					</div>
 					
 					{% block categoryFilterForm %}
 						{% form_theme categoryFilter 'form/fields.html.twig' %}
 						
 						{{ form_start(categoryFilter) }}
 							<div class="col-xs-12">
-								{{ form_widget(categoryFilter.category) }}
+								{{ form_row(categoryFilter.category, { label: 'label.benchmark.category' }) }}
 							</div>
 							<div class="col-xs-12">
-									{{ form_widget(categoryFilter.submit, { 'icon': 'fa-check', 'label': 'action.submit', 'attr': {'class': 'btn btn-success'} }) }}
+									{{ form_row(categoryFilter.submit, { 'icon': 'fa-check', 'label': 'action.submit', 'attr': {'class': 'btn btn-success'} }) }}
 							</div>		
 						{{ form_end(categoryFilter) }}
 						
@@ -46,22 +48,39 @@
 						
 						{{ form_start(subcategoryFilter) }}
 							<div class="col-xs-12">
-								{{ form_widget(subcategoryFilter.subcategory) }}
+								{{ form_row(subcategoryFilter.subcategory, { label: 'label.benchmark.subcategory' }) }}
 							</div>
 							<div class="col-xs-12">
-								{{ form_widget(subcategoryFilter.submit, { 'icon': 'fa-check', 'label': 'action.submit', 'attr': {'class': 'btn btn-success'} }) }}
+								{{ form_row(subcategoryFilter.submit, { 'icon': 'fa-check', 'label': 'action.submit', 'attr': {'class': 'btn btn-success'} }) }}
 							</div>	
 						{{ form_end(subcategoryFilter) }}
 						
 						{% form_theme filter 'form/fields.html.twig' %}
 						
 						{{ form_start(filter) }}
-							<div class="col-xs-12">
-								{{ form_widget(filter.categories) }}
+							{% set hidden = filter.categories.vars.choices|length > 0 ? '' : 'hidden' %}
+							<div class="col-xs-12 {{ hidden }}">
+								{{ form_row(filter.categories, { label: 'label.benchmark.categories' }) }}
 							</div>
-							<div class="col-xs-12">
-								{{ form_widget(filter.brands) }}
+							
+							{% set hidden = filter.brands.vars.choices|length > 0 ? '' : 'hidden' %}
+							<div class="col-xs-12 {{ hidden }}">
+								{{ form_row(filter.brands, { label: 'label.benchmark.brands' }) }}
 							</div>
+							
+							<div class="col-xs-6">
+								{{ form_row(filter.minPrice, { label: 'label.benchmark.minPrice' }) }}
+							</div>
+							<div class="col-xs-6">
+								{{ form_row(filter.maxPrice, { label: 'label.benchmark.maxPrice' }) }}
+							</div>
+							
+							{% for field in entryFilter.filterFields %}
+								<div class="col-xs-12">
+									{{ form_row(filter[field.filterName|clean], { label: field.filterName }) }}
+								</div>
+							{% endfor %}
+							
 							<div class="col-xs-12">
 								<div class="btn-group">
 									{{ form_widget(filter.search, { 'icon': 'fa-search', 'label': 'action.search', 'attr': {'class': 'btn btn-primary'} }) }}
@@ -79,7 +98,11 @@
 						<tr>
 							<th width="10%" class="text-right">{{ 'label.category'|trans }}</th>
 							{% for entry in entries %}
-								<td width="15%" class="text-center">{{ entry.categoryName }}&nbsp;{{ entry.categorySubname }}</td>
+								<td width="15%" class="text-center">
+									{% if filter.categories.vars.choices|length > 0 %}
+										{{ entry.categoryName }}&nbsp;{{ entry.categorySubname }}
+									{% endif %}
+								</td>
 							{% endfor %}
 							<td width="{{ restWidth }}%"></td>
 						</tr>

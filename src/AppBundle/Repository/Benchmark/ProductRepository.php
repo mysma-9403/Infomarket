@@ -15,6 +15,71 @@ use AppBundle\Entity\BenchmarkField;
 
 class ProductRepository extends BaseRepository
 {
+	public function findFilterItemsByValue($categoryId, $valueName) {
+		$items = $this->queryFilterItemsByValue($categoryId, $valueName)->getScalarResult();
+		return $this->getFilterItemsFromValues($items, $valueName);
+	}
+	
+	protected function queryFilterItemsByValue($categoryId, $valueName)
+	{
+		$builder = new QueryBuilder($this->getEntityManager());
+			
+		$builder->select("e." . $valueName);
+		$builder->distinct();
+		
+		$builder->from($this->getEntityType(), "e");
+	
+		$builder->innerJoin(ProductCategoryAssignment::class, 'pca', Join::WITH, 'e.id = pca.product');
+		$builder->innerJoin(Category::class, 'c', Join::WITH, 'c.id = pca.category');
+		
+		$expr = $builder->expr();
+		$where = $expr->andX();
+		$where->add($builder->expr()->like('c.treePath', $builder->expr()->literal('%-' . $categoryId . '#%')));
+	
+		$builder->where($where);
+	
+		$builder->orderBy('e.' . $valueName, 'ASC');
+			
+		return $builder->getQuery();
+	}
+	
+	protected function getFilterItemsFromValues(array $items, $valueName) {
+		$result = array();
+		
+		foreach ($items as $item) {
+			$multivalue = $item[$valueName];
+			
+			$temp = $multivalue;
+			while(true) {
+				$start = strpos($temp, '(');
+				if($start == false) break;
+				$end = strpos($temp, ')');
+				if($end == false) break;
+				
+				$substr = substr($temp, $start, $end - $start);
+				$replace = str_replace(',', '#', $substr);
+				
+				$temp = substr($temp, $end+1);
+				
+				$multivalue = str_replace($substr, $replace, $multivalue);
+			}
+			
+			$values = explode(',', $multivalue);
+			
+			foreach ($values as $value) {
+				if($value && strlen($value) > 0) {
+					$value = trim($value);
+					$value = str_replace('#', ',', $value);
+					$result[$value] = $value;
+				}
+			}
+		}
+		
+		return $result;
+	}
+	
+	
+	
 	protected function  buildJoins(QueryBuilder &$builder, Filter $filter) {
 		/** @var ProductFilter $filter */
 		$builder->innerJoin(Brand::class, 'b', Join::WITH, 'b.id = e.brand');
@@ -57,14 +122,39 @@ class ProductRepository extends BaseRepository
 		/** @var ProductFilter $filter */
 		$where = parent::getWhere($builder, $filter);
 	
+		$expr = $builder->expr();
+		
 		if(count($filter->getBrands()) > 0) {
-			$where->add($builder->expr()->in('e.brand', $filter->getBrands()));
+			$where->add($expr->in('e.brand', $filter->getBrands()));
 		}
 	
 		if(count($filter->getCategories()) > 0) {
-			$where->add($builder->expr()->in('pca.category', $filter->getCategories()));
+			$where->add($expr->in('pca.category', $filter->getCategories()));
 		} else {
-			$where->add($builder->expr()->like('c.treePath', $builder->expr()->literal('%-' . $filter->getContextCategory() . '#%')));
+			$where->add($expr->like('c.treePath', $builder->expr()->literal('%-' . $filter->getContextCategory() . '#%')));
+		}
+		
+		$filterFields = $filter->getFilterFields();
+		foreach ($filterFields as $filterField) {
+			$value = $filterField['value'];
+			if($value) {
+				$valueName = BenchmarkField::getValueTypeDBName($filterField['valueType']) . $filterField['valueNumber'];
+				switch ($filterField['filterType']) {
+					case BenchmarkField::SINGLE_ENUM_FILTER_TYPE:
+						$where->add($expr->in('e.' . $valueName, $value));
+						break;
+					case BenchmarkField::MULTI_ENUM_FILTER_TYPE:
+						$or = $expr->orX();
+						foreach ($value as $subvalue) {
+							$or->add($expr->like('e.' . $valueName, $expr->literal('%' . $subvalue . '%')));
+						}
+						$where->add($or);
+						break;
+					default:
+						$where->add($expr->eq('e.' . $valueName, $value));
+						break;
+				}
+			}
 		}
 	
 		return $where;

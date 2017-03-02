@@ -29,7 +29,8 @@ class BenchmarkFieldFilterType extends AdminFilterType
 				'label.benchmarkField.fieldType.integer'	=> BenchmarkField::INTEGER_FIELD_TYPE,
 				'label.benchmarkField.fieldType.boolean'	=> BenchmarkField::BOOLEAN_FIELD_TYPE,
 				'label.benchmarkField.fieldType.string'		=> BenchmarkField::STRING_FIELD_TYPE,
-				'label.benchmarkField.fieldType.enum'		=> BenchmarkField::ENUM_FIELD_TYPE
+				'label.benchmarkField.fieldType.singleEnum'		=> BenchmarkField::SINGLE_ENUM_FIELD_TYPE,
+				'label.benchmarkField.fieldType.multiEnum'		=> BenchmarkField::MULTI_ENUM_FIELD_TYPE
 		);
 		
 		$builder
