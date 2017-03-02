@@ -11,6 +11,7 @@ use AppBundle\Repository\Base\BaseRepository;
 use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\ORM\QueryBuilder;
 use AppBundle\Entity\Category;
+use AppBundle\Entity\BenchmarkField;
 
 class ProductRepository extends BaseRepository
 {
@@ -43,6 +44,11 @@ class ProductRepository extends BaseRepository
 		$fields[] = 'c.id AS categoryId';
 		$fields[] = 'c.name AS categoryName';
 		$fields[] = 'c.subname AS categorySubname';
+		
+		$showFields = $filter->getShowFields();
+		foreach ($showFields as $showField) {
+			$fields[] = 'e.' . BenchmarkField::getValueTypeDBName($showField['valueType']) . $showField['valueNumber'];
+		}
 	
 		return $fields;
 	}

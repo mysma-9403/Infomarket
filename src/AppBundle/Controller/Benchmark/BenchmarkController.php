@@ -3,29 +3,24 @@
 namespace AppBundle\Controller\Benchmark;
 
 use AppBundle\Controller\Base\DummyController;
+use AppBundle\Entity\BenchmarkField;
 use AppBundle\Entity\Category;
 use AppBundle\Entity\Product;
 use AppBundle\Filter\Base\Filter;
 use AppBundle\Filter\Benchmark\CategoryFilter;
 use AppBundle\Filter\Benchmark\ProductFilter;
 use AppBundle\Filter\Benchmark\SubcategoryFilter;
-use AppBundle\Filter\Benchmark\Washer\CentrifugeFilter;
-use AppBundle\Filter\Benchmark\Washer\WasherCentrifugeFilter;
-use AppBundle\Filter\Benchmark\Washer\WasherFilter;
 use AppBundle\Form\Benchmark\CategoryFilterType;
 use AppBundle\Form\Benchmark\ProductFilterType;
 use AppBundle\Form\Benchmark\SubcategoryFilterType;
-use AppBundle\Form\Benchmark\Washer\CentrifugeFilterType;
-use AppBundle\Form\Benchmark\Washer\WasherCentrifugeFilterType;
-use AppBundle\Form\Benchmark\Washer\WasherFilterType;
 use AppBundle\Manager\Entity\Base\EntityManager;
 use AppBundle\Manager\Entity\Benchmark\ProductManager;
 use AppBundle\Manager\Filter\Base\FilterManager;
 use AppBundle\Manager\Params\Benchmark\ContextParamsManager;
 use AppBundle\Manager\Params\EntryParams\Base\EntryParamsManager;
 use AppBundle\Manager\Route\RouteManager;
+use AppBundle\Repository\Benchmark\BenchmarkFieldRepository;
 use AppBundle\Repository\Benchmark\ProductRepository;
-use AppBundle\Repository\Benchmark\Washer\WasherRepository;
 use Symfony\Component\HttpFoundation\Request;
 
 class BenchmarkController extends DummyController {
@@ -64,7 +59,7 @@ class BenchmarkController extends DummyController {
 		$contextParams = $params['contextParams'];
 		$viewParams = $params['viewParams'];
 		
-		
+		//TODO refactor forms like in other controllers
 		$category = $contextParams['category'];
 		$categoryFilter = new CategoryFilter();
 		$categoryFilter->setCategory($category);
@@ -97,9 +92,8 @@ class BenchmarkController extends DummyController {
 		
 		
 		$filter = $viewParams['entryFilter'];
-		$subcategoryObject = $viewParams['subcategory'];
 	
-		$filterForm = $this->createForm($this->getFilterFormType($subcategoryObject['benchmarkType']), $filter, ['category' => $subcategory]);
+		$filterForm = $this->createForm($this->getFilterFormType(), $filter, ['category' => $subcategory]);
 		$filterForm->handleRequest($request);
 	
 		if ($filterForm->isSubmitted() && $filterForm->isValid()) {
@@ -134,10 +128,7 @@ class BenchmarkController extends DummyController {
 	protected function getIndexParams(Request $request, array $params, $page) {
 		$params = $this->getParams($request, $params);
 	
-		$viewParams = $params['viewParams'];
-		$subcategory = $viewParams['subcategory'];
-	
-		$em = $this->getEntryParamsManager($subcategory['benchmarkType']);
+		$em = $this->getEntryParamsManager();
 		$params = $em->getIndexParams($request, $params, $page);
 	
 		return $params;
@@ -161,12 +152,12 @@ class BenchmarkController extends DummyController {
 		return new ContextParamsManager($doctrine, $lastRouteParams);
 	}
 	
-	protected function getEntryParamsManager($benchmark) { 
+	protected function getEntryParamsManager() { 
 		$doctrine = $this->getDoctrine();
 		$paginator = $this->get('knp_paginator');
 	
-		$em = $this->getEntityManager($doctrine, $paginator, $benchmark);
-		$fm = $this->getFilterManager($doctrine, $benchmark);
+		$em = $this->getEntityManager($doctrine, $paginator);
+		$fm = $this->getFilterManager($doctrine);
 	
 		return $this->getInternalEntryParamsManager($em, $fm, $doctrine);
 	}
@@ -175,24 +166,9 @@ class BenchmarkController extends DummyController {
 		return new EntryParamsManager($em, $fm, $doctrine);
 	}
 	
-	protected function getEntityManager($doctrine, $paginator, $benchmark) {
-		$repository = null;
-		
-		$em = $this->getDoctrine()->getManager();
-		
-		switch($benchmark) {
-			case Category::WASHER:
-				$repository = new WasherRepository($em, $em->getClassMetadata(Product::class));
-				break;
-			case Category::CENTRIFUGE:
-				$repository = new WasherRepository($em, $em->getClassMetadata(Product::class));
-				break;
-			case Category::WASHER_CENTRIFUGE:
-				$repository = new WasherRepository($em, $em->getClassMetadata(Product::class));
-				break;
-			default:
-				$repository = new ProductRepository($em, $em->getClassMetadata(Product::class));
-		}
+	protected function getEntityManager($doctrine, $paginator) {
+		$em = $doctrine->getManager();
+		$repository = new ProductRepository($em, $em->getClassMetadata(Product::class));
 		
 		return new ProductManager($doctrine, $paginator, $repository);
 	}
@@ -202,41 +178,19 @@ class BenchmarkController extends DummyController {
 	 * {@inheritDoc}
 	 * @see \AppBundle\Controller\Base\BaseEntityController::getFilterManager()
 	 */
-	protected function getFilterManager($doctrine, $benchmark) {
-		$filter = null;
+	protected function getFilterManager($doctrine) {
+		$em = $doctrine->getManager();
+		$benchmarkFieldRepository = new BenchmarkFieldRepository($em, $em->getClassMetadata(BenchmarkField::class));
 		
-		switch($benchmark) {
-			case Category::WASHER:
-				$filter = new WasherFilter();
-				break;
-			case Category::CENTRIFUGE:
-				$filter = new CentrifugeFilter();
-				break;
-			case Category::WASHER_CENTRIFUGE:
-				$filter = new WasherCentrifugeFilter();
-				break;
-			default:
-				$filter = new ProductFilter();
-		}
-		
-		return new FilterManager($filter);
+		return new FilterManager(new ProductFilter($benchmarkFieldRepository));
 	}
 	
 	//---------------------------------------------------------------------------
 	// EntityType related
 	//---------------------------------------------------------------------------
 	
-	protected function getFilterFormType($benchmark) {
-		switch($benchmark) {
-			case Category::WASHER:
-				return WasherFilterType::class;
-			case Category::CENTRIFUGE:
-				return CentrifugeFilterType::class;
-			case Category::WASHER_CENTRIFUGE:
-				return WasherCentrifugeFilterType::class;
-			default:
-				return ProductFilterType::class;
-		}
+	protected function getFilterFormType() {
+		return ProductFilterType::class;
 	}
 	
 	protected function getEntityType() {

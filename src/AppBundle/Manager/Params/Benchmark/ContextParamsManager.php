@@ -4,8 +4,8 @@ namespace AppBundle\Manager\Params\Benchmark;
 
 use AppBundle\Entity\Category;
 use AppBundle\Manager\Params\Base\ParamsManager;
-use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Repository\Benchmark\CategoryRepository;
+use Symfony\Component\HttpFoundation\Request;
 
 class ContextParamsManager extends ParamsManager {
 	
@@ -23,7 +23,6 @@ class ContextParamsManager extends ParamsManager {
 		
 		$em = $this->doctrine->getManager();
 		
-		/** @var CategoryRepository $categoryRepository */
 		$categoryRepository = new CategoryRepository($em, $em->getClassMetadata(Category::class));
 		$categories = $categoryRepository->findFilterItems();
 		

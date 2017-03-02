@@ -17,7 +17,7 @@ class ProductManager extends CommonProductManager {
 		parent::__construct($doctrine, $paginator);
 		
 		$this->repository = $repository;
-		$this->entriesPerPage = 10;
+		$this->entriesPerPage = 6;
 	}
 	
 	protected function getRepository() {

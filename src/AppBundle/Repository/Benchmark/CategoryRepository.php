@@ -24,7 +24,6 @@ class CategoryRepository extends BaseRepository
 		$where = $expr->andX();
 		$where->add($builder->expr()->eq('e.benchmark', 1));
 		$where->add($expr->eq('e.parent', $categoryId));
-		$where->add('e.benchmarkType IS NOT NULL');
 	
 		$builder->where($where);
 	
@@ -38,7 +37,6 @@ class CategoryRepository extends BaseRepository
 		
 		$fields[] = 'e.name';
 		$fields[] = 'e.subname';
-		$fields[] = 'e.benchmarkType';
 		
 		return $fields;
 	}

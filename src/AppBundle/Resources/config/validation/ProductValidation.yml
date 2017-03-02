@@ -13,7 +13,3 @@ AppBundle\Entity\Product:
             - Range:
                 min: 0
                 max: 999999
-        guarantee:
-            - Range:
-                min: 0
-                max: 99

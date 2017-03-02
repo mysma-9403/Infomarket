@@ -33,7 +33,18 @@ class BenchmarkField extends Audit
 	const STRING_FILTER_TYPE = 31;
 	const ENUM_FILTER_TYPE = 32;
 	
-	
+	public static function getValueTypeDBName($valueType) {
+		switch($valueType) {
+			case self::DECIMAL_VALUE_TYPE:
+				return 'decimal';
+			case self::INTEGER_VALUE_TYPE:
+				return 'integer';
+			case self::STRING_VALUE_TYPE:
+				return 'string';
+			default:
+				return null;
+		}
+	}
 	
     /**
      * @var integer

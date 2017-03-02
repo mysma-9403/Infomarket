@@ -5,14 +5,29 @@ namespace AppBundle\Filter\Benchmark;
 use AppBundle;
 use AppBundle\Filter\Base\Filter;
 use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Repository\Benchmark\BenchmarkFieldRepository;
 
 class ProductFilter extends Filter {
+	
+	/**
+	 * 
+	 * @var BenchmarkFieldRepository
+	 */
+	protected $benchmarkFieldRepository;
 	
 	/**
 	 *
 	 * @var integer
 	 */
 	protected $contextCategory = null;
+	
+	/**
+	 * 
+	 * @var array
+	 */
+	protected $showFields;
+	
+	
 	
 	/**
 	 *
@@ -39,12 +54,16 @@ class ProductFilter extends Filter {
 	protected $maxPrice;
 	
 	
-	public function __construct() {
+	public function __construct(BenchmarkFieldRepository $benchmarkFieldRepository) {
+		$this->benchmarkFieldRepository = $benchmarkFieldRepository;
+		
 		$this->filterName = 'product_';
 	}
 	
 	public function initContextParams(array $contextParams) {
 		$this->contextCategory = $contextParams['subcategory'];
+		
+		$this->showFields = $this->benchmarkFieldRepository->findShowItemsByCategory($this->contextCategory);
 	}
 	
 	public function initRequestValues(Request $request) {
@@ -101,6 +120,30 @@ class ProductFilter extends Filter {
 	public function getContextCategory()
 	{
 		return $this->contextCategory;
+	}
+	
+	/**
+	 * Set showFields
+	 *
+	 * @param array $showFields
+	 *
+	 * @return ProductFilter
+	 */
+	public function setShowFields($showFields)
+	{
+		$this->showFields = $showFields;
+	
+		return $this;
+	}
+	
+	/**
+	 * Get showFields
+	 *
+	 * @return array
+	 */
+	public function getShowFields()
+	{
+		return $this->showFields;
 	}
 	
 	/**

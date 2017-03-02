@@ -3,6 +3,7 @@
 namespace AppBundle\Twig\Extension;
 
 use AppBundle\Entity\NewsletterUserNewsletterPageAssignment;
+use AppBundle\Entity\BenchmarkField;
 
 class ValueSetsExtension extends \Twig_Extension
 {
@@ -12,10 +13,16 @@ class ValueSetsExtension extends \Twig_Extension
         
 		$extensions['newsletterUserNewsletterPageAssignmentStateName'] = new \Twig_Function_Method($this, 'getNewsletterUserNewsletterPageAssignmentStateName');
 		
+		$extensions['benchmarkFieldValueTypeDBName'] = new \Twig_Function_Method($this, 'getBenchmarkFieldValueTypeDBName');
+		
 		return $extensions;
     }
     
-    public function getNewsletterUserNewsletterPageAssignmentStateName($state) {
-    	return NewsletterUserNewsletterPageAssignment::getStateName($state);
+    public function getNewsletterUserNewsletterPageAssignmentStateName($value) {
+    	return NewsletterUserNewsletterPageAssignment::getStateName($value);
+    }
+    
+    public function getBenchmarkFieldValueTypeDBName($value) {
+    	return BenchmarkField::getValueTypeDBName($value);
     }
 }

@@ -768,35 +768,7 @@ class Category extends ImageEntityTree
     {
         return $this->benchmark;
     }
-    /**
-     * @var integer
-     */
-    private $benchmarkType;
-
-
-    /**
-     * Set benchmarkType
-     *
-     * @param integer $benchmarkType
-     *
-     * @return Category
-     */
-    public function setBenchmarkType($benchmarkType)
-    {
-        $this->benchmarkType = $benchmarkType;
-
-        return $this;
-    }
-
-    /**
-     * Get benchmarkType
-     *
-     * @return integer
-     */
-    public function getBenchmarkType()
-    {
-        return $this->benchmarkType;
-    }
+    
     /**
      * @var \Doctrine\Common\Collections\Collection
      */
