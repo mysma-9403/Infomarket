@@ -68,13 +68,6 @@
 								{{ form_row(filter.brands, { label: 'label.benchmark.brands' }) }}
 							</div>
 							
-							<div class="col-xs-6">
-								{{ form_row(filter.minPrice, { label: 'label.benchmark.minPrice' }) }}
-							</div>
-							<div class="col-xs-6">
-								{{ form_row(filter.maxPrice, { label: 'label.benchmark.maxPrice' }) }}
-							</div>
-							
 							{% for field in entryFilter.filterFields %}
 								<div class="col-xs-12">
 									{{ form_row(filter[field.filterName|clean], { label: field.filterName }) }}
@@ -139,7 +132,13 @@
 							<tr>
 								<th class="text-right">{{ field.fieldName }}</th>
 								{% for entry in entries %}
-									<td class="text-center">{{ entry[key] }}</td>
+									<td class="text-center">
+										{% if field.fieldType == 22 %}
+									        {{ entry[key] ? '+' : '-' }}
+										{% else %}
+									        {{ entry[key] }}
+										{% endif%}
+									</td>
 								{% endfor %}
 								<td></td>
 							</tr>							

@@ -2,23 +2,22 @@
 
 namespace AppBundle\Form\Benchmark;
 
+use AppBundle\Entity\BenchmarkField;
 use AppBundle\Entity\Brand;
 use AppBundle\Entity\Category;
+use AppBundle\Entity\Product;
 use AppBundle\Filter\Base\Filter;
+use AppBundle\Filter\Benchmark\ProductFilter;
+use AppBundle\Form\Base\FilterType;
 use AppBundle\Form\Filter\Admin\Base\SimpleEntityFilterType;
 use AppBundle\Repository\Benchmark\BrandRepository;
 use AppBundle\Repository\Benchmark\CategoryRepository;
+use AppBundle\Repository\Benchmark\ProductRepository;
+use AppBundle\Utils\ClassUtils;
 use AppBundle\Utils\FormUtils;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
-use AppBundle\Filter\Benchmark\ProductFilter;
-use AppBundle\Form\Base\FilterType;
-use Symfony\Component\Form\Extension\Core\Type\NumberType;
-use AppBundle\Utils\ClassUtils;
-use AppBundle\Entity\BenchmarkField;
-use AppBundle\Repository\Benchmark\ProductRepository;
-use AppBundle\Entity\Product;
 
 class ProductFilterType extends FilterType
 {	
@@ -38,8 +37,6 @@ class ProductFilterType extends FilterType
 		
 		$category = $options['category'];
 		$fields = $options['fields'];
-		
-		dump($category);
 		
 		$categoryRepository = new CategoryRepository($this->em, $this->em->getClassMetadata(Category::class));
 		$categories = $categoryRepository->findFilterItemsByCategory($category);
@@ -64,20 +61,26 @@ class ProductFilterType extends FilterType
 				'expanded'      => false,
 				'multiple'      => true
 		))
-		->add('minPrice', NumberType::class, array(
-				'attr' => ['placeholder' => 'label.benchmark.minPrice'],
-				'required' => false
-		))
-		->add('maxPrice', NumberType::class, array(
-				'attr' => ['placeholder' => 'label.benchmark.maxPrice'],
-				'required' => false
-		))
 		;
+		
+		$booleanChoices = array(
+				'label.benchmark.all'		=> Filter::ALL_VALUES,
+				'label.benchmark.true' 		=> Filter::TRUE_VALUES,
+				'label.benchmark.false' 	=> Filter::FALSE_VALUES
+		);
 		
 		$productRepository = new ProductRepository($this->em, $this->em->getClassMetadata(Product::class));
 		
 		foreach ($fields as $field) {
 			switch($field['filterType']) {
+				case BenchmarkField::BOOLEAN_FILTER_TYPE:
+					$builder->add(ClassUtils::getCleanName($field['filterName']), ChoiceType::class, array(
+							'choices'		=> $booleanChoices,
+							'required'		=> true,
+							'expanded'      => false,
+							'multiple'      => false
+					));
+					break;
 				case BenchmarkField::SINGLE_ENUM_FILTER_TYPE:
 				case BenchmarkField::MULTI_ENUM_FILTER_TYPE:
 					$choices = $productRepository->findFilterItemsByValue($category, BenchmarkField::getValueTypeDBName($field['valueType']) . $field['valueNumber']);

@@ -49,17 +49,6 @@ class ProductFilter extends Filter {
 	 */
 	protected $categories = array();
 	
-	/**
-	 *
-	 * @var integer
-	 */
-	protected $minPrice;
-	
-	/**
-	 *
-	 * @var integer
-	 */
-	protected $maxPrice;
 	
 	
 	public function __construct(BenchmarkFieldRepository $benchmarkFieldRepository) {
@@ -81,11 +70,19 @@ class ProductFilter extends Filter {
 		$this->brands = $this->getRequestArray($request, 'brands');
 		$this->categories = $this->getRequestArray($request, 'categories');
 		
-		$this->minPrice = $this->getRequestValue($request, 'min_price');
-		$this->maxPrice = $this->getRequestValue($request, 'max_price');
-		
 		foreach ($this->filterFields as $key => $field) {
-			$this->filterFields[$key]['value'] = $this->getRequestString($request, ClassUtils::getCleanName($field['filterName']));
+			switch($field['filterType']) {
+				case BenchmarkField::BOOLEAN_FILTER_TYPE:
+					$this->filterFields[$key]['value'] = $this->getRequestBool($request, ClassUtils::getCleanName($field['filterName']));
+					break;
+				case BenchmarkField::SINGLE_ENUM_FILTER_TYPE:
+				case BenchmarkField::MULTI_ENUM_FILTER_TYPE:
+					$this->filterFields[$key]['value'] = $this->getRequestArray($request, ClassUtils::getCleanName($field['filterName']));
+					break;
+				default:
+					$this->filterFields[$key]['value'] = $this->getRequestString($request, ClassUtils::getCleanName($field['filterName']));
+					break;
+			}
 		}
 	}
 	
@@ -94,9 +91,6 @@ class ProductFilter extends Filter {
 		
 		$this->brands = array();
 		$this->categories = array();
-		
-		$this->minPrice = null;
-		$this->maxPrice = null;
 		
 		foreach ($this->filterFields as $key => $field) {
 			$field;
@@ -110,11 +104,11 @@ class ProductFilter extends Filter {
 		$this->setRequestArray($values, 'brands', $this->brands);
 		$this->setRequestArray($values, 'categories', $this->categories);
 		
-		$this->setRequestValue($values, 'min_price', $this->minPrice);
-		$this->setRequestValue($values, 'max_price', $this->maxPrice);
-		
 		foreach ($this->filterFields as $field) {
 			switch($field['filterType']) {
+				case BenchmarkField::BOOLEAN_FILTER_TYPE:
+					$this->setRequestBool($values, ClassUtils::getCleanName($field['filterName']), $field['value']);
+					break;
 				case BenchmarkField::SINGLE_ENUM_FILTER_TYPE:
 				case BenchmarkField::MULTI_ENUM_FILTER_TYPE:
 					$this->setRequestArray($values, ClassUtils::getCleanName($field['filterName']), $field['value']);
@@ -246,54 +240,6 @@ class ProductFilter extends Filter {
 	public function getCategories()
 	{
 		return $this->categories;
-	}
-	
-	/**
-	 * Set minPrice
-	 *
-	 * @param integer $minPrice
-	 *
-	 * @return WasherFilter
-	 */
-	public function setMinPrice($minPrice)
-	{
-		$this->minPrice = $minPrice;
-	
-		return $this;
-	}
-	
-	/**
-	 * Get term minPrice
-	 *
-	 * @return integer
-	 */
-	public function getMinPrice()
-	{
-		return $this->minPrice;
-	}
-	
-	/**
-	 * Set maxPrice
-	 *
-	 * @param integer $maxPrice
-	 *
-	 * @return WasherFilter
-	 */
-	public function setMaxPrice($maxPrice)
-	{
-		$this->maxPrice = $maxPrice;
-	
-		return $this;
-	}
-	
-	/**
-	 * Get term maxPrice
-	 *
-	 * @return integer
-	 */
-	public function getMaxPrice()
-	{
-		return $this->maxPrice;
 	}
 	
 	public function __get($valueName) {

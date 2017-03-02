@@ -750,13 +750,17 @@
                 <target>Marki</target>
             </trans-unit>
             
-            <trans-unit id="label.benchmark.minPrice">
-                <source>label.benchmark.minPrice</source>
-                <target>Cena (min.)</target>
+			<trans-unit id="label.benchmark.all">
+                <source>label.benchmark.all</source>
+                <target>Wszystkie (+/-)</target>
             </trans-unit>
-            <trans-unit id="label.benchmark.maxPrice">
-                <source>label.benchmark.maxPrice</source>
-                <target>Cena (max.)</target>
+            <trans-unit id="label.benchmark.true">
+                <source>label.benchmark.true</source>
+                <target>Tak (+)</target>
+            </trans-unit>
+            <trans-unit id="label.benchmark.false">
+                <source>label.benchmark.false</source>
+                <target>Nie (-)</target>
             </trans-unit>
             
             

@@ -113,7 +113,7 @@ class BenchmarkFieldController extends BaseEntityController {
 		switch($entry->getFieldType()) {
 			case BenchmarkField::DECIMAL_FIELD_TYPE:
 				$entry->setValueType(BenchmarkField::DECIMAL_VALUE_TYPE);
-				$entry->setFilterType(BenchmarkField::DECIMAL_FILTer_TYPE);
+				$entry->setFilterType(BenchmarkField::DECIMAL_FILTER_TYPE);
 				break;
 			case BenchmarkField::INTEGER_FIELD_TYPE:
 				$entry->setValueType(BenchmarkField::INTEGER_VALUE_TYPE);

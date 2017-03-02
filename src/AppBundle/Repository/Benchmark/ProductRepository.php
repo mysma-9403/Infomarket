@@ -140,6 +140,11 @@ class ProductRepository extends BaseRepository
 			if($value) {
 				$valueName = BenchmarkField::getValueTypeDBName($filterField['valueType']) . $filterField['valueNumber'];
 				switch ($filterField['filterType']) {
+					case BenchmarkField::BOOLEAN_FILTER_TYPE:
+						if($value != Filter::ALL_VALUES) {
+							$where->add($expr->in('e.' . $valueName, $value));
+						}
+						break;
 					case BenchmarkField::SINGLE_ENUM_FILTER_TYPE:
 						$where->add($expr->in('e.' . $valueName, $value));
 						break;
