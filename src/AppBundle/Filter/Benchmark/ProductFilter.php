@@ -72,6 +72,13 @@ class ProductFilter extends Filter {
 		
 		foreach ($this->filterFields as $key => $field) {
 			switch($field['filterType']) {
+				case BenchmarkField::DECIMAL_FILTER_TYPE:
+				case BenchmarkField::INTEGER_FILTER_TYPE:
+					$value = array();
+					$value['min'] = $this->getRequestValue($request, ClassUtils::getCleanName($field['filterName']) . '_min');
+					$value['max'] = $this->getRequestValue($request, ClassUtils::getCleanName($field['filterName']) . '_max');
+					$this->filterFields[$key]['value'] = $value;
+					break;
 				case BenchmarkField::BOOLEAN_FILTER_TYPE:
 					$this->filterFields[$key]['value'] = $this->getRequestBool($request, ClassUtils::getCleanName($field['filterName']));
 					break;
@@ -93,8 +100,25 @@ class ProductFilter extends Filter {
 		$this->categories = array();
 		
 		foreach ($this->filterFields as $key => $field) {
-			$field;
-			$this->filterFields[$key]['value'] = '';
+			switch($field['filterType']) {
+				case BenchmarkField::DECIMAL_FILTER_TYPE:
+				case BenchmarkField::INTEGER_FILTER_TYPE:
+					$value = array();
+					$value['min'] = null;
+					$value['max'] = null;
+					$this->filterFields[$key]['value'] = $value;
+					break;
+				case BenchmarkField::BOOLEAN_FILTER_TYPE:
+					$this->filterFields[$key]['value'] = Filter::ALL_VALUES;
+					break;
+				case BenchmarkField::SINGLE_ENUM_FILTER_TYPE:
+				case BenchmarkField::MULTI_ENUM_FILTER_TYPE:
+					$this->filterFields[$key]['value'] = array();
+					break;
+				default:
+					$this->filterFields[$key]['value'] = null;
+					break;
+			}
 		}
 	}
 	
@@ -106,6 +130,11 @@ class ProductFilter extends Filter {
 		
 		foreach ($this->filterFields as $field) {
 			switch($field['filterType']) {
+				case BenchmarkField::DECIMAL_FILTER_TYPE:
+				case BenchmarkField::INTEGER_FILTER_TYPE:
+					$this->setRequestValue($values, ClassUtils::getCleanName($field['filterName']) . '_min', $field['value']['min']);
+					$this->setRequestValue($values, ClassUtils::getCleanName($field['filterName']) . '_max', $field['value']['max']);
+					break;
 				case BenchmarkField::BOOLEAN_FILTER_TYPE:
 					$this->setRequestBool($values, ClassUtils::getCleanName($field['filterName']), $field['value']);
 					break;
@@ -244,8 +273,20 @@ class ProductFilter extends Filter {
 	
 	public function __get($valueName) {
 		foreach ($this->filterFields as $field) {
-			if(ClassUtils::getCleanName($field['filterName']) == $valueName) {
-				return $field['value'];
+			switch ($field['filterType']) {
+				case BenchmarkField::DECIMAL_FILTER_TYPE:
+				case BenchmarkField::INTEGER_FILTER_TYPE:
+					if(ClassUtils::getCleanName($field['filterName']) . '_min' == $valueName) {
+						return $field['value']['min'];
+					}
+					if(ClassUtils::getCleanName($field['filterName']) . '_max' == $valueName) {
+						return $field['value']['max'];
+					}
+					break;
+				default:
+					if(ClassUtils::getCleanName($field['filterName']) == $valueName) {
+						return $field['value'];
+					}
 			}
 		}
 		return null;
@@ -253,9 +294,23 @@ class ProductFilter extends Filter {
 	
 	public function __set($valueName, $value) {
 		foreach ($this->filterFields as $key => $field) {
-			if(ClassUtils::getCleanName($field['filterName']) == $valueName) {
-				$this->filterFields[$key]['value'] = $value;
-				return $this;
+			switch ($field['filterType']) {
+				case BenchmarkField::DECIMAL_FILTER_TYPE:
+				case BenchmarkField::INTEGER_FILTER_TYPE:
+					if(ClassUtils::getCleanName($field['filterName']) . '_min' == $valueName) {
+						$this->filterFields[$key]['value']['min'] = $value;
+						return $this;
+					}
+					if(ClassUtils::getCleanName($field['filterName']) . '_max' == $valueName) {
+						$this->filterFields[$key]['value']['max'] = $value;
+						return $this;
+					}
+					break;
+				default:
+					if(ClassUtils::getCleanName($field['filterName']) == $valueName) {
+						$this->filterFields[$key]['value'] = $value;
+						return $this;
+					}
 			}
 		}
 		return $this;

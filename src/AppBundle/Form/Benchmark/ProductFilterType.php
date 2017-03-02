@@ -18,6 +18,8 @@ use AppBundle\Utils\FormUtils;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 
 class ProductFilterType extends FilterType
 {	
@@ -73,6 +75,26 @@ class ProductFilterType extends FilterType
 		
 		foreach ($fields as $field) {
 			switch($field['filterType']) {
+				case BenchmarkField::DECIMAL_FILTER_TYPE:
+					$builder->add(ClassUtils::getCleanName($field['filterName']) . '_min', NumberType::class, array(
+							'attr' => ['placeholder' => $field['filterName'] . ' (min)'],
+							'required' => false
+					));
+					$builder->add(ClassUtils::getCleanName($field['filterName']) . '_max', NumberType::class, array(
+							'attr' => ['placeholder' => $field['filterName'] . ' (max)'],
+							'required' => false
+					));
+					break;
+				case BenchmarkField::INTEGER_FILTER_TYPE:
+					$builder->add(ClassUtils::getCleanName($field['filterName']) . '_min', IntegerType::class, array(
+						'attr' => ['placeholder' => $field['filterName'] . ' (min)'],
+						'required' => false
+					));
+					$builder->add(ClassUtils::getCleanName($field['filterName']) . '_max', IntegerType::class, array(
+						'attr' => ['placeholder' => $field['filterName'] . ' (max)'],
+						'required' => false
+					));
+					break;
 				case BenchmarkField::BOOLEAN_FILTER_TYPE:
 					$builder->add(ClassUtils::getCleanName($field['filterName']), ChoiceType::class, array(
 							'choices'		=> $booleanChoices,

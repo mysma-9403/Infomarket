@@ -69,9 +69,25 @@
 							</div>
 							
 							{% for field in entryFilter.filterFields %}
-								<div class="col-xs-12">
-									{{ form_row(filter[field.filterName|clean], { label: field.filterName }) }}
-								</div>
+									{% if field.filterType == constant('AppBundle\\Entity\\BenchmarkField::DECIMAL_FILTER_TYPE') %}
+										<div class="col-xs-6">
+											{{ form_row(filter[field.filterName|clean ~ '_min'], { label: field.filterName ~ ' (min)' }) }}
+										</div>
+										<div class="col-xs-6">
+											{{ form_row(filter[field.filterName|clean ~ '_max'], { label: field.filterName ~ ' (max)' }) }}
+										</div>
+									{% elseif field.filterType == constant('AppBundle\\Entity\\BenchmarkField::INTEGER_FILTER_TYPE') %}
+										<div class="col-xs-6">
+											{{ form_row(filter[field.filterName|clean ~ '_min'], { label: field.filterName ~ ' (min)' }) }}
+										</div>
+										<div class="col-xs-6">
+											{{ form_row(filter[field.filterName|clean ~ '_max'], { label: field.filterName ~ ' (max)' }) }}
+										</div>
+									{% else %}
+										<div class="col-xs-12">
+											{{ form_row(filter[field.filterName|clean], { label: field.filterName }) }}
+										</div>
+									{% endif %}
 							{% endfor %}
 							
 							<div class="col-xs-12">
@@ -133,7 +149,7 @@
 								<th class="text-right">{{ field.fieldName }}</th>
 								{% for entry in entries %}
 									<td class="text-center">
-										{% if field.fieldType == 22 %}
+										{% if field.fieldType == constant('AppBundle\\Entity\\BenchmarkField::BOOLEAN_FIELD_TYPE') %}
 									        {{ entry[key] ? '+' : '-' }}
 										{% else %}
 									        {{ entry[key] }}

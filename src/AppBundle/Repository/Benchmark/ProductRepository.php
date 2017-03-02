@@ -140,6 +140,15 @@ class ProductRepository extends BaseRepository
 			if($value) {
 				$valueName = BenchmarkField::getValueTypeDBName($filterField['valueType']) . $filterField['valueNumber'];
 				switch ($filterField['filterType']) {
+					case BenchmarkField::DECIMAL_FILTER_TYPE:
+					case BenchmarkField::INTEGER_FILTER_TYPE:
+						if($value['min']) {
+							$where->add($expr->gte('e.' . $valueName, $value['min']));
+						}
+						if($value['max']) {
+							$where->add($expr->lte('e.' . $valueName, $value['max']));
+						}
+						break;
 					case BenchmarkField::BOOLEAN_FILTER_TYPE:
 						if($value != Filter::ALL_VALUES) {
 							$where->add($expr->in('e.' . $valueName, $value));
