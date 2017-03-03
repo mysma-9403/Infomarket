@@ -277,9 +277,9 @@ abstract class AdminController extends StandardController {
 				return $this->redirectToRoute($this->getEditRoute(), array('id' => $entry->getId()));
 			}
 		}
-	
+		
 		$viewParams['form'] = $form->createView();
-	
+		
 		return null;
 	}
 	

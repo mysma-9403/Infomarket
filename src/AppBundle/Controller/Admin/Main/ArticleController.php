@@ -179,6 +179,7 @@ class ArticleController extends ImageEntityController {
 	
 	protected function initEditForms(Request $request, array &$viewParams) {
 		$response = parent::initEditForms($request, $viewParams);
+		if($response) return $response;
 		
 		$response = $this->initTagAssignmentsForm($request, $viewParams);
 		if($response) return $response;
@@ -240,52 +241,58 @@ class ArticleController extends ImageEntityController {
 				}
 				
 				$existingTags = $tagRepository->findItemsByNames($tagNames);
-				$existingTagsIds = $tagRepository->getIds($existingTags);
-				$assignedTags = $tagRepository->findAssignedIds($article->getId(), $existingTagsIds);
-				
-				foreach ($existingTags as $tag) {
-					$id = $tag['id'];
-					$name = $tag['name'];
-					if(in_array($id, $tags)) {
-						$key = array_search(strtolower($name), $tagNames);
-						unset($tagNames[$key]);
-					} else if(in_array($id, $assignedTags)) {
-						$key = array_search(strtolower($name), $tagNames);
-						unset($tagNames[$key]);
-						
-						$existingCount++;
-					} else {
-						$key = array_search(strtolower($name), $tagNames);
-					    unset($tagNames[$key]);
-						
-					    $assignment = new ArticleTagAssignment();
-					    $assignment->setArticle($article);
-					    $assignment->setTag($em->getReference(Tag::class, $id));
-					    	
-					    $em->persist($assignment);
-					    
-					    $assignedCount++;
+				$assignedTags = array();
+				if(count($existingTags) > 0) {
+					$existingTagsIds = $tagRepository->getIds($existingTags);
+					$assignedTags = $tagRepository->findAssignedIds($article->getId(), $existingTagsIds);
+					
+					foreach ($existingTags as $tag) {
+						$id = $tag['id'];
+						$name = $tag['name'];
+						if(in_array($id, $tags)) {
+							$key = array_search(strtolower($name), $tagNames);
+							unset($tagNames[$key]);
+						} else if(in_array($id, $assignedTags)) {
+							$key = array_search(strtolower($name), $tagNames);
+							unset($tagNames[$key]);
+					
+							$existingCount++;
+						} else {
+							$key = array_search(strtolower($name), $tagNames);
+							unset($tagNames[$key]);
+					
+							$assignment = new ArticleTagAssignment();
+							$assignment->setArticle($article);
+							$assignment->setTag($em->getReference(Tag::class, $id));
+					
+							$em->persist($assignment);
+								
+							$assignedCount++;
+						}
 					}
+					$em->flush();
 				}
-				$em->flush();
 				
 				foreach ($tagNames as $tagName) {
-					
-					$item = new Tag();
-					$item->setName($tagName);
-					$item->setInfomarket(true);
-					$item->setInfoprodukt(true);
-					
-					$em->persist($item);
-					$em->flush();
-					
-					$assignment = new ArticleTagAssignment();
-					$assignment->setArticle($article);
-					
-					$em->persist($assignment);
-					$em->flush();
-					
-					$createdCount++;
+					$tagName = trim($tagName);
+					if(strlen($tagName) > 0) {
+						$item = new Tag();
+						$item->setName($tagName);
+						$item->setInfomarket(true);
+						$item->setInfoprodukt(true);
+						
+						$em->persist($item);
+						$em->flush();
+						
+						$assignment = new ArticleTagAssignment();
+						$assignment->setArticle($article);
+						$assignment->setTag($item);
+						
+						$em->persist($assignment);
+						$em->flush();
+						
+						$createdCount++;
+					}
 				}
 			}
 			
