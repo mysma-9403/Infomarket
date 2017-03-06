@@ -74,3 +74,5 @@ tag.alreadyExists: Podany tag już istnieje.
 
 
 newsletterGroup.cannotDelete: Grupa systemowa nie może być usunięta.
+
+benchmarkField.unique: Pole benchmarku o danej kategorii, typie i numerze już istnieje.

@@ -9,7 +9,3 @@ AppBundle\Entity\Product:
             - NotBlank: ~
         brand:
             - NotBlank: ~
-        price:
-            - Range:
-                min: 0
-                max: 999999

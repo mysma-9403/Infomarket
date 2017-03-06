@@ -14,8 +14,4 @@ class CleanNameExtension extends \Twig_Extension
 		
 		return $extensions;
     }
-    
-    public function getCleanName($value) {
-    	return ClassUtils::getCleanName($value);
-    }
 }

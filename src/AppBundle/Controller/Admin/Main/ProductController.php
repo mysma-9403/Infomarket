@@ -17,6 +17,9 @@ use AppBundle\Repository\Admin\Main\CategoryRepository;
 use AppBundle\Utils\ClassUtils;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\StreamedResponse;
+use AppBundle\Form\Filter\Admin\Other\CategoryFilterType;
+use AppBundle\Manager\Entity\Base\EntityManager;
+use AppBundle\Manager\Params\EntryParams\Admin\ProductEntryParamsManager;
 
 class ProductController extends ImageEntityController {
 	
@@ -192,6 +195,86 @@ class ProductController extends ImageEntityController {
 	// Internal logic
 	//---------------------------------------------------------------------------
 	
+	protected function initShowForms(Request $request, array &$viewParams) {
+		$response = parent::initShowForms($request, $viewParams);
+		if($response) return $response;
+	
+		$response = $this->initCategoryForm($request, $viewParams);
+		if($response) return $response;
+	
+		return null;
+	}
+	
+	protected function initEditForms(Request $request, array &$viewParams) {
+		$response = $this->initEditorForm($request, $viewParams);
+		if($response) return $response;
+		
+		$response = $this->initCategoryForm($request, $viewParams);
+		if($response) return $response;
+		
+		return null;
+	}
+	
+	protected function initEditorForm(Request $request, array &$viewParams) {
+		$entry = $viewParams['entry'];
+	
+		$productFilter = $viewParams['productFilter'];
+		
+		$form = $this->createForm($this->getEditorFormType(), $entry, ['filter' => $productFilter]);
+	
+		$form->handleRequest($request);
+	
+		if ($form->isSubmitted() && $form->isValid())
+		{
+			$this->saveEntry($entry);
+	
+			$translator = $this->get('translator');
+			$message = $translator->trans('success.created');
+			$message = str_replace('%type%', '<b>' . ClassUtils::getClassName($this->getEntityType()) . '</b>', $message);
+			$this->addFlash('success', $message);
+	
+			if ($form->get('save')->isClicked()) {
+				return $this->redirectToRoute($this->getEditRoute(), array('id' => $entry->getId()));
+			}
+		}
+	
+		$viewParams['form'] = $form->createView();
+	
+		return null;
+	}
+	
+	protected function initCategoryForm(Request $request, array &$viewParams) {
+		$categoryFilter = $viewParams['categoryFilter'];
+		$entry = $viewParams['entry'];
+	
+		$form = $this->createForm(CategoryFilterType::class, $categoryFilter, ['product' => $entry->getId()]);
+	
+		$form->handleRequest($request);
+	
+		if ($form->isSubmitted() && $form->isValid())
+		{
+			if ($form->get('submit')->isClicked()) {
+				$params = $categoryFilter->getRequestValues();
+				$params['id'] = $entry->getId();
+		
+				$lastRoute = $this->getRouteManager()->getLastRoute($request);
+				$route = $lastRoute['route'];
+				$size = strlen($route);
+				$ending = substr($route, $size - 5, 5);
+				
+				if($ending == '_show') {
+					return $this->redirectToRoute($this->getShowRoute(), $params);
+				} else {
+					return $this->redirectToRoute($this->getEditRoute(), $params);
+				}
+			}
+		}
+	
+		$viewParams['categoryFilterForm'] = $form->createView();
+	
+		return null;
+	}
+	
 	protected function getFormOptions() {
 		$options = parent::getFormOptions();
 	
@@ -264,6 +347,10 @@ class ProductController extends ImageEntityController {
 	//---------------------------------------------------------------------------
 	// Managers
 	//---------------------------------------------------------------------------
+	
+	protected function getInternalEntryParamsManager(EntityManager $em, FilterManager $fm, $doctrine) {
+		return new ProductEntryParamsManager($em, $fm, $doctrine);
+	}
 	
 	protected function getEntityManager($doctrine, $paginator) {
 		return new ProductManager($doctrine, $paginator);

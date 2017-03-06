@@ -9,6 +9,7 @@ use AppBundle\Filter\Base\Filter;
 use AppBundle\Repository\Admin\Base\ImageEntityRepository;
 use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\ORM\QueryBuilder;
+use AppBundle\Entity\ProductCategoryAssignment;
 
 class CategoryRepository extends ImageEntityRepository
 {	
@@ -99,7 +100,7 @@ class CategoryRepository extends ImageEntityRepository
 		$fields = parent::getFilterItemKeyFields($item);
 		
 		$fields[] = $item['subname'];
-		if($item['parentName']) {
+		if(key_exists('parentName', $item) && $item['parentName']) {
 			$fields[] = '(' . $item['parentName'];
 			$fields[] = $item['parentSubname'] . ')';
 		}
@@ -171,6 +172,36 @@ class CategoryRepository extends ImageEntityRepository
 		$builder->where($builder->expr()->in('e.id', $items));
 	
 		$builder->getQuery()->execute();
+	}
+	
+	
+	
+	public function findFilterItemsByProduct($productId) {
+		$items = $this->queryFilterItemsByProduct($productId)->getScalarResult();
+		return $this->getFilterItems($items);
+	}
+	
+	protected function queryFilterItemsByProduct($productId)
+	{
+		$builder = new QueryBuilder($this->getEntityManager());
+			
+		$builder->select("e.id, e.name, e.subname");
+		$builder->from($this->getEntityType(), "e");
+	
+		$builder->innerJoin(ProductCategoryAssignment::class, 'pca', Join::WITH, 'pca.category = e.id');
+		
+		$expr = $builder->expr();
+		
+		$where = $expr->andX();
+		$where->add($builder->expr()->eq('e.benchmark', 1));
+		$where->add($expr->eq('pca.product', $productId));
+	
+		$builder->where($where);
+	
+		$builder->orderBy('e.name', 'ASC');
+		$builder->orderBy('e.subname', 'ASC');
+			
+		return $builder->getQuery();
 	}
 	
 	

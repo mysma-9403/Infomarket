@@ -11,18 +11,21 @@ class ValueSetsExtension extends \Twig_Extension
     {
 		$extensions = array();
         
-		$extensions['newsletterUserNewsletterPageAssignmentStateName'] = new \Twig_Function_Method($this, 'getNewsletterUserNewsletterPageAssignmentStateName');
+		$extensions['newsletterUserNewsletterPageAssignmentStateName'] = new \Twig_Function_Function(
+				NewsletterUserNewsletterPageAssignment::class . '::getStateName');
 		
-		$extensions['benchmarkFieldValueTypeDBName'] = new \Twig_Function_Method($this, 'getBenchmarkFieldValueTypeDBName');
+		$extensions['benchmarkFieldValueTypeDBName'] = new \Twig_Function_Function(
+				BenchmarkField::class . '::getValueTypeDBName');
+		
+		$extensions['benchmarkFieldValueTypeName'] = new \Twig_Function_Function(
+				BenchmarkField::class . '::getValueTypeName');
+		
+		$extensions['benchmarkFieldFieldTypeName'] = new \Twig_Function_Function(
+				BenchmarkField::class . '::getFieldTypeName');
+		
+		$extensions['benchmarkFieldFilterTypeName'] = new \Twig_Function_Function(
+				BenchmarkField::class . '::getFilterTypeName');
 		
 		return $extensions;
-    }
-    
-    public function getNewsletterUserNewsletterPageAssignmentStateName($value) {
-    	return NewsletterUserNewsletterPageAssignment::getStateName($value);
-    }
-    
-    public function getBenchmarkFieldValueTypeDBName($value) {
-    	return BenchmarkField::getValueTypeDBName($value);
     }
 }

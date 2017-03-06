@@ -27,12 +27,34 @@
 {% block moreFields3 %}
 	{% include 'common/fields/simple_field.html.twig' with 
 	{ 'label': 'label.brand', 'value': entry.brand, 'object': 'brand' } %}
-		
-	{% include 'common/fields/text_field.html.twig' with 
-	{ 'label': ('label.product.price')|trans, 'value': entry.price } %}
 	
-	{% include 'common/fields/text_field.html.twig' with 
-	{ 'label': ('label.product.guarantee')|trans, 'value': entry.guarantee } %}
+	<div class="lowered-25"></div>
+	
+	
+	{% block categoryFilterForm %}	
+		{% if categoryFilterForm.category.vars.choices|length > 0 %}	
+			{% form_theme categoryFilterForm 'form/fields.html.twig' %}
+			
+			{{ form_start(categoryFilterForm) }}
+				
+				{{ form_row(categoryFilterForm.category, { 'label': 'label.category' }) }}
+				{{ form_row(categoryFilterForm.submit, { 'label': 'action.submit', 'attr': {'class': 'btn btn-success'} }) }}
+				
+			{{ form_end(categoryFilterForm) }}
+		{% endif %}
+	{% endblock %}
+	
+	{% for field in productFilter.editorFields %}
+		<div class="col-xs-12">
+			{% if field.fieldType == constant('AppBundle\\Entity\\BenchmarkField::BOOLEAN_FIELD_TYPE') %}
+				{% include 'common/fields/bool_field.html.twig' with 
+					{ 'label': field.fieldName, 'value': entry[benchmarkFieldValueTypeDBName(field.valueType) ~ field.valueNumber] } %}
+			{% else %}
+				{% include 'common/fields/text_field.html.twig' with 
+					{ 'label': field.fieldName, 'value': entry[benchmarkFieldValueTypeDBName(field.valueType) ~ field.valueNumber] } %}
+			{% endif %}
+		</div>
+	{% endfor %}
 {% endblock %}
 
 {% block assignments %}

@@ -190,6 +190,12 @@ services:
             - { name: form.type }
 
     # Others
+    app.form.category_filter:
+        class: AppBundle\Form\Filter\Admin\Other\CategoryFilterType
+        arguments: ["@doctrine.orm.entity_manager"]
+        tags:
+            - { name: form.type }
+            
     app.form.article_tag_assignments:
         class: AppBundle\Form\Other\ArticleTagAssignmentsType
         arguments: ["@doctrine.orm.entity_manager"]

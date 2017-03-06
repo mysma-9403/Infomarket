@@ -33,7 +33,7 @@
 
 {% block entryMoreFields2 %}
 	<td>
-		{{ item.fieldType }}
+		{{ benchmarkFieldValueTypeName(item.fieldType)|trans }}
 	</td>
 	<td>
 		{{ item.valueNumber}}

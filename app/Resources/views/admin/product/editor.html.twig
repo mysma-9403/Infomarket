@@ -4,8 +4,23 @@
 {% set title = 'title.products'|trans %}
 {% set gender = 'm.' %}
 
-{% block moreFields1 %}
-	{% if entry.topProduktImage %}
+{% block preFormBlock %}
+	{% if categoryFilterForm is defined and categoryFilterForm.category.vars.choices|length > 0 %}	
+		{% form_theme categoryFilterForm 'form/fields.html.twig' %}
+		
+		{{ form_start(categoryFilterForm) }}
+			
+			{{ form_row(categoryFilterForm.category, { 'label': 'label.category' }) }}
+			{{ form_row(categoryFilterForm.submit, { 'label': 'action.submit', 'attr': {'class': 'btn btn-success'} }) }}
+			
+		{{ form_end(categoryFilterForm) }}
+	{% endif %}
+{% endblock %}
+		
+{%  block moreFields2 %}	
+    {{ form_row(form.brand, { 'label': 'label.brand' }) }}
+    
+    {% if entry.topProduktImage %}
 	<div class="row">
 	    <div class="col-xs-12">
 	    	<div class="rect-2x1">
@@ -18,13 +33,14 @@
 	{{ form_row(form.topProduktImage, { 'label': 'label.product.topProduktImage' }) }}
 {% endblock %}
 
-{%  block moreFields2 %}	
-    {{ form_row(form.brand, { 'label': 'label.brand' }) }}
-{% endblock %}
-
-{%  block moreFields3 %}    
-    {{ form_row(form.price, { 'label': 'label.product.price' }) }}
-    {{ form_row(form.guarantee, { 'label': 'label.product.guarantee' }) }}
+{%  block moreFields3 %}
+	{% if productFilter is defined %}
+		{% for field in productFilter.editorFields %}
+			<div class="col-xs-12">
+				{{ form_row(form[benchmarkFieldValueTypeDBName(field.valueType) ~ field.valueNumber], { label: field.fieldName }) }}
+			</div>
+		{% endfor %}
+	{% endif %}
 {%  endblock %}
 
 {% block assignments %}

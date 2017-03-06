@@ -48,6 +48,57 @@ class BenchmarkField extends Audit
 		}
 	}
 	
+	public static function getValueTypeName($valueType) {
+		switch($valueType) {
+			case self::DECIMAL_VALUE_TYPE:
+				return 'label.benchmarkField.valueType.decimal';
+			case self::INTEGER_VALUE_TYPE:
+				return 'label.benchmarkField.valueType.integer';
+			case self::STRING_VALUE_TYPE:
+				return 'label.benchmarkField.valueType.string';
+			default:
+				return null;
+		}
+	}
+	
+	public static function getFieldTypeName($fieldType) {
+		switch($fieldType) {
+			case self::DECIMAL_FIELD_TYPE:
+				return 'label.benchmarkField.fieldType.decimal';
+			case self::INTEGER_FIELD_TYPE:
+				return 'label.benchmarkField.fieldType.integer';
+			case self::BOOLEAN_FIELD_TYPE:
+				return 'label.benchmarkField.fieldType.boolean';
+			case self::STRING_FIELD_TYPE:
+				return 'label.benchmarkField.fieldType.string';
+			case self::SINGLE_ENUM_FIELD_TYPE:
+				return 'label.benchmarkField.fieldType.singleEnum';
+			case self::MULTI_ENUM_FIELD_TYPE:
+				return 'label.benchmarkField.fieldType.multiEnum';
+			default:
+				return null;
+		}
+	}
+	
+	public static function getFilterTypeName($filterType) {
+		switch($filterType) {
+			case self::DECIMAL_FILTER_TYPE:
+				return 'label.benchmarkField.filterType.decimal';
+			case self::INTEGER_FILTER_TYPE:
+				return 'label.benchmarkField.filterType.integer';
+			case self::BOOLEAN_FILTER_TYPE:
+				return 'label.benchmarkField.filterType.boolean';
+			case self::STRING_FILTER_TYPE:
+				return 'label.benchmarkField.filterType.string';
+			case self::SINGLE_ENUM_FILTER_TYPE:
+				return 'label.benchmarkField.filterType.singleEnum';
+			case self::MULTI_ENUM_FILTER_TYPE:
+				return 'label.benchmarkField.filterType.multiEnum';
+			default:
+				return null;
+		}
+	}
+	
     /**
      * @var integer
      */

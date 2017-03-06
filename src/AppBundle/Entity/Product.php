@@ -2,14 +2,15 @@
 
 namespace AppBundle\Entity;
 
-use AppBundle\Entity\Base\ImageEntity;
 use AppBundle\Entity\Base\Image;
+use AppBundle\Entity\Base\ImageEntity;
 use AppBundle\Utils\ClassUtils;
+use Intervention\Image\Exception\NotSupportedException;
 
 /**
  * Product
  */
-class Product extends ImageEntity
+class Product extends ImageEntity implements \ArrayAccess
 {
 	/**
 	 * 
@@ -31,11 +32,6 @@ class Product extends ImageEntity
 		$brandName = ClassUtils::getCleanName($this->getBrand()->getName());
 		return 'uploads/products/' . substr($brandName, 0, 1) . '/' . $brandName;
 	}
-	
-    /**
-     * @var string
-     */
-    private $price;
 
     /**
      * @var \Doctrine\Common\Collections\Collection
@@ -54,29 +50,33 @@ class Product extends ImageEntity
     	parent::__construct();
         $this->productCategoryAssignments = new \Doctrine\Common\Collections\ArrayCollection();
     }
-
-    /**
-     * Set price
-     *
-     * @param string $price
-     *
-     * @return Product
-     */
-    public function setPrice($price)
-    {
-        $this->price = $price;
-
-        return $this;
+    
+    public function offsetExists($offset) {
+    	if(strpos($offset, 'decimal') !== false) {
+    		return true;
+    	}
+    	
+    	if(strpos($offset, 'integer') !== false) {
+    		return true;
+    	}
+    	
+    	if(strpos($offset, 'string') !== false) {
+    		return true;
+    	}
+    	
+    	return false;
     }
-
-    /**
-     * Get price
-     *
-     * @return string
-     */
-    public function getPrice()
-    {
-        return $this->price;
+    
+    public function offsetGet($offset) {
+    	return $this->$offset;
+    }
+    
+    public function offsetSet($offset, $value) {
+    	throw new NotSupportedException();
+    }
+    
+    public function offsetUnset($offset) {
+    	throw new NotSupportedException();
     }
 
     /**

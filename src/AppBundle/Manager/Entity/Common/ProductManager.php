@@ -21,9 +21,6 @@ class ProductManager extends SimpleEntityManager {
 		
 		$entry->setBrand($this->getParam($request, Brand::class));
 		
-		$entry->setGuarantee($request->get('guarantee'));
-		$entry->setPrice($request->get('price'));
-		
 		return $entry;
 	}
 	
@@ -38,9 +35,6 @@ class ProductManager extends SimpleEntityManager {
 		$entry = parent::createFromTemplate($template);
 		
 		$entry->setBrand($template->getBrand());
-		
-		$entry->setGuarantee($template->getGuarantee());
-		$entry->setPrice($template->getPrice());
 		
 		return $entry;
 	}

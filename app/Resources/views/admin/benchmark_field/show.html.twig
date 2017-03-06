@@ -10,16 +10,16 @@
 {% endblock %}
 
 {% block moreFields2 %}
-	{% include 'common/fields/text_field.html.twig' with { 'label': 'label.benchmarkField.valueType', 'value': entry.valueType } %}
+	{% include 'common/fields/text_field.html.twig' with { 'label': 'label.benchmarkField.valueType', 'value': benchmarkFieldValueTypeName(entry.valueType)|trans } %}
 	{% include 'common/fields/text_field.html.twig' with { 'label': 'label.benchmarkField.valueNumber', 'value': entry.valueNumber } %}
 	
 	{% include 'common/fields/text_field.html.twig' with { 'label': 'label.benchmarkField.fieldName', 'value': entry.fieldName } %}
-	{% include 'common/fields/text_field.html.twig' with { 'label': 'label.benchmarkField.fieldType', 'value': entry.fieldType } %}
+	{% include 'common/fields/text_field.html.twig' with { 'label': 'label.benchmarkField.fieldType', 'value': benchmarkFieldFieldTypeName(entry.fieldType)|trans } %}
 	{% include 'common/fields/text_field.html.twig' with { 'label': 'label.benchmarkField.fieldNumber', 'value': entry.fieldNumber } %}
 	{% include 'common/fields/text_field.html.twig' with { 'label': 'label.benchmarkField.showField', 'value': entry.showField } %}
 	
 	{% include 'common/fields/text_field.html.twig' with { 'label': 'label.benchmarkField.filterName', 'value': entry.filterName } %}
-	{% include 'common/fields/text_field.html.twig' with { 'label': 'label.benchmarkField.filterType', 'value': entry.filterType } %}
+	{% include 'common/fields/text_field.html.twig' with { 'label': 'label.benchmarkField.filterType', 'value': benchmarkFieldFilterTypeName(entry.filterType)|trans } %}
 	{% include 'common/fields/text_field.html.twig' with { 'label': 'label.benchmarkField.filterNumber', 'value': entry.filterNumber } %}
 	{% include 'common/fields/text_field.html.twig' with { 'label': 'label.benchmarkField.showFilter', 'value': entry.showFilter } %}
 {% endblock %}

@@ -100,7 +100,7 @@ class RouteManager {
 		return false;
 	}
 	
-	public function getLastRoute(Request $request, $template) {
+	public function getLastRoute(Request $request, $template = null) {
 		//TODO route stacks
 		$currRoute = $request->getSession()->get('curr_route', $template);
 		return $currRoute;

@@ -12,6 +12,31 @@ use Doctrine\ORM\QueryBuilder;
 
 class BenchmarkFieldRepository extends AuditRepository
 {	
+	public function findItemsByCategory($categoryId) {
+		return $this->queryItemsByCategory($categoryId)->getScalarResult();
+	}
+	
+	protected function queryItemsByCategory($categoryId)
+	{
+		$builder = new QueryBuilder($this->getEntityManager());
+			
+		$builder->select("e.valueType, e.valueNumber, e.fieldType, e.fieldName");
+		$builder->from($this->getEntityType(), "e");
+	
+		$expr = $builder->expr();
+	
+		$where = $expr->andX();
+		$where->add($expr->eq('e.category', $categoryId ? $categoryId : -1));
+	
+		$builder->where($where);
+	
+		$builder->orderBy('e.fieldNumber', 'ASC');
+			
+		return $builder->getQuery();
+	}
+	
+	
+	
 	protected function buildJoins(QueryBuilder &$builder, Filter $filter) {
 		/** @var BenchmarkFieldFilter $filter */
 		parent::buildJoins($builder, $filter);
