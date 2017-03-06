@@ -74,7 +74,9 @@
 									<div class="default-tile">
 										<div class="tile default">
 											<h4 class="title">
-												
+												{% for brand in article.brands %}
+													{{ brand.name }}
+												{% endfor %}
 						      				</h4>
 							      			<h5>
 							      				{{ article.name }} {{ article.subname }}
