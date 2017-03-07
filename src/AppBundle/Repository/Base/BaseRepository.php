@@ -166,14 +166,21 @@ abstract class BaseRepository extends EntityRepository
 	
 	
 	protected function buildStringsExpression(QueryBuilder &$builder, $name, $string, $addDecorators = false) {
-		$words = explode(',', $string);
-	
-		$expression = $builder->expr()->orX();
-		foreach ($words as $word) {
-			$expression->add($this->buildStringExpression($builder, $name, $word, $addDecorators));
+		$ors = explode(',', $string);
+		
+		$orExpr = $builder->expr()->orX();
+		foreach($ors as $or) {
+			$ands = explode('+', $or);
+		
+			$andExpr = $builder->expr()->andX();
+			foreach ($ands as $and) {
+				$andExpr->add($this->buildStringExpression($builder, $name, $and, $addDecorators));
+			}
+			
+			$orExpr->add($andExpr);
 		}
 		
-		return $expression;
+		return $orExpr;
 	}
 	
 	protected function buildStringExpression(QueryBuilder &$builder, $name, $string, $addDecorators = false) {

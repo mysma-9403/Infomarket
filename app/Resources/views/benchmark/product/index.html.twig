@@ -69,6 +69,10 @@
 								{{ form_row(filter.brands, { label: 'label.benchmark.brands' }) }}
 							</div>
 							
+							<div class="col-xs-12 {{ hidden }}">
+								{{ form_row(filter.name, { label: 'label.benchmark.product.name' }) }}
+							</div>
+							
 							{% for field in entryFilter.filterFields %}
 									{% if field.filterType == constant('AppBundle\\Entity\\BenchmarkField::DECIMAL_FILTER_TYPE') %}
 										<div class="col-xs-6">
@@ -156,7 +160,7 @@
 							<td></td>
 						</tr>
 						<tr>
-							<th class="text-right">{{ 'label.name'|trans }}</th>
+							<th class="text-right">{{ 'label.benchmark.product.name'|trans }}</th>
 							{% for entry in entries %}
 								<td class="text-center">{{ entry.name }}</td>
 							{% endfor %}

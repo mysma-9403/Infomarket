@@ -134,6 +134,10 @@ class ProductRepository extends BaseRepository
 			$where->add($expr->like('c.treePath', $builder->expr()->literal('%-' . $filter->getContextCategory() . '#%')));
 		}
 		
+		if($filter->getName()) {
+			$where->add($this->buildStringsExpression($builder, 'e.name', $filter->getName(), true));
+		}
+		
 		$filterFields = $filter->getFilterFields();
 		foreach ($filterFields as $filterField) {
 			$value = $filterField['value'];
@@ -165,7 +169,7 @@ class ProductRepository extends BaseRepository
 						$where->add($or);
 						break;
 					default:
-						$where->add($expr->eq('e.' . $valueName, $value));
+						$where->add($this->buildStringsExpression($builder, 'e.' . $valueName, $value, true));
 						break;
 				}
 			}

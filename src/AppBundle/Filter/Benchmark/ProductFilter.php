@@ -49,6 +49,12 @@ class ProductFilter extends Filter {
 	 */
 	protected $categories = array();
 	
+	/**
+	 *
+	 * @var string
+	 */
+	protected $name = null;
+	
 	
 	
 	public function __construct(BenchmarkFieldRepository $benchmarkFieldRepository) {
@@ -69,6 +75,8 @@ class ProductFilter extends Filter {
 	
 		$this->brands = $this->getRequestArray($request, 'brands');
 		$this->categories = $this->getRequestArray($request, 'categories');
+		
+		$this->name = $this->getRequestString($request, 'name');
 		
 		foreach ($this->filterFields as $key => $field) {
 			switch($field['filterType']) {
@@ -99,6 +107,8 @@ class ProductFilter extends Filter {
 		$this->brands = array();
 		$this->categories = array();
 		
+		$this->name = null;
+		
 		foreach ($this->filterFields as $key => $field) {
 			switch($field['filterType']) {
 				case BenchmarkField::DECIMAL_FILTER_TYPE:
@@ -127,6 +137,8 @@ class ProductFilter extends Filter {
 		
 		$this->setRequestArray($values, 'brands', $this->brands);
 		$this->setRequestArray($values, 'categories', $this->categories);
+		
+		$this->setRequestString($values, 'name', $this->name);
 		
 		foreach ($this->filterFields as $field) {
 			switch($field['filterType']) {
@@ -238,7 +250,7 @@ class ProductFilter extends Filter {
 	}
 	
 	/**
-	 * Get term brands
+	 * Get brands
 	 *
 	 * @return array
 	 */
@@ -262,13 +274,37 @@ class ProductFilter extends Filter {
 	}
 	
 	/**
-	 * Get term categories
+	 * Get categories
 	 *
 	 * @return array
 	 */
 	public function getCategories()
 	{
 		return $this->categories;
+	}
+	
+	/**
+	 * Set name
+	 *
+	 * @param string $name
+	 *
+	 * @return ProductFilter
+	 */
+	public function setName($name)
+	{
+		$this->name = $name;
+	
+		return $this;
+	}
+	
+	/**
+	 * Get name
+	 *
+	 * @return string
+	 */
+	public function getName()
+	{
+		return $this->name;
 	}
 	
 	public function __get($valueName) {

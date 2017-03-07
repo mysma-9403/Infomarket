@@ -750,6 +750,11 @@
                 <target>Marki</target>
             </trans-unit>
             
+            <trans-unit id="label.benchmark.product.name">
+                <source>label.benchmark.product.name</source>
+                <target>Symbol</target>
+            </trans-unit>
+            
 			<trans-unit id="label.benchmark.all">
                 <source>label.benchmark.all</source>
                 <target>Wszystkie (+/-)</target>
