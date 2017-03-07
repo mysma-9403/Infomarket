@@ -72,11 +72,15 @@ class Product extends ImageEntity implements \ArrayAccess
     }
     
     public function offsetSet($offset, $value) {
-    	throw new NotSupportedException();
+    	$this->$offset = $value;
+    	
+    	return $this;
     }
     
     public function offsetUnset($offset) {
-    	throw new NotSupportedException();
+    	$this->$offset = null;
+    	
+    	return $this;
     }
 
     /**

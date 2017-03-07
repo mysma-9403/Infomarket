@@ -2089,7 +2089,16 @@
                 	- Powiązania:
                 	-- dodane: %createdAssignments% 
                 	-- zmienione: %updatedAssignments% 
-                	-- wszystkie: %allAssignments% 
+                	-- wszystkie: %allAssignments%
+                	
+                	- Marki: 
+                	-- zmienione: %updatedBrands% 
+                	-- wszystkie: %allBrands%
+                	
+                	- Kolumny: 
+                	-- dodane: %createdBenchmarkFields%
+                	-- zmienione: %updatedBenchmarkFields% 
+                	-- wszystkie: %allBenchmarkFields%  
                	</target>
             </trans-unit>
             
@@ -2150,14 +2159,14 @@
                 <target>Obiekt o podanym id (%id%) nie istnieje.</target>
             </trans-unit>
             
-            <trans-unit id="error.importRatings.lineNumber">
-                <source>error.importRatings.lineNumber</source>
-                <target>Wiersz %number%: </target>
-            </trans-unit>
             
-            <trans-unit id="error.importRatings.lineNumbers">
-                <source>error.importRatings.lineNumbers</source>
-                <target>Wiersze %prevNumber% i %nextNumber%: </target>
+            <trans-unit id="error.importRatings.column.notExists">
+                <source>error.importRatings.column.notExists</source>
+                <target>Kolumna %name% nie istnieje.</target>
+            </trans-unit>
+            <trans-unit id="error.importRatings.column.duplicate">
+                <source>error.importRatings.column.duplicate</source>
+                <target>Kolumna %currIndex% odnosi się do tego samego pola (%name%) co kolumna %prevIndex%.</target>
             </trans-unit>
             
             <trans-unit id="error.importRatings.brand.empty">
@@ -2193,6 +2202,11 @@
             <trans-unit id="error.importRatings.product.sameCategory">
                 <source>error.importRatings.product.sameCategory</source>
                 <target>Produkt "%brandName% %productName%" jest przypisany do kategorii "%categoryName% %categorySubname%" więcej niż raz.</target>
+            </trans-unit>
+            
+            <trans-unit id="error.importRatings.category.invalid">
+                <source>error.importRatings.category.invalid</source>
+                <target>Podano niepoprawną kategorię. Oczekiwana: %expectedName%, podana: %givenName%.</target>
             </trans-unit>
             
             

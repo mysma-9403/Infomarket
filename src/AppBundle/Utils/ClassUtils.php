@@ -23,7 +23,8 @@ class ClassUtils {
 		
 		$string = preg_replace('/[&\\s]/', '-', $string);
 		
-		$string = iconv('UTF-8', 'ASCII//TRANSLIT//IGNORE', $string);
+		$string = mb_convert_encoding($string, 'UTF-8', 'UTF-8');
+		$string = iconv('UTF-8', 'UTF-8//IGNORE', $string);
 		
 		$string = preg_replace('/[^a-zA-Z\\d+-\/]/', '', $string);
 		
@@ -38,7 +39,8 @@ class ClassUtils {
 	
 		$string = preg_replace('/[&\\s]/', '-', $string);
 	
-		$string = iconv('UTF-8', 'ASCII//TRANSLIT//IGNORE', $string);
+		$string = mb_convert_encoding($string, 'UTF-8', 'UTF-8');
+		$string = iconv('UTF-8', 'UTF-8//IGNORE', $string);
 	
 		$string = preg_replace('/[^a-zA-Z\\d+-]/', '', $string);
 	
