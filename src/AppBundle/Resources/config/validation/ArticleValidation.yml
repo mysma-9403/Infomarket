@@ -1,5 +1,9 @@
 AppBundle\Entity\Article:
     properties:
+        page:
+            - Range:
+                min: 1
+                max: 99
         orderNumber:
             - Range:
                 min: 0

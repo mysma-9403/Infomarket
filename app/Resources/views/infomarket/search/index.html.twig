@@ -77,26 +77,26 @@
 	{% endblock %}
 	
 	
-	{% block brands %}
-	{% if brands|length > 0 %}
-	<div class="row">
-		<div class="col-xs-12">
-			<a href="{{ path('infoprodukt_brand') }}">
-				<h2>{{ 'title.brands'|trans }}</h2>
-			</a>
+{# 	{% block brands %}#}
+{# 	{% if brands|length > 0 %}#}
+{# 	<div class="row">#}
+{# 		<div class="col-xs-12">#}
+{# 			<a href="{{ path('infoprodukt_brand') }}">#}
+{# 				<h2>{{ 'title.brands'|trans }}</h2>#}
+{# 			</a>#}
 			
-			{% include 'common/tile_list.html.twig' with {'entries': brands, 'entryPath': 'brand', 'limit': 12} %}
-		</div>
-	</div>
-	<div class="row">
-		<div class="col-xs-12 text-center lowered">
-			{% if brands|length > 12 %}
-				<a class="btn btn-danger" href="{{ path('infoprodukt_brand') }}">{{ 'label.readMore'|trans }}</a>
-			{% endif %}	
-		</div>
-	</div>
-	{% endif %}
-	{% endblock %}
+{# 			{% include 'common/tile_list.html.twig' with {'entries': brands, 'entryPath': 'brand', 'limit': 12} %}#}
+{# 		</div>#}
+{# 	</div>#}
+{# 	<div class="row">#}
+{# 		<div class="col-xs-12 text-center lowered">#}
+{# 			{% if brands|length > 12 %}#}
+{# 				<a class="btn btn-danger" href="{{ path('infoprodukt_brand') }}">{{ 'label.readMore'|trans }}</a>#}
+{# 			{% endif %}	#}
+{# 		</div>#}
+{# 	</div>#}
+{# 	{% endif %}#}
+{# 	{% endblock %}#}
 	
 	
 	{% block terms %}

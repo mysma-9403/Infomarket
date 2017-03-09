@@ -8,9 +8,21 @@ use Doctrine\ORM\QueryBuilder;
 use AppBundle\Entity\BrandCategoryAssignment;
 use Doctrine\ORM\Query\Expr\Join;
 use AppBundle\Entity\ArticleBrandAssignment;
+use AppBundle\Filter\Base\Filter;
 
 class BrandRepository extends BaseRepository
 {	
+	protected function getSelectFields(QueryBuilder &$builder, Filter $filter) {
+		$fields = parent::getSelectFields($builder, $filter);
+	
+		$fields[] = 'e.name';
+		$fields[] = 'e.image';
+		$fields[] = 'e.vertical';
+	
+		return $fields;
+	}
+	
+	
 	public function findItemsByArticles($articlesIds) {
 		return $this->queryItemsByArticles($articlesIds)->getScalarResult();
 	}

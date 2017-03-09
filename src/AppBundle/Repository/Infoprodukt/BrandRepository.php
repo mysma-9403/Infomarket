@@ -9,9 +9,22 @@ use AppBundle\Repository\Base\BaseRepository;
 use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\ORM\QueryBuilder;
 use AppBundle\Entity\ArticleBrandAssignment;
+use AppBundle\Filter\Base\Filter;
 
 class BrandRepository extends BaseRepository
 {
+	protected function getSelectFields(QueryBuilder &$builder, Filter $filter) {
+		$fields = parent::getSelectFields($builder, $filter);
+	
+		$fields[] = 'e.name';
+		$fields[] = 'e.image';
+		$fields[] = 'e.vertical';
+	
+		return $fields;
+	}
+	
+	
+	
 	//TODO the same as in IM - make inheritance
 	public function findItemsByArticles($articlesIds) {
 		return $this->queryItemsByArticles($articlesIds)->getScalarResult();
