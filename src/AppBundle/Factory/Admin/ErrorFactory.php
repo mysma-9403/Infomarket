@@ -2,19 +2,13 @@
 
 namespace AppBundle\Factory\Admin;
 
-use Symfony\Component\Translation\DataCollectorTranslator;
-
 class ErrorFactory {
 	
-	/**
-	 *
-	 * @var DataCollectorTranslator
-	 */
 	protected $translator;
 	
 	
 	
-	public function __construct(DataCollectorTranslator $translator) {
+	public function __construct($translator) {
 		$this->translator = $translator;
 	}
 	
