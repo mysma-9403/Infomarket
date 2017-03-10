@@ -284,55 +284,64 @@
 {% endblock %}
 
 
-{# {% block usefulItemsBlock %}#}
-{# 	{% set categoryId = category is defined ? category.id : null %}#}
-
-{# 	<div class="container">#}
-{# 		<div class="row">#}
-{# 			<h4 class="title padding-5">#}
-{# 				<span class="text-red">{{ 'header.usefulItems.1'|trans }}</span> #}
-{# 				<span class="text-brand">{{ 'header.usefulItems.2'|trans }}</span>#}
-{# 			</h4>#}
-{# 		</div>#}
-		
-{# 		<div class="row">#}
-{# 			<div class="col-xs-2 col-sm-1 padding-5">#}
-{# 				<a href="{{ path(basePath ~ 'brand', { category: categoryId }) }}">#}
-{# 					<div class="rect bkg-brand">#}
-{# 						<img class="div-center img-responsive" alt="{{ 'label.mainCategory.brands'|trans }}"#}
-{# 								src="{{ asset('img/useful-brands.png') }}" />#}
-{# 					</div>#}
-{# 					<div class="bkg-red text-white text-center">#}
-{# 						<h4 class="title">{{ 'label.mainCategory.brands'|trans }}</h4>#}
-{# 					</div>#}
-{# 				</a>#}
-{# 			</div>#}
+{% block usefulItemsBlock %}
+	{% set show = false %}
+	{% for articleCategory in usefulArticleCategories %}
+		{% if articleCategory.articles|length > 0 %}{% set show = true %}{% endif %}
+	{% endfor %}
+	
+	{% if show %}
+		{% set categoryId = category is defined ? category.id : null %}
+	
+		<div class="container">
+			<div class="row">
+				<h4 class="title padding-5">
+					<span class="text-red">{{ 'header.usefulItems.1'|trans }}</span> 
+					<span class="text-brand">{{ 'header.usefulItems.2'|trans }}</span>
+				</h4>
+			</div>
 			
-{# 			<div class="col-xs-2 col-sm-1 padding-5">#}
-{# 				<a href="{{ path(basePath ~ 'term', { category: categoryId }) }}">#}
-{# 					<div class="rect bkg-brand">#}
-{# 						<img class="div-center img-responsive" alt="{{ 'label.mainCategory.terms'|trans }}"#}
-{# 								src="{{ asset('img/useful-terms.png') }}" />#}
-{# 					</div>#}
-{# 					<div class="bkg-red text-white text-center">#}
-{# 						<h4 class="title">{{ 'label.mainCategory.terms'|trans }}</h4>#}
-{# 					</div>#}
-{# 				</a>#}
-{# 			</div>#}
-			
-{# 			{% for articleCategory in usefulArticleCategories %}#}
-{# 				<div class="col-xs-2 col-sm-1 padding-5">#}
-{# 					<a href="{{ path(basePath ~ 'article', { category: categoryId, article_filter_article_categories: [articleCategory.id] }) }}">#}
-{# 						<div class="rect bkg-brand">#}
-{# 							<img class="div-center img-responsive" alt="{{ articleCategory.name }}"#}
-{# 								src="{{ asset(articleCategory.image) }}" />#}
-{# 						</div>#}
-{# 						<div class="bkg-red text-white text-center">#}
-{# 							<h4 class="title">{{ articleCategory.name }}</h4>#}
-{# 						</div>#}
-{# 					</a>#}
-{# 				</div>#}
-{# 			{% endfor %}#}
-{# 		</div>#}
-{# 	</div>    #}
-{# {% endblock %}#}
+			<div class="row">
+	{# 			<div class="col-xs-2 col-sm-1 padding-5">#}
+	{# 				<a href="{{ path(basePath ~ 'brand', { category: categoryId }) }}">#}
+	{# 					<div class="rect bkg-brand">#}
+	{# 						<img class="div-center img-responsive" alt="{{ 'label.mainCategory.brands'|trans }}"#}
+	{# 								src="{{ asset('img/useful-brands.png') }}" />#}
+	{# 					</div>#}
+	{# 					<div class="bkg-red text-white text-center">#}
+	{# 						<h4 class="title">{{ 'label.mainCategory.brands'|trans }}</h4>#}
+	{# 					</div>#}
+	{# 				</a>#}
+	{# 			</div>#}
+				
+	{# 			<div class="col-xs-2 col-sm-1 padding-5">#}
+	{# 				<a href="{{ path(basePath ~ 'term', { category: categoryId }) }}">#}
+	{# 					<div class="rect bkg-brand">#}
+	{# 						<img class="div-center img-responsive" alt="{{ 'label.mainCategory.terms'|trans }}"#}
+	{# 								src="{{ asset('img/useful-terms.png') }}" />#}
+	{# 					</div>#}
+	{# 					<div class="bkg-red text-white text-center">#}
+	{# 						<h4 class="title">{{ 'label.mainCategory.terms'|trans }}</h4>#}
+	{# 					</div>#}
+	{# 				</a>#}
+	{# 			</div>#}
+				
+				{% for articleCategory in usefulArticleCategories %}
+					{% if articleCategory.articles|length > 0 %}
+						<div class="col-xs-2 col-sm-2 padding-5">
+							<a href="{{ path(basePath ~ 'article', { category: categoryId, article_filter_article_categories: [articleCategory.id] }) }}">
+								<div class="rect bkg-brand">
+									<img class="div-center img-responsive" alt="{{ articleCategory.name }}"
+										src="{{ asset(articleCategory.image) }}" />
+								</div>
+								<div class="bkg-red text-white text-center">
+									<h4 class="title">{{ articleCategory.name }} {{ articleCategory.subname }}</h4>
+								</div>
+							</a>
+						</div>
+					{% endif %}
+				{% endfor %}
+			</div>
+		</div>   
+	{% endif %} 
+{% endblock %}

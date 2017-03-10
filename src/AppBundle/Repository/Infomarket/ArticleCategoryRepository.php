@@ -76,7 +76,7 @@ class ArticleCategoryRepository extends BaseRepository
 	{
 		$builder = new QueryBuilder($this->getEntityManager());
 			
-		$builder->select("e.id, e.name, e.subname");
+		$builder->select("e.id, e.name, e.subname, e.image, e.vertical");
 		$builder->from($this->getEntityType(), "e");
 	
 		$builder->where($builder->expr()->eq('e.infomarket', 1));

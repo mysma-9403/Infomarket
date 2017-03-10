@@ -176,10 +176,23 @@ class CategoryEntryParamsManager extends EntryParamsManager {
 			//useful article categories
 			$usefulArticleCategories = array();
 			
-			//$usefulArticleCategories[] = $this->getArticleCategory($articleCategories, self::REVIEWS_AC);
-			$usefulArticleCategories[] = $this->getArticleCategory($articleCategories, self::LAW_AC);
-			$usefulArticleCategories[] = $this->getArticleCategory($articleCategories, self::HOME_LINKS_AC);
-			$usefulArticleCategories[] = $this->getArticleCategory($articleCategories, self::FOREIGN_LINKS_AC);
+			$articleCategory = $this->getArticleCategory($articleCategories, self::REVIEWS_AC);
+			if($articleCategory) {
+				$articleCategory['articles'] = $articleRepository->findCategoryItems($contextCategories, self::REVIEWS_AC, 1);
+				$usefulArticleCategories[] = $articleCategory;
+			}
+			
+			$articleCategory = $this->getArticleCategory($articleCategories, self::HOME_LINKS_AC);
+			if($articleCategory) {
+				$articleCategory['articles'] = $articleRepository->findCategoryItems($contextCategories, self::HOME_LINKS_AC, 1);
+				$usefulArticleCategories[] = $articleCategory;
+			}
+			
+			$articleCategory = $this->getArticleCategory($articleCategories, self::FOREIGN_LINKS_AC);
+			if($articleCategory) {
+				$articleCategory['articles'] = $articleRepository->findCategoryItems($contextCategories, self::FOREIGN_LINKS_AC, 1);
+				$usefulArticleCategories[] = $articleCategory;
+			}
 			
 			$viewParams['usefulArticleCategories'] = $usefulArticleCategories;
 			
