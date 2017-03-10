@@ -69,10 +69,12 @@ class NewsletterBlockEditorType extends SimpleEntityEditorType
 				'required' => true
 		))
 		->add('articleSeparator', TextType::class, array(
-				'required' => false
+				'required' => false,
+				'trim' => false
 		))
 		->add('magazineSeparator', TextType::class, array(
-				'required' => false
+				'required' => false,
+				'trim' => false
 		))
 		->add('newsletterPage', ChoiceType::class, array(
 				'choices' 		=> $newsletterPages,
