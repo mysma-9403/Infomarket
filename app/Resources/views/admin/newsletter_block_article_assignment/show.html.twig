@@ -12,4 +12,13 @@
 	{% include 'common/fields/simple_field.html.twig' with 
 	{ 'label': 'label.article', 'value': entry.article,
 		'object': 'article', 'routeId': entry.id } %}
+		
+	{% include 'common/fields/text_field.html.twig' with 
+		{ 'label': 'label.newsletterBlockArticleAssignment.alternativeName', 'value': entry.alternativeName } %}
+		
+	{% include 'common/fields/text_field.html.twig' with 
+		{ 'label': 'label.newsletterBlockArticleAssignment.alternativeSubname', 'value': entry.alternativeSubname } %}
+		
+	{% include 'common/fields/text_field.html.twig' with 
+		{ 'label': 'label.newsletterBlockArticleAssignment.alternativeBrands', 'value': entry.alternativeBrands} %}
 {% endblock %}

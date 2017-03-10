@@ -12,4 +12,7 @@
 	{% include 'common/fields/simple_field.html.twig' with 
 	{ 'label': 'label.magazine', 'value': entry.magazine,
 		'object': 'magazine', 'routeId': entry.id } %}
+		
+	{% include 'common/fields/text_field.html.twig' with 
+		{ 'label': 'label.newsletterBlockMagazineAssignment.alternativeName', 'value': entry.alternativeName } %}
 {% endblock %}

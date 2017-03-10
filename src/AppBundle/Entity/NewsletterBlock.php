@@ -31,29 +31,44 @@ class NewsletterBlock extends SimpleEntity
 				
 			$entryContent = $this->newsletterBlockTemplate->getArticleContent();
 				
+			$name = $newsletterBlockArticleAssignment->getAlternativeName();
+			$subname = $newsletterBlockArticleAssignment->getAlternativeSubname();
+			
+			if(!$name) $name = $article->getName();
+			if(!$subname) $subname = $article->getSubname();
+			
 			$entryContent = str_replace("{articleId}", $article->getId(), $entryContent);
-			$entryContent = str_replace("{articleName}", $article->getName(), $entryContent);
-			$entryContent = str_replace("{articleSubname}", $article->getSubname(), $entryContent);
+			$entryContent = str_replace("{articleName}", $name, $entryContent);
+			$entryContent = str_replace("{articleSubname}", $subname, $entryContent);
 			$entryContent = str_replace("{articleImage}", $article->getImage(), $entryContent);
 			$entryContent = str_replace("{articleIntro}", $article->getIntro(), $entryContent);
 				
-			if($article->getArticleBrandAssignments()) {
-				$brands = '';
-				foreach($article->getArticleBrandAssignments() as $articleBrandAssignment) {
-					if($brands) {
-						$brands .= ', ' . $articleBrandAssignment->getBrand()->getName();
-					} else {
-						$brands = $articleBrandAssignment->getBrand()->getName();
+			$brands = $newsletterBlockArticleAssignment->getAlternativeBrands();
+			if(!$brands) {
+				if($article->getArticleBrandAssignments()) {
+					$brands = '';
+					foreach($article->getArticleBrandAssignments() as $articleBrandAssignment) {
+						if($brands) {
+							$brands .= ', ' . $articleBrandAssignment->getBrand()->getName();
+						} else {
+							$brands = $articleBrandAssignment->getBrand()->getName();
+						}
 					}
 				}
-				$entryContent = str_replace("{articleBrands}", $brands, $entryContent);
 			}
+			$entryContent = str_replace("{articleBrands}", $brands, $entryContent);
 				
 			if($article->getArticleCategoryAssignments()) {
 				foreach($article->getArticleCategoryAssignments() as $articleCategoryAssignment) {
 					$entryContent = str_replace("{categoryId}", $articleCategoryAssignment->getCategory()->getId(), $entryContent);
 					break;
 				}
+			}
+			
+			if($brands && strlen($brands) > 0) {
+				$entryContent = str_replace("{articleSeparator}", $this->getArticleSeparator(), $entryContent);
+			} else {
+				$entryContent = str_replace("{articleSeparator}", '', $entryContent);
 			}
 				
 			$articles .= $entryContent . "\r\n";
@@ -63,10 +78,15 @@ class NewsletterBlock extends SimpleEntity
 			$magazine = $newsletterBlockMagazineAssignment->getMagazine();
 				
 			$entryContent = $this->newsletterBlockTemplate->getMagazineContent();
+			
+			$name = $newsletterBlockMagazineAssignment->getAlternativeName();
+				
+			if(!$name) $name = $magazine->getName();
 				
 			$entryContent = str_replace("{magazineId}", $magazine->getId(), $entryContent);
-			$entryContent = str_replace("{magazineName}", $magazine->getName(), $entryContent);
+			$entryContent = str_replace("{magazineName}", $name, $entryContent);
 			$entryContent = str_replace("{magazineImage}", $magazine->getImage(), $entryContent);
+			$entryContent = str_replace("{magazineSeparator}", $this->getMagazineSeparator(), $entryContent);
 				
 			$magazines .= $entryContent . "\r\n";
 		}
@@ -567,5 +587,63 @@ class NewsletterBlock extends SimpleEntity
     public function getMagazinePadding()
     {
         return $this->magazinePadding;
+    }
+    /**
+     * @var string
+     */
+    private $articleSeparator;
+
+    /**
+     * @var string
+     */
+    private $magazineSeparator;
+
+
+    /**
+     * Set articleSeparator
+     *
+     * @param string $articleSeparator
+     *
+     * @return NewsletterBlock
+     */
+    public function setArticleSeparator($articleSeparator)
+    {
+        $this->articleSeparator = $articleSeparator;
+
+        return $this;
+    }
+
+    /**
+     * Get articleSeparator
+     *
+     * @return string
+     */
+    public function getArticleSeparator()
+    {
+        return $this->articleSeparator;
+    }
+
+    /**
+     * Set magazineSeparator
+     *
+     * @param string $magazineSeparator
+     *
+     * @return NewsletterBlock
+     */
+    public function setMagazineSeparator($magazineSeparator)
+    {
+        $this->magazineSeparator = $magazineSeparator;
+
+        return $this;
+    }
+
+    /**
+     * Get magazineSeparator
+     *
+     * @return string
+     */
+    public function getMagazineSeparator()
+    {
+        return $this->magazineSeparator;
     }
 }

@@ -37,6 +37,12 @@
 		
 	{% include 'common/fields/text_field.html.twig' with 
 		{ 'label': 'label.newsletterBlock.magazinePadding', 'value': entry.magazinePadding } %}
+		
+	{% include 'common/fields/text_field.html.twig' with 
+		{ 'label': 'label.newsletterBlock.articleSeparator', 'value': entry.articleSeparator } %}
+		
+	{% include 'common/fields/text_field.html.twig' with 
+		{ 'label': 'label.newsletterBlock.magazineSeparator', 'value': entry.magazineSeparator } %}
 {% endblock %}
 
 {% block assignments %}

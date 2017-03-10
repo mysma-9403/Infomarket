@@ -68,6 +68,12 @@ class NewsletterBlockEditorType extends SimpleEntityEditorType
 		->add('magazinePadding', NumberType::class, array(
 				'required' => true
 		))
+		->add('articleSeparator', TextType::class, array(
+				'required' => false
+		))
+		->add('magazineSeparator', TextType::class, array(
+				'required' => false
+		))
 		->add('newsletterPage', ChoiceType::class, array(
 				'choices' 		=> $newsletterPages,
 				'choice_label' => function ($value, $key, $index) { return FormUtils::getListLabel($value, $key, $index); },

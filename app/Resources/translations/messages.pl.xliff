@@ -1590,34 +1590,68 @@
             
             <trans-unit id="label.newsletterBlock.xAdvertRatio">
                 <source>label.newsletterBlock.xAdvertRatio</source>
-                <target>Proporcja x (reklama)</target>
+                <target>Proporcja x (reklamy)</target>
             </trans-unit>
             <trans-unit id="label.newsletterBlock.yAdvertRatio">
                 <source>label.newsletterBlock.yAdvertRatio</source>
-                <target>Proporcja y (reklama)</target>
+                <target>Proporcja y (reklamy)</target>
             </trans-unit>
             
             <trans-unit id="label.newsletterBlock.xArticleRatio">
                 <source>label.newsletterBlock.xArticleRatio</source>
-                <target>Proporcja x (artykuł)</target>
+                <target>Proporcja x (artykuły)</target>
             </trans-unit>
             <trans-unit id="label.newsletterBlock.yArticleRatio">
                 <source>label.newsletterBlock.yArticleRatio</source>
-                <target>Proporcja y (artykuł)</target>
+                <target>Proporcja y (artykuły)</target>
             </trans-unit>
             
             <trans-unit id="label.newsletterBlock.xMagazineRatio">
                 <source>label.newsletterBlock.xMagazineRatio</source>
-                <target>Proporcja x (magazyn)</target>
+                <target>Proporcja x (magazyny)</target>
             </trans-unit>
             <trans-unit id="label.newsletterBlock.yMagazineRatio">
                 <source>label.newsletterBlock.yMagazineRatio</source>
-                <target>Proporcja y (magazyn)</target>
+                <target>Proporcja y (magazyny)</target>
             </trans-unit>
             
             <trans-unit id="label.newsletterBlock.magazinePadding">
                 <source>label.newsletterBlock.magazinePadding</source>
-                <target>Marginesy (magazyn)</target>
+                <target>Marginesy (magazyny)</target>
+            </trans-unit>
+            
+            <trans-unit id="label.newsletterBlock.articleSeparator">
+                <source>label.newsletterBlock.articleSeparator</source>
+                <target>Separator nazwy (artykuły)</target>
+            </trans-unit>
+            
+            <trans-unit id="label.newsletterBlock.magazineSeparator">
+                <source>label.newsletterBlock.magazineSeparator</source>
+                <target>Separator nazwy (magazyny)</target>
+            </trans-unit>
+            
+            
+            
+            <trans-unit id="label.newsletterBlockArticleAssignment.alternativeName">
+                <source>label.newsletterBlockArticleAssignment.alternativeName</source>
+                <target>Alternatywny tytuł</target>
+            </trans-unit>
+            
+            <trans-unit id="label.newsletterBlockArticleAssignment.alternativeSubname">
+                <source>label.newsletterBlockArticleAssignment.alternativeSubname</source>
+                <target>Alternatywny podtytuł</target>
+            </trans-unit>
+            
+            <trans-unit id="label.newsletterBlockArticleAssignment.alternativeBrands">
+                <source>label.newsletterBlockArticleAssignment.alternativeBrands</source>
+                <target>Alternatywne marki</target>
+            </trans-unit>
+            
+            
+            
+            <trans-unit id="label.newsletterBlockMagazineAssignment.alternativeName">
+                <source>label.newsletterBlockMagazineAssignment.alternativeName</source>
+                <target>Alternatywny tytuł</target>
             </trans-unit>
             
             

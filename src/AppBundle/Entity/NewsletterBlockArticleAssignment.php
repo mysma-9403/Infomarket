@@ -105,4 +105,91 @@ class NewsletterBlockArticleAssignment extends Audit
     {
         return $this->orderNumber;
     }
+    /**
+     * @var string
+     */
+    private $alternativeName;
+
+    /**
+     * @var string
+     */
+    private $alternativeSubname;
+
+
+    /**
+     * Set alternativeName
+     *
+     * @param string $alternativeName
+     *
+     * @return NewsletterBlockArticleAssignment
+     */
+    public function setAlternativeName($alternativeName)
+    {
+        $this->alternativeName = $alternativeName;
+
+        return $this;
+    }
+
+    /**
+     * Get alternativeName
+     *
+     * @return string
+     */
+    public function getAlternativeName()
+    {
+        return $this->alternativeName;
+    }
+
+    /**
+     * Set alternativeSubname
+     *
+     * @param string $alternativeSubname
+     *
+     * @return NewsletterBlockArticleAssignment
+     */
+    public function setAlternativeSubname($alternativeSubname)
+    {
+        $this->alternativeSubname = $alternativeSubname;
+
+        return $this;
+    }
+
+    /**
+     * Get alternativeSubname
+     *
+     * @return string
+     */
+    public function getAlternativeSubname()
+    {
+        return $this->alternativeSubname;
+    }
+    /**
+     * @var string
+     */
+    private $alternativeBrands;
+
+
+    /**
+     * Set alternativeBrands
+     *
+     * @param string $alternativeBrands
+     *
+     * @return NewsletterBlockArticleAssignment
+     */
+    public function setAlternativeBrands($alternativeBrands)
+    {
+        $this->alternativeBrands = $alternativeBrands;
+
+        return $this;
+    }
+
+    /**
+     * Get alternativeBrands
+     *
+     * @return string
+     */
+    public function getAlternativeBrands()
+    {
+        return $this->alternativeBrands;
+    }
 }

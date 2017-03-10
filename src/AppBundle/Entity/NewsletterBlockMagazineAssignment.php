@@ -105,4 +105,33 @@ class NewsletterBlockMagazineAssignment extends Audit
     {
         return $this->magazine;
     }
+    /**
+     * @var string
+     */
+    private $alternativeName;
+
+
+    /**
+     * Set alternativeName
+     *
+     * @param string $alternativeName
+     *
+     * @return NewsletterBlockMagazineAssignment
+     */
+    public function setAlternativeName($alternativeName)
+    {
+        $this->alternativeName = $alternativeName;
+
+        return $this;
+    }
+
+    /**
+     * Get alternativeName
+     *
+     * @return string
+     */
+    public function getAlternativeName()
+    {
+        return $this->alternativeName;
+    }
 }

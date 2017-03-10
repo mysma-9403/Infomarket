@@ -119,6 +119,50 @@ class ArticleRepository extends ImageEntityRepository
 		return $fields;
 	}
 	
+	
+	//TODO copied from common -> should be shared!
+	public function findLastPage($articleId) {
+		return $this->queryLastPage($articleId)->getSingleScalarResult();
+	}
+	
+	protected function queryLastPage($articleId) {
+		$builder = new QueryBuilder($this->getEntityManager());
+	
+		$expr = $builder->expr();
+	
+		$builder->select($expr->max('e.page'));
+		$builder->from($this->getEntityType(), "e");
+	
+		$where = $expr->orX();
+		$where->add($expr->eq('e.id', $articleId));
+		$where->add($expr->eq('e.parent', $articleId));
+	
+		$builder->where($where);
+	
+		return $builder->getQuery();
+	}
+	
+	public function findChildren($articleId, $page) {
+		return $this->queryChildren($articleId, $page)->getScalarResult();
+	}
+	
+	protected function queryChildren($articleId, $page) {
+		$builder = new QueryBuilder($this->getEntityManager());
+	
+		$expr = $builder->expr();
+	
+		$builder->select('e.id, e.name, e.subname, e.image, e.intro, e.content, e.layout, IDENTITY(e.parent) AS parent, e.imageSize');
+		$builder->from($this->getEntityType(), "e");
+	
+		$where = $expr->andX();
+		$where->add($expr->eq('e.parent', $articleId));
+		$where->add($expr->eq('e.page', $page));
+	
+		$builder->where($where);
+	
+		return $builder->getQuery();
+	}
+	
     /**
 	 * {@inheritdoc}
 	 */

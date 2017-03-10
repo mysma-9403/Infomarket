@@ -13,6 +13,7 @@ use Doctrine\Common\Persistence\ObjectManager;
 use AppBundle\Form\Editor\Transformer\NewsletterBlockToNumberTransformer;
 use AppBundle\Repository\Admin\Main\NewsletterBlockRepository;
 use AppBundle\Form\Editor\Transformer\ArticleToNumberTransformer;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 class NewsletterBlockArticleAssignmentEditorType extends BaseEntityEditorType
 {
@@ -55,6 +56,15 @@ class NewsletterBlockArticleAssignmentEditorType extends BaseEntityEditorType
 				'required'		=> true,
 				'expanded'      => false,
 				'multiple'      => false
+		))
+		->add('alternativeName', TextType::class, array(
+				'required' => false
+		))
+		->add('alternativeSubname', TextType::class, array(
+				'required' => false
+		))
+		->add('alternativeBrands', TextType::class, array(
+				'required' => false
 		))
 		;
 		
