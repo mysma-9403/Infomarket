@@ -7,11 +7,10 @@ use AppBundle\Entity\MagazineBranchAssignment;
 use AppBundle\Entity\MagazineCategoryAssignment;
 use AppBundle\Filter\Admin\Main\MagazineFilter;
 use AppBundle\Filter\Base\Filter;
-use AppBundle\Repository\Admin\Base\ImageEntityRepository;
 use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\ORM\QueryBuilder;
 
-class MagazineRepository extends ImageEntityRepository
+class ParentMagazineRepository extends MagazineRepository
 {
 	protected function  buildJoins(QueryBuilder &$builder, Filter $filter) {
 		/** @var MagazineFilter $filter */
@@ -56,6 +55,16 @@ class MagazineRepository extends ImageEntityRepository
 		if($filter->getFeatured() != Filter::ALL_VALUES) {
 			$where->add($builder->expr()->eq('e.featured', $filter->getFeatured()));
 		}
+	
+		return $where;
+	}
+	
+	
+	
+	protected function getFilterWhere(QueryBuilder &$builder) {
+		$where = parent::getFilterWhere($builder);
+	
+		$where->add('e.parent IS NULL');
 	
 		return $where;
 	}

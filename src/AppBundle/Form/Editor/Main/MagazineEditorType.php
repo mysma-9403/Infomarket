@@ -4,6 +4,8 @@ namespace AppBundle\Form\Editor\Main;
 
 use AppBundle\Entity\Magazine;
 use AppBundle\Form\Editor\Base\ImageEntityEditorType;
+use AppBundle\Form\Editor\Transformer\MagazineToNumberTransformer;
+use AppBundle\Repository\Admin\Main\ParentMagazineRepository;
 use AppBundle\Utils\FormUtils;
 use Doctrine\Common\Persistence\ObjectManager;
 use FM\ElfinderBundle\Form\Type\ElFinderType;
@@ -11,7 +13,6 @@ use Ivory\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\FormBuilderInterface;
-use AppBundle\Form\Editor\Transformer\MagazineToNumberTransformer;
 
 class MagazineEditorType extends ImageEntityEditorType
 {
@@ -27,8 +28,7 @@ class MagazineEditorType extends ImageEntityEditorType
 	 */
 	protected function addMoreFields(FormBuilderInterface $builder, array $options) {
 		
-		/** @var MagazineRepository $magazineRepository */
-		$magazineRepository = $this->em->getRepository(Magazine::class);
+		$magazineRepository = new ParentMagazineRepository($this->em, $this->em->getClassMetadata(Magazine::class));
 		$magazines = $magazineRepository->findFilterItems();
 		
 		$builder
