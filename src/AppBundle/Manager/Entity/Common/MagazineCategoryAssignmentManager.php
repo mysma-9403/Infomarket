@@ -24,7 +24,6 @@ class MagazineCategoryAssignmentManager extends BaseEntityManager {
 		$entry->setMagazine ( $this->getParam ( $request, Magazine::class ) );
 		$entry->setCategory ( $this->getParam ( $request, Category::class ) );
 		
-		
 		return $entry;
 	}
 	

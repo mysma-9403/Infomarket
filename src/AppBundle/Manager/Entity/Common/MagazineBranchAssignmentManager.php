@@ -24,8 +24,6 @@ class MagazineBranchAssignmentManager extends BaseEntityManager {
 		$entry->setMagazine ( $this->getParam ( $request, Magazine::class ) );
 		$entry->setBranch ( $this->getParam ( $request, Branch::class ) );
 		
-		dump($entry);
-		
 		return $entry;
 	}
 	
