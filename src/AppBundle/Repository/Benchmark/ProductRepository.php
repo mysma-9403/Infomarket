@@ -141,7 +141,7 @@ class ProductRepository extends BaseRepository
 		$filterFields = $filter->getFilterFields();
 		foreach ($filterFields as $filterField) {
 			$value = $filterField['value'];
-			if($value) {
+			if($value != null) {
 				$valueName = BenchmarkField::getValueTypeDBName($filterField['valueType']) . $filterField['valueNumber'];
 				switch ($filterField['filterType']) {
 					case BenchmarkField::DECIMAL_FILTER_TYPE:
@@ -155,7 +155,7 @@ class ProductRepository extends BaseRepository
 						break;
 					case BenchmarkField::BOOLEAN_FILTER_TYPE:
 						if($value != Filter::ALL_VALUES) {
-							$where->add($expr->in('e.' . $valueName, $value));
+							$where->add($expr->eq('e.' . $valueName, $value));
 						}
 						break;
 					case BenchmarkField::SINGLE_ENUM_FILTER_TYPE:
