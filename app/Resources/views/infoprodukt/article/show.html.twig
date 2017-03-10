@@ -3,6 +3,8 @@
 {% set mainPath = 'article' %}
 
 {% set listName = 'title.articles'|trans %}
+
+{% set title = entry.name ~ ' ' ~ entry.subname %}
 		
 {% block mainContent %}
 	{% include 'common/article/article.html.twig' with { 'entry': entry } %}

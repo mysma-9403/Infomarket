@@ -30,31 +30,32 @@ class ArticleEntryParamsManager extends EntryParamsManager {
 		$subarticles = $articleRepository->findChildren($entry->getId(), $page);
 		$viewParams['subarticles'] = $subarticles;
 	
-		
-		$contextCategories = $contextParams['categories'];
-		$articlesIds = $articleRepository->findItemsIds($contextCategories);
-
-		$count = 0;
-		$lastArticlesIds = array();
-		
-		$prevArticleId = null;
-		$nextArticleId = null;
-		
-		$size = count($articlesIds);
-		for($i = 0; $i < $size; $i++) {
-			$id = $articlesIds[$i];
-			if($id == $entry->getId()) {
-				if($i > 0) $prevArticleId = $articlesIds[$i-1];
-				if($i < $size-1) $nextArticleId = $articlesIds[$i+1];
-			} else if($count < 3) {
-				$lastArticlesIds[] = $articlesIds[$i];
-				$count++;
-			}
-		}
+		if(key_exists('categories', $contextParams)) {
+			$contextCategories = $contextParams['categories'];
+			$articlesIds = $articleRepository->findItemsIds($contextCategories);
 	
-		$viewParams['lastArticles'] = count($lastArticlesIds) > 0 ? $articleRepository->findItemsByIds($lastArticlesIds) : [];
-		if($prevArticleId) $viewParams['prevArticle'] = $articleRepository->findItem($prevArticleId);
-		if($nextArticleId) $viewParams['nextArticle'] = $articleRepository->findItem($nextArticleId);
+			$count = 0;
+			$lastArticlesIds = array();
+			
+			$prevArticleId = null;
+			$nextArticleId = null;
+			
+			$size = count($articlesIds);
+			for($i = 0; $i < $size; $i++) {
+				$id = $articlesIds[$i];
+				if($id == $entry->getId()) {
+					if($i > 0) $prevArticleId = $articlesIds[$i-1];
+					if($i < $size-1) $nextArticleId = $articlesIds[$i+1];
+				} else if($count < 3) {
+					$lastArticlesIds[] = $articlesIds[$i];
+					$count++;
+				}
+			}
+		
+			$viewParams['lastArticles'] = count($lastArticlesIds) > 0 ? $articleRepository->findItemsByIds($lastArticlesIds) : [];
+			if($prevArticleId) $viewParams['prevArticle'] = $articleRepository->findItem($prevArticleId);
+			if($nextArticleId) $viewParams['nextArticle'] = $articleRepository->findItem($nextArticleId);
+		}
 		
 		$params['viewParams'] = $viewParams;
 		return $params;
