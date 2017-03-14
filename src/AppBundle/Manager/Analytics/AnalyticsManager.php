@@ -22,7 +22,7 @@ class AnalyticsManager {
 				'dp' => $route
 		);
 	
-		$this->tracker->send($data, 'pageview');
+// 		$this->tracker->send($data, 'pageview');
 	}
 	
 	public function sendEventAnalytics($entry, $action, $id)
@@ -36,6 +36,6 @@ class AnalyticsManager {
 				'ev' => $id
 		);
 	
-		$this->tracker->send($data, 'event');
+// 		$this->tracker->send($data, 'event');
 	}
 }

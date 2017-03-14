@@ -17,6 +17,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Entity\NewsletterGroup;
 use AppBundle\Entity\NewsletterUserNewsletterGroupAssignment;
+use AppBundle\Manager\Params\EntryParams\Infoprodukt\Base\EntryParamsManager;
+use AppBundle\Manager\Entity\Base\EntityManager;
+use AppBundle\Manager\Filter\Base\FilterManager;
 
 abstract class InfoproduktController extends StandardController
 {	
@@ -187,6 +190,10 @@ abstract class InfoproduktController extends StandardController
 		$doctrine = $this->getDoctrine();
 	
 		return new MenuParamsManager($doctrine);
+	}
+	
+	protected function getInternalEntryParamsManager(EntityManager $em, FilterManager $fm, $doctrine) {
+		return new EntryParamsManager($em, $fm, $doctrine);
 	}
 	
 	//---------------------------------------------------------------------------

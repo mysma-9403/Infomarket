@@ -13,6 +13,7 @@
 	<buildpathentry kind="src" path="vendor/php-http/logger-plugin/src"/>
 	<buildpathentry kind="src" path="vendor/psr/cache/src"/>
 	<buildpathentry excluding="Intl/Resources/stubs/" kind="src" path="vendor/symfony/symfony/src/Symfony/Component"/>
+	<buildpathentry kind="src" path="vendor/guzzlehttp/streams/src"/>
 	<buildpathentry kind="src" path="vendor/egeloen/ckeditor-bundle"/>
 	<buildpathentry kind="src" path="vendor/php-http/message-factory/src"/>
 	<buildpathentry kind="con" path="org.eclipse.php.core.LANGUAGE"/>
@@ -36,12 +37,14 @@
 	<buildpathentry kind="src" path="vendor/kriswallsmith/assetic/src"/>
 	<buildpathentry kind="src" path="vendor/symfony/monolog-bundle"/>
 	<buildpathentry kind="src" path="vendor/egeloen/json-builder/src"/>
+	<buildpathentry kind="src" path="vendor/guzzlehttp/ringphp/src"/>
 	<buildpathentry kind="src" path="vendor/behat/transliterator/src"/>
 	<buildpathentry kind="src" path="vendor/swiftmailer/swiftmailer/lib"/>
 	<buildpathentry kind="src" path="vendor/psr/log/Psr/Log"/>
 	<buildpathentry kind="src" path="vendor/intervention/image/src/Intervention/Image"/>
 	<buildpathentry kind="src" path="vendor/symfony/symfony/src/Symfony/Bridge/Monolog"/>
 	<buildpathentry kind="src" path="vendor/php-http/client-common/src"/>
+	<buildpathentry kind="src" path="vendor/php-http/guzzle5-adapter/src"/>
 	<buildpathentry kind="src" path="vendor/doctrine/doctrine-bundle"/>
 	<buildpathentry kind="src" path="vendor/symfony/polyfill-php56"/>
 	<buildpathentry excluding="Resources/stubs/" kind="src" path="vendor/symfony/polyfill-php70"/>
@@ -53,7 +56,6 @@
 	<buildpathentry kind="src" path="vendor/symfony/symfony/src/Symfony/Bridge/ProxyManager"/>
 	<buildpathentry kind="src" path="vendor/twig/twig/lib"/>
 	<buildpathentry kind="src" path="vendor/php-http/message/src"/>
-	<buildpathentry kind="src" path="vendor/php-http/guzzle6-adapter/src"/>
 	<buildpathentry kind="src" path="vendor/doctrine/annotations/lib"/>
 	<buildpathentry kind="src" path="vendor/helios-ag/fm-elfinder-bundle"/>
 	<buildpathentry kind="src" path="vendor/sensio/distribution-bundle"/>
@@ -71,7 +73,7 @@
 	<buildpathentry kind="src" path="vendor/doctrine/collections/lib"/>
 	<buildpathentry kind="src" path="vendor/symfony/polyfill-intl-icu"/>
 	<buildpathentry kind="src" path="vendor/symfony/symfony/src/Symfony/Component/Intl/Resources/stubs"/>
-	<buildpathentry kind="src" path="vendor/guzzlehttp/promises/src"/>
+	<buildpathentry kind="src" path="vendor/react/promise/src"/>
 	<buildpathentry kind="src" path="vendor/composer"/>
 	<buildpathentry kind="src" path="vendor/psr/http-message/src"/>
 	<buildpathentry kind="src" path="vendor/doctrine/instantiator/src/Doctrine/Instantiator"/>

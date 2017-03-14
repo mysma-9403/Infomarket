@@ -6,7 +6,7 @@ use AppBundle\Entity\Article;
 use AppBundle\Entity\Brand;
 use AppBundle\Entity\Product;
 use AppBundle\Entity\Term;
-use AppBundle\Manager\Params\EntryParams\Base\EntryParamsManager;
+use AppBundle\Manager\Params\EntryParams\Infomarket\Base\EntryParamsManager;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Filter\Common\BrandCategorySearchFilter;
 use AppBundle\Repository\Search\Infomarket\BrandSearchRepository;

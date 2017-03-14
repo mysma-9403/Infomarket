@@ -6,7 +6,7 @@ use AppBundle\Entity\Brand;
 use AppBundle\Entity\Category;
 use AppBundle\Entity\Product;
 use AppBundle\Entity\Segment;
-use AppBundle\Manager\Params\EntryParams\Base\EntryParamsManager;
+use AppBundle\Manager\Params\EntryParams\Infomarket\Base\EntryParamsManager;
 use AppBundle\Repository\Infomarket\BrandRepository;
 use AppBundle\Repository\Infomarket\CategoryRepository;
 use AppBundle\Repository\Infomarket\ProductRepository;

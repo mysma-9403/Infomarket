@@ -9,7 +9,7 @@ use AppBundle\Entity\Brand;
 use AppBundle\Entity\Category;
 use AppBundle\Entity\Product;
 use AppBundle\Entity\Segment;
-use AppBundle\Manager\Params\EntryParams\Base\EntryParamsManager;
+use AppBundle\Manager\Params\EntryParams\Infoprodukt\Base\EntryParamsManager;
 use AppBundle\Repository\Infoprodukt\AdvertRepository;
 use AppBundle\Repository\Infoprodukt\ArticleCategoryRepository;
 use AppBundle\Repository\Infoprodukt\ArticleRepository;

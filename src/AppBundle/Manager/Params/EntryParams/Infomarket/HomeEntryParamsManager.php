@@ -6,7 +6,7 @@ use AppBundle\Entity\Article;
 use AppBundle\Entity\ArticleCategory;
 use AppBundle\Entity\Category;
 use AppBundle\Entity\Magazine;
-use AppBundle\Manager\Params\EntryParams\Base\EntryParamsManager;
+use AppBundle\Manager\Params\EntryParams\Infomarket\Base\EntryParamsManager;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Repository\Infomarket\ArticleCategoryRepository;
 use AppBundle\Repository\Infomarket\ArticleRepository;
@@ -30,11 +30,13 @@ class HomeEntryParamsManager extends EntryParamsManager {
 	const MOVIES_AC = 11;
 	
 	public function getIndexParams(Request $request, array $params, $page) {
-		//TODO not needed - change hierarchy? 
+		//TODO not needed - change hierarchy?
 // 		$params = parent::getIndexParams($request, $params, $page);
 		
 		$contextParams = $params['contextParams'];
 		$viewParams = $params['viewParams'];
+		
+		$viewParams['route'] = $this->getRoute($request, $params, $page);
 		
 		$branchId = $contextParams['branch'];
 		$categories = $contextParams['categories'];

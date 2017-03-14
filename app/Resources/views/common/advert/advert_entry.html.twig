@@ -1,3 +1,12 @@
-<a href="{{ path(basePath ~ 'advert_click', { id: entry.id }) }}">
+<a href="{{ path(basePath ~ 'advert_click', { id: entry.id }) }}" id="advert-{{ entry.id }}" >
+{# <a href="{{ path(basePath ~ 'advert_click', { id: entry.id }) }}" id="advert" >#}
+{# 	onclick="sendEvent('advert', 'open', '{{ entry.name }}', '{{ entry.id }}');" >#}
+{# 	onclick="sendTestEvent();" >#}
 	{% include 'common/image/image_entry.html.twig' with { 'entry': entry } %}
 </a>
+
+<script>
+	$('#advert-' + {{ entry.id }}).on('mousedown', function(event) {
+		sendEvent('advert', 'click', '{{ entry.name }}', {{ entry.id }});
+	});
+</script>

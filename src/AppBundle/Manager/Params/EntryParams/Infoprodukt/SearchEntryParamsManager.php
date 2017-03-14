@@ -7,7 +7,7 @@ use AppBundle\Entity\Brand;
 use AppBundle\Entity\Product;
 use AppBundle\Entity\Term;
 use AppBundle\Filter\Common\BrandCategorySearchFilter;
-use AppBundle\Manager\Params\EntryParams\Base\EntryParamsManager;
+use AppBundle\Manager\Params\EntryParams\Infoprodukt\Base\EntryParamsManager;
 use AppBundle\Repository\Infoprodukt\BrandRepository;
 use AppBundle\Repository\Infoprodukt\ProductRepository;
 use AppBundle\Repository\Search\Infoprodukt\ArticleSearchRepository;

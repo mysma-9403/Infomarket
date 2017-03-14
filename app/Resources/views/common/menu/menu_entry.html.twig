@@ -17,7 +17,12 @@
 		{% if entry.page %}
 			<a href="{{ path(basePath ~ 'page_show', { id: entry.page }) }}">{{ entry.name }}</a>
 		{% elseif entry.link %}
-			<a href="{{ path(basePath ~ 'link_show', { id: entry.link }) }}">{{ entry.name }}</a>
+			<a href="{{ path(basePath ~ 'link_show', { id: entry.link }) }}" id="menu-link-{{ entry.id }}">{{ entry.name }}</a>
+			<script>
+				$('#menu-link-' + {{ entry.id }}).on('mousedown', function(event) {
+					sendEvent('menu-link', 'open', '{{ entry.name ~ '(' ~ entry.link ~ ')' }}', {{ entry.id }});
+				});
+			</script>
 		{% else %}
 			<a href="#">{{ entry.name }}</a>
 		{% endif %}

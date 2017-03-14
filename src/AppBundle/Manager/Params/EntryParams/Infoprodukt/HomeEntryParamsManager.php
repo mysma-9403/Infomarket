@@ -4,7 +4,7 @@ namespace AppBundle\Manager\Params\EntryParams\Infoprodukt;
 
 use AppBundle\Entity\Category;
 use AppBundle\Entity\Magazine;
-use AppBundle\Manager\Params\EntryParams\Base\EntryParamsManager;
+use AppBundle\Manager\Params\EntryParams\Infoprodukt\Base\EntryParamsManager;
 use AppBundle\Repository\Infoprodukt\CategoryRepository;
 use AppBundle\Repository\Infoprodukt\MagazineRepository;
 use Symfony\Component\HttpFoundation\Request;

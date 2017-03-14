@@ -18,6 +18,9 @@ use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Entity\NewsletterUserNewsletterGroupAssignment;
 use Doctrine\Common\Persistence\ObjectManager;
 use AppBundle\Entity\NewsletterGroup;
+use AppBundle\Manager\Entity\Base\EntityManager;
+use AppBundle\Manager\Filter\Base\FilterManager;
+use AppBundle\Manager\Params\EntryParams\Infomarket\Base\EntryParamsManager;
 
 abstract class InfomarketController extends StandardController
 {
@@ -48,7 +51,6 @@ abstract class InfomarketController extends StandardController
 	
 		$response = $this->initIndexForms($request, $viewParams);
 		if($response) return $response;
-		
 		
 		return $this->render($this->getIndexView(), $viewParams);
 	}
@@ -188,6 +190,10 @@ abstract class InfomarketController extends StandardController
 		$doctrine = $this->getDoctrine();
 		
 		return new MenuParamsManager($doctrine);
+	}
+	
+	protected function getInternalEntryParamsManager(EntityManager $em, FilterManager $fm, $doctrine) {
+		return new EntryParamsManager($em, $fm, $doctrine);
 	}
 	
 	//---------------------------------------------------------------------------
