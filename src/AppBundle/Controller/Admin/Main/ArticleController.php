@@ -6,25 +6,25 @@ use AppBundle\Controller\Admin\Base\ImageEntityController;
 use AppBundle\Controller\Admin\Base\SimpleEntityController;
 use AppBundle\Entity\Article;
 use AppBundle\Entity\ArticleCategory;
+use AppBundle\Entity\ArticleTagAssignment;
 use AppBundle\Entity\Brand;
 use AppBundle\Entity\Category;
+use AppBundle\Entity\Other\ArticleTagAssignments;
+use AppBundle\Entity\Tag;
 use AppBundle\Filter\Admin\Main\ArticleFilter;
 use AppBundle\Form\Editor\Main\ArticleEditorType;
 use AppBundle\Form\Filter\Admin\Main\ArticleFilterType;
+use AppBundle\Form\Other\ArticleTagAssignmentsType;
+use AppBundle\Manager\Entity\Admin\ArticleManager;
 use AppBundle\Manager\Entity\Base\EntityManager;
 use AppBundle\Manager\Filter\Base\FilterManager;
-use AppBundle\Manager\Params\EntryParams\Common\ArticleEntryParamsManager;
+use AppBundle\Manager\Params\EntryParams\Admin\ArticleEntryParamsManager;
 use AppBundle\Repository\Admin\Main\ArticleCategoryRepository;
 use AppBundle\Repository\Admin\Main\BrandRepository;
 use AppBundle\Repository\Admin\Main\CategoryRepository;
-use Symfony\Component\HttpFoundation\Request;
-use AppBundle\Manager\Entity\Admin\ArticleManager;
-use AppBundle\Entity\Other\ArticleTagAssignments;
-use AppBundle\Form\Other\ArticleTagAssignmentsType;
-use AppBundle\Entity\Tag;
 use AppBundle\Repository\Admin\Main\TagRepository;
-use AppBundle\Entity\ArticleTagAssignment;
 use Doctrine\Common\Persistence\ObjectManager;
+use Symfony\Component\HttpFoundation\Request;
 
 class ArticleController extends ImageEntityController {
 	
