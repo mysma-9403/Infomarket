@@ -64,7 +64,7 @@ class MagazineRepository extends BaseRepository
 	protected function queryChildren($parentId) {
 		$builder = new QueryBuilder($this->getEntityManager());
 			
-		$builder->select("e.id, e.name, e.image");
+		$builder->select("e.id, e.name, e.image, e.date");
 		$builder->from($this->getEntityType(), "e");
 		$builder->where($builder->expr()->eq('e.parent', $parentId));
 		
@@ -82,7 +82,7 @@ class MagazineRepository extends BaseRepository
 	{
 		$builder = new QueryBuilder($this->getEntityManager());
 		 
-		$builder->select("e.id, e.name, e.image");
+		$builder->select("e.id, e.name, e.image, e.date");
 		$builder->from($this->getEntityType(), "e");
 		
 		$where = $builder->expr()->andX();
