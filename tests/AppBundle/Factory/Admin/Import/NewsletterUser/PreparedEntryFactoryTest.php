@@ -69,17 +69,33 @@ class PreparedEntryFactoryTest extends WebTestCase
 	public function testGetEntriesRezygnacja02() { $this->getRowEntries(['rezygnacja-test@wp.pl'], array(['mail' => 'test@wp.pl', 'subscribed' => false])); }
 	public function testGetEntriesRezygnacja03() { $this->getRowEntries(['rezygnacja test@wp.pl'], array(['mail' => 'test@wp.pl', 'subscribed' => false])); }
 	
-	public function testGetEntriesRezygnacja11() { $this->getRowEntries(['test@wp.pl_rezygnacja'], array(['mail' => 'test@wp.pl', 'subscribed' => false])); }
-	public function testGetEntriesRezygnacja12() { $this->getRowEntries(['test@wp.pl-rezygnacja'], array(['mail' => 'test@wp.pl', 'subscribed' => false])); }
-	public function testGetEntriesRezygnacja13() { $this->getRowEntries(['test@wp.pl rezygnacja'], array(['mail' => 'test@wp.pl', 'subscribed' => false])); }
+	public function testGetEntriesRezygnacja11() { $this->getRowEntries(['Rezygnacja_test@wp.pl'], array(['mail' => 'test@wp.pl', 'subscribed' => false])); }
+	public function testGetEntriesRezygnacja12() { $this->getRowEntries(['REzygnacja-test@wp.pl'], array(['mail' => 'test@wp.pl', 'subscribed' => false])); }
+	public function testGetEntriesRezygnacja13() { $this->getRowEntries(['rEzygnacja test@wp.pl'], array(['mail' => 'test@wp.pl', 'subscribed' => false])); }
+	
+	public function testGetEntriesRezygnacja21() { $this->getRowEntries(['test@wp.pl_rezygnacja'], array(['mail' => 'test@wp.pl', 'subscribed' => false])); }
+	public function testGetEntriesRezygnacja22() { $this->getRowEntries(['test@wp.pl-rezygnacja'], array(['mail' => 'test@wp.pl', 'subscribed' => false])); }
+	public function testGetEntriesRezygnacja23() { $this->getRowEntries(['test@wp.pl rezygnacja'], array(['mail' => 'test@wp.pl', 'subscribed' => false])); }
+	
+	public function testGetEntriesRezygnacja31() { $this->getRowEntries(['test@wp.pl_Rezygnacja'], array(['mail' => 'test@wp.pl', 'subscribed' => false])); }
+	public function testGetEntriesRezygnacja32() { $this->getRowEntries(['test@wp.pl-REzygnacja'], array(['mail' => 'test@wp.pl', 'subscribed' => false])); }
+	public function testGetEntriesRezygnacja33() { $this->getRowEntries(['test@wp.pl rEzygnacja'], array(['mail' => 'test@wp.pl', 'subscribed' => false])); }
 	
 	public function testGetEntriesRez01() { $this->getRowEntries(['rez_test@wp.pl'], array(['mail' => 'test@wp.pl', 'subscribed' => false])); }
 	public function testGetEntriesRez02() { $this->getRowEntries(['rez-test@wp.pl'], array(['mail' => 'test@wp.pl', 'subscribed' => false])); }
 	public function testGetEntriesRez03() { $this->getRowEntries(['rez test@wp.pl'], array(['mail' => 'test@wp.pl', 'subscribed' => false])); }
 	
-	public function testGetEntriesRez11() { $this->getRowEntries(['test@wp.pl_rez'], array(['mail' => 'test@wp.pl', 'subscribed' => false])); }
-	public function testGetEntriesRez12() { $this->getRowEntries(['test@wp.pl-rez'], array(['mail' => 'test@wp.pl', 'subscribed' => false])); }
-	public function testGetEntriesRez13() { $this->getRowEntries(['test@wp.pl rez'], array(['mail' => 'test@wp.pl', 'subscribed' => false])); }
+	public function testGetEntriesRez11() { $this->getRowEntries(['Rez_test@wp.pl'], array(['mail' => 'test@wp.pl', 'subscribed' => false])); }
+	public function testGetEntriesRez12() { $this->getRowEntries(['Rez-test@wp.pl'], array(['mail' => 'test@wp.pl', 'subscribed' => false])); }
+	public function testGetEntriesRez13() { $this->getRowEntries(['Rez test@wp.pl'], array(['mail' => 'test@wp.pl', 'subscribed' => false])); }
+	
+	public function testGetEntriesRez21() { $this->getRowEntries(['test@wp.pl_rez'], array(['mail' => 'test@wp.pl', 'subscribed' => false])); }
+	public function testGetEntriesRez22() { $this->getRowEntries(['test@wp.pl-rez'], array(['mail' => 'test@wp.pl', 'subscribed' => false])); }
+	public function testGetEntriesRez23() { $this->getRowEntries(['test@wp.pl rez'], array(['mail' => 'test@wp.pl', 'subscribed' => false])); }
+	
+	public function testGetEntriesRez31() { $this->getRowEntries(['test@wp.pl_REZ'], array(['mail' => 'test@wp.pl', 'subscribed' => false])); }
+	public function testGetEntriesRez32() { $this->getRowEntries(['test@wp.pl-REz'], array(['mail' => 'test@wp.pl', 'subscribed' => false])); }
+	public function testGetEntriesRez33() { $this->getRowEntries(['test@wp.pl reZ'], array(['mail' => 'test@wp.pl', 'subscribed' => false])); }
 	
 	
 	public function testGetEntriesRezList01() { $this->getRowEntries(['rez_test1@wp.pl;test2@wp.pl'], array(

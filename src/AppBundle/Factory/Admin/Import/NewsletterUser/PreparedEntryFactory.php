@@ -64,6 +64,7 @@ class PreparedEntryFactory {
 			$errors = array();
 			
 			$mail = trim($mail);
+			$mail = strtolower($mail);
 			
 			if($mail && strlen($mail) > 0) {
 				
