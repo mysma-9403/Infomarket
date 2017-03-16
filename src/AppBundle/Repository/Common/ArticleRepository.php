@@ -62,6 +62,8 @@ abstract class ArticleRepository extends BaseRepository
 		$where->add($expr->eq('e.page', $page));
 	
 		$builder->where($where);
+		
+		$builder->orderBy('e.orderNumber', 'ASC');
 	
 		return $builder->getQuery();
 	}
