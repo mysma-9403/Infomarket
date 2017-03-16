@@ -87,6 +87,7 @@ class ArticleController extends InfoproduktController
 	
 	protected function initIndexForms(Request $request, array &$viewParams) {
 		$response = parent::initIndexForms($request, $viewParams);
+		if($response) return $response;
 		
 		$response = $this->initFilterForm($request, $viewParams);
 		if($response) return $response;
@@ -109,7 +110,9 @@ class ArticleController extends InfoproduktController
 		
 		if ($articleFilterForm->isSubmitted() && $articleFilterForm->isValid()) {
 		
-		if ($articleFilterForm->get('search')->isClicked()) {		
+			dump('asd');
+			
+			if ($articleFilterForm->get('search')->isClicked()) {		
 				$routingParams = array();
 				$routingParams = array_merge($routingParams, $itemFilter->getRequestValues());
 		

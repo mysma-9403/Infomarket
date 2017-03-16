@@ -91,7 +91,8 @@ class ArticleController extends InfomarketController
 	
 	protected function initIndexForms(Request $request, array &$viewParams) {
 		$response = parent::initIndexForms($request, $viewParams);
-	
+		if($response) return $response;
+		
 		$response = $this->initFilterForm($request, $viewParams);
 		if($response) return $response;
 	
