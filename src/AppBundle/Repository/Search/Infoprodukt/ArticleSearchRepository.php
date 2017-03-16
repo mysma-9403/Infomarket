@@ -50,7 +50,13 @@ class ArticleSearchRepository extends SearchRepository
 			$where = $expr->andX();
 			$where->add($expr->in('aba.brand', $filter->getBrands()));
 		} else {
-			$where = parent::getWhere($builder, $filter);
+			$where = $expr->andX(); 
+		}
+		
+		if($filter->getString() && strlen($filter->getString()) > 0) {
+			$name = $expr->concat($expr->trim('e.name'), $expr->literal(' '));
+			$name = $expr->concat($name, $expr->trim('e.subname'));
+			$where->add($this->buildStringsExpression($builder, $name, $filter->getString(), true));
 		}
 		
 		$where->add($expr->eq('e.infoprodukt', 1));
