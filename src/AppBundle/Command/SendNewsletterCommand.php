@@ -32,6 +32,8 @@ class SendNewsletterCommand extends ContainerAwareCommand
 			return 0;
 		}
 		
+		set_error_handler(self::class . '::exception_error_handler');
+		
 		$commandStart = new \DateTime();
 		
 		$container = $this->getContainer();
@@ -68,47 +70,59 @@ class SendNewsletterCommand extends ContainerAwareCommand
 				
 				$start = new \DateTime();
 				
-				//create message
-				$message = \Swift_Message::newInstance()
-				->setSubject($page->getDisplayName())
-				->setFrom($sender, 'InfoMarket')
-				->setTo($user->getName());
-		
-				//embed images
-				$body = $assignment->getNewsletterPage()->getNewsletterCode();
-		
-				if($assignment->getEmbedImages()) {
-					$newBody = $body;
+				try {
+					//create message
+					$message = \Swift_Message::newInstance()
+					->setSubject($page->getDisplayName())
+					->setFrom($sender, 'InfoMarket')
+					->setTo($user->getName());
 			
-					while(true) {
-						$index = strpos($body, 'src="http://infomarket.edu.pl');
-						if($index == false) break;
-		
-						$body = substr($body, $index+5);
-		
-						$index = strpos($body, '"');
-						if($index == false) break;
-		
-						$path = substr($body, 0, $index);
-						$body = substr($body, $index+1);
-						
-						$embededPath = $message->embed(\Swift_Image::fromPath($path));
-						$newBody = str_replace($path, $embededPath, $newBody);
-						$body = str_replace($path, '', $body);
+					//embed images
+					$body = $assignment->getNewsletterPage()->getNewsletterCode();
+			
+					if($assignment->getEmbedImages()) {
+						$newBody = $body;
+				
+						while(true) {
+							$index = strpos($body, 'src="http://infomarket.edu.pl');
+							if($index == false) break;
+			
+							$body = substr($body, $index+5);
+			
+							$index = strpos($body, '"');
+							if($index == false) break;
+			
+							$path = substr($body, 0, $index);
+							$body = substr($body, $index+1);
+							
+							$embededPath = $message->embed(\Swift_Image::fromPath($path));
+							$newBody = str_replace($path, $embededPath, $newBody);
+							$body = str_replace($path, '', $body);
+						}
+				
+						$body = $newBody;
 					}
 			
-					$body = $newBody;
-				}
+					$message->setBody($body, 'text/html');
 		
-				$message->setBody($body, 'text/html');
-		
-				//send
-				try {
+					//send
 					$mailer->send($message);
 					$sentCount++;
-				} catch(\Swift_TransportException $e) {
-					$this->logMessage($output, 'Cannot send mail to ' . $assignment->getNewsletterUser()->getName() . 
-							' due to the following error: ' . $e->getMessage() . '.');
+				} catch(\Swift_TransportException $ex) {
+					$this->logMessage($output, 'Cannot send mail to \'' . $assignment->getNewsletterUser()->getName() . 
+							'\' due to Swiftmailer transport error: ' . $ex->getMessage() . '.');
+					$errorCount++;
+				} catch(\Swift_RfcComplianceException $ex) {
+					$this->logMessage($output, 'Cannot send mail to \'' . $assignment->getNewsletterUser()->getName() . 
+							'\' due to Swiftmailer RFC compliance error: ' . $ex->getMessage() . '.');
+					$errorCount++;
+				} catch(\Swift_SwiftException $ex) {
+					$this->logMessage($output, 'Cannot send mail to \'' . $assignment->getNewsletterUser()->getName() . 
+							'\' due to Swiftmailer error: ' . $ex->getMessage() . '.');
+					$errorCount++;
+				} catch(\Exception $ex) {
+					$this->logMessage($output, 'Cannot send mail to \'' . $assignment->getNewsletterUser()->getName() . 
+							'\' due to unknown error: ' . $ex->getMessage() . '.');
 					$errorCount++;
 				}
 				
@@ -141,6 +155,13 @@ class SendNewsletterCommand extends ContainerAwareCommand
 	
 	protected function logMessage(OutputInterface $output, $message) {
 		$date = new \DateTime();
-		$output->writeln($date->format('Y-m-d h:i:s: ') . $message);
+		$output->writeln($date->format('Y-m-d H:i:s: ') . $message);
+	}
+	
+	protected function exception_error_handler($severity, $message, $file, $line) {
+		if (!(error_reporting() & $severity)) {
+			return;
+		}
+		throw new \ErrorException($message, 0, $severity, $file, $line);
 	}
 }
