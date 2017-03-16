@@ -2,7 +2,7 @@
 
 namespace AppBundle\Utils;
 
-class ClassUtils {
+class StringUtils {
 	
 	/**
 	 * Get class name for specified class type.
@@ -51,7 +51,25 @@ class ClassUtils {
 		return strtolower($string);
 	}
 	
+	public static function getCleanMail($string) {
+	
+		$string = mb_convert_encoding($string, 'UTF-8', 'UTF-8');
+		$string = iconv('UTF-8', 'UTF-8//IGNORE', $string);
+	
+		$string = preg_replace('/[^a-zA-Z0-9-_.@]/', '', $string);
+	
+		return strtolower($string);
+	}
+	
 	public static function isStringValid($string) {
 		return !preg_match('/[^a-zA-Z0-9.\\d\\s+-_\/]/', $string);
+	}
+	
+	public static function isMailValid($string) {
+		$result = !preg_match('/[^a-zA-Z0-9-_.@]/', $string);
+		$result &= preg_match('/^[^@]*@[^@]*$/', $string);
+		$result &= strpos($string, '..') === false;
+		
+		return $result;
 	}
 }

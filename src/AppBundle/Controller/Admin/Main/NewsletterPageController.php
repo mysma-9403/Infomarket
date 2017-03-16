@@ -17,7 +17,7 @@ use AppBundle\Manager\Entity\Common\NewsletterPageManager;
 use AppBundle\Manager\Filter\Base\FilterManager;
 use AppBundle\Manager\Params\EntryParams\Admin\NewsletterPageEntryParamsManager;
 use AppBundle\Repository\Admin\Main\NewsletterPageTemplateRepository;
-use AppBundle\Utils\ClassUtils;
+use AppBundle\Utils\StringUtils;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\Request;
@@ -324,7 +324,7 @@ class NewsletterPageController extends SimpleEntityController {
 				
 				$filePath = str_replace('http://infomarket.edu.pl/', 'web/', $path);
 				
-				if(!ClassUtils::isStringValid($filePath)) {
+				if(!StringUtils::isStringValid($filePath)) {
 					$msg = $translator->trans('error.newsletterPage.sendNewsletter.invalidImagePath');
 					$msg = str_replace('%imagePath%', $filePath, $msg);
 					$errors[] = $msg;

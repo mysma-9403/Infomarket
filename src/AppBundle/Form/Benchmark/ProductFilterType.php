@@ -13,7 +13,7 @@ use AppBundle\Form\Filter\Admin\Base\SimpleEntityFilterType;
 use AppBundle\Repository\Benchmark\BrandRepository;
 use AppBundle\Repository\Benchmark\CategoryRepository;
 use AppBundle\Repository\Benchmark\ProductRepository;
-use AppBundle\Utils\ClassUtils;
+use AppBundle\Utils\StringUtils;
 use AppBundle\Utils\FormUtils;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -81,27 +81,27 @@ class ProductFilterType extends FilterType
 		foreach ($fields as $field) {
 			switch($field['filterType']) {
 				case BenchmarkField::DECIMAL_FILTER_TYPE:
-					$builder->add(ClassUtils::getCleanName($field['filterName']) . '_min', NumberType::class, array(
+					$builder->add(StringUtils::getCleanName($field['filterName']) . '_min', NumberType::class, array(
 							'attr' => ['placeholder' => $field['filterName'] . ' (min)'],
 							'required' => false
 					));
-					$builder->add(ClassUtils::getCleanName($field['filterName']) . '_max', NumberType::class, array(
+					$builder->add(StringUtils::getCleanName($field['filterName']) . '_max', NumberType::class, array(
 							'attr' => ['placeholder' => $field['filterName'] . ' (max)'],
 							'required' => false
 					));
 					break;
 				case BenchmarkField::INTEGER_FILTER_TYPE:
-					$builder->add(ClassUtils::getCleanName($field['filterName']) . '_min', IntegerType::class, array(
+					$builder->add(StringUtils::getCleanName($field['filterName']) . '_min', IntegerType::class, array(
 						'attr' => ['placeholder' => $field['filterName'] . ' (min)'],
 						'required' => false
 					));
-					$builder->add(ClassUtils::getCleanName($field['filterName']) . '_max', IntegerType::class, array(
+					$builder->add(StringUtils::getCleanName($field['filterName']) . '_max', IntegerType::class, array(
 						'attr' => ['placeholder' => $field['filterName'] . ' (max)'],
 						'required' => false
 					));
 					break;
 				case BenchmarkField::BOOLEAN_FILTER_TYPE:
-					$builder->add(ClassUtils::getCleanName($field['filterName']), ChoiceType::class, array(
+					$builder->add(StringUtils::getCleanName($field['filterName']), ChoiceType::class, array(
 							'choices'		=> $booleanChoices,
 							'required'		=> true,
 							'expanded'      => false,
@@ -111,7 +111,7 @@ class ProductFilterType extends FilterType
 				case BenchmarkField::SINGLE_ENUM_FILTER_TYPE:
 				case BenchmarkField::MULTI_ENUM_FILTER_TYPE:
 					$choices = $productRepository->findFilterItemsByValue($category, BenchmarkField::getValueTypeDBName($field['valueType']) . $field['valueNumber']);
-					$builder->add(ClassUtils::getCleanName($field['filterName']), ChoiceType::class, array(
+					$builder->add(StringUtils::getCleanName($field['filterName']), ChoiceType::class, array(
 						'choices'		=> $choices,
 						'choice_label' => function ($value, $key, $index) { return $value; },
 						'choice_translation_domain' => false,
@@ -121,7 +121,7 @@ class ProductFilterType extends FilterType
 					));
 					break;
 				default:
-					$builder->add(ClassUtils::getCleanName($field['filterName']), null, array(
+					$builder->add(StringUtils::getCleanName($field['filterName']), null, array(
 						'attr' => ['placeholder' => $field['filterName']],
 						'required' => false
 					));

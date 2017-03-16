@@ -4,7 +4,7 @@ namespace AppBundle\Controller\Base;
 
 use AppBundle\Manager\Analytics\AnalyticsManager;
 use AppBundle\Manager\Route\RouteManager;
-use AppBundle\Utils\ClassUtils;
+use AppBundle\Utils\StringUtils;
 use Doctrine\Common\Persistence\ObjectRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -113,7 +113,7 @@ abstract class DummyController extends Controller
      */
     protected function getEntityName()
     {
-    	return ClassUtils::getClassName($this->getEntityType());
+    	return StringUtils::getClassName($this->getEntityType());
     }
     
     /**

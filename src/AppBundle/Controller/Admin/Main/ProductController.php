@@ -14,7 +14,7 @@ use AppBundle\Manager\Entity\Common\ProductManager;
 use AppBundle\Manager\Filter\Base\FilterManager;
 use AppBundle\Repository\Admin\Main\BrandRepository;
 use AppBundle\Repository\Admin\Main\CategoryRepository;
-use AppBundle\Utils\ClassUtils;
+use AppBundle\Utils\StringUtils;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 use AppBundle\Form\Filter\Admin\Other\CategoryFilterType;
@@ -146,7 +146,7 @@ class ProductController extends ImageEntityController {
 			if(count($results) > 0) {
 				foreach ($results as $row) {
 					$productName = $row['productName'];
-					$brandName = ClassUtils::getCleanName($row['brandName']);
+					$brandName = StringUtils::getCleanName($row['brandName']);
 					$path = '/uploads/products/top-produkt/' . substr($brandName, 0, 1) . '/' . $brandName;
 					
 					$fields = array($productName, $path);
@@ -230,7 +230,7 @@ class ProductController extends ImageEntityController {
 	
 			$translator = $this->get('translator');
 			$message = $translator->trans('success.created');
-			$message = str_replace('%type%', '<b>' . ClassUtils::getClassName($this->getEntityType()) . '</b>', $message);
+			$message = str_replace('%type%', '<b>' . StringUtils::getClassName($this->getEntityType()) . '</b>', $message);
 			$this->addFlash('success', $message);
 	
 			if ($form->get('save')->isClicked()) {

@@ -2261,6 +2261,15 @@
                 <target>Wiersze %prevNumber% i %nextNumber%: </target>
             </trans-unit>
             
+            <trans-unit id="error.import.cannotOpenFile">
+                <source>error.import.cannotOpenFile</source>
+                <target>Nie można otworzyć pliku %fileName%.</target>
+            </trans-unit>
+
+            <trans-unit id="error.newsletterUser.import.invalidMail">
+                <source>error.newsletterUser.import.invalidMail</source>
+                <target>Adres %mail% jest niepoprawny.</target>
+            </trans-unit>            
             <trans-unit id="error.newsletterUser.import.inconsistentData">
                 <source>error.newsletterUser.import.inconsistentData</source>
                 <target>Wykryto sprzeczne dane dla adresu %mail%.</target>

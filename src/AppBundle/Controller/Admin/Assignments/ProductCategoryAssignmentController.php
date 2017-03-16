@@ -13,7 +13,7 @@ use AppBundle\Manager\Entity\Common\ProductCategoryAssignmentManager;
 use AppBundle\Manager\Filter\Base\FilterManager;
 use AppBundle\Repository\Admin\Main\CategoryRepository;
 use AppBundle\Repository\Admin\Main\ProductRepository;
-use AppBundle\Utils\ClassUtils;
+use AppBundle\Utils\StringUtils;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Entity\Brand;
 use AppBundle\Entity\Segment;
@@ -130,8 +130,8 @@ class ProductCategoryAssignmentController extends BaseEntityController {
 		if($featured) {
 			$product = $entry->getProduct();
 			
-			$brandName = ClassUtils::getCleanName($product->getBrand()->getName());
-			$productName = ClassUtils::getCleanName($product->getName());
+			$brandName = StringUtils::getCleanName($product->getBrand()->getName());
+			$productName = StringUtils::getCleanName($product->getName());
 			
 			$path = '/uploads/products/top-produkt/' . substr($brandName, 0, 1) . '/' . $brandName . '/';
 			

@@ -6,7 +6,7 @@ use AppBundle\Controller\Base\StandardController;
 use AppBundle\Entity\Lists\Base\BaseEntityList;
 use AppBundle\Filter\Base\Filter;
 use AppBundle\Manager\Route\RouteManager;
-use AppBundle\Utils\ClassUtils;
+use AppBundle\Utils\StringUtils;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -270,7 +270,7 @@ abstract class AdminController extends StandardController {
 	
 			$translator = $this->get('translator');
 			$message = $translator->trans('success.created');
-			$message = str_replace('%type%', '<b>' . ClassUtils::getClassName($this->getEntityType()) . '</b>', $message);
+			$message = str_replace('%type%', '<b>' . StringUtils::getClassName($this->getEntityType()) . '</b>', $message);
 			$this->addFlash('success', $message);
 				
 			if ($form->get('save')->isClicked()) {

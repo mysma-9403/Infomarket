@@ -4,7 +4,7 @@ namespace AppBundle\Entity;
 
 use AppBundle\Entity\Base\Image;
 use AppBundle\Entity\Base\ImageEntity;
-use AppBundle\Utils\ClassUtils;
+use AppBundle\Utils\StringUtils;
 use Intervention\Image\Exception\NotSupportedException;
 
 /**
@@ -29,7 +29,7 @@ class Product extends ImageEntity implements \ArrayAccess
 	 */
 	public function getUploadPath()
 	{
-		$brandName = ClassUtils::getCleanName($this->getBrand()->getName());
+		$brandName = StringUtils::getCleanName($this->getBrand()->getName());
 		return 'uploads/products/' . substr($brandName, 0, 1) . '/' . $brandName;
 	}
 

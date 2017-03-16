@@ -10,7 +10,7 @@ use AppBundle\Entity\ProductCategoryAssignment;
 use AppBundle\Entity\Segment;
 use AppBundle\Factory\Admin\ErrorFactory;
 use AppBundle\Factory\Admin\ProductImportErrorFactory;
-use AppBundle\Utils\ClassUtils;
+use AppBundle\Utils\StringUtils;
 use Doctrine\Bundle\DoctrineBundle\Registry;
 
 class ProductImportLogic {
@@ -846,7 +846,7 @@ class ProductImportLogic {
 	}
 	
 	protected function getImage($product, $imageName, $imageType) {
-		return ClassUtils::getCleanPath($product->getUploadPath()) . '/' . ClassUtils::getCleanName($imageName) . '.' . $imageType;
+		return StringUtils::getCleanPath($product->getUploadPath()) . '/' . StringUtils::getCleanName($imageName) . '.' . $imageType;
 	}
 	
 	

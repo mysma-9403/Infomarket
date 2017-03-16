@@ -2,7 +2,7 @@
 
 namespace AppBundle\Form\Base;
 
-use AppBundle\Utils\ClassUtils;
+use AppBundle\Utils\StringUtils;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -77,7 +77,7 @@ abstract class BaseType extends AbstractType
 	}
 	
 	public function getName() {
-		return 'app_' . ClassUtils::getClassName($this->getEntityType());
+		return 'app_' . StringUtils::getClassName($this->getEntityType());
 	}
 	
 	/**

@@ -2,7 +2,7 @@
 
 namespace AppBundle\Manager\Params\Base;
 
-use AppBundle\Utils\ClassUtils;
+use AppBundle\Utils\StringUtils;
 use Symfony\Component\HttpFoundation\Request;
 
 class ParamsManager {
@@ -33,7 +33,7 @@ class ParamsManager {
 	protected function getParam($request, $paramClass, $template = null)
 	{
 		$repository = $this->doctrine->getRepository($paramClass);
-		$paramName = ClassUtils::getClassName($paramClass);
+		$paramName = StringUtils::getClassName($paramClass);
 		$id = $request->get($paramName, $template);
 		return $id ? $repository->find($id) : null;
 	}
@@ -77,7 +77,7 @@ class ParamsManager {
 	 */
 	protected function getParamId($request, $paramClass, $template = null)
 	{
-		$paramName = ClassUtils::getClassName($paramClass);
+		$paramName = StringUtils::getClassName($paramClass);
 		$id = $request->get($paramName, null);
 		
 		if($id !== null) return $id;
