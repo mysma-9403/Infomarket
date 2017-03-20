@@ -52,6 +52,8 @@ class ContextParamsManager extends ParamsManager {
     	$articleCategoryRepository = new ArticleCategoryRepository($em, $em->getClassMetadata(ArticleCategory::class));
     	$articleCategories = $articleCategoryRepository->findMenuItems();
     	$viewParams['menuArticleCategories'] = $articleCategories;
+    	$articleCategories = $articleCategoryRepository->getIds($articleCategories);
+    	$contextParams['articleCategories'] = $articleCategories;
     	
     	$params['contextParams'] = $contextParams;
     	$params['routeParams'] = $routeParams;

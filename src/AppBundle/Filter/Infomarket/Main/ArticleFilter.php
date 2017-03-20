@@ -20,8 +20,25 @@ class ArticleFilter extends CategoriesDependentFilter {
 	 */
 	protected $categories;
 	
+	/**
+	 *
+	 * @var array
+	 */
+	protected $contextArticleCategories = array();
+	
 	public function __construct() {
 		$this->filterName = 'article_filter_';
+	}
+	
+	/**
+	 *
+	 * {@inheritDoc}
+	 * @see \AppBundle\Filter\Base\Filter::initContextParams()
+	 */
+	public function initContextParams(array $contextParams) {
+		parent::initContextParams($contextParams);
+		
+		$this->contextArticleCategories = $contextParams['articleCategories'];
 	}
 	
 	/**
@@ -36,7 +53,7 @@ class ArticleFilter extends CategoriesDependentFilter {
 	/**
 	 *
 	 */
-	public function clearRequestValues() { 
+	public function clearRequestValues() {
 		$this->articleCategories = array();
 		$this->categories = array();
 	}
@@ -51,6 +68,13 @@ class ArticleFilter extends CategoriesDependentFilter {
 		$this->setRequestArray($values, 'categories', $this->categories);
 		
 		return $values;
+	}
+	
+	/**
+	 * @return array
+	 */
+	public function getContextArticleCategories() {
+		return $this->contextArticleCategories;
 	}
 	
 	public function getArticleCategories() {

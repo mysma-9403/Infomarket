@@ -21,7 +21,7 @@ class ArticleRepository extends BaseArticleRepository
 			$builder->innerJoin(Category::class, 'c', Join::WITH, 'c.id = aca.category');
 		}
 		
-		if(count($filter->getArticleCategories()) > 0) {
+		if(count($filter->getArticleCategories()) > 0 || count($filter->getContextArticleCategories()) > 0) {
 			$builder->innerJoin(ArticleArticleCategoryAssignment::class, 'aaca', Join::WITH, 'e.id = aaca.article');
 		}
 	}
@@ -78,6 +78,8 @@ class ArticleRepository extends BaseArticleRepository
 		
 		if(count($filter->getArticleCategories()) > 0) {
 			$where->add($builder->expr()->in('aaca.articleCategory', $filter->getArticleCategories()));
+		} else if(count($filter->getContextArticleCategories()) > 0) {
+			$where->add($builder->expr()->in('aaca.articleCategory', $filter->getContextArticleCategories()));
 		}
 		
 		$builder->where($where);
