@@ -40,7 +40,11 @@ class BenchmarkController extends DummyController {
 	}
 	
 	public function exportToHtmlAction(Request $request, $page) {
-		return $this->exportTohtmlActionInternal($request, $page);
+		return $this->exportToHtmlActionInternal($request, $page);
+	}
+	
+	public function exportToExcelAction(Request $request, $page) {
+		return $this->exportToExcelActionInternal($request, $page);
 	}
 	
 	//---------------------------------------------------------------------------
@@ -263,6 +267,136 @@ class BenchmarkController extends DummyController {
 		$response->setStatusCode(200);
 		$response->headers->set('Content-Type', 'text/csv; charset=utf-8');
 		$response->headers->set('Content-Disposition', 'attachment; filename="'. $date->format('Y-m-d') . '-benchmark.html"');
+
+		return $response;
+	}
+	
+	protected function exportToExcelActionInternal(Request $request, $page) {
+		$this->denyAccessUnlessGranted($this->getShowRole(), null, 'Unable to access this page!');
+	
+		$params = $this->createParams($this->getIndexRoute());
+		$params = $this->getIndexParams($request, $params, $page);
+	
+		$viewParams = $params['viewParams'];
+		$entries = $viewParams['entries'];
+		/** @var ProductFilter $entryFilter */
+		$entryFilter = $viewParams['entryFilter'];
+	
+		$response = new StreamedResponse();
+		$response->setCallback(function() use(&$entryFilter, &$entries) {
+			
+			$date = new \DateTime();
+			
+			$excel = new \PHPExcel();
+				
+			$excel->getProperties()
+			->setCreator("Infomarket")
+			->setLastModifiedBy("Infomarket")
+			->setTitle($date->format('Y-m-d') . " - benchmark")
+			->setSubject("InfoMarket - Benchmark")
+			->setDescription("InfoMarket - Benchmark")
+			->setKeywords("InfoMarket benchmark products");
+			
+			if(count($entries) > 0) {
+	
+				$sheet = $excel->getActiveSheet();
+				
+				$sheet->getRowDimension(1)->setRowHeight(120);
+				
+				$sheet->getColumnDimensionByColumn(0)->setWidth(50);
+				
+				$cell = $sheet->getCellByColumnAndRow(0, 2);
+				$cell->setValue('Marka');
+				$cell->getStyle()->getFont()->setBold(true);
+				$cell->getStyle()->getAlignment()->setHorizontal(\PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
+				
+				$cell = $sheet->getCellByColumnAndRow(0, 3);
+				$cell->setValue('Symbol');
+				$cell->getStyle()->getFont()->setBold(true);
+				$cell->getStyle()->getAlignment()->setHorizontal(\PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
+				
+				$row = 4;
+				foreach ($entryFilter->getShowFields() as $showField) {
+					$cell = $sheet->getCellByColumnAndRow(0, $row);
+					$cell->setValue($showField['fieldName']);
+					$cell->getStyle()->getFont()->setBold(true);
+					$cell->getStyle()->getAlignment()->setHorizontal(\PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
+					
+					$row++;
+				}
+					
+				$col = 1;
+				foreach ($entries as $entry) {
+					$sheet->getColumnDimensionByColumn($col)->setWidth(24);
+					
+					$cell = $sheet->getCellByColumnAndRow($col, 1);
+					
+					$image = $entry['image'];
+					if($image && file_exists($image)) {
+						$drawing = new \PHPExcel_Worksheet_Drawing();
+						$drawing->setPath($image);
+						$drawing->setCoordinates($cell->getCoordinate());
+						$drawing->setWorksheet($sheet);
+						$drawing->setResizeProportional(true);
+						$drawing->setWidth(110);
+						$drawing->setOffsetX(30);
+						$drawing->setOffsetY(5);
+					}
+					
+					$cell = $sheet->getCellByColumnAndRow($col, 2);
+					$cell->setValue($entry['brandName']);
+					$cell->getStyle()->getFont()->setBold(true);
+					$cell->getStyle()->getAlignment()->setHorizontal(\PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+					
+					$cell = $sheet->getCellByColumnAndRow($col, 3);
+					$cell->setValue($entry['name']);
+					$cell->getStyle()->getFont()->setBold(true);
+					$cell->getStyle()->getAlignment()->setHorizontal(\PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+
+					$col++;
+				}
+				
+				$row = 4;
+				foreach ($entryFilter->getShowFields() as $showField) {
+					$value = BenchmarkField::getValueTypeDBName($showField['valueType']) . $showField['valueNumber'];
+				
+					$col = 1;
+					foreach ($entries as $entry) {
+						
+						$cell = $sheet->getCellByColumnAndRow($col, $row);
+						
+						switch($showField['fieldType']) {
+							case BenchmarkField::BOOLEAN_FIELD_TYPE:
+								$val = $entry[$value] ? "+" : "-";
+								break;
+							default:
+								$val = $entry[$value];
+								break;
+						}
+						
+						$cell->setValue($val);
+						$cell->getStyle()->getAlignment()->setHorizontal(\PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+						$cell->getStyle()->getAlignment()->setVertical(\PHPExcel_Style_Alignment::VERTICAL_TOP);
+						$cell->getStyle()->getAlignment()->setWrapText(true);
+						
+						$col++;
+					}
+					$row++;
+				}
+	
+			} else {
+				$excel->getActiveSheet()->setCellValueByColumnAndRow(0, 1, "No entries found.");
+			}
+			
+			$writer = new \PHPExcel_Writer_Excel2007($excel);
+			$writer->setOffice2003Compatibility(true);
+			$writer->save('php://output');
+		});
+	
+		$date = new \DateTime();
+		$response->setStatusCode(200);
+		$response->headers->set('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+		$response->headers->set('Content-Disposition', 'attachment; filename="'. $date->format('Y-m-d') . '-benchmark.xlsx"');
 
 		return $response;
 	}

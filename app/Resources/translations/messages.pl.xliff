@@ -772,6 +772,10 @@
                 <source>action.benchmark.export.csv</source>
                 <target>Eksportuj do csv</target>
             </trans-unit>
+            <trans-unit id="action.benchmark.export.excel">
+                <source>action.benchmark.export.excel</source>
+                <target>Eksportuj do xlsx</target>
+            </trans-unit>
             <trans-unit id="action.benchmark.export.html">
                 <source>action.benchmark.export.html</source>
                 <target>Eksportuj do html</target>
