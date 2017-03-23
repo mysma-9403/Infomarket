@@ -319,7 +319,7 @@ class BenchmarkController extends DummyController {
 	}
 	
 	protected function getHomeRoute() {
-		return array('route' => $this->getIndexView(), 'routeParams' => array());
+		return array('route' => $this->getIndexRoute(), 'routeParams' => array());
 	}
 	
 	

@@ -2,7 +2,20 @@
 app:
     resource: "@AppBundle/Controller"
     type:     annotation
-     
+
+# Applications Routing
+applications_brand:
+    path:      /applications/brands/{category}
+    defaults:  { _controller: "AppBundle:Applications/Brand:index" }
+    
+applications_category:
+    path:      /applications/categories/{category}
+    defaults:  { _controller: "AppBundle:Applications/Category:index" }
+    
+applications_product:
+    path:      /applications/products/{category}
+    defaults:  { _controller: "AppBundle:Applications/Product:index" }
+         
 # Benchmark Routing
 benchmark_product:
     path:      /benchmark/{page}
