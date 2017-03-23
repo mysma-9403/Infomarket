@@ -66,12 +66,12 @@ class HtmlExportLogic {
 		$show = false;
 		foreach ($entries as $entry) {
 			$value = $entry[$fieldName];
+			$row .= "<td width=\"200\"><img width=\"100%\" style=\"max-width: 200px;\" src=\"http://infomarket.edu.pl/";
 			if($value) {
-				$row .= "<td width=\"200\"><img width=\"100%\" style=\"max-width: 200px;\" src=\"http://infomarket.edu.pl/";
 				$row .= $entry[$fieldName];
-				$row .= "\"></td>\n";
 				$show = true;
 			}
+			$row .= "\"></td>\n";
 		}
 		$row .= "<td></td></tr>\n";
 		
@@ -85,12 +85,12 @@ class HtmlExportLogic {
 		$show = false;
 		foreach ($entries as $entry) {
 			$value = $entry[$fieldName];
+			$row .= "<td style=\"text-align: center;\">";
 			if($value) {
-				$row .= "<td style=\"text-align: center;\">";
 				$row .= $entry[$fieldName] ? "+" : "-";
-				$row .= "</td>\n";
 				$show = true;
 			}
+			$row .= "</td>\n";
 		}
 		$row .= "<td></td></tr>\n";
 	
@@ -104,12 +104,12 @@ class HtmlExportLogic {
 		$show = false;
 		foreach ($entries as $entry) {
 			$value = $entry[$fieldName];
+			$row .= "<td style=\"text-align: center;\">";
 			if($value) {
-				$row .= "<td style=\"text-align: center;\">";
 				$row .= $entry[$fieldName];
-				$row .= "</td>\n";
 				$show = true;
 			}
+			$row .= "</td>\n";
 		}
 		$row .= "<td></td></tr>\n";
 	

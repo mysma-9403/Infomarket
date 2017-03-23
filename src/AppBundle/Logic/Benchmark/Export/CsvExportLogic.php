@@ -37,6 +37,7 @@ class CsvExportLogic {
 	
 	protected function fillRow($handle, $entries, $label, $fieldName, $valuePrefix = null) {
 		$fields = array();
+		$show = false;
 		foreach ($entries as $entry) {
 			$value = $entry[$fieldName];
 			if($value) {
@@ -45,10 +46,13 @@ class CsvExportLogic {
 				} else {
 					$fields[] = $value;
 				}
+				$show = true;
+			} else {
+				$fields[] = '';
 			}
 		}
 		
-		if(count($fields) > 0) {
+		if($show) {
 			$fields = array_merge([$label], $fields);
 			fputs($handle, implode($fields, ';') . "\n");
 		}
