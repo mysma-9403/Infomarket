@@ -182,7 +182,9 @@
 									<td class="text-center">
 										{% if field.fieldType == constant('AppBundle\\Entity\\BenchmarkField::BOOLEAN_FIELD_TYPE') %}
 									        {{ entry[key] ? '+' : '-' }}
-										{% else %}
+										{% elseif field.fieldType == constant('AppBundle\\Entity\\BenchmarkField::DECIMAL_FIELD_TYPE') %}
+											{{ entry[key]|number_format(field.decimalPlaces, '.', ' ') }}
+								        {% else %}
 									        {{ entry[key] }}
 										{% endif%}
 									</td>

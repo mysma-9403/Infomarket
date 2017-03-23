@@ -669,6 +669,11 @@
                 <target>Pokaż filtr</target>
             </trans-unit>
             
+            <trans-unit id="label.benchmarkField.decimalPlaces">
+                <source>label.benchmarkField.decimalPlaces</source>
+                <target>Liczba miejsc po przecinku</target>
+            </trans-unit>
+            
             <trans-unit id="label.benchmarkField.valueType.decimal">
                 <source>label.benchmarkField.valueType.decimal</source>
                 <target>Liczba zmiennoprzecinkowa</target>

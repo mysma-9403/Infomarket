@@ -18,6 +18,8 @@
         <field name="fieldNumber" type="integer" nullable="true"/>
         <field name="showField" type="boolean" nullable="false" default="0" />
         
+        <field name="decimalPlaces" type="integer" nullable="false" default="0" />
+        
         <field name="filterName" type="string" length="64" nullable="true"/>
         <field name="filterType" type="integer" nullable="true"/>
         <field name="filterNumber" type="integer" nullable="true"/>

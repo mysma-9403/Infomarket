@@ -22,4 +22,6 @@
 	{% include 'common/fields/text_field.html.twig' with { 'label': 'label.benchmarkField.filterType', 'value': benchmarkFieldFilterTypeName(entry.filterType)|trans } %}
 	{% include 'common/fields/text_field.html.twig' with { 'label': 'label.benchmarkField.filterNumber', 'value': entry.filterNumber } %}
 	{% include 'common/fields/text_field.html.twig' with { 'label': 'label.benchmarkField.showFilter', 'value': entry.showFilter } %}
+	
+	{% include 'common/fields/text_field.html.twig' with { 'label': 'label.benchmarkField.decimalPlaces', 'value': entry.decimalPlaces } %}
 {% endblock %}

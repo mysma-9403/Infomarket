@@ -19,6 +19,8 @@ class BenchmarkFieldManager extends BaseEntityManager {
 		
 		$entry->setCategory($request->get('category'));
 		
+		$entry->setDecimalPlaces(2);
+		
 		return $entry;
 	}
 	
@@ -46,6 +48,8 @@ class BenchmarkFieldManager extends BaseEntityManager {
 		$entry->setFilterType($template->getFilterType());
 		$entry->setFilterNumber($template->getFilterNumber());
 		$entry->setShowFilter($template->getShowFilter());
+		
+		$entry->setDecimalPlaces($template->getDecimalPlaces());
 		
 		return $entry;
 	}

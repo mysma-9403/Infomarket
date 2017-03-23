@@ -20,7 +20,7 @@ class BenchmarkFieldRepository extends AuditRepository
 	{
 		$builder = new QueryBuilder($this->getEntityManager());
 			
-		$builder->select("e.valueType, e.valueNumber, e.fieldType, e.fieldName");
+		$builder->select("e.valueType, e.valueNumber, e.fieldType, e.fieldName, e.decimalPlaces");
 		$builder->from($this->getEntityType(), "e");
 	
 		$expr = $builder->expr();
@@ -63,6 +63,7 @@ class BenchmarkFieldRepository extends AuditRepository
 		$fields[] = 'e.fieldType';
 		$fields[] = 'e.valueNumber';
 		$fields[] = 'e.showField';
+		$fields[] = 'e.decimalPlaces';
 	
 		return $fields;
 	}

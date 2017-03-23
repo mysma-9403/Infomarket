@@ -418,4 +418,33 @@ class BenchmarkField extends Audit
     {
         return $this->filterName;
     }
+    /**
+     * @var integer
+     */
+    private $decimalPlaces;
+
+
+    /**
+     * Set decimalPlaces
+     *
+     * @param integer $decimalPlaces
+     *
+     * @return BenchmarkField
+     */
+    public function setDecimalPlaces($decimalPlaces)
+    {
+        $this->decimalPlaces = $decimalPlaces;
+
+        return $this;
+    }
+
+    /**
+     * Get decimalPlaces
+     *
+     * @return integer
+     */
+    public function getDecimalPlaces()
+    {
+        return $this->decimalPlaces;
+    }
 }

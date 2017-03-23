@@ -46,12 +46,17 @@
 	
 	{% for field in productFilter.editorFields %}
 		<div class="col-xs-12">
+			{% set key = benchmarkFieldValueTypeDBName(field.valueType) ~ field.valueNumber %}
+			
 			{% if field.fieldType == constant('AppBundle\\Entity\\BenchmarkField::BOOLEAN_FIELD_TYPE') %}
 				{% include 'common/fields/bool_field.html.twig' with 
-					{ 'label': field.fieldName, 'value': entry[benchmarkFieldValueTypeDBName(field.valueType) ~ field.valueNumber] } %}
+					{ 'label': field.fieldName, 'value': entry[key] } %}
+			{% elseif field.fieldType == constant('AppBundle\\Entity\\BenchmarkField::DECIMAL_FIELD_TYPE') %}
+				{% include 'common/fields/text_field.html.twig' with 
+					{ 'label': field.fieldName, 'value': entry[key]|number_format(field.decimalPlaces, '.', ' ') } %}
 			{% else %}
 				{% include 'common/fields/text_field.html.twig' with 
-					{ 'label': field.fieldName, 'value': entry[benchmarkFieldValueTypeDBName(field.valueType) ~ field.valueNumber] } %}
+					{ 'label': field.fieldName, 'value': entry[key] } %}
 			{% endif %}
 		</div>
 	{% endfor %}

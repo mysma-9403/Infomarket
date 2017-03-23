@@ -84,6 +84,10 @@ class BenchmarkFieldEditorType extends BaseEntityEditorType
 		->add('showFilter', CheckboxType::class, array(
 				'required' => false
 		))
+		->add('decimalPlaces', NumberType::class, array(
+				'required' => false,
+				'attr' => ['placeholder' => 'label.benchmarkField.decimalPlaces']
+		))
 		;
 		
 		$builder->get('category')->addModelTransformer(new CategoryToNumberTransformer($this->em));
