@@ -53,7 +53,7 @@
 					{ 'label': field.fieldName, 'value': entry[key] } %}
 			{% elseif field.fieldType == constant('AppBundle\\Entity\\BenchmarkField::DECIMAL_FIELD_TYPE') %}
 				{% include 'common/fields/text_field.html.twig' with 
-					{ 'label': field.fieldName, 'value': entry[key]|number_format(field.decimalPlaces, '.', ' ') } %}
+					{ 'label': field.fieldName, 'value': entry[key] ? entry[key]|number_format(field.decimalPlaces, '.', ' ') : '' } %}
 			{% else %}
 				{% include 'common/fields/text_field.html.twig' with 
 					{ 'label': field.fieldName, 'value': entry[key] } %}

@@ -25,6 +25,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 use Symfony\Component\Validator\Constraints\Date;
 use AppBundle\Logic\Benchmark\Export\ExcelExportLogic;
+use AppBundle\Logic\Benchmark\Export\CsvExportLogic;
+use AppBundle\Logic\Benchmark\Export\HtmlExportLogic;
 
 class BenchmarkController extends DummyController {
 	
@@ -143,43 +145,8 @@ class BenchmarkController extends DummyController {
 		
 		$response = new StreamedResponse();
 		$response->setCallback(function() use(&$entryFilter, &$entries) {
-			$handle = fopen('php://output', 'w+');
-			
-			if(count($entries) > 0) {
-				
-				$fields = array();
-				foreach ($entries as $entry) {
-					$fields[] = $entry['brandName'];
-				}
-				fputs($handle, implode($fields, ';')."\n");
-				
-				$fields = array();
-				foreach ($entries as $entry) {
-					$fields[] = $entry['name'];
-				}
-				fputs($handle, implode($fields, ';')."\n");
-				
-				$fields = array();
-				foreach ($entries as $entry) {
-					$fields[] = 'http://infomarket.edu.pl/' . $entry['image'];
-				}
-				fputs($handle, implode($fields, ';')."\n");
-				
-				foreach ($entryFilter->getShowFields() as $showField) {
-					$value = BenchmarkField::getValueTypeDBName($showField['valueType']) . $showField['valueNumber'];
-					
-					$fields = array();
-					foreach ($entries as $entry) {
-						$fields[] = str_replace("\n", "", $entry[$value]);
-					}
-					fputs($handle, implode($fields, ';')."\n");
-				}
-				
-			} else {
-				fputcsv($handle, array(''), ';');
-			}
-	
-			fclose($handle);
+			$logic = new CsvExportLogic();
+			$logic->export($entryFilter, $entries);
 		});
 	
 		$date = new \DateTime();
@@ -203,70 +170,13 @@ class BenchmarkController extends DummyController {
 	
 		$response = new StreamedResponse();
 		$response->setCallback(function() use(&$entryFilter, &$entries) {
-		
-			$handle = fopen('php://output', 'w+');
-		
-			$date = new \DateTime();
-			
-			fputs($handle, "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">\n");
-			fputs($handle, "<html xmlns=\"http://www.w3.org/1999/xhtml\">\n");
-			fputs($handle, "<head>\n");
-			fputs($handle, "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\" />\n");
-			fputs($handle, "<title>Benchmark " . $date->format('d.m.Y') . "</title>\n");
-			fputs($handle, "</head>\n");
-			fputs($handle, "<body>\n");
-	        
-			if(count($entries) > 0) {
-				
-				//TODO generate some template file or sth??
-				fputs($handle, "<table>\n");
-				
-				fputs($handle, "<tr><th width=\"200\" style=\"text-align: right;\"></th>\n");
-				foreach ($entries as $entry) {
-					fputs($handle, "<td width=\"200\"><img width=\"100%\" style=\"max-width: 200px;\" src='http://infomarket.edu.pl/" . $entry['image'] . "'></td>\n");
-				}
-				fputs($handle, "<td></td></tr>\n");
-				
-				fputs($handle, "<tr><th style=\"text-align: right;\">Marka</th>\n");
-				foreach ($entries as $entry) {
-					fputs($handle, "<td style=\"text-align: center;\">" . $entry['brandName'] . "</td>\n");
-				}
-				fputs($handle, "<td></td></tr>\n");
-				
-				fputs($handle, "<tr><th style=\"text-align: right;\">Symbol</th>\n");
-				foreach ($entries as $entry) {
-					fputs($handle, "<td style=\"text-align: center;\">" . $entry['name'] . "</td>\n");
-				}
-				fputs($handle, "<td></td></tr>\n");
-	
-				foreach ($entryFilter->getShowFields() as $showField) {
-					$value = BenchmarkField::getValueTypeDBName($showField['valueType']) . $showField['valueNumber'];
-						
-					fputs($handle, "<tr><th style=\"text-align: right;\">" . $showField['fieldName'] . "</th>\n");
-					foreach ($entries as $entry) {
-						switch($showField['fieldType']) {
-							case BenchmarkField::BOOLEAN_FIELD_TYPE:
-								fputs($handle, "<td style=\"text-align: center;\">" . ($entry[$value] ? "+" : "-") . "</td>\n");
-								break;
-							default:
-								fputs($handle, "<td style=\"text-align: center;\">" . $entry[$value] . "</td>\n");
-								break;
-						}
-					}
-					fputs($handle, "<td></td></tr>\n");
-				}
-				
-				fputs($handle, "</table>\n");
-			}
-			
-			fputs($handle, "</body>\n");
-	
-			fclose($handle);
+			$logic = new HtmlExportLogic();
+			$logic->export($entryFilter, $entries);
 		});
 	
 		$date = new \DateTime();
 		$response->setStatusCode(200);
-		$response->headers->set('Content-Type', 'text/csv; charset=utf-8');
+		$response->headers->set('Content-Type', 'text/html; charset=utf-8');
 		$response->headers->set('Content-Disposition', 'attachment; filename="'. $date->format('Y-m-d') . '-benchmark.html"');
 
 		return $response;

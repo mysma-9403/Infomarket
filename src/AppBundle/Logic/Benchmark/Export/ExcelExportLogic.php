@@ -17,7 +17,7 @@ class ExcelExportLogic {
 	protected $imageMarginX = 12;
 	protected $imageMarginY = 12;
 	
-	public function export(&$entryFilter, &$entries) {
+	public function export($entryFilter, $entries) {
 		$excel = $this->createExcel();
 		
 		$this->fillProperties($excel);
@@ -57,6 +57,8 @@ class ExcelExportLogic {
 		$sheet->getRowDimension(1)->setRowHeight($this->imageCellHeight);
 		$sheet->getColumnDimensionByColumn(0)->setWidth($this->headerCellWidth);
 		
+		$this->hideEmptyFilterFields($entries, $entryFilter);
+		
 		$this->fillHeaderFields($sheet, $entryFilter);
 		
 		$col = 1;
@@ -72,7 +74,9 @@ class ExcelExportLogic {
 		$this->fillHeaderField($sheet, $row++, 'Symbol');
 		
 		foreach ($entryFilter->getShowFields() as $showField) {
-			$this->fillHeaderField($sheet, $row++, $showField['fieldName']);
+			if(!$showField['hidden']) {
+				$this->fillHeaderField($sheet, $row++, $showField['fieldName']);
+			}
 		}
 	}
 	
@@ -95,8 +99,10 @@ class ExcelExportLogic {
 		$this->fillValueField($sheet, $col, $row++, $entry['name'], true);
 			
 		foreach ($entryFilter->getShowFields() as $showField) {
-			$value = $this->getFieldValue($entry, $showField);
-			$this->fillValueField($sheet, $col, $row++, $value);
+			if(!$showField['hidden']) {
+				$value = $this->getFieldValue($entry, $showField);
+				$this->fillValueField($sheet, $col, $row++, $value);
+			}
 		}
 	}
 	
@@ -132,6 +138,23 @@ class ExcelExportLogic {
 		$cell->getStyle()->getAlignment()->setWrapText(true);
 		
 		if($bold) $cell->getStyle()->getFont()->setBold(true);
+	}
+	
+	protected function hideEmptyFilterFields($entries, &$entryFilter) {
+		$showFields = $entryFilter->getShowFields();
+		foreach ($showFields as $key => $showField) {
+			$hidden = true;
+			foreach($entries as $entry) {
+				$value = $this->getFieldValue($entry, $showField);
+				if($value) {
+					$hidden = false;
+					break;
+				}
+			}
+			$showField['hidden'] = $hidden;				
+			$showFields[$key] = $showField;
+		}
+		$entryFilter->setShowFields($showFields);
 	}
 	
 	//TODO should be somewhere else

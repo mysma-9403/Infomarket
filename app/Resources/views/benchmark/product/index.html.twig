@@ -176,21 +176,29 @@
 						
 						{% for field in entryFilter.showFields %}
 							{% set key = benchmarkFieldValueTypeDBName(field.valueType) ~ field.valueNumber %}
-							<tr>
-								<th class="text-right">{{ field.fieldName }}</th>
-								{% for entry in entries %}
-									<td class="text-center">
-										{% if field.fieldType == constant('AppBundle\\Entity\\BenchmarkField::BOOLEAN_FIELD_TYPE') %}
-									        {{ entry[key] ? '+' : '-' }}
-										{% elseif field.fieldType == constant('AppBundle\\Entity\\BenchmarkField::DECIMAL_FIELD_TYPE') %}
-											{{ entry[key]|number_format(field.decimalPlaces, '.', ' ') }}
-								        {% else %}
-									        {{ entry[key] }}
-										{% endif%}
-									</td>
-								{% endfor %}
-								<td></td>
-							</tr>							
+							{% set show = false %}
+							{% for entry in entries if show == false %}
+								{% if entry[key] %}
+									{% set show = true %}
+								{% endif %}
+							{% endfor %}
+							{% if show %}
+								<tr>
+									<th class="text-right">{{ field.fieldName }}</th>
+									{% for entry in entries %}
+										<td class="text-center">
+											{% if field.fieldType == constant('AppBundle\\Entity\\BenchmarkField::BOOLEAN_FIELD_TYPE') %}
+										        {{ entry[key] ? '+' : '-' }}
+											{% elseif field.fieldType == constant('AppBundle\\Entity\\BenchmarkField::DECIMAL_FIELD_TYPE') %}
+												{{ entry[key] ? entry[key]|number_format(field.decimalPlaces, '.', ' ') : '' }}
+									        {% else %}
+										        {{ entry[key] }}
+											{% endif%}
+										</td>
+									{% endfor %}
+									<td></td>
+								</tr>		
+							{% endif %}					
 						{% endfor %}
 						
 					</table>
