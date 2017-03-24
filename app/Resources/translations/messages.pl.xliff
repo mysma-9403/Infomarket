@@ -1167,20 +1167,52 @@
             
             <trans-unit id="label.infomarket">
                 <source>label.infomarket</source>
-                <target>Infomarket</target>
+                <target>Opublikowane (IM)</target>
+            </trans-unit>
+            <trans-unit id="label.m.infomarket">
+                <source>label.m.infomarket</source>
+                <target>Opublikowany (IM)</target>
+            </trans-unit>
+            <trans-unit id="label.fm.infomarket">
+                <source>label.fm.infomarket</source>
+                <target>Opublikowana (IM)</target>
             </trans-unit>
             <trans-unit id="label.notInfomarket">
                 <source>label.notInfomarket</source>
-                <target>Nie Infomarket</target>
+                <target>Nie opublikowane (IM)</target>
+            </trans-unit>
+            <trans-unit id="label.m.notInfomarket">
+                <source>label.m.notInfomarket</source>
+                <target>Nie opublikowany (IM)</target>
+            </trans-unit>
+            <trans-unit id="label.fm.notInfomarket">
+                <source>label.fm.notInfomarket</source>
+                <target>Nie opublikowana (IM)</target>
             </trans-unit>
             
             <trans-unit id="label.infoprodukt">
                 <source>label.infoprodukt</source>
-                <target>Infoprodukt</target>
+                <target>Opublikowane (IP)</target>
+            </trans-unit>
+            <trans-unit id="label.m.infoprodukt">
+                <source>label.m.infoprodukt</source>
+                <target>Opublikowany (IP)</target>
+            </trans-unit>
+            <trans-unit id="label.fm.infoprodukt">
+                <source>label.fm.infoprodukt</source>
+                <target>Opublikowana (IP)</target>
             </trans-unit>
             <trans-unit id="label.notInfoprodukt">
                 <source>label.notInfoprodukt</source>
-                <target>Nie Infoprodukt</target>
+                <target>Nie opublikowane (IP)</target>
+            </trans-unit>
+            <trans-unit id="label.m.notInfoprodukt">
+                <source>label.m.notInfoprodukt</source>
+                <target>Nie opublikowany (IP)</target>
+            </trans-unit>
+            <trans-unit id="label.fm.notInfoprodukt">
+                <source>label.fm.notInfoprodukt</source>
+                <target>Nie opublikowana (IP)</target>
             </trans-unit>
             
             

@@ -1,33 +1,29 @@
 {% extends 'admin/simple/show.html.twig' %}
 
-{% block mainFields2 %}
+{% block simpleMainFields2Prev %}
 
-	{% if entry.image %}
     <div class="row">
 	    <div class="col-xs-6 col-sm-4 col-md-3">
 	    	<div class="rect">
-				{% include 'common/image/image_entry.html.twig' with { 'entry': entry } %}
+	    		{% if entry.image %}
+					{% include 'common/image/image_entry.html.twig' with { 'entry': entry } %}
+				{% endif %}
 			</div>
 		</div>
+		<div class="col-xs-6 col-sm-8 col-md-9">
+			{% include 'common/fields/bool_field.html.twig' with 
+			{ 'label': ('label.image.vertical')|trans, 'value': entry.vertical } %}
+			
+			{% include 'common/fields/text_field.html.twig' with 
+			{ 'label': 'label.image.forcedWidth'|trans, 'value': entry.forcedWidth } %}
+			
+			{% include 'common/fields/text_field.html.twig' with 
+			{ 'label': 'label.image.forcedHeight'|trans, 'value': entry.forcedHeight } %}
+			
+			{% block imageMainFields2More %}
+			{% endblock %}
+		</div>
 	</div>
-	{% endif %}
-	
-	{% include 'common/fields/bool_field.html.twig' with 
-	{ 'label': ('label.image.vertical')|trans, 'value': entry.vertical } %}
-	
-	{% include 'common/fields/text_field.html.twig' with 
-	{ 'label': 'label.image.forcedWidth'|trans, 'value': entry.forcedWidth } %}
-	
-	{% include 'common/fields/text_field.html.twig' with 
-	{ 'label': 'label.image.forcedHeight'|trans, 'value': entry.forcedHeight } %}
 	
 	<div class="row lowered-25"></div>
-	{% include 'common/fields/bool_field.html.twig' with 
-	{ 'label': ('label.infomarket')|trans, 'value': entry.infomarket } %}
-	
-	{% include 'common/fields/bool_field.html.twig' with 
-	{ 'label': ('label.infoprodukt')|trans, 'value': entry.infoprodukt } %}
-	
-	{% block imageMainFields2More %}
-	{% endblock %}
 {% endblock %}

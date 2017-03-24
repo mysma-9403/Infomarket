@@ -1,33 +1,30 @@
 {% extends 'admin/simple/editor.html.twig' %}
 
-{% block mainFields2 %}
-	{% if entry.image %}
+{% block simpleMainFields2Prev %}
     <div class="row">
 	    <div class="col-xs-6 col-sm-4 col-md-3">
 	    	<div class="rect">
-				{% include 'common/image/image_entry.html.twig' with { 'entry': entry } %}
+	    		{% if entry.image %}
+					{% include 'common/image/image_entry.html.twig' with { 'entry': entry } %}
+				{% endif %}
 			</div>
 		</div>
-	</div>
-	<div class="row">
-	    <div class="col-xs-6 col-sm-4 col-md-3">
+	    <div class="col-xs-6 col-sm-8 col-md-9">
+	    
+	    	{{ form_row(form.file, { 'label': 'label.image' }) }}
+		    
+		    {{ form_row(form.vertical, { 'label': 'label.image.vertical' }) }}
+		    
+		    {{ form_row(form.forcedWidth, { 'label': 'label.image.forcedWidth' }) }}
+			{{ form_row(form.forcedHeight, { 'label': 'label.image.forcedHeight' }) }}
+		    
 	    	<a href="{{ path(basePath ~ mainPath ~ '_remove_image', { id: entry.id }) }}" class="btn btn-danger">
 	    		<span class="fa fa-trash"></span> {{ 'action.image.remove'|trans }}
     		</a>
+    		
+    		{% block imageMainFields2More %}
+			{% endblock %}
 	    </div>
     </div>
-	{% endif %}
 	
-    {{ form_row(form.file, { 'label': 'label.image' }) }}
-    
-    {{ form_row(form.vertical, { 'label': 'label.image.vertical' }) }}
-    
-    {{ form_row(form.forcedWidth, { 'label': 'label.image.forcedWidth' }) }}
-	{{ form_row(form.forcedHeight, { 'label': 'label.image.forcedHeight' }) }}
-    
-    {{ form_row(form.infomarket, { 'label': 'label.infomarket' }) }}
-    {{ form_row(form.infoprodukt, { 'label': 'label.infoprodukt' }) }}
-    
-    {% block imageMainFields2More %}
-	{% endblock %}
 {% endblock %}
