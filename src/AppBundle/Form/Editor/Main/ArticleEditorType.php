@@ -41,16 +41,16 @@ class ArticleEditorType extends ImageEntityEditorType
 		$users = $userRepository->findFilterItems();
 		
 		$layoutChoices = array(
-				'label.article.layout.left'			=> Article::LEFT_LAYOUT,
-				'label.article.layout.mid'			=> Article::MID_LAYOUT,
-				'label.article.layout.right'		=> Article::RIGHT_LAYOUT,
-				'label.article.layout.bottom'		=> Article::BOTTOM_LAYOUT,
+				Article::getLayoutName(Article::LEFT_LAYOUT) => Article::LEFT_LAYOUT,
+				Article::getLayoutName(Article::MID_LAYOUT) => Article::MID_LAYOUT,
+				Article::getLayoutName(Article::RIGHT_LAYOUT) => Article::RIGHT_LAYOUT,
+				Article::getLayoutName(Article::BOTTOM_LAYOUT) => Article::BOTTOM_LAYOUT
 		);
 		
 		$imageSizeChoices = array(
-				'label.article.imageSize.small'			=> Article::SMALL_IMAGE,
-				'label.article.imageSize.medium'		=> Article::MEDIUM_IMAGE,
-				'label.article.imageSize.large'			=> Article::LARGE_IMAGE,
+				Article::getImageSizeName(Article::SMALL_IMAGE) => Article::SMALL_IMAGE,
+				Article::getImageSizeName(Article::MEDIUM_IMAGE) => Article::MEDIUM_IMAGE,
+				Article::getImageSizeName(Article::LARGE_IMAGE) => Article::LARGE_IMAGE
 		);
 		
 		$builder

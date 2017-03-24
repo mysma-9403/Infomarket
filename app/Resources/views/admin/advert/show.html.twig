@@ -6,7 +6,7 @@
 
 {% block moreFields3 %}
 	{% include 'common/fields/text_field.html.twig' with 
-	{ 'label': 'label.advert.location'|trans, 'value': entry.location } %}
+	{ 'label': 'label.advert.location'|trans, 'value': advertLocationName(entry.location)|trans } %}
 	
 	<div class="lowered-25"></div>
 	

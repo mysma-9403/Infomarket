@@ -25,12 +25,12 @@ class BenchmarkFieldFilterType extends AdminFilterType
 		$categories = $options['categories'];
 		
 		$fieldTypes = array(
-				'label.benchmarkField.fieldType.decimal'	=> BenchmarkField::DECIMAL_FIELD_TYPE,
-				'label.benchmarkField.fieldType.integer'	=> BenchmarkField::INTEGER_FIELD_TYPE,
-				'label.benchmarkField.fieldType.boolean'	=> BenchmarkField::BOOLEAN_FIELD_TYPE,
-				'label.benchmarkField.fieldType.string'		=> BenchmarkField::STRING_FIELD_TYPE,
-				'label.benchmarkField.fieldType.singleEnum'		=> BenchmarkField::SINGLE_ENUM_FIELD_TYPE,
-				'label.benchmarkField.fieldType.multiEnum'		=> BenchmarkField::MULTI_ENUM_FIELD_TYPE
+				BenchmarkField::getFieldTypeName(BenchmarkField::DECIMAL_FIELD_TYPE) => BenchmarkField::DECIMAL_FIELD_TYPE,
+				BenchmarkField::getFieldTypeName(BenchmarkField::INTEGER_FIELD_TYPE) => BenchmarkField::INTEGER_FIELD_TYPE,
+				BenchmarkField::getFieldTypeName(BenchmarkField::BOOLEAN_FIELD_TYPE) => BenchmarkField::BOOLEAN_FIELD_TYPE,
+				BenchmarkField::getFieldTypeName(BenchmarkField::STRING_FIELD_TYPE) => BenchmarkField::STRING_FIELD_TYPE,
+				BenchmarkField::getFieldTypeName(BenchmarkField::SINGLE_ENUM_FIELD_TYPE) => BenchmarkField::SINGLE_ENUM_FIELD_TYPE,
+				BenchmarkField::getFieldTypeName(BenchmarkField::MULTI_ENUM_FIELD_TYPE) => BenchmarkField::MULTI_ENUM_FIELD_TYPE
 		);
 		
 		$builder

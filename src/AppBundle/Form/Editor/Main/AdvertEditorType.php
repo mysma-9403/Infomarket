@@ -20,10 +20,10 @@ class AdvertEditorType extends ImageEntityEditorType
 	protected function addMoreFields(FormBuilderInterface $builder, array $options) {
 		
 		$locationChoices = array(
-				'label.advert.location.top'			=> Advert::TOP_LOCATION,
-				'label.advert.location.side'		=> Advert::SIDE_LOCATION,
-				'label.advert.location.text'		=> Advert::TEXT_LOCATION,
-				'label.advert.location.featured'	=> Advert::FEATURED_LOCATION
+				Advert::getLocationName(Advert::TOP_LOCATION)  => Advert::TOP_LOCATION,
+				Advert::getLocationName(Advert::SIDE_LOCATION)  => Advert::SIDE_LOCATION,
+				Advert::getLocationName(Advert::TEXT_LOCATION)  => Advert::TEXT_LOCATION,
+				Advert::getLocationName(Advert::FEATURED_LOCATION)  => Advert::FEATURED_LOCATION
 		);
 		
 		$builder

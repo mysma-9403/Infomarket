@@ -17,13 +17,13 @@ class Advert extends ImageEntity
 	public static function getLocationName($location) {
 		switch ($location) {
 			case self::TOP_LOCATION:
-				return 'topAds';
+				return 'label.advert.location.top';
 			case self::SIDE_LOCATION:
-				return 'sideAds';
+				return 'label.advert.location.side';
 			case self::TEXT_LOCATION:
-				return 'textAds';
+				return 'label.advert.location.text';
 			case self::FEATURED_LOCATION:
-				return 'featuredAds';
+				return 'label.advert.location.featured';
 			default:
 				return null;
 		}

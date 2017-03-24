@@ -37,10 +37,10 @@
 	<div class="lowered-25"></div>
 	
 	{% include 'common/fields/text_field.html.twig' with 
-		{ 'label': 'label.article.layout'|trans, 'value': entry.layout } %}
+		{ 'label': 'label.article.layout'|trans, 'value': articleLayoutName(entry.layout)|trans } %}
 	
 	{% include 'common/fields/text_field.html.twig' with 
-		{ 'label': 'label.article.imageSize'|trans, 'value': entry.imageSize} %}
+		{ 'label': 'label.article.imageSize'|trans, 'value': articleImageSizeName(entry.imageSize)|trans } %}
 	
 	
 	

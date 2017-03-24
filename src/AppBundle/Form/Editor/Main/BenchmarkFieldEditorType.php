@@ -35,18 +35,18 @@ class BenchmarkFieldEditorType extends BaseEntityEditorType
 		$categories = $categoryRepository->findFilterItems();
 		
 		$fieldTypes = array(
-				'label.benchmarkField.fieldType.decimal'	=> BenchmarkField::DECIMAL_FIELD_TYPE,
-				'label.benchmarkField.fieldType.integer'	=> BenchmarkField::INTEGER_FIELD_TYPE,
-				'label.benchmarkField.fieldType.boolean'	=> BenchmarkField::BOOLEAN_FIELD_TYPE,
-				'label.benchmarkField.fieldType.string'		=> BenchmarkField::STRING_FIELD_TYPE,
-				'label.benchmarkField.fieldType.singleEnum'	=> BenchmarkField::SINGLE_ENUM_FIELD_TYPE,
-				'label.benchmarkField.fieldType.multiEnum'	=> BenchmarkField::MULTI_ENUM_FIELD_TYPE
+				BenchmarkField::getFieldTypeName(BenchmarkField::DECIMAL_FIELD_TYPE) => BenchmarkField::DECIMAL_FIELD_TYPE,
+				BenchmarkField::getFieldTypeName(BenchmarkField::INTEGER_FIELD_TYPE) => BenchmarkField::INTEGER_FIELD_TYPE,
+				BenchmarkField::getFieldTypeName(BenchmarkField::BOOLEAN_FIELD_TYPE) => BenchmarkField::BOOLEAN_FIELD_TYPE,
+				BenchmarkField::getFieldTypeName(BenchmarkField::STRING_FIELD_TYPE) => BenchmarkField::STRING_FIELD_TYPE,
+				BenchmarkField::getFieldTypeName(BenchmarkField::SINGLE_ENUM_FIELD_TYPE) => BenchmarkField::SINGLE_ENUM_FIELD_TYPE,
+				BenchmarkField::getFieldTypeName(BenchmarkField::MULTI_ENUM_FIELD_TYPE) => BenchmarkField::MULTI_ENUM_FIELD_TYPE
 		);
 		
 		$builder
 		->add('category', ChoiceType::class, array(
 				'choices' 		=> $categories,
-				'choice_label' => function ($value, $key, $index) { return FormUtils::getListLabel($value, $key, $index); },
+				'choice_label'  => function ($value, $key, $index) { return FormUtils::getListLabel($value, $key, $index); },
 				'choice_translation_domain' => false,
 				'required'		=> true,
 				'expanded'      => false,
