@@ -3,12 +3,14 @@
 namespace AppBundle\Controller\Infomarket;
 
 use AppBundle\Controller\Infomarket\Base\InfomarketController;
+use AppBundle\Entity\Advert;
 use AppBundle\Entity\Category;
 use AppBundle\Filter\Infomarket\Base\BranchDependentFilter;
 use AppBundle\Manager\Entity\Base\EntityManager;
 use AppBundle\Manager\Entity\Infomarket\CategoryManager;
 use AppBundle\Manager\Filter\Base\FilterManager;
 use AppBundle\Manager\Params\EntryParams\Infomarket\CategoryEntryParamsManager;
+use AppBundle\Manager\Params\Infomarket\CategoryAdvertParamsManager;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -51,6 +53,13 @@ class CategoryController extends InfomarketController
 	
 	protected function getFilterManager($doctrine) {
 		return new FilterManager(new BranchDependentFilter());
+	}
+	
+	protected function getAdvertParamsManager() {
+		$doctrine = $this->getDoctrine();
+		$advertLocations = [Advert::TOP_LOCATION, Advert::SIDE_LOCATION];
+		
+		return new CategoryAdvertParamsManager($doctrine, $advertLocations);
 	}
 	
 	//---------------------------------------------------------------------------

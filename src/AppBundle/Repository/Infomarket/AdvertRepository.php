@@ -12,8 +12,8 @@ use Symfony\Component\Validator\Constraints\Date;
 
 class AdvertRepository extends BaseRepository
 {
-	public function findAdvertItems($location, $categories) {
-		$result = $this->queryAdvertIds($location, $categories)->getScalarResult();
+	public function findAdvertItems($location, $categories, $checkInRoots = true) {
+		$result = $this->queryAdvertIds($location, $categories, $checkInRoots)->getScalarResult();
 		
 		if(count($result) > 0) {
 			shuffle($result);
@@ -25,7 +25,7 @@ class AdvertRepository extends BaseRepository
 		return array();
 	}
 	
-	protected function queryAdvertIds($location, $categories)
+	protected function queryAdvertIds($location, $categories, $checkInRoots)
 	{
 		$date = new \DateTime();
 		
@@ -51,7 +51,7 @@ class AdvertRepository extends BaseRepository
 		
 		if(count($categories) > 0) {
 			$rootWhere = $builder->expr()->orX();
-			$rootWhere->add($builder->expr()->in('c.rootId', $categories));
+			if($checkInRoots) $rootWhere->add($builder->expr()->in('c.rootId', $categories));
 			$rootWhere->add($builder->expr()->in('c.id', $categories));
 			
 			$where->add($rootWhere);

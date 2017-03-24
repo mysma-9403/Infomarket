@@ -8,6 +8,7 @@ use AppBundle\Repository\Base\BaseRepository;
 use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\ORM\QueryBuilder;
 use AppBundle\Filter\Base\Filter;
+use Doctrine\ORM\AbstractQuery;
 
 class CategoryRepository extends BaseRepository
 {
@@ -183,6 +184,66 @@ class CategoryRepository extends BaseRepository
 	
 		return $builder->getQuery();
 	}
+	
+	
+	
+	
+	
+	public function findContextChildren($categoryId) {
+		$items = $this->queryContextChildren($categoryId)->getScalarResult();
+		return $this->getIds($items);
+	}
+	
+	protected function queryContextChildren($categoryId)
+	{
+		$builder = new QueryBuilder($this->getEntityManager());
+			
+		$builder->select("e.id");
+		$builder->from($this->getEntityType(), "e");
+	
+		$expr = $builder->expr();
+	
+		$where = $builder->expr()->andX();
+		$where->add($expr->eq('e.infomarket', 1));
+		$where->add($expr->like('e.treePath', $expr->literal('%-' . $categoryId . '#%')));
+	
+		$builder->where($where);
+			
+		return $builder->getQuery();
+	}
+	
+	public function findContextParents($categoryId) {
+		$treePath = $this->queryContextTreePath($categoryId)->getSingleResult(AbstractQuery::HYDRATE_SINGLE_SCALAR);
+		return $this->getContextParents($treePath);
+	}
+	
+	protected function queryContextTreePath($categoryId)
+	{
+		$builder = new QueryBuilder($this->getEntityManager());
+			
+		$builder->select("e.treePath");
+		$builder->from($this->getEntityType(), "e");
+	
+		$expr = $builder->expr();
+	
+		$builder->where($expr->eq('e.id', $categoryId));
+			
+		return $builder->getQuery();
+	}
+	
+	protected function getContextParents($treePath) {
+		$items = array();
+	
+		$parts = explode('#', $treePath);
+		foreach ($parts as $part) {
+			$index = strrpos($part, '-');
+			$id = substr($part, $index+1);
+			$items[] = $id;
+		}
+	
+		return $items;
+	}
+	
 	
     /**
 	 * {@inheritdoc}

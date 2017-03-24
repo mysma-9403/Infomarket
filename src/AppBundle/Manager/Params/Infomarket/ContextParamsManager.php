@@ -13,11 +13,40 @@ use AppBundle\Repository\Infomarket\ArticleCategoryRepository;
 
 class ContextParamsManager extends ParamsManager {
 	
+	/**
+	 * 
+	 * @var array
+	 */
 	protected $lastRouteParams;
+
+	/**
+	 * 
+	 * @var ArticleCategoryRepository
+	 */
+	protected $articleCategoryRepository;
+	
+	/**
+	 *
+	 * @var BranchRepository
+	 */
+	protected $branchRepository;
+	
+	/**
+	 * 
+	 * @var CategoryRepository
+	 */
+	protected $categoryRepository;
 	
 	public function __construct($doctrine, array $lastRouteParams) {
 		parent::__construct($doctrine);
+		
 		$this->lastRouteParams = $lastRouteParams;
+		
+		$em = $this->doctrine->getManager();
+		
+		$this->articleCategoryRepository = new ArticleCategoryRepository($em, $em->getClassMetadata(ArticleCategory::class));
+		$this->branchRepository = new BranchRepository($em, $em->getClassMetadata(Branch::class));
+		$this->categoryRepository = new CategoryRepository($em, $em->getClassMetadata(Category::class));
 	}
 	
 	public function getParams(Request $request, array $params) {
@@ -25,40 +54,56 @@ class ContextParamsManager extends ParamsManager {
 		$routeParams = $params['routeParams'];
 		$viewParams = $params['viewParams'];
 		
-		$em = $this->doctrine->getManager();
-		
-		/** @var BranchRepository $branchRepository */
-		$branchRepository = new BranchRepository($em, $em->getClassMetadata(Branch::class));
-		$branches = $branchRepository->findMenuItems();
+		$branches = $this->getMenuBranches($contextParams, $viewParams);
 		$viewParams['menuBranches'] = $branches;
 		
-		$branchId = $this->getParamId($request, Branch::class, $branches[0]['id']);
-		$contextParams['branch'] = $branchId;
-		$routeParams['branch'] = $branchId;
-    	$viewParams['contextBranchId'] = $branchId;
+		$branch = $this->getParamId($request, Branch::class, $branches[0]['id']);
+		$contextParams['branch'] = $branch;
+		$routeParams['branch'] = $branch;
+    	$viewParams['contextBranchId'] = $branch;
     	
     	
-    	/** @var CategoryRepository $categoryRepository */
-    	$categoryRepository = new CategoryRepository($em, $em->getClassMetadata(Category::class));
-    	$categories = $categoryRepository->findContextItems($branchId);
-    	$categories = $categoryRepository->getIds($categories);
-    	$contextParams['categories'] = $categories;
-    	
-    	$categories = $categoryRepository->findMenuItems($categories);
-    	$viewParams['menuCategories'] = $categories;
+    	$contextParams['categories'] = $this->getContextCategories($contextParams, $viewParams);
+    	$viewParams['menuCategories'] = $this->getMenuCategories($contextParams, $viewParams);
     	
     	
-    	/** @var ArticleCategoryRepository $articleCategoryRepository */
-    	$articleCategoryRepository = new ArticleCategoryRepository($em, $em->getClassMetadata(ArticleCategory::class));
-    	$articleCategories = $articleCategoryRepository->findMenuItems();
-    	$viewParams['menuArticleCategories'] = $articleCategories;
-    	$articleCategories = $articleCategoryRepository->getIds($articleCategories);
-    	$contextParams['articleCategories'] = $articleCategories;
+    	$viewParams['menuArticleCategories'] = $this->getMenuArticleCategories($contextParams, $viewParams);
+    	$contextParams['articleCategories'] = $this->getContextArticleCategories($contextParams, $viewParams);
     	
     	$params['contextParams'] = $contextParams;
     	$params['routeParams'] = $routeParams;
     	$params['viewParams'] = $viewParams;
     	
     	return $params;
+	}
+	
+	
+	protected function getMenuBranches($contextParams, $viewParams) {
+		return $this->branchRepository->findMenuItems();
+	}
+	
+	
+	protected function getContextCategories($contextParams, $viewParams) {
+		$branch = $contextParams['branch'];
+		
+		$categories = $this->categoryRepository->findContextItems($branch);
+		$categories = $this->categoryRepository->getIds($categories);
+		
+		return $categories;
+	}
+	
+	protected function getMenuCategories($contextParams, $viewParams) {
+		$categories = $contextParams['categories'];
+		return $this->categoryRepository->findMenuItems($categories);
+	}
+	
+	
+	protected function getMenuArticleCategories($contextParams, $viewParams) {
+		return $this->articleCategoryRepository->findMenuItems();
+	}
+	
+	protected function getContextArticleCategories($contextParams, $viewParams) {
+		$articleCategories = $viewParams['menuArticleCategories'];
+		return $this->articleCategoryRepository->getIds($articleCategories);
 	}
 }
