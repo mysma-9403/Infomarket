@@ -3,7 +3,7 @@
 		<div class="col-xs-6 col-sm-2">
 			<h2>{{ 'label.newsletterGroups'|trans }}</h2>
 		</div>
-		{% if is_granted('ROLE_EDITOR') %}
+		{% if canEdit %}
 			<div class="col-xs-6 col-sm-2">
 				<a href="{{ path('admin_newsletter_user_newsletter_group_assignment_new', { newsletter_user: entry.id }) }}"
 					class="btn btn-success text-xs-bottom-mm">
@@ -27,13 +27,13 @@
 					<span class="fa fa-eye"></span> 
 					{{ 'action.show'|trans }}
 				</a>
-				{% if is_granted('ROLE_EDITOR') %}
+				{% if canEdit %}
 					<a href="{{ path('admin_newsletter_user_newsletter_group_assignment_edit', { id: newsletterGroup.assignmentId }) }}" class="btn btn-warning">
 						<span class="fa fa-edit"></span> 
 						{{ 'action.edit'|trans }}
 					</a>
 				{% endif %}
-				{% if is_granted('ROLE_ADMIN') %}
+				{% if canDelete %}
 					<a href="{{ path('admin_newsletter_user_newsletter_group_assignment_delete', { id: newsletterGroup.assignmentId }) }}" class="btn btn-danger">
 						<span class="fa fa-trash"></span>  
 						{{ 'action.delete'|trans }}

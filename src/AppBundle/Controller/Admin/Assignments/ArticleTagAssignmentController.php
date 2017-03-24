@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller\Admin\Assignments;
 
+use AppBundle\Controller\Admin\Base\AssignmentController;
 use AppBundle\Controller\Admin\Base\BaseEntityController;
 use AppBundle\Entity\Article;
 use AppBundle\Entity\ArticleTagAssignment;
@@ -15,7 +16,7 @@ use AppBundle\Repository\Admin\Main\ArticleRepository;
 use AppBundle\Repository\Admin\Main\TagRepository;
 use Symfony\Component\HttpFoundation\Request;
 
-class ArticleTagAssignmentController extends BaseEntityController {
+class ArticleTagAssignmentController extends AssignmentController {
 	
 	//---------------------------------------------------------------------------
 	// Actions
@@ -130,13 +131,6 @@ class ArticleTagAssignmentController extends BaseEntityController {
 	 */
 	protected function getFilterManager($doctrine) {
 		return new FilterManager(new ArticleTagAssignmentFilter());
-	}
-	
-	//---------------------------------------------------------------------------
-	// Roles
-	//---------------------------------------------------------------------------
-	protected function getDeleteRole() {
-		return 'ROLE_EDITOR';
 	}
 	
 	//------------------------------------------------------------------------

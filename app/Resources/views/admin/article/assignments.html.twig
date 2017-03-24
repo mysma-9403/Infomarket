@@ -1,265 +1,267 @@
-<div class="col-xs-12">
-	<div class="row equal">
-		<div class="col-xs-6 col-sm-2">
-			<h2>{{ 'label.article.children'|trans }}</h2>
-		</div>
-		{% if is_granted('ROLE_EDITOR') %}
+{% if entry.parent == null %}
+	<div class="col-xs-12">
+		<div class="row equal">
 			<div class="col-xs-6 col-sm-2">
-				<a href="{{ path('admin_article_new', { parent: entry.id }) }}"
-					class="btn btn-success text-xs-bottom-mm">
-					<span class="fa fa-plus"></span> 
-					{{ 'action.createSubarticle'|trans }} 
-				</a>
+				<h2>{{ 'label.article.children'|trans }}</h2>
 			</div>
-		{% endif %}
-	</div>
-</div>
-
-<table class="table table-striped vert-align">
-	<tbody>
-	{% for article in entry.children %}
-		<tr>
-			<td>
-				<div class="table-circle-30 bkg-white" width="20" height="20">
-					{% if article.image %}
-						<img class="div-center img-{{ article.vertical ? '' : 'v' }}responsive"
-							alt="{{ article.image }}" src="{{ asset(article.image) }}" />
-					{% endif %}
-				</div>
-			</td>
-			<td>
-				<a href="{{ path('admin_article_show', { id: article.id }) }}">
-					{{ article.name }} {{ article.subname }}
-				</a>
-			</td>
-			<td>
-				<a href="{{ path('admin_article_show', { id: article.id }) }}" class="btn btn-primary">
-					<span class="fa fa-eye"></span> 
-					{{ 'action.show'|trans }}
-				</a>
-				{% if is_granted('ROLE_EDITOR') %}
-					<a href="{{ path('admin_article_edit', { id: article.id }) }}" class="btn btn-warning">
-						<span class="fa fa-edit"></span> 
-						{{ 'action.edit'|trans }}
+			{% if canEdit %}
+				<div class="col-xs-6 col-sm-2">
+					<a href="{{ path('admin_article_new', { parent: entry.id }) }}"
+						class="btn btn-success text-xs-bottom-mm">
+						<span class="fa fa-plus"></span> 
+						{{ 'action.createSubarticle'|trans }} 
 					</a>
+				</div>
+			{% endif %}
+		</div>
+	</div>
+	
+	<table class="table table-striped vert-align">
+		<tbody>
+		{% for article in entry.children %}
+			<tr>
+				<td>
+					<div class="table-circle-30 bkg-white" width="20" height="20">
+						{% if article.image %}
+							<img class="div-center img-{{ article.vertical ? '' : 'v' }}responsive"
+								alt="{{ article.image }}" src="{{ asset(article.image) }}" />
+						{% endif %}
+					</div>
+				</td>
+				<td>
+					<a href="{{ path('admin_article_show', { id: article.id }) }}">
+						{{ article.name }} {{ article.subname }}
+					</a>
+				</td>
+				<td>
+					<a href="{{ path('admin_article_show', { id: article.id }) }}" class="btn btn-primary">
+						<span class="fa fa-eye"></span> 
+						{{ 'action.show'|trans }}
+					</a>
+					{% if canEdit %}
+						<a href="{{ path('admin_article_edit', { id: article.id }) }}" class="btn btn-warning">
+							<span class="fa fa-edit"></span> 
+							{{ 'action.edit'|trans }}
+						</a>
+					{% endif %}
+					{% if canDelete %}
+						<a href="{{ path('admin_article_delete', { id: article.id }) }}" class="btn btn-danger">
+							<span class="fa fa-trash"></span>  
+							{{ 'action.delete'|trans }}
+						</a>
+					{% endif %}
+				</td>
+			</tr>
+		{% endfor %}
+		</tbody>
+	</table>
+	
+	
+	
+	
+	<div class="col-xs-12">
+		<div class="row equal">
+			<div class="col-xs-6 col-sm-2">
+				<h2>{{ 'title.brands'|trans }}</h2>
+			</div>
+			{% if canEdit %}
+				<div class="col-xs-6 col-sm-2">
+					<a href="{{ path('admin_article_brand_assignment_new', { article: entry.id }) }}"
+						class="btn btn-success text-xs-bottom-mm">
+						<span class="fa fa-plus"></span> 
+						{{ 'action.assignBrand'|trans }} 
+					</a>
+				</div>
+			{% endif %}
+		</div>
+	</div>
+	
+	<table class="table table-striped vert-align">
+		<tbody>
+		{% for articleBrandAssignment in entry.articleBrandAssignments %}
+			<tr>
+				<td>
+					<div class="table-circle-30 bkg-white" width="20" height="20">
+						{% if articleBrandAssignment.brand.image %}
+							<img class="div-center img-{{ articleBrandAssignment.brand.vertical ? '' : 'v' }}responsive"
+								alt="{{ articleBrandAssignment.brand.image }}" src="{{ asset(articleBrandAssignment.brand.image) }}" />
+						{% endif %}
+					</div>
+				</td>
+				<td>
+					<a href="{{ path('admin_brand_show', { id: articleBrandAssignment.brand.id }) }}">
+						{{ articleBrandAssignment.brand.name }}
+					</a>
+				</td>
+				{% if canEdit %}
+					<td>
+						<a href="{{ path('admin_article_brand_assignment_edit', { id: articleBrandAssignment.id }) }}" class="btn btn-warning">
+							<span class="fa fa-edit"></span> 
+							{{ 'action.edit'|trans }}
+						</a>
+						<a href="{{ path('admin_article_brand_assignment_delete', { id: articleBrandAssignment.id }) }}" class="btn btn-danger">
+							<span class="fa fa-trash"></span> 
+							{{ 'action.delete'|trans }}
+						</a>
+					</td>
 				{% endif %}
-				{% if is_granted(deleteRole) %}
-					<a href="{{ path('admin_article_delete', { id: article.id }) }}" class="btn btn-danger">
-						<span class="fa fa-trash"></span>  
-						{{ 'action.delete'|trans }}
+			</tr>
+		{% endfor %}
+		</tbody>
+	</table>
+	
+	
+	
+	
+	
+	<div class="col-xs-12">
+		<div class="row equal">
+			<div class="col-xs-6 col-sm-2">
+				<h2>{{ 'title.articleCategories'|trans }}</h2>
+			</div>
+			{% if canEdit %}
+				<div class="col-xs-6 col-sm-2">
+					<a href="{{ path('admin_article_article_category_assignment_new', { article: entry.id }) }}"
+						class="btn btn-success text-xs-bottom-mm">
+						<span class="fa fa-plus"></span> 
+						{{ 'action.assignArticleCategory'|trans }} 
 					</a>
+				</div>
+			{% endif %}
+		</div>
+	</div>
+	
+	<table class="table table-striped vert-align">
+		<tbody>
+		{% for articleArticleCategoryAssignment in entry.articleArticleCategoryAssignments %}
+			<tr>
+				<td>
+					<div class="table-circle-30 bkg-white" width="20" height="20">
+						{% if articleArticleCategoryAssignment.articleCategory.image %}
+							<img class="div-center img-{{ articleArticleCategoryAssignment.articleCategory.vertical ? '' : 'v' }}responsive"
+								alt="{{ articleArticleCategoryAssignment.articleCategory.image }}" src="{{ asset(articleArticleCategoryAssignment.articleCategory.image) }}" />
+						{% endif %}
+					</div>
+				</td>
+				<td>
+					<a href="{{ path('admin_article_category_show', { id: articleArticleCategoryAssignment.articleCategory.id }) }}">
+						{{ articleArticleCategoryAssignment.articleCategory.name }} {{ articleArticleCategoryAssignment.articleCategory.subname }}
+					</a>
+				</td>
+				{% if canEdit %}
+					<td>
+						<a href="{{ path('admin_article_article_category_assignment_edit', { id: articleArticleCategoryAssignment.id }) }}" class="btn btn-warning">
+							<span class="fa fa-edit"></span> 
+							{{ 'action.edit'|trans }}
+						</a>
+						<a href="{{ path('admin_article_article_category_assignment_delete', { id: articleArticleCategoryAssignment.id }) }}" class="btn btn-danger">
+							<span class="fa fa-trash"></span> 
+							{{ 'action.delete'|trans }}
+						</a>
+					</td>
 				{% endif %}
-			</td>
-		</tr>
-	{% endfor %}
-	</tbody>
-</table>
-
-
-
-
-<div class="col-xs-12">
-	<div class="row equal">
-		<div class="col-xs-6 col-sm-2">
-			<h2>{{ 'title.brands'|trans }}</h2>
-		</div>
-		{% if is_granted('ROLE_EDITOR') %}
+			</tr>
+		{% endfor %}
+		</tbody>
+	</table>
+	
+	
+	
+	
+	
+	<div class="col-xs-12">
+		<div class="row equal">
 			<div class="col-xs-6 col-sm-2">
-				<a href="{{ path('admin_article_brand_assignment_new', { article: entry.id }) }}"
-					class="btn btn-success text-xs-bottom-mm">
-					<span class="fa fa-plus"></span> 
-					{{ 'action.assignBrand'|trans }} 
-				</a>
+				<h2>{{ 'title.categories'|trans }}</h2>
 			</div>
-		{% endif %}
-	</div>
-</div>
-
-<table class="table table-striped vert-align">
-	<tbody>
-	{% for articleBrandAssignment in entry.articleBrandAssignments %}
-		<tr>
-			<td>
-				<div class="table-circle-30 bkg-white" width="20" height="20">
-					{% if articleBrandAssignment.brand.image %}
-						<img class="div-center img-{{ articleBrandAssignment.brand.vertical ? '' : 'v' }}responsive"
-							alt="{{ articleBrandAssignment.brand.image }}" src="{{ asset(articleBrandAssignment.brand.image) }}" />
-					{% endif %}
+			{% if canEdit %}
+				<div class="col-xs-6 col-sm-2">
+					<a href="{{ path('admin_article_category_assignment_new', { article: entry.id }) }}"
+						class="btn btn-success text-xs-bottom-mm">
+						<span class="fa fa-plus"></span> 
+						{{ 'action.assignCategory'|trans }} 
+					</a>
 				</div>
-			</td>
-			<td>
-				<a href="{{ path('admin_brand_show', { id: articleBrandAssignment.brand.id }) }}">
-					{{ articleBrandAssignment.brand.name }}
-				</a>
-			</td>
-			{% if is_granted('ROLE_EDITOR') %}
+			{% endif %}
+		</div>
+	</div>
+	
+	<table class="table table-striped vert-align">
+		<tbody>
+		{% for articleCategoryAssignment in entry.articleCategoryAssignments %}
+			<tr>
 				<td>
-					<a href="{{ path('admin_article_brand_assignment_edit', { id: articleBrandAssignment.id }) }}" class="btn btn-warning">
-						<span class="fa fa-edit"></span> 
-						{{ 'action.edit'|trans }}
-					</a>
-					<a href="{{ path('admin_article_brand_assignment_delete', { id: articleBrandAssignment.id }) }}" class="btn btn-danger">
-						<span class="fa fa-trash"></span> 
-						{{ 'action.delete'|trans }}
+					<div class="table-circle-30 bkg-white">
+						{% if articleCategoryAssignment.category.image %}
+							<img class="div-center img-{{ articleCategoryAssignment.category.vertical ? '' : 'v' }}responsive"
+								alt="{{ articleCategoryAssignment.category.image }}" src="{{ asset(articleCategoryAssignment.category.image) }}" />
+						{% endif %}
+					</div>
+				</td>
+				<td>
+					<a href="{{ path('admin_category_show', { id: articleCategoryAssignment.category.id }) }}">
+						{{ articleCategoryAssignment.category.name }} {{ articleCategoryAssignment.category.subname }}
 					</a>
 				</td>
-			{% endif %}
-		</tr>
-	{% endfor %}
-	</tbody>
-</table>
-
-
-
-
-
-<div class="col-xs-12">
-	<div class="row equal">
-		<div class="col-xs-6 col-sm-2">
-			<h2>{{ 'title.articleCategories'|trans }}</h2>
-		</div>
-		{% if is_granted('ROLE_EDITOR') %}
+				{% if canEdit %}
+					<td>
+						<a href="{{ path('admin_article_category_assignment_edit', { id: articleCategoryAssignment.id }) }}" class="btn btn-warning">
+							<span class="fa fa-edit"></span> 
+							{{ 'action.edit'|trans }}
+						</a>
+						<a href="{{ path('admin_article_category_assignment_delete', { id: articleCategoryAssignment.id }) }}" class="btn btn-danger">
+							<span class="fa fa-trash"></span> 
+							{{ 'action.delete'|trans }}
+						</a>
+					</td>
+				{% endif %}
+			</tr>
+		{% endfor %}
+		</tbody>
+	</table>
+	
+	
+	
+	<div class="col-xs-12">
+		<div class="row equal">
 			<div class="col-xs-6 col-sm-2">
-				<a href="{{ path('admin_article_article_category_assignment_new', { article: entry.id }) }}"
-					class="btn btn-success text-xs-bottom-mm">
-					<span class="fa fa-plus"></span> 
-					{{ 'action.assignArticleCategory'|trans }} 
-				</a>
+				<h2>{{ 'title.tags'|trans }}</h2>
 			</div>
-		{% endif %}
-	</div>
-</div>
-
-<table class="table table-striped vert-align">
-	<tbody>
-	{% for articleArticleCategoryAssignment in entry.articleArticleCategoryAssignments %}
-		<tr>
-			<td>
-				<div class="table-circle-30 bkg-white" width="20" height="20">
-					{% if articleArticleCategoryAssignment.articleCategory.image %}
-						<img class="div-center img-{{ articleArticleCategoryAssignment.articleCategory.vertical ? '' : 'v' }}responsive"
-							alt="{{ articleArticleCategoryAssignment.articleCategory.image }}" src="{{ asset(articleArticleCategoryAssignment.articleCategory.image) }}" />
-					{% endif %}
+			{% if canEdit %}
+				<div class="col-xs-6 col-sm-2">
+					<a href="{{ path('admin_article_tag_assignment_new', { article: entry.id }) }}"
+						class="btn btn-success text-xs-bottom-mm">
+						<span class="fa fa-plus"></span> 
+						{{ 'action.assignTag'|trans }} 
+					</a>
 				</div>
-			</td>
-			<td>
-				<a href="{{ path('admin_article_category_show', { id: articleArticleCategoryAssignment.articleCategory.id }) }}">
-					{{ articleArticleCategoryAssignment.articleCategory.name }} {{ articleArticleCategoryAssignment.articleCategory.subname }}
-				</a>
-			</td>
-			{% if is_granted('ROLE_EDITOR') %}
-				<td>
-					<a href="{{ path('admin_article_article_category_assignment_edit', { id: articleArticleCategoryAssignment.id }) }}" class="btn btn-warning">
-						<span class="fa fa-edit"></span> 
-						{{ 'action.edit'|trans }}
-					</a>
-					<a href="{{ path('admin_article_article_category_assignment_delete', { id: articleArticleCategoryAssignment.id }) }}" class="btn btn-danger">
-						<span class="fa fa-trash"></span> 
-						{{ 'action.delete'|trans }}
-					</a>
-				</td>
 			{% endif %}
-		</tr>
-	{% endfor %}
-	</tbody>
-</table>
-
-
-
-
-
-<div class="col-xs-12">
-	<div class="row equal">
-		<div class="col-xs-6 col-sm-2">
-			<h2>{{ 'title.categories'|trans }}</h2>
 		</div>
-		{% if is_granted('ROLE_EDITOR') %}
-			<div class="col-xs-6 col-sm-2">
-				<a href="{{ path('admin_article_category_assignment_new', { article: entry.id }) }}"
-					class="btn btn-success text-xs-bottom-mm">
-					<span class="fa fa-plus"></span> 
-					{{ 'action.assignCategory'|trans }} 
-				</a>
-			</div>
-		{% endif %}
 	</div>
-</div>
-
-<table class="table table-striped vert-align">
-	<tbody>
-	{% for articleCategoryAssignment in entry.articleCategoryAssignments %}
-		<tr>
-			<td>
-				<div class="table-circle-30 bkg-white">
-					{% if articleCategoryAssignment.category.image %}
-						<img class="div-center img-{{ articleCategoryAssignment.category.vertical ? '' : 'v' }}responsive"
-							alt="{{ articleCategoryAssignment.category.image }}" src="{{ asset(articleCategoryAssignment.category.image) }}" />
-					{% endif %}
-				</div>
-			</td>
-			<td>
-				<a href="{{ path('admin_category_show', { id: articleCategoryAssignment.category.id }) }}">
-					{{ articleCategoryAssignment.category.name }} {{ articleCategoryAssignment.category.subname }}
-				</a>
-			</td>
-			{% if is_granted('ROLE_EDITOR') %}
+	
+	<table class="table table-striped vert-align">
+		<tbody>
+		{% for articleTagAssignment in entry.articleTagAssignments %}
+			<tr>
 				<td>
-					<a href="{{ path('admin_article_category_assignment_edit', { id: articleCategoryAssignment.id }) }}" class="btn btn-warning">
-						<span class="fa fa-edit"></span> 
-						{{ 'action.edit'|trans }}
-					</a>
-					<a href="{{ path('admin_article_category_assignment_delete', { id: articleCategoryAssignment.id }) }}" class="btn btn-danger">
-						<span class="fa fa-trash"></span> 
-						{{ 'action.delete'|trans }}
+					<a href="{{ path('admin_tag_show', { id: articleTagAssignment.tag.id }) }}">
+						{{ articleTagAssignment.tag.name }}
 					</a>
 				</td>
-			{% endif %}
-		</tr>
-	{% endfor %}
-	</tbody>
-</table>
-
-
-
-<div class="col-xs-12">
-	<div class="row equal">
-		<div class="col-xs-6 col-sm-2">
-			<h2>{{ 'title.tags'|trans }}</h2>
-		</div>
-		{% if is_granted('ROLE_EDITOR') %}
-			<div class="col-xs-6 col-sm-2">
-				<a href="{{ path('admin_article_tag_assignment_new', { article: entry.id }) }}"
-					class="btn btn-success text-xs-bottom-mm">
-					<span class="fa fa-plus"></span> 
-					{{ 'action.assignTag'|trans }} 
-				</a>
-			</div>
-		{% endif %}
-	</div>
-</div>
-
-<table class="table table-striped vert-align">
-	<tbody>
-	{% for articleTagAssignment in entry.articleTagAssignments %}
-		<tr>
-			<td>
-				<a href="{{ path('admin_tag_show', { id: articleTagAssignment.tag.id }) }}">
-					{{ articleTagAssignment.tag.name }}
-				</a>
-			</td>
-			{% if is_granted('ROLE_EDITOR') %}
-				<td>
-					<a href="{{ path('admin_article_tag_assignment_edit', { id: articleTagAssignment.id }) }}" class="btn btn-warning">
-						<span class="fa fa-edit"></span> 
-						{{ 'action.edit'|trans }}
-					</a>
-					<a href="{{ path('admin_article_tag_assignment_delete', { id: articleTagAssignment.id }) }}" class="btn btn-danger">
-						<span class="fa fa-trash"></span> 
-						{{ 'action.delete'|trans }}
-					</a>
-				</td>
-			{% endif %}
-		</tr>
-	{% endfor %}
-	</tbody>
-</table>
+				{% if canEdit %}
+					<td>
+						<a href="{{ path('admin_article_tag_assignment_edit', { id: articleTagAssignment.id }) }}" class="btn btn-warning">
+							<span class="fa fa-edit"></span> 
+							{{ 'action.edit'|trans }}
+						</a>
+						<a href="{{ path('admin_article_tag_assignment_delete', { id: articleTagAssignment.id }) }}" class="btn btn-danger">
+							<span class="fa fa-trash"></span> 
+							{{ 'action.delete'|trans }}
+						</a>
+					</td>
+				{% endif %}
+			</tr>
+		{% endfor %}
+		</tbody>
+	</table>
+{% endif %}

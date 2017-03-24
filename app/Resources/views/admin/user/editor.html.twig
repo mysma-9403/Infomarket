@@ -18,28 +18,6 @@
 	{{ form_row(form.surname, { 'label': 'label.user.surname' }) }}
 	{{ form_row(form.pseudonym, { 'label': 'label.user.pseudonym' }) }}
 	
-	{% set hidden='hidden' %}
-	{% if is_granted('ROLE_SUPER_ADMIN') %}
-		{% set hidden="" %}
-	{% endif %}
+	{% set hidden = is_granted('ROLE_SUPER_ADMIN') ? "" : "hidden" %}
 	{{ form_row(form.roles, { 'label': 'label.user.roles', 'attr': {'class': hidden} }) }}
-{% endblock %}
-
-{% block mainActions %}
-	<div class="btn-group">
-		{{ form_widget(form.save, { 'icon': 'fa-save', 'label': 'action.save', 'attr': {'class': 'btn btn-success'} }) }}
-	</div>
-    {% if entry.id %}
-		{% if is_granted('ROLE_SUPER_ADMIN') %}
-			<a type="button" class="btn btn-danger" onclick="return confirm('{{ 'confirm.delete'|trans }}')" 
-				href="{{ path(basePath ~ mainPath ~ '_delete', { id: entry.id }) }}">
-	    		<i class="fa fa-trash"></i> {{ 'action.delete'|trans }}
-			</a>
-		{% endif %}
-    {% endif %}
-    <div class="btn-group">
-		<a type="button" class="btn btn-primary" href="{{ path(basePath ~ mainPath) }}">
-	    	<i class="fa fa-close"></i> {{ 'action.back'|trans }}
-		</a>
-    </div>
 {% endblock %}

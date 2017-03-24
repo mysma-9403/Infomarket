@@ -36,30 +36,6 @@
 {% endblock %}
 	
 {% block headerMainFields3 %}
-	<th><i class="fa fa-play"></i> {{ 'label.actions'|trans }}</th>
-{% endblock %}
-		
-		
-{% block headerActions %}
-	{#TODO override from base, make hook / variable for delete role #}
-	{% set hidden="hidden" %}
-	{% if is_granted('ROLE_SUPER_ADMIN') %}
-		{% set hidden="" %}
-	{% endif %}
-	
-	<li>
-		<div class="btn-group {{ hidden }}">
-			{{ form_widget(form.selectAll, { 'icon': 'fa-check-square-o', 'label': 'action.selectAll', 'attr': {'class': 'btn btn-primary', 'type': 'button'} }) }}
-			{{ form_widget(form.selectNone, { 'icon': 'fa-square-o', 'label': 'action.selectNone', 'attr': {'class': 'btn btn-primary', 'type': 'button'} }) }}
-		</div>
-	</li>
-		
-	{% set confirm = 'return confirm("' ~ 'confirm.deleteSelected'|trans ~ '")' %}
-	<li>
-		<div class="{{ hidden }}">
-			{{ form_widget(form.deleteSelected, { 'icon': 'fa-trash', 'label': 'action.deleteSelected', 'attr': {'class': 'btn btn-danger', 'type': 'button', 'onclick': confirm } }) }}
-		</div>
-	</li>
 {% endblock %}
 
 {# Entry section #}
@@ -69,22 +45,4 @@
 {% endblock %}
 
 {% block entryMainFields3 %}
-{% endblock %}
-
-{% block entryActions %}
-	<td>
-		<a type="button" class="btn btn-sm btn-primary" href="{{ path('admin_' ~ mainPath ~ '_show', { id: item.id }) }}">
-			<i class="fa fa-eye"></i>{{ 'action.show'|trans }}
-		</a>
-		
-		{% if is_granted('ROLE_SUPER_ADMIN') %}
-			<a type="button" class="btn btn-sm btn-success" href="{{ path('admin_' ~ mainPath ~ '_edit', { id: item.id }) }}">
-				<i class="fa fa-edit"></i>{{ 'action.edit'|trans }}
-			</a>
-			<a type="button" class="btn btn-sm btn-danger" onclick="return confirm('{{ 'confirm.delete'|trans }}')"
-				href="{{ path('admin_' ~ mainPath ~ '_delete', { id: item.id }) }}">
-				<i class="fa fa-trash"></i>{{ 'action.delete'|trans }}
-			</a>
-		{% endif %}
-	</td>
 {% endblock %}

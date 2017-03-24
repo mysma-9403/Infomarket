@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller\Admin\Assignments;
 
+use AppBundle\Controller\Admin\Base\AssignmentController;
 use AppBundle\Controller\Admin\Base\BaseEntityController;
 use AppBundle\Entity\Brand;
 use AppBundle\Entity\BrandCategoryAssignment;
@@ -15,7 +16,7 @@ use AppBundle\Repository\Admin\Main\BrandRepository;
 use AppBundle\Repository\Admin\Main\CategoryRepository;
 use Symfony\Component\HttpFoundation\Request;
 
-class BrandCategoryAssignmentController extends BaseEntityController {
+class BrandCategoryAssignmentController extends AssignmentController {
 	
 	//---------------------------------------------------------------------------
 	// Actions
@@ -130,13 +131,6 @@ class BrandCategoryAssignmentController extends BaseEntityController {
 	 */
 	protected function getFilterManager($doctrine) {
 		return new FilterManager(new BrandCategoryAssignmentFilter());
-	}
-	
-	//---------------------------------------------------------------------------
-	// Roles
-	//---------------------------------------------------------------------------
-	protected function getDeleteRole() {
-		return 'ROLE_EDITOR';
 	}
 	
 	//------------------------------------------------------------------------

@@ -3,7 +3,7 @@
 		<div class="col-xs-6 col-sm-2">
 			<h2>{{ 'label.rating.topBrands'|trans }}</h2>
 		</div>
-		{% if is_granted('ROLE_EDITOR') %}
+		{% if canEdit %}
 			<div class="col-xs-6 col-sm-2">
 				<a href="{{ path('admin_brand_category_assignment_new', { category: entry.id }) }}"
 					class="btn btn-success text-xs-bottom-mm">
@@ -32,7 +32,7 @@
 					{{ brandCategoryAssignment.brand.name }}
 				</a>
 			</td>
-			{% if is_granted('ROLE_EDITOR') %}
+			{% if canEdit %}
 				<td>
 					<a href="{{ path('admin_brand_category_assignment_edit', { id: brandCategoryAssignment.id }) }}" class="btn btn-warning">
 						<span class="fa fa-edit"></span> 
@@ -58,7 +58,7 @@
 		<div class="col-xs-6 col-sm-2">
 			<h2>{{ 'title.magazines'|trans }}</h2>
 		</div>
-		{% if is_granted('ROLE_EDITOR') %}
+		{% if canEdit %}
 			<div class="col-xs-6 col-sm-2">
 				<a href="{{ path('admin_magazine_category_assignment_new', { category: entry.id }) }}"
 					class="btn btn-success text-xs-bottom-mm">
@@ -87,7 +87,7 @@
 					{{ magazineCategoryAssignment.magazine.name }}
 				</a>
 			</td>
-			{% if is_granted('ROLE_EDITOR') %}
+			{% if canEdit %}
 				<td>
 					<a href="{{ path('admin_magazine_category_assignment_edit', { id: magazineCategoryAssignment.id }) }}" class="btn btn-warning">
 						<span class="fa fa-edit"></span> 
@@ -113,7 +113,7 @@
 		<div class="col-xs-6 col-sm-2">
 			<h2>{{ 'title.branches'|trans }}</h2>
 		</div>
-		{% if is_granted('ROLE_EDITOR') %}
+		{% if canEdit %}
 			<div class="col-xs-6 col-sm-2">
 				<a href="{{ path('admin_branch_category_assignment_new', { category: entry.id }) }}"
 					class="btn btn-success text-xs-bottom-mm">
@@ -142,7 +142,7 @@
 					{{ branchCategoryAssignment.branch.name }}
 				</a>
 			</td>
-			{% if is_granted('ROLE_EDITOR') %}
+			{% if canEdit %}
 				<td>
 					<a href="{{ path('admin_branch_category_assignment_edit', { id: branchCategoryAssignment.id }) }}" class="btn btn-warning">
 						<span class="fa fa-edit"></span> 
@@ -167,7 +167,7 @@
 		<div class="col-xs-6 col-sm-2">
 			<h2>{{ 'label.category.children'|trans }}</h2>
 		</div>
-		{% if is_granted('ROLE_EDITOR') %}
+		{% if canEdit %}
 			<div class="col-xs-6 col-sm-2">
 				<a href="{{ path('admin_category_new', { parent: entry.id }) }}"
 					class="btn btn-success text-xs-bottom-mm">
@@ -196,13 +196,13 @@
 					{{ category.name }} {{ category.subname }}
 				</a>
 			</td>
-			{% if is_granted('ROLE_EDITOR') %}
+			{% if canEdit %}
 				<td>
 					<a href="{{ path('admin_category_edit', { id: category.id }) }}" class="btn btn-warning">
 						<span class="fa fa-edit"></span> 
 						{{ 'action.edit'|trans }}
 					</a>
-					{% if is_granted('ROLE_ADMIN') %}
+					{% if canDelete %}
 						<a href="{{ path('admin_category_delete', { id: category.id }) }}" class="btn btn-danger">
 							<span class="fa fa-trash"></span> 
 							{{ 'action.delete'|trans }}

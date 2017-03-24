@@ -52,7 +52,7 @@
 		{{ form_start(form) }}
 			{% block listActions %}
 				<ul class="list-inline">
-					{% block headerActions %}
+					{% block mainActions %}
 					{% endblock %}
 					<li>
 						<a class="btn btn-primary toggle" data-toggle="collapse" data-parent="#accodrion" href="#filter">
@@ -85,6 +85,9 @@
 							{% endblock %}
 							
 							{% block headerMainFields3 %}
+							{% endblock %}
+							
+							{% block headerActions %}
 							{% endblock %}
 						{% endblock %}
 					</thead>

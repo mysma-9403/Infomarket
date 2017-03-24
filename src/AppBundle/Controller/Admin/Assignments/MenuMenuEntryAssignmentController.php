@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller\Admin\Assignments;
 
+use AppBundle\Controller\Admin\Base\AssignmentController;
 use AppBundle\Controller\Admin\Base\BaseEntityController;
 use AppBundle\Entity\Menu;
 use AppBundle\Entity\MenuEntry;
@@ -15,7 +16,7 @@ use AppBundle\Repository\Admin\Main\MenuEntryRepository;
 use AppBundle\Repository\Admin\Main\MenuRepository;
 use Symfony\Component\HttpFoundation\Request;
 
-class MenuMenuEntryAssignmentController extends BaseEntityController {
+class MenuMenuEntryAssignmentController extends AssignmentController {
 	
 	//---------------------------------------------------------------------------
 	// Actions
@@ -130,13 +131,6 @@ class MenuMenuEntryAssignmentController extends BaseEntityController {
 	 */
 	protected function getFilterManager($doctrine) {
 		return new FilterManager(new MenuMenuEntryAssignmentFilter());
-	}
-	
-	//---------------------------------------------------------------------------
-	// Roles
-	//---------------------------------------------------------------------------
-	protected function getDeleteRole() {
-		return 'ROLE_EDITOR';
 	}
 	
 	//------------------------------------------------------------------------

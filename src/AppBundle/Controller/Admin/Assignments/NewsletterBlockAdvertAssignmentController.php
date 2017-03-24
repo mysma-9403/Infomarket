@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller\Admin\Assignments;
 
+use AppBundle\Controller\Admin\Base\AssignmentController;
 use AppBundle\Controller\Admin\Base\BaseEntityController;
 use AppBundle\Entity\Advert;
 use AppBundle\Entity\NewsletterBlock;
@@ -15,7 +16,7 @@ use AppBundle\Repository\Admin\Main\AdvertRepository;
 use AppBundle\Repository\Admin\Main\NewsletterBlockRepository;
 use Symfony\Component\HttpFoundation\Request;
 
-class NewsletterBlockAdvertAssignmentController extends BaseEntityController {
+class NewsletterBlockAdvertAssignmentController extends AssignmentController {
 	
 	//---------------------------------------------------------------------------
 	// Actions
@@ -131,14 +132,6 @@ class NewsletterBlockAdvertAssignmentController extends BaseEntityController {
 	protected function getFilterManager($doctrine) {
 		return new FilterManager(new NewsletterBlockAdvertAssignmentFilter());
 	}
-	
-	//---------------------------------------------------------------------------
-	// Roles
-	//---------------------------------------------------------------------------
-	protected function getDeleteRole() {
-		return 'ROLE_EDITOR';
-	}
-	
 	//------------------------------------------------------------------------
 	// EntityType related
 	//------------------------------------------------------------------------

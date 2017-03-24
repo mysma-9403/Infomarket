@@ -443,7 +443,7 @@ class ArticleController extends ImageEntityController {
 	}
 	
 	//---------------------------------------------------------------------------
-	// Settings
+	// Roles
 	//---------------------------------------------------------------------------
 	
 	protected function getDeleteRole() {

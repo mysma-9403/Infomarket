@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller\Admin\Assignments;
 
+use AppBundle\Controller\Admin\Base\AssignmentController;
 use AppBundle\Controller\Admin\Base\BaseEntityController;
 use AppBundle\Entity\Article;
 use AppBundle\Entity\ArticleCategoryAssignment;
@@ -15,7 +16,7 @@ use AppBundle\Repository\Admin\Main\ArticleRepository;
 use AppBundle\Repository\Admin\Main\CategoryRepository;
 use Symfony\Component\HttpFoundation\Request;
 
-class ArticleCategoryAssignmentController extends BaseEntityController {
+class ArticleCategoryAssignmentController extends AssignmentController {
 	
 	//---------------------------------------------------------------------------
 	// Actions
@@ -130,13 +131,6 @@ class ArticleCategoryAssignmentController extends BaseEntityController {
 	 */
 	protected function getFilterManager($doctrine) {
 		return new FilterManager(new ArticleCategoryAssignmentFilter());
-	}
-	
-	//---------------------------------------------------------------------------
-	// Roles
-	//---------------------------------------------------------------------------
-	protected function getDeleteRole() {
-		return 'ROLE_EDITOR';
 	}
 	
 	//------------------------------------------------------------------------

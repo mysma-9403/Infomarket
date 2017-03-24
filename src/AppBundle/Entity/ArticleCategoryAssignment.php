@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use AppBundle\Entity\Base\Audit;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 /**
  * ArticleCategoryAssignment
@@ -16,6 +17,20 @@ class ArticleCategoryAssignment extends Audit
 	 */
 	public function getDisplayName() {
 		return $this->category->getDisplayName();
+	}
+	
+	/**
+	 *
+	 * @param ExecutionContextInterface $context
+	 * @param unknown $payload
+	 */
+	public function validate(ExecutionContextInterface $context, $payload)
+	{
+		if ($this->article->getParent()) {
+			$context->buildViolation('articleCategoryAssignment.subarticle')
+			->atPath('article')
+			->addViolation();
+		}
 	}
 	
     /**

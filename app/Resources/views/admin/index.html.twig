@@ -163,7 +163,7 @@
 						</li>
 					</ul>
 				</li>
-				{% if is_granted('ROLE_ADMIN') %}
+				{% if isAdmin %}
 					<li {% if 'newsletter' in mainPath %} class="active" {% endif %} class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
 							<span class="txt-success"></span> {{ 'title.newsletter'|trans }} <span class="caret"></span>
@@ -314,7 +314,7 @@
 								{{ 'title.terms'|trans }}
 							</a>
 						</li>
-						{% if is_granted('ROLE_ADMIN') %}
+						{% if isAdmin %}
 							<li>
 								<a href="{{ path(basePath ~ 'user') }}">
 									{{ 'title.users'|trans }}

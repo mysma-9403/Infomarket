@@ -8,14 +8,15 @@ use AppBundle\Entity\ArticleArticleCategoryAssignment;
 use AppBundle\Entity\ArticleCategory;
 use AppBundle\Filter\Admin\Assignments\ArticleArticleCategoryAssignmentFilter;
 use AppBundle\Form\Editor\Assignments\ArticleArticleCategoryAssignmentEditorType;
+use AppBundle\Form\Filter\Admin\Assignments\ArticleArticleCategoryAssignmentFilterType;
 use AppBundle\Manager\Entity\Common\ArticleArticleCategoryAssignmentManager;
 use AppBundle\Manager\Filter\Base\FilterManager;
 use AppBundle\Repository\Admin\Main\ArticleCategoryRepository;
 use AppBundle\Repository\Admin\Main\ArticleRepository;
 use Symfony\Component\HttpFoundation\Request;
-use AppBundle\Form\Filter\Admin\Assignments\ArticleArticleCategoryAssignmentFilterType;
+use AppBundle\Controller\Admin\Base\AssignmentController;
 
-class ArticleArticleCategoryAssignmentController extends BaseEntityController {
+class ArticleArticleCategoryAssignmentController extends AssignmentController {
 	
 	//---------------------------------------------------------------------------
 	// Actions
@@ -130,13 +131,6 @@ class ArticleArticleCategoryAssignmentController extends BaseEntityController {
 	 */
 	protected function getFilterManager($doctrine) {
 		return new FilterManager(new ArticleArticleCategoryAssignmentFilter());
-	}
-	
-	//---------------------------------------------------------------------------
-	// Roles
-	//---------------------------------------------------------------------------
-	protected function getDeleteRole() {
-		return 'ROLE_EDITOR';
 	}
 	
 	//------------------------------------------------------------------------

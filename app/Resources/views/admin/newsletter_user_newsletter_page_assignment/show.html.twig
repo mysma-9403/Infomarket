@@ -19,16 +19,3 @@
 	{% include 'common/fields/date_field.html.twig' with 
 		{ 'label': 'label.newsletterUserNewsletterPageAssignment.processingTime', 'value': entry.processingTime, format: 'i:s' } %}
 {% endblock %}
-
-{% block mainActions %}
-	{% if is_granted(deleteRole) or (is_granted('ROLE_EDITOR') and '_assignment' in mainPath ) %}
-		<a type="button" class="btn btn-danger" onclick="return confirm('{{ 'confirm.delete'|trans }}')" 
-			href="{{ path(basePath ~ mainPath ~ '_delete', { id: entry.id }) }}">
-    		<i class="fa fa-trash"></i> {{ 'action.delete'|trans }}
-		</a>
-	{% endif %}
-	
-	<a type="button" class="btn btn-primary" href="{{ path(basePath ~ mainPath) }}">
-    	<i class="fa fa-close"></i>{{ 'action.back'|trans }}
-	</a>
-{% endblock %}

@@ -3,7 +3,7 @@
 		<div class="col-xs-6 col-sm-2">
 			<h2>{{ 'label.category.children'|trans }}</h2>
 		</div>
-		{% if is_granted('ROLE_EDITOR') %}
+		{% if canEdit %}
 			<div class="col-xs-6 col-sm-2">
 				<a href="{{ path('admin_menu_entry_new', { parent: entry.id }) }}"
 					class="btn btn-success text-xs-bottom-mm">
@@ -34,13 +34,13 @@
 					{ 'id': subentry.id, 'value': subentry.infoprodukt, 'extPath': '_set_ip_published',
 						'trueTooltip': 'label.published'|trans, 'falseTooltip': 'label.unpublished'|trans } %}
 			</td>
-			{% if is_granted('ROLE_EDITOR') %}
+			{% if canEdit %}
 				<td>
 					<a href="{{ path('admin_menu_entry_edit', { id: subentry.id }) }}" class="btn btn-warning">
 						<span class="fa fa-edit"></span> 
 						{{ 'action.edit'|trans }}
 					</a>
-					{% if is_granted('ROLE_ADMIN') %}
+					{% if canDelete %}
 						<a href="{{ path('admin_menu_entry_delete', { id: subentry.id }) }}" class="btn btn-danger">
 							<span class="fa fa-trash"></span> 
 							{{ 'action.delete'|trans }}
@@ -60,7 +60,7 @@
 		<div class="col-xs-6 col-sm-2">
 			<h2>{{ 'title.menus'|trans }}</h2>
 		</div>
-		{% if is_granted('ROLE_EDITOR') %}
+		{% if canEdit %}
 			<div class="col-xs-6 col-sm-2">
 				<a href="{{ path('admin_menu_menu_entry_assignment_new', { menu_entry: entry.id }) }}"
 					class="btn btn-success text-xs-bottom-mm">
@@ -81,7 +81,7 @@
 					{{ menuMenuEntryAssignment.menu.name }}
 				</a>
 			</td>
-			{% if is_granted('ROLE_EDITOR') %}
+			{% if canEdit %}
 				<td>
 					<a href="{{ path('admin_menu_menu_entry_assignment_edit', { id: menuMenuEntryAssignment.id }) }}" class="btn btn-warning">
 						<span class="fa fa-edit"></span> 
@@ -105,7 +105,7 @@
 		<div class="col-xs-6 col-sm-2">
 			<h2>{{ 'title.branches'|trans }}</h2>
 		</div>
-		{% if is_granted('ROLE_EDITOR') %}
+		{% if canEdit %}
 			<div class="col-xs-6 col-sm-2">
 				<a href="{{ path('admin_menu_entry_branch_assignment_new', { menu_entry: entry.id }) }}"
 					class="btn btn-success text-xs-bottom-mm">
@@ -134,7 +134,7 @@
 					{{ menuEntryBranchAssignment.branch.name }}
 				</a>
 			</td>
-			{% if is_granted('ROLE_EDITOR') %}
+			{% if canEdit %}
 				<td>
 					<a href="{{ path('admin_menu_entry_branch_assignment_edit', { id: menuEntryBranchAssignment.id }) }}" class="btn btn-warning">
 						<span class="fa fa-edit"></span> 
@@ -156,7 +156,7 @@
 		<div class="col-xs-6 col-sm-2">
 			<h2>{{ 'title.categories'|trans }}</h2>
 		</div>
-		{% if is_granted('ROLE_EDITOR') %}
+		{% if canEdit %}
 			<div class="col-xs-6 col-sm-2">
 				<a href="{{ path('admin_menu_entry_category_assignment_new', { menu_entry: entry.id }) }}"
 					class="btn btn-success text-xs-bottom-mm">
@@ -185,7 +185,7 @@
 					{{ menuEntryCategoryAssignment.category.name }}
 				</a>
 			</td>
-			{% if is_granted('ROLE_EDITOR') %}
+			{% if canEdit %}
 				<td>
 					<a href="{{ path('admin_menu_entry_category_assignment_edit', { id: menuEntryCategoryAssignment.id }) }}" class="btn btn-warning">
 						<span class="fa fa-edit"></span> 

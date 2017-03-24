@@ -19,18 +19,17 @@ class ArticleTagAssignment extends Audit
 		return $this->tag->getDisplayName();
 	}
 	
+	/**
+	 *
+	 * @param ExecutionContextInterface $context
+	 * @param unknown $payload
+	 */
 	public function validate(ExecutionContextInterface $context, $payload)
 	{	
-		if ($this->tag == null && $this->newTagName == null) {
-			$context->buildViolation('tag.tagAndNameAreNull')
-			->addViolation()
-			;
-		}
-		
-		if ($this->tag != null && $this->newTagName != null) {
-			$context->buildViolation('tag.tagAndNameAreNotNull')
-			->addViolation()
-			;
+		if ($this->article->getParent()) {
+			$context->buildViolation('articleTagAssignment.subarticle')
+			->atPath('article')
+			->addViolation();
 		}
 	}
 	
@@ -43,11 +42,6 @@ class ArticleTagAssignment extends Audit
      * @var \AppBundle\Entity\Tag
      */
     private $tag;
-    
-    /**
-     * @var string
-     */
-    private $newTagName;
 
     /**
      * Set article
@@ -95,29 +89,5 @@ class ArticleTagAssignment extends Audit
     public function getTag()
     {
         return $this->tag;
-    }
-    
-    /**
-     * Set newTagName
-     *
-     * @param string $newTagName
-     *
-     * @return ArticleTagAssignment
-     */
-    public function setNewTagName($newTagName)
-    {
-    	$this->newTagName = $newTagName;
-    
-    	return $this;
-    }
-    
-    /**
-     * Get newTagName
-     *
-     * @return string
-     */
-    public function getNewTagName()
-    {
-    	return $this->newTagName;
     }
 }

@@ -95,4 +95,24 @@ class MenuController extends SimpleEntityController {
 	protected function getEditorFormType() {
 		return MenuEditorType::class;
 	}
+	
+	//---------------------------------------------------------------------------
+	// Permissions
+	//---------------------------------------------------------------------------
+	
+	protected function canEdit() {
+		return false;
+	}
+	
+	protected function canCreate() {
+		return false;
+	}
+	
+	protected function canCopy() {
+		return false;
+	}
+	
+	protected function canDelete() {
+		return false;
+	}
 }

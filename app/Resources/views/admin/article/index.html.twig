@@ -3,8 +3,6 @@
 {% set mainPath = mainPath|default('article') %}
 {% set title = title|default('title.articles'|trans) %}
 
-{% set deleteRole = deleteRole | default('ROLE_EDITOR') %}
-
 {% block filterMoreFields1 %}
 	<li class="col-xs-12 col-sm-6 col-md-4 col-lg-2">
 		{{ form_widget(filter.articleCategories, { 'label': 'label.articleCategories' }) }}

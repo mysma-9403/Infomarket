@@ -6,8 +6,4 @@ AppBundle\Entity\ArticleTagAssignment:
             ignoreNull: false
             message: 'articleTagAssignment.unique'
         - Callback: validate
-    properties:
-        newTagName:
-            - AppBundle\Validator\Constraints\IsArticleTagAssignmentUnique: 
-                message: tag.alreadyExists
                 

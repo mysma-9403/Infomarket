@@ -3,7 +3,7 @@
 		<div class="col-xs-6 col-sm-2">
 			<h2>{{ 'title.branches'|trans }}</h2>
 		</div>
-		{% if is_granted('ROLE_EDITOR') %}
+		{% if canEdit %}
 			<div class="col-xs-6 col-sm-2">
 				<a href="{{ path('admin_magazine_branch_assignment_new', { magazine: entry.id }) }}"
 					class="btn btn-success text-xs-bottom-mm">
@@ -32,7 +32,7 @@
 					{{ magazineBranchAssignment.branch.name }}
 				</a>
 			</td>
-			{% if is_granted('ROLE_EDITOR') %}
+			{% if canEdit %}
 				<td>
 					<a href="{{ path('admin_magazine_branch_assignment_edit', { id: magazineBranchAssignment.id }) }}" class="btn btn-warning">
 						<span class="fa fa-edit"></span> 
@@ -54,7 +54,7 @@
 		<div class="col-xs-6 col-sm-2">
 			<h2>{{ 'title.categories'|trans }}</h2>
 		</div>
-		{% if is_granted('ROLE_EDITOR') %}
+		{% if canEdit %}
 			<div class="col-xs-6 col-sm-2">
 				<a href="{{ path('admin_magazine_category_assignment_new', { magazine: entry.id }) }}"
 					class="btn btn-success text-xs-bottom-mm">
@@ -83,7 +83,7 @@
 					{{ magazineCategoryAssignment.category.name }}
 				</a>
 			</td>
-			{% if is_granted('ROLE_EDITOR') %}
+			{% if canEdit %}
 				<td>
 					<a href="{{ path('admin_magazine_category_assignment_edit', { id: magazineCategoryAssignment.id }) }}" class="btn btn-warning">
 						<span class="fa fa-edit"></span> 

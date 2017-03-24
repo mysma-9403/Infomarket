@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use AppBundle\Entity\Base\Audit;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 /**
  * ArticleBrandAssignment
@@ -16,6 +17,20 @@ class ArticleBrandAssignment extends Audit
 	 */
 	public function getDisplayName() {
 		return $this->brand->getDisplayName();
+	}
+	
+	/**
+	 *
+	 * @param ExecutionContextInterface $context
+	 * @param unknown $payload
+	 */
+	public function validate(ExecutionContextInterface $context, $payload)
+	{
+		if ($this->article->getParent()) {
+			$context->buildViolation('articleBrandAssignment.subarticle')
+			->atPath('article')
+			->addViolation();
+		}
 	}
 	
     /**

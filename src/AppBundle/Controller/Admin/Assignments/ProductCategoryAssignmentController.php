@@ -17,8 +17,9 @@ use AppBundle\Utils\StringUtils;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Entity\Brand;
 use AppBundle\Entity\Segment;
+use AppBundle\Controller\Admin\Base\AssignmentController;
 
-class ProductCategoryAssignmentController extends BaseEntityController {
+class ProductCategoryAssignmentController extends AssignmentController {
 	
 	//---------------------------------------------------------------------------
 	// Actions
@@ -191,13 +192,6 @@ class ProductCategoryAssignmentController extends BaseEntityController {
 	 */
 	protected function getFilterManager($doctrine) {
 		return new FilterManager(new ProductCategoryAssignmentFilter());
-	}
-	
-	//---------------------------------------------------------------------------
-	// Roles
-	//---------------------------------------------------------------------------
-	protected function getDeleteRole() {
-		return 'ROLE_EDITOR';
 	}
 	
 	//---------------------------------------------------------------------------

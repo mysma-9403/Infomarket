@@ -1248,6 +1248,10 @@
                 <source>label.category.preleaf</source>
                 <target>Główna</target>
             </trans-unit>
+            <trans-unit id="label.category.notPreleaf">
+                <source>label.category.notPreleaf</source>
+                <target>Zwykła</target>
+            </trans-unit>
             <trans-unit id="label.category.children">
                 <source>label.category.children</source>
                 <target>Podkategorie</target>

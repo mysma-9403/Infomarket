@@ -13,15 +13,11 @@
 {% endblock %}
 
 	
-{% block simpleHeaderMoreActions %}
-	{% set hidden='hidden' %}
+{% block simpleMainMoreActions %}
+
 	{% if is_granted('ROLE_RATING_EDITOR') %}
-		{% set hidden="" %}
-	{% endif %}
-		
-	{% set confirm = 'return confirm("' ~ 'confirm.deleteUnused'|trans ~ '")' %}
-	<li>
-		<div class="{{ hidden }}">
+		{% set confirm = 'return confirm("' ~ 'confirm.deleteUnused'|trans ~ '")' %}
+		<li>
 			<a type="button" class="btn btn-danger" onclick="{{ confirm }}"
 				href="{{ path(basePath ~ mainPath ~ '_delete_unused') }}">
 				<i class="fa fa-trash"></i> {{ 'action.product.deleteUnused'|trans }}
@@ -30,8 +26,9 @@
 				href="{{ path(basePath ~ mainPath ~ '_get_top_products') }}">
 				<i class="fa fa-file-text-o"></i> {{ 'action.product.getTopProducts'|trans }}
 			</a>
-		</div>
-	</li>
+		</li>
+	{% endif %}
+	
 {% endblock %}
 
 {% block headerMainFields2 %}

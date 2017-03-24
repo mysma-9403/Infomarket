@@ -64,12 +64,4 @@ abstract class BaseEntityController extends AdminController
 	protected function getListFormType() {
 		return BaseEntityListType::class;
 	}
-	
-	//---------------------------------------------------------------------------
-	// Roles
-	//---------------------------------------------------------------------------
-	
-	protected function getDeleteRole() {
-		return 'ROLE_EDITOR';
-	}
 }

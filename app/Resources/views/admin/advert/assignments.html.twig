@@ -3,7 +3,7 @@
 		<div class="col-xs-6 col-sm-2">
 			<h2>{{ 'title.categories'|trans }}</h2>
 		</div>
-		{% if is_granted('ROLE_EDITOR') %}
+		{% if canEdit %}
 			<div class="col-xs-6 col-sm-2">
 				<a href="{{ path('admin_advert_category_assignment_new', { advert: entry.id }) }}"
 					class="btn btn-success text-xs-bottom-mm">
@@ -24,7 +24,7 @@
 					{{ advertCategoryAssignment.category.name }}
 				</a>
 			</td>
-			{% if is_granted('ROLE_EDITOR') %}
+			{% if canEdit %}
 				<td>
 					<a href="{{ path('admin_advert_category_assignment_edit', { id: advertCategoryAssignment.id }) }}" class="btn btn-warning">
 						<span class="fa fa-edit"></span> 

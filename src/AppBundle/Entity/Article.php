@@ -57,6 +57,44 @@ class Article extends ImageEntity
 				->addViolation();
         }
         
+        if ($this->parent) {
+        	
+        	if ($this->parent->parent) {
+        		$context->buildViolation('article.subarticle')
+        		->atPath('parent')
+        		->addViolation();
+        	}
+        	
+        	if(count($this->articleArticleCategoryAssignments) > 0) {
+	        	$context->buildViolation('subarticle.articleArticleCategoryAssignmentNotEmpty')
+	        	->atPath('parent')
+	        	->addViolation();
+        	}
+        	
+        	if(count($this->articleCategoryAssignments) > 0) {
+        		$context->buildViolation('subarticle.articleCategoryAssignmentNotEmpty')
+        		->atPath('parent')
+        		->addViolation();
+        	}
+        	
+        	if(count($this->articleBrandAssignments) > 0) {
+        		$context->buildViolation('subarticle.articleBrandAssignmentNotEmpty')
+        		->atPath('parent')
+        		->addViolation();
+        	}
+        	
+        	if(count($this->articleTagAssignments) > 0) {
+        		$context->buildViolation('subarticle.articleTagAssignmentNotEmpty')
+        		->atPath('parent')
+        		->addViolation();
+        	}
+        	
+        	if(count($this->children) > 0) {
+        		$context->buildViolation('subarticle.subarticleNotEmpty')
+        		->atPath('parent')
+        		->addViolation();
+        	}
+        }
 	}
 	
     /**

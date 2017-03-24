@@ -1,5 +1,5 @@
 <li class="tree-node">
-	{% if is_granted('ROLE_EDITOR') %}
+	{% if canEdit %}
 		<a href="{{ path('admin_' ~ mainPath ~ '_new', { parent: entry.id }) }}">
 			<span class="fa fa-file-o"></span>
 		</a>
@@ -32,7 +32,7 @@
 			
 	{% include 'common/fields/bool_action_field.html.twig' with 
 		{ 'id': entry.id, 'value': entry.preleaf, 'extPath': '_set_preleaf',
-			'trueTooltip': 'label.preleaf'|trans, 'falseTooltip': 'label.other'|trans,
+			'trueTooltip': 'label.category.preleaf'|trans, 'falseTooltip': 'label.category.notPreleaf'|trans,
 			'trueIcon': 'fa-leaf text-green', 'falseIcon': 'fa-leaf text-red' } %}
 			
 	<span class="horizontal-break"></span>

@@ -2,20 +2,21 @@
 
 namespace AppBundle\Controller\Admin\Assignments;
 
+use AppBundle\Controller\Admin\Base\AssignmentController;
 use AppBundle\Controller\Admin\Base\BaseEntityController;
 use AppBundle\Entity\Article;
 use AppBundle\Entity\ArticleBrandAssignment;
 use AppBundle\Entity\Brand;
 use AppBundle\Filter\Admin\Assignments\ArticleBrandAssignmentFilter;
 use AppBundle\Form\Editor\Assignments\ArticleBrandAssignmentEditorType;
+use AppBundle\Form\Filter\Admin\Assignments\ArticleBrandAssignmentFilterType;
 use AppBundle\Manager\Entity\Common\ArticleBrandAssignmentManager;
 use AppBundle\Manager\Filter\Base\FilterManager;
 use AppBundle\Repository\Admin\Main\ArticleRepository;
 use AppBundle\Repository\Admin\Main\BrandRepository;
 use Symfony\Component\HttpFoundation\Request;
-use AppBundle\Form\Filter\Admin\Assignments\ArticleBrandAssignmentFilterType;
 
-class ArticleBrandAssignmentController extends BaseEntityController {
+class ArticleBrandAssignmentController extends AssignmentController {
 	
 	//---------------------------------------------------------------------------
 	// Actions
@@ -130,13 +131,6 @@ class ArticleBrandAssignmentController extends BaseEntityController {
 	 */
 	protected function getFilterManager($doctrine) {
 		return new FilterManager(new ArticleBrandAssignmentFilter());
-	}
-	
-	//---------------------------------------------------------------------------
-	// Roles
-	//---------------------------------------------------------------------------
-	protected function getDeleteRole() {
-		return 'ROLE_EDITOR';
 	}
 	
 	//------------------------------------------------------------------------

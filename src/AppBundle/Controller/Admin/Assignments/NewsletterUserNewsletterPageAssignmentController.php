@@ -13,8 +13,9 @@ use AppBundle\Manager\Filter\Base\FilterManager;
 use AppBundle\Repository\Admin\Main\NewsletterPageRepository;
 use AppBundle\Repository\Admin\Main\NewsletterUserRepository;
 use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Controller\Admin\Base\AssignmentController;
 
-class NewsletterUserNewsletterPageAssignmentController extends BaseEntityController {
+class NewsletterUserNewsletterPageAssignmentController extends AssignmentController {
 	
 	//---------------------------------------------------------------------------
 	// Actions

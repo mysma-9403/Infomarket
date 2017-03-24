@@ -25,7 +25,8 @@
 	<th><i class="fa fa-check"></i> {{ 'label.infoprodukt'|trans }}</th>
 {% endblock %}
 
-{% block baseHeaderMoreActions %}
+{% block baseMainMoreActions %}
+	{% set hidden = canEdit ? "" : "hidden" %}
 	<li>
 		<div class="btn-group {{ hidden }}">
 			{{ form_widget(form.imPublishSelected, { 'icon': 'fa-check-square-o', 'label': 'action.imPublishSelected', 'attr': {'class': 'btn btn-primary', 'type': 'button'} }) }}
@@ -39,7 +40,7 @@
 		</div>
 	</li>
 	
-	{% block simpleHeaderMoreActions %}
+	{% block simpleMainMoreActions %}
 	{% endblock %}
 {% endblock %}
 

@@ -65,6 +65,19 @@ category.usedIn.branchCategoryAssignments: Kategoria jest powiązana z niektóry
 
 product.usedIn.productCategoryAssignments: Produkt występuje w niekótrych ratingach produktów. Usunięcie produktu spowoduje usunięcie tych wpisów. 
 
+# Subarticles
+articleArticleCategoryAssignment.subarticle: Nie można przypisać kategorii artykułów do podartykułu.
+articleCategoryAssignment.subarticle: Nie można przypisać kategorii do podartykułu.
+articleBrandAssignment.subarticle: Nie można przypisać marki do podartykułu.
+articleTagAssignment.subarticle: Nie można przypisać tagu do podartykułu.
+article.subarticle: Nie można przypisać artykułu do podartykułu.
+
+subarticle.articleArticleCategoryAssignmentNotEmpty: Artykuł nie może zostać podartykułem. Usuń najpierw przypisane kategorie artykułów.
+subarticle.articleCategoryAssignmentNotEmpty: Artykuł nie może zostać podartykułem. Usuń najpierw przypisane kategorie.
+subarticle.articleBrandAssignmentNotEmpty: Artykuł nie może zostać podartykułem. Usuń najpierw przypisane marki.
+subarticle.articleTagAssignmentNotEmpty: Artykuł nie może zostać podartykułem. Usuń najpierw przypisane tagi.
+subarticle.subarticleNotEmpty: Artykuł nie może zostać podartykułem. Usuń najpierw przypisane podartykuły.
+
 # Others
 tag.tagAndNameAreNull: Jedno z pól - 'Tag', 'Nowy tag' - nie może być puste. 
 tag.tagAndNameAreNotNull: Jedno z pól - 'Tag', 'Nowy tag' - musi być puste.

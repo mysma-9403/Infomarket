@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller\Admin\Assignments;
 
+use AppBundle\Controller\Admin\Base\AssignmentController;
 use AppBundle\Controller\Admin\Base\BaseEntityController;
 use AppBundle\Entity\NewsletterGroup;
 use AppBundle\Entity\NewsletterUser;
@@ -15,7 +16,7 @@ use AppBundle\Repository\Admin\Main\NewsletterGroupRepository;
 use AppBundle\Repository\Admin\Main\NewsletterUserRepository;
 use Symfony\Component\HttpFoundation\Request;
 
-class NewsletterUserNewsletterGroupAssignmentController extends BaseEntityController {
+class NewsletterUserNewsletterGroupAssignmentController extends AssignmentController {
 	
 	//---------------------------------------------------------------------------
 	// Actions
@@ -130,13 +131,6 @@ class NewsletterUserNewsletterGroupAssignmentController extends BaseEntityContro
 	 */
 	protected function getFilterManager($doctrine) {
 		return new FilterManager(new NewsletterUserNewsletterGroupAssignmentFilter());
-	}
-	
-	//---------------------------------------------------------------------------
-	// Roles
-	//---------------------------------------------------------------------------
-	protected function getDeleteRole() {
-		return 'ROLE_EDITOR';
 	}
 	
 	//------------------------------------------------------------------------

@@ -5,4 +5,4 @@ AppBundle\Entity\ArticleArticleCategoryAssignment:
             errorPath: articleCategory
             ignoreNull: false
             message: 'articleArticleCategoryAssignment.unique'
-                
+        - Callback: validate

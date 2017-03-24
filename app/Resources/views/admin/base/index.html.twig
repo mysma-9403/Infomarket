@@ -1,15 +1,9 @@
 {% extends 'admin/list.html.twig' %}
 
-{% set deleteRole = deleteRole | default('ROLE_ADMIN') %}
-
-
 {# Filter section #}
 {% block filterMainFields3 %}
 
-    {% set hidden = "hidden" %}
-    {% if is_granted('ROLE_ADMIN') %}
-    	{% set hidden = "" %}
-    {% endif %}
+    {% set hidden = isAdmin ? "" : "hidden" %}
     
 	<li class="col-xs-12 col-sm-6 col-md-4 col-lg-2 {{ hidden }}">
 		<div class='input-group date' id='datetimepicker3'>
@@ -63,32 +57,19 @@
 	</li>
 {% endblock %}
 
-	    	
 
 
-{# Header section #}	
-{% block headerMainFields3 %}
-	{% if is_granted('ROLE_ADMIN') %}
-		<th><i class="fa fa-calendar-o"></i> {{ 'label.updatedAt'|trans }}</th>
-		<th><i class="fa fa-user"></i> {{ 'label.updatedBy'|trans }}</th>
-		<th><i class="fa fa-calendar-plus-o"></i> {{ 'label.createdAt'|trans }}</th>
-		<th><i class="fa fa-user"></i> {{ 'label.createdBy'|trans }}</th>
+{% block mainActions %}
+	
+	{% if canCreate %}
+		<li>
+			<a type="button" class="btn btn-sm btn-success" href="{{ path(basePath ~ mainPath ~ '_new') }}">
+				<i class="fa fa-plus"></i> {{ 'action.new'|trans }}
+			</a>
+		</li>
 	{% endif %}
 	
-	<th><i class="fa fa-play"></i> {{ 'label.actions'|trans }}</th>
-{% endblock %}
-
-{% block headerActions %}
-	{% set hidden="hidden" %}
-	{% if is_granted('ROLE_EDITOR') %}
-		{% set hidden="" %}
-	{% endif %}
-	
-	<li class="{{ hidden }}">
-		<a type="button" class="btn btn-sm btn-success" href="{{ path(basePath ~ mainPath ~ '_new') }}">
-			<i class="fa fa-plus"></i> {{ 'action.new'|trans }}
-		</a>
-	</li>
+	{% set hidden = canEdit ? "" : "hidden" %}
 	<li>
 		<div class="btn-group {{ hidden }}">
 			{{ form_widget(form.selectAll, { 'icon': 'fa-check-square-o', 'label': 'action.selectAll', 'attr': {'class': 'btn btn-primary', 'type': 'button'} }) }}
@@ -96,10 +77,7 @@
 		</div>
 	</li>
 	
-	{% set hidden='hidden' %}
-	{% if is_granted(deleteRole) or (is_granted('ROLE_EDITOR') and '_assignment' in mainPath ) %}
-		{% set hidden="" %}
-	{% endif %}
+	{% set hidden = canDelete ? "" : "hidden" %}
 		
 	{% set confirm = 'return confirm("' ~ 'confirm.deleteSelected'|trans ~ '")' %}
 	<li>
@@ -108,16 +86,29 @@
 		</div>
 	</li>
 	
-	{% block baseHeaderMoreActions %}
+	{% block baseMainMoreActions %}
 	{% endblock %}
 {% endblock %}
+	    	
 
 
+{# Header section #}	
+{% block headerMainFields3 %}
+	{% if isAdmin %}
+		<th><i class="fa fa-calendar-o"></i> {{ 'label.updatedAt'|trans }}</th>
+		<th><i class="fa fa-user"></i> {{ 'label.updatedBy'|trans }}</th>
+		<th><i class="fa fa-calendar-plus-o"></i> {{ 'label.createdAt'|trans }}</th>
+		<th><i class="fa fa-user"></i> {{ 'label.createdBy'|trans }}</th>
+	{% endif %}
+{% endblock %}
 
+{% block headerActions %}
+	<th><i class="fa fa-play"></i> {{ 'label.actions'|trans }}</th>
+{% endblock %}
 
 {# Entry section #}
 {% block entryMainFields3 %}	
-	{% if is_granted('ROLE_ADMIN') %}
+	{% if isAdmin %}
 		<td>
 			{% if item.updatedAt > date("01-01-1900") %}
 	    		{{ item.updatedAt|date('d.m.Y H:i:s') }}
@@ -144,18 +135,17 @@
 			<i class="fa fa-eye"></i> {{ 'action.show'|trans }}
 		</a>
 		
-		{% if is_granted('ROLE_EDITOR') %}
-			<div class="btn-group">
-				<a type="button" class="btn btn-sm btn-success" href="{{ path('admin_' ~ mainPath ~ '_edit', { id: item.id }) }}">
-					<i class="fa fa-edit"></i> {{ 'action.edit'|trans }}
-				</a>
-				<a type="button" class="btn btn-sm btn-warning" href="{{ path('admin_' ~ mainPath ~ '_copy', { id: item.id }) }}">
-					<i class="fa fa-copy"></i> {{ 'action.copy'|trans }}
-				</a>
-			</div>
+		{% if canEdit %}
+			<a type="button" class="btn btn-sm btn-success" href="{{ path('admin_' ~ mainPath ~ '_edit', { id: item.id }) }}">
+				<i class="fa fa-edit"></i> {{ 'action.edit'|trans }}
+			</a>
 		{% endif %}
-		
-		{% if is_granted(deleteRole) or (is_granted('ROLE_EDITOR') and '_assignment' in mainPath ) %}
+		{% if canCopy %}
+			<a type="button" class="btn btn-sm btn-warning" href="{{ path('admin_' ~ mainPath ~ '_copy', { id: item.id }) }}">
+				<i class="fa fa-copy"></i> {{ 'action.copy'|trans }}
+			</a>
+		{% endif %}
+		{% if canDelete %}
 			<a type="button" class="btn btn-sm btn-danger" onclick="return confirm('{{ 'confirm.delete'|trans }}')"
 				href="{{ path('admin_' ~ mainPath ~ '_delete', { id: item.id }) }}">
 				<i class="fa fa-trash"></i> {{ 'action.delete'|trans }}

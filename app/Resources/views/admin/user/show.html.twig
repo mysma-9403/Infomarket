@@ -35,17 +35,3 @@
             
 {% block auditFields %}
 {% endblock %}
-
-{% block mainActions %}
-    {% if entry.id %}
-		{% if is_granted('ROLE_SUPER_ADMIN') %}
-			<a type="button" class="btn btn-danger" onclick="return confirm('{{ 'confirm.delete'|trans }}')" 
-				href="{{ path(basePath ~ mainPath ~ '_delete', { id: entry.id }) }}">
-	    		<i class="fa fa-trash"></i> {{ 'action.delete'|trans }}
-			</a>
-		{% endif %}
-    {% endif %}
-	<a type="button" class="btn btn-primary" href="{{ path(basePath ~ mainPath) }}">
-    	<i class="fa fa-close"></i> {{ 'action.back'|trans }}
-	</a>
-{% endblock %}

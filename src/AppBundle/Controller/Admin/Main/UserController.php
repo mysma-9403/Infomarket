@@ -2,9 +2,8 @@
 
 namespace AppBundle\Controller\Admin\Main;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-
-use AppBundle\Controller\Admin\Base\SimpleEntityController;
+use AppBundle\Controller\Admin\Base\AdminController;
+use AppBundle\Entity\Lists\Base\BaseEntityList;
 use AppBundle\Entity\User;
 use AppBundle\Filter\Admin\Main\UserFilter;
 use AppBundle\Form\Editor\Main\UserEditorType;
@@ -15,11 +14,8 @@ use AppBundle\Manager\Entity\Common\UserManager;
 use AppBundle\Manager\Filter\Base\FilterManager;
 use AppBundle\Manager\Params\EntryParams\Admin\UserEntryParamsManager;
 use Symfony\Component\HttpFoundation\Request;
-use AppBundle\Controller\Admin\Base\AdminController as BaseAdminController; //TODO change AdminController to HomeController
 
-use AppBundle\Entity\Lists\Base\BaseEntityList;
-
-class UserController extends BaseAdminController
+class UserController extends AdminController
 {
 	//---------------------------------------------------------------------------
 	// Actions
@@ -166,6 +162,17 @@ class UserController extends BaseAdminController
 		$params = $em->getSettingsParams($request, $params);
 		
 		return $params;
+	}
+	
+	//---------------------------------------------------------------------------
+	// Permissions
+	//---------------------------------------------------------------------------
+	protected function canCreate() {
+		return false;
+	}
+	
+	protected function canCopy() {
+		return false;
 	}
 	
 	//---------------------------------------------------------------------------

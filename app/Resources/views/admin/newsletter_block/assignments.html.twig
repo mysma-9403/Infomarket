@@ -3,7 +3,7 @@
 		<div class="col-xs-6 col-sm-2">
 			<h2>{{ 'title.adverts'|trans }}</h2>
 		</div>
-		{% if is_granted('ROLE_EDITOR') %}
+		{% if canEdit %}
 			<div class="col-xs-6 col-sm-2">
 				<a href="{{ path('admin_newsletter_block_advert_assignment_new', { newsletter_block: entry.id }) }}"
 					class="btn btn-success text-xs-bottom-mm">
@@ -33,7 +33,7 @@
 					{{ advert.name }}
 				</a>
 			</td>
-			{% if is_granted('ROLE_EDITOR') %}
+			{% if canEdit %}
 				<td>
 					<a href="{{ path('admin_newsletter_block_advert_assignment_edit', { id: newsletterBlockAdvertAssignment.id }) }}" class="btn btn-warning">
 						<span class="fa fa-edit"></span> 
@@ -60,7 +60,7 @@
 		<div class="col-xs-6 col-sm-2">
 			<h2>{{ 'title.articles'|trans }}</h2>
 		</div>
-		{% if is_granted('ROLE_EDITOR') %}
+		{% if canEdit %}
 			<div class="col-xs-6 col-sm-2">
 				<a href="{{ path('admin_newsletter_block_article_assignment_new', { newsletter_block: entry.id }) }}"
 					class="btn btn-success text-xs-bottom-mm">
@@ -90,7 +90,7 @@
 					{{ article.name }}
 				</a>
 			</td>
-			{% if is_granted('ROLE_EDITOR') %}
+			{% if canEdit %}
 				<td>
 					<a href="{{ path('admin_newsletter_block_article_assignment_edit', { id: newsletterBlockArticleAssignment.id }) }}" class="btn btn-warning">
 						<span class="fa fa-edit"></span> 
@@ -116,7 +116,7 @@
 		<div class="col-xs-6 col-sm-2">
 			<h2>{{ 'title.magazines'|trans }}</h2>
 		</div>
-		{% if is_granted('ROLE_EDITOR') %}
+		{% if canEdit %}
 			<div class="col-xs-6 col-sm-2">
 				<a href="{{ path('admin_newsletter_block_magazine_assignment_new', { newsletter_block: entry.id }) }}"
 					class="btn btn-success text-xs-bottom-mm">
@@ -146,7 +146,7 @@
 					{{ magazine.name }}
 				</a>
 			</td>
-			{% if is_granted('ROLE_EDITOR') %}
+			{% if canEdit %}
 				<td>
 					<a href="{{ path('admin_newsletter_block_magazine_assignment_edit', { id: newsletterBlockMagazineAssignment.id }) }}" class="btn btn-warning">
 						<span class="fa fa-edit"></span> 

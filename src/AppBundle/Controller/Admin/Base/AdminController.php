@@ -43,7 +43,7 @@ abstract class AdminController extends StandardController {
 	 */
 	protected function newActionInternal(Request $request)
 	{
-		$this->denyAccessUnlessGranted($this->getNewRole(), null, 'Unable to access this page!');
+		$this->denyAccessUnlessGranted($this->getCreateRole(), null, 'Unable to access this page!');
 	
 		$params = $this->createParams($this->getNewRoute());
 		$params = $this->getNewParams($request, $params);
@@ -286,6 +286,22 @@ abstract class AdminController extends StandardController {
 	//---------------------------------------------------------------------------
 	// Params
 	//---------------------------------------------------------------------------
+	protected function getParams(Request $request, array $params) {
+		$params = parent::getParams($request, $params);
+		
+		$viewParams = $params['viewParams'];
+		
+		$viewParams['canEdit'] = $this->canEdit();
+		$viewParams['canCreate'] = $this->canCreate();
+		$viewParams['canCopy'] = $this->canCopy();
+		$viewParams['canDelete'] = $this->canDelete();
+		$viewParams['isAdmin'] = $this->isAdmin();
+		
+		$params['viewParams'] = $viewParams;
+	
+		return $params;
+	}
+	
 	protected function getNewParams(Request $request, array $params) {
 		$params = $this->getParams($request, $params);
 
@@ -448,6 +464,30 @@ abstract class AdminController extends StandardController {
 	abstract protected function getListFormType();
 	
 	//---------------------------------------------------------------------------
+	// Permissions
+	//---------------------------------------------------------------------------
+	
+	protected function canEdit() {
+		return $this->isGranted($this->getEditRole());
+	}
+	
+	protected function canCreate() {
+		return $this->isGranted($this->getCreateRole());
+	}
+	
+	protected function canCopy() {
+		return $this->isGranted($this->getCopyRole());
+	}
+	
+	protected function canDelete() {
+		return $this->isGranted($this->getDeleteRole());
+	}
+	
+	protected function isAdmin() {
+		return $this->isGranted($this->getAdminRole());
+	}
+	
+	//---------------------------------------------------------------------------
 	// Roles
 	//---------------------------------------------------------------------------
 	
@@ -459,15 +499,19 @@ abstract class AdminController extends StandardController {
 		return 'ROLE_EDITOR';
 	}
 	
-	protected function getNewRole() {
+	protected function getCreateRole() {
 		return $this->getEditRole();
 	}
 	
 	protected function getCopyRole() {
-		return $this->getNewRole();
+		return $this->getCreateRole();
 	}
 	
 	protected function getDeleteRole() {
+		return 'ROLE_ADMIN';
+	}
+	
+	protected function getAdminRole() {
 		return 'ROLE_ADMIN';
 	}
 	

@@ -5,7 +5,6 @@ namespace AppBundle\Entity;
 use AppBundle\Entity\Base\Image;
 use AppBundle\Entity\Base\ImageEntity;
 use AppBundle\Utils\StringUtils;
-use Intervention\Image\Exception\NotSupportedException;
 
 /**
  * Product

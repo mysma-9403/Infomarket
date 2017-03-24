@@ -26,11 +26,11 @@ class ImageEntityEditorType extends SimpleEntityEditorType
 			))
 			->add('forcedWidth', NumberType::class, array(
 					'required' => false,
-					'attr' => ['placeholder' => 'label.forcedWidth']
+					'attr' => ['placeholder' => 'label.image.forcedWidth']
 			))
 			->add('forcedHeight', NumberType::class, array(
 					'required' => false,
-					'attr' => ['placeholder' => 'label.forcedHeight']
+					'attr' => ['placeholder' => 'label.image.forcedHeight']
 			))
 		;
 	}

@@ -298,7 +298,7 @@ admin_register:
     
 admin:
     path:      /admin/
-    defaults:  { _controller: "AppBundle:Admin/Main/Admin:index" }
+    defaults:  { _controller: "AppBundle:Admin/Main/Home:index" }
 
 # Admin Adverts Routing    
 admin_advert_show:
