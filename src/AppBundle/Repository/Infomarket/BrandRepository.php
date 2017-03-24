@@ -9,6 +9,9 @@ use AppBundle\Entity\BrandCategoryAssignment;
 use Doctrine\ORM\Query\Expr\Join;
 use AppBundle\Entity\ArticleBrandAssignment;
 use AppBundle\Filter\Base\Filter;
+use AppBundle\Entity\Product;
+use AppBundle\Entity\ProductCategoryAssignment;
+use AppBundle\Entity\Category;
 
 class BrandRepository extends BaseRepository
 {	
@@ -70,6 +73,34 @@ class BrandRepository extends BaseRepository
 	
 		$builder->where($where);
 		
+		$builder->orderBy('e.name');
+	
+		return $builder->getQuery();
+	}
+	
+	public function findRecommendedItems($categoryId) {
+		return $this->queryRecommendedItems($categoryId)->getScalarResult();
+	}
+	
+	protected function queryRecommendedItems($categoryId) {
+		$builder = new QueryBuilder($this->getEntityManager());
+	
+		$expr = $builder->expr();
+	
+		$builder->select('e.id, e.name, e.image, e.forcedWidth, e.forcedHeight, e.vertical, e.mimeType');
+		$builder->distinct();
+		$builder->from($this->getEntityType(), "e");
+	
+		$builder->innerJoin(Product::class, 'p', Join::WITH, 'e.id = p.brand');
+		$builder->innerJoin(ProductCategoryAssignment::class, 'pca', Join::WITH, 'p.id = pca.product');
+		$builder->innerJoin(Category::class, 'c', Join::WITH, 'c.id = pca.category');
+	
+		$where = $expr->andX();
+		$where->add($expr->eq('e.infomarket', 1));
+		$where->add($expr->like('c.treePath', $expr->literal('%-' . $categoryId . '#%')));
+	
+		$builder->where($where);
+	
 		$builder->orderBy('e.name');
 	
 		return $builder->getQuery();
