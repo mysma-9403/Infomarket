@@ -1,4 +1,4 @@
-{% extends 'admin/image/show.html.twig' %}
+{% extends 'admin/featured/show.html.twig' %}
 
 {% set title = 'title.articles'|trans %}
 {% set mainPath = 'article' %}
@@ -13,10 +13,6 @@
 {% endblock %}
 
 {% block moreFields3 %}
-	{% include 'common/fields/bool_field.html.twig' with 
-	{ 'label': ('label.' ~ gender ~ 'featured')|trans, 'value': entry.featured } %}
-	
-	
 	
 	<div class="lowered-25"></div>
 	

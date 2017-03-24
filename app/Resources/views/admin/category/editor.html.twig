@@ -1,4 +1,4 @@
-{% extends 'admin/image/editor.html.twig' %}
+{% extends 'admin/featured/editor.html.twig' %}
 
 {% set mainPath = 'category' %}
 {% set title = 'title.categories'|trans %}
@@ -23,7 +23,6 @@
 {% endblock %}
 
 {% block moreFields3 %}
-	{{ form_row(form.featured, { 'label': 'label.fm.featured' }) }}
 	{{ form_row(form.preleaf, { 'label': 'label.category.preleaf' }) }}
 	{{ form_row(form.benchmark, { 'label': 'label.category.benchmark' }) }}
 	

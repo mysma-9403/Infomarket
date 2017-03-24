@@ -1,0 +1,5 @@
+{% extends 'admin/image/editor.html.twig' %}
+
+{% block imageMainFields2More %}
+	{{ form_row(form.featured, { 'label': 'label.' ~ gender ~ 'featured' }) }}
+{% endblock %}

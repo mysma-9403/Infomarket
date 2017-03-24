@@ -25,11 +25,9 @@
     {{ form_row(form.forcedWidth, { 'label': 'label.image.forcedWidth' }) }}
 	{{ form_row(form.forcedHeight, { 'label': 'label.image.forcedHeight' }) }}
     
-    {# TODO remove in 2nd refactoring #}
-    <div class="hidden">
-    {{ form_row(form.published, { 'label': 'label.' ~ gender ~ 'published' }) }}
-    </div>
-    
     {{ form_row(form.infomarket, { 'label': 'label.infomarket' }) }}
     {{ form_row(form.infoprodukt, { 'label': 'label.infoprodukt' }) }}
+    
+    {% block imageMainFields2More %}
+	{% endblock %}
 {% endblock %}

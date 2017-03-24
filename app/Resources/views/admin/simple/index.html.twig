@@ -17,12 +17,18 @@
 	<li class="col-xs-12 col-sm-6 col-md-4 col-lg-2">
 		{{ form_widget(filter.infoprodukt, { 'label': 'label.infoprodukt' }) }}
 	</li>
+	
+	{% block simpleFilterMainFields2More %}
+	{% endblock %}
 {% endblock %}
 
 {# Header section #}
 {% block headerMainFields2 %}
 	<th><i class="fa fa-check"></i> {{ 'label.infomarket'|trans }}</th>
 	<th><i class="fa fa-check"></i> {{ 'label.infoprodukt'|trans }}</th>
+	
+	{% block simpleHeaderMainFields2More %}
+	{% endblock %}
 {% endblock %}
 
 {% block baseMainMoreActions %}
@@ -56,4 +62,7 @@
 			{ 'id': item.id, 'value': item.infoprodukt, 'extPath': '_set_ip_published',
 				'trueTooltip': 'label.published'|trans, 'falseTooltip': 'label.unpublished'|trans } %}
 	</td>
+	
+	{% block simpleEntryMainFields2More %}
+	{% endblock %}
 {% endblock %}

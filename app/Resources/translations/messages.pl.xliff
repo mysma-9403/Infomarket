@@ -1908,6 +1908,14 @@
                 <source>action.ipUnpublishSelected</source>
                 <target>Nie publikuj zaznaczonych (IP)</target>
             </trans-unit>
+            <trans-unit id="action.setFeaturedSelected">
+                <source>action.setFeaturedSelected</source>
+                <target>Wyróżnij zaznaczone</target>
+            </trans-unit>
+            <trans-unit id="action.setNotFeaturedSelected">
+                <source>action.setNotFeaturedSelected</source>
+                <target>Nie wyróżniaj zaznaczonych</target>
+            </trans-unit>
             
             
             

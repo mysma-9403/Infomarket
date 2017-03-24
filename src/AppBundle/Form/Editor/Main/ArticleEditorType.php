@@ -4,7 +4,9 @@ namespace AppBundle\Form\Editor\Main;
 
 use AppBundle\Entity\Article;
 use AppBundle\Entity\User;
-use AppBundle\Form\Editor\Base\ImageEntityEditorType;
+use AppBundle\Form\Editor\Base\FeaturedEntityEditorType;
+use AppBundle\Form\Editor\Transformer\ArticleToNumberTransformer;
+use AppBundle\Form\Editor\Transformer\UserToNumberTransformer;
 use AppBundle\Utils\FormUtils;
 use Doctrine\Common\Persistence\ObjectManager;
 use Ivory\CKEditorBundle\Form\Type\CKEditorType;
@@ -13,10 +15,8 @@ use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
-use AppBundle\Form\Editor\Transformer\ArticleToNumberTransformer;
-use AppBundle\Form\Editor\Transformer\UserToNumberTransformer;
 
-class ArticleEditorType extends ImageEntityEditorType
+class ArticleEditorType extends FeaturedEntityEditorType
 {
 	protected $em;
 	
@@ -54,9 +54,6 @@ class ArticleEditorType extends ImageEntityEditorType
 		);
 		
 		$builder
-		->add('featured', null, array(
-				'required' => false
-		))
 		->add('archived', null, array(
 				'required' => false
 		))

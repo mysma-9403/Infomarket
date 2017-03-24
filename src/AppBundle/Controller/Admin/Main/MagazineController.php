@@ -2,7 +2,7 @@
 
 namespace AppBundle\Controller\Admin\Main;
 
-use AppBundle\Controller\Admin\Base\ImageEntityController;
+use AppBundle\Controller\Admin\Base\FeaturedEntityController;
 use AppBundle\Controller\Admin\Base\SimpleEntityController;
 use AppBundle\Entity\Branch;
 use AppBundle\Entity\Category;
@@ -14,10 +14,10 @@ use AppBundle\Manager\Entity\Common\MagazineManager;
 use AppBundle\Manager\Filter\Base\FilterManager;
 use AppBundle\Repository\Admin\Main\BranchRepository;
 use AppBundle\Repository\Admin\Main\CategoryRepository;
-use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Repository\Admin\Main\MagazineRepository;
+use Symfony\Component\HttpFoundation\Request;
 
-class MagazineController extends ImageEntityController {
+class MagazineController extends FeaturedEntityController {
 	
 	//---------------------------------------------------------------------------
 	// Actions

@@ -29,6 +29,21 @@ class Advert extends ImageEntity
 		}
 	}
 	
+	public static function getLocationParam($location) {
+		switch ($location) {
+			case self::TOP_LOCATION:
+				return 'topAds';
+			case self::SIDE_LOCATION:
+				return 'sideAds';
+			case self::TEXT_LOCATION:
+				return 'textAds';
+			case self::FEATURED_LOCATION:
+				return 'featuredAds';
+			default:
+				return null;
+		}
+	}
+	
 	/**
 	 * {@inheritDoc}
 	 */

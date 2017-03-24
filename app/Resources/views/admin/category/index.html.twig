@@ -1,4 +1,4 @@
-{% extends 'admin/image/index.html.twig' %}
+{% extends 'admin/featured/index.html.twig' %}
 
 {% set mainPath = 'category' %}
 {% set title = 'title.categories'|trans %}
@@ -17,9 +17,6 @@
 		{{ form_widget(filter.parents, { 'label': 'label.category.parent' }) }}
 	</li>
 	<li class="col-xs-12 col-sm-6 col-md-4 col-lg-2">
-		{{ form_widget(filter.featured, { 'label': 'label.featured' }) }}
-	</li>
-	<li class="col-xs-12 col-sm-6 col-md-4 col-lg-2">
 		{{ form_widget(filter.preleaf, { 'label': 'label.preleaf' }) }}
 	</li>
 {% endblock %}
@@ -30,7 +27,6 @@
 {% endblock %}
 
 {% block headerMoreFields2 %}
-	<th><i class="fa fa-star"></i> {{ 'label.featured'|trans }}</th>
 	<th><i class="fa fa-leaf"></i> {{ 'label.preleafs'|trans }}</th>
 {% endblock %}
 
@@ -42,13 +38,6 @@
 {% endblock %}
 
 {% block entryMoreFields2 %}
-	<td>
-		{% include 'common/fields/bool_action_field.html.twig' with 
-			{ 'id': item.id, 'value': item.featured, 'extPath': '_set_featured',
-				'trueTooltip': 'label.featured'|trans, 'falseTooltip': 'label.notFeatured'|trans,
-				'trueIcon': 'fa-star', 'falseIcon': 'fa-star-o' } %}
-	</td>
-	
 	<td>
 		{% include 'common/fields/bool_action_field.html.twig' with 
 			{ 'id': item.id, 'value': item.preleaf, 'extPath': '_set_preleaf',

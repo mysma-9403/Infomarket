@@ -1,4 +1,4 @@
-{% extends 'admin/image/editor.html.twig' %}
+{% extends 'admin/featured/editor.html.twig' %}
 
 {% set title = 'title.articles'|trans %}
 {% set mainPath = 'article' %}
@@ -9,7 +9,6 @@
 {% endblock %}
 	
 {% block moreFields3 %}
-	{{ form_row(form.featured, { 'label': 'label.m.featured' }) }}
 	{{ form_row(form.archived, { 'label': 'label.article.archived' }) }}
 	
 	{{ form_row(form.parent, { 'label': 'label.article.parent' }) }}

@@ -3,12 +3,12 @@
 namespace AppBundle\Form\Editor\Main;
 
 use AppBundle\Entity\ArticleCategory;
-use AppBundle\Form\Editor\Base\ImageEntityEditorType;
+use AppBundle\Form\Editor\Base\FeaturedEntityEditorType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 
-class ArticleCategoryEditorType extends ImageEntityEditorType
+class ArticleCategoryEditorType extends FeaturedEntityEditorType
 {
 	/**
 	 * 
@@ -21,18 +21,6 @@ class ArticleCategoryEditorType extends ImageEntityEditorType
 			->add('subname', TextType::class, array(
 					'required' => false
 			))
-		
-			->add('featured', null, array(
-					'required' => false
-			))
-			
-			->add('infomarket', null, array(
-					'required' => false
-			))
-			->add('infoprodukt', null, array(
-					'required' => false
-			))
-			
 			->add('orderNumber', NumberType::class, array(
 					'required' => true
 			))

@@ -3,7 +3,7 @@
 namespace AppBundle\Form\Editor\Main;
 
 use AppBundle\Entity\Magazine;
-use AppBundle\Form\Editor\Base\ImageEntityEditorType;
+use AppBundle\Form\Editor\Base\FeaturedEntityEditorType;
 use AppBundle\Form\Editor\Transformer\MagazineToNumberTransformer;
 use AppBundle\Repository\Admin\Main\ParentMagazineRepository;
 use AppBundle\Utils\FormUtils;
@@ -14,7 +14,7 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\FormBuilderInterface;
 
-class MagazineEditorType extends ImageEntityEditorType
+class MagazineEditorType extends FeaturedEntityEditorType
 {
 	protected $em;
 	
@@ -38,9 +38,6 @@ class MagazineEditorType extends ImageEntityEditorType
 		->add('magazineFile', ElFinderType::class, array(
 				'instance'=>'magazine',
 				'required' => true
-		))
-		->add('featured', null, array(
-				'required' => false
 		))
 		->add('main', null, array(
 				'required' => false

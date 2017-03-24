@@ -260,7 +260,7 @@ class CategoryEntryParamsManager extends EntryParamsManager {
 			
 			foreach($advertLocations as $advertLocation) {
 				$adverts = $advertRepository->findAdvertItems($advertLocation, $entry->getId());
-				$viewParams[Advert::getLocationName($advertLocation)] = $adverts;
+				$viewParams[Advert::getLocationParam($advertLocation)] = $adverts;
 				
 				if(count($adverts) > 0) {
 					$advertsIds = $advertRepository->getIds($adverts);

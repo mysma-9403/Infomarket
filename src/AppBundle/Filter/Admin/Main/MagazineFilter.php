@@ -3,10 +3,10 @@
 namespace AppBundle\Filter\Admin\Main;
 
 use AppBundle;
-use AppBundle\Filter\Admin\Base\SimpleEntityFilter;
+use AppBundle\Filter\Admin\Base\FeaturedEntityFilter;
 use Symfony\Component\HttpFoundation\Request;
 
-class MagazineFilter extends SimpleEntityFilter {
+class MagazineFilter extends FeaturedEntityFilter {
 	
 	/**
 	 *
@@ -26,12 +26,6 @@ class MagazineFilter extends SimpleEntityFilter {
 	 */
 	protected $categories = array();
 	
-	/**
-	 * 
-	 * @var integer
-	 */
-	protected $featured = self::ALL_VALUES;
-	
 	
 	
 	public function initRequestValues(Request $request) {
@@ -40,8 +34,6 @@ class MagazineFilter extends SimpleEntityFilter {
 		$this->parents = $this->getRequestArray($request, 'parents');
 		$this->branches = $this->getRequestArray($request, 'branches');
 		$this->categories = $this->getRequestArray($request, 'categories');
-		
-		$this->featured = $this->getRequestBool($request, 'featured');
 	}
 	
 	public function clearRequestValues() {
@@ -50,8 +42,6 @@ class MagazineFilter extends SimpleEntityFilter {
 		$this->parents = array();
 		$this->branches = array();
 		$this->categories = array();
-		
-		$this->featured = self::ALL_VALUES;
 	}
 	
 	public function getRequestValues() {
@@ -60,8 +50,6 @@ class MagazineFilter extends SimpleEntityFilter {
 		$this->setRequestArray($values, 'parents', $this->parents);
 		$this->setRequestArray($values, 'branches', $this->branches);
 		$this->setRequestArray($values, 'categories', $this->categories);
-		
-		$this->setRequestBool($values, 'featured', $this->featured);
 		
 		return $values;
 	}
@@ -136,29 +124,5 @@ class MagazineFilter extends SimpleEntityFilter {
 	public function getCategories()
 	{
 		return $this->categories;
-	}
-	
-	/**
-	 * Set featured
-	 *
-	 * @param array $featured
-	 *
-	 * @return MagazineFilter
-	 */
-	public function setFeatured($featured)
-	{
-		$this->featured = $featured;
-	
-		return $this;
-	}
-	
-	/**
-	 * Get term featured
-	 *
-	 * @return array
-	 */
-	public function getFeatured()
-	{
-		return $this->featured;
 	}
 }

@@ -9,6 +9,7 @@ use AppBundle\Manager\Route\RouteManager;
 use AppBundle\Utils\StringUtils;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Filter\Admin\Base\AuditFilter;
 
 abstract class AdminController extends StandardController {
 	
@@ -158,6 +159,32 @@ abstract class AdminController extends StandardController {
 		return $this->redirectToRoute($lastRoute['route'], $lastRoute['routeParams']);
 	}
 	
+	/**
+	 *
+	 * @param Request $request
+	 * @param BaseFormType $form
+	 */
+	protected function listFormActionInternal(Request $request, Form $form, AuditFilter $filter, array $listItems) {
+		if ($form->get('selectAll')->isClicked()) {
+			foreach ($listItems as $item) {
+				$filter->addSelected($item);
+			}		
+		}
+		
+		if ($form->get('selectNone')->isClicked()) {
+			$filter->clearSelected();
+		}
+		
+		if ($form->get('deleteSelected')->isClicked()) {
+			$data = $form->getData();
+			$entries = $data->getEntries();
+			$filter->clearSelected();
+			$this->deleteSelected($entries);
+		}
+		
+		return $this->redirectToRoute($this->getIndexRoute(), $filter->getRequestValues());
+	}
+	
 	//---------------------------------------------------------------------------
 	// Actions blocks
 	//---------------------------------------------------------------------------
@@ -211,24 +238,7 @@ abstract class AdminController extends StandardController {
 		
 		if ($form->isSubmitted() && $form->isValid())
 		{
-			if ($form->get('selectAll')->isClicked()) {
-			foreach ($listItems as $item) {
-				$filter->addSelected($item);
-			}
-		}
-		
-		if ($form->get('selectNone')->isClicked()) {
-			$filter->clearSelected();
-		}
-		
-		if ($form->get('deleteSelected')->isClicked()) {
-			$data = $form->getData();
-			$entries = $data->getEntries();
-			$filter->clearSelected();
-			$this->deleteSelected($entries);
-		}
-		
-		return $this->redirectToRoute($this->getIndexRoute(), $filter->getRequestValues());
+			return $this->listFormActionInternal($request, $form, $filter, $listItems);
 		}
 		
 		$viewParams['form'] = $form->createView();

@@ -8,11 +8,11 @@ use AppBundle\Entity\ArticleBrandAssignment;
 use AppBundle\Entity\ArticleCategoryAssignment;
 use AppBundle\Filter\Admin\Main\ArticleFilter;
 use AppBundle\Filter\Base\Filter;
-use AppBundle\Repository\Admin\Base\ImageEntityRepository;
+use AppBundle\Repository\Admin\Base\FeaturedEntityRepository;
 use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\ORM\QueryBuilder;
 
-class ArticleRepository extends ImageEntityRepository
+class ArticleRepository extends FeaturedEntityRepository
 {	
 	protected function  buildJoins(QueryBuilder &$builder, Filter $filter) {
 		/** @var ArticleFilter $filter */
@@ -46,7 +46,6 @@ class ArticleRepository extends ImageEntityRepository
 		$fields = parent::getSelectFields($builder, $filter);
 	
 		$fields[] = 'e.subname';
-		$fields[] = 'e.featured';
 	
 		return $fields;
 	}
@@ -68,10 +67,6 @@ class ArticleRepository extends ImageEntityRepository
 		
 		if(count($filter->getArticleCategories()) > 0) {
 			$where->add($builder->expr()->in('aaca.articleCategory', $filter->getArticleCategories()));
-		}
-	
-		if($filter->getFeatured() != Filter::ALL_VALUES) {
-			$where->add($builder->expr()->eq('e.featured', $filter->getFeatured()));
 		}
 		
 		if($filter->getSubname() && strlen($filter->getSubname()) > 0) {

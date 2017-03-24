@@ -3,10 +3,10 @@
 namespace AppBundle\Manager\Entity\Common;
 
 use AppBundle\Entity\Magazine;
-use AppBundle\Manager\Entity\Base\SimpleEntityManager;
+use AppBundle\Manager\Entity\Base\FeaturedEntityManager;
 use Symfony\Component\HttpFoundation\Request;
 
-class MagazineManager extends SimpleEntityManager {
+class MagazineManager extends FeaturedEntityManager {
 	
 	/**
 	 * Create new entry with request parameters.
@@ -17,8 +17,6 @@ class MagazineManager extends SimpleEntityManager {
 	public function createFromRequest(Request $request) {
 		/** @var Magazine $entry */
 		$entry = parent::createFromRequest($request);
-		
-		$entry->setFeatured($request->get('featured'));
 		
 		$entry->setContent($request->get('content'));
 		
@@ -36,8 +34,6 @@ class MagazineManager extends SimpleEntityManager {
 	public function createFromTemplate($template) {
 		/** @var Magazine $entry */
 		$entry = parent::createFromTemplate($template);
-		
-		$entry->setFeatured($template->getFeatured());
 		
 		$entry->setContent($template->getContent());
 		

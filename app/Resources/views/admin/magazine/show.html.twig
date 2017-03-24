@@ -1,13 +1,10 @@
-{% extends 'admin/image/show.html.twig' %}
+{% extends 'admin/featured/show.html.twig' %}
 
 {% set mainPath = 'magazine' %}
 {% set title = 'title.magazines'|trans %}
 {% set gender = 'm.' %}
 
 {% block moreFields3 %}
-	{% include 'common/fields/bool_field.html.twig' with 
-	{ 'label': ('label.' ~ gender ~ 'featured')|trans, 'value': entry.featured } %}
-	
 	{% include 'common/fields/bool_field.html.twig' with 
 	{ 'label': ('label.main')|trans, 'value': entry.main } %}
 	

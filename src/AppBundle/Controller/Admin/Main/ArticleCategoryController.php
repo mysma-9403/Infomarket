@@ -2,7 +2,7 @@
 
 namespace AppBundle\Controller\Admin\Main;
 
-use AppBundle\Controller\Admin\Base\ImageEntityController;
+use AppBundle\Controller\Admin\Base\FeaturedEntityController;
 use AppBundle\Controller\Admin\Base\SimpleEntityController;
 use AppBundle\Entity\ArticleCategory;
 use AppBundle\Filter\Admin\Main\ArticleCategoryFilter;
@@ -12,7 +12,7 @@ use AppBundle\Manager\Entity\Common\ArticleCategoryManager;
 use AppBundle\Manager\Filter\Base\FilterManager;
 use Symfony\Component\HttpFoundation\Request;
 
-class ArticleCategoryController extends ImageEntityController {
+class ArticleCategoryController extends FeaturedEntityController {
 	
 	//---------------------------------------------------------------------------
 	// Actions

@@ -3,10 +3,10 @@
 namespace AppBundle\Manager\Entity\Common;
 
 use AppBundle\Entity\Category;
-use AppBundle\Manager\Entity\Base\SimpleEntityManager;
+use AppBundle\Manager\Entity\Base\FeaturedEntityManager;
 use Symfony\Component\HttpFoundation\Request;
 
-class CategoryManager extends SimpleEntityManager {
+class CategoryManager extends FeaturedEntityManager {
 	
 	/**
 	 * Create new entry with request parameters.
@@ -21,7 +21,6 @@ class CategoryManager extends SimpleEntityManager {
 		$entry->setSubname($request->get('subname'));
 		
 		$entry->setBenchmark($request->get('benchmark'));
-		$entry->setFeatured($request->get('featured'));
 		$entry->setPreleaf($request->get('preleaf'));
 		
 		$entry->setParent($this->getParamWithName($request, Category::class, 'parent'));
@@ -50,7 +49,6 @@ class CategoryManager extends SimpleEntityManager {
 		$entry->setSubname($template->getSubname());
 		
 		$entry->setBenchmark($template->getBenchmark());
-		$entry->setFeatured($template->getFeatured());
 		$entry->setPreleaf($template->getPreleaf());
 		
 		$entry->setParent($template->getParent());

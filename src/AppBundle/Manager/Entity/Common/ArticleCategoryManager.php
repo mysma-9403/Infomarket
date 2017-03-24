@@ -3,10 +3,10 @@
 namespace AppBundle\Manager\Entity\Common;
 
 use AppBundle\Entity\ArticleCategory;
-use AppBundle\Manager\Entity\Base\SimpleEntityManager;
+use AppBundle\Manager\Entity\Base\FeaturedEntityManager;
 use Symfony\Component\HttpFoundation\Request;
 
-class ArticleCategoryManager extends SimpleEntityManager {
+class ArticleCategoryManager extends FeaturedEntityManager {
 	
 	/**
 	 * Create new entry with request parameters.
@@ -17,11 +17,6 @@ class ArticleCategoryManager extends SimpleEntityManager {
 	public function createFromRequest(Request $request) {
 		/** @var ArticleCategory $entry */
 		$entry = parent::createFromRequest($request);
-		
-		$entry->setFeatured($request->get('featured'));
-		
-		$entry->setInfomarket($request->get('infomarket'));
-		$entry->setInfoprodukt($request->get('infoprodukt'));
 		
 		$entry->setOrderNumber($request->get('order_number', 99));
 		
@@ -37,11 +32,6 @@ class ArticleCategoryManager extends SimpleEntityManager {
 	public function createFromTemplate($template) {
 		/** @var ArticleCategory $entry */
 		$entry = parent::createFromTemplate($template);
-		
-		$entry->setFeatured($template->getFeatured());
-		
-		$entry->setInfomarket($template->getInfomarket());
-		$entry->setInfoprodukt($template->getInfoprodukt());
 		
 		$entry->setOrderNumber($template->getOrderNumber());
 		

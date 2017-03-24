@@ -1,0 +1,33 @@
+{% extends 'admin/image/index.html.twig' %}
+
+{# Filter section #}
+{% block simpleFilterMainFields2More %}
+	<li class="col-xs-12 col-sm-6 col-md-4 col-lg-2">
+		{{ form_widget(filter.featured, { 'label': 'label.featured' }) }}
+	</li>
+{% endblock %}
+
+
+{# Header section #}
+{% block simpleHeaderMainFields2More %}
+	<th><i class="fa fa-star"></i> {{ ('label.' ~ gender ~ 'featured')|trans }}</th>
+{% endblock %}
+
+{% block simpleMainMoreActions %}
+	<li>	
+		<div class="btn-group {{ hidden }}">
+			{{ form_widget(form.setFeaturedSelected, { 'icon': 'fa-star', 'label': 'action.setFeaturedSelected', 'attr': {'class': 'btn btn-primary', 'type': 'button'} }) }}
+			{{ form_widget(form.setNotFeaturedSelected, { 'icon': 'fa-star-o', 'label': 'action.setNotFeaturedSelected', 'attr': {'class': 'btn btn-primary', 'type': 'button'} }) }}
+		</div>
+	</li>
+{% endblock %}
+
+{# Entry section #}
+{% block simpleEntryMainFields2More %}
+	<td>
+		{% include 'common/fields/bool_action_field.html.twig' with 
+			{ 'id': item.id, 'value': item.featured, 'extPath': '_set_featured',
+				'trueIcon': 'fa-star', 'falseIcon': 'fa-star-o',
+				'trueTooltip': 'label.featured'|trans, 'falseTooltip': 'label.notFeatured'|trans } %}
+	</td>
+{% endblock %}

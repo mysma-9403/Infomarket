@@ -3,17 +3,17 @@
 namespace AppBundle\Form\Editor\Main;
 
 use AppBundle\Entity\Category;
-use AppBundle\Form\Editor\Base\ImageEntityEditorType;
+use AppBundle\Form\Editor\Base\FeaturedEntityEditorType;
+use AppBundle\Form\Editor\Transformer\CategoryToNumberTransformer;
 use AppBundle\Utils\FormUtils;
 use Doctrine\Common\Persistence\ObjectManager;
 use FM\ElfinderBundle\Form\Type\ElFinderType;
 use Ivory\CKEditorBundle\Form\Type\CKEditorType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
-use AppBundle\Form\Editor\Transformer\CategoryToNumberTransformer;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 
-class CategoryEditorType extends ImageEntityEditorType
+class CategoryEditorType extends FeaturedEntityEditorType
 {
 	protected $em;
 	
@@ -62,9 +62,6 @@ class CategoryEditorType extends ImageEntityEditorType
 				'required' => false
 		))
 		->add('preleaf', CheckboxType::class, array(
-				'required' => false
-		))
-		->add('featured', CheckboxType::class, array(
 				'required' => false
 		))
 		->add('content', CKEditorType::class, array(

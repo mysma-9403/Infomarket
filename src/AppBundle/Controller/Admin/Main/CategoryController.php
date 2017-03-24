@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller\Admin\Main;
 
+use AppBundle\Controller\Admin\Base\FeaturedEntityController;
 use AppBundle\Controller\Admin\Base\ImageEntityController;
 use AppBundle\Controller\Admin\Base\SimpleEntityController;
 use AppBundle\Entity\Branch;
@@ -22,7 +23,7 @@ use AppBundle\Repository\Admin\Main\BranchRepository;
 use AppBundle\Repository\Admin\Main\CategoryRepository;
 use Symfony\Component\HttpFoundation\Request;
 
-class CategoryController extends ImageEntityController {
+class CategoryController extends FeaturedEntityController {
 	
 	//---------------------------------------------------------------------------
 	// Actions

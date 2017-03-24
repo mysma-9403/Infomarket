@@ -101,28 +101,6 @@ abstract class SimpleEntityController extends BaseEntityController
 		return $this->redirectToReferer($request);
 	}
 	
-	//TODO should be moved to FeaturedEntityController ???
-	protected function setFeaturedActionInternal(Request $request, $id)
-	{
-		$this->denyAccessUnlessGranted($this->getEditRole(), null, 'Unable to access this page!');
-	
-		$params = $this->createParams($this->getSetFeaturedRoute());
-		$params = $this->getEditParams($request, $params, $id);
-	
-		$viewParams = $params['viewParams'];
-		$entry = $viewParams['entry'];
-	
-		$featured = $request->get('value', false);
-	
-		$em = $this->getDoctrine()->getManager();
-	
-		$entry->setFeatured($featured);
-		$em->persist($entry);
-		$em->flush();
-	
-		return $this->redirectToReferer($request);
-	}
-	
 	//---------------------------------------------------------------------------
 	// Internal logic
 	//---------------------------------------------------------------------------
@@ -137,8 +115,8 @@ abstract class SimpleEntityController extends BaseEntityController
 	
 	/**
 	 *
-	 * @param unknown $entries
-	 * @param unknown $published
+	 * @param array $entries
+	 * @param boolean $published
 	 */
 	protected function setIMPublishedSelected($items, $published)
 	{
@@ -153,8 +131,8 @@ abstract class SimpleEntityController extends BaseEntityController
 	
 	/**
 	 *
-	 * @param unknown $entries
-	 * @param unknown $published
+	 * @param array $entries
+	 * @param boolean $published
 	 */
 	protected function setIPPublishedSelected($items, $published)
 	{
@@ -207,11 +185,5 @@ abstract class SimpleEntityController extends BaseEntityController
 	protected function getSetInfoproduktRoute()
 	{
 		return $this->getIndexRoute() . '_set_infoprodukt';
-	}
-	
-	//TODO should be moved to FeaturedEntityController ???
-	protected function getSetFeaturedRoute()
-	{
-		return $this->getIndexRoute() . 'set_featured';
 	}
 }

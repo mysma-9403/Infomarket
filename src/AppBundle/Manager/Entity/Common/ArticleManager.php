@@ -5,10 +5,10 @@ namespace AppBundle\Manager\Entity\Common;
 use AppBundle\Entity\Article;
 use AppBundle\Entity\Brand;
 use AppBundle\Entity\Tag;
-use AppBundle\Manager\Entity\Base\SimpleEntityManager;
+use AppBundle\Manager\Entity\Base\FeaturedEntityManager;
 use Symfony\Component\HttpFoundation\Request;
 
-class ArticleManager extends SimpleEntityManager {
+class ArticleManager extends FeaturedEntityManager {
 	
 	private $tokenStorage;
 	
@@ -57,8 +57,6 @@ class ArticleManager extends SimpleEntityManager {
 		
 		$entry->setSubname($request->get('subname'));
 		
-		$entry->setFeatured($request->get('featured'));
-		
 		$entry->setIntro($request->get('intro'));
 		$entry->setContent($request->get('content'));
 		
@@ -87,8 +85,6 @@ class ArticleManager extends SimpleEntityManager {
 		$entry = parent::createFromTemplate($template);
 		
 		$entry->setSubname($template->getSubname());
-		
-		$entry->setFeatured($template->getFeatured());
 		
 		$entry->setIntro($template->getIntro());
 		$entry->setContent($template->getContent());

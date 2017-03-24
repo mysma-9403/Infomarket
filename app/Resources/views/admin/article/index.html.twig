@@ -1,7 +1,8 @@
-{% extends 'admin/image/index.html.twig' %}
+{% extends 'admin/featured/index.html.twig' %}
 
 {% set mainPath = mainPath|default('article') %}
 {% set title = title|default('title.articles'|trans) %}
+{% set gender = 'm.' %}
 
 {% block filterMoreFields1 %}
 	<li class="col-xs-12 col-sm-6 col-md-4 col-lg-2">
@@ -19,9 +20,6 @@
 	<li class="col-xs-12 col-sm-6 col-md-4 col-lg-2">
 		{{ form_widget(filter.subname, { 'label': 'label.subname' }) }}
 	</li>
-	<li class="col-xs-12 col-sm-6 col-md-4 col-lg-2">
-		{{ form_widget(filter.featured, { 'label': 'label.featured' }) }}
-	</li>
 {% endblock %}
 
 {% block headerMoreFields1 %}
@@ -30,17 +28,4 @@
 
 {% block entryMoreFields1 %}
 	<td>{{ item.subname }}</td>
-{% endblock %}
-
-{% block headerMoreFields3 %}
-	<th><i class="fa fa-star"></i> {{ 'label.featured'|trans }}</th>
-{% endblock %}
-
-{% block entryMoreFields3 %}
-	<td>
-		{% include 'common/fields/bool_action_field.html.twig' with 
-			{ 'id': item.id, 'value': item.featured, 'extPath': '_set_featured',
-				'trueTooltip': 'label.featured'|trans, 'falseTooltip': 'label.notFeatured'|trans,
-				'trueIcon': 'fa-star', 'falseIcon': 'fa-star-o' } %}
-	</td>
 {% endblock %}

@@ -3,10 +3,10 @@
 namespace AppBundle\Filter\Admin\Main;
 
 use AppBundle;
-use AppBundle\Filter\Admin\Base\SimpleEntityFilter;
+use AppBundle\Filter\Admin\Base\FeaturedEntityFilter;
 use Symfony\Component\HttpFoundation\Request;
 
-class ArticleCategoryFilter extends SimpleEntityFilter {
+class ArticleCategoryFilter extends FeaturedEntityFilter {
 
 	/**
 	 * 
@@ -14,33 +14,24 @@ class ArticleCategoryFilter extends SimpleEntityFilter {
 	 */
 	protected $subname = null;
 	
-	/**
-	 *
-	 * @var integer
-	 */
-	protected $featured = self::ALL_VALUES;
-	
 	
 	
 	public function initRequestValues(Request $request) {
 		parent::initRequestValues($request);
 	
 		$this->subname = $this->getRequestValue($request, 'subname');
-		$this->featured = $this->getRequestBool($request, 'featured');
 	}
 	
 	public function clearRequestValues() {
 		parent::clearRequestValues();
 	
 		$this->subname = null;
-		$this->featured = self::ALL_VALUES;
 	}
 	
 	public function getRequestValues() {
 		$values = parent::getRequestValues();
 	
 		$this->setRequestValue($values, 'subname', $this->subname);
-		$this->setRequestBool($values, 'featured', $this->featured);
 		
 		return $values;
 	}
@@ -67,29 +58,5 @@ class ArticleCategoryFilter extends SimpleEntityFilter {
 	public function getSubname()
 	{
 		return $this->subname;
-	}
-	
-	/**
-	 * Set featured
-	 *
-	 * @param array $featured
-	 *
-	 * @return ArticleCategoryFilter
-	 */
-	public function setFeatured($featured)
-	{
-		$this->featured = $featured;
-	
-		return $this;
-	}
-	
-	/**
-	 * Get term featured
-	 *
-	 * @return array
-	 */
-	public function getFeatured()
-	{
-		return $this->featured;
 	}
 }

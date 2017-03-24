@@ -3,10 +3,10 @@
 namespace AppBundle\Filter\Admin\Main;
 
 use AppBundle;
-use AppBundle\Filter\Admin\Base\SimpleEntityFilter;
+use AppBundle\Filter\Admin\Base\FeaturedEntityFilter;
 use Symfony\Component\HttpFoundation\Request;
 
-class ArticleFilter extends SimpleEntityFilter {
+class ArticleFilter extends FeaturedEntityFilter {
 	
 	/**
 	 *
@@ -27,12 +27,6 @@ class ArticleFilter extends SimpleEntityFilter {
 	protected $articleCategories = array();
 	
 	/**
-	 * 
-	 * @var integer
-	 */
-	protected $featured = self::ALL_VALUES;
-	
-	/**
 	 *
 	 * @var string
 	 */
@@ -46,8 +40,6 @@ class ArticleFilter extends SimpleEntityFilter {
 		$this->categories = $this->getRequestArray($request, 'categories');
 		$this->articleCategories = $this->getRequestArray($request, 'article_categories');
 		
-		$this->featured = $this->getRequestBool($request, 'featured');
-		
 		$this->subname = $this->getRequestValue($request, 'subname');
 	}
 	
@@ -58,8 +50,6 @@ class ArticleFilter extends SimpleEntityFilter {
 		$this->categories = array();
 		$this->articleCategories = array();
 		
-		$this->featured = self::ALL_VALUES;
-		
 		$this->subname = null;
 	}
 	
@@ -69,8 +59,6 @@ class ArticleFilter extends SimpleEntityFilter {
 		$this->setRequestArray($values, 'brands', $this->brands);
 		$this->setRequestArray($values, 'categories', $this->categories);
 		$this->setRequestArray($values, 'article_categories', $this->articleCategories);
-		
-		$this->setRequestBool($values, 'featured', $this->featured);
 		
 		$this->setRequestValue($values, 'subname', $this->subname);
 		
@@ -147,30 +135,6 @@ class ArticleFilter extends SimpleEntityFilter {
 	public function getArticleCategories()
 	{
 		return $this->articleCategories;
-	}
-	
-	/**
-	 * Set featured
-	 *
-	 * @param array $featured
-	 *
-	 * @return ArticleFilter
-	 */
-	public function setFeatured($featured)
-	{
-		$this->featured = $featured;
-	
-		return $this;
-	}
-	
-	/**
-	 * Get term featured
-	 *
-	 * @return array
-	 */
-	public function getFeatured()
-	{
-		return $this->featured;
 	}
 	
 	/**

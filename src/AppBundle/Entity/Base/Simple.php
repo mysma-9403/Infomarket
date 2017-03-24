@@ -6,6 +6,11 @@ namespace AppBundle\Entity\Base;
 
 class Simple extends Audit {
 	
+	public function __construct() {
+		$this->infomarket = false;
+		$this->infoprodukt = false;
+	}
+	
     /**
      * @var boolean
      */

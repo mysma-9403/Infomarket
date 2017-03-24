@@ -30,7 +30,7 @@ class AdvertParamsManager extends ParamsManager {
 			$advertRepository = new AdvertRepository($em, $em->getClassMetadata(Advert::class));
 			foreach($this->advertLocations as $advertLocation) {
 				$adverts = $advertRepository->findAdvertItems($advertLocation, $categories);
-				$viewParams[Advert::getLocationName($advertLocation)] = $adverts;
+				$viewParams[Advert::getLocationParam($advertLocation)] = $adverts;
 			
 				if(count($adverts) > 0) {
 					$advertsIds = $advertRepository->getIds($adverts);

@@ -1,11 +1,10 @@
-{% extends 'admin/image/editor.html.twig' %}
+{% extends 'admin/featured/editor.html.twig' %}
 
 {% set mainPath = 'magazine' %}
 {% set title = 'title.magazines'|trans %}
 {% set gender = 'm.' %}
 
 {% block moreFields3 %}
-	{{ form_row(form.featured, { 'label': 'label.' ~ gender ~ 'featured' }) }}
 	{{ form_row(form.main, { 'label': 'label.main' }) }}
 	{{ form_row(form.parent, { 'label': 'label.magazine.parent' }) }}
 	

@@ -1,4 +1,4 @@
-{% extends 'admin/image/show.html.twig' %}
+{% extends 'admin/featured/show.html.twig' %}
 
 {% set mainPath = 'category' %}
 {% set title = 'title.categories'|trans %}
@@ -25,9 +25,6 @@
 {% endblock %}
 
 {% block moreFields3 %}
-	{% include 'common/fields/bool_field.html.twig' with 
-	{ 'label': ('label.' ~ gender ~ 'featured')|trans, 'value': entry.featured } %}
-	
 	{% include 'common/fields/bool_field.html.twig' with 
 	{ 'label': ('label.category.preleaf')|trans, 'value': entry.preleaf } %}
 	

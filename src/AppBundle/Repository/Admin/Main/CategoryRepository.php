@@ -4,14 +4,14 @@ namespace AppBundle\Repository\Admin\Main;
 
 use AppBundle\Entity\BranchCategoryAssignment;
 use AppBundle\Entity\Category;
+use AppBundle\Entity\ProductCategoryAssignment;
 use AppBundle\Filter\Admin\Main\CategoryFilter;
 use AppBundle\Filter\Base\Filter;
-use AppBundle\Repository\Admin\Base\ImageEntityRepository;
+use AppBundle\Repository\Admin\Base\FeaturedEntityRepository;
 use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\ORM\QueryBuilder;
-use AppBundle\Entity\ProductCategoryAssignment;
 
-class CategoryRepository extends ImageEntityRepository
+class CategoryRepository extends FeaturedEntityRepository
 {	
 	protected function  buildJoins(QueryBuilder &$builder, Filter $filter) {
 		/** @var CategoryFilter $filter */
@@ -31,7 +31,6 @@ class CategoryRepository extends ImageEntityRepository
 		$fields = parent::getSelectFields($builder, $filter);
 	
 		$fields[] = 'e.subname';
-		$fields[] = 'e.featured';
 		$fields[] = 'e.preleaf';
 		
 		$fields[] = 'p.id AS parentId';
@@ -51,10 +50,6 @@ class CategoryRepository extends ImageEntityRepository
 	
 		if(count($filter->getBranches()) > 0) {
 			$where->add($builder->expr()->in('bca.branch', $filter->getBranches()));
-		}
-	
-		if($filter->getFeatured() != Filter::ALL_VALUES) {
-			$where->add($builder->expr()->eq('e.featured', $filter->getFeatured()));
 		}
 		
 		if($filter->getPreleaf() != Filter::ALL_VALUES) {

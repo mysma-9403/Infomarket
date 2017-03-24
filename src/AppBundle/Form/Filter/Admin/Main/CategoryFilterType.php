@@ -4,13 +4,14 @@ namespace AppBundle\Form\Filter\Admin\Main;
 
 use AppBundle\Filter\Admin\Main\CategoryFilter;
 use AppBundle\Filter\Base\Filter;
+use AppBundle\Form\Filter\Admin\Base\FeaturedEntityFilterType;
 use AppBundle\Form\Filter\Admin\Base\SimpleEntityFilterType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use AppBundle\Utils\FormUtils;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\FormBuilderInterface;
 
-class CategoryFilterType extends SimpleEntityFilterType
+class CategoryFilterType extends FeaturedEntityFilterType
 {	
 	/**
 	 * 
@@ -22,12 +23,6 @@ class CategoryFilterType extends SimpleEntityFilterType
 		
 		$parents = $options['parents'];
 		$branches = $options['branches'];
-		
-		$featuredChoices = array(
-				'label.all'			=> Filter::ALL_VALUES,
-				'label.featured' 	=> Filter::TRUE_VALUES,
-				'label.notFeatured' => Filter::FALSE_VALUES
-		);
 		
 		$preleafChoices = array(
 				'label.all'			=> Filter::ALL_VALUES,
@@ -51,12 +46,6 @@ class CategoryFilterType extends SimpleEntityFilterType
 				'required'		=> false,
 				'expanded'      => false,
 				'multiple'      => true
-		))
-		->add('featured', ChoiceType::class, array(
-				'choices'		=> $featuredChoices,
-				'choice_translation_domain' => false,
-				'expanded'      => false,
-				'multiple'      => false
 		))
 		->add('preleaf', ChoiceType::class, array(
 				'choices'		=> $preleafChoices,

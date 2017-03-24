@@ -1,12 +1,5 @@
 {% extends 'admin/editor.html.twig' %}
 
-{% block mainFields2 %}
-	{# TODO remove in 2nd refactoring #}
-	<div class="hidden">
-	{{ form_row(form.published, { 'label': 'label.published' }) }}
-	</div>
-{% endblock %}
-
 {% block mainActions %}
 	{% if entry.id %}
 		<a type="button" class="btn btn-primary" href="{{ path('admin_' ~ mainPath ~ '_show', { id: entry.id }) }}">

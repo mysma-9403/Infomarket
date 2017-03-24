@@ -2,7 +2,7 @@
 
 namespace AppBundle\Controller\Admin\Main;
 
-use AppBundle\Controller\Admin\Base\ImageEntityController;
+use AppBundle\Controller\Admin\Base\FeaturedEntityController;
 use AppBundle\Controller\Admin\Base\SimpleEntityController;
 use AppBundle\Entity\Article;
 use AppBundle\Entity\ArticleCategory;
@@ -26,7 +26,7 @@ use AppBundle\Repository\Admin\Main\TagRepository;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\HttpFoundation\Request;
 
-class ArticleController extends ImageEntityController {
+class ArticleController extends FeaturedEntityController {
 	
 	//---------------------------------------------------------------------------
 	// Actions

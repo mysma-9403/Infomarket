@@ -4,12 +4,13 @@ namespace AppBundle\Form\Filter\Admin\Main;
 
 use AppBundle\Filter\Admin\Main\MagazineFilter;
 use AppBundle\Filter\Base\Filter;
+use AppBundle\Form\Filter\Admin\Base\FeaturedEntityFilterType;
 use AppBundle\Form\Filter\Admin\Base\SimpleEntityFilterType;
+use AppBundle\Utils\FormUtils;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
-use AppBundle\Utils\FormUtils;
 
-class MagazineFilterType extends SimpleEntityFilterType
+class MagazineFilterType extends FeaturedEntityFilterType
 {	
 	/**
 	 * 
@@ -22,12 +23,6 @@ class MagazineFilterType extends SimpleEntityFilterType
 		$parents = $options['parents'];
 		$branches = $options['branches'];
 		$categories = $options['categories'];
-		
-		$featuredChoices = array(
-				'label.all'			=> Filter::ALL_VALUES,
-				'label.featured' 	=> Filter::TRUE_VALUES,
-				'label.notFeatured' => Filter::FALSE_VALUES
-		);
 		
 		$builder
 		->add('parents', ChoiceType::class, array(
@@ -53,11 +48,6 @@ class MagazineFilterType extends SimpleEntityFilterType
 				'required'		=> false,
 				'expanded'      => false,
 				'multiple'      => true
-		))
-		->add('featured', ChoiceType::class, array(
-				'choices'		=> $featuredChoices,
-				'expanded'      => false,
-				'multiple'      => false
 		))
 		;
 	}

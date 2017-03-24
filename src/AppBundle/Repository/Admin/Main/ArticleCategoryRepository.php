@@ -5,10 +5,10 @@ namespace AppBundle\Repository\Admin\Main;
 use AppBundle\Entity\ArticleCategory;
 use AppBundle\Filter\Admin\Main\ArticleCategoryFilter;
 use AppBundle\Filter\Base\Filter;
-use AppBundle\Repository\Admin\Base\ImageEntityRepository;
+use AppBundle\Repository\Admin\Base\FeaturedEntityRepository;
 use Doctrine\ORM\QueryBuilder;
 
-class ArticleCategoryRepository extends ImageEntityRepository
+class ArticleCategoryRepository extends FeaturedEntityRepository
 {
 	protected function buildOrderBy(QueryBuilder &$builder, Filter $filter) {
 		$builder->addOrderBy('e.subname', 'ASC');
@@ -20,7 +20,6 @@ class ArticleCategoryRepository extends ImageEntityRepository
 		$fields = parent::getSelectFields($builder, $filter);
 		
 		$fields[] = 'e.subname';
-		$fields[] = 'e.featured';
 		
 		return $fields;
 	}
@@ -31,10 +30,6 @@ class ArticleCategoryRepository extends ImageEntityRepository
 		
 		if($filter->getSubname() && strlen($filter->getSubname()) > 0) {
 			$where->add($this->buildStringsExpression($builder, 'e.subname', $filter->getSubname()));
-		}
-		
-		if($filter->getFeatured() != Filter::ALL_VALUES) {
-			$where->add($builder->expr()->eq('e.featured', $filter->getFeatured()));
 		}
 		
 		return $where;

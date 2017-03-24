@@ -3,11 +3,7 @@
 namespace AppBundle\Entity\Base;
 
 class Audit
-{
-	public function __construct() {
-		$this->published = false;
-	}
-	
+{	
 	/**
 	 * Used in lists, form fields etc.
 	 */
@@ -18,11 +14,6 @@ class Audit
 	public function __toString() {
 		return $this->getDisplayName();
 	}
-	
-    /**
-     * @var boolean
-     */
-    protected $published;
 
     /**
      * @var \DateTime
@@ -49,30 +40,7 @@ class Audit
      */
     protected $updatedBy;
 
-
-    /**
-     * Set published
-     *
-     * @param boolean $published
-     *
-     * @return Audit
-     */
-    public function setPublished($published)
-    {
-        $this->published = $published;
-
-        return $this;
-    }
-
-    /**
-     * Get published
-     *
-     * @return boolean
-     */
-    public function getPublished()
-    {
-        return $this->published;
-    }
+    
 
     /**
      * Set createdAt
