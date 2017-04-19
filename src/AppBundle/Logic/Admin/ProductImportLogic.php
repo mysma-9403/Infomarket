@@ -149,7 +149,9 @@ class ProductImportLogic {
 	protected function getFileEntries($importRatings) {
 		$rows = array();
 	
-		$file = fopen('../web' . $importRatings->getImportFile(), 'r');
+		$fileName = urldecode($importRatings->getImportFile());
+		
+		$file = fopen('../web' . $fileName, 'r');
 	
 		while( ($row = fgetcsv($file, 2048, ';')) !== FALSE ) {
 			$rows[] = $row;
