@@ -6,6 +6,7 @@ use AppBundle\Entity\BenchmarkField;
 use AppBundle\Entity\Category;
 use AppBundle\Repository\Admin\Base\AuditRepository;
 use Doctrine\ORM\QueryBuilder;
+use Doctrine\ORM\Query\Expr\Join;
 
 class BenchmarkFieldRepository extends AuditRepository
 {	
@@ -53,6 +54,51 @@ class BenchmarkFieldRepository extends AuditRepository
 		$builder->where($where);
 	
 		$builder->orderBy('e.filterNumber', 'ASC');
+			
+		return $builder->getQuery();
+	}
+	
+	
+	
+	
+	public function findNumberItemsByCategory($categoryId) {
+		return $this->queryNumberItemsByCategory($categoryId)->getScalarResult();
+	}
+	
+	protected function queryNumberItemsByCategory($categoryId)
+	{
+		return $this->queryItemsByTypeAndCategory($categoryId, [BenchmarkField::DECIMAL_FIELD_TYPE, BenchmarkField::INTEGER_FIELD_TYPE]);
+	}
+	
+	public function findEnumItemsByCategory($categoryId) {
+		return $this->queryEnumItemsByCategory($categoryId)->getScalarResult();
+	}
+	
+	protected function queryEnumItemsByCategory($categoryId)
+	{
+		return $this->queryItemsByTypeAndCategory($categoryId, [BenchmarkField::SINGLE_ENUM_FIELD_TYPE, BenchmarkField::MULTI_ENUM_FIELD_TYPE]);
+	}
+	
+	
+	protected function queryItemsByTypeAndCategory($categoryId, $types)
+	{
+		$builder = new QueryBuilder($this->getEntityManager());
+			
+		$builder->select("e.valueType, e.valueNumber, e.fieldName, e.decimalPlaces");
+		$builder->from($this->getEntityType(), "e");
+	
+		$builder->innerJoin(Category::class, 'c', Join::WITH, 'e.category = c.id');
+	
+		$expr = $builder->expr();
+	
+		$where = $expr->andX();
+		$where->add($expr->eq('e.showField', 1));
+		$where->add($expr->like('c.treePath', $expr->literal('%-' . $categoryId . '#%')));
+		$where->add($expr->in('e.fieldType', $types));
+	
+		$builder->where($where);
+	
+		$builder->orderBy('e.fieldNumber', 'ASC');
 			
 		return $builder->getQuery();
 	}

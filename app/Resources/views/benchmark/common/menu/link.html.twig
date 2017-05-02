@@ -1,0 +1,10 @@
+{% set linkTitle = linkTitle|default("benchmark") %}
+{% set linkPath = linkPath|default("benchmark") %}
+
+{% set active = linkPath in mainPath ? "active" : "" %}
+
+<li class="{{ active }}">
+	<a href="{{ path(basePath ~ linkPath) }}">
+		{{ linkTitle|trans }}
+	</a>
+</li>

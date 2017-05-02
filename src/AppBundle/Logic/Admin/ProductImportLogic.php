@@ -610,6 +610,12 @@ class ProductImportLogic {
 			$benchmarkField->setFilterType($column['filterType']);
 			$benchmarkField->setShowFilter($column['showFilter']);
 			
+			if($column['fieldType'] == BenchmarkField::DECIMAL_VALUE_TYPE) {
+				$benchmarkField->setDecimalPlaces(2);
+			} else {
+				$benchmarkField->setDecimalPlaces(0);
+			}
+			
 			$entry['benchmarkFieldForUpdate'] = true;
 		} else {
 			$forUpdate = false;
@@ -630,6 +636,12 @@ class ProductImportLogic {
 			if($benchmarkField->getFieldType() != $fieldType) {
 				$benchmarkField->setFieldType($fieldType);
 				$forUpdate = true;
+				
+				if($column['fieldType'] == BenchmarkField::DECIMAL_VALUE_TYPE) {
+					$benchmarkField->setDecimalPlaces(2);
+				} else {
+					$benchmarkField->setDecimalPlaces(0);
+				}
 			}
 			
 			$showField = $column['showField'];

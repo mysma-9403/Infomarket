@@ -17,21 +17,25 @@ applications_product:
     defaults:  { _controller: "AppBundle:Applications/Product:index" }
          
 # Benchmark Routing
+benchmark_category_show:
+    path:      /benchmark/categories/show/{id}
+    defaults:  { _controller: "AppBundle:Benchmark/Category:show", id: 0 }
+    
 benchmark_product:
-    path:      /benchmark/{page}
-    defaults:  { _controller: "AppBundle:Benchmark/Benchmark:index", page: 1 }
+    path:      /benchmark/products/{page}
+    defaults:  { _controller: "AppBundle:Benchmark/Product:index", page: 1 }
     
 benchmark_product_export_to_csv:
-    path:      /benchmark/export-to-csv/{page}
-    defaults:  { _controller: "AppBundle:Benchmark/Benchmark:exportToCsv" }
+    path:      /benchmark/products/export-to-csv/{page}
+    defaults:  { _controller: "AppBundle:Benchmark/Product:exportToCsv" }
 
 benchmark_product_export_to_excel:
-    path:      /benchmark/export-to-excel/{page}
-    defaults:  { _controller: "AppBundle:Benchmark/Benchmark:exportToExcel" }
+    path:      /benchmark/products/export-to-excel/{page}
+    defaults:  { _controller: "AppBundle:Benchmark/Product:exportToExcel" }
     
 benchmark_product_export_to_html:
-    path:      /benchmark/export-to-html/{page}
-    defaults:  { _controller: "AppBundle:Benchmark/Benchmark:exportToHtml" }
+    path:      /benchmark/products/export-to-html/{page}
+    defaults:  { _controller: "AppBundle:Benchmark/Product:exportToHtml" }
          
 # Infoprodukt Routing
 infoprodukt_advert_click:

@@ -2,16 +2,17 @@
 
 namespace AppBundle\Repository\Benchmark;
 
+use AppBundle\Entity\BenchmarkField;
 use AppBundle\Entity\Brand;
+use AppBundle\Entity\Category;
 use AppBundle\Entity\Product;
 use AppBundle\Entity\ProductCategoryAssignment;
 use AppBundle\Filter\Base\Filter;
 use AppBundle\Filter\Benchmark\ProductFilter;
 use AppBundle\Repository\Base\BaseRepository;
+use Doctrine\ORM\AbstractQuery;
 use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\ORM\QueryBuilder;
-use AppBundle\Entity\Category;
-use AppBundle\Entity\BenchmarkField;
 
 class ProductRepository extends BaseRepository
 {
@@ -76,6 +77,116 @@ class ProductRepository extends BaseRepository
 		}
 		
 		return $result;
+	}
+	
+	
+	
+	
+	public function findMinMaxValues($categoryId, $valueName) {
+		return $this->queryMinMaxValues($categoryId, $valueName)->getSingleResult(AbstractQuery::HYDRATE_SCALAR);
+	}
+	
+	protected function queryMinMaxValues($categoryId, $valueName)
+	{
+		$builder = new QueryBuilder($this->getEntityManager());
+	
+		$expr = $builder->expr();
+		
+		$builder->select($expr->min("e." . $valueName) . ' AS vmin', $expr->max("e." . $valueName) . ' AS vmax', $expr->avg("e." . $valueName) . ' AS vavg');
+		$builder->distinct();
+		$builder->from($this->getEntityType(), "e");
+	
+		$builder->innerJoin(ProductCategoryAssignment::class, 'pca', Join::WITH, 'e.id = pca.product');
+		$builder->innerJoin(Category::class, 'c', Join::WITH, 'c.id = pca.category');
+	
+		$where = $expr->andX();
+		$where->add($expr->isNotNull('e.' . $valueName));
+		$where->add($builder->expr()->like('c.treePath', $builder->expr()->literal('%-' . $categoryId . '#%')));
+	
+		$builder->where($where);
+			
+		return $builder->getQuery();
+	}
+	
+	public function findModeValues($categoryId, $valueName) {
+		return $this->queryModeValues($categoryId, $valueName)->getScalarResult();
+	}
+	
+	protected function queryModeValues($categoryId, $valueName)
+	{
+		$builder = new QueryBuilder($this->getEntityManager());
+	
+		$expr = $builder->expr();
+	
+		$builder->select($expr->count('e.id') . ' AS mode', "e." . $valueName);
+		$builder->from($this->getEntityType(), "e");
+	
+		$builder->innerJoin(ProductCategoryAssignment::class, 'pca', Join::WITH, 'e.id = pca.product');
+		$builder->innerJoin(Category::class, 'c', Join::WITH, 'c.id = pca.category');
+	
+		$where = $expr->andX();
+		$where->add($expr->isNotNull('e.' . $valueName));
+		$where->add($builder->expr()->like('c.treePath', $builder->expr()->literal('%-' . $categoryId . '#%')));
+	
+		$builder->where($where);
+		
+		$builder->groupBy("e." . $valueName);
+			
+		return $builder->getQuery();
+	}
+	
+	public function findMeanValues($categoryId, $valueName) {
+		return $this->queryMeanValues($categoryId, $valueName)->getScalarResult();
+	}
+	
+	protected function queryMeanValues($categoryId, $valueName)
+	{
+		$builder = new QueryBuilder($this->getEntityManager());
+		
+		$expr = $builder->expr();
+		
+		$builder->select('e.id', "e." . $valueName);
+		$builder->distinct();
+		$builder->from($this->getEntityType(), "e");
+	
+		$builder->innerJoin(ProductCategoryAssignment::class, 'pca', Join::WITH, 'e.id = pca.product');
+		$builder->innerJoin(Category::class, 'c', Join::WITH, 'c.id = pca.category');
+	
+		$where = $expr->andX();
+		$where->add($expr->isNotNull('e.' . $valueName));
+		$where->add($builder->expr()->like('c.treePath', $builder->expr()->literal('%-' . $categoryId . '#%')));
+	
+		$builder->where($where);
+		
+		$builder->orderBy("e." . $valueName);
+			
+		return $builder->getQuery();
+	}
+	
+	public function findEnumValues($categoryId, $valueName) {
+		return $this->queryEnumValues($categoryId, $valueName)->getScalarResult();
+	}
+	
+	protected function queryEnumValues($categoryId, $valueName)
+	{
+		$builder = new QueryBuilder($this->getEntityManager());
+	
+		$expr = $builder->expr();
+	
+		$builder->select("e." . $valueName);
+		$builder->distinct();
+		$builder->from($this->getEntityType(), "e");
+	
+		$builder->innerJoin(ProductCategoryAssignment::class, 'pca', Join::WITH, 'e.id = pca.product');
+		$builder->innerJoin(Category::class, 'c', Join::WITH, 'c.id = pca.category');
+	
+		$where = $expr->andX();
+		$where->add($expr->isNotNull('e.' . $valueName));
+		$where->add($builder->expr()->like('c.treePath', $builder->expr()->literal('%-' . $categoryId . '#%')));
+	
+		$builder->where($where);
+			
+		return $builder->getQuery();
 	}
 	
 	

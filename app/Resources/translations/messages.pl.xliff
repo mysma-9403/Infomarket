@@ -773,6 +773,48 @@
                 <target>Nie (-)</target>
             </trans-unit>
             
+            
+            <trans-unit id="label.benchmark.numOfProducts">
+                <source>label.benchmark.numOfProducts</source>
+                <target>Ilość modeli</target>
+            </trans-unit>
+            
+            <trans-unit id="label.benchmark.total">
+                <source>label.benchmark.total</source>
+                <target>Razem</target>
+            </trans-unit>
+            
+            <trans-unit id="label.benchmark.param">
+                <source>label.benchmark.param</source>
+                <target>Parametr</target>
+            </trans-unit>
+            <trans-unit id="label.benchmark.values">
+                <source>label.benchmark.values</source>
+                <target>Dostępne wartości</target>
+            </trans-unit>
+            <trans-unit id="label.benchmark.min">
+                <source>label.benchmark.min</source>
+                <target>Minimum</target>
+            </trans-unit>
+            <trans-unit id="label.benchmark.max">
+                <source>label.benchmark.max</source>
+                <target>Maksimum</target>
+            </trans-unit>
+            <trans-unit id="label.benchmark.mode">
+                <source>label.benchmark.mode</source>
+                <target>Dominanta</target>
+            </trans-unit>
+            <trans-unit id="label.benchmark.median">
+                <source>label.benchmark.median</source>
+                <target>Mediana</target>
+            </trans-unit>
+            <trans-unit id="label.benchmark.mean">
+                <source>label.benchmark.mean</source>
+                <target>Średnia</target>
+            </trans-unit>
+            
+            
+            
             <trans-unit id="action.benchmark.export.csv">
                 <source>action.benchmark.export.csv</source>
                 <target>Eksportuj do csv</target>

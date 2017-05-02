@@ -1,0 +1,39 @@
+{% extends 'benchmark/base.html.twig' %}
+
+{% set basePath = 'benchmark_' %}
+{% set title = title|default('title.benchmark')|trans %}
+
+{% set gender = gender | default('') %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block body %}
+
+	{% block header %}
+		<div class="container-fluid page-header">
+			<div class="col-xs-12">
+				<h1>{{ title }}</h1>
+				
+				<p>
+					{{ 'label.welcome'|trans }} <strong>{{ app.user.username }}</strong>, <br>
+					<a href="{{ path('admin_logout') }}">
+						{{ 'label.logout'|trans }}
+					</a>
+				</p>
+			</div>	
+		</div>
+	{% endblock %}
+	
+	{% block menu %}
+		<div class="container-fluid">
+      		<ul class="nav navbar-nav navbar-right">
+      			{% include 'benchmark/common/menu/link.html.twig' with { linkPath: "category_show", linkTitle: "title.categories" } %}
+      			{% include 'benchmark/common/menu/link.html.twig' with { linkPath: "product", linkTitle: "title.products" } %}
+			</ul>
+		</div>
+	{% endblock %}
+	
+	{% block content %}		
+	{% endblock %}
+	
+{% endblock %}

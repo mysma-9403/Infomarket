@@ -1,0 +1,119 @@
+{% extends 'benchmark/index.html.twig' %}
+
+{% set mainPath = 'category' %}
+{% set title = title|default('title.categories')|trans %}
+	
+{% block content %}
+	<div class="container-fluid">
+		<div class="col-sm-2">
+			{% block sidebar %}
+				<div class="col-xs-12">
+					<h3>{{ category.name }} {{ category.subname }}</h3>
+				</div>
+				
+				{% block categoryFilterForm %}
+					{% form_theme categoryFilter 'form/fields.html.twig' %}
+					
+					{{ form_start(categoryFilter) }}
+						<div class="col-xs-12">
+							{{ form_row(categoryFilter.category, { label: 'label.benchmark.category' }) }}
+						</div>
+						<div class="col-xs-12">
+								{{ form_row(categoryFilter.submit, { 'icon': 'fa-check', 'label': 'action.submit', 'attr': {'class': 'btn btn-success'} }) }}
+						</div>		
+					{{ form_end(categoryFilter) }}
+					
+					{% form_theme subcategoryFilter 'form/fields.html.twig' %}
+					
+					{{ form_start(subcategoryFilter) }}
+						<div class="col-xs-12">
+							{{ form_row(subcategoryFilter.subcategory, { label: 'label.benchmark.subcategory' }) }}
+						</div>
+						<div class="col-xs-12">
+							{{ form_row(subcategoryFilter.submit, { 'icon': 'fa-check', 'label': 'action.submit', 'attr': {'class': 'btn btn-success'} }) }}
+						</div>	
+					{{ form_end(subcategoryFilter) }}
+				{% endblock %}
+				
+			{% endblock %}
+		</div>
+		<div class="col-sm-10">
+			{% block itemContent %}
+				<div class="row">
+					<div class="col-sm-4 col-md-3">
+						<div class="rect">
+				    		{% if entry.image %}
+								{% include 'common/image/image_entry.html.twig' with { 'entry': entry } %}
+							{% endif %}
+						</div>
+					</div>
+					<div class="col-sm-8 col-md-9">
+						<h2 class="lowered-25">{{ entry.name }} {{ entry.subname }}</h2>
+						<table class="table table-striped vert-align">
+							<tr>
+								<th>{{ 'label.segment'|trans }}</th>
+								<th>{{ 'label.benchmark.numOfProducts'|trans }}</th>
+							</tr>
+							{% set numOfProducts = 0 %}
+							{% for segment in segments %}
+								<tr>
+									<td>{{ segment.name }}</td>
+									<td>{{ segment.numOfProducts }}</td>
+								</tr>
+								{% set numOfProducts = numOfProducts + segment.numOfProducts %}
+							{% endfor %}
+							<tr>
+								<th>{{ 'label.benchmark.total'|trans }}</th>
+								<th>{{ numOfProducts }}</th>
+							</tr>
+						</table>
+					</div>
+				</div>
+			{% endblock %}
+			
+			<div class="row lowered-25"></div>
+			
+			{% block tableContent %}
+				<div class="row">
+					<table class="table table-striped vert-align">
+						<tr>
+							<th>{{ 'label.benchmark.param'|trans }}</th>
+							<th>{{ 'label.benchmark.min'|trans }}</th>
+							<th>{{ 'label.benchmark.max'|trans }}</th>
+							<th>{{ 'label.benchmark.mode'|trans }}</th>
+							<th>{{ 'label.benchmark.median'|trans }}</th>
+							<th>{{ 'label.benchmark.mean'|trans }}</th>
+						</tr>
+						{% for field in numberFields %}
+							<tr>
+								<td>{{ field.fieldName }}</td>
+								<td>{{ field.min|number_format(field.decimalPlaces, '.', ' ') }}</td>
+								<td>{{ field.max|number_format(field.decimalPlaces, '.', ' ') }}</td>
+								<td>{{ field.mode|number_format(field.decimalPlaces, '.', ' ') }}</td>
+								<td>{{ field.median|number_format(field.decimalPlaces, '.', ' ') }}</td>
+								<td>{{ field.mean|number_format(field.decimalPlaces, '.', ' ') }}</td>
+							</tr>
+						{% endfor %}
+					</table>
+				</div>
+				
+				<div class="row lowered-25"></div>
+				
+				<div class="row">
+					<table class="table table-striped vert-align">
+						<tr>
+							<th>{{ 'label.benchmark.param'|trans }}</th>
+							<th>{{ 'label.benchmark.values'|trans }}</th>
+						</tr>
+						{% for field in enumFields %}
+							<tr>
+								<td>{{ field.fieldName }}</td>
+								<td>{{ field.values }}</td>
+							</tr>
+						{% endfor %}
+					</table>
+				</div>
+			{% endblock %}
+		</div>	
+	</div>
+{% endblock %}

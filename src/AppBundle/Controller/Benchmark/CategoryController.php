@@ -5,66 +5,40 @@ namespace AppBundle\Controller\Benchmark;
 use AppBundle\Controller\Base\DummyController;
 use AppBundle\Entity\BenchmarkField;
 use AppBundle\Entity\Category;
-use AppBundle\Entity\Product;
-use AppBundle\Filter\Base\Filter;
 use AppBundle\Filter\Benchmark\CategoryFilter;
-use AppBundle\Filter\Benchmark\ProductFilter;
 use AppBundle\Filter\Benchmark\SubcategoryFilter;
 use AppBundle\Form\Benchmark\CategoryFilterType;
-use AppBundle\Form\Benchmark\ProductFilterType;
 use AppBundle\Form\Benchmark\SubcategoryFilterType;
 use AppBundle\Manager\Entity\Base\EntityManager;
-use AppBundle\Manager\Entity\Benchmark\ProductManager;
+use AppBundle\Manager\Entity\Benchmark\CategoryManager;
 use AppBundle\Manager\Filter\Base\FilterManager;
 use AppBundle\Manager\Params\Benchmark\ContextParamsManager;
-use AppBundle\Manager\Params\EntryParams\Base\EntryParamsManager;
+use AppBundle\Manager\Params\EntryParams\Benchmark\CategoryParamsManager;
 use AppBundle\Manager\Route\RouteManager;
 use AppBundle\Repository\Benchmark\BenchmarkFieldRepository;
-use AppBundle\Repository\Benchmark\ProductRepository;
+use AppBundle\Repository\Benchmark\CategoryRepository;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\StreamedResponse;
-use Symfony\Component\Validator\Constraints\Date;
-use AppBundle\Logic\Benchmark\Export\ExcelExportLogic;
-use AppBundle\Logic\Benchmark\Export\CsvExportLogic;
-use AppBundle\Logic\Benchmark\Export\HtmlExportLogic;
 
-class BenchmarkController extends DummyController {
+class CategoryController extends DummyController {
 	
 	//---------------------------------------------------------------------------
 	// Actions
 	//---------------------------------------------------------------------------
 	
-	public function indexAction(Request $request, $page) {
-		return $this->indexActionInternal($request, $page);
-	}
-	
-	public function exportToCsvAction(Request $request, $page) {
-		return $this->exportToCsvActionInternal($request, $page);
-	}
-	
-	public function exportToHtmlAction(Request $request, $page) {
-		return $this->exportToHtmlActionInternal($request, $page);
-	}
-	
-	public function exportToExcelAction(Request $request, $page) {
-		return $this->exportToExcelActionInternal($request, $page);
+	public function showAction(Request $request, $id) {
+		return $this->showActionInternal($request, $id);
 	}
 	
 	//---------------------------------------------------------------------------
 	// Internal actions
 	//---------------------------------------------------------------------------
 	
-	/**
-	 *
-	 * {@inheritDoc}
-	 * @see \AppBundle\Controller\Base\BaseEntityController::indexActionInternal()
-	 */
-	protected function indexActionInternal(Request $request, $page)
+	protected function showActionInternal(Request $request, $id)
 	{
 		$this->denyAccessUnlessGranted($this->getShowRole(), null, 'Unable to access this page!');
 		
 		$params = $this->createParams($this->getIndexRoute());
-		$params = $this->getIndexParams($request, $params, $page);
+		$params = $this->getShowParams($request, $params, $id);
 		
 		$rm = $this->getRouteManager();
 		$rm->register($request, $params['route'], $params['routeParams']);
@@ -86,10 +60,10 @@ class BenchmarkController extends DummyController {
 
 		if ($categoryFilterForm->isSubmitted() && $categoryFilterForm->isValid()) {
 			if ($categoryFilterForm->get('submit')->isClicked()) {
-				return $this->redirectToRoute($this->getIndexRoute(), $categoryFilter->getRequestValues());
+				return $this->redirectToRoute($this->getShowRoute(), $categoryFilter->getRequestValues());
 			}
 		}
-		$viewParams['categoryFilter'] = $categoryFilterForm->createView();		
+		$viewParams['categoryFilter'] = $categoryFilterForm->createView();	
 		
 		
 		$subcategory = $contextParams['subcategory'];
@@ -101,110 +75,17 @@ class BenchmarkController extends DummyController {
 		
 		if ($subcategoryFilterForm->isSubmitted() && $subcategoryFilterForm->isValid()) {
 			if ($subcategoryFilterForm->get('submit')->isClicked()) {
-				return $this->redirectToRoute($this->getIndexRoute(), $subcategoryFilter->getRequestValues());
+				return $this->redirectToRoute($this->getShowRoute(), $subcategoryFilter->getRequestValues());
 			}
 		}
 		$viewParams['subcategoryFilter'] = $subcategoryFilterForm->createView();
 		
 		
-		/** @var ProductFilter $filter */
-		$filter = $viewParams['entryFilter'];
-	
-		$filterForm = $this->createForm($this->getFilterFormType(), $filter, ['category' => $subcategory, 'fields' => $filter->getFilterFields()]);
-		$filterForm->handleRequest($request);
-	
-		if ($filterForm->isSubmitted() && $filterForm->isValid()) {
-			
-			if ($filterForm->get('search')->isClicked()) {
-				return $this->redirectToRoute($this->getIndexRoute(), $filter->getRequestValues());
-			}
-			
-			if ($filterForm->get('clear')->isClicked()) {
-				$filter->clearRequestValues();
-				return $this->redirectToRoute($this->getIndexRoute(), $filter->getRequestValues());
-			}
-		}
-		$viewParams['filter'] = $filterForm->createView();
 		
 		$routeParams = $params['routeParams'];
 		$viewParams['routeParams'] = $routeParams;
 		
-		return $this->render($this->getIndexView(), $viewParams);
-	}
-	
-	protected function exportToCsvActionInternal(Request $request, $page) {
-		$this->denyAccessUnlessGranted($this->getShowRole(), null, 'Unable to access this page!');
-		
-		$params = $this->createParams($this->getIndexRoute());
-		$params = $this->getIndexParams($request, $params, $page);
-		
-		$viewParams = $params['viewParams'];
-		$entries = $viewParams['entries'];
-		/** @var ProductFilter $entryFilter */
-		$entryFilter = $viewParams['entryFilter'];
-		
-		$response = new StreamedResponse();
-		$response->setCallback(function() use(&$entryFilter, &$entries) {
-			$logic = new CsvExportLogic();
-			$logic->export($entryFilter, $entries);
-		});
-	
-		$date = new \DateTime();
-		$response->setStatusCode(200);
-		$response->headers->set('Content-Type', 'text/csv; charset=utf-8');
-		$response->headers->set('Content-Disposition', 'attachment; filename="'. $date->format('Y-m-d') . '-benchmark.csv"');
-
-		return $response;
-	}
-	
-	protected function exportToHtmlActionInternal(Request $request, $page) {
-		$this->denyAccessUnlessGranted($this->getShowRole(), null, 'Unable to access this page!');
-	
-		$params = $this->createParams($this->getIndexRoute());
-		$params = $this->getIndexParams($request, $params, $page);
-	
-		$viewParams = $params['viewParams'];
-		$entries = $viewParams['entries'];
-		/** @var ProductFilter $entryFilter */
-		$entryFilter = $viewParams['entryFilter'];
-	
-		$response = new StreamedResponse();
-		$response->setCallback(function() use(&$entryFilter, &$entries) {
-			$logic = new HtmlExportLogic();
-			$logic->export($entryFilter, $entries);
-		});
-	
-		$date = new \DateTime();
-		$response->setStatusCode(200);
-		$response->headers->set('Content-Type', 'text/html; charset=utf-8');
-		$response->headers->set('Content-Disposition', 'attachment; filename="'. $date->format('Y-m-d') . '-benchmark.html"');
-
-		return $response;
-	}
-	
-	protected function exportToExcelActionInternal(Request $request, $page) {
-		$this->denyAccessUnlessGranted($this->getShowRole(), null, 'Unable to access this page!');
-	
-		$params = $this->createParams($this->getIndexRoute());
-		$params = $this->getIndexParams($request, $params, $page);
-	
-		$viewParams = $params['viewParams'];
-		$entries = $viewParams['entries'];
-		/** @var ProductFilter $entryFilter */
-		$entryFilter = $viewParams['entryFilter'];
-	
-		$response = new StreamedResponse();
-		$response->setCallback(function() use(&$entryFilter, &$entries) {
-			$logic = new ExcelExportLogic();
-			$logic->export($entryFilter, $entries);
-		});
-	
-		$date = new \DateTime();
-		$response->setStatusCode(200);
-		$response->headers->set('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-		$response->headers->set('Content-Disposition', 'attachment; filename="'. $date->format('Y-m-d') . '-benchmark.xlsx"');
-
-		return $response;
+		return $this->render($this->getShowView(), $viewParams);
 	}
 	
 	//---------------------------------------------------------------------------
@@ -220,11 +101,11 @@ class BenchmarkController extends DummyController {
 		return $params;
 	}
 	
-	protected function getIndexParams(Request $request, array $params, $page) {
+	protected function getShowParams(Request $request, array $params, $id) {
 		$params = $this->getParams($request, $params);
 	
 		$em = $this->getEntryParamsManager();
-		$params = $em->getIndexParams($request, $params, $page);
+		$params = $em->getShowParams($request, $params, $id);
 	
 		return $params;
 	}
@@ -258,14 +139,14 @@ class BenchmarkController extends DummyController {
 	}
 	
 	protected function getInternalEntryParamsManager(EntityManager $em, FilterManager $fm, $doctrine) {
-		return new EntryParamsManager($em, $fm, $doctrine);
+		return new CategoryParamsManager($em, $fm, $doctrine);
 	}
 	
 	protected function getEntityManager($doctrine, $paginator) {
 		$em = $doctrine->getManager();
-		$repository = new ProductRepository($em, $em->getClassMetadata(Product::class));
+		$repository = new CategoryRepository($em, $em->getClassMetadata(Category::class));
 		
-		return new ProductManager($doctrine, $paginator, $repository);
+		return new CategoryManager($doctrine, $paginator, $repository);
 	}
 	
 	/**
@@ -277,7 +158,7 @@ class BenchmarkController extends DummyController {
 		$em = $doctrine->getManager();
 		$benchmarkFieldRepository = new BenchmarkFieldRepository($em, $em->getClassMetadata(BenchmarkField::class));
 		
-		return new FilterManager(new ProductFilter($benchmarkFieldRepository));
+		return new FilterManager(new CategoryFilter($benchmarkFieldRepository));
 	}
 	
 	//---------------------------------------------------------------------------
@@ -285,11 +166,11 @@ class BenchmarkController extends DummyController {
 	//---------------------------------------------------------------------------
 	
 	protected function getFilterFormType() {
-		return ProductFilterType::class;
+		return CategoryFilterType::class;
 	}
 	
 	protected function getEntityType() {
-		return Product::class;
+		return Category::class;
 	}
 	
 	//---------------------------------------------------------------------------
@@ -309,6 +190,11 @@ class BenchmarkController extends DummyController {
 		return $this->getDomain() . '/' . $this->getEntityName() . '/index.html.twig';
 	}
 	
+	protected function getShowView()
+	{
+		return $this->getDomain() . '/' . $this->getEntityName() . '/show.html.twig';
+	}
+	
 	//---------------------------------------------------------------------------
 	// Routes
 	//---------------------------------------------------------------------------
@@ -316,6 +202,11 @@ class BenchmarkController extends DummyController {
 	protected function getIndexRoute()
 	{
 		return $this->getDomain() . '_' . $this->getEntityName();
+	}
+	
+	protected function getShowRoute()
+	{
+		return $this->getIndexRoute() . '_show';
 	}
 	
 	protected function getHomeRoute() {
