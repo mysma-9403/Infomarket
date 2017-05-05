@@ -55,6 +55,17 @@ class ProductFilter extends Filter {
 	 */
 	protected $name = null;
 	
+	/**
+	 *
+	 * @var double
+	 */
+	protected $minPrice = null;
+	
+	/**
+	 *
+	 * @var double
+	 */
+	protected $maxPrice = null;
 	
 	
 	public function __construct(BenchmarkFieldRepository $benchmarkFieldRepository) {
@@ -77,6 +88,9 @@ class ProductFilter extends Filter {
 		$this->categories = $this->getRequestArray($request, 'categories');
 		
 		$this->name = $this->getRequestString($request, 'name');
+		
+		$this->minPrice = $this->getRequestValue($request, 'price_min');
+		$this->maxPrice = $this->getRequestValue($request, 'price_max');
 		
 		foreach ($this->filterFields as $key => $field) {
 			switch($field['filterType']) {
@@ -109,6 +123,9 @@ class ProductFilter extends Filter {
 		
 		$this->name = null;
 		
+		$this->minPrice = null;
+		$this->maxPrice = null;
+		
 		foreach ($this->filterFields as $key => $field) {
 			switch($field['filterType']) {
 				case BenchmarkField::DECIMAL_FILTER_TYPE:
@@ -139,6 +156,9 @@ class ProductFilter extends Filter {
 		$this->setRequestArray($values, 'categories', $this->categories);
 		
 		$this->setRequestString($values, 'name', $this->name);
+		
+		$this->setRequestValue($values, 'price_min', $this->minPrice);
+		$this->setRequestValue($values, 'price_max', $this->maxPrice);
 		
 		foreach ($this->filterFields as $field) {
 			switch($field['filterType']) {
@@ -307,6 +327,56 @@ class ProductFilter extends Filter {
 		return $this->name;
 	}
 	
+	/**
+	 * Set minPrice
+	 *
+	 * @param array $minPrice
+	 *
+	 * @return ProductFilter
+	 */
+	public function setMinPrice($minPrice)
+	{
+		$this->minPrice = $minPrice;
+	
+		return $this;
+	}
+	
+	/**
+	 * Get minPrice
+	 *
+	 * @return array
+	 */
+	public function getMinPrice()
+	{
+		return $this->minPrice;
+	}
+	
+	/**
+	 * Set maxPrice
+	 *
+	 * @param array $maxPrice
+	 *
+	 * @return ProductFilter
+	 */
+	public function setMaxPrice($maxPrice)
+	{
+		$this->maxPrice = $maxPrice;
+	
+		return $this;
+	}
+	
+	/**
+	 * Get maxPrice
+	 *
+	 * @return array
+	 */
+	public function getMaxPrice()
+	{
+		return $this->maxPrice;
+	}
+	
+	
+	
 	public function __get($valueName) {
 		foreach ($this->filterFields as $field) {
 			switch ($field['filterType']) {
@@ -325,6 +395,7 @@ class ProductFilter extends Filter {
 					}
 			}
 		}
+		
 		return null;
 	}
 	

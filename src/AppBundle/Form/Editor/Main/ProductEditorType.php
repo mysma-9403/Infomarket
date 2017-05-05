@@ -51,6 +51,10 @@ class ProductEditorType extends ImageEntityEditorType
 				'instance'=>'topProdukt',
 				'required' => false
 		))
+		->add('price', NumberType::class, array(
+				'attr' => ['placeholder' => 'label.product.price'],
+				'required' => false
+		))
 		;
 		
 		$builder->get('brand')->addModelTransformer(new BrandToNumberTransformer($this->em));

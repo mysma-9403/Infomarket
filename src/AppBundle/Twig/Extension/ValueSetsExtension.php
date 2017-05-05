@@ -33,6 +33,12 @@ class ValueSetsExtension extends \Twig_Extension
 		$extensions['benchmarkFieldFilterTypeName'] = new \Twig_SimpleFunction(
 				'benchmarkFieldFilterTypeName', BenchmarkField::class . '::getFilterTypeName');
 		
+		$extensions['benchmarkFieldNoteTypeName'] = new \Twig_SimpleFunction(
+				'benchmarkFieldNoteTypeName', BenchmarkField::class . '::getNoteTypeName');
+		
+		$extensions['benchmarkFieldBetterThanTypeName'] = new \Twig_SimpleFunction(
+				'benchmarkFieldBetterThanTypeName', BenchmarkField::class . '::getBetterThanTypeName');
+		
 		return $extensions;
     }
 }

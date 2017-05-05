@@ -24,6 +24,14 @@ benchmark_category_show:
 benchmark_product:
     path:      /benchmark/products/{page}
     defaults:  { _controller: "AppBundle:Benchmark/Product:index", page: 1 }
+
+benchmark_product_show:
+    path:      /benchmark/products/show/{id}
+    defaults:  { _controller: "AppBundle:Benchmark/Product:show" }
+    
+benchmark_product_compare:
+    path:      /benchmark/products/compare/{id}
+    defaults:  { _controller: "AppBundle:Benchmark/Product:compare" }
     
 benchmark_product_export_to_csv:
     path:      /benchmark/products/export-to-csv/{page}

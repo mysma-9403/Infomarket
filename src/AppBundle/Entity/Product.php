@@ -63,6 +63,10 @@ class Product extends ImageEntity implements \ArrayAccess
     		return true;
     	}
     	
+    	if(strpos($offset, 'price') !== false) {
+    		return true;
+    	}
+    	
     	return false;
     }
     
@@ -1917,5 +1921,34 @@ class Product extends ImageEntity implements \ArrayAccess
     public function getString20()
     {
         return $this->string20;
+    }
+    /**
+     * @var string
+     */
+    private $price;
+
+
+    /**
+     * Set price
+     *
+     * @param string $price
+     *
+     * @return Product
+     */
+    public function setPrice($price)
+    {
+        $this->price = $price;
+
+        return $this;
+    }
+
+    /**
+     * Get price
+     *
+     * @return string
+     */
+    public function getPrice()
+    {
+        return $this->price;
     }
 }

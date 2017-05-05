@@ -92,6 +92,32 @@ class ProductRepository extends BaseRepository
 	
 		$expr = $builder->expr();
 		
+		$builder->select($expr->min("e." . $valueName) . ' AS vmin', $expr->max("e." . $valueName) . ' AS vmax');
+		$builder->distinct();
+		$builder->from($this->getEntityType(), "e");
+	
+		$builder->innerJoin(ProductCategoryAssignment::class, 'pca', Join::WITH, 'e.id = pca.product');
+		$builder->innerJoin(Category::class, 'c', Join::WITH, 'c.id = pca.category');
+	
+		$where = $expr->andX();
+		$where->add($expr->isNotNull('e.' . $valueName));
+		$where->add($builder->expr()->like('c.treePath', $builder->expr()->literal('%-' . $categoryId . '#%')));
+	
+		$builder->where($where);
+			
+		return $builder->getQuery();
+	}
+	
+	public function findMinMaxAvgValues($categoryId, $valueName) {
+		return $this->queryMinMaxAvgValues($categoryId, $valueName)->getSingleResult(AbstractQuery::HYDRATE_SCALAR);
+	}
+	
+	protected function queryMinMaxAvgValues($categoryId, $valueName)
+	{
+		$builder = new QueryBuilder($this->getEntityManager());
+	
+		$expr = $builder->expr();
+	
 		$builder->select($expr->min("e." . $valueName) . ' AS vmin', $expr->max("e." . $valueName) . ' AS vmax', $expr->avg("e." . $valueName) . ' AS vavg');
 		$builder->distinct();
 		$builder->from($this->getEntityType(), "e");
@@ -108,17 +134,17 @@ class ProductRepository extends BaseRepository
 		return $builder->getQuery();
 	}
 	
-	public function findModeValues($categoryId, $valueName) {
-		return $this->queryModeValues($categoryId, $valueName)->getScalarResult();
+	public function findValueCounts($categoryId, $valueName) {
+		return $this->queryValueCounts($categoryId, $valueName)->getScalarResult();
 	}
 	
-	protected function queryModeValues($categoryId, $valueName)
+	protected function queryValueCounts($categoryId, $valueName)
 	{
 		$builder = new QueryBuilder($this->getEntityManager());
 	
 		$expr = $builder->expr();
 	
-		$builder->select($expr->count('e.id') . ' AS mode', "e." . $valueName);
+		$builder->select($expr->count('e.id') . ' AS vcount', "e." . $valueName);
 		$builder->from($this->getEntityType(), "e");
 	
 		$builder->innerJoin(ProductCategoryAssignment::class, 'pca', Join::WITH, 'e.id = pca.product');
@@ -135,11 +161,11 @@ class ProductRepository extends BaseRepository
 		return $builder->getQuery();
 	}
 	
-	public function findMeanValues($categoryId, $valueName) {
-		return $this->queryMeanValues($categoryId, $valueName)->getScalarResult();
+	public function findAllValues($categoryId, $valueName) {
+		return $this->queryAllValues($categoryId, $valueName)->getScalarResult();
 	}
 	
-	protected function queryMeanValues($categoryId, $valueName)
+	protected function queryAllValues($categoryId, $valueName)
 	{
 		$builder = new QueryBuilder($this->getEntityManager());
 		
@@ -189,6 +215,76 @@ class ProductRepository extends BaseRepository
 		return $builder->getQuery();
 	}
 	
+	public function findItemsCount($categoryId, $valueName) {
+		return $this->queryItemsCount($categoryId, $valueName)->getSingleScalarResult();
+	}
+	
+	protected function queryItemsCount($categoryId, $valueName)
+	{
+		$builder = new QueryBuilder($this->getEntityManager());
+	
+		$expr = $builder->expr();
+	
+		$builder->select($expr->count('e.id'));
+		$builder->distinct();
+		$builder->from($this->getEntityType(), "e");
+	
+		$builder->innerJoin(ProductCategoryAssignment::class, 'pca', Join::WITH, 'e.id = pca.product');
+		$builder->innerJoin(Category::class, 'c', Join::WITH, 'c.id = pca.category');
+	
+		$where = $expr->andX();
+		$where->add($expr->isNotNull('e.' . $valueName));
+		$where->add($builder->expr()->like('c.treePath', $builder->expr()->literal('%-' . $categoryId . '#%')));
+	
+		$builder->where($where);
+			
+		return $builder->getQuery();
+	}
+	
+	public function findBetterThanCount($categoryId, $valueName, $value, $betterThanType) {
+		return $this->queryBetterThanCount($categoryId, $valueName, $value, $betterThanType)->getSingleScalarResult();
+	}
+	
+	protected function queryBetterThanCount($categoryId, $valueName, $value, $betterThanType)
+	{
+		$builder = new QueryBuilder($this->getEntityManager());
+	
+		$expr = $builder->expr();
+	
+		$builder->select($expr->count('e.id'));
+		$builder->distinct();
+		$builder->from($this->getEntityType(), "e");
+	
+		$builder->innerJoin(ProductCategoryAssignment::class, 'pca', Join::WITH, 'e.id = pca.product');
+		$builder->innerJoin(Category::class, 'c', Join::WITH, 'c.id = pca.category');
+		
+		$where = $expr->andX();
+		$where->add($expr->isNotNull('e.' . $valueName));
+		$where->add($builder->expr()->like('c.treePath', $builder->expr()->literal('%-' . $categoryId . '#%')));
+	
+		switch($betterThanType) {
+			case BenchmarkField::GT_BETTER_THAN_TYPE:
+				$where->add($expr->gt('e.' . $valueName, $value));
+				break;
+			case BenchmarkField::GTE_BETTER_THAN_TYPE:
+				$where->add($expr->gte('e.' . $valueName, $value));
+				break;
+			case BenchmarkField::LT_BETTER_THAN_TYPE:
+				$where->add($expr->lt('e.' . $valueName, $value));
+				break;
+			case BenchmarkField::LTE_BETTER_THAN_TYPE:
+				$where->add($expr->lte('e.' . $valueName, $value));
+				break;
+			case BenchmarkField::EQUAL_BETTER_THAN_TYPE:
+				$where->add($expr->eq('e.' . $valueName, $value));
+				break;
+		}
+		
+		$builder->where($where);
+			
+		return $builder->getQuery();
+	}
+	
 	
 	
 	protected function  buildJoins(QueryBuilder &$builder, Filter $filter) {
@@ -221,6 +317,8 @@ class ProductRepository extends BaseRepository
 		$fields[] = 'c.name AS categoryName';
 		$fields[] = 'c.subname AS categorySubname';
 		
+		$fields[] = 'e.price';
+		
 		$showFields = $filter->getShowFields();
 		foreach ($showFields as $showField) {
 			$fields[] = 'e.' . BenchmarkField::getValueTypeDBName($showField['valueType']) . $showField['valueNumber'];
@@ -247,6 +345,13 @@ class ProductRepository extends BaseRepository
 		
 		if($filter->getName()) {
 			$where->add($this->buildStringsExpression($builder, 'e.name', $filter->getName(), true));
+		}
+		
+		if($filter->getMinPrice()) {
+			$where->add($expr->gte('e.price', $filter->getMinPrice()));
+		}
+		if($filter->getMaxPrice()) {
+			$where->add($expr->lte('e.price', $filter->getMaxPrice()));
 		}
 		
 		$filterFields = $filter->getFilterFields();

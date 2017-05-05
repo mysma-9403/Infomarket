@@ -23,10 +23,15 @@
 	</div>
 	{% endif %}
 {% endblock %}
-
+	
 {% block moreFields3 %}
+	<div class="lowered-25"></div>
+	
 	{% include 'common/fields/simple_field.html.twig' with 
 	{ 'label': 'label.brand', 'value': entry.brand, 'object': 'brand' } %}
+	
+	{% include 'common/fields/text_field.html.twig' with 
+	{ 'label': 'label.product.price', 'value': entry.price|number_format(2, '.', ' ') } %}
 	
 	<div class="lowered-25"></div>
 	

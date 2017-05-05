@@ -51,68 +51,103 @@
 						<h2 class="lowered-25">{{ entry.name }} {{ entry.subname }}</h2>
 						<table class="table table-striped vert-align">
 							<tr>
-								<th>{{ 'label.segment'|trans }}</th>
-								<th>{{ 'label.benchmark.numOfProducts'|trans }}</th>
+								<th class="text-center">{{ 'label.segment'|trans }}</th>
+								<th class="text-center">{{ 'label.benchmark.numOfProducts'|trans }}</th>
 							</tr>
-							{% set numOfProducts = 0 %}
+							
 							{% for segment in segments %}
 								<tr>
-									<td>{{ segment.name }}</td>
-									<td>{{ segment.numOfProducts }}</td>
+									<th class="text-right">{{ segment.name }}</th>
+									<td class="text-center">{{ segment.numOfProducts }}</td>
 								</tr>
-								{% set numOfProducts = numOfProducts + segment.numOfProducts %}
 							{% endfor %}
+							
 							<tr>
-								<th>{{ 'label.benchmark.total'|trans }}</th>
-								<th>{{ numOfProducts }}</th>
+								<th class="text-right">{{ 'label.benchmark.total'|trans }}</th>
+								<th class="text-center">{{ numOfProducts }}</th>
 							</tr>
 						</table>
 					</div>
 				</div>
 			{% endblock %}
 			
-			<div class="row lowered-25"></div>
-			
 			{% block tableContent %}
-				<div class="row">
-					<table class="table table-striped vert-align">
-						<tr>
-							<th>{{ 'label.benchmark.param'|trans }}</th>
-							<th>{{ 'label.benchmark.min'|trans }}</th>
-							<th>{{ 'label.benchmark.max'|trans }}</th>
-							<th>{{ 'label.benchmark.mode'|trans }}</th>
-							<th>{{ 'label.benchmark.median'|trans }}</th>
-							<th>{{ 'label.benchmark.mean'|trans }}</th>
-						</tr>
-						{% for field in numberFields %}
+				{% if numberFields|length > 0 %}
+					<div class="row lowered-25"></div>
+					
+					<div class="row">
+						<table class="table table-striped vert-align">
 							<tr>
-								<td>{{ field.fieldName }}</td>
-								<td>{{ field.min|number_format(field.decimalPlaces, '.', ' ') }}</td>
-								<td>{{ field.max|number_format(field.decimalPlaces, '.', ' ') }}</td>
-								<td>{{ field.mode|number_format(field.decimalPlaces, '.', ' ') }}</td>
-								<td>{{ field.median|number_format(field.decimalPlaces, '.', ' ') }}</td>
-								<td>{{ field.mean|number_format(field.decimalPlaces, '.', ' ') }}</td>
+								<th width="30%" class="text-center">{{ 'label.benchmark.param'|trans }}</th>
+								<th class="text-center">{{ 'label.benchmark.min'|trans }}</th>
+								<th class="text-center">{{ 'label.benchmark.max'|trans }}</th>
+								<th class="text-center">{{ 'label.benchmark.mode'|trans }}</th>
+								<th class="text-center">{{ 'label.benchmark.median'|trans }}</th>
+								<th class="text-center">{{ 'label.benchmark.mean'|trans }}</th>
 							</tr>
-						{% endfor %}
-					</table>
-				</div>
-				
-				<div class="row lowered-25"></div>
-				
-				<div class="row">
-					<table class="table table-striped vert-align">
-						<tr>
-							<th>{{ 'label.benchmark.param'|trans }}</th>
-							<th>{{ 'label.benchmark.values'|trans }}</th>
-						</tr>
-						{% for field in enumFields %}
+							
 							<tr>
-								<td>{{ field.fieldName }}</td>
-								<td>{{ field.values }}</td>
+								<th class="text-right">{{ 'label.benchmark.product.price'|trans }}</th>
+								<td class="text-center">{{ priceField.min|number_format(2, '.', ' ') }}</td>
+								<td class="text-center">{{ priceField.max|number_format(2, '.', ' ') }}</td>
+								<td class="text-center">{{ priceField.mode|number_format(2, '.', ' ') }}</td>
+								<td class="text-center">{{ priceField.median|number_format(2, '.', ' ') }}</td>
+								<td class="text-center">{{ priceField.mean|number_format(2, '.', ' ') }}</td>
 							</tr>
-						{% endfor %}
-					</table>
-				</div>
+								
+							{% for field in numberFields %}
+								<tr>
+									<th class="text-right">{{ field.fieldName }}</td>
+									<td class="text-center">{{ field.min|number_format(field.decimalPlaces, '.', ' ') }}</th>
+									<td class="text-center">{{ field.max|number_format(field.decimalPlaces, '.', ' ') }}</td>
+									<td class="text-center">{{ field.mode|number_format(field.decimalPlaces, '.', ' ') }}</td>
+									<td class="text-center">{{ field.median|number_format(field.decimalPlaces, '.', ' ') }}</td>
+									<td class="text-center">{{ field.mean|number_format(field.decimalPlaces, '.', ' ') }}</td>
+								</tr>
+							{% endfor %}
+						</table>
+					</div>
+				{% endif %}
+				
+				{% if enumFields|length > 0 %}
+					<div class="row lowered-25"></div>
+					
+					<div class="row">
+						<table class="table table-striped vert-align">
+							<tr>
+								<th width="30%" class="text-center">{{ 'label.benchmark.param'|trans }}</th>
+								<th class="text-center">{{ 'label.benchmark.values'|trans }}</th>
+							</tr>
+							{% for field in enumFields %}
+								<tr>
+									<th class="text-right">{{ field.fieldName }}</th>
+									<td class="text-center">{{ field.values }}</td>
+								</tr>
+							{% endfor %}
+						</table>
+					</div>
+				{% endif %}
+				
+				{% if boolFields|length > 0 %}
+					<div class="row lowered-25"></div>
+					
+					<div class="row">
+						<table class="table table-striped vert-align">
+							<tr>
+								<th width="30%" class="text-center">{{ 'label.benchmark.param'|trans }}</th>
+								<th class="text-center">{{ 'label.benchmark.numOfProducts'|trans }}</th>
+								<th class="text-center">{{ 'label.benchmark.percent'|trans }}</th>
+							</tr>
+							{% for field in boolFields %}
+								<tr>
+									<th class="text-right">{{ field.fieldName }}</th>
+									<td class="text-center">{{ field.count }}</td>
+									<td class="text-center">{{ (100 * field.count / numOfProducts)|number_format(0, '.', ' ') }}%</td>
+								</tr>
+							{% endfor %}
+						</table>
+					</div>
+				{% endif %}
 			{% endblock %}
 		</div>	
 	</div>

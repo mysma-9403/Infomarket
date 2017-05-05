@@ -51,6 +51,13 @@
 							{{ form_row(filter.name, { label: 'label.benchmark.product.name' }) }}
 						</div>
 						
+						<div class="col-xs-6">
+							{{ form_row(filter.minPrice, { label: 'label.benchmark.product.minPrice' }) }}
+						</div>
+						<div class="col-xs-6">
+							{{ form_row(filter.maxPrice, { label: 'label.benchmark.product.maxPrice' }) }}
+						</div>
+						
 						{% for field in entryFilter.filterFields %}
 								{% if field.filterType == constant('AppBundle\\Entity\\BenchmarkField::DECIMAL_FILTER_TYPE') %}
 									<div class="col-xs-6">
@@ -151,6 +158,13 @@
 						{% endfor %}
 						<td></td>
 					</tr>
+					<tr>
+						<th class="text-right">{{ 'label.benchmark.product.price'|trans }}</th>
+						{% for entry in entries %}
+							<td class="text-center">{{ entry.price|number_format(2, '.', ' ') }}</td>
+						{% endfor %}
+						<td></td>
+					</tr>
 					
 					{% for field in entryFilter.showFields %}
 						{% set key = benchmarkFieldValueTypeDBName(field.valueType) ~ field.valueNumber %}
@@ -178,6 +192,24 @@
 							</tr>		
 						{% endif %}					
 					{% endfor %}
+					
+					<tr>
+						<th class="text-right">{{ 'label.actions'|trans }}</th>
+						{% for entry in entries %}
+							<td class="text-center">
+								<a class="btn btn-primary" href="{{ path(basePath ~ mainPath ~ '_show', { id: entry.id }) }}" data-toggle="tooltip" title="{{ 'action.show'|trans }}">
+									<span class="fa fa-eye"></span>
+								</a>
+								<a class="btn btn-warning" href="{{ path(basePath ~ mainPath ~ '_compare', { id: entry.id }) }}" data-toggle="tooltip" title="{{ 'action.compare'|trans }}">
+									<span class="fa fa-balance-scale"></span>
+								</a>
+								<a class="btn btn-danger" href="{{ path(basePath ~ mainPath ~ '_show', { id: entry.id }) }}" data-toggle="tooltip" title="{{ 'action.reportError'|trans }}">
+									<span class="fa fa-exclamation-circle"></span>
+								</a>
+							</td>
+						{% endfor %}
+						<td></td>
+					</tr>
 					
 				</table>
 			{% endblock %}

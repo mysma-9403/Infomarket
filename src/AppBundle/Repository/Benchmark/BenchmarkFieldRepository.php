@@ -18,7 +18,7 @@ class BenchmarkFieldRepository extends AuditRepository
 	{
 		$builder = new QueryBuilder($this->getEntityManager());
 			
-		$builder->select("e.valueType, e.valueNumber, e.fieldType, e.fieldName, e.decimalPlaces");
+		$builder->select("e.valueType, e.valueNumber, e.fieldType, e.fieldName, e.decimalPlaces, e.noteType, e.noteWeight, e.betterThanType");
 		$builder->from($this->getEntityType(), "e");
 	
 		$expr = $builder->expr();
@@ -77,6 +77,15 @@ class BenchmarkFieldRepository extends AuditRepository
 	protected function queryEnumItemsByCategory($categoryId)
 	{
 		return $this->queryItemsByTypeAndCategory($categoryId, [BenchmarkField::SINGLE_ENUM_FIELD_TYPE, BenchmarkField::MULTI_ENUM_FIELD_TYPE]);
+	}
+	
+	public function findBoolItemsByCategory($categoryId) {
+		return $this->queryBoolItemsByCategory($categoryId)->getScalarResult();
+	}
+	
+	protected function queryBoolItemsByCategory($categoryId)
+	{
+		return $this->queryItemsByTypeAndCategory($categoryId, [BenchmarkField::BOOLEAN_FIELD_TYPE]);
 	}
 	
 	

@@ -24,4 +24,9 @@
 	{% include 'common/fields/bool_field.html.twig' with { 'label': 'label.benchmarkField.showFilter', 'value': entry.showFilter } %}
 	
 	{% include 'common/fields/text_field.html.twig' with { 'label': 'label.benchmarkField.decimalPlaces', 'value': entry.decimalPlaces } %}
+	
+	{% include 'common/fields/text_field.html.twig' with { 'label': 'label.benchmarkField.noteType', 'value': benchmarkFieldNoteTypeName(entry.noteType)|trans } %}
+	{% include 'common/fields/text_field.html.twig' with { 'label': 'label.benchmarkField.noteWeight', 'value': entry.noteWeight } %}
+	
+	{% include 'common/fields/text_field.html.twig' with { 'label': 'label.benchmarkField.noteType', 'value': benchmarkFieldBetterThanTypeName(entry.betterThanType)|trans } %}
 {% endblock %}

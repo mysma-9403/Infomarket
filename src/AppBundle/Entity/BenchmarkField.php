@@ -35,6 +35,20 @@ class BenchmarkField extends Audit
 	const SINGLE_ENUM_FILTER_TYPE = 32;
 	const MULTI_ENUM_FILTER_TYPE = 33;
 	
+	
+	
+	const NONE_NOTE_TYPE = 0;
+	const ASC_NOTE_TYPE = 1;
+	const DESC_NOTE_TYPE = 2;
+	
+	const NONE_BETTER_THAN_TYPE = 0;
+	const LT_BETTER_THAN_TYPE = 10;
+	const LTE_BETTER_THAN_TYPE = 11;
+	const GT_BETTER_THAN_TYPE = 20;
+	const GTE_BETTER_THAN_TYPE = 21;
+	const EQUAL_BETTER_THAN_TYPE = 30;
+	
+	
 	public static function getValueTypeDBName($valueType) {
 		switch($valueType) {
 			case self::DECIMAL_VALUE_TYPE:
@@ -94,6 +108,38 @@ class BenchmarkField extends Audit
 				return 'label.benchmarkField.filterType.singleEnum';
 			case self::MULTI_ENUM_FILTER_TYPE:
 				return 'label.benchmarkField.filterType.multiEnum';
+			default:
+				return null;
+		}
+	}
+	
+	public static function getNoteTypeName($noteType) {
+		switch($noteType) {
+			case self::NONE_NOTE_TYPE:
+				return 'label.benchmarkField.noteType.none';
+			case self::ASC_NOTE_TYPE:
+				return 'label.benchmarkField.noteType.ascending';
+			case self::DESC_NOTE_TYPE:
+				return 'label.benchmarkField.noteType.descending';
+			default:
+				return null;
+		}
+	}
+	
+	public static function getBetterThanTypeName($noteType) {
+		switch($noteType) {
+			case self::NONE_BETTER_THAN_TYPE:
+				return 'label.benchmarkField.betterThanType.none';
+			case self::LT_BETTER_THAN_TYPE:
+				return 'label.benchmarkField.betterThanType.lesserThan';
+			case self::LTE_BETTER_THAN_TYPE:
+				return 'label.benchmarkField.betterThanType.lesserThanEqual';
+			case self::GT_BETTER_THAN_TYPE:
+				return 'label.benchmarkField.betterThanType.greaterThan';
+			case self::GTE_BETTER_THAN_TYPE:
+				return 'label.benchmarkField.betterThanType.greaterThanEqual';
+			case self::EQUAL_BETTER_THAN_TYPE:
+				return 'label.benchmarkField.betterThanType.equal';
 			default:
 				return null;
 		}
@@ -446,5 +492,92 @@ class BenchmarkField extends Audit
     public function getDecimalPlaces()
     {
         return $this->decimalPlaces;
+    }
+    /**
+     * @var integer
+     */
+    private $noteType;
+
+
+    /**
+     * Set noteType
+     *
+     * @param integer $noteType
+     *
+     * @return BenchmarkField
+     */
+    public function setNoteType($noteType)
+    {
+        $this->noteType = $noteType;
+
+        return $this;
+    }
+
+    /**
+     * Get noteType
+     *
+     * @return integer
+     */
+    public function getNoteType()
+    {
+        return $this->noteType;
+    }
+    /**
+     * @var integer
+     */
+    private $noteWeight;
+
+
+    /**
+     * Set noteWeight
+     *
+     * @param integer $noteWeight
+     *
+     * @return BenchmarkField
+     */
+    public function setNoteWeight($noteWeight)
+    {
+        $this->noteWeight = $noteWeight;
+
+        return $this;
+    }
+
+    /**
+     * Get noteWeight
+     *
+     * @return integer
+     */
+    public function getNoteWeight()
+    {
+        return $this->noteWeight;
+    }
+    /**
+     * @var integer
+     */
+    private $betterThanType;
+
+
+    /**
+     * Set betterThanType
+     *
+     * @param integer $betterThanType
+     *
+     * @return BenchmarkField
+     */
+    public function setBetterThanType($betterThanType)
+    {
+        $this->betterThanType = $betterThanType;
+
+        return $this;
+    }
+
+    /**
+     * Get betterThanType
+     *
+     * @return integer
+     */
+    public function getBetterThanType()
+    {
+        return $this->betterThanType;
     }
 }

@@ -37,7 +37,7 @@ class CategoryController extends DummyController {
 	{
 		$this->denyAccessUnlessGranted($this->getShowRole(), null, 'Unable to access this page!');
 		
-		$params = $this->createParams($this->getIndexRoute());
+		$params = $this->createParams($this->getShowRoute());
 		$params = $this->getShowParams($request, $params, $id);
 		
 		$rm = $this->getRouteManager();

@@ -43,6 +43,21 @@ class BenchmarkFieldEditorType extends BaseEntityEditorType
 				BenchmarkField::getFieldTypeName(BenchmarkField::MULTI_ENUM_FIELD_TYPE) => BenchmarkField::MULTI_ENUM_FIELD_TYPE
 		);
 		
+		$noteTypes = array(
+				BenchmarkField::getNoteTypeName(BenchmarkField::NONE_NOTE_TYPE) => BenchmarkField::NONE_NOTE_TYPE,
+				BenchmarkField::getNoteTypeName(BenchmarkField::ASC_NOTE_TYPE) => BenchmarkField::ASC_NOTE_TYPE,
+				BenchmarkField::getNoteTypeName(BenchmarkField::DESC_NOTE_TYPE) => BenchmarkField::DESC_NOTE_TYPE
+		);
+		
+		$betterThanTypes = array(
+				BenchmarkField::getBetterThanTypeName(BenchmarkField::NONE_BETTER_THAN_TYPE) => BenchmarkField::NONE_BETTER_THAN_TYPE,
+				BenchmarkField::getBetterThanTypeName(BenchmarkField::LT_BETTER_THAN_TYPE) => BenchmarkField::LT_BETTER_THAN_TYPE,
+				BenchmarkField::getBetterThanTypeName(BenchmarkField::LTE_BETTER_THAN_TYPE) => BenchmarkField::LTE_BETTER_THAN_TYPE,
+				BenchmarkField::getBetterThanTypeName(BenchmarkField::GT_BETTER_THAN_TYPE) => BenchmarkField::GT_BETTER_THAN_TYPE,
+				BenchmarkField::getBetterThanTypeName(BenchmarkField::GTE_BETTER_THAN_TYPE) => BenchmarkField::GTE_BETTER_THAN_TYPE,
+				BenchmarkField::getBetterThanTypeName(BenchmarkField::EQUAL_BETTER_THAN_TYPE) => BenchmarkField::EQUAL_BETTER_THAN_TYPE
+		);
+		
 		$builder
 		->add('category', ChoiceType::class, array(
 				'choices' 		=> $categories,
@@ -58,6 +73,7 @@ class BenchmarkFieldEditorType extends BaseEntityEditorType
 				'expanded'      => false,
 				'multiple'      => false
 		))
+		
 		->add('valueNumber', NumberType::class, array(
 				'required' => true,
 				'attr' => ['placeholder' => 'label.benchmarkField.valueNumber']
@@ -70,6 +86,7 @@ class BenchmarkFieldEditorType extends BaseEntityEditorType
 				'required' => false,
 				'attr' => ['placeholder' => 'label.benchmarkField.filterNumber']
 		))
+		
 		->add('fieldName', TextType::class, array(
 				'required' => false,
 				'attr' => ['placeholder' => 'label.benchmarkField.fieldName']
@@ -78,15 +95,35 @@ class BenchmarkFieldEditorType extends BaseEntityEditorType
 				'required' => false,
 				'attr' => ['placeholder' => 'label.benchmarkField.filterName']
 		))
+		
 		->add('showField', CheckboxType::class, array(
 				'required' => false
 		))
 		->add('showFilter', CheckboxType::class, array(
 				'required' => false
 		))
+		
 		->add('decimalPlaces', NumberType::class, array(
 				'required' => false,
 				'attr' => ['placeholder' => 'label.benchmarkField.decimalPlaces']
+		))
+		
+		->add('noteType', ChoiceType::class, array(
+				'choices'		=> $noteTypes,
+				'required'		=> true,
+				'expanded'      => false,
+				'multiple'      => false
+		))
+		->add('noteWeight', NumberType::class, array(
+				'required' => false,
+				'attr' => ['placeholder' => 'label.benchmarkField.noteWeight']
+		))
+		
+		->add('betterThanType', ChoiceType::class, array(
+				'choices'		=> $betterThanTypes,
+				'required'		=> true,
+				'expanded'      => false,
+				'multiple'      => false
 		))
 		;
 		

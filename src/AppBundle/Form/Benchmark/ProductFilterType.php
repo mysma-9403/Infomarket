@@ -68,6 +68,14 @@ class ProductFilterType extends FilterType
 				'attr' => ['placeholder' => 'label.benchmark.product.name'],
 				'required' => false
 		));
+		$builder->add('minPrice', NumberType::class, array(
+				'attr' => ['placeholder' => 'label.benchmark.product.minPrice'],
+				'required' => false
+		));
+		$builder->add('maxPrice', NumberType::class, array(
+				'attr' => ['placeholder' => 'label.benchmark.product.maxPrice'],
+				'required' => false
+		))
 		;
 		
 		$booleanChoices = array(

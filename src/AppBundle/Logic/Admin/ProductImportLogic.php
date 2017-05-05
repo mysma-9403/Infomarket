@@ -337,6 +337,12 @@ class ProductImportLogic {
 			$brandWww = $fileEntry[$brandWwwIndex];
 		}
 		
+		$productPrice = null;
+		if(key_exists('productPrice', $columns)) {
+			$productPriceIndex = $columns['productPrice']['index'];
+			$productPrice = $fileEntry[$productPriceIndex];
+		}
+		
 		$segmentName = null;
 		if(key_exists('segmentName', $columns)) {
 			$segmentNameIndex = $columns['segmentName']['index'];
@@ -372,6 +378,7 @@ class ProductImportLogic {
 		$entry['segmentName'] = $segmentName;
 		
 		$entry['brandWww'] = $brandWww;
+		$entry['productPrice'] = $productPrice;
 		
 		$entry['imageName'] = $imageName;
 		$entry['imageType'] = $imageType;
@@ -517,14 +524,20 @@ class ProductImportLogic {
 			$productName = $preparedEntry['productName'];
 			$imageName = $preparedEntry['imageName'];
 			$imageType = $preparedEntry['imageType'];
+			
+			$productPrice = null;
+			if(key_exists('productPrice', $preparedEntry)) $productPrice = $preparedEntry['productPrice'];
 				
 			$product = $productRepository->findOneBy(['name' => $productName, 'brand' => $brand]);
 			if(!$product) {
 				$product = new Product();
 				$product->setName($productName);
+				
 				$product->setInfomarket(true);
 				$product->setInfoprodukt(true);
+				
 				$product->setBrand($brand);
+				$product->setPrice($productPrice);
 	
 				$image = $this->getImage($product, $imageName, $imageType);
 	
@@ -546,6 +559,11 @@ class ProductImportLogic {
 				if($product->getImage() != $image) {
 					$product->setImage($image);
 					$product->setMimeType('image/' . $imageType);
+					$forUpdate = true;
+				}
+				
+				if($productPrice != $product->getPrice()) {
+					$product->setPrice($productPrice);
 					$forUpdate = true;
 				}
 				

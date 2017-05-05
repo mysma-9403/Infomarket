@@ -737,6 +737,59 @@
                 <target>Filtr wyliczeniowy (lista)</target>
             </trans-unit>
             
+            <trans-unit id="label.benchmarkField.noteType">
+                <source>label.benchmarkField.noteType</source>
+                <target>Typ oceny</target>
+            </trans-unit>
+            <trans-unit id="label.benchmarkField.noteType.none">
+                <source>label.benchmarkField.noteType.none</source>
+                <target>Bez oceny</target>
+            </trans-unit>
+            <trans-unit id="label.benchmarkField.noteType.ascending">
+                <source>label.benchmarkField.noteType.ascending</source>
+                <target>Rosnąca</target>
+            </trans-unit>
+            <trans-unit id="label.benchmarkField.noteType.descending">
+                <source>label.benchmarkField.noteType.descending</source>
+                <target>Malejąca</target>
+            </trans-unit>
+            
+            <trans-unit id="label.benchmarkField.noteWeight">
+                <source>label.benchmarkField.noteWeight</source>
+                <target>Waga oceny</target>
+            </trans-unit>
+            
+            <trans-unit id="label.benchmarkField.betterThanType">
+                <source>label.benchmarkField.betterThanType</source>
+                <target>Typ porównania (lepszy niż)</target>
+            </trans-unit>
+            <trans-unit id="label.benchmarkField.betterThanType.none">
+                <source>label.benchmarkField.betterThanType.none</source>
+                <target>Bez porównania</target>
+            </trans-unit>
+            <trans-unit id="label.benchmarkField.betterThanType.lesserThan">
+                <source>label.benchmarkField.betterThanType.lesserThan</source>
+                <target>Mniejszy</target>
+            </trans-unit>
+            <trans-unit id="label.benchmarkField.betterThanType.lesserThanEqual">
+                <source>label.benchmarkField.betterThanType.lesserThanEqual</source>
+                <target>Mniejszy lub równy</target>
+            </trans-unit>
+            <trans-unit id="label.benchmarkField.betterThanType.greaterThan">
+                <source>label.benchmarkField.betterThanType.greaterThan</source>
+                <target>Większy</target>
+            </trans-unit>
+            <trans-unit id="label.benchmarkField.betterThanType.greaterThanEqual">
+                <source>label.benchmarkField.betterThanType.greaterThanEqual</source>
+                <target>Większy lub równy</target>
+            </trans-unit>
+            <trans-unit id="label.benchmarkField.betterThanType.equal">
+                <source>label.benchmarkField.betterThanType.equal</source>
+                <target>Równy</target>
+            </trans-unit>
+            
+            
+            
             <trans-unit id="label.benchmark.category">
                 <source>label.benchmark.category</source>
                 <target>Kategoria główna</target>
@@ -759,6 +812,18 @@
                 <source>label.benchmark.product.name</source>
                 <target>Symbol</target>
             </trans-unit>
+            <trans-unit id="label.benchmark.product.price">
+                <source>label.benchmark.product.price</source>
+                <target>Średnia cena rynkowa [PLN]</target>
+            </trans-unit>
+            <trans-unit id="label.benchmark.product.minPrice">
+                <source>label.benchmark.product.minPrice</source>
+                <target>Cena (min)</target>
+            </trans-unit>
+            <trans-unit id="label.benchmark.product.maxPrice">
+                <source>label.benchmark.product.maxPrice</source>
+                <target>Cena (max)</target>
+            </trans-unit>
             
 			<trans-unit id="label.benchmark.all">
                 <source>label.benchmark.all</source>
@@ -777,6 +842,10 @@
             <trans-unit id="label.benchmark.numOfProducts">
                 <source>label.benchmark.numOfProducts</source>
                 <target>Ilość modeli</target>
+            </trans-unit>
+            <trans-unit id="label.benchmark.percent">
+                <source>label.benchmark.percent</source>
+                <target>Procent</target>
             </trans-unit>
             
             <trans-unit id="label.benchmark.total">
@@ -813,6 +882,22 @@
                 <target>Średnia</target>
             </trans-unit>
             
+            <trans-unit id="label.benchmark.value">
+                <source>label.benchmark.value</source>
+                <target>Wartość</target>
+            </trans-unit>
+            <trans-unit id="label.benchmark.betterThan">
+                <source>label.benchmark.betterThan</source>
+                <target>Lepszy od</target>
+            </trans-unit>
+            <trans-unit id="label.benchmark.note">
+                <source>label.benchmark.note</source>
+                <target>Ocena</target>
+            </trans-unit>
+            <trans-unit id="label.benchmark.priceFactor">
+                <source>label.benchmark.priceFactor</source>
+                <target>Stosunek do ceny</target>
+            </trans-unit>
             
             
             <trans-unit id="action.benchmark.export.csv">

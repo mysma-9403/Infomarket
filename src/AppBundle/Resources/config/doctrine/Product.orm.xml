@@ -12,6 +12,8 @@
         
         <field name="topProduktImage" type="string" length="256" nullable="true"/>
         
+        <field name="price" type="decimal" precision="12" scale="4" nullable="true" />
+        
         <field name="decimal1" type="decimal" precision="12" scale="4" nullable="true" />
         <field name="decimal2" type="decimal" precision="12" scale="4" nullable="true" />
         <field name="decimal3" type="decimal" precision="12" scale="4" nullable="true" />

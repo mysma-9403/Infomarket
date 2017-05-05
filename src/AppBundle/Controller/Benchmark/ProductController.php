@@ -13,20 +13,20 @@ use AppBundle\Filter\Benchmark\SubcategoryFilter;
 use AppBundle\Form\Benchmark\CategoryFilterType;
 use AppBundle\Form\Benchmark\ProductFilterType;
 use AppBundle\Form\Benchmark\SubcategoryFilterType;
+use AppBundle\Logic\Benchmark\Export\CsvExportLogic;
+use AppBundle\Logic\Benchmark\Export\ExcelExportLogic;
+use AppBundle\Logic\Benchmark\Export\HtmlExportLogic;
 use AppBundle\Manager\Entity\Base\EntityManager;
 use AppBundle\Manager\Entity\Benchmark\ProductManager;
 use AppBundle\Manager\Filter\Base\FilterManager;
 use AppBundle\Manager\Params\Benchmark\ContextParamsManager;
-use AppBundle\Manager\Params\EntryParams\Base\EntryParamsManager;
+use AppBundle\Manager\Params\EntryParams\Benchmark\ProductParamsManager;
 use AppBundle\Manager\Route\RouteManager;
 use AppBundle\Repository\Benchmark\BenchmarkFieldRepository;
 use AppBundle\Repository\Benchmark\ProductRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 use Symfony\Component\Validator\Constraints\Date;
-use AppBundle\Logic\Benchmark\Export\ExcelExportLogic;
-use AppBundle\Logic\Benchmark\Export\CsvExportLogic;
-use AppBundle\Logic\Benchmark\Export\HtmlExportLogic;
 
 class ProductController extends DummyController {
 	
@@ -48,6 +48,14 @@ class ProductController extends DummyController {
 	
 	public function exportToExcelAction(Request $request, $page) {
 		return $this->exportToExcelActionInternal($request, $page);
+	}
+	
+	public function showAction(Request $request, $id) {
+		return $this->showActionInternal($request, $id);
+	}
+	
+	public function compareAction(Request $request, $id) {
+		return $this->compareActionInternal($request, $id);
 	}
 	
 	//---------------------------------------------------------------------------
@@ -207,6 +215,56 @@ class ProductController extends DummyController {
 		return $response;
 	}
 	
+	protected function showActionInternal(Request $request, $id)
+	{
+		$this->denyAccessUnlessGranted($this->getShowRole(), null, 'Unable to access this page!');
+	
+		$params = $this->createParams($this->getShowRoute());
+		$params = $this->getShowParams($request, $params, $id);
+	
+		$rm = $this->getRouteManager();
+		$rm->register($request, $params['route'], $params['routeParams']);
+	
+		$am = $this->getAnalyticsManager();
+		$am->sendPageviewAnalytics($params['domain'], $params['route']);
+	
+	
+		$contextParams = $params['contextParams'];
+		$viewParams = $params['viewParams'];
+	
+		//TODO forms
+	
+		$routeParams = $params['routeParams'];
+		$viewParams['routeParams'] = $routeParams;
+	
+		return $this->render($this->getShowView(), $viewParams);
+	}
+	
+	protected function compareActionInternal(Request $request, $id)
+	{
+		$this->denyAccessUnlessGranted($this->getCompareRole(), null, 'Unable to access this page!');
+	
+		$params = $this->createParams($this->getCompareRoute());
+		$params = $this->getCompareParams($request, $params, $id);
+	
+		$rm = $this->getRouteManager();
+		$rm->register($request, $params['route'], $params['routeParams']);
+	
+		$am = $this->getAnalyticsManager();
+		$am->sendPageviewAnalytics($params['domain'], $params['route']);
+	
+	
+		$contextParams = $params['contextParams'];
+		$viewParams = $params['viewParams'];
+	
+		//TODO forms
+	
+		$routeParams = $params['routeParams'];
+		$viewParams['routeParams'] = $routeParams;
+	
+		return $this->render($this->getCompareView(), $viewParams);
+	}
+	
 	//---------------------------------------------------------------------------
 	// Parameters
 	//---------------------------------------------------------------------------
@@ -225,6 +283,24 @@ class ProductController extends DummyController {
 	
 		$em = $this->getEntryParamsManager();
 		$params = $em->getIndexParams($request, $params, $page);
+	
+		return $params;
+	}
+	
+	protected function getShowParams(Request $request, array $params, $id) {
+		$params = $this->getParams($request, $params);
+	
+		$em = $this->getEntryParamsManager();
+		$params = $em->getShowParams($request, $params, $id);
+	
+		return $params;
+	}
+	
+	protected function getCompareParams(Request $request, array $params, $id) {
+		$params = $this->getParams($request, $params);
+	
+		$em = $this->getEntryParamsManager();
+		$params = $em->getCompareParams($request, $params, $id);
 	
 		return $params;
 	}
@@ -258,7 +334,7 @@ class ProductController extends DummyController {
 	}
 	
 	protected function getInternalEntryParamsManager(EntityManager $em, FilterManager $fm, $doctrine) {
-		return new EntryParamsManager($em, $fm, $doctrine);
+		return new ProductParamsManager($em, $fm, $doctrine);
 	}
 	
 	protected function getEntityManager($doctrine, $paginator) {
@@ -300,6 +376,10 @@ class ProductController extends DummyController {
 		return 'ROLE_BENCHMARK';
 	}
 	
+	protected function getCompareRole() {
+		return self::getShowRole();
+	}
+	
 	//---------------------------------------------------------------------------
 	// Views
 	//---------------------------------------------------------------------------
@@ -309,6 +389,16 @@ class ProductController extends DummyController {
 		return $this->getDomain() . '/' . $this->getEntityName() . '/index.html.twig';
 	}
 	
+	protected function getShowView()
+	{
+		return $this->getDomain() . '/' . $this->getEntityName() . '/show.html.twig';
+	}
+	
+	protected function getCompareView()
+	{
+		return $this->getDomain() . '/' . $this->getEntityName() . '/compare.html.twig';
+	}
+	
 	//---------------------------------------------------------------------------
 	// Routes
 	//---------------------------------------------------------------------------
@@ -316,6 +406,16 @@ class ProductController extends DummyController {
 	protected function getIndexRoute()
 	{
 		return $this->getDomain() . '_' . $this->getEntityName();
+	}
+	
+	protected function getShowRoute()
+	{
+		return $this->getIndexRoute() . '_show';
+	}
+	
+	protected function getCompareRoute()
+	{
+		return $this->getIndexRoute() . '_compare';
 	}
 	
 	protected function getHomeRoute() {
