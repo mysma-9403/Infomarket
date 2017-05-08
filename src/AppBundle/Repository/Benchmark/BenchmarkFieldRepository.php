@@ -18,7 +18,7 @@ class BenchmarkFieldRepository extends AuditRepository
 	{
 		$builder = new QueryBuilder($this->getEntityManager());
 			
-		$builder->select("e.valueType, e.valueNumber, e.fieldType, e.fieldName, e.decimalPlaces, e.noteType, e.noteWeight, e.betterThanType");
+		$builder->select("e.valueType, e.valueNumber, e.fieldType, e.fieldName, e.decimalPlaces, e.noteType, e.noteWeight, e.betterThanType, e.compareWeight");
 		$builder->from($this->getEntityType(), "e");
 	
 		$expr = $builder->expr();

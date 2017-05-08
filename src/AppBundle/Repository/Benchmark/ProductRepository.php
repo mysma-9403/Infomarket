@@ -287,6 +287,95 @@ class ProductRepository extends BaseRepository
 	
 	
 	
+	
+	public function findNeighbourItems($categoryId, $entry, $fields, $limit) {
+		return $this->queryNeighbourItems($categoryId, $entry, $fields, $limit)->getScalarResult();
+	}
+	
+	/**
+	 * 
+	 * @param unknown $categoryId
+	 * @param Product $entry
+	 * @param unknown $fields
+	 * @param unknown $limit
+	 */
+	protected function queryNeighbourItems($categoryId, $entry, $fields, $limit)
+	{
+		$builder = new QueryBuilder($this->getEntityManager());
+	
+		$expr = $builder->expr();
+	
+		$selectFields = array();
+		
+		$selectFields[] = 'e.id';
+		
+		$selectFields[] = 'e.name';
+		$selectFields[] = 'e.image';
+		$selectFields[] = 'e.mimeType';
+		
+		$selectFields[] = 'b.id AS brandId';
+		$selectFields[] = 'b.name AS brandName';
+		
+		$selectFields[] = 'c.id AS categoryId';
+		$selectFields[] = 'c.name AS categoryName';
+		$selectFields[] = 'c.subname AS categorySubname';
+		
+		$selectFields[] = 'e.price';
+		
+		$distanceFields = array();
+		
+		foreach ($fields as $field) {
+			$valueField = $field['valueField'];
+			$selectField = 'e.' . $valueField;
+			$selectFields[] = $selectField;
+			$weight = $field['compareWeight'];
+			$min = key_exists('min', $field) ? $field['min'] : null;
+			$max = key_exists('max', $field) ? $field['max'] : null;
+			if($weight > 0 && $min && $max) {
+				$norm = $max - $min;
+				$value = $weight / $norm;
+				$diff = $expr->abs($expr->diff($selectField, $entry->offsetGet($valueField)));
+				$distanceFields[] = $expr->prod($value, $diff);
+			}
+		}
+		if(count($distanceFields) > 0) {
+			$selectFields[] = join(' + ', $distanceFields) . ' AS distance';
+		}
+		
+		$builder->select($selectFields);
+		$builder->from($this->getEntityType(), "e");
+	
+		$builder->innerJoin(Brand::class, 'b', Join::WITH, 'b.id = e.brand');
+		$builder->innerJoin(ProductCategoryAssignment::class, 'pca', Join::WITH, 'e.id = pca.product');
+		$builder->innerJoin(Category::class, 'c', Join::WITH, 'c.id = pca.category');
+	
+		$where = $expr->andX();
+		$where->add($builder->expr()->like('c.treePath', $builder->expr()->literal('%-' . $categoryId . '#%')));
+		$where->add($expr->neq('e.id', $entry->getId()));
+		
+		foreach ($fields as $field) {
+			$valueField = $field['valueField'];
+			$selectField = 'e.' . $valueField;
+			$weight = $field['compareWeight'];
+			if($weight > 0) {
+				$where->add($expr->isNotNull($selectField));
+			}
+		}
+		
+		$builder->where($where);
+		
+		if(count($distanceFields) > 0) {
+			$builder->orderBy('distance');
+		}
+		
+		$builder->setMaxResults($limit);
+			
+		return $builder->getQuery();
+	}
+	
+	
+	
+	
 	protected function  buildJoins(QueryBuilder &$builder, Filter $filter) {
 		/** @var ProductFilter $filter */
 		$builder->innerJoin(Brand::class, 'b', Join::WITH, 'b.id = e.brand');

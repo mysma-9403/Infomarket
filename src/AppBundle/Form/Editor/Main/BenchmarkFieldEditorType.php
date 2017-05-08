@@ -125,6 +125,11 @@ class BenchmarkFieldEditorType extends BaseEntityEditorType
 				'expanded'      => false,
 				'multiple'      => false
 		))
+		
+		->add('compareWeight', NumberType::class, array(
+				'required' => false,
+				'attr' => ['placeholder' => 'label.benchmarkField.compareWeight']
+		))
 		;
 		
 		$builder->get('category')->addModelTransformer(new CategoryToNumberTransformer($this->em));

@@ -788,6 +788,11 @@
                 <target>Równy</target>
             </trans-unit>
             
+            <trans-unit id="label.benchmarkField.compareWeight">
+                <source>label.benchmarkField.compareWeight</source>
+                <target>Waga porównania</target>
+            </trans-unit>
+            
             
             
             <trans-unit id="label.benchmark.category">

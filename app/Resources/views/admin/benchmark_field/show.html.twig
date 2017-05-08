@@ -29,4 +29,6 @@
 	{% include 'common/fields/text_field.html.twig' with { 'label': 'label.benchmarkField.noteWeight', 'value': entry.noteWeight } %}
 	
 	{% include 'common/fields/text_field.html.twig' with { 'label': 'label.benchmarkField.noteType', 'value': benchmarkFieldBetterThanTypeName(entry.betterThanType)|trans } %}
+	
+	{% include 'common/fields/text_field.html.twig' with { 'label': 'label.benchmarkField.compareWeight', 'value': entry.compareWeight } %}
 {% endblock %}

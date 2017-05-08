@@ -8,6 +8,8 @@ use AppBundle\Repository\Benchmark\BenchmarkFieldRepository;
 use AppBundle\Entity\BenchmarkField;
 use AppBundle\Entity\Product;
 use AppBundle\Repository\Benchmark\ProductRepository;
+use AppBundle\Logic\Benchmark\Fields\BenchmarkFieldsLogic;
+use AppBundle\Logic\Benchmark\Fields\BenchmarkFieldLogic;
 
 class ProductParamsManager extends EntryParamsManager {
 	
@@ -103,6 +105,51 @@ class ProductParamsManager extends EntryParamsManager {
 	}
 	
 	public function getCompareParams(Request $request, array $params, $id) {
-    	return $this->getShowParams($request, $params, $id);
+		$params = parent::getShowParams($request, $params, $id);
+		$viewParams = $params['viewParams'];
+		
+		/** @var Product $entry */
+		$entry = $viewParams['entry'];
+		
+		$em = $this->doctrine->getManager();
+		
+		$benchmarkFieldRepository = new BenchmarkFieldRepository($em, $em->getClassMetadata(BenchmarkField::class));
+		$productRepository = new ProductRepository($em, $em->getClassMetadata(Product::class));
+		
+		$assignment = $entry->getProductCategoryAssignments()->first();
+		$categoryId = $assignment->getCategory()->getId();
+		
+		$logic = new BenchmarkFieldLogic($productRepository, $categoryId);
+		
+		$fields = $benchmarkFieldRepository->findShowItemsByCategory($categoryId);
+		for ($i = 0; $i < count($fields); $i++) {
+			$field = $fields[$i];
+			
+			$field = $logic->initValueField($field);
+			
+			$weight = $field['compareWeight'];
+			if($weight > 0) {
+				switch($field['fieldType']) {
+					case BenchmarkField::DECIMAL_FIELD_TYPE:
+					case BenchmarkField::INTEGER_FIELD_TYPE:
+					case BenchmarkField::BOOLEAN_FIELD_TYPE:			
+						$minMaxValues = $productRepository->findMinMaxValues($categoryId, $field['valueField']);
+						$field['min'] = $minMaxValues['vmin'];
+						$field['max'] = $minMaxValues['vmax'];
+				}
+			}
+			
+			$fields[$i] = $field;
+		}
+		$viewParams['benchmarkFields'] = $fields;
+		
+		
+		$entries = $productRepository->findNeighbourItems($categoryId, $entry, $fields, 5);
+		$viewParams['entries'] = $entries;
+		
+		
+		$params['viewParams'] = $viewParams;
+		
+		return $params;
 	}
 }

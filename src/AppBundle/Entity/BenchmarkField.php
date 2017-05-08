@@ -580,4 +580,33 @@ class BenchmarkField extends Audit
     {
         return $this->betterThanType;
     }
+    /**
+     * @var integer
+     */
+    private $compareWeight;
+
+
+    /**
+     * Set compareWeight
+     *
+     * @param integer $compareWeight
+     *
+     * @return BenchmarkField
+     */
+    public function setCompareWeight($compareWeight)
+    {
+        $this->compareWeight = $compareWeight;
+
+        return $this;
+    }
+
+    /**
+     * Get compareWeight
+     *
+     * @return integer
+     */
+    public function getCompareWeight()
+    {
+        return $this->compareWeight;
+    }
 }

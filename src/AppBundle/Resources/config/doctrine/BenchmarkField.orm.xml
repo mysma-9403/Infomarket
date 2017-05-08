@@ -29,6 +29,8 @@
         <field name="noteWeight" type="integer" nullable="true"/>
         
         <field name="betterThanType" type="integer" nullable="true"/>
+        
+        <field name="compareWeight" type="integer" nullable="true"/>
     </entity>
     
 </doctrine-mapping>
