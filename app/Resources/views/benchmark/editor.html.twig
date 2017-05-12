@@ -1,0 +1,66 @@
+{% extends 'benchmark/index.html.twig' %}
+
+{% set mainPath = 'category' %}
+{% set title = title|default('title.categories')|trans %}
+	
+{% block content %}
+
+	<div class="container">
+		{% block errorsBlock %}
+			{% include 'common/errors.html.twig' %}
+		{% endblock %}
+		
+		{% block preFormBlock %}
+		{% endblock %}
+		
+		{% block formBlock %}
+		{% form_theme form 'form/fields.html.twig' %}
+		
+		<div class="row">
+			<div class="col-xs-12">
+			{{ form_start(form) }}
+				{% block moreFields1 %}
+			    {% endblock %}
+			
+			    {% block mainFields1 %}
+			    {% endblock %}
+			    
+			    {% block moreFields2 %}
+			    {% endblock %}
+			    
+			    {% block mainFields2 %}
+			    {% endblock %}
+			    
+			    {% block moreFields3 %}
+			    {% endblock %}
+			
+				{{ form_errors(form) }}
+			
+				{% block moreActions1 %}
+			    {% endblock %}
+			    
+				{% block mainActions %}
+			    {% endblock %}
+			    
+			    {% block moreActions2 %}
+			    {% endblock %}
+			{{ form_end(form) }}
+			</div>
+		</div>
+			    
+		{% endblock %}
+	</div>
+	
+	<div class="vr-space-40"></div>
+	
+	<div class="row">
+		{% if entry.id %}
+			{% block assignments %}
+	    	{% endblock %}
+    	{% endif %}
+	</div>
+	
+	{% block moreContent %}
+	{% endblock %}
+	
+{% endblock %}

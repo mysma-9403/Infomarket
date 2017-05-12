@@ -227,15 +227,8 @@ class ProductController extends DummyController {
 	
 		$am = $this->getAnalyticsManager();
 		$am->sendPageviewAnalytics($params['domain'], $params['route']);
-	
-	
-		$contextParams = $params['contextParams'];
+		
 		$viewParams = $params['viewParams'];
-	
-		//TODO forms
-	
-		$routeParams = $params['routeParams'];
-		$viewParams['routeParams'] = $routeParams;
 	
 		return $this->render($this->getShowView(), $viewParams);
 	}
@@ -252,15 +245,8 @@ class ProductController extends DummyController {
 	
 		$am = $this->getAnalyticsManager();
 		$am->sendPageviewAnalytics($params['domain'], $params['route']);
-	
-	
-		$contextParams = $params['contextParams'];
+		
 		$viewParams = $params['viewParams'];
-	
-		//TODO forms
-	
-		$routeParams = $params['routeParams'];
-		$viewParams['routeParams'] = $routeParams;
 	
 		return $this->render($this->getCompareView(), $viewParams);
 	}
@@ -334,7 +320,8 @@ class ProductController extends DummyController {
 	}
 	
 	protected function getInternalEntryParamsManager(EntityManager $em, FilterManager $fm, $doctrine) {
-		return new ProductParamsManager($em, $fm, $doctrine);
+		$tokenStorage = $this->get('security.token_storage');
+		return new ProductParamsManager($em, $fm, $doctrine, $tokenStorage);
 	}
 	
 	protected function getEntityManager($doctrine, $paginator) {

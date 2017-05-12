@@ -8,11 +8,6 @@
 {% endblock %}
 
 
-{# Header section #}
-{% block simpleHeaderMainFields2More %}
-	<th><i class="fa fa-star"></i> {{ ('label.' ~ gender ~ 'featured')|trans }}</th>
-{% endblock %}
-
 {% block simpleMainMoreActions %}
 	<li>	
 		<div class="btn-group {{ hidden }}">
@@ -20,6 +15,11 @@
 			{{ form_widget(form.setNotFeaturedSelected, { 'icon': 'fa-star-o', 'label': 'action.setNotFeaturedSelected', 'attr': {'class': 'btn btn-primary', 'type': 'button'} }) }}
 		</div>
 	</li>
+{% endblock %}
+
+{# Header section #}
+{% block simpleHeaderMainFields2More %}
+	<th><i class="fa fa-star"></i> {{ ('label.' ~ gender ~ 'featured')|trans }}</th>
 {% endblock %}
 
 {# Entry section #}

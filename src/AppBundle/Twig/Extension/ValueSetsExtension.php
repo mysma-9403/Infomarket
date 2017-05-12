@@ -2,10 +2,11 @@
 
 namespace AppBundle\Twig\Extension;
 
-use AppBundle\Entity\NewsletterUserNewsletterPageAssignment;
-use AppBundle\Entity\BenchmarkField;
 use AppBundle\Entity\Advert;
 use AppBundle\Entity\Article;
+use AppBundle\Entity\BenchmarkField;
+use AppBundle\Entity\BenchmarkMessage;
+use AppBundle\Entity\NewsletterUserNewsletterPageAssignment;
 
 class ValueSetsExtension extends \Twig_Extension
 {
@@ -18,8 +19,12 @@ class ValueSetsExtension extends \Twig_Extension
 		$extensions['articleLayoutName'] = new \Twig_SimpleFunction('articleLayoutName', Article::class . '::getLayoutName');
 		$extensions['articleImageSizeName'] = new \Twig_SimpleFunction('articleImageSizeName', Article::class . '::getImageSizeName');
 		
+		
+		
 		$extensions['newsletterUserNewsletterPageAssignmentStateName'] = new \Twig_SimpleFunction(
 				'newsletterUserNewsletterPageAssignmentStateName', NewsletterUserNewsletterPageAssignment::class . '::getStateName');
+		
+		
 		
 		$extensions['benchmarkFieldValueTypeDBName'] = new \Twig_SimpleFunction(
 				'benchmarkFieldValueTypeDBName', BenchmarkField::class . '::getValueTypeDBName');
@@ -38,6 +43,12 @@ class ValueSetsExtension extends \Twig_Extension
 		
 		$extensions['benchmarkFieldBetterThanTypeName'] = new \Twig_SimpleFunction(
 				'benchmarkFieldBetterThanTypeName', BenchmarkField::class . '::getBetterThanTypeName');
+		
+		
+		
+		$extensions['benchmarkMessageStateName'] = new \Twig_SimpleFunction(
+				'benchmarkMessageStateName', BenchmarkMessage::class . '::getStateName');
+		
 		
 		return $extensions;
     }

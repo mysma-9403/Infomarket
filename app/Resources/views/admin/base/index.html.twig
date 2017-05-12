@@ -69,7 +69,7 @@
 		</li>
 	{% endif %}
 	
-	{% set hidden = canEdit ? "" : "hidden" %}
+	{% set hidden = canSelect ? "" : "hidden" %}
 	<li>
 		<div class="btn-group {{ hidden }}">
 			{{ form_widget(form.selectAll, { 'icon': 'fa-check-square-o', 'label': 'action.selectAll', 'attr': {'class': 'btn btn-primary', 'type': 'button'} }) }}

@@ -17,7 +17,7 @@ use AppBundle\Repository\Admin\Base\FeaturedEntityRepository;
 
 abstract class FeaturedEntityController extends ImageEntityController
 {
-//---------------------------------------------------------------------------
+	//---------------------------------------------------------------------------
 	// Internal actions
 	//---------------------------------------------------------------------------
 	

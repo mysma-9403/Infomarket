@@ -4,12 +4,13 @@ namespace AppBundle\Controller\Admin\Base;
 
 use AppBundle\Controller\Base\StandardController;
 use AppBundle\Entity\Lists\Base\BaseEntityList;
+use AppBundle\Filter\Admin\Base\AuditFilter;
 use AppBundle\Filter\Base\Filter;
+use AppBundle\Manager\Params\Admin\ContextParamsManager;
 use AppBundle\Manager\Route\RouteManager;
 use AppBundle\Utils\StringUtils;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Request;
-use AppBundle\Filter\Admin\Base\AuditFilter;
 
 abstract class AdminController extends StandardController {
 	
@@ -299,8 +300,12 @@ abstract class AdminController extends StandardController {
 	protected function getParams(Request $request, array $params) {
 		$params = parent::getParams($request, $params);
 		
+		$cpm = $this->getContextParamsManager($request);
+		$params = $cpm->getParams($request, $params);
+		
 		$viewParams = $params['viewParams'];
 		
+		$viewParams['canSelect'] = $this->canSelect();
 		$viewParams['canEdit'] = $this->canEdit();
 		$viewParams['canCreate'] = $this->canCreate();
 		$viewParams['canCopy'] = $this->canCopy();
@@ -337,6 +342,24 @@ abstract class AdminController extends StandardController {
 		$params = $em->getEditParams($request, $params, $id);
 	
 		return $params;
+	}
+	
+	//---------------------------------------------------------------------------
+	// Managers
+	//---------------------------------------------------------------------------
+	
+	protected function getContextParamsManager(Request $request) {
+		$doctrine = $this->getDoctrine();
+	
+		$rm = new RouteManager();
+		$lastRoute = $rm->getLastRoute($request, $this->getHomeRoute());
+		$lastRouteParams = $lastRoute['routeParams'];
+	
+		if(!$lastRouteParams) {
+			$lastRouteParams = array();
+		}
+	
+		return new ContextParamsManager($doctrine, $lastRouteParams);
 	}
 	
 	//---------------------------------------------------------------------------
@@ -477,6 +500,10 @@ abstract class AdminController extends StandardController {
 	// Permissions
 	//---------------------------------------------------------------------------
 	
+	protected function canSelect() {
+		return $this->isGranted($this->getEditRole());
+	}
+	
 	protected function canEdit() {
 		return $this->isGranted($this->getEditRole());
 	}
@@ -548,6 +575,11 @@ abstract class AdminController extends StandardController {
 	{
 		return $this->getIndexRoute() . '_delete';
 	}
+	
+	
+	protected function getHomeRoute() {
+    	return array('route' => $this->getIndexView(), 'routeParams' => array());
+    }
 	
 	//---------------------------------------------------------------------------
 	// Views

@@ -18,6 +18,7 @@ abstract class BaseRepository extends EntityRepository
 			
 		$this->buildItemSelect($builder);
 		$builder->from($this->getEntityType(), "e");
+		$this->buildItemJoins($builder);
 		$builder->where($builder->expr()->eq('e.id', $id));
 		$builder->setMaxResults(1);
 	
@@ -27,6 +28,9 @@ abstract class BaseRepository extends EntityRepository
 	private function buildItemSelect(QueryBuilder &$builder) {
 		$select = implode(', ', $this->getItemSelectFields($builder));
 		$builder->select($select);
+	}
+	
+	protected function buildItemJoins(QueryBuilder &$builder) {
 	}
 	
 	protected function getItemSelectFields(QueryBuilder &$builder) {

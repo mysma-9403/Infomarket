@@ -16,6 +16,14 @@ use Doctrine\ORM\QueryBuilder;
 
 class ProductRepository extends BaseRepository
 {
+	protected function getItemSelectFields(QueryBuilder &$builder) {
+		return ['e.id', 'e.name', 'b.name AS brandName'];
+	}
+	
+	protected function buildItemJoins(QueryBuilder &$builder) {
+		$builder->innerJoin(Brand::class, 'b', Join::WITH, 'b.id = e.brand');
+	}
+	
 	public function findFilterItemsByValue($categoryId, $valueName) {
 		$items = $this->queryFilterItemsByValue($categoryId, $valueName)->getScalarResult();
 		return $this->getFilterItemsFromValues($items, $valueName);

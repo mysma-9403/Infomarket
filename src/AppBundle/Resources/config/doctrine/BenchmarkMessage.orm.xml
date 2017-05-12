@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+        http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <entity name="AppBundle\Entity\BenchmarkMessage" 
+        table="benchmark_messages"
+        repository-class="AppBundle\Repository\Admin\Main\BenchmarkMessageRepository">
+        
+        <field name="state" type="integer" nullable="false" default="0"/>
+        
+        <field name="content" type="text" nullable="true" />
+        
+        <many-to-one field="product" target-entity="AppBundle\Entity\Product" />
+        
+        <many-to-one field="author" target-entity="AppBundle\Entity\User" />
+        
+        <field name="readByAuthor" type="boolean" nullable="false" default="false"/>
+        <field name="readByAdmin" type="boolean" nullable="false" default="false"/>
+        
+        <many-to-one field="parent" target-entity="BenchmarkMessage" inversed-by="children" nullable="true" />
+        
+        <one-to-many field="children" target-entity="BenchmarkMessage" mapped-by="parent">
+            <order-by>
+            	<order-by-field name="createdAt" direction="ASC" />
+            </order-by>
+        </one-to-many>
+    </entity>
+    
+</doctrine-mapping>

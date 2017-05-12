@@ -2,16 +2,44 @@
 
 namespace AppBundle\Manager\Params\EntryParams\Benchmark;
 
-use AppBundle\Manager\Params\EntryParams\Base\EntryParamsManager;
-use Symfony\Component\HttpFoundation\Request;
-use AppBundle\Repository\Benchmark\BenchmarkFieldRepository;
 use AppBundle\Entity\BenchmarkField;
 use AppBundle\Entity\Product;
-use AppBundle\Repository\Benchmark\ProductRepository;
-use AppBundle\Logic\Benchmark\Fields\BenchmarkFieldsLogic;
 use AppBundle\Logic\Benchmark\Fields\BenchmarkFieldLogic;
+use AppBundle\Manager\Params\EntryParams\Base\EntryParamsManager;
+use AppBundle\Repository\Benchmark\BenchmarkFieldRepository;
+use AppBundle\Repository\Benchmark\ProductRepository;
+use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Repository\Benchmark\BenchmarkMessageRepository;
+use AppBundle\Entity\BenchmarkMessage;
 
 class ProductParamsManager extends EntryParamsManager {
+	
+	protected $tokenStorage;
+	
+	public function __construct($em, $fm, $doctrine, $tokenStorage) {
+		parent::__construct($em, $fm, $doctrine);
+		
+		$this->tokenStorage = $tokenStorage;
+	}
+	
+	
+	public function getIndexParams(Request $request, array $params, $page) {
+		$params = parent::getIndexParams($request, $params, $page);
+		$viewParams = $params['viewParams'];
+		$entries = $viewParams['entries'];
+		
+		for ($i = 0; $i < count($entries); $i++) {
+			$entry = $entries[$i];
+			
+			$entry['benchmarkMessage'] = $this->getBenchmarkMessage($entry['id']);
+			
+			$entries[$i] = $entry;
+		}
+		
+		$viewParams['entries'] = $entries;
+		$params['viewParams'] = $viewParams;
+		return $params;
+	}
 	
 	public function getShowParams(Request $request, array $params, $id) {
 		$params = parent::getShowParams($request, $params, $id);
@@ -97,7 +125,13 @@ class ProductParamsManager extends EntryParamsManager {
 		$minPrice = $minMaxPrice['vmin'];
 		$maxPrice = $minMaxPrice['vmax'];
 		
-		$viewParams['priceFactor'] = 2. + ($overalNote - 2.) * (1. - ($entry->getPrice() - $minPrice) / ($maxPrice - $minPrice));
+		if($maxPrice > $minPrice) {
+			$viewParams['priceFactor'] = 2. + ($overalNote - 2.) * (1. - ($entry->getPrice() - $minPrice) / ($maxPrice - $minPrice));
+		} else {
+			$viewParams['priceFactor'] = 5.;
+		}
+		
+		$viewParams['benchmarkMessage'] = $this->getBenchmarkMessage($id);
 		
 		$params['viewParams'] = $viewParams;
 		
@@ -145,11 +179,32 @@ class ProductParamsManager extends EntryParamsManager {
 		
 		
 		$entries = $productRepository->findNeighbourItems($categoryId, $entry, $fields, 5);
+		for ($i = 0; $i < count($entries); $i++) {
+			$entry = $entries[$i];
+			
+			$entry['benchmarkMessage'] = $this->getBenchmarkMessage($entry['id']);
+			
+			$entries[$i] = $entry;
+		}
 		$viewParams['entries'] = $entries;
+		
+		
+		$viewParams['benchmarkMessage'] = $this->getBenchmarkMessage($id);
 		
 		
 		$params['viewParams'] = $viewParams;
 		
 		return $params;
+	}
+	
+	protected function getBenchmarkMessage($productId) {
+		$authorId = $this->tokenStorage->getToken()->getUser()->getId();
+		
+		$em = $this->doctrine->getManager();
+		
+		$benchmarkMessageRepository = new BenchmarkMessageRepository($em, $em->getClassMetadata(BenchmarkMessage::class));
+		$benchmarkMessages = $benchmarkMessageRepository->findItemsByAuthorAndProduct($authorId, $productId);
+		
+		return count($benchmarkMessages) > 0 ? $benchmarkMessages[0] : null;
 	}
 }

@@ -17,9 +17,18 @@ applications_product:
     defaults:  { _controller: "AppBundle:Applications/Product:index" }
          
 # Benchmark Routing
+benchmark_benchmark_message_new:
+    path:      /benchmark/messages/new
+    defaults:  { _controller: "AppBundle:Benchmark/BenchmarkMessage:new" }
+    
+benchmark_benchmark_message_show:
+    path:      /benchmark/messages/show/{id}
+    defaults:  { _controller: "AppBundle:Benchmark/BenchmarkMessage:show" }
+    
 benchmark_category_show:
     path:      /benchmark/categories/show/{id}
     defaults:  { _controller: "AppBundle:Benchmark/Category:show", id: 0 }
+    
     
 benchmark_product:
     path:      /benchmark/products/{page}
@@ -631,6 +640,35 @@ admin_benchmark_field:
     path:      /admin/benchmark-fields/{page}
     defaults:  { _controller: "AppBundle:Admin/Main/BenchmarkField:index", page: 1 }
             
+# Admin BenchmarkMessages Routing    
+admin_benchmark_message_show:
+    path:      /admin/benchmark-messages/show/{id}
+    defaults:  { _controller: "AppBundle:Admin/Main/BenchmarkMessage:show" }
+    
+admin_benchmark_message_new:
+    path:      /admin/benchmark-messages/new/
+    defaults:  { _controller: "AppBundle:Admin/Main/BenchmarkMessage:new" }
+    
+admin_benchmark_message_copy:
+    path:      /admin/benchmark-messages/copy/{id}
+    defaults:  { _controller: "AppBundle:Admin/Main/BenchmarkMessage:copy" }
+    
+admin_benchmark_message_edit:
+    path:      /admin/benchmark-messages/edit/{id}
+    defaults:  { _controller: "AppBundle:Admin/Main/BenchmarkMessage:edit" }
+    
+admin_benchmark_message_delete:
+    path:      /admin/benchmark-messages/delete/{id}
+    defaults:  { _controller: "AppBundle:Admin/Main/BenchmarkMessage:delete" }
+    
+admin_benchmark_message_set_read:
+    path:      /admin/benchmark-messages/set_read/{id}
+    defaults:  { _controller: "AppBundle:Admin/Main/BenchmarkMessage:setRead" }   
+    
+admin_benchmark_message:
+    path:      /admin/benchmark-messages/{page}
+    defaults:  { _controller: "AppBundle:Admin/Main/BenchmarkMessage:index", page: 1 }
+                
 # Admin Branches Routing    
 admin_branch_show:
     path:      /admin/branches/show/{id}

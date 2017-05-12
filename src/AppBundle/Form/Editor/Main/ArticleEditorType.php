@@ -89,13 +89,11 @@ class ArticleEditorType extends FeaturedEntityEditorType
 		))
 		
 		->add('intro', CKEditorType::class, array(
-				'config' => array(
-						'uiColor' => '#ffffff'),
+				'config' => array('uiColor' => '#ffffff'),
 				'required' => false
 		))
 		->add('content', CKEditorType::class, array(
-				'config' => array(
-						'uiColor' => '#ffffff'),
+				'config' => array('uiColor' => '#ffffff'),
 				'required' => false
 		))
 		

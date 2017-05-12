@@ -1,0 +1,25 @@
+{% extends 'benchmark/index.html.twig' %}
+
+{% set mainPath = 'benchmarkMessage' %}
+{% set title = title|default('title.benchmarkMessages')|trans %}
+	
+{% block content %}
+	<div class="container">
+		<div class="row">
+			<div class="col-xs-12">
+				<h2>{{ entry.product.brand.name }}</h2>
+				<h3>{{ entry.product.name }}</h3>
+			</div>
+			
+			<div class="col-xs-12 lowered-25">
+				{% include 'common/fields/text_field.html.twig' with { 'label': 'label.benchmarkMessage.state', 'value': benchmarkMessageStateName(entry.state)|trans } %}
+			</div>
+			
+			<div class="col-xs-12 lowered-25">
+				<h3>{{ entry.name }}</h3>
+				<p>{{ entry.content|raw }}</p>
+			</div>
+		</div>
+	</div>
+	
+{% endblock %}

@@ -12,7 +12,7 @@
             </trans-unit>
             <trans-unit id="title.benchmark">
                 <source>title.benchmark</source>
-                <target>InfoMarket - Benchmark</target>
+                <target>Benchmark</target>
             </trans-unit>
             <trans-unit id="title.home">
                 <source>title.home</source>
@@ -63,6 +63,14 @@
             <trans-unit id="title.benchmarkFields">
                 <source>title.benchmarkFields</source>
                 <target>Pola benchmarku</target>
+            </trans-unit>
+            <trans-unit id="title.benchmarkMessage">
+                <source>title.benchmarkMessage</source>
+                <target>Wiadomość</target>
+            </trans-unit>
+            <trans-unit id="title.benchmarkMessages">
+                <source>title.benchmarkMessages</source>
+                <target>Wiadomości</target>
             </trans-unit>
             <trans-unit id="title.branch">
                 <source>title.branch</source>
@@ -795,6 +803,45 @@
             
             
             
+            <trans-unit id="label.benchmarkMessage.author">
+                <source>label.benchmarkMessage.author</source>
+                <target>Autor wiadomości</target>
+            </trans-unit>
+            <trans-unit id="label.benchmarkMessage.state">
+                <source>label.benchmarkMessage.state</source>
+                <target>Status wiadomości</target>
+            </trans-unit>
+            <trans-unit id="label.benchmarkMessage.state.reported">
+                <source>label.benchmarkMessage.state.reported</source>
+                <target>Zgłoszona</target>
+            </trans-unit>
+            <trans-unit id="label.benchmarkMessage.state.inProcess">
+                <source>label.benchmarkMessage.state.inProcess</source>
+                <target>Przetwarzana</target>
+            </trans-unit>
+            <trans-unit id="label.benchmarkMessage.state.informationRequired">
+                <source>label.benchmarkMessage.state.informationRequired</source>
+                <target>Wymaga dodatkowych informacji</target>
+            </trans-unit>
+            <trans-unit id="label.benchmarkMessage.state.informationSupplied">
+                <source>label.benchmarkMessage.state.informationSupplied</source>
+                <target>Informacje dostarczone</target>
+            </trans-unit>
+            <trans-unit id="label.benchmarkMessage.state.completed">
+                <source>label.benchmarkMessage.state.completed</source>
+                <target>Zakończona</target>
+            </trans-unit>
+            <trans-unit id="label.benchmarkMessage.read">
+                <source>label.benchmarkMessage.read</source>
+                <target>Przeczytana</target>
+            </trans-unit>
+            <trans-unit id="label.benchmarkMessage.unread">
+                <source>label.benchmarkMessage.unread</source>
+                <target>Nieprzeczytana</target>
+            </trans-unit>
+            
+            
+            
             <trans-unit id="label.benchmark.category">
                 <source>label.benchmark.category</source>
                 <target>Kategoria główna</target>
@@ -916,6 +963,15 @@
             <trans-unit id="action.benchmark.export.html">
                 <source>action.benchmark.export.html</source>
                 <target>Eksportuj do html</target>
+            </trans-unit>
+            
+            <trans-unit id="action.benchmarkMessage.setReadSelected">
+                <source>action.benchmarkMessage.setReadSelected</source>
+                <target>Oznacz jako przeczytane</target>
+            </trans-unit>
+            <trans-unit id="action.benchmarkMessage.setUnreadSelected">
+                <source>action.benchmarkMessage.setUnreadSelected</source>
+                <target>Oznacz jako nieprzeczytane</target>
             </trans-unit>
             
             
@@ -1219,7 +1275,7 @@
             </trans-unit>
             <trans-unit id="label.updatedBefore">
                 <source>label.updatedBefore</source>
-                <target>Edytowane po przed</target>
+                <target>Edytowane przed</target>
             </trans-unit>
             <trans-unit id="label.createdAfter">
                 <source>label.createdAfter</source>
@@ -1227,7 +1283,7 @@
             </trans-unit>
             <trans-unit id="label.createdBefore">
                 <source>label.createdBefore</source>
-                <target>Stworzone po przed</target>
+                <target>Stworzone przed</target>
             </trans-unit>
             
             
