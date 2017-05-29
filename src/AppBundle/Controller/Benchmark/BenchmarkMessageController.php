@@ -2,27 +2,33 @@
 
 namespace AppBundle\Controller\Benchmark;
 
-use AppBundle\Controller\Base\DummyController;
+use AppBundle\Controller\Admin\Base\BaseEntityController;
 use AppBundle\Entity\BenchmarkMessage;
+use AppBundle\Entity\Product;
+use AppBundle\Filter\Admin\Base\AuditFilter;
+use AppBundle\Filter\Benchmark\BenchmarkMessageFilter;
 use AppBundle\Form\Benchmark\BenchmarkMessageType;
+use AppBundle\Form\Filter\Benchmark\BenchmarkMessageFilterType;
+use AppBundle\Form\Lists\BenchmarkMessageListType;
 use AppBundle\Manager\Entity\Base\EntityManager;
 use AppBundle\Manager\Entity\Benchmark\BenchmarkMessageManager;
 use AppBundle\Manager\Filter\Base\FilterManager;
 use AppBundle\Manager\Params\Benchmark\ContextParamsManager;
 use AppBundle\Manager\Params\EntryParams\Benchmark\BenchmarkMessageParamsManager;
-use AppBundle\Manager\Route\RouteManager;
+use AppBundle\Repository\Benchmark\BenchmarkMessageRepository;
 use AppBundle\Utils\StringUtils;
+use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Request;
 
-class BenchmarkMessageController extends DummyController {
+class BenchmarkMessageController extends BaseEntityController {
 	
 	//---------------------------------------------------------------------------
 	// Actions
 	//---------------------------------------------------------------------------
 	
-// 	public function indexAction(Request $request, $page) {
-// 		return $this->indexActionInternal($request, $page);
-// 	}
+	public function indexAction(Request $request, $page) {
+		return $this->indexActionInternal($request, $page);
+	}
 	
 	public function showAction(Request $request, $id) {
 		return $this->showActionInternal($request, $id);
@@ -32,151 +38,109 @@ class BenchmarkMessageController extends DummyController {
 		return $this->newActionInternal($request);
 	}
 	
+	public function setReadAction(Request $request, $id)
+	{
+		return $this->setReadActionInternal($request, $id);
+	}
+	
 	//---------------------------------------------------------------------------
 	// Internal actions
 	//---------------------------------------------------------------------------
 	
-	protected function showActionInternal(Request $request, $id)
+	protected function setReadActionInternal(Request $request, $id)
 	{
-		$this->denyAccessUnlessGranted($this->getShowRole(), null, 'Unable to access this page!');
+		$this->denyAccessUnlessGranted($this->getEditRole(), null, 'Unable to access this page!');
 	
-		$params = $this->createParams($this->getShowRoute());
-		$params = $this->getShowParams($request, $params, $id);
+		$params = $this->createParams($this->getSetReadRoute());
+		$params = $this->getEditParams($request, $params, $id);
 	
-		$rm = $this->getRouteManager();
-		$rm->register($request, $params['route'], $params['routeParams']);
-	
-		$am = $this->getAnalyticsManager();
-		$am->sendPageviewAnalytics($params['domain'], $params['route']);
-		
 		$viewParams = $params['viewParams'];
-		
-		return $this->render($this->getShowView(), $viewParams);
+		/** @var BenchmarkMessage $entry */
+		$entry = $viewParams['entry'];
+	
+		$read = $request->get('value', false);
+	
+		$em = $this->getDoctrine()->getManager();
+	
+		$entry->setReadByAuthor($read);
+		$em->persist($entry);
+		$em->flush();
+	
+		return $this->redirectToReferer($request);
 	}
 	
-	protected function newActionInternal(Request $request)
-	{
-		$this->denyAccessUnlessGranted($this->getNewRole(), null, 'Unable to access this page!');
+	protected function listFormActionInternal(Request $request, Form $form, AuditFilter $filter, array $listItems) {
 	
-		$params = $this->createParams($this->getNewRoute());
-		$params = $this->getNewParams($request, $params);
+		if ($form->get('setReadSelected')->isClicked()) {
+			$data = $form->getData();
+			$entries = $data->getEntries();
+			$filter->setSelected($entries);
+			$this->setReadSelected($entries, 1);
+		}
 	
-		$viewParams = $params['viewParams'];
-		
-		$response = $this->initNewForms($request, $viewParams);
-		if($response) return $response;
-		
-		
-		return $this->render($this->getNewView(), $viewParams);
+		if ($form->get('setUnreadSelected')->isClicked()) {
+			$data = $form->getData();
+			$entries = $data->getEntries();
+			$filter->setSelected($entries);
+			$this->setReadSelected($entries, 0);
+		}
+	
+		return parent::listFormActionInternal($request, $form, $filter, $listItems);
 	}
 	
 	//---------------------------------------------------------------------------
 	// Actions blocks
 	//---------------------------------------------------------------------------
 	
-	protected function initNewForms(Request $request, array &$viewParams) {
-		return $this->initUpdateForms($request, $viewParams);
-	}
+	protected function initShowForms(Request $request, array &$viewParams) {
+		$response = parent::initShowForms($request, $viewParams);
+		if($response) return $response;
 	
-	protected function initUpdateForms(Request $request, array &$viewParams) {
-		$response = $this->initUpdateForm($request, $viewParams);
+		$response = $this->initNewMessageForm($request, $viewParams);
 		if($response) return $response;
 	
 		return null;
 	}
 	
-	protected function initUpdateForm(Request $request, array &$viewParams) {
+	protected function initNewMessageForm(Request $request, array &$viewParams) {
+		/** @var BenchmarkMessage $entry */
 		$entry = $viewParams['entry'];
+		/** @var BenchmarkMessage $newEntry */
+		$newEntry = $viewParams['newEntry'];
 	
-		$form = $this->createForm($this->getNewFormType(), $entry);
+		$form = $this->createForm($this->getEditorFormType(), $newEntry);
 	
 		$form->handleRequest($request);
 	
 		if ($form->isSubmitted() && $form->isValid())
 		{
-			$this->saveEntry($entry);
-	
-			$translator = $this->get('translator');
-			$message = $translator->trans('success.created');
-			$message = str_replace('%type%', '<b>' . StringUtils::getClassName($this->getEntityType()) . '</b>', $message);
-			$this->addFlash('success', $message);
-	
 			if ($form->get('save')->isClicked()) {
+				$this->saveEntry($newEntry);
+	
+				$entry->setReadByAuthor(true);
+				$entry->setState($newEntry->getState());
+				$this->saveEntry($entry);
+	
+				$translator = $this->get('translator');
+				$message = $translator->trans('success.created');
+				$message = str_replace('%type%', '<b>' . StringUtils::getClassName($this->getEntityType()) . '</b>', $message);
+				$this->addFlash('success', $message);
+	
 				return $this->redirectToRoute($this->getShowRoute(), array('id' => $entry->getId()));
 			}
 		}
 	
-		$viewParams['form'] = $form->createView();
+		$viewParams['newMessageForm'] = $form->createView();
 	
 		return null;
-	}
-	
-	//---------------------------------------------------------------------------
-	// Parameters
-	//---------------------------------------------------------------------------
-	
-	protected function getParams(Request $request, array $params) {
-		$params = parent::getParams($request, $params);
-	
-		$cpm = $this->getContextParamsManager($request);
-		$params = $cpm->getParams($request, $params);
-	
-		return $params;
-	}
-	
-	protected function getIndexParams(Request $request, array $params, $page) {
-		$params = $this->getParams($request, $params);
-	
-		$em = $this->getEntryParamsManager();
-		$params = $em->getIndexParams($request, $params, $page);
-	
-		return $params;
-	}
-	
-	protected function getShowParams(Request $request, array $params, $id) {
-		$params = $this->getParams($request, $params);
-	
-		$em = $this->getEntryParamsManager();
-		$params = $em->getShowParams($request, $params, $id);
-	
-		return $params;
-	}
-	
-	protected function getNewParams(Request $request, array $params) {
-		$params = $this->getParams($request, $params);
-	
-		$em = $this->getEntryParamsManager();
-		$params = $em->getNewParams($request, $params);
-	
-		return $params;
 	}
 	
 	//---------------------------------------------------------------------------
 	// Managers
 	//---------------------------------------------------------------------------
 	
-	protected function getContextParamsManager(Request $request) {
-		$doctrine = $this->getDoctrine();
-	
-		$rm = new RouteManager();
-		$lastRoute = $rm->getLastRoute($request, $this->getHomeRoute());
-		$lastRouteParams = $lastRoute['routeParams'];
-	
-		if(!$lastRouteParams) {
-			$lastRouteParams = array();
-		}
-	
+	protected function getInternalContextParamsManager($doctrine, $lastRouteParams) {
 		return new ContextParamsManager($doctrine, $lastRouteParams);
-	}
-	
-	protected function getEntryParamsManager() { 
-		$doctrine = $this->getDoctrine();
-		$paginator = $this->get('knp_paginator');
-	
-		$em = $this->getEntityManager($doctrine, $paginator);
-		$fm = $this->getFilterManager($doctrine);
-	
-		return $this->getInternalEntryParamsManager($em, $fm, $doctrine);
 	}
 	
 	protected function getInternalEntryParamsManager(EntityManager $em, FilterManager $fm, $doctrine) {
@@ -189,25 +153,35 @@ class BenchmarkMessageController extends DummyController {
 	}
 	
 	protected function getFilterManager($doctrine) {
-		return new FilterManager();
+		$tokenStorage = $this->get('security.token_storage');
+		$user = $tokenStorage->getToken()->getUser()->getId();
+		
+		$filter = new BenchmarkMessageFilter();
+		$filter->setContextUser($user);
+		
+		return new FilterManager($filter);
 	}
 	
 	//---------------------------------------------------------------------------
 	// Internal logic
 	//---------------------------------------------------------------------------
-	/**
-	 *
-	 * @param unknown $entry
-	 */
-	protected function saveEntry($entry) {
-		$em = $this->getDoctrine()->getManager();
 	
-		$this->prepareEntry($entry);
-			
-		$em->persist($entry);
-		$em->flush();
+	protected function getFormOptions() {
+		$options = parent::getFormOptions();
 	
-		$this->saveMore($entry);
+		/** @var ProductRepository $categoryRepository */
+		$productRepository = $this->getDoctrine()->getRepository(Product::class);
+		$options['products'] = $productRepository->findFilterItems();
+	
+		return $options;
+	}
+	
+	protected function getListItemKeyFields($item) {
+		$fields = parent::getListItemKeyFields($item);
+	
+		$fields[] = $item['name'];
+	
+		return $fields;
 	}
 	
 	/**
@@ -217,26 +191,80 @@ class BenchmarkMessageController extends DummyController {
 	protected function prepareEntry(&$entry) {
 		$tokenStorage = $this->get('security.token_storage');
 		
-		$entry->setState(BenchmarkMessage::REPORTED_STATE);
-		
 		$entry->setAuthor($tokenStorage->getToken()->getUser());
 		
 		$entry->setReadByAdmin(false);
 		$entry->setReadByAuthor(true);
 	}
 	
-	protected function saveMore($entry) { }
+	/**
+	 *
+	 * @param array $entries
+	 * @param boolean $read
+	 */
+	protected function setReadSelected($items, $read)
+	{
+		$this->denyAccessUnlessGranted($this->getEditRole(), null, 'Unable to access this page!');
+	
+		if(count($items) > 0) {
+			/** @var BenchmarkMessageRepository $repository */
+			$repository = $this->getEntityRepository();
+			$repository->setRead($items, $read);
+		}
+	}
+	
+	//---------------------------------------------------------------------------
+	// Permissions
+	//---------------------------------------------------------------------------
+	
+	protected function canEdit() {
+		return false;
+	}
+	
+	protected function canCreate() {
+		return false;
+	}
+	
+	protected function canCopy() {
+		return false;
+	}
+	
+	protected function canDelete() {
+		return false;
+	}
+	
+	protected function isAdmin() {
+		return false;
+	}
 	
 	//---------------------------------------------------------------------------
 	// EntityType related
 	//---------------------------------------------------------------------------
 	
-	protected function getNewFormType() {
+	protected function getEditorFormType() {
 		return BenchmarkMessageType::class;
+	}
+	
+	protected function getFilterFormType() {
+		return BenchmarkMessageFilterType::class;
 	}
 	
 	protected function getEntityType() {
 		return BenchmarkMessage::class;
+	}
+	
+	/**
+	 *
+	 * @return BaseEntityListType
+	 */
+	protected function getListFormType() {
+		return BenchmarkMessageListType::class;
+	}
+	
+	protected function getEntityRepository()
+	{
+		$em = $this->getDoctrine()->getManager();
+		return new BenchmarkMessageRepository($em, $em->getClassMetadata($this->getEntityType()));
 	}
 	
 	//---------------------------------------------------------------------------
@@ -247,52 +275,14 @@ class BenchmarkMessageController extends DummyController {
 		return 'ROLE_BENCHMARK';
 	}
 	
-	protected function getNewRole() {
-		return self::getShowRole();
-	}
-	
-	//---------------------------------------------------------------------------
-	// Views
-	//---------------------------------------------------------------------------
-	
-	protected function getIndexView()
-	{
-		return $this->getDomain() . '/' . $this->getEntityName() . '/index.html.twig';
-	}
-	
-	protected function getShowView()
-	{
-		return $this->getDomain() . '/' . $this->getEntityName() . '/show.html.twig';
-	}
-	
-	protected function getNewView()
-	{
-		return $this->getDomain() . '/' . $this->getEntityName() . '/editor.html.twig';
-	}
-	
 	//---------------------------------------------------------------------------
 	// Routes
 	//---------------------------------------------------------------------------
 	
-	protected function getIndexRoute()
+	protected function getSetReadRoute()
 	{
-		return $this->getDomain() . '_' . $this->getEntityName();
+		return $this->getIndexRoute() . '_set_read';
 	}
-	
-	protected function getShowRoute()
-	{
-		return $this->getIndexRoute() . '_show';
-	}
-	
-	protected function getNewRoute()
-	{
-		return $this->getIndexRoute() . '_new';
-	}
-	
-	protected function getHomeRoute() {
-		return array('route' => $this->getIndexRoute(), 'routeParams' => array());
-	}
-	
 	
 	//---------------------------------------------------------------------------
 	// Domain

@@ -225,7 +225,7 @@ class BenchmarkMessageController extends BaseEntityController {
 	
 		if(count($items) > 0) {
 			/** @var BenchmarkMessageRepository $repository */
-			$repository = $this->getRepository();
+			$repository = $this->getEntityRepository();
 			$repository->setRead($items, $read);
 		}
 	}

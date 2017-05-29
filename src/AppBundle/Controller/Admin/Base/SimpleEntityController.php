@@ -124,7 +124,7 @@ abstract class SimpleEntityController extends BaseEntityController
 	
 		if(count($items) > 0) {
 			/** @var SimpleRepository $repository */
-			$repository = $this->getRepository();
+			$repository = $this->getEntityRepository();
 			$repository->setIMPublished($items, $published);
 		}
 	}
@@ -140,7 +140,7 @@ abstract class SimpleEntityController extends BaseEntityController
 	
 		if(count($items) > 0) {
 			/** @var SimpleRepository $repository */
-			$repository = $this->getRepository();
+			$repository = $this->getEntityRepository();
 			$repository->setIPPublished($items, $published);
 		}
 	}

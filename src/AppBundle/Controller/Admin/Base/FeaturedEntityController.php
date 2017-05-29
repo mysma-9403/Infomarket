@@ -81,7 +81,7 @@ abstract class FeaturedEntityController extends ImageEntityController
 	
 		if(count($items) > 0) {
 			/** @var FeaturedEntityRepository $repository */
-			$repository = $this->getRepository();
+			$repository = $this->getEntityRepository();
 			$repository->setFeatured($items, $featured);
 		}
 	}

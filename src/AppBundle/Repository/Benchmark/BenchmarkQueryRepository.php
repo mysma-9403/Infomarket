@@ -25,7 +25,8 @@ class BenchmarkQueryRepository extends BaseRepository
 		$expr = $builder->expr();
 		
 		/** @var BenchmarkQueryFilter $filter */
-		$where->add($expr->in('e.createdBy', $filter->getCreatedBy()));
+		$where->add($expr->eq('e.createdBy', $filter->getContextUser()));
+		
 		if($filter->getName()) {
 			$where->add($this->buildStringsExpression($builder, 'e.name', $filter->getName(), true));
 		}

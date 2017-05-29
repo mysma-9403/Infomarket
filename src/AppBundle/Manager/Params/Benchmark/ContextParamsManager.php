@@ -6,14 +6,26 @@ use AppBundle\Entity\Category;
 use AppBundle\Manager\Params\Base\ParamsManager;
 use AppBundle\Repository\Benchmark\CategoryRepository;
 use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Repository\Benchmark\BenchmarkMessageRepository;
+use AppBundle\Entity\BenchmarkMessage;
 
 class ContextParamsManager extends ParamsManager {
 	
 	protected $lastRouteParams;
 	
+	/**
+	 *
+	 * @var BenchmarkMessageRepository
+	 */
+	protected $benchmarkMessageRepository;
+	
 	public function __construct($doctrine, array $lastRouteParams) {
 		parent::__construct($doctrine);
 		$this->lastRouteParams = $lastRouteParams;
+		
+		$em = $this->doctrine->getManager();
+		
+		$this->benchmarkMessageRepository = new BenchmarkMessageRepository($em, $em->getClassMetadata(BenchmarkMessage::class));
 	}
 	
 	public function getParams(Request $request, array $params) {
@@ -46,11 +58,20 @@ class ContextParamsManager extends ParamsManager {
 		$routeParams['subcategory'] = $subcategoryId;
 		$viewParams['subcategory'] = $subcategory;
 		
+		
+		
+		$unreadMessagesCount = $this->getUnreadMessagesCount();
+		$viewParams['unreadMessagesCount'] = $unreadMessagesCount;
+		
     	
     	$params['contextParams'] = $contextParams;
     	$params['routeParams'] = $routeParams;
     	$params['viewParams'] = $viewParams;
     	
     	return $params;
+	}
+	
+	protected function getUnreadMessagesCount() {
+		return $this->benchmarkMessageRepository->findUnreadItemsCount();
 	}
 }

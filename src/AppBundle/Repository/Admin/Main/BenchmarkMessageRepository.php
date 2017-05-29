@@ -3,16 +3,16 @@
 namespace AppBundle\Repository\Admin\Main;
 
 use AppBundle\Entity\BenchmarkMessage;
-use AppBundle\Repository\Admin\Base\SimpleEntityRepository;
-use Doctrine\ORM\QueryBuilder;
-use AppBundle\Filter\Base\Filter;
-use AppBundle\Entity\User;
-use Doctrine\ORM\Query\Expr\Join;
-use AppBundle\Filter\Admin\Main\BenchmarkMessageFilter;
-use AppBundle\Entity\Product;
 use AppBundle\Entity\Brand;
+use AppBundle\Entity\Product;
+use AppBundle\Entity\User;
+use AppBundle\Filter\Admin\Main\BenchmarkMessageFilter;
+use AppBundle\Filter\Base\Filter;
+use AppBundle\Repository\Admin\Base\AuditRepository;
+use Doctrine\ORM\Query\Expr\Join;
+use Doctrine\ORM\QueryBuilder;
 
-class BenchmarkMessageRepository extends SimpleEntityRepository
+class BenchmarkMessageRepository extends AuditRepository
 {
 	public function findUnreadItemsCount() {
 		return $this->queryUnreadItemsCount()->getSingleScalarResult();
@@ -41,6 +41,8 @@ class BenchmarkMessageRepository extends SimpleEntityRepository
 	
 	protected function getSelectFields(QueryBuilder &$builder, Filter $filter) {
 		$fields = parent::getSelectFields($builder, $filter);
+		
+		$fields[] = 'e.name';
 		
 		$fields[] = 'e.state';
 		$fields[] = 'e.readByAdmin';

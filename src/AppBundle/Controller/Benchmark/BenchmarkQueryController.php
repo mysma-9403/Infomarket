@@ -90,7 +90,7 @@ class BenchmarkQueryController extends BaseEntityController {
 		$user = $tokenStorage->getToken()->getUser()->getId();
 		
 		$filter = new BenchmarkQueryFilter();
-		$filter->setCreatedBy([$user]);
+		$filter->setContextUser($user);
 		
 		return new FilterManager($filter);
 	}

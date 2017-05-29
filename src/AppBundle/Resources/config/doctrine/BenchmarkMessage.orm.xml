@@ -8,6 +8,8 @@
         table="benchmark_messages"
         repository-class="AppBundle\Repository\Admin\Main\BenchmarkMessageRepository">
         
+        <field name="name" type="string" length="128" nullable="false" />
+        
         <field name="state" type="integer" nullable="false" default="0"/>
         
         <field name="content" type="text" nullable="true" />

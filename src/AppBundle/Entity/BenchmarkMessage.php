@@ -2,12 +2,12 @@
 
 namespace AppBundle\Entity;
 
-use AppBundle\Entity\Base\SimpleEntity;
+use AppBundle\Entity\Base\Audit;
 
 /**
  * BenchmarkMessage
  */
-class BenchmarkMessage extends SimpleEntity
+class BenchmarkMessage extends Audit
 {
 	const REPORTED_STATE = 0;
 	
@@ -280,5 +280,41 @@ class BenchmarkMessage extends SimpleEntity
     public function getParent()
     {
         return $this->parent;
+    }
+    /**
+     * @var string
+     */
+    private $name;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->children = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Set name
+     *
+     * @param string $name
+     *
+     * @return BenchmarkMessage
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * Get name
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
     }
 }

@@ -25,6 +25,14 @@ benchmark_benchmark_message_show:
     path:      /benchmark/benchmark-messages/show/{id}
     defaults:  { _controller: "AppBundle:Benchmark/BenchmarkMessage:show" }
 
+benchmark_benchmark_message_set_read:
+    path:      /admin/benchmark-messages/set_read/{id}
+    defaults:  { _controller: "AppBundle:Benchmark/BenchmarkMessage:setRead" }   
+        
+benchmark_benchmark_message:
+    path:      /benchmark/benchmark-messages/{page}
+    defaults:  { _controller: "AppBundle:Benchmark/BenchmarkMessage:index", page: 1 }
+
     
 benchmark_benchmark_query_new:
     path:      /benchmark/benchmark-queries/new

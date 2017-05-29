@@ -467,10 +467,6 @@ abstract class AdminController extends StandardController {
 	
 	protected function saveMore($entry) { }
 	
-	protected function getRepository() {
-		return $this->getDoctrine()->getRepository($this->getEntityType());
-	}
-	
 	protected function deleteMore($entry)
 	{
 		return array();

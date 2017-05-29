@@ -30,6 +30,12 @@
       			{% include 'benchmark/common/menu/link.html.twig' with { linkPath: "category_show", linkTitle: "title.categories" } %}
       			{% include 'benchmark/common/menu/link.html.twig' with { linkPath: "product", linkTitle: "title.products" } %}
       			{% include 'benchmark/common/menu/link.html.twig' with { linkPath: "benchmark_query", linkTitle: "title.benchmarkQueries" } %}
+      			<li>
+					<a href="{{ path(basePath ~ 'benchmark_message') }}">
+						{{ 'title.benchmarkMessages'|trans }}
+						<span class="badge">{{ unreadMessagesCount > 0 ? unreadMessagesCount : '' }}</span>
+					</a>
+				</li>
 			</ul>
 		</div>
 	{% endblock %}
