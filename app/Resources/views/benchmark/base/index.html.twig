@@ -1,4 +1,4 @@
-{% extends 'admin/list.html.twig' %}
+{% extends 'benchmark/list.html.twig' %}
 
 {# Filter section #}
 {% block filterMainFields3 %}
@@ -33,11 +33,11 @@
 	    </div>
     </li>
 	
-	<li class="col-xs-12 col-sm-6 col-md-4 col-lg-2">
+	<li class="col-xs-12 col-sm-6 col-md-4 col-lg-2 {{ hidden }}">
 		{{ form_widget(filter.updatedBy, { 'label': 'label.updatedBy' }) }}
 	</li>
 	
-	<li class="col-xs-12 col-sm-6 col-md-4 col-lg-2">
+	<li class="col-xs-12 col-sm-6 col-md-4 col-lg-2 {{ hidden }}">
 		{{ form_widget(filter.createdBy, { 'label': 'label.createdBy' }) }}
 	</li>
     

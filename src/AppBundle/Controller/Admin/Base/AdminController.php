@@ -359,6 +359,10 @@ abstract class AdminController extends StandardController {
 			$lastRouteParams = array();
 		}
 	
+		return self::getInternalContextParamsManager($doctrine, $lastRouteParams);
+	}
+	
+	protected function getInternalContextParamsManager($doctrine, $lastRouteParams) {
 		return new ContextParamsManager($doctrine, $lastRouteParams);
 	}
 	

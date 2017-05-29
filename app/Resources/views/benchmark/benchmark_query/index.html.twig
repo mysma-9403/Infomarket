@@ -1,0 +1,45 @@
+{% extends 'benchmark/base/index.html.twig' %}
+
+{% set mainPath = 'benchmark_query' %}
+{% set title = 'title.benchmarkQueries'|trans %}
+
+{% block filterMoreFields1 %}
+	<li class="col-xs-12 col-sm-6 col-md-4 col-lg-2">
+		{{ form_widget(filter.name, { 'label': 'label.name' }) }}
+	</li>
+{% endblock %}
+
+{% block filterMoreFields2 %}
+    
+    <li class="col-xs-12 col-sm-6 col-md-4 col-lg-2">
+		<div class='input-group date' id='datetimepicker5'>
+			{{ form_widget(filter.createdAfter) }}
+			<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+	    </div>
+    </li>
+    
+    <li class="col-xs-12 col-sm-6 col-md-4 col-lg-2">
+		<div class='input-group date' id='datetimepicker6'>
+			{{ form_widget(filter.createdBefore) }}
+			<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+	    </div>
+    </li>
+    
+    <script type="text/javascript">
+		$(function () {
+			$('div.date').datetimepicker();
+		});
+	</script>
+{% endblock %}
+
+{% block headerMainFields3 %}
+	<th><i class="fa fa-calendar-plus-o"></i> {{ 'label.createdAt'|trans }}</th>
+{% endblock %}
+
+{% block entryMainFields3 %}
+	<td>
+		{% if item.createdAt > date("01-01-1900") %}
+	    	{{ item.createdAt|date('d.m.Y H:i:s') }}
+		{% endif %}
+	</td>
+{% endblock %}

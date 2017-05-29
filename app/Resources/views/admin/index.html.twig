@@ -1,6 +1,6 @@
 {% extends 'admin/base.html.twig' %}
 
-{% set basePath = 'admin_' %}
+{% set basePath = basePath|default('admin_') %}
 
 {% set gender = gender | default('') %}
 

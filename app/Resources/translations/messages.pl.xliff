@@ -72,6 +72,14 @@
                 <source>title.benchmarkMessages</source>
                 <target>Wiadomości</target>
             </trans-unit>
+            <trans-unit id="title.benchmarkQuery">
+                <source>title.benchmarkQuery</source>
+                <target>Zapytanie</target>
+            </trans-unit>
+            <trans-unit id="title.benchmarkQueries">
+                <source>title.benchmarkQueries</source>
+                <target>Zapytania</target>
+            </trans-unit>
             <trans-unit id="title.branch">
                 <source>title.branch</source>
                 <target>Branża</target>
@@ -2171,6 +2179,24 @@
                 <target>Zapisz i wróć</target>
             </trans-unit>
             
+            
+            <trans-unit id="action.compare">
+                <source>action.compare</source>
+                <target>Porównaj</target>
+            </trans-unit>
+            <trans-unit id="action.reportError">
+                <source>action.reportError</source>
+                <target>Zgłoś błąd</target>
+            </trans-unit>
+            
+            <trans-unit id="action.saveQuery">
+                <source>action.saveQuery</source>
+                <target>Zapisz zapytanie</target>
+            </trans-unit>
+            <trans-unit id="action.saveResults">
+                <source>action.saveResults</source>
+                <target>Zapisz wyniki zapytania</target>
+            </trans-unit>
             
             
             <trans-unit id="action.image.remove">

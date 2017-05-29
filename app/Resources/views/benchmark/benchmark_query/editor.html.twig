@@ -1,0 +1,9 @@
+{% extends 'benchmark/base/editor.html.twig' %}
+
+{% set mainPath = 'benchmark_query' %}
+{% set title = 'title.benchmarkQueries'|trans %}
+
+{%  block mainFields2 %}
+	{{ form_row(form.name, { 'label': 'label.name' }) }}	
+    <div class="hidden">{{ form_row(form.content, { 'label': 'label.content' }) }}</div>
+{% endblock %}

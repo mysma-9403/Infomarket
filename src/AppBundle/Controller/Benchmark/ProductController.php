@@ -27,6 +27,8 @@ use AppBundle\Repository\Benchmark\ProductRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 use Symfony\Component\Validator\Constraints\Date;
+use AppBundle\Entity\BenchmarkQuery;
+use AppBundle\Utils\StringUtils;
 
 class ProductController extends DummyController {
 	
@@ -122,6 +124,14 @@ class ProductController extends DummyController {
 		$filterForm->handleRequest($request);
 	
 		if ($filterForm->isSubmitted() && $filterForm->isValid()) {
+			
+			if ($filterForm->get('saveQuery')->isClicked()) {
+				return $this->redirectToRoute($this->getCreateQueryRoute(), array_merge($contextParams, $filter->getRequestValues()));
+			}
+			
+			if ($filterForm->get('saveResults')->isClicked()) {
+				//TODO 
+			}
 			
 			if ($filterForm->get('search')->isClicked()) {
 				return $this->redirectToRoute($this->getIndexRoute(), $filter->getRequestValues());
@@ -403,6 +413,11 @@ class ProductController extends DummyController {
 	protected function getCompareRoute()
 	{
 		return $this->getIndexRoute() . '_compare';
+	}
+	
+	protected function getCreateQueryRoute()
+	{
+		return $this->getDomain() . '_' . StringUtils::getClassName(BenchmarkQuery::class) . '_new';
 	}
 	
 	protected function getHomeRoute() {

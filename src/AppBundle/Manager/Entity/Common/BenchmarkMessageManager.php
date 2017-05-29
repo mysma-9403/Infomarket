@@ -5,7 +5,6 @@ namespace AppBundle\Manager\Entity\Common;
 use AppBundle\Entity\BenchmarkMessage;
 use AppBundle\Manager\Entity\Base\BaseEntityManager;
 use Symfony\Component\HttpFoundation\Request;
-use AppBundle\Entity\Product;
 
 class BenchmarkMessageManager extends BaseEntityManager {
 	

@@ -21,6 +21,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 class ProductFilterType extends FilterType
 {	
@@ -136,6 +137,15 @@ class ProductFilterType extends FilterType
 					break;
 			}
 		}
+	}
+	
+	protected function addActions(FormBuilderInterface $builder, array $options) {
+		parent::addActions($builder, $options);
+		
+		$builder
+		->add('saveQuery', SubmitType::class)
+		->add('saveResults', SubmitType::class)
+		;
 	}
 	
 	protected function getDefaultOptions() {
