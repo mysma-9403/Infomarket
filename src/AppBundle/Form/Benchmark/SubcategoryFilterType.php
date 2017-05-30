@@ -28,10 +28,11 @@ class SubcategoryFilterType extends BaseType
 	 */
 	protected function addMainFields(FormBuilderInterface $builder, array $options) {
 		
+		$user = $options['user'];
 		$category = $options['category'];
 		
 		$subcategoryRepository = new CategoryRepository($this->em, $this->em->getClassMetadata(Category::class));
-		$subcategories = $subcategoryRepository->findFilterItemsByCategory($category);
+		$subcategories = $subcategoryRepository->findFilterItemsByUserAndCategory($user, $category);
 	
 		$builder
 		->add('subcategory', ChoiceType::class, array(
@@ -57,6 +58,7 @@ class SubcategoryFilterType extends BaseType
 	protected function getDefaultOptions() {
 		$options = parent::getDefaultOptions();
 	
+		$options['user'] = null;
 		$options['category'] = null;
 	
 		return $options;

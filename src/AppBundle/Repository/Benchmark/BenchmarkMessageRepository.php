@@ -91,6 +91,7 @@ class BenchmarkMessageRepository extends BaseRepository
 		$expr = $builder->expr();
 	
 		/** @var BenchmarkMessageFilter $filter */
+		$where->add($expr->isNull('e.parent'));
 		$where->add($expr->eq('e.createdBy', $filter->getContextUser()));
 		
 		if(count($filter->getProducts()) > 0) {

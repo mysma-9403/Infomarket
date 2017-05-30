@@ -140,7 +140,8 @@ class BenchmarkMessageController extends BaseEntityController {
 	//---------------------------------------------------------------------------
 	
 	protected function getInternalContextParamsManager($doctrine, $lastRouteParams) {
-		return new ContextParamsManager($doctrine, $lastRouteParams);
+		$tokenStorage = $this->get('security.token_storage');
+		return new ContextParamsManager($doctrine, $lastRouteParams, $tokenStorage);
 	}
 	
 	protected function getInternalEntryParamsManager(EntityManager $em, FilterManager $fm, $doctrine) {

@@ -39,11 +39,12 @@ class ProductFilterType extends FilterType
 	 */
 	protected function addMainFields(FormBuilderInterface $builder, array $options) {
 		
+		$user = $options['user'];
 		$category = $options['category'];
 		$fields = $options['fields'];
 		
 		$categoryRepository = new CategoryRepository($this->em, $this->em->getClassMetadata(Category::class));
-		$categories = $categoryRepository->findFilterItemsByCategory($category);
+		$categories = $categoryRepository->findFilterItemsByUserAndCategory($user, $category);
 		
 		$brandRepository = new BrandRepository($this->em, $this->em->getClassMetadata(Brand::class));
 		$brands = $brandRepository->findFilterItemsByCategory($category);
@@ -151,6 +152,7 @@ class ProductFilterType extends FilterType
 	protected function getDefaultOptions() {
 		$options = parent::getDefaultOptions();
 		
+		$options['user'] = null;
 		$options['category'] = null;
 		$options['fields'] = array();
 	

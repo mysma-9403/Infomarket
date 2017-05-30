@@ -51,11 +51,15 @@ class CategoryController extends DummyController {
 		$viewParams = $params['viewParams'];
 		
 		//TODO refactor forms like in other controllers
+		$tokenStorage = $this->get('security.token_storage');
+		$user = $tokenStorage->getToken()->getUser()->getId();
+		
+		
 		$category = $contextParams['category'];
 		$categoryFilter = new CategoryFilter();
 		$categoryFilter->setCategory($category);
 
-		$categoryFilterForm = $this->createForm(CategoryFilterType::class, $categoryFilter);
+		$categoryFilterForm = $this->createForm(CategoryFilterType::class, $categoryFilter, ['user' => $user]);
 		$categoryFilterForm->handleRequest($request);
 
 		if ($categoryFilterForm->isSubmitted() && $categoryFilterForm->isValid()) {
@@ -70,7 +74,7 @@ class CategoryController extends DummyController {
 		$subcategoryFilter = new SubcategoryFilter();
 		$subcategoryFilter->setSubcategory($subcategory);
 		
-		$subcategoryFilterForm = $this->createForm(SubcategoryFilterType::class, $subcategoryFilter, ['category' => $category]);
+		$subcategoryFilterForm = $this->createForm(SubcategoryFilterType::class, $subcategoryFilter, ['user' => $user, 'category' => $category]);
 		$subcategoryFilterForm->handleRequest($request);
 		
 		if ($subcategoryFilterForm->isSubmitted() && $subcategoryFilterForm->isValid()) {
@@ -125,7 +129,8 @@ class CategoryController extends DummyController {
 			$lastRouteParams = array();
 		}
 	
-		return new ContextParamsManager($doctrine, $lastRouteParams);
+		$tokenStorage = $this->get('security.token_storage');
+		return new ContextParamsManager($doctrine, $lastRouteParams, $tokenStorage);
 	}
 	
 	protected function getEntryParamsManager() { 

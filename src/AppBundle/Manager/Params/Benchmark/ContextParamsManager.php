@@ -13,15 +13,18 @@ class ContextParamsManager extends ParamsManager {
 	
 	protected $lastRouteParams;
 	
+	protected $tokenStorage;
+	
 	/**
 	 *
 	 * @var BenchmarkMessageRepository
 	 */
 	protected $benchmarkMessageRepository;
 	
-	public function __construct($doctrine, array $lastRouteParams) {
+	public function __construct($doctrine, array $lastRouteParams, $tokenStorage) {
 		parent::__construct($doctrine);
 		$this->lastRouteParams = $lastRouteParams;
+		$this->tokenStorage = $tokenStorage;
 		
 		$em = $this->doctrine->getManager();
 		
@@ -35,24 +38,40 @@ class ContextParamsManager extends ParamsManager {
 		
 		$em = $this->doctrine->getManager();
 		
-		$categoryRepository = new CategoryRepository($em, $em->getClassMetadata(Category::class));
-		$categories = $categoryRepository->findFilterItems();
 		
-		$categoryId = $this->getParamId($request, Category::class, $categories[key($categories)]);
-		$category = $categoryRepository->findItem($categoryId);
+		$userId = $this->tokenStorage->getToken()->getUser()->getId();
+		
+		
+		$categoryRepository = new CategoryRepository($em, $em->getClassMetadata(Category::class));
+		
+		
+		$categories = $categoryRepository->findFilterItemsByUser($userId);
+		
+		$categoryId = 0;
+		$category = null;
+		
+		if(count($categories) > 0) {
+			$categoryId = $this->getParamId($request, Category::class, $categories[key($categories)]);
+			$category = $categoryRepository->findItem($categoryId);
+		}
 		
 		$contextParams['category'] = $categoryId;
 		$routeParams['category'] = $categoryId;
 		$viewParams['category'] = $category;
 		
 		
-		$subcategories = $categoryRepository->findFilterItemsByCategory($categoryId);
-		$subcategoryId = $this->getParamIdByName($request, 'subcategory');
-		if(!in_array($subcategoryId, $subcategories)) {
-			$subcategoryId = $subcategories[key($subcategories)];
-		}
-		$subcategory = $categoryRepository->findItem($subcategoryId);
+		$subcategoryId = 0;
+		$subcategory = null;
 		
+		$subcategories = $categoryRepository->findFilterItemsByUserAndCategory($userId, $categoryId);
+		
+		if(count($subcategories) > 0) {
+			$subcategoryId = $this->getParamIdByName($request, 'subcategory');
+			if(!in_array($subcategoryId, $subcategories)) {
+				$subcategoryId = $subcategories[key($subcategories)];
+			}
+			$subcategory = $categoryRepository->findItem($subcategoryId);
+		}
 		
 		$contextParams['subcategory'] = $subcategoryId;
 		$routeParams['subcategory'] = $subcategoryId;

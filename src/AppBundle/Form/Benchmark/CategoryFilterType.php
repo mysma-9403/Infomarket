@@ -28,8 +28,10 @@ class CategoryFilterType extends BaseType
 	 */
 	protected function addMainFields(FormBuilderInterface $builder, array $options) {
 		
+		$user = $options['user'];
+		
 		$categoryRepository = new CategoryRepository($this->em, $this->em->getClassMetadata(Category::class));
-		$categories = $categoryRepository->findFilterItems();
+		$categories = $categoryRepository->findFilterItemsByUser($user);
 	
 		$builder
 		->add('category', ChoiceType::class, array(
@@ -50,6 +52,14 @@ class CategoryFilterType extends BaseType
 	 */
 	protected function addActions(FormBuilderInterface $builder, array $options) {
 		$builder->add('submit', SubmitType::class);
+	}
+	
+	protected function getDefaultOptions() {
+		$options = parent::getDefaultOptions();
+	
+		$options['user'] = null;
+	
+		return $options;
 	}
 	
 	/**
