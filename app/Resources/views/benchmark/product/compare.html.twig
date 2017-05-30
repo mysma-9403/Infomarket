@@ -113,12 +113,14 @@
 								        {{ compared[key] ? '+' : '-' }}
 									{% elseif field.fieldType == constant('AppBundle\\Entity\\BenchmarkField::DECIMAL_FIELD_TYPE') or 
 												field.fieldType == constant('AppBundle\\Entity\\BenchmarkField::INTEGER_FIELD_TYPE') %}
-										{% if field.betterThanType == constant('AppBundle\\Entity\\BenchmarkField::GTE_BETTER_THAN_TYPE') or 
-												field.betterThanType == constant('AppBundle\\Entity\\BenchmarkField::GT_BETTER_THAN_TYPE') %}
+										{% if field.betterThanType == constant('AppBundle\\Entity\\BenchmarkField::GTE_BETTER_THAN_TYPE') %}
 											{% set color = compared[key] >= entry[key] ? 'text-success' : 'text-danger' %}
-										{% elseif field.betterThanType == constant('AppBundle\\Entity\\BenchmarkField::LTE_BETTER_THAN_TYPE') or 
-												field.betterThanType == constant('AppBundle\\Entity\\BenchmarkField::LT_BETTER_THAN_TYPE') %}
+										{% elseif field.betterThanType == constant('AppBundle\\Entity\\BenchmarkField::LTE_BETTER_THAN_TYPE') %}
 											{% set color = compared[key] <= entry[key] ? 'text-success' : 'text-danger' %}
+										{% elseif field.betterThanType == constant('AppBundle\\Entity\\BenchmarkField::GT_BETTER_THAN_TYPE') %}
+											{% set color = compared[key] > entry[key] ? 'text-success' : compared[key] < entry[key] ? 'text-danger' : 'text-primary' %}
+										{% elseif field.betterThanType == constant('AppBundle\\Entity\\BenchmarkField::LT_BETTER_THAN_TYPE') %}
+											{% set color = compared[key] < entry[key] ? 'text-success' : compared[key] > entry[key] ? 'text-danger' : 'text-primary' %}
 										{% else %}
 											{% set color = '' %}
 										{% endif %}
