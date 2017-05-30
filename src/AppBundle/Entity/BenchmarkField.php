@@ -40,6 +40,7 @@ class BenchmarkField extends Audit
 	const NONE_NOTE_TYPE = 0;
 	const ASC_NOTE_TYPE = 1;
 	const DESC_NOTE_TYPE = 2;
+	//TODO enum note type :)
 	
 	const NONE_BETTER_THAN_TYPE = 0;
 	const LT_BETTER_THAN_TYPE = 10;

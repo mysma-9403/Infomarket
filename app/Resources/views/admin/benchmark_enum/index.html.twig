@@ -1,0 +1,20 @@
+{% extends 'admin/base/index.html.twig' %}
+
+{% set mainPath = 'benchmark_enum' %}
+{% set title = 'title.benchmarkEnums'|trans %}
+
+{% block filterMoreFields1 %}
+	<li class="col-xs-12 col-sm-6 col-md-4 col-lg-2">
+		{{ form_widget(filter.name) }}
+	</li>
+{% endblock %}
+
+{% block headerMoreFields2 %}
+	<th><i class="fa"></i> {{ 'label.benchmarkEnum.value'|trans }}</th>
+{% endblock %}
+
+{% block entryMoreFields2 %}
+	<td>
+		{{ item.value}}
+	</td>
+{% endblock %}

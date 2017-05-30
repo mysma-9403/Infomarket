@@ -56,6 +56,14 @@
                 <source>title.articleCategories</source>
                 <target>Kategorie artykułów</target>
             </trans-unit>
+            <trans-unit id="title.benchmarkEnum">
+                <source>title.benchmarkEnum</source>
+                <target>Typ wyliczeniowy benchmarku</target>
+            </trans-unit>
+            <trans-unit id="title.benchmarkEnums">
+                <source>title.benchmarkEnums</source>
+                <target>Typy wyliczeniowe benchmarku</target>
+            </trans-unit>
             <trans-unit id="title.benchmarkField">
                 <source>title.benchmarkField</source>
                 <target>Pole benchmarku</target>
@@ -643,6 +651,19 @@
             <trans-unit id="label.article.imageSize.large">
                 <source>label.article.imageSize.large</source>
                 <target>Duży</target>
+            </trans-unit>
+            
+            <trans-unit id="label.benchmarkEnum">
+                <source>label.benchmarkEnum</source>
+                <target>Typ wyliczeniowy benchmarku</target>
+            </trans-unit>
+            <trans-unit id="label.benchmarkEnum.name">
+                <source>label.benchmarkEnum.name</source>
+                <target>Wartość (nazwa)</target>
+            </trans-unit>
+            <trans-unit id="label.benchmarkEnum.value">
+                <source>label.benchmarkEnum.value</source>
+                <target>Wartość (ocena)</target>
             </trans-unit>
             
             <trans-unit id="label.benchmarkField">

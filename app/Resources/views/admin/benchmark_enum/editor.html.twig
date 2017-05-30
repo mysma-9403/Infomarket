@@ -1,0 +1,12 @@
+{% extends 'admin/base/editor.html.twig' %}
+
+{% set mainPath = 'benchmark_enum' %}
+{% set title = 'title.benchmarkEnums'|trans %}
+
+{% block mainFields1 %}
+	{{ form_row(form.name, { 'label': 'label.benchmarkEnum.name' }) }}
+{% endblock %}
+
+{% block moreFields2 %}
+	{{ form_row(form.value, { 'label': 'label.benchmarkEnum.value' }) }}
+{% endblock %}

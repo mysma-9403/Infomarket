@@ -644,7 +644,32 @@ admin_article_category_set_featured:
 admin_article_category:
     path:      /admin/article_categories/{page}
     defaults:  { _controller: "AppBundle:Admin/Main/ArticleCategory:index", page: 1 }
+
+# Admin BenchmarkEnums Routing    
+admin_benchmark_enum_show:
+    path:      /admin/benchmark-enums/show/{id}
+    defaults:  { _controller: "AppBundle:Admin/Main/BenchmarkEnum:show" }
     
+admin_benchmark_enum_new:
+    path:      /admin/benchmark-enums/new/
+    defaults:  { _controller: "AppBundle:Admin/Main/BenchmarkEnum:new" }
+    
+admin_benchmark_enum_copy:
+    path:      /admin/benchmark-enums/copy/{id}
+    defaults:  { _controller: "AppBundle:Admin/Main/BenchmarkEnum:copy" }
+    
+admin_benchmark_enum_edit:
+    path:      /admin/benchmark-enums/edit/{id}
+    defaults:  { _controller: "AppBundle:Admin/Main/BenchmarkEnum:edit" }
+    
+admin_benchmark_enum_delete:
+    path:      /admin/benchmark-enums/delete/{id}
+    defaults:  { _controller: "AppBundle:Admin/Main/BenchmarkEnum:delete" }
+    
+admin_benchmark_enum:
+    path:      /admin/benchmark-enums/{page}
+    defaults:  { _controller: "AppBundle:Admin/Main/BenchmarkEnum:index", page: 1 }
+        
 # Admin BenchmarkFields Routing    
 admin_benchmark_field_show:
     path:      /admin/benchmark-fields/show/{id}
