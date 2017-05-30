@@ -23,6 +23,9 @@
         <field name="physicalSubscription" type="boolean" nullable="false" default="false" />
         <field name="dataProcessingAgreement" type="boolean" nullable="false" default="false" />
         
+        <one-to-many field="userCategoryAssignments" target-entity="UserCategoryAssignment" mapped-by="user">
+        </one-to-many>
+        
     </entity>
     
 </doctrine-mapping>

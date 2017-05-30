@@ -66,6 +66,9 @@
         <one-to-many field="termCategoryAssignments" target-entity="TermCategoryAssignment" mapped-by="category">
         </one-to-many>
         
+        <one-to-many field="userCategoryAssignments" target-entity="UserCategoryAssignment" mapped-by="category">
+        </one-to-many>
+        
         <one-to-many field="magazineCategoryAssignments" target-entity="MagazineCategoryAssignment" mapped-by="category">
         </one-to-many>
         

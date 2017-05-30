@@ -1,0 +1,15 @@
+{% extends 'admin/base/show.html.twig' %}
+
+{% set mainPath = 'user_category_assignment' %}
+{% set title = 'title.user_category_assignments'|trans %}
+{% set gender = '' %}
+
+{% block mainFields1 %}	
+	{% include 'common/fields/user_field.html.twig' with 
+	{ 'label': 'label.user', 'value': entry.user,
+		'object': 'user', 'routeId': entry.id } %}
+		
+	{% include 'common/fields/simple_field.html.twig' with 
+	{ 'label': 'label.category', 'value': entry.category,
+		'object': 'category', 'routeId': entry.id } %}
+{% endblock %}

@@ -114,6 +114,11 @@
 								{{ 'title.term_category_assignments'|trans }}
 							</a>
 						</li>
+						<li>
+							<a href="{{ path('admin_' ~ 'user_category_assignment') }}">
+								{{ 'title.user_category_assignments'|trans }}
+							</a>
+						</li>
 					</ul>
 				</li>
 				<li {% if 'product' in mainPath %} class="active" {% endif %} class="dropdown">

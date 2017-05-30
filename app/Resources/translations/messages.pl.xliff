@@ -323,6 +323,10 @@
                 <source>title.term_category_assignments</source>
                 <target>Terminy - Kategorie</target>
             </trans-unit>
+            <trans-unit id="title.user_category_assignments">
+                <source>title.user_category_assignments</source>
+                <target>Użytkownicy - Kategorie</target>
+            </trans-unit>
             <trans-unit id="title.category_tree">
                 <source>title.category_tree</source>
                 <target>Drzewo kategorii</target>
@@ -536,6 +540,10 @@
             <trans-unit id="label.term">
                 <source>label.term</source>
                 <target>Pojęcie</target>
+            </trans-unit>
+            <trans-unit id="label.user">
+                <source>label.user</source>
+                <target>Użytkownik</target>
             </trans-unit>
             
             

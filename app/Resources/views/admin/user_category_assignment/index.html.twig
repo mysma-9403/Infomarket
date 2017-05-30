@@ -1,0 +1,27 @@
+{% extends 'admin/base/index.html.twig' %}
+
+{% set mainPath = 'user_category_assignment' %}
+{% set title = 'title.user_category_assignments'|trans %}
+
+{% block filterMoreFields1 %}
+	<li class="col-xs-12 col-sm-6 col-md-4 col-lg-2">
+		{{ form_widget(filter.categories, { 'label': 'label.categories' }) }}
+	</li>
+	<li class="col-xs-12 col-sm-6 col-md-4 col-lg-2">
+		{{ form_widget(filter.users, { 'label': 'label.users' }) }}
+	</li>
+{% endblock %}
+
+{% block headerMainFields1 %}
+	<th><i class="fa fa-"></i> {{ 'label.user'|trans }}</th>
+	<th><i class="fa fa-"></i> {{ 'label.category'|trans }}</th>
+{% endblock %}
+
+{% block entryMainFields1 %}
+	<td>
+		{% include 'common/links/user_link.html.twig' with { value: { id: item.userId, surname: item.userSurname, forename: item.userForename } } %}
+	</td>
+	<td>
+		{% include 'common/links/simple_link.html.twig' with { type: 'category', value: { id: item.categoryId, name: item.categoryName } } %}
+	</td>
+{% endblock %}

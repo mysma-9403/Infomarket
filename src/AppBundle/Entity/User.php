@@ -291,4 +291,43 @@ class User extends BaseUser
     {
         return $this->dataProcessingAgreement;
     }
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $userCategoryAssignments;
+
+
+    /**
+     * Add userCategoryAssignment
+     *
+     * @param \AppBundle\Entity\UserCategoryAssignment $userCategoryAssignment
+     *
+     * @return User
+     */
+    public function addUserCategoryAssignment(\AppBundle\Entity\UserCategoryAssignment $userCategoryAssignment)
+    {
+        $this->userCategoryAssignments[] = $userCategoryAssignment;
+
+        return $this;
+    }
+
+    /**
+     * Remove userCategoryAssignment
+     *
+     * @param \AppBundle\Entity\UserCategoryAssignment $userCategoryAssignment
+     */
+    public function removeUserCategoryAssignment(\AppBundle\Entity\UserCategoryAssignment $userCategoryAssignment)
+    {
+        $this->userCategoryAssignments->removeElement($userCategoryAssignment);
+    }
+
+    /**
+     * Get userCategoryAssignments
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getUserCategoryAssignments()
+    {
+        return $this->userCategoryAssignments;
+    }
 }

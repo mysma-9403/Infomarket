@@ -390,27 +390,27 @@ admin_advert:
 
 # Admin AdvertCategoryAssignments Routing    
 admin_advert_category_assignment_show:
-    path:      /admin/advert-category_assignments/show/{id}
+    path:      /admin/advert-category-assignments/show/{id}
     defaults:  { _controller: "AppBundle:Admin/Assignments/AdvertCategoryAssignment:show" }
     
 admin_advert_category_assignment_new:
-    path:      /admin/advert-category_assignments/new/
+    path:      /admin/advert-category-assignments/new/
     defaults:  { _controller: "AppBundle:Admin/Assignments/AdvertCategoryAssignment:new" }
     
 admin_advert_category_assignment_copy:
-    path:      /admin/advert-category_assignments/copy/{id}
+    path:      /admin/advert-category-assignments/copy/{id}
     defaults:  { _controller: "AppBundle:Admin/Assignments/AdvertCategoryAssignment:copy" }
     
 admin_advert_category_assignment_edit:
-    path:      /admin/advert-category_assignments/edit/{id}
+    path:      /admin/advert-category-assignments/edit/{id}
     defaults:  { _controller: "AppBundle:Admin/Assignments/AdvertCategoryAssignment:edit" }
     
 admin_advert_category_assignment_delete:
-    path:      /admin/advert-category_assignments/delete/{id}
+    path:      /admin/advert-category-assignments/delete/{id}
     defaults:  { _controller: "AppBundle:Admin/Assignments/AdvertCategoryAssignment:delete" }
 
 admin_advert_category_assignment:
-    path:      /admin/advert-category_assignments/{page}
+    path:      /admin/advert-category-assignments/{page}
     defaults:  { _controller: "AppBundle:Admin/Assignments/AdvertCategoryAssignment:index", page: 1 }
             
 # Admin Articles Routing    
@@ -506,102 +506,102 @@ admin_archived_article:
 
 # Admin ArticleArticleCategoryAssignments Routing    
 admin_article_article_category_assignment_show:
-    path:      /admin/article-article_category_assignments/show/{id}
+    path:      /admin/article-article_category-assignments/show/{id}
     defaults:  { _controller: "AppBundle:Admin/Assignments/ArticleArticleCategoryAssignment:show" }
     
 admin_article_article_category_assignment_new:
-    path:      /admin/article-article_category_assignments/new/
+    path:      /admin/article-article_category-assignments/new/
     defaults:  { _controller: "AppBundle:Admin/Assignments/ArticleArticleCategoryAssignment:new" }
     
 admin_article_article_category_assignment_copy:
-    path:      /admin/article-article_category_assignments/copy/{id}
+    path:      /admin/article-article_category-assignments/copy/{id}
     defaults:  { _controller: "AppBundle:Admin/Assignments/ArticleArticleCategoryAssignment:copy" }
     
 admin_article_article_category_assignment_edit:
-    path:      /admin/article-article_category_assignments/edit/{id}
+    path:      /admin/article-article_category-assignments/edit/{id}
     defaults:  { _controller: "AppBundle:Admin/Assignments/ArticleArticleCategoryAssignment:edit" }
     
 admin_article_article_category_assignment_delete:
-    path:      /admin/article-article_category_assignments/delete/{id}
+    path:      /admin/article-article_category-assignments/delete/{id}
     defaults:  { _controller: "AppBundle:Admin/Assignments/ArticleArticleCategoryAssignment:delete" }
 
 admin_article_article_category_assignment:
-    path:      /admin/article-article_category_assignments/{page}
+    path:      /admin/article-article_category-assignments/{page}
     defaults:  { _controller: "AppBundle:Admin/Assignments/ArticleArticleCategoryAssignment:index", page: 1 }
 
 # Admin ArticleBrandAssignments Routing    
 admin_article_brand_assignment_show:
-    path:      /admin/article-brand_assignments/show/{id}
+    path:      /admin/article-brand-assignments/show/{id}
     defaults:  { _controller: "AppBundle:Admin/Assignments/ArticleBrandAssignment:show" }
     
 admin_article_brand_assignment_new:
-    path:      /admin/article-brand_assignments/new/
+    path:      /admin/article-brand-assignments/new/
     defaults:  { _controller: "AppBundle:Admin/Assignments/ArticleBrandAssignment:new" }
     
 admin_article_brand_assignment_copy:
-    path:      /admin/article-brand_assignments/copy/{id}
+    path:      /admin/article-brand-assignments/copy/{id}
     defaults:  { _controller: "AppBundle:Admin/Assignments/ArticleBrandAssignment:copy" }
     
 admin_article_brand_assignment_edit:
-    path:      /admin/article-brand_assignments/edit/{id}
+    path:      /admin/article-brand-assignments/edit/{id}
     defaults:  { _controller: "AppBundle:Admin/Assignments/ArticleBrandAssignment:edit" }
     
 admin_article_brand_assignment_delete:
-    path:      /admin/article-brand_assignments/delete/{id}
+    path:      /admin/article-brand-assignments/delete/{id}
     defaults:  { _controller: "AppBundle:Admin/Assignments/ArticleBrandAssignment:delete" }
 
 admin_article_brand_assignment:
-    path:      /admin/article-brand_assignments/{page}
+    path:      /admin/article-brand-assignments/{page}
     defaults:  { _controller: "AppBundle:Admin/Assignments/ArticleBrandAssignment:index", page: 1 }
         
 # Admin ArticleCategoryAssignments Routing    
 admin_article_category_assignment_show:
-    path:      /admin/article-category_assignments/show/{id}
+    path:      /admin/article-category-assignments/show/{id}
     defaults:  { _controller: "AppBundle:Admin/Assignments/ArticleCategoryAssignment:show" }
     
 admin_article_category_assignment_new:
-    path:      /admin/article-category_assignments/new/
+    path:      /admin/article-category-assignments/new/
     defaults:  { _controller: "AppBundle:Admin/Assignments/ArticleCategoryAssignment:new" }
     
 admin_article_category_assignment_copy:
-    path:      /admin/article-category_assignments/copy/{id}
+    path:      /admin/article-category-assignments/copy/{id}
     defaults:  { _controller: "AppBundle:Admin/Assignments/ArticleCategoryAssignment:copy" }
     
 admin_article_category_assignment_edit:
-    path:      /admin/article-category_assignments/edit/{id}
+    path:      /admin/article-category-assignments/edit/{id}
     defaults:  { _controller: "AppBundle:Admin/Assignments/ArticleCategoryAssignment:edit" }
     
 admin_article_category_assignment_delete:
-    path:      /admin/article-category_assignments/delete/{id}
+    path:      /admin/article-category-assignments/delete/{id}
     defaults:  { _controller: "AppBundle:Admin/Assignments/ArticleCategoryAssignment:delete" }
 
 admin_article_category_assignment:
-    path:      /admin/article-category_assignments/{page}
+    path:      /admin/article-category-assignments/{page}
     defaults:  { _controller: "AppBundle:Admin/Assignments/ArticleCategoryAssignment:index", page: 1 }
 
 # Admin ArticleTagAssignments Routing    
 admin_article_tag_assignment_show:
-    path:      /admin/article-tag_assignments/show/{id}
+    path:      /admin/article-tag-assignments/show/{id}
     defaults:  { _controller: "AppBundle:Admin/Assignments/ArticleTagAssignment:show" }
     
 admin_article_tag_assignment_new:
-    path:      /admin/article-tag_assignments/new/
+    path:      /admin/article-tag-assignments/new/
     defaults:  { _controller: "AppBundle:Admin/Assignments/ArticleTagAssignment:new" }
     
 admin_article_tag_assignment_copy:
-    path:      /admin/article-tag_assignments/copy/{id}
+    path:      /admin/article-tag-assignments/copy/{id}
     defaults:  { _controller: "AppBundle:Admin/Assignments/ArticleTagAssignment:copy" }
     
 admin_article_tag_assignment_edit:
-    path:      /admin/article-tag_assignments/edit/{id}
+    path:      /admin/article-tag-assignments/edit/{id}
     defaults:  { _controller: "AppBundle:Admin/Assignments/ArticleTagAssignment:edit" }
     
 admin_article_tag_assignment_delete:
-    path:      /admin/article-tag_assignments/delete/{id}
+    path:      /admin/article-tag-assignments/delete/{id}
     defaults:  { _controller: "AppBundle:Admin/Assignments/ArticleTagAssignment:delete" }
 
 admin_article_tag_assignment:
-    path:      /admin/article-tag_assignments/{page}
+    path:      /admin/article-tag-assignments/{page}
     defaults:  { _controller: "AppBundle:Admin/Assignments/ArticleTagAssignment:index", page: 1 }    
     
 # Admin ArticleCategories Routing    
@@ -738,27 +738,27 @@ admin_branch:
         
 # Admin BranchCategoryAssignments Routing    
 admin_branch_category_assignment_show:
-    path:      /admin/branch-category_assignments/show/{id}
+    path:      /admin/branch-category-assignments/show/{id}
     defaults:  { _controller: "AppBundle:Admin/Assignments/BranchCategoryAssignment:show" }
     
 admin_branch_category_assignment_new:
-    path:      /admin/branch-category_assignments/new/
+    path:      /admin/branch-category-assignments/new/
     defaults:  { _controller: "AppBundle:Admin/Assignments/BranchCategoryAssignment:new" }
     
 admin_branch_category_assignment_copy:
-    path:      /admin/branch-category_assignments/copy/{id}
+    path:      /admin/branch-category-assignments/copy/{id}
     defaults:  { _controller: "AppBundle:Admin/Assignments/BranchCategoryAssignment:copy" }
     
 admin_branch_category_assignment_edit:
-    path:      /admin/branch-category_assignments/edit/{id}
+    path:      /admin/branch-category-assignments/edit/{id}
     defaults:  { _controller: "AppBundle:Admin/Assignments/BranchCategoryAssignment:edit" }
     
 admin_branch_category_assignment_delete:
-    path:      /admin/branch-category_assignments/delete/{id}
+    path:      /admin/branch-category-assignments/delete/{id}
     defaults:  { _controller: "AppBundle:Admin/Assignments/BranchCategoryAssignment:delete" }
 
 admin_branch_category_assignment:
-    path:      /admin/branch-category_assignments/{page}
+    path:      /admin/branch-category-assignments/{page}
     defaults:  { _controller: "AppBundle:Admin/Assignments/BranchCategoryAssignment:index", page: 1 }
 
 
@@ -802,27 +802,27 @@ admin_brand:
 
 # Admin BrandCategoryAssignments Routing    
 admin_brand_category_assignment_show:
-    path:      /admin/brand-category_assignments/show/{id}
+    path:      /admin/brand-category-assignments/show/{id}
     defaults:  { _controller: "AppBundle:Admin/Assignments/BrandCategoryAssignment:show" }
     
 admin_brand_category_assignment_new:
-    path:      /admin/brand-category_assignments/new/
+    path:      /admin/brand-category-assignments/new/
     defaults:  { _controller: "AppBundle:Admin/Assignments/BrandCategoryAssignment:new" }
     
 admin_brand_category_assignment_copy:
-    path:      /admin/brand-category_assignments/copy/{id}
+    path:      /admin/brand-category-assignments/copy/{id}
     defaults:  { _controller: "AppBundle:Admin/Assignments/BrandCategoryAssignment:copy" }
     
 admin_brand_category_assignment_edit:
-    path:      /admin/brand-category_assignments/edit/{id}
+    path:      /admin/brand-category-assignments/edit/{id}
     defaults:  { _controller: "AppBundle:Admin/Assignments/BrandCategoryAssignment:edit" }
     
 admin_brand_category_assignment_delete:
-    path:      /admin/brand-category_assignments/delete/{id}
+    path:      /admin/brand-category-assignments/delete/{id}
     defaults:  { _controller: "AppBundle:Admin/Assignments/BrandCategoryAssignment:delete" }
 
 admin_brand_category_assignment:
-    path:      /admin/brand-category_assignments/{page}
+    path:      /admin/brand-category-assignments/{page}
     defaults:  { _controller: "AppBundle:Admin/Assignments/BrandCategoryAssignment:index", page: 1 }
     
         
@@ -959,52 +959,52 @@ admin_magazine:
 
 # Admin MagazineBranchAssignments Routing    
 admin_magazine_branch_assignment_show:
-    path:      /admin/magazine-branch_assignments/show/{id}
+    path:      /admin/magazine-branch-assignments/show/{id}
     defaults:  { _controller: "AppBundle:Admin/Assignments/MagazineBranchAssignment:show" }
     
 admin_magazine_branch_assignment_new:
-    path:      /admin/magazine-branch_assignments/new/
+    path:      /admin/magazine-branch-assignments/new/
     defaults:  { _controller: "AppBundle:Admin/Assignments/MagazineBranchAssignment:new" }
     
 admin_magazine_branch_assignment_copy:
-    path:      /admin/magazine-branch_assignments/copy/{id}
+    path:      /admin/magazine-branch-assignments/copy/{id}
     defaults:  { _controller: "AppBundle:Admin/Assignments/MagazineBranchAssignment:copy" }
     
 admin_magazine_branch_assignment_edit:
-    path:      /admin/magazine-branch_assignments/edit/{id}
+    path:      /admin/magazine-branch-assignments/edit/{id}
     defaults:  { _controller: "AppBundle:Admin/Assignments/MagazineBranchAssignment:edit" }
     
 admin_magazine_branch_assignment_delete:
-    path:      /admin/magazine-branch_assignments/delete/{id}
+    path:      /admin/magazine-branch-assignments/delete/{id}
     defaults:  { _controller: "AppBundle:Admin/Assignments/MagazineBranchAssignment:delete" }
 
 admin_magazine_branch_assignment:
-    path:      /admin/magazine-branch_assignments/{page}
+    path:      /admin/magazine-branch-assignments/{page}
     defaults:  { _controller: "AppBundle:Admin/Assignments/MagazineBranchAssignment:index", page: 1 }
     
 # Admin MagazineCategoryAssignments Routing    
 admin_magazine_category_assignment_show:
-    path:      /admin/magazine-category_assignments/show/{id}
+    path:      /admin/magazine-category-assignments/show/{id}
     defaults:  { _controller: "AppBundle:Admin/Assignments/MagazineCategoryAssignment:show" }
     
 admin_magazine_category_assignment_new:
-    path:      /admin/magazine-category_assignments/new/
+    path:      /admin/magazine-category-assignments/new/
     defaults:  { _controller: "AppBundle:Admin/Assignments/MagazineCategoryAssignment:new" }
     
 admin_magazine_category_assignment_copy:
-    path:      /admin/magazine-category_assignments/copy/{id}
+    path:      /admin/magazine-category-assignments/copy/{id}
     defaults:  { _controller: "AppBundle:Admin/Assignments/MagazineCategoryAssignment:copy" }
     
 admin_magazine_category_assignment_edit:
-    path:      /admin/magazine-category_assignments/edit/{id}
+    path:      /admin/magazine-category-assignments/edit/{id}
     defaults:  { _controller: "AppBundle:Admin/Assignments/MagazineCategoryAssignment:edit" }
     
 admin_magazine_category_assignment_delete:
-    path:      /admin/magazine-category_assignments/delete/{id}
+    path:      /admin/magazine-category-assignments/delete/{id}
     defaults:  { _controller: "AppBundle:Admin/Assignments/MagazineCategoryAssignment:delete" }
 
 admin_magazine_category_assignment:
-    path:      /admin/magazine-category_assignments/{page}
+    path:      /admin/magazine-category-assignments/{page}
     defaults:  { _controller: "AppBundle:Admin/Assignments/MagazineCategoryAssignment:index", page: 1 }
     
 # Admin Menus Routing    
@@ -1059,85 +1059,85 @@ admin_menu_entry:
     
 # Admin MenuEntryBranchAssignments Routing    
 admin_menu_entry_branch_assignment_show:
-    path:      /admin/menu_entry-branch_assignments/show/{id}
+    path:      /admin/menu_entry-branch-assignments/show/{id}
     defaults:  { _controller: "AppBundle:Admin/Assignments/MenuEntryBranchAssignment:show" }
     
 admin_menu_entry_branch_assignment_new:
-    path:      /admin/menu_entry-branch_assignments/new/
+    path:      /admin/menu_entry-branch-assignments/new/
     defaults:  { _controller: "AppBundle:Admin/Assignments/MenuEntryBranchAssignment:new" }
     
 admin_menu_entry_branch_assignment_copy:
-    path:      /admin/menu_entry-branch_assignments/copy/{id}
+    path:      /admin/menu_entry-branch-assignments/copy/{id}
     defaults:  { _controller: "AppBundle:Admin/Assignments/MenuEntryBranchAssignment:copy" }
     
 admin_menu_entry_branch_assignment_edit:
-    path:      /admin/menu_entry-branch_assignments/edit/{id}
+    path:      /admin/menu_entry-branch-assignments/edit/{id}
     defaults:  { _controller: "AppBundle:Admin/Assignments/MenuEntryBranchAssignment:edit" }
     
 admin_menu_entry_branch_assignment_delete:
-    path:      /admin/menu_entry-branch_assignments/delete/{id}
+    path:      /admin/menu_entry-branch-assignments/delete/{id}
     defaults:  { _controller: "AppBundle:Admin/Assignments/MenuEntryBranchAssignment:delete" }
 
 admin_menu_entry_branch_assignment:
-    path:      /admin/menu_entry-branch_assignments/{page}
+    path:      /admin/menu_entry-branch-assignments/{page}
     defaults:  { _controller: "AppBundle:Admin/Assignments/MenuEntryBranchAssignment:index", page: 1 }
     
 # Admin MenuEntryCategoryAssignments Routing    
 admin_menu_entry_category_assignment_show:
-    path:      /admin/menu_entry-category_assignments/show/{id}
+    path:      /admin/menu_entry-category-assignments/show/{id}
     defaults:  { _controller: "AppBundle:Admin/Assignments/MenuEntryCategoryAssignment:show" }
     
 admin_menu_entry_category_assignment_new:
-    path:      /admin/menu_entry-category_assignments/new/
+    path:      /admin/menu_entry-category-assignments/new/
     defaults:  { _controller: "AppBundle:Admin/Assignments/MenuEntryCategoryAssignment:new" }
     
 admin_menu_entry_category_assignment_copy:
-    path:      /admin/menu_entry-category_assignments/copy/{id}
+    path:      /admin/menu_entry-category-assignments/copy/{id}
     defaults:  { _controller: "AppBundle:Admin/Assignments/MenuEntryCategoryAssignment:copy" }
     
 admin_menu_entry_category_assignment_edit:
-    path:      /admin/menu_entry-category_assignments/edit/{id}
+    path:      /admin/menu_entry-category-assignments/edit/{id}
     defaults:  { _controller: "AppBundle:Admin/Assignments/MenuEntryCategoryAssignment:edit" }
     
 admin_menu_entry_category_assignment_delete:
-    path:      /admin/menu_entry-category_assignments/delete/{id}
+    path:      /admin/menu_entry-category-assignments/delete/{id}
     defaults:  { _controller: "AppBundle:Admin/Assignments/MenuEntryCategoryAssignment:delete" }
 
 admin_menu_entry_category_assignment:
-    path:      /admin/menu_entry-category_assignments/{page}
+    path:      /admin/menu_entry-category-assignments/{page}
     defaults:  { _controller: "AppBundle:Admin/Assignments/MenuEntryCategoryAssignment:index", page: 1 }
     
 # Admin MenuMenuEntries Routing    
 admin_menu_menu_entry_assignment_show:
-    path:      /admin/menu_menu_entry_assignments/show/{id}
+    path:      /admin/menu_menu_entry-assignments/show/{id}
     defaults:  { _controller: "AppBundle:Admin/Assignments/MenuMenuEntryAssignment:show" }
     
 admin_menu_menu_entry_assignment_new:
-    path:      /admin/menu_menu_entry_assignments/new/
+    path:      /admin/menu_menu_entry-assignments/new/
     defaults:  { _controller: "AppBundle:Admin/Assignments/MenuMenuEntryAssignment:new" }
     
 admin_menu_menu_entry_assignment_copy:
-    path:      /admin/menu_menu_entry_assignments/copy/{id}
+    path:      /admin/menu_menu_entry-assignments/copy/{id}
     defaults:  { _controller: "AppBundle:Admin/Assignments/MenuMenuEntryAssignment:copy" }
     
 admin_menu_menu_entry_assignment_edit:
-    path:      /admin/menu_menu_entry_assignments/edit/{id}
+    path:      /admin/menu_menu_entry-assignments/edit/{id}
     defaults:  { _controller: "AppBundle:Admin/Assignments/MenuMenuEntryAssignment:edit" }
     
 admin_menu_menu_entry_assignment_delete:
-    path:      /admin/menu_menu_entry_assignments/delete/{id}
+    path:      /admin/menu_menu_entry-assignments/delete/{id}
     defaults:  { _controller: "AppBundle:Admin/Assignments/MenuMenuEntryAssignment:delete" }
     
 admin_menu_menu_entry_assignment_set_im_published:
-    path:      /admin/menu_menu_entry_assignments/set_im_published/{id}
+    path:      /admin/menu_menu_entry-assignments/set_im_published/{id}
     defaults:  { _controller: "AppBundle:Admin/Assignments/MenuMenuEntryAssignment:setIMPublished" }
     
 admin_menu_menu_entry_assignment_set_ip_published:
-    path:      /admin/menu_menu_entry_assignments/set_ip_published/{id}
+    path:      /admin/menu_menu_entry-assignments/set_ip_published/{id}
     defaults:  { _controller: "AppBundle:Admin/Assignments/MenuMenuEntryAssignment:setIPPublished" }
 
 admin_menu_menu_entry_assignment:
-    path:      /admin/menu_menu_entry_assignments/{page}
+    path:      /admin/menu_menu_entry-assignments/{page}
     defaults:  { _controller: "AppBundle:Admin/Assignments/MenuMenuEntryAssignment:index", page: 1 }
     
 # Admin NewsletterBlocks Routing    
@@ -1368,115 +1368,115 @@ admin_newsletter_user:
 
 # Admin NewsletterBlockAdvertAssignments Routing    
 admin_newsletter_block_advert_assignment_show:
-    path:      /admin/newsletter_block-advert_assignments/show/{id}
+    path:      /admin/newsletter_block-advert-assignments/show/{id}
     defaults:  { _controller: "AppBundle:Admin/Assignments/NewsletterBlockAdvertAssignment:show" }
     
 admin_newsletter_block_advert_assignment_new:
-    path:      /admin/newsletter_block-advert_assignments/new/
+    path:      /admin/newsletter_block-advert-assignments/new/
     defaults:  { _controller: "AppBundle:Admin/Assignments/NewsletterBlockAdvertAssignment:new" }
     
 admin_newsletter_block_advert_assignment_copy:
-    path:      /admin/newsletter_block-advert_assignments/copy/{id}
+    path:      /admin/newsletter_block-advert-assignments/copy/{id}
     defaults:  { _controller: "AppBundle:Admin/Assignments/NewsletterBlockAdvertAssignment:copy" }
     
 admin_newsletter_block_advert_assignment_edit:
-    path:      /admin/newsletter_block-advert_assignments/edit/{id}
+    path:      /admin/newsletter_block-advert-assignments/edit/{id}
     defaults:  { _controller: "AppBundle:Admin/Assignments/NewsletterBlockAdvertAssignment:edit" }
     
 admin_newsletter_block_advert_assignment_delete:
-    path:      /admin/newsletter_block-advert_assignments/delete/{id}
+    path:      /admin/newsletter_block-advert-assignments/delete/{id}
     defaults:  { _controller: "AppBundle:Admin/Assignments/NewsletterBlockAdvertAssignment:delete" }
 
 admin_newsletter_block_advert_assignment:
-    path:      /admin/newsletter_block-advert_assignments/{page}
+    path:      /admin/newsletter_block-advert-assignments/{page}
     defaults:  { _controller: "AppBundle:Admin/Assignments/NewsletterBlockAdvertAssignment:index", page: 1 }   
 
 # Admin NewsletterBlockArticleAssignments Routing    
 admin_newsletter_block_article_assignment_show:
-    path:      /admin/newsletter_block-article_assignments/show/{id}
+    path:      /admin/newsletter_block-article-assignments/show/{id}
     defaults:  { _controller: "AppBundle:Admin/Assignments/NewsletterBlockArticleAssignment:show" }
     
 admin_newsletter_block_article_assignment_new:
-    path:      /admin/newsletter_block-article_assignments/new/
+    path:      /admin/newsletter_block-article-assignments/new/
     defaults:  { _controller: "AppBundle:Admin/Assignments/NewsletterBlockArticleAssignment:new" }
     
 admin_newsletter_block_article_assignment_copy:
-    path:      /admin/newsletter_block-article_assignments/copy/{id}
+    path:      /admin/newsletter_block-article-assignments/copy/{id}
     defaults:  { _controller: "AppBundle:Admin/Assignments/NewsletterBlockArticleAssignment:copy" }
     
 admin_newsletter_block_article_assignment_edit:
-    path:      /admin/newsletter_block-article_assignments/edit/{id}
+    path:      /admin/newsletter_block-article-assignments/edit/{id}
     defaults:  { _controller: "AppBundle:Admin/Assignments/NewsletterBlockArticleAssignment:edit" }
     
 admin_newsletter_block_article_assignment_delete:
-    path:      /admin/newsletter_block-article_assignments/delete/{id}
+    path:      /admin/newsletter_block-article-assignments/delete/{id}
     defaults:  { _controller: "AppBundle:Admin/Assignments/NewsletterBlockArticleAssignment:delete" }
 
 admin_newsletter_block_article_assignment:
-    path:      /admin/newsletter_block-article_assignments/{page}
+    path:      /admin/newsletter_block-article-assignments/{page}
     defaults:  { _controller: "AppBundle:Admin/Assignments/NewsletterBlockArticleAssignment:index", page: 1 }
 
 # Admin NewsletterBlockMagazineAssignments Routing    
 admin_newsletter_block_magazine_assignment_show:
-    path:      /admin/newsletter_block-magazine_assignments/show/{id}
+    path:      /admin/newsletter_block-magazine-assignments/show/{id}
     defaults:  { _controller: "AppBundle:Admin/Assignments/NewsletterBlockMagazineAssignment:show" }
     
 admin_newsletter_block_magazine_assignment_new:
-    path:      /admin/newsletter_block-magazine_assignments/new/
+    path:      /admin/newsletter_block-magazine-assignments/new/
     defaults:  { _controller: "AppBundle:Admin/Assignments/NewsletterBlockMagazineAssignment:new" }
     
 admin_newsletter_block_magazine_assignment_copy:
-    path:      /admin/newsletter_block-magazine_assignments/copy/{id}
+    path:      /admin/newsletter_block-magazine-assignments/copy/{id}
     defaults:  { _controller: "AppBundle:Admin/Assignments/NewsletterBlockMagazineAssignment:copy" }
     
 admin_newsletter_block_magazine_assignment_edit:
-    path:      /admin/newsletter_block-magazine_assignments/edit/{id}
+    path:      /admin/newsletter_block-magazine-assignments/edit/{id}
     defaults:  { _controller: "AppBundle:Admin/Assignments/NewsletterBlockMagazineAssignment:edit" }
     
 admin_newsletter_block_magazine_assignment_delete:
-    path:      /admin/newsletter_block-magazine_assignments/delete/{id}
+    path:      /admin/newsletter_block-magazine-assignments/delete/{id}
     defaults:  { _controller: "AppBundle:Admin/Assignments/NewsletterBlockMagazineAssignment:delete" }
 
 admin_newsletter_block_magazine_assignment:
-    path:      /admin/newsletter_block-magazine_assignments/{page}
+    path:      /admin/newsletter_block-magazine-assignments/{page}
     defaults:  { _controller: "AppBundle:Admin/Assignments/NewsletterBlockMagazineAssignment:index", page: 1 }   
 
 # Admin NewsletterUserNewsletterGroupAssignments Routing    
 admin_newsletter_user_newsletter_group_assignment_show:
-    path:      /admin/newsletter_user-newsletter_group_assignments/show/{id}
+    path:      /admin/newsletter_user-newsletter_group-assignments/show/{id}
     defaults:  { _controller: "AppBundle:Admin/Assignments/NewsletterUserNewsletterGroupAssignment:show" }
     
 admin_newsletter_user_newsletter_group_assignment_new:
-    path:      /admin/newsletter_user-newsletter_group_assignments/new/
+    path:      /admin/newsletter_user-newsletter_group-assignments/new/
     defaults:  { _controller: "AppBundle:Admin/Assignments/NewsletterUserNewsletterGroupAssignment:new" }
     
 admin_newsletter_user_newsletter_group_assignment_copy:
-    path:      /admin/newsletter_user-newsletter_group_assignments/copy/{id}
+    path:      /admin/newsletter_user-newsletter_group-assignments/copy/{id}
     defaults:  { _controller: "AppBundle:Admin/Assignments/NewsletterUserNewsletterGroupAssignment:copy" }
     
 admin_newsletter_user_newsletter_group_assignment_edit:
-    path:      /admin/newsletter_user-newsletter_group_assignments/edit/{id}
+    path:      /admin/newsletter_user-newsletter_group-assignments/edit/{id}
     defaults:  { _controller: "AppBundle:Admin/Assignments/NewsletterUserNewsletterGroupAssignment:edit" }
     
 admin_newsletter_user_newsletter_group_assignment_delete:
-    path:      /admin/newsletter_user-newsletter_group_assignments/delete/{id}
+    path:      /admin/newsletter_user-newsletter_group-assignments/delete/{id}
     defaults:  { _controller: "AppBundle:Admin/Assignments/NewsletterUserNewsletterGroupAssignment:delete" }
 
 admin_newsletter_user_newsletter_group_assignment:
-    path:      /admin/newsletter_user-newsletter_group_assignments/{page}
+    path:      /admin/newsletter_user-newsletter_group-assignments/{page}
     defaults:  { _controller: "AppBundle:Admin/Assignments/NewsletterUserNewsletterGroupAssignment:index", page: 1 }   
 
 # Admin NewsletterUserNewsletterPageAssignments Routing    
 admin_newsletter_user_newsletter_page_assignment_show:
-    path:      /admin/newsletter_user-newsletter_page_assignments/show/{id}
+    path:      /admin/newsletter_user-newsletter_page-assignments/show/{id}
     defaults:  { _controller: "AppBundle:Admin/Assignments/NewsletterUserNewsletterPageAssignment:show" }
     
 admin_newsletter_user_newsletter_page_assignment_delete:
-    path:      /admin/newsletter_user-newsletter_page_assignments/delete/{id}
+    path:      /admin/newsletter_user-newsletter_page-assignments/delete/{id}
     defaults:  { _controller: "AppBundle:Admin/Assignments/NewsletterUserNewsletterPageAssignment:delete" }
 
 admin_newsletter_user_newsletter_page_assignment:
-    path:      /admin/newsletter_user-newsletter_page_assignments/{page}
+    path:      /admin/newsletter_user-newsletter_page-assignments/{page}
     defaults:  { _controller: "AppBundle:Admin/Assignments/NewsletterUserNewsletterPageAssignment:index", page: 1 }   
                                 
 # Admin Pages Routing    
@@ -1570,31 +1570,31 @@ admin_product:
       
 # Admin ProductCategoryAssignments Routing    
 admin_product_category_assignment_show:
-    path:      /admin/product-category_assignments/show/{id}
+    path:      /admin/product-category-assignments/show/{id}
     defaults:  { _controller: "AppBundle:Admin/Assignments/ProductCategoryAssignment:show" }
     
 admin_product_category_assignment_new:
-    path:      /admin/product-category_assignments/new/
+    path:      /admin/product-category-assignments/new/
     defaults:  { _controller: "AppBundle:Admin/Assignments/ProductCategoryAssignment:new" }
     
 admin_product_category_assignment_copy:
-    path:      /admin/product-category_assignments/copy/{id}
+    path:      /admin/product-category-assignments/copy/{id}
     defaults:  { _controller: "AppBundle:Admin/Assignments/ProductCategoryAssignment:copy" }
     
 admin_product_category_assignment_edit:
-    path:      /admin/product-category_assignments/edit/{id}
+    path:      /admin/product-category-assignments/edit/{id}
     defaults:  { _controller: "AppBundle:Admin/Assignments/ProductCategoryAssignment:edit" }
     
 admin_product_category_assignment_delete:
-    path:      /admin/product-category_assignments/delete/{id}
+    path:      /admin/product-category-assignments/delete/{id}
     defaults:  { _controller: "AppBundle:Admin/Assignments/ProductCategoryAssignment:delete" }
 
 admin_product_category_assignment_set_featured:
-    path:      /admin/product-category_assignments/set_featured/{id}
+    path:      /admin/product-category-assignments/set_featured/{id}
     defaults:  { _controller: "AppBundle:Admin/Assignments/ProductCategoryAssignment:setFeatured" }
         
 admin_product_category_assignment:
-    path:      /admin/product-category_assignments/{page}
+    path:      /admin/product-category-assignments/{page}
     defaults:  { _controller: "AppBundle:Admin/Assignments/ProductCategoryAssignment:index", page: 1 }
     
             
@@ -1703,27 +1703,27 @@ admin_term:
 
 # Admin TermCategoryAssignments Routing    
 admin_term_category_assignment_show:
-    path:      /admin/term-category_assignments/show/{id}
+    path:      /admin/term-category-assignments/show/{id}
     defaults:  { _controller: "AppBundle:Admin/Assignments/TermCategoryAssignment:show" }
     
 admin_term_category_assignment_new:
-    path:      /admin/term-category_assignments/new/
+    path:      /admin/term-category-assignments/new/
     defaults:  { _controller: "AppBundle:Admin/Assignments/TermCategoryAssignment:new" }
     
 admin_term_category_assignment_copy:
-    path:      /admin/term-category_assignments/copy/{id}
+    path:      /admin/term-category-assignments/copy/{id}
     defaults:  { _controller: "AppBundle:Admin/Assignments/TermCategoryAssignment:copy" }
     
 admin_term_category_assignment_edit:
-    path:      /admin/term-category_assignments/edit/{id}
+    path:      /admin/term-category-assignments/edit/{id}
     defaults:  { _controller: "AppBundle:Admin/Assignments/TermCategoryAssignment:edit" }
     
 admin_term_category_assignment_delete:
-    path:      /admin/term-category_assignments/delete/{id}
+    path:      /admin/term-category-assignments/delete/{id}
     defaults:  { _controller: "AppBundle:Admin/Assignments/TermCategoryAssignment:delete" }
     
 admin_term_category_assignment:
-    path:      /admin/term-category_assignments/{page}
+    path:      /admin/term-category-assignments/{page}
     defaults:  { _controller: "AppBundle:Admin/Assignments/TermCategoryAssignment:index", page: 1 }
         
 # Admin Users Routing    
@@ -1746,7 +1746,32 @@ admin_user:
 admin_user_settings:
     path:      /admin/settings
     defaults:  { _controller: "AppBundle:Admin/Main/User:settings" }
+
+# Admin UserCategoryAssignments Routing    
+admin_user_category_assignment_show:
+    path:      /admin/user-category-assignments/show/{id}
+    defaults:  { _controller: "AppBundle:Admin/Assignments/UserCategoryAssignment:show" }
     
+admin_user_category_assignment_new:
+    path:      /admin/user-category-assignments/new/
+    defaults:  { _controller: "AppBundle:Admin/Assignments/UserCategoryAssignment:new" }
+    
+admin_user_category_assignment_copy:
+    path:      /admin/user-category-assignments/copy/{id}
+    defaults:  { _controller: "AppBundle:Admin/Assignments/UserCategoryAssignment:copy" }
+    
+admin_user_category_assignment_edit:
+    path:      /admin/user-category-assignments/edit/{id}
+    defaults:  { _controller: "AppBundle:Admin/Assignments/UserCategoryAssignment:edit" }
+    
+admin_user_category_assignment_delete:
+    path:      /admin/user-category-assignments/delete/{id}
+    defaults:  { _controller: "AppBundle:Admin/Assignments/UserCategoryAssignment:delete" }
+    
+admin_user_category_assignment:
+    path:      /admin/user-category-assignments/{page}
+    defaults:  { _controller: "AppBundle:Admin/Assignments/UserCategoryAssignment:index", page: 1 }
+        
 # Friends of Symfony Routing    
 fos_user:
     resource: "@FOSUserBundle/Resources/config/routing/all.xml"
