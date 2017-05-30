@@ -13,6 +13,7 @@ use AppBundle\Repository\Base\BaseRepository;
 use Doctrine\ORM\AbstractQuery;
 use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\ORM\QueryBuilder;
+use AppBundle\Entity\BenchmarkEnum;
 
 class ProductRepository extends BaseRepository
 {
@@ -136,6 +137,57 @@ class ProductRepository extends BaseRepository
 		$where = $expr->andX();
 		$where->add($expr->isNotNull('e.' . $valueName));
 		$where->add($builder->expr()->like('c.treePath', $builder->expr()->literal('%-' . $categoryId . '#%')));
+	
+		$builder->where($where);
+			
+		return $builder->getQuery();
+	}
+	
+	public function findMaxEnumValue($categoryId, $valueName) {
+		return $this->queryMaxEnumValue($categoryId, $valueName)->getScalarResult();
+	}
+	
+	protected function queryMaxEnumValue($categoryId, $valueName)
+	{
+		$builder = new QueryBuilder($this->getEntityManager());
+	
+		$expr = $builder->expr();
+	
+		$builder->select("SUM(be.value) AS value");
+		$builder->from($this->getEntityType(), "e");
+	
+		$builder->innerJoin(ProductCategoryAssignment::class, 'pca', Join::WITH, 'e.id = pca.product');
+		$builder->innerJoin(Category::class, 'c', Join::WITH, 'c.id = pca.category');
+		$builder->innerJoin(BenchmarkEnum::class, 'be', Join::WITH, 'e.' . $valueName . ' LIKE CONCAT(\'%\', be.name, \'%\')');
+	
+		$where = $expr->andX();
+		$where->add($expr->isNotNull('e.' . $valueName));
+		$where->add($builder->expr()->like('c.treePath', $builder->expr()->literal('%-' . $categoryId . '#%')));
+	
+		$builder->where($where);
+		
+		$builder->groupBy('pca.product');
+			
+		return $builder->getQuery();
+	}
+	
+	public function findEnumValue($productId, $valueName) {
+		return $this->queryEnumValue($productId, $valueName)->getSingleScalarResult();
+	}
+	
+	protected function queryEnumValue($productId, $valueName)
+	{
+		$builder = new QueryBuilder($this->getEntityManager());
+	
+		$expr = $builder->expr();
+	
+		$builder->select("SUM(be.value) AS value");
+		$builder->from($this->getEntityType(), "e");
+		
+		$builder->innerJoin(BenchmarkEnum::class, 'be', Join::WITH, 'e.' . $valueName . ' LIKE CONCAT(\'%\', be.name, \'%\')');
+	
+		$where = $expr->andX();
+		$where->add($expr->eq('e.id', $productId));
 	
 		$builder->where($where);
 			

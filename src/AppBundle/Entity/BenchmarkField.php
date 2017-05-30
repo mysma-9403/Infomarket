@@ -40,7 +40,7 @@ class BenchmarkField extends Audit
 	const NONE_NOTE_TYPE = 0;
 	const ASC_NOTE_TYPE = 1;
 	const DESC_NOTE_TYPE = 2;
-	//TODO enum note type :)
+	const ENUM_NOTE_TYPE = 3;
 	
 	const NONE_BETTER_THAN_TYPE = 0;
 	const LT_BETTER_THAN_TYPE = 10;
@@ -122,6 +122,8 @@ class BenchmarkField extends Audit
 				return 'label.benchmarkField.noteType.ascending';
 			case self::DESC_NOTE_TYPE:
 				return 'label.benchmarkField.noteType.descending';
+			case self::ENUM_NOTE_TYPE:
+				return 'label.benchmarkField.noteType.enum';
 			default:
 				return null;
 		}

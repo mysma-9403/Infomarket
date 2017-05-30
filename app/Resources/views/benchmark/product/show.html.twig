@@ -106,6 +106,17 @@
 										
 										<td></td>
 									</tr>
+								{% elseif field.fieldType == constant('AppBundle\\Entity\\BenchmarkField::SINGLE_ENUM_FIELD_TYPE') or
+											field.fieldType == constant('AppBundle\\Entity\\BenchmarkField::MULTI_ENUM_FIELD_TYPE') %}
+									<tr>
+										<th class="text-right">{{ field.fieldName }}</th>
+										
+										<td class="text-center">{{ entry[key] }}</td>
+										<td class="text-center text-success">-</td>
+										<td class="text-center">{{ field.note ? field.note|number_format(1, '.', ' ') : '-' }}</td>
+										
+										<td></td>
+									</tr>
 								{% else %}
 									<tr>
 										<th class="text-right">{{ field.fieldName }}</th>

@@ -798,6 +798,10 @@
                 <source>label.benchmarkField.noteType.descending</source>
                 <target>Malejąca</target>
             </trans-unit>
+            <trans-unit id="label.benchmarkField.noteType.enum">
+                <source>label.benchmarkField.noteType.enum</source>
+                <target>Wyliczeniowa</target>
+            </trans-unit>
             
             <trans-unit id="label.benchmarkField.noteWeight">
                 <source>label.benchmarkField.noteWeight</source>

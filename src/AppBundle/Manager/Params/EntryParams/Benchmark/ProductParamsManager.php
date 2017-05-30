@@ -109,6 +109,32 @@ class ProductParamsManager extends EntryParamsManager {
 						$fields[$i]['betterThan'] = null;
 					}
 					break;
+				case BenchmarkField::SINGLE_ENUM_FIELD_TYPE:
+				case BenchmarkField::MULTI_ENUM_FIELD_TYPE:
+					$noteType = $fields[$i]['noteType'];
+					$noteWeight = $fields[$i]['noteWeight'];
+					if($noteType == BenchmarkField::ENUM_NOTE_TYPE) {
+						$enums = $productRepository->findMaxEnumValue($categoryId, $valueField);
+						
+						$max = 0;
+						foreach($enums as $enum) {
+							$value = $enum['value'];
+							if($max < $value) {
+								$max = $value;
+							}
+						}
+						$value = $productRepository->findEnumValue($entry->getId(), $valueField);
+						
+						$note = 2. + 3. * $value / $max;
+						
+						$fields[$i]['note'] = $note;
+						
+						$overalNote += $note * $noteWeight;
+						$overalCount += $noteWeight;
+					} else {
+						$fields[$i]['note'] = null;
+					}
+					break;
 			}
 		}
 		$viewParams['benchmarkFields'] = $fields;
