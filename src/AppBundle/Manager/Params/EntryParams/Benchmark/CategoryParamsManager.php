@@ -13,8 +13,19 @@ use AppBundle\Repository\Benchmark\CategoryRepository;
 use AppBundle\Repository\Benchmark\ProductRepository;
 use AppBundle\Repository\Benchmark\SegmentRepository;
 use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Logic\Benchmark\Fields\BenchmarkChartLogic;
+use AppBundle\Manager\Entity\Base\EntityManager;
+use AppBundle\Manager\Filter\Base\FilterManager;
 
 class CategoryParamsManager extends EntryParamsManager {
+	
+	protected $chartLogic;
+	
+	public function __construct(EntityManager $em, FilterManager $fm, $doctrine, BenchmarkChartLogic $chartLogic) {
+		parent::__construct($em, $fm, $doctrine);
+		
+		$this->chartLogic = $chartLogic;
+	}
 	
 	public function getShowParams(Request $request, array $params, $id) {
 		if($id <= 0) {
@@ -50,7 +61,7 @@ class CategoryParamsManager extends EntryParamsManager {
     	
     	
     	$viewParams = $this->initBenchmarkFields($viewParams, $id);
-    	
+    	$viewParams = $this->initCharts($viewParams);
     	
     	$params['viewParams'] = $viewParams;
     	
@@ -71,6 +82,57 @@ class CategoryParamsManager extends EntryParamsManager {
 		
 		$viewParams['priceField'] = $logic->getBenchmarkPriceField();
 		
+		return $viewParams;
+	}
+	
+	protected function initCharts($viewParams) {
+		$viewParams = $this->initBoolCharts($viewParams);
+		$viewParams = $this->initNumberCharts($viewParams);
+		$viewParams = $this->initEnumCharts($viewParams);
+		
+		$viewParams = $this->initPriceChart($viewParams);
+		
+		return $viewParams;
+	}
+	
+	protected function initBoolCharts($viewParams) {
+		$numOfProducts = $viewParams['numOfProducts'];
+		
+		$boolFields = $viewParams['boolFields'];
+		foreach ($boolFields as $key => $field) {
+			$boolFields[$key] = $this->chartLogic->initChartForBooleanField($field, $numOfProducts);
+		}
+		$viewParams['boolFields'] = $boolFields;
+		
+		return $viewParams;
+	}
+	
+	protected function initNumberCharts($viewParams) {
+		$numberFields = $viewParams['numberFields'];
+		foreach ($numberFields as $key => $field) {
+			$numberFields[$key] = $this->chartLogic->initChartForNumberField($field);
+		}
+		$viewParams['numberFields'] = $numberFields;
+	
+		return $viewParams;
+	}
+	
+	protected function initEnumCharts($viewParams) {
+		$enumFields = $viewParams['enumFields'];
+		foreach ($enumFields as $key => $field) {
+			$enumFields[$key] = $this->chartLogic->initChartForEnumField($field);
+		}
+		$viewParams['enumFields'] = $enumFields;
+	
+		return $viewParams;
+	}
+	
+	protected function initPriceChart($viewParams) {
+		$priceField = $viewParams['priceField'];
+		$priceField = $this->chartLogic->initChartForNumberField($priceField);
+		
+		$viewParams['priceField'] = $priceField;
+	
 		return $viewParams;
 	}
 }

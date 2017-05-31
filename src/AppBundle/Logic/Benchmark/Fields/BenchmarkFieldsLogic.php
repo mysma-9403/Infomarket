@@ -93,6 +93,8 @@ class BenchmarkFieldsLogic {
 		$field = array();
 		
 		$field['valueField'] = 'price';
+		$field['fieldName'] = 'Cena [PLN]'; //TODO translator :) :(
+		$field['decimalPlaces'] = 2;
 
 		$field = $this->logic->initMinMaxAvgValues($field);
 		$field = $this->logic->initModeValue($field);

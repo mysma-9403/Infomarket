@@ -53,6 +53,7 @@ class BenchmarkFieldLogic {
 	public function initModeValue($field) {
 		$valueField = $field['valueField'];
 		$valueCounts = $this->productRepository->findValueCounts($this->categoryId, $valueField);
+		$field['counts'] = $valueCounts;
 		
 		$mode = null;
 		$maxCount = null;
@@ -102,10 +103,15 @@ class BenchmarkFieldLogic {
 		foreach ($values as $value) {
 			$singleValues = explode(", ", $value);
 			foreach ($singleValues as $singleValue) {
-				$items[$singleValue] = $singleValue;
+				if(key_exists($singleValue, $items)) {
+					$items[$singleValue] = $items[$singleValue] + 1;
+				} else {
+					$items[$singleValue] = 1;
+				}
 			}
 		}
-		$field['values'] = join(", ", $items);
+		$field['valueCounts'] = $items;
+		$field['values'] = join(", ", array_keys($items));
 		
 		return $field;
 	}

@@ -2,6 +2,10 @@
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
     <file source-language="en" target-language="pl" datatype="plaintext" original="file.ext">
         <body>
+        	<trans-unit id="title.welcome">
+                <source>title.welcome</source>
+                <target>Witamy</target>
+            </trans-unit>
         	<trans-unit id="title.site">
                 <source>title.site</source>
                 <target>InfoMarket</target>
@@ -344,10 +348,6 @@
                 <target>Ratingi</target>
             </trans-unit>
             
-            <trans-unit id="title.welcome">
-                <source>title.welcome</source>
-                <target>Witaj!</target>
-            </trans-unit>
             <trans-unit id="title.login">
                 <source>title.login</source>
                 <target>Logowanie</target>
@@ -918,6 +918,10 @@
                 <target>Cena (max)</target>
             </trans-unit>
             
+            <trans-unit id="label.benchmark.distribution">
+                <source>label.benchmark.distribution</source>
+                <target>Rozkład</target>
+            </trans-unit>
 			<trans-unit id="label.benchmark.all">
                 <source>label.benchmark.all</source>
                 <target>Wszystkie (+/-)</target>
@@ -1367,11 +1371,14 @@
             
             
             
+            <trans-unit id="label.count">
+                <source>label.count</source>
+                <target>Ilość</target>
+            </trans-unit>
             <trans-unit id="label.yes">
                 <source>label.yes</source>
                 <target>Tak</target>
             </trans-unit>
-            
             <trans-unit id="label.no">
                 <source>label.no</source>
                 <target>Nie</target>

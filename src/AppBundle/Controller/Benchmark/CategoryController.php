@@ -18,6 +18,7 @@ use AppBundle\Manager\Route\RouteManager;
 use AppBundle\Repository\Benchmark\BenchmarkFieldRepository;
 use AppBundle\Repository\Benchmark\CategoryRepository;
 use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Logic\Benchmark\Fields\BenchmarkChartLogic;
 
 class CategoryController extends DummyController {
 	
@@ -144,7 +145,9 @@ class CategoryController extends DummyController {
 	}
 	
 	protected function getInternalEntryParamsManager(EntityManager $em, FilterManager $fm, $doctrine) {
-		return new CategoryParamsManager($em, $fm, $doctrine);
+		$translator = $this->get('translator');
+		$chartLogic = new BenchmarkChartLogic($translator);
+		return new CategoryParamsManager($em, $fm, $doctrine, $chartLogic);
 	}
 	
 	protected function getEntityManager($doctrine, $paginator) {

@@ -25,7 +25,6 @@ framework:
         #assets_version: SomeVersionScheme
     default_locale:  pl #"%locale%"
     trusted_hosts:   ~
-    trusted_proxies: ~
     session:
         # http://symfony.com/doc/current/reference/configuration/framework.html#handler-id
         handler_id:  session.handler.native_file
@@ -103,6 +102,9 @@ fos_user:
     registration:
         form:
             type: AppBundle\Form\Registration\UserRegistrationType
+    from_email:
+        address:        "%mailer_user%"
+        sender_name:    Infomarket
 
 # Short term fix for this bug: https://github.com/FriendsOfSymfony/FOSUserBundle/issues/2048    
 services:

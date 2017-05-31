@@ -4,6 +4,18 @@
 {% set mainPath = 'newsletter_page' %}
 {% set gender = 'fm.' %}
 
+{% block moreJavascripts %}
+	<script type="text/javascript">
+	<!--
+	$(function() {
+		$('.pop').on('click', function() {
+			$('#codemodal').modal('show');   
+		});		
+	});
+	//-->
+	</script>
+{% endblock %}
+
 {% block moreFields2 %}
 	<div class="row">
 		<div class="col-xs-12">
@@ -51,16 +63,4 @@
 			</div>
 		</div>
 	</div>
-{% endblock %}
-
-{% block moreJavascripts %}
-	<script type="text/javascript">
-	<!--
-	$(function() {
-		$('.pop').on('click', function() {
-			$('#codemodal').modal('show');   
-		});		
-	});
-	//-->
-	</script>
 {% endblock %}

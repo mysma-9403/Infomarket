@@ -22,7 +22,8 @@ class AppKernel extends Kernel
 			new FM\ElfinderBundle\FMElfinderBundle(),
             new AppBundle\AppBundle(),
         	new Http\HttplugBundle\HttplugBundle(),
-			new Happyr\GoogleAnalyticsBundle\HappyrGoogleAnalyticsBundle()
+			new Happyr\GoogleAnalyticsBundle\HappyrGoogleAnalyticsBundle(),
+        	new CMEN\GoogleChartsBundle\CMENGoogleChartsBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {
@@ -30,6 +31,7 @@ class AppKernel extends Kernel
             $bundles[] = new Symfony\Bundle\WebProfilerBundle\WebProfilerBundle();
             $bundles[] = new Sensio\Bundle\DistributionBundle\SensioDistributionBundle();
             $bundles[] = new Sensio\Bundle\GeneratorBundle\SensioGeneratorBundle();
+            $bundles[] = new Symfony\Bundle\WebServerBundle\WebServerBundle();
         }
 
         return $bundles;

@@ -260,7 +260,6 @@ class ProductRepository extends BaseRepository
 		$expr = $builder->expr();
 	
 		$builder->select("e." . $valueName);
-		$builder->distinct();
 		$builder->from($this->getEntityType(), "e");
 	
 		$builder->innerJoin(ProductCategoryAssignment::class, 'pca', Join::WITH, 'e.id = pca.product');
