@@ -227,7 +227,7 @@ class ProductController extends ImageEntityController {
 	
 		if ($form->isSubmitted() && $form->isValid())
 		{
-			$this->saveEntry($entry);
+			$this->saveEntry($entry, $params);
 	
 			$translator = $this->get('translator');
 			$message = $translator->trans('success.created');

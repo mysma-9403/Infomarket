@@ -205,7 +205,7 @@ class ProductParamsManager extends EntryParamsManager {
 				$fields[$i] = null;
 			}
 		}
-		$fields = array_filter($fields, 'strlen');
+		$fields = array_filter($fields, 'self::removeNull');
 		$viewParams['benchmarkFields'] = $fields;
 		
 		
@@ -218,6 +218,7 @@ class ProductParamsManager extends EntryParamsManager {
 			$entries[$i] = $entry;
 		}
 		$viewParams['entries'] = $entries;
+		dump($entries);
 		
 		
 		$viewParams['benchmarkMessage'] = $this->getBenchmarkMessage($id);
@@ -226,6 +227,10 @@ class ProductParamsManager extends EntryParamsManager {
 		$params['viewParams'] = $viewParams;
 		
 		return $params;
+	}
+	
+	protected function removeNull($value) {
+		return $value !== null;
 	}
 	
 	protected function getBenchmarkMessage($productId) {
