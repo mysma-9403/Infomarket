@@ -2,10 +2,10 @@
 
 namespace Tests\AppBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use AppBundle\Utils\StringUtils;
+use PHPUnit\Framework\TestCase;
 
-class StringUtilsTest extends WebTestCase
+class StringUtilsTest extends TestCase
 {
 	public function testIsMailValid01() { $this->isMailValid('test@wp.pl', true); }
 	public function testIsMailValid02() { $this->isMailValid('test13@wp.pl', true); }

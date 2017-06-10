@@ -230,3 +230,15 @@ httplug:
             config:
                 verify: false
                 timeout: 2
+
+# Knp Snappy bundle - screenshots                
+knp_snappy:
+    pdf:
+        enabled:    true
+        binary:     "%wkhtmltopdf_binary%"
+        options:    []
+    image:
+        enabled:    true
+        binary:     "%wkhtmltoimage_binary%"
+        options:    []
+    temporary_folder: '%kernel.cache_dir%/snappy'

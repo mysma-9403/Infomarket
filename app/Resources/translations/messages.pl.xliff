@@ -1005,6 +1005,14 @@
             </trans-unit>
             
             
+            <trans-unit id="action.benchmark.export.image">
+                <source>action.benchmark.export.image</source>
+                <target>Eksportuj do jpg</target>
+            </trans-unit>
+            <trans-unit id="action.benchmark.export.pdf">
+                <source>action.benchmark.export.pdf</source>
+                <target>Eksportuj do pdf</target>
+            </trans-unit>
             <trans-unit id="action.benchmark.export.csv">
                 <source>action.benchmark.export.csv</source>
                 <target>Eksportuj do csv</target>

@@ -24,6 +24,7 @@ class AppKernel extends Kernel
         	new Http\HttplugBundle\HttplugBundle(),
 			new Happyr\GoogleAnalyticsBundle\HappyrGoogleAnalyticsBundle(),
         	new CMEN\GoogleChartsBundle\CMENGoogleChartsBundle(),
+        	new Knp\Bundle\SnappyBundle\KnpSnappyBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {

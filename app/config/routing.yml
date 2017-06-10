@@ -71,6 +71,14 @@ benchmark_product_show:
 benchmark_product_compare:
     path:      /benchmark/products/compare/{id}
     defaults:  { _controller: "AppBundle:Benchmark/Product:compare" }
+
+benchmark_product_export_to_image:
+    path:      /benchmark/products/export-to-image/{page}
+    defaults:  { _controller: "AppBundle:Benchmark/Product:exportToImage" }
+    
+benchmark_product_export_to_pdf:
+    path:      /benchmark/products/export-to-pdf/{page}
+    defaults:  { _controller: "AppBundle:Benchmark/Product:exportToPdf" }
         
 benchmark_product_export_to_csv:
     path:      /benchmark/products/export-to-csv/{page}

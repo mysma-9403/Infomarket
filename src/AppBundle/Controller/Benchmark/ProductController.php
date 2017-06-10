@@ -29,6 +29,8 @@ use Symfony\Component\HttpFoundation\StreamedResponse;
 use Symfony\Component\Validator\Constraints\Date;
 use AppBundle\Entity\BenchmarkQuery;
 use AppBundle\Utils\StringUtils;
+use Symfony\Component\HttpFoundation\Response;
+use AppBundle\Logic\Benchmark\Export\ImageExportLogic;
 
 class ProductController extends DummyController {
 	
@@ -38,6 +40,14 @@ class ProductController extends DummyController {
 	
 	public function indexAction(Request $request, $page) {
 		return $this->indexActionInternal($request, $page);
+	}
+	
+	public function exportToImageAction(Request $request, $page) {
+		return $this->exportToImageActionInternal($request, $page);
+	}
+	
+	public function exportToPdfAction(Request $request, $page) {
+		return $this->exportToPdfActionInternal($request, $page);
 	}
 	
 	public function exportToCsvAction(Request $request, $page) {
@@ -151,6 +161,46 @@ class ProductController extends DummyController {
 		$viewParams['routeParams'] = $routeParams;
 		
 		return $this->render($this->getIndexView(), $viewParams);
+	}
+	
+	protected function exportToImageActionInternal(Request $request, $page) {
+		if ($this->container->has('profiler'))
+			$this->container->get('profiler')->disable();
+		
+		$exportLogic = new ImageExportLogic();
+		
+		$html = $this->indexActionInternal($request, $page);
+		$html = $exportLogic->clean($html);
+		
+		dump($html);
+		
+		$date = new \DateTime();
+		$response = new Response($this->get('knp_snappy.image')->getOutputFromHtml($html), 200,
+				array(
+						'Content-Type'          => 'image/jpg',
+						'Content-Disposition'   => 'filename="'. $date->format('Y-m-d') . '-benchmark.jpg"'
+				));
+		
+		return $response;
+	}
+	
+	protected function exportToPdfActionInternal(Request $request, $page) {
+		if ($this->container->has('profiler'))
+			$this->container->get('profiler')->disable();
+		
+		$exportLogic = new ImageExportLogic();
+		
+		$html = $this->indexActionInternal($request, $page);
+		$html = $exportLogic->clean($html);
+		
+		$date = new \DateTime();
+		$response = new Response($this->get('knp_snappy.pdf')->getOutputFromHtml($html), 200,
+				array(
+						'Content-Type'          => 'application/pdf',
+						'Content-Disposition'   => 'filename="'. $date->format('Y-m-d') . '-benchmark.pdf"'
+				));
+	
+		return $response;
 	}
 	
 	protected function exportToCsvActionInternal(Request $request, $page) {
