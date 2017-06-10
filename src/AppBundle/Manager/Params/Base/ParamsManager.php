@@ -7,6 +7,7 @@ use Symfony\Component\HttpFoundation\Request;
 
 class ParamsManager {
 	
+	//TODO replace by repository
 	protected $doctrine;
 	
 	public function __construct($doctrine) {
@@ -32,6 +33,7 @@ class ParamsManager {
 	 */
 	protected function getParam($request, $paramClass, $template = null)
 	{
+		//TODO replace by repository
 		$repository = $this->doctrine->getRepository($paramClass);
 		$paramName = StringUtils::getClassName($paramClass);
 		$id = $request->get($paramName, $template);
@@ -49,6 +51,7 @@ class ParamsManager {
 	 */
 	protected function getParamWithName($request, $paramClass, $name, $template = null)
 	{
+		//TODO replace by repository
 		$repository = $this->doctrine->getRepository($paramClass);
 		$id = $request->get($name, $template);
 		return $id ? $repository->find($id) : null;
@@ -63,6 +66,7 @@ class ParamsManager {
 	 */
 	protected function getParamList($paramClass, $filter)
 	{
+		//TODO replace by repository
 		$repository = $this->doctrine->getRepository($paramClass);
 		return $repository->findSelected($filter);
 	}

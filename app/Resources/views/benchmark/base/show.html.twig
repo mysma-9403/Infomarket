@@ -20,7 +20,7 @@
 {% block mainActions %}
 	
 	{% if canEdit %}
-		<a type="button" class="btn btn-warning" href="{{ path('admin_' ~ mainPath ~ '_edit', { id: entry.id }) }}">
+		<a type="button" class="btn btn-warning" href="{{ path(basePath ~ mainPath ~ '_edit', { id: entry.id }) }}">
 	    	<i class="fa fa-edit"></i> {{ 'action.edit'|trans }}
 		</a>
 	{% endif %}

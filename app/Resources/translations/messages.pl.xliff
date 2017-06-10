@@ -212,6 +212,14 @@
                 <source>title.products</source>
                 <target>Produkty</target>
             </trans-unit>
+            <trans-unit id="title.customProduct">
+                <source>title.customProduct</source>
+                <target>Produkt użytkownika</target>
+            </trans-unit>
+            <trans-unit id="title.customProducts">
+                <source>title.customProducts</source>
+                <target>Produkty użytkownika</target>
+            </trans-unit>
             <trans-unit id="title.page">
                 <source>title.page</source>
                 <target>Strona</target>

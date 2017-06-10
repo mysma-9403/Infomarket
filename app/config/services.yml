@@ -193,6 +193,14 @@ services:
         arguments: ["@doctrine.orm.entity_manager"]
         tags:
             - { name: form.type }
+            
+            
+    # Benchmark editors
+    app.form.editor.benchmark.product:
+        class: AppBundle\Form\Benchmark\CustomProductEditorType
+        arguments: ["@doctrine.orm.entity_manager"]
+        tags:
+            - { name: form.type }
 
     # Others
     app.form.category_filter:

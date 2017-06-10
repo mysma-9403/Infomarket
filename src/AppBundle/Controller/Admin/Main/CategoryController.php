@@ -353,7 +353,7 @@ class CategoryController extends FeaturedEntityController {
 	 * @see \AppBundle\Controller\Admin\Base\ImageEntityController::prepareEntry()
 	 * 
 	 */
-	protected function prepareEntry(&$entry) {
+	protected function prepareEntry(&$entry, $params) {
 		parent::prepareEntry($entry);
 		
 		/** @var Category $entry */
@@ -370,7 +370,7 @@ class CategoryController extends FeaturedEntityController {
 		}
 	}
 	
-	protected function saveMore($entry) {
+	protected function saveMore($entry, $params) {
 		$parent = $entry->getParent(); 
 		if($parent) {
 			$rootId = $parent->getRootId();

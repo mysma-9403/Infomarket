@@ -1,0 +1,61 @@
+{% extends 'benchmark/image/editor.html.twig' %}
+
+{% set mainPath = 'custom_product' %}
+{% set title = 'title.products'|trans %}
+
+{% block preFormBlock %}
+	{% if categoryFilterForm is defined and categoryFilterForm.category.vars.choices|length > 0 %}	
+		{% form_theme categoryFilterForm 'form/fields.html.twig' %}
+		
+		{{ form_start(categoryFilterForm) }}
+			
+			{{ form_row(categoryFilterForm.category, { 'label': 'label.category' }) }}
+			{{ form_row(categoryFilterForm.submit, { 'label': 'action.submit', 'attr': {'class': 'btn btn-success'} }) }}
+			
+		{{ form_end(categoryFilterForm) }}
+	{% endif %}
+	
+	{% if subcategoryFilterForm is defined and subcategoryFilterForm.subcategory.vars.choices|length > 0 %}	
+		{% form_theme subcategoryFilterForm 'form/fields.html.twig' %}
+		
+		{{ form_start(subcategoryFilterForm) }}
+			
+			{{ form_row(subcategoryFilterForm.subcategory, { 'label': 'label.subcategory' }) }}
+			{{ form_row(subcategoryFilterForm.submit, { 'label': 'action.submit', 'attr': {'class': 'btn btn-success'} }) }}
+			
+		{{ form_end(subcategoryFilterForm) }}
+	{% endif %}
+{% endblock %}
+    
+{%  block moreFields2 %}
+	{# TODO So dirty hack -> remove it!! :( #}
+	<div class="hidden">
+	    {{ form_row(form.infomarket, { 'label': 'label.brand' }) }}
+	    {{ form_row(form.infoprodukt, { 'label': 'label.product.price' }) }}
+    </div>
+    	
+    {{ form_row(form.brand, { 'label': 'label.brand' }) }}
+    {{ form_row(form.price, { 'label': 'label.product.price' }) }}
+    
+    {% if entry.topProduktImage %}
+	<div class="row">
+	    <div class="col-xs-12">
+	    	<div class="rect-2x1">
+				<img alt="{{ entry.name | raw }}" src="{{ asset(entry.topProduktImage) }}" class="div-center" />
+			</div>
+		</div>
+	</div>
+	{% endif %}
+	
+	{{ form_row(form.topProduktImage, { 'label': 'label.product.topProduktImage' }) }}
+{% endblock %}
+
+{%  block moreFields3 %}
+	{% if productFilter is defined %}
+		{% for field in productFilter.editorFields %}
+			<div class="col-xs-12">
+				{{ form_row(form[benchmarkFieldValueTypeDBName(field.valueType) ~ field.valueNumber], { label: field.fieldName }) }}
+			</div>
+		{% endfor %}
+	{% endif %}
+{%  endblock %}

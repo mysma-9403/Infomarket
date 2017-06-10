@@ -1,0 +1,50 @@
+{% extends 'benchmark/image/show.html.twig' %}
+
+{% set mainPath = 'custom_product' %}
+{% set title = title|default('title.products')|trans %}
+
+{% block moreFields1 %}
+	{% if entry.brand %}
+		<div class="row">
+			<div class="col-xs-12">
+				<h2>{{ entry.brand.name | raw }}</h2>
+			</div>
+		</div>
+	{% endif %}
+	
+	{% if entry.topProduktImage %}
+	<div class="row">
+	    <div class="col-xs-12">
+	    	<div class="rect-1x1">
+				<img alt="{{ entry.name | raw }}" src="{{ asset(entry.topProduktImage) }}" class="div-center" />
+			</div>
+		</div>
+	</div>
+	{% endif %}
+{% endblock %}
+
+{% block moreFields3 %}
+	<div class="lowered-25"></div>
+	
+	
+	{% include 'common/fields/text_field.html.twig' with 
+	{ 'label': 'label.brand', 'value': entry.brand.name } %}
+	
+	{% include 'common/fields/text_field.html.twig' with 
+	{ 'label': 'label.product.price', 'value': entry.price|number_format(2, '.', ' ') } %}
+	
+	{% for field in productFilter.editorFields %}
+		{% set key = benchmarkFieldValueTypeDBName(field.valueType) ~ field.valueNumber %}
+		
+		{% if field.fieldType == constant('AppBundle\\Entity\\BenchmarkField::BOOLEAN_FIELD_TYPE') %}
+			{% include 'common/fields/bool_field.html.twig' with 
+				{ 'label': field.fieldName, 'value': entry[key] } %}
+		{% elseif field.fieldType == constant('AppBundle\\Entity\\BenchmarkField::DECIMAL_FIELD_TYPE') %}
+			{% include 'common/fields/text_field.html.twig' with 
+				{ 'label': field.fieldName, 'value': entry[key] ? entry[key]|number_format(field.decimalPlaces, '.', ' ') : '' } %}
+		{% else %}
+			{% include 'common/fields/text_field.html.twig' with 
+				{ 'label': field.fieldName, 'value': entry[key] } %}
+		{% endif %}
+	{% endfor %}
+{% endblock %}

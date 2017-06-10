@@ -31,7 +31,7 @@ class BenchmarkFieldRepository extends AuditRepository
 		$builder->where($where);
 	
 		$builder->orderBy('e.fieldNumber', 'ASC');
-			
+		
 		return $builder->getQuery();
 	}
 	

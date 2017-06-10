@@ -108,7 +108,7 @@ class BenchmarkFieldController extends BaseEntityController {
 		return [$item['id'], $item['fieldName']];
 	}
 	
-	protected function prepareEntry(&$entry) {
+	protected function prepareEntry(&$entry, $params) {
 		/** @var BenchmarkField $entry */
 		switch($entry->getFieldType()) {
 			case BenchmarkField::DECIMAL_FIELD_TYPE:

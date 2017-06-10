@@ -29,6 +29,7 @@
       		<ul class="nav navbar-nav navbar-right">
       			{% include 'benchmark/common/menu/link.html.twig' with { linkPath: "category_show", linkTitle: "title.categories" } %}
       			{% include 'benchmark/common/menu/link.html.twig' with { linkPath: "product", linkTitle: "title.products" } %}
+      			{% include 'benchmark/common/menu/link.html.twig' with { linkPath: "custom_product", linkTitle: "title.customProducts" } %}
       			{% include 'benchmark/common/menu/link.html.twig' with { linkPath: "benchmark_query", linkTitle: "title.benchmarkQueries" } %}
       			<li>
 					<a href="{{ path(basePath ~ 'benchmark_message') }}">

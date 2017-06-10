@@ -177,17 +177,18 @@ class ArticleController extends FeaturedEntityController {
 	// Actions blocks
 	//---------------------------------------------------------------------------
 	
-	protected function initEditForms(Request $request, array &$viewParams) {
-		$response = parent::initEditForms($request, $viewParams);
+	protected function initEditForms(Request $request, array &$params) {
+		$response = parent::initEditForms($request, $params);
 		if($response) return $response;
 		
-		$response = $this->initTagAssignmentsForm($request, $viewParams);
+		$response = $this->initTagAssignmentsForm($request, $params);
 		if($response) return $response;
 		
 		return null;
 	}
 	
-	protected function initTagAssignmentsForm(Request $request, array &$viewParams) {
+	protected function initTagAssignmentsForm(Request $request, array &$params) {
+		$viewParams = $params['viewParams'];
 		$article= $viewParams['entry'];
 	
 		$entry = new ArticleTagAssignments();
@@ -309,6 +310,7 @@ class ArticleController extends FeaturedEntityController {
 		}
 	
 		$viewParams['tagAssignmentsForm'] = $form->createView();
+		$params['viewParams'] = $viewParams;
 	
 		return null;
 	}

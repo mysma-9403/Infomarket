@@ -378,7 +378,7 @@ class ProductController extends DummyController {
 	}
 	
 	protected function getCompareRole() {
-		return self::getShowRole();
+		return $this->getShowRole();
 	}
 	
 	//---------------------------------------------------------------------------

@@ -72,7 +72,7 @@ class ProductParamsManager extends EntryParamsManager {
 					
 					$noteType = $fields[$i]['noteType'];
 					$noteWeight = $fields[$i]['noteWeight'];
-					if($noteType != BenchmarkField::NONE_NOTE_TYPE) {
+					if($value && $noteType != BenchmarkField::NONE_NOTE_TYPE) {
 						$minMaxValues = $productRepository->findMinMaxValues($categoryId, $valueField);
 						
 						$min = $minMaxValues['vmin'];
@@ -97,7 +97,7 @@ class ProductParamsManager extends EntryParamsManager {
 					}
 					
 					$betterThanType = $fields[$i]['betterThanType'];
-					if($betterThanType != BenchmarkField::NONE_BETTER_THAN_TYPE) {
+					if($value && $betterThanType != BenchmarkField::NONE_BETTER_THAN_TYPE) {
 						$totalCount = $productRepository->findItemsCount($categoryId, $valueField);
 						$betterThanCount = $productRepository->findBetterThanCount($categoryId, $valueField, $value, $betterThanType);
 						if($totalCount > 0) {
@@ -113,7 +113,7 @@ class ProductParamsManager extends EntryParamsManager {
 				case BenchmarkField::MULTI_ENUM_FIELD_TYPE:
 					$noteType = $fields[$i]['noteType'];
 					$noteWeight = $fields[$i]['noteWeight'];
-					if($noteType == BenchmarkField::ENUM_NOTE_TYPE) {
+					if($value && $noteType == BenchmarkField::ENUM_NOTE_TYPE) {
 						$enums = $productRepository->findMaxEnumValue($categoryId, $valueField);
 						
 						$max = 0;
@@ -186,9 +186,12 @@ class ProductParamsManager extends EntryParamsManager {
 			$field = $fields[$i];
 			
 			$field = $logic->initValueField($field);
+			$valueField = $field['valueField'];
 			
+			$value = $entry->offsetGet($valueField);
 			$weight = $field['compareWeight'];
-			if($weight > 0) {
+			
+			if($value && $weight > 0) {
 				switch($field['fieldType']) {
 					case BenchmarkField::DECIMAL_FIELD_TYPE:
 					case BenchmarkField::INTEGER_FIELD_TYPE:
@@ -197,10 +200,12 @@ class ProductParamsManager extends EntryParamsManager {
 						$field['min'] = $minMaxValues['vmin'];
 						$field['max'] = $minMaxValues['vmax'];
 				}
+				$fields[$i] = $field;
+			} else {
+				$fields[$i] = null;
 			}
-			
-			$fields[$i] = $field;
 		}
+		$fields = array_filter($fields, 'strlen');
 		$viewParams['benchmarkFields'] = $fields;
 		
 		

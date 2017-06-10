@@ -50,13 +50,10 @@ abstract class AdminController extends StandardController {
 		$params = $this->createParams($this->getNewRoute());
 		$params = $this->getNewParams($request, $params);
 		
-		
-		$viewParams = $params['viewParams'];
-		
-		$response = $this->initNewForms($request, $viewParams);
+		$response = $this->initNewForms($request, $params);
 		if($response) return $response;
 		
-		
+		$viewParams = $params['viewParams'];
 		return $this->render($this->getEditView(), $viewParams);
 	}
 	
@@ -72,13 +69,10 @@ abstract class AdminController extends StandardController {
 		$params = $this->createParams($this->getCopyRoute());
 		$params = $this->getCopyParams($request, $params, $id);
 		
-		
-		$viewParams = $params['viewParams'];
-		
-		$response = $this->initCopyForms($request, $viewParams);
+		$response = $this->initCopyForms($request, $params);
 		if($response) return $response;
 		
-		
+		$viewParams = $params['viewParams'];
 		return $this->render($this->getEditView(), $viewParams);
 	}
 	
@@ -96,13 +90,10 @@ abstract class AdminController extends StandardController {
 		$am->sendPageviewAnalytics($params['domain'], $params['route']);
 		$am->sendEventAnalytics($this->getEntityName(), 'show', $id);
 		
-		
-		$viewParams = $params['viewParams'];
-		
-		$response = $this->initEditForms($request, $viewParams);
+		$response = $this->initEditForms($request, $params);
 		if($response) return $response;
 		
-		
+		$viewParams = $params['viewParams'];
 		return $this->render($this->getEditView(), $viewParams);
 	}
 	
@@ -249,26 +240,27 @@ abstract class AdminController extends StandardController {
 	
 	
 	
-	protected function initNewForms(Request $request, array &$viewParams) {
-		return $this->initUpdateForms($request, $viewParams);
+	protected function initNewForms(Request $request, array &$params) {
+		return $this->initUpdateForms($request, $params);
 	}
 	
-	protected function initCopyForms(Request $request, array &$viewParams) {
-		return $this->initUpdateForms($request, $viewParams);
+	protected function initCopyForms(Request $request, array &$params) {
+		return $this->initUpdateForms($request, $params);
 	}
 	
-	protected function initEditForms(Request $request, array &$viewParams) {
-		return $this->initUpdateForms($request, $viewParams);
+	protected function initEditForms(Request $request, array &$params) {
+		return $this->initUpdateForms($request, $params);
 	}
 	
-	protected function initUpdateForms(Request $request, array &$viewParams) {
-		$response = $this->initUpdateForm($request, $viewParams);
+	protected function initUpdateForms(Request $request, array &$params) {
+		$response = $this->initUpdateForm($request, $params);
 		if($response) return $response;
 	
 		return null;
 	}
 	
-	protected function initUpdateForm(Request $request, array &$viewParams) {
+	protected function initUpdateForm(Request $request, array &$params) {
+		$viewParams = $params['viewParams'];
 		$entry = $viewParams['entry'];
 	
 		$form = $this->createForm($this->getEditorFormType(), $entry);
@@ -277,7 +269,7 @@ abstract class AdminController extends StandardController {
 	
 		if ($form->isSubmitted() && $form->isValid())
 		{
-			$this->saveEntry($entry);
+			$this->saveEntry($entry, $params);
 	
 			$translator = $this->get('translator');
 			$message = $translator->trans('success.created');
@@ -290,6 +282,7 @@ abstract class AdminController extends StandardController {
 		}
 		
 		$viewParams['form'] = $form->createView();
+		$params['viewParams'] = $viewParams;
 		
 		return null;
 	}
@@ -359,7 +352,7 @@ abstract class AdminController extends StandardController {
 			$lastRouteParams = array();
 		}
 	
-		return self::getInternalContextParamsManager($doctrine, $lastRouteParams);
+		return $this->getInternalContextParamsManager($doctrine, $lastRouteParams);
 	}
 	
 	protected function getInternalContextParamsManager($doctrine, $lastRouteParams) {
@@ -448,24 +441,24 @@ abstract class AdminController extends StandardController {
 	 * 
 	 * @param unknown $entry
 	 */
-	protected function saveEntry($entry) {
+	protected function saveEntry($entry, $params) {
 		$em = $this->getDoctrine()->getManager();
 	
-		$this->prepareEntry($entry);
+		$this->prepareEntry($entry, $params);
 			
 		$em->persist($entry);
 		$em->flush();
 		
-		$this->saveMore($entry);
+		$this->saveMore($entry, $params);
 	}
 	
 	/**
 	 * 
 	 * @param unknown $entry
 	 */
-	protected function prepareEntry(&$entry) { }
+	protected function prepareEntry(&$entry, $params) { }
 	
-	protected function saveMore($entry) { }
+	protected function saveMore($entry, $params) { }
 	
 	protected function deleteMore($entry)
 	{

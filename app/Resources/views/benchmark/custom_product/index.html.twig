@@ -1,0 +1,62 @@
+{% extends 'benchmark/image/index.html.twig' %}
+
+{% set mainPath = 'custom_product' %}
+{% set title = 'title.products'|trans %}
+
+{% block filterMainFields2 %}
+	<li class="col-xs-12 col-sm-6 col-md-4 col-lg-2 hidden">
+		{{ form_widget(filter.infomarket, { 'label': 'label.infomarket' }) }}
+	</li>
+	<li class="col-xs-12 col-sm-6 col-md-4 col-lg-2 hidden">
+		{{ form_widget(filter.infoprodukt, { 'label': 'label.infoprodukt' }) }}
+	</li>
+{% endblock %}
+
+{% block filterMoreFields2 %}
+	<li class="col-xs-12 col-sm-6 col-md-4 col-lg-2">
+		{{ form_widget(filter.brands, { 'label': 'label.brands' }) }}
+	</li>
+	<li class="col-xs-12 col-sm-6 col-md-4 col-lg-2">
+		{{ form_widget(filter.categories, { 'label': 'label.categories' }) }}
+	</li>
+{% endblock %}
+
+
+{% block baseMainMoreActions %}
+	{% set hidden = "hidden" %}
+	<li>
+		<div class="btn-group {{ hidden }}">
+			{{ form_widget(form.imPublishSelected, { 'icon': 'fa-check-square-o', 'label': 'action.imPublishSelected', 'attr': {'class': 'btn btn-primary', 'type': 'button'} }) }}
+			{{ form_widget(form.imUnpublishSelected, { 'icon': 'fa-square-o', 'label': 'action.imUnpublishSelected', 'attr': {'class': 'btn btn-primary', 'type': 'button'} }) }}
+		</div>
+	</li>
+	<li>	
+		<div class="btn-group {{ hidden }}">
+			{{ form_widget(form.ipPublishSelected, { 'icon': 'fa-check-square-o', 'label': 'action.ipPublishSelected', 'attr': {'class': 'btn btn-primary', 'type': 'button'} }) }}
+			{{ form_widget(form.ipUnpublishSelected, { 'icon': 'fa-square-o', 'label': 'action.ipUnpublishSelected', 'attr': {'class': 'btn btn-primary', 'type': 'button'} }) }}
+		</div>
+	</li>
+	
+	{% block simpleMainMoreActions %}
+	{% endblock %}
+{% endblock %}
+
+
+{% block headerMainFields2 %}
+	<th><i class="fa fa-"></i> {{ 'label.brand'|trans }}</th>
+{% endblock %}
+
+{% block entryMainFields2 %}
+	<td>{{ item.brandName }}</td>
+{% endblock %}
+
+{% block entryMoreActions %}
+	{% if item.categoryId %}
+		<a type="button" class="btn btn-sm btn-primary" href="{{ path(basePath ~ 'product_show', { id: item.id }) }}">
+			<i class="fa fa-bar-chart"></i> {{ 'action.show'|trans }}
+		</a>
+		<a type="button" class="btn btn-sm btn-warning" href="{{ path(basePath ~ 'product_compare', { id: item.id }) }}">
+			<i class="fa  fa-balance-scale"></i> {{ 'action.compare'|trans }}
+		</a>
+	{% endif %}
+{% endblock %}

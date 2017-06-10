@@ -1951,4 +1951,34 @@ class Product extends ImageEntity implements \ArrayAccess
     {
         return $this->price;
     }
+    
+    /**
+     * @var boolean
+     */
+    private $custom;
+
+
+    /**
+     * Set custom
+     *
+     * @param boolean $custom
+     *
+     * @return Product
+     */
+    public function setCustom($custom)
+    {
+        $this->custom = $custom;
+
+        return $this;
+    }
+
+    /**
+     * Get custom
+     *
+     * @return boolean
+     */
+    public function getCustom()
+    {
+        return $this->custom;
+    }
 }

@@ -195,27 +195,28 @@ class ProductController extends ImageEntityController {
 	// Internal logic
 	//---------------------------------------------------------------------------
 	
-	protected function initShowForms(Request $request, array &$viewParams) {
-		$response = parent::initShowForms($request, $viewParams);
+	protected function initShowForms(Request $request, array &$params) {
+		$response = parent::initShowForms($request, $params);
 		if($response) return $response;
 	
-		$response = $this->initCategoryForm($request, $viewParams);
+		$response = $this->initCategoryForm($request, $params);
 		if($response) return $response;
 	
 		return null;
 	}
 	
-	protected function initEditForms(Request $request, array &$viewParams) {
-		$response = $this->initEditorForm($request, $viewParams);
+	protected function initEditForms(Request $request, array &$params) {
+		$response = $this->initEditorForm($request, $params);
 		if($response) return $response;
 		
-		$response = $this->initCategoryForm($request, $viewParams);
+		$response = $this->initCategoryForm($request, $params);
 		if($response) return $response;
 		
 		return null;
 	}
 	
-	protected function initEditorForm(Request $request, array &$viewParams) {
+	protected function initEditorForm(Request $request, array &$params) {
+		$viewParams = $params['viewParams'];
 		$entry = $viewParams['entry'];
 	
 		$productFilter = $viewParams['productFilter'];
@@ -239,11 +240,13 @@ class ProductController extends ImageEntityController {
 		}
 	
 		$viewParams['form'] = $form->createView();
+		$params['viewParams'] = $viewParams;
 	
 		return null;
 	}
 	
-	protected function initCategoryForm(Request $request, array &$viewParams) {
+	protected function initCategoryForm(Request $request, array &$params) {
+		$viewParams = $params['viewParams'];
 		$categoryFilter = $viewParams['categoryFilter'];
 		$entry = $viewParams['entry'];
 	
@@ -271,6 +274,7 @@ class ProductController extends ImageEntityController {
 		}
 	
 		$viewParams['categoryFilterForm'] = $form->createView();
+		$params['viewParams'] = $viewParams;
 	
 		return null;
 	}

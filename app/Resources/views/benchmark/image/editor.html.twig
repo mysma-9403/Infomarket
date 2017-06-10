@@ -1,4 +1,4 @@
-{% extends 'admin/simple/editor.html.twig' %}
+{% extends 'benchmark/simple/editor.html.twig' %}
 
 {% block simpleMainFields2Prev %}
     <div class="row">
@@ -13,10 +13,12 @@
 	    
 	    	{{ form_row(form.file, { 'label': 'label.image' }) }}
 		    
-		    {{ form_row(form.vertical, { 'label': 'label.image.vertical' }) }}
-		    
-		    {{ form_row(form.forcedWidth, { 'label': 'label.image.forcedWidth' }) }}
-			{{ form_row(form.forcedHeight, { 'label': 'label.image.forcedHeight' }) }}
+		    <div class="hidden">
+			    {{ form_row(form.vertical, { 'label': 'label.image.vertical' }) }}
+			    
+			    {{ form_row(form.forcedWidth, { 'label': 'label.image.forcedWidth' }) }}
+				{{ form_row(form.forcedHeight, { 'label': 'label.image.forcedHeight' }) }}
+		    </div>
 		    
 		    {% if entry.image %}
 		    	<a href="{{ path(basePath ~ mainPath ~ '_remove_image', { id: entry.id }) }}" class="btn btn-danger">

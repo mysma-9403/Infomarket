@@ -78,6 +78,7 @@ class EntryParamsManager extends ParamsManager {
 		
 		$template = $this->em->getEntry($id);
 		$entry = $this->em->createFromTemplate($template);
+		$viewParams['template'] = $template;
 		$viewParams['entry'] = $entry;
 		
 		$params['viewParams'] = $viewParams;

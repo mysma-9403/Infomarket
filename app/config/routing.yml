@@ -83,7 +83,32 @@ benchmark_product_export_to_excel:
 benchmark_product_export_to_html:
     path:      /benchmark/products/export-to-html/{page}
     defaults:  { _controller: "AppBundle:Benchmark/Product:exportToHtml" }
-             
+
+
+benchmark_custom_product_new:
+    path:      /benchmark/custom-products/new
+    defaults:  { _controller: "AppBundle:Benchmark/CustomProduct:new" }
+
+benchmark_custom_product_show:
+    path:      /benchmark/custom-products/show/{id}
+    defaults:  { _controller: "AppBundle:Benchmark/CustomProduct:show" }
+
+benchmark_custom_product_edit:
+    path:      /benchmark/custom-products/edit/{id}
+    defaults:  { _controller: "AppBundle:Benchmark/CustomProduct:edit" }
+    
+benchmark_custom_product_copy:
+    path:      /benchmark/custom-products/copy/{id}
+    defaults:  { _controller: "AppBundle:Benchmark/CustomProduct:copy" }
+        
+benchmark_custom_product_delete:
+    path:      /benchmark/custom-products/delete/{id}
+    defaults:  { _controller: "AppBundle:Benchmark/CustomProduct:delete" }
+    
+benchmark_custom_product:
+    path:      /benchmark/custom-products/{page}
+    defaults:  { _controller: "AppBundle:Benchmark/CustomProduct:index", page: 1 }
+                 
 # Infoprodukt Routing
 infoprodukt_advert_click:
     path:      /adverts/click/{id}

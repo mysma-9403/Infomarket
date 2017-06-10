@@ -189,7 +189,7 @@ class BenchmarkMessageController extends BaseEntityController {
 	 *
 	 * @param BenchmarkMessage $entry
 	 */
-	protected function prepareEntry(&$entry) {
+	protected function prepareEntry(&$entry, $params) {
 		$tokenStorage = $this->get('security.token_storage');
 		
 		$entry->setAuthor($tokenStorage->getToken()->getUser());

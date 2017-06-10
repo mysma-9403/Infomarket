@@ -3,17 +3,14 @@
 namespace AppBundle\Manager\Entity\Benchmark;
 
 use AppBundle\Manager\Entity\Common\ProductManager as CommonProductManager;
-use AppBundle\Repository\Benchmark\ProductRepository;
 
 class ProductManager extends CommonProductManager {
 	
-	/**
-	 * 
-	 * @var ProductRepository
-	 */
+	//TODO remove $doctrine
+	//TODO move $repository to the base class
 	protected $repository;
 	
-	public function __construct($doctrine, $paginator, ProductRepository $repository) {
+	public function __construct($doctrine, $paginator, $repository) {
 		parent::__construct($doctrine, $paginator);
 		
 		$this->repository = $repository;
