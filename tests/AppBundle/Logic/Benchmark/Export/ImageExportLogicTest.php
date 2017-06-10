@@ -43,4 +43,13 @@ class ImageExportLogicTest extends TestCase
 	
 		$this->assertEquals($expected, $result);
 	}
+	
+	public function testGivenTableThenReplaceBodyWithTable() {
+		$html = "<html><header>header content</header><body>body content <table>table content</table> body content</body></html>";
+		$expected = "<html><header>header content</header><body><table>table content</table></body></html>";
+	
+		$result = $this->imageExportLogic->clean($html);
+	
+		$this->assertEquals($expected, $result);
+	}
 }
