@@ -3,14 +3,18 @@
 namespace AppBundle\Controller\Benchmark;
 
 use AppBundle\Controller\Admin\Base\BaseEntityController;
+use AppBundle\Entity\BenchmarkField;
 use AppBundle\Entity\BenchmarkQuery;
 use AppBundle\Entity\Product;
 use AppBundle\Filter\Benchmark\BenchmarkQueryFilter;
+use AppBundle\Filter\Benchmark\ProductFilter;
 use AppBundle\Form\Benchmark\BenchmarkQueryType;
 use AppBundle\Form\Filter\Benchmark\BenchmarkQueryFilterType;
 use AppBundle\Manager\Entity\Benchmark\BenchmarkQueryManager;
 use AppBundle\Manager\Filter\Base\FilterManager;
 use AppBundle\Manager\Params\Benchmark\ContextParamsManager;
+use AppBundle\Repository\Benchmark\BenchmarkFieldRepository;
+use AppBundle\Repository\Benchmark\ProductRepository;
 use AppBundle\Utils\StringUtils;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -58,6 +62,9 @@ class BenchmarkQueryController extends BaseEntityController {
 		$url = $this->generateUrl($this->getProductsIndexRoute());
 		$url .= '?' . $entity->getContent();
 		
+		$benchmarkQuery = $request->get('product_benchmark_query', null);
+		if($benchmarkQuery) $url .= '&product_benchmark_query=' . $benchmarkQuery;
+		
 		return $this->redirect($url);
 	}
 	
@@ -71,6 +78,44 @@ class BenchmarkQueryController extends BaseEntityController {
 		$fields[] = $item['name'];
 		
 		return $fields;
+	}
+	
+	protected function saveMore($request, $entry, $params) {
+		parent::saveMore($request, $entry, $params);
+		
+		/** @var BenchmarkQuery $entry */
+		if($entry->getArchived() && count($entry->getProducts()) <= 0) {
+			$contextParams = $params['contextParams'];
+			
+			/** @var \Doctrine\Common\Persistence\ObjectManager $em */
+			$em = $this->getDoctrine()->getManager();
+			$benchmarkFieldRepository = new BenchmarkFieldRepository($em, $em->getClassMetadata(BenchmarkField::class));
+			$productFilter = new ProductFilter($benchmarkFieldRepository);
+			$productFilter->initContextParams($contextParams);
+			$productFilter->initRequestValues($request);
+			
+			$productRepository = new ProductRepository($em, $em->getClassMetadata(Product::class));
+			$products = $productRepository->findItems($productFilter);
+			
+			foreach ($products as $product) {
+				/** @var Product $archived */
+				$archived = $productRepository->find($product['id']);
+				
+				$em->detach($archived);
+				
+				$archived->setBenchmarkQuery($entry);
+				$archived->setCreatedAt(null);
+				$archived->setCreatedBy(null);
+				$archived->setUpdatedAt(null);
+				$archived->setUpdatedBy(null);
+				$archived->setInfomarket(false);
+				$archived->setInfoprodukt(false);
+				$archived->setId(null);
+				
+				$em->persist($archived);
+			}
+			$em->flush();
+		}
 	}
 	
 	//---------------------------------------------------------------------------

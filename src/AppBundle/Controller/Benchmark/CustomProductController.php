@@ -107,7 +107,7 @@ class CustomProductController extends ImageEntityController {
 	
 		if ($form->isSubmitted() && $form->isValid())
 		{
-			$this->saveEntry($entry, $params);
+			$this->saveEntry($request, $entry, $params);
 	
 			$translator = $this->get('translator');
 			$message = $translator->trans('success.created');
@@ -197,8 +197,8 @@ class CustomProductController extends ImageEntityController {
 		return $entry;
 	}
 	
-	protected function saveMore($entry, $params) {
-		parent::saveMore($entry, $params);
+	protected function saveMore($request, $entry, $params) {
+		parent::saveMore($request, $entry, $params);
 		
 		/** @var Product $entry */
 		if(count($entry->getProductCategoryAssignments()) == 0) {

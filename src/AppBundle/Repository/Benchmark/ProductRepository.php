@@ -44,6 +44,7 @@ class ProductRepository extends BaseRepository
 		
 		$expr = $builder->expr();
 		$where = $expr->andX();
+		$where->add($expr->isNull('e.benchmarkQuery'));
 		$where->add($builder->expr()->like('c.treePath', $builder->expr()->literal('%-' . $categoryId . '#%')));
 	
 		$builder->where($where);
@@ -109,6 +110,7 @@ class ProductRepository extends BaseRepository
 		$builder->innerJoin(Category::class, 'c', Join::WITH, 'c.id = pca.category');
 	
 		$where = $expr->andX();
+		$where->add($expr->isNull('e.benchmarkQuery'));
 		$where->add($expr->isNotNull('e.' . $valueName));
 		$where->add($builder->expr()->like('c.treePath', $builder->expr()->literal('%-' . $categoryId . '#%')));
 	
@@ -135,6 +137,7 @@ class ProductRepository extends BaseRepository
 		$builder->innerJoin(Category::class, 'c', Join::WITH, 'c.id = pca.category');
 	
 		$where = $expr->andX();
+		$where->add($expr->isNull('e.benchmarkQuery'));
 		$where->add($expr->isNotNull('e.' . $valueName));
 		$where->add($builder->expr()->like('c.treePath', $builder->expr()->literal('%-' . $categoryId . '#%')));
 	
@@ -161,6 +164,7 @@ class ProductRepository extends BaseRepository
 		$builder->innerJoin(BenchmarkEnum::class, 'be', Join::WITH, 'e.' . $valueName . ' LIKE CONCAT(\'%\', be.name, \'%\')');
 	
 		$where = $expr->andX();
+		$where->add($expr->isNull('e.benchmarkQuery'));
 		$where->add($expr->isNotNull('e.' . $valueName));
 		$where->add($builder->expr()->like('c.treePath', $builder->expr()->literal('%-' . $categoryId . '#%')));
 	
@@ -211,6 +215,7 @@ class ProductRepository extends BaseRepository
 		$builder->innerJoin(Category::class, 'c', Join::WITH, 'c.id = pca.category');
 	
 		$where = $expr->andX();
+		$where->add($expr->isNull('e.benchmarkQuery'));
 		$where->add($expr->isNotNull('e.' . $valueName));
 		$where->add($builder->expr()->like('c.treePath', $builder->expr()->literal('%-' . $categoryId . '#%')));
 	
@@ -239,6 +244,7 @@ class ProductRepository extends BaseRepository
 		$builder->innerJoin(Category::class, 'c', Join::WITH, 'c.id = pca.category');
 	
 		$where = $expr->andX();
+		$where->add($expr->isNull('e.benchmarkQuery'));
 		$where->add($expr->isNotNull('e.' . $valueName));
 		$where->add($builder->expr()->like('c.treePath', $builder->expr()->literal('%-' . $categoryId . '#%')));
 	
@@ -266,6 +272,7 @@ class ProductRepository extends BaseRepository
 		$builder->innerJoin(Category::class, 'c', Join::WITH, 'c.id = pca.category');
 	
 		$where = $expr->andX();
+		$where->add($expr->isNull('e.benchmarkQuery'));
 		$where->add($expr->isNotNull('e.' . $valueName));
 		$where->add($builder->expr()->like('c.treePath', $builder->expr()->literal('%-' . $categoryId . '#%')));
 	
@@ -292,6 +299,7 @@ class ProductRepository extends BaseRepository
 		$builder->innerJoin(Category::class, 'c', Join::WITH, 'c.id = pca.category');
 	
 		$where = $expr->andX();
+		$where->add($expr->isNull('e.benchmarkQuery'));
 		$where->add($expr->isNotNull('e.' . $valueName));
 		$where->add($builder->expr()->like('c.treePath', $builder->expr()->literal('%-' . $categoryId . '#%')));
 	
@@ -318,6 +326,7 @@ class ProductRepository extends BaseRepository
 		$builder->innerJoin(Category::class, 'c', Join::WITH, 'c.id = pca.category');
 		
 		$where = $expr->andX();
+		$where->add($expr->isNull('e.benchmarkQuery'));
 		$where->add($expr->isNotNull('e.' . $valueName));
 		$where->add($builder->expr()->like('c.treePath', $builder->expr()->literal('%-' . $categoryId . '#%')));
 	
@@ -439,8 +448,10 @@ class ProductRepository extends BaseRepository
 		/** @var ProductFilter $filter */
 		$builder->innerJoin(Brand::class, 'b', Join::WITH, 'b.id = e.brand');
 	
-		$builder->innerJoin(ProductCategoryAssignment::class, 'pca', Join::WITH, 'e.id = pca.product');
-		$builder->innerJoin(Category::class, 'c', Join::WITH, 'c.id = pca.category');
+		if(!$filter->getBenchmarkQuery()) {
+			$builder->innerJoin(ProductCategoryAssignment::class, 'pca', Join::WITH, 'e.id = pca.product');
+			$builder->innerJoin(Category::class, 'c', Join::WITH, 'c.id = pca.category');
+		}
 	}
 	
 	protected function buildOrderBy(QueryBuilder &$builder, Filter $filter) {
@@ -461,9 +472,11 @@ class ProductRepository extends BaseRepository
 		$fields[] = 'b.id AS brandId';
 		$fields[] = 'b.name AS brandName';
 		
-		$fields[] = 'c.id AS categoryId';
-		$fields[] = 'c.name AS categoryName';
-		$fields[] = 'c.subname AS categorySubname';
+		if(!$filter->getBenchmarkQuery()) {
+			$fields[] = 'c.id AS categoryId';
+			$fields[] = 'c.name AS categoryName';
+			$fields[] = 'c.subname AS categorySubname';
+		}
 		
 		$fields[] = 'e.price';
 		
@@ -481,60 +494,66 @@ class ProductRepository extends BaseRepository
 	
 		$expr = $builder->expr();
 		
-		if(count($filter->getBrands()) > 0) {
-			$where->add($expr->in('e.brand', $filter->getBrands()));
-		}
-	
-		if(count($filter->getCategories()) > 0) {
-			$where->add($expr->in('pca.category', $filter->getCategories()));
+		if($filter->getBenchmarkQuery()) {
+			$where->add($expr->eq('e.benchmarkQuery', $filter->getBenchmarkQuery()));
 		} else {
-			$where->add($expr->like('c.treePath', $builder->expr()->literal('%-' . $filter->getContextCategory() . '#%')));
-		}
+			$where->add($expr->isNull('e.benchmarkQuery'));
 		
-		if($filter->getName()) {
-			$where->add($this->buildStringsExpression($builder, 'e.name', $filter->getName(), true));
-		}
+			if(count($filter->getBrands()) > 0) {
+				$where->add($expr->in('e.brand', $filter->getBrands()));
+			}
 		
-		if($filter->getMinPrice()) {
-			$where->add($expr->gte('e.price', $filter->getMinPrice()));
-		}
-		if($filter->getMaxPrice()) {
-			$where->add($expr->lte('e.price', $filter->getMaxPrice()));
-		}
-		
-		$filterFields = $filter->getFilterFields();
-		foreach ($filterFields as $filterField) {
-			$value = $filterField['value'];
-			if($value != null) {
-				$valueName = BenchmarkField::getValueTypeDBName($filterField['valueType']) . $filterField['valueNumber'];
-				switch ($filterField['filterType']) {
-					case BenchmarkField::DECIMAL_FILTER_TYPE:
-					case BenchmarkField::INTEGER_FILTER_TYPE:
-						if($value['min']) {
-							$where->add($expr->gte('e.' . $valueName, $value['min']));
-						}
-						if($value['max']) {
-							$where->add($expr->lte('e.' . $valueName, $value['max']));
-						}
-						break;
-					case BenchmarkField::BOOLEAN_FILTER_TYPE:
-						if($value != Filter::ALL_VALUES) {
-							$where->add($expr->eq('e.' . $valueName, $value));
-						}
-						break;
-					case BenchmarkField::SINGLE_ENUM_FILTER_TYPE:
-						$where->add($expr->in('e.' . $valueName, $value));
-						break;
-					case BenchmarkField::MULTI_ENUM_FILTER_TYPE:
-						$or = $expr->orX();
-						foreach ($value as $subvalue) {
-							$or->add($expr->like('e.' . $valueName, $expr->literal('%' . $subvalue . '%')));
-						}
-						$where->add($or);
-						break;
-					default:
-						$where->add($this->buildStringsExpression($builder, 'e.' . $valueName, $value, true));
-						break;
+			if(count($filter->getCategories()) > 0) {
+				$where->add($expr->in('pca.category', $filter->getCategories()));
+			} else {
+				$where->add($expr->like('c.treePath', $builder->expr()->literal('%-' . $filter->getContextCategory() . '#%')));
+			}
+			
+			if($filter->getName()) {
+				$where->add($this->buildStringsExpression($builder, 'e.name', $filter->getName(), true));
+			}
+			
+			if($filter->getMinPrice()) {
+				$where->add($expr->gte('e.price', $filter->getMinPrice()));
+			}
+			if($filter->getMaxPrice()) {
+				$where->add($expr->lte('e.price', $filter->getMaxPrice()));
+			}
+			
+			$filterFields = $filter->getFilterFields();
+			foreach ($filterFields as $filterField) {
+				$value = $filterField['value'];
+				if($value != null) {
+					$valueName = BenchmarkField::getValueTypeDBName($filterField['valueType']) . $filterField['valueNumber'];
+					switch ($filterField['filterType']) {
+						case BenchmarkField::DECIMAL_FILTER_TYPE:
+						case BenchmarkField::INTEGER_FILTER_TYPE:
+							if($value['min']) {
+								$where->add($expr->gte('e.' . $valueName, $value['min']));
+							}
+							if($value['max']) {
+								$where->add($expr->lte('e.' . $valueName, $value['max']));
+							}
+							break;
+						case BenchmarkField::BOOLEAN_FILTER_TYPE:
+							if($value != Filter::ALL_VALUES) {
+								$where->add($expr->eq('e.' . $valueName, $value));
+							}
+							break;
+						case BenchmarkField::SINGLE_ENUM_FILTER_TYPE:
+							$where->add($expr->in('e.' . $valueName, $value));
+							break;
+						case BenchmarkField::MULTI_ENUM_FILTER_TYPE:
+							$or = $expr->orX();
+							foreach ($value as $subvalue) {
+								$or->add($expr->like('e.' . $valueName, $expr->literal('%' . $subvalue . '%')));
+							}
+							$where->add($or);
+							break;
+						default:
+							$where->add($this->buildStringsExpression($builder, 'e.' . $valueName, $value, true));
+							break;
+					}
 				}
 			}
 		}

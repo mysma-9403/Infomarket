@@ -1981,4 +1981,34 @@ class Product extends ImageEntity implements \ArrayAccess
     {
         return $this->custom;
     }
+    
+    /**
+     * @var \AppBundle\Entity\BenchmarkQuery
+     */
+    private $benchmarkQuery;
+
+
+    /**
+     * Set benchmarkQuery
+     *
+     * @param \AppBundle\Entity\BenchmarkQuery $benchmarkQuery
+     *
+     * @return Product
+     */
+    public function setBenchmarkQuery(\AppBundle\Entity\BenchmarkQuery $benchmarkQuery = null)
+    {
+        $this->benchmarkQuery = $benchmarkQuery;
+
+        return $this;
+    }
+
+    /**
+     * Get benchmarkQuery
+     *
+     * @return \AppBundle\Entity\BenchmarkQuery
+     */
+    public function getBenchmarkQuery()
+    {
+        return $this->benchmarkQuery;
+    }
 }

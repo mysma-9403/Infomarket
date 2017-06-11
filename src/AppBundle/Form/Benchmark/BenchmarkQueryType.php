@@ -7,6 +7,7 @@ use AppBundle\Form\Base\BaseType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 
 class BenchmarkQueryType extends BaseType
 {
@@ -23,6 +24,9 @@ class BenchmarkQueryType extends BaseType
 				'required' => true
 		))
 		->add('content', TextType::class, array(
+				'required' => false
+		))
+		->add('archived', CheckboxType::class, array(
 				'required' => false
 		))
 		;

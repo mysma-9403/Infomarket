@@ -269,7 +269,7 @@ abstract class AdminController extends StandardController {
 	
 		if ($form->isSubmitted() && $form->isValid())
 		{
-			$this->saveEntry($entry, $params);
+			$this->saveEntry($request, $entry, $params);
 	
 			$translator = $this->get('translator');
 			$message = $translator->trans('success.created');
@@ -441,15 +441,15 @@ abstract class AdminController extends StandardController {
 	 * 
 	 * @param unknown $entry
 	 */
-	protected function saveEntry($entry, $params) {
+	protected function saveEntry($request, $entry, $params) {
 		$em = $this->getDoctrine()->getManager();
 	
-		$this->prepareEntry($entry, $params);
+		$this->prepareEntry($request, $entry, $params);
 			
 		$em->persist($entry);
 		$em->flush();
 		
-		$this->saveMore($entry, $params);
+		$this->saveMore($request, $entry, $params);
 	}
 	
 	/**
@@ -458,7 +458,7 @@ abstract class AdminController extends StandardController {
 	 */
 	protected function prepareEntry(&$entry, $params) { }
 	
-	protected function saveMore($entry, $params) { }
+	protected function saveMore($request, $entry, $params) { }
 	
 	protected function deleteMore($entry)
 	{

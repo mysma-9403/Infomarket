@@ -45,6 +45,10 @@ class ProductRepository extends ImageEntityRepository
 		/** @var ProductFilter $filter */
 		$where = parent::getWhere($builder, $filter);
 		
+		$expr = $builder->expr();
+		
+		$where->add($expr->isNull('e.benchmarkQuery'));
+		
 		if(count($filter->getBrands()) > 0) {
 			$where->add($builder->expr()->in('e.brand', $filter->getBrands()));
 		}
@@ -74,6 +78,16 @@ class ProductRepository extends ImageEntityRepository
 		$fields[] = 'b.name AS brandName';
 		
 		return $fields;
+	}
+	
+	protected function getFilterWhere(QueryBuilder &$builder) {
+		$where = parent::getFilterWhere($builder);
+	
+		$expr = $builder->expr();
+	
+		$where->add($expr->isNull('e.benchmarkQuery'));
+	
+		return $where;
 	}
 	
 	

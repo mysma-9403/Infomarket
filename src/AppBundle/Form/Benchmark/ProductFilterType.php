@@ -145,7 +145,6 @@ class ProductFilterType extends FilterType
 		
 		$builder
 		->add('saveQuery', SubmitType::class)
-		->add('saveResults', SubmitType::class)
 		;
 	}
 	

@@ -17,6 +17,15 @@ class ProductManager extends CommonProductManager {
 		$this->entriesPerPage = 6;
 	}
 	
+	public function createFromTemplate($template) {
+		/** @var Product $entry */
+		$entry = parent::createFromTemplate($template);
+		
+		//TODO :)
+	
+		return $entry;
+	}
+	
 	protected function getRepository() {
 		return $this->repository;
 	}

@@ -142,10 +142,6 @@ class ProductController extends DummyController {
 				return $this->redirectToRoute($this->getCreateQueryRoute(), array_merge($contextParams, $filter->getRequestValues()));
 			}
 			
-			if ($filterForm->get('saveResults')->isClicked()) {
-				//TODO 
-			}
-			
 			if ($filterForm->get('search')->isClicked()) {
 				return $this->redirectToRoute($this->getIndexRoute(), $filter->getRequestValues());
 			}

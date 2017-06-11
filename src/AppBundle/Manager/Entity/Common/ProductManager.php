@@ -35,6 +35,7 @@ class ProductManager extends SimpleEntityManager {
 		$entry = parent::createFromTemplate($template);
 		
 		$entry->setBrand($template->getBrand());
+		$entry->setPrice($template->getPrice());
 		
 		return $entry;
 	}

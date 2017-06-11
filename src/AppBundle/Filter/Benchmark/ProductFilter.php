@@ -68,6 +68,9 @@ class ProductFilter extends Filter {
 	protected $maxPrice = null;
 	
 	
+	protected $benchmarkQuery = null;
+	
+	
 	public function __construct(BenchmarkFieldRepository $benchmarkFieldRepository) {
 		$this->benchmarkFieldRepository = $benchmarkFieldRepository;
 		
@@ -113,6 +116,8 @@ class ProductFilter extends Filter {
 					break;
 			}
 		}
+		
+		$this->benchmarkQuery = $this->getRequestValue($request, 'benchmark_query');
 	}
 	
 	public function clearRequestValues() {
@@ -147,6 +152,8 @@ class ProductFilter extends Filter {
 					break;
 			}
 		}
+		
+		$this->benchmarkQuery = null;
 	}
 	
 	public function getRequestValues() {
@@ -420,6 +427,15 @@ class ProductFilter extends Filter {
 					}
 			}
 		}
+		return $this;
+	}
+	
+	public function getBenchmarkQuery() {
+		return $this->benchmarkQuery;
+	}
+	
+	public function setBenchmarkQuery($benchmarkQuery) {
+		$this->benchmarkQuery = $benchmarkQuery;
 		return $this;
 	}
 }

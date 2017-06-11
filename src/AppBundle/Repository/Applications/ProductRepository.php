@@ -29,7 +29,9 @@ class ProductRepository extends BaseRepository
 		$builder->innerJoin(Category::class, 'c', Join::WITH, 'c.id = pca.category');
 		
 		$expr = $builder->expr();
+		
 		$where = $expr->andX();
+		$where->add($expr->isNull('e.benchmarkQuery'));
 // 		$where->add($builder->expr()->eq('e.application', 1));
 		$where->add($expr->like('c.treePath', $expr->literal('%-' . $categoryId . '#%')));
 	

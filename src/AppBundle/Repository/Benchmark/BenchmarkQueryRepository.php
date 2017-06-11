@@ -14,6 +14,7 @@ class BenchmarkQueryRepository extends BaseRepository
 		$fields = parent::getSelectFields($builder, $filter);
 		
 		$fields[] = 'e.name';
+		$fields[] = 'e.archived';
 		$fields[] = 'e.createdAt';
 		
 		return $fields;

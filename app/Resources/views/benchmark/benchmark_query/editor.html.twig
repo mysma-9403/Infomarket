@@ -6,4 +6,13 @@
 {%  block mainFields2 %}
 	{{ form_row(form.name, { 'label': 'label.name' }) }}	
     <div class="hidden">{{ form_row(form.content, { 'label': 'label.content' }) }}</div>
+	<div class="{{ entry.id ? "hidden" : "" }}">{{ form_row(form.archived, { 'label': 'label.benchmarkQuery.archived' }) }}</div>
+{% endblock %}
+
+{% block baseMoreActions %}
+	{% if entry.id %}
+		<a type="button" class="btn btn-primary" href="{{ path(basePath ~ mainPath ~ '_show', { id: entry.id, product_benchmark_query: entry.id }) }}">
+			<i class="fa fa-archive"></i> {{ 'action.benchmarkQuery.showArchived'|trans }}
+		</a>
+	{% endif %}
 {% endblock %}

@@ -10,6 +10,8 @@
         
         <many-to-one field="brand" target-entity="Brand" inversed-by="products" nullable="false" />
         
+        <many-to-one field="benchmarkQuery" target-entity="BenchmarkQuery" inversed-by="products" nullable="false" />
+        
         <field name="topProduktImage" type="string" length="256" nullable="true"/>
         
         <field name="price" type="decimal" precision="12" scale="4" nullable="true" />

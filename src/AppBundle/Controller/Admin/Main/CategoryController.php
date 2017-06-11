@@ -370,7 +370,7 @@ class CategoryController extends FeaturedEntityController {
 		}
 	}
 	
-	protected function saveMore($entry, $params) {
+	protected function saveMore($request, $entry, $params) {
 		$parent = $entry->getParent(); 
 		if($parent) {
 			$rootId = $parent->getRootId();

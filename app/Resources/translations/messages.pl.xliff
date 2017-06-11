@@ -890,6 +890,11 @@
             </trans-unit>
             
             
+            <trans-unit id="label.benchmarkQuery.archived">
+                <source>label.benchmarkQuery.archived</source>
+                <target>Archiwalne</target>
+            </trans-unit>
+            
             
             <trans-unit id="label.benchmark.category">
                 <source>label.benchmark.category</source>
@@ -1035,6 +1040,10 @@
                 <target>Oznacz jako nieprzeczytane</target>
             </trans-unit>
             
+            <trans-unit id="action.benchmarkQuery.showArchived">
+                <source>action.benchmarkQuery.showArchived</source>
+                <target>Pokaż archiwalne</target>
+            </trans-unit>
             
             
             

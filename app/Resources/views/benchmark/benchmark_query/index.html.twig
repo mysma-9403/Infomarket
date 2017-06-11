@@ -43,3 +43,11 @@
 		{% endif %}
 	</td>
 {% endblock %}
+
+{% block entryMoreActions %}
+	{% if item.archived %}
+		<a type="button" class="btn btn-sm btn-primary" href="{{ path(basePath ~ mainPath ~ '_show', { id: item.id, product_benchmark_query: item.id }) }}">
+			<i class="fa fa-archive"></i> {{ 'action.benchmarkQuery.showArchived'|trans }}
+		</a>
+	{% endif %}
+{% endblock %}

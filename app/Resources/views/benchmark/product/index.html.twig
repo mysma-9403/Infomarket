@@ -86,54 +86,11 @@
 								{{ form_widget(filter.clear, { 'icon': 'fa-eraser', 'label': 'action.clear', 'attr': {'class': 'btn btn-warning'} }) }}
 							</div>
 						</div>
-						<div class="col-xs-12 padding-5">
+						<div class="col-xs-12 padding-5 {{ entryFilter.benchmarkQuery ? "hidden" : "" }}">
 							{{ form_widget(filter.saveQuery, { 'icon': 'fa-save', 'label': 'action.saveQuery', 'attr': {'class': 'btn btn-success'} }) }}
-						</div>
-						<div class="col-xs-12 padding-5">
-							{{ form_widget(filter.saveResults, { 'icon': 'fa-save', 'label': 'action.saveResults', 'attr': {'class': 'btn btn-success'} }) }}
 						</div>
 						
 					{{ form_end(filter) }}
-				{% endblock %}
-				
-				<div>&nbsp;</div>
-				
-				{% block actions %}
-					<div class="row padding-5">
-						<div class="col-xs-12 padding-5">
-							<a class="btn btn-primary" href="{{ path(basePath ~ mainPath ~ '_export_to_image', routeParams) }}">
-								<span class="fa fa-download"></span> {{ 'action.benchmark.export.image'|trans }}
-							</a>
-						</div>
-					</div>
-					<div class="row padding-5">
-						<div class="col-xs-12 padding-5">
-							<a class="btn btn-primary" href="{{ path(basePath ~ mainPath ~ '_export_to_pdf', routeParams) }}">
-								<span class="fa fa-download"></span> {{ 'action.benchmark.export.pdf'|trans }}
-							</a>
-						</div>
-					</div>
-					<div class="row padding-5">
-						<div class="col-xs-12 padding-5">
-							<a class="btn btn-primary" href="{{ path(basePath ~ mainPath ~ '_export_to_csv', routeParams) }}">
-								<span class="fa fa-download"></span> {{ 'action.benchmark.export.csv'|trans }}
-							</a>
-						</div>
-					</div>
-					<div class="row padding-5">
-						<div class="col-xs-12 padding-5">
-							<a class="btn btn-primary" href="{{ path(basePath ~ mainPath ~ '_export_to_excel', routeParams) }}">
-								<span class="fa fa-download"></span> {{ 'action.benchmark.export.excel'|trans }}
-							</a>
-						</div>
-					</div>
-					<div class="row padding-5">
-						<div class="col-xs-12 padding-5">
-							<a class="btn btn-primary" href="{{ path(basePath ~ mainPath ~ '_export_to_html', routeParams) }}">
-								<span class="fa fa-download"></span> {{ 'action.benchmark.export.html'|trans }}
-							</a>
-						</div>
-					</div>
 				{% endblock %}
 			{% endblock %}
 		</div>
@@ -214,32 +171,52 @@
 						{% endif %}					
 					{% endfor %}
 					
-					<tr>
-						<th class="text-right">{{ 'label.actions'|trans }}</th>
-						{% for entry in entries %}
-							<td class="text-center">
-								<a class="btn btn-primary" href="{{ path(basePath ~ mainPath ~ '_show', { id: entry.id }) }}" data-toggle="tooltip" title="{{ 'action.show'|trans }}">
-									<span class="fa fa-eye"></span>
-								</a>
-								<a class="btn btn-warning" href="{{ path(basePath ~ mainPath ~ '_compare', { id: entry.id }) }}" data-toggle="tooltip" title="{{ 'action.compare'|trans }}">
-									<span class="fa fa-balance-scale"></span>
-								</a>
-								{% if entry.benchmarkMessage %}
-									{% set messagePath = basePath ~ 'benchmark_message_show' %}
-									{% set messageParams = { id: entry.benchmarkMessage.id } %}
-								{% else %}
-									{% set messagePath = basePath ~ 'benchmark_message_new' %}
-									{% set messageParams = { product: entry.id } %}
-								{% endif %}
-								<a class="btn btn-danger" href="{{ path(messagePath, messageParams) }}" data-toggle="tooltip" title="{{ 'action.reportError'|trans }}">
-									<span class="fa fa-exclamation-circle"></span>
-								</a>
-							</td>
-						{% endfor %}
-						<td></td>
-					</tr>
+					{% if not entryFilter.benchmarkQuery %}
+						<tr>
+							<th class="text-right">{{ 'label.actions'|trans }}</th>
+							{% for entry in entries %}
+								<td class="text-center">
+									<a class="btn btn-primary" href="{{ path(basePath ~ mainPath ~ '_show', { id: entry.id }) }}" data-toggle="tooltip" title="{{ 'action.show'|trans }}">
+										<span class="fa fa-eye"></span>
+									</a>
+									<a class="btn btn-warning" href="{{ path(basePath ~ mainPath ~ '_compare', { id: entry.id }) }}" data-toggle="tooltip" title="{{ 'action.compare'|trans }}">
+										<span class="fa fa-balance-scale"></span>
+									</a>
+									{% if entry.benchmarkMessage %}
+										{% set messagePath = basePath ~ 'benchmark_message_show' %}
+										{% set messageParams = { id: entry.benchmarkMessage.id } %}
+									{% else %}
+										{% set messagePath = basePath ~ 'benchmark_message_new' %}
+										{% set messageParams = { product: entry.id } %}
+									{% endif %}
+									<a class="btn btn-danger" href="{{ path(messagePath, messageParams) }}" data-toggle="tooltip" title="{{ 'action.reportError'|trans }}">
+										<span class="fa fa-exclamation-circle"></span>
+									</a>
+								</td>
+							{% endfor %}
+							<td></td>
+						</tr>
+					{% endif %}
 					
 				</table>
+			{% endblock %}
+			
+			{% block actions %}
+				<a class="btn btn-primary" href="{{ path(basePath ~ mainPath ~ '_export_to_image', routeParams) }}">
+					<span class="fa fa-download"></span> {{ 'action.benchmark.export.image'|trans }}
+				</a>
+				<a class="btn btn-primary" href="{{ path(basePath ~ mainPath ~ '_export_to_pdf', routeParams) }}">
+					<span class="fa fa-download"></span> {{ 'action.benchmark.export.pdf'|trans }}
+				</a>
+				<a class="btn btn-primary" href="{{ path(basePath ~ mainPath ~ '_export_to_csv', routeParams) }}">
+					<span class="fa fa-download"></span> {{ 'action.benchmark.export.csv'|trans }}
+				</a>
+				<a class="btn btn-primary" href="{{ path(basePath ~ mainPath ~ '_export_to_excel', routeParams) }}">
+					<span class="fa fa-download"></span> {{ 'action.benchmark.export.excel'|trans }}
+				</a>
+				<a class="btn btn-primary" href="{{ path(basePath ~ mainPath ~ '_export_to_html', routeParams) }}">
+					<span class="fa fa-download"></span> {{ 'action.benchmark.export.html'|trans }}
+				</a>
 			{% endblock %}
 			
 			{% block tablePaginator %}
