@@ -1010,6 +1010,16 @@
             </trans-unit>
             
             
+            <trans-unit id="label.benchmark.category.showBestProduct">
+                <source>label.benchmark.category.showBestProduct</source>
+                <target>Pokaż najlepszy produkt</target>
+            </trans-unit>
+            <trans-unit id="label.benchmark.category.showWorstProduct">
+                <source>label.benchmark.category.showWorstProduct</source>
+                <target>Pokaż najgorszy produkt</target>
+            </trans-unit>
+            
+            
             <trans-unit id="action.benchmark.export.image">
                 <source>action.benchmark.export.image</source>
                 <target>Eksportuj do jpg</target>

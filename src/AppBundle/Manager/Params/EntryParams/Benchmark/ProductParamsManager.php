@@ -145,7 +145,9 @@ class ProductParamsManager extends EntryParamsManager {
 			$overalNote = 5.;
 		}
 		
+		$overalNote = $entry->getProductNote()->getOveralNote();
 		$viewParams['overalNote'] = $overalNote;
+		
 		
 		$minMaxPrice = $productRepository->findMinMaxValues($categoryId, 'price');
 		$minPrice = $minMaxPrice['vmin'];

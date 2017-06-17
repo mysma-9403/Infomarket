@@ -14,6 +14,7 @@ use Doctrine\ORM\AbstractQuery;
 use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\ORM\QueryBuilder;
 use AppBundle\Entity\BenchmarkEnum;
+use AppBundle\Entity\ProductNote;
 
 class ProductRepository extends BaseRepository
 {
@@ -558,6 +559,72 @@ class ProductRepository extends BaseRepository
 		}
 	
 		return $where;
+	}
+	
+	public function findBestItem($categoryId) {
+		return $this->queryBestItem($categoryId)->getSingleResult(AbstractQuery::HYDRATE_SCALAR);
+	}
+	
+	protected function queryBestItem($categoryId)
+	{
+		$builder = new QueryBuilder($this->getEntityManager());
+	
+		$expr = $builder->expr();
+	
+		$builder->select('e.id');
+		$builder->distinct();
+		$builder->from($this->getEntityType(), "e");
+	
+		$builder->innerJoin(ProductCategoryAssignment::class, 'pca', Join::WITH, 'e.id = pca.product');
+		$builder->innerJoin(Category::class, 'c', Join::WITH, 'c.id = pca.category');
+		
+		$builder->innerJoin(ProductNote::class, 'pn', Join::WITH, 'pn.product = e.id');
+	
+		$where = $expr->andX();
+		$where->add($expr->isNull('e.benchmarkQuery'));
+		$where->add($builder->expr()->like('c.treePath', $builder->expr()->literal('%-' . $categoryId . '#%')));
+	
+		$where->add($expr->isNotNull('pn.overalNote'));
+		
+		$builder->where($where);
+		
+		$builder->orderBy('pn.overalNote', 'DESC');
+		$builder->setMaxResults(1);
+			
+		return $builder->getQuery();
+	}
+	
+	public function findWorstItem($categoryId) {
+		return $this->queryWorstItem($categoryId)->getSingleResult(AbstractQuery::HYDRATE_SCALAR);
+	}
+	
+	protected function queryWorstItem($categoryId)
+	{
+		$builder = new QueryBuilder($this->getEntityManager());
+	
+		$expr = $builder->expr();
+	
+		$builder->select('e.id');
+		$builder->distinct();
+		$builder->from($this->getEntityType(), "e");
+	
+		$builder->innerJoin(ProductCategoryAssignment::class, 'pca', Join::WITH, 'e.id = pca.product');
+		$builder->innerJoin(Category::class, 'c', Join::WITH, 'c.id = pca.category');
+	
+		$builder->innerJoin(ProductNote::class, 'pn', Join::WITH, 'pn.product = e.id');
+	
+		$where = $expr->andX();
+		$where->add($expr->isNull('e.benchmarkQuery'));
+		$where->add($builder->expr()->like('c.treePath', $builder->expr()->literal('%-' . $categoryId . '#%')));
+	
+		$where->add($expr->isNotNull('pn.overalNote'));
+		
+		$builder->where($where);
+	
+		$builder->orderBy('pn.overalNote', 'ASC');
+		$builder->setMaxResults(1);
+			
+		return $builder->getQuery();
 	}
 	
     /**

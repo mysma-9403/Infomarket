@@ -71,6 +71,13 @@
 								<th class="text-center">{{ numOfProducts }}</th>
 							</tr>
 						</table>
+						
+						<a class="btn btn-primary" href="{{ path(basePath ~ 'product_show', { id: bestProduct }) }}">
+							<i class="fa fa-eye"></i> {{ 'label.benchmark.category.showBestProduct'|trans }}
+						 </a>
+						<a class="btn btn-primary" href="{{ path(basePath ~ 'product_show', { id: worstProduct }) }}">
+							<i class="fa fa-eye"></i> {{ 'label.benchmark.category.showWorstProduct'|trans }}
+						</a>
 					</div>
 				</div>
 			{% endblock %}

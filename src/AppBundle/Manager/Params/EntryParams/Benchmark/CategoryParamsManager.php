@@ -21,10 +21,16 @@ class CategoryParamsManager extends EntryParamsManager {
 	
 	protected $chartLogic;
 	
+	protected $productRepository;
+	
 	public function __construct(EntityManager $em, FilterManager $fm, $doctrine, BenchmarkChartLogic $chartLogic) {
 		parent::__construct($em, $fm, $doctrine);
 		
 		$this->chartLogic = $chartLogic;
+		
+		//TODO refactor -> make Dependency Injection!!
+		$emm = $this->doctrine->getManager();
+		$this->productRepository = new ProductRepository($emm, $emm->getClassMetadata(Product::class));
 	}
 	
 	public function getShowParams(Request $request, array $params, $id) {
@@ -62,6 +68,9 @@ class CategoryParamsManager extends EntryParamsManager {
     	
     	$viewParams = $this->initBenchmarkFields($viewParams, $id);
     	$viewParams = $this->initCharts($viewParams);
+    	
+    	$viewParams['bestProduct'] = $this->getBestProduct($id);
+    	$viewParams['worstProduct'] = $this->getWorstProduct($id);
     	
     	$params['viewParams'] = $viewParams;
     	
@@ -134,5 +143,15 @@ class CategoryParamsManager extends EntryParamsManager {
 		$viewParams['priceField'] = $priceField;
 	
 		return $viewParams;
+	}
+	
+	protected function getBestProduct($categoryId) {
+		$product = $this->productRepository->findBestItem($categoryId);
+		return $product['id'];
+	}
+	
+	protected function getWorstProduct($categoryId) {
+		$product = $this->productRepository->findWorstItem($categoryId);
+		return $product['id'];
 	}
 }
