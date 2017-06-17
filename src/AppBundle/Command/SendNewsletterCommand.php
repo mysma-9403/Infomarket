@@ -158,7 +158,7 @@ class SendNewsletterCommand extends ContainerAwareCommand
 		$output->writeln($date->format('Y-m-d H:i:s: ') . $message);
 	}
 	
-	protected function exception_error_handler($severity, $message, $file, $line) {
+	public static function exception_error_handler($severity, $message, $file, $line) {
 		if (!(error_reporting() & $severity)) {
 			return;
 		}

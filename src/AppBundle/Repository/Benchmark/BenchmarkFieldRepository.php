@@ -10,6 +10,29 @@ use Doctrine\ORM\Query\Expr\Join;
 
 class BenchmarkFieldRepository extends AuditRepository
 {	
+	public function findItemsByCategory($categoryId) {
+		return $this->queryItemsByCategory($categoryId)->getScalarResult();
+	}
+	
+	protected function queryItemsByCategory($categoryId)
+	{
+		$builder = new QueryBuilder($this->getEntityManager());
+			
+		$builder->select("e.valueType, e.valueNumber, e.fieldType, e.fieldName, e.decimalPlaces, e.noteType, e.noteWeight, e.betterThanType, e.compareWeight");
+		$builder->from($this->getEntityType(), "e");
+	
+		$expr = $builder->expr();
+	
+		$where = $expr->andX();
+		$where->add($expr->eq('e.category', $categoryId));
+	
+		$builder->where($where);
+	
+		$builder->orderBy('e.fieldNumber', 'ASC');
+			
+		return $builder->getQuery();
+	}
+	
 	public function findShowItemsByCategory($categoryId) {
 		return $this->queryShowItemsByCategory($categoryId)->getScalarResult();
 	}

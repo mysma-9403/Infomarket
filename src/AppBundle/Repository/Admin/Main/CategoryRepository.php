@@ -201,6 +201,30 @@ class CategoryRepository extends FeaturedEntityRepository
 	
 	
 	
+	
+	public function findBenchmarkItems() {
+		return $this->queryBenchmarkItems()->getScalarResult();
+	}
+	
+	protected function queryBenchmarkItems()
+	{
+		$builder = new QueryBuilder($this->getEntityManager());
+			
+		$builder->select("e.id");
+		$builder->from($this->getEntityType(), "e");
+		
+		$expr = $builder->expr();
+		
+		$where = $expr->andX();
+		$where->add($expr->eq('e.preleaf', 0));
+		$where->add($expr->eq('e.benchmark', 1));
+		
+		$builder->where($where);
+			
+		return $builder->getQuery();
+	}
+	
+	
     /**
 	 * {@inheritdoc}
 	 */

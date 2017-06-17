@@ -37,7 +37,24 @@ class BenchmarkFieldLogic {
 		return $field;
 	}
 	
+	public function initNoteField($field) {
+		$valueField = BenchmarkField::getValueTypeDBName($field['valueType']) . 'Note' . $field['valueNumber'];
+		$field['noteField'] = $valueField;
 	
+		return $field;
+	}
+	
+	
+	
+	public function initMinMaxValues($field) {
+		$valueField = $field['valueField'];
+		$minMaxAvgValues = $this->productRepository->findMinMaxValues($this->categoryId, $valueField);
+	
+		$field['min'] = $minMaxAvgValues['vmin'];
+		$field['max'] = $minMaxAvgValues['vmax'];
+	
+		return $field;
+	}
 	
 	public function initMinMaxAvgValues($field) {
 		$valueField = $field['valueField'];

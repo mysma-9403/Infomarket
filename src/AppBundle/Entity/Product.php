@@ -2011,4 +2011,33 @@ class Product extends ImageEntity implements \ArrayAccess
     {
         return $this->benchmarkQuery;
     }
+    /**
+     * @var \AppBundle\Entity\ProductNote
+     */
+    private $productNote;
+
+
+    /**
+     * Set productNote
+     *
+     * @param \AppBundle\Entity\ProductNote $productNote
+     *
+     * @return Product
+     */
+    public function setProductNote(\AppBundle\Entity\ProductNote $productNote = null)
+    {
+        $this->productNote = $productNote;
+
+        return $this;
+    }
+
+    /**
+     * Get productNote
+     *
+     * @return \AppBundle\Entity\ProductNote
+     */
+    public function getProductNote()
+    {
+        return $this->productNote;
+    }
 }

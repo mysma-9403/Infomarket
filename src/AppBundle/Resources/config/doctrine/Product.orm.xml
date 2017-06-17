@@ -8,6 +8,8 @@
         table="products"
         repository-class="AppBundle\Repository\Admin\Main\ProductRepository">
         
+        <one-to-one field="productNote" target-entity="ProductNote" mapped-by="product" />
+        
         <many-to-one field="brand" target-entity="Brand" inversed-by="products" nullable="false" />
         
         <many-to-one field="benchmarkQuery" target-entity="BenchmarkQuery" inversed-by="products" nullable="false" />

@@ -91,7 +91,6 @@ class ProductRepository extends BaseRepository
 	
 	
 	
-	
 	public function findMinMaxValues($categoryId, $valueName) {
 		return $this->queryMinMaxValues($categoryId, $valueName)->getSingleResult(AbstractQuery::HYDRATE_SCALAR);
 	}
