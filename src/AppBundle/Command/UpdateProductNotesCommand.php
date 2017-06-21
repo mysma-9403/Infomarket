@@ -108,25 +108,12 @@ class UpdateProductNotesCommand extends ContainerAwareCommand
 		
 		$logic = new BenchmarkFieldLogic($this->productRepository, $categoryId);
 
-		//TODO should be merged with fields logic?
 		for($i = 0; $i < count($fields); $i++) {
 			$field = $fields[$i];
 			
-			$field = $logic->initNoteField($field);
-			$field = $logic->initValueField($field);
-			
-			switch($field['valueType']) {
-				case BenchmarkField::DECIMAL_FIELD_TYPE:
-				case BenchmarkField::INTEGER_FIELD_TYPE:
-				case BenchmarkField::BOOLEAN_FIELD_TYPE:
-					$field = $logic->initMinMaxValues($field);
-					break;
-				case BenchmarkField::SINGLE_ENUM_FIELD_TYPE:
-				case BenchmarkField::MULTI_ENUM_FIELD_TYPE:
-					$field['enums'] = $productRepository->findMaxEnumValue($categoryId, $field['valueField']); //TODO should be done in logic!
-					break;
-			}
-			
+			$field = $logic->initValueFieldProperty($field);
+			$field = $logic->initNoteFieldProperty($field);
+			$field = $logic->initNoteFieldProperties($field);
 			
 			$fields[$i] = $field;
 		}

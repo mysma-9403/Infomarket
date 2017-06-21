@@ -109,8 +109,6 @@ class ArticleController extends InfoproduktController
 		$articleFilterForm->handleRequest($request);
 		
 		if ($articleFilterForm->isSubmitted() && $articleFilterForm->isValid()) {
-		
-			dump('asd');
 			
 			if ($articleFilterForm->get('search')->isClicked()) {		
 				$routingParams = array();

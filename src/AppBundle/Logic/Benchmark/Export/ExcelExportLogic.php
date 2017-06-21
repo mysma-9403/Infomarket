@@ -159,13 +159,13 @@ class ExcelExportLogic {
 	
 	//TODO should be somewhere else
 	protected function getFieldValue($entry, $showField) {
-		$value = BenchmarkField::getValueTypeDBName($showField['valueType']) . $showField['valueNumber'];
+		$valueField = $showField['valueField'];
 		
 		switch($showField['fieldType']) {
 			case BenchmarkField::BOOLEAN_FIELD_TYPE:
-				return $entry[$value] ? "+" : "-";
+				return $entry[$valueField] ? "+" : "-";
 			default:
-				return $entry[$value];
+				return $entry[$valueField];
 		}
 	}
 	

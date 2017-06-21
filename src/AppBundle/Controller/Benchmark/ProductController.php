@@ -168,8 +168,6 @@ class ProductController extends DummyController {
 		$html = $this->indexActionInternal($request, $page);
 		$html = $exportLogic->clean($html);
 		
-		dump($html);
-		
 		$date = new \DateTime();
 		$response = new Response($this->get('knp_snappy.image')->getOutputFromHtml($html), 200,
 				array(

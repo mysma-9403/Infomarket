@@ -49,20 +49,6 @@ class BenchmarkField extends Audit
 	const GTE_BETTER_THAN_TYPE = 21;
 	const EQUAL_BETTER_THAN_TYPE = 30;
 	
-	
-	public static function getValueTypeDBName($valueType) {
-		switch($valueType) {
-			case self::DECIMAL_VALUE_TYPE:
-				return 'decimal';
-			case self::INTEGER_VALUE_TYPE:
-				return 'integer';
-			case self::STRING_VALUE_TYPE:
-				return 'string';
-			default:
-				return null;
-		}
-	}
-	
 	public static function getValueTypeName($valueType) {
 		switch($valueType) {
 			case self::DECIMAL_VALUE_TYPE:

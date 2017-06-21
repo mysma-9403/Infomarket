@@ -95,7 +95,7 @@
 					</tr>
 					
 					{% for field in benchmarkFields %}
-						{% set key = benchmarkFieldValueTypeDBName(field.valueType) ~ field.valueNumber %}
+						{% set key = field.valueField %}
 						<tr>
 							<th class="text-right">{{ field.fieldName }}</th>
 							<td class="text-center">

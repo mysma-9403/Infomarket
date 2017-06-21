@@ -145,7 +145,7 @@
 					</tr>
 					
 					{% for field in entryFilter.showFields %}
-						{% set key = benchmarkFieldValueTypeDBName(field.valueType) ~ field.valueNumber %}
+						{% set key = field.valueField %}
 						{% set show = false %}
 						{% for entry in entries if show == false %}
 							{% if entry[key] %}

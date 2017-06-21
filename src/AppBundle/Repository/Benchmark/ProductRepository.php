@@ -15,6 +15,7 @@ use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\ORM\QueryBuilder;
 use AppBundle\Entity\BenchmarkEnum;
 use AppBundle\Entity\ProductNote;
+use AppBundle\Utils\Entity\DataBase\BenchmarkFieldDataBaseUtils;
 
 class ProductRepository extends BaseRepository
 {
@@ -147,7 +148,7 @@ class ProductRepository extends BaseRepository
 	}
 	
 	public function findMaxEnumValue($categoryId, $valueName) {
-		return $this->queryMaxEnumValue($categoryId, $valueName)->getScalarResult();
+		return $this->queryMaxEnumValue($categoryId, $valueName)->getSingleScalarResult();
 	}
 	
 	protected function queryMaxEnumValue($categoryId, $valueName)
@@ -161,7 +162,7 @@ class ProductRepository extends BaseRepository
 	
 		$builder->innerJoin(ProductCategoryAssignment::class, 'pca', Join::WITH, 'e.id = pca.product');
 		$builder->innerJoin(Category::class, 'c', Join::WITH, 'c.id = pca.category');
-		$builder->innerJoin(BenchmarkEnum::class, 'be', Join::WITH, 'e.' . $valueName . ' LIKE CONCAT(\'%\', be.name, \'%\')');
+		$builder->leftJoin(BenchmarkEnum::class, 'be', Join::WITH, 'e.' . $valueName . ' LIKE CONCAT(\'%\', be.name, \'%\')');
 	
 		$where = $expr->andX();
 		$where->add($expr->isNull('e.benchmarkQuery'));
@@ -170,7 +171,42 @@ class ProductRepository extends BaseRepository
 	
 		$builder->where($where);
 		
-		$builder->groupBy('pca.product');
+		$builder->groupBy('e.id');
+		
+		$builder->orderBy('value', 'DESC');
+		$builder->setMaxResults(1);
+			
+		return $builder->getQuery();
+	}
+	
+	public function findMinEnumValue($categoryId, $valueName) {
+		return $this->queryMinEnumValue($categoryId, $valueName)->getSingleScalarResult();
+	}
+	
+	protected function queryMinEnumValue($categoryId, $valueName)
+	{
+		$builder = new QueryBuilder($this->getEntityManager());
+	
+		$expr = $builder->expr();
+	
+		$builder->select("SUM(be.value) AS value");
+		$builder->from($this->getEntityType(), "e");
+	
+		$builder->innerJoin(ProductCategoryAssignment::class, 'pca', Join::WITH, 'e.id = pca.product');
+		$builder->innerJoin(Category::class, 'c', Join::WITH, 'c.id = pca.category');
+		$builder->leftJoin(BenchmarkEnum::class, 'be', Join::WITH, 'e.' . $valueName . ' LIKE CONCAT(\'%\', be.name, \'%\')');
+	
+		$where = $expr->andX();
+		$where->add($expr->isNull('e.benchmarkQuery'));
+		$where->add($expr->isNotNull('e.' . $valueName));
+		$where->add($builder->expr()->like('c.treePath', $builder->expr()->literal('%-' . $categoryId . '#%')));
+	
+		$builder->where($where);
+	
+		$builder->groupBy('e.id');
+	
+		$builder->orderBy('value', 'ASC');
+		$builder->setMaxResults(1);
 			
 		return $builder->getQuery();
 	}
@@ -482,7 +518,7 @@ class ProductRepository extends BaseRepository
 		
 		$showFields = $filter->getShowFields();
 		foreach ($showFields as $showField) {
-			$fields[] = 'e.' . BenchmarkField::getValueTypeDBName($showField['valueType']) . $showField['valueNumber'];
+			$fields[] = 'e.' . BenchmarkFieldDataBaseUtils::getValueFieldProperty($showField['valueType'], $showField['valueNumber']);
 		}
 	
 		return $fields;
@@ -524,7 +560,7 @@ class ProductRepository extends BaseRepository
 			foreach ($filterFields as $filterField) {
 				$value = $filterField['value'];
 				if($value != null) {
-					$valueName = BenchmarkField::getValueTypeDBName($filterField['valueType']) . $filterField['valueNumber'];
+					$valueName = BenchmarkFieldDataBaseUtils::getValueFieldProperty($filterField['valueType'], $filterField['valueNumber']);
 					switch ($filterField['filterType']) {
 						case BenchmarkField::DECIMAL_FILTER_TYPE:
 						case BenchmarkField::INTEGER_FILTER_TYPE:
@@ -584,7 +620,8 @@ class ProductRepository extends BaseRepository
 		$where->add($expr->isNull('e.benchmarkQuery'));
 		$where->add($builder->expr()->like('c.treePath', $builder->expr()->literal('%-' . $categoryId . '#%')));
 	
-		$where->add($expr->isNotNull('pn.overalNote'));
+		//TODO default note should be 2.0?
+// 		$where->add($expr->isNotNull('pn.overalNote'));
 		
 		$builder->where($where);
 		
@@ -617,7 +654,8 @@ class ProductRepository extends BaseRepository
 		$where->add($expr->isNull('e.benchmarkQuery'));
 		$where->add($builder->expr()->like('c.treePath', $builder->expr()->literal('%-' . $categoryId . '#%')));
 	
-		$where->add($expr->isNotNull('pn.overalNote'));
+		//TODO default note should be 2.0?
+// 		$where->add($expr->isNotNull('pn.overalNote'));
 		
 		$builder->where($where);
 	

@@ -8,6 +8,9 @@ use AppBundle\Filter\Base\Filter;
 use AppBundle\Repository\Benchmark\BenchmarkFieldRepository;
 use AppBundle\Utils\StringUtils;
 use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Logic\Benchmark\Fields\BenchmarkFieldLogic;
+use AppBundle\Repository\Benchmark\ProductRepository;
+use AppBundle\Utils\Entity\DataBase\BenchmarkFieldDataBaseUtils;
 
 class ProductFilter extends Filter {
 	
@@ -82,6 +85,13 @@ class ProductFilter extends Filter {
 		
 		$this->showFields = $this->benchmarkFieldRepository->findShowItemsByCategory($this->contextCategory);
 		$this->filterFields = $this->benchmarkFieldRepository->findFilterItemsByCategory($this->contextCategory);
+		
+		//TODO dependency injection - check if it can be used to not recalculate fields in ProductManager index
+		for($i = 0; $i < count($this->showFields); $i++) {
+			$field = $this->showFields[$i];
+			$field['valueField'] = BenchmarkFieldDataBaseUtils::getValueFieldProperty($field['valueType'], $field['valueNumber']);
+			$this->showFields[$i] = $field;
+		}
 	}
 	
 	public function initRequestValues(Request $request) {

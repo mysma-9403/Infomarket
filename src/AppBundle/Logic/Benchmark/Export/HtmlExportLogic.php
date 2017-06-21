@@ -45,15 +45,15 @@ class HtmlExportLogic {
 		$this->fillValueRow($handle, $entries, 'Symbol', 'name');
 	
 		foreach ($entryFilter->getShowFields() as $showField) {
-			$fieldName = BenchmarkField::getValueTypeDBName($showField['valueType']) . $showField['valueNumber'];
+			$valueField = $showField['valueField'];
 			$label = $showField['fieldName'];
 	
 			switch($showField['fieldType']) {
 				case BenchmarkField::BOOLEAN_FIELD_TYPE:
-					$this->fillBooleanRow($handle, $entries, $label, $fieldName);
+					$this->fillBooleanRow($handle, $entries, $label, $valueField);
 					break;
 				default:
-					$this->fillValueRow($handle, $entries, $label, $fieldName);
+					$this->fillValueRow($handle, $entries, $label, $valueField);
 					break;
 			}
 		}

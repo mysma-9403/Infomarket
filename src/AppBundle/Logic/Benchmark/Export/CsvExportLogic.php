@@ -30,8 +30,8 @@ class CsvExportLogic {
 	
 		foreach ($entryFilter->getShowFields() as $showField) {
 			$label = $showField['fieldName'];
-			$fieldName = BenchmarkField::getValueTypeDBName($showField['valueType']) . $showField['valueNumber'];
-			$this->fillRow($handle, $entries, $label, $fieldName);
+			$valueField = $showField['valueField'];
+			$this->fillRow($handle, $entries, $label, $valueField);
 		}
 	}
 	

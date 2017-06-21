@@ -61,10 +61,17 @@ class ProductParamsManager extends EntryParamsManager {
 		
 		$fields = $benchmarkFieldRepository->findShowItemsByCategory($categoryId);
 		for ($i = 0; $i < count($fields); $i++) {
-			$valueField = $valueField = BenchmarkField::getValueTypeDBName($fields[$i]['valueType']) . $fields[$i]['valueNumber'];
-			$fields[$i]['valueField'] = $valueField;
+// 			$valueField = $valueField = BenchmarkField::getValueTypeDBName($fields[$i]['valueType']) . $fields[$i]['valueNumber'];
+// 			$fields[$i]['valueField'] = $valueField;
+
+			$logic = new BenchmarkFieldLogic($productRepository, $categoryId);
+			$field = $fields[$i];
 			
-			switch($fields[$i]['fieldType']) {
+			//TODO previous was better due to late DB query --> now throws exception!! :<
+			$field = $logic->initNoteFieldProperties($field);
+			$valueField = $field['valueField'];
+			
+			switch($field['fieldType']) {
 				case BenchmarkField::DECIMAL_FIELD_TYPE:
 				case BenchmarkField::INTEGER_FIELD_TYPE:
 				case BenchmarkField::BOOLEAN_FIELD_TYPE:
@@ -73,10 +80,8 @@ class ProductParamsManager extends EntryParamsManager {
 					$noteType = $fields[$i]['noteType'];
 					$noteWeight = $fields[$i]['noteWeight'];
 					if($value && $noteType != BenchmarkField::NONE_NOTE_TYPE) {
-						$minMaxValues = $productRepository->findMinMaxValues($categoryId, $valueField);
-						
-						$min = $minMaxValues['vmin'];
-						$max = $minMaxValues['vmax'];
+						$min = $field['min'];
+						$max = $field['max'];
 						
 						$note = 2.;
 						if($max > $min) {
@@ -88,12 +93,12 @@ class ProductParamsManager extends EntryParamsManager {
 						} else {
 							$note = 5.;
 						}
-						$fields[$i]['note'] = $note;
+						$field['note'] = $note;
 						
 						$overalNote += $note * $noteWeight;
 						$overalCount += $noteWeight;
 					} else {
-						$fields[$i]['note'] = null;
+						$field['note'] = null;
 					}
 					
 					$betterThanType = $fields[$i]['betterThanType'];
@@ -101,12 +106,12 @@ class ProductParamsManager extends EntryParamsManager {
 						$totalCount = $productRepository->findItemsCount($categoryId, $valueField);
 						$betterThanCount = $productRepository->findBetterThanCount($categoryId, $valueField, $value, $betterThanType);
 						if($totalCount > 0) {
-							$fields[$i]['betterThan'] = 100. * $betterThanCount / $totalCount;
+							$field['betterThan'] = 100. * $betterThanCount / $totalCount;
 						} else {
-							$fields[$i]['betterThan'] = 100.;
+							$field['betterThan'] = 100.;
 						}
 					} else {
-						$fields[$i]['betterThan'] = null;
+						$field['betterThan'] = null;
 					}
 					break;
 				case BenchmarkField::SINGLE_ENUM_FIELD_TYPE:
@@ -114,28 +119,33 @@ class ProductParamsManager extends EntryParamsManager {
 					$noteType = $fields[$i]['noteType'];
 					$noteWeight = $fields[$i]['noteWeight'];
 					if($value && $noteType == BenchmarkField::ENUM_NOTE_TYPE) {
-						$enums = $productRepository->findMaxEnumValue($categoryId, $valueField);
+						$min = $field['min'];
+						$max = $field['max'];
 						
-						$max = 0;
-						foreach($enums as $enum) {
-							$value = $enum['value'];
-							if($max < $value) {
-								$max = $value;
-							}
-						}
 						$value = $productRepository->findEnumValue($entry->getId(), $valueField);
 						
-						$note = 2. + 3. * $value / $max;
+						//TODO what if $value == null?? note = 2.0??
 						
-						$fields[$i]['note'] = $note;
+						$note = 2.;
+						if($max > $min) {
+							if($noteType == BenchmarkField::ASC_NOTE_TYPE) {
+								$note = 2. + 3. * ($value - $min) / ($max - $min);
+							} else {
+								$note = 5. - 3. * ($value - $min) / ($max - $min);
+							}
+						} else {
+							$note = 5.;
+						}
+						$field['note'] = $note;
 						
 						$overalNote += $note * $noteWeight;
 						$overalCount += $noteWeight;
 					} else {
-						$fields[$i]['note'] = null;
+						$field['note'] = null;
 					}
 					break;
 			}
+			$fields[$i] = $field;
 		}
 		$viewParams['benchmarkFields'] = $fields;
 		
@@ -187,21 +197,12 @@ class ProductParamsManager extends EntryParamsManager {
 		for ($i = 0; $i < count($fields); $i++) {
 			$field = $fields[$i];
 			
-			$field = $logic->initValueField($field);
+			$field = $logic->initCompareFieldProperties($field);
 			$valueField = $field['valueField'];
-			
 			$value = $entry->offsetGet($valueField);
 			$weight = $field['compareWeight'];
 			
 			if($value && $weight > 0) {
-				switch($field['fieldType']) {
-					case BenchmarkField::DECIMAL_FIELD_TYPE:
-					case BenchmarkField::INTEGER_FIELD_TYPE:
-					case BenchmarkField::BOOLEAN_FIELD_TYPE:			
-						$minMaxValues = $productRepository->findMinMaxValues($categoryId, $field['valueField']);
-						$field['min'] = $minMaxValues['vmin'];
-						$field['max'] = $minMaxValues['vmax'];
-				}
 				$fields[$i] = $field;
 			} else {
 				$fields[$i] = null;
@@ -220,8 +221,6 @@ class ProductParamsManager extends EntryParamsManager {
 			$entries[$i] = $entry;
 		}
 		$viewParams['entries'] = $entries;
-		dump($entries);
-		
 		
 		$viewParams['benchmarkMessage'] = $this->getBenchmarkMessage($id);
 		

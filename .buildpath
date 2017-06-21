@@ -34,6 +34,7 @@
 	<buildpathentry kind="src" path="vendor/swiftmailer/swiftmailer/lib"/>
 	<buildpathentry kind="src" path="vendor/psr/log/Psr/Log"/>
 	<buildpathentry kind="src" path="vendor/intervention/image/src/Intervention/Image"/>
+	<buildpathentry kind="src" path="vendor/knplabs/knp-snappy/src/Knp/Snappy"/>
 	<buildpathentry kind="src" path="vendor/symfony/symfony/src/Symfony/Bridge/Monolog"/>
 	<buildpathentry kind="src" path="vendor/php-http/guzzle5-adapter/src"/>
 	<buildpathentry kind="src" path="vendor/doctrine/doctrine-bundle"/>
@@ -58,7 +59,6 @@
 	<buildpathentry kind="src" path="vendor/sebastian/code-unit-reverse-lookup/src"/>
 	<buildpathentry excluding="ca-bundle/" kind="src" path="vendor/composer"/>
 	<buildpathentry kind="src" path="vendor/phpunit/php-token-stream/src"/>
-	<buildpathentry kind="src" path="vendor/knplabs/knp-snappy/src"/>
 	<buildpathentry kind="src" path="vendor/phpdocumentor/reflection-common/src"/>
 	<buildpathentry kind="src" path="vendor/symfony/polyfill-util"/>
 	<buildpathentry kind="src" path="vendor/cmen/google-charts-bundle"/>
@@ -92,6 +92,7 @@
 	<buildpathentry kind="src" path="vendor/php-http/client-common/src"/>
 	<buildpathentry excluding="Resources/stubs/" kind="src" path="vendor/symfony/polyfill-php70"/>
 	<buildpathentry kind="src" path="vendor/phpoffice/phpexcel/Classes"/>
+	<buildpathentry external="true" kind="lib" path="E:/Symfony/workspace/Infomarket/vendor/bin/phpunit"/>
 	<buildpathentry kind="src" path="vendor/symfony/symfony/src/Symfony/Bundle"/>
 	<buildpathentry kind="src" path="vendor/incenteev/composer-parameter-handler"/>
 	<buildpathentry kind="src" path="vendor/symfony/polyfill-mbstring"/>

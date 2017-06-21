@@ -4,6 +4,7 @@ namespace AppBundle\Logic\Benchmark\Fields;
 
 use AppBundle\Repository\Benchmark\BenchmarkFieldRepository;
 use AppBundle\Repository\Benchmark\ProductRepository;
+use AppBundle\Entity\BenchmarkField;
 
 class BenchmarkFieldsLogic {
 	
@@ -41,17 +42,14 @@ class BenchmarkFieldsLogic {
 	}
 	
 	
-	
+	//TODO not sure if needed
 	public function getBenchmarkNumberFields() {
 		$fields = $this->benchmarkFieldRepository->findNumberItemsByCategory($this->categoryId);
 		 
 		for ($i = 0; $i < count($fields); $i++) {
 			$field = $fields[$i];
 	
-			$field = $this->logic->initValueField($field);
-    		$field = $this->logic->initMinMaxAvgValues($field);
-    		$field = $this->logic->initModeValue($field);
-    		$field = $this->logic->initMeanValue($field);
+			$field = $this->logic->initCategoryFieldProperties($field);
 	
 			$fields[$i] = $field;
 		}
@@ -65,8 +63,7 @@ class BenchmarkFieldsLogic {
     	for ($i = 0; $i < count($fields); $i++) {
     		$field = $fields[$i];
     		
-    		$field = $this->logic->initValueField($field);
-    		$field = $this->logic->initEnumValues($field);
+    		$field = $this->logic->initCategoryFieldProperties($field);
     		
     		$fields[$i] = $field;
     	}
@@ -80,8 +77,7 @@ class BenchmarkFieldsLogic {
 		for ($i = 0; $i < count($fields); $i++) {
 			$field = $fields[$i];
 		
-			$field = $this->logic->initValueField($field);
-			$field = $this->logic->initTrueValuesCount($field);
+			$field = $this->logic->initCategoryFieldProperties($field);
 		
 			$fields[$i] = $field;
 		}
@@ -92,13 +88,13 @@ class BenchmarkFieldsLogic {
 	public function getBenchmarkPriceField() {
 		$field = array();
 		
+		$field['valueType'] = BenchmarkField::DECIMAL_VALUE_TYPE;
 		$field['valueField'] = 'price';
+		$field['fieldType'] = BenchmarkField::DECIMAL_FIELD_TYPE;
 		$field['fieldName'] = 'Cena [PLN]'; //TODO translator :) :(
 		$field['decimalPlaces'] = 2;
 
-		$field = $this->logic->initMinMaxAvgValues($field);
-		$field = $this->logic->initModeValue($field);
-		$field = $this->logic->initMeanValue($field);
+		$field = $this->logic->initCategoryFieldProperties($field, false);
 		
 		return $field;
 	}

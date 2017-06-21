@@ -22,6 +22,7 @@ use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use AppBundle\Utils\Entity\DataBase\BenchmarkFieldDataBaseUtils;
 
 class ProductFilterType extends FilterType
 {	
@@ -120,7 +121,7 @@ class ProductFilterType extends FilterType
 					break;
 				case BenchmarkField::SINGLE_ENUM_FILTER_TYPE:
 				case BenchmarkField::MULTI_ENUM_FILTER_TYPE:
-					$choices = $productRepository->findFilterItemsByValue($category, BenchmarkField::getValueTypeDBName($field['valueType']) . $field['valueNumber']);
+					$choices = $productRepository->findFilterItemsByValue($category, BenchmarkFieldDataBaseUtils::getValueFieldProperty($field['valueType'], $field['valueNumber']));
 					$builder->add(StringUtils::getCleanName($field['filterName']), ChoiceType::class, array(
 						'choices'		=> $choices,
 						'choice_label' => function ($value, $key, $index) { return $value; },
