@@ -353,8 +353,8 @@ class CategoryController extends FeaturedEntityController {
 	 * @see \AppBundle\Controller\Admin\Base\ImageEntityController::prepareEntry()
 	 * 
 	 */
-	protected function prepareEntry(&$entry, $params) {
-		parent::prepareEntry($entry);
+	protected function prepareEntry($request, &$entry, $params) {
+		parent::prepareEntry($request, $entry, $params);
 		
 		/** @var Category $entry */
 		$parent = $entry->getParent();

@@ -2,7 +2,7 @@
 
 namespace AppBundle\Logic\Benchmark\Export;
 
-use AppBundle\Entity\BenchmarkField;
+
 
 class CsvExportLogic {
 	

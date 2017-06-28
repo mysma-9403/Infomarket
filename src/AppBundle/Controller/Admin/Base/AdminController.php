@@ -456,7 +456,7 @@ abstract class AdminController extends StandardController {
 	 * 
 	 * @param unknown $entry
 	 */
-	protected function prepareEntry(&$entry, $params) { }
+	protected function prepareEntry($request, &$entry, $params) { }
 	
 	protected function saveMore($request, $entry, $params) { }
 	

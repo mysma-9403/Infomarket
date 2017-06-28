@@ -6,11 +6,9 @@ use AppBundle;
 use AppBundle\Entity\BenchmarkField;
 use AppBundle\Filter\Base\Filter;
 use AppBundle\Repository\Benchmark\BenchmarkFieldRepository;
+use AppBundle\Utils\Entity\DataBase\BenchmarkFieldDataBaseUtils;
 use AppBundle\Utils\StringUtils;
 use Symfony\Component\HttpFoundation\Request;
-use AppBundle\Logic\Benchmark\Fields\BenchmarkFieldLogic;
-use AppBundle\Repository\Benchmark\ProductRepository;
-use AppBundle\Utils\Entity\DataBase\BenchmarkFieldDataBaseUtils;
 
 class ProductFilter extends Filter {
 	

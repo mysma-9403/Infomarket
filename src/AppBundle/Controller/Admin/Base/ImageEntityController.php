@@ -43,8 +43,8 @@ abstract class ImageEntityController extends SimpleEntityController {
 	 * {@inheritDoc}
 	 * @see \AppBundle\Controller\Admin\Base\SimpleEntityController::prepareEntry()
 	 */
-	//TODO refactor
-	protected function prepareEntry(&$entry, $params) {
+	protected function prepareEntry($request, &$entry, $params) {
+		parent::prepareEntry($request, $entry, $params);
 		if($entry->getFile()) {
 			$uploadableManager = $this->get('stof_doctrine_extensions.uploadable.manager');
 			$uploadableManager->markEntityToUpload($entry, new UploadedFileInfo($entry->getFile()));

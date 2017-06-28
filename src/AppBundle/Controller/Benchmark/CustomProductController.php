@@ -190,7 +190,7 @@ class CustomProductController extends ImageEntityController {
 		return $options;
 	}
 	
-	protected function prepareEntry(&$entry, $params) {
+	protected function prepareEntry($request, &$entry, $params) {
 		/** @var Product $entry */
 		$entry->setCustom(true);
 		
