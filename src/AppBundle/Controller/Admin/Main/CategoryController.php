@@ -9,7 +9,7 @@ use AppBundle\Entity\Branch;
 use AppBundle\Entity\Category;
 use AppBundle\Entity\ImportRatings;
 use AppBundle\Entity\ProductCategoryAssignment;
-use AppBundle\Factory\Admin\ProductImportErrorFactory;
+use AppBundle\Factory\Admin\Import\Product\ImportErrorFactory;
 use AppBundle\Filter\Admin\Main\CategoryFilter;
 use AppBundle\Form\Editor\Main\CategoryEditorType;
 use AppBundle\Form\Filter\Admin\Main\CategoryFilterType;
@@ -238,7 +238,7 @@ class CategoryController extends FeaturedEntityController {
 			
 			$doctrine = $this->getDoctrine();
 			$translator = $this->get('translator');
-			$errorFactory = new ProductImportErrorFactory($translator);
+			$errorFactory = new ImportErrorFactory($translator);
 			$importLogic = new ImportLogic($doctrine, $errorFactory);
 			
 			$result = $importLogic->importRatings($importRatings, $entry);

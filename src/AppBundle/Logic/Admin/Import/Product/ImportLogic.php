@@ -1,6 +1,6 @@
 <?php
 
-namespace AppBundle\Logic\Admin;
+namespace AppBundle\Logic\Admin\Import\Product;
 
 use AppBundle\Entity\BenchmarkField;
 use AppBundle\Entity\Brand;
@@ -9,11 +9,12 @@ use AppBundle\Entity\Product;
 use AppBundle\Entity\ProductCategoryAssignment;
 use AppBundle\Entity\Segment;
 use AppBundle\Factory\Admin\ErrorFactory;
-use AppBundle\Factory\Admin\ProductImportErrorFactory;
+use AppBundle\Factory\Admin\Import\Product\ImportErrorFactory;
+use AppBundle\Utils\Entity\DataBase\BenchmarkFieldDataBaseUtils;
 use AppBundle\Utils\StringUtils;
 use Doctrine\Bundle\DoctrineBundle\Registry;
 
-class ProductImportLogic {
+class ImportLogic {
 	
 	/**
 	 * 
@@ -23,13 +24,13 @@ class ProductImportLogic {
 	
 	/**
 	 *
-	 * @var ProductImportErrorFactory
+	 * @var ImportErrorFactory
 	 */
 	protected $errorFactory;
 	
 	
 	
-	public function __construct(Registry $doctrine, ProductImportErrorFactory $errorFactory) {
+	public function __construct(Registry $doctrine, ImportErrorFactory $errorFactory) {
 		$this->doctrine = $doctrine;
 		$this->errorFactory = $errorFactory;
 	}
@@ -250,7 +251,7 @@ class ProductImportLogic {
 						
 						$item = array();
 						
-						$itemName = BenchmarkField::getValueTypeDBName($valueType) . $valueNumber;
+						$itemName = BenchmarkFieldDataBaseUtils::getValueFieldProperty($valueType, $valueNumber);
 						
 						$item['index'] = $i;
 						$item['name'] = $itemName;
