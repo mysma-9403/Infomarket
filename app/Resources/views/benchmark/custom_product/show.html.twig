@@ -34,7 +34,7 @@
 	{ 'label': 'label.product.price', 'value': entry.price|number_format(2, '.', ' ') } %}
 	
 	{% for field in productFilter.editorFields %}
-		{% set key = benchmarkFieldValueTypeDBName(field.valueType) ~ field.valueNumber %}
+		{% set key = field.valueField %}
 		
 		{% if field.fieldType == constant('AppBundle\\Entity\\BenchmarkField::BOOLEAN_FIELD_TYPE') %}
 			{% include 'common/fields/bool_field.html.twig' with 

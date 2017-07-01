@@ -111,8 +111,6 @@ class UpdateProductNotesCommand extends ContainerAwareCommand
 		for($i = 0; $i < count($fields); $i++) {
 			$field = $fields[$i];
 			
-			$field = $logic->initValueFieldProperty($field);
-			$field = $logic->initNoteFieldProperty($field);
 			$field = $logic->initNoteFieldProperties($field);
 			
 			$fields[$i] = $field;

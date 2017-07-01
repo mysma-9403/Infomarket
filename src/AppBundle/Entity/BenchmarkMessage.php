@@ -38,6 +38,15 @@ class BenchmarkMessage extends Audit
 	}
 	
 	
+	/**
+	 * Constructor
+	 */
+	public function __construct()
+	{
+		$this->state = self::REPORTED_STATE;
+		$this->children = new \Doctrine\Common\Collections\ArrayCollection();
+	}
+	
 	
     /**
      * @var integer
@@ -285,14 +294,6 @@ class BenchmarkMessage extends Audit
      * @var string
      */
     private $name;
-
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->children = new \Doctrine\Common\Collections\ArrayCollection();
-    }
 
     /**
      * Set name

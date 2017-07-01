@@ -20,6 +20,7 @@ use AppBundle\Form\Benchmark\SubcategoryFilterType;
 use AppBundle\Manager\Entity\Base\EntityManager;
 use AppBundle\Manager\Params\EntryParams\Benchmark\CustomProductEntryParamsManager;
 use AppBundle\Entity\ProductCategoryAssignment;
+use AppBundle\Entity\ProductNote;
 
 class CustomProductController extends ImageEntityController {
 	
@@ -220,6 +221,40 @@ class CustomProductController extends ImageEntityController {
 			$em->persist($assignment);
 			$em->flush();
 		}
+		
+		if(!$entry->getProductNote()) {
+			$note = new ProductNote();
+			$note->setProduct($entry);
+			$note->setOveralNote(2.0); //TODO first note should be calculated here!
+			
+			/** @var \Doctrine\Common\Persistence\ObjectManager $em */
+			$em = $this->getDoctrine()->getManager();
+			
+			$em->persist($note);
+			$em->flush();
+		}
+	}
+	
+	/**
+	 *
+	 * {@inheritDoc}
+	 * @see \AppBundle\Controller\Admin\Base\AdminEntityController::deleteMore()
+	 */
+	protected function deleteMore($entry)
+	{
+		/** @var Product $entry */
+		$em = $this->getDoctrine()->getManager();
+		foreach ($entry->getProductCategoryAssignments() as $productCategoryAssignment) {
+			$em->remove($productCategoryAssignment);
+		}
+		$em->flush();
+	
+		if($entry->getProductNote()) {
+			$em->remove($entry->getProductNote());
+		}
+		$em->flush();
+	
+		return array();
 	}
 	
 	//---------------------------------------------------------------------------

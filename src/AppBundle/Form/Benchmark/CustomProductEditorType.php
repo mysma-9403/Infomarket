@@ -17,6 +17,7 @@ use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use AppBundle\Form\Editor\Transformer\IntegerToBooleanTransformer;
+use AppBundle\Utils\Entity\DataBase\BenchmarkFieldDataBaseUtils;
 
 class CustomProductEditorType extends ImageEntityEditorType
 {
@@ -66,7 +67,7 @@ class CustomProductEditorType extends ImageEntityEditorType
 		
 		if($filter) {
 			foreach ($filter->getEditorFields() as $field) {
-				$fieldName = BenchmarkField::getValueTypeDBName($field['valueType']) . $field['valueNumber'];
+				$fieldName = BenchmarkFieldDataBaseUtils::getValueFieldProperty($field['valueType'], $field['valueNumber']);
 				switch($field['fieldType']) {
 					case BenchmarkField::DECIMAL_FIELD_TYPE:
 						$builder->add($fieldName, NumberType::class, array(

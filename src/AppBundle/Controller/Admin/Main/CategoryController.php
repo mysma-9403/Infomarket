@@ -14,7 +14,7 @@ use AppBundle\Filter\Admin\Main\CategoryFilter;
 use AppBundle\Form\Editor\Main\CategoryEditorType;
 use AppBundle\Form\Filter\Admin\Main\CategoryFilterType;
 use AppBundle\Form\Other\ImportRatingsType;
-use AppBundle\Logic\Admin\ProductImportLogic;
+use AppBundle\Logic\Admin\Import\Product\ImportLogic;
 use AppBundle\Manager\Entity\Base\EntityManager;
 use AppBundle\Manager\Entity\Common\CategoryManager;
 use AppBundle\Manager\Filter\Base\FilterManager;
@@ -239,7 +239,7 @@ class CategoryController extends FeaturedEntityController {
 			$doctrine = $this->getDoctrine();
 			$translator = $this->get('translator');
 			$errorFactory = new ProductImportErrorFactory($translator);
-			$importLogic = new ProductImportLogic($doctrine, $errorFactory);
+			$importLogic = new ImportLogic($doctrine, $errorFactory);
 			
 			$result = $importLogic->importRatings($importRatings, $entry);
 			$errors = $result['errors'];

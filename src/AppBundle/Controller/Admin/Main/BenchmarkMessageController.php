@@ -22,6 +22,7 @@ use AppBundle\Repository\Admin\Main\ProductRepository;
 use AppBundle\Utils\StringUtils;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class BenchmarkMessageController extends BaseEntityController {
 	
@@ -108,6 +109,21 @@ class BenchmarkMessageController extends BaseEntityController {
 	// Internal actions
 	//---------------------------------------------------------------------------
 	
+	protected function showActionInternal(Request $request, $id)
+	{
+		//TODO I don't like this override and duplicate actions -> maybe save should be moved to Manager?? or ActionInternal should be splitted?
+		$this->denyAccessUnlessGranted($this->getEditRole(), null, 'Unable to access this page!');
+	
+		$params = $this->createParams($this->getSetReadRoute());
+		$params = $this->getEditParams($request, $params, $id);
+		
+		$viewParams = $params['viewParams'];
+		$entry = $viewParams['entry'];
+		$this->setReadEntry($request, $entry, true);
+	
+		return parent::showActionInternal($request, $id);
+	}
+	
 	protected function setReadActionInternal(Request $request, $id)
 	{
 		$this->denyAccessUnlessGranted($this->getEditRole(), null, 'Unable to access this page!');
@@ -116,16 +132,8 @@ class BenchmarkMessageController extends BaseEntityController {
 		$params = $this->getEditParams($request, $params, $id);
 	
 		$viewParams = $params['viewParams'];
-		/** @var BenchmarkMessage $entry */
 		$entry = $viewParams['entry'];
-	
-		$read = $request->get('value', false);
-	
-		$em = $this->getDoctrine()->getManager();
-	
-		$entry->setReadByAdmin($read);
-		$em->persist($entry);
-		$em->flush();
+		$this->setReadEntry($request, $entry);
 	
 		return $this->redirectToReferer($request);
 	}
@@ -176,11 +184,10 @@ class BenchmarkMessageController extends BaseEntityController {
 		if ($form->isSubmitted() && $form->isValid())
 		{
 			if ($form->get('save')->isClicked()) {
-				$this->saveEntry($newEntry);
+				$this->saveEntry($request, $newEntry, $viewParams);
 				
-				$entry->setReadByAuthor(true);
 				$entry->setState($newEntry->getState());
-				$this->saveEntry($entry);
+				$this->saveEntry($request, $entry, $viewParams);
 				
 				$translator = $this->get('translator');
 				$message = $translator->trans('success.created');
@@ -214,6 +221,16 @@ class BenchmarkMessageController extends BaseEntityController {
 		return $options;
 	}
 	
+	protected function setReadEntry(Request $request, $entry, $read = false) {
+		$read = $request->get('value', $read);
+		
+		$em = $this->getDoctrine()->getManager();
+		
+		$entry->setReadByAdmin($read);
+		$em->persist($entry);
+		$em->flush();
+	}
+	
 	/**
 	 *
 	 * @param array $entries
@@ -228,6 +245,17 @@ class BenchmarkMessageController extends BaseEntityController {
 			$repository = $this->getEntityRepository();
 			$repository->setRead($items, $read);
 		}
+	}
+	
+	/**
+	 *
+	 * @param BenchmarkMessage $entry
+	 */
+	protected function prepareEntry($request, &$entry, $params) {
+		parent::prepareEntry($request, $entry, $params);
+		
+		$entry->setReadByAdmin(true);
+		$entry->setReadByAuthor(false);
 	}
 	
 	//---------------------------------------------------------------------------

@@ -54,7 +54,7 @@
 	{% if productFilter is defined %}
 		{% for field in productFilter.editorFields %}
 			<div class="col-xs-12">
-				{{ form_row(form[benchmarkFieldValueTypeDBName(field.valueType) ~ field.valueNumber], { label: field.fieldName }) }}
+				{{ form_row(form[field.valueField], { label: field.fieldName }) }}
 			</div>
 		{% endfor %}
 	{% endif %}

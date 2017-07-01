@@ -20,6 +20,7 @@ use Symfony\Component\HttpFoundation\StreamedResponse;
 use AppBundle\Form\Filter\Admin\Other\CategoryFilterType;
 use AppBundle\Manager\Entity\Base\EntityManager;
 use AppBundle\Manager\Params\EntryParams\Admin\ProductEntryParamsManager;
+use AppBundle\Entity\ProductNote;
 
 class ProductController extends ImageEntityController {
 	
@@ -293,6 +294,23 @@ class ProductController extends ImageEntityController {
 		return $options;
 	}
 	
+	protected function saveMore($request, $entry, $params) {
+		parent::saveMore($request, $entry, $params);
+	
+		//TODO copy-pasted in CustomProductController - should be unified
+		if(!$entry->getProductNote()) {
+			$note = new ProductNote();
+			$note->setProduct($entry);
+			$note->setOveralNote(2.0); //TODO first note should be calculated here!
+				
+			/** @var \Doctrine\Common\Persistence\ObjectManager $em */
+			$em = $this->getDoctrine()->getManager();
+				
+			$em->persist($note);
+			$em->flush();
+		}
+	}
+	
 	/**
 	 *
 	 * {@inheritDoc}
@@ -300,9 +318,15 @@ class ProductController extends ImageEntityController {
 	 */
 	protected function deleteMore($entry)
 	{
+		/** @var Product $entry */
 		$em = $this->getDoctrine()->getManager();
 		foreach ($entry->getProductCategoryAssignments() as $productCategoryAssignment) {
 			$em->remove($productCategoryAssignment);
+		}
+		$em->flush();
+		
+		if($entry->getProductNote()) {
+			$em->remove($entry->getProductNote());
 		}
 		$em->flush();
 	

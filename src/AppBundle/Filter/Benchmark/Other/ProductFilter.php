@@ -5,6 +5,7 @@ namespace AppBundle\Filter\Benchmark\Other;
 use AppBundle;
 use AppBundle\Filter\Base\Filter;
 use AppBundle\Repository\Admin\Main\BenchmarkFieldRepository;
+use AppBundle\Utils\Entity\DataBase\BenchmarkFieldDataBaseUtils;
 
 class ProductFilter extends Filter {
 	
@@ -36,6 +37,13 @@ class ProductFilter extends Filter {
 		$this->contextCategory = $contextParams['subcategory'];
 		
 		$this->editorFields = $this->benchmarkFieldRepository->findItemsByCategory($this->contextCategory);
+		
+		//TODO dependency injection - check if it can be used to not recalculate fields in ProductManager index
+		for($i = 0; $i < count($this->editorFields); $i++) {
+			$field = $this->editorFields[$i];
+			$field['valueField'] = BenchmarkFieldDataBaseUtils::getValueFieldProperty($field['valueType'], $field['valueNumber']);
+			$this->editorFields[$i] = $field;
+		}
 	}
 	
 	/**

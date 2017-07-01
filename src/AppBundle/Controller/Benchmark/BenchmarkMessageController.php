@@ -47,6 +47,21 @@ class BenchmarkMessageController extends BaseEntityController {
 	// Internal actions
 	//---------------------------------------------------------------------------
 	
+	protected function showActionInternal(Request $request, $id)
+	{
+		//TODO I don't like this override and duplicate actions -> maybe save should be moved to Manager?? or ActionInternal should be splitted?
+		$this->denyAccessUnlessGranted($this->getEditRole(), null, 'Unable to access this page!');
+	
+		$params = $this->createParams($this->getSetReadRoute());
+		$params = $this->getEditParams($request, $params, $id);
+	
+		$viewParams = $params['viewParams'];
+		$entry = $viewParams['entry'];
+		$this->setReadEntry($request, $entry, true);
+	
+		return parent::showActionInternal($request, $id);
+	}
+	
 	protected function setReadActionInternal(Request $request, $id)
 	{
 		$this->denyAccessUnlessGranted($this->getEditRole(), null, 'Unable to access this page!');
@@ -115,11 +130,10 @@ class BenchmarkMessageController extends BaseEntityController {
 		if ($form->isSubmitted() && $form->isValid())
 		{
 			if ($form->get('save')->isClicked()) {
-				$this->saveEntry($newEntry);
-	
-				$entry->setReadByAuthor(true);
+				$this->saveEntry($request, $newEntry, $viewParams);
+				
 				$entry->setState($newEntry->getState());
-				$this->saveEntry($entry);
+				$this->saveEntry($request, $entry, $viewParams);
 	
 				$translator = $this->get('translator');
 				$message = $translator->trans('success.created');
@@ -183,6 +197,16 @@ class BenchmarkMessageController extends BaseEntityController {
 		$fields[] = $item['name'];
 	
 		return $fields;
+	}
+	
+	protected function setReadEntry(Request $request, $entry, $read = false) {
+		$read = $request->get('value', $read);
+	
+		$em = $this->getDoctrine()->getManager();
+	
+		$entry->setReadByAuthor($read);
+		$em->persist($entry);
+		$em->flush();
 	}
 	
 	/**
@@ -279,6 +303,11 @@ class BenchmarkMessageController extends BaseEntityController {
 	//---------------------------------------------------------------------------
 	// Routes
 	//---------------------------------------------------------------------------
+	
+	protected function getEditRoute()
+	{
+		return $this->getShowRoute();
+	}
 	
 	protected function getSetReadRoute()
 	{

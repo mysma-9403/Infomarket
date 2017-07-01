@@ -61,13 +61,12 @@ class ProductParamsManager extends EntryParamsManager {
 		
 		$fields = $benchmarkFieldRepository->findShowItemsByCategory($categoryId);
 		for ($i = 0; $i < count($fields); $i++) {
-// 			$valueField = $valueField = BenchmarkField::getValueTypeDBName($fields[$i]['valueType']) . $fields[$i]['valueNumber'];
+// 			$valueField = $valueField = BenchmarkFieldDataBaseUtils::getValueFieldProperty($field['valueType'], $field['valueNumber']);
 // 			$fields[$i]['valueField'] = $valueField;
 
 			$logic = new BenchmarkFieldLogic($productRepository, $categoryId);
 			$field = $fields[$i];
 			
-			//TODO previous was better due to late DB query --> now throws exception!! :<
 			$field = $logic->initNoteFieldProperties($field);
 			$valueField = $field['valueField'];
 			
