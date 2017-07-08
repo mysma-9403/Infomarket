@@ -19,6 +19,13 @@ use AppBundle\Repository\Benchmark\BenchmarkFieldRepository;
 use AppBundle\Repository\Benchmark\CategoryRepository;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Logic\Benchmark\Fields\BenchmarkChartLogic;
+use AppBundle\Logic\Common\BenchmarkField\Provider\BenchmarkFieldsProvider;
+use AppBundle\Logic\Common\BenchmarkField\Initializer\BenchmarkFieldsInitializerImpl;
+use AppBundle\Factory\Common\BenchmarkField\CategoryBenchmarkFieldFactory;
+use Doctrine\Common\Persistence\ObjectManager;
+use AppBundle\Repository\Benchmark\ProductRepository;
+use AppBundle\Entity\Product;
+use AppBundle\Utils\Entity\DataBase\BenchmarkFieldDataBaseUtils;
 
 class CategoryController extends DummyController {
 	
@@ -147,7 +154,19 @@ class CategoryController extends DummyController {
 	protected function getInternalEntryParamsManager(EntityManager $em, FilterManager $fm, $doctrine) {
 		$translator = $this->get('translator');
 		$chartLogic = new BenchmarkChartLogic($translator);
-		return new CategoryParamsManager($em, $fm, $doctrine, $chartLogic);
+		
+		/** @var ObjectManager $manager */
+		$manager = $doctrine->getManager();
+		
+		$benchmarkFieldRepository = new BenchmarkFieldRepository($manager, $manager->getClassMetadata(BenchmarkField::class));
+		$benchmarkFieldsProvider = new BenchmarkFieldsProvider($benchmarkFieldRepository, $translator);
+		
+		$benchmarkFieldDataBaseUtils = new BenchmarkFieldDataBaseUtils(); //TODO make service??
+		$productRepository = new ProductRepository($manager, $manager->getClassMetadata(Product::class));
+		
+		$benchmarkFieldFactory = new CategoryBenchmarkFieldFactory($benchmarkFieldDataBaseUtils, $productRepository);
+		$benchmarkFieldsInitializer = new BenchmarkFieldsInitializerImpl($benchmarkFieldFactory);
+		return new CategoryParamsManager($em, $fm, $doctrine, $chartLogic, $benchmarkFieldsProvider, $benchmarkFieldsInitializer);
 	}
 	
 	protected function getEntityManager($doctrine, $paginator) {

@@ -5,8 +5,8 @@ namespace AppBundle\Filter\Benchmark;
 use AppBundle;
 use AppBundle\Entity\BenchmarkField;
 use AppBundle\Filter\Base\Filter;
-use AppBundle\Repository\Benchmark\BenchmarkFieldRepository;
-use AppBundle\Utils\Entity\DataBase\BenchmarkFieldDataBaseUtils;
+use AppBundle\Logic\Common\BenchmarkField\Initializer\BenchmarkFieldsInitializer;
+use AppBundle\Logic\Common\BenchmarkField\Provider\BenchmarkFieldsProvider;
 use AppBundle\Utils\StringUtils;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -14,9 +14,21 @@ class ProductFilter extends Filter {
 	
 	/**
 	 * 
-	 * @var BenchmarkFieldRepository
+	 * @var BenchmarkFieldsProvider
 	 */
-	protected $benchmarkFieldRepository;
+	protected $benchmarkFieldsProvider;
+	
+	/**
+	 *
+	 * @var BenchmarkFieldsInitializer
+	 */
+	protected $showFieldsInitializer;
+	
+	/**
+	 *
+	 * @var BenchmarkFieldsInitializer
+	 */
+	protected $filterFieldsInitializer;
 	
 	/**
 	 *
@@ -72,8 +84,12 @@ class ProductFilter extends Filter {
 	protected $benchmarkQuery = null;
 	
 	
-	public function __construct(BenchmarkFieldRepository $benchmarkFieldRepository) {
-		$this->benchmarkFieldRepository = $benchmarkFieldRepository;
+	public function __construct(BenchmarkFieldsProvider $benchmarkFieldsProvider, 
+			BenchmarkFieldsInitializer $showFieldsInitializer, 
+			BenchmarkFieldsInitializer $filterFieldsInitializer) {
+		$this->benchmarkFieldsProvider = $benchmarkFieldsProvider;
+		$this->showFieldsInitializer = $showFieldsInitializer;
+		$this->filterFieldsInitializer = $filterFieldsInitializer;
 		
 		$this->filterName = 'product_';
 	}
@@ -81,15 +97,12 @@ class ProductFilter extends Filter {
 	public function initContextParams(array $contextParams) {
 		$this->contextCategory = $contextParams['subcategory'];
 		
-		$this->showFields = $this->benchmarkFieldRepository->findShowItemsByCategory($this->contextCategory);
-		$this->filterFields = $this->benchmarkFieldRepository->findFilterItemsByCategory($this->contextCategory);
+		//TODO check if it can be used to not recalculate fields in ProductManager index
+		$fields = $this->benchmarkFieldsProvider->getShowFields($this->contextCategory);
+		$this->showFields = $this->showFieldsInitializer->init($fields, $this->contextCategory);
 		
-		//TODO dependency injection - check if it can be used to not recalculate fields in ProductManager index
-		for($i = 0; $i < count($this->showFields); $i++) {
-			$field = $this->showFields[$i];
-			$field['valueField'] = BenchmarkFieldDataBaseUtils::getValueFieldProperty($field['valueType'], $field['valueNumber']);
-			$this->showFields[$i] = $field;
-		}
+		$fields = $this->benchmarkFieldsProvider->getFilterFields($this->contextCategory);
+		$this->filterFields = $this->filterFieldsInitializer->init($fields, $this->contextCategory);
 	}
 	
 	public function initRequestValues(Request $request) {
@@ -104,19 +117,19 @@ class ProductFilter extends Filter {
 		$this->maxPrice = $this->getRequestValue($request, 'price_max');
 		
 		foreach ($this->filterFields as $key => $field) {
-			switch($field['filterType']) {
-				case BenchmarkField::DECIMAL_FILTER_TYPE:
-				case BenchmarkField::INTEGER_FILTER_TYPE:
+			switch($field['fieldType']) {
+				case BenchmarkField::DECIMAL_FIELD_TYPE:
+				case BenchmarkField::INTEGER_FIELD_TYPE:
 					$value = array();
 					$value['min'] = $this->getRequestValue($request, StringUtils::getCleanName($field['filterName']) . '_min');
 					$value['max'] = $this->getRequestValue($request, StringUtils::getCleanName($field['filterName']) . '_max');
 					$this->filterFields[$key]['value'] = $value;
 					break;
-				case BenchmarkField::BOOLEAN_FILTER_TYPE:
+				case BenchmarkField::BOOLEAN_FIELD_TYPE:
 					$this->filterFields[$key]['value'] = $this->getRequestBool($request, StringUtils::getCleanName($field['filterName']));
 					break;
-				case BenchmarkField::SINGLE_ENUM_FILTER_TYPE:
-				case BenchmarkField::MULTI_ENUM_FILTER_TYPE:
+				case BenchmarkField::SINGLE_ENUM_FIELD_TYPE:
+				case BenchmarkField::MULTI_ENUM_FIELD_TYPE:
 					$this->filterFields[$key]['value'] = $this->getRequestArray($request, StringUtils::getCleanName($field['filterName']));
 					break;
 				default:
@@ -140,19 +153,19 @@ class ProductFilter extends Filter {
 		$this->maxPrice = null;
 		
 		foreach ($this->filterFields as $key => $field) {
-			switch($field['filterType']) {
-				case BenchmarkField::DECIMAL_FILTER_TYPE:
-				case BenchmarkField::INTEGER_FILTER_TYPE:
+			switch($field['fieldType']) {
+				case BenchmarkField::DECIMAL_FIELD_TYPE:
+				case BenchmarkField::INTEGER_FIELD_TYPE:
 					$value = array();
 					$value['min'] = null;
 					$value['max'] = null;
 					$this->filterFields[$key]['value'] = $value;
 					break;
-				case BenchmarkField::BOOLEAN_FILTER_TYPE:
+				case BenchmarkField::BOOLEAN_FIELD_TYPE:
 					$this->filterFields[$key]['value'] = Filter::ALL_VALUES;
 					break;
-				case BenchmarkField::SINGLE_ENUM_FILTER_TYPE:
-				case BenchmarkField::MULTI_ENUM_FILTER_TYPE:
+				case BenchmarkField::SINGLE_ENUM_FIELD_TYPE:
+				case BenchmarkField::MULTI_ENUM_FIELD_TYPE:
 					$this->filterFields[$key]['value'] = array();
 					break;
 				default:
@@ -176,17 +189,17 @@ class ProductFilter extends Filter {
 		$this->setRequestValue($values, 'price_max', $this->maxPrice);
 		
 		foreach ($this->filterFields as $field) {
-			switch($field['filterType']) {
-				case BenchmarkField::DECIMAL_FILTER_TYPE:
-				case BenchmarkField::INTEGER_FILTER_TYPE:
+			switch($field['fieldType']) {
+				case BenchmarkField::DECIMAL_FIELD_TYPE:
+				case BenchmarkField::INTEGER_FIELD_TYPE:
 					$this->setRequestValue($values, StringUtils::getCleanName($field['filterName']) . '_min', $field['value']['min']);
 					$this->setRequestValue($values, StringUtils::getCleanName($field['filterName']) . '_max', $field['value']['max']);
 					break;
-				case BenchmarkField::BOOLEAN_FILTER_TYPE:
+				case BenchmarkField::BOOLEAN_FIELD_TYPE:
 					$this->setRequestBool($values, StringUtils::getCleanName($field['filterName']), $field['value']);
 					break;
-				case BenchmarkField::SINGLE_ENUM_FILTER_TYPE:
-				case BenchmarkField::MULTI_ENUM_FILTER_TYPE:
+				case BenchmarkField::SINGLE_ENUM_FIELD_TYPE:
+				case BenchmarkField::MULTI_ENUM_FIELD_TYPE:
 					$this->setRequestArray($values, StringUtils::getCleanName($field['filterName']), $field['value']);
 					break;
 				default:
@@ -394,9 +407,9 @@ class ProductFilter extends Filter {
 	
 	public function __get($valueName) {
 		foreach ($this->filterFields as $field) {
-			switch ($field['filterType']) {
-				case BenchmarkField::DECIMAL_FILTER_TYPE:
-				case BenchmarkField::INTEGER_FILTER_TYPE:
+			switch ($field['fieldType']) {
+				case BenchmarkField::DECIMAL_FIELD_TYPE:
+				case BenchmarkField::INTEGER_FIELD_TYPE:
 					if(StringUtils::getCleanName($field['filterName']) . '_min' == $valueName) {
 						return $field['value']['min'];
 					}
@@ -416,9 +429,9 @@ class ProductFilter extends Filter {
 	
 	public function __set($valueName, $value) {
 		foreach ($this->filterFields as $key => $field) {
-			switch ($field['filterType']) {
-				case BenchmarkField::DECIMAL_FILTER_TYPE:
-				case BenchmarkField::INTEGER_FILTER_TYPE:
+			switch ($field['fieldType']) {
+				case BenchmarkField::DECIMAL_FIELD_TYPE:
+				case BenchmarkField::INTEGER_FIELD_TYPE:
 					if(StringUtils::getCleanName($field['filterName']) . '_min' == $valueName) {
 						$this->filterFields[$key]['value']['min'] = $value;
 						return $this;

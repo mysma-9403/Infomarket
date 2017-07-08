@@ -65,7 +65,7 @@ class BenchmarkFieldRepository extends AuditRepository
 	{
 		$builder = new QueryBuilder($this->getEntityManager());
 			
-		$builder->select("e.valueType, e.valueNumber, e.filterType, e.filterName");
+		$builder->select("e.valueType, e.valueNumber, e.fieldType, e.filterName");
 		$builder->from($this->getEntityType(), "e");
 	
 		$expr = $builder->expr();
@@ -81,6 +81,30 @@ class BenchmarkFieldRepository extends AuditRepository
 		return $builder->getQuery();
 	}
 	
+	public function findNoteItemsByCategory($categoryId) {
+		return $this->queryNoteItemsByCategory($categoryId)->getScalarResult();
+	}
+	
+	protected function queryNoteItemsByCategory($categoryId)
+	{
+		$builder = new QueryBuilder($this->getEntityManager());
+			
+		$builder->select("e.valueType, e.valueNumber, e.fieldType");
+		$builder->from($this->getEntityType(), "e");
+	
+		$expr = $builder->expr();
+	
+		$where = $expr->andX();
+		$where->add($expr->eq('e.category', $categoryId));
+		$where->add($expr->neq('e.noteType', BenchmarkField::NONE_NOTE_TYPE));
+		$where->add($expr->gt('e.noteWeight', 0));
+	
+		$builder->where($where);
+	
+		$builder->orderBy('e.fieldNumber', 'ASC');
+	
+		return $builder->getQuery();
+	}
 	
 	
 	

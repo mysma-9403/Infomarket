@@ -2,16 +2,28 @@
 
 namespace AppBundle\Manager\Params\EntryParams\Benchmark;
 
-use AppBundle\Entity\BenchmarkField;
 use AppBundle\Entity\Category;
-use AppBundle\Manager\Params\EntryParams\Base\EntryParamsManager;
-use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Filter\Benchmark\CategoryFilter;
 use AppBundle\Filter\Benchmark\SubcategoryFilter;
-use AppBundle\Repository\Admin\Main\BenchmarkFieldRepository;
-use AppBundle\Filter\Benchmark\Other\ProductFilter;
+use AppBundle\Filter\Common\Other\ProductFilter;
+use AppBundle\Manager\Entity\Base\EntityManager;
+use AppBundle\Manager\Filter\Base\FilterManager;
+use AppBundle\Manager\Params\EntryParams\Base\EntryParamsManager;
+use Symfony\Component\HttpFoundation\Request;
 
 class CustomProductEntryParamsManager extends EntryParamsManager {
+	
+	/**
+	 * 
+	 * @var ProductFilter
+	 */
+	protected $productFilter;
+	
+	public function __construct(EntityManager $em, FilterManager $fm, $doctrine, ProductFilter $productFilter) {
+		parent::__construct($em, $fm, $doctrine);
+		
+		$this->productFilter = $productFilter;
+	}
 	
 	public function getShowParams(Request $request, array $params, $id) {
 		$params = parent::getShowParams($request, $params, $id);
@@ -25,12 +37,9 @@ class CustomProductEntryParamsManager extends EntryParamsManager {
 		$assignment = $entry->getProductCategoryAssignments()->first();
 		$contextParams['subcategory'] = $assignment ? $assignment->getCategory()->getId() : null;
 		
-		$em = $this->doctrine->getManager();
-		$benchmarkFieldRepository = new BenchmarkFieldRepository($em, $em->getClassMetadata(BenchmarkField::class));
-		$productFilter = new ProductFilter($benchmarkFieldRepository);
-		$productFilter->initContextParams($contextParams);
 		
-		$viewParams['productFilter'] = $productFilter;
+		$this->productFilter->initContextParams($contextParams);
+		$viewParams['productFilter'] = $this->productFilter;
 		
 		
 		$params['viewParams'] = $viewParams;
@@ -57,12 +66,9 @@ class CustomProductEntryParamsManager extends EntryParamsManager {
 		$viewParams['categoryFilter'] = $categoryFilter;
 		$viewParams['subcategoryFilter'] = $subcategoryFilter;
 		
-		$em = $this->doctrine->getManager();
-		$benchmarkFieldRepository = new BenchmarkFieldRepository($em, $em->getClassMetadata(BenchmarkField::class));
-		$productFilter = new ProductFilter($benchmarkFieldRepository);
-		$productFilter->initContextParams($contextParams);
-	
-		$viewParams['productFilter'] = $productFilter;
+		
+		$this->productFilter->initContextParams($contextParams);
+		$viewParams['productFilter'] = $this->productFilter;
 	
 	
 		$params['viewParams'] = $viewParams;
@@ -83,12 +89,9 @@ class CustomProductEntryParamsManager extends EntryParamsManager {
 		$assignment = $entry->getProductCategoryAssignments()->first();
 		$contextParams['subcategory'] = $assignment ? $assignment->getCategory()->getId() : null; 
 		
-		$em = $this->doctrine->getManager();
-		$benchmarkFieldRepository = new BenchmarkFieldRepository($em, $em->getClassMetadata(BenchmarkField::class));
-		$productFilter = new ProductFilter($benchmarkFieldRepository);
-		$productFilter->initContextParams($contextParams);
-	
-		$viewParams['productFilter'] = $productFilter;
+		
+		$this->productFilter->initContextParams($contextParams);
+		$viewParams['productFilter'] = $this->productFilter;
 	
 	
 		$params['viewParams'] = $viewParams;
@@ -109,12 +112,9 @@ class CustomProductEntryParamsManager extends EntryParamsManager {
 		$assignment = $template->getProductCategoryAssignments()->first();
 		$contextParams['subcategory'] = $assignment ? $assignment->getCategory()->getId() : null;
 	
-		$em = $this->doctrine->getManager();
-		$benchmarkFieldRepository = new BenchmarkFieldRepository($em, $em->getClassMetadata(BenchmarkField::class));
-		$productFilter = new ProductFilter($benchmarkFieldRepository);
-		$productFilter->initContextParams($contextParams);
-	
-		$viewParams['productFilter'] = $productFilter;
+		
+		$this->productFilter->initContextParams($contextParams);
+		$viewParams['productFilter'] = $this->productFilter;
 	
 	
 		$params['viewParams'] = $viewParams;

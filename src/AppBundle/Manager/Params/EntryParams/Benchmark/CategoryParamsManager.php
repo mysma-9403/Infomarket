@@ -2,20 +2,19 @@
 
 namespace AppBundle\Manager\Params\EntryParams\Benchmark;
 
-use AppBundle\Entity\BenchmarkField;
 use AppBundle\Entity\Category;
 use AppBundle\Entity\Product;
 use AppBundle\Entity\Segment;
-use AppBundle\Logic\Benchmark\Fields\BenchmarkFieldsLogic;
+use AppBundle\Logic\Benchmark\Fields\BenchmarkChartLogic;
+use AppBundle\Logic\Common\BenchmarkField\Initializer\BenchmarkFieldsInitializer;
+use AppBundle\Logic\Common\BenchmarkField\Provider\BenchmarkFieldsProvider;
+use AppBundle\Manager\Entity\Base\EntityManager;
+use AppBundle\Manager\Filter\Base\FilterManager;
 use AppBundle\Manager\Params\EntryParams\Base\EntryParamsManager;
-use AppBundle\Repository\Benchmark\BenchmarkFieldRepository;
 use AppBundle\Repository\Benchmark\CategoryRepository;
 use AppBundle\Repository\Benchmark\ProductRepository;
 use AppBundle\Repository\Benchmark\SegmentRepository;
 use Symfony\Component\HttpFoundation\Request;
-use AppBundle\Logic\Benchmark\Fields\BenchmarkChartLogic;
-use AppBundle\Manager\Entity\Base\EntityManager;
-use AppBundle\Manager\Filter\Base\FilterManager;
 
 class CategoryParamsManager extends EntryParamsManager {
 	
@@ -23,10 +22,19 @@ class CategoryParamsManager extends EntryParamsManager {
 	
 	protected $productRepository;
 	
-	public function __construct(EntityManager $em, FilterManager $fm, $doctrine, BenchmarkChartLogic $chartLogic) {
+	protected $benchmarkFieldsProvider;
+	
+	protected $benchmarkFieldsInitializer;
+	
+	public function __construct(EntityManager $em, FilterManager $fm, $doctrine, 
+			BenchmarkChartLogic $chartLogic,
+			BenchmarkFieldsProvider $benchmarkFieldsProvider,
+			BenchmarkFieldsInitializer $benchmarkFieldsInitializer) {
 		parent::__construct($em, $fm, $doctrine);
 		
 		$this->chartLogic = $chartLogic;
+		$this->benchmarkFieldsProvider = $benchmarkFieldsProvider;
+		$this->benchmarkFieldsInitializer = $benchmarkFieldsInitializer;
 		
 		//TODO refactor -> make Dependency Injection!!
 		$emm = $this->doctrine->getManager();
@@ -78,18 +86,11 @@ class CategoryParamsManager extends EntryParamsManager {
 	}
 	
 	protected function initBenchmarkFields($viewParams, $categoryId) {
-		$em = $this->doctrine->getManager();
+		$viewParams['numberFields'] = $this->benchmarkFieldsInitializer->init($this->benchmarkFieldsProvider->getNumberFields($categoryId), $categoryId);
+		$viewParams['enumFields'] = $this->benchmarkFieldsInitializer->init($this->benchmarkFieldsProvider->getEnumFields($categoryId), $categoryId);
+		$viewParams['boolFields'] = $this->benchmarkFieldsInitializer->init($this->benchmarkFieldsProvider->getBoolFields($categoryId), $categoryId);
 		
-		$benchmarkFieldRepository = new BenchmarkFieldRepository($em, $em->getClassMetadata(BenchmarkField::class));
-		$productRepository = new ProductRepository($em, $em->getClassMetadata(Product::class));
-		 
-		$logic = new BenchmarkFieldsLogic($benchmarkFieldRepository, $productRepository, $categoryId);
-		 
-		$viewParams['numberFields'] = $logic->getBenchmarkNumberFields();
-		$viewParams['enumFields'] = $logic->getBenchmarkEnumFields();
-		$viewParams['boolFields'] = $logic->getBenchmarkBoolFields();
-		
-		$viewParams['priceField'] = $logic->getBenchmarkPriceField();
+		$viewParams['priceField'] = $this->benchmarkFieldsInitializer->init([$this->benchmarkFieldsProvider->getPriceField()], $categoryId)[0];
 		
 		return $viewParams;
 	}

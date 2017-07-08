@@ -54,7 +54,14 @@ services:
         tags:
             - { name: form.type, alias: app_user_registration }
             
-            
+
+    # Common Editors
+    app.form.editor.product:
+        class: AppBundle\Form\Editor\Common\ProductEditorType
+        arguments: ["@doctrine.orm.entity_manager"]
+        tags:
+            - { name: form.type }
+                        
     # Editors
     app.form.editor.advert_category_assignment:
         class: AppBundle\Form\Editor\Assignments\AdvertCategoryAssignmentEditorType
@@ -185,19 +192,6 @@ services:
             - { name: form.type }
     app.form.editor.newsletter_page:
         class: AppBundle\Form\Editor\Main\NewsletterPageEditorType
-        arguments: ["@doctrine.orm.entity_manager"]
-        tags:
-            - { name: form.type }
-    app.form.editor.product:
-        class: AppBundle\Form\Editor\Main\ProductEditorType
-        arguments: ["@doctrine.orm.entity_manager"]
-        tags:
-            - { name: form.type }
-            
-            
-    # Benchmark editors
-    app.form.editor.benchmark.product:
-        class: AppBundle\Form\Benchmark\CustomProductEditorType
         arguments: ["@doctrine.orm.entity_manager"]
         tags:
             - { name: form.type }

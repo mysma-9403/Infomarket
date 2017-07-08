@@ -26,7 +26,7 @@ class BenchmarkFieldRepository extends AuditRepository
 		$expr = $builder->expr();
 	
 		$where = $expr->andX();
-		$where->add($expr->eq('e.category', $categoryId ? $categoryId : -1));
+		$where->add($expr->eq('e.category', $categoryId ? $categoryId : -1)); //TODO shouldn't be here I think
 	
 		$builder->where($where);
 	

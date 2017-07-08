@@ -3,24 +3,31 @@
 namespace AppBundle\Controller\Benchmark;
 
 use AppBundle\Controller\Admin\Base\ImageEntityController;
+use AppBundle\Entity\Brand;
+use AppBundle\Entity\Category;
 use AppBundle\Entity\Product;
+use AppBundle\Entity\ProductCategoryAssignment;
+use AppBundle\Entity\ProductNote;
 use AppBundle\Filter\Benchmark\CustomProductFilter;
+use AppBundle\Form\Benchmark\CategoryFilterType;
+use AppBundle\Form\Benchmark\SubcategoryFilterType;
+use AppBundle\Form\Editor\Common\ProductEditorType;
+use AppBundle\Form\Filter\Benchmark\CustomProductFilterType;
+use AppBundle\Manager\Entity\Base\EntityManager;
 use AppBundle\Manager\Entity\Benchmark\ProductManager;
 use AppBundle\Manager\Filter\Base\FilterManager;
 use AppBundle\Manager\Params\Benchmark\ContextParamsManager;
-use Symfony\Component\HttpFoundation\Request;
-use AppBundle\Form\Benchmark\CustomProductEditorType;
-use AppBundle\Form\Filter\Benchmark\CustomProductFilterType;
-use AppBundle\Repository\Benchmark\CustomProductRepository;
-use AppBundle\Entity\Brand;
-use AppBundle\Entity\Category;
-use AppBundle\Utils\StringUtils;
-use AppBundle\Form\Benchmark\CategoryFilterType;
-use AppBundle\Form\Benchmark\SubcategoryFilterType;
-use AppBundle\Manager\Entity\Base\EntityManager;
 use AppBundle\Manager\Params\EntryParams\Benchmark\CustomProductEntryParamsManager;
-use AppBundle\Entity\ProductCategoryAssignment;
-use AppBundle\Entity\ProductNote;
+use AppBundle\Repository\Benchmark\CustomProductRepository;
+use AppBundle\Utils\StringUtils;
+use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Filter\Common\Other\ProductFilter;
+use AppBundle\Logic\Common\BenchmarkField\Provider\BenchmarkFieldsProvider;
+use AppBundle\Repository\Benchmark\BenchmarkFieldRepository;
+use AppBundle\Entity\BenchmarkField;
+use AppBundle\Logic\Common\BenchmarkField\Initializer\BenchmarkFieldsInitializerImpl;
+use AppBundle\Factory\Common\BenchmarkField\SimpleBenchmarkFieldFactory;
+use AppBundle\Utils\Entity\DataBase\BenchmarkFieldDataBaseUtils;
 
 class CustomProductController extends ImageEntityController {
 	
@@ -62,7 +69,18 @@ class CustomProductController extends ImageEntityController {
 	}
 	
 	protected function getInternalEntryParamsManager(EntityManager $em, FilterManager $fm, $doctrine) {
-		return new CustomProductEntryParamsManager($em, $fm, $doctrine);
+		$manager = $doctrine->getManager();
+		$benchmarkFieldRepository = new BenchmarkFieldRepository($manager, $manager->getClassMetadata(BenchmarkField::class));
+		$translator = $this->get('translator');
+		$benchmarkFieldsProvider = new BenchmarkFieldsProvider($benchmarkFieldRepository, $translator);
+		
+		$benchmarkFieldDataBaseUtils = new BenchmarkFieldDataBaseUtils();
+		$benchmarkFieldFactory = new SimpleBenchmarkFieldFactory($benchmarkFieldDataBaseUtils);
+		$benchmarkFieldsInitializer = new BenchmarkFieldsInitializerImpl($benchmarkFieldFactory);
+		
+		$productFilter = new ProductFilter($benchmarkFieldsProvider, $benchmarkFieldsInitializer);
+		
+		return new CustomProductEntryParamsManager($em, $fm, $doctrine, $productFilter);
 	}
 	
 	protected function getEntityManager($doctrine, $paginator) {
@@ -291,7 +309,7 @@ class CustomProductController extends ImageEntityController {
 	}
 	
 	protected function getEditorFormType() {
-		return CustomProductEditorType::class;
+		return ProductEditorType::class;
 	}
 	
 	protected function getFilterFormType() {

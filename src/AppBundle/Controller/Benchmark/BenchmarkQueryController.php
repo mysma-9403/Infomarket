@@ -7,7 +7,6 @@ use AppBundle\Entity\BenchmarkField;
 use AppBundle\Entity\BenchmarkQuery;
 use AppBundle\Entity\Product;
 use AppBundle\Filter\Benchmark\BenchmarkQueryFilter;
-use AppBundle\Filter\Benchmark\ProductFilter;
 use AppBundle\Form\Benchmark\BenchmarkQueryType;
 use AppBundle\Form\Filter\Benchmark\BenchmarkQueryFilterType;
 use AppBundle\Manager\Entity\Benchmark\BenchmarkQueryManager;
@@ -17,6 +16,11 @@ use AppBundle\Repository\Benchmark\BenchmarkFieldRepository;
 use AppBundle\Repository\Benchmark\ProductRepository;
 use AppBundle\Utils\StringUtils;
 use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Filter\Benchmark\ProductFilter;
+use AppBundle\Logic\Common\BenchmarkField\Provider\BenchmarkFieldsProvider;
+use AppBundle\Logic\Common\BenchmarkField\Initializer\BenchmarkFieldsInitializerImpl;
+use AppBundle\Factory\Common\BenchmarkField\SimpleBenchmarkFieldFactory;
+use AppBundle\Utils\Entity\DataBase\BenchmarkFieldDataBaseUtils;
 
 class BenchmarkQueryController extends BaseEntityController {
 	
@@ -90,7 +94,16 @@ class BenchmarkQueryController extends BaseEntityController {
 			/** @var \Doctrine\Common\Persistence\ObjectManager $em */
 			$em = $this->getDoctrine()->getManager();
 			$benchmarkFieldRepository = new BenchmarkFieldRepository($em, $em->getClassMetadata(BenchmarkField::class));
-			$productFilter = new ProductFilter($benchmarkFieldRepository);
+			
+			$translator = $this->get('translator');
+			
+			$benchmarkFieldsProvider = new BenchmarkFieldsProvider($benchmarkFieldRepository, $translator);
+			
+			$benchmarkFieldDataBaseUtils = new BenchmarkFieldDataBaseUtils();
+			$benchmarkFieldFactory = new SimpleBenchmarkFieldFactory($benchmarkFieldDataBaseUtils);
+			$benchmarkFieldsInitializer = new BenchmarkFieldsInitializerImpl($benchmarkFieldFactory);
+			
+			$productFilter = new ProductFilter($benchmarkFieldsProvider, $benchmarkFieldsInitializer, $benchmarkFieldsInitializer);
 			$productFilter->initContextParams($contextParams);
 			$productFilter->initRequestValues($request);
 			

@@ -9,6 +9,7 @@ use AppBundle\Entity\Base\Audit;
  */
 class BenchmarkField extends Audit
 {
+	//TODO remove
 	const DECIMAL_VALUE_TYPE = 11;
 	const INTEGER_VALUE_TYPE = 21;
 	const STRING_VALUE_TYPE = 31;
@@ -25,7 +26,7 @@ class BenchmarkField extends Audit
 	const MULTI_ENUM_FIELD_TYPE = 33;
 	
 	
-	
+	//TODO remove
 	const DECIMAL_FILTER_TYPE = 11;
 	
 	const INTEGER_FILTER_TYPE = 21;

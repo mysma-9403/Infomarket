@@ -22,6 +22,7 @@ use AppBundle\Manager\Params\EntryParams\Admin\CategoryEntryParamsManager;
 use AppBundle\Repository\Admin\Main\BranchRepository;
 use AppBundle\Repository\Admin\Main\CategoryRepository;
 use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Utils\Entity\DataBase\BenchmarkFieldDataBaseUtils;
 
 class CategoryController extends FeaturedEntityController {
 	
@@ -239,7 +240,8 @@ class CategoryController extends FeaturedEntityController {
 			$doctrine = $this->getDoctrine();
 			$translator = $this->get('translator');
 			$errorFactory = new ImportErrorFactory($translator);
-			$importLogic = new ImportLogic($doctrine, $errorFactory);
+			$benchmarkFieldDataBaseUtils = new BenchmarkFieldDataBaseUtils();
+			$importLogic = new ImportLogic($doctrine, $errorFactory, $benchmarkFieldDataBaseUtils);
 			
 			$result = $importLogic->importRatings($importRatings, $entry);
 			$errors = $result['errors'];

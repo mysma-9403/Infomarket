@@ -31,6 +31,13 @@ use AppBundle\Entity\BenchmarkQuery;
 use AppBundle\Utils\StringUtils;
 use Symfony\Component\HttpFoundation\Response;
 use AppBundle\Logic\Benchmark\Export\ImageExportLogic;
+use AppBundle\Logic\Common\BenchmarkField\Provider\BenchmarkFieldsProvider;
+use Doctrine\Common\Persistence\ObjectManager;
+use AppBundle\Logic\Common\BenchmarkField\Initializer\BenchmarkFieldsInitializerImpl;
+use AppBundle\Factory\Common\BenchmarkField\NoteBenchmarkFieldFactory;
+use AppBundle\Utils\Entity\DataBase\BenchmarkFieldDataBaseUtils;
+use AppBundle\Factory\Common\BenchmarkField\CompareBenchmarkFieldFactory;
+use AppBundle\Factory\Common\BenchmarkField\SimpleBenchmarkFieldFactory;
 
 class ProductController extends DummyController {
 	
@@ -379,7 +386,26 @@ class ProductController extends DummyController {
 	
 	protected function getInternalEntryParamsManager(EntityManager $em, FilterManager $fm, $doctrine) {
 		$tokenStorage = $this->get('security.token_storage');
-		return new ProductParamsManager($em, $fm, $doctrine, $tokenStorage);
+		$translator = $this->get('translator');
+		
+		/** @var ObjectManager $manager */
+		$manager = $doctrine->getManager();
+		$benchmarkFieldRepository = new BenchmarkFieldRepository($manager, $manager->getClassMetadata(BenchmarkField::class));
+		$benchmarkFieldsProvider = new BenchmarkFieldsProvider($benchmarkFieldRepository, $translator);
+		
+		$benchmarkFieldDataBaseUtils = new BenchmarkFieldDataBaseUtils(); // TODO service
+		$productRepository = new ProductRepository($manager, $manager->getClassMetadata(Product::class));
+		
+		$showBenchmarkFieldFactory = new NoteBenchmarkFieldFactory($benchmarkFieldDataBaseUtils, $productRepository);
+		$showBenchmarkFieldsInitializer = new BenchmarkFieldsInitializerImpl($showBenchmarkFieldFactory);
+		
+		$compareBenchmarkFieldFactory = new CompareBenchmarkFieldFactory($benchmarkFieldDataBaseUtils, $productRepository);
+		$compareBenchmarkFieldsInitializer = new BenchmarkFieldsInitializerImpl($compareBenchmarkFieldFactory);
+		
+		return new ProductParamsManager($em, $fm, $doctrine, $tokenStorage,
+				$benchmarkFieldsProvider,
+				$showBenchmarkFieldsInitializer,
+				$compareBenchmarkFieldsInitializer);
 	}
 	
 	protected function getEntityManager($doctrine, $paginator) {
@@ -398,7 +424,15 @@ class ProductController extends DummyController {
 		$em = $doctrine->getManager();
 		$benchmarkFieldRepository = new BenchmarkFieldRepository($em, $em->getClassMetadata(BenchmarkField::class));
 		
-		return new FilterManager(new ProductFilter($benchmarkFieldRepository));
+		$translator = $this->get('translator');
+		
+		$benchmarkFieldsProvider = new BenchmarkFieldsProvider($benchmarkFieldRepository, $translator);
+		
+		$benchmarkFieldDataBaseUtils = new BenchmarkFieldDataBaseUtils();
+		$benchmarkFieldFactory = new SimpleBenchmarkFieldFactory($benchmarkFieldDataBaseUtils);
+		$benchmarkFieldsInitializer = new BenchmarkFieldsInitializerImpl($benchmarkFieldFactory);
+		
+		return new FilterManager(new ProductFilter($benchmarkFieldsProvider, $benchmarkFieldsInitializer, $benchmarkFieldsInitializer));
 	}
 	
 	//---------------------------------------------------------------------------

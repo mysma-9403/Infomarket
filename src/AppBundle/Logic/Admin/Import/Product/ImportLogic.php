@@ -28,11 +28,16 @@ class ImportLogic {
 	 */
 	protected $errorFactory;
 	
+	/**
+	 * 
+	 * @var BenchmarkFieldDataBaseUtils
+	 */
+	protected $benchmarkFieldDataBaseUtils;
 	
-	
-	public function __construct(Registry $doctrine, ImportErrorFactory $errorFactory) {
+	public function __construct(Registry $doctrine, ImportErrorFactory $errorFactory, BenchmarkFieldDataBaseUtils $benchmarkFieldDataBaseUtils) {
 		$this->doctrine = $doctrine;
 		$this->errorFactory = $errorFactory;
+		$this->benchmarkFieldDataBaseUtils = $benchmarkFieldDataBaseUtils;
 	}
 	
 	
@@ -206,32 +211,25 @@ class ImportLogic {
 					
 					$valueType = null;
 					$fieldType = null;
-					$filterType = null;
 					
 					if($fieldTypeName == 'decimal') {
 						$valueType = BenchmarkField::DECIMAL_VALUE_TYPE;
 						$fieldType = BenchmarkField::DECIMAL_FIELD_TYPE;
-						$filterType = BenchmarkField::DECIMAL_FILTER_TYPE;
 					} else if($fieldTypeName == 'integer') {
 						$valueType = BenchmarkField::INTEGER_VALUE_TYPE;
 						$fieldType = BenchmarkField::INTEGER_FIELD_TYPE;
-						$filterType = BenchmarkField::INTEGER_FILTER_TYPE;
 					} else if($fieldTypeName == 'boolean' || $fieldTypeName == 'bool') {
 						$valueType = BenchmarkField::INTEGER_VALUE_TYPE;
 						$fieldType = BenchmarkField::BOOLEAN_FIELD_TYPE;
-						$filterType = BenchmarkField::BOOLEAN_FILTER_TYPE;
 					} else if($fieldTypeName == 'string') {
 						$valueType = BenchmarkField::STRING_VALUE_TYPE;
 						$fieldType = BenchmarkField::STRING_FIELD_TYPE;
-						$filterType = BenchmarkField::STRING_FILTER_TYPE;
 					} else if($fieldTypeName == 'single enum' || $fieldTypeName == 'singleenum') {
 						$valueType = BenchmarkField::STRING_VALUE_TYPE;
 						$fieldType = BenchmarkField::SINGLE_ENUM_FIELD_TYPE;
-						$filterType = BenchmarkField::SINGLE_ENUM_FILTER_TYPE;
 					} else if($fieldTypeName == 'multi enum' || $fieldTypeName == 'multienum') {
 						$valueType = BenchmarkField::STRING_VALUE_TYPE;
 						$fieldType = BenchmarkField::MULTI_ENUM_FIELD_TYPE;
-						$filterType = BenchmarkField::MULTI_ENUM_FILTER_TYPE;
 					}
 					
 					if($valueType) {
@@ -251,7 +249,7 @@ class ImportLogic {
 						
 						$item = array();
 						
-						$itemName = BenchmarkFieldDataBaseUtils::getValueFieldProperty($valueType, $valueNumber);
+						$itemName = $this->benchmarkFieldDataBaseUtils->getValueFieldProperty($valueType, $valueNumber);
 						
 						$item['index'] = $i;
 						$item['name'] = $itemName;
@@ -264,7 +262,6 @@ class ImportLogic {
 						$item['fieldNumber'] = $fieldNumber;
 						$item['showField'] = $showField;
 						
-						$item['filterType'] = $filterType;
 						$item['filterName'] = $filterName;
 						$item['filterNumber'] = $filterNumber;
 						$item['showFilter'] = $showFilter;

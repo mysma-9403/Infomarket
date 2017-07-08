@@ -2,20 +2,19 @@
 
 namespace AppBundle\Repository\Benchmark;
 
+use AppBundle\Entity\BenchmarkEnum;
 use AppBundle\Entity\BenchmarkField;
 use AppBundle\Entity\Brand;
 use AppBundle\Entity\Category;
 use AppBundle\Entity\Product;
 use AppBundle\Entity\ProductCategoryAssignment;
+use AppBundle\Entity\ProductNote;
 use AppBundle\Filter\Base\Filter;
 use AppBundle\Filter\Benchmark\ProductFilter;
 use AppBundle\Repository\Base\BaseRepository;
 use Doctrine\ORM\AbstractQuery;
 use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\ORM\QueryBuilder;
-use AppBundle\Entity\BenchmarkEnum;
-use AppBundle\Entity\ProductNote;
-use AppBundle\Utils\Entity\DataBase\BenchmarkFieldDataBaseUtils;
 
 class ProductRepository extends BaseRepository
 {
@@ -518,7 +517,7 @@ class ProductRepository extends BaseRepository
 		
 		$showFields = $filter->getShowFields();
 		foreach ($showFields as $showField) {
-			$fields[] = 'e.' . BenchmarkFieldDataBaseUtils::getValueFieldProperty($showField['valueType'], $showField['valueNumber']);
+			$fields[] = 'e.' . $showField['valueField'];
 		}
 	
 		return $fields;
@@ -560,10 +559,10 @@ class ProductRepository extends BaseRepository
 			foreach ($filterFields as $filterField) {
 				$value = $filterField['value'];
 				if($value != null) {
-					$valueName = BenchmarkFieldDataBaseUtils::getValueFieldProperty($filterField['valueType'], $filterField['valueNumber']);
-					switch ($filterField['filterType']) {
-						case BenchmarkField::DECIMAL_FILTER_TYPE:
-						case BenchmarkField::INTEGER_FILTER_TYPE:
+					$valueName = $filterField['valueField'];
+					switch ($filterField['fieldType']) {
+						case BenchmarkField::DECIMAL_FIELD_TYPE:
+						case BenchmarkField::INTEGER_FIELD_TYPE:
 							if($value['min']) {
 								$where->add($expr->gte('e.' . $valueName, $value['min']));
 							}
@@ -571,15 +570,15 @@ class ProductRepository extends BaseRepository
 								$where->add($expr->lte('e.' . $valueName, $value['max']));
 							}
 							break;
-						case BenchmarkField::BOOLEAN_FILTER_TYPE:
+						case BenchmarkField::BOOLEAN_FIELD_TYPE:
 							if($value != Filter::ALL_VALUES) {
 								$where->add($expr->eq('e.' . $valueName, $value));
 							}
 							break;
-						case BenchmarkField::SINGLE_ENUM_FILTER_TYPE:
+						case BenchmarkField::SINGLE_ENUM_FIELD_TYPE:
 							$where->add($expr->in('e.' . $valueName, $value));
 							break;
-						case BenchmarkField::MULTI_ENUM_FILTER_TYPE:
+						case BenchmarkField::MULTI_ENUM_FIELD_TYPE:
 							$or = $expr->orX();
 							foreach ($value as $subvalue) {
 								$or->add($expr->like('e.' . $valueName, $expr->literal('%' . $subvalue . '%')));

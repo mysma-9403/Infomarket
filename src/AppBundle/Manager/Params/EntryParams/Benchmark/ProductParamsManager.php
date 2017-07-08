@@ -3,23 +3,48 @@
 namespace AppBundle\Manager\Params\EntryParams\Benchmark;
 
 use AppBundle\Entity\BenchmarkField;
+use AppBundle\Entity\BenchmarkMessage;
 use AppBundle\Entity\Product;
-use AppBundle\Logic\Benchmark\Fields\BenchmarkFieldLogic;
+use AppBundle\Logic\Common\BenchmarkField\Initializer\BenchmarkFieldsInitializer;
+use AppBundle\Logic\Common\BenchmarkField\Provider\BenchmarkFieldsProvider;
 use AppBundle\Manager\Params\EntryParams\Base\EntryParamsManager;
-use AppBundle\Repository\Benchmark\BenchmarkFieldRepository;
+use AppBundle\Repository\Benchmark\BenchmarkMessageRepository;
 use AppBundle\Repository\Benchmark\ProductRepository;
 use Symfony\Component\HttpFoundation\Request;
-use AppBundle\Repository\Benchmark\BenchmarkMessageRepository;
-use AppBundle\Entity\BenchmarkMessage;
 
 class ProductParamsManager extends EntryParamsManager {
 	
 	protected $tokenStorage;
 	
-	public function __construct($em, $fm, $doctrine, $tokenStorage) {
+	/**
+	 * 
+	 * @var BenchmarkFieldsProvider
+	 */
+	protected $benchmarkFieldsProvider;
+	
+	/**
+	 * 
+	 * @var BenchmarkFieldsInitializer
+	 */
+	protected $showBenchmarkFieldsInitializer;
+	
+	/**
+	 *
+	 * @var BenchmarkFieldsInitializer
+	 */
+	protected $compareBenchmarkFieldsInitializer;
+	
+	public function __construct($em, $fm, $doctrine, $tokenStorage,
+			BenchmarkFieldsProvider $benchmarkFieldsProvider,
+			BenchmarkFieldsInitializer $showBenchmarkFieldsInitializer,
+			BenchmarkFieldsInitializer $compareBenchmarkFieldsInitializer) {
+		
 		parent::__construct($em, $fm, $doctrine);
 		
 		$this->tokenStorage = $tokenStorage;
+		$this->benchmarkFieldsProvider = $benchmarkFieldsProvider;
+		$this->showBenchmarkFieldsInitializer = $showBenchmarkFieldsInitializer;
+		$this->compareBenchmarkFieldsInitializer = $compareBenchmarkFieldsInitializer;
 	}
 	
 	
@@ -50,7 +75,6 @@ class ProductParamsManager extends EntryParamsManager {
 		
 		$em = $this->doctrine->getManager();
 		
-		$benchmarkFieldRepository = new BenchmarkFieldRepository($em, $em->getClassMetadata(BenchmarkField::class));
 		$productRepository = new ProductRepository($em, $em->getClassMetadata(Product::class));
 		
 		$assignment = $entry->getProductCategoryAssignments()->first();
@@ -59,15 +83,13 @@ class ProductParamsManager extends EntryParamsManager {
 		$overalNote = 0.;
 		$overalCount = 0;
 		
-		$fields = $benchmarkFieldRepository->findShowItemsByCategory($categoryId);
+		$fields = $this->benchmarkFieldsProvider->getShowFields($categoryId);
+		$fields = $this->showBenchmarkFieldsInitializer->init($fields, $categoryId);
+		
+		//TODO entire loop could be done in benchmarkFieldsInitializer
 		for ($i = 0; $i < count($fields); $i++) {
-// 			$valueField = $valueField = BenchmarkFieldDataBaseUtils::getValueFieldProperty($field['valueType'], $field['valueNumber']);
-// 			$fields[$i]['valueField'] = $valueField;
-
-			$logic = new BenchmarkFieldLogic($productRepository, $categoryId);
 			$field = $fields[$i];
 			
-			$field = $logic->initNoteFieldProperties($field);
 			$valueField = $field['valueField'];
 			
 			switch($field['fieldType']) {
@@ -184,19 +206,17 @@ class ProductParamsManager extends EntryParamsManager {
 		
 		$em = $this->doctrine->getManager();
 		
-		$benchmarkFieldRepository = new BenchmarkFieldRepository($em, $em->getClassMetadata(BenchmarkField::class));
 		$productRepository = new ProductRepository($em, $em->getClassMetadata(Product::class));
 		
 		$assignment = $entry->getProductCategoryAssignments()->first();
 		$categoryId = $assignment->getCategory()->getId();
 		
-		$logic = new BenchmarkFieldLogic($productRepository, $categoryId);
-		
-		$fields = $benchmarkFieldRepository->findShowItemsByCategory($categoryId);
+		$fields = $this->benchmarkFieldsProvider->getShowFields($categoryId);
+		$fields = $this->compareBenchmarkFieldsInitializer->init($fields, $categoryId);
+		//TODO entire loop could be done in benchmarkFieldsInitializer
 		for ($i = 0; $i < count($fields); $i++) {
 			$field = $fields[$i];
 			
-			$field = $logic->initCompareFieldProperties($field);
 			$valueField = $field['valueField'];
 			$value = $entry->offsetGet($valueField);
 			$weight = $field['compareWeight'];
