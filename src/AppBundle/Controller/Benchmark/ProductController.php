@@ -4,8 +4,12 @@ namespace AppBundle\Controller\Benchmark;
 
 use AppBundle\Controller\Base\DummyController;
 use AppBundle\Entity\BenchmarkField;
+use AppBundle\Entity\BenchmarkQuery;
 use AppBundle\Entity\Category;
 use AppBundle\Entity\Product;
+use AppBundle\Factory\Common\BenchmarkField\CompareBenchmarkFieldFactory;
+use AppBundle\Factory\Common\BenchmarkField\NoteBenchmarkFieldFactory;
+use AppBundle\Factory\Common\BenchmarkField\SimpleBenchmarkFieldFactory;
 use AppBundle\Filter\Base\Filter;
 use AppBundle\Filter\Benchmark\CategoryFilter;
 use AppBundle\Filter\Benchmark\ProductFilter;
@@ -16,28 +20,24 @@ use AppBundle\Form\Benchmark\SubcategoryFilterType;
 use AppBundle\Logic\Benchmark\Export\CsvExportLogic;
 use AppBundle\Logic\Benchmark\Export\ExcelExportLogic;
 use AppBundle\Logic\Benchmark\Export\HtmlExportLogic;
+use AppBundle\Logic\Benchmark\Export\ImageExportLogic;
+use AppBundle\Logic\Common\BenchmarkField\Initializer\BenchmarkFieldsInitializerImpl;
+use AppBundle\Logic\Common\BenchmarkField\Provider\BenchmarkFieldsProvider;
 use AppBundle\Manager\Entity\Base\EntityManager;
 use AppBundle\Manager\Entity\Benchmark\ProductManager;
 use AppBundle\Manager\Filter\Base\FilterManager;
 use AppBundle\Manager\Params\Benchmark\ContextParamsManager;
 use AppBundle\Manager\Params\EntryParams\Benchmark\ProductParamsManager;
 use AppBundle\Manager\Route\RouteManager;
-use AppBundle\Repository\Benchmark\BenchmarkFieldRepository;
 use AppBundle\Repository\Benchmark\ProductRepository;
+use AppBundle\Repository\Common\BenchmarkFieldMetadataRepository;
+use AppBundle\Utils\Entity\DataBase\BenchmarkFieldDataBaseUtils;
+use AppBundle\Utils\StringUtils;
+use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 use Symfony\Component\Validator\Constraints\Date;
-use AppBundle\Entity\BenchmarkQuery;
-use AppBundle\Utils\StringUtils;
-use Symfony\Component\HttpFoundation\Response;
-use AppBundle\Logic\Benchmark\Export\ImageExportLogic;
-use AppBundle\Logic\Common\BenchmarkField\Provider\BenchmarkFieldsProvider;
-use Doctrine\Common\Persistence\ObjectManager;
-use AppBundle\Logic\Common\BenchmarkField\Initializer\BenchmarkFieldsInitializerImpl;
-use AppBundle\Factory\Common\BenchmarkField\NoteBenchmarkFieldFactory;
-use AppBundle\Utils\Entity\DataBase\BenchmarkFieldDataBaseUtils;
-use AppBundle\Factory\Common\BenchmarkField\CompareBenchmarkFieldFactory;
-use AppBundle\Factory\Common\BenchmarkField\SimpleBenchmarkFieldFactory;
 
 class ProductController extends DummyController {
 	
@@ -390,8 +390,8 @@ class ProductController extends DummyController {
 		
 		/** @var ObjectManager $manager */
 		$manager = $doctrine->getManager();
-		$benchmarkFieldRepository = new BenchmarkFieldRepository($manager, $manager->getClassMetadata(BenchmarkField::class));
-		$benchmarkFieldsProvider = new BenchmarkFieldsProvider($benchmarkFieldRepository, $translator);
+		$benchmarkFieldMetadataRepository = new BenchmarkFieldMetadataRepository($manager, $manager->getClassMetadata(BenchmarkField::class));
+		$benchmarkFieldsProvider = new BenchmarkFieldsProvider($benchmarkFieldMetadataRepository, $translator);
 		
 		$benchmarkFieldDataBaseUtils = new BenchmarkFieldDataBaseUtils(); // TODO service
 		$productRepository = new ProductRepository($manager, $manager->getClassMetadata(Product::class));
@@ -422,11 +422,11 @@ class ProductController extends DummyController {
 	 */
 	protected function getFilterManager($doctrine) {
 		$em = $doctrine->getManager();
-		$benchmarkFieldRepository = new BenchmarkFieldRepository($em, $em->getClassMetadata(BenchmarkField::class));
+		$benchmarkFieldMetadataRepository = new BenchmarkFieldMetadataRepository($em, $em->getClassMetadata(BenchmarkField::class));
 		
 		$translator = $this->get('translator');
 		
-		$benchmarkFieldsProvider = new BenchmarkFieldsProvider($benchmarkFieldRepository, $translator);
+		$benchmarkFieldsProvider = new BenchmarkFieldsProvider($benchmarkFieldMetadataRepository, $translator);
 		
 		$benchmarkFieldDataBaseUtils = new BenchmarkFieldDataBaseUtils();
 		$benchmarkFieldFactory = new SimpleBenchmarkFieldFactory($benchmarkFieldDataBaseUtils);

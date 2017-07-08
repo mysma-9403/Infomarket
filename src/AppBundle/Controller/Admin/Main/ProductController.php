@@ -22,7 +22,7 @@ use AppBundle\Manager\Filter\Base\FilterManager;
 use AppBundle\Manager\Params\EntryParams\Admin\ProductEntryParamsManager;
 use AppBundle\Repository\Admin\Main\BrandRepository;
 use AppBundle\Repository\Admin\Main\CategoryRepository;
-use AppBundle\Repository\Benchmark\BenchmarkFieldRepository;
+use AppBundle\Repository\Common\BenchmarkFieldMetadataRepository;
 use AppBundle\Utils\Entity\DataBase\BenchmarkFieldDataBaseUtils;
 use AppBundle\Utils\StringUtils;
 use Symfony\Component\HttpFoundation\Request;
@@ -387,8 +387,8 @@ class ProductController extends ImageEntityController {
 		$translator = $this->get('translator');
 		
 		$manager = $doctrine->getManager();
-		$benchmarkFieldRepository = new BenchmarkFieldRepository($manager, $manager->getClassMetadata(BenchmarkField::class));
-		$benchmarkFieldsProvider = new BenchmarkFieldsProvider($benchmarkFieldRepository, $translator);
+		$benchmarkFieldMetadataRepository = new BenchmarkFieldMetadataRepository($manager, $manager->getClassMetadata(BenchmarkField::class));
+		$benchmarkFieldsProvider = new BenchmarkFieldsProvider($benchmarkFieldMetadataRepository, $translator);
 		
 		$benchmarkFieldDataBaseUtils = new BenchmarkFieldDataBaseUtils();
 		$benchmarkFieldFactory = new SimpleBenchmarkFieldFactory($benchmarkFieldDataBaseUtils);

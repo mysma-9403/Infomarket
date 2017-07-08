@@ -6,12 +6,16 @@ use AppBundle\Entity\BenchmarkField;
 use AppBundle\Entity\Category;
 use AppBundle\Entity\Product;
 use AppBundle\Entity\ProductNote;
+use AppBundle\Factory\Common\BenchmarkField\NoteBenchmarkFieldFactory;
 use AppBundle\Filter\Benchmark\ProductFilter;
-use AppBundle\Logic\Benchmark\Fields\BenchmarkFieldLogic;
+use AppBundle\Logic\Common\BenchmarkField\Initializer\BenchmarkFieldsInitializer;
+use AppBundle\Logic\Common\BenchmarkField\Initializer\BenchmarkFieldsInitializerImpl;
+use AppBundle\Logic\Common\BenchmarkField\Provider\BenchmarkFieldsProvider;
 use AppBundle\Repository\Admin\Main\CategoryRepository;
 use AppBundle\Repository\Admin\Main\ProductNoteRepository;
-use AppBundle\Repository\Benchmark\BenchmarkFieldRepository;
 use AppBundle\Repository\Benchmark\ProductRepository;
+use AppBundle\Repository\Common\BenchmarkFieldMetadataRepository;
+use AppBundle\Utils\Entity\DataBase\BenchmarkFieldDataBaseUtils;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -28,14 +32,23 @@ class UpdateProductNotesCommand extends ContainerAwareCommand
 	/** @var CategoryRepository $categoryRepository */
 	protected $categoryRepository;
 	
-	/** @var BenchmarkFieldRepository $benchmarkFieldRepository */
-	protected $benchmarkFieldRepository;
-	
 	/** @var ProductRepository $productRepository */
 	protected $productRepository;
 	
 	/** @var ProductNoteRepository $productNoteRepository */
 	protected $productNoteRepository;
+	
+	/**
+	 * 
+	 * @var BenchmarkFieldsProvider $benchmarkFieldsProvider
+	 */
+	protected $benchmarkFieldsProvider;
+	
+	/**
+	 * 
+	 * @var BenchmarkFieldsInitializer $benchmarkFieldsInitializer
+	 */
+	protected $benchmarkFieldsInitializer;
 	
 	protected function configure()
 	{
@@ -77,9 +90,18 @@ class UpdateProductNotesCommand extends ContainerAwareCommand
 		$this->em = $this->doctrine->getManager();
 		
 		$this->categoryRepository = $this->doctrine->getRepository(Category::class);
-		$this->benchmarkFieldRepository = new BenchmarkFieldRepository($this->em, $this->em->getClassMetadata(BenchmarkField::class));
+		
 		$this->productRepository = new ProductRepository($this->em, $this->em->getClassMetadata(Product::class));
 		$this->productNoteRepository = new ProductNoteRepository($this->em, $this->em->getClassMetadata(ProductNote::class));
+		
+		
+		$benchmarkFieldMetadataRepository = new BenchmarkFieldMetadataRepository($this->em, $this->em->getClassMetadata(BenchmarkField::class));
+		$translator = $this->container->get('translator');
+		$this->benchmarkFieldsProvider = new BenchmarkFieldsProvider($benchmarkFieldMetadataRepository, $translator);
+		
+		$benchmarkFieldDataBaseUtils = new BenchmarkFieldDataBaseUtils();
+		$benchmarkFieldFactory = new NoteBenchmarkFieldFactory($benchmarkFieldDataBaseUtils, $this->productRepository);
+		$this->benchmarkFieldsInitializer = new BenchmarkFieldsInitializerImpl($benchmarkFieldFactory);
 	}
 	
 	protected function updateNotes() {
@@ -104,18 +126,9 @@ class UpdateProductNotesCommand extends ContainerAwareCommand
 	}
 	
 	protected function getBenchmarkFields($categoryId) {
-		$fields = $this->benchmarkFieldRepository->findItemsByCategory($categoryId);
-		
-		$logic = new BenchmarkFieldLogic($this->productRepository, $categoryId);
-
-		for($i = 0; $i < count($fields); $i++) {
-			$field = $fields[$i];
-			
-			$field = $logic->initNoteFieldProperties($field);
-			
-			$fields[$i] = $field;
-		}
-		
+		$fields = $this->benchmarkFieldsProvider->getAllFields($categoryId);
+		$fields = $this->benchmarkFieldsInitializer->init($fields, $categoryId);
+				
 		return $fields;
 	}
 	

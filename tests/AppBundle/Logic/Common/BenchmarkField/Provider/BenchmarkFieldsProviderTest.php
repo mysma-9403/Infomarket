@@ -4,7 +4,7 @@ namespace Tests\AppBundle\Logic\Common\BenchmarkField\Provider;
 
 use AppBundle\Entity\BenchmarkField;
 use AppBundle\Logic\Common\BenchmarkField\Provider\BenchmarkFieldsProvider;
-use AppBundle\Repository\Benchmark\BenchmarkFieldRepository;
+use AppBundle\Repository\Common\BenchmarkFieldMetadataRepository;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Translation\Translator;
 
@@ -69,56 +69,56 @@ class BenchmarkFieldsProviderTest extends TestCase {
 	
 	
 	private function getBenchmarkAllFieldRepositoryMock() {
-		$repository = $this->getMockBuilder ( BenchmarkFieldRepository::class )->disableOriginalConstructor ()->getMock ();
+		$repository = $this->getMockBuilder ( BenchmarkFieldMetadataRepository::class )->disableOriginalConstructor ()->getMock ();
 		$repository->expects($this->once())->method('findItemsByCategory');
 	
 		return $repository;
 	}
 	
 	private function getBenchmarkShowFieldRepositoryMock() {
-		$repository = $this->getMockBuilder ( BenchmarkFieldRepository::class )->disableOriginalConstructor ()->getMock ();
+		$repository = $this->getMockBuilder ( BenchmarkFieldMetadataRepository::class )->disableOriginalConstructor ()->getMock ();
 		$repository->expects($this->once())->method('findShowItemsByCategory');
 	
 		return $repository;
 	}
 	
 	private function getBenchmarkFilterFieldRepositoryMock() {
-		$repository = $this->getMockBuilder ( BenchmarkFieldRepository::class )->disableOriginalConstructor ()->getMock ();
+		$repository = $this->getMockBuilder ( BenchmarkFieldMetadataRepository::class )->disableOriginalConstructor ()->getMock ();
 		$repository->expects($this->once())->method('findFilterItemsByCategory');
 	
 		return $repository;
 	}
 	
 	private function getBenchmarkNoteFieldRepositoryMock() {
-		$repository = $this->getMockBuilder ( BenchmarkFieldRepository::class )->disableOriginalConstructor ()->getMock ();
+		$repository = $this->getMockBuilder ( BenchmarkFieldMetadataRepository::class )->disableOriginalConstructor ()->getMock ();
 		$repository->expects($this->once())->method('findNoteItemsByCategory');
 		
 		return $repository;
 	}
 	
 	private function getBenchmarkBoolFieldRepositoryMock() {
-		$repository = $this->getMockBuilder ( BenchmarkFieldRepository::class )->disableOriginalConstructor ()->getMock ();
+		$repository = $this->getMockBuilder ( BenchmarkFieldMetadataRepository::class )->disableOriginalConstructor ()->getMock ();
 		$repository->expects($this->once())->method('findBoolItemsByCategory');
 	
 		return $repository;
 	}
 	
 	private function getBenchmarkEnumFieldRepositoryMock() {
-		$repository = $this->getMockBuilder ( BenchmarkFieldRepository::class )->disableOriginalConstructor ()->getMock ();
+		$repository = $this->getMockBuilder ( BenchmarkFieldMetadataRepository::class )->disableOriginalConstructor ()->getMock ();
 		$repository->expects($this->once())->method('findEnumItemsByCategory');
 	
 		return $repository;
 	}
 	
 	private function getBenchmarkNumberFieldRepositoryMock() {
-		$repository = $this->getMockBuilder ( BenchmarkFieldRepository::class )->disableOriginalConstructor ()->getMock ();
+		$repository = $this->getMockBuilder ( BenchmarkFieldMetadataRepository::class )->disableOriginalConstructor ()->getMock ();
 		$repository->expects($this->once())->method('findNumberItemsByCategory');
 	
 		return $repository;
 	}
 	
 	private function getDummyRepositoryMock() {
-		$repository = $this->getMockBuilder ( BenchmarkFieldRepository::class )->disableOriginalConstructor ()->getMock ();
+		$repository = $this->getMockBuilder ( BenchmarkFieldMetadataRepository::class )->disableOriginalConstructor ()->getMock ();
 	
 		return $repository;
 	}

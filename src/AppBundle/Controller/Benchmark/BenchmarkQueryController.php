@@ -12,7 +12,7 @@ use AppBundle\Form\Filter\Benchmark\BenchmarkQueryFilterType;
 use AppBundle\Manager\Entity\Benchmark\BenchmarkQueryManager;
 use AppBundle\Manager\Filter\Base\FilterManager;
 use AppBundle\Manager\Params\Benchmark\ContextParamsManager;
-use AppBundle\Repository\Benchmark\BenchmarkFieldRepository;
+use AppBundle\Repository\Common\BenchmarkFieldMetadataRepository;
 use AppBundle\Repository\Benchmark\ProductRepository;
 use AppBundle\Utils\StringUtils;
 use Symfony\Component\HttpFoundation\Request;
@@ -93,11 +93,11 @@ class BenchmarkQueryController extends BaseEntityController {
 			
 			/** @var \Doctrine\Common\Persistence\ObjectManager $em */
 			$em = $this->getDoctrine()->getManager();
-			$benchmarkFieldRepository = new BenchmarkFieldRepository($em, $em->getClassMetadata(BenchmarkField::class));
+			$benchmarkFieldMetadataRepository = new BenchmarkFieldMetadataRepository($em, $em->getClassMetadata(BenchmarkField::class));
 			
 			$translator = $this->get('translator');
 			
-			$benchmarkFieldsProvider = new BenchmarkFieldsProvider($benchmarkFieldRepository, $translator);
+			$benchmarkFieldsProvider = new BenchmarkFieldsProvider($benchmarkFieldMetadataRepository, $translator);
 			
 			$benchmarkFieldDataBaseUtils = new BenchmarkFieldDataBaseUtils();
 			$benchmarkFieldFactory = new SimpleBenchmarkFieldFactory($benchmarkFieldDataBaseUtils);

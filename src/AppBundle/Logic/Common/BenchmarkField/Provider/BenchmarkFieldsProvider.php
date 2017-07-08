@@ -3,7 +3,7 @@
 namespace AppBundle\Logic\Common\BenchmarkField\Provider;
 
 use AppBundle\Entity\BenchmarkField;
-use AppBundle\Repository\Benchmark\BenchmarkFieldRepository;
+use AppBundle\Repository\Common\BenchmarkFieldMetadataRepository;
 use Symfony\Component\Translation\Translator;
 use Symfony\Component\Translation\TranslatorInterface;
 
@@ -15,7 +15,7 @@ class BenchmarkFieldsProvider {
 	
 	/**
 	 * 
-	 * @var BenchmarkFieldRepository //TODO common repository --> special repository with custom features
+	 * @var BenchmarkFieldMetadataRepository
 	 */
 	protected $repository;
 	
@@ -26,8 +26,8 @@ class BenchmarkFieldsProvider {
 	protected $translator;
 	
 	
-	public function __construct(BenchmarkFieldRepository $benchmarkFieldRepository, TranslatorInterface $translator) {
-		$this->repository = $benchmarkFieldRepository;
+	public function __construct(BenchmarkFieldMetadataRepository $benchmarkFieldMetadataRepository, TranslatorInterface $translator) {
+		$this->repository = $benchmarkFieldMetadataRepository;
 		$this->translator = $translator;
 	}
 	
