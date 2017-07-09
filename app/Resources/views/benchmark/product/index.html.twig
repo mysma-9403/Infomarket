@@ -59,14 +59,14 @@
 						</div>
 						
 						{% for field in entryFilter.filterFields %}
-								{% if field.filterType == constant('AppBundle\\Entity\\BenchmarkField::DECIMAL_FILTER_TYPE') %}
+								{% if field.fieldType == constant('AppBundle\\Entity\\BenchmarkField::DECIMAL_FIELD_TYPE') %}
 									<div class="col-xs-6">
 										{{ form_row(filter[field.filterName|clean ~ '_min'], { label: field.filterName ~ ' (min)' }) }}
 									</div>
 									<div class="col-xs-6">
 										{{ form_row(filter[field.filterName|clean ~ '_max'], { label: field.filterName ~ ' (max)' }) }}
 									</div>
-								{% elseif field.filterType == constant('AppBundle\\Entity\\BenchmarkField::INTEGER_FILTER_TYPE') %}
+								{% elseif field.fieldType == constant('AppBundle\\Entity\\BenchmarkField::INTEGER_FIELD_TYPE') %}
 									<div class="col-xs-6">
 										{{ form_row(filter[field.filterName|clean ~ '_min'], { label: field.filterName ~ ' (min)' }) }}
 									</div>

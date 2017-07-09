@@ -161,17 +161,18 @@ class BenchmarkMessageController extends BaseEntityController {
 	// Actions blocks
 	//---------------------------------------------------------------------------
 	
-	protected function initShowForms(Request $request, array &$viewParams) {
-		$response = parent::initShowForms($request, $viewParams);
+	protected function initShowForms(Request $request, array &$params) {
+		$response = parent::initShowForms($request, $params);
 		if($response) return $response;
 		
-		$response = $this->initNewMessageForm($request, $viewParams);
+		$response = $this->initNewMessageForm($request, $params);
 		if($response) return $response;
 	
 		return null;
 	}
 	
-	protected function initNewMessageForm(Request $request, array &$viewParams) {
+	protected function initNewMessageForm(Request $request, array &$params) {
+		$viewParams = $params['viewParams'];
 		/** @var BenchmarkMessage $entry */
 		$entry = $viewParams['entry'];
 		/** @var BenchmarkMessage $newEntry */
@@ -199,6 +200,7 @@ class BenchmarkMessageController extends BaseEntityController {
 		}
 	
 		$viewParams['newMessageForm'] = $form->createView();
+		$params['viewParams'] = $viewParams;
 	
 		return null;
 	}

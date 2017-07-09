@@ -9,7 +9,7 @@ use AppBundle\Entity\Branch;
 use AppBundle\Entity\Category;
 use AppBundle\Entity\ImportRatings;
 use AppBundle\Entity\ProductCategoryAssignment;
-use AppBundle\Factory\Admin\ProductImportErrorFactory;
+use AppBundle\Factory\Admin\Import\Product\ImportErrorFactory;
 use AppBundle\Filter\Admin\Main\CategoryFilter;
 use AppBundle\Form\Editor\Main\CategoryEditorType;
 use AppBundle\Form\Filter\Admin\Main\CategoryFilterType;
@@ -22,6 +22,7 @@ use AppBundle\Manager\Params\EntryParams\Admin\CategoryEntryParamsManager;
 use AppBundle\Repository\Admin\Main\BranchRepository;
 use AppBundle\Repository\Admin\Main\CategoryRepository;
 use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Utils\Entity\DataBase\BenchmarkFieldDataBaseUtils;
 
 class CategoryController extends FeaturedEntityController {
 	
@@ -238,8 +239,9 @@ class CategoryController extends FeaturedEntityController {
 			
 			$doctrine = $this->getDoctrine();
 			$translator = $this->get('translator');
-			$errorFactory = new ProductImportErrorFactory($translator);
-			$importLogic = new ImportLogic($doctrine, $errorFactory);
+			$errorFactory = new ImportErrorFactory($translator);
+			$benchmarkFieldDataBaseUtils = new BenchmarkFieldDataBaseUtils();
+			$importLogic = new ImportLogic($doctrine, $errorFactory, $benchmarkFieldDataBaseUtils);
 			
 			$result = $importLogic->importRatings($importRatings, $entry);
 			$errors = $result['errors'];

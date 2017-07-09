@@ -10,24 +10,29 @@ class BenchmarkFieldDataBaseUtils {
 	const INTEGER_NAME = 'integer';
 	const STRING_NAME = 'string';
 	
-	public static function getValueTypeDataBaseName($valueType) {
-		switch($valueType) {
-			case BenchmarkField::DECIMAL_VALUE_TYPE:
+	const NOTE = 'Note';
+	
+	public function getValueFieldProperty($fieldType, $valueNumber) {
+		return $this->getValueTypeDataBaseName($fieldType) . $valueNumber;
+	}
+	
+	public function getNoteFieldProperty($fieldType, $valueNumber) {
+		return $this->getValueTypeDataBaseName($fieldType) . self::NOTE . $valueNumber;
+	}
+	
+	protected function getValueTypeDataBaseName($fieldType) {
+		switch($fieldType) {
+			case BenchmarkField::DECIMAL_FIELD_TYPE:
 				return self::DECIMAL_NAME;
-			case BenchmarkField::INTEGER_VALUE_TYPE:
+			case BenchmarkField::INTEGER_FIELD_TYPE:
+			case BenchmarkField::BOOLEAN_FIELD_TYPE:
 				return self::INTEGER_NAME;
-			case BenchmarkField::STRING_VALUE_TYPE:
+			case BenchmarkField::STRING_FIELD_TYPE:
+			case BenchmarkField::SINGLE_ENUM_FIELD_TYPE:
+			case BenchmarkField::MULTI_ENUM_FIELD_TYPE:
 				return self::STRING_NAME;
 			default:
-				return null;
+				throw new \InvalidArgumentException('Invalid benchmark field type.');
 		}
-	}
-	
-	public static function getValueFieldProperty($valueType, $valueNumber) {
-		return self::getValueTypeDataBaseName($valueType) . $valueNumber;
-	}
-	
-	public static function getNoteFieldProperty($valueType, $valueNumber) {
-		return self::getValueTypeDataBaseName($valueType) . 'Note' . $valueNumber;
 	}
 }

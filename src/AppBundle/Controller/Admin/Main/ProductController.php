@@ -4,23 +4,29 @@ namespace AppBundle\Controller\Admin\Main;
 
 use AppBundle\Controller\Admin\Base\ImageEntityController;
 use AppBundle\Controller\Admin\Base\SimpleEntityController;
+use AppBundle\Entity\BenchmarkField;
 use AppBundle\Entity\Brand;
 use AppBundle\Entity\Category;
 use AppBundle\Entity\Product;
+use AppBundle\Entity\ProductNote;
+use AppBundle\Factory\Common\BenchmarkField\SimpleBenchmarkFieldFactory;
 use AppBundle\Filter\Admin\Main\ProductFilter;
-use AppBundle\Form\Editor\Main\ProductEditorType;
+use AppBundle\Form\Editor\Common\ProductEditorType;
 use AppBundle\Form\Filter\Admin\Main\ProductFilterType;
+use AppBundle\Form\Filter\Admin\Other\CategoryFilterType;
+use AppBundle\Logic\Common\BenchmarkField\Initializer\BenchmarkFieldsInitializerImpl;
+use AppBundle\Logic\Common\BenchmarkField\Provider\BenchmarkFieldsProvider;
+use AppBundle\Manager\Entity\Base\EntityManager;
 use AppBundle\Manager\Entity\Common\ProductManager;
 use AppBundle\Manager\Filter\Base\FilterManager;
+use AppBundle\Manager\Params\EntryParams\Admin\ProductEntryParamsManager;
 use AppBundle\Repository\Admin\Main\BrandRepository;
 use AppBundle\Repository\Admin\Main\CategoryRepository;
+use AppBundle\Repository\Common\BenchmarkFieldMetadataRepository;
+use AppBundle\Utils\Entity\DataBase\BenchmarkFieldDataBaseUtils;
 use AppBundle\Utils\StringUtils;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\StreamedResponse;
-use AppBundle\Form\Filter\Admin\Other\CategoryFilterType;
-use AppBundle\Manager\Entity\Base\EntityManager;
-use AppBundle\Manager\Params\EntryParams\Admin\ProductEntryParamsManager;
-use AppBundle\Entity\ProductNote;
 
 class ProductController extends ImageEntityController {
 	
@@ -377,7 +383,19 @@ class ProductController extends ImageEntityController {
 	//---------------------------------------------------------------------------
 	
 	protected function getInternalEntryParamsManager(EntityManager $em, FilterManager $fm, $doctrine) {
-		return new ProductEntryParamsManager($em, $fm, $doctrine);
+		
+		$translator = $this->get('translator');
+		
+		$manager = $doctrine->getManager();
+		$benchmarkFieldMetadataRepository = new BenchmarkFieldMetadataRepository($manager, $manager->getClassMetadata(BenchmarkField::class));
+		$benchmarkFieldsProvider = new BenchmarkFieldsProvider($benchmarkFieldMetadataRepository, $translator);
+		
+		$benchmarkFieldDataBaseUtils = new BenchmarkFieldDataBaseUtils();
+		$benchmarkFieldFactory = new SimpleBenchmarkFieldFactory($benchmarkFieldDataBaseUtils);
+		$benchmarkFieldsInitializer = new BenchmarkFieldsInitializerImpl($benchmarkFieldFactory);
+		
+		$productFilter = new \AppBundle\Filter\Common\Other\ProductFilter($benchmarkFieldsProvider, $benchmarkFieldsInitializer);
+		return new ProductEntryParamsManager($em, $fm, $doctrine, $productFilter);
 	}
 	
 	protected function getEntityManager($doctrine, $paginator) {

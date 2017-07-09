@@ -13,6 +13,7 @@ use Doctrine\Common\Persistence\ObjectManager;
 use AppBundle\Form\Editor\Transformer\MenuToNumberTransformer;
 use AppBundle\Repository\Admin\Main\MenuRepository;
 use AppBundle\Form\Editor\Transformer\MenuEntryToNumberTransformer;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 
 class MenuMenuEntryAssignmentEditorType extends BaseEntityEditorType
 {
@@ -55,6 +56,9 @@ class MenuMenuEntryAssignmentEditorType extends BaseEntityEditorType
 				'required'		=> true,
 				'expanded'      => false,
 				'multiple'      => false
+		))
+		->add('orderNumber', IntegerType::class, array(
+				'required'		=> true
 		))
 		;
 		

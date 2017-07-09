@@ -33,12 +33,10 @@ abstract class StandardController extends DummyController
 		$am = $this->getAnalyticsManager();
 		$am->sendPageviewAnalytics($params['domain'], $params['route']);
 		
-		
-		$viewParams = $params['viewParams'];
-		
-		$response = $this->initIndexForms($request, $viewParams);
+		$response = $this->initIndexForms($request, $params);
 		if($response) return $response;
 		
+		$viewParams = $params['viewParams'];
 		
 		return $this->render($this->getIndexView(), $viewParams);
 	}
@@ -62,12 +60,10 @@ abstract class StandardController extends DummyController
 		$am->sendPageviewAnalytics($params['domain'], $params['route']);
 		$am->sendEventAnalytics($this->getEntityName(), 'show', $id);
 		
-		
-		$viewParams = $params['viewParams'];
-		
-		$response = $this->initShowForms($request, $viewParams);
+		$response = $this->initShowForms($request, $params);
 		if($response) return $response;
 		
+		$viewParams = $params['viewParams'];
 		
 		return $this->render($this->getShowView(), $viewParams);
 	}
@@ -76,15 +72,15 @@ abstract class StandardController extends DummyController
 	// Actions blocks
 	//---------------------------------------------------------------------------
 	
-	protected function initIndexForms(Request $request, array &$viewParams) {
-		return $this->initForms($request, $viewParams);
+	protected function initIndexForms(Request $request, array &$params) {
+		return $this->initForms($request, $params);
 	}
 	
-	protected function initShowForms(Request $request, array &$viewParams) {
-		return $this->initForms($request, $viewParams);
+	protected function initShowForms(Request $request, array &$params) {
+		return $this->initForms($request, $params);
 	}
 	
-	protected function initForms(Request $request, array &$viewParams) {
+	protected function initForms(Request $request, array &$params) {
 		return null;
 	}
     

@@ -1,14 +1,14 @@
 <?php
 
-namespace AppBundle\Repository\Benchmark;
+namespace AppBundle\Repository\Common;
 
 use AppBundle\Entity\BenchmarkField;
 use AppBundle\Entity\Category;
-use AppBundle\Repository\Admin\Base\AuditRepository;
-use Doctrine\ORM\QueryBuilder;
+use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Query\Expr\Join;
+use Doctrine\ORM\QueryBuilder;
 
-class BenchmarkFieldRepository extends AuditRepository
+class BenchmarkFieldMetadataRepository extends EntityRepository
 {	
 	public function findItemsByCategory($categoryId) {
 		return $this->queryItemsByCategory($categoryId)->getScalarResult();
@@ -32,6 +32,9 @@ class BenchmarkFieldRepository extends AuditRepository
 			
 		return $builder->getQuery();
 	}
+	
+	
+	
 	
 	public function findShowItemsByCategory($categoryId) {
 		return $this->queryShowItemsByCategory($categoryId)->getScalarResult();
@@ -57,6 +60,9 @@ class BenchmarkFieldRepository extends AuditRepository
 		return $builder->getQuery();
 	}
 	
+	
+	
+	
 	public function findFilterItemsByCategory($categoryId) {
 		return $this->queryFilterItemsByCategory($categoryId)->getScalarResult();
 	}
@@ -65,7 +71,7 @@ class BenchmarkFieldRepository extends AuditRepository
 	{
 		$builder = new QueryBuilder($this->getEntityManager());
 			
-		$builder->select("e.valueType, e.valueNumber, e.filterType, e.filterName");
+		$builder->select("e.valueType, e.valueNumber, e.fieldType, e.filterName");
 		$builder->from($this->getEntityType(), "e");
 	
 		$expr = $builder->expr();
@@ -84,13 +90,40 @@ class BenchmarkFieldRepository extends AuditRepository
 	
 	
 	
+	public function findNoteItemsByCategory($categoryId) {
+		return $this->queryNoteItemsByCategory($categoryId)->getScalarResult();
+	}
+	
+	protected function queryNoteItemsByCategory($categoryId)
+	{
+		$builder = new QueryBuilder($this->getEntityManager());
+			
+		$builder->select("e.valueType, e.valueNumber, e.fieldType");
+		$builder->from($this->getEntityType(), "e");
+	
+		$expr = $builder->expr();
+	
+		$where = $expr->andX();
+		$where->add($expr->eq('e.category', $categoryId));
+		$where->add($expr->neq('e.noteType', BenchmarkField::NONE_NOTE_TYPE));
+		$where->add($expr->gt('e.noteWeight', 0));
+	
+		$builder->where($where);
+	
+		$builder->orderBy('e.fieldNumber', 'ASC');
+	
+		return $builder->getQuery();
+	}
+	
+	
+	
 	public function findNumberItemsByCategory($categoryId) {
 		return $this->queryNumberItemsByCategory($categoryId)->getScalarResult();
 	}
 	
 	protected function queryNumberItemsByCategory($categoryId)
 	{
-		return $this->queryItemsByTypeAndCategory($categoryId, [BenchmarkField::DECIMAL_FIELD_TYPE, BenchmarkField::INTEGER_FIELD_TYPE]);
+		return $this->queryItemsByTypesAndCategory($categoryId, [BenchmarkField::DECIMAL_FIELD_TYPE, BenchmarkField::INTEGER_FIELD_TYPE]);
 	}
 	
 	public function findEnumItemsByCategory($categoryId) {
@@ -99,7 +132,7 @@ class BenchmarkFieldRepository extends AuditRepository
 	
 	protected function queryEnumItemsByCategory($categoryId)
 	{
-		return $this->queryItemsByTypeAndCategory($categoryId, [BenchmarkField::SINGLE_ENUM_FIELD_TYPE, BenchmarkField::MULTI_ENUM_FIELD_TYPE]);
+		return $this->queryItemsByTypesAndCategory($categoryId, [BenchmarkField::SINGLE_ENUM_FIELD_TYPE, BenchmarkField::MULTI_ENUM_FIELD_TYPE]);
 	}
 	
 	public function findBoolItemsByCategory($categoryId) {
@@ -108,11 +141,12 @@ class BenchmarkFieldRepository extends AuditRepository
 	
 	protected function queryBoolItemsByCategory($categoryId)
 	{
-		return $this->queryItemsByTypeAndCategory($categoryId, [BenchmarkField::BOOLEAN_FIELD_TYPE]);
+		return $this->queryItemsByTypesAndCategory($categoryId, [BenchmarkField::BOOLEAN_FIELD_TYPE]);
 	}
 	
 	
-	protected function queryItemsByTypeAndCategory($categoryId, $types)
+	
+	protected function queryItemsByTypesAndCategory($categoryId, $types)
 	{
 		$builder = new QueryBuilder($this->getEntityManager());
 			

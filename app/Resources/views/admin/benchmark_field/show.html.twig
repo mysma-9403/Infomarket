@@ -19,7 +19,6 @@
 	{% include 'common/fields/bool_field.html.twig' with { 'label': 'label.benchmarkField.showField', 'value': entry.showField } %}
 	
 	{% include 'common/fields/text_field.html.twig' with { 'label': 'label.benchmarkField.filterName', 'value': entry.filterName } %}
-	{% include 'common/fields/text_field.html.twig' with { 'label': 'label.benchmarkField.filterType', 'value': benchmarkFieldFilterTypeName(entry.filterType)|trans } %}
 	{% include 'common/fields/text_field.html.twig' with { 'label': 'label.benchmarkField.filterNumber', 'value': entry.filterNumber } %}
 	{% include 'common/fields/bool_field.html.twig' with { 'label': 'label.benchmarkField.showFilter', 'value': entry.showFilter } %}
 	

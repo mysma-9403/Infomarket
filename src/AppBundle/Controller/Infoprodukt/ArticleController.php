@@ -66,14 +66,12 @@ class ArticleController extends InfoproduktController
 		$am = $this->getAnalyticsManager();
 		$am->sendPageviewAnalytics($params['domain'], $params['route']);
 		$am->sendEventAnalytics($this->getEntityName(), 'show', $id);
-	
-	
-		$viewParams = $params['viewParams'];
 		
-		$response = $this->initPreviewForms($request, $viewParams);
+		$response = $this->initPreviewForms($request, $params);
 		if($response) return $response;
-	
 		
+		$viewParams = $params['viewParams']
+		;
 		return $this->render($this->getShowView(), $viewParams);
 	}
 	
@@ -81,21 +79,23 @@ class ArticleController extends InfoproduktController
 	// Actions blocks
 	//---------------------------------------------------------------------------
 	
-	protected function initPreviewForms(Request $request, array &$viewParams) {
-		return $this->initShowForms($request, $viewParams);
+	protected function initPreviewForms(Request $request, array &$params) {
+		return $this->initShowForms($request, $params);
 	}
 	
-	protected function initIndexForms(Request $request, array &$viewParams) {
-		$response = parent::initIndexForms($request, $viewParams);
+	protected function initIndexForms(Request $request, array &$params) {
+		$response = parent::initIndexForms($request, $params);
 		if($response) return $response;
 		
-		$response = $this->initFilterForm($request, $viewParams);
+		$response = $this->initFilterForm($request, $params);
 		if($response) return $response;
 	
 		return null;
 	}
 	
-	protected function initFilterForm(Request $request, array &$viewParams) {
+	protected function initFilterForm(Request $request, array &$params) {
+		$viewParams = $params['viewParams'];
+		
 		/** @var Filter $itemFilter */
 		$itemFilter = $viewParams['entryFilter'];
 		
@@ -127,6 +127,8 @@ class ArticleController extends InfoproduktController
 		$viewParams['articleFilterForm'] = $articleFilterForm->createView();
 // 		$viewParams['tags'] = $articleFilter->getTags();
 	
+		$params['viewParams'] = $viewParams;
+		
 		return null;
 	}
 	

@@ -1,3 +1,4 @@
 eclipse.preferences.version=1
+include_path=1;E\:/Symfony/workspace/Infomarket/vendor/bin/phpunit\u00051;E\:/Symfony/workspace/Infomarket/vendor/bin/phpunit.bat
 phpVersion=php5.6
 use_asp_tags_as_php=false

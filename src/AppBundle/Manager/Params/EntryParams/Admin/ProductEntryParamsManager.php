@@ -4,13 +4,26 @@ namespace AppBundle\Manager\Params\EntryParams\Admin;
 
 use AppBundle\Entity\Category;
 use AppBundle\Filter\Admin\Other\CategoryFilter;
+use AppBundle\Filter\Common\Other\ProductFilter;
 use AppBundle\Manager\Params\EntryParams\Base\EntryParamsManager;
 use AppBundle\Repository\Admin\Main\CategoryRepository;
 use Symfony\Component\HttpFoundation\Request;
-use AppBundle\Filter\Admin\Other\ProductFilter;
-use AppBundle\Entity\BenchmarkField;
+use AppBundle\Manager\Entity\Base\EntityManager;
+use AppBundle\Manager\Filter\Base\FilterManager;
 
 class ProductEntryParamsManager extends EntryParamsManager {
+	
+	/** 
+	 * 
+	 * @var ProductFilter
+	 */
+	protected $productFilter;
+	
+	public function __construct(EntityManager $em, FilterManager $fm, $doctrine, ProductFilter $productFilter) {
+		parent::__construct($em, $fm, $doctrine);
+		
+		$this->productFilter = $productFilter;
+	}
 	
 	public function getShowParams(Request $request, array $params, $id) {
 		$params = parent::getShowParams($request, $params, $id);
@@ -38,11 +51,8 @@ class ProductEntryParamsManager extends EntryParamsManager {
 		$contextParams['category'] = $category;
 		
 		
-		$benchmarkFieldRepository = $this->doctrine->getRepository(BenchmarkField::class);
-		$productFilter = new ProductFilter($benchmarkFieldRepository);
-		$productFilter->initContextParams($contextParams);
-		
-		$viewParams['productFilter'] = $productFilter;
+		$this->productFilter->initContextParams($contextParams);
+		$viewParams['productFilter'] = $this->productFilter;
 		
 		
 		$params['viewParams'] = $viewParams;

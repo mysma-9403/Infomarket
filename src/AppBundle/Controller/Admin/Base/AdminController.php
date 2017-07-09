@@ -181,20 +181,21 @@ abstract class AdminController extends StandardController {
 	// Actions blocks
 	//---------------------------------------------------------------------------
 	
-	protected function initIndexForms(Request $request, array &$viewParams) {
-		$response = parent::initIndexForms($request, $viewParams);
+	protected function initIndexForms(Request $request, array &$params) {
+		$response = parent::initIndexForms($request, $params);
 		if($response) return $response;
 		
-		$response = $this->initIndexFilterForm($request, $viewParams);
+		$response = $this->initIndexFilterForm($request, $params);
 		if($response) return $response;
 		
-		$response = $this->initIndexListForm($request, $viewParams);
+		$response = $this->initIndexListForm($request, $params);
 		if($response) return $response;
 		
 		return null;
 	}
 	
-	protected function initIndexFilterForm(Request $request, array &$viewParams) {
+	protected function initIndexFilterForm(Request $request, array &$params) {
+		$viewParams = $params['viewParams'];
 		$filter = $viewParams['entryFilter'];
 		$options = $this->getFormOptions();
 		
@@ -214,11 +215,13 @@ abstract class AdminController extends StandardController {
 		}
 		
 		$viewParams['filter'] = $filterForm->createView();
+		$params['viewParams'] = $viewParams;
 		
 		return null;
 	}
 	
-	protected function initIndexListForm(Request $request, array &$viewParams) {
+	protected function initIndexListForm(Request $request, array &$params) {
+		$viewParams = $params['viewParams'];
 		$filter = $viewParams['entryFilter'];
 		$items = $viewParams['entries'];
 		$selectedEntries = $this->getSelectedEntries($filter, $items);
@@ -234,6 +237,7 @@ abstract class AdminController extends StandardController {
 		}
 		
 		$viewParams['form'] = $form->createView();
+		$params['viewParams'] = $viewParams;
 	
 		return null;
 	}

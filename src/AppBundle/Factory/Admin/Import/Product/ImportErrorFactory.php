@@ -1,10 +1,10 @@
 <?php
 
-namespace AppBundle\Factory\Admin;
+namespace AppBundle\Factory\Admin\Import\Product;
 
+use AppBundle\Factory\Admin\ErrorFactory;
 
-
-class ProductImportErrorFactory extends ErrorFactory {
+class ImportErrorFactory extends ErrorFactory {
 	
 	public function createInvalidCategoryError($expectedName, $givenName) {
 		$errorMsg = $this->translator->trans('error.importRatings.category.invalid');
