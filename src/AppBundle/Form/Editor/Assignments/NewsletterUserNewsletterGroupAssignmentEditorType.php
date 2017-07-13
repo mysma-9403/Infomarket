@@ -2,25 +2,28 @@
 
 namespace AppBundle\Form\Editor\Assignments;
 
-use AppBundle\Entity\NewsletterGroup;
-use AppBundle\Entity\NewsletterUser;
 use AppBundle\Entity\NewsletterUserNewsletterGroupAssignment;
 use AppBundle\Form\Editor\Base\BaseEntityEditorType;
-use AppBundle\Form\Editor\Transformer\NewsletterGroupToNumberTransformer;
-use AppBundle\Form\Editor\Transformer\NewsletterUserToNumberTransformer;
-use AppBundle\Repository\Admin\Main\NewsletterUserRepository;
-use AppBundle\Utils\FormUtils;
-use Doctrine\Common\Persistence\ObjectManager;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use AppBundle\Form\Transformer\EntityToNumberTransformer;
 use Symfony\Component\Form\FormBuilderInterface;
 
 class NewsletterUserNewsletterGroupAssignmentEditorType extends BaseEntityEditorType
 {
-	protected $em;
+	/**
+	 *
+	 * @var EntityToNumberTransformer
+	 */
+	protected $newsletterUserTransformer;
 	
-	public function __construct(ObjectManager $em)
-	{
-		$this->em = $em;
+	/**
+	 *
+	 * @var EntityToNumberTransformer
+	 */
+	protected $newsletterGroupTransformer;
+	
+	public function __construct(EntityToNumberTransformer $newsletterUserTransformer, EntityToNumberTransformer $newsletterGroupTransformer) {
+		$this->newsletterUserTransformer = $newsletterUserTransformer;
+		$this->newsletterGroupTransformer = $newsletterGroupTransformer;
 	}
 	
 	/**
@@ -29,37 +32,17 @@ class NewsletterUserNewsletterGroupAssignmentEditorType extends BaseEntityEditor
 	 * @see \AppBundle\Form\Base\BaseFormType::addMoreFields()
 	 */
 	protected function addMainFields(FormBuilderInterface $builder, array $options) {
-		parent::addMainFields($builder, $options);
+		$this->addSingleChoiceField($builder, $options, $this->newsletterUserTransformer, 'newsletterUser');
+		$this->addSingleChoiceField($builder, $options, $this->newsletterGroupTransformer, 'newsletterGroup');
+	}
 	
-		/** @var NewsletterUserRepository $newsletterUserRepository */
-		$newsletterUserRepository = $this->em->getRepository(NewsletterUser::class);
-		$newsletterUsers = $newsletterUserRepository->findFilterItems();
-		
-		/** @var NewsletterGroupRepository $newsletterGroupRepository */
-		$newsletterGroupRepository = $this->em->getRepository(NewsletterGroup::class);
-		$newsletterGroups = $newsletterGroupRepository->findFilterItems();
+	protected function getDefaultOptions() {
+		$options = parent::getDefaultOptions();
 	
-		$builder
-		->add('newsletterUser', ChoiceType::class, array(
-				'choices' 		=> $newsletterUsers,
-				'choice_label' => function ($value, $key, $index) { return FormUtils::getListLabel($value, $key, $index); },
-				'choice_translation_domain' => false,
-				'required'		=> true,
-				'expanded'      => false,
-				'multiple'      => false
-		))
-		->add('newsletterGroup', ChoiceType::class, array(
-				'choices'		=> $newsletterGroups,
-				'choice_label' => function ($value, $key, $index) { return FormUtils::getListLabel($value, $key, $index); },
-				'choice_translation_domain' => false,
-				'required'		=> true,
-				'expanded'      => false,
-				'multiple'      => false
-		))
-		;
-		
-		$builder->get('newsletterUser')->addModelTransformer(new NewsletterUserToNumberTransformer($this->em));
-		$builder->get('newsletterGroup')->addModelTransformer(new NewsletterGroupToNumberTransformer($this->em));
+		$options['newsletterUser'] = [];
+		$options['newsletterGroup'] = [];
+	
+		return $options;
 	}
 	
 	/**

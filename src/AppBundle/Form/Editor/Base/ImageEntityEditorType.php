@@ -6,6 +6,7 @@ use AppBundle\Entity\Base\ImageEntity;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 
 class ImageEntityEditorType extends SimpleEntityEditorType
 {	
@@ -21,7 +22,7 @@ class ImageEntityEditorType extends SimpleEntityEditorType
 			->add('file', FileType::class, array(
 					'required' => false
 			))
-			->add('vertical', null, array(
+			->add('vertical', CheckboxType::class, array(
 					'required' => false
 			))
 			->add('forcedWidth', NumberType::class, array(

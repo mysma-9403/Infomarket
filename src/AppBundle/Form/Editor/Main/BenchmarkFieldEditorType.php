@@ -5,7 +5,7 @@ namespace AppBundle\Form\Editor\Main;
 use AppBundle\Entity\BenchmarkField;
 use AppBundle\Entity\Category;
 use AppBundle\Form\Editor\Base\BaseEntityEditorType;
-use AppBundle\Form\Editor\Transformer\CategoryToNumberTransformer;
+use AppBundle\Form\Transformer\CategoryToNumberTransformer;
 use AppBundle\Utils\FormUtils;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;

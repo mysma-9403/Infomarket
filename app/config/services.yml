@@ -48,118 +48,370 @@ services:
             - { name: form.type_extension, extended_type: Symfony\Component\Form\Extension\Core\Type\ButtonType }
             
             
+    
+    
+    # Common Repositories
+    app.repository.advert:
+        class: Doctrine\ORM\EntityRepository
+        factory: ['@doctrine.orm.default_entity_manager', getRepository]
+        arguments:
+            - AppBundle\Entity\Advert
+        tags:
+            - { name: app.repository }
+    app.repository.article:
+        class: Doctrine\ORM\EntityRepository
+        factory: ['@doctrine.orm.default_entity_manager', getRepository]
+        arguments:
+            - AppBundle\Entity\Article
+        tags:
+            - { name: app.repository }
+    app.repository.article_category:
+        class: Doctrine\ORM\EntityRepository
+        factory: ['@doctrine.orm.default_entity_manager', getRepository]
+        arguments:
+            - AppBundle\Entity\ArticleCategory
+        tags:
+            - { name: app.repository }
+    app.repository.branch:
+        class: Doctrine\ORM\EntityRepository
+        factory: ['@doctrine.orm.default_entity_manager', getRepository]
+        arguments:
+            - AppBundle\Entity\Branch
+        tags:
+            - { name: app.repository }
+    app.repository.brand:
+        class: Doctrine\ORM\EntityRepository
+        factory: ['@doctrine.orm.default_entity_manager', getRepository]
+        arguments:
+            - AppBundle\Entity\Brand
+        tags:
+            - { name: app.repository }
+    app.repository.category:
+        class: Doctrine\ORM\EntityRepository
+        factory: ['@doctrine.orm.default_entity_manager', getRepository]
+        arguments:
+            - AppBundle\Entity\Category
+        tags:
+            - { name: app.repository }
+    app.repository.magazine:
+        class: Doctrine\ORM\EntityRepository
+        factory: ['@doctrine.orm.default_entity_manager', getRepository]
+        arguments:
+            - AppBundle\Entity\Magazine
+        tags:
+            - { name: app.repository }
+    app.repository.menu:
+        class: Doctrine\ORM\EntityRepository
+        factory: ['@doctrine.orm.default_entity_manager', getRepository]
+        arguments:
+            - AppBundle\Entity\Menu
+        tags:
+            - { name: app.repository }
+    app.repository.menu_entry:
+        class: Doctrine\ORM\EntityRepository
+        factory: ['@doctrine.orm.default_entity_manager', getRepository]
+        arguments:
+            - AppBundle\Entity\MenuEntry
+        tags:
+            - { name: app.repository }
+    app.repository.newsletter_block:
+        class: Doctrine\ORM\EntityRepository
+        factory: ['@doctrine.orm.default_entity_manager', getRepository]
+        arguments:
+            - AppBundle\Entity\NewsletterBlock
+        tags:
+            - { name: app.repository }
+    app.repository.newsletter_group:
+        class: Doctrine\ORM\EntityRepository
+        factory: ['@doctrine.orm.default_entity_manager', getRepository]
+        arguments:
+            - AppBundle\Entity\NewsletterGroup
+        tags:
+            - { name: app.repository }
+    app.repository.newsletter_user:
+        class: Doctrine\ORM\EntityRepository
+        factory: ['@doctrine.orm.default_entity_manager', getRepository]
+        arguments:
+            - AppBundle\Entity\NewsletterUser
+        tags:
+            - { name: app.repository }
+    app.repository.product:
+        class: Doctrine\ORM\EntityRepository
+        factory: ['@doctrine.orm.default_entity_manager', getRepository]
+        arguments:
+            - AppBundle\Entity\Product
+        tags:
+            - { name: app.repository }
+    app.repository.tag:
+        class: Doctrine\ORM\EntityRepository
+        factory: ['@doctrine.orm.default_entity_manager', getRepository]
+        arguments:
+            - AppBundle\Entity\Tag
+        tags:
+            - { name: app.repository }
+    app.repository.term:
+        class: Doctrine\ORM\EntityRepository
+        factory: ['@doctrine.orm.default_entity_manager', getRepository]
+        arguments:
+            - AppBundle\Entity\Term
+        tags:
+            - { name: app.repository }
+    app.repository.user:
+        class: Doctrine\ORM\EntityRepository
+        factory: ['@doctrine.orm.default_entity_manager', getRepository]
+        arguments:
+            - AppBundle\Entity\User
+        tags:
+            - { name: app.repository }
+
+
+    # Basic Transformers
+    app.form.transformer.integer_2_boolean:
+        class: AppBundle\Form\Transformer\IntegerToBooleanTransformer
+        tags:
+            - { name: form.transformer }
+    
+    # Entity Transformers
+    app.form.transformer.advert_2_number:
+        class: AppBundle\Form\Transformer\EntityToNumberTransformer
+        arguments: ["@app.repository.advert"]
+        tags:
+            - { name: form.transformer }
+    app.form.transformer.article_2_number:
+        class: AppBundle\Form\Transformer\EntityToNumberTransformer
+        arguments: ["@app.repository.article"]
+        tags:
+            - { name: form.transformer }
+    app.form.transformer.article_category_2_number:
+        class: AppBundle\Form\Transformer\EntityToNumberTransformer
+        arguments: ["@app.repository.article_category"]
+        tags:
+            - { name: form.transformer }
+    app.form.transformer.branch_2_number:
+        class: AppBundle\Form\Transformer\EntityToNumberTransformer
+        arguments: ["@app.repository.branch"]
+        tags:
+            - { name: form.transformer }
+    app.form.transformer.brand_2_number:
+        class: AppBundle\Form\Transformer\EntityToNumberTransformer
+        arguments: ["@app.repository.brand"]
+        tags:
+            - { name: form.transformer }
+    app.form.transformer.category_2_number:
+        class: AppBundle\Form\Transformer\EntityToNumberTransformer
+        arguments: ["@app.repository.category"]
+        tags:
+            - { name: form.transformer }
+    app.form.transformer.magazine_2_number:
+        class: AppBundle\Form\Transformer\EntityToNumberTransformer
+        arguments: ["@app.repository.magazine"]
+        tags:
+            - { name: form.transformer }
+    app.form.transformer.menu_2_number:
+        class: AppBundle\Form\Transformer\EntityToNumberTransformer
+        arguments: ["@app.repository.menu"]
+        tags:
+            - { name: form.transformer }
+    app.form.transformer.menu_entry_2_number:
+        class: AppBundle\Form\Transformer\EntityToNumberTransformer
+        arguments: ["@app.repository.menu_entry"]
+        tags:
+            - { name: form.transformer }
+    app.form.transformer.newsletter_block_2_number:
+        class: AppBundle\Form\Transformer\EntityToNumberTransformer
+        arguments: ["@app.repository.newsletter_block"]
+        tags:
+            - { name: form.transformer }
+    app.form.transformer.newsletter_group_2_number:
+        class: AppBundle\Form\Transformer\EntityToNumberTransformer
+        arguments: ["@app.repository.newsletter_group"]
+        tags:
+            - { name: form.transformer }
+    app.form.transformer.newsletter_user_2_number:
+        class: AppBundle\Form\Transformer\EntityToNumberTransformer
+        arguments: ["@app.repository.newsletter_user"]
+        tags:
+            - { name: form.transformer }
+    app.form.transformer.product_2_number:
+        class: AppBundle\Form\Transformer\EntityToNumberTransformer
+        arguments: ["@app.repository.product"]
+        tags:
+            - { name: form.transformer }
+    app.form.transformer.term_2_number:
+        class: AppBundle\Form\Transformer\EntityToNumberTransformer
+        arguments: ["@app.repository.term"]
+        tags:
+            - { name: form.transformer }
+    app.form.transformer.tag_2_number:
+        class: AppBundle\Form\Transformer\EntityToNumberTransformer
+        arguments: ["@app.repository.tag"]
+        tags:
+            - { name: form.transformer }
+    app.form.transformer.user_2_number:
+        class: AppBundle\Form\Transformer\EntityToNumberTransformer
+        arguments: ["@app.repository.user"]
+        tags:
+            - { name: form.transformer }
+
+    
+    # FormBuilders
+    app.form.builder.editor.benchmark_field:
+        class: AppBundle\Form\FormBuilder\BenchmarkFieldEditorBuilder
+        arguments: ["@app.form.transformer.integer_2_boolean"]
+        tags:
+            - { name: form.builder }
+    
     # Forms        
     app.form.registration:
         class: AppBundle\Form\Registration\UserRegistrationType
         tags:
             - { name: form.type, alias: app_user_registration }
             
-
+                    
     # Common Editors
     app.form.editor.product:
         class: AppBundle\Form\Editor\Common\ProductEditorType
-        arguments: ["@doctrine.orm.entity_manager"]
+        arguments: ["@app.form.transformer.brand_2_number", "@app.form.builder.editor.benchmark_field"]
         tags:
             - { name: form.type }
-                        
-    # Editors
+            
+            
+    # Assignment Editors
     app.form.editor.advert_category_assignment:
         class: AppBundle\Form\Editor\Assignments\AdvertCategoryAssignmentEditorType
-        arguments: ["@doctrine.orm.entity_manager"]
+        arguments: [
+            "@app.form.transformer.advert_2_number",
+            "@app.form.transformer.category_2_number"]
         tags:
             - { name: form.type }
     app.form.editor.article_article_category_assignment:
         class: AppBundle\Form\Editor\Assignments\ArticleArticleCategoryAssignmentEditorType
-        arguments: ["@doctrine.orm.entity_manager"]
+        arguments: [
+            "@app.form.transformer.article_2_number",
+            "@app.form.transformer.article_category_2_number"]
         tags:
             - { name: form.type }
     app.form.editor.article_brand_assignment:
         class: AppBundle\Form\Editor\Assignments\ArticleBrandAssignmentEditorType
-        arguments: ["@doctrine.orm.entity_manager"]
+        arguments: [
+            "@app.form.transformer.article_2_number",
+            "@app.form.transformer.brand_2_number"]
         tags:
             - { name: form.type }
     app.form.editor.article_category_assignment:
         class: AppBundle\Form\Editor\Assignments\ArticleCategoryAssignmentEditorType
-        arguments: ["@doctrine.orm.entity_manager"]
+        arguments: [
+            "@app.form.transformer.article_2_number",
+            "@app.form.transformer.category_2_number"]
         tags:
             - { name: form.type }
     app.form.editor.article_tag_assignment:
         class: AppBundle\Form\Editor\Assignments\ArticleTagAssignmentEditorType
-        arguments: ["@doctrine.orm.entity_manager"]
+        arguments: [
+            "@app.form.transformer.article_2_number",
+            "@app.form.transformer.tag_2_number"]
         tags:
             - { name: form.type }
     app.form.editor.branch_category_assignment:
         class: AppBundle\Form\Editor\Assignments\BranchCategoryAssignmentEditorType
-        arguments: ["@doctrine.orm.entity_manager"]
+        arguments: [
+            "@app.form.transformer.branch_2_number",
+            "@app.form.transformer.category_2_number"]
         tags:
             - { name: form.type }
     app.form.editor.brand_category_assignment:
         class: AppBundle\Form\Editor\Assignments\BrandCategoryAssignmentEditorType
-        arguments: ["@doctrine.orm.entity_manager"]
+        arguments: [
+            "@app.form.transformer.brand_2_number",
+            "@app.form.transformer.category_2_number"]
         tags:
             - { name: form.type }
     app.form.editor.magazine_branch_assignment:
         class: AppBundle\Form\Editor\Assignments\MagazineBranchAssignmentEditorType
-        arguments: ["@doctrine.orm.entity_manager"]
+        arguments: [
+            "@app.form.transformer.magazine_2_number",
+            "@app.form.transformer.branch_2_number"]
         tags:
             - { name: form.type }
     app.form.editor.magazine_category_assignment:
         class: AppBundle\Form\Editor\Assignments\MagazineCategoryAssignmentEditorType
-        arguments: ["@doctrine.orm.entity_manager"]
+        arguments: [
+            "@app.form.transformer.magazine_2_number",
+            "@app.form.transformer.category_2_number"]
         tags:
             - { name: form.type }
     app.form.editor.menu_entry_branch_assignment:
         class: AppBundle\Form\Editor\Assignments\MenuEntryBranchAssignmentEditorType
-        arguments: ["@doctrine.orm.entity_manager"]
+        arguments: [
+            "@app.form.transformer.menu_entry_2_number",
+            "@app.form.transformer.branch_2_number"]
         tags:
             - { name: form.type }
     app.form.editor.menu_entry_category_assignment:
         class: AppBundle\Form\Editor\Assignments\MenuEntryCategoryAssignmentEditorType
-        arguments: ["@doctrine.orm.entity_manager"]
+        arguments: [
+            "@app.form.transformer.menu_entry_2_number",
+            "@app.form.transformer.category_2_number"]
         tags:
             - { name: form.type }
     app.form.editor.menu_menu_entry_assignment:
         class: AppBundle\Form\Editor\Assignments\MenuMenuEntryAssignmentEditorType
-        arguments: ["@doctrine.orm.entity_manager"]
+        arguments: [
+            "@app.form.transformer.menu_2_number",
+            "@app.form.transformer.menu_entry_2_number"]
         tags:
             - { name: form.type }
     app.form.editor.newsletter_block_advert_assignment:
         class: AppBundle\Form\Editor\Assignments\NewsletterBlockAdvertAssignmentEditorType
-        arguments: ["@doctrine.orm.entity_manager"]
+        arguments: [
+            "@app.form.transformer.newsletter_block_2_number",
+            "@app.form.transformer.advert_2_number"]
         tags:
             - { name: form.type }
     app.form.editor.newsletter_block_article_assignment:
         class: AppBundle\Form\Editor\Assignments\NewsletterBlockArticleAssignmentEditorType
-        arguments: ["@doctrine.orm.entity_manager"]
+        arguments: [
+            "@app.form.transformer.newsletter_block_2_number",
+            "@app.form.transformer.article_2_number"]
         tags:
             - { name: form.type }
     app.form.editor.newsletter_block_magazine_assignment:
         class: AppBundle\Form\Editor\Assignments\NewsletterBlockMagazineAssignmentEditorType
-        arguments: ["@doctrine.orm.entity_manager"]
+        arguments: [
+            "@app.form.transformer.newsletter_block_2_number",
+            "@app.form.transformer.magazine_2_number"]
         tags:
             - { name: form.type }
     app.form.editor.newsletter_user_newsletter_group_assignment:
         class: AppBundle\Form\Editor\Assignments\NewsletterUserNewsletterGroupAssignmentEditorType
-        arguments: ["@doctrine.orm.entity_manager"]
+        arguments: [
+            "@app.form.transformer.newsletter_user_2_number",
+            "@app.form.transformer.newsletter_group_2_number"]
         tags:
             - { name: form.type }
     app.form.editor.product_category_assignment:
         class: AppBundle\Form\Editor\Assignments\ProductCategoryAssignmentEditorType
-        arguments: ["@doctrine.orm.entity_manager"]
+        arguments: [
+            "@app.form.transformer.product_2_number",
+            "@app.form.transformer.category_2_number"]
         tags:
             - { name: form.type }
     app.form.editor.term_category_assignment:
         class: AppBundle\Form\Editor\Assignments\TermCategoryAssignmentEditorType
-        arguments: ["@doctrine.orm.entity_manager"]
+        arguments: [
+            "@app.form.transformer.term_2_number",
+            "@app.form.transformer.category_2_number"]
         tags:
             - { name: form.type }
     app.form.editor.user_category_assignment:
         class: AppBundle\Form\Editor\Assignments\UserCategoryAssignmentEditorType
-        arguments: ["@doctrine.orm.entity_manager"]
+        arguments: [
+            "@app.form.transformer.user_2_number",
+            "@app.form.transformer.category_2_number"]
         tags:
             - { name: form.type }
             
-            
+    # Main Editors      
     app.form.editor.article:
         class: AppBundle\Form\Editor\Main\ArticleEditorType
         arguments: ["@doctrine.orm.entity_manager"]

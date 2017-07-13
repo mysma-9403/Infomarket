@@ -10,7 +10,7 @@ use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
-use AppBundle\Form\Editor\Transformer\NewsletterPageTemplateToNumberTransformer;
+use AppBundle\Form\Transformer\NewsletterPageTemplateToNumberTransformer;
 
 class NewsletterPageEditorType extends SimpleEntityEditorType
 {

@@ -2,29 +2,35 @@
 
 namespace AppBundle\Form\Editor\Assignments;
 
-use AppBundle\Entity\Product;
 use AppBundle\Entity\ProductCategoryAssignment;
-use AppBundle\Entity\Category;
 use AppBundle\Form\Editor\Base\BaseEntityEditorType;
-use AppBundle\Utils\FormUtils;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\FormBuilderInterface;
-use Doctrine\Common\Persistence\ObjectManager;
-use AppBundle\Form\Editor\Transformer\ProductToNumberTransformer;
-use AppBundle\Repository\Admin\Main\ProductRepository;
-use AppBundle\Form\Editor\Transformer\CategoryToNumberTransformer;
-use AppBundle\Entity\Segment;
-use AppBundle\Form\Editor\Transformer\SegmentToNumberTransformer;
-use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use AppBundle\Form\Transformer\EntityToNumberTransformer;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\FormBuilderInterface;
 
 class ProductCategoryAssignmentEditorType extends BaseEntityEditorType
-{
-	protected $em;
+{	
+	/**
+	 *
+	 * @var EntityToNumberTransformer
+	 */
+	protected $productTransformer;
 	
-	public function __construct(ObjectManager $em)
-	{
-		$this->em = $em;
+	/**
+	 *
+	 * @var EntityToNumberTransformer
+	 */
+	protected $categoryTransformer;
+	
+	public function __construct(
+			EntityToNumberTransformer $productTransformer,
+			EntityToNumberTransformer $segmentTransformer,
+			EntityToNumberTransformer $categoryTransformer) {
+		
+		$this->productTransformer = $productTransformer;
+		$this->segmentTransformer = $segmentTransformer;
+		$this->categoryTransformer = $categoryTransformer;
 	}
 	
 	/**
@@ -33,45 +39,11 @@ class ProductCategoryAssignmentEditorType extends BaseEntityEditorType
 	 * @see \AppBundle\Form\Base\BaseFormType::addMoreFields()
 	 */
 	protected function addMainFields(FormBuilderInterface $builder, array $options) {
-		parent::addMainFields($builder, $options);
-	
-		/** @var ProductRepository $productRepository */
-		$productRepository = $this->em->getRepository(Product::class);
-		$products = $productRepository->findFilterItems();
+		$this->addSingleChoiceField($builder, $options, $this->productTransformer, 'product');
+		$this->addSingleChoiceField($builder, $options, $this->segmentTransformer, 'segment');
+		$this->addSingleChoiceField($builder, $options, $this->categoryTransformer, 'category');
 		
-		/** @var SegmentRepository $segmentRepository */
-		$segmentRepository = $this->em->getRepository(Segment::class);
-		$segments = $segmentRepository->findFilterItems();
-		
-		/** @var CategoryRepository $categoryRepository */
-		$categoryRepository = $this->em->getRepository(Category::class);
-		$categories = $categoryRepository->findFilterItems();
-	
 		$builder
-		->add('product', ChoiceType::class, array(
-				'choices' 		=> $products,
-				'choice_label' => function ($value, $key, $index) { return FormUtils::getListLabel($value, $key, $index); },
-				'choice_translation_domain' => false,
-				'required'		=> true,
-				'expanded'      => false,
-				'multiple'      => false
-		))
-		->add('segment', ChoiceType::class, array(
-				'choices' 		=> $segments,
-				'choice_label' => function ($value, $key, $index) { return FormUtils::getListLabel($value, $key, $index); },
-				'choice_translation_domain' => false,
-				'required'		=> true,
-				'expanded'      => false,
-				'multiple'      => false
-		))
-		->add('category', ChoiceType::class, array(
-				'choices'		=> $categories,
-				'choice_label' => function ($value, $key, $index) { return FormUtils::getListLabel($value, $key, $index); },
-				'choice_translation_domain' => false,
-				'required'		=> true,
-				'expanded'      => false,
-				'multiple'      => false
-		))
 		->add('orderNumber', IntegerType::class, array(
 				'required'		=> true
 		))
@@ -79,10 +51,16 @@ class ProductCategoryAssignmentEditorType extends BaseEntityEditorType
 				'required'		=> false
 		))
 		;
-		
-		$builder->get('product')->addModelTransformer(new ProductToNumberTransformer($this->em));
-		$builder->get('segment')->addModelTransformer(new SegmentToNumberTransformer($this->em));
-		$builder->get('category')->addModelTransformer(new CategoryToNumberTransformer($this->em));
+	}
+	
+	protected function getDefaultOptions() {
+		$options = parent::getDefaultOptions();
+	
+		$options['product'] = [];
+		$options['segment'] = [];
+		$options['category'] = [];
+	
+		return $options;
 	}
 	
 	/**

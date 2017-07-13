@@ -197,7 +197,8 @@ abstract class AdminController extends StandardController {
 	protected function initIndexFilterForm(Request $request, array &$params) {
 		$viewParams = $params['viewParams'];
 		$filter = $viewParams['entryFilter'];
-		$options = $this->getFormOptions();
+		
+		$options = $this->getFilterFormOptions();
 		
 		$filterForm = $this->createForm($this->getFilterFormType(), $filter, $options);
 		$filterForm->handleRequest($request);
@@ -223,6 +224,7 @@ abstract class AdminController extends StandardController {
 	protected function initIndexListForm(Request $request, array &$params) {
 		$viewParams = $params['viewParams'];
 		$filter = $viewParams['entryFilter'];
+		
 		$items = $viewParams['entries'];
 		$selectedEntries = $this->getSelectedEntries($filter, $items);
 		
@@ -267,7 +269,9 @@ abstract class AdminController extends StandardController {
 		$viewParams = $params['viewParams'];
 		$entry = $viewParams['entry'];
 	
-		$form = $this->createForm($this->getEditorFormType(), $entry);
+		$options = $this->getEditorFormOptions();
+		
+		$form = $this->createForm($this->getEditorFormType(), $entry, $options);
 	
 		$form->handleRequest($request);
 	
@@ -367,7 +371,11 @@ abstract class AdminController extends StandardController {
 	// Internal logic
 	//---------------------------------------------------------------------------
 	
-	protected function getFormOptions() {
+	protected function getFilterFormOptions() {
+		return array();
+	}
+	
+	protected function getEditorFormOptions() {
 		return array();
 	}
 	

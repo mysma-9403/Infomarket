@@ -97,8 +97,8 @@ class ArticleBrandAssignmentController extends AssignmentController {
 	// Internal logic
 	//---------------------------------------------------------------------------
 	
-	protected function getFormOptions() {
-		$options = parent::getFormOptions();
+	protected function getFilterFormOptions() {
+		$options = parent::getFilterFormOptions();
 	
 		/** @var ArticleRepository $articleRepository */
 		$articleRepository = $this->getDoctrine()->getRepository(Article::class);
@@ -107,6 +107,20 @@ class ArticleBrandAssignmentController extends AssignmentController {
 		/** @var BrandRepository $brandRepository */
 		$brandRepository = $this->getDoctrine()->getRepository(Brand::class);
 		$options['brands'] = $brandRepository->findFilterItems();
+		
+		return $options;
+	}
+	
+	protected function getEditorFormOptions() {
+		$options = parent::getEditorFormOptions();
+	
+		/** @var ArticleRepository $articleRepository */
+		$articleRepository = $this->getDoctrine()->getRepository(Article::class);
+		$options['article'] = $articleRepository->findFilterItems();
+	
+		/** @var BrandRepository $brandRepository */
+		$brandRepository = $this->getDoctrine()->getRepository(Brand::class);
+		$options['brand'] = $brandRepository->findFilterItems();
 	
 		return $options;
 	}
@@ -154,6 +168,8 @@ class ArticleBrandAssignmentController extends AssignmentController {
 	protected function getEditorFormType() {
 		return ArticleBrandAssignmentEditorType::class;
 	}
+	
+	
 	
 	/**
 	 * 

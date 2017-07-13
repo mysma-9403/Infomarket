@@ -2,25 +2,28 @@
 
 namespace AppBundle\Form\Editor\Assignments;
 
-use AppBundle\Entity\NewsletterBlock;
 use AppBundle\Entity\NewsletterBlockAdvertAssignment;
-use AppBundle\Entity\Advert;
 use AppBundle\Form\Editor\Base\BaseEntityEditorType;
-use AppBundle\Utils\FormUtils;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use AppBundle\Form\Transformer\EntityToNumberTransformer;
 use Symfony\Component\Form\FormBuilderInterface;
-use Doctrine\Common\Persistence\ObjectManager;
-use AppBundle\Form\Editor\Transformer\NewsletterBlockToNumberTransformer;
-use AppBundle\Repository\Admin\Main\NewsletterBlockRepository;
-use AppBundle\Form\Editor\Transformer\AdvertToNumberTransformer;
 
 class NewsletterBlockAdvertAssignmentEditorType extends BaseEntityEditorType
 {
-	protected $em;
+	/**
+	 *
+	 * @var EntityToNumberTransformer
+	 */
+	protected $newsletterBlockTransformer;
 	
-	public function __construct(ObjectManager $em)
-	{
-		$this->em = $em;
+	/**
+	 *
+	 * @var EntityToNumberTransformer
+	 */
+	protected $advertTransformer;
+	
+	public function __construct(EntityToNumberTransformer $newsletterBlockTransformer, EntityToNumberTransformer $advertTransformer) {
+		$this->newsletterBlockTransformer = $newsletterBlockTransformer;
+		$this->advertTransformer = $advertTransformer;
 	}
 	
 	/**
@@ -29,37 +32,17 @@ class NewsletterBlockAdvertAssignmentEditorType extends BaseEntityEditorType
 	 * @see \AppBundle\Form\Base\BaseFormType::addMoreFields()
 	 */
 	protected function addMainFields(FormBuilderInterface $builder, array $options) {
-		parent::addMainFields($builder, $options);
+		$this->addSingleChoiceField($builder, $options, $this->newsletterBlockTransformer, 'newsletterBlock');
+		$this->addSingleChoiceField($builder, $options, $this->advertTransformer, 'advert');
+	}
 	
-		/** @var NewsletterBlockRepository $newsletterBlockRepository */
-		$newsletterBlockRepository = $this->em->getRepository(NewsletterBlock::class);
-		$newsletterBlocks = $newsletterBlockRepository->findFilterItems();
-		
-		/** @var AdvertRepository $advertRepository */
-		$advertRepository = $this->em->getRepository(Advert::class);
-		$adverts = $advertRepository->findFilterItems();
+	protected function getDefaultOptions() {
+		$options = parent::getDefaultOptions();
 	
-		$builder
-		->add('newsletterBlock', ChoiceType::class, array(
-				'choices' 		=> $newsletterBlocks,
-				'choice_label' => function ($value, $key, $index) { return FormUtils::getListLabel($value, $key, $index); },
-				'choice_translation_domain' => false,
-				'required'		=> true,
-				'expanded'      => false,
-				'multiple'      => false
-		))
-		->add('advert', ChoiceType::class, array(
-				'choices'		=> $adverts,
-				'choice_label' => function ($value, $key, $index) { return FormUtils::getListLabel($value, $key, $index); },
-				'choice_translation_domain' => false,
-				'required'		=> true,
-				'expanded'      => false,
-				'multiple'      => false
-		))
-		;
-		
-		$builder->get('newsletterBlock')->addModelTransformer(new NewsletterBlockToNumberTransformer($this->em));
-		$builder->get('advert')->addModelTransformer(new AdvertToNumberTransformer($this->em));
+		$options['newsletterBlock'] = [];
+		$options['advert'] = [];
+	
+		return $options;
 	}
 	
 	/**

@@ -4,7 +4,7 @@ namespace AppBundle\Form\Editor\Main;
 
 use AppBundle\Entity\Magazine;
 use AppBundle\Form\Editor\Base\FeaturedEntityEditorType;
-use AppBundle\Form\Editor\Transformer\MagazineToNumberTransformer;
+use AppBundle\Form\Transformer\MagazineToNumberTransformer;
 use AppBundle\Repository\Admin\Main\ParentMagazineRepository;
 use AppBundle\Utils\FormUtils;
 use Doctrine\Common\Persistence\ObjectManager;

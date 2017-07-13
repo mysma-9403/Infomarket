@@ -2,26 +2,29 @@
 
 namespace AppBundle\Form\Editor\Assignments;
 
-use AppBundle\Entity\NewsletterBlock;
 use AppBundle\Entity\NewsletterBlockArticleAssignment;
-use AppBundle\Entity\Article;
 use AppBundle\Form\Editor\Base\BaseEntityEditorType;
-use AppBundle\Utils\FormUtils;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\FormBuilderInterface;
-use Doctrine\Common\Persistence\ObjectManager;
-use AppBundle\Form\Editor\Transformer\NewsletterBlockToNumberTransformer;
-use AppBundle\Repository\Admin\Main\NewsletterBlockRepository;
-use AppBundle\Form\Editor\Transformer\ArticleToNumberTransformer;
+use AppBundle\Form\Transformer\EntityToNumberTransformer;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\FormBuilderInterface;
 
 class NewsletterBlockArticleAssignmentEditorType extends BaseEntityEditorType
 {
-	protected $em;
+/**
+	 *
+	 * @var EntityToNumberTransformer
+	 */
+	protected $newsletterBlockTransformer;
 	
-	public function __construct(ObjectManager $em)
-	{
-		$this->em = $em;
+	/**
+	 *
+	 * @var EntityToNumberTransformer
+	 */
+	protected $articleTransformer;
+	
+	public function __construct(EntityToNumberTransformer $newsletterBlockTransformer, EntityToNumberTransformer $articleTransformer) {
+		$this->newsletterBlockTransformer = $newsletterBlockTransformer;
+		$this->articleTransformer = $articleTransformer;
 	}
 	
 	/**
@@ -30,33 +33,10 @@ class NewsletterBlockArticleAssignmentEditorType extends BaseEntityEditorType
 	 * @see \AppBundle\Form\Base\BaseFormType::addMoreFields()
 	 */
 	protected function addMainFields(FormBuilderInterface $builder, array $options) {
-		parent::addMainFields($builder, $options);
-	
-		/** @var NewsletterBlockRepository $newsletterBlockRepository */
-		$newsletterBlockRepository = $this->em->getRepository(NewsletterBlock::class);
-		$newsletterBlocks = $newsletterBlockRepository->findFilterItems();
+		$this->addSingleChoiceField($builder, $options, $this->newsletterBlockTransformer, 'newsletterBlock');
+		$this->addSingleChoiceField($builder, $options, $this->articleTransformer, 'article');
 		
-		/** @var ArticleRepository $articleRepository */
-		$articleRepository = $this->em->getRepository(Article::class);
-		$articles = $articleRepository->findFilterItems();
-	
 		$builder
-		->add('newsletterBlock', ChoiceType::class, array(
-				'choices' 		=> $newsletterBlocks,
-				'choice_label' => function ($value, $key, $index) { return FormUtils::getListLabel($value, $key, $index); },
-				'choice_translation_domain' => false,
-				'required'		=> true,
-				'expanded'      => false,
-				'multiple'      => false
-		))
-		->add('article', ChoiceType::class, array(
-				'choices'		=> $articles,
-				'choice_label' => function ($value, $key, $index) { return FormUtils::getListLabel($value, $key, $index); },
-				'choice_translation_domain' => false,
-				'required'		=> true,
-				'expanded'      => false,
-				'multiple'      => false
-		))
 		->add('alternativeName', TextType::class, array(
 				'required' => false
 		))
@@ -67,9 +47,15 @@ class NewsletterBlockArticleAssignmentEditorType extends BaseEntityEditorType
 				'required' => false
 		))
 		;
-		
-		$builder->get('newsletterBlock')->addModelTransformer(new NewsletterBlockToNumberTransformer($this->em));
-		$builder->get('article')->addModelTransformer(new ArticleToNumberTransformer($this->em));
+	}
+	
+	protected function getDefaultOptions() {
+		$options = parent::getDefaultOptions();
+	
+		$options['newsletterBlock'] = [];
+		$options['article'] = [];
+	
+		return $options;
 	}
 	
 	/**

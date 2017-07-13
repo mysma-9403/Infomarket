@@ -6,7 +6,7 @@ use AppBundle\Entity\Advert;
 use AppBundle\Form\Editor\Base\ImageEntityEditorType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
-use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 
@@ -19,16 +19,11 @@ class AdvertEditorType extends ImageEntityEditorType
 	 */
 	protected function addMoreFields(FormBuilderInterface $builder, array $options) {
 		
-		$locationChoices = array(
-				Advert::getLocationName(Advert::TOP_LOCATION)  => Advert::TOP_LOCATION,
-				Advert::getLocationName(Advert::SIDE_LOCATION)  => Advert::SIDE_LOCATION,
-				Advert::getLocationName(Advert::TEXT_LOCATION)  => Advert::TEXT_LOCATION,
-				Advert::getLocationName(Advert::FEATURED_LOCATION)  => Advert::FEATURED_LOCATION
-		);
+		$locations = $options['locations'];
 		
 		$builder
 			->add('location', ChoiceType::class, array(
-					'choices'		=> $locationChoices,
+					'choices'		=> $locations,
 					'expanded'      => false,
 					'multiple'      => false,
 					'required'      => true
@@ -59,15 +54,23 @@ class AdvertEditorType extends ImageEntityEditorType
 					'required' => true,
 					'attr' => ['placeholder' => 'label.advert.link']
 			))
-			->add('showLimit', NumberType::class, array(
+			->add('showLimit', IntegerType::class, array(
 					'required' => false,
 					'attr' => ['placeholder' => 'label.advert.showLimit']
 			))
-			->add('clickLimit', NumberType::class, array(
+			->add('clickLimit', IntegerType::class, array(
 					'required' => false,
 					'attr' => ['placeholder' => 'label.advert.clickLimit']
 			))
 		;
+	}
+	
+	protected function getDefaultOptions() {
+		$options = parent::getDefaultOptions();
+	
+		$options['locations'] = [];
+	
+		return $options;
 	}
 	
 	/**

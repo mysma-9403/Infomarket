@@ -128,6 +128,21 @@ class AdvertController extends ImageEntityController {
 		return $options;
 	}
 	
+	protected function getEditorFormOptions() {
+		$options = parent::getFormOptions();
+		
+		$locations = array(
+				Advert::getLocationName(Advert::TOP_LOCATION)  => Advert::TOP_LOCATION,
+				Advert::getLocationName(Advert::SIDE_LOCATION)  => Advert::SIDE_LOCATION,
+				Advert::getLocationName(Advert::TEXT_LOCATION)  => Advert::TEXT_LOCATION,
+				Advert::getLocationName(Advert::FEATURED_LOCATION)  => Advert::FEATURED_LOCATION
+		);
+		
+		$options['locations'] = $locations;
+		
+		return $options;
+	}
+	
 	/**
 	 *
 	 * {@inheritDoc}

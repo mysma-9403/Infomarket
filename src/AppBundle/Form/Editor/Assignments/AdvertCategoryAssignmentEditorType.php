@@ -2,25 +2,28 @@
 
 namespace AppBundle\Form\Editor\Assignments;
 
-use AppBundle\Entity\Advert;
 use AppBundle\Entity\AdvertCategoryAssignment;
-use AppBundle\Entity\Category;
 use AppBundle\Form\Editor\Base\BaseEntityEditorType;
-use AppBundle\Utils\FormUtils;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use AppBundle\Form\Transformer\EntityToNumberTransformer;
 use Symfony\Component\Form\FormBuilderInterface;
-use Doctrine\Common\Persistence\ObjectManager;
-use AppBundle\Form\Editor\Transformer\AdvertToNumberTransformer;
-use AppBundle\Repository\Admin\Main\AdvertRepository;
-use AppBundle\Form\Editor\Transformer\CategoryToNumberTransformer;
 
 class AdvertCategoryAssignmentEditorType extends BaseEntityEditorType
 {
-	protected $em;
+	/**
+	 *
+	 * @var EntityToNumberTransformer
+	 */
+	protected $advertTransformer;
 	
-	public function __construct(ObjectManager $em)
-	{
-		$this->em = $em;
+	/**
+	 *
+	 * @var EntityToNumberTransformer
+	 */
+	protected $categoryTransformer;
+	
+	public function __construct(EntityToNumberTransformer $advertTransformer, EntityToNumberTransformer $categoryTransformer) {
+		$this->advertTransformer = $advertTransformer;
+		$this->categoryTransformer = $categoryTransformer;
 	}
 	
 	/**
@@ -29,37 +32,17 @@ class AdvertCategoryAssignmentEditorType extends BaseEntityEditorType
 	 * @see \AppBundle\Form\Base\BaseFormType::addMoreFields()
 	 */
 	protected function addMainFields(FormBuilderInterface $builder, array $options) {
-		parent::addMainFields($builder, $options);
+		$this->addSingleChoiceField($builder, $options, $this->advertTransformer, 'advert');
+		$this->addSingleChoiceField($builder, $options, $this->categoryTransformer, 'category');
+	}
 	
-		/** @var AdvertRepository $advertRepository */
-		$advertRepository = $this->em->getRepository(Advert::class);
-		$adverts = $advertRepository->findFilterItems();
-		
-		/** @var CategoryRepository $categoryRepository */
-		$categoryRepository = $this->em->getRepository(Category::class);
-		$categories = $categoryRepository->findFilterItems();
+	protected function getDefaultOptions() {
+		$options = parent::getDefaultOptions();
 	
-		$builder
-		->add('advert', ChoiceType::class, array(
-				'choices' 		=> $adverts,
-				'choice_label' => function ($value, $key, $index) { return FormUtils::getListLabel($value, $key, $index); },
-				'choice_translation_domain' => false,
-				'required'		=> true,
-				'expanded'      => false,
-				'multiple'      => false
-		))
-		->add('category', ChoiceType::class, array(
-				'choices'		=> $categories,
-				'choice_label' => function ($value, $key, $index) { return FormUtils::getListLabel($value, $key, $index); },
-				'choice_translation_domain' => false,
-				'required'		=> true,
-				'expanded'      => false,
-				'multiple'      => false
-		))
-		;
-		
-		$builder->get('advert')->addModelTransformer(new AdvertToNumberTransformer($this->em));
-		$builder->get('category')->addModelTransformer(new CategoryToNumberTransformer($this->em));
+		$options['advert'] = [];
+		$options['category'] = [];
+	
+		return $options;
 	}
 	
 	/**

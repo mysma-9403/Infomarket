@@ -2,8 +2,10 @@
 
 namespace AppBundle\Form\Base;
 
+use AppBundle\Utils\FormUtils;
 use AppBundle\Utils\StringUtils;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -50,6 +52,18 @@ abstract class BaseType extends AbstractType
 	 * @see \AppBundle\Form\Base\FormType::addActions()
 	 */
 	protected function addActions(FormBuilderInterface $builder, array $options) { }
+	
+	protected function addSingleChoiceField(FormBuilderInterface $builder, array $options, $transformer, $field, $required = true) {
+		$builder->add($field, ChoiceType::class, array(
+				'choices' 		=> $options[$field],
+				'choice_label' => function ($value, $key, $index) { return FormUtils::getListLabel($value, $key, $index); }, //TODO FormUtils --> DI
+				'choice_translation_domain' => false,
+				'required'		=> $required,
+				'expanded'      => false,
+				'multiple'      => false
+		));
+		$builder->get($field)->addModelTransformer($transformer);
+	}
 	
 	/**
 	 * 

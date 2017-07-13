@@ -2,25 +2,28 @@
 
 namespace AppBundle\Form\Editor\Assignments;
 
-use AppBundle\Entity\Article;
 use AppBundle\Entity\ArticleCategoryAssignment;
-use AppBundle\Entity\Category;
 use AppBundle\Form\Editor\Base\BaseEntityEditorType;
-use AppBundle\Utils\FormUtils;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use AppBundle\Form\Transformer\EntityToNumberTransformer;
 use Symfony\Component\Form\FormBuilderInterface;
-use Doctrine\Common\Persistence\ObjectManager;
-use AppBundle\Form\Editor\Transformer\ArticleToNumberTransformer;
-use AppBundle\Repository\Admin\Main\ArticleRepository;
-use AppBundle\Form\Editor\Transformer\CategoryToNumberTransformer;
 
 class ArticleCategoryAssignmentEditorType extends BaseEntityEditorType
 {
-	protected $em;
+	/**
+	 *
+	 * @var EntityToNumberTransformer
+	 */
+	protected $articleTransformer;
 	
-	public function __construct(ObjectManager $em)
-	{
-		$this->em = $em;
+	/**
+	 *
+	 * @var EntityToNumberTransformer
+	 */
+	protected $categoryTransformer;
+	
+	public function __construct(EntityToNumberTransformer $articleTransformer, EntityToNumberTransformer $categoryTransformer) {
+		$this->articleTransformer = $articleTransformer;
+		$this->categoryTransformer = $categoryTransformer;
 	}
 	
 	/**
@@ -29,37 +32,17 @@ class ArticleCategoryAssignmentEditorType extends BaseEntityEditorType
 	 * @see \AppBundle\Form\Base\BaseFormType::addMoreFields()
 	 */
 	protected function addMainFields(FormBuilderInterface $builder, array $options) {
-		parent::addMainFields($builder, $options);
+		$this->addSingleChoiceField($builder, $options, $this->articleTransformer, 'article');
+		$this->addSingleChoiceField($builder, $options, $this->categoryTransformer, 'category');
+	}
 	
-		/** @var ArticleRepository $articleRepository */
-		$articleRepository = $this->em->getRepository(Article::class);
-		$articles = $articleRepository->findFilterItems();
-		
-		/** @var CategoryRepository $categoryRepository */
-		$categoryRepository = $this->em->getRepository(Category::class);
-		$categories = $categoryRepository->findFilterItems();
+	protected function getDefaultOptions() {
+		$options = parent::getDefaultOptions();
 	
-		$builder
-		->add('article', ChoiceType::class, array(
-				'choices' 		=> $articles,
-				'choice_label' => function ($value, $key, $index) { return FormUtils::getListLabel($value, $key, $index); },
-				'choice_translation_domain' => false,
-				'required'		=> true,
-				'expanded'      => false,
-				'multiple'      => false
-		))
-		->add('category', ChoiceType::class, array(
-				'choices'		=> $categories,
-				'choice_label' => function ($value, $key, $index) { return FormUtils::getListLabel($value, $key, $index); },
-				'choice_translation_domain' => false,
-				'required'		=> true,
-				'expanded'      => false,
-				'multiple'      => false
-		))
-		;
-		
-		$builder->get('article')->addModelTransformer(new ArticleToNumberTransformer($this->em));
-		$builder->get('category')->addModelTransformer(new CategoryToNumberTransformer($this->em));
+		$options['article'] = [];
+		$options['category'] = [];
+	
+		return $options;
 	}
 	
 	/**
