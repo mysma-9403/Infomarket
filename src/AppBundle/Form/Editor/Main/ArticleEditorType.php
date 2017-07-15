@@ -3,27 +3,33 @@
 namespace AppBundle\Form\Editor\Main;
 
 use AppBundle\Entity\Article;
-use AppBundle\Entity\User;
 use AppBundle\Form\Editor\Base\ImageEntityEditorType;
-use AppBundle\Form\Transformer\ArticleToNumberTransformer;
-use AppBundle\Form\Transformer\UserToNumberTransformer;
-use AppBundle\Utils\FormUtils;
-use Doctrine\Common\Persistence\ObjectManager;
+use AppBundle\Form\Transformer\EntityToNumberTransformer;
 use Ivory\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
-use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 
 class ArticleEditorType extends ImageEntityEditorType
 {
-	protected $em;
+	/**
+	 *
+	 * @var EntityToNumberTransformer
+	 */
+	protected $articleToNumberTransformer;
 	
-	public function __construct(ObjectManager $em)
-	{
-		$this->em = $em;
+	/**
+	 *
+	 * @var EntityToNumberTransformer
+	 */
+	protected $userToNumberTransformer;
+	
+	public function __construct(EntityToNumberTransformer $articleToNumberTransformer, EntityToNumberTransformer $userToNumberTransformer) {
+		$this->articleToNumberTransformer = $articleToNumberTransformer;
+		$this->userToNumberTransformer = $userToNumberTransformer;
 	}
 	
 	/**
@@ -33,62 +39,23 @@ class ArticleEditorType extends ImageEntityEditorType
 	 */
 	protected function addMoreFields(FormBuilderInterface $builder, array $options) {
 		
-		/** @var ArticleRepository $articleRepository */
-		$articleRepository = $this->em->getRepository(Article::class);
-		$articles = $articleRepository->findFilterItems();
-		
-		/** @var UserRepository $userRepository */
-		$userRepository = $this->em->getRepository(User::class);
-		$users = $userRepository->findFilterItems();
-		
-		$layoutChoices = array(
-				Article::getLayoutName(Article::LEFT_LAYOUT) => Article::LEFT_LAYOUT,
-				Article::getLayoutName(Article::MID_LAYOUT) => Article::MID_LAYOUT,
-				Article::getLayoutName(Article::RIGHT_LAYOUT) => Article::RIGHT_LAYOUT,
-				Article::getLayoutName(Article::BOTTOM_LAYOUT) => Article::BOTTOM_LAYOUT
-		);
-		
-		$imageSizeChoices = array(
-				Article::getImageSizeName(Article::SMALL_IMAGE) => Article::SMALL_IMAGE,
-				Article::getImageSizeName(Article::MEDIUM_IMAGE) => Article::MEDIUM_IMAGE,
-				Article::getImageSizeName(Article::LARGE_IMAGE) => Article::LARGE_IMAGE
-		);
+		$layoutChoices = $options['layoutChoices'];
+		$imageSizeChoices = $options['imageSizeChoices'];
 		
 		$builder
-		->add('archived', null, array(
-				'required' => false
-		))
 		->add('subname', TextType::class, array(
 				'required' => false
 		))
-		
-		->add('parent', ChoiceType::class, array(
-			'choices' 		=> $articles,
-			'choice_label' => function ($value, $key, $index) { return FormUtils::getListLabel($value, $key, $index); },
-			'choice_translation_domain' => false,
-			'required'		=> false,
-			'expanded'      => false,
-			'multiple'      => false,
-			'placeholder' 	=> 'label.placeholder.none'
+		->add('archived', CheckboxType::class, array(
+				'required' => false
 		))
-		
 		->add('featured', CheckboxType::class, array(
 				'required' => false
 		))
-		->add('layout', ChoiceType::class, array(
-				'choices'		=> $layoutChoices,
-				'expanded'      => false,
-				'multiple'      => false
-		))
-		->add('imageSize', ChoiceType::class, array(
-				'choices'		=> $imageSizeChoices,
-				'expanded'      => false,
-				'multiple'      => false
-		))
-		->add('page', NumberType::class, array(
+		->add('page', IntegerType::class, array(
 				'required' => false
 		))
-		->add('orderNumber', NumberType::class, array(
+		->add('orderNumber', IntegerType::class, array(
 				'required' => false
 		))
 		
@@ -123,19 +90,32 @@ class ArticleEditorType extends ImageEntityEditorType
 						'placeholder' => 'label.article.endDate'
 				]
 		))
-		->add('author', ChoiceType::class, array(
-				'choices' 		=> $users,
-				'choice_label' => function ($value, $key, $index) { return FormUtils::getListLabel($value, $key, $index); },
-				'choice_translation_domain' => false,
-				'required'		=> false,
+		
+		->add('layout', ChoiceType::class, array(
+				'choices'		=> $layoutChoices,
 				'expanded'      => false,
-				'multiple'      => false,
-				'placeholder' 	=> 'label.placeholder.none'
+				'multiple'      => false
+		))
+		->add('imageSize', ChoiceType::class, array(
+				'choices'		=> $imageSizeChoices,
+				'expanded'      => false,
+				'multiple'      => false
 		))
 		;
 		
-		$builder->get('parent')->addModelTransformer(new ArticleToNumberTransformer($this->em));
-		$builder->get('author')->addModelTransformer(new UserToNumberTransformer($this->em));
+		$this->addSingleChoiceField($builder, $options, $this->articleToNumberTransformer, 'parent');
+		$this->addSingleChoiceField($builder, $options, $this->userToNumberTransformer, 'author');
+	}
+	
+	protected function getDefaultOptions() {
+		$options = parent::getDefaultOptions();
+		
+		$options['parent'] = [];
+		$options['author'] = [];
+		$options['layoutChoices'] = [];
+		$options['imageSizeChoices'] = [];
+		
+		return $options;
 	}
 	
 	/**

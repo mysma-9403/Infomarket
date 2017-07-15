@@ -337,6 +337,28 @@ class ArticleController extends FeaturedEntityController {
 		return $options;
 	}
 	
+	protected function getEditorFormOptions() {
+		$options = parent::getEditorFormOptions();
+		
+		$layoutChoices = array(
+				Article::getLayoutName(Article::LEFT_LAYOUT) => Article::LEFT_LAYOUT,
+				Article::getLayoutName(Article::MID_LAYOUT) => Article::MID_LAYOUT,
+				Article::getLayoutName(Article::RIGHT_LAYOUT) => Article::RIGHT_LAYOUT,
+				Article::getLayoutName(Article::BOTTOM_LAYOUT) => Article::BOTTOM_LAYOUT
+		);
+		
+		$imageSizeChoices = array(
+				Article::getImageSizeName(Article::SMALL_IMAGE) => Article::SMALL_IMAGE,
+				Article::getImageSizeName(Article::MEDIUM_IMAGE) => Article::MEDIUM_IMAGE,
+				Article::getImageSizeName(Article::LARGE_IMAGE) => Article::LARGE_IMAGE
+		);
+		
+		$options['layoutChoices'] = $layoutChoices;
+		$options['imageSizeChoices'] = $imageSizeChoices;
+		
+		return $options;
+	}
+	
 	//---------------------------------------------------------------------------
 	// Params
 	//---------------------------------------------------------------------------

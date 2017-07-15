@@ -8,9 +8,7 @@ use AppBundle\Filter\Common\Other\ProductFilter;
 use AppBundle\Form\Editor\Base\ImageEntityEditorType;
 use AppBundle\Form\FormBuilder\BenchmarkFieldEditorBuilder;
 use AppBundle\Form\Transformer\EntityToNumberTransformer;
-use AppBundle\Utils\FormUtils;
 use FM\ElfinderBundle\Form\Type\ElFinderType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\FormBuilderInterface;
 
@@ -40,21 +38,7 @@ class ProductEditorType extends ImageEntityEditorType
 	 */
 	protected function addMoreFields(FormBuilderInterface $builder, array $options) {
 		
-// 		/** @var BrandRepository $brandRepository */
-// 		$brandRepository = $this->em->getRepository(Brand::class);
-// 		$brands = $brandRepository->findFilterItems();
-
-		$brands = $options['brands'];
-		
 		$builder
-		->add('brand', ChoiceType::class, array(
-				'choices' 		=> $brands,
-				'choice_label' => function ($value, $key, $index) { return FormUtils::getListLabel($value, $key, $index); },
-				'choice_translation_domain' => false,
-				'required'		=> true,
-				'expanded'      => false,
-				'multiple'      => false
-		))
 		->add('topProduktImage', ElFinderType::class, array(
 				'instance'=>'topProdukt',
 				'required' => false
@@ -65,7 +49,7 @@ class ProductEditorType extends ImageEntityEditorType
 		))
 		;
 		
-		$builder->get('brand')->addModelTransformer($this->brandToNumberTransformer);
+		$this->addSingleChoiceField($builder, $options, $this->brandToNumberTransformer, 'brand');
 		
 		$this->addFilterFields($builder, $options);
 	}
@@ -84,7 +68,7 @@ class ProductEditorType extends ImageEntityEditorType
 	protected function getDefaultOptions() {
 		$options = parent::getDefaultOptions();
 	
-		$options['brands'] = [];
+		$options['brand'] = [];
 		$options['filter'] = null;
 	
 		return $options;
