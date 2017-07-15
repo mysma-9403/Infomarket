@@ -53,7 +53,7 @@ class BenchmarkFieldEditorTypeTest extends BaseEntityEditorTypeTest {
 	protected function getExtensions() {
 		$type = new BenchmarkFieldEditorType($this->categoryTransformer);
 		
-		return array(new PreloadedExtension(array($this->getCKEditor(), $type), array()));
+		return array(new PreloadedExtension(array($type), array()));
 	}
 	
 	
