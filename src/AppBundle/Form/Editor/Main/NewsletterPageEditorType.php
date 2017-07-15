@@ -5,20 +5,21 @@ namespace AppBundle\Form\Editor\Main;
 use AppBundle\Entity\NewsletterPage;
 use AppBundle\Entity\NewsletterPageTemplate;
 use AppBundle\Form\Editor\Base\SimpleEntityEditorType;
-use AppBundle\Utils\FormUtils;
-use Doctrine\Common\Persistence\ObjectManager;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use AppBundle\Form\Transformer\EntityToNumberTransformer;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
-use AppBundle\Form\Transformer\NewsletterPageTemplateToNumberTransformer;
 
 class NewsletterPageEditorType extends SimpleEntityEditorType
 {
-	protected $em;
+	/**
+	 * 
+	 * @var EntityToNumberTransformer
+	 */
+	protected $newsletterPageTemplateToNumberTransformer;
 	
-	public function __construct(ObjectManager $em)
+	public function __construct(EntityToNumberTransformer $newsletterPageTemplateToNumberTransformer)
 	{
-		$this->em = $em;
+		$this->newsletterPageTemplateToNumberTransformer = $newsletterPageTemplateToNumberTransformer;
 	}
 	
 	/**
@@ -29,25 +30,21 @@ class NewsletterPageEditorType extends SimpleEntityEditorType
 	protected function addMoreFields(FormBuilderInterface $builder, array $options) {
 		parent::addMoreFields($builder, $options);
 		
-		/** @var NewsletterPageTemplateRepository $newsletterPageTemplateRepository */
-		$newsletterPageTemplateRepository = $this->em->getRepository(NewsletterPageTemplate::class);
-		$newsletterPageTemplates = $newsletterPageTemplateRepository->findFilterItems();
-		
 		$builder
 		->add('subname', TextType::class, array(
 				'required' => false
 		))
-		->add('newsletterPageTemplate', ChoiceType::class, array(
-				'choices' 		=> $newsletterPageTemplates,
-				'choice_label' => function ($value, $key, $index) { return FormUtils::getListLabel($value, $key, $index); },
-				'choice_translation_domain' => false,
-				'required'		=> true,
-				'expanded'      => false,
-				'multiple'      => false
-		))
 		;
 		
-		$builder->get('newsletterPageTemplate')->addModelTransformer(new NewsletterPageTemplateToNumberTransformer($this->em));
+		$this->addSingleChoiceField($builder, $options, $this->newsletterPageTemplateToNumberTransformer, 'newsletterPageTemplate');
+	}
+	
+	protected function getDefaultOptions() {
+		$options = parent::getDefaultOptions();
+		
+		$options['newsletterPageTemplate'] = [];
+		
+		return $options;
 	}
 	
 	/**

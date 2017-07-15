@@ -4,7 +4,12 @@ namespace Tests\AppBundle\Form\Base;
 
 abstract class FilterTypeTest extends BaseTypeTest {
 	
-	protected function getFormFieldsCount() {
-		return parent::getFormFieldsCount() + 2;
+	protected function getFormActions() {
+		$actions = parent::getFormActions();
+		
+		$actions['search'] = 'search';
+		$actions['clear'] = 'clear';
+				
+		return $actions;
 	}
 }

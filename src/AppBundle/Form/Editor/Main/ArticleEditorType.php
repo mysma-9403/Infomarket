@@ -4,19 +4,20 @@ namespace AppBundle\Form\Editor\Main;
 
 use AppBundle\Entity\Article;
 use AppBundle\Entity\User;
-use AppBundle\Form\Editor\Base\FeaturedEntityEditorType;
+use AppBundle\Form\Editor\Base\ImageEntityEditorType;
 use AppBundle\Form\Transformer\ArticleToNumberTransformer;
 use AppBundle\Form\Transformer\UserToNumberTransformer;
 use AppBundle\Utils\FormUtils;
 use Doctrine\Common\Persistence\ObjectManager;
 use Ivory\CKEditorBundle\Form\Type\CKEditorType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 
-class ArticleEditorType extends FeaturedEntityEditorType
+class ArticleEditorType extends ImageEntityEditorType
 {
 	protected $em;
 	
@@ -70,7 +71,10 @@ class ArticleEditorType extends FeaturedEntityEditorType
 			'multiple'      => false,
 			'placeholder' 	=> 'label.placeholder.none'
 		))
-			
+		
+		->add('featured', CheckboxType::class, array(
+				'required' => false
+		))
 		->add('layout', ChoiceType::class, array(
 				'choices'		=> $layoutChoices,
 				'expanded'      => false,

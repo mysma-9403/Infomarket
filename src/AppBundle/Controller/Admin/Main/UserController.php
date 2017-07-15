@@ -135,6 +135,23 @@ class UserController extends AdminController
 		return $fields;
 	}
 	
+	protected function getEditorFormOptions() {
+		$options = parent::getEditorFormOptions();
+		
+		$roles = array(
+				'Guest' => User::ROLE_DEFAULT,
+				'Editor' => User::ROLE_EDITOR,
+				'Publisher' => User::ROLE_PUBLISHER,
+				'Rating editor' => User::ROLE_RATING_EDITOR,
+				'Admin' => User::ROLE_ADMIN,
+				'Super admin' => User::ROLE_SUPER_ADMIN
+		);
+		
+		$options['roles'] = $roles;
+		
+		return $options;
+	}
+	
 	//---------------------------------------------------------------------------
 	// Managers
 	//---------------------------------------------------------------------------

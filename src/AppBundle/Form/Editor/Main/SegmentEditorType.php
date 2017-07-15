@@ -4,7 +4,7 @@ namespace AppBundle\Form\Editor\Main;
 
 use AppBundle\Entity\Segment;
 use AppBundle\Form\Editor\Base\ImageEntityEditorType;
-use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 
@@ -24,10 +24,10 @@ class SegmentEditorType extends ImageEntityEditorType
 		->add('color', TextType::class, array(
 					'required' => true
 		))
-		->add('orderNumber', NumberType::class, array(
+		->add('orderNumber', IntegerType::class, array(
 					'required' => true
 		))
-			;
+		;
 	}
 	
 	/**

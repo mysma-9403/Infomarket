@@ -6,21 +6,38 @@ use AppBundle\Entity\Link;
 use AppBundle\Entity\MenuEntry;
 use AppBundle\Entity\Page;
 use AppBundle\Form\Editor\Base\SimpleEntityEditorType;
-use AppBundle\Form\Transformer\LinkToNumberTransformer;
-use AppBundle\Form\Transformer\MenuEntryToNumberTransformer;
-use AppBundle\Form\Transformer\PageToNumberTransformer;
-use AppBundle\Utils\FormUtils;
-use Doctrine\Common\Persistence\ObjectManager;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use AppBundle\Form\Transformer\EntityToNumberTransformer;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 
 class MenuEntryEditorType extends SimpleEntityEditorType
 {
-	protected $em;
+	/**
+	 * 
+	 * @var EntityToNumberTransformer
+	 */
+	protected $parentToNumberTransformer;
 	
-	public function __construct(ObjectManager $em)
-	{
-		$this->em = $em;
+	/**
+	 * 
+	 * @var EntityToNumberTransformer
+	 */
+	protected $pageToNumberTransformer;
+	
+	/**
+	 *
+	 * @var EntityToNumberTransformer
+	 */
+	protected $linkToNumberTransformer;
+	
+	public function __construct(
+			EntityToNumberTransformer $parentToNumberTransformer,
+			EntityToNumberTransformer $pageToNumberTransformer,
+			EntityToNumberTransformer $linkToNumberTransformer) {
+		
+		$this->parentToNumberTransformer = $parentToNumberTransformer;
+		$this->pageToNumberTransformer = $pageToNumberTransformer;
+		$this->linkToNumberTransformer = $linkToNumberTransformer;
 	}
 	
 	/**
@@ -28,54 +45,25 @@ class MenuEntryEditorType extends SimpleEntityEditorType
 	 */
 	protected function addMoreFields(FormBuilderInterface $builder, array $options) {
 		
-		/** @var MenuEntryRepository $menuEntryRepository */
-		$menuEntryRepository = $this->em->getRepository(MenuEntry::class);
-		$menuEntries = $menuEntryRepository->findFilterItems();
-		
-		/** @var PageRepository $pageRepository */
-		$pageRepository = $this->em->getRepository(Page::class);
-		$pages = $pageRepository->findFilterItems();
-		
-		/** @var LinkRepository $linkRepository */
-		$linkRepository = $this->em->getRepository(Link::class);
-		$links = $linkRepository->findFilterItems();
-		
 		$builder
-		->add('orderNumber', null, array(
+		->add('orderNumber', IntegerType::class, array(
 				'required' => true
-		))
-		->add('parent', ChoiceType::class, array(
-				'choices' 		=> $menuEntries,
-				'choice_label' => function ($value, $key, $index) { return FormUtils::getListLabel($value, $key, $index); },
-				'choice_translation_domain' => false,
-				'required'		=> false,
-				'expanded'      => false,
-				'multiple'      => false,
-				'placeholder' 	=> 'label.placeholder.none'
-		))
-		->add('page', ChoiceType::class, array(
-				'choices' 		=> $pages,
-				'choice_label' => function ($value, $key, $index) { return FormUtils::getListLabel($value, $key, $index); },
-				'choice_translation_domain' => false,
-				'required'		=> false,
-				'expanded'      => false,
-				'multiple'      => false,
-				'placeholder' 	=> 'label.placeholder.none'
-		))
-		->add('link', ChoiceType::class, array(
-				'choices' 		=> $links,
-				'choice_label' => function ($value, $key, $index) { return FormUtils::getListLabel($value, $key, $index); },
-				'choice_translation_domain' => false,
-				'required'		=> false,
-				'expanded'      => false,
-				'multiple'      => false,
-				'placeholder' 	=> 'label.placeholder.none'
 		))
 		;
 		
-		$builder->get('parent')->addModelTransformer(new MenuEntryToNumberTransformer($this->em));
-		$builder->get('page')->addModelTransformer(new PageToNumberTransformer($this->em));
-		$builder->get('link')->addModelTransformer(new LinkToNumberTransformer($this->em));
+		$this->addSingleChoiceField($builder, $options, $this->parentToNumberTransformer, 'parent');
+		$this->addSingleChoiceField($builder, $options, $this->pageToNumberTransformer, 'page');
+		$this->addSingleChoiceField($builder, $options, $this->linkToNumberTransformer, 'link');
+	}
+	
+	protected function getDefaultOptions() {
+		$options = parent::getDefaultOptions();
+		
+		$options['parent'] = [];
+		$options['page'] = [];
+		$options['link'] = [];
+		
+		return $options;
 	}
 	
 	/**

@@ -3,23 +3,25 @@
 namespace AppBundle\Form\Editor\Main;
 
 use AppBundle\Entity\Category;
-use AppBundle\Form\Editor\Base\FeaturedEntityEditorType;
-use AppBundle\Form\Transformer\CategoryToNumberTransformer;
-use AppBundle\Utils\FormUtils;
-use Doctrine\Common\Persistence\ObjectManager;
+use AppBundle\Form\Editor\Base\ImageEntityEditorType;
+use AppBundle\Form\Transformer\EntityToNumberTransformer;
 use FM\ElfinderBundle\Form\Type\ElFinderType;
 use Ivory\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 
-class CategoryEditorType extends FeaturedEntityEditorType
+class CategoryEditorType extends ImageEntityEditorType
 {
-	protected $em;
+	/**
+	 * 
+	 * @var EntityToNumberTransformer
+	 */
+	protected $categoryToNumberTransformer;
 	
-	public function __construct(ObjectManager $em)
-	{
-		$this->em = $em;
+	public function __construct(EntityToNumberTransformer $categoryToNumberTransformer) {
+		$this->categoryToNumberTransformer = $categoryToNumberTransformer;
 	}
 	
 	/**
@@ -27,18 +29,14 @@ class CategoryEditorType extends FeaturedEntityEditorType
 	 */
 	protected function addMoreFields(FormBuilderInterface $builder, array $options) {
 		
-		/** @var CategoryRepository $categoryRepository */
-		$categoryRepository = $this->em->getRepository(Category::class);
-		$categories = $categoryRepository->findFilterItems();
-		
 		$builder
-		->add('subname', null, array(
+		->add('subname', TextType::class, array(
 				'required' => false
 		))
-		->add('orderNumber', null, array(
+		->add('orderNumber', IntegerType::class, array(
 				'required' => true
 		))
-		->add('icon', null, array(
+		->add('icon', TextType::class, array(
 				'required' => false
 		))
 		->add('iconImage', ElFinderType::class, array(
@@ -49,16 +47,10 @@ class CategoryEditorType extends FeaturedEntityEditorType
 				'instance'=>'featured',
 				'required' => false
 		))
-		->add('parent', ChoiceType::class, array(
-				'choices'		=> $categories,
-				'choice_label' => function ($value, $key, $index) { return FormUtils::getListLabel($value, $key, $index); },
-				'choice_translation_domain' => false,
-				'required'		=> false,
-				'expanded'      => false,
-				'multiple'      => false,
-				'placeholder' 	=> 'label.placeholder.none'
-		))
 		->add('benchmark', CheckboxType::class, array(
+				'required' => false
+		))
+		->add('featured', CheckboxType::class, array(
 				'required' => false
 		))
 		->add('preleaf', CheckboxType::class, array(
@@ -71,7 +63,15 @@ class CategoryEditorType extends FeaturedEntityEditorType
 		))
 		;
 		
-		$builder->get('parent')->addModelTransformer(new CategoryToNumberTransformer($this->em));
+		$this->addSingleChoiceField($builder, $options, $this->categoryToNumberTransformer, 'parent');
+	}
+	
+	protected function getDefaultOptions() {
+		$options = parent::getDefaultOptions();
+	
+		$options['parent'] = [];
+	
+		return $options;
 	}
 	
 	/**

@@ -3,12 +3,13 @@
 namespace AppBundle\Form\Editor\Main;
 
 use AppBundle\Entity\ArticleCategory;
-use AppBundle\Form\Editor\Base\FeaturedEntityEditorType;
-use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use AppBundle\Form\Editor\Base\ImageEntityEditorType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 
-class ArticleCategoryEditorType extends FeaturedEntityEditorType
+class ArticleCategoryEditorType extends ImageEntityEditorType
 {
 	/**
 	 * 
@@ -18,10 +19,13 @@ class ArticleCategoryEditorType extends FeaturedEntityEditorType
 	protected function addMoreFields(FormBuilderInterface $builder, array $options) {
 		
 		$builder
+			->add('featured', CheckboxType::class, array(
+					'required' => false
+			))
 			->add('subname', TextType::class, array(
 					'required' => false
 			))
-			->add('orderNumber', NumberType::class, array(
+			->add('orderNumber', IntegerType::class, array(
 					'required' => true
 			))
 		;

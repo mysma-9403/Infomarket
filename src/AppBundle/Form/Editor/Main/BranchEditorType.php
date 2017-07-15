@@ -5,7 +5,7 @@ namespace AppBundle\Form\Editor\Main;
 use AppBundle\Entity\Branch;
 use AppBundle\Form\Editor\Base\ImageEntityEditorType;
 use Ivory\CKEditorBundle\Form\Type\CKEditorType;
-use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\FormBuilderInterface;
 
 class BranchEditorType extends ImageEntityEditorType
@@ -24,7 +24,7 @@ class BranchEditorType extends ImageEntityEditorType
 			->add('color', null, array(
 					'required' => true
 			))
-			->add('orderNumber', NumberType::class, array(
+			->add('orderNumber', IntegerType::class, array(
 					'required' => true
 			))
 			->add('content', CKEditorType::class, array(

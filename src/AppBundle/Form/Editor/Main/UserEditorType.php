@@ -3,12 +3,12 @@
 namespace AppBundle\Form\Editor\Main;
 
 use AppBundle\Entity\User;
-use AppBundle\Form\Editor\Base\SimpleEntityEditorType;
+use AppBundle\Form\Editor\Base\BaseEntityEditorType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 
-class UserEditorType extends SimpleEntityEditorType
+class UserEditorType extends BaseEntityEditorType
 {
 	protected function addMainFields(FormBuilderInterface $builder, array $options) {
 	
@@ -27,14 +27,7 @@ class UserEditorType extends SimpleEntityEditorType
 	 */
 	protected function addMoreFields(FormBuilderInterface $builder, array $options) {
 	
-		$roles = array(
-			'Guest' => User::ROLE_DEFAULT,
-			'Editor' => User::ROLE_EDITOR,
-			'Publisher' => User::ROLE_PUBLISHER,
-			'Rating editor' => User::ROLE_RATING_EDITOR,
-			'Admin' => User::ROLE_ADMIN,
-			'Super admin' => User::ROLE_SUPER_ADMIN
-		);
+		$roles = $options['roles'];
 		
 		$builder
 		->add('forename', TextType::class, array(
@@ -60,6 +53,14 @@ class UserEditorType extends SimpleEntityEditorType
 				'expanded'		=> true
 		))
 		;
+	}
+	
+	protected function getDefaultOptions() {
+		$options = parent::getDefaultOptions();
+	
+		$options['roles'] = [];
+	
+		return $options;
 	}
 	
 	/**

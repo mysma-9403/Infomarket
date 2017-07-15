@@ -9,7 +9,7 @@ use AppBundle\Entity\Product;
 use AppBundle\Entity\User;
 use AppBundle\Filter\Admin\Base\AuditFilter;
 use AppBundle\Filter\Admin\Main\BenchmarkMessageFilter;
-use AppBundle\Form\Editor\Main\BenchmarkMessageType;
+use AppBundle\Form\Benchmark\BenchmarkMessageType;
 use AppBundle\Form\Filter\Admin\Main\BenchmarkMessageFilterType;
 use AppBundle\Form\Lists\BenchmarkMessageListType;
 use AppBundle\Manager\Entity\Base\EntityManager;
@@ -220,6 +220,20 @@ class BenchmarkMessageController extends BaseEntityController {
 		$userRepository = $this->getDoctrine()->getRepository(User::class);
 		$options['users'] = $userRepository->findFilterItems();
 	
+		return $options;
+	}
+	
+	protected function getEditorFormOptions() {
+		$options = parent::getEditorFormOptions();
+		
+		$states = array(
+				BenchmarkMessage::getStateName(BenchmarkMessage::IN_PROCESS_STATE) => BenchmarkMessage::IN_PROCESS_STATE,
+				BenchmarkMessage::getStateName(BenchmarkMessage::INFORMATION_REQUIRED_STATE) => BenchmarkMessage::INFORMATION_REQUIRED_STATE,
+				BenchmarkMessage::getStateName(BenchmarkMessage::COMPLETED_STATE) => BenchmarkMessage::COMPLETED_STATE
+		);
+		
+		$options['states'] = $states;
+		
 		return $options;
 	}
 	

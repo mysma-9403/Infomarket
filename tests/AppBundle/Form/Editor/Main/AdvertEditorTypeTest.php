@@ -3,16 +3,10 @@
 namespace Tests\AppBundle\Form\Editor\Main;
 
 use AppBundle\Entity\Advert;
-use AppBundle\Entity\Category;
-use AppBundle\Entity\Product;
-use AppBundle\Entity\Segment;
 use AppBundle\Form\Editor\Main\AdvertEditorType;
-use AppBundle\Form\Transformer\EntityToNumberTransformer;
-use Symfony\Component\Form\Test\TypeTestCase;
-use AppBundle\Form\Editor\Base\BaseEntityEditorType;
-use Tests\AppBundle\Form\Editor\Base\BaseEntityEditorTypeTest;
+use Tests\AppBundle\Form\Editor\Base\ImageEntityEditorTypeTest;
 
-class AdvertEditorTypeTest extends TypeTestCase {
+class AdvertEditorTypeTest extends ImageEntityEditorTypeTest {
 	
 	const LOCATION = 13;
 	const DATE_FROM = '19/10/1987 12:00';
@@ -21,104 +15,43 @@ class AdvertEditorTypeTest extends TypeTestCase {
 	const SHOW_LIMIT = 3000;
 	const CLICK_LIMIT = 200;
 	
-	const FORM_DATA = [
-			'location' => self::LOCATION,
-			'dateFrom' => self::DATE_FROM,
-			'dateTo' => self::DATE_TO,
-			'link' => self::LINK,
-			'showLimit' => self::SHOW_LIMIT,
-			'clickLimit' => self::CLICK_LIMIT
-	];
 	
 	const LOCATION_CHOICES = ['Test location' => self::LOCATION];
 	
-	const FORM_OPTIONS = [
-			'locations' => self::LOCATION_CHOICES
-	];
 	
+	protected function assertEntity($entity) {
+		/** @var Advert $entity */
+		$this->assertSame(self::NAME, $entity->getName());
+		$this->assertSame(self::INFOMARKET, $entity->getInfomarket());
+		$this->assertSame(self::INFOPRODUKT, $entity->getInfoprodukt());
+	}
 	
+	protected function getFormData() {
+		$data = parent::getFormData();
 	
-	public function testViewProperties()
-	{
-		$form = $this->factory->create(AdvertEditorType::class);
-	
-		$view = $form->createView();
+		$data['location'] = self::LOCATION;
+		$data['dateFrom'] = self::DATE_FROM;
+		$data['dateTo'] = self::DATE_TO;
+		$data['link'] = self::LINK;
+		$data['showLimit'] = self::SHOW_LIMIT;
+		$data['clickLimit'] = self::CLICK_LIMIT;
 		
-		foreach (array_keys(self::FORM_DATA) as $key)
-			$this->assertArrayHasKey($key, $view->children);
+		return $data;
+	}
+	
+	protected function getFormOptions() {
+		$options = parent::getFormOptions();
 		
-		$count = 10;//count(self::FORM_DATA) + count(BaseEntityEditorTypeTest::FORM_DATA) + 1;
-		$this->assertCount($count, $view->children);
-	}
-	
-	public function testSubmitValidData()
-	{	
-		$entity = new Advert();
-		$form = $this->factory->create(AdvertEditorType::class, $entity, self::FORM_OPTIONS);
+		$options['locations'] = self::LOCATION_CHOICES;
 		
-		$form->submit(self::FORM_DATA);
-		
-		$this->assertTrue($form->isSynchronized());
-		$this->assertSame($entity, $form->getData());
-		$this->assertSame(self::LOCATION, $entity->getLocation());
-		$this->assertSame(self::DATE_FROM, $entity->getDateFrom()->format('d/m/Y H:i'));
-		$this->assertSame(self::DATE_TO, $entity->getDateTo()->format('d/m/Y H:i'));
-		$this->assertSame(self::LINK, $entity->getLink());
-		$this->assertSame(self::SHOW_LIMIT, $entity->getShowLimit());
-		$this->assertSame(self::CLICK_LIMIT, $entity->getClickLimit());
+		return $options;
 	}
 	
-	
-	
-	private function getProductTransformerMock() {
-		$mock = $this->getMockBuilder ( EntityToNumberTransformer::class )->disableOriginalConstructor ()->getMock ();
-	
-		$mock->expects ($this->any())->method ( 'reverseTransform' )->willReturn($this->getProduct());
-		$mock->expects ($this->any())->method ( 'transform' )->willReturn(self::PRODUCT_ID);
-	
-		return $mock;
+	protected function getFormType() {
+		return AdvertEditorType::class;
 	}
 	
-	private function getSegmentTransformerMock() {
-		$mock = $this->getMockBuilder ( EntityToNumberTransformer::class )->disableOriginalConstructor ()->getMock ();
-	
-		$mock->expects ($this->any())->method ( 'reverseTransform' )->willReturn($this->getSegment());
-		$mock->expects ($this->any())->method ( 'transform' )->willReturn(self::PRODUCT_ID);
-	
-		return $mock;
-	}
-	
-	private function getCategoryTransformerMock() {
-		$mock = $this->getMockBuilder ( EntityToNumberTransformer::class )->disableOriginalConstructor ()->getMock ();
-	
-		$mock->expects ($this->any())->method ( 'reverseTransform' )->willReturn($this->getCategory());
-		$mock->expects ($this->any())->method ( 'transform' )->willReturn(self::PRODUCT_ID);
-	
-		return $mock;
-	}
-	
-	
-	private function getProduct() {
-		$mock = new Product();
-		$mock->setId(self::PRODUCT_ID);
-		$mock->setName(self::PRODUCT_NAME);
-		
-		return $mock;
-	}
-	
-	private function getSegment() {
-		$mock = new Segment();
-		$mock->setId(self::SEGMENT_ID);
-		$mock->setName(self::SEGMENT_NAME);
-	
-		return $mock;
-	}
-	
-	private function getCategory() {
-		$mock = new Category();
-		$mock->setId(self::CATEGORY_ID);
-		$mock->setName(self::CATEGORY_NAME);
-	
-		return $mock;
+	protected function getEntity() {
+		return new Advert();
 	}
 }

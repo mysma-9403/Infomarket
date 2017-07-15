@@ -3,10 +3,10 @@
 namespace AppBundle\Form\Editor\Base;
 
 use AppBundle\Entity\Base\ImageEntity;
-use Symfony\Component\Form\Extension\Core\Type\FileType;
-use Symfony\Component\Form\Extension\Core\Type\NumberType;
-use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\FormBuilderInterface;
 
 class ImageEntityEditorType extends SimpleEntityEditorType
 {	
@@ -25,11 +25,11 @@ class ImageEntityEditorType extends SimpleEntityEditorType
 			->add('vertical', CheckboxType::class, array(
 					'required' => false
 			))
-			->add('forcedWidth', NumberType::class, array(
+			->add('forcedWidth', IntegerType::class, array(
 					'required' => false,
 					'attr' => ['placeholder' => 'label.image.forcedWidth']
 			))
-			->add('forcedHeight', NumberType::class, array(
+			->add('forcedHeight', IntegerType::class, array(
 					'required' => false,
 					'attr' => ['placeholder' => 'label.image.forcedHeight']
 			))

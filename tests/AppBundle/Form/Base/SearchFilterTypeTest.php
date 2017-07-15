@@ -22,8 +22,12 @@ class SearchFilterTypeTest extends BaseTypeTest {
 		return $data;
 	}
 	
-	protected function getFormFieldsCount() {
-		return parent::getFormFieldsCount() + 1;
+	protected function getFormActions() {
+		$actions = parent::getFormActions();
+		
+		$actions['search'] = 'search';
+				
+		return $actions;
 	}
 	
 	protected function getFormType() {

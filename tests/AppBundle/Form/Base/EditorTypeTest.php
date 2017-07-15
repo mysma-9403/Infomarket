@@ -4,7 +4,11 @@ namespace Tests\AppBundle\Form\Base;
 
 abstract class EditorTypeTest extends BaseTypeTest {
 	
-	protected function getFormFieldsCount() {
-		return parent::getFormFieldsCount() + 1;
+	protected function getFormActions() {
+		$actions = parent::getFormActions();
+		
+		$actions['save'] = 'save';
+				
+		return $actions;
 	}
 }
