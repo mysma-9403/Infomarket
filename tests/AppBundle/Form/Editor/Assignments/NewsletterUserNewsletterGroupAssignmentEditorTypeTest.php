@@ -6,30 +6,18 @@ use AppBundle\Entity\NewsletterUser;
 use AppBundle\Entity\NewsletterUserNewsletterGroupAssignment;
 use AppBundle\Entity\NewsletterGroup;
 use AppBundle\Form\Editor\Assignments\NewsletterUserNewsletterGroupAssignmentEditorType;
-use AppBundle\Form\Transformer\EntityToNumberTransformer;
 use Symfony\Component\Form\PreloadedExtension;
-use Symfony\Component\Form\Test\TypeTestCase;
+use Tests\AppBundle\Form\Editor\Base\BaseEntityEditorTypeTest;
 
-class NewsletterUserNewsletterGroupAssignmentEditorTypeTest extends TypeTestCase {
+class NewsletterUserNewsletterGroupAssignmentEditorTypeTest extends BaseEntityEditorTypeTest {
 		
 	const NEWSLETTER_USER_ID = 100;
 	const NEWSLETTER_USER_NAME = 'Test newsletterUser';
+	const NEWSLETTER_USER_CHOICES = ['Test newsletterUser' => self::NEWSLETTER_USER_ID];
 	
 	const NEWSLETTER_GROUP_ID = 100;
 	const NEWSLETTER_GROUP_NAME = 'Test newsletterGroup';
-	
-	const FORM_DATA = [
-			'newsletterUser' => self::NEWSLETTER_USER_ID,
-			'newsletterGroup' => self::NEWSLETTER_GROUP_ID
-	];
-	
-	const FORM_NEWSLETTER_USER_LIST = ['Test newsletterUser' => self::NEWSLETTER_USER_ID];
-	const FORM_NEWSLETTER_GROUP_LIST = ['Test newsletterGroup' => self::NEWSLETTER_GROUP_ID];
-	
-	const FORM_OPTIONS = [
-			'newsletterUser' => self::FORM_NEWSLETTER_USER_LIST,
-			'newsletterGroup' => self::FORM_NEWSLETTER_GROUP_LIST
-	];
+	const NEWSLETTER_GROUP_CHOICES = ['Test newsletterGroup' => self::NEWSLETTER_GROUP_ID];
 	
 	
 	
@@ -40,8 +28,8 @@ class NewsletterUserNewsletterGroupAssignmentEditorTypeTest extends TypeTestCase
 	
 	
 	protected function setUp() {
-		$this->newsletterUserTransformer = $this->getNewsletterUserTransformerMock();
-		$this->newsletterGroupTransformer = $this->getNewsletterGroupTransformerMock();
+		$this->newsletterUserTransformer = $this->getEntityTransformerMock($this->getNewsletterUser(), self::NEWSLETTER_USER_ID);
+		$this->newsletterGroupTransformer = $this->getEntityTransformerMock($this->getNewsletterGroup(), self::NEWSLETTER_GROUP_ID);
 		
 		parent::setUp();
 	}
@@ -53,52 +41,43 @@ class NewsletterUserNewsletterGroupAssignmentEditorTypeTest extends TypeTestCase
 	
 	
 	
-	public function testViewProperties()
-	{
-		$form = $this->factory->create(NewsletterUserNewsletterGroupAssignmentEditorType::class);
-	
-		$view = $form->createView();
-	
-		foreach (array_keys(self::FORM_DATA) as $key)
-			$this->assertArrayHasKey($key, $view->children);
+	protected function assertEntity($entity) {
+		/** @var NewsletterUserNewsletterGroupAssignment $entity */
+		parent::assertEntity($entity);
 		
-		$this->assertCount(count(self::FORM_DATA)+1, $view->children);
-	}
-	
-	public function testSubmitValidData()
-	{	
-		$assignment = new NewsletterUserNewsletterGroupAssignment();
-		$form = $this->factory->create(NewsletterUserNewsletterGroupAssignmentEditorType::class, $assignment, self::FORM_OPTIONS);
+		$this->assertSame(self::NEWSLETTER_USER_ID, $entity->getNewsletterUser()->getId());
+		$this->assertSame(self::NEWSLETTER_USER_NAME, $entity->getNewsletterUser()->getName());
 		
-		$form->submit(self::FORM_DATA);
+		$this->assertSame(self::NEWSLETTER_GROUP_ID, $entity->getNewsletterGroup()->getId());
+		$this->assertSame(self::NEWSLETTER_GROUP_NAME, $entity->getNewsletterGroup()->getName());
+	}
+	
+	protected function getFormData() {
+		$data = parent::getFormData();
+	
+		$data['newsletterUser'] = self::NEWSLETTER_USER_ID;
+		$data['newsletterGroup'] = self::NEWSLETTER_GROUP_ID;
 		
-		$this->assertTrue($form->isSynchronized());
-		$this->assertSame($assignment, $form->getData());
-		$this->assertSame(self::NEWSLETTER_USER_ID, $assignment->getNewsletterUser()->getId());
-		$this->assertSame(self::NEWSLETTER_USER_NAME, $assignment->getNewsletterUser()->getName());
-		$this->assertSame(self::NEWSLETTER_GROUP_ID, $assignment->getNewsletterGroup()->getId());
-		$this->assertSame(self::NEWSLETTER_GROUP_NAME, $assignment->getNewsletterGroup()->getName());
+		return $data;
 	}
 	
+	protected function getFormOptions() {
+		$options = parent::getFormOptions();
 	
+		$options[self::getChoicesName('newsletterUser')] = self::NEWSLETTER_USER_CHOICES;
+		$options[self::getChoicesName('newsletterGroup')] = self::NEWSLETTER_GROUP_CHOICES;
 	
-	private function getNewsletterUserTransformerMock() {
-		$mock = $this->getMockBuilder ( EntityToNumberTransformer::class )->disableOriginalConstructor ()->getMock ();
-	
-		$mock->expects ($this->any())->method ( 'reverseTransform' )->willReturn($this->getNewsletterUser());
-		$mock->expects ($this->any())->method ( 'transform' )->willReturn(self::NEWSLETTER_USER_ID);
-	
-		return $mock;
+		return $options;
 	}
 	
-	private function getNewsletterGroupTransformerMock() {
-		$mock = $this->getMockBuilder ( EntityToNumberTransformer::class )->disableOriginalConstructor ()->getMock ();
-	
-		$mock->expects ($this->any())->method ( 'reverseTransform' )->willReturn($this->getNewsletterGroup());
-		$mock->expects ($this->any())->method ( 'transform' )->willReturn(self::NEWSLETTER_USER_ID);
-	
-		return $mock;
+	protected function getFormType() {
+		return NewsletterUserNewsletterGroupAssignmentEditorType::class;
 	}
+	
+	protected function getEntity() {
+		return new NewsletterUserNewsletterGroupAssignment();
+	}
+	
 	
 	
 	private function getNewsletterUser() {

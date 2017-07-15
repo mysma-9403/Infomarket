@@ -11,6 +11,8 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 abstract class BaseType extends AbstractType
 {
+	const CHOICES = 'Choices';
+	
 	/**
 	 * 
 	 * {@inheritDoc}
@@ -53,14 +55,25 @@ abstract class BaseType extends AbstractType
 	 */
 	protected function addActions(FormBuilderInterface $builder, array $options) { }
 	
-	protected function addSingleChoiceField(FormBuilderInterface $builder, array $options, $transformer, $field, $required = true) {
+	
+	
+	protected function addChoiceNumberField(FormBuilderInterface $builder, array $options, $field, $required = true, $multiple = false) {
 		$builder->add($field, ChoiceType::class, array(
-				'choices' 		=> $options[$field],
+				'choices'		=> $options[self::getChoicesName($field)],
+				'required'      => $required,
+				'expanded'      => false,
+				'multiple'      => $multiple
+		));
+	}
+	
+	protected function addChoiceEntityField(FormBuilderInterface $builder, array $options, $transformer, $field, $required = true, $multiple = false) {
+		$builder->add($field, ChoiceType::class, array(
+				'choices' 		=> $options[self::getChoicesName($field)],
 				'choice_label' => function ($value, $key, $index) { return FormUtils::getListLabel($value, $key, $index); }, //TODO FormUtils --> DI
 				'choice_translation_domain' => false,
 				'required'		=> $required,
 				'expanded'      => false,
-				'multiple'      => false
+				'multiple'      => $multiple
 		));
 		$builder->get($field)->addModelTransformer($transformer);
 	}
@@ -92,6 +105,10 @@ abstract class BaseType extends AbstractType
 	
 	public function getName() {
 		return 'app_' . StringUtils::getClassName($this->getEntityType());
+	}
+	
+	public static function getChoicesName($field) {
+		return $field . self::CHOICES;
 	}
 	
 	/**

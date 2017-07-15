@@ -2,34 +2,22 @@
 
 namespace Tests\AppBundle\Form\Editor\Assignments;
 
-use AppBundle\Entity\User;
-use AppBundle\Entity\UserCategoryAssignment;
 use AppBundle\Entity\Category;
+use AppBundle\Entity\User;
 use AppBundle\Form\Editor\Assignments\UserCategoryAssignmentEditorType;
-use AppBundle\Form\Transformer\EntityToNumberTransformer;
 use Symfony\Component\Form\PreloadedExtension;
-use Symfony\Component\Form\Test\TypeTestCase;
+use Tests\AppBundle\Form\Editor\Base\BaseEntityEditorTypeTest;
+use AppBundle\Entity\UserCategoryAssignment;
 
-class UserCategoryAssignmentEditorTypeTest extends TypeTestCase {
+class UserCategoryAssignmentEditorTypeTest extends BaseEntityEditorTypeTest {
 		
 	const USER_ID = 100;
 	const USER_NAME = 'Test user';
+	const USER_CHOICES = ['Test user' => self::USER_ID];
 	
 	const CATEGORY_ID = 100;
 	const CATEGORY_NAME = 'Test category';
-	
-	const FORM_DATA = [
-			'user' => self::USER_ID,
-			'category' => self::CATEGORY_ID
-	];
-	
-	const FORM_USER_LIST = ['Test user' => self::USER_ID];
-	const FORM_CATEGORY_LIST = ['Test category' => self::CATEGORY_ID];
-	
-	const FORM_OPTIONS = [
-			'user' => self::FORM_USER_LIST,
-			'category' => self::FORM_CATEGORY_LIST
-	];
+	const CATEGORY_CHOICES = ['Test category' => self::CATEGORY_ID];
 	
 	
 	
@@ -40,8 +28,8 @@ class UserCategoryAssignmentEditorTypeTest extends TypeTestCase {
 	
 	
 	protected function setUp() {
-		$this->userTransformer = $this->getUserTransformerMock();
-		$this->categoryTransformer = $this->getCategoryTransformerMock();
+		$this->userTransformer = $this->getEntityTransformerMock($this->getUser(), self::USER_ID);
+		$this->categoryTransformer = $this->getEntityTransformerMock($this->getCategory(), self::CATEGORY_ID);
 		
 		parent::setUp();
 	}
@@ -53,52 +41,43 @@ class UserCategoryAssignmentEditorTypeTest extends TypeTestCase {
 	
 	
 	
-	public function testViewProperties()
-	{
-		$form = $this->factory->create(UserCategoryAssignmentEditorType::class);
-	
-		$view = $form->createView();
-	
-		foreach (array_keys(self::FORM_DATA) as $key)
-			$this->assertArrayHasKey($key, $view->children);
+	protected function assertEntity($entity) {
+		/** @var UserCategoryAssignment $entity */
+		parent::assertEntity($entity);
 		
-		$this->assertCount(count(self::FORM_DATA)+1, $view->children);
-	}
-	
-	public function testSubmitValidData()
-	{	
-		$assignment = new UserCategoryAssignment();
-		$form = $this->factory->create(UserCategoryAssignmentEditorType::class, $assignment, self::FORM_OPTIONS);
+		$this->assertSame(self::USER_ID, $entity->getUser()->getId());
+		$this->assertSame(self::USER_NAME, $entity->getUser()->getUsername());
 		
-		$form->submit(self::FORM_DATA);
+		$this->assertSame(self::CATEGORY_ID, $entity->getCategory()->getId());
+		$this->assertSame(self::CATEGORY_NAME, $entity->getCategory()->getName());
+	}
+	
+	protected function getFormData() {
+		$data = parent::getFormData();
+	
+		$data['user'] = self::USER_ID;
+		$data['category'] = self::CATEGORY_ID;
 		
-		$this->assertTrue($form->isSynchronized());
-		$this->assertSame($assignment, $form->getData());
-		$this->assertSame(self::USER_ID, $assignment->getUser()->getId());
-		$this->assertSame(self::USER_NAME, $assignment->getUser()->getUsername());
-		$this->assertSame(self::CATEGORY_ID, $assignment->getCategory()->getId());
-		$this->assertSame(self::CATEGORY_NAME, $assignment->getCategory()->getName());
+		return $data;
 	}
 	
+	protected function getFormOptions() {
+		$options = parent::getFormOptions();
 	
+		$options[self::getChoicesName('user')] = self::USER_CHOICES;
+		$options[self::getChoicesName('category')] = self::CATEGORY_CHOICES;
 	
-	private function getUserTransformerMock() {
-		$mock = $this->getMockBuilder ( EntityToNumberTransformer::class )->disableOriginalConstructor ()->getMock ();
-	
-		$mock->expects ($this->any())->method ( 'reverseTransform' )->willReturn($this->getUser());
-		$mock->expects ($this->any())->method ( 'transform' )->willReturn(self::USER_ID);
-	
-		return $mock;
+		return $options;
 	}
 	
-	private function getCategoryTransformerMock() {
-		$mock = $this->getMockBuilder ( EntityToNumberTransformer::class )->disableOriginalConstructor ()->getMock ();
-	
-		$mock->expects ($this->any())->method ( 'reverseTransform' )->willReturn($this->getCategory());
-		$mock->expects ($this->any())->method ( 'transform' )->willReturn(self::USER_ID);
-	
-		return $mock;
+	protected function getFormType() {
+		return UserCategoryAssignmentEditorType::class;
 	}
+	
+	protected function getEntity() {
+		return new UserCategoryAssignment();
+	}
+	
 	
 	
 	private function getUser() {

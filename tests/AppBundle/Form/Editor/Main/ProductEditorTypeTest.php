@@ -68,7 +68,7 @@ class ProductEditorTypeTest extends ImageEntityEditorTypeTest {
 	protected function getFormOptions() {
 		$options = parent::getFormOptions();
 		
-		$options['brand'] = self::BRAND_CHOICES;
+		$options[self::getChoicesName('brand')] = self::BRAND_CHOICES;
 		$options['filter'] = $this->getProductFilterMock();
 		
 		return $options;

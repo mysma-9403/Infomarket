@@ -32,15 +32,15 @@ class TermCategoryAssignmentEditorType extends BaseEntityEditorType
 	 * @see \AppBundle\Form\Base\BaseFormType::addMoreFields()
 	 */
 	protected function addMainFields(FormBuilderInterface $builder, array $options) {
-		$this->addSingleChoiceField($builder, $options, $this->termTransformer, 'term');
-		$this->addSingleChoiceField($builder, $options, $this->categoryTransformer, 'category');
+		$this->addChoiceEntityField($builder, $options, $this->termTransformer, 'term');
+		$this->addChoiceEntityField($builder, $options, $this->categoryTransformer, 'category');
 	}
 	
 	protected function getDefaultOptions() {
 		$options = parent::getDefaultOptions();
-	
-		$options['term'] = [];
-		$options['category'] = [];
+		
+		$options[self::getChoicesName('term')] = [];
+		$options[self::getChoicesName('category')] = [];
 	
 		return $options;
 	}

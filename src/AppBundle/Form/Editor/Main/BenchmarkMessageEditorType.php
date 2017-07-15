@@ -5,7 +5,6 @@ namespace AppBundle\Form\Editor\Main;
 use AppBundle\Entity\BenchmarkMessage;
 use AppBundle\Form\Base\EditorType;
 use Ivory\CKEditorBundle\Form\Type\CKEditorType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 
@@ -19,15 +18,7 @@ class BenchmarkMessageEditorType extends EditorType
 	 */
 	protected function addMainFields(FormBuilderInterface $builder, array $options) {
 		
-		$states = $options['states'];
-		
 		$builder
-		->add('state', ChoiceType::class, array(
-				'choices'		=> $states,
-				'expanded'      => true,
-				'multiple'      => false,
-				'required'      => true
-		))
 		->add('name', TextType::class, array(
 				'required' => true
 		))
@@ -36,12 +27,14 @@ class BenchmarkMessageEditorType extends EditorType
 				'required' => true
 		))
 		;
+		
+		$this->addChoiceNumberField($builder, $options, 'state');
 	}
 	
 	protected function getDefaultOptions() {
 		$options = parent::getDefaultOptions();
 	
-		$options['states'] = [];
+		$options[self::getChoicesName('state')] = [];
 	
 		return $options;
 	}

@@ -32,15 +32,15 @@ class BranchCategoryAssignmentEditorType extends BaseEntityEditorType
 	 * @see \AppBundle\Form\Base\BaseFormType::addMoreFields()
 	 */
 	protected function addMainFields(FormBuilderInterface $builder, array $options) {
-		$this->addSingleChoiceField($builder, $options, $this->branchTransformer, 'branch');
-		$this->addSingleChoiceField($builder, $options, $this->categoryTransformer, 'category');
+		$this->addChoiceEntityField($builder, $options, $this->branchTransformer, 'branch');
+		$this->addChoiceEntityField($builder, $options, $this->categoryTransformer, 'category');
 	}
 	
 	protected function getDefaultOptions() {
 		$options = parent::getDefaultOptions();
 	
-		$options['branch'] = [];
-		$options['category'] = [];
+		$options[self::getChoicesName('branch')] = [];
+		$options[self::getChoicesName('category')] = [];
 	
 		return $options;
 	}

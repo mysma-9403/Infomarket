@@ -32,15 +32,15 @@ class MagazineBranchAssignmentEditorType extends BaseEntityEditorType
 	 * @see \AppBundle\Form\Base\BaseFormType::addMoreFields()
 	 */
 	protected function addMainFields(FormBuilderInterface $builder, array $options) {
-		$this->addSingleChoiceField($builder, $options, $this->magazineTransformer, 'magazine');
-		$this->addSingleChoiceField($builder, $options, $this->branchTransformer, 'branch');
+		$this->addChoiceEntityField($builder, $options, $this->magazineTransformer, 'magazine');
+		$this->addChoiceEntityField($builder, $options, $this->branchTransformer, 'branch');
 	}
 	
 	protected function getDefaultOptions() {
 		$options = parent::getDefaultOptions();
 	
-		$options['magazine'] = [];
-		$options['branch'] = [];
+		$options[self::getChoicesName('magazine')] = [];
+		$options[self::getChoicesName('branch')] = [];
 	
 		return $options;
 	}

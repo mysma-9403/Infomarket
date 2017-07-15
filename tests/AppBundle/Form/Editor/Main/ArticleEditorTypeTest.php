@@ -25,7 +25,7 @@ class ArticleEditorTypeTest extends ImageEntityEditorTypeTest {
 	const END_DATE = '19/10/2016 11:11';
 	
 	const LAYOUT = 3;
-	const LAYOUT_CHOICES = ['Test laout' => self::LAYOUT];
+	const LAYOUT_CHOICES = ['Test layout' => self::LAYOUT];
 	
 	const IMAGE_SIZE = 1;
 	const IMAGE_SIZE_CHOICES = ['Test image size' => self::IMAGE_SIZE];
@@ -116,11 +116,11 @@ class ArticleEditorTypeTest extends ImageEntityEditorTypeTest {
 	protected function getFormOptions() {
 		$options = parent::getFormOptions();
 		
-		$options['parent'] = self::PARENT_CHOICES;
-		$options['author'] = self::AUTHOR_CHOICES;
+		$options[self::getChoicesName('parent')] = self::PARENT_CHOICES;
+		$options[self::getChoicesName('author')] = self::AUTHOR_CHOICES;
 		
-		$options['layoutChoices'] = self::LAYOUT_CHOICES;
-		$options['imageSizeChoices'] = self::IMAGE_SIZE_CHOICES;
+		$options[self::getChoicesName('layout')] = self::LAYOUT_CHOICES;
+		$options[self::getChoicesName('imageSize')] = self::IMAGE_SIZE_CHOICES;
 		
 		return $options;
 	}

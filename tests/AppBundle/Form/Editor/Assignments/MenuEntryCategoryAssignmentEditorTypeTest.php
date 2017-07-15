@@ -2,34 +2,22 @@
 
 namespace Tests\AppBundle\Form\Editor\Assignments;
 
+use AppBundle\Entity\Category;
 use AppBundle\Entity\MenuEntry;
 use AppBundle\Entity\MenuEntryCategoryAssignment;
-use AppBundle\Entity\Category;
 use AppBundle\Form\Editor\Assignments\MenuEntryCategoryAssignmentEditorType;
-use AppBundle\Form\Transformer\EntityToNumberTransformer;
 use Symfony\Component\Form\PreloadedExtension;
-use Symfony\Component\Form\Test\TypeTestCase;
+use Tests\AppBundle\Form\Editor\Base\BaseEntityEditorTypeTest;
 
-class MenuEntryCategoryAssignmentEditorTypeTest extends TypeTestCase {
+class MenuEntryCategoryAssignmentEditorTypeTest extends BaseEntityEditorTypeTest {
 		
 	const MENU_ENTRY_ID = 100;
 	const MENU_ENTRY_NAME = 'Test menuEntry';
+	const MENU_ENTRY_CHOICES = ['Test menuEntry' => self::MENU_ENTRY_ID];
 	
 	const CATEGORY_ID = 100;
 	const CATEGORY_NAME = 'Test category';
-	
-	const FORM_DATA = [
-			'menuEntry' => self::MENU_ENTRY_ID,
-			'category' => self::CATEGORY_ID
-	];
-	
-	const FORM_MENU_ENTRY_LIST = ['Test menuEntry' => self::MENU_ENTRY_ID];
-	const FORM_CATEGORY_LIST = ['Test category' => self::CATEGORY_ID];
-	
-	const FORM_OPTIONS = [
-			'menuEntry' => self::FORM_MENU_ENTRY_LIST,
-			'category' => self::FORM_CATEGORY_LIST
-	];
+	const CATEGORY_CHOICES = ['Test category' => self::CATEGORY_ID];
 	
 	
 	
@@ -40,8 +28,8 @@ class MenuEntryCategoryAssignmentEditorTypeTest extends TypeTestCase {
 	
 	
 	protected function setUp() {
-		$this->menuEntryTransformer = $this->getMenuEntryTransformerMock();
-		$this->categoryTransformer = $this->getCategoryTransformerMock();
+		$this->menuEntryTransformer = $this->getEntityTransformerMock($this->getMenuEntry(), self::MENU_ENTRY_ID);
+		$this->categoryTransformer = $this->getEntityTransformerMock($this->getCategory(), self::CATEGORY_ID);
 		
 		parent::setUp();
 	}
@@ -53,52 +41,43 @@ class MenuEntryCategoryAssignmentEditorTypeTest extends TypeTestCase {
 	
 	
 	
-	public function testViewProperties()
-	{
-		$form = $this->factory->create(MenuEntryCategoryAssignmentEditorType::class);
-	
-		$view = $form->createView();
-	
-		foreach (array_keys(self::FORM_DATA) as $key)
-			$this->assertArrayHasKey($key, $view->children);
+	protected function assertEntity($entity) {
+		/** @var MenuEntryCategoryAssignment $entity */
+		parent::assertEntity($entity);
 		
-		$this->assertCount(count(self::FORM_DATA)+1, $view->children);
-	}
-	
-	public function testSubmitValidData()
-	{	
-		$assignment = new MenuEntryCategoryAssignment();
-		$form = $this->factory->create(MenuEntryCategoryAssignmentEditorType::class, $assignment, self::FORM_OPTIONS);
+		$this->assertSame(self::MENU_ENTRY_ID, $entity->getMenuEntry()->getId());
+		$this->assertSame(self::MENU_ENTRY_NAME, $entity->getMenuEntry()->getName());
 		
-		$form->submit(self::FORM_DATA);
+		$this->assertSame(self::CATEGORY_ID, $entity->getCategory()->getId());
+		$this->assertSame(self::CATEGORY_NAME, $entity->getCategory()->getName());
+	}
+	
+	protected function getFormData() {
+		$data = parent::getFormData();
+	
+		$data['menuEntry'] = self::MENU_ENTRY_ID;
+		$data['category'] = self::CATEGORY_ID;
 		
-		$this->assertTrue($form->isSynchronized());
-		$this->assertSame($assignment, $form->getData());
-		$this->assertSame(self::MENU_ENTRY_ID, $assignment->getMenuEntry()->getId());
-		$this->assertSame(self::MENU_ENTRY_NAME, $assignment->getMenuEntry()->getName());
-		$this->assertSame(self::CATEGORY_ID, $assignment->getCategory()->getId());
-		$this->assertSame(self::CATEGORY_NAME, $assignment->getCategory()->getName());
+		return $data;
 	}
 	
+	protected function getFormOptions() {
+		$options = parent::getFormOptions();
 	
+		$options[self::getChoicesName('menuEntry')] = self::MENU_ENTRY_CHOICES;
+		$options[self::getChoicesName('category')] = self::CATEGORY_CHOICES;
 	
-	private function getMenuEntryTransformerMock() {
-		$mock = $this->getMockBuilder ( EntityToNumberTransformer::class )->disableOriginalConstructor ()->getMock ();
-	
-		$mock->expects ($this->any())->method ( 'reverseTransform' )->willReturn($this->getMenuEntry());
-		$mock->expects ($this->any())->method ( 'transform' )->willReturn(self::MENU_ENTRY_ID);
-	
-		return $mock;
+		return $options;
 	}
 	
-	private function getCategoryTransformerMock() {
-		$mock = $this->getMockBuilder ( EntityToNumberTransformer::class )->disableOriginalConstructor ()->getMock ();
-	
-		$mock->expects ($this->any())->method ( 'reverseTransform' )->willReturn($this->getCategory());
-		$mock->expects ($this->any())->method ( 'transform' )->willReturn(self::MENU_ENTRY_ID);
-	
-		return $mock;
+	protected function getFormType() {
+		return MenuEntryCategoryAssignmentEditorType::class;
 	}
+	
+	protected function getEntity() {
+		return new MenuEntryCategoryAssignment();
+	}
+	
 	
 	
 	private function getMenuEntry() {

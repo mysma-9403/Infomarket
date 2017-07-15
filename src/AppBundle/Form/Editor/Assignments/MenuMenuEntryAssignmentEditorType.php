@@ -33,8 +33,8 @@ class MenuMenuEntryAssignmentEditorType extends BaseEntityEditorType
 	 * @see \AppBundle\Form\Base\BaseFormType::addMoreFields()
 	 */
 	protected function addMainFields(FormBuilderInterface $builder, array $options) {
-		$this->addSingleChoiceField($builder, $options, $this->menuTransformer, 'menu');
-		$this->addSingleChoiceField($builder, $options, $this->menuEntryTransformer, 'menuEntry');
+		$this->addChoiceEntityField($builder, $options, $this->menuTransformer, 'menu');
+		$this->addChoiceEntityField($builder, $options, $this->menuEntryTransformer, 'menuEntry');
 		
 		$builder
 		->add('orderNumber', IntegerType::class, array(
@@ -46,8 +46,8 @@ class MenuMenuEntryAssignmentEditorType extends BaseEntityEditorType
 	protected function getDefaultOptions() {
 		$options = parent::getDefaultOptions();
 	
-		$options['menu'] = [];
-		$options['menuEntry'] = [];
+		$options[self::getChoicesName('menu')] = [];
+		$options[self::getChoicesName('menuEntry')] = [];
 	
 		return $options;
 	}

@@ -6,30 +6,18 @@ use AppBundle\Entity\NewsletterBlock;
 use AppBundle\Entity\NewsletterBlockAdvertAssignment;
 use AppBundle\Entity\Advert;
 use AppBundle\Form\Editor\Assignments\NewsletterBlockAdvertAssignmentEditorType;
-use AppBundle\Form\Transformer\EntityToNumberTransformer;
 use Symfony\Component\Form\PreloadedExtension;
-use Symfony\Component\Form\Test\TypeTestCase;
+use Tests\AppBundle\Form\Editor\Base\BaseEntityEditorTypeTest;
 
-class NewsletterBlockAdvertAssignmentEditorTypeTest extends TypeTestCase {
+class NewsletterBlockAdvertAssignmentEditorTypeTest extends BaseEntityEditorTypeTest {
 		
 	const NEWSLETTER_BLOCK_ID = 100;
 	const NEWSLETTER_BLOCK_NAME = 'Test newsletterBlock';
+	const NEWSLETTER_BLOCK_CHOICES = ['Test newsletterBlock' => self::NEWSLETTER_BLOCK_ID];
 	
 	const ADVERT_ID = 100;
 	const ADVERT_NAME = 'Test advert';
-	
-	const FORM_DATA = [
-			'newsletterBlock' => self::NEWSLETTER_BLOCK_ID,
-			'advert' => self::ADVERT_ID
-	];
-	
-	const FORM_NEWSLETTER_BLOCK_LIST = ['Test newsletterBlock' => self::NEWSLETTER_BLOCK_ID];
-	const FORM_ADVERT_LIST = ['Test advert' => self::ADVERT_ID];
-	
-	const FORM_OPTIONS = [
-			'newsletterBlock' => self::FORM_NEWSLETTER_BLOCK_LIST,
-			'advert' => self::FORM_ADVERT_LIST
-	];
+	const ADVERT_CHOICES = ['Test advert' => self::ADVERT_ID];
 	
 	
 	
@@ -40,8 +28,8 @@ class NewsletterBlockAdvertAssignmentEditorTypeTest extends TypeTestCase {
 	
 	
 	protected function setUp() {
-		$this->newsletterBlockTransformer = $this->getNewsletterBlockTransformerMock();
-		$this->advertTransformer = $this->getAdvertTransformerMock();
+		$this->newsletterBlockTransformer = $this->getEntityTransformerMock($this->getNewsletterBlock(), self::NEWSLETTER_BLOCK_ID);
+		$this->advertTransformer = $this->getEntityTransformerMock($this->getAdvert(), self::ADVERT_ID);
 		
 		parent::setUp();
 	}
@@ -53,52 +41,43 @@ class NewsletterBlockAdvertAssignmentEditorTypeTest extends TypeTestCase {
 	
 	
 	
-	public function testViewProperties()
-	{
-		$form = $this->factory->create(NewsletterBlockAdvertAssignmentEditorType::class);
-	
-		$view = $form->createView();
-	
-		foreach (array_keys(self::FORM_DATA) as $key)
-			$this->assertArrayHasKey($key, $view->children);
+	protected function assertEntity($entity) {
+		/** @var NewsletterBlockAdvertAssignment $entity */
+		parent::assertEntity($entity);
 		
-		$this->assertCount(count(self::FORM_DATA)+1, $view->children);
-	}
-	
-	public function testSubmitValidData()
-	{	
-		$assignment = new NewsletterBlockAdvertAssignment();
-		$form = $this->factory->create(NewsletterBlockAdvertAssignmentEditorType::class, $assignment, self::FORM_OPTIONS);
+		$this->assertSame(self::NEWSLETTER_BLOCK_ID, $entity->getNewsletterBlock()->getId());
+		$this->assertSame(self::NEWSLETTER_BLOCK_NAME, $entity->getNewsletterBlock()->getName());
 		
-		$form->submit(self::FORM_DATA);
+		$this->assertSame(self::ADVERT_ID, $entity->getAdvert()->getId());
+		$this->assertSame(self::ADVERT_NAME, $entity->getAdvert()->getName());
+	}
+	
+	protected function getFormData() {
+		$data = parent::getFormData();
+	
+		$data['newsletterBlock'] = self::NEWSLETTER_BLOCK_ID;
+		$data['advert'] = self::ADVERT_ID;
 		
-		$this->assertTrue($form->isSynchronized());
-		$this->assertSame($assignment, $form->getData());
-		$this->assertSame(self::NEWSLETTER_BLOCK_ID, $assignment->getNewsletterBlock()->getId());
-		$this->assertSame(self::NEWSLETTER_BLOCK_NAME, $assignment->getNewsletterBlock()->getName());
-		$this->assertSame(self::ADVERT_ID, $assignment->getAdvert()->getId());
-		$this->assertSame(self::ADVERT_NAME, $assignment->getAdvert()->getName());
+		return $data;
 	}
 	
+	protected function getFormOptions() {
+		$options = parent::getFormOptions();
 	
+		$options[self::getChoicesName('newsletterBlock')] = self::NEWSLETTER_BLOCK_CHOICES;
+		$options[self::getChoicesName('advert')] = self::ADVERT_CHOICES;
 	
-	private function getNewsletterBlockTransformerMock() {
-		$mock = $this->getMockBuilder ( EntityToNumberTransformer::class )->disableOriginalConstructor ()->getMock ();
-	
-		$mock->expects ($this->any())->method ( 'reverseTransform' )->willReturn($this->getNewsletterBlock());
-		$mock->expects ($this->any())->method ( 'transform' )->willReturn(self::NEWSLETTER_BLOCK_ID);
-	
-		return $mock;
+		return $options;
 	}
 	
-	private function getAdvertTransformerMock() {
-		$mock = $this->getMockBuilder ( EntityToNumberTransformer::class )->disableOriginalConstructor ()->getMock ();
-	
-		$mock->expects ($this->any())->method ( 'reverseTransform' )->willReturn($this->getAdvert());
-		$mock->expects ($this->any())->method ( 'transform' )->willReturn(self::NEWSLETTER_BLOCK_ID);
-	
-		return $mock;
+	protected function getFormType() {
+		return NewsletterBlockAdvertAssignmentEditorType::class;
 	}
+	
+	protected function getEntity() {
+		return new NewsletterBlockAdvertAssignment();
+	}
+	
 	
 	
 	private function getNewsletterBlock() {

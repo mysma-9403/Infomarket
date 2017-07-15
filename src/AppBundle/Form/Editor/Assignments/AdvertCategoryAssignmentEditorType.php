@@ -32,15 +32,15 @@ class AdvertCategoryAssignmentEditorType extends BaseEntityEditorType
 	 * @see \AppBundle\Form\Base\BaseFormType::addMoreFields()
 	 */
 	protected function addMainFields(FormBuilderInterface $builder, array $options) {
-		$this->addSingleChoiceField($builder, $options, $this->advertTransformer, 'advert');
-		$this->addSingleChoiceField($builder, $options, $this->categoryTransformer, 'category');
+		$this->addChoiceEntityField($builder, $options, $this->advertTransformer, 'advert');
+		$this->addChoiceEntityField($builder, $options, $this->categoryTransformer, 'category');
 	}
 	
 	protected function getDefaultOptions() {
 		$options = parent::getDefaultOptions();
 	
-		$options['advert'] = [];
-		$options['category'] = [];
+		$options[self::getChoicesName('advert')] = [];
+		$options[self::getChoicesName('category')] = [];
 	
 		return $options;
 	}

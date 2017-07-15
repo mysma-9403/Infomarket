@@ -25,7 +25,6 @@ class MenuEntryEditorTypeTest extends SimpleEntityEditorTypeTest {
 	const LINK_NAME = 'Test name';
 	const LINK_CHOICES = ['Parent' => self::LINK_ID];
 	
-	
 	private $parentTransformer;
 	
 	private $pageTransformer;
@@ -78,9 +77,9 @@ class MenuEntryEditorTypeTest extends SimpleEntityEditorTypeTest {
 	protected function getFormOptions() {
 		$options = parent::getFormOptions();
 		
-		$options['parent'] = self::PARENT_CHOICES;
-		$options['page'] = self::PAGE_CHOICES;
-		$options['link'] = self::LINK_CHOICES;
+		$options[self::getChoicesName('parent')] = self::PARENT_CHOICES;
+		$options[self::getChoicesName('page')] = self::PAGE_CHOICES;
+		$options[self::getChoicesName('link')] = self::LINK_CHOICES;
 		
 		return $options;
 	}

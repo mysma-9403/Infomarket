@@ -49,7 +49,7 @@ class ProductEditorType extends ImageEntityEditorType
 		))
 		;
 		
-		$this->addSingleChoiceField($builder, $options, $this->brandToNumberTransformer, 'brand');
+		$this->addChoiceEntityField($builder, $options, $this->brandToNumberTransformer, 'brand');
 		
 		$this->addFilterFields($builder, $options);
 	}
@@ -68,7 +68,7 @@ class ProductEditorType extends ImageEntityEditorType
 	protected function getDefaultOptions() {
 		$options = parent::getDefaultOptions();
 	
-		$options['brand'] = [];
+		$options[self::getChoicesName('brand')] = [];
 		$options['filter'] = null;
 	
 		return $options;

@@ -6,30 +6,18 @@ use AppBundle\Entity\Branch;
 use AppBundle\Entity\BranchCategoryAssignment;
 use AppBundle\Entity\Category;
 use AppBundle\Form\Editor\Assignments\BranchCategoryAssignmentEditorType;
-use AppBundle\Form\Transformer\EntityToNumberTransformer;
 use Symfony\Component\Form\PreloadedExtension;
-use Symfony\Component\Form\Test\TypeTestCase;
+use Tests\AppBundle\Form\Editor\Base\BaseEntityEditorTypeTest;
 
-class BranchCategoryAssignmentEditorTypeTest extends TypeTestCase {
+class BranchCategoryAssignmentEditorTypeTest extends BaseEntityEditorTypeTest {
 		
 	const BRANCH_ID = 100;
 	const BRANCH_NAME = 'Test branch';
+	const BRANCH_CHOICES = ['Test branch' => self::BRANCH_ID];
 	
 	const CATEGORY_ID = 100;
 	const CATEGORY_NAME = 'Test category';
-	
-	const FORM_DATA = [
-			'branch' => self::BRANCH_ID,
-			'category' => self::CATEGORY_ID
-	];
-	
-	const FORM_BRANCH_LIST = ['Test branch' => self::BRANCH_ID];
-	const FORM_CATEGORY_LIST = ['Test category' => self::CATEGORY_ID];
-	
-	const FORM_OPTIONS = [
-			'branch' => self::FORM_BRANCH_LIST,
-			'category' => self::FORM_CATEGORY_LIST
-	];
+	const CATEGORY_CHOICES = ['Test category' => self::CATEGORY_ID];
 	
 	
 	
@@ -40,8 +28,8 @@ class BranchCategoryAssignmentEditorTypeTest extends TypeTestCase {
 	
 	
 	protected function setUp() {
-		$this->branchTransformer = $this->getBranchTransformerMock();
-		$this->categoryTransformer = $this->getCategoryTransformerMock();
+		$this->branchTransformer = $this->getEntityTransformerMock($this->getBranch(), self::BRANCH_ID);
+		$this->categoryTransformer = $this->getEntityTransformerMock($this->getCategory(), self::CATEGORY_ID);
 		
 		parent::setUp();
 	}
@@ -53,52 +41,43 @@ class BranchCategoryAssignmentEditorTypeTest extends TypeTestCase {
 	
 	
 	
-	public function testViewProperties()
-	{
-		$form = $this->factory->create(BranchCategoryAssignmentEditorType::class);
-	
-		$view = $form->createView();
-	
-		foreach (array_keys(self::FORM_DATA) as $key)
-			$this->assertArrayHasKey($key, $view->children);
+	protected function assertEntity($entity) {
+		/** @var BranchCategoryAssignment $entity */
+		parent::assertEntity($entity);
 		
-		$this->assertCount(count(self::FORM_DATA)+1, $view->children);
-	}
-	
-	public function testSubmitValidData()
-	{	
-		$assignment = new BranchCategoryAssignment();
-		$form = $this->factory->create(BranchCategoryAssignmentEditorType::class, $assignment, self::FORM_OPTIONS);
+		$this->assertSame(self::BRANCH_ID, $entity->getBranch()->getId());
+		$this->assertSame(self::BRANCH_NAME, $entity->getBranch()->getName());
 		
-		$form->submit(self::FORM_DATA);
+		$this->assertSame(self::CATEGORY_ID, $entity->getCategory()->getId());
+		$this->assertSame(self::CATEGORY_NAME, $entity->getCategory()->getName());
+	}
+	
+	protected function getFormData() {
+		$data = parent::getFormData();
+	
+		$data['branch'] = self::BRANCH_ID;
+		$data['category'] = self::CATEGORY_ID;
 		
-		$this->assertTrue($form->isSynchronized());
-		$this->assertSame($assignment, $form->getData());
-		$this->assertSame(self::BRANCH_ID, $assignment->getBranch()->getId());
-		$this->assertSame(self::BRANCH_NAME, $assignment->getBranch()->getName());
-		$this->assertSame(self::CATEGORY_ID, $assignment->getCategory()->getId());
-		$this->assertSame(self::CATEGORY_NAME, $assignment->getCategory()->getName());
+		return $data;
 	}
 	
+	protected function getFormOptions() {
+		$options = parent::getFormOptions();
 	
+		$options[self::getChoicesName('branch')] = self::BRANCH_CHOICES;
+		$options[self::getChoicesName('category')] = self::CATEGORY_CHOICES;
 	
-	private function getBranchTransformerMock() {
-		$mock = $this->getMockBuilder ( EntityToNumberTransformer::class )->disableOriginalConstructor ()->getMock ();
-	
-		$mock->expects ($this->any())->method ( 'reverseTransform' )->willReturn($this->getBranch());
-		$mock->expects ($this->any())->method ( 'transform' )->willReturn(self::BRANCH_ID);
-	
-		return $mock;
+		return $options;
 	}
 	
-	private function getCategoryTransformerMock() {
-		$mock = $this->getMockBuilder ( EntityToNumberTransformer::class )->disableOriginalConstructor ()->getMock ();
-	
-		$mock->expects ($this->any())->method ( 'reverseTransform' )->willReturn($this->getCategory());
-		$mock->expects ($this->any())->method ( 'transform' )->willReturn(self::BRANCH_ID);
-	
-		return $mock;
+	protected function getFormType() {
+		return BranchCategoryAssignmentEditorType::class;
 	}
+	
+	protected function getEntity() {
+		return new BranchCategoryAssignment();
+	}
+	
 	
 	
 	private function getBranch() {

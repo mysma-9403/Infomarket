@@ -56,7 +56,7 @@ class NewsletterPageEditorTypeTest extends SimpleEntityEditorTypeTest {
 	protected function getFormOptions() {
 		$options = parent::getFormOptions();
 		
-		$options['newsletterPageTemplate'] = self::NEWSLETTER_PAGE_TEMPLATE_CHOICES;
+		$options[self::getChoicesName('newsletterPageTemplate')] = self::NEWSLETTER_PAGE_TEMPLATE_CHOICES;
 		
 		return $options;
 	}

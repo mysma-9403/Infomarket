@@ -32,15 +32,15 @@ class MenuEntryBranchAssignmentEditorType extends BaseEntityEditorType
 	 * @see \AppBundle\Form\Base\BaseFormType::addMoreFields()
 	 */
 	protected function addMainFields(FormBuilderInterface $builder, array $options) {
-		$this->addSingleChoiceField($builder, $options, $this->menuEntryTransformer, 'menuEntry');
-		$this->addSingleChoiceField($builder, $options, $this->branchTransformer, 'branch');
+		$this->addChoiceEntityField($builder, $options, $this->menuEntryTransformer, 'menuEntry');
+		$this->addChoiceEntityField($builder, $options, $this->branchTransformer, 'branch');
 	}
 	
 	protected function getDefaultOptions() {
 		$options = parent::getDefaultOptions();
 	
-		$options['menuEntry'] = [];
-		$options['branch'] = [];
+		$options[self::getChoicesName('menuEntry')] = [];
+		$options[self::getChoicesName('branch')] = [];
 	
 		return $options;
 	}

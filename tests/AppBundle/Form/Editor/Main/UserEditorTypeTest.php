@@ -51,7 +51,7 @@ class UserEditorTypeTest extends BaseEntityEditorTypeTest {
 	protected function getFormOptions() {
 		$options = parent::getFormOptions();
 		
-		$options['roles'] = self::ROLE_CHOICES;
+		$options[self::getChoicesName('roles')] = self::ROLE_CHOICES;
 		
 		return $options;
 	}

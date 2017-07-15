@@ -98,8 +98,8 @@ class NewsletterBlockEditorTypeTest extends SimpleEntityEditorTypeTest {
 	protected function getFormOptions() {
 		$options = parent::getFormOptions();
 		
-		$options['newsletterBlockTemplate'] = self::NEWSLETTER_BLOCK_TEMPLATE_CHOICES;
-		$options['newsletterPage'] = self::NEWSLETTER_PAGE_CHOICES;
+		$options[self::getChoicesName('newsletterBlockTemplate')] = self::NEWSLETTER_BLOCK_TEMPLATE_CHOICES;
+		$options[self::getChoicesName('newsletterPage')] = self::NEWSLETTER_PAGE_CHOICES;
 		
 		return $options;
 	}

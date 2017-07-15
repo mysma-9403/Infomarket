@@ -36,13 +36,13 @@ class NewsletterPageEditorType extends SimpleEntityEditorType
 		))
 		;
 		
-		$this->addSingleChoiceField($builder, $options, $this->newsletterPageTemplateToNumberTransformer, 'newsletterPageTemplate');
+		$this->addChoiceEntityField($builder, $options, $this->newsletterPageTemplateToNumberTransformer, 'newsletterPageTemplate');
 	}
 	
 	protected function getDefaultOptions() {
 		$options = parent::getDefaultOptions();
 		
-		$options['newsletterPageTemplate'] = [];
+		$options[self::getChoicesName('newsletterPageTemplate')] = [];
 		
 		return $options;
 	}

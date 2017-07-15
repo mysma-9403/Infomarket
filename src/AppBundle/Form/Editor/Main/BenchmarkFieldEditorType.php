@@ -7,11 +7,10 @@ use AppBundle\Entity\Category;
 use AppBundle\Form\Editor\Base\BaseEntityEditorType;
 use AppBundle\Form\Transformer\EntityToNumberTransformer;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 
 class BenchmarkFieldEditorType extends BaseEntityEditorType
 {
@@ -31,10 +30,6 @@ class BenchmarkFieldEditorType extends BaseEntityEditorType
 	 * @see \AppBundle\Form\Base\SimpleEntityType::addMoreFields()
 	 */
 	protected function addMoreFields(FormBuilderInterface $builder, array $options) {
-		
-		$fieldType = $options['fieldType'];
-		$noteType = $options['noteType'];
-		$betterThanType = $options['betterThanType'];
 		
 		$builder
 		->add('valueNumber', IntegerType::class, array(
@@ -79,37 +74,22 @@ class BenchmarkFieldEditorType extends BaseEntityEditorType
 				'required' => false,
 				'attr' => ['placeholder' => 'label.benchmarkField.compareWeight']
 		))
-		
-		->add('fieldType', ChoiceType::class, array(
-				'choices'		=> $fieldType,
-				'required'		=> true,
-				'expanded'      => false,
-				'multiple'      => false
-		))
-		->add('noteType', ChoiceType::class, array(
-				'choices'		=> $noteType,
-				'required'		=> true,
-				'expanded'      => false,
-				'multiple'      => false
-		))
-		->add('betterThanType', ChoiceType::class, array(
-				'choices'		=> $betterThanType,
-				'required'		=> true,
-				'expanded'      => false,
-				'multiple'      => false
-		))
 		;
 		
-		$this->addSingleChoiceField($builder, $options, $this->categoryToNumberTransformer, 'category');
+		$this->addChoiceNumberField($builder, $options, 'fieldType');
+		$this->addChoiceNumberField($builder, $options, 'noteType');
+		$this->addChoiceNumberField($builder, $options, 'betterThanType');
+		
+		$this->addChoiceEntityField($builder, $options, $this->categoryToNumberTransformer, 'category');
 	}
 	
 	protected function getDefaultOptions() {
 		$options = parent::getDefaultOptions();
 	
-		$options['category'] = [];
-		$options['fieldType'] = [];
-		$options['noteType'] = [];
-		$options['betterThanType'] = [];
+		$options[self::getChoicesName('category')] = [];
+		$options[self::getChoicesName('fieldType')] = [];
+		$options[self::getChoicesName('noteType')] = [];
+		$options[self::getChoicesName('betterThanType')] = [];
 	
 		return $options;
 	}

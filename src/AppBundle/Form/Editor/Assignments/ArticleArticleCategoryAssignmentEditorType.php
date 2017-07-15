@@ -32,15 +32,15 @@ class ArticleArticleCategoryAssignmentEditorType extends BaseEntityEditorType
 	 * @see \AppBundle\Form\Base\BaseFormType::addMoreFields()
 	 */
 	protected function addMainFields(FormBuilderInterface $builder, array $options) {
-		$this->addSingleChoiceField($builder, $options, $this->articleTransformer, 'article');
-		$this->addSingleChoiceField($builder, $options, $this->articleCategoryTransformer, 'articleCategory');
+		$this->addChoiceEntityField($builder, $options, $this->articleTransformer, 'article');
+		$this->addChoiceEntityField($builder, $options, $this->articleCategoryTransformer, 'articleCategory');
 	}
 	
 	protected function getDefaultOptions() {
 		$options = parent::getDefaultOptions();
 	
-		$options['article'] = [];
-		$options['articleCategory'] = [];
+		$options[self::getChoicesName('article')] = [];
+		$options[self::getChoicesName('articleCategory')] = [];
 	
 		return $options;
 	}

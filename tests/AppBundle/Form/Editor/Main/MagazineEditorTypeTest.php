@@ -70,7 +70,7 @@ class MagazineEditorTypeTest extends ImageEntityEditorTypeTest {
 	protected function getFormOptions() {
 		$options = parent::getFormOptions();
 		
-		$options['parent'] = self::PARENT_CHOICES;
+		$options[self::getChoicesName('parent')] = self::PARENT_CHOICES;
 		
 		return $options;
 	}

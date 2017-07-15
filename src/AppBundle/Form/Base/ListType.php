@@ -46,6 +46,7 @@ abstract class ListType extends BaseType
 	 */
 	protected function getDefaultOptions() {
 		$options = parent::getDefaultOptions();
+		
 		$options['choices'] = array();
 		
 		return $options;

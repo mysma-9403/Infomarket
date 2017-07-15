@@ -32,15 +32,15 @@ class MenuEntryCategoryAssignmentEditorType extends BaseEntityEditorType
 	 * @see \AppBundle\Form\Base\BaseFormType::addMoreFields()
 	 */
 	protected function addMainFields(FormBuilderInterface $builder, array $options) {
-		$this->addSingleChoiceField($builder, $options, $this->menuEntryTransformer, 'menuEntry');
-		$this->addSingleChoiceField($builder, $options, $this->categoryTransformer, 'category');
+		$this->addChoiceEntityField($builder, $options, $this->menuEntryTransformer, 'menuEntry');
+		$this->addChoiceEntityField($builder, $options, $this->categoryTransformer, 'category');
 	}
 	
 	protected function getDefaultOptions() {
 		$options = parent::getDefaultOptions();
 	
-		$options['menuEntry'] = [];
-		$options['category'] = [];
+		$options[self::getChoicesName('menuEntry')] = [];
+		$options[self::getChoicesName('category')] = [];
 	
 		return $options;
 	}

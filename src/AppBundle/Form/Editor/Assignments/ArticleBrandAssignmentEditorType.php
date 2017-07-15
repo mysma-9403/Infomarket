@@ -32,15 +32,15 @@ class ArticleBrandAssignmentEditorType extends BaseEntityEditorType
 	 * @see \AppBundle\Form\Base\BaseFormType::addMoreFields()
 	 */
 	protected function addMainFields(FormBuilderInterface $builder, array $options) {
-		$this->addSingleChoiceField($builder, $options, $this->articleTransformer, 'article');
-		$this->addSingleChoiceField($builder, $options, $this->brandTransformer, 'brand');
+		$this->addChoiceEntityField($builder, $options, $this->articleTransformer, 'article');
+		$this->addChoiceEntityField($builder, $options, $this->brandTransformer, 'brand');
 	}
 	
 	protected function getDefaultOptions() {
 		$options = parent::getDefaultOptions();
 	
-		$options['article'] = [];
-		$options['brand'] = [];
+		$options[self::getChoicesName('article')] = [];
+		$options[self::getChoicesName('brand')] = [];
 	
 		return $options;
 	}

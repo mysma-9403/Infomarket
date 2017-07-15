@@ -41,7 +41,7 @@ class BenchmarkMessageEditorTypeTest extends EditorTypeTest {
 	protected function getFormOptions() {
 		$options = parent::getFormOptions();
 		
-		$options['states'] = self::STATE_CHOICES;
+		$options[self::getChoicesName('state')] = self::STATE_CHOICES;
 		
 		return $options;
 	}

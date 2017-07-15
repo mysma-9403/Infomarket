@@ -6,30 +6,18 @@ use AppBundle\Entity\Brand;
 use AppBundle\Entity\BrandCategoryAssignment;
 use AppBundle\Entity\Category;
 use AppBundle\Form\Editor\Assignments\BrandCategoryAssignmentEditorType;
-use AppBundle\Form\Transformer\EntityToNumberTransformer;
 use Symfony\Component\Form\PreloadedExtension;
-use Symfony\Component\Form\Test\TypeTestCase;
+use Tests\AppBundle\Form\Editor\Base\BaseEntityEditorTypeTest;
 
-class BrandCategoryAssignmentEditorTypeTest extends TypeTestCase {
+class BrandCategoryAssignmentEditorTypeTest extends BaseEntityEditorTypeTest {
 		
 	const BRAND_ID = 100;
 	const BRAND_NAME = 'Test brand';
+	const BRAND_CHOICES = ['Test brand' => self::BRAND_ID];
 	
 	const CATEGORY_ID = 100;
 	const CATEGORY_NAME = 'Test category';
-	
-	const FORM_DATA = [
-			'brand' => self::BRAND_ID,
-			'category' => self::CATEGORY_ID
-	];
-	
-	const FORM_BRAND_LIST = ['Test brand' => self::BRAND_ID];
-	const FORM_CATEGORY_LIST = ['Test category' => self::CATEGORY_ID];
-	
-	const FORM_OPTIONS = [
-			'brand' => self::FORM_BRAND_LIST,
-			'category' => self::FORM_CATEGORY_LIST
-	];
+	const CATEGORY_CHOICES = ['Test category' => self::CATEGORY_ID];
 	
 	
 	
@@ -40,8 +28,8 @@ class BrandCategoryAssignmentEditorTypeTest extends TypeTestCase {
 	
 	
 	protected function setUp() {
-		$this->brandTransformer = $this->getBrandTransformerMock();
-		$this->categoryTransformer = $this->getCategoryTransformerMock();
+		$this->brandTransformer = $this->getEntityTransformerMock($this->getBrand(), self::BRAND_ID);
+		$this->categoryTransformer = $this->getEntityTransformerMock($this->getCategory(), self::CATEGORY_ID);
 		
 		parent::setUp();
 	}
@@ -53,52 +41,43 @@ class BrandCategoryAssignmentEditorTypeTest extends TypeTestCase {
 	
 	
 	
-	public function testViewProperties()
-	{
-		$form = $this->factory->create(BrandCategoryAssignmentEditorType::class);
-	
-		$view = $form->createView();
-	
-		foreach (array_keys(self::FORM_DATA) as $key)
-			$this->assertArrayHasKey($key, $view->children);
+	protected function assertEntity($entity) {
+		/** @var BrandCategoryAssignment $entity */
+		parent::assertEntity($entity);
 		
-		$this->assertCount(count(self::FORM_DATA)+1, $view->children);
-	}
-	
-	public function testSubmitValidData()
-	{	
-		$assignment = new BrandCategoryAssignment();
-		$form = $this->factory->create(BrandCategoryAssignmentEditorType::class, $assignment, self::FORM_OPTIONS);
+		$this->assertSame(self::BRAND_ID, $entity->getBrand()->getId());
+		$this->assertSame(self::BRAND_NAME, $entity->getBrand()->getName());
 		
-		$form->submit(self::FORM_DATA);
+		$this->assertSame(self::CATEGORY_ID, $entity->getCategory()->getId());
+		$this->assertSame(self::CATEGORY_NAME, $entity->getCategory()->getName());
+	}
+	
+	protected function getFormData() {
+		$data = parent::getFormData();
+	
+		$data['brand'] = self::BRAND_ID;
+		$data['category'] = self::CATEGORY_ID;
 		
-		$this->assertTrue($form->isSynchronized());
-		$this->assertSame($assignment, $form->getData());
-		$this->assertSame(self::BRAND_ID, $assignment->getBrand()->getId());
-		$this->assertSame(self::BRAND_NAME, $assignment->getBrand()->getName());
-		$this->assertSame(self::CATEGORY_ID, $assignment->getCategory()->getId());
-		$this->assertSame(self::CATEGORY_NAME, $assignment->getCategory()->getName());
+		return $data;
 	}
 	
+	protected function getFormOptions() {
+		$options = parent::getFormOptions();
 	
+		$options[self::getChoicesName('brand')] = self::BRAND_CHOICES;
+		$options[self::getChoicesName('category')] = self::CATEGORY_CHOICES;
 	
-	private function getBrandTransformerMock() {
-		$mock = $this->getMockBuilder ( EntityToNumberTransformer::class )->disableOriginalConstructor ()->getMock ();
-	
-		$mock->expects ($this->any())->method ( 'reverseTransform' )->willReturn($this->getBrand());
-		$mock->expects ($this->any())->method ( 'transform' )->willReturn(self::BRAND_ID);
-	
-		return $mock;
+		return $options;
 	}
 	
-	private function getCategoryTransformerMock() {
-		$mock = $this->getMockBuilder ( EntityToNumberTransformer::class )->disableOriginalConstructor ()->getMock ();
-	
-		$mock->expects ($this->any())->method ( 'reverseTransform' )->willReturn($this->getCategory());
-		$mock->expects ($this->any())->method ( 'transform' )->willReturn(self::BRAND_ID);
-	
-		return $mock;
+	protected function getFormType() {
+		return BrandCategoryAssignmentEditorType::class;
 	}
+	
+	protected function getEntity() {
+		return new BrandCategoryAssignment();
+	}
+	
 	
 	
 	private function getBrand() {

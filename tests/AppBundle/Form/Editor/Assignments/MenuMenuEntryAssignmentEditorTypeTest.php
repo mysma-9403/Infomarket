@@ -6,33 +6,20 @@ use AppBundle\Entity\Menu;
 use AppBundle\Entity\MenuMenuEntryAssignment;
 use AppBundle\Entity\MenuEntry;
 use AppBundle\Form\Editor\Assignments\MenuMenuEntryAssignmentEditorType;
-use AppBundle\Form\Transformer\EntityToNumberTransformer;
 use Symfony\Component\Form\PreloadedExtension;
-use Symfony\Component\Form\Test\TypeTestCase;
+use Tests\AppBundle\Form\Editor\Base\BaseEntityEditorTypeTest;
 
-class MenuMenuEntryAssignmentEditorTypeTest extends TypeTestCase {
+class MenuMenuEntryAssignmentEditorTypeTest extends BaseEntityEditorTypeTest {
 		
 	const MENU_ID = 100;
 	const MENU_NAME = 'Test menu';
+	const MENU_CHOICES = ['Test menu' => self::MENU_ID];
 	
 	const MENU_ENTRY_ID = 100;
 	const MENU_ENTRY_NAME = 'Test menuEntry';
+	const MENU_ENTRY_CHOICES = ['Test menuEntry' => self::MENU_ENTRY_ID];
 	
-	const ORDER_NUMBER = 7;
-	
-	const FORM_DATA = [
-			'menu' => self::MENU_ID,
-			'menuEntry' => self::MENU_ENTRY_ID,
-			'orderNumber' => self::ORDER_NUMBER
-	];
-	
-	const FORM_MENU_LIST = ['Test menu' => self::MENU_ID];
-	const FORM_MENU_ENTRY_LIST = ['Test menuEntry' => self::MENU_ENTRY_ID];
-	
-	const FORM_OPTIONS = [
-			'menu' => self::FORM_MENU_LIST,
-			'menuEntry' => self::FORM_MENU_ENTRY_LIST
-	];
+	const ORDER_NUMBER = 37;
 	
 	
 	
@@ -43,8 +30,8 @@ class MenuMenuEntryAssignmentEditorTypeTest extends TypeTestCase {
 	
 	
 	protected function setUp() {
-		$this->menuTransformer = $this->getMenuTransformerMock();
-		$this->menuEntryTransformer = $this->getMenuEntryTransformerMock();
+		$this->menuTransformer = $this->getEntityTransformerMock($this->getMenu(), self::MENU_ID);
+		$this->menuEntryTransformer = $this->getEntityTransformerMock($this->getMenuEntry(), self::MENU_ENTRY_ID);
 		
 		parent::setUp();
 	}
@@ -56,53 +43,47 @@ class MenuMenuEntryAssignmentEditorTypeTest extends TypeTestCase {
 	
 	
 	
-	public function testViewProperties()
-	{
-		$form = $this->factory->create(MenuMenuEntryAssignmentEditorType::class);
-	
-		$view = $form->createView();
-	
-		foreach (array_keys(self::FORM_DATA) as $key)
-			$this->assertArrayHasKey($key, $view->children);
+	protected function assertEntity($entity) {
+		/** @var MenuMenuEntryAssignment $entity */
+		parent::assertEntity($entity);
 		
-		$this->assertCount(count(self::FORM_DATA)+1, $view->children);
-	}
-	
-	public function testSubmitValidData()
-	{	
-		$assignment = new MenuMenuEntryAssignment();
-		$form = $this->factory->create(MenuMenuEntryAssignmentEditorType::class, $assignment, self::FORM_OPTIONS);
+		$this->assertSame(self::MENU_ID, $entity->getMenu()->getId());
+		$this->assertSame(self::MENU_NAME, $entity->getMenu()->getName());
 		
-		$form->submit(self::FORM_DATA);
+		$this->assertSame(self::MENU_ENTRY_ID, $entity->getMenuEntry()->getId());
+		$this->assertSame(self::MENU_ENTRY_NAME, $entity->getMenuEntry()->getName());
 		
-		$this->assertTrue($form->isSynchronized());
-		$this->assertSame($assignment, $form->getData());
-		$this->assertSame(self::MENU_ID, $assignment->getMenu()->getId());
-		$this->assertSame(self::MENU_NAME, $assignment->getMenu()->getName());
-		$this->assertSame(self::MENU_ENTRY_ID, $assignment->getMenuEntry()->getId());
-		$this->assertSame(self::MENU_ENTRY_NAME, $assignment->getMenuEntry()->getName());
-		$this->assertSame(self::ORDER_NUMBER, $assignment->getOrderNumber());
+		$this->assertSame(self::ORDER_NUMBER, $entity->getOrderNumber());
 	}
 	
+	protected function getFormData() {
+		$data = parent::getFormData();
 	
-	
-	private function getMenuTransformerMock() {
-		$mock = $this->getMockBuilder ( EntityToNumberTransformer::class )->disableOriginalConstructor ()->getMock ();
-	
-		$mock->expects ($this->any())->method ( 'reverseTransform' )->willReturn($this->getMenu());
-		$mock->expects ($this->any())->method ( 'transform' )->willReturn(self::MENU_ID);
-	
-		return $mock;
+		$data['menu'] = self::MENU_ID;
+		$data['menuEntry'] = self::MENU_ENTRY_ID;
+		
+		$data['orderNumber'] = self::ORDER_NUMBER;
+		
+		return $data;
 	}
 	
-	private function getMenuEntryTransformerMock() {
-		$mock = $this->getMockBuilder ( EntityToNumberTransformer::class )->disableOriginalConstructor ()->getMock ();
+	protected function getFormOptions() {
+		$options = parent::getFormOptions();
 	
-		$mock->expects ($this->any())->method ( 'reverseTransform' )->willReturn($this->getMenuEntry());
-		$mock->expects ($this->any())->method ( 'transform' )->willReturn(self::MENU_ID);
+		$options[self::getChoicesName('menu')] = self::MENU_CHOICES;
+		$options[self::getChoicesName('menuEntry')] = self::MENU_ENTRY_CHOICES;
 	
-		return $mock;
+		return $options;
 	}
+	
+	protected function getFormType() {
+		return MenuMenuEntryAssignmentEditorType::class;
+	}
+	
+	protected function getEntity() {
+		return new MenuMenuEntryAssignment();
+	}
+	
 	
 	
 	private function getMenu() {

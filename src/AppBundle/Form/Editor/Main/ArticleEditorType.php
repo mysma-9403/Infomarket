@@ -7,7 +7,6 @@ use AppBundle\Form\Editor\Base\ImageEntityEditorType;
 use AppBundle\Form\Transformer\EntityToNumberTransformer;
 use Ivory\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -38,9 +37,6 @@ class ArticleEditorType extends ImageEntityEditorType
 	 * @see \AppBundle\Form\Base\SimpleEntityType::addMoreFields()
 	 */
 	protected function addMoreFields(FormBuilderInterface $builder, array $options) {
-		
-		$layoutChoices = $options['layoutChoices'];
-		$imageSizeChoices = $options['imageSizeChoices'];
 		
 		$builder
 		->add('subname', TextType::class, array(
@@ -90,30 +86,23 @@ class ArticleEditorType extends ImageEntityEditorType
 						'placeholder' => 'label.article.endDate'
 				]
 		))
-		
-		->add('layout', ChoiceType::class, array(
-				'choices'		=> $layoutChoices,
-				'expanded'      => false,
-				'multiple'      => false
-		))
-		->add('imageSize', ChoiceType::class, array(
-				'choices'		=> $imageSizeChoices,
-				'expanded'      => false,
-				'multiple'      => false
-		))
 		;
 		
-		$this->addSingleChoiceField($builder, $options, $this->articleToNumberTransformer, 'parent');
-		$this->addSingleChoiceField($builder, $options, $this->userToNumberTransformer, 'author');
+		$this->addChoiceNumberField($builder, $options, 'layout');
+		$this->addChoiceNumberField($builder, $options, 'imageSize');
+		
+		$this->addChoiceEntityField($builder, $options, $this->articleToNumberTransformer, 'parent');
+		$this->addChoiceEntityField($builder, $options, $this->userToNumberTransformer, 'author');
 	}
 	
 	protected function getDefaultOptions() {
 		$options = parent::getDefaultOptions();
 		
-		$options['parent'] = [];
-		$options['author'] = [];
-		$options['layoutChoices'] = [];
-		$options['imageSizeChoices'] = [];
+		$options[self::getChoicesName('parent')] = [];
+		$options[self::getChoicesName('author')] = [];
+		
+		$options[self::getChoicesName('layout')] = [];
+		$options[self::getChoicesName('imageSize')] = [];
 		
 		return $options;
 	}

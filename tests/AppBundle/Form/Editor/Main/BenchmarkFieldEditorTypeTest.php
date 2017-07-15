@@ -113,11 +113,11 @@ class BenchmarkFieldEditorTypeTest extends BaseEntityEditorTypeTest {
 	protected function getFormOptions() {
 		$options = parent::getFormOptions();
 		
-		$options['category'] = self::CATEGORY_CHOICES;
+		$options[self::getChoicesName('category')] = self::CATEGORY_CHOICES;
 		
-		$options['fieldType'] = self::FIELD_TYPE_CHOICES;
-		$options['noteType'] = self::NOTE_TYPE_CHOICES;
-		$options['betterThanType'] = self::BETTER_THAN_CHOICES;
+		$options[self::getChoicesName('fieldType')] = self::FIELD_TYPE_CHOICES;
+		$options[self::getChoicesName('noteType')] = self::NOTE_TYPE_CHOICES;
+		$options[self::getChoicesName('betterThanType')] = self::BETTER_THAN_CHOICES;
 		
 		return $options;
 	}

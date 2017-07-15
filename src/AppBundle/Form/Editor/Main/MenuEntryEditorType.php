@@ -51,17 +51,17 @@ class MenuEntryEditorType extends SimpleEntityEditorType
 		))
 		;
 		
-		$this->addSingleChoiceField($builder, $options, $this->parentToNumberTransformer, 'parent');
-		$this->addSingleChoiceField($builder, $options, $this->pageToNumberTransformer, 'page');
-		$this->addSingleChoiceField($builder, $options, $this->linkToNumberTransformer, 'link');
+		$this->addChoiceEntityField($builder, $options, $this->parentToNumberTransformer, 'parent');
+		$this->addChoiceEntityField($builder, $options, $this->pageToNumberTransformer, 'page');
+		$this->addChoiceEntityField($builder, $options, $this->linkToNumberTransformer, 'link');
 	}
 	
 	protected function getDefaultOptions() {
 		$options = parent::getDefaultOptions();
 		
-		$options['parent'] = [];
-		$options['page'] = [];
-		$options['link'] = [];
+		$options[self::getChoicesName('parent')] = [];
+		$options[self::getChoicesName('page')] = [];
+		$options[self::getChoicesName('link')] = [];
 		
 		return $options;
 	}

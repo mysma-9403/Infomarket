@@ -6,30 +6,18 @@ use AppBundle\Entity\Article;
 use AppBundle\Entity\ArticleArticleCategoryAssignment;
 use AppBundle\Entity\ArticleCategory;
 use AppBundle\Form\Editor\Assignments\ArticleArticleCategoryAssignmentEditorType;
-use AppBundle\Form\Transformer\EntityToNumberTransformer;
 use Symfony\Component\Form\PreloadedExtension;
-use Symfony\Component\Form\Test\TypeTestCase;
+use Tests\AppBundle\Form\Editor\Base\BaseEntityEditorTypeTest;
 
-class ArticleArticleCategoryAssignmentEditorTypeTest extends TypeTestCase {
+class ArticleArticleCategoryAssignmentEditorTypeTest extends BaseEntityEditorTypeTest {
 		
 	const ARTICLE_ID = 100;
 	const ARTICLE_NAME = 'Test article';
+	const ARTICLE_CHOICES = ['Test article' => self::ARTICLE_ID];
 	
 	const ARTICLE_CATEGORY_ID = 100;
 	const ARTICLE_CATEGORY_NAME = 'Test articleCategory';
-	
-	const FORM_DATA = [
-			'article' => self::ARTICLE_ID,
-			'articleCategory' => self::ARTICLE_CATEGORY_ID
-	];
-	
-	const FORM_ARTICLE_LIST = ['Test article' => self::ARTICLE_ID];
-	const FORM_ARTICLE_CATEGORY_LIST = ['Test articleCategory' => self::ARTICLE_CATEGORY_ID];
-	
-	const FORM_OPTIONS = [
-			'article' => self::FORM_ARTICLE_LIST,
-			'articleCategory' => self::FORM_ARTICLE_CATEGORY_LIST
-	];
+	const ARTICLE_CATEGORY_CHOICES = ['Test articleCategory' => self::ARTICLE_CATEGORY_ID];
 	
 	
 	
@@ -40,8 +28,8 @@ class ArticleArticleCategoryAssignmentEditorTypeTest extends TypeTestCase {
 	
 	
 	protected function setUp() {
-		$this->articleTransformer = $this->getArticleTransformerMock();
-		$this->articleCategoryTransformer = $this->getArticleCategoryTransformerMock();
+		$this->articleTransformer = $this->getEntityTransformerMock($this->getArticle(), self::ARTICLE_ID);
+		$this->articleCategoryTransformer = $this->getEntityTransformerMock($this->getArticleCategory(), self::ARTICLE_CATEGORY_ID);
 		
 		parent::setUp();
 	}
@@ -53,52 +41,43 @@ class ArticleArticleCategoryAssignmentEditorTypeTest extends TypeTestCase {
 	
 	
 	
-	public function testViewProperties()
-	{
-		$form = $this->factory->create(ArticleArticleCategoryAssignmentEditorType::class);
-	
-		$view = $form->createView();
-	
-		foreach (array_keys(self::FORM_DATA) as $key)
-			$this->assertArrayHasKey($key, $view->children);
+	protected function assertEntity($entity) {
+		/** @var ArticleArticleCategoryAssignment $entity */
+		parent::assertEntity($entity);
 		
-		$this->assertCount(count(self::FORM_DATA)+1, $view->children);
-	}
-	
-	public function testSubmitValidData()
-	{	
-		$assignment = new ArticleArticleCategoryAssignment();
-		$form = $this->factory->create(ArticleArticleCategoryAssignmentEditorType::class, $assignment, self::FORM_OPTIONS);
+		$this->assertSame(self::ARTICLE_ID, $entity->getArticle()->getId());
+		$this->assertSame(self::ARTICLE_NAME, $entity->getArticle()->getName());
 		
-		$form->submit(self::FORM_DATA);
+		$this->assertSame(self::ARTICLE_CATEGORY_ID, $entity->getArticleCategory()->getId());
+		$this->assertSame(self::ARTICLE_CATEGORY_NAME, $entity->getArticleCategory()->getName());
+	}
+	
+	protected function getFormData() {
+		$data = parent::getFormData();
+	
+		$data['article'] = self::ARTICLE_ID;
+		$data['articleCategory'] = self::ARTICLE_CATEGORY_ID;
 		
-		$this->assertTrue($form->isSynchronized());
-		$this->assertSame($assignment, $form->getData());
-		$this->assertSame(self::ARTICLE_ID, $assignment->getArticle()->getId());
-		$this->assertSame(self::ARTICLE_NAME, $assignment->getArticle()->getName());
-		$this->assertSame(self::ARTICLE_CATEGORY_ID, $assignment->getArticleCategory()->getId());
-		$this->assertSame(self::ARTICLE_CATEGORY_NAME, $assignment->getArticleCategory()->getName());
+		return $data;
 	}
 	
+	protected function getFormOptions() {
+		$options = parent::getFormOptions();
 	
+		$options[self::getChoicesName('article')] = self::ARTICLE_CHOICES;
+		$options[self::getChoicesName('articleCategory')] = self::ARTICLE_CATEGORY_CHOICES;
 	
-	private function getArticleTransformerMock() {
-		$mock = $this->getMockBuilder ( EntityToNumberTransformer::class )->disableOriginalConstructor ()->getMock ();
-	
-		$mock->expects ($this->any())->method ( 'reverseTransform' )->willReturn($this->getArticle());
-		$mock->expects ($this->any())->method ( 'transform' )->willReturn(self::ARTICLE_ID);
-	
-		return $mock;
+		return $options;
 	}
 	
-	private function getArticleCategoryTransformerMock() {
-		$mock = $this->getMockBuilder ( EntityToNumberTransformer::class )->disableOriginalConstructor ()->getMock ();
-	
-		$mock->expects ($this->any())->method ( 'reverseTransform' )->willReturn($this->getArticleCategory());
-		$mock->expects ($this->any())->method ( 'transform' )->willReturn(self::ARTICLE_ID);
-	
-		return $mock;
+	protected function getFormType() {
+		return ArticleArticleCategoryAssignmentEditorType::class;
 	}
+	
+	protected function getEntity() {
+		return new ArticleArticleCategoryAssignment();
+	}
+	
 	
 	
 	private function getArticle() {

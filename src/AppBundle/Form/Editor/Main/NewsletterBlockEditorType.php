@@ -78,15 +78,15 @@ class NewsletterBlockEditorType extends SimpleEntityEditorType
 		))
 		;
 		
-		$this->addSingleChoiceField($builder, $options, $this->newsletterBlockTemplateTransformer, 'newsletterBlockTemplate');
-		$this->addSingleChoiceField($builder, $options, $this->newsletterPageTransformer, 'newsletterPage');
+		$this->addChoiceEntityField($builder, $options, $this->newsletterBlockTemplateTransformer, 'newsletterBlockTemplate');
+		$this->addChoiceEntityField($builder, $options, $this->newsletterPageTransformer, 'newsletterPage');
 	}
 	
 	protected function getDefaultOptions() {
 		$options = parent::getDefaultOptions();
 	
-		$options['newsletterBlockTemplate'] = [];
-		$options['newsletterPage'] = [];
+		$options[self::getChoicesName('newsletterBlockTemplate')] = [];
+		$options[self::getChoicesName('newsletterPage')] = [];
 	
 		return $options;
 	}

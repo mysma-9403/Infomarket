@@ -4,7 +4,6 @@ namespace AppBundle\Form\Editor\Main;
 
 use AppBundle\Entity\User;
 use AppBundle\Form\Editor\Base\BaseEntityEditorType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 
@@ -26,8 +25,6 @@ class UserEditorType extends BaseEntityEditorType
 	 * @see \AppBundle\Form\Base\SimpleEntityType::addMoreFields()
 	 */
 	protected function addMoreFields(FormBuilderInterface $builder, array $options) {
-	
-		$roles = $options['roles'];
 		
 		$builder
 		->add('forename', TextType::class, array(
@@ -46,19 +43,15 @@ class UserEditorType extends BaseEntityEditorType
 				'attr' => array('autofocus' => true),
 				'required' => false
 		))
-		->add('roles', ChoiceType::class, array(
-				'choices'		=> $roles,
-				'placeholder'	=> 'Select roles',
-				'multiple'		=> true,
-				'expanded'		=> true
-		))
 		;
+		
+		$this->addChoiceNumberField($builder, $options, 'roles', true, true);
 	}
 	
 	protected function getDefaultOptions() {
 		$options = parent::getDefaultOptions();
 	
-		$options['roles'] = [];
+		$options[self::getChoicesName('roles')] = [];
 	
 		return $options;
 	}

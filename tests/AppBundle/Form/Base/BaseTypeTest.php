@@ -9,6 +9,7 @@ use Ivory\CKEditorBundle\Model\TemplateManagerInterface;
 use Symfony\Component\Form\Test\TypeTestCase;
 use Ivory\CKEditorBundle\Form\Type\CKEditorType;
 use AppBundle\Form\Transformer\EntityToNumberTransformer;
+use AppBundle\Form\Base\BaseType;
 
 abstract class BaseTypeTest extends TypeTestCase {
 	
@@ -84,5 +85,9 @@ abstract class BaseTypeTest extends TypeTestCase {
 		$mock->expects ($this->any())->method ( 'transform' )->willReturn($id);
 	
 		return $mock;
+	}
+	
+	protected static function getChoicesName($field) {
+		return BaseType::getChoicesName($field);
 	}
 }

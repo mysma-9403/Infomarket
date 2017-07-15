@@ -42,7 +42,7 @@ class AdvertEditorTypeTest extends ImageEntityEditorTypeTest {
 	protected function getFormOptions() {
 		$options = parent::getFormOptions();
 		
-		$options['locations'] = self::LOCATION_CHOICES;
+		$options[self::getChoicesName('location')] = self::LOCATION_CHOICES;
 		
 		return $options;
 	}

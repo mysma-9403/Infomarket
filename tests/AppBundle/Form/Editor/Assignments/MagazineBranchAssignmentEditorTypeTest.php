@@ -2,34 +2,22 @@
 
 namespace Tests\AppBundle\Form\Editor\Assignments;
 
+use AppBundle\Entity\Branch;
 use AppBundle\Entity\Magazine;
 use AppBundle\Entity\MagazineBranchAssignment;
-use AppBundle\Entity\Branch;
 use AppBundle\Form\Editor\Assignments\MagazineBranchAssignmentEditorType;
-use AppBundle\Form\Transformer\EntityToNumberTransformer;
 use Symfony\Component\Form\PreloadedExtension;
-use Symfony\Component\Form\Test\TypeTestCase;
+use Tests\AppBundle\Form\Editor\Base\BaseEntityEditorTypeTest;
 
-class MagazineBranchAssignmentEditorTypeTest extends TypeTestCase {
+class MagazineBranchAssignmentEditorTypeTest extends BaseEntityEditorTypeTest {
 		
 	const MAGAZINE_ID = 100;
 	const MAGAZINE_NAME = 'Test magazine';
+	const MAGAZINE_CHOICES = ['Test magazine' => self::MAGAZINE_ID];
 	
 	const BRANCH_ID = 100;
 	const BRANCH_NAME = 'Test branch';
-	
-	const FORM_DATA = [
-			'magazine' => self::MAGAZINE_ID,
-			'branch' => self::BRANCH_ID
-	];
-	
-	const FORM_MAGAZINE_LIST = ['Test magazine' => self::MAGAZINE_ID];
-	const FORM_BRANCH_LIST = ['Test branch' => self::BRANCH_ID];
-	
-	const FORM_OPTIONS = [
-			'magazine' => self::FORM_MAGAZINE_LIST,
-			'branch' => self::FORM_BRANCH_LIST
-	];
+	const BRANCH_CHOICES = ['Test branch' => self::BRANCH_ID];
 	
 	
 	
@@ -40,8 +28,8 @@ class MagazineBranchAssignmentEditorTypeTest extends TypeTestCase {
 	
 	
 	protected function setUp() {
-		$this->magazineTransformer = $this->getMagazineTransformerMock();
-		$this->branchTransformer = $this->getBranchTransformerMock();
+		$this->magazineTransformer = $this->getEntityTransformerMock($this->getMagazine(), self::MAGAZINE_ID);
+		$this->branchTransformer = $this->getEntityTransformerMock($this->getBranch(), self::BRANCH_ID);
 		
 		parent::setUp();
 	}
@@ -53,52 +41,43 @@ class MagazineBranchAssignmentEditorTypeTest extends TypeTestCase {
 	
 	
 	
-	public function testViewProperties()
-	{
-		$form = $this->factory->create(MagazineBranchAssignmentEditorType::class);
-	
-		$view = $form->createView();
-	
-		foreach (array_keys(self::FORM_DATA) as $key)
-			$this->assertArrayHasKey($key, $view->children);
+	protected function assertEntity($entity) {
+		/** @var MagazineBranchAssignment $entity */
+		parent::assertEntity($entity);
 		
-		$this->assertCount(count(self::FORM_DATA)+1, $view->children);
-	}
-	
-	public function testSubmitValidData()
-	{	
-		$assignment = new MagazineBranchAssignment();
-		$form = $this->factory->create(MagazineBranchAssignmentEditorType::class, $assignment, self::FORM_OPTIONS);
+		$this->assertSame(self::MAGAZINE_ID, $entity->getMagazine()->getId());
+		$this->assertSame(self::MAGAZINE_NAME, $entity->getMagazine()->getName());
 		
-		$form->submit(self::FORM_DATA);
+		$this->assertSame(self::BRANCH_ID, $entity->getBranch()->getId());
+		$this->assertSame(self::BRANCH_NAME, $entity->getBranch()->getName());
+	}
+	
+	protected function getFormData() {
+		$data = parent::getFormData();
+	
+		$data['magazine'] = self::MAGAZINE_ID;
+		$data['branch'] = self::BRANCH_ID;
 		
-		$this->assertTrue($form->isSynchronized());
-		$this->assertSame($assignment, $form->getData());
-		$this->assertSame(self::MAGAZINE_ID, $assignment->getMagazine()->getId());
-		$this->assertSame(self::MAGAZINE_NAME, $assignment->getMagazine()->getName());
-		$this->assertSame(self::BRANCH_ID, $assignment->getBranch()->getId());
-		$this->assertSame(self::BRANCH_NAME, $assignment->getBranch()->getName());
+		return $data;
 	}
 	
+	protected function getFormOptions() {
+		$options = parent::getFormOptions();
 	
+		$options[self::getChoicesName('magazine')] = self::MAGAZINE_CHOICES;
+		$options[self::getChoicesName('branch')] = self::BRANCH_CHOICES;
 	
-	private function getMagazineTransformerMock() {
-		$mock = $this->getMockBuilder ( EntityToNumberTransformer::class )->disableOriginalConstructor ()->getMock ();
-	
-		$mock->expects ($this->any())->method ( 'reverseTransform' )->willReturn($this->getMagazine());
-		$mock->expects ($this->any())->method ( 'transform' )->willReturn(self::MAGAZINE_ID);
-	
-		return $mock;
+		return $options;
 	}
 	
-	private function getBranchTransformerMock() {
-		$mock = $this->getMockBuilder ( EntityToNumberTransformer::class )->disableOriginalConstructor ()->getMock ();
-	
-		$mock->expects ($this->any())->method ( 'reverseTransform' )->willReturn($this->getBranch());
-		$mock->expects ($this->any())->method ( 'transform' )->willReturn(self::MAGAZINE_ID);
-	
-		return $mock;
+	protected function getFormType() {
+		return MagazineBranchAssignmentEditorType::class;
 	}
+	
+	protected function getEntity() {
+		return new MagazineBranchAssignment();
+	}
+	
 	
 	
 	private function getMagazine() {

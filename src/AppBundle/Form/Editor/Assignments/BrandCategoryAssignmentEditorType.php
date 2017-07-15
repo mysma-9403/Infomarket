@@ -32,15 +32,15 @@ class BrandCategoryAssignmentEditorType extends BaseEntityEditorType
 	 * @see \AppBundle\Form\Base\BaseFormType::addMoreFields()
 	 */
 	protected function addMainFields(FormBuilderInterface $builder, array $options) {
-		$this->addSingleChoiceField($builder, $options, $this->brandTransformer, 'brand');
-		$this->addSingleChoiceField($builder, $options, $this->categoryTransformer, 'category');
+		$this->addChoiceEntityField($builder, $options, $this->brandTransformer, 'brand');
+		$this->addChoiceEntityField($builder, $options, $this->categoryTransformer, 'category');
 	}
 	
 	protected function getDefaultOptions() {
 		$options = parent::getDefaultOptions();
 	
-		$options['brand'] = [];
-		$options['category'] = [];
+		$options[self::getChoicesName('brand')] = [];
+		$options[self::getChoicesName('category')] = [];
 	
 		return $options;
 	}

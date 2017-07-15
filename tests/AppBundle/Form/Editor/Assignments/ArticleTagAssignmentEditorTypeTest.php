@@ -6,30 +6,18 @@ use AppBundle\Entity\Article;
 use AppBundle\Entity\ArticleTagAssignment;
 use AppBundle\Entity\Tag;
 use AppBundle\Form\Editor\Assignments\ArticleTagAssignmentEditorType;
-use AppBundle\Form\Transformer\EntityToNumberTransformer;
 use Symfony\Component\Form\PreloadedExtension;
-use Symfony\Component\Form\Test\TypeTestCase;
+use Tests\AppBundle\Form\Editor\Base\BaseEntityEditorTypeTest;
 
-class ArticleTagAssignmentEditorTypeTest extends TypeTestCase {
+class ArticleTagAssignmentEditorTypeTest extends BaseEntityEditorTypeTest {
 		
 	const ARTICLE_ID = 100;
 	const ARTICLE_NAME = 'Test article';
+	const ARTICLE_CHOICES = ['Test article' => self::ARTICLE_ID];
 	
 	const TAG_ID = 100;
 	const TAG_NAME = 'Test tag';
-	
-	const FORM_DATA = [
-			'article' => self::ARTICLE_ID,
-			'tag' => self::TAG_ID
-	];
-	
-	const FORM_ARTICLE_LIST = ['Test article' => self::ARTICLE_ID];
-	const FORM_TAG_LIST = ['Test tag' => self::TAG_ID];
-	
-	const FORM_OPTIONS = [
-			'article' => self::FORM_ARTICLE_LIST,
-			'tag' => self::FORM_TAG_LIST
-	];
+	const TAG_CHOICES = ['Test tag' => self::TAG_ID];
 	
 	
 	
@@ -40,8 +28,8 @@ class ArticleTagAssignmentEditorTypeTest extends TypeTestCase {
 	
 	
 	protected function setUp() {
-		$this->articleTransformer = $this->getArticleTransformerMock();
-		$this->tagTransformer = $this->getTagTransformerMock();
+		$this->articleTransformer = $this->getEntityTransformerMock($this->getArticle(), self::ARTICLE_ID);
+		$this->tagTransformer = $this->getEntityTransformerMock($this->getTag(), self::TAG_ID);
 		
 		parent::setUp();
 	}
@@ -53,52 +41,43 @@ class ArticleTagAssignmentEditorTypeTest extends TypeTestCase {
 	
 	
 	
-	public function testViewProperties()
-	{
-		$form = $this->factory->create(ArticleTagAssignmentEditorType::class);
-	
-		$view = $form->createView();
-	
-		foreach (array_keys(self::FORM_DATA) as $key)
-			$this->assertArrayHasKey($key, $view->children);
-			
-		$this->assertCount(count(self::FORM_DATA)+1, $view->children);
-	}
-	
-	public function testSubmitValidData()
-	{	
-		$assignment = new ArticleTagAssignment();
-		$form = $this->factory->create(ArticleTagAssignmentEditorType::class, $assignment, self::FORM_OPTIONS);
+	protected function assertEntity($entity) {
+		/** @var ArticleTagAssignment $entity */
+		parent::assertEntity($entity);
 		
-		$form->submit(self::FORM_DATA);
+		$this->assertSame(self::ARTICLE_ID, $entity->getArticle()->getId());
+		$this->assertSame(self::ARTICLE_NAME, $entity->getArticle()->getName());
 		
-		$this->assertTrue($form->isSynchronized());
-		$this->assertSame($assignment, $form->getData());
-		$this->assertSame(self::ARTICLE_ID, $assignment->getArticle()->getId());
-		$this->assertSame(self::ARTICLE_NAME, $assignment->getArticle()->getName());
-		$this->assertSame(self::TAG_ID, $assignment->getTag()->getId());
-		$this->assertSame(self::TAG_NAME, $assignment->getTag()->getName());
+		$this->assertSame(self::TAG_ID, $entity->getTag()->getId());
+		$this->assertSame(self::TAG_NAME, $entity->getTag()->getName());
 	}
 	
+	protected function getFormData() {
+		$data = parent::getFormData();
 	
-	
-	private function getArticleTransformerMock() {
-		$mock = $this->getMockBuilder ( EntityToNumberTransformer::class )->disableOriginalConstructor ()->getMock ();
-	
-		$mock->expects ($this->any())->method ( 'reverseTransform' )->willReturn($this->getArticle());
-		$mock->expects ($this->any())->method ( 'transform' )->willReturn(self::ARTICLE_ID);
-	
-		return $mock;
+		$data['article'] = self::ARTICLE_ID;
+		$data['tag'] = self::TAG_ID;
+		
+		return $data;
 	}
 	
-	private function getTagTransformerMock() {
-		$mock = $this->getMockBuilder ( EntityToNumberTransformer::class )->disableOriginalConstructor ()->getMock ();
+	protected function getFormOptions() {
+		$options = parent::getFormOptions();
 	
-		$mock->expects ($this->any())->method ( 'reverseTransform' )->willReturn($this->getTag());
-		$mock->expects ($this->any())->method ( 'transform' )->willReturn(self::ARTICLE_ID);
+		$options[self::getChoicesName('article')] = self::ARTICLE_CHOICES;
+		$options[self::getChoicesName('tag')] = self::TAG_CHOICES;
 	
-		return $mock;
+		return $options;
 	}
+	
+	protected function getFormType() {
+		return ArticleTagAssignmentEditorType::class;
+	}
+	
+	protected function getEntity() {
+		return new ArticleTagAssignment();
+	}
+	
 	
 	
 	private function getArticle() {
