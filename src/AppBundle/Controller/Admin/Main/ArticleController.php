@@ -25,6 +25,8 @@ use AppBundle\Repository\Admin\Main\CategoryRepository;
 use AppBundle\Repository\Admin\Main\TagRepository;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Form\Base\BaseType;
+use AppBundle\Factory\Common\Choices\Base\ChoicesFactory;
 
 class ArticleController extends FeaturedEntityController {
 	
@@ -319,20 +321,20 @@ class ArticleController extends FeaturedEntityController {
 	// Internal logic
 	//---------------------------------------------------------------------------
 	
-	protected function getFormOptions() { //TODO move to FilterForm like in EditorForms
-		$options = parent::getFormOptions();
+	protected function getFilterFormOptions() {
+		$options = parent::getFilterFormOptions();
 	
 		/** @var BrandRepository $brandRepository */
 		$brandRepository = $this->getDoctrine()->getRepository(Brand::class);
-		$options['brands'] = $brandRepository->findFilterItems();
+		$options[BaseType::getChoicesName('brand')] = $brandRepository->findFilterItems();
 		
 		/** @var CategoryRepository $categoryRepository */
 		$categoryRepository = $this->getDoctrine()->getRepository(Category::class);
-		$options['categories'] = $categoryRepository->findFilterItems();
+		$options[BaseType::getChoicesName('category')] = $categoryRepository->findFilterItems();
 		
 		/** @var ArticleCategoryRepository $branchRepository */
 		$articleCategoryRepository = $this->getDoctrine()->getRepository(ArticleCategory::class);
-		$options['articleCategories'] = $articleCategoryRepository->findFilterItems();
+		$options[BaseType::getChoicesName('articleCategory')] = $articleCategoryRepository->findFilterItems();
 	
 		return $options;
 	}
@@ -340,21 +342,14 @@ class ArticleController extends FeaturedEntityController {
 	protected function getEditorFormOptions() {
 		$options = parent::getEditorFormOptions();
 		
-		$layoutChoices = array(
-				Article::getLayoutName(Article::LEFT_LAYOUT) => Article::LEFT_LAYOUT,
-				Article::getLayoutName(Article::MID_LAYOUT) => Article::MID_LAYOUT,
-				Article::getLayoutName(Article::RIGHT_LAYOUT) => Article::RIGHT_LAYOUT,
-				Article::getLayoutName(Article::BOTTOM_LAYOUT) => Article::BOTTOM_LAYOUT
-		);
+		/** @var ChoicesFactory $imageSizesFactory */
+		$imageSizesFactory = $this->get('app.factory.choices.article.imageSizes');
+		$options[BaseType::getChoicesName('imageSize')] = $imageSizesFactory->getItems();
 		
-		$imageSizeChoices = array(
-				Article::getImageSizeName(Article::SMALL_IMAGE) => Article::SMALL_IMAGE,
-				Article::getImageSizeName(Article::MEDIUM_IMAGE) => Article::MEDIUM_IMAGE,
-				Article::getImageSizeName(Article::LARGE_IMAGE) => Article::LARGE_IMAGE
-		);
+		/** @var ChoicesFactory $layoutsFactory */
+		$layoutsFactory = $this->get('app.factory.choices.article.layouts');
+		$options[BaseType::getChoicesName('layout')] = $layoutsFactory->getItems();
 		
-		$options['layoutChoices'] = $layoutChoices;
-		$options['imageSizeChoices'] = $imageSizeChoices;
 		
 		return $options;
 	}

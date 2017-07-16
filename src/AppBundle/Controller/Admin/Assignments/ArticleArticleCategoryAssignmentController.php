@@ -15,6 +15,7 @@ use AppBundle\Repository\Admin\Main\ArticleCategoryRepository;
 use AppBundle\Repository\Admin\Main\ArticleRepository;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Controller\Admin\Base\AssignmentController;
+use AppBundle\Form\Base\BaseType;
 
 class ArticleArticleCategoryAssignmentController extends AssignmentController {
 	
@@ -97,16 +98,30 @@ class ArticleArticleCategoryAssignmentController extends AssignmentController {
 	// Internal logic
 	//---------------------------------------------------------------------------
 	
-	protected function getFormOptions() {
-		$options = parent::getFormOptions();
+	protected function getFilterFormOptions() {
+		$options = parent::getFilterFormOptions();
 	
 		/** @var ArticleRepository $articleRepository */
 		$articleRepository = $this->getDoctrine()->getRepository(Article::class);
-		$options['articles'] = $articleRepository->findFilterItems();
+		$options[BaseType::getChoicesName('article')] = $articleRepository->findFilterItems();
 	
 		/** @var ArticleCategoryRepository $articleArticleCategoryRepository */
 		$articleCategoryRepository = $this->getDoctrine()->getRepository(ArticleCategory::class);
-		$options['articleCategories'] = $articleCategoryRepository->findFilterItems();
+		$options[BaseType::getChoicesName('articleCategory')] = $articleCategoryRepository->findFilterItems();
+	
+		return $options;
+	}
+	
+	protected function getEditorFormOptions() {
+		$options = parent::getEditorFormOptions();
+	
+		/** @var ArticleRepository $articleRepository */
+		$articleRepository = $this->getDoctrine()->getRepository(Article::class);
+		$options[BaseType::getChoicesName('article')] = $articleRepository->findFilterItems();
+	
+		/** @var ArticleCategoryRepository $articleArticleCategoryRepository */
+		$articleCategoryRepository = $this->getDoctrine()->getRepository(ArticleCategory::class);
+		$options[BaseType::getChoicesName('articleCategory')] = $articleCategoryRepository->findFilterItems();
 	
 		return $options;
 	}

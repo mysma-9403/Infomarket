@@ -14,6 +14,7 @@ use AppBundle\Repository\Admin\Main\NewsletterPageRepository;
 use AppBundle\Repository\Admin\Main\NewsletterUserRepository;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Controller\Admin\Base\AssignmentController;
+use AppBundle\Form\Base\BaseType;
 
 class NewsletterUserNewsletterPageAssignmentController extends AssignmentController {
 	
@@ -61,16 +62,30 @@ class NewsletterUserNewsletterPageAssignmentController extends AssignmentControl
 	// Internal logic
 	//---------------------------------------------------------------------------
 	
-	protected function getFormOptions() {
-		$options = parent::getFormOptions();
+	protected function getFilterFormOptions() {
+		$options = parent::getFilterFormOptions();
 	
 		/** @var NewsletterUserRepository $newsletterUserRepository */
 		$newsletterUserRepository = $this->getDoctrine()->getRepository(NewsletterUser::class);
-		$options['newsletterUsers'] = $newsletterUserRepository->findFilterItems();
+		$options[BaseType::getChoicesName('newsletterUser')] = $newsletterUserRepository->findFilterItems();
 	
 		/** @var NewsletterPageRepository $newsletterPageRepository */
 		$newsletterPageRepository = $this->getDoctrine()->getRepository(NewsletterPage::class);
-		$options['newsletterPages'] = $newsletterPageRepository->findFilterItems();
+		$options[BaseType::getChoicesName('newsletterPage')] = $newsletterPageRepository->findFilterItems();
+	
+		return $options;
+	}
+	
+	protected function getEditorFormOptions() {
+		$options = parent::getEditorFormOptions();
+	
+		/** @var NewsletterUserRepository $newsletterUserRepository */
+		$newsletterUserRepository = $this->getDoctrine()->getRepository(NewsletterUser::class);
+		$options[BaseType::getChoicesName('newsletterUser')] = $newsletterUserRepository->findFilterItems();
+	
+		/** @var NewsletterPageRepository $newsletterPageRepository */
+		$newsletterPageRepository = $this->getDoctrine()->getRepository(NewsletterPage::class);
+		$options[BaseType::getChoicesName('newsletterPage')] = $newsletterPageRepository->findFilterItems();
 	
 		return $options;
 	}

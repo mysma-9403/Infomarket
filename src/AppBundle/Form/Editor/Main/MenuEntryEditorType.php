@@ -51,7 +51,7 @@ class MenuEntryEditorType extends SimpleEntityEditorType
 		))
 		;
 		
-		$this->addChoiceEntityField($builder, $options, $this->parentToNumberTransformer, 'parent');
+		$this->addChoiceEntityField($builder, $options, $this->parentToNumberTransformer, 'parent', false);
 		$this->addChoiceEntityField($builder, $options, $this->pageToNumberTransformer, 'page');
 		$this->addChoiceEntityField($builder, $options, $this->linkToNumberTransformer, 'link');
 	}

@@ -10,6 +10,7 @@ use AppBundle\Form\Lists\Base\BaseEntityListType;
 use AppBundle\Manager\Filter\Base\FilterManager;
 use AppBundle\Repository\Admin\Main\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use AppBundle\Form\Base\BaseType;
 
 
 
@@ -19,12 +20,12 @@ abstract class BaseEntityController extends AdminController
 	// Internal logic
 	//---------------------------------------------------------------------------
 	
-	protected function getFormOptions() {
-		$options = parent::getFormOptions();
+	protected function getFilterFormOptions() {
+		$options = parent::getFilterFormOptions();
 		
 		/** @var UserRepository $userRepository */
 		$userRepository = $this->getDoctrine()->getRepository(User::class);
-		$options['users'] = $userRepository->findFilterItems();
+		$options[BaseType::getChoicesName('user')] = $userRepository->findFilterItems();
 		
 		return $options;
 	}

@@ -12,6 +12,7 @@ use AppBundle\Manager\Entity\Common\TermManager;
 use AppBundle\Manager\Filter\Base\FilterManager;
 use AppBundle\Repository\Admin\Main\CategoryRepository;
 use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Form\Base\BaseType;
 
 class TermController extends SimpleEntityController {
 	
@@ -130,12 +131,12 @@ class TermController extends SimpleEntityController {
 	// Internal logic
 	//---------------------------------------------------------------------------
 	
-	protected function getFormOptions() {
-		$options = parent::getFormOptions();
+	protected function getFilterFormOptions() {
+		$options = parent::getFilterFormOptions();
 	
 		/** @var CategoryRepository $categoryRepository */
 		$categoryRepository = $this->getDoctrine()->getRepository(Category::class);
-		$options['categories'] = $categoryRepository->findFilterItems();
+		$options[BaseType::getChoicesName('category')] = $categoryRepository->findFilterItems();
 	
 		return $options;
 	}

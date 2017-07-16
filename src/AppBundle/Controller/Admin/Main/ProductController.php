@@ -11,7 +11,8 @@ use AppBundle\Entity\Product;
 use AppBundle\Entity\ProductNote;
 use AppBundle\Factory\Common\BenchmarkField\SimpleBenchmarkFieldFactory;
 use AppBundle\Filter\Admin\Main\ProductFilter;
-use AppBundle\Form\Editor\Common\ProductEditorType;
+use AppBundle\Form\Base\BaseType;
+use AppBundle\Form\Editor\Main\ProductEditorType;
 use AppBundle\Form\Filter\Admin\Main\ProductFilterType;
 use AppBundle\Form\Filter\Admin\Other\CategoryFilterType;
 use AppBundle\Logic\Common\BenchmarkField\Initializer\BenchmarkFieldsInitializerImpl;
@@ -286,16 +287,16 @@ class ProductController extends ImageEntityController {
 		return null;
 	}
 	
-	protected function getFormOptions() {
-		$options = parent::getFormOptions();
+	protected function getFilterFormOptions() {
+		$options = parent::getFilterFormOptions();
 	
 		/** @var BrandRepository $brandRepository */
 		$brandRepository = $this->getDoctrine()->getRepository(Brand::class);
-		$options['brands'] = $brandRepository->findFilterItems();
+		$options[BaseType::getChoicesName('brand')] = $brandRepository->findFilterItems();
 	
 		/** @var CategoryRepository $categoryRepository */
 		$categoryRepository = $this->getDoctrine()->getRepository(Category::class);
-		$options['categories'] = $categoryRepository->findFilterItems();
+		$options[BaseType::getChoicesName('category')] = $categoryRepository->findFilterItems();
 	
 		return $options;
 	}

@@ -183,8 +183,8 @@ class BenchmarkMessageController extends BaseEntityController {
 	// Internal logic
 	//---------------------------------------------------------------------------
 	
-	protected function getFormOptions() {
-		$options = parent::getFormOptions();
+	protected function getFilterFormOptions() {
+		$options = parent::getFilterFormOptions();
 	
 		/** @var ProductRepository $categoryRepository */
 		$productRepository = $this->getDoctrine()->getRepository(Product::class);

@@ -13,6 +13,11 @@ use AppBundle\Form\Filter\Admin\Main\MenuEntryFilterType;
 use AppBundle\Manager\Entity\Common\MenuEntryManager;
 use AppBundle\Manager\Filter\Base\FilterManager;
 use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Form\Base\BaseType;
+use AppBundle\Repository\Admin\Main\PageRepository;
+use AppBundle\Entity\Page;
+use AppBundle\Repository\Admin\Main\LinkRepository;
+use AppBundle\Entity\Link;
 
 class MenuEntryController extends SimpleEntityController {
 	
@@ -118,24 +123,42 @@ class MenuEntryController extends SimpleEntityController {
 	// Internal logic
 	//---------------------------------------------------------------------------
 	
-	protected function getFormOptions() {
-		$options = parent::getFormOptions();
+	protected function getFilterFormOptions() {
+		$options = parent::getFilterFormOptions();
 	
 		/** @var MenuRepository $menuRepository */
 		$menuRepository = $this->getDoctrine()->getRepository(Menu::class);
-		$options['menus'] = $menuRepository->findFilterItems();
+		$options[BaseType::getChoicesName('menu')] = $menuRepository->findFilterItems();
 		
 		/** @var MenuEntryRepository $menuEntryRepository */
 		$menuEntryRepository = $this->getDoctrine()->getRepository(MenuEntry::class);
-		$options['parents'] = $menuEntryRepository->findFilterItems();
+		$options[BaseType::getChoicesName('parent')] = $menuEntryRepository->findFilterItems();
 	
 		/** @var BranchRepository $branchRepository */
 		$branchRepository = $this->getDoctrine()->getRepository(Branch::class);
-		$options['branches'] = $branchRepository->findFilterItems();
+		$options[BaseType::getChoicesName('branch')] = $branchRepository->findFilterItems();
 	
 		/** @var CategoryRepository $categoryRepository */
 		$categoryRepository = $this->getDoctrine()->getRepository(Category::class);
-		$options['categories'] = $categoryRepository->findFilterItems();
+		$options[BaseType::getChoicesName('category')] = $categoryRepository->findFilterItems();
+	
+		return $options;
+	}
+	
+	protected function getEditorFormOptions() {
+		$options = parent::getEditorFormOptions();
+	
+		/** @var MenuEntryRepository $menuEntryRepository */
+		$menuEntryRepository = $this->getDoctrine()->getRepository(MenuEntry::class);
+		$options[BaseType::getChoicesName('parent')] = $menuEntryRepository->findFilterItems();
+	
+		/** @var PageRepository $pageRepository */
+		$pageRepository = $this->getDoctrine()->getRepository(Page::class);
+		$options[BaseType::getChoicesName('page')] = $pageRepository->findFilterItems();
+	
+		/** @var LinkRepository $linkRepository */
+		$linkRepository = $this->getDoctrine()->getRepository(Link::class);
+		$options[BaseType::getChoicesName('link')] = $linkRepository->findFilterItems();
 	
 		return $options;
 	}

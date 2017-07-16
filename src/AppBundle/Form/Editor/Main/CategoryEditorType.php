@@ -63,7 +63,7 @@ class CategoryEditorType extends ImageEntityEditorType
 		))
 		;
 		
-		$this->addChoiceEntityField($builder, $options, $this->categoryToNumberTransformer, 'parent');
+		$this->addChoiceEntityField($builder, $options, $this->categoryToNumberTransformer, 'parent', false);
 	}
 	
 	protected function getDefaultOptions() {

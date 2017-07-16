@@ -15,6 +15,7 @@ use AppBundle\Manager\Filter\Base\FilterManager;
 use AppBundle\Repository\Admin\Main\ArticleRepository;
 use AppBundle\Repository\Admin\Main\NewsletterBlockRepository;
 use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Form\Base\BaseType;
 
 class NewsletterBlockArticleAssignmentController extends AssignmentController {
 	
@@ -97,16 +98,30 @@ class NewsletterBlockArticleAssignmentController extends AssignmentController {
 	// Internal logic
 	//---------------------------------------------------------------------------
 	
-	protected function getFormOptions() {
-		$options = parent::getFormOptions();
+	protected function getFilterFormOptions() {
+		$options = parent::getFilterFormOptions();
 	
 		/** @var NewsletterBlockRepository $newsletterBlockRepository */
 		$newsletterBlockRepository = $this->getDoctrine()->getRepository(NewsletterBlock::class);
-		$options['newsletterBlocks'] = $newsletterBlockRepository->findFilterItems();
+		$options[BaseType::getChoicesName('newsletterBlock')] = $newsletterBlockRepository->findFilterItems();
 	
 		/** @var ArticleRepository $articleRepository */
 		$articleRepository = $this->getDoctrine()->getRepository(Article::class);
-		$options['articles'] = $articleRepository->findFilterItems();
+		$options[BaseType::getChoicesName('article')] = $articleRepository->findFilterItems();
+	
+		return $options;
+	}
+	
+	protected function getEditorFormOptions() {
+		$options = parent::getEditorFormOptions();
+	
+		/** @var NewsletterBlockRepository $newsletterBlockRepository */
+		$newsletterBlockRepository = $this->getDoctrine()->getRepository(NewsletterBlock::class);
+		$options[BaseType::getChoicesName('newsletterBlock')] = $newsletterBlockRepository->findFilterItems();
+	
+		/** @var ArticleRepository $articleRepository */
+		$articleRepository = $this->getDoctrine()->getRepository(Article::class);
+		$options[BaseType::getChoicesName('article')] = $articleRepository->findFilterItems();
 	
 		return $options;
 	}

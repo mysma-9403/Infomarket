@@ -13,6 +13,7 @@ use AppBundle\Manager\Entity\Common\AdvertManager;
 use AppBundle\Manager\Filter\Base\FilterManager;
 use AppBundle\Repository\Admin\Main\CategoryRepository;
 use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Form\Base\BaseType;
 
 class AdvertController extends ImageEntityController {
 	
@@ -118,27 +119,22 @@ class AdvertController extends ImageEntityController {
 	// Internal logic
 	//------------------------------------------------------------------------
 	
-	protected function getFormOptions() {
-		$options = parent::getFormOptions();
+	protected function getFilterFormOptions() {
+		$options = parent::getFilterFormOptions();
 	
 		/** @var CategoryRepository $categoryRepository */
 		$categoryRepository = $this->getDoctrine()->getRepository(Category::class);
-		$options['categories'] = $categoryRepository->findFilterItems();
+		$options[BaseType::getChoicesName('category')] = $categoryRepository->findFilterItems();
 	
 		return $options;
 	}
 	
 	protected function getEditorFormOptions() {
-		$options = parent::getFormOptions();
+		$options = parent::getEditorFormOptions();
 		
-		$locations = array(
-				Advert::getLocationName(Advert::TOP_LOCATION)  => Advert::TOP_LOCATION,
-				Advert::getLocationName(Advert::SIDE_LOCATION)  => Advert::SIDE_LOCATION,
-				Advert::getLocationName(Advert::TEXT_LOCATION)  => Advert::TEXT_LOCATION,
-				Advert::getLocationName(Advert::FEATURED_LOCATION)  => Advert::FEATURED_LOCATION
-		);
-		
-		$options['locations'] = $locations;
+		/** @var ChoicesFactory $locationsFactory */
+		$locationsFactory = $this->get('app.factory.choices.advert.locations');
+		$options[BaseType::getChoicesName('location')] = $locationsFactory->getItems();
 		
 		return $options;
 	}

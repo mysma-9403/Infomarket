@@ -18,6 +18,7 @@ use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Entity\Brand;
 use AppBundle\Entity\Segment;
 use AppBundle\Controller\Admin\Base\AssignmentController;
+use AppBundle\Form\Base\BaseType;
 
 class ProductCategoryAssignmentController extends AssignmentController {
 	
@@ -150,24 +151,42 @@ class ProductCategoryAssignmentController extends AssignmentController {
 	// Internal logic
 	//---------------------------------------------------------------------------
 	
-	protected function getFormOptions() {
-		$options = parent::getFormOptions();
+	protected function getFilterFormOptions() {
+		$options = parent::getFilterFormOptions();
 	
 		/** @var ProductRepository $productRepository */
 		$productRepository = $this->getDoctrine()->getRepository(Product::class);
-		$options['products'] = $productRepository->findFilterItems();
+		$options[BaseType::getChoicesName('product')] = $productRepository->findFilterItems();
 	
 		/** @var BrandRepository $brandRepository */
 		$brandRepository = $this->getDoctrine()->getRepository(Brand::class);
-		$options['brands'] = $brandRepository->findFilterItems();
+		$options[BaseType::getChoicesName('brand')] = $brandRepository->findFilterItems();
 		
 		/** @var SegmentRepository $segmentRepository */
 		$segmentRepository = $this->getDoctrine()->getRepository(Segment::class);
-		$options['segments'] = $segmentRepository->findFilterItems();
+		$options[BaseType::getChoicesName('segment')] = $segmentRepository->findFilterItems();
 		
 		/** @var CategoryRepository $categoryRepository */
 		$categoryRepository = $this->getDoctrine()->getRepository(Category::class);
-		$options['categories'] = $categoryRepository->findFilterItems();
+		$options[BaseType::getChoicesName('category')] = $categoryRepository->findFilterItems();
+	
+		return $options;
+	}
+	
+	protected function getEditorFormOptions() {
+		$options = parent::getEditorFormOptions();
+	
+		/** @var ProductRepository $productRepository */
+		$productRepository = $this->getDoctrine()->getRepository(Product::class);
+		$options[BaseType::getChoicesName('product')] = $productRepository->findFilterItems();
+	
+		/** @var SegmentRepository $segmentRepository */
+		$segmentRepository = $this->getDoctrine()->getRepository(Segment::class);
+		$options[BaseType::getChoicesName('segment')] = $segmentRepository->findFilterItems();
+	
+		/** @var CategoryRepository $categoryRepository */
+		$categoryRepository = $this->getDoctrine()->getRepository(Category::class);
+		$options[BaseType::getChoicesName('category')] = $categoryRepository->findFilterItems();
 	
 		return $options;
 	}

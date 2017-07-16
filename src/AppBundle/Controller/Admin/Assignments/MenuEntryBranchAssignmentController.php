@@ -15,6 +15,7 @@ use AppBundle\Manager\Filter\Base\FilterManager;
 use AppBundle\Repository\Admin\Main\BranchRepository;
 use AppBundle\Repository\Admin\Main\MenuEntryRepository;
 use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Form\Base\BaseType;
 
 class MenuEntryBranchAssignmentController extends AssignmentController {
 	
@@ -97,16 +98,30 @@ class MenuEntryBranchAssignmentController extends AssignmentController {
 	// Internal logic
 	//---------------------------------------------------------------------------
 	
-	protected function getFormOptions() {
-		$options = parent::getFormOptions();
+	protected function getFilterFormOptions() {
+		$options = parent::getFilterFormOptions();
 	
 		/** @var MenuEntryRepository $menuEntryRepository */
 		$menuEntryRepository = $this->getDoctrine()->getRepository(MenuEntry::class);
-		$options['menuEntries'] = $menuEntryRepository->findFilterItems();
+		$options[BaseType::getChoicesName('menuEntry')] = $menuEntryRepository->findFilterItems();
 	
 		/** @var BranchRepository $branchRepository */
 		$branchRepository = $this->getDoctrine()->getRepository(Branch::class);
-		$options['branches'] = $branchRepository->findFilterItems();
+		$options[BaseType::getChoicesName('branch')] = $branchRepository->findFilterItems();
+	
+		return $options;
+	}
+	
+	protected function getEditorFormOptions() {
+		$options = parent::getEditorFormOptions();
+	
+		/** @var MenuEntryRepository $menuEntryRepository */
+		$menuEntryRepository = $this->getDoctrine()->getRepository(MenuEntry::class);
+		$options[BaseType::getChoicesName('menuEntry')] = $menuEntryRepository->findFilterItems();
+	
+		/** @var BranchRepository $branchRepository */
+		$branchRepository = $this->getDoctrine()->getRepository(Branch::class);
+		$options[BaseType::getChoicesName('branch')] = $branchRepository->findFilterItems();
 	
 		return $options;
 	}

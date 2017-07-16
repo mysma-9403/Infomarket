@@ -23,6 +23,7 @@ use AppBundle\Repository\Admin\Main\BranchRepository;
 use AppBundle\Repository\Admin\Main\CategoryRepository;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Utils\Entity\DataBase\BenchmarkFieldDataBaseUtils;
+use AppBundle\Form\Base\BaseType;
 
 class CategoryController extends FeaturedEntityController {
 	
@@ -335,16 +336,26 @@ class CategoryController extends FeaturedEntityController {
 	// Internal logic
 	//---------------------------------------------------------------------------
 	
-	protected function getFormOptions() {
-		$options = parent::getFormOptions();
+	protected function getFilterFormOptions() {
+		$options = parent::getFilterFormOptions();
 	
 		/** @var CategoryRepository $categoryRepository */
 		$categoryRepository = $this->getDoctrine()->getRepository(Category::class);
-		$options['parents'] = $categoryRepository->findFilterItems();
+		$options[BaseType::getChoicesName('parent')] = $categoryRepository->findFilterItems();
 		
 		/** @var BranchRepository $branchRepository */
 		$branchRepository = $this->getDoctrine()->getRepository(Branch::class);
-		$options['branches'] = $branchRepository->findFilterItems();
+		$options[BaseType::getChoicesName('branch')] = $branchRepository->findFilterItems();
+	
+		return $options;
+	}
+	
+	protected function getEditorFormOptions() {
+		$options = parent::getEditorFormOptions();
+	
+		/** @var CategoryRepository $categoryRepository */
+		$categoryRepository = $this->getDoctrine()->getRepository(Category::class);
+		$options[BaseType::getChoicesName('parent')] = $categoryRepository->findFilterItems();
 	
 		return $options;
 	}

@@ -15,6 +15,7 @@ use AppBundle\Manager\Filter\Base\FilterManager;
 use AppBundle\Repository\Admin\Main\BranchRepository;
 use AppBundle\Repository\Admin\Main\MagazineRepository;
 use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Form\Base\BaseType;
 
 class MagazineBranchAssignmentController extends AssignmentController {
 	
@@ -97,16 +98,30 @@ class MagazineBranchAssignmentController extends AssignmentController {
 	// Internal logic
 	//---------------------------------------------------------------------------
 	
-	protected function getFormOptions() {
-		$options = parent::getFormOptions();
+	protected function getFilterFormOptions() {
+		$options = parent::getFilterFormOptions();
 	
 		/** @var MagazineRepository $magazineRepository */
 		$magazineRepository = $this->getDoctrine()->getRepository(Magazine::class);
-		$options['magazines'] = $magazineRepository->findFilterItems();
+		$options[BaseType::getChoicesName('magazine')] = $magazineRepository->findFilterItems();
 	
 		/** @var BranchRepository $branchRepository */
 		$branchRepository = $this->getDoctrine()->getRepository(Branch::class);
-		$options['branches'] = $branchRepository->findFilterItems();
+		$options[BaseType::getChoicesName('branch')] = $branchRepository->findFilterItems();
+	
+		return $options;
+	}
+	
+	protected function getEditorFormOptions() {
+		$options = parent::getEditorFormOptions();
+	
+		/** @var MagazineRepository $magazineRepository */
+		$magazineRepository = $this->getDoctrine()->getRepository(Magazine::class);
+		$options[BaseType::getChoicesName('magazine')] = $magazineRepository->findFilterItems();
+	
+		/** @var BranchRepository $branchRepository */
+		$branchRepository = $this->getDoctrine()->getRepository(Branch::class);
+		$options[BaseType::getChoicesName('branch')] = $branchRepository->findFilterItems();
 	
 		return $options;
 	}

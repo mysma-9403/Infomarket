@@ -15,6 +15,7 @@ use AppBundle\Manager\Filter\Base\FilterManager;
 use AppBundle\Repository\Admin\Main\ArticleRepository;
 use AppBundle\Repository\Admin\Main\BrandRepository;
 use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Form\Base\BaseType;
 
 class ArticleBrandAssignmentController extends AssignmentController {
 	
@@ -102,11 +103,11 @@ class ArticleBrandAssignmentController extends AssignmentController {
 	
 		/** @var ArticleRepository $articleRepository */
 		$articleRepository = $this->getDoctrine()->getRepository(Article::class);
-		$options['articles'] = $articleRepository->findFilterItems();
-	
+		$options[BaseType::getChoicesName('article')] = $articleRepository->findFilterItems();
+		
 		/** @var BrandRepository $brandRepository */
 		$brandRepository = $this->getDoctrine()->getRepository(Brand::class);
-		$options['brands'] = $brandRepository->findFilterItems();
+		$options[BaseType::getChoicesName('brand')] = $brandRepository->findFilterItems();
 		
 		return $options;
 	}
@@ -116,11 +117,11 @@ class ArticleBrandAssignmentController extends AssignmentController {
 	
 		/** @var ArticleRepository $articleRepository */
 		$articleRepository = $this->getDoctrine()->getRepository(Article::class);
-		$options['article'] = $articleRepository->findFilterItems();
+		$options[BaseType::getChoicesName('article')] = $articleRepository->findFilterItems(); //TODO getChoiceItems -> the same structure like filter items
 	
 		/** @var BrandRepository $brandRepository */
 		$brandRepository = $this->getDoctrine()->getRepository(Brand::class);
-		$options['brand'] = $brandRepository->findFilterItems();
+		$options[BaseType::getChoicesName('brand')] = $brandRepository->findFilterItems();
 	
 		return $options;
 	}

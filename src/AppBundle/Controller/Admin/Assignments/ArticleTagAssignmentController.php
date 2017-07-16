@@ -15,6 +15,7 @@ use AppBundle\Manager\Filter\Base\FilterManager;
 use AppBundle\Repository\Admin\Main\ArticleRepository;
 use AppBundle\Repository\Admin\Main\TagRepository;
 use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Form\Base\BaseType;
 
 class ArticleTagAssignmentController extends AssignmentController {
 	
@@ -97,16 +98,30 @@ class ArticleTagAssignmentController extends AssignmentController {
 	// Internal logic
 	//---------------------------------------------------------------------------
 	
-	protected function getFormOptions() {
-		$options = parent::getFormOptions();
+	protected function getFilterFormOptions() {
+		$options = parent::getFilterFormOptions();
 	
 		/** @var ArticleRepository $articleRepository */
 		$articleRepository = $this->getDoctrine()->getRepository(Article::class);
-		$options['articles'] = $articleRepository->findFilterItems();
+		$options[BaseType::getChoicesName('article')] = $articleRepository->findFilterItems();
 	
 		/** @var TagRepository $tagRepository */
 		$tagRepository = $this->getDoctrine()->getRepository(Tag::class);
-		$options['tags'] = $tagRepository->findFilterItems();
+		$options[BaseType::getChoicesName('tag')] = $tagRepository->findFilterItems();
+	
+		return $options;
+	}
+	
+	protected function getEditorFormOptions() {
+		$options = parent::getEditorFormOptions();
+	
+		/** @var ArticleRepository $articleRepository */
+		$articleRepository = $this->getDoctrine()->getRepository(Article::class);
+		$options[BaseType::getChoicesName('article')] = $articleRepository->findFilterItems();
+	
+		/** @var TagRepository $tagRepository */
+		$tagRepository = $this->getDoctrine()->getRepository(Tag::class);
+		$options[BaseType::getChoicesName('tag')] = $tagRepository->findFilterItems();
 	
 		return $options;
 	}

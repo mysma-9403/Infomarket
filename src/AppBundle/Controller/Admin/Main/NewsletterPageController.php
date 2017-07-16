@@ -22,6 +22,7 @@ use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\StreamedResponse;
+use AppBundle\Form\Base\BaseType;
 
 class NewsletterPageController extends SimpleEntityController {
 	
@@ -406,12 +407,22 @@ class NewsletterPageController extends SimpleEntityController {
 		return $params;
 	}
 	
-	protected function getFormOptions() {
-		$options = parent::getFormOptions();
+	protected function getFilterFormOptions() {
+		$options = parent::getFilterFormOptions();
 	
 		/** @var NewsletterPageTemplateRepository $newsletterPageTemplateRepository */
 		$newsletterPageTemplateRepository = $this->getDoctrine()->getRepository(NewsletterPageTemplate::class);
-		$options['newsletterPageTemplates'] = $newsletterPageTemplateRepository->findFilterItems();
+		$options[BaseType::getChoicesName('newsletterPageTemplate')] = $newsletterPageTemplateRepository->findFilterItems();
+	
+		return $options;
+	}
+	
+	protected function getEditorFormOptions() {
+		$options = parent::getEditorFormOptions();
+	
+		/** @var NewsletterPageTemplateRepository $newsletterPageTemplateRepository */
+		$newsletterPageTemplateRepository = $this->getDoctrine()->getRepository(NewsletterPageTemplate::class);
+		$options[BaseType::getChoicesName('newsletterPageTemplate')] = $newsletterPageTemplateRepository->findFilterItems();
 	
 		return $options;
 	}

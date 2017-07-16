@@ -2076,6 +2076,32 @@
                 <target>Wyrażam zgodę na przetwarzanie moich danych osobowych do celów marketingowych zgodnie z ustawą z dnia 29 sierpnia 1997 r. o ochronie danych osobowych (Dz.U. nr 133, poz. 883) przez Elektrospecjaliści Sp. z o.o., ul. Trylogii 2/16, 01-982 Warszawa.</target>
             </trans-unit>
             
+            <trans-unit id="label.user.role.guest">
+                <source>label.user.role.guest</source>
+                <target>Gość</target>
+            </trans-unit>
+            <trans-unit id="label.user.role.editor">
+                <source>label.user.role.editor</source>
+                <target>Edytor</target>
+            </trans-unit>
+            <trans-unit id="label.user.role.publisher">
+                <source>label.user.role.publisher</source>
+                <target>Redaktor</target>
+            </trans-unit>
+            <trans-unit id="label.user.role.ratingEditor">
+                <source>label.user.role.ratingEditor</source>
+                <target>Edytor ratingów</target>
+            </trans-unit>
+            <trans-unit id="label.user.role.admin">
+                <source>label.user.role.admin</source>
+                <target>Moderator</target>
+            </trans-unit>
+            <trans-unit id="label.user.role.superAdmin">
+                <source>label.user.role.superAdmin</source>
+                <target>Administrator</target>
+            </trans-unit>
+            
+            
             <trans-unit id="label.placeholder.none">
                 <source>label.placeholder.none</source>
                 <target>(Brak)</target>

@@ -15,6 +15,7 @@ use AppBundle\Manager\Filter\Base\FilterManager;
 use AppBundle\Repository\Admin\Main\NewsletterGroupRepository;
 use AppBundle\Repository\Admin\Main\NewsletterUserRepository;
 use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Form\Base\BaseType;
 
 class NewsletterUserNewsletterGroupAssignmentController extends AssignmentController {
 	
@@ -97,16 +98,30 @@ class NewsletterUserNewsletterGroupAssignmentController extends AssignmentContro
 	// Internal logic
 	//---------------------------------------------------------------------------
 	
-	protected function getFormOptions() {
-		$options = parent::getFormOptions();
+	protected function getFilterFormOptions() {
+		$options = parent::getFilterFormOptions();
 	
 		/** @var NewsletterUserRepository $newsletterUserRepository */
 		$newsletterUserRepository = $this->getDoctrine()->getRepository(NewsletterUser::class);
-		$options['newsletterUsers'] = $newsletterUserRepository->findFilterItems();
+		$options[BaseType::getChoicesName('newsletterUser')] = $newsletterUserRepository->findFilterItems();
 	
 		/** @var NewsletterGroupRepository $newsletterGroupRepository */
 		$newsletterGroupRepository = $this->getDoctrine()->getRepository(NewsletterGroup::class);
-		$options['newsletterGroups'] = $newsletterGroupRepository->findFilterItems();
+		$options[BaseType::getChoicesName('newsletterGroup')] = $newsletterGroupRepository->findFilterItems();
+	
+		return $options;
+	}
+	
+	protected function getEditorFormOptions() {
+		$options = parent::getEditorFormOptions();
+	
+		/** @var NewsletterUserRepository $newsletterUserRepository */
+		$newsletterUserRepository = $this->getDoctrine()->getRepository(NewsletterUser::class);
+		$options[BaseType::getChoicesName('newsletterUser')] = $newsletterUserRepository->findFilterItems();
+	
+		/** @var NewsletterGroupRepository $newsletterGroupRepository */
+		$newsletterGroupRepository = $this->getDoctrine()->getRepository(NewsletterGroup::class);
+		$options[BaseType::getChoicesName('newsletterGroup')] = $newsletterGroupRepository->findFilterItems();
 	
 		return $options;
 	}

@@ -6,7 +6,9 @@ use AppBundle\Controller\Admin\Base\BaseEntityController;
 use AppBundle\Controller\Admin\Base\SimpleEntityController;
 use AppBundle\Entity\BenchmarkField;
 use AppBundle\Entity\Category;
+use AppBundle\Factory\Common\Choices\Base\ChoicesFactory;
 use AppBundle\Filter\Admin\Main\BenchmarkFieldFilter;
+use AppBundle\Form\Base\BaseType;
 use AppBundle\Form\Editor\Main\BenchmarkFieldEditorType;
 use AppBundle\Form\Filter\Admin\Main\BenchmarkFieldFilterType;
 use AppBundle\Manager\Entity\Common\BenchmarkFieldManager;
@@ -94,12 +96,12 @@ class BenchmarkFieldController extends BaseEntityController {
 	// Internal logic
 	//------------------------------------------------------------------------
 	
-	protected function getFormOptions() {
-		$options = parent::getFormOptions();
+	protected function getFilterFormOptions() {
+		$options = parent::getFilterFormOptions();
 	
 		/** @var CategoryRepository $categoryRepository */
 		$categoryRepository = $this->getDoctrine()->getRepository(Category::class);
-		$options['categories'] = $categoryRepository->findFilterItems();
+		$options[BaseType::getChoicesName('category')] = $categoryRepository->findFilterItems();
 	
 		return $options;
 	}
@@ -107,34 +109,21 @@ class BenchmarkFieldController extends BaseEntityController {
 	protected function getEditorFormOptions() {
 		$options = parent::getEditorFormOptions();
 		
-		$fieldTypes = array(
-				BenchmarkField::getFieldTypeName(BenchmarkField::DECIMAL_FIELD_TYPE) => BenchmarkField::DECIMAL_FIELD_TYPE,
-				BenchmarkField::getFieldTypeName(BenchmarkField::INTEGER_FIELD_TYPE) => BenchmarkField::INTEGER_FIELD_TYPE,
-				BenchmarkField::getFieldTypeName(BenchmarkField::BOOLEAN_FIELD_TYPE) => BenchmarkField::BOOLEAN_FIELD_TYPE,
-				BenchmarkField::getFieldTypeName(BenchmarkField::STRING_FIELD_TYPE) => BenchmarkField::STRING_FIELD_TYPE,
-				BenchmarkField::getFieldTypeName(BenchmarkField::SINGLE_ENUM_FIELD_TYPE) => BenchmarkField::SINGLE_ENUM_FIELD_TYPE,
-				BenchmarkField::getFieldTypeName(BenchmarkField::MULTI_ENUM_FIELD_TYPE) => BenchmarkField::MULTI_ENUM_FIELD_TYPE
-		);
+		/** @var CategoryRepository $categoryRepository */
+		$categoryRepository = $this->getDoctrine()->getRepository(Category::class);
+		$options[BaseType::getChoicesName('category')] = $categoryRepository->findFilterItems();
 		
-		$noteTypes = array(
-				BenchmarkField::getNoteTypeName(BenchmarkField::NONE_NOTE_TYPE) => BenchmarkField::NONE_NOTE_TYPE,
-				BenchmarkField::getNoteTypeName(BenchmarkField::ASC_NOTE_TYPE) => BenchmarkField::ASC_NOTE_TYPE,
-				BenchmarkField::getNoteTypeName(BenchmarkField::DESC_NOTE_TYPE) => BenchmarkField::DESC_NOTE_TYPE,
-				BenchmarkField::getNoteTypeName(BenchmarkField::ENUM_NOTE_TYPE) => BenchmarkField::ENUM_NOTE_TYPE
-		);
+		/** @var ChoicesFactory $betterThanTypesFactory */
+		$betterThanTypesFactory = $this->get('app.factory.choices.benchmarkField.betterThanTypes');
+		$options[BaseType::getChoicesName('betterThanType')] = $betterThanTypesFactory->getItems();
 		
-		$betterThanTypes = array(
-				BenchmarkField::getBetterThanTypeName(BenchmarkField::NONE_BETTER_THAN_TYPE) => BenchmarkField::NONE_BETTER_THAN_TYPE,
-				BenchmarkField::getBetterThanTypeName(BenchmarkField::LT_BETTER_THAN_TYPE) => BenchmarkField::LT_BETTER_THAN_TYPE,
-				BenchmarkField::getBetterThanTypeName(BenchmarkField::LTE_BETTER_THAN_TYPE) => BenchmarkField::LTE_BETTER_THAN_TYPE,
-				BenchmarkField::getBetterThanTypeName(BenchmarkField::GT_BETTER_THAN_TYPE) => BenchmarkField::GT_BETTER_THAN_TYPE,
-				BenchmarkField::getBetterThanTypeName(BenchmarkField::GTE_BETTER_THAN_TYPE) => BenchmarkField::GTE_BETTER_THAN_TYPE,
-				BenchmarkField::getBetterThanTypeName(BenchmarkField::EQUAL_BETTER_THAN_TYPE) => BenchmarkField::EQUAL_BETTER_THAN_TYPE
-		);
+		/** @var ChoicesFactory $fieldTypesFactory */
+		$fieldTypesFactory = $this->get('app.factory.choices.benchmarkField.fieldTypes');
+		$options[BaseType::getChoicesName('fieldType')] = $fieldTypesFactory->getItems();
 		
-		$options['fieldType'] = $fieldTypes;
-		$options['noteType'] = $noteTypes;
-		$options['betterThanType'] = $betterThanTypes;
+		/** @var ChoicesFactory $noteTypesFactory */
+		$noteTypesFactory = $this->get('app.factory.choices.benchmarkField.noteTypes');
+		$options[BaseType::getChoicesName('noteType')] = $noteTypesFactory->getItems();
 		
 		return $options;
 	}

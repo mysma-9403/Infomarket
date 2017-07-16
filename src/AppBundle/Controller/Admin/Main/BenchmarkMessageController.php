@@ -23,6 +23,8 @@ use AppBundle\Utils\StringUtils;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use AppBundle\Form\Base\BaseType;
+use AppBundle\Factory\Common\Choices\Base\ChoicesFactory;
 
 class BenchmarkMessageController extends BaseEntityController {
 	
@@ -209,16 +211,16 @@ class BenchmarkMessageController extends BaseEntityController {
 	// Internal logic
 	//------------------------------------------------------------------------
 	
-	protected function getFormOptions() {
-		$options = parent::getFormOptions();
+	protected function getFilterFormOptions() {
+		$options = parent::getFilterFormOptions();
 	
 		/** @var ProductRepository $categoryRepository */
 		$productRepository = $this->getDoctrine()->getRepository(Product::class);
-		$options['products'] = $productRepository->findFilterItems();
+		$options[BaseType::getChoicesName('product')] = $productRepository->findFilterItems();
 		
 		/** @var UserRepository $categoryRepository */
 		$userRepository = $this->getDoctrine()->getRepository(User::class);
-		$options['users'] = $userRepository->findFilterItems();
+		$options[BaseType::getChoicesName('user')] = $userRepository->findFilterItems();
 	
 		return $options;
 	}
@@ -226,13 +228,9 @@ class BenchmarkMessageController extends BaseEntityController {
 	protected function getEditorFormOptions() {
 		$options = parent::getEditorFormOptions();
 		
-		$states = array(
-				BenchmarkMessage::getStateName(BenchmarkMessage::IN_PROCESS_STATE) => BenchmarkMessage::IN_PROCESS_STATE,
-				BenchmarkMessage::getStateName(BenchmarkMessage::INFORMATION_REQUIRED_STATE) => BenchmarkMessage::INFORMATION_REQUIRED_STATE,
-				BenchmarkMessage::getStateName(BenchmarkMessage::COMPLETED_STATE) => BenchmarkMessage::COMPLETED_STATE
-		);
-		
-		$options['states'] = $states;
+		/** @var ChoicesFactory $statesFactory */
+		$statesFactory = $this->get('app.factory.choices.benchmarkMessage.states');
+		$options[BaseType::getChoicesName('state')] = $statesFactory->getItems();
 		
 		return $options;
 	}
