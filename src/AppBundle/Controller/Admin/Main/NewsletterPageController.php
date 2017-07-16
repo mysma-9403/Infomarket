@@ -412,7 +412,7 @@ class NewsletterPageController extends SimpleEntityController {
 	
 		/** @var NewsletterPageTemplateRepository $newsletterPageTemplateRepository */
 		$newsletterPageTemplateRepository = $this->getDoctrine()->getRepository(NewsletterPageTemplate::class);
-		$options[BaseType::getChoicesName('newsletterPageTemplate')] = $newsletterPageTemplateRepository->findFilterItems();
+		$options[BaseType::getChoicesName('newsletterPageTemplates')] = $newsletterPageTemplateRepository->findFilterItems();
 	
 		return $options;
 	}

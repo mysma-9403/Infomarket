@@ -88,11 +88,11 @@ class ArticleEditorType extends ImageEntityEditorType
 		))
 		;
 		
-		$this->addChoiceNumberField($builder, $options, 'layout');
-		$this->addChoiceNumberField($builder, $options, 'imageSize');
+		$this->addChoiceNumberEditorField($builder, $options, 'layout');
+		$this->addChoiceNumberEditorField($builder, $options, 'imageSize');
 		
-		$this->addChoiceEntityField($builder, $options, $this->articleToNumberTransformer, 'parent');
-		$this->addChoiceEntityField($builder, $options, $this->userToNumberTransformer, 'author');
+		$this->addChoiceEntityEditorField($builder, $options, $this->articleToNumberTransformer, 'parent', false);
+		$this->addChoiceEntityEditorField($builder, $options, $this->userToNumberTransformer, 'author', false);
 	}
 	
 	protected function getDefaultOptions() {

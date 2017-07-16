@@ -103,11 +103,11 @@ class UserCategoryAssignmentController extends AssignmentController {
 	
 		/** @var UserRepository $userRepository */
 		$userRepository = $this->getDoctrine()->getRepository(User::class);
-		$options[BaseType::getChoicesName('user')] = $userRepository->findFilterItems();
+		$options[BaseType::getChoicesName('users')] = $userRepository->findFilterItems();
 	
 		/** @var CategoryRepository $categoryRepository */
 		$categoryRepository = $this->getDoctrine()->getRepository(Category::class);
-		$options[BaseType::getChoicesName('category')] = $categoryRepository->findFilterItems();
+		$options[BaseType::getChoicesName('categories')] = $categoryRepository->findFilterItems();
 	
 		return $options;
 	}

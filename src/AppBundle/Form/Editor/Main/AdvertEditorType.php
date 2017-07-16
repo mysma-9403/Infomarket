@@ -55,7 +55,7 @@ class AdvertEditorType extends ImageEntityEditorType
 		))
 		;
 		
-		$this->addChoiceNumberField($builder, $options, 'location');
+		$this->addChoiceNumberEditorField($builder, $options, 'location');
 	}
 	
 	protected function getDefaultOptions() {

@@ -103,11 +103,11 @@ class BrandCategoryAssignmentController extends AssignmentController {
 	
 		/** @var BrandRepository $brandRepository */
 		$brandRepository = $this->getDoctrine()->getRepository(Brand::class);
-		$options[BaseType::getChoicesName('brand')] = $brandRepository->findFilterItems();
+		$options[BaseType::getChoicesName('brands')] = $brandRepository->findFilterItems();
 	
 		/** @var CategoryRepository $categoryRepository */
 		$categoryRepository = $this->getDoctrine()->getRepository(Category::class);
-		$options[BaseType::getChoicesName('category')] = $categoryRepository->findFilterItems();
+		$options[BaseType::getChoicesName('categories')] = $categoryRepository->findFilterItems();
 	
 		return $options;
 	}

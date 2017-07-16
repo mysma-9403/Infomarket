@@ -103,11 +103,11 @@ class TermCategoryAssignmentController extends AssignmentController {
 	
 		/** @var TermRepository $termRepository */
 		$termRepository = $this->getDoctrine()->getRepository(Term::class);
-		$options[BaseType::getChoicesName('term')] = $termRepository->findFilterItems();
+		$options[BaseType::getChoicesName('terms')] = $termRepository->findFilterItems();
 	
 		/** @var CategoryRepository $categoryRepository */
 		$categoryRepository = $this->getDoctrine()->getRepository(Category::class);
-		$options[BaseType::getChoicesName('category')] = $categoryRepository->findFilterItems();
+		$options[BaseType::getChoicesName('categories')] = $categoryRepository->findFilterItems();
 	
 		return $options;
 	}

@@ -126,11 +126,11 @@ class NewsletterBlockController extends SimpleEntityController {
 	
 		/** @var NewsletterPageRepository $newsletterPageRepository */
 		$newsletterPageRepository = $this->getDoctrine()->getRepository(NewsletterPage::class);
-		$options[BaseType::getChoicesName('newsletterPage')] = $newsletterPageRepository->findFilterItems();
+		$options[BaseType::getChoicesName('newsletterPages')] = $newsletterPageRepository->findFilterItems();
 		
 		/** @var NewsletterBlockTemplateRepository $newsletterBlockTemplateRepository */
 		$newsletterBlockTemplateRepository = $this->getDoctrine()->getRepository(NewsletterBlockTemplate::class);
-		$options[BaseType::getChoicesName('newsletterBlockTemplate')] = $newsletterBlockTemplateRepository->findFilterItems();
+		$options[BaseType::getChoicesName('newsletterBlockTemplates')] = $newsletterBlockTemplateRepository->findFilterItems();
 	
 		return $options;
 	}

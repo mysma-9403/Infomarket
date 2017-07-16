@@ -3,9 +3,9 @@
 namespace AppBundle\Factory\Common\Choices;
 
 use AppBundle\Entity\BenchmarkMessage;
-use AppBundle\Factory\Common\Choices\Base\AbstractChoicesFactory;
+use AppBundle\Factory\Common\Choices\Base\ChoicesFactory;
 
-class BenchmarkMessageStatesFactory extends AbstractChoicesFactory {
+class BenchmarkMessageStatesFactory implements ChoicesFactory {
 	/**
 	 * {@inheritDoc}
 	 * @see \AppBundle\Factory\Common\Choices\ChoicesFactory::getItems()

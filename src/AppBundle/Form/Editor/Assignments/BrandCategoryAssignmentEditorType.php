@@ -5,6 +5,7 @@ namespace AppBundle\Form\Editor\Assignments;
 use AppBundle\Entity\BrandCategoryAssignment;
 use AppBundle\Form\Editor\Base\BaseEntityEditorType;
 use AppBundle\Form\Transformer\EntityToNumberTransformer;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\FormBuilderInterface;
 
 class BrandCategoryAssignmentEditorType extends BaseEntityEditorType
@@ -32,8 +33,15 @@ class BrandCategoryAssignmentEditorType extends BaseEntityEditorType
 	 * @see \AppBundle\Form\Base\BaseFormType::addMoreFields()
 	 */
 	protected function addMainFields(FormBuilderInterface $builder, array $options) {
-		$this->addChoiceEntityField($builder, $options, $this->brandTransformer, 'brand');
-		$this->addChoiceEntityField($builder, $options, $this->categoryTransformer, 'category');
+		
+		$builder
+		->add('orderNumber', IntegerType::class, array(
+				'required'		=> true
+		))
+		;
+		
+		$this->addChoiceEntityEditorField($builder, $options, $this->brandTransformer, 'brand');
+		$this->addChoiceEntityEditorField($builder, $options, $this->categoryTransformer, 'category');
 	}
 	
 	protected function getDefaultOptions() {

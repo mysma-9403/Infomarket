@@ -39,9 +39,9 @@ class ProductCategoryAssignmentEditorType extends BaseEntityEditorType
 	 * @see \AppBundle\Form\Base\BaseFormType::addMoreFields()
 	 */
 	protected function addMainFields(FormBuilderInterface $builder, array $options) {
-		$this->addChoiceEntityField($builder, $options, $this->productTransformer, 'product');
-		$this->addChoiceEntityField($builder, $options, $this->segmentTransformer, 'segment');
-		$this->addChoiceEntityField($builder, $options, $this->categoryTransformer, 'category');
+		$this->addChoiceEntityEditorField($builder, $options, $this->productTransformer, 'product');
+		$this->addChoiceEntityEditorField($builder, $options, $this->segmentTransformer, 'segment');
+		$this->addChoiceEntityEditorField($builder, $options, $this->categoryTransformer, 'category');
 		
 		$builder
 		->add('orderNumber', IntegerType::class, array(

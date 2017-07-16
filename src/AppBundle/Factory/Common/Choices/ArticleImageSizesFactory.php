@@ -3,9 +3,9 @@
 namespace AppBundle\Factory\Common\Choices;
 
 use AppBundle\Entity\Article;
-use AppBundle\Factory\Common\Choices\Base\AbstractChoicesFactory;
+use AppBundle\Factory\Common\Choices\Base\ChoicesFactory;
 
-class ArticleImageSizesFactory extends AbstractChoicesFactory {
+class ArticleImageSizesFactory implements ChoicesFactory {
 	/**
 	 * {@inheritDoc}
 	 * @see \AppBundle\Factory\Common\Choices\ChoicesFactory::getItems()

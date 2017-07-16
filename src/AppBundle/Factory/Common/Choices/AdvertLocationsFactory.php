@@ -3,9 +3,9 @@
 namespace AppBundle\Factory\Common\Choices;
 
 use AppBundle\Entity\Advert;
-use AppBundle\Factory\Common\Choices\Base\AbstractChoicesFactory;
+use AppBundle\Factory\Common\Choices\Base\ChoicesFactory;
 
-class AdvertLocationsFactory extends AbstractChoicesFactory {
+class AdvertLocationsFactory implements ChoicesFactory {
 	/**
 	 * {@inheritDoc}
 	 * @see \AppBundle\Factory\Common\Choices\ChoicesFactory::getItems()

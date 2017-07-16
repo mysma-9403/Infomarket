@@ -3,9 +3,9 @@
 namespace AppBundle\Factory\Common\Choices;
 
 use AppBundle\Entity\BenchmarkField;
-use AppBundle\Factory\Common\Choices\Base\AbstractChoicesFactory;
+use AppBundle\Factory\Common\Choices\Base\ChoicesFactory;
 
-class BenchmarkFieldBetterThanTypesFactory extends AbstractChoicesFactory {
+class BenchmarkFieldBetterThanTypesFactory implements ChoicesFactory {
 	/**
 	 * {@inheritDoc}
 	 * @see \AppBundle\Factory\Common\Choices\ChoicesFactory::getItems()

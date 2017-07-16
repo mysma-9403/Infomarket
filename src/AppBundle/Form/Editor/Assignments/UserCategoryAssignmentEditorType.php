@@ -32,8 +32,8 @@ class UserCategoryAssignmentEditorType extends BaseEntityEditorType
 	 * @see \AppBundle\Form\Base\BaseFormType::addMoreFields()
 	 */
 	protected function addMainFields(FormBuilderInterface $builder, array $options) {
-		$this->addChoiceEntityField($builder, $options, $this->userTransformer, 'user');
-		$this->addChoiceEntityField($builder, $options, $this->categoryTransformer, 'category');
+		$this->addChoiceEntityEditorField($builder, $options, $this->userTransformer, 'user');
+		$this->addChoiceEntityEditorField($builder, $options, $this->categoryTransformer, 'category');
 	}
 	
 	protected function getDefaultOptions() {

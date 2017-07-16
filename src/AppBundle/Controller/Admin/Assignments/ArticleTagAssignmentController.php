@@ -103,11 +103,11 @@ class ArticleTagAssignmentController extends AssignmentController {
 	
 		/** @var ArticleRepository $articleRepository */
 		$articleRepository = $this->getDoctrine()->getRepository(Article::class);
-		$options[BaseType::getChoicesName('article')] = $articleRepository->findFilterItems();
+		$options[BaseType::getChoicesName('articles')] = $articleRepository->findFilterItems();
 	
 		/** @var TagRepository $tagRepository */
 		$tagRepository = $this->getDoctrine()->getRepository(Tag::class);
-		$options[BaseType::getChoicesName('tag')] = $tagRepository->findFilterItems();
+		$options[BaseType::getChoicesName('tags')] = $tagRepository->findFilterItems();
 	
 		return $options;
 	}

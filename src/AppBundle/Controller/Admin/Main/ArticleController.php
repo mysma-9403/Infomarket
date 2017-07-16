@@ -27,6 +27,7 @@ use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Form\Base\BaseType;
 use AppBundle\Factory\Common\Choices\Base\ChoicesFactory;
+use AppBundle\Entity\User;
 
 class ArticleController extends FeaturedEntityController {
 	
@@ -326,21 +327,37 @@ class ArticleController extends FeaturedEntityController {
 	
 		/** @var BrandRepository $brandRepository */
 		$brandRepository = $this->getDoctrine()->getRepository(Brand::class);
-		$options[BaseType::getChoicesName('brand')] = $brandRepository->findFilterItems();
+		$options[BaseType::getChoicesName('brands')] = $brandRepository->findFilterItems();
 		
 		/** @var CategoryRepository $categoryRepository */
 		$categoryRepository = $this->getDoctrine()->getRepository(Category::class);
-		$options[BaseType::getChoicesName('category')] = $categoryRepository->findFilterItems();
+		$options[BaseType::getChoicesName('categories')] = $categoryRepository->findFilterItems();
 		
 		/** @var ArticleCategoryRepository $branchRepository */
 		$articleCategoryRepository = $this->getDoctrine()->getRepository(ArticleCategory::class);
-		$options[BaseType::getChoicesName('articleCategory')] = $articleCategoryRepository->findFilterItems();
+		$options[BaseType::getChoicesName('articleCategories')] = $articleCategoryRepository->findFilterItems();
 	
+		/** @var ChoicesFactory $infomarketChoicesFactory */
+		$infomarketChoicesFactory = $this->get('app.factory.choices.base.filter.infomarketChoices');
+		$options[BaseType::getChoicesName('infomarket')] = $infomarketChoicesFactory->getItems();
+		
+		/** @var ChoicesFactory $infoproduktChoicesFactory */
+		$infoproduktChoicesFactory = $this->get('app.factory.choices.base.filter.infoproduktChoices');
+		$options[BaseType::getChoicesName('infoprodukt')] = $infoproduktChoicesFactory->getItems();
+		
 		return $options;
 	}
 	
 	protected function getEditorFormOptions() {
 		$options = parent::getEditorFormOptions();
+		
+		/** @var ArticleRepository $articleRepository */
+		$articleRepository = $this->getDoctrine()->getRepository(Article::class);
+		$options[BaseType::getChoicesName('parent')] = $articleRepository->findFilterItems();
+		
+		/** @var UserRepository $userRepository */
+		$userRepository = $this->getDoctrine()->getRepository(User::class);
+		$options[BaseType::getChoicesName('author')] = $userRepository->findFilterItems();
 		
 		/** @var ChoicesFactory $imageSizesFactory */
 		$imageSizesFactory = $this->get('app.factory.choices.article.imageSizes');

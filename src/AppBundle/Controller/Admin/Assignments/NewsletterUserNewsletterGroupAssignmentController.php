@@ -103,11 +103,11 @@ class NewsletterUserNewsletterGroupAssignmentController extends AssignmentContro
 	
 		/** @var NewsletterUserRepository $newsletterUserRepository */
 		$newsletterUserRepository = $this->getDoctrine()->getRepository(NewsletterUser::class);
-		$options[BaseType::getChoicesName('newsletterUser')] = $newsletterUserRepository->findFilterItems();
+		$options[BaseType::getChoicesName('newsletterUsers')] = $newsletterUserRepository->findFilterItems();
 	
 		/** @var NewsletterGroupRepository $newsletterGroupRepository */
 		$newsletterGroupRepository = $this->getDoctrine()->getRepository(NewsletterGroup::class);
-		$options[BaseType::getChoicesName('newsletterGroup')] = $newsletterGroupRepository->findFilterItems();
+		$options[BaseType::getChoicesName('newsletterGroups')] = $newsletterGroupRepository->findFilterItems();
 	
 		return $options;
 	}

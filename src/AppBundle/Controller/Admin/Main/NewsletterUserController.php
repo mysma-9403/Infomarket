@@ -6,20 +6,21 @@ use AppBundle\Controller\Admin\Base\SimpleEntityController;
 use AppBundle\Entity\NewsletterUser;
 use AppBundle\Entity\NewsletterUserNewsletterGroupAssignment;
 use AppBundle\Entity\Other\ImportNewsletterUsers;
+use AppBundle\Factory\Admin\Import\FileEntryFactory;
+use AppBundle\Factory\Admin\Import\NewsletterUser\ImportErrorFactory;
+use AppBundle\Factory\Admin\Import\NewsletterUser\PreparedEntryFactory;
 use AppBundle\Filter\Admin\Main\NewsletterUserFilter;
+use AppBundle\Form\Base\BaseType;
 use AppBundle\Form\Editor\Main\NewsletterUserEditorType;
 use AppBundle\Form\Filter\Admin\Main\NewsletterUserFilterType;
 use AppBundle\Form\Other\ImportNewsletterUsersType;
+use AppBundle\Logic\Admin\Import\NewsletterUser\ImportLogic;
+use AppBundle\Logic\Admin\Import\NewsletterUser\ImportValidator;
 use AppBundle\Manager\Entity\Base\EntityManager;
 use AppBundle\Manager\Entity\Common\NewsletterUserManager;
 use AppBundle\Manager\Filter\Base\FilterManager;
 use AppBundle\Manager\Params\EntryParams\Admin\NewsletterUserEntryParamsManager;
 use Symfony\Component\HttpFoundation\Request;
-use AppBundle\Logic\Admin\Import\NewsletterUser\ImportLogic;
-use AppBundle\Factory\Admin\Import\NewsletterUser\ImportErrorFactory;
-use AppBundle\Factory\Admin\Import\FileEntryFactory;
-use AppBundle\Factory\Admin\Import\NewsletterUser\PreparedEntryFactory;
-use AppBundle\Logic\Admin\Import\NewsletterUser\ImportValidator;
 
 class NewsletterUserController extends SimpleEntityController {
 	
@@ -236,6 +237,16 @@ class NewsletterUserController extends SimpleEntityController {
 	//---------------------------------------------------------------------------
 	// Internal logic
 	//---------------------------------------------------------------------------
+	
+	protected function getFilterFormOptions() {
+		$options = parent::getFilterFormOptions();
+	
+		/** @var ChoicesFactory $subscribedChoicesFactory */
+		$subscribedChoicesFactory = $this->get('app.factory.choices.base.filter.subscribedChoices');
+		$options[BaseType::getChoicesName('subscribed')] = $subscribedChoicesFactory->getItems();
+		
+		return $options;
+	}
 	
 	protected function deleteMore($entry)
 	{

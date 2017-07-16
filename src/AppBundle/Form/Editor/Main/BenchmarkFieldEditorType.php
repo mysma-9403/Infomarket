@@ -76,11 +76,11 @@ class BenchmarkFieldEditorType extends BaseEntityEditorType
 		))
 		;
 		
-		$this->addChoiceNumberField($builder, $options, 'fieldType');
-		$this->addChoiceNumberField($builder, $options, 'noteType');
-		$this->addChoiceNumberField($builder, $options, 'betterThanType');
+		$this->addChoiceNumberEditorField($builder, $options, 'fieldType');
+		$this->addChoiceNumberEditorField($builder, $options, 'noteType');
+		$this->addChoiceNumberEditorField($builder, $options, 'betterThanType');
 		
-		$this->addChoiceEntityField($builder, $options, $this->categoryToNumberTransformer, 'category');
+		$this->addChoiceEntityEditorField($builder, $options, $this->categoryToNumberTransformer, 'category');
 	}
 	
 	protected function getDefaultOptions() {

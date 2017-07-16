@@ -28,7 +28,7 @@ class BenchmarkMessageEditorType extends EditorType
 		))
 		;
 		
-		$this->addChoiceNumberField($builder, $options, 'state');
+		$this->addChoiceNumberEditorField($builder, $options, 'state');
 	}
 	
 	protected function getDefaultOptions() {

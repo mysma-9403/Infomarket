@@ -7,6 +7,7 @@ use AppBundle\Entity\Tag;
 use AppBundle\Form\Editor\Main\TagEditorType;
 use AppBundle\Manager\Entity\Common\TagManager;
 use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Form\Base\BaseType;
 
 class TagController extends SimpleEntityController {
 	
@@ -119,6 +120,24 @@ class TagController extends SimpleEntityController {
 	public function setFeaturedAction(Request $request, $id)
 	{
 		return $this->setFeaturedActionInternal($request, $id);
+	}
+	
+	//------------------------------------------------------------------------
+	// Internal logic
+	//------------------------------------------------------------------------
+	
+	protected function getFilterFormOptions() {
+		$options = parent::getFilterFormOptions();
+	
+		/** @var ChoicesFactory $infomarketChoicesFactory */
+		$infomarketChoicesFactory = $this->get('app.factory.choices.base.filter.infomarketChoices');
+		$options[BaseType::getChoicesName('infomarket')] = $infomarketChoicesFactory->getItems();
+	
+		/** @var ChoicesFactory $infoproduktChoicesFactory */
+		$infoproduktChoicesFactory = $this->get('app.factory.choices.base.filter.infoproduktChoices');
+		$options[BaseType::getChoicesName('infoprodukt')] = $infoproduktChoicesFactory->getItems();
+	
+		return $options;
 	}
 	
 	//---------------------------------------------------------------------------

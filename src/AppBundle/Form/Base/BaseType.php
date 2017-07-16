@@ -8,6 +8,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 
 abstract class BaseType extends AbstractType
 {
@@ -57,25 +58,60 @@ abstract class BaseType extends AbstractType
 	
 	
 	
-	protected function addChoiceNumberField(FormBuilderInterface $builder, array $options, $field, $required = true, $multiple = false) {
+	protected function addDateTimeField(FormBuilderInterface $builder, $field, $label, $required = true) {
+		$builder->add($field, DateTimeType::class, array(
+				'widget' => 'single_text',
+				'format' => 'dd/MM/yyyy HH:mm',
+				'required' => $required,
+				'attr' => [
+						'class' => 'form-control input-inline datetimepicker',
+						'data-provide' => 'datepicker',
+						'data-date-format' => 'DD/MM/YYYY HH:mm',
+						'placeholder' => $label
+				]
+		));
+	}
+	
+	
+	protected function addChoiceNumberEditorField(FormBuilderInterface $builder, array $options, $field, $required = true, $multiple = false) {
 		$builder->add($field, ChoiceType::class, array(
 				'choices'		=> $options[self::getChoicesName($field)],
 				'required'      => $required,
+				'multiple'      => $multiple,
+				'expanded'      => false
+		));
+	}
+	
+	protected function addChoiceNumberFilterField(FormBuilderInterface $builder, array $options, $field, $multiple = true) {
+		$builder->add($field, ChoiceType::class, array(
+				'choices'		=> $options[self::getChoicesName($field)],
+				'required'      => false,
 				'expanded'      => false,
 				'multiple'      => $multiple
 		));
 	}
 	
-	protected function addChoiceEntityField(FormBuilderInterface $builder, array $options, $transformer, $field, $required = true, $multiple = false) {
+	protected function addChoiceEntityEditorField(FormBuilderInterface $builder, array $options, $transformer, $field, $required = true, $multiple = false) {
 		$builder->add($field, ChoiceType::class, array(
 				'choices' 		=> $options[self::getChoicesName($field)],
 				'choice_label' => function ($value, $key, $index) { return FormUtils::getListLabel($value, $key, $index); }, //TODO FormUtils --> DI
 				'choice_translation_domain' => false,
 				'required'		=> $required,
-				'expanded'      => false,
-				'multiple'      => $multiple
+				'multiple'      => $multiple,
+				'expanded'      => false
 		));
 		$builder->get($field)->addModelTransformer($transformer);
+	}
+	
+	protected function addChoiceEntityFilterField(FormBuilderInterface $builder, array $options, $field) {
+		$builder->add($field, ChoiceType::class, array(
+				'choices' 		=> $options[self::getChoicesName($field)],
+				'choice_label' => function ($value, $key, $index) { return FormUtils::getListLabel($value, $key, $index); }, //TODO FormUtils --> DI
+				'choice_translation_domain' => false,
+				'required'		=> false,
+				'expanded'      => false,
+				'multiple'      => true
+		));
 	}
 	
 	/**

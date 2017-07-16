@@ -8,6 +8,7 @@ use AppBundle\Entity\Branch;
 use AppBundle\Form\Editor\Main\BranchEditorType;
 use AppBundle\Manager\Entity\Common\BranchManager;
 use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Form\Base\BaseType;
 
 class BranchController extends ImageEntityController {
 	
@@ -120,6 +121,24 @@ class BranchController extends ImageEntityController {
 	public function setFeaturedAction(Request $request, $id)
 	{
 		return $this->setFeaturedActionInternal($request, $id);
+	}
+	
+	//------------------------------------------------------------------------
+	// Internal logic
+	//------------------------------------------------------------------------
+	
+	protected function getFilterFormOptions() {
+		$options = parent::getFilterFormOptions();
+	
+		/** @var ChoicesFactory $infomarketChoicesFactory */
+		$infomarketChoicesFactory = $this->get('app.factory.choices.base.filter.infomarketChoices');
+		$options[BaseType::getChoicesName('infomarket')] = $infomarketChoicesFactory->getItems();
+	
+		/** @var ChoicesFactory $infoproduktChoicesFactory */
+		$infoproduktChoicesFactory = $this->get('app.factory.choices.base.filter.infoproduktChoices');
+		$options[BaseType::getChoicesName('infoprodukt')] = $infoproduktChoicesFactory->getItems();
+	
+		return $options;
 	}
 	
 	//---------------------------------------------------------------------------

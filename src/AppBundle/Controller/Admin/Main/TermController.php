@@ -136,8 +136,16 @@ class TermController extends SimpleEntityController {
 	
 		/** @var CategoryRepository $categoryRepository */
 		$categoryRepository = $this->getDoctrine()->getRepository(Category::class);
-		$options[BaseType::getChoicesName('category')] = $categoryRepository->findFilterItems();
+		$options[BaseType::getChoicesName('categories')] = $categoryRepository->findFilterItems();
 	
+		/** @var ChoicesFactory $infomarketChoicesFactory */
+		$infomarketChoicesFactory = $this->get('app.factory.choices.base.filter.infomarketChoices');
+		$options[BaseType::getChoicesName('infomarket')] = $infomarketChoicesFactory->getItems();
+		
+		/** @var ChoicesFactory $infoproduktChoicesFactory */
+		$infoproduktChoicesFactory = $this->get('app.factory.choices.base.filter.infoproduktChoices');
+		$options[BaseType::getChoicesName('infoprodukt')] = $infoproduktChoicesFactory->getItems();
+		
 		return $options;
 	}
 	

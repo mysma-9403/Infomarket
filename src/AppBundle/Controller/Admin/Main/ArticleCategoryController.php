@@ -11,6 +11,7 @@ use AppBundle\Form\Filter\Admin\Main\ArticleCategoryFilterType;
 use AppBundle\Manager\Entity\Common\ArticleCategoryManager;
 use AppBundle\Manager\Filter\Base\FilterManager;
 use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Form\Base\BaseType;
 
 class ArticleCategoryController extends FeaturedEntityController {
 	
@@ -123,6 +124,24 @@ class ArticleCategoryController extends FeaturedEntityController {
 	public function setFeaturedAction(Request $request, $id)
 	{
 		return $this->setFeaturedActionInternal($request, $id);
+	}
+	
+	//------------------------------------------------------------------------
+	// Internal logic
+	//------------------------------------------------------------------------
+	
+	protected function getFilterFormOptions() {
+		$options = parent::getFilterFormOptions();
+	
+		/** @var ChoicesFactory $infomarketChoicesFactory */
+		$infomarketChoicesFactory = $this->get('app.factory.choices.base.filter.infomarketChoices');
+		$options[BaseType::getChoicesName('infomarket')] = $infomarketChoicesFactory->getItems();
+	
+		/** @var ChoicesFactory $infoproduktChoicesFactory */
+		$infoproduktChoicesFactory = $this->get('app.factory.choices.base.filter.infoproduktChoices');
+		$options[BaseType::getChoicesName('infoprodukt')] = $infoproduktChoicesFactory->getItems();
+	
+		return $options;
 	}
 	
 	//---------------------------------------------------------------------------

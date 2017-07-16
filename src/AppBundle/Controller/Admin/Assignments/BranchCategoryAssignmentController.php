@@ -103,11 +103,11 @@ class BranchCategoryAssignmentController extends AssignmentController {
 	
 		/** @var BranchRepository $branchRepository */
 		$branchRepository = $this->getDoctrine()->getRepository(Branch::class);
-		$options[BaseType::getChoicesName('branch')] = $branchRepository->findFilterItems();
+		$options[BaseType::getChoicesName('branches')] = $branchRepository->findFilterItems();
 	
 		/** @var CategoryRepository $categoryRepository */
 		$categoryRepository = $this->getDoctrine()->getRepository(Category::class);
-		$options[BaseType::getChoicesName('category')] = $categoryRepository->findFilterItems();
+		$options[BaseType::getChoicesName('categories')] = $categoryRepository->findFilterItems();
 	
 		return $options;
 	}

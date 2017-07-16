@@ -341,12 +341,24 @@ class CategoryController extends FeaturedEntityController {
 	
 		/** @var CategoryRepository $categoryRepository */
 		$categoryRepository = $this->getDoctrine()->getRepository(Category::class);
-		$options[BaseType::getChoicesName('parent')] = $categoryRepository->findFilterItems();
+		$options[BaseType::getChoicesName('parents')] = $categoryRepository->findFilterItems();
 		
 		/** @var BranchRepository $branchRepository */
 		$branchRepository = $this->getDoctrine()->getRepository(Branch::class);
-		$options[BaseType::getChoicesName('branch')] = $branchRepository->findFilterItems();
+		$options[BaseType::getChoicesName('branches')] = $branchRepository->findFilterItems();
 	
+		/** @var ChoicesFactory $preleafChoicesFactory */
+		$preleafChoicesFactory = $this->get('app.factory.choices.base.filter.preleafChoices');
+// 		$options[BaseType::getChoicesName('preleaf')] = $preleafChoicesFactory->getItems();
+		
+		/** @var ChoicesFactory $infomarketChoicesFactory */
+		$infomarketChoicesFactory = $this->get('app.factory.choices.base.filter.infomarketChoices');
+		$options[BaseType::getChoicesName('infomarket')] = $infomarketChoicesFactory->getItems();
+		
+		/** @var ChoicesFactory $infoproduktChoicesFactory */
+		$infoproduktChoicesFactory = $this->get('app.factory.choices.base.filter.infoproduktChoices');
+		$options[BaseType::getChoicesName('infoprodukt')] = $infoproduktChoicesFactory->getItems();
+		
 		return $options;
 	}
 	

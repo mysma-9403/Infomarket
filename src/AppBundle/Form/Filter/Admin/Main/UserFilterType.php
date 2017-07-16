@@ -8,12 +8,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 
 class UserFilterType extends FilterType
-{	
-	/**
-	 * 
-	 * {@inheritDoc}
-	 * @see \AppBundle\Form\Filter\Base\SimpleEntityFilterType::addMainFields()
-	 */
+{
 	protected function addMainFields(FormBuilderInterface $builder, array $options) {
 		parent::addMainFields($builder, $options);
 		
@@ -40,11 +35,6 @@ class UserFilterType extends FilterType
 		;
 	}
 	
-	/**
-	 * 
-	 * {@inheritDoc}
-	 * @see \AppBundle\Form\Entity\Filter\Base\SimpleEntityFilterType::getEntityType()
-	 */
 	protected function getEntityType() {
 		return UserFilter::class;
 	}

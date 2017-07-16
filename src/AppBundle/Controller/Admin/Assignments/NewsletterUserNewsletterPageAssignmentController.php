@@ -2,19 +2,20 @@
 
 namespace AppBundle\Controller\Admin\Assignments;
 
+use AppBundle\Controller\Admin\Base\AssignmentController;
 use AppBundle\Controller\Admin\Base\BaseEntityController;
 use AppBundle\Entity\NewsletterPage;
 use AppBundle\Entity\NewsletterUser;
 use AppBundle\Entity\NewsletterUserNewsletterPageAssignment;
+use AppBundle\Factory\Common\Choices\NewsletterUserNewsletterPageAssignmentStatesFactory;
 use AppBundle\Filter\Admin\Assignments\NewsletterUserNewsletterPageAssignmentFilter;
+use AppBundle\Form\Base\BaseType;
 use AppBundle\Form\Filter\Admin\Assignments\NewsletterUserNewsletterPageAssignmentFilterType;
 use AppBundle\Manager\Entity\Common\NewsletterUserNewsletterPageAssignmentManager;
 use AppBundle\Manager\Filter\Base\FilterManager;
 use AppBundle\Repository\Admin\Main\NewsletterPageRepository;
 use AppBundle\Repository\Admin\Main\NewsletterUserRepository;
 use Symfony\Component\HttpFoundation\Request;
-use AppBundle\Controller\Admin\Base\AssignmentController;
-use AppBundle\Form\Base\BaseType;
 
 class NewsletterUserNewsletterPageAssignmentController extends AssignmentController {
 	
@@ -67,11 +68,15 @@ class NewsletterUserNewsletterPageAssignmentController extends AssignmentControl
 	
 		/** @var NewsletterUserRepository $newsletterUserRepository */
 		$newsletterUserRepository = $this->getDoctrine()->getRepository(NewsletterUser::class);
-		$options[BaseType::getChoicesName('newsletterUser')] = $newsletterUserRepository->findFilterItems();
+		$options[BaseType::getChoicesName('newsletterUsers')] = $newsletterUserRepository->findFilterItems();
 	
 		/** @var NewsletterPageRepository $newsletterPageRepository */
 		$newsletterPageRepository = $this->getDoctrine()->getRepository(NewsletterPage::class);
-		$options[BaseType::getChoicesName('newsletterPage')] = $newsletterPageRepository->findFilterItems();
+		$options[BaseType::getChoicesName('newsletterPages')] = $newsletterPageRepository->findFilterItems();
+		
+		/** @var NewsletterUserNewsletterPageAssignmentStatesFactory $statesFactory */
+		$statesFactory = $this->get('app.factory.choices.newsletterUserNewsletterPageAssignment.states');
+		$options[BaseType::getChoicesName('states')] = $statesFactory->getItems();
 	
 		return $options;
 	}
@@ -110,6 +115,21 @@ class NewsletterUserNewsletterPageAssignmentController extends AssignmentControl
 	 */
 	protected function getFilterManager($doctrine) {
 		return new FilterManager(new NewsletterUserNewsletterPageAssignmentFilter());
+	}
+	
+	//---------------------------------------------------------------------------
+	// Permissions
+	//---------------------------------------------------------------------------
+	protected function canCreate() {
+		return false;
+	}
+	
+	protected function canCopy() {
+		return false;
+	}
+	
+	protected function canEdit() {
+		return false;
 	}
 	
 	//---------------------------------------------------------------------------

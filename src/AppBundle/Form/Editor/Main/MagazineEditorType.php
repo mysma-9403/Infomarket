@@ -61,7 +61,7 @@ class MagazineEditorType extends ImageEntityEditorType
 		))
 		;
 		
-		$this->addChoiceEntityField($builder, $options, $this->magazineToNumberTransformer, 'parent', false);
+		$this->addChoiceEntityEditorField($builder, $options, $this->magazineToNumberTransformer, 'parent', false);
 	}
 	
 	protected function getDefaultOptions() {

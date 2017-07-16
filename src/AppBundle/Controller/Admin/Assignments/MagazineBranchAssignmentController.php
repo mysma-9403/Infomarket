@@ -103,11 +103,11 @@ class MagazineBranchAssignmentController extends AssignmentController {
 	
 		/** @var MagazineRepository $magazineRepository */
 		$magazineRepository = $this->getDoctrine()->getRepository(Magazine::class);
-		$options[BaseType::getChoicesName('magazine')] = $magazineRepository->findFilterItems();
+		$options[BaseType::getChoicesName('magazines')] = $magazineRepository->findFilterItems();
 	
 		/** @var BranchRepository $branchRepository */
 		$branchRepository = $this->getDoctrine()->getRepository(Branch::class);
-		$options[BaseType::getChoicesName('branch')] = $branchRepository->findFilterItems();
+		$options[BaseType::getChoicesName('branches')] = $branchRepository->findFilterItems();
 	
 		return $options;
 	}

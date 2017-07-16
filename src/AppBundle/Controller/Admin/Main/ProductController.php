@@ -226,10 +226,11 @@ class ProductController extends ImageEntityController {
 	protected function initEditorForm(Request $request, array &$params) {
 		$viewParams = $params['viewParams'];
 		$entry = $viewParams['entry'];
-	
-		$productFilter = $viewParams['productFilter'];
 		
-		$form = $this->createForm($this->getEditorFormType(), $entry, ['filter' => $productFilter]);
+		$options = $this->getEditorFormOptions();
+		$options['filter'] = $viewParams['productFilter'];
+		
+		$form = $this->createForm($this->getEditorFormType(), $entry, $options);
 	
 		$form->handleRequest($request);
 	
@@ -292,11 +293,29 @@ class ProductController extends ImageEntityController {
 	
 		/** @var BrandRepository $brandRepository */
 		$brandRepository = $this->getDoctrine()->getRepository(Brand::class);
-		$options[BaseType::getChoicesName('brand')] = $brandRepository->findFilterItems();
+		$options[BaseType::getChoicesName('brands')] = $brandRepository->findFilterItems();
 	
 		/** @var CategoryRepository $categoryRepository */
 		$categoryRepository = $this->getDoctrine()->getRepository(Category::class);
-		$options[BaseType::getChoicesName('category')] = $categoryRepository->findFilterItems();
+		$options[BaseType::getChoicesName('categories')] = $categoryRepository->findFilterItems();
+	
+		/** @var ChoicesFactory $infomarketChoicesFactory */
+		$infomarketChoicesFactory = $this->get('app.factory.choices.base.filter.infomarketChoices');
+		$options[BaseType::getChoicesName('infomarket')] = $infomarketChoicesFactory->getItems();
+		
+		/** @var ChoicesFactory $infoproduktChoicesFactory */
+		$infoproduktChoicesFactory = $this->get('app.factory.choices.base.filter.infoproduktChoices');
+		$options[BaseType::getChoicesName('infoprodukt')] = $infoproduktChoicesFactory->getItems();
+		
+		return $options;
+	}
+	
+	protected function getEditorFormOptions() {
+		$options = parent::getEditorFormOptions();
+	
+		/** @var BrandRepository $brandRepository */
+		$brandRepository = $this->getDoctrine()->getRepository(Brand::class);
+		$options[BaseType::getChoicesName('brand')] = $brandRepository->findFilterItems();
 	
 		return $options;
 	}

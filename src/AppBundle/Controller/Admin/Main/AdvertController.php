@@ -14,6 +14,7 @@ use AppBundle\Manager\Filter\Base\FilterManager;
 use AppBundle\Repository\Admin\Main\CategoryRepository;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Form\Base\BaseType;
+use AppBundle\Factory\Common\Choices\Base\ChoicesFactory;
 
 class AdvertController extends ImageEntityController {
 	
@@ -124,7 +125,19 @@ class AdvertController extends ImageEntityController {
 	
 		/** @var CategoryRepository $categoryRepository */
 		$categoryRepository = $this->getDoctrine()->getRepository(Category::class);
-		$options[BaseType::getChoicesName('category')] = $categoryRepository->findFilterItems();
+		$options[BaseType::getChoicesName('categories')] = $categoryRepository->findFilterItems();
+		
+		/** @var ChoicesFactory $locationsFactory */
+		$locationsFactory = $this->get('app.factory.choices.advert.locations');
+		$options[BaseType::getChoicesName('locations')] = $locationsFactory->getItems();
+		
+		/** @var ChoicesFactory $infomarketChoicesFactory */
+		$infomarketChoicesFactory = $this->get('app.factory.choices.base.filter.infomarketChoices');
+		$options[BaseType::getChoicesName('infomarket')] = $infomarketChoicesFactory->getItems();
+		
+		/** @var ChoicesFactory $infoproduktChoicesFactory */
+		$infoproduktChoicesFactory = $this->get('app.factory.choices.base.filter.infoproduktChoices');
+		$options[BaseType::getChoicesName('infoprodukt')] = $infoproduktChoicesFactory->getItems();
 	
 		return $options;
 	}

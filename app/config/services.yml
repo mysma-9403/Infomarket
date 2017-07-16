@@ -49,7 +49,51 @@ services:
             
             
     
-    # Choices Factories
+    # Boolean Filter Choices Factories
+    app.factory.choices.base.filter.benchmarkChoices:
+        class: AppBundle\Factory\Common\Choices\BenchmarkChoicesFactory
+        arguments:
+            - '@translator'
+        tags:
+            - { name: app.factory }
+    app.factory.choices.base.filter.featuredChoices:
+        class: AppBundle\Factory\Common\Choices\FeaturedChoicesFactory
+        arguments:
+            - '@translator'
+        tags:
+            - { name: app.factory }
+    app.factory.choices.base.filter.infomarketChoices:
+        class: AppBundle\Factory\Common\Choices\InfomarketChoicesFactory
+        arguments:
+            - '@translator'
+        tags:
+            - { name: app.factory }
+    app.factory.choices.base.filter.infoproduktChoices:
+        class: AppBundle\Factory\Common\Choices\InfoproduktChoicesFactory
+        arguments:
+            - '@translator'
+        tags:
+            - { name: app.factory }
+    app.factory.choices.base.filter.preleafChoices:
+        class: AppBundle\Factory\Common\Choices\PreleafChoicesFactory
+        arguments:
+            - '@translator'
+        tags:
+            - { name: app.factory }
+    app.factory.choices.base.filter.readChoices:
+        class: AppBundle\Factory\Common\Choices\ReadChoicesFactory
+        arguments:
+            - '@translator'
+        tags:
+            - { name: app.factory }
+    app.factory.choices.base.filter.subscribedChoices:
+        class: AppBundle\Factory\Common\Choices\SubscribedChoicesFactory
+        arguments:
+            - '@translator'
+        tags:
+            - { name: app.factory }
+
+    # Entity Choices Factories   
     app.factory.choices.advert.locations:
         class: AppBundle\Factory\Common\Choices\AdvertLocationsFactory
         arguments:
@@ -88,6 +132,12 @@ services:
             - { name: app.factory }
     app.factory.choices.benchmarkMessage.states:
         class: AppBundle\Factory\Common\Choices\BenchmarkMessageStatesFactory
+        arguments:
+            - '@translator'
+        tags:
+            - { name: app.factory }
+    app.factory.choices.newsletterUserNewsletterPageAssignment.states:
+        class: AppBundle\Factory\Common\Choices\NewsletterUserNewsletterPageAssignmentStatesFactory
         arguments:
             - '@translator'
         tags:
@@ -226,6 +276,13 @@ services:
             - AppBundle\Entity\Product
         tags:
             - { name: app.repository }
+    app.repository.segment:
+        class: Doctrine\ORM\EntityRepository
+        factory: ['@doctrine.orm.default_entity_manager', getRepository]
+        arguments:
+            - AppBundle\Entity\Segment
+        tags:
+            - { name: app.repository }
     app.repository.tag:
         class: Doctrine\ORM\EntityRepository
         factory: ['@doctrine.orm.default_entity_manager', getRepository]
@@ -250,8 +307,8 @@ services:
 
 
     # Basic Transformers
-    app.form.transformer.integer_2_boolean:
-        class: AppBundle\Form\Transformer\IntegerToBooleanTransformer
+    app.form.transformer.number_2_boolean:
+        class: AppBundle\Form\Transformer\NumberToBooleanTransformer
         tags:
             - { name: form.transformer }
     
@@ -346,6 +403,11 @@ services:
         arguments: ["@app.repository.product"]
         tags:
             - { name: form.transformer }
+    app.form.transformer.segment_2_number:
+        class: AppBundle\Form\Transformer\EntityToNumberTransformer
+        arguments: ["@app.repository.segment"]
+        tags:
+            - { name: form.transformer }
     app.form.transformer.term_2_number:
         class: AppBundle\Form\Transformer\EntityToNumberTransformer
         arguments: ["@app.repository.term"]
@@ -366,7 +428,7 @@ services:
     # FormBuilders
     app.form.builder.editor.benchmark_field:
         class: AppBundle\Form\FormBuilder\BenchmarkFieldEditorBuilder
-        arguments: ["@app.form.transformer.integer_2_boolean"]
+        arguments: ["@app.form.transformer.number_2_boolean"]
         tags:
             - { name: form.builder }
     
@@ -491,9 +553,10 @@ services:
             - { name: form.type }
     app.form.editor.product_category_assignment:
         class: AppBundle\Form\Editor\Assignments\ProductCategoryAssignmentEditorType
-        arguments: [
-            "@app.form.transformer.product_2_number",
-            "@app.form.transformer.category_2_number"]
+        arguments:
+            - "@app.form.transformer.product_2_number"
+            - "@app.form.transformer.segment_2_number"
+            - "@app.form.transformer.category_2_number"
         tags:
             - { name: form.type }
     app.form.editor.term_category_assignment:
@@ -556,6 +619,13 @@ services:
         class: AppBundle\Form\Editor\Main\NewsletterPageEditorType
         arguments: 
             - "@app.form.transformer.newsletter_page_template_2_number"
+        tags:
+            - { name: form.type }
+    app.form.editor.product:
+        class: AppBundle\Form\Editor\Main\ProductEditorType
+        arguments: 
+            - "@app.form.transformer.brand_2_number"
+            - "@app.form.builder.editor.benchmark_field"
         tags:
             - { name: form.type }
 

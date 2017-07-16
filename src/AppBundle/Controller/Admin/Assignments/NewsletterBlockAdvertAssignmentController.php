@@ -103,11 +103,11 @@ class NewsletterBlockAdvertAssignmentController extends AssignmentController {
 	
 		/** @var NewsletterBlockRepository $newsletterBlockRepository */
 		$newsletterBlockRepository = $this->getDoctrine()->getRepository(NewsletterBlock::class);
-		$options[BaseType::getChoicesName('newsletterBlock')] = $newsletterBlockRepository->findFilterItems();
+		$options[BaseType::getChoicesName('newsletterBlocks')] = $newsletterBlockRepository->findFilterItems();
 	
 		/** @var AdvertRepository $advertRepository */
 		$advertRepository = $this->getDoctrine()->getRepository(Advert::class);
-		$options[BaseType::getChoicesName('advert')] = $advertRepository->findFilterItems();
+		$options[BaseType::getChoicesName('adverts')] = $advertRepository->findFilterItems();
 	
 		return $options;
 	}

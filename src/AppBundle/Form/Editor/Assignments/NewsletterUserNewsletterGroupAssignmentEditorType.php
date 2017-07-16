@@ -32,8 +32,8 @@ class NewsletterUserNewsletterGroupAssignmentEditorType extends BaseEntityEditor
 	 * @see \AppBundle\Form\Base\BaseFormType::addMoreFields()
 	 */
 	protected function addMainFields(FormBuilderInterface $builder, array $options) {
-		$this->addChoiceEntityField($builder, $options, $this->newsletterUserTransformer, 'newsletterUser');
-		$this->addChoiceEntityField($builder, $options, $this->newsletterGroupTransformer, 'newsletterGroup');
+		$this->addChoiceEntityEditorField($builder, $options, $this->newsletterUserTransformer, 'newsletterUser');
+		$this->addChoiceEntityEditorField($builder, $options, $this->newsletterGroupTransformer, 'newsletterGroup');
 	}
 	
 	protected function getDefaultOptions() {

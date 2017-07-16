@@ -25,6 +25,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use AppBundle\Form\Base\BaseType;
 use AppBundle\Factory\Common\Choices\Base\ChoicesFactory;
+use AppBundle\Form\Editor\Main\BenchmarkMessageEditorType;
 
 class BenchmarkMessageController extends BaseEntityController {
 	
@@ -180,7 +181,7 @@ class BenchmarkMessageController extends BaseEntityController {
 		/** @var BenchmarkMessage $newEntry */
 		$newEntry = $viewParams['newEntry'];
 	
-		$form = $this->createForm($this->getEditorFormType(), $newEntry);
+		$form = $this->createForm($this->getEditorFormType(), $newEntry, $this->getEditorFormOptions());
 	
 		$form->handleRequest($request);
 	
@@ -216,12 +217,20 @@ class BenchmarkMessageController extends BaseEntityController {
 	
 		/** @var ProductRepository $categoryRepository */
 		$productRepository = $this->getDoctrine()->getRepository(Product::class);
-		$options[BaseType::getChoicesName('product')] = $productRepository->findFilterItems();
+		$options[BaseType::getChoicesName('products')] = $productRepository->findFilterItems();
 		
 		/** @var UserRepository $categoryRepository */
 		$userRepository = $this->getDoctrine()->getRepository(User::class);
-		$options[BaseType::getChoicesName('user')] = $userRepository->findFilterItems();
+		$options[BaseType::getChoicesName('authors')] = $userRepository->findFilterItems();
+		
+		/** @var ChoicesFactory $statesFactory */
+		$statesFactory = $this->get('app.factory.choices.benchmarkMessage.states');
+		$options[BaseType::getChoicesName('states')] = $statesFactory->getItems();
 	
+		/** @var ChoicesFactory $readChoicesFactory */
+		$readChoicesFactory = $this->get('app.factory.choices.base.filter.readChoices');
+		$options[BaseType::getChoicesName('readByAdmin')] = $readChoicesFactory->getItems();
+		
 		return $options;
 	}
 	
@@ -317,7 +326,7 @@ class BenchmarkMessageController extends BaseEntityController {
 	//------------------------------------------------------------------------
 	
 	protected function getEditorFormType() {
-		return BenchmarkMessageType::class;
+		return BenchmarkMessageEditorType::class;
 	}
 	
 	/**

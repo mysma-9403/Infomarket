@@ -7,6 +7,7 @@ use AppBundle\Entity\Segment;
 use AppBundle\Form\Editor\Main\SegmentEditorType;
 use AppBundle\Manager\Entity\Common\SegmentManager;
 use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Form\Base\BaseType;
 
 class SegmentController extends ImageEntityController {
 	
@@ -106,6 +107,24 @@ class SegmentController extends ImageEntityController {
 	public function setIPPublishedAction(Request $request, $id)
 	{
 		return $this->setIPPublishedActionInternal($request, $id);
+	}
+	
+	//------------------------------------------------------------------------
+	// Internal logic
+	//------------------------------------------------------------------------
+	
+	protected function getFilterFormOptions() {
+		$options = parent::getFilterFormOptions();
+	
+		/** @var ChoicesFactory $infomarketChoicesFactory */
+		$infomarketChoicesFactory = $this->get('app.factory.choices.base.filter.infomarketChoices');
+		$options[BaseType::getChoicesName('infomarket')] = $infomarketChoicesFactory->getItems();
+	
+		/** @var ChoicesFactory $infoproduktChoicesFactory */
+		$infoproduktChoicesFactory = $this->get('app.factory.choices.base.filter.infoproduktChoices');
+		$options[BaseType::getChoicesName('infoprodukt')] = $infoproduktChoicesFactory->getItems();
+	
+		return $options;
 	}
 	
 	//---------------------------------------------------------------------------

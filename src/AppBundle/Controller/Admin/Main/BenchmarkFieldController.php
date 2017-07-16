@@ -101,7 +101,11 @@ class BenchmarkFieldController extends BaseEntityController {
 	
 		/** @var CategoryRepository $categoryRepository */
 		$categoryRepository = $this->getDoctrine()->getRepository(Category::class);
-		$options[BaseType::getChoicesName('category')] = $categoryRepository->findFilterItems();
+		$options[BaseType::getChoicesName('categories')] = $categoryRepository->findFilterItems();
+		
+		/** @var ChoicesFactory $fieldTypesFactory */
+		$fieldTypesFactory = $this->get('app.factory.choices.benchmarkField.fieldTypes');
+		$options[BaseType::getChoicesName('fieldTypes')] = $fieldTypesFactory->getItems();
 	
 		return $options;
 	}

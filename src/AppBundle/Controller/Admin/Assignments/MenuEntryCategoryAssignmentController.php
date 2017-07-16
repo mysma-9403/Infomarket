@@ -103,11 +103,11 @@ class MenuEntryCategoryAssignmentController extends AssignmentController {
 	
 		/** @var MenuEntryRepository $menuEntryRepository */
 		$menuEntryRepository = $this->getDoctrine()->getRepository(MenuEntry::class);
-		$options[BaseType::getChoicesName('menuEntry')] = $menuEntryRepository->findFilterItems();
+		$options[BaseType::getChoicesName('menuEntries')] = $menuEntryRepository->findFilterItems();
 	
 		/** @var CategoryRepository $categoryRepository */
 		$categoryRepository = $this->getDoctrine()->getRepository(Category::class);
-		$options[BaseType::getChoicesName('category')] = $categoryRepository->findFilterItems();
+		$options[BaseType::getChoicesName('categories')] = $categoryRepository->findFilterItems();
 	
 		return $options;
 	}

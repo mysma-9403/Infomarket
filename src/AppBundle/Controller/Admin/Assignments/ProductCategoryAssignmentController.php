@@ -19,6 +19,7 @@ use AppBundle\Entity\Brand;
 use AppBundle\Entity\Segment;
 use AppBundle\Controller\Admin\Base\AssignmentController;
 use AppBundle\Form\Base\BaseType;
+use AppBundle\Factory\Common\Choices\Base\ChoicesFactory;
 
 class ProductCategoryAssignmentController extends AssignmentController {
 	
@@ -156,20 +157,24 @@ class ProductCategoryAssignmentController extends AssignmentController {
 	
 		/** @var ProductRepository $productRepository */
 		$productRepository = $this->getDoctrine()->getRepository(Product::class);
-		$options[BaseType::getChoicesName('product')] = $productRepository->findFilterItems();
+		$options[BaseType::getChoicesName('products')] = $productRepository->findFilterItems();
 	
 		/** @var BrandRepository $brandRepository */
 		$brandRepository = $this->getDoctrine()->getRepository(Brand::class);
-		$options[BaseType::getChoicesName('brand')] = $brandRepository->findFilterItems();
+		$options[BaseType::getChoicesName('brands')] = $brandRepository->findFilterItems();
 		
 		/** @var SegmentRepository $segmentRepository */
 		$segmentRepository = $this->getDoctrine()->getRepository(Segment::class);
-		$options[BaseType::getChoicesName('segment')] = $segmentRepository->findFilterItems();
+		$options[BaseType::getChoicesName('segments')] = $segmentRepository->findFilterItems();
 		
 		/** @var CategoryRepository $categoryRepository */
 		$categoryRepository = $this->getDoctrine()->getRepository(Category::class);
-		$options[BaseType::getChoicesName('category')] = $categoryRepository->findFilterItems();
+		$options[BaseType::getChoicesName('categories')] = $categoryRepository->findFilterItems();
 	
+		/** @var ChoicesFactory $featuredChoicesFactory */
+		$featuredChoicesFactory = $this->get('app.factory.choices.base.filter.featuredChoices');
+		$options[BaseType::getChoicesName('featured')] = $featuredChoicesFactory->getItems();
+		
 		return $options;
 	}
 	

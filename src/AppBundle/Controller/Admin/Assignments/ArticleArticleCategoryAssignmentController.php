@@ -103,11 +103,11 @@ class ArticleArticleCategoryAssignmentController extends AssignmentController {
 	
 		/** @var ArticleRepository $articleRepository */
 		$articleRepository = $this->getDoctrine()->getRepository(Article::class);
-		$options[BaseType::getChoicesName('article')] = $articleRepository->findFilterItems();
+		$options[BaseType::getChoicesName('articles')] = $articleRepository->findFilterItems();
 	
 		/** @var ArticleCategoryRepository $articleArticleCategoryRepository */
 		$articleCategoryRepository = $this->getDoctrine()->getRepository(ArticleCategory::class);
-		$options[BaseType::getChoicesName('articleCategory')] = $articleCategoryRepository->findFilterItems();
+		$options[BaseType::getChoicesName('articleCategories')] = $articleCategoryRepository->findFilterItems();
 	
 		return $options;
 	}

@@ -7,7 +7,7 @@ use AppBundle\Filter\Base\Filter;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 
-class FeaturedEntityFilterType extends SimpleEntityFilterType
+class FeaturedEntityFilterType extends SimpleEntityFilterType //TODO remove -> to complex, better to add 2 lines in proper filters
 {
 	/**
 	 * 

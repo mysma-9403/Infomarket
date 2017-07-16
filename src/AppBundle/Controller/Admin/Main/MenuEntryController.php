@@ -128,20 +128,28 @@ class MenuEntryController extends SimpleEntityController {
 	
 		/** @var MenuRepository $menuRepository */
 		$menuRepository = $this->getDoctrine()->getRepository(Menu::class);
-		$options[BaseType::getChoicesName('menu')] = $menuRepository->findFilterItems();
+		$options[BaseType::getChoicesName('menus')] = $menuRepository->findFilterItems();
 		
 		/** @var MenuEntryRepository $menuEntryRepository */
 		$menuEntryRepository = $this->getDoctrine()->getRepository(MenuEntry::class);
-		$options[BaseType::getChoicesName('parent')] = $menuEntryRepository->findFilterItems();
+		$options[BaseType::getChoicesName('parents')] = $menuEntryRepository->findFilterItems();
 	
 		/** @var BranchRepository $branchRepository */
 		$branchRepository = $this->getDoctrine()->getRepository(Branch::class);
-		$options[BaseType::getChoicesName('branch')] = $branchRepository->findFilterItems();
+		$options[BaseType::getChoicesName('branches')] = $branchRepository->findFilterItems();
 	
 		/** @var CategoryRepository $categoryRepository */
 		$categoryRepository = $this->getDoctrine()->getRepository(Category::class);
-		$options[BaseType::getChoicesName('category')] = $categoryRepository->findFilterItems();
+		$options[BaseType::getChoicesName('categories')] = $categoryRepository->findFilterItems();
 	
+		/** @var ChoicesFactory $infomarketChoicesFactory */
+		$infomarketChoicesFactory = $this->get('app.factory.choices.base.filter.infomarketChoices');
+		$options[BaseType::getChoicesName('infomarket')] = $infomarketChoicesFactory->getItems();
+		
+		/** @var ChoicesFactory $infoproduktChoicesFactory */
+		$infoproduktChoicesFactory = $this->get('app.factory.choices.base.filter.infoproduktChoices');
+		$options[BaseType::getChoicesName('infoprodukt')] = $infoproduktChoicesFactory->getItems();
+		
 		return $options;
 	}
 	

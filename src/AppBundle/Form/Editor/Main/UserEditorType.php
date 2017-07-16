@@ -45,7 +45,7 @@ class UserEditorType extends BaseEntityEditorType
 		))
 		;
 		
-		$this->addChoiceNumberField($builder, $options, 'roles', true, true);
+		$this->addChoiceNumberEditorField($builder, $options, 'roles', true, true);
 	}
 	
 	protected function getDefaultOptions() {

@@ -33,8 +33,8 @@ class NewsletterBlockArticleAssignmentEditorType extends BaseEntityEditorType
 	 * @see \AppBundle\Form\Base\BaseFormType::addMoreFields()
 	 */
 	protected function addMainFields(FormBuilderInterface $builder, array $options) {
-		$this->addChoiceEntityField($builder, $options, $this->newsletterBlockTransformer, 'newsletterBlock');
-		$this->addChoiceEntityField($builder, $options, $this->articleTransformer, 'article');
+		$this->addChoiceEntityEditorField($builder, $options, $this->newsletterBlockTransformer, 'newsletterBlock');
+		$this->addChoiceEntityEditorField($builder, $options, $this->articleTransformer, 'article');
 		
 		$builder
 		->add('alternativeName', TextType::class, array(

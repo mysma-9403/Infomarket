@@ -32,8 +32,8 @@ class MagazineCategoryAssignmentEditorType extends BaseEntityEditorType
 	 * @see \AppBundle\Form\Base\BaseFormType::addMoreFields()
 	 */
 	protected function addMainFields(FormBuilderInterface $builder, array $options) {
-		$this->addChoiceEntityField($builder, $options, $this->magazineTransformer, 'magazine');
-		$this->addChoiceEntityField($builder, $options, $this->categoryTransformer, 'category');
+		$this->addChoiceEntityEditorField($builder, $options, $this->magazineTransformer, 'magazine');
+		$this->addChoiceEntityEditorField($builder, $options, $this->categoryTransformer, 'category');
 	}
 	
 	protected function getDefaultOptions() {

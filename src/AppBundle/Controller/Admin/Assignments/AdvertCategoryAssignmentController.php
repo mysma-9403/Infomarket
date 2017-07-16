@@ -103,11 +103,11 @@ class AdvertCategoryAssignmentController extends AssignmentController {
 	
 		/** @var AdvertRepository $advertRepository */
 		$advertRepository = $this->getDoctrine()->getRepository(Advert::class);
-		$options[BaseType::getChoicesName('advert')] = $advertRepository->findFilterItems();
+		$options[BaseType::getChoicesName('adverts')] = $advertRepository->findFilterItems();
 		
 		/** @var CategoryRepository $categoryRepository */
 		$categoryRepository = $this->getDoctrine()->getRepository(Category::class);
-		$options[BaseType::getChoicesName('category')] = $categoryRepository->findFilterItems();
+		$options[BaseType::getChoicesName('categories')] = $categoryRepository->findFilterItems();
 	
 		return $options;
 	}

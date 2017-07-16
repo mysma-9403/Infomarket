@@ -5,6 +5,7 @@ namespace AppBundle\Controller\Admin\Main;
 use AppBundle\Controller\Admin\Base\SimpleEntityController;
 use AppBundle\Entity\Link;
 use AppBundle\Filter\Admin\Main\LinkFilter;
+use AppBundle\Form\Base\BaseType;
 use AppBundle\Form\Editor\Main\LinkEditorType;
 use AppBundle\Form\Filter\Admin\Main\LinkFilterType;
 use AppBundle\Manager\Entity\Common\LinkManager;
@@ -109,6 +110,24 @@ class LinkController extends SimpleEntityController {
 	public function setIPPublishedAction(Request $request, $id)
 	{
 		return $this->setIPPublishedActionInternal($request, $id);
+	}
+	
+	//------------------------------------------------------------------------
+	// Internal logic
+	//------------------------------------------------------------------------
+	
+	protected function getFilterFormOptions() {
+		$options = parent::getFilterFormOptions();
+	
+		/** @var ChoicesFactory $infomarketChoicesFactory */
+		$infomarketChoicesFactory = $this->get('app.factory.choices.base.filter.infomarketChoices');
+		$options[BaseType::getChoicesName('infomarket')] = $infomarketChoicesFactory->getItems();
+	
+		/** @var ChoicesFactory $infoproduktChoicesFactory */
+		$infoproduktChoicesFactory = $this->get('app.factory.choices.base.filter.infoproduktChoices');
+		$options[BaseType::getChoicesName('infoprodukt')] = $infoproduktChoicesFactory->getItems();
+	
+		return $options;
 	}
 	
 	//---------------------------------------------------------------------------

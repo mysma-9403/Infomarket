@@ -25,7 +25,9 @@ abstract class BaseEntityController extends AdminController
 		
 		/** @var UserRepository $userRepository */
 		$userRepository = $this->getDoctrine()->getRepository(User::class);
-		$options[BaseType::getChoicesName('user')] = $userRepository->findFilterItems();
+		$users = $userRepository->findFilterItems();
+		$options[BaseType::getChoicesName('createdBy')] = $users;
+		$options[BaseType::getChoicesName('updatedBy')] = $users; //TODO there should be probably two different lists
 		
 		return $options;
 	}
