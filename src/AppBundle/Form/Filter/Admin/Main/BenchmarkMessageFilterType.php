@@ -15,14 +15,14 @@ class BenchmarkMessageFilterType extends AdminFilterType
 	 * {@inheritDoc}
 	 * @see \AppBundle\Form\Base\BaseFormType::addMoreMessages()
 	 */
-	protected function addMainMessages(FormBuilderInterface $builder, array $options) {
-		parent::addMainMessages($builder, $options);
+	protected function addMainFields(FormBuilderInterface $builder, array $options) {
+		parent::addMainFields($builder, $options);
 		
 		$this->addChoiceEntityFilterField($builder, $options, 'products');
 		$this->addChoiceEntityFilterField($builder, $options, 'authors');
 		
 		$this->addChoiceNumberFilterField($builder, $options, 'states');
-		$this->addChoiceNumberFilterField($builder, $options, 'readByAdmin');
+		$this->addChoiceNumberFilterField($builder, $options, 'readByAdmin', false);
 	}
 	
 	protected function getDefaultOptions() {

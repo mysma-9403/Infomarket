@@ -41,7 +41,27 @@ abstract class BaseTypeTest extends TypeTestCase {
 		$this->assertEntity($entity);
 	}
 	
+	
+	
 	protected function assertEntity($entity) { }
+	
+	protected function assertDate($expected, \DateTime $actual) {
+		$this->assertSame($expected, $actual->format('m/Y'));
+	}
+	
+	protected function assertDateTime($expected, \DateTime $actual) {
+		$this->assertSame($expected, $actual->format('d/m/Y H:i'));
+	}
+	
+	protected function assertArray($expected, $actual) {
+		foreach($expected as $expectedItem) {
+			$this->assertContains($expectedItem, $actual);
+		}
+		
+		$this->assertSameSize($expected, $actual);
+	}
+	
+	
 	
 	protected function getFormData() {
 		return [];

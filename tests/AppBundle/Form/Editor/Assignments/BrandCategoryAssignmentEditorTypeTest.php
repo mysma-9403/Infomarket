@@ -19,6 +19,8 @@ class BrandCategoryAssignmentEditorTypeTest extends BaseEntityEditorTypeTest {
 	const CATEGORY_NAME = 'Test category';
 	const CATEGORY_CHOICES = ['Test category' => self::CATEGORY_ID];
 	
+	const ORDER_NUMBER = 3;
+	
 	
 	
 	private $brandTransformer;
@@ -50,6 +52,8 @@ class BrandCategoryAssignmentEditorTypeTest extends BaseEntityEditorTypeTest {
 		
 		$this->assertSame(self::CATEGORY_ID, $entity->getCategory()->getId());
 		$this->assertSame(self::CATEGORY_NAME, $entity->getCategory()->getName());
+		
+		$this->assertSame(self::ORDER_NUMBER, $entity->getOrderNumber());
 	}
 	
 	protected function getFormData() {
@@ -57,6 +61,8 @@ class BrandCategoryAssignmentEditorTypeTest extends BaseEntityEditorTypeTest {
 	
 		$data['brand'] = self::BRAND_ID;
 		$data['category'] = self::CATEGORY_ID;
+		
+		$data['orderNumber'] = self::ORDER_NUMBER;
 		
 		return $data;
 	}

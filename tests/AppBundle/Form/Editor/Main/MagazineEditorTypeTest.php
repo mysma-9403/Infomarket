@@ -47,7 +47,7 @@ class MagazineEditorTypeTest extends ImageEntityEditorTypeTest {
 		$this->assertSame(self::MAIN, $entity->getMain());
 		$this->assertSame(self::FEATURED, $entity->getFeatured());
 		$this->assertSame(self::CONTENT, $entity->getContent());
-		$this->assertSame(self::DATE, $entity->getDate()->format('m/Y'));
+		$this->assertDate(self::DATE, $entity->getDate());
 		
 		$this->assertSame(self::PARENT_ID, $entity->getParent()->getId());
 		$this->assertSame(self::PARENT_NAME, $entity->getParent()->getName());

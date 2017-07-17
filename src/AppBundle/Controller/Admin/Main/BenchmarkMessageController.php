@@ -7,9 +7,11 @@ use AppBundle\Controller\Admin\Base\SimpleEntityController;
 use AppBundle\Entity\BenchmarkMessage;
 use AppBundle\Entity\Product;
 use AppBundle\Entity\User;
+use AppBundle\Factory\Common\Choices\Base\ChoicesFactory;
 use AppBundle\Filter\Admin\Base\AuditFilter;
 use AppBundle\Filter\Admin\Main\BenchmarkMessageFilter;
-use AppBundle\Form\Benchmark\BenchmarkMessageType;
+use AppBundle\Form\Base\BaseType;
+use AppBundle\Form\Editor\Main\BenchmarkMessageEditorType;
 use AppBundle\Form\Filter\Admin\Main\BenchmarkMessageFilterType;
 use AppBundle\Form\Lists\BenchmarkMessageListType;
 use AppBundle\Manager\Entity\Base\EntityManager;
@@ -23,9 +25,6 @@ use AppBundle\Utils\StringUtils;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use AppBundle\Form\Base\BaseType;
-use AppBundle\Factory\Common\Choices\Base\ChoicesFactory;
-use AppBundle\Form\Editor\Main\BenchmarkMessageEditorType;
 
 class BenchmarkMessageController extends BaseEntityController {
 	

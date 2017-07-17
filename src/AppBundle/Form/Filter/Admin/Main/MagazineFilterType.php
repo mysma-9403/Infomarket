@@ -4,10 +4,10 @@ namespace AppBundle\Form\Filter\Admin\Main;
 
 use AppBundle\Filter\Admin\Main\MagazineFilter;
 use AppBundle\Filter\Base\Filter;
-use AppBundle\Form\Filter\Admin\Base\FeaturedEntityFilterType;
+use AppBundle\Form\Filter\Admin\Base\SimpleEntityFilterType;
 use Symfony\Component\Form\FormBuilderInterface;
 
-class MagazineFilterType extends FeaturedEntityFilterType
+class MagazineFilterType extends SimpleEntityFilterType
 {
 	protected function addMainFields(FormBuilderInterface $builder, array $options) {
 		parent::addMainFields($builder, $options);
@@ -15,6 +15,8 @@ class MagazineFilterType extends FeaturedEntityFilterType
 		$this->addChoiceEntityFilterField($builder, $options, 'parents');
 		$this->addChoiceEntityFilterField($builder, $options, 'branches');
 		$this->addChoiceEntityFilterField($builder, $options, 'categories');
+		
+		$this->addChoiceNumberFilterField($builder, $options, 'featured', false);
 	}
 	
 	protected function getDefaultOptions() {
@@ -23,6 +25,8 @@ class MagazineFilterType extends FeaturedEntityFilterType
 		$options[$this->getChoicesName('parents')] = [];
 		$options[$this->getChoicesName('branches')] = [];
 		$options[$this->getChoicesName('categories')] = [];
+		
+		$options[$this->getChoicesName('featured')] = [];
 	
 		return $options;
 	}

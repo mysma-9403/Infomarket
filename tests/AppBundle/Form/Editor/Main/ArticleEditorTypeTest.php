@@ -74,8 +74,8 @@ class ArticleEditorTypeTest extends ImageEntityEditorTypeTest {
 		$this->assertSame(self::INTRO, $entity->getIntro());
 		$this->assertSame(self::CONTENT, $entity->getContent());
 		
-		$this->assertSame(self::DATE, $entity->getDate()->format('d/m/Y H:i'));
-		$this->assertSame(self::END_DATE, $entity->getEndDate()->format('d/m/Y H:i'));
+		$this->assertDateTime(self::DATE, $entity->getDate());
+		$this->assertDateTime(self::END_DATE, $entity->getEndDate());
 		
 		$this->assertSame(self::LAYOUT, $entity->getLayout());
 		$this->assertSame(self::IMAGE_SIZE, $entity->getImageSize());
