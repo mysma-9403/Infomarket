@@ -7,7 +7,7 @@ use AppBundle\Controller\Admin\Base\SimpleEntityController;
 use AppBundle\Entity\BenchmarkMessage;
 use AppBundle\Entity\Product;
 use AppBundle\Entity\User;
-use AppBundle\Factory\Common\Choices\Base\ChoicesFactory;
+use AppBundle\Factory\Common\Choices\Base\TwigChoicesFactory;
 use AppBundle\Filter\Admin\Base\AuditFilter;
 use AppBundle\Filter\Admin\Main\BenchmarkMessageFilter;
 use AppBundle\Form\Base\BaseType;

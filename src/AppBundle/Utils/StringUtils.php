@@ -2,7 +2,7 @@
 
 namespace AppBundle\Utils;
 
-class StringUtils {
+class StringUtils extends \Twig_Extension {
 	
 	/**
 	 * Get class name for specified class type.
@@ -71,5 +71,13 @@ class StringUtils {
 		$result &= strpos($string, '..') === false;
 		
 		return $result;
+	}
+	
+	public function getFilters() {
+		$filters = array();
+		
+		$filters['cleanName'] = new \Twig_SimpleFilter('clean', StringUtils::class . '::getCleanName');
+		
+		return $filters;
 	}
 }

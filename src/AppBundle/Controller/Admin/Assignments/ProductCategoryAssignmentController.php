@@ -19,7 +19,7 @@ use AppBundle\Entity\Brand;
 use AppBundle\Entity\Segment;
 use AppBundle\Controller\Admin\Base\AssignmentController;
 use AppBundle\Form\Base\BaseType;
-use AppBundle\Factory\Common\Choices\Base\ChoicesFactory;
+use AppBundle\Factory\Common\Choices\Base\TwigChoicesFactory;
 
 class ProductCategoryAssignmentController extends AssignmentController {
 	

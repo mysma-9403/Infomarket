@@ -19,34 +19,6 @@ class Article extends ImageEntity
 	const MEDIUM_IMAGE = 1;
 	const SMALL_IMAGE = 2;
 	
-	public static function getLayoutName($layout) {
-		switch ($layout) {
-			case self::LEFT_LAYOUT:
-				return 'label.article.layout.left';
-			case self::MID_LAYOUT:
-				return 'label.article.layout.mid';
-			case self::RIGHT_LAYOUT:
-				return 'label.article.layout.right';
-			case self::BOTTOM_LAYOUT:
-				return 'label.article.layout.bottom';
-			default:
-				return null;
-		}
-	}
-	
-	public static function getImageSizeName($imageSize) {
-		switch ($imageSize) {
-			case self::LARGE_IMAGE:
-				return 'label.article.imageSize.large';
-			case self::MEDIUM_IMAGE:
-				return 'label.article.imageSize.medium';
-			case self::SMALL_IMAGE:
-				return 'label.article.imageSize.small';
-			default:
-				return null;
-		}
-	}
-	
 	/**
 	 * 
 	 * {@inheritDoc}

@@ -26,7 +26,7 @@ use AppBundle\Repository\Admin\Main\TagRepository;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Form\Base\BaseType;
-use AppBundle\Factory\Common\Choices\Base\ChoicesFactory;
+use AppBundle\Factory\Common\Choices\Base\TwigChoicesFactory;
 use AppBundle\Entity\User;
 
 class ArticleController extends FeaturedEntityController {

@@ -14,7 +14,7 @@ use AppBundle\Manager\Filter\Base\FilterManager;
 use AppBundle\Repository\Admin\Main\CategoryRepository;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Form\Base\BaseType;
-use AppBundle\Factory\Common\Choices\Base\ChoicesFactory;
+use AppBundle\Factory\Common\Choices\Base\TwigChoicesFactory;
 
 class AdvertController extends ImageEntityController {
 	

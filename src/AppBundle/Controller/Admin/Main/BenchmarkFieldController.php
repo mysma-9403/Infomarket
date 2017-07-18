@@ -6,7 +6,7 @@ use AppBundle\Controller\Admin\Base\BaseEntityController;
 use AppBundle\Controller\Admin\Base\SimpleEntityController;
 use AppBundle\Entity\BenchmarkField;
 use AppBundle\Entity\Category;
-use AppBundle\Factory\Common\Choices\Base\ChoicesFactory;
+use AppBundle\Factory\Common\Choices\Base\TwigChoicesFactory;
 use AppBundle\Filter\Admin\Main\BenchmarkFieldFilter;
 use AppBundle\Form\Base\BaseType;
 use AppBundle\Form\Editor\Main\BenchmarkFieldEditorType;

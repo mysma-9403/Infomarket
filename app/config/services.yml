@@ -25,17 +25,6 @@ services:
         tags:
             - { name: security.voter }
         public: false
-    
-    # Twig extensions
-    twig.extension.clean_name:
-        class: AppBundle\Twig\Extension\CleanNameExtension
-        tags:
-            - { name: 'twig.extension' }
-                
-    twig.extension.value_sets:
-        class: AppBundle\Twig\Extension\ValueSetsExtension
-        tags:
-            - { name: 'twig.extension' }
         
     # Form extensions          
     form_extension.form_icon:
@@ -47,107 +36,65 @@ services:
         tags:
             - { name: form.type_extension, extended_type: Symfony\Component\Form\Extension\Core\Type\ButtonType }
             
-            
+    # Twig extensions
+    twig.extension.clean_name:
+        class: AppBundle\Utils\StringUtils
+        tags:
+            - { name: 'twig.extension' }
     
     # Boolean Filter Choices Factories
-    app.factory.choices.base.filter.benchmarkChoices:
-        class: AppBundle\Factory\Common\Choices\BenchmarkChoicesFactory
-        arguments:
-            - '@translator'
-        tags:
-            - { name: app.factory }
-    app.factory.choices.base.filter.featuredChoices:
-        class: AppBundle\Factory\Common\Choices\FeaturedChoicesFactory
-        arguments:
-            - '@translator'
-        tags:
-            - { name: app.factory }
-    app.factory.choices.base.filter.infomarketChoices:
-        class: AppBundle\Factory\Common\Choices\InfomarketChoicesFactory
-        arguments:
-            - '@translator'
-        tags:
-            - { name: app.factory }
-    app.factory.choices.base.filter.infoproduktChoices:
-        class: AppBundle\Factory\Common\Choices\InfoproduktChoicesFactory
-        arguments:
-            - '@translator'
-        tags:
-            - { name: app.factory }
-    app.factory.choices.base.filter.preleafChoices:
-        class: AppBundle\Factory\Common\Choices\PreleafChoicesFactory
-        arguments:
-            - '@translator'
-        tags:
-            - { name: app.factory }
-    app.factory.choices.base.filter.readChoices:
-        class: AppBundle\Factory\Common\Choices\ReadChoicesFactory
-        arguments:
-            - '@translator'
-        tags:
-            - { name: app.factory }
-    app.factory.choices.base.filter.subscribedChoices:
-        class: AppBundle\Factory\Common\Choices\SubscribedChoicesFactory
-        arguments:
-            - '@translator'
-        tags:
-            - { name: app.factory }
+    twig.extension.choices.base.filter.benchmarkChoices:
+        class: AppBundle\Factory\Common\Choices\Bool\BenchmarkChoicesFactory
+    twig.extension.choices.base.filter.featuredChoices:
+        class: AppBundle\Factory\Common\Choices\Bool\FeaturedChoicesFactory
+    twig.extension.choices.base.filter.infomarketChoices:
+        class: AppBundle\Factory\Common\Choices\Bool\InfomarketChoicesFactory
+    twig.extension.choices.base.filter.infoproduktChoices:
+        class: AppBundle\Factory\Common\Choices\Bool\InfoproduktChoicesFactory
+    twig.extension.choices.base.filter.preleafChoices:
+        class: AppBundle\Factory\Common\Choices\Bool\PreleafChoicesFactory
+    twig.extension.choices.base.filter.readChoices:
+        class: AppBundle\Factory\Common\Choices\Bool\ReadChoicesFactory
+    twig.extension.choices.base.filter.subscribedChoices:
+        class: AppBundle\Factory\Common\Choices\Bool\SubscribedChoicesFactory
 
     # Entity Choices Factories   
-    app.factory.choices.advert.locations:
-        class: AppBundle\Factory\Common\Choices\AdvertLocationsFactory
-        arguments:
-            - '@translator'
+    twig.extension.choices.advert.locations:
+        class: AppBundle\Factory\Common\Choices\Enum\AdvertLocationsFactory
         tags:
-            - { name: app.factory }
-    app.factory.choices.article.imageSizes:
-        class: AppBundle\Factory\Common\Choices\ArticleImageSizesFactory
-        arguments:
-            - '@translator'
+            - { name: twig.extension }
+    twig.extension.choices.article.imageSizes:
+        class: AppBundle\Factory\Common\Choices\Enum\ArticleImageSizesFactory
         tags:
-            - { name: app.factory }
-    app.factory.choices.article.layouts:
-        class: AppBundle\Factory\Common\Choices\ArticleLayoutsFactory
-        arguments:
-            - '@translator'
+            - { name: twig.extension }
+    twig.extension.choices.article.layouts:
+        class: AppBundle\Factory\Common\Choices\Enum\ArticleLayoutsFactory
         tags:
-            - { name: app.factory }
-    app.factory.choices.benchmarkField.betterThanTypes:
-        class: AppBundle\Factory\Common\Choices\BenchmarkFieldBetterThanTypesFactory
-        arguments:
-            - '@translator'
+            - { name: twig.extension }
+    twig.extension.choices.benchmarkField.betterThanTypes:
+        class: AppBundle\Factory\Common\Choices\Enum\BenchmarkFieldBetterThanTypesFactory
         tags:
-            - { name: app.factory }
-    app.factory.choices.benchmarkField.fieldTypes:
-        class: AppBundle\Factory\Common\Choices\BenchmarkFieldFieldTypesFactory
-        arguments:
-            - '@translator'
+            - { name: twig.extension }
+    twig.extension.choices.benchmarkField.fieldTypes:
+        class: AppBundle\Factory\Common\Choices\Enum\BenchmarkFieldFieldTypesFactory
         tags:
-            - { name: app.factory }
-    app.factory.choices.benchmarkField.noteTypes:
-        class: AppBundle\Factory\Common\Choices\BenchmarkFieldNoteTypesFactory
-        arguments:
-            - '@translator'
+            - { name: twig.extension }
+    twig.extension.choices.benchmarkField.noteTypes:
+        class: AppBundle\Factory\Common\Choices\Enum\BenchmarkFieldNoteTypesFactory
         tags:
-            - { name: app.factory }
-    app.factory.choices.benchmarkMessage.states:
-        class: AppBundle\Factory\Common\Choices\BenchmarkMessageStatesFactory
-        arguments:
-            - '@translator'
+            - { name: twig.extension }
+    twig.extension.choices.benchmarkMessage.states:
+        class: AppBundle\Factory\Common\Choices\Enum\BenchmarkMessageStatesFactory
         tags:
-            - { name: app.factory }
-    app.factory.choices.newsletterUserNewsletterPageAssignment.states:
-        class: AppBundle\Factory\Common\Choices\NewsletterUserNewsletterPageAssignmentStatesFactory
-        arguments:
-            - '@translator'
+            - { name: twig.extension }
+    twig.extension.choices.newsletterUserNewsletterPageAssignment.states:
+        class: AppBundle\Factory\Common\Choices\Enum\NewsletterUserNewsletterPageAssignmentStatesFactory
         tags:
-            - { name: app.factory }
-    app.factory.choices.user.roles:
-        class: AppBundle\Factory\Common\Choices\UserRolesFactory
-        arguments:
-            - '@translator'
+            - { name: twig.extension }
+    twig.extension.choices.user.roles:
+        class: AppBundle\Factory\Common\Choices\Enum\UserRolesFactory
         tags:
-            - { name: app.factory }
+            - { name: twig.extension }
             
     # Common Repositories
     app.repository.advert:

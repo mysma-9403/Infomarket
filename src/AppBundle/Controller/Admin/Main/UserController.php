@@ -5,7 +5,7 @@ namespace AppBundle\Controller\Admin\Main;
 use AppBundle\Controller\Admin\Base\AdminController;
 use AppBundle\Entity\Lists\Base\BaseEntityList;
 use AppBundle\Entity\User;
-use AppBundle\Factory\Common\Choices\Base\ChoicesFactory;
+use AppBundle\Factory\Common\Choices\Base\TwigChoicesFactory;
 use AppBundle\Filter\Admin\Main\UserFilter;
 use AppBundle\Form\Base\BaseType;
 use AppBundle\Form\Editor\Main\UserEditorType;
