@@ -20,7 +20,7 @@ class NewsletterUserNewsletterPageAssignmentStatesFactoryTest extends TestCase {
 	
 	
 	
-	public function __construct() {
+	protected function setUp() {
 		$this->factory = new NewsletterUserNewsletterPageAssignmentStatesFactory();
 	}
 	

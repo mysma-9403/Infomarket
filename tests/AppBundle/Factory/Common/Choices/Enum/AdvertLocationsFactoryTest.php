@@ -20,7 +20,7 @@ class AdvertLocationsFactoryTest extends TestCase {
 	
 	
 	
-	public function __construct() {
+	protected function setUp() {
 		$this->factory = new AdvertLocationsFactory();
 	}
 	
