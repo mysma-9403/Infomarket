@@ -3,6 +3,7 @@
 namespace AppBundle\Form\Editor\Admin\Assignments;
 
 use AppBundle\Entity\AdvertCategoryAssignment;
+use AppBundle\Factory\Common\Name\NameFactory;
 use AppBundle\Form\Editor\Admin\Base\BaseEntityEditorType;
 use AppBundle\Form\Transformer\EntityToNumberTransformer;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -21,7 +22,12 @@ class AdvertCategoryAssignmentEditorType extends BaseEntityEditorType
 	 */
 	protected $categoryTransformer;
 	
-	public function __construct(EntityToNumberTransformer $advertTransformer, EntityToNumberTransformer $categoryTransformer) {
+	public function __construct(
+			NameFactory $choicesNameFactory, 
+			EntityToNumberTransformer $advertTransformer, 
+			EntityToNumberTransformer $categoryTransformer) {
+		parent::__construct($choicesNameFactory);
+		
 		$this->advertTransformer = $advertTransformer;
 		$this->categoryTransformer = $categoryTransformer;
 	}

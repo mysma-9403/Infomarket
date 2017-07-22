@@ -4,7 +4,8 @@ namespace AppBundle\Controller\Admin\Main;
 
 use AppBundle\Controller\Admin\Base\SimpleEntityController;
 use AppBundle\Entity\Menu;
-use AppBundle\Form\Base\BaseType;
+use AppBundle\Factory\Common\Choices\Bool\InfomarketChoicesFactory;
+use AppBundle\Factory\Common\Choices\Bool\InfoproduktChoicesFactory;
 use AppBundle\Manager\Entity\Common\MenuManager;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -68,13 +69,8 @@ class MenuController extends SimpleEntityController {
 	protected function getFilterFormOptions() {
 		$options = parent::getFilterFormOptions();
 	
-		/** @var ChoicesFactory $infomarketChoicesFactory */
-		$infomarketChoicesFactory = $this->get('app.factory.choices.base.filter.infomarketChoices');
-		$options[BaseType::getChoicesName('infomarket')] = $infomarketChoicesFactory->getItems();
-	
-		/** @var ChoicesFactory $infoproduktChoicesFactory */
-		$infoproduktChoicesFactory = $this->get('app.factory.choices.base.filter.infoproduktChoices');
-		$options[BaseType::getChoicesName('infoprodukt')] = $infoproduktChoicesFactory->getItems();
+		$this->addFactoryChoicesFormOption($options, InfomarketChoicesFactory::class, 'infomarket');
+		$this->addFactoryChoicesFormOption($options, InfoproduktChoicesFactory::class, 'infoprodukt');
 	
 		return $options;
 	}

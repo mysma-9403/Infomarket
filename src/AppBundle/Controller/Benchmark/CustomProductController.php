@@ -12,7 +12,6 @@ use AppBundle\Entity\ProductNote;
 use AppBundle\Factory\Common\BenchmarkField\SimpleBenchmarkFieldFactory;
 use AppBundle\Filter\Benchmark\CustomProductFilter;
 use AppBundle\Filter\Common\Other\ProductFilter;
-use AppBundle\Form\Base\BaseType;
 use AppBundle\Form\Editor\Admin\Main\ProductEditorType;
 use AppBundle\Form\Filter\Benchmark\CategoryFilterType;
 use AppBundle\Form\Filter\Benchmark\CustomProductFilterType;
@@ -148,19 +147,10 @@ class CustomProductController extends ImageEntityController {
 	
 	protected function initCategoryForm(Request $request, array &$params) {
 		$viewParams = $params['viewParams'];
+		
 		$categoryFilter = $viewParams['categoryFilter'];
-	
-		$tokenStorage = $this->get('security.token_storage');
-		$user = $tokenStorage->getToken()->getUser()->getId();
 		
-		$options = [];
-		
-		$em = $this->getDoctrine()->getManager();
-		$categoryRepository = new CategoryRepository($em, $em->getClassMetadata(Category::class));
-		$options[BaseType::getChoicesName('category')] = $categoryRepository->findFilterItemsByUser($user);
-		
-		$form = $this->createForm(CategoryFilterType::class, $categoryFilter, $options);
-		
+		$form = $this->createForm(CategoryFilterType::class, $categoryFilter, $this->getCategoryFormOptions($params));
 		$form->handleRequest($request);
 	
 		if ($form->isSubmitted() && $form->isValid())
@@ -179,23 +169,10 @@ class CustomProductController extends ImageEntityController {
 	
 	protected function initSubcategoryForm(Request $request, array &$params) {
 		$viewParams = $params['viewParams'];
-		$contextParams = $params['contextParams'];
+		
 		$subcategoryFilter = $viewParams['subcategoryFilter'];
-	
-		$category = $contextParams['category'];
 		
-		$tokenStorage = $this->get('security.token_storage');
-		$user = $tokenStorage->getToken()->getUser()->getId();
-		
-		//----- other method
-		$options = [];
-		
-		$em = $this->getDoctrine()->getManager();
-		$categoryRepository = new CategoryRepository($em, $em->getClassMetadata(Category::class));
-		$options[BaseType::getChoicesName('subcategory')] = $categoryRepository->findFilterItemsByUserAndCategory($user, $category);
-		
-		$form = $this->createForm(SubcategoryFilterType::class, $subcategoryFilter, $options);
-		
+		$form = $this->createForm(SubcategoryFilterType::class, $subcategoryFilter, $this->getSubcategoryFormOptions($params));
 		$form->handleRequest($request);
 	
 		if ($form->isSubmitted() && $form->isValid())
@@ -215,14 +192,40 @@ class CustomProductController extends ImageEntityController {
 	protected function getFilterFormOptions() {
 		$options = parent::getFilterFormOptions();
 	
-		/** @var BrandRepository $brandRepository */
-		$brandRepository = $this->getDoctrine()->getRepository(Brand::class);
-		$options[BaseType::getChoicesName('brands')] = $brandRepository->findFilterItems();
+		$this->addEntityChoicesFormOption($options, Brand::class, 'brands');
+		$this->addEntityChoicesFormOption($options, Category::class, 'categories');
 	
-		/** @var CategoryRepository $categoryRepository */
-		$categoryRepository = $this->getDoctrine()->getRepository(Category::class);
-		$options[BaseType::getChoicesName('categories')] = $categoryRepository->findFilterItems();
+		return $options;
+	}
 	
+	protected function getCategoryFormOptions(array $params) {
+		$options = [];
+		
+		$contextParams = $params['contextParams'];
+		$userId = $contextParams['user'];
+		
+		$em = $this->getDoctrine()->getManager();
+		$categoryRepository = new CategoryRepository($em, $em->getClassMetadata(Category::class));
+		$choices = $categoryRepository->findFilterItemsByUser($userId);
+		
+		$this->addChoicesFormOption($options, $choices, 'category');
+		
+		return $options;
+	}
+	
+	protected function getSubcategoryFormOptions(array $params) {
+		$options = [];
+	
+		$contextParams = $params['contextParams'];
+		$categoryId = $contextParams['category'];
+		$userId = $contextParams['user'];
+	
+		$em = $this->getDoctrine()->getManager();
+		$categoryRepository = new CategoryRepository($em, $em->getClassMetadata(Category::class));
+		$choices = $categoryRepository->findFilterItemsByUserAndCategory($userId, $categoryId);
+	
+		$this->addChoicesFormOption($options, $choices, 'subcategory');
+		
 		return $options;
 	}
 	

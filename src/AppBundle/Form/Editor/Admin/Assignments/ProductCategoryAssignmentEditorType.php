@@ -3,6 +3,7 @@
 namespace AppBundle\Form\Editor\Admin\Assignments;
 
 use AppBundle\Entity\ProductCategoryAssignment;
+use AppBundle\Factory\Common\Name\NameFactory;
 use AppBundle\Form\Editor\Admin\Base\BaseEntityEditorType;
 use AppBundle\Form\Transformer\EntityToNumberTransformer;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
@@ -24,9 +25,11 @@ class ProductCategoryAssignmentEditorType extends BaseEntityEditorType
 	protected $categoryTransformer;
 	
 	public function __construct(
+			NameFactory $choicesNameFactory,
 			EntityToNumberTransformer $productTransformer,
 			EntityToNumberTransformer $segmentTransformer,
 			EntityToNumberTransformer $categoryTransformer) {
+		parent::__construct($choicesNameFactory);
 		
 		$this->productTransformer = $productTransformer;
 		$this->segmentTransformer = $segmentTransformer;

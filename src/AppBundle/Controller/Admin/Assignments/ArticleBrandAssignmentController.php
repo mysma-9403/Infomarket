@@ -12,10 +12,7 @@ use AppBundle\Form\Editor\Admin\Assignments\ArticleBrandAssignmentEditorType;
 use AppBundle\Form\Filter\Admin\Assignments\ArticleBrandAssignmentFilterType;
 use AppBundle\Manager\Entity\Common\ArticleBrandAssignmentManager;
 use AppBundle\Manager\Filter\Base\FilterManager;
-use AppBundle\Repository\Admin\Main\ArticleRepository;
-use AppBundle\Repository\Admin\Main\BrandRepository;
 use Symfony\Component\HttpFoundation\Request;
-use AppBundle\Form\Base\BaseType;
 
 class ArticleBrandAssignmentController extends AssignmentController {
 	
@@ -101,13 +98,8 @@ class ArticleBrandAssignmentController extends AssignmentController {
 	protected function getFilterFormOptions() {
 		$options = parent::getFilterFormOptions();
 	
-		/** @var ArticleRepository $articleRepository */
-		$articleRepository = $this->getDoctrine()->getRepository(Article::class);
-		$options[BaseType::getChoicesName('articles')] = $articleRepository->findFilterItems();
-		
-		/** @var BrandRepository $brandRepository */
-		$brandRepository = $this->getDoctrine()->getRepository(Brand::class);
-		$options[BaseType::getChoicesName('brands')] = $brandRepository->findFilterItems();
+		$this->addEntityChoicesFormOption($options, Article::class, 'articles');
+		$this->addEntityChoicesFormOption($options, Brand::class, 'brands');
 		
 		return $options;
 	}
@@ -115,13 +107,8 @@ class ArticleBrandAssignmentController extends AssignmentController {
 	protected function getEditorFormOptions() {
 		$options = parent::getEditorFormOptions();
 	
-		/** @var ArticleRepository $articleRepository */
-		$articleRepository = $this->getDoctrine()->getRepository(Article::class);
-		$options[BaseType::getChoicesName('article')] = $articleRepository->findFilterItems(); //TODO getChoiceItems -> the same structure like filter items
-	
-		/** @var BrandRepository $brandRepository */
-		$brandRepository = $this->getDoctrine()->getRepository(Brand::class);
-		$options[BaseType::getChoicesName('brand')] = $brandRepository->findFilterItems();
+		$this->addEntityChoicesFormOption($options, Article::class, 'article');
+		$this->addEntityChoicesFormOption($options, Brand::class, 'brand');
 	
 		return $options;
 	}

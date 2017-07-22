@@ -4,6 +4,7 @@ namespace AppBundle\Form\Editor\Admin\Main;
 
 use AppBundle\Entity\Brand;
 use AppBundle\Entity\Product;
+use AppBundle\Factory\Common\Name\NameFactory;
 use AppBundle\Filter\Common\Other\ProductFilter;
 use AppBundle\Form\Editor\Admin\Base\ImageEntityEditorType;
 use AppBundle\Form\FormBuilder\BenchmarkEditorFieldBuilder;
@@ -26,7 +27,12 @@ class ProductEditorType extends ImageEntityEditorType
 	 */
 	protected $benchmarkEditorFieldBuilder;
 	
-	public function __construct(EntityToNumberTransformer $brandToNumberTransformer, BenchmarkEditorFieldBuilder $benchmarkEditorFieldBuilder) {
+	public function __construct(
+			NameFactory $choicesNameFactory,
+			EntityToNumberTransformer $brandToNumberTransformer, 
+			BenchmarkEditorFieldBuilder $benchmarkEditorFieldBuilder) {
+		parent::__construct($choicesNameFactory);
+		
 		$this->brandToNumberTransformer = $brandToNumberTransformer;
 		$this->benchmarkEditorFieldBuilder = $benchmarkEditorFieldBuilder;
 	}

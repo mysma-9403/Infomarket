@@ -40,7 +40,7 @@ class ContextParamsManager extends ParamsManager {
 		
 		
 		$userId = $this->tokenStorage->getToken()->getUser()->getId();
-		
+		$contextParams['user'] = $userId;
 		
 		$categoryRepository = new CategoryRepository($em, $em->getClassMetadata(Category::class));
 		

@@ -11,7 +11,6 @@ use AppBundle\Manager\Route\RouteManager;
 use AppBundle\Utils\StringUtils;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Request;
-use AppBundle\Form\Base\BaseType;
 
 abstract class AdminController extends StandardController {
 	
@@ -231,10 +230,7 @@ abstract class AdminController extends StandardController {
 		
 		$listItems = $this->getListItems($items);
 		
-		$options = [];
-		$options[BaseType::getChoicesName('entries')] = $listItems;
-		
-		$form = $this->createForm($this->getListFormType(), $selectedEntries, $options);
+		$form = $this->createForm($this->getListFormType(), $selectedEntries, $this->getListFormOptions($listItems));
 		$form->handleRequest($request);
 		
 		if ($form->isSubmitted() && $form->isValid())
@@ -372,8 +368,16 @@ abstract class AdminController extends StandardController {
 	}
 	
 	//---------------------------------------------------------------------------
-	// Internal logic
+	// Form options
 	//---------------------------------------------------------------------------
+	
+	protected function getListFormOptions(array $listItems) {
+		$options = [];
+		
+		$this->addChoicesFormOption($options, $listItems, 'entries');
+		
+		return $options;
+	}
 	
 	protected function getFilterFormOptions() {
 		return array();
@@ -382,6 +386,10 @@ abstract class AdminController extends StandardController {
 	protected function getEditorFormOptions() {
 		return array();
 	}
+	
+	//---------------------------------------------------------------------------
+	// Internal logic
+	//---------------------------------------------------------------------------
 	
 	protected function getListItems($items) {
 		$listItems = array();

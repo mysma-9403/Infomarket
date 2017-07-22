@@ -12,10 +12,7 @@ use AppBundle\Form\Editor\Admin\Assignments\MagazineBranchAssignmentEditorType;
 use AppBundle\Form\Filter\Admin\Assignments\MagazineBranchAssignmentFilterType;
 use AppBundle\Manager\Entity\Common\MagazineBranchAssignmentManager;
 use AppBundle\Manager\Filter\Base\FilterManager;
-use AppBundle\Repository\Admin\Main\BranchRepository;
-use AppBundle\Repository\Admin\Main\MagazineRepository;
 use Symfony\Component\HttpFoundation\Request;
-use AppBundle\Form\Base\BaseType;
 
 class MagazineBranchAssignmentController extends AssignmentController {
 	
@@ -101,13 +98,8 @@ class MagazineBranchAssignmentController extends AssignmentController {
 	protected function getFilterFormOptions() {
 		$options = parent::getFilterFormOptions();
 	
-		/** @var MagazineRepository $magazineRepository */
-		$magazineRepository = $this->getDoctrine()->getRepository(Magazine::class);
-		$options[BaseType::getChoicesName('magazines')] = $magazineRepository->findFilterItems();
-	
-		/** @var BranchRepository $branchRepository */
-		$branchRepository = $this->getDoctrine()->getRepository(Branch::class);
-		$options[BaseType::getChoicesName('branches')] = $branchRepository->findFilterItems();
+		$this->addEntityChoicesFormOption($options, Magazine::class, 'magazines');
+		$this->addEntityChoicesFormOption($options, Branch::class, 'branches');
 	
 		return $options;
 	}
@@ -115,13 +107,8 @@ class MagazineBranchAssignmentController extends AssignmentController {
 	protected function getEditorFormOptions() {
 		$options = parent::getEditorFormOptions();
 	
-		/** @var MagazineRepository $magazineRepository */
-		$magazineRepository = $this->getDoctrine()->getRepository(Magazine::class);
-		$options[BaseType::getChoicesName('magazine')] = $magazineRepository->findFilterItems();
-	
-		/** @var BranchRepository $branchRepository */
-		$branchRepository = $this->getDoctrine()->getRepository(Branch::class);
-		$options[BaseType::getChoicesName('branch')] = $branchRepository->findFilterItems();
+		$this->addEntityChoicesFormOption($options, Magazine::class, 'magazine');
+		$this->addEntityChoicesFormOption($options, Branch::class, 'branch');
 	
 		return $options;
 	}

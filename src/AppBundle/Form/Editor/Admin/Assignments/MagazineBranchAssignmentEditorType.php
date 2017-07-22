@@ -3,6 +3,7 @@
 namespace AppBundle\Form\Editor\Admin\Assignments;
 
 use AppBundle\Entity\MagazineBranchAssignment;
+use AppBundle\Factory\Common\Name\NameFactory;
 use AppBundle\Form\Editor\Admin\Base\BaseEntityEditorType;
 use AppBundle\Form\Transformer\EntityToNumberTransformer;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -21,7 +22,12 @@ class MagazineBranchAssignmentEditorType extends BaseEntityEditorType
 	 */
 	protected $branchTransformer;
 	
-	public function __construct(EntityToNumberTransformer $magazineTransformer, EntityToNumberTransformer $branchTransformer) {
+	public function __construct(
+			NameFactory $choicesNameFactory, 
+			EntityToNumberTransformer $magazineTransformer, 
+			EntityToNumberTransformer $branchTransformer) {
+		parent::__construct($choicesNameFactory);
+		
 		$this->magazineTransformer = $magazineTransformer;
 		$this->branchTransformer = $branchTransformer;
 	}

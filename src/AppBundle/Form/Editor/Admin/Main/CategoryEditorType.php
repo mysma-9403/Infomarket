@@ -3,14 +3,16 @@
 namespace AppBundle\Form\Editor\Admin\Main;
 
 use AppBundle\Entity\Category;
+use AppBundle\Factory\Common\Name\ChoicesNameFactory;
+use AppBundle\Factory\Common\Name\NameFactory;
 use AppBundle\Form\Editor\Admin\Base\ImageEntityEditorType;
 use AppBundle\Form\Transformer\EntityToNumberTransformer;
 use FM\ElfinderBundle\Form\Type\ElFinderType;
 use Ivory\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
-use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\FormBuilderInterface;
 
 class CategoryEditorType extends ImageEntityEditorType
 {
@@ -20,7 +22,9 @@ class CategoryEditorType extends ImageEntityEditorType
 	 */
 	protected $categoryToNumberTransformer;
 	
-	public function __construct(EntityToNumberTransformer $categoryToNumberTransformer) {
+	public function __construct(NameFactory $choicesNameFactory, EntityToNumberTransformer $categoryToNumberTransformer) {
+		parent::__construct($choicesNameFactory);
+		
 		$this->categoryToNumberTransformer = $categoryToNumberTransformer;
 	}
 	

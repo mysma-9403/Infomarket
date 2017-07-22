@@ -12,10 +12,7 @@ use AppBundle\Form\Editor\Admin\Assignments\MenuMenuEntryAssignmentEditorType;
 use AppBundle\Form\Filter\Admin\Assignments\MenuMenuEntryAssignmentFilterType;
 use AppBundle\Manager\Entity\Common\MenuMenuEntryAssignmentManager;
 use AppBundle\Manager\Filter\Base\FilterManager;
-use AppBundle\Repository\Admin\Main\MenuEntryRepository;
-use AppBundle\Repository\Admin\Main\MenuRepository;
 use Symfony\Component\HttpFoundation\Request;
-use AppBundle\Form\Base\BaseType;
 
 class MenuMenuEntryAssignmentController extends AssignmentController {
 	
@@ -101,13 +98,8 @@ class MenuMenuEntryAssignmentController extends AssignmentController {
 	protected function getFilterFormOptions() {
 		$options = parent::getFilterFormOptions();
 	
-		/** @var MenuRepository $menuRepository */
-		$menuRepository = $this->getDoctrine()->getRepository(Menu::class);
-		$options[BaseType::getChoicesName('menus')] = $menuRepository->findFilterItems();
-		
-		/** @var MenuEntryRepository $menuEntryRepository */
-		$menuEntryRepository = $this->getDoctrine()->getRepository(MenuEntry::class);
-		$options[BaseType::getChoicesName('menuEntries')] = $menuEntryRepository->findFilterItems();
+		$this->addEntityChoicesFormOption($options, Menu::class, 'menus');
+		$this->addEntityChoicesFormOption($options, MenuEntry::class, 'menuEntries');
 	
 		return $options;
 	}
@@ -115,13 +107,8 @@ class MenuMenuEntryAssignmentController extends AssignmentController {
 	protected function getEditorFormOptions() {
 		$options = parent::getEditorFormOptions();
 	
-		/** @var MenuRepository $menuRepository */
-		$menuRepository = $this->getDoctrine()->getRepository(Menu::class);
-		$options[BaseType::getChoicesName('menu')] = $menuRepository->findFilterItems();
-	
-		/** @var MenuEntryRepository $menuEntryRepository */
-		$menuEntryRepository = $this->getDoctrine()->getRepository(MenuEntry::class);
-		$options[BaseType::getChoicesName('menuEntry')] = $menuEntryRepository->findFilterItems();
+		$this->addEntityChoicesFormOption($options, Menu::class, 'menu');
+		$this->addEntityChoicesFormOption($options, MenuEntry::class, 'menuEntry');
 	
 		return $options;
 	}

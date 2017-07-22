@@ -3,6 +3,7 @@
 namespace AppBundle\Form\Editor\Admin\Assignments;
 
 use AppBundle\Entity\MenuEntryBranchAssignment;
+use AppBundle\Factory\Common\Name\NameFactory;
 use AppBundle\Form\Editor\Admin\Base\BaseEntityEditorType;
 use AppBundle\Form\Transformer\EntityToNumberTransformer;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -21,7 +22,12 @@ class MenuEntryBranchAssignmentEditorType extends BaseEntityEditorType
 	 */
 	protected $branchTransformer;
 	
-	public function __construct(EntityToNumberTransformer $menuEntryTransformer, EntityToNumberTransformer $branchTransformer) {
+	public function __construct(
+			NameFactory $choicesNameFactory, 
+			EntityToNumberTransformer $menuEntryTransformer, 
+			EntityToNumberTransformer $branchTransformer) {
+		parent::__construct($choicesNameFactory);
+		
 		$this->menuEntryTransformer = $menuEntryTransformer;
 		$this->branchTransformer = $branchTransformer;
 	}

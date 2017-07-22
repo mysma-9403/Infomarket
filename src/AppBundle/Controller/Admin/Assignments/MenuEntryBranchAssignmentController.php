@@ -12,10 +12,7 @@ use AppBundle\Form\Editor\Admin\Assignments\MenuEntryBranchAssignmentEditorType;
 use AppBundle\Form\Filter\Admin\Assignments\MenuEntryBranchAssignmentFilterType;
 use AppBundle\Manager\Entity\Common\MenuEntryBranchAssignmentManager;
 use AppBundle\Manager\Filter\Base\FilterManager;
-use AppBundle\Repository\Admin\Main\BranchRepository;
-use AppBundle\Repository\Admin\Main\MenuEntryRepository;
 use Symfony\Component\HttpFoundation\Request;
-use AppBundle\Form\Base\BaseType;
 
 class MenuEntryBranchAssignmentController extends AssignmentController {
 	
@@ -101,13 +98,8 @@ class MenuEntryBranchAssignmentController extends AssignmentController {
 	protected function getFilterFormOptions() {
 		$options = parent::getFilterFormOptions();
 	
-		/** @var MenuEntryRepository $menuEntryRepository */
-		$menuEntryRepository = $this->getDoctrine()->getRepository(MenuEntry::class);
-		$options[BaseType::getChoicesName('menuEntries')] = $menuEntryRepository->findFilterItems();
-	
-		/** @var BranchRepository $branchRepository */
-		$branchRepository = $this->getDoctrine()->getRepository(Branch::class);
-		$options[BaseType::getChoicesName('branches')] = $branchRepository->findFilterItems();
+		$this->addEntityChoicesFormOption($options, MenuEntry::class, 'menuEntries');
+		$this->addEntityChoicesFormOption($options, Branch::class, 'branches');
 	
 		return $options;
 	}
@@ -115,13 +107,8 @@ class MenuEntryBranchAssignmentController extends AssignmentController {
 	protected function getEditorFormOptions() {
 		$options = parent::getEditorFormOptions();
 	
-		/** @var MenuEntryRepository $menuEntryRepository */
-		$menuEntryRepository = $this->getDoctrine()->getRepository(MenuEntry::class);
-		$options[BaseType::getChoicesName('menuEntry')] = $menuEntryRepository->findFilterItems();
-	
-		/** @var BranchRepository $branchRepository */
-		$branchRepository = $this->getDoctrine()->getRepository(Branch::class);
-		$options[BaseType::getChoicesName('branch')] = $branchRepository->findFilterItems();
+		$this->addEntityChoicesFormOption($options, MenuEntry::class, 'menuEntry');
+		$this->addEntityChoicesFormOption($options, Branch::class, 'branch');
 	
 		return $options;
 	}

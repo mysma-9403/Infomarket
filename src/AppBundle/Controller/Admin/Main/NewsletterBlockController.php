@@ -11,10 +11,7 @@ use AppBundle\Form\Editor\Admin\Main\NewsletterBlockEditorType;
 use AppBundle\Form\Filter\Admin\Main\NewsletterBlockFilterType;
 use AppBundle\Manager\Entity\Common\NewsletterBlockManager;
 use AppBundle\Manager\Filter\Base\FilterManager;
-use AppBundle\Repository\Admin\Main\NewsletterBlockTemplateRepository;
-use AppBundle\Repository\Admin\Main\NewsletterPageRepository;
 use Symfony\Component\HttpFoundation\Request;
-use AppBundle\Form\Base\BaseType;
 
 class NewsletterBlockController extends SimpleEntityController {
 	
@@ -124,27 +121,17 @@ class NewsletterBlockController extends SimpleEntityController {
 	protected function getFilterFormOptions() {
 		$options = parent::getFilterFormOptions();
 	
-		/** @var NewsletterPageRepository $newsletterPageRepository */
-		$newsletterPageRepository = $this->getDoctrine()->getRepository(NewsletterPage::class);
-		$options[BaseType::getChoicesName('newsletterPages')] = $newsletterPageRepository->findFilterItems();
-		
-		/** @var NewsletterBlockTemplateRepository $newsletterBlockTemplateRepository */
-		$newsletterBlockTemplateRepository = $this->getDoctrine()->getRepository(NewsletterBlockTemplate::class);
-		$options[BaseType::getChoicesName('newsletterBlockTemplates')] = $newsletterBlockTemplateRepository->findFilterItems();
+		$this->addEntityChoicesFormOption($options, NewsletterPage::class, 'newsletterPages');
+		$this->addEntityChoicesFormOption($options, NewsletterBlockTemplate::class, 'newsletterBlockTemplates');
 	
 		return $options;
 	}
 	
 	protected function getEditorFormOptions() {
 		$options = parent::getEditorFormOptions();
-	
-		/** @var NewsletterPageRepository $newsletterPageRepository */
-		$newsletterPageRepository = $this->getDoctrine()->getRepository(NewsletterPage::class);
-		$options[BaseType::getChoicesName('newsletterPage')] = $newsletterPageRepository->findFilterItems();
-	
-		/** @var NewsletterBlockTemplateRepository $newsletterBlockTemplateRepository */
-		$newsletterBlockTemplateRepository = $this->getDoctrine()->getRepository(NewsletterBlockTemplate::class);
-		$options[BaseType::getChoicesName('newsletterBlockTemplate')] = $newsletterBlockTemplateRepository->findFilterItems();
+		
+		$this->addEntityChoicesFormOption($options, NewsletterPage::class, 'newsletterPage');
+		$this->addEntityChoicesFormOption($options, NewsletterBlockTemplate::class, 'newsletterBlockTemplate');
 	
 		return $options;
 	}

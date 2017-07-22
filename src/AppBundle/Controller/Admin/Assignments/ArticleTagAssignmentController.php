@@ -12,10 +12,7 @@ use AppBundle\Form\Editor\Admin\Assignments\ArticleTagAssignmentEditorType;
 use AppBundle\Form\Filter\Admin\Assignments\ArticleTagAssignmentFilterType;
 use AppBundle\Manager\Entity\Common\ArticleTagAssignmentManager;
 use AppBundle\Manager\Filter\Base\FilterManager;
-use AppBundle\Repository\Admin\Main\ArticleRepository;
-use AppBundle\Repository\Admin\Main\TagRepository;
 use Symfony\Component\HttpFoundation\Request;
-use AppBundle\Form\Base\BaseType;
 
 class ArticleTagAssignmentController extends AssignmentController {
 	
@@ -101,13 +98,8 @@ class ArticleTagAssignmentController extends AssignmentController {
 	protected function getFilterFormOptions() {
 		$options = parent::getFilterFormOptions();
 	
-		/** @var ArticleRepository $articleRepository */
-		$articleRepository = $this->getDoctrine()->getRepository(Article::class);
-		$options[BaseType::getChoicesName('articles')] = $articleRepository->findFilterItems();
-	
-		/** @var TagRepository $tagRepository */
-		$tagRepository = $this->getDoctrine()->getRepository(Tag::class);
-		$options[BaseType::getChoicesName('tags')] = $tagRepository->findFilterItems();
+		$this->addEntityChoicesFormOption($options, Article::class, 'articles');
+		$this->addEntityChoicesFormOption($options, Tag::class, 'tags');
 	
 		return $options;
 	}
@@ -115,13 +107,8 @@ class ArticleTagAssignmentController extends AssignmentController {
 	protected function getEditorFormOptions() {
 		$options = parent::getEditorFormOptions();
 	
-		/** @var ArticleRepository $articleRepository */
-		$articleRepository = $this->getDoctrine()->getRepository(Article::class);
-		$options[BaseType::getChoicesName('article')] = $articleRepository->findFilterItems();
-	
-		/** @var TagRepository $tagRepository */
-		$tagRepository = $this->getDoctrine()->getRepository(Tag::class);
-		$options[BaseType::getChoicesName('tag')] = $tagRepository->findFilterItems();
+		$this->addEntityChoicesFormOption($options, Article::class, 'article');
+		$this->addEntityChoicesFormOption($options, Tag::class, 'tag');
 	
 		return $options;
 	}

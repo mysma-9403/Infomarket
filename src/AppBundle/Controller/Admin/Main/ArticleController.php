@@ -12,8 +12,12 @@ use AppBundle\Entity\Category;
 use AppBundle\Entity\Other\ArticleTagAssignments;
 use AppBundle\Entity\Tag;
 use AppBundle\Entity\User;
+use AppBundle\Factory\Common\Choices\Bool\FeaturedChoicesFactory;
+use AppBundle\Factory\Common\Choices\Bool\InfomarketChoicesFactory;
+use AppBundle\Factory\Common\Choices\Bool\InfoproduktChoicesFactory;
+use AppBundle\Factory\Common\Choices\Enum\ArticleImageSizesFactory;
+use AppBundle\Factory\Common\Choices\Enum\ArticleLayoutsFactory;
 use AppBundle\Filter\Admin\Main\ArticleFilter;
-use AppBundle\Form\Base\BaseType;
 use AppBundle\Form\Editor\Admin\Main\ArticleEditorType;
 use AppBundle\Form\Filter\Admin\Main\ArticleFilterType;
 use AppBundle\Form\Other\ArticleTagAssignmentsType;
@@ -21,9 +25,6 @@ use AppBundle\Manager\Entity\Admin\ArticleManager;
 use AppBundle\Manager\Entity\Base\EntityManager;
 use AppBundle\Manager\Filter\Base\FilterManager;
 use AppBundle\Manager\Params\EntryParams\Admin\ArticleEntryParamsManager;
-use AppBundle\Repository\Admin\Main\ArticleCategoryRepository;
-use AppBundle\Repository\Admin\Main\BrandRepository;
-use AppBundle\Repository\Admin\Main\CategoryRepository;
 use AppBundle\Repository\Admin\Main\TagRepository;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\HttpFoundation\Request;
@@ -196,13 +197,7 @@ class ArticleController extends FeaturedEntityController {
 		$entry = new ArticleTagAssignments();
 		$entry->setArticle($article);
 		
-		$options = [];
-
-		/** @var TagRepository $tagRepository */
-		$tagRepository = $this->getDoctrine()->getRepository(Tag::class);
-		$options[BaseType::getChoicesName('tags')] = $tagRepository->findFilterItems();
-		
-		$form = $this->createForm(ArticleTagAssignmentsType::class, $entry, $options);
+		$form = $this->createForm(ArticleTagAssignmentsType::class, $entry, $this->getTagAssignmentsFormOptions());
 	
 		$form->handleRequest($request);
 	
@@ -330,29 +325,13 @@ class ArticleController extends FeaturedEntityController {
 	protected function getFilterFormOptions() {
 		$options = parent::getFilterFormOptions();
 	
-		/** @var BrandRepository $brandRepository */
-		$brandRepository = $this->getDoctrine()->getRepository(Brand::class);
-		$options[BaseType::getChoicesName('brands')] = $brandRepository->findFilterItems();
-		
-		/** @var CategoryRepository $categoryRepository */
-		$categoryRepository = $this->getDoctrine()->getRepository(Category::class);
-		$options[BaseType::getChoicesName('categories')] = $categoryRepository->findFilterItems();
-		
-		/** @var ArticleCategoryRepository $branchRepository */
-		$articleCategoryRepository = $this->getDoctrine()->getRepository(ArticleCategory::class);
-		$options[BaseType::getChoicesName('articleCategories')] = $articleCategoryRepository->findFilterItems();
+		$this->addEntityChoicesFormOption($options, Brand::class, 'brands');
+		$this->addEntityChoicesFormOption($options, Category::class, 'categories');
+		$this->addEntityChoicesFormOption($options, ArticleCategory::class, 'articleCategories');
 	
-		/** @var ChoicesFactory $infomarketChoicesFactory */
-		$infomarketChoicesFactory = $this->get('app.factory.choices.base.filter.infomarketChoices');
-		$options[BaseType::getChoicesName('infomarket')] = $infomarketChoicesFactory->getItems();
-		
-		/** @var ChoicesFactory $infoproduktChoicesFactory */
-		$infoproduktChoicesFactory = $this->get('app.factory.choices.base.filter.infoproduktChoices');
-		$options[BaseType::getChoicesName('infoprodukt')] = $infoproduktChoicesFactory->getItems();
-		
-		/** @var ChoicesFactory $featuredChoicesFactory */
-		$featuredChoicesFactory = $this->get('app.factory.choices.base.filter.featuredChoices');
-		$options[BaseType::getChoicesName('featured')] = $featuredChoicesFactory->getItems();
+		$this->addFactoryChoicesFormOption($options, InfomarketChoicesFactory::class, 'infomarket');
+		$this->addFactoryChoicesFormOption($options, InfoproduktChoicesFactory::class, 'infoprodukt');
+		$this->addFactoryChoicesFormOption($options, FeaturedChoicesFactory::class, 'featured');
 		
 		return $options;
 	}
@@ -360,22 +339,19 @@ class ArticleController extends FeaturedEntityController {
 	protected function getEditorFormOptions() {
 		$options = parent::getEditorFormOptions();
 		
-		/** @var ArticleRepository $articleRepository */
-		$articleRepository = $this->getDoctrine()->getRepository(Article::class);
-		$options[BaseType::getChoicesName('parent')] = $articleRepository->findFilterItems();
+		$this->addEntityChoicesFormOption($options, Article::class, 'parent');
+		$this->addEntityChoicesFormOption($options, User::class, 'author');
 		
-		/** @var UserRepository $userRepository */
-		$userRepository = $this->getDoctrine()->getRepository(User::class);
-		$options[BaseType::getChoicesName('author')] = $userRepository->findFilterItems();
+		$this->addFactoryChoicesFormOption($options, ArticleImageSizesFactory::class, 'imageSize');
+		$this->addFactoryChoicesFormOption($options, ArticleLayoutsFactory::class, 'layout');
 		
-		/** @var ChoicesFactory $imageSizesFactory */
-		$imageSizesFactory = $this->get('app.factory.choices.article.imageSizes');
-		$options[BaseType::getChoicesName('imageSize')] = $imageSizesFactory->getItems();
+		return $options;
+	}
+	
+	protected function getTagAssignmentsFormOptions() {
+		$options = [];
 		
-		/** @var ChoicesFactory $layoutsFactory */
-		$layoutsFactory = $this->get('app.factory.choices.article.layouts');
-		$options[BaseType::getChoicesName('layout')] = $layoutsFactory->getItems();
-		
+		$this->addEntityChoicesFormOption($options, Tag::class, 'tags');
 		
 		return $options;
 	}

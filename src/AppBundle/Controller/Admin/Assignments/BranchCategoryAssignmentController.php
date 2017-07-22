@@ -12,10 +12,7 @@ use AppBundle\Form\Editor\Admin\Assignments\BranchCategoryAssignmentEditorType;
 use AppBundle\Form\Filter\Admin\Assignments\BranchCategoryAssignmentFilterType;
 use AppBundle\Manager\Entity\Common\BranchCategoryAssignmentManager;
 use AppBundle\Manager\Filter\Base\FilterManager;
-use AppBundle\Repository\Admin\Main\BranchRepository;
-use AppBundle\Repository\Admin\Main\CategoryRepository;
 use Symfony\Component\HttpFoundation\Request;
-use AppBundle\Form\Base\BaseType;
 
 class BranchCategoryAssignmentController extends AssignmentController {
 	
@@ -101,13 +98,8 @@ class BranchCategoryAssignmentController extends AssignmentController {
 	protected function getFilterFormOptions() {
 		$options = parent::getFilterFormOptions();
 	
-		/** @var BranchRepository $branchRepository */
-		$branchRepository = $this->getDoctrine()->getRepository(Branch::class);
-		$options[BaseType::getChoicesName('branches')] = $branchRepository->findFilterItems();
-	
-		/** @var CategoryRepository $categoryRepository */
-		$categoryRepository = $this->getDoctrine()->getRepository(Category::class);
-		$options[BaseType::getChoicesName('categories')] = $categoryRepository->findFilterItems();
+		$this->addEntityChoicesFormOption($options, Branch::class, 'branches');
+		$this->addEntityChoicesFormOption($options, Category::class, 'categories');
 	
 		return $options;
 	}
@@ -115,13 +107,8 @@ class BranchCategoryAssignmentController extends AssignmentController {
 	protected function getEditorFormOptions() {
 		$options = parent::getEditorFormOptions();
 	
-		/** @var BranchRepository $branchRepository */
-		$branchRepository = $this->getDoctrine()->getRepository(Branch::class);
-		$options[BaseType::getChoicesName('branch')] = $branchRepository->findFilterItems();
-	
-		/** @var CategoryRepository $categoryRepository */
-		$categoryRepository = $this->getDoctrine()->getRepository(Category::class);
-		$options[BaseType::getChoicesName('category')] = $categoryRepository->findFilterItems();
+		$this->addEntityChoicesFormOption($options, Branch::class, 'branch');
+		$this->addEntityChoicesFormOption($options, Category::class, 'category');
 	
 		return $options;
 	}

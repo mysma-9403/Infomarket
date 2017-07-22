@@ -9,12 +9,9 @@ use AppBundle\Entity\NewsletterUser;
 use AppBundle\Entity\NewsletterUserNewsletterPageAssignment;
 use AppBundle\Factory\Common\Choices\Enum\NewsletterUserNewsletterPageAssignmentStatesFactory;
 use AppBundle\Filter\Admin\Assignments\NewsletterUserNewsletterPageAssignmentFilter;
-use AppBundle\Form\Base\BaseType;
 use AppBundle\Form\Filter\Admin\Assignments\NewsletterUserNewsletterPageAssignmentFilterType;
 use AppBundle\Manager\Entity\Common\NewsletterUserNewsletterPageAssignmentManager;
 use AppBundle\Manager\Filter\Base\FilterManager;
-use AppBundle\Repository\Admin\Main\NewsletterPageRepository;
-use AppBundle\Repository\Admin\Main\NewsletterUserRepository;
 use Symfony\Component\HttpFoundation\Request;
 
 class NewsletterUserNewsletterPageAssignmentController extends AssignmentController {
@@ -66,31 +63,19 @@ class NewsletterUserNewsletterPageAssignmentController extends AssignmentControl
 	protected function getFilterFormOptions() {
 		$options = parent::getFilterFormOptions();
 	
-		/** @var NewsletterUserRepository $newsletterUserRepository */
-		$newsletterUserRepository = $this->getDoctrine()->getRepository(NewsletterUser::class);
-		$options[BaseType::getChoicesName('newsletterUsers')] = $newsletterUserRepository->findFilterItems();
+		$this->addEntityChoicesFormOption($options, NewsletterUser::class, 'newsletterUsers');
+		$this->addEntityChoicesFormOption($options, NewsletterPage::class, 'newsletterPages');
 	
-		/** @var NewsletterPageRepository $newsletterPageRepository */
-		$newsletterPageRepository = $this->getDoctrine()->getRepository(NewsletterPage::class);
-		$options[BaseType::getChoicesName('newsletterPages')] = $newsletterPageRepository->findFilterItems();
+		$this->addFactoryChoicesFormOption($options, NewsletterUserNewsletterPageAssignmentStatesFactory::class, 'states');
 		
-		/** @var NewsletterUserNewsletterPageAssignmentStatesFactory $statesFactory */
-		$statesFactory = $this->get('app.factory.choices.newsletterUserNewsletterPageAssignment.states');
-		$options[BaseType::getChoicesName('states')] = $statesFactory->getItems();
-	
 		return $options;
 	}
 	
 	protected function getEditorFormOptions() {
 		$options = parent::getEditorFormOptions();
 	
-		/** @var NewsletterUserRepository $newsletterUserRepository */
-		$newsletterUserRepository = $this->getDoctrine()->getRepository(NewsletterUser::class);
-		$options[BaseType::getChoicesName('newsletterUser')] = $newsletterUserRepository->findFilterItems();
-	
-		/** @var NewsletterPageRepository $newsletterPageRepository */
-		$newsletterPageRepository = $this->getDoctrine()->getRepository(NewsletterPage::class);
-		$options[BaseType::getChoicesName('newsletterPage')] = $newsletterPageRepository->findFilterItems();
+		$this->addEntityChoicesFormOption($options, NewsletterUser::class, 'newsletterUser');
+		$this->addEntityChoicesFormOption($options, NewsletterPage::class, 'newsletterPage');
 	
 		return $options;
 	}

@@ -3,14 +3,15 @@
 namespace AppBundle\Form\Filter\Benchmark;
 
 use AppBundle\Entity\Product;
+use AppBundle\Factory\Common\Name\NameFactory;
 use AppBundle\Filter\Base\Filter;
 use AppBundle\Filter\Benchmark\ProductFilter;
 use AppBundle\Form\Base\FilterType;
+use AppBundle\Form\FormBuilder\BenchmarkFilterFieldBuilder;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
-use AppBundle\Form\FormBuilder\BenchmarkFilterFieldBuilder;
 
 class ProductFilterType extends FilterType {
 	
@@ -22,7 +23,8 @@ class ProductFilterType extends FilterType {
 	
 	
 	
-	public function __construct(BenchmarkFilterFieldBuilder $benchmarkFilterFieldBuilder) {
+	public function __construct(NameFactory $choicesNameFactory, BenchmarkFilterFieldBuilder $benchmarkFilterFieldBuilder) {
+		parent::__construct($choicesNameFactory);
 		$this->benchmarkFilterFieldBuilder = $benchmarkFilterFieldBuilder;
 	}
 	
@@ -57,7 +59,7 @@ class ProductFilterType extends FilterType {
 	
 		if($filter) {
 			foreach ($filter->getFilterFields() as $field) {
-				$this->benchmarkFilterFieldBuilder->add($builder, $field);
+				$this->benchmarkFilterFieldBuilder->add($builder, $field, $options);
 			}
 		}
 	}

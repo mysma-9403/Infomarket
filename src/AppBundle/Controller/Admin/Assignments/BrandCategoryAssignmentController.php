@@ -12,10 +12,7 @@ use AppBundle\Form\Editor\Admin\Assignments\BrandCategoryAssignmentEditorType;
 use AppBundle\Form\Filter\Admin\Assignments\BrandCategoryAssignmentFilterType;
 use AppBundle\Manager\Entity\Common\BrandCategoryAssignmentManager;
 use AppBundle\Manager\Filter\Base\FilterManager;
-use AppBundle\Repository\Admin\Main\BrandRepository;
-use AppBundle\Repository\Admin\Main\CategoryRepository;
 use Symfony\Component\HttpFoundation\Request;
-use AppBundle\Form\Base\BaseType;
 
 class BrandCategoryAssignmentController extends AssignmentController {
 	
@@ -101,13 +98,8 @@ class BrandCategoryAssignmentController extends AssignmentController {
 	protected function getFilterFormOptions() {
 		$options = parent::getFilterFormOptions();
 	
-		/** @var BrandRepository $brandRepository */
-		$brandRepository = $this->getDoctrine()->getRepository(Brand::class);
-		$options[BaseType::getChoicesName('brands')] = $brandRepository->findFilterItems();
-	
-		/** @var CategoryRepository $categoryRepository */
-		$categoryRepository = $this->getDoctrine()->getRepository(Category::class);
-		$options[BaseType::getChoicesName('categories')] = $categoryRepository->findFilterItems();
+		$this->addEntityChoicesFormOption($options, Brand::class, 'brands');
+		$this->addEntityChoicesFormOption($options, Category::class, 'categories');
 	
 		return $options;
 	}
@@ -115,13 +107,8 @@ class BrandCategoryAssignmentController extends AssignmentController {
 	protected function getEditorFormOptions() {
 		$options = parent::getEditorFormOptions();
 	
-		/** @var BrandRepository $brandRepository */
-		$brandRepository = $this->getDoctrine()->getRepository(Brand::class);
-		$options[BaseType::getChoicesName('brand')] = $brandRepository->findFilterItems();
-	
-		/** @var CategoryRepository $categoryRepository */
-		$categoryRepository = $this->getDoctrine()->getRepository(Category::class);
-		$options[BaseType::getChoicesName('category')] = $categoryRepository->findFilterItems();
+		$this->addEntityChoicesFormOption($options, Brand::class, 'brand');
+		$this->addEntityChoicesFormOption($options, Category::class, 'category');
 	
 		return $options;
 	}

@@ -9,16 +9,20 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
+use AppBundle\Factory\Common\Name\NameFactory;
 
-abstract class BaseType extends AbstractType
-{
-	const CHOICES = 'Choices';
+abstract class BaseType extends AbstractType {
 	
-	/**
-	 * 
-	 * {@inheritDoc}
-	 * @see \Symfony\Component\Form\AbstractType::buildForm()
-	 */
+	protected $choicesNameFactory;
+	
+	
+	
+	public function __construct(NameFactory $choicesNameFactory) {
+		$this->choicesNameFactory = $choicesNameFactory;
+	}
+	
+	
+	
 	public function buildForm(FormBuilderInterface $builder, array $options) {
 		$this->addMainFields($builder, $options);
 		$this->addMoreFields($builder, $options);
@@ -152,8 +156,8 @@ abstract class BaseType extends AbstractType
 		return 'app_' . StringUtils::getClassName($this->getEntityType());
 	}
 	
-	public static function getChoicesName($field) {
-		return $field . self::CHOICES;
+	public function getChoicesName($field) {
+		return $this->choicesNameFactory->getName($field);
 	}
 	
 	/**

@@ -5,8 +5,8 @@ namespace AppBundle\Controller\Admin\Main;
 use AppBundle\Controller\Admin\Base\AdminController;
 use AppBundle\Entity\Lists\Base\BaseEntityList;
 use AppBundle\Entity\User;
+use AppBundle\Factory\Common\Choices\Enum\UserRolesFactory;
 use AppBundle\Filter\Admin\Main\UserFilter;
-use AppBundle\Form\Base\BaseType;
 use AppBundle\Form\Editor\Admin\Main\UserEditorType;
 use AppBundle\Form\Filter\Admin\Main\UserFilterType;
 use AppBundle\Form\Lists\UserListType;
@@ -139,9 +139,7 @@ class UserController extends AdminController
 	protected function getEditorFormOptions() {
 		$options = parent::getEditorFormOptions();
 		
-		/** @var ChoicesFactory $rolesFactory */
-		$rolesFactory = $this->get('app.factory.choices.user.roles');
-		$options[BaseType::getChoicesName('roles')] = $rolesFactory->getItems();
+		$this->addFactoryChoicesFormOption($options, UserRolesFactory::class, 'roles');
 		
 		return $options;
 	}

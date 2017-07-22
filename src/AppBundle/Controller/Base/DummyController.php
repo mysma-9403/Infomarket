@@ -8,6 +8,7 @@ use AppBundle\Utils\StringUtils;
 use Doctrine\Common\Persistence\ObjectRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Factory\Common\Name\ChoicesNameFactory;
 
 abstract class DummyController extends Controller
 {
@@ -43,6 +44,35 @@ abstract class DummyController extends Controller
 		$params['viewParams'] = array();
 		
 		return $params;
+	}
+	
+	//---------------------------------------------------------------------------
+	// Form options
+	//---------------------------------------------------------------------------
+	
+	protected function addFactoryChoicesFormOption(&$options, $class, $name) {
+		/** @var NameFactory $nameFactory */
+		$nameFactory = $this->get(ChoicesNameFactory::class);
+	
+		/** @var ChoicesFactory $choicesFactory */
+		$choicesFactory = $this->get($class);
+		$options[$nameFactory->getName($name)] = $choicesFactory->getItems();
+	}
+	
+	protected function addEntityChoicesFormOption(&$options, $class, $name) {
+		/** @var NameFactory $nameFactory */
+		$nameFactory = $this->get(ChoicesNameFactory::class);
+	
+		/** @var BaseRepository $repository */
+		$repository = $this->getDoctrine()->getRepository($class);
+		$options[$nameFactory->getName($name)] = $repository->findFilterItems();
+	}
+	
+	protected function addChoicesFormOption(&$options, $choices, $name) {
+		/** @var NameFactory $nameFactory */
+		$nameFactory = $this->get(ChoicesNameFactory::class);
+	
+		$options[$nameFactory->getName($name)] = $choices;
 	}
 	
 	//---------------------------------------------------------------------------

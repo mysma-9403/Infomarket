@@ -10,6 +10,10 @@ use AppBundle\Entity\Category;
 use AppBundle\Entity\Other\ImportRatings;
 use AppBundle\Entity\ProductCategoryAssignment;
 use AppBundle\Factory\Admin\Import\Product\ImportErrorFactory;
+use AppBundle\Factory\Common\Choices\Bool\FeaturedChoicesFactory;
+use AppBundle\Factory\Common\Choices\Bool\InfomarketChoicesFactory;
+use AppBundle\Factory\Common\Choices\Bool\InfoproduktChoicesFactory;
+use AppBundle\Factory\Common\Choices\Bool\PreleafChoicesFactory;
 use AppBundle\Filter\Admin\Main\CategoryFilter;
 use AppBundle\Form\Editor\Admin\Main\CategoryEditorType;
 use AppBundle\Form\Filter\Admin\Main\CategoryFilterType;
@@ -19,11 +23,9 @@ use AppBundle\Manager\Entity\Base\EntityManager;
 use AppBundle\Manager\Entity\Common\CategoryManager;
 use AppBundle\Manager\Filter\Base\FilterManager;
 use AppBundle\Manager\Params\EntryParams\Admin\CategoryEntryParamsManager;
-use AppBundle\Repository\Admin\Main\BranchRepository;
 use AppBundle\Repository\Admin\Main\CategoryRepository;
-use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Utils\Entity\DataBase\BenchmarkFieldDataBaseUtils;
-use AppBundle\Form\Base\BaseType;
+use Symfony\Component\HttpFoundation\Request;
 
 class CategoryController extends FeaturedEntityController {
 	
@@ -338,34 +340,14 @@ class CategoryController extends FeaturedEntityController {
 	
 	protected function getFilterFormOptions() {
 		$options = parent::getFilterFormOptions();
-	
-		/** @var CategoryRepository $categoryRepository */
-		$categoryRepository = $this->getDoctrine()->getRepository(Category::class);
-		$options[BaseType::getChoicesName('parents')] = $categoryRepository->findFilterItems();
 		
-		/** @var BranchRepository $branchRepository */
-		$branchRepository = $this->getDoctrine()->getRepository(Branch::class);
-		$options[BaseType::getChoicesName('branches')] = $branchRepository->findFilterItems();
-	
-		/** @var ChoicesFactory $preleafChoicesFactory */
-		$preleafChoicesFactory = $this->get('app.factory.choices.base.filter.preleafChoices');
-// 		$options[BaseType::getChoicesName('preleaf')] = $preleafChoicesFactory->getItems();
+		$this->addEntityChoicesFormOption($options, Category::class, 'parents');
+		$this->addEntityChoicesFormOption($options, Branch::class, 'branches');
 		
-		/** @var ChoicesFactory $infomarketChoicesFactory */
-		$infomarketChoicesFactory = $this->get('app.factory.choices.base.filter.infomarketChoices');
-		$options[BaseType::getChoicesName('infomarket')] = $infomarketChoicesFactory->getItems();
-		
-		/** @var ChoicesFactory $infoproduktChoicesFactory */
-		$infoproduktChoicesFactory = $this->get('app.factory.choices.base.filter.infoproduktChoices');
-		$options[BaseType::getChoicesName('infoprodukt')] = $infoproduktChoicesFactory->getItems();
-		
-		/** @var ChoicesFactory $featuredChoicesFactory */
-		$featuredChoicesFactory = $this->get('app.factory.choices.base.filter.featuredChoices');
-		$options[BaseType::getChoicesName('featured')] = $featuredChoicesFactory->getItems();
-		
-		/** @var ChoicesFactory $preleafChoicesFactory */
-		$preleafChoicesFactory = $this->get('app.factory.choices.base.filter.preleafChoices');
-		$options[BaseType::getChoicesName('preleaf')] = $preleafChoicesFactory->getItems();
+		$this->addFactoryChoicesFormOption($options, InfomarketChoicesFactory::class, 'infomarket');
+		$this->addFactoryChoicesFormOption($options, InfoproduktChoicesFactory::class, 'infoprodukt');
+		$this->addFactoryChoicesFormOption($options, FeaturedChoicesFactory::class, 'featured');
+		$this->addFactoryChoicesFormOption($options, PreleafChoicesFactory::class, 'preleaf');
 		
 		return $options;
 	}
@@ -373,9 +355,7 @@ class CategoryController extends FeaturedEntityController {
 	protected function getEditorFormOptions() {
 		$options = parent::getEditorFormOptions();
 	
-		/** @var CategoryRepository $categoryRepository */
-		$categoryRepository = $this->getDoctrine()->getRepository(Category::class);
-		$options[BaseType::getChoicesName('parent')] = $categoryRepository->findFilterItems();
+		$this->addEntityChoicesFormOption($options, Category::class, 'parent');
 	
 		return $options;
 	}

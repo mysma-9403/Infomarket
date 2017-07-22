@@ -9,7 +9,6 @@ use AppBundle\Factory\Common\Choices\Bool\ReadChoicesFactory;
 use AppBundle\Factory\Common\Choices\Enum\BenchmarkMessageStatesFactory;
 use AppBundle\Filter\Admin\Base\AuditFilter;
 use AppBundle\Filter\Benchmark\BenchmarkMessageFilter;
-use AppBundle\Form\Base\BaseType;
 use AppBundle\Form\Editor\Benchmark\BenchmarkMessageEditorType;
 use AppBundle\Form\Filter\Benchmark\BenchmarkMessageFilterType;
 use AppBundle\Form\Lists\BenchmarkMessageListType;
@@ -189,15 +188,10 @@ class BenchmarkMessageController extends BaseEntityController {
 	protected function getFilterFormOptions() {
 		$options = parent::getFilterFormOptions();
 	
-		/** @var ProductRepository $categoryRepository */
-		$productRepository = $this->getDoctrine()->getRepository(Product::class);
-		$options[BaseType::getChoicesName('products')] = $productRepository->findFilterItems();
+		$this->addEntityChoicesFormOption($options, Product::class, 'products');
 		
-		$statesFactory = new BenchmarkMessageStatesFactory();
-		$options[BaseType::getChoicesName('states')] = $statesFactory->getItems();
-		
-		$readFactory = new ReadChoicesFactory();
-		$options[BaseType::getChoicesName('readByAuthor')] = $readFactory->getItems();
+		$this->addFactoryChoicesFormOption($options, BenchmarkMessageStatesFactory::class, 'states');
+		$this->addFactoryChoicesFormOption($options, ReadChoicesFactory::class, 'readByAuthor');
 	
 		return $options;
 	}

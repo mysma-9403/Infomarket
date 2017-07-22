@@ -3,6 +3,7 @@
 namespace AppBundle\Form\Editor\Admin\Assignments;
 
 use AppBundle\Entity\MenuMenuEntryAssignment;
+use AppBundle\Factory\Common\Name\NameFactory;
 use AppBundle\Form\Editor\Admin\Base\BaseEntityEditorType;
 use AppBundle\Form\Transformer\EntityToNumberTransformer;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
@@ -22,7 +23,12 @@ class MenuMenuEntryAssignmentEditorType extends BaseEntityEditorType
 	 */
 	protected $menuEntryTransformer;
 	
-	public function __construct(EntityToNumberTransformer $menuTransformer, EntityToNumberTransformer $menuEntryTransformer) {
+	public function __construct(
+			NameFactory $choicesNameFactory, 
+			EntityToNumberTransformer $menuTransformer, 
+			EntityToNumberTransformer $menuEntryTransformer) {
+		parent::__construct($choicesNameFactory);
+		
 		$this->menuTransformer = $menuTransformer;
 		$this->menuEntryTransformer = $menuEntryTransformer;
 	}

@@ -1,0 +1,213 @@
+services:
+    AppBundle\Form\:
+        resource: '../../../src/AppBundle/Form/*'
+        arguments: ['@AppBundle\Factory\Common\Name\ChoicesNameFactory']
+        tags:
+            - { name: form.type }
+    
+    # Registration Form
+    app.form.registration:
+        class: AppBundle\Form\Registration\UserRegistrationType
+        arguments: ['@AppBundle\Factory\Common\Name\ChoicesNameFactory']
+        tags:
+            - { name: form.type, alias: app_user_registration }
+    
+    # Filter Forms
+    AppBundle\Form\Filter\Benchmark\ProductFilterType:
+        arguments:
+            - '@AppBundle\Factory\Common\Name\ChoicesNameFactory' 
+            - '@AppBundle\Form\FormBuilder\BenchmarkFilterFieldBuilder'
+        tags:
+            - { name: form.type }
+            
+    # Main Editor Forms
+    AppBundle\Form\Editor\Admin\Main\ArticleEditorType:
+        arguments:
+            - '@AppBundle\Factory\Common\Name\ChoicesNameFactory'
+            - "@app.form.transformer.article_2_number"
+            - "@app.form.transformer.user_2_number"
+        tags:
+            - { name: form.type }
+    AppBundle\Form\Editor\Admin\Main\BenchmarkFieldEditorType:
+        arguments:
+            - '@AppBundle\Factory\Common\Name\ChoicesNameFactory'
+            - "@app.form.transformer.category_2_number"
+        tags:
+            - { name: form.type }
+    AppBundle\Form\Editor\Admin\Main\CategoryEditorType:
+        arguments:
+            - '@AppBundle\Factory\Common\Name\ChoicesNameFactory'
+            - "@app.form.transformer.category_2_number"
+        tags:
+            - { name: form.type }
+    AppBundle\Form\Editor\Admin\Main\MagazineEditorType:
+        arguments:
+            - '@AppBundle\Factory\Common\Name\ChoicesNameFactory'
+            - "@app.form.transformer.magazine_2_number"
+        tags:
+            - { name: form.type }
+    AppBundle\Form\Editor\Admin\Main\MenuEntryEditorType:
+        arguments:
+            - '@AppBundle\Factory\Common\Name\ChoicesNameFactory'
+            - "@app.form.transformer.menu_entry_2_number"
+            - "@app.form.transformer.page_2_number"
+            - "@app.form.transformer.link_2_number"
+        tags:
+            - { name: form.type }
+    AppBundle\Form\Editor\Admin\Main\NewsletterBlockEditorType:
+        arguments:
+            - '@AppBundle\Factory\Common\Name\ChoicesNameFactory'
+            - "@app.form.transformer.newsletter_page_2_number"
+            - "@app.form.transformer.newsletter_block_template_2_number"
+        tags:
+            - { name: form.type }
+    AppBundle\Form\Editor\Admin\Main\NewsletterPageEditorType:
+        arguments: 
+            - '@AppBundle\Factory\Common\Name\ChoicesNameFactory'
+            - "@app.form.transformer.newsletter_page_template_2_number"
+        tags:
+            - { name: form.type }
+    AppBundle\Form\Editor\Admin\Main\ProductEditorType:
+        arguments:
+            - '@AppBundle\Factory\Common\Name\ChoicesNameFactory'
+            - "@app.form.transformer.brand_2_number"
+            - '@AppBundle\Form\FormBuilder\BenchmarkEditorFieldBuilder'
+        tags:
+            - { name: form.type }
+            
+            
+    # Assignment Editor Forms
+    AppBundle\Form\Editor\Admin\Assignments\AdvertCategoryAssignmentEditorType:
+        arguments:
+            - '@AppBundle\Factory\Common\Name\ChoicesNameFactory'
+            - '@app.form.transformer.advert_2_number'
+            - '@app.form.transformer.category_2_number'
+        tags:
+            - { name: form.type }
+    AppBundle\Form\Editor\Admin\Assignments\ArticleArticleCategoryAssignmentEditorType:
+        arguments:
+            - '@AppBundle\Factory\Common\Name\ChoicesNameFactory'
+            - "@app.form.transformer.article_2_number"
+            - "@app.form.transformer.article_category_2_number"
+        tags:
+            - { name: form.type }
+    AppBundle\Form\Editor\Admin\Assignments\ArticleBrandAssignmentEditorType:
+        arguments: 
+            - '@AppBundle\Factory\Common\Name\ChoicesNameFactory'
+            - "@app.form.transformer.article_2_number"
+            - "@app.form.transformer.brand_2_number"
+        tags:
+            - { name: form.type }
+    AppBundle\Form\Editor\Admin\Assignments\ArticleCategoryAssignmentEditorType:
+        arguments:
+            - '@AppBundle\Factory\Common\Name\ChoicesNameFactory'
+            - "@app.form.transformer.article_2_number"
+            - "@app.form.transformer.category_2_number"
+        tags:
+            - { name: form.type }
+    AppBundle\Form\Editor\Admin\Assignments\ArticleTagAssignmentEditorType:
+        arguments: 
+            - '@AppBundle\Factory\Common\Name\ChoicesNameFactory'
+            - "@app.form.transformer.article_2_number"
+            - "@app.form.transformer.tag_2_number"
+        tags:
+            - { name: form.type }
+    AppBundle\Form\Editor\Admin\Assignments\BranchCategoryAssignmentEditorType:
+        arguments:
+            - '@AppBundle\Factory\Common\Name\ChoicesNameFactory'
+            - "@app.form.transformer.branch_2_number"
+            - "@app.form.transformer.category_2_number"
+        tags:
+            - { name: form.type }
+    AppBundle\Form\Editor\Admin\Assignments\BrandCategoryAssignmentEditorType:
+        arguments:
+            - '@AppBundle\Factory\Common\Name\ChoicesNameFactory'
+            - "@app.form.transformer.brand_2_number"
+            - "@app.form.transformer.category_2_number"
+        tags:
+            - { name: form.type }
+    AppBundle\Form\Editor\Admin\Assignments\MagazineBranchAssignmentEditorType:
+        arguments:
+            - '@AppBundle\Factory\Common\Name\ChoicesNameFactory'
+            - "@app.form.transformer.magazine_2_number"
+            - "@app.form.transformer.branch_2_number"
+        tags:
+            - { name: form.type }
+    AppBundle\Form\Editor\Admin\Assignments\MagazineCategoryAssignmentEditorType:
+        arguments:
+            - '@AppBundle\Factory\Common\Name\ChoicesNameFactory'
+            - "@app.form.transformer.magazine_2_number"
+            - "@app.form.transformer.category_2_number"
+        tags:
+            - { name: form.type }
+    AppBundle\Form\Editor\Admin\Assignments\MenuEntryBranchAssignmentEditorType:
+        arguments:
+            - '@AppBundle\Factory\Common\Name\ChoicesNameFactory'
+            - "@app.form.transformer.menu_entry_2_number"
+            - "@app.form.transformer.branch_2_number"
+        tags:
+            - { name: form.type }
+    AppBundle\Form\Editor\Admin\Assignments\MenuEntryCategoryAssignmentEditorType:
+        arguments:
+            - '@AppBundle\Factory\Common\Name\ChoicesNameFactory'
+            - "@app.form.transformer.menu_entry_2_number"
+            - "@app.form.transformer.category_2_number"
+        tags:
+            - { name: form.type }
+    AppBundle\Form\Editor\Admin\Assignments\MenuMenuEntryAssignmentEditorType:
+        arguments:
+            - '@AppBundle\Factory\Common\Name\ChoicesNameFactory'
+            - "@app.form.transformer.menu_2_number"
+            - "@app.form.transformer.menu_entry_2_number"
+        tags:
+            - { name: form.type }
+    AppBundle\Form\Editor\Admin\Assignments\NewsletterBlockAdvertAssignmentEditorType:
+        arguments:
+            - '@AppBundle\Factory\Common\Name\ChoicesNameFactory'
+            - "@app.form.transformer.newsletter_block_2_number"
+            - "@app.form.transformer.advert_2_number"
+        tags:
+            - { name: form.type }
+    AppBundle\Form\Editor\Admin\Assignments\NewsletterBlockArticleAssignmentEditorType:
+        arguments:
+            - '@AppBundle\Factory\Common\Name\ChoicesNameFactory'
+            - "@app.form.transformer.newsletter_block_2_number"
+            - "@app.form.transformer.article_2_number"
+        tags:
+            - { name: form.type }
+    AppBundle\Form\Editor\Admin\Assignments\NewsletterBlockMagazineAssignmentEditorType:
+        arguments:
+            - '@AppBundle\Factory\Common\Name\ChoicesNameFactory'
+            - "@app.form.transformer.newsletter_block_2_number"
+            - "@app.form.transformer.magazine_2_number"
+        tags:
+            - { name: form.type }
+    AppBundle\Form\Editor\Admin\Assignments\NewsletterUserNewsletterGroupAssignmentEditorType:
+        arguments:
+            - '@AppBundle\Factory\Common\Name\ChoicesNameFactory'
+            - "@app.form.transformer.newsletter_user_2_number"
+            - "@app.form.transformer.newsletter_group_2_number"
+        tags:
+            - { name: form.type }
+    AppBundle\Form\Editor\Admin\Assignments\ProductCategoryAssignmentEditorType:
+        arguments:
+            - '@AppBundle\Factory\Common\Name\ChoicesNameFactory'
+            - "@app.form.transformer.product_2_number"
+            - "@app.form.transformer.segment_2_number"
+            - "@app.form.transformer.category_2_number"
+        tags:
+            - { name: form.type }
+    AppBundle\Form\Editor\Admin\Assignments\TermCategoryAssignmentEditorType:
+        arguments:
+            - '@AppBundle\Factory\Common\Name\ChoicesNameFactory'
+            - "@app.form.transformer.term_2_number"
+            - "@app.form.transformer.category_2_number"
+        tags:
+            - { name: form.type }
+    AppBundle\Form\Editor\Admin\Assignments\UserCategoryAssignmentEditorType:
+        arguments:
+            - '@AppBundle\Factory\Common\Name\ChoicesNameFactory'
+            - "@app.form.transformer.user_2_number"
+            - "@app.form.transformer.category_2_number"
+        tags:
+            - { name: form.type }

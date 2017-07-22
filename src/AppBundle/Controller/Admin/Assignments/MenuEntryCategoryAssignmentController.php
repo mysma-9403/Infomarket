@@ -12,10 +12,7 @@ use AppBundle\Form\Editor\Admin\Assignments\MenuEntryCategoryAssignmentEditorTyp
 use AppBundle\Form\Filter\Admin\Assignments\MenuEntryCategoryAssignmentFilterType;
 use AppBundle\Manager\Entity\Common\MenuEntryCategoryAssignmentManager;
 use AppBundle\Manager\Filter\Base\FilterManager;
-use AppBundle\Repository\Admin\Main\CategoryRepository;
-use AppBundle\Repository\Admin\Main\MenuEntryRepository;
 use Symfony\Component\HttpFoundation\Request;
-use AppBundle\Form\Base\BaseType;
 
 class MenuEntryCategoryAssignmentController extends AssignmentController {
 	
@@ -101,13 +98,8 @@ class MenuEntryCategoryAssignmentController extends AssignmentController {
 	protected function getFilterFormOptions() {
 		$options = parent::getFilterFormOptions();
 	
-		/** @var MenuEntryRepository $menuEntryRepository */
-		$menuEntryRepository = $this->getDoctrine()->getRepository(MenuEntry::class);
-		$options[BaseType::getChoicesName('menuEntries')] = $menuEntryRepository->findFilterItems();
-	
-		/** @var CategoryRepository $categoryRepository */
-		$categoryRepository = $this->getDoctrine()->getRepository(Category::class);
-		$options[BaseType::getChoicesName('categories')] = $categoryRepository->findFilterItems();
+		$this->addEntityChoicesFormOption($options, MenuEntry::class, 'menuEntries');
+		$this->addEntityChoicesFormOption($options, Category::class, 'categories');
 	
 		return $options;
 	}
@@ -115,13 +107,8 @@ class MenuEntryCategoryAssignmentController extends AssignmentController {
 	protected function getEditorFormOptions() {
 		$options = parent::getEditorFormOptions();
 	
-		/** @var MenuEntryRepository $menuEntryRepository */
-		$menuEntryRepository = $this->getDoctrine()->getRepository(MenuEntry::class);
-		$options[BaseType::getChoicesName('menuEntry')] = $menuEntryRepository->findFilterItems();
-	
-		/** @var CategoryRepository $categoryRepository */
-		$categoryRepository = $this->getDoctrine()->getRepository(Category::class);
-		$options[BaseType::getChoicesName('category')] = $categoryRepository->findFilterItems();
+		$this->addEntityChoicesFormOption($options, MenuEntry::class, 'menuEntry');
+		$this->addEntityChoicesFormOption($options, Category::class, 'category');
 	
 		return $options;
 	}

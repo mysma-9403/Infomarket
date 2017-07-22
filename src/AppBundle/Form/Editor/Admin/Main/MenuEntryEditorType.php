@@ -5,10 +5,12 @@ namespace AppBundle\Form\Editor\Admin\Main;
 use AppBundle\Entity\Link;
 use AppBundle\Entity\MenuEntry;
 use AppBundle\Entity\Page;
+use AppBundle\Factory\Common\Name\ChoicesNameFactory;
+use AppBundle\Factory\Common\Name\NameFactory;
 use AppBundle\Form\Editor\Admin\Base\SimpleEntityEditorType;
 use AppBundle\Form\Transformer\EntityToNumberTransformer;
-use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\FormBuilderInterface;
 
 class MenuEntryEditorType extends SimpleEntityEditorType
 {
@@ -31,9 +33,11 @@ class MenuEntryEditorType extends SimpleEntityEditorType
 	protected $linkToNumberTransformer;
 	
 	public function __construct(
+			NameFactory $choicesNameFactory,
 			EntityToNumberTransformer $parentToNumberTransformer,
 			EntityToNumberTransformer $pageToNumberTransformer,
 			EntityToNumberTransformer $linkToNumberTransformer) {
+		parent::__construct($choicesNameFactory);
 		
 		$this->parentToNumberTransformer = $parentToNumberTransformer;
 		$this->pageToNumberTransformer = $pageToNumberTransformer;

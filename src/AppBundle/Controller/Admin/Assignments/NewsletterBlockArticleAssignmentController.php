@@ -12,10 +12,7 @@ use AppBundle\Form\Editor\Admin\Assignments\NewsletterBlockArticleAssignmentEdit
 use AppBundle\Form\Filter\Admin\Assignments\NewsletterBlockArticleAssignmentFilterType;
 use AppBundle\Manager\Entity\Common\NewsletterBlockArticleAssignmentManager;
 use AppBundle\Manager\Filter\Base\FilterManager;
-use AppBundle\Repository\Admin\Main\ArticleRepository;
-use AppBundle\Repository\Admin\Main\NewsletterBlockRepository;
 use Symfony\Component\HttpFoundation\Request;
-use AppBundle\Form\Base\BaseType;
 
 class NewsletterBlockArticleAssignmentController extends AssignmentController {
 	
@@ -101,13 +98,8 @@ class NewsletterBlockArticleAssignmentController extends AssignmentController {
 	protected function getFilterFormOptions() {
 		$options = parent::getFilterFormOptions();
 	
-		/** @var NewsletterBlockRepository $newsletterBlockRepository */
-		$newsletterBlockRepository = $this->getDoctrine()->getRepository(NewsletterBlock::class);
-		$options[BaseType::getChoicesName('newsletterBlocks')] = $newsletterBlockRepository->findFilterItems();
-	
-		/** @var ArticleRepository $articleRepository */
-		$articleRepository = $this->getDoctrine()->getRepository(Article::class);
-		$options[BaseType::getChoicesName('articles')] = $articleRepository->findFilterItems();
+		$this->addEntityChoicesFormOption($options, NewsletterBlock::class, 'newsletterBlocks');
+		$this->addEntityChoicesFormOption($options, Article::class, 'articles');
 	
 		return $options;
 	}
@@ -115,13 +107,8 @@ class NewsletterBlockArticleAssignmentController extends AssignmentController {
 	protected function getEditorFormOptions() {
 		$options = parent::getEditorFormOptions();
 	
-		/** @var NewsletterBlockRepository $newsletterBlockRepository */
-		$newsletterBlockRepository = $this->getDoctrine()->getRepository(NewsletterBlock::class);
-		$options[BaseType::getChoicesName('newsletterBlock')] = $newsletterBlockRepository->findFilterItems();
-	
-		/** @var ArticleRepository $articleRepository */
-		$articleRepository = $this->getDoctrine()->getRepository(Article::class);
-		$options[BaseType::getChoicesName('article')] = $articleRepository->findFilterItems();
+		$this->addEntityChoicesFormOption($options, NewsletterBlock::class, 'newsletterBlock');
+		$this->addEntityChoicesFormOption($options, Article::class, 'article');
 	
 		return $options;
 	}

@@ -5,19 +5,18 @@ namespace AppBundle\Controller\Admin\Main;
 use AppBundle\Controller\Admin\Base\SimpleEntityController;
 use AppBundle\Entity\Branch;
 use AppBundle\Entity\Category;
+use AppBundle\Entity\Link;
 use AppBundle\Entity\Menu;
 use AppBundle\Entity\MenuEntry;
+use AppBundle\Entity\Page;
+use AppBundle\Factory\Common\Choices\Bool\InfomarketChoicesFactory;
+use AppBundle\Factory\Common\Choices\Bool\InfoproduktChoicesFactory;
 use AppBundle\Filter\Admin\Main\MenuEntryFilter;
 use AppBundle\Form\Editor\Admin\Main\MenuEntryEditorType;
 use AppBundle\Form\Filter\Admin\Main\MenuEntryFilterType;
 use AppBundle\Manager\Entity\Common\MenuEntryManager;
 use AppBundle\Manager\Filter\Base\FilterManager;
 use Symfony\Component\HttpFoundation\Request;
-use AppBundle\Form\Base\BaseType;
-use AppBundle\Repository\Admin\Main\PageRepository;
-use AppBundle\Entity\Page;
-use AppBundle\Repository\Admin\Main\LinkRepository;
-use AppBundle\Entity\Link;
 
 class MenuEntryController extends SimpleEntityController {
 	
@@ -126,29 +125,13 @@ class MenuEntryController extends SimpleEntityController {
 	protected function getFilterFormOptions() {
 		$options = parent::getFilterFormOptions();
 	
-		/** @var MenuRepository $menuRepository */
-		$menuRepository = $this->getDoctrine()->getRepository(Menu::class);
-		$options[BaseType::getChoicesName('menus')] = $menuRepository->findFilterItems();
+		$this->addEntityChoicesFormOption($options, Menu::class, 'menus');
+		$this->addEntityChoicesFormOption($options, MenuEntry::class, 'parents');
+		$this->addEntityChoicesFormOption($options, Branch::class, 'branches');
+		$this->addEntityChoicesFormOption($options, Category::class, 'categories');
 		
-		/** @var MenuEntryRepository $menuEntryRepository */
-		$menuEntryRepository = $this->getDoctrine()->getRepository(MenuEntry::class);
-		$options[BaseType::getChoicesName('parents')] = $menuEntryRepository->findFilterItems();
-	
-		/** @var BranchRepository $branchRepository */
-		$branchRepository = $this->getDoctrine()->getRepository(Branch::class);
-		$options[BaseType::getChoicesName('branches')] = $branchRepository->findFilterItems();
-	
-		/** @var CategoryRepository $categoryRepository */
-		$categoryRepository = $this->getDoctrine()->getRepository(Category::class);
-		$options[BaseType::getChoicesName('categories')] = $categoryRepository->findFilterItems();
-	
-		/** @var ChoicesFactory $infomarketChoicesFactory */
-		$infomarketChoicesFactory = $this->get('app.factory.choices.base.filter.infomarketChoices');
-		$options[BaseType::getChoicesName('infomarket')] = $infomarketChoicesFactory->getItems();
-		
-		/** @var ChoicesFactory $infoproduktChoicesFactory */
-		$infoproduktChoicesFactory = $this->get('app.factory.choices.base.filter.infoproduktChoices');
-		$options[BaseType::getChoicesName('infoprodukt')] = $infoproduktChoicesFactory->getItems();
+		$this->addFactoryChoicesFormOption($options, InfomarketChoicesFactory::class, 'infomarket');
+		$this->addFactoryChoicesFormOption($options, InfoproduktChoicesFactory::class, 'infoprodukt');
 		
 		return $options;
 	}
@@ -156,17 +139,9 @@ class MenuEntryController extends SimpleEntityController {
 	protected function getEditorFormOptions() {
 		$options = parent::getEditorFormOptions();
 	
-		/** @var MenuEntryRepository $menuEntryRepository */
-		$menuEntryRepository = $this->getDoctrine()->getRepository(MenuEntry::class);
-		$options[BaseType::getChoicesName('parent')] = $menuEntryRepository->findFilterItems();
-	
-		/** @var PageRepository $pageRepository */
-		$pageRepository = $this->getDoctrine()->getRepository(Page::class);
-		$options[BaseType::getChoicesName('page')] = $pageRepository->findFilterItems();
-	
-		/** @var LinkRepository $linkRepository */
-		$linkRepository = $this->getDoctrine()->getRepository(Link::class);
-		$options[BaseType::getChoicesName('link')] = $linkRepository->findFilterItems();
+		$this->addEntityChoicesFormOption($options, MenuEntry::class, 'parent');
+		$this->addEntityChoicesFormOption($options, Page::class, 'page');
+		$this->addEntityChoicesFormOption($options, Link::class, 'link');
 	
 		return $options;
 	}

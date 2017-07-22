@@ -3,6 +3,7 @@
 namespace AppBundle\Form\Editor\Admin\Assignments;
 
 use AppBundle\Entity\NewsletterUserNewsletterGroupAssignment;
+use AppBundle\Factory\Common\Name\NameFactory;
 use AppBundle\Form\Editor\Admin\Base\BaseEntityEditorType;
 use AppBundle\Form\Transformer\EntityToNumberTransformer;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -21,7 +22,12 @@ class NewsletterUserNewsletterGroupAssignmentEditorType extends BaseEntityEditor
 	 */
 	protected $newsletterGroupTransformer;
 	
-	public function __construct(EntityToNumberTransformer $newsletterUserTransformer, EntityToNumberTransformer $newsletterGroupTransformer) {
+	public function __construct(
+			NameFactory $choicesNameFactory, 
+			EntityToNumberTransformer $newsletterUserTransformer, 
+			EntityToNumberTransformer $newsletterGroupTransformer) {
+		parent::__construct($choicesNameFactory);
+		
 		$this->newsletterUserTransformer = $newsletterUserTransformer;
 		$this->newsletterGroupTransformer = $newsletterGroupTransformer;
 	}

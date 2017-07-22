@@ -26,7 +26,6 @@ use AppBundle\Repository\Common\BenchmarkFieldMetadataRepository;
 use AppBundle\Utils\Entity\DataBase\BenchmarkFieldDataBaseUtils;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\HttpFoundation\Request;
-use AppBundle\Form\Base\BaseType;
 
 class CategoryController extends DummyController {
 	
@@ -60,21 +59,11 @@ class CategoryController extends DummyController {
 		$viewParams = $params['viewParams'];
 		
 		//TODO refactor forms like in other controllers
-		$tokenStorage = $this->get('security.token_storage');
-		$user = $tokenStorage->getToken()->getUser()->getId();
-		
-		
 		$category = $contextParams['category'];
 		$categoryFilter = new CategoryFilter();
 		$categoryFilter->setCategory($category);
 		
-		$options = [];
-		
-		$em = $this->getDoctrine()->getManager();
-		$categoryRepository = new CategoryRepository($em, $em->getClassMetadata(Category::class));
-		$options[BaseType::getChoicesName('category')] = $categoryRepository->findFilterItemsByUser($user);
-		
-		$categoryFilterForm = $this->createForm(CategoryFilterType::class, $categoryFilter, $options);
+		$categoryFilterForm = $this->createForm(CategoryFilterType::class, $categoryFilter, $this->getCategoryFormOptions($params));
 		$categoryFilterForm->handleRequest($request);
 
 		if ($categoryFilterForm->isSubmitted() && $categoryFilterForm->isValid()) {
@@ -90,11 +79,8 @@ class CategoryController extends DummyController {
 		$subcategoryFilter->setSubcategory($subcategory);
 		
 		//----- other method
-		$options = [];
 		
-		$options[BaseType::getChoicesName('subcategory')] = $categoryRepository->findFilterItemsByUserAndCategory($user, $category);
-		
-		$subcategoryFilterForm = $this->createForm(SubcategoryFilterType::class, $subcategoryFilter, $options);
+		$subcategoryFilterForm = $this->createForm(SubcategoryFilterType::class, $subcategoryFilter, $this->getSubcategoryFormOptions($params));
 		$subcategoryFilterForm->handleRequest($request);
 		
 		if ($subcategoryFilterForm->isSubmitted() && $subcategoryFilterForm->isValid()) {
@@ -110,6 +96,41 @@ class CategoryController extends DummyController {
 		$viewParams['routeParams'] = $routeParams;
 		
 		return $this->render($this->getShowView(), $viewParams);
+	}
+	
+	//---------------------------------------------------------------------------
+	// Form Options
+	//---------------------------------------------------------------------------
+	
+	protected function getCategoryFormOptions(array $params) {
+		$options = [];
+		
+		$contextParams = $params['contextParams'];
+		$userId = $contextParams['user'];
+		
+		$em = $this->getDoctrine()->getManager();
+		$categoryRepository = new CategoryRepository($em, $em->getClassMetadata(Category::class));
+		$choices = $categoryRepository->findFilterItemsByUser($userId);
+		
+		$this->addChoicesFormOption($options, $choices, 'category');
+		
+		return $options;
+	}
+	
+	protected function getSubcategoryFormOptions(array $params) {
+		$options = [];
+	
+		$contextParams = $params['contextParams'];
+		$categoryId = $contextParams['category'];
+		$userId = $contextParams['user'];
+	
+		$em = $this->getDoctrine()->getManager();
+		$categoryRepository = new CategoryRepository($em, $em->getClassMetadata(Category::class));
+		$choices = $categoryRepository->findFilterItemsByUserAndCategory($userId, $categoryId);
+	
+		$this->addChoicesFormOption($options, $choices, 'subcategory');
+	
+		return $options;
 	}
 	
 	//---------------------------------------------------------------------------

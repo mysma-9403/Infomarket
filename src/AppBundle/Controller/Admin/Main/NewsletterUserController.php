@@ -10,8 +10,8 @@ use AppBundle\Entity\Other\ImportNewsletterUsers;
 use AppBundle\Factory\Admin\Import\FileEntryFactory;
 use AppBundle\Factory\Admin\Import\NewsletterUser\ImportErrorFactory;
 use AppBundle\Factory\Admin\Import\NewsletterUser\PreparedEntryFactory;
+use AppBundle\Factory\Common\Choices\Bool\SubscribedChoicesFactory;
 use AppBundle\Filter\Admin\Main\NewsletterUserFilter;
-use AppBundle\Form\Base\BaseType;
 use AppBundle\Form\Editor\Admin\Main\NewsletterUserEditorType;
 use AppBundle\Form\Filter\Admin\Main\NewsletterUserFilterType;
 use AppBundle\Form\Other\ImportNewsletterUsersType;
@@ -174,16 +174,10 @@ class NewsletterUserController extends SimpleEntityController {
 	
 		$am = $this->getAnalyticsManager();
 		$am->sendPageviewAnalytics($params['domain'], $params['route']);
-	
-		$options = [];
-		
-		/** @var NewsletterGroupRepository $newsletterGroupRepository */
-		$newsletterGroupRepository = $this->getDoctrine()->getRepository(NewsletterGroup::class);
-		$options[BaseType::getChoicesName('newsletterGroups')] = $newsletterGroupRepository->findFilterItems();
 		
 		$importItem = new ImportNewsletterUsers();
 	
-		$importForm = $this->createForm(ImportNewsletterUsersType::class, $importItem, $options);
+		$importForm = $this->createForm(ImportNewsletterUsersType::class, $importItem, $this->getImportFormOptions());
 		$importForm->handleRequest($request);
 	
 		if ($importForm->isSubmitted() && $importForm->isValid()) {
@@ -248,9 +242,15 @@ class NewsletterUserController extends SimpleEntityController {
 	protected function getFilterFormOptions() {
 		$options = parent::getFilterFormOptions();
 	
-		/** @var ChoicesFactory $subscribedChoicesFactory */
-		$subscribedChoicesFactory = $this->get('app.factory.choices.base.filter.subscribedChoices');
-		$options[BaseType::getChoicesName('subscribed')] = $subscribedChoicesFactory->getItems();
+		$this->addFactoryChoicesFormOption($options, SubscribedChoicesFactory::class, 'subscribed');
+		
+		return $options;
+	}
+	
+	protected function getImportFormOptions() {
+		$options = [];
+		
+		$this->addEntityChoicesFormOption($options, NewsletterGroup::class, 'newsletterGroups');
 		
 		return $options;
 	}

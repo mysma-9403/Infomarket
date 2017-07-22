@@ -5,13 +5,15 @@ namespace AppBundle\Controller\Admin\Main;
 use AppBundle\Controller\Admin\Base\FeaturedEntityController;
 use AppBundle\Controller\Admin\Base\SimpleEntityController;
 use AppBundle\Entity\ArticleCategory;
+use AppBundle\Factory\Common\Choices\Bool\FeaturedChoicesFactory;
+use AppBundle\Factory\Common\Choices\Bool\InfomarketChoicesFactory;
+use AppBundle\Factory\Common\Choices\Bool\InfoproduktChoicesFactory;
 use AppBundle\Filter\Admin\Main\ArticleCategoryFilter;
 use AppBundle\Form\Editor\Admin\Main\ArticleCategoryEditorType;
 use AppBundle\Form\Filter\Admin\Main\ArticleCategoryFilterType;
 use AppBundle\Manager\Entity\Common\ArticleCategoryManager;
 use AppBundle\Manager\Filter\Base\FilterManager;
 use Symfony\Component\HttpFoundation\Request;
-use AppBundle\Form\Base\BaseType;
 
 class ArticleCategoryController extends FeaturedEntityController {
 	
@@ -133,17 +135,10 @@ class ArticleCategoryController extends FeaturedEntityController {
 	protected function getFilterFormOptions() {
 		$options = parent::getFilterFormOptions();
 	
-		/** @var ChoicesFactory $infomarketChoicesFactory */
-		$infomarketChoicesFactory = $this->get('app.factory.choices.base.filter.infomarketChoices');
-		$options[BaseType::getChoicesName('infomarket')] = $infomarketChoicesFactory->getItems();
-	
-		/** @var ChoicesFactory $infoproduktChoicesFactory */
-		$infoproduktChoicesFactory = $this->get('app.factory.choices.base.filter.infoproduktChoices');
-		$options[BaseType::getChoicesName('infoprodukt')] = $infoproduktChoicesFactory->getItems();
-	
-		/** @var ChoicesFactory $featuredChoicesFactory */
-		$featuredChoicesFactory = $this->get('app.factory.choices.base.filter.featuredChoices');
-		$options[BaseType::getChoicesName('featured')] = $featuredChoicesFactory->getItems();
+		$this->addFactoryChoicesFormOption($options, InfomarketChoicesFactory::class, 'infomarket');
+		$this->addFactoryChoicesFormOption($options, InfoproduktChoicesFactory::class, 'infoprodukt');
+		
+		$this->addFactoryChoicesFormOption($options, FeaturedChoicesFactory::class, 'featured');
 		
 		return $options;
 	}

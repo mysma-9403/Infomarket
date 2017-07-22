@@ -10,8 +10,9 @@ use AppBundle\Entity\Category;
 use AppBundle\Entity\Product;
 use AppBundle\Entity\ProductNote;
 use AppBundle\Factory\Common\BenchmarkField\SimpleBenchmarkFieldFactory;
+use AppBundle\Factory\Common\Choices\Bool\InfomarketChoicesFactory;
+use AppBundle\Factory\Common\Choices\Bool\InfoproduktChoicesFactory;
 use AppBundle\Filter\Admin\Main\ProductFilter;
-use AppBundle\Form\Base\BaseType;
 use AppBundle\Form\Editor\Admin\Main\ProductEditorType;
 use AppBundle\Form\Filter\Admin\Main\ProductFilterType;
 use AppBundle\Form\Filter\Admin\Other\CategoryFilterType;
@@ -21,7 +22,6 @@ use AppBundle\Manager\Entity\Base\EntityManager;
 use AppBundle\Manager\Entity\Common\ProductManager;
 use AppBundle\Manager\Filter\Base\FilterManager;
 use AppBundle\Manager\Params\EntryParams\Admin\ProductEntryParamsManager;
-use AppBundle\Repository\Admin\Main\BrandRepository;
 use AppBundle\Repository\Admin\Main\CategoryRepository;
 use AppBundle\Repository\Common\BenchmarkFieldMetadataRepository;
 use AppBundle\Utils\Entity\DataBase\BenchmarkFieldDataBaseUtils;
@@ -258,14 +258,8 @@ class ProductController extends ImageEntityController {
 		$viewParams = $params['viewParams'];
 		$categoryFilter = $viewParams['categoryFilter'];
 		$entry = $viewParams['entry'];
-	
-		$options = [];
 		
-		/** @var CategoryRepository $categoryRepository */
-		$categoryRepository = $this->getDoctrine()->getRepository(Category::class);
-		$options[BaseType::getChoicesName('categories')] = $categoryRepository->findFilterItemsByProduct($entry->getId());
-		
-		$form = $this->createForm(CategoryFilterType::class, $categoryFilter, $options);
+		$form = $this->createForm(CategoryFilterType::class, $categoryFilter, $this->getCategoryFormOptions($params));
 	
 		$form->handleRequest($request);
 	
@@ -296,33 +290,36 @@ class ProductController extends ImageEntityController {
 	
 	protected function getFilterFormOptions() {
 		$options = parent::getFilterFormOptions();
-	
-		/** @var BrandRepository $brandRepository */
-		$brandRepository = $this->getDoctrine()->getRepository(Brand::class);
-		$options[BaseType::getChoicesName('brands')] = $brandRepository->findFilterItems();
-	
-		/** @var CategoryRepository $categoryRepository */
-		$categoryRepository = $this->getDoctrine()->getRepository(Category::class);
-		$options[BaseType::getChoicesName('categories')] = $categoryRepository->findFilterItems();
-	
-		/** @var ChoicesFactory $infomarketChoicesFactory */
-		$infomarketChoicesFactory = $this->get('app.factory.choices.base.filter.infomarketChoices');
-		$options[BaseType::getChoicesName('infomarket')] = $infomarketChoicesFactory->getItems();
 		
-		/** @var ChoicesFactory $infoproduktChoicesFactory */
-		$infoproduktChoicesFactory = $this->get('app.factory.choices.base.filter.infoproduktChoices');
-		$options[BaseType::getChoicesName('infoprodukt')] = $infoproduktChoicesFactory->getItems();
+		$this->addEntityChoicesFormOption($options, Brand::class, 'brands');
+		$this->addEntityChoicesFormOption($options, Category::class, 'categories');
+		
+		$this->addFactoryChoicesFormOption($options, InfomarketChoicesFactory::class, 'infomarket');
+		$this->addFactoryChoicesFormOption($options, InfoproduktChoicesFactory::class, 'infoprodukt');
 		
 		return $options;
 	}
 	
 	protected function getEditorFormOptions() {
 		$options = parent::getEditorFormOptions();
+		
+		$this->addEntityChoicesFormOption($options, Brand::class, 'brand');
 	
-		/** @var BrandRepository $brandRepository */
-		$brandRepository = $this->getDoctrine()->getRepository(Brand::class);
-		$options[BaseType::getChoicesName('brand')] = $brandRepository->findFilterItems();
+		return $options;
+	}
 	
+	protected function getCategoryFormOptions(array $params) {
+		$options = [];
+		
+		$viewParams = $params['viewParams'];
+		$entry = $viewParams['entry'];
+		
+		/** @var CategoryRepository $repository */
+		$repository = $this->getDoctrine()->getRepository(Category::class);
+		$choices = $repository->findFilterItemsByProduct($entry->getId());
+		
+		$this->addChoicesFormOption($options, $choices, 'categories');
+		
 		return $options;
 	}
 	

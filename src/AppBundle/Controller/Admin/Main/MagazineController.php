@@ -7,16 +7,15 @@ use AppBundle\Controller\Admin\Base\SimpleEntityController;
 use AppBundle\Entity\Branch;
 use AppBundle\Entity\Category;
 use AppBundle\Entity\Magazine;
+use AppBundle\Factory\Common\Choices\Bool\FeaturedChoicesFactory;
+use AppBundle\Factory\Common\Choices\Bool\InfomarketChoicesFactory;
+use AppBundle\Factory\Common\Choices\Bool\InfoproduktChoicesFactory;
 use AppBundle\Filter\Admin\Main\MagazineFilter;
 use AppBundle\Form\Editor\Admin\Main\MagazineEditorType;
 use AppBundle\Form\Filter\Admin\Main\MagazineFilterType;
 use AppBundle\Manager\Entity\Common\MagazineManager;
 use AppBundle\Manager\Filter\Base\FilterManager;
-use AppBundle\Repository\Admin\Main\BranchRepository;
-use AppBundle\Repository\Admin\Main\CategoryRepository;
-use AppBundle\Repository\Admin\Main\MagazineRepository;
 use Symfony\Component\HttpFoundation\Request;
-use AppBundle\Form\Base\BaseType;
 
 class MagazineController extends FeaturedEntityController {
 	
@@ -137,30 +136,14 @@ class MagazineController extends FeaturedEntityController {
 	
 	protected function getFilterFormOptions() {
 		$options = parent::getFilterFormOptions();
-	
-		/** @var MagazineRepository $magazineRepository */
-		$magazineRepository = $this->getDoctrine()->getRepository(Magazine::class);
-		$options[BaseType::getChoicesName('parents')] = $magazineRepository->findFilterItems();
 		
-		/** @var BranchRepository $branchRepository */
-		$branchRepository = $this->getDoctrine()->getRepository(Branch::class);
-		$options[BaseType::getChoicesName('branches')] = $branchRepository->findFilterItems();
+		$this->addEntityChoicesFormOption($options, Magazine::class, 'parents');
+		$this->addEntityChoicesFormOption($options, Branch::class, 'branches');
+		$this->addEntityChoicesFormOption($options, Category::class, 'categories');
 		
-		/** @var CategoryRepository $categoryRepository */
-		$categoryRepository = $this->getDoctrine()->getRepository(Category::class);
-		$options[BaseType::getChoicesName('categories')] = $categoryRepository->findFilterItems();
-	
-		/** @var ChoicesFactory $infomarketChoicesFactory */
-		$infomarketChoicesFactory = $this->get('app.factory.choices.base.filter.infomarketChoices');
-		$options[BaseType::getChoicesName('infomarket')] = $infomarketChoicesFactory->getItems();
-		
-		/** @var ChoicesFactory $infoproduktChoicesFactory */
-		$infoproduktChoicesFactory = $this->get('app.factory.choices.base.filter.infoproduktChoices');
-		$options[BaseType::getChoicesName('infoprodukt')] = $infoproduktChoicesFactory->getItems();
-		
-		/** @var ChoicesFactory $featuredChoicesFactory */
-		$featuredChoicesFactory = $this->get('app.factory.choices.base.filter.featuredChoices');
-		$options[BaseType::getChoicesName('featured')] = $featuredChoicesFactory->getItems();
+		$this->addFactoryChoicesFormOption($options, InfomarketChoicesFactory::class, 'infomarket');
+		$this->addFactoryChoicesFormOption($options, InfoproduktChoicesFactory::class, 'infoprodukt');
+		$this->addFactoryChoicesFormOption($options, FeaturedChoicesFactory::class, 'featured');
 		
 		return $options;
 	}
@@ -168,9 +151,7 @@ class MagazineController extends FeaturedEntityController {
 	protected function getEditorFormOptions() {
 		$options = parent::getEditorFormOptions();
 	
-		/** @var MagazineRepository $magazineRepository */
-		$magazineRepository = $this->getDoctrine()->getRepository(Magazine::class);
-		$options[BaseType::getChoicesName('parent')] = $magazineRepository->findFilterItems();
+		$this->addEntityChoicesFormOption($options, Magazine::class, 'parent');
 		
 		return $options;
 	}

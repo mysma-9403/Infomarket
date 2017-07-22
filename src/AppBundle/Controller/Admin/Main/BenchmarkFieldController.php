@@ -6,13 +6,14 @@ use AppBundle\Controller\Admin\Base\BaseEntityController;
 use AppBundle\Controller\Admin\Base\SimpleEntityController;
 use AppBundle\Entity\BenchmarkField;
 use AppBundle\Entity\Category;
+use AppBundle\Factory\Common\Choices\Enum\BenchmarkFieldBetterThanTypesFactory;
+use AppBundle\Factory\Common\Choices\Enum\BenchmarkFieldFieldTypesFactory;
+use AppBundle\Factory\Common\Choices\Enum\BenchmarkFieldNoteTypesFactory;
 use AppBundle\Filter\Admin\Main\BenchmarkFieldFilter;
-use AppBundle\Form\Base\BaseType;
 use AppBundle\Form\Editor\Admin\Main\BenchmarkFieldEditorType;
 use AppBundle\Form\Filter\Admin\Main\BenchmarkFieldFilterType;
 use AppBundle\Manager\Entity\Common\BenchmarkFieldManager;
 use AppBundle\Manager\Filter\Base\FilterManager;
-use AppBundle\Repository\Admin\Main\CategoryRepository;
 use Symfony\Component\HttpFoundation\Request;
 
 class BenchmarkFieldController extends BaseEntityController {
@@ -98,35 +99,21 @@ class BenchmarkFieldController extends BaseEntityController {
 	protected function getFilterFormOptions() {
 		$options = parent::getFilterFormOptions();
 	
-		/** @var CategoryRepository $categoryRepository */
-		$categoryRepository = $this->getDoctrine()->getRepository(Category::class);
-		$options[BaseType::getChoicesName('categories')] = $categoryRepository->findFilterItems();
+		$this->addEntityChoicesFormOption($options, Category::class, 'categories');
 		
-		/** @var ChoicesFactory $fieldTypesFactory */
-		$fieldTypesFactory = $this->get('app.factory.choices.benchmarkField.fieldTypes');
-		$options[BaseType::getChoicesName('fieldTypes')] = $fieldTypesFactory->getItems();
-	
+		$this->addFactoryChoicesFormOption($options, BenchmarkFieldFieldTypesFactory::class, 'fieldTypes');
+		
 		return $options;
 	}
 	
 	protected function getEditorFormOptions() {
 		$options = parent::getEditorFormOptions();
 		
-		/** @var CategoryRepository $categoryRepository */
-		$categoryRepository = $this->getDoctrine()->getRepository(Category::class);
-		$options[BaseType::getChoicesName('category')] = $categoryRepository->findFilterItems();
+		$this->addEntityChoicesFormOption($options, Category::class, 'category');
 		
-		/** @var ChoicesFactory $betterThanTypesFactory */
-		$betterThanTypesFactory = $this->get('app.factory.choices.benchmarkField.betterThanTypes');
-		$options[BaseType::getChoicesName('betterThanType')] = $betterThanTypesFactory->getItems();
-		
-		/** @var ChoicesFactory $fieldTypesFactory */
-		$fieldTypesFactory = $this->get('app.factory.choices.benchmarkField.fieldTypes');
-		$options[BaseType::getChoicesName('fieldType')] = $fieldTypesFactory->getItems();
-		
-		/** @var ChoicesFactory $noteTypesFactory */
-		$noteTypesFactory = $this->get('app.factory.choices.benchmarkField.noteTypes');
-		$options[BaseType::getChoicesName('noteType')] = $noteTypesFactory->getItems();
+		$this->addFactoryChoicesFormOption($options, BenchmarkFieldFieldTypesFactory::class, 'betterThanType');
+		$this->addFactoryChoicesFormOption($options, BenchmarkFieldBetterThanTypesFactory::class, 'fieldType');
+		$this->addFactoryChoicesFormOption($options, BenchmarkFieldNoteTypesFactory::class, 'noteType');
 		
 		return $options;
 	}

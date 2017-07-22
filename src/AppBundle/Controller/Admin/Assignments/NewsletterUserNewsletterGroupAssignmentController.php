@@ -12,10 +12,7 @@ use AppBundle\Form\Editor\Admin\Assignments\NewsletterUserNewsletterGroupAssignm
 use AppBundle\Form\Filter\Admin\Assignments\NewsletterUserNewsletterGroupAssignmentFilterType;
 use AppBundle\Manager\Entity\Common\NewsletterUserNewsletterGroupAssignmentManager;
 use AppBundle\Manager\Filter\Base\FilterManager;
-use AppBundle\Repository\Admin\Main\NewsletterGroupRepository;
-use AppBundle\Repository\Admin\Main\NewsletterUserRepository;
 use Symfony\Component\HttpFoundation\Request;
-use AppBundle\Form\Base\BaseType;
 
 class NewsletterUserNewsletterGroupAssignmentController extends AssignmentController {
 	
@@ -101,13 +98,8 @@ class NewsletterUserNewsletterGroupAssignmentController extends AssignmentContro
 	protected function getFilterFormOptions() {
 		$options = parent::getFilterFormOptions();
 	
-		/** @var NewsletterUserRepository $newsletterUserRepository */
-		$newsletterUserRepository = $this->getDoctrine()->getRepository(NewsletterUser::class);
-		$options[BaseType::getChoicesName('newsletterUsers')] = $newsletterUserRepository->findFilterItems();
-	
-		/** @var NewsletterGroupRepository $newsletterGroupRepository */
-		$newsletterGroupRepository = $this->getDoctrine()->getRepository(NewsletterGroup::class);
-		$options[BaseType::getChoicesName('newsletterGroups')] = $newsletterGroupRepository->findFilterItems();
+		$this->addEntityChoicesFormOption($options, NewsletterUser::class, 'newsletterUsers');
+		$this->addEntityChoicesFormOption($options, NewsletterGroup::class, 'newsletterGroups');
 	
 		return $options;
 	}
@@ -115,13 +107,8 @@ class NewsletterUserNewsletterGroupAssignmentController extends AssignmentContro
 	protected function getEditorFormOptions() {
 		$options = parent::getEditorFormOptions();
 	
-		/** @var NewsletterUserRepository $newsletterUserRepository */
-		$newsletterUserRepository = $this->getDoctrine()->getRepository(NewsletterUser::class);
-		$options[BaseType::getChoicesName('newsletterUser')] = $newsletterUserRepository->findFilterItems();
-	
-		/** @var NewsletterGroupRepository $newsletterGroupRepository */
-		$newsletterGroupRepository = $this->getDoctrine()->getRepository(NewsletterGroup::class);
-		$options[BaseType::getChoicesName('newsletterGroup')] = $newsletterGroupRepository->findFilterItems();
+		$this->addEntityChoicesFormOption($options, NewsletterUser::class, 'newsletterUser');
+		$this->addEntityChoicesFormOption($options, NewsletterGroup::class, 'newsletterGroup');
 	
 		return $options;
 	}

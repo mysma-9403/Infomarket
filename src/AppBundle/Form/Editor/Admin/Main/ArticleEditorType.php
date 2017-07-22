@@ -3,6 +3,8 @@
 namespace AppBundle\Form\Editor\Admin\Main;
 
 use AppBundle\Entity\Article;
+use AppBundle\Factory\Common\Name\ChoicesNameFactory;
+use AppBundle\Factory\Common\Name\NameFactory;
 use AppBundle\Form\Editor\Admin\Base\ImageEntityEditorType;
 use AppBundle\Form\Transformer\EntityToNumberTransformer;
 use Ivory\CKEditorBundle\Form\Type\CKEditorType;
@@ -12,8 +14,8 @@ use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 
-class ArticleEditorType extends ImageEntityEditorType
-{
+class ArticleEditorType extends ImageEntityEditorType {
+	
 	/**
 	 *
 	 * @var EntityToNumberTransformer
@@ -26,7 +28,9 @@ class ArticleEditorType extends ImageEntityEditorType
 	 */
 	protected $userToNumberTransformer;
 	
-	public function __construct(EntityToNumberTransformer $articleToNumberTransformer, EntityToNumberTransformer $userToNumberTransformer) {
+	public function __construct(NameFactory $choicesNameFactory, EntityToNumberTransformer $articleToNumberTransformer, EntityToNumberTransformer $userToNumberTransformer) {
+		parent::__construct($choicesNameFactory);
+		
 		$this->articleToNumberTransformer = $articleToNumberTransformer;
 		$this->userToNumberTransformer = $userToNumberTransformer;
 	}

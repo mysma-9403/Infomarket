@@ -6,13 +6,15 @@ use AppBundle\Controller\Admin\Base\ImageEntityController;
 use AppBundle\Controller\Admin\Base\SimpleEntityController;
 use AppBundle\Entity\Advert;
 use AppBundle\Entity\Category;
+use AppBundle\Factory\Common\Choices\Bool\InfomarketChoicesFactory;
+use AppBundle\Factory\Common\Choices\Bool\InfoproduktChoicesFactory;
+use AppBundle\Factory\Common\Choices\Enum\AdvertLocationsFactory;
 use AppBundle\Filter\Admin\Main\AdvertFilter;
-use AppBundle\Form\Base\BaseType;
 use AppBundle\Form\Editor\Admin\Main\AdvertEditorType;
 use AppBundle\Form\Filter\Admin\Main\AdvertFilterType;
 use AppBundle\Manager\Entity\Common\AdvertManager;
 use AppBundle\Manager\Filter\Base\FilterManager;
-use AppBundle\Repository\Admin\Main\CategoryRepository;
+use phpDocumentor\Reflection\Location;
 use Symfony\Component\HttpFoundation\Request;
 
 class AdvertController extends ImageEntityController {
@@ -122,21 +124,12 @@ class AdvertController extends ImageEntityController {
 	protected function getFilterFormOptions() {
 		$options = parent::getFilterFormOptions();
 	
-		/** @var CategoryRepository $categoryRepository */
-		$categoryRepository = $this->getDoctrine()->getRepository(Category::class);
-		$options[BaseType::getChoicesName('categories')] = $categoryRepository->findFilterItems();
+		$this->addEntityChoicesFormOption($options, Category::class, 'categories');
 		
-		/** @var ChoicesFactory $locationsFactory */
-		$locationsFactory = $this->get('app.factory.choices.advert.locations');
-		$options[BaseType::getChoicesName('locations')] = $locationsFactory->getItems();
+		$this->addFactoryChoicesFormOption($options, AdvertLocationsFactory::class, 'locations');
 		
-		/** @var ChoicesFactory $infomarketChoicesFactory */
-		$infomarketChoicesFactory = $this->get('app.factory.choices.base.filter.infomarketChoices');
-		$options[BaseType::getChoicesName('infomarket')] = $infomarketChoicesFactory->getItems();
-		
-		/** @var ChoicesFactory $infoproduktChoicesFactory */
-		$infoproduktChoicesFactory = $this->get('app.factory.choices.base.filter.infoproduktChoices');
-		$options[BaseType::getChoicesName('infoprodukt')] = $infoproduktChoicesFactory->getItems();
+		$this->addFactoryChoicesFormOption($options, InfomarketChoicesFactory::class, 'infomarket');
+		$this->addFactoryChoicesFormOption($options, InfoproduktChoicesFactory::class, 'infoprodukt');
 	
 		return $options;
 	}
@@ -144,9 +137,7 @@ class AdvertController extends ImageEntityController {
 	protected function getEditorFormOptions() {
 		$options = parent::getEditorFormOptions();
 		
-		/** @var ChoicesFactory $locationsFactory */
-		$locationsFactory = $this->get('app.factory.choices.advert.locations');
-		$options[BaseType::getChoicesName('location')] = $locationsFactory->getItems();
+		$this->addFactoryChoicesFormOption($options, AdvertLocationsFactory::class, 'location');
 		
 		return $options;
 	}

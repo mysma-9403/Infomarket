@@ -12,10 +12,7 @@ use AppBundle\Form\Editor\Admin\Assignments\TermCategoryAssignmentEditorType;
 use AppBundle\Form\Filter\Admin\Assignments\TermCategoryAssignmentFilterType;
 use AppBundle\Manager\Entity\Common\TermCategoryAssignmentManager;
 use AppBundle\Manager\Filter\Base\FilterManager;
-use AppBundle\Repository\Admin\Main\CategoryRepository;
-use AppBundle\Repository\Admin\Main\TermRepository;
 use Symfony\Component\HttpFoundation\Request;
-use AppBundle\Form\Base\BaseType;
 
 class TermCategoryAssignmentController extends AssignmentController {
 	
@@ -101,13 +98,8 @@ class TermCategoryAssignmentController extends AssignmentController {
 	protected function getFilterFormOptions() {
 		$options = parent::getFilterFormOptions();
 	
-		/** @var TermRepository $termRepository */
-		$termRepository = $this->getDoctrine()->getRepository(Term::class);
-		$options[BaseType::getChoicesName('terms')] = $termRepository->findFilterItems();
-	
-		/** @var CategoryRepository $categoryRepository */
-		$categoryRepository = $this->getDoctrine()->getRepository(Category::class);
-		$options[BaseType::getChoicesName('categories')] = $categoryRepository->findFilterItems();
+		$this->addEntityChoicesFormOption($options, Term::class, 'terms');
+		$this->addEntityChoicesFormOption($options, Category::class, 'categories');
 	
 		return $options;
 	}
@@ -115,13 +107,8 @@ class TermCategoryAssignmentController extends AssignmentController {
 	protected function getEditorFormOptions() {
 		$options = parent::getEditorFormOptions();
 	
-		/** @var TermRepository $termRepository */
-		$termRepository = $this->getDoctrine()->getRepository(Term::class);
-		$options[BaseType::getChoicesName('term')] = $termRepository->findFilterItems();
-	
-		/** @var CategoryRepository $categoryRepository */
-		$categoryRepository = $this->getDoctrine()->getRepository(Category::class);
-		$options[BaseType::getChoicesName('category')] = $categoryRepository->findFilterItems();
+		$this->addEntityChoicesFormOption($options, Term::class, 'term');
+		$this->addEntityChoicesFormOption($options, Category::class, 'category');
 	
 		return $options;
 	}

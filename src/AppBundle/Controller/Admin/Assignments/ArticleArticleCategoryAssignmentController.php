@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller\Admin\Assignments;
 
+use AppBundle\Controller\Admin\Base\AssignmentController;
 use AppBundle\Controller\Admin\Base\BaseEntityController;
 use AppBundle\Entity\Article;
 use AppBundle\Entity\ArticleArticleCategoryAssignment;
@@ -11,11 +12,7 @@ use AppBundle\Form\Editor\Admin\Assignments\ArticleArticleCategoryAssignmentEdit
 use AppBundle\Form\Filter\Admin\Assignments\ArticleArticleCategoryAssignmentFilterType;
 use AppBundle\Manager\Entity\Common\ArticleArticleCategoryAssignmentManager;
 use AppBundle\Manager\Filter\Base\FilterManager;
-use AppBundle\Repository\Admin\Main\ArticleCategoryRepository;
-use AppBundle\Repository\Admin\Main\ArticleRepository;
 use Symfony\Component\HttpFoundation\Request;
-use AppBundle\Controller\Admin\Base\AssignmentController;
-use AppBundle\Form\Base\BaseType;
 
 class ArticleArticleCategoryAssignmentController extends AssignmentController {
 	
@@ -101,13 +98,8 @@ class ArticleArticleCategoryAssignmentController extends AssignmentController {
 	protected function getFilterFormOptions() {
 		$options = parent::getFilterFormOptions();
 	
-		/** @var ArticleRepository $articleRepository */
-		$articleRepository = $this->getDoctrine()->getRepository(Article::class);
-		$options[BaseType::getChoicesName('articles')] = $articleRepository->findFilterItems();
-	
-		/** @var ArticleCategoryRepository $articleArticleCategoryRepository */
-		$articleCategoryRepository = $this->getDoctrine()->getRepository(ArticleCategory::class);
-		$options[BaseType::getChoicesName('articleCategories')] = $articleCategoryRepository->findFilterItems();
+		$this->addEntityChoicesFormOption($options, Article::class, 'articles');
+		$this->addEntityChoicesFormOption($options, ArticleCategory::class, 'articleCategories');
 	
 		return $options;
 	}
@@ -115,13 +107,8 @@ class ArticleArticleCategoryAssignmentController extends AssignmentController {
 	protected function getEditorFormOptions() {
 		$options = parent::getEditorFormOptions();
 	
-		/** @var ArticleRepository $articleRepository */
-		$articleRepository = $this->getDoctrine()->getRepository(Article::class);
-		$options[BaseType::getChoicesName('article')] = $articleRepository->findFilterItems();
-	
-		/** @var ArticleCategoryRepository $articleArticleCategoryRepository */
-		$articleCategoryRepository = $this->getDoctrine()->getRepository(ArticleCategory::class);
-		$options[BaseType::getChoicesName('articleCategory')] = $articleCategoryRepository->findFilterItems();
+		$this->addEntityChoicesFormOption($options, Article::class, 'article');
+		$this->addEntityChoicesFormOption($options, ArticleCategory::class, 'articleCategory');
 	
 		return $options;
 	}

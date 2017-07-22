@@ -12,10 +12,7 @@ use AppBundle\Form\Editor\Admin\Assignments\AdvertCategoryAssignmentEditorType;
 use AppBundle\Form\Filter\Admin\Assignments\AdvertCategoryAssignmentFilterType;
 use AppBundle\Manager\Entity\Common\AdvertCategoryAssignmentManager;
 use AppBundle\Manager\Filter\Base\FilterManager;
-use AppBundle\Repository\Admin\Main\AdvertRepository;
-use AppBundle\Repository\Admin\Main\CategoryRepository;
 use Symfony\Component\HttpFoundation\Request;
-use AppBundle\Form\Base\BaseType;
 
 class AdvertCategoryAssignmentController extends AssignmentController {
 	
@@ -101,13 +98,8 @@ class AdvertCategoryAssignmentController extends AssignmentController {
 	protected function getFilterFormOptions() {
 		$options = parent::getFilterFormOptions();
 	
-		/** @var AdvertRepository $advertRepository */
-		$advertRepository = $this->getDoctrine()->getRepository(Advert::class);
-		$options[BaseType::getChoicesName('adverts')] = $advertRepository->findFilterItems();
-		
-		/** @var CategoryRepository $categoryRepository */
-		$categoryRepository = $this->getDoctrine()->getRepository(Category::class);
-		$options[BaseType::getChoicesName('categories')] = $categoryRepository->findFilterItems();
+		$this->addEntityChoicesFormOption($options, Advert::class, 'adverts');
+		$this->addEntityChoicesFormOption($options, Category::class, 'categories');
 	
 		return $options;
 	}
@@ -115,13 +107,8 @@ class AdvertCategoryAssignmentController extends AssignmentController {
 	protected function getEditorFormOptions() {
 		$options = parent::getEditorFormOptions();
 	
-		/** @var AdvertRepository $advertRepository */
-		$advertRepository = $this->getDoctrine()->getRepository(Advert::class);
-		$options[BaseType::getChoicesName('advert')] = $advertRepository->findFilterItems();
-	
-		/** @var CategoryRepository $categoryRepository */
-		$categoryRepository = $this->getDoctrine()->getRepository(Category::class);
-		$options[BaseType::getChoicesName('category')] = $categoryRepository->findFilterItems();
+		$this->addEntityChoicesFormOption($options, Advert::class, 'advert');
+		$this->addEntityChoicesFormOption($options, Category::class, 'category');
 	
 		return $options;
 	}

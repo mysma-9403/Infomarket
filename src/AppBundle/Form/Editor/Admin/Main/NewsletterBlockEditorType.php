@@ -5,6 +5,8 @@ namespace AppBundle\Form\Editor\Admin\Main;
 use AppBundle\Entity\NewsletterBlock;
 use AppBundle\Entity\NewsletterBlockTemplate;
 use AppBundle\Entity\NewsletterPage;
+use AppBundle\Factory\Common\Name\ChoicesNameFactory;
+use AppBundle\Factory\Common\Name\NameFactory;
 use AppBundle\Form\Editor\Admin\Base\SimpleEntityEditorType;
 use AppBundle\Form\Transformer\EntityToNumberTransformer;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
@@ -27,7 +29,12 @@ class NewsletterBlockEditorType extends SimpleEntityEditorType
 	
 	
 	
-	public function __construct(EntityToNumberTransformer $newsletterBlockTemplateTransformer, EntityToNumberTransformer $newsletterPageTransformer) {
+	public function __construct(
+			NameFactory $choicesNameFactory, 
+			EntityToNumberTransformer $newsletterBlockTemplateTransformer, 
+			EntityToNumberTransformer $newsletterPageTransformer) {
+		parent::__construct($choicesNameFactory);
+		
 		$this->newsletterBlockTemplateTransformer = $newsletterBlockTemplateTransformer;
 		$this->newsletterPageTransformer = $newsletterPageTransformer;
 	}

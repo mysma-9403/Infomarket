@@ -3,6 +3,7 @@
 namespace AppBundle\Form\Editor\Admin\Assignments;
 
 use AppBundle\Entity\NewsletterBlockMagazineAssignment;
+use AppBundle\Factory\Common\Name\NameFactory;
 use AppBundle\Form\Editor\Admin\Base\BaseEntityEditorType;
 use AppBundle\Form\Transformer\EntityToNumberTransformer;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -22,7 +23,12 @@ class NewsletterBlockMagazineAssignmentEditorType extends BaseEntityEditorType
 	 */
 	protected $magazineTransformer;
 	
-	public function __construct(EntityToNumberTransformer $newsletterBlockTransformer, EntityToNumberTransformer $magazineTransformer) {
+	public function __construct(
+			NameFactory $choicesNameFactory, 
+			EntityToNumberTransformer $newsletterBlockTransformer, 
+			EntityToNumberTransformer $magazineTransformer) {
+		parent::__construct($choicesNameFactory);
+		
 		$this->newsletterBlockTransformer = $newsletterBlockTransformer;
 		$this->magazineTransformer = $magazineTransformer;
 	}

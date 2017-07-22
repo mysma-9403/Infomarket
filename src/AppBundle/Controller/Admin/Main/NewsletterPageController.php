@@ -10,7 +10,6 @@ use AppBundle\Entity\NewsletterUser;
 use AppBundle\Entity\NewsletterUserNewsletterPageAssignment;
 use AppBundle\Filter\Admin\Main\NewsletterPageFilter;
 use AppBundle\Filter\Admin\Other\SendNewsletterFilter;
-use AppBundle\Form\Base\BaseType;
 use AppBundle\Form\Editor\Admin\Main\NewsletterPageEditorType;
 use AppBundle\Form\Filter\Admin\Main\NewsletterPageFilterType;
 use AppBundle\Form\Filter\Admin\Other\SendNewsletterFilterType;
@@ -19,7 +18,6 @@ use AppBundle\Manager\Entity\Common\NewsletterPageManager;
 use AppBundle\Manager\Filter\Base\FilterManager;
 use AppBundle\Manager\Params\EntryParams\Admin\NewsletterPageEntryParamsManager;
 use AppBundle\Repository\Admin\Main\NewsletterGroupRepository;
-use AppBundle\Repository\Admin\Main\NewsletterPageTemplateRepository;
 use AppBundle\Utils\StringUtils;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Filesystem\Filesystem;
@@ -416,10 +414,8 @@ class NewsletterPageController extends SimpleEntityController {
 	
 	protected function getFilterFormOptions() {
 		$options = parent::getFilterFormOptions();
-	
-		/** @var NewsletterPageTemplateRepository $newsletterPageTemplateRepository */
-		$newsletterPageTemplateRepository = $this->getDoctrine()->getRepository(NewsletterPageTemplate::class);
-		$options[BaseType::getChoicesName('newsletterPageTemplates')] = $newsletterPageTemplateRepository->findFilterItems();
+		
+		$this->addEntityChoicesFormOption($options, NewsletterPageTemplate::class, 'newsletterPageTemplates');
 	
 		return $options;
 	}
@@ -427,9 +423,7 @@ class NewsletterPageController extends SimpleEntityController {
 	protected function getEditorFormOptions() {
 		$options = parent::getEditorFormOptions();
 	
-		/** @var NewsletterPageTemplateRepository $newsletterPageTemplateRepository */
-		$newsletterPageTemplateRepository = $this->getDoctrine()->getRepository(NewsletterPageTemplate::class);
-		$options[BaseType::getChoicesName('newsletterPageTemplate')] = $newsletterPageTemplateRepository->findFilterItems();
+		$this->addEntityChoicesFormOption($options, NewsletterPageTemplate::class, 'newsletterPageTemplate');
 	
 		return $options;
 	}

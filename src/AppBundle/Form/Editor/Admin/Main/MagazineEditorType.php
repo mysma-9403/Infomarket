@@ -3,6 +3,8 @@
 namespace AppBundle\Form\Editor\Admin\Main;
 
 use AppBundle\Entity\Magazine;
+use AppBundle\Factory\Common\Name\ChoicesNameFactory;
+use AppBundle\Factory\Common\Name\NameFactory;
 use AppBundle\Form\Editor\Admin\Base\ImageEntityEditorType;
 use AppBundle\Form\Transformer\EntityToNumberTransformer;
 use FM\ElfinderBundle\Form\Type\ElFinderType;
@@ -20,7 +22,9 @@ class MagazineEditorType extends ImageEntityEditorType
 	 */
 	protected $magazineToNumberTransformer;
 	
-	public function __construct(EntityToNumberTransformer $magazineToNumberTransformer) {
+	public function __construct(NameFactory $choicesNameFactory, EntityToNumberTransformer $magazineToNumberTransformer) {
+		parent::__construct($choicesNameFactory);
+		
 		$this->magazineToNumberTransformer = $magazineToNumberTransformer;
 	}
 	
