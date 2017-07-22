@@ -12,7 +12,7 @@ class NewsletterUserFilterType extends SimpleEntityFilterType
 	protected function addMoreFields(FormBuilderInterface $builder, array $options) {
 		parent::addMoreFields($builder, $options);
 		
-		$this->addChoiceNumberFilterField($builder, $options, 'subscribed', false);
+		$this->addBooleanChoiceFilterField($builder, $options, 'subscribed');
 	}
 	
 	protected function getDefaultOptions() {

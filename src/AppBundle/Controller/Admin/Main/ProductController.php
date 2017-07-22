@@ -12,7 +12,7 @@ use AppBundle\Entity\ProductNote;
 use AppBundle\Factory\Common\BenchmarkField\SimpleBenchmarkFieldFactory;
 use AppBundle\Filter\Admin\Main\ProductFilter;
 use AppBundle\Form\Base\BaseType;
-use AppBundle\Form\Editor\Main\ProductEditorType;
+use AppBundle\Form\Editor\Admin\Main\ProductEditorType;
 use AppBundle\Form\Filter\Admin\Main\ProductFilterType;
 use AppBundle\Form\Filter\Admin\Other\CategoryFilterType;
 use AppBundle\Logic\Common\BenchmarkField\Initializer\BenchmarkFieldsInitializerImpl;
@@ -259,7 +259,13 @@ class ProductController extends ImageEntityController {
 		$categoryFilter = $viewParams['categoryFilter'];
 		$entry = $viewParams['entry'];
 	
-		$form = $this->createForm(CategoryFilterType::class, $categoryFilter, ['product' => $entry->getId()]);
+		$options = [];
+		
+		/** @var CategoryRepository $categoryRepository */
+		$categoryRepository = $this->getDoctrine()->getRepository(Category::class);
+		$options[BaseType::getChoicesName('categories')] = $categoryRepository->findFilterItemsByProduct($entry->getId());
+		
+		$form = $this->createForm(CategoryFilterType::class, $categoryFilter, $options);
 	
 		$form->handleRequest($request);
 	

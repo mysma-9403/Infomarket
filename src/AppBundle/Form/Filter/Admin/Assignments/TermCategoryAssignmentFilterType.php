@@ -11,8 +11,8 @@ class TermCategoryAssignmentFilterType extends AdminFilterType
 	protected function addMainFields(FormBuilderInterface $builder, array $options) {
 		parent::addMainFields($builder, $options);
 		
-		$this->addChoiceEntityFilterField($builder, $options, 'terms');
-		$this->addChoiceEntityFilterField($builder, $options, 'categories');
+		$this->addEntityChoiceFilterField($builder, $options, 'terms');
+		$this->addEntityChoiceFilterField($builder, $options, 'categories');
 	}
 	
 	protected function getDefaultOptions() {

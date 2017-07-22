@@ -6,7 +6,7 @@ use AppBundle\Controller\Admin\Base\FeaturedEntityController;
 use AppBundle\Controller\Admin\Base\SimpleEntityController;
 use AppBundle\Entity\ArticleCategory;
 use AppBundle\Filter\Admin\Main\ArticleCategoryFilter;
-use AppBundle\Form\Editor\Main\ArticleCategoryEditorType;
+use AppBundle\Form\Editor\Admin\Main\ArticleCategoryEditorType;
 use AppBundle\Form\Filter\Admin\Main\ArticleCategoryFilterType;
 use AppBundle\Manager\Entity\Common\ArticleCategoryManager;
 use AppBundle\Manager\Filter\Base\FilterManager;
@@ -141,6 +141,10 @@ class ArticleCategoryController extends FeaturedEntityController {
 		$infoproduktChoicesFactory = $this->get('app.factory.choices.base.filter.infoproduktChoices');
 		$options[BaseType::getChoicesName('infoprodukt')] = $infoproduktChoicesFactory->getItems();
 	
+		/** @var ChoicesFactory $featuredChoicesFactory */
+		$featuredChoicesFactory = $this->get('app.factory.choices.base.filter.featuredChoices');
+		$options[BaseType::getChoicesName('featured')] = $featuredChoicesFactory->getItems();
+		
 		return $options;
 	}
 	

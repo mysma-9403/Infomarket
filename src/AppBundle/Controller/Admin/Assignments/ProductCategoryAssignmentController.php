@@ -2,12 +2,16 @@
 
 namespace AppBundle\Controller\Admin\Assignments;
 
+use AppBundle\Controller\Admin\Base\AssignmentController;
 use AppBundle\Controller\Admin\Base\BaseEntityController;
+use AppBundle\Entity\Brand;
 use AppBundle\Entity\Category;
 use AppBundle\Entity\Product;
 use AppBundle\Entity\ProductCategoryAssignment;
+use AppBundle\Entity\Segment;
 use AppBundle\Filter\Admin\Assignments\ProductCategoryAssignmentFilter;
-use AppBundle\Form\Editor\Assignments\ProductCategoryAssignmentEditorType;
+use AppBundle\Form\Base\BaseType;
+use AppBundle\Form\Editor\Admin\Assignments\ProductCategoryAssignmentEditorType;
 use AppBundle\Form\Filter\Admin\Assignments\ProductCategoryAssignmentFilterType;
 use AppBundle\Manager\Entity\Common\ProductCategoryAssignmentManager;
 use AppBundle\Manager\Filter\Base\FilterManager;
@@ -15,11 +19,6 @@ use AppBundle\Repository\Admin\Main\CategoryRepository;
 use AppBundle\Repository\Admin\Main\ProductRepository;
 use AppBundle\Utils\StringUtils;
 use Symfony\Component\HttpFoundation\Request;
-use AppBundle\Entity\Brand;
-use AppBundle\Entity\Segment;
-use AppBundle\Controller\Admin\Base\AssignmentController;
-use AppBundle\Form\Base\BaseType;
-use AppBundle\Factory\Common\Choices\Base\TwigChoicesFactory;
 
 class ProductCategoryAssignmentController extends AssignmentController {
 	

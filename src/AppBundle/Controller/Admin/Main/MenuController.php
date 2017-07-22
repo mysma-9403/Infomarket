@@ -4,10 +4,9 @@ namespace AppBundle\Controller\Admin\Main;
 
 use AppBundle\Controller\Admin\Base\SimpleEntityController;
 use AppBundle\Entity\Menu;
-use AppBundle\Form\Editor\Main\MenuEditorType;
+use AppBundle\Form\Base\BaseType;
 use AppBundle\Manager\Entity\Common\MenuManager;
 use Symfony\Component\HttpFoundation\Request;
-use AppBundle\Form\Base\BaseType;
 
 class MenuController extends SimpleEntityController {
 	
@@ -106,14 +105,7 @@ class MenuController extends SimpleEntityController {
 	// Forms
 	//---------------------------------------------------------------------------
 	
-	/**
-	 * 
-	 * {@inheritDoc}
-	 * @see \AppBundle\Controller\Admin\Base\SimpleEntityController::getFormType()
-	 */
-	protected function getEditorFormType() {
-		return MenuEditorType::class;
-	}
+	protected function getEditorFormType() { }
 	
 	//---------------------------------------------------------------------------
 	// Permissions

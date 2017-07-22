@@ -11,8 +11,8 @@ class SimpleFilterType extends AdminFilterType //TODO change hierarchy Simple ->
 	protected function addMainFields(FormBuilderInterface $builder, array $options) {
 		parent::addMainFields($builder, $options);
 		
-		$this->addChoiceNumberFilterField($builder, $options, 'infomarket', false);
-		$this->addChoiceNumberFilterField($builder, $options, 'infoprodukt', false);
+		$this->addBooleanChoiceFilterField($builder, $options, 'infomarket');
+		$this->addBooleanChoiceFilterField($builder, $options, 'infoprodukt');
 	}
 	
 	protected function getDefaultOptions() {

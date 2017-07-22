@@ -12,11 +12,11 @@ class MagazineFilterType extends SimpleEntityFilterType
 	protected function addMainFields(FormBuilderInterface $builder, array $options) {
 		parent::addMainFields($builder, $options);
 		
-		$this->addChoiceEntityFilterField($builder, $options, 'parents');
-		$this->addChoiceEntityFilterField($builder, $options, 'branches');
-		$this->addChoiceEntityFilterField($builder, $options, 'categories');
+		$this->addEntityChoiceFilterField($builder, $options, 'parents');
+		$this->addEntityChoiceFilterField($builder, $options, 'branches');
+		$this->addEntityChoiceFilterField($builder, $options, 'categories');
 		
-		$this->addChoiceNumberFilterField($builder, $options, 'featured', false);
+		$this->addBooleanChoiceFilterField($builder, $options, 'featured');
 	}
 	
 	protected function getDefaultOptions() {

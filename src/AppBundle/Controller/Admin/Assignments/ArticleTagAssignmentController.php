@@ -8,7 +8,7 @@ use AppBundle\Entity\Article;
 use AppBundle\Entity\ArticleTagAssignment;
 use AppBundle\Entity\Tag;
 use AppBundle\Filter\Admin\Assignments\ArticleTagAssignmentFilter;
-use AppBundle\Form\Editor\Assignments\ArticleTagAssignmentEditorType;
+use AppBundle\Form\Editor\Admin\Assignments\ArticleTagAssignmentEditorType;
 use AppBundle\Form\Filter\Admin\Assignments\ArticleTagAssignmentFilterType;
 use AppBundle\Manager\Entity\Common\ArticleTagAssignmentManager;
 use AppBundle\Manager\Filter\Base\FilterManager;

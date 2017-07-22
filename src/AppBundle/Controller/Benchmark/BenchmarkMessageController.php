@@ -5,9 +5,12 @@ namespace AppBundle\Controller\Benchmark;
 use AppBundle\Controller\Admin\Base\BaseEntityController;
 use AppBundle\Entity\BenchmarkMessage;
 use AppBundle\Entity\Product;
+use AppBundle\Factory\Common\Choices\Bool\ReadChoicesFactory;
+use AppBundle\Factory\Common\Choices\Enum\BenchmarkMessageStatesFactory;
 use AppBundle\Filter\Admin\Base\AuditFilter;
 use AppBundle\Filter\Benchmark\BenchmarkMessageFilter;
-use AppBundle\Form\Benchmark\BenchmarkMessageType;
+use AppBundle\Form\Base\BaseType;
+use AppBundle\Form\Editor\Benchmark\BenchmarkMessageEditorType;
 use AppBundle\Form\Filter\Benchmark\BenchmarkMessageFilterType;
 use AppBundle\Form\Lists\BenchmarkMessageListType;
 use AppBundle\Manager\Entity\Base\EntityManager;
@@ -188,7 +191,13 @@ class BenchmarkMessageController extends BaseEntityController {
 	
 		/** @var ProductRepository $categoryRepository */
 		$productRepository = $this->getDoctrine()->getRepository(Product::class);
-		$options['products'] = $productRepository->findFilterItems();
+		$options[BaseType::getChoicesName('products')] = $productRepository->findFilterItems();
+		
+		$statesFactory = new BenchmarkMessageStatesFactory();
+		$options[BaseType::getChoicesName('states')] = $statesFactory->getItems();
+		
+		$readFactory = new ReadChoicesFactory();
+		$options[BaseType::getChoicesName('readByAuthor')] = $readFactory->getItems();
 	
 		return $options;
 	}
@@ -269,7 +278,7 @@ class BenchmarkMessageController extends BaseEntityController {
 	//---------------------------------------------------------------------------
 	
 	protected function getEditorFormType() {
-		return BenchmarkMessageType::class;
+		return BenchmarkMessageEditorType::class;
 	}
 	
 	protected function getFilterFormType() {

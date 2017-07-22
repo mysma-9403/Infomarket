@@ -6,13 +6,8 @@ use AppBundle\Form\Lists\Base\BaseEntityListType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 
-class BenchmarkMessageListType extends BaseEntityListType
-{	
-	/**
-	 * 
-	 * {@inheritDoc}
-	 * @see \AppBundle\Form\Base\FormType::addActions()
-	 */
+class BenchmarkMessageListType extends BaseEntityListType {	
+	
 	protected function addActions(FormBuilderInterface $builder, array $options) {
 		parent::addActions($builder, $options);
 		

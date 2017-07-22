@@ -18,11 +18,11 @@ class BenchmarkMessageFilterType extends AdminFilterType
 	protected function addMainFields(FormBuilderInterface $builder, array $options) {
 		parent::addMainFields($builder, $options);
 		
-		$this->addChoiceEntityFilterField($builder, $options, 'products');
-		$this->addChoiceEntityFilterField($builder, $options, 'authors');
+		$this->addEntityChoiceFilterField($builder, $options, 'products');
+		$this->addEntityChoiceFilterField($builder, $options, 'authors');
 		
-		$this->addChoiceNumberFilterField($builder, $options, 'states');
-		$this->addChoiceNumberFilterField($builder, $options, 'readByAdmin', false);
+		$this->addNumberChoiceFilterField($builder, $options, 'states');
+		$this->addBooleanChoiceFilterField($builder, $options, 'readByAdmin');
 	}
 	
 	protected function getDefaultOptions() {

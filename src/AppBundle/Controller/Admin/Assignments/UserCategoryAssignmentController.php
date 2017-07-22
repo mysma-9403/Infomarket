@@ -8,7 +8,7 @@ use AppBundle\Entity\Category;
 use AppBundle\Entity\User;
 use AppBundle\Entity\UserCategoryAssignment;
 use AppBundle\Filter\Admin\Assignments\UserCategoryAssignmentFilter;
-use AppBundle\Form\Editor\Assignments\UserCategoryAssignmentEditorType;
+use AppBundle\Form\Editor\Admin\Assignments\UserCategoryAssignmentEditorType;
 use AppBundle\Form\Filter\Admin\Assignments\UserCategoryAssignmentFilterType;
 use AppBundle\Manager\Entity\Common\UserCategoryAssignmentManager;
 use AppBundle\Manager\Filter\Base\FilterManager;

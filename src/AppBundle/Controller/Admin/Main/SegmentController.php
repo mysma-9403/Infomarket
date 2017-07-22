@@ -4,7 +4,7 @@ namespace AppBundle\Controller\Admin\Main;
 
 use AppBundle\Controller\Admin\Base\ImageEntityController;
 use AppBundle\Entity\Segment;
-use AppBundle\Form\Editor\Main\SegmentEditorType;
+use AppBundle\Form\Editor\Admin\Main\SegmentEditorType;
 use AppBundle\Manager\Entity\Common\SegmentManager;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Form\Base\BaseType;

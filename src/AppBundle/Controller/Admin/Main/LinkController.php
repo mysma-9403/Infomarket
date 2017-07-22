@@ -6,7 +6,7 @@ use AppBundle\Controller\Admin\Base\SimpleEntityController;
 use AppBundle\Entity\Link;
 use AppBundle\Filter\Admin\Main\LinkFilter;
 use AppBundle\Form\Base\BaseType;
-use AppBundle\Form\Editor\Main\LinkEditorType;
+use AppBundle\Form\Editor\Admin\Main\LinkEditorType;
 use AppBundle\Form\Filter\Admin\Main\LinkFilterType;
 use AppBundle\Manager\Entity\Common\LinkManager;
 use AppBundle\Manager\Filter\Base\FilterManager;

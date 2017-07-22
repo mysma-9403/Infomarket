@@ -6,21 +6,21 @@ use AppBundle\Controller\Admin\Base\BaseEntityController;
 use AppBundle\Entity\BenchmarkField;
 use AppBundle\Entity\BenchmarkQuery;
 use AppBundle\Entity\Product;
+use AppBundle\Factory\Common\BenchmarkField\SimpleBenchmarkFieldFactory;
 use AppBundle\Filter\Benchmark\BenchmarkQueryFilter;
-use AppBundle\Form\Benchmark\BenchmarkQueryType;
+use AppBundle\Filter\Benchmark\ProductFilter;
+use AppBundle\Form\Editor\Benchmark\BenchmarkQueryEditorType;
 use AppBundle\Form\Filter\Benchmark\BenchmarkQueryFilterType;
+use AppBundle\Logic\Common\BenchmarkField\Initializer\BenchmarkFieldsInitializerImpl;
+use AppBundle\Logic\Common\BenchmarkField\Provider\BenchmarkFieldsProvider;
 use AppBundle\Manager\Entity\Benchmark\BenchmarkQueryManager;
 use AppBundle\Manager\Filter\Base\FilterManager;
 use AppBundle\Manager\Params\Benchmark\ContextParamsManager;
-use AppBundle\Repository\Common\BenchmarkFieldMetadataRepository;
 use AppBundle\Repository\Benchmark\ProductRepository;
+use AppBundle\Repository\Common\BenchmarkFieldMetadataRepository;
+use AppBundle\Utils\Entity\DataBase\BenchmarkFieldDataBaseUtils;
 use AppBundle\Utils\StringUtils;
 use Symfony\Component\HttpFoundation\Request;
-use AppBundle\Filter\Benchmark\ProductFilter;
-use AppBundle\Logic\Common\BenchmarkField\Provider\BenchmarkFieldsProvider;
-use AppBundle\Logic\Common\BenchmarkField\Initializer\BenchmarkFieldsInitializerImpl;
-use AppBundle\Factory\Common\BenchmarkField\SimpleBenchmarkFieldFactory;
-use AppBundle\Utils\Entity\DataBase\BenchmarkFieldDataBaseUtils;
 
 class BenchmarkQueryController extends BaseEntityController {
 	
@@ -200,7 +200,7 @@ class BenchmarkQueryController extends BaseEntityController {
 	//---------------------------------------------------------------------------
 	
 	protected function getEditorFormType() {
-		return BenchmarkQueryType::class;
+		return BenchmarkQueryEditorType::class;
 	}
 	
 	protected function getFilterFormType() {

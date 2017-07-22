@@ -5,6 +5,7 @@ namespace AppBundle\Logic\Admin\Import\Product;
 use AppBundle\Entity\BenchmarkField;
 use AppBundle\Entity\Brand;
 use AppBundle\Entity\Category;
+use AppBundle\Entity\Other\ImportRatings;
 use AppBundle\Entity\Product;
 use AppBundle\Entity\ProductCategoryAssignment;
 use AppBundle\Entity\Segment;

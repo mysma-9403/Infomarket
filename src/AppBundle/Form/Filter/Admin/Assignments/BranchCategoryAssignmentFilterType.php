@@ -11,8 +11,8 @@ class BranchCategoryAssignmentFilterType extends AdminFilterType
 	protected function addMainFields(FormBuilderInterface $builder, array $options) {
 		parent::addMainFields($builder, $options);
 		
-		$this->addChoiceEntityFilterField($builder, $options, 'branches');
-		$this->addChoiceEntityFilterField($builder, $options, 'categories');
+		$this->addEntityChoiceFilterField($builder, $options, 'branches');
+		$this->addEntityChoiceFilterField($builder, $options, 'categories');
 	}
 	
 	protected function getDefaultOptions() {

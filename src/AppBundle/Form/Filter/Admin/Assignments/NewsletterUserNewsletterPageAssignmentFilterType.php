@@ -11,10 +11,10 @@ class NewsletterUserNewsletterPageAssignmentFilterType extends AdminFilterType
 	protected function addMainFields(FormBuilderInterface $builder, array $options) {
 		parent::addMainFields($builder, $options);
 		
-		$this->addChoiceEntityFilterField($builder, $options, 'newsletterPages');
-		$this->addChoiceEntityFilterField($builder, $options, 'newsletterUsers');
+		$this->addEntityChoiceFilterField($builder, $options, 'newsletterPages');
+		$this->addEntityChoiceFilterField($builder, $options, 'newsletterUsers');
 		
-		$this->addChoiceNumberFilterField($builder, $options, 'states');
+		$this->addNumberChoiceFilterField($builder, $options, 'states');
 	}
 	
 	protected function getDefaultOptions() {

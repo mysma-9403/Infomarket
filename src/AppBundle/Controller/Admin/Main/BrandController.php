@@ -5,7 +5,7 @@ namespace AppBundle\Controller\Admin\Main;
 use AppBundle\Controller\Admin\Base\ImageEntityController;
 use AppBundle\Controller\Admin\Base\SimpleEntityController;
 use AppBundle\Entity\Brand;
-use AppBundle\Form\Editor\Main\BrandEditorType;
+use AppBundle\Form\Editor\Admin\Main\BrandEditorType;
 use AppBundle\Manager\Entity\Common\BrandManager;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Form\Base\BaseType;

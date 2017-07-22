@@ -43,55 +43,55 @@ services:
             - { name: 'twig.extension' }
     
     # Boolean Filter Choices Factories
-    twig.extension.choices.base.filter.benchmarkChoices:
+    app.factory.choices.base.filter.benchmarkChoices:
         class: AppBundle\Factory\Common\Choices\Bool\BenchmarkChoicesFactory
-    twig.extension.choices.base.filter.featuredChoices:
+    app.factory.choices.base.filter.featuredChoices:
         class: AppBundle\Factory\Common\Choices\Bool\FeaturedChoicesFactory
-    twig.extension.choices.base.filter.infomarketChoices:
+    app.factory.choices.base.filter.infomarketChoices:
         class: AppBundle\Factory\Common\Choices\Bool\InfomarketChoicesFactory
-    twig.extension.choices.base.filter.infoproduktChoices:
+    app.factory.choices.base.filter.infoproduktChoices:
         class: AppBundle\Factory\Common\Choices\Bool\InfoproduktChoicesFactory
-    twig.extension.choices.base.filter.preleafChoices:
+    app.factory.choices.base.filter.preleafChoices:
         class: AppBundle\Factory\Common\Choices\Bool\PreleafChoicesFactory
-    twig.extension.choices.base.filter.readChoices:
+    app.factory.choices.base.filter.readChoices:
         class: AppBundle\Factory\Common\Choices\Bool\ReadChoicesFactory
-    twig.extension.choices.base.filter.subscribedChoices:
+    app.factory.choices.base.filter.subscribedChoices:
         class: AppBundle\Factory\Common\Choices\Bool\SubscribedChoicesFactory
 
     # Entity Choices Factories   
-    twig.extension.choices.advert.locations:
+    app.factory.choices.advert.locations:
         class: AppBundle\Factory\Common\Choices\Enum\AdvertLocationsFactory
         tags:
             - { name: twig.extension }
-    twig.extension.choices.article.imageSizes:
+    app.factory.choices.article.imageSizes:
         class: AppBundle\Factory\Common\Choices\Enum\ArticleImageSizesFactory
         tags:
             - { name: twig.extension }
-    twig.extension.choices.article.layouts:
+    app.factory.choices.article.layouts:
         class: AppBundle\Factory\Common\Choices\Enum\ArticleLayoutsFactory
         tags:
             - { name: twig.extension }
-    twig.extension.choices.benchmarkField.betterThanTypes:
+    app.factory.choices.benchmarkField.betterThanTypes:
         class: AppBundle\Factory\Common\Choices\Enum\BenchmarkFieldBetterThanTypesFactory
         tags:
             - { name: twig.extension }
-    twig.extension.choices.benchmarkField.fieldTypes:
+    app.factory.choices.benchmarkField.fieldTypes:
         class: AppBundle\Factory\Common\Choices\Enum\BenchmarkFieldFieldTypesFactory
         tags:
             - { name: twig.extension }
-    twig.extension.choices.benchmarkField.noteTypes:
+    app.factory.choices.benchmarkField.noteTypes:
         class: AppBundle\Factory\Common\Choices\Enum\BenchmarkFieldNoteTypesFactory
         tags:
             - { name: twig.extension }
-    twig.extension.choices.benchmarkMessage.states:
+    app.factory.choices.benchmarkMessage.states:
         class: AppBundle\Factory\Common\Choices\Enum\BenchmarkMessageStatesFactory
         tags:
             - { name: twig.extension }
-    twig.extension.choices.newsletterUserNewsletterPageAssignment.states:
+    app.factory.choices.newsletterUserNewsletterPageAssignment.states:
         class: AppBundle\Factory\Common\Choices\Enum\NewsletterUserNewsletterPageAssignmentStatesFactory
         tags:
             - { name: twig.extension }
-    twig.extension.choices.user.roles:
+    app.factory.choices.user.roles:
         class: AppBundle\Factory\Common\Choices\Enum\UserRolesFactory
         tags:
             - { name: twig.extension }
@@ -251,7 +251,19 @@ services:
             - AppBundle\Entity\User
         tags:
             - { name: app.repository }
-
+    
+    # Repository Managers
+    app.repository.manager.benchmark:
+        class: AppBundle\Repository\Manager\BenchmarkRepositoryManager
+        arguments:
+            - '@doctrine.orm.default_entity_manager'
+            
+    # Benchmark Repositories
+    app.repository.benchmark.product:
+        class: AppBundle\Repository\Benchmark\ProductRepository
+        factory: ["@app.repository.manager.benchmark", getRepository]
+        arguments:
+            - AppBundle\Entity\Product
 
     # Basic Transformers
     app.form.transformer.number_2_boolean:
@@ -374,8 +386,12 @@ services:
     
     # FormBuilders
     app.form.builder.editor.benchmark_field:
-        class: AppBundle\Form\FormBuilder\BenchmarkFieldEditorBuilder
+        class: AppBundle\Form\FormBuilder\BenchmarkEditorFieldBuilder
         arguments: ["@app.form.transformer.number_2_boolean"]
+        tags:
+            - { name: form.builder }
+    app.form.builder.filter.benchmark_field:
+        class: AppBundle\Form\FormBuilder\BenchmarkFilterFieldBuilder
         tags:
             - { name: form.builder }
     
@@ -387,119 +403,119 @@ services:
             
     # Assignment Editors
     app.form.editor.advert_category_assignment:
-        class: AppBundle\Form\Editor\Assignments\AdvertCategoryAssignmentEditorType
+        class: AppBundle\Form\Editor\Admin\Assignments\AdvertCategoryAssignmentEditorType
         arguments: [
             "@app.form.transformer.advert_2_number",
             "@app.form.transformer.category_2_number"]
         tags:
             - { name: form.type }
     app.form.editor.article_article_category_assignment:
-        class: AppBundle\Form\Editor\Assignments\ArticleArticleCategoryAssignmentEditorType
+        class: AppBundle\Form\Editor\Admin\Assignments\ArticleArticleCategoryAssignmentEditorType
         arguments: [
             "@app.form.transformer.article_2_number",
             "@app.form.transformer.article_category_2_number"]
         tags:
             - { name: form.type }
     app.form.editor.article_brand_assignment:
-        class: AppBundle\Form\Editor\Assignments\ArticleBrandAssignmentEditorType
+        class: AppBundle\Form\Editor\Admin\Assignments\ArticleBrandAssignmentEditorType
         arguments: [
             "@app.form.transformer.article_2_number",
             "@app.form.transformer.brand_2_number"]
         tags:
             - { name: form.type }
     app.form.editor.article_category_assignment:
-        class: AppBundle\Form\Editor\Assignments\ArticleCategoryAssignmentEditorType
+        class: AppBundle\Form\Editor\Admin\Assignments\ArticleCategoryAssignmentEditorType
         arguments: [
             "@app.form.transformer.article_2_number",
             "@app.form.transformer.category_2_number"]
         tags:
             - { name: form.type }
     app.form.editor.article_tag_assignment:
-        class: AppBundle\Form\Editor\Assignments\ArticleTagAssignmentEditorType
+        class: AppBundle\Form\Editor\Admin\Assignments\ArticleTagAssignmentEditorType
         arguments: [
             "@app.form.transformer.article_2_number",
             "@app.form.transformer.tag_2_number"]
         tags:
             - { name: form.type }
     app.form.editor.branch_category_assignment:
-        class: AppBundle\Form\Editor\Assignments\BranchCategoryAssignmentEditorType
+        class: AppBundle\Form\Editor\Admin\Assignments\BranchCategoryAssignmentEditorType
         arguments: [
             "@app.form.transformer.branch_2_number",
             "@app.form.transformer.category_2_number"]
         tags:
             - { name: form.type }
     app.form.editor.brand_category_assignment:
-        class: AppBundle\Form\Editor\Assignments\BrandCategoryAssignmentEditorType
+        class: AppBundle\Form\Editor\Admin\Assignments\BrandCategoryAssignmentEditorType
         arguments: [
             "@app.form.transformer.brand_2_number",
             "@app.form.transformer.category_2_number"]
         tags:
             - { name: form.type }
     app.form.editor.magazine_branch_assignment:
-        class: AppBundle\Form\Editor\Assignments\MagazineBranchAssignmentEditorType
+        class: AppBundle\Form\Editor\Admin\Assignments\MagazineBranchAssignmentEditorType
         arguments: [
             "@app.form.transformer.magazine_2_number",
             "@app.form.transformer.branch_2_number"]
         tags:
             - { name: form.type }
     app.form.editor.magazine_category_assignment:
-        class: AppBundle\Form\Editor\Assignments\MagazineCategoryAssignmentEditorType
+        class: AppBundle\Form\Editor\Admin\Assignments\MagazineCategoryAssignmentEditorType
         arguments: [
             "@app.form.transformer.magazine_2_number",
             "@app.form.transformer.category_2_number"]
         tags:
             - { name: form.type }
     app.form.editor.menu_entry_branch_assignment:
-        class: AppBundle\Form\Editor\Assignments\MenuEntryBranchAssignmentEditorType
+        class: AppBundle\Form\Editor\Admin\Assignments\MenuEntryBranchAssignmentEditorType
         arguments: [
             "@app.form.transformer.menu_entry_2_number",
             "@app.form.transformer.branch_2_number"]
         tags:
             - { name: form.type }
     app.form.editor.menu_entry_category_assignment:
-        class: AppBundle\Form\Editor\Assignments\MenuEntryCategoryAssignmentEditorType
+        class: AppBundle\Form\Editor\Admin\Assignments\MenuEntryCategoryAssignmentEditorType
         arguments: [
             "@app.form.transformer.menu_entry_2_number",
             "@app.form.transformer.category_2_number"]
         tags:
             - { name: form.type }
     app.form.editor.menu_menu_entry_assignment:
-        class: AppBundle\Form\Editor\Assignments\MenuMenuEntryAssignmentEditorType
+        class: AppBundle\Form\Editor\Admin\Assignments\MenuMenuEntryAssignmentEditorType
         arguments: [
             "@app.form.transformer.menu_2_number",
             "@app.form.transformer.menu_entry_2_number"]
         tags:
             - { name: form.type }
     app.form.editor.newsletter_block_advert_assignment:
-        class: AppBundle\Form\Editor\Assignments\NewsletterBlockAdvertAssignmentEditorType
+        class: AppBundle\Form\Editor\Admin\Assignments\NewsletterBlockAdvertAssignmentEditorType
         arguments: [
             "@app.form.transformer.newsletter_block_2_number",
             "@app.form.transformer.advert_2_number"]
         tags:
             - { name: form.type }
     app.form.editor.newsletter_block_article_assignment:
-        class: AppBundle\Form\Editor\Assignments\NewsletterBlockArticleAssignmentEditorType
+        class: AppBundle\Form\Editor\Admin\Assignments\NewsletterBlockArticleAssignmentEditorType
         arguments: [
             "@app.form.transformer.newsletter_block_2_number",
             "@app.form.transformer.article_2_number"]
         tags:
             - { name: form.type }
     app.form.editor.newsletter_block_magazine_assignment:
-        class: AppBundle\Form\Editor\Assignments\NewsletterBlockMagazineAssignmentEditorType
+        class: AppBundle\Form\Editor\Admin\Assignments\NewsletterBlockMagazineAssignmentEditorType
         arguments: [
             "@app.form.transformer.newsletter_block_2_number",
             "@app.form.transformer.magazine_2_number"]
         tags:
             - { name: form.type }
     app.form.editor.newsletter_user_newsletter_group_assignment:
-        class: AppBundle\Form\Editor\Assignments\NewsletterUserNewsletterGroupAssignmentEditorType
+        class: AppBundle\Form\Editor\Admin\Assignments\NewsletterUserNewsletterGroupAssignmentEditorType
         arguments: [
             "@app.form.transformer.newsletter_user_2_number",
             "@app.form.transformer.newsletter_group_2_number"]
         tags:
             - { name: form.type }
     app.form.editor.product_category_assignment:
-        class: AppBundle\Form\Editor\Assignments\ProductCategoryAssignmentEditorType
+        class: AppBundle\Form\Editor\Admin\Assignments\ProductCategoryAssignmentEditorType
         arguments:
             - "@app.form.transformer.product_2_number"
             - "@app.form.transformer.segment_2_number"
@@ -507,14 +523,14 @@ services:
         tags:
             - { name: form.type }
     app.form.editor.term_category_assignment:
-        class: AppBundle\Form\Editor\Assignments\TermCategoryAssignmentEditorType
+        class: AppBundle\Form\Editor\Admin\Assignments\TermCategoryAssignmentEditorType
         arguments: [
             "@app.form.transformer.term_2_number",
             "@app.form.transformer.category_2_number"]
         tags:
             - { name: form.type }
     app.form.editor.user_category_assignment:
-        class: AppBundle\Form\Editor\Assignments\UserCategoryAssignmentEditorType
+        class: AppBundle\Form\Editor\Admin\Assignments\UserCategoryAssignmentEditorType
         arguments: [
             "@app.form.transformer.user_2_number",
             "@app.form.transformer.category_2_number"]
@@ -523,32 +539,32 @@ services:
             
     # Main Editors      
     app.form.editor.article:
-        class: AppBundle\Form\Editor\Main\ArticleEditorType
+        class: AppBundle\Form\Editor\Admin\Main\ArticleEditorType
         arguments: 
             - "@app.form.transformer.article_2_number"
             - "@app.form.transformer.user_2_number"
         tags:
             - { name: form.type }
     app.form.editor.benchmark_field:
-        class: AppBundle\Form\Editor\Main\BenchmarkFieldEditorType
+        class: AppBundle\Form\Editor\Admin\Main\BenchmarkFieldEditorType
         arguments:
             - "@app.form.transformer.category_2_number"
         tags:
             - { name: form.type }
     app.form.editor.category:
-        class: AppBundle\Form\Editor\Main\CategoryEditorType
+        class: AppBundle\Form\Editor\Admin\Main\CategoryEditorType
         arguments:
             - "@app.form.transformer.category_2_number"
         tags:
             - { name: form.type }
     app.form.editor.magazine:
-        class: AppBundle\Form\Editor\Main\MagazineEditorType
+        class: AppBundle\Form\Editor\Admin\Main\MagazineEditorType
         arguments:
             - "@app.form.transformer.magazine_2_number"
         tags:
             - { name: form.type }
     app.form.editor.menu_entry:
-        class: AppBundle\Form\Editor\Main\MenuEntryEditorType
+        class: AppBundle\Form\Editor\Admin\Main\MenuEntryEditorType
         arguments:
             - "@app.form.transformer.menu_entry_2_number"
             - "@app.form.transformer.page_2_number"
@@ -556,65 +572,64 @@ services:
         tags:
             - { name: form.type }
     app.form.editor.newsletter_block:
-        class: AppBundle\Form\Editor\Main\NewsletterBlockEditorType
+        class: AppBundle\Form\Editor\Admin\Main\NewsletterBlockEditorType
         arguments:
             - "@app.form.transformer.newsletter_page_2_number"
             - "@app.form.transformer.newsletter_block_template_2_number"
         tags:
             - { name: form.type }
     app.form.editor.newsletter_page:
-        class: AppBundle\Form\Editor\Main\NewsletterPageEditorType
+        class: AppBundle\Form\Editor\Admin\Main\NewsletterPageEditorType
         arguments: 
             - "@app.form.transformer.newsletter_page_template_2_number"
         tags:
             - { name: form.type }
     app.form.editor.product:
-        class: AppBundle\Form\Editor\Main\ProductEditorType
+        class: AppBundle\Form\Editor\Admin\Main\ProductEditorType
         arguments: 
             - "@app.form.transformer.brand_2_number"
             - "@app.form.builder.editor.benchmark_field"
         tags:
             - { name: form.type }
 
-    # Others
-    app.form.category_filter:
-        class: AppBundle\Form\Filter\Admin\Other\CategoryFilterType
-        arguments: ["@doctrine.orm.entity_manager"]
-        tags:
-            - { name: form.type }
-            
+    # Form Others
     app.form.article_tag_assignments:
         class: AppBundle\Form\Other\ArticleTagAssignmentsType
-        arguments: ["@doctrine.orm.entity_manager"]
         tags:
-            - { name: form.type }    
+            - { name: form.type }
+    app.form.import_newsletter_users:
+        class: AppBundle\Form\Other\ImportNewsletterUsersType
+        tags:
+            - { name: form.type } 
+    app.form.import_ratings:
+        class: AppBundle\Form\Other\ImportRatingsType
+        tags:
+            - { name: form.type } 
+       
+    # Filter Admin Other   
+    app.form.category_filter:
+        class: AppBundle\Form\Filter\Admin\Other\CategoryFilterType
+        tags:
+            - { name: form.type }  
             
     app.form.send_newsletter_filter:
         class: AppBundle\Form\Filter\Admin\Other\SendNewsletterFilterType
-        arguments: ["@doctrine.orm.entity_manager"]
-        tags:
-            - { name: form.type }      
-            
-    app.form.import_newsletter_users:
-        class: AppBundle\Form\Other\ImportNewsletterUsersType
-        arguments: ["@doctrine.orm.entity_manager"]
         tags:
             - { name: form.type }      
             
     # Benchmark        
     app.benchmark.category_filter:
-        class: AppBundle\Form\Benchmark\CategoryFilterType
-        arguments: ["@doctrine.orm.entity_manager"]
+        class: AppBundle\Form\Filter\Benchmark\CategoryFilterType
         tags:
             - { name: form.type }
     app.benchmark.subcategory_filter:
-        class: AppBundle\Form\Benchmark\SubcategoryFilterType
-        arguments: ["@doctrine.orm.entity_manager"]
+        class: AppBundle\Form\Filter\Benchmark\SubcategoryFilterType
         tags:
             - { name: form.type }
     app.benchmark.product_filter:
-        class: AppBundle\Form\Benchmark\ProductFilterType
-        arguments: ["@doctrine.orm.entity_manager"]
+        class: AppBundle\Form\Filter\Benchmark\ProductFilterType
+        arguments: 
+            - "@app.form.builder.filter.benchmark_field"
         tags:
             - { name: form.type }
             

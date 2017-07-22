@@ -8,7 +8,7 @@ use AppBundle\Entity\NewsletterGroup;
 use AppBundle\Entity\NewsletterUser;
 use AppBundle\Entity\NewsletterUserNewsletterGroupAssignment;
 use AppBundle\Filter\Admin\Assignments\NewsletterUserNewsletterGroupAssignmentFilter;
-use AppBundle\Form\Editor\Assignments\NewsletterUserNewsletterGroupAssignmentEditorType;
+use AppBundle\Form\Editor\Admin\Assignments\NewsletterUserNewsletterGroupAssignmentEditorType;
 use AppBundle\Form\Filter\Admin\Assignments\NewsletterUserNewsletterGroupAssignmentFilterType;
 use AppBundle\Manager\Entity\Common\NewsletterUserNewsletterGroupAssignmentManager;
 use AppBundle\Manager\Filter\Base\FilterManager;

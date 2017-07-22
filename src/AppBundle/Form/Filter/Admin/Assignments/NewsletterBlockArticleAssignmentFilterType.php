@@ -11,8 +11,8 @@ class NewsletterBlockArticleAssignmentFilterType extends AdminFilterType
 	protected function addMainFields(FormBuilderInterface $builder, array $options) {
 		parent::addMainFields($builder, $options);
 		
-		$this->addChoiceEntityFilterField($builder, $options, 'newsletterBlocks');
-		$this->addChoiceEntityFilterField($builder, $options, 'articles');
+		$this->addEntityChoiceFilterField($builder, $options, 'newsletterBlocks');
+		$this->addEntityChoiceFilterField($builder, $options, 'articles');
 	}
 	
 	protected function getDefaultOptions() {

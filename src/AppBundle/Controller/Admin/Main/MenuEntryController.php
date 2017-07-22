@@ -8,7 +8,7 @@ use AppBundle\Entity\Category;
 use AppBundle\Entity\Menu;
 use AppBundle\Entity\MenuEntry;
 use AppBundle\Filter\Admin\Main\MenuEntryFilter;
-use AppBundle\Form\Editor\Main\MenuEntryEditorType;
+use AppBundle\Form\Editor\Admin\Main\MenuEntryEditorType;
 use AppBundle\Form\Filter\Admin\Main\MenuEntryFilterType;
 use AppBundle\Manager\Entity\Common\MenuEntryManager;
 use AppBundle\Manager\Filter\Base\FilterManager;

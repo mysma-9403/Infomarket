@@ -5,10 +5,9 @@ namespace AppBundle\Controller\Admin\Main;
 use AppBundle\Controller\Admin\Base\AdminController;
 use AppBundle\Entity\Lists\Base\BaseEntityList;
 use AppBundle\Entity\User;
-use AppBundle\Factory\Common\Choices\Base\TwigChoicesFactory;
 use AppBundle\Filter\Admin\Main\UserFilter;
 use AppBundle\Form\Base\BaseType;
-use AppBundle\Form\Editor\Main\UserEditorType;
+use AppBundle\Form\Editor\Admin\Main\UserEditorType;
 use AppBundle\Form\Filter\Admin\Main\UserFilterType;
 use AppBundle\Form\Lists\UserListType;
 use AppBundle\Manager\Entity\Base\EntityManager;
@@ -105,7 +104,7 @@ class UserController extends AdminController
 		
 		$this->denyAccessUnlessGranted('edit', $entry);
 	
-		$form = $this->createForm($this->getEditorFormType(), $entry);
+		$form = $this->createForm($this->getEditorFormType(), $entry, $this->getEditorFormOptions());
 		$form->handleRequest($request);
 	
 		if ($form->isSubmitted() && $form->isValid())

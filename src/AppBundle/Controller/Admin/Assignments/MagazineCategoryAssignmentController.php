@@ -8,7 +8,7 @@ use AppBundle\Entity\Category;
 use AppBundle\Entity\Magazine;
 use AppBundle\Entity\MagazineCategoryAssignment;
 use AppBundle\Filter\Admin\Assignments\MagazineCategoryAssignmentFilter;
-use AppBundle\Form\Editor\Assignments\MagazineCategoryAssignmentEditorType;
+use AppBundle\Form\Editor\Admin\Assignments\MagazineCategoryAssignmentEditorType;
 use AppBundle\Form\Filter\Admin\Assignments\MagazineCategoryAssignmentFilterType;
 use AppBundle\Manager\Entity\Common\MagazineCategoryAssignmentManager;
 use AppBundle\Manager\Filter\Base\FilterManager;

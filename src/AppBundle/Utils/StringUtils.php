@@ -76,7 +76,7 @@ class StringUtils extends \Twig_Extension {
 	public function getFilters() {
 		$filters = array();
 		
-		$filters['cleanName'] = new \Twig_SimpleFilter('clean', StringUtils::class . '::getCleanName');
+		$filters['cleanName'] = new \Twig_SimpleFilter('cleanName', StringUtils::class . '::getCleanName');
 		
 		return $filters;
 	}

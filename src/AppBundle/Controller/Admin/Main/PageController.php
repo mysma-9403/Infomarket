@@ -6,7 +6,7 @@ use AppBundle\Controller\Admin\Base\ImageEntityController;
 use AppBundle\Controller\Admin\Base\SimpleEntityController;
 use AppBundle\Entity\Page;
 use AppBundle\Form\Base\BaseType;
-use AppBundle\Form\Editor\Main\PageEditorType;
+use AppBundle\Form\Editor\Admin\Main\PageEditorType;
 use AppBundle\Manager\Entity\Common\PageManager;
 use Symfony\Component\HttpFoundation\Request;
 

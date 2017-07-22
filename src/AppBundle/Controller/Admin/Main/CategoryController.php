@@ -7,11 +7,11 @@ use AppBundle\Controller\Admin\Base\ImageEntityController;
 use AppBundle\Controller\Admin\Base\SimpleEntityController;
 use AppBundle\Entity\Branch;
 use AppBundle\Entity\Category;
-use AppBundle\Entity\ImportRatings;
+use AppBundle\Entity\Other\ImportRatings;
 use AppBundle\Entity\ProductCategoryAssignment;
 use AppBundle\Factory\Admin\Import\Product\ImportErrorFactory;
 use AppBundle\Filter\Admin\Main\CategoryFilter;
-use AppBundle\Form\Editor\Main\CategoryEditorType;
+use AppBundle\Form\Editor\Admin\Main\CategoryEditorType;
 use AppBundle\Form\Filter\Admin\Main\CategoryFilterType;
 use AppBundle\Form\Other\ImportRatingsType;
 use AppBundle\Logic\Admin\Import\Product\ImportLogic;
@@ -358,6 +358,14 @@ class CategoryController extends FeaturedEntityController {
 		/** @var ChoicesFactory $infoproduktChoicesFactory */
 		$infoproduktChoicesFactory = $this->get('app.factory.choices.base.filter.infoproduktChoices');
 		$options[BaseType::getChoicesName('infoprodukt')] = $infoproduktChoicesFactory->getItems();
+		
+		/** @var ChoicesFactory $featuredChoicesFactory */
+		$featuredChoicesFactory = $this->get('app.factory.choices.base.filter.featuredChoices');
+		$options[BaseType::getChoicesName('featured')] = $featuredChoicesFactory->getItems();
+		
+		/** @var ChoicesFactory $preleafChoicesFactory */
+		$preleafChoicesFactory = $this->get('app.factory.choices.base.filter.preleafChoices');
+		$options[BaseType::getChoicesName('preleaf')] = $preleafChoicesFactory->getItems();
 		
 		return $options;
 	}

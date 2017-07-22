@@ -8,7 +8,7 @@ use AppBundle\Entity\Branch;
 use AppBundle\Entity\Magazine;
 use AppBundle\Entity\MagazineBranchAssignment;
 use AppBundle\Filter\Admin\Assignments\MagazineBranchAssignmentFilter;
-use AppBundle\Form\Editor\Assignments\MagazineBranchAssignmentEditorType;
+use AppBundle\Form\Editor\Admin\Assignments\MagazineBranchAssignmentEditorType;
 use AppBundle\Form\Filter\Admin\Assignments\MagazineBranchAssignmentFilterType;
 use AppBundle\Manager\Entity\Common\MagazineBranchAssignmentManager;
 use AppBundle\Manager\Filter\Base\FilterManager;

@@ -23,8 +23,8 @@ class AdvertFilterType extends SimpleEntityFilterType
 		))
 		;
 		
-		$this->addChoiceEntityFilterField($builder, $options, 'categories');
-		$this->addChoiceNumberFilterField($builder, $options, 'locations');
+		$this->addEntityChoiceFilterField($builder, $options, 'categories');
+		$this->addNumberChoiceFilterField($builder, $options, 'locations');
 	}
 	
 	protected function getDefaultOptions() {

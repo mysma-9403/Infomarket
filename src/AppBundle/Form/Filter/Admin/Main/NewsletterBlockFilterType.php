@@ -11,8 +11,8 @@ class NewsletterBlockFilterType extends SimpleEntityFilterType
 	protected function addMainFields(FormBuilderInterface $builder, array $options) {
 		parent::addMainFields($builder, $options);
 		
-		$this->addChoiceEntityFilterField($builder, $options, 'newsletterPages');
-		$this->addChoiceEntityFilterField($builder, $options, 'newsletterBlockTemplates');
+		$this->addEntityChoiceFilterField($builder, $options, 'newsletterPages');
+		$this->addEntityChoiceFilterField($builder, $options, 'newsletterBlockTemplates');
 	}
 	
 	protected function getDefaultOptions() {

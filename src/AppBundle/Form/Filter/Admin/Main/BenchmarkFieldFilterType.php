@@ -21,8 +21,8 @@ class BenchmarkFieldFilterType extends AdminFilterType
 		))
 		;
 		
-		$this->addChoiceEntityFilterField($builder, $options, 'categories');
-		$this->addChoiceNumberFilterField($builder, $options, 'fieldTypes');
+		$this->addEntityChoiceFilterField($builder, $options, 'categories');
+		$this->addNumberChoiceFilterField($builder, $options, 'fieldTypes');
 	}
 	
 	protected function getDefaultOptions() {

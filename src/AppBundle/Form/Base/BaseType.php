@@ -73,44 +73,53 @@ abstract class BaseType extends AbstractType
 	}
 	
 	
-	protected function addChoiceNumberEditorField(FormBuilderInterface $builder, array $options, $field, $required = true, $multiple = false) {
+	protected function addNumberChoiceEditorField(FormBuilderInterface $builder, array $options, $field, $required = true, $multiple = false, $expanded = false) {
+		$this->addNumberChoiceField($builder, $options, $field, $required, $multiple, $expanded);
+	}
+	
+	protected function addNumberChoiceFilterField(FormBuilderInterface $builder, array $options, $field, $expanded = false) {
+		$this->addNumberChoiceField($builder, $options, $field, false, true, $expanded);
+	}
+	
+	protected function addBooleanChoiceFilterField(FormBuilderInterface $builder, array $options, $field, $expanded = false) {
+		$this->addNumberChoiceField($builder, $options, $field, true, false, $expanded);
+	}
+	
+	private function addNumberChoiceField(FormBuilderInterface $builder, array $options, $field, $required, $multiple, $expanded) {
 		$builder->add($field, ChoiceType::class, array(
 				'choices'		=> $options[self::getChoicesName($field)],
 				'required'      => $required,
 				'multiple'      => $multiple,
-				'expanded'      => false
+				'expanded'      => $expanded
 		));
 	}
 	
-	protected function addChoiceNumberFilterField(FormBuilderInterface $builder, array $options, $field, $multiple = true) {
-		$builder->add($field, ChoiceType::class, array(
-				'choices'		=> $options[self::getChoicesName($field)],
-				'required'      => false,
-				'expanded'      => false,
-				'multiple'      => $multiple
-		));
+	
+	protected function addTrueEntityChoiceEditorField(FormBuilderInterface $builder, array $options, $transformer, $field, $required = true) {
+		$this->addTransformerChoiceField($builder, $options, $transformer, $field, $required, false, false);
 	}
 	
-	protected function addChoiceEntityEditorField(FormBuilderInterface $builder, array $options, $transformer, $field, $required = true, $multiple = false) {
+	private function addTransformerChoiceField(FormBuilderInterface $builder, array $options, $transformer, $field, $required, $multiple, $expanded) {
+		$this->addEntityChoiceField($builder, $options, $field, $required, $multiple, $expanded);
+		$builder->get($field)->addModelTransformer($transformer);
+	}
+	
+	protected function addTempEntityChoiceEditorField(FormBuilderInterface $builder, array $options, $field, $required = true, $multiple = false, $expanded = false) {
+		$this->addEntityChoiceField($builder, $options, $field, $required, $multiple, $expanded);
+	}
+	
+	protected function addEntityChoiceFilterField(FormBuilderInterface $builder, array $options, $field, $required = false, $multiple = true, $expanded = false) {
+		$this->addEntityChoiceField($builder, $options, $field, $required, $multiple, $expanded);
+	}
+	
+	private function addEntityChoiceField(FormBuilderInterface $builder, array $options, $field, $required, $multiple, $expanded) {
 		$builder->add($field, ChoiceType::class, array(
 				'choices' 		=> $options[self::getChoicesName($field)],
 				'choice_label' => function ($value, $key, $index) { return FormUtils::getListLabel($value, $key, $index); }, //TODO FormUtils --> DI
 				'choice_translation_domain' => false,
 				'required'		=> $required,
 				'multiple'      => $multiple,
-				'expanded'      => false
-		));
-		$builder->get($field)->addModelTransformer($transformer);
-	}
-	
-	protected function addChoiceEntityFilterField(FormBuilderInterface $builder, array $options, $field) {
-		$builder->add($field, ChoiceType::class, array(
-				'choices' 		=> $options[self::getChoicesName($field)],
-				'choice_label' => function ($value, $key, $index) { return FormUtils::getListLabel($value, $key, $index); }, //TODO FormUtils --> DI
-				'choice_translation_domain' => false,
-				'required'		=> false,
-				'expanded'      => false,
-				'multiple'      => true
+				'expanded'      => $expanded
 		));
 	}
 	

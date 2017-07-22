@@ -11,8 +11,8 @@ class ArticleBrandAssignmentFilterType extends AdminFilterType
 	protected function addMainFields(FormBuilderInterface $builder, array $options) {
 		parent::addMainFields($builder, $options);
 		
-		$this->addChoiceEntityFilterField($builder, $options, 'articles');
-		$this->addChoiceEntityFilterField($builder, $options, 'brands');
+		$this->addEntityChoiceFilterField($builder, $options, 'articles');
+		$this->addEntityChoiceFilterField($builder, $options, 'brands');
 	}
 	
 	protected function getDefaultOptions() {

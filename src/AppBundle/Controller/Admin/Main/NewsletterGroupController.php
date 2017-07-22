@@ -4,7 +4,7 @@ namespace AppBundle\Controller\Admin\Main;
 
 use AppBundle\Controller\Admin\Base\SimpleEntityController;
 use AppBundle\Entity\NewsletterGroup;
-use AppBundle\Form\Editor\Main\NewsletterGroupEditorType;
+use AppBundle\Form\Editor\Admin\Main\NewsletterGroupEditorType;
 use AppBundle\Manager\Entity\Common\NewsletterGroupManager;
 use Symfony\Component\HttpFoundation\Request;
 

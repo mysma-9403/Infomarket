@@ -8,7 +8,7 @@ use AppBundle\Entity\Advert;
 use AppBundle\Entity\AdvertCategoryAssignment;
 use AppBundle\Entity\Category;
 use AppBundle\Filter\Admin\Assignments\AdvertCategoryAssignmentFilter;
-use AppBundle\Form\Editor\Assignments\AdvertCategoryAssignmentEditorType;
+use AppBundle\Form\Editor\Admin\Assignments\AdvertCategoryAssignmentEditorType;
 use AppBundle\Form\Filter\Admin\Assignments\AdvertCategoryAssignmentFilterType;
 use AppBundle\Manager\Entity\Common\AdvertCategoryAssignmentManager;
 use AppBundle\Manager\Filter\Base\FilterManager;

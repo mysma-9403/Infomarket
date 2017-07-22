@@ -8,7 +8,7 @@ use AppBundle\Entity\Advert;
 use AppBundle\Entity\NewsletterBlock;
 use AppBundle\Entity\NewsletterBlockAdvertAssignment;
 use AppBundle\Filter\Admin\Assignments\NewsletterBlockAdvertAssignmentFilter;
-use AppBundle\Form\Editor\Assignments\NewsletterBlockAdvertAssignmentEditorType;
+use AppBundle\Form\Editor\Admin\Assignments\NewsletterBlockAdvertAssignmentEditorType;
 use AppBundle\Form\Filter\Admin\Assignments\NewsletterBlockAdvertAssignmentFilterType;
 use AppBundle\Manager\Entity\Common\NewsletterBlockAdvertAssignmentManager;
 use AppBundle\Manager\Filter\Base\FilterManager;

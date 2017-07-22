@@ -8,7 +8,7 @@ use AppBundle\Entity\Category;
 use AppBundle\Entity\MenuEntry;
 use AppBundle\Entity\MenuEntryCategoryAssignment;
 use AppBundle\Filter\Admin\Assignments\MenuEntryCategoryAssignmentFilter;
-use AppBundle\Form\Editor\Assignments\MenuEntryCategoryAssignmentEditorType;
+use AppBundle\Form\Editor\Admin\Assignments\MenuEntryCategoryAssignmentEditorType;
 use AppBundle\Form\Filter\Admin\Assignments\MenuEntryCategoryAssignmentFilterType;
 use AppBundle\Manager\Entity\Common\MenuEntryCategoryAssignmentManager;
 use AppBundle\Manager\Filter\Base\FilterManager;

@@ -8,7 +8,7 @@ use AppBundle\Entity\Article;
 use AppBundle\Entity\ArticleBrandAssignment;
 use AppBundle\Entity\Brand;
 use AppBundle\Filter\Admin\Assignments\ArticleBrandAssignmentFilter;
-use AppBundle\Form\Editor\Assignments\ArticleBrandAssignmentEditorType;
+use AppBundle\Form\Editor\Admin\Assignments\ArticleBrandAssignmentEditorType;
 use AppBundle\Form\Filter\Admin\Assignments\ArticleBrandAssignmentFilterType;
 use AppBundle\Manager\Entity\Common\ArticleBrandAssignmentManager;
 use AppBundle\Manager\Filter\Base\FilterManager;

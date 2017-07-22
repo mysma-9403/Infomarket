@@ -8,7 +8,7 @@ use AppBundle\Entity\Branch;
 use AppBundle\Entity\BranchCategoryAssignment;
 use AppBundle\Entity\Category;
 use AppBundle\Filter\Admin\Assignments\BranchCategoryAssignmentFilter;
-use AppBundle\Form\Editor\Assignments\BranchCategoryAssignmentEditorType;
+use AppBundle\Form\Editor\Admin\Assignments\BranchCategoryAssignmentEditorType;
 use AppBundle\Form\Filter\Admin\Assignments\BranchCategoryAssignmentFilterType;
 use AppBundle\Manager\Entity\Common\BranchCategoryAssignmentManager;
 use AppBundle\Manager\Filter\Base\FilterManager;

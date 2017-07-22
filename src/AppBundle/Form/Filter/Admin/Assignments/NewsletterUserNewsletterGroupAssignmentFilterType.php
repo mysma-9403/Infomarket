@@ -11,8 +11,8 @@ class NewsletterUserNewsletterGroupAssignmentFilterType extends AdminFilterType
 	protected function addMainFields(FormBuilderInterface $builder, array $options) {
 		parent::addMainFields($builder, $options);
 		
-		$this->addChoiceEntityFilterField($builder, $options, 'newsletterUsers');
-		$this->addChoiceEntityFilterField($builder, $options, 'newsletterGroups');
+		$this->addEntityChoiceFilterField($builder, $options, 'newsletterUsers');
+		$this->addEntityChoiceFilterField($builder, $options, 'newsletterGroups');
 	}
 	
 	protected function getDefaultOptions() {

@@ -22,11 +22,11 @@ class ArticleFilterType extends SimpleEntityFilterType
 		))
 		;
 		
-		$this->addChoiceEntityFilterField($builder, $options, 'brands');
-		$this->addChoiceEntityFilterField($builder, $options, 'categories');
-		$this->addChoiceEntityFilterField($builder, $options, 'articleCategories');
+		$this->addEntityChoiceFilterField($builder, $options, 'brands');
+		$this->addEntityChoiceFilterField($builder, $options, 'categories');
+		$this->addEntityChoiceFilterField($builder, $options, 'articleCategories');
 		
-		$this->addChoiceNumberFilterField($builder, $options, 'featured', false);
+		$this->addBooleanChoiceFilterField($builder, $options, 'featured');
 	}
 	
 	protected function getDefaultOptions() {

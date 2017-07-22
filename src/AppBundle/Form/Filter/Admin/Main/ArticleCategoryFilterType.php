@@ -22,7 +22,7 @@ class ArticleCategoryFilterType extends SimpleEntityFilterType
 		))
 		;
 		
-		$this->addChoiceNumberFilterField($builder, $options, 'featured', false);
+		$this->addBooleanChoiceFilterField($builder, $options, 'featured');
 	}
 	
 	protected function getDefaultOptions() {

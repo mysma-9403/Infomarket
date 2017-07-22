@@ -22,11 +22,11 @@ class CategoryFilterType extends SimpleEntityFilterType
 		))
 		;
 		
-		$this->addChoiceEntityFilterField($builder, $options, 'parents');
-		$this->addChoiceEntityFilterField($builder, $options, 'branches');
+		$this->addEntityChoiceFilterField($builder, $options, 'parents');
+		$this->addEntityChoiceFilterField($builder, $options, 'branches');
 		
-		$this->addChoiceNumberFilterField($builder, $options, 'preleaf', false);
-		$this->addChoiceNumberFilterField($builder, $options, 'featured', false);
+		$this->addBooleanChoiceFilterField($builder, $options, 'preleaf');
+		$this->addBooleanChoiceFilterField($builder, $options, 'featured');
 	}
 	
 	protected function getDefaultOptions() {

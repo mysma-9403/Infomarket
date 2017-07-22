@@ -12,8 +12,8 @@ class ProductFilterType extends SimpleEntityFilterType
 	protected function addMainFields(FormBuilderInterface $builder, array $options) {
 		parent::addMainFields($builder, $options);
 		
-		$this->addChoiceEntityFilterField($builder, $options, 'brands');
-		$this->addChoiceEntityFilterField($builder, $options, 'categories');
+		$this->addEntityChoiceFilterField($builder, $options, 'brands');
+		$this->addEntityChoiceFilterField($builder, $options, 'categories');
 	}
 	
 	protected function getDefaultOptions() {

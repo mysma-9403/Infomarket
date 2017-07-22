@@ -7,14 +7,13 @@ use AppBundle\Controller\Admin\Base\SimpleEntityController;
 use AppBundle\Entity\Advert;
 use AppBundle\Entity\Category;
 use AppBundle\Filter\Admin\Main\AdvertFilter;
-use AppBundle\Form\Editor\Main\AdvertEditorType;
+use AppBundle\Form\Base\BaseType;
+use AppBundle\Form\Editor\Admin\Main\AdvertEditorType;
 use AppBundle\Form\Filter\Admin\Main\AdvertFilterType;
 use AppBundle\Manager\Entity\Common\AdvertManager;
 use AppBundle\Manager\Filter\Base\FilterManager;
 use AppBundle\Repository\Admin\Main\CategoryRepository;
 use Symfony\Component\HttpFoundation\Request;
-use AppBundle\Form\Base\BaseType;
-use AppBundle\Factory\Common\Choices\Base\TwigChoicesFactory;
 
 class AdvertController extends ImageEntityController {
 	

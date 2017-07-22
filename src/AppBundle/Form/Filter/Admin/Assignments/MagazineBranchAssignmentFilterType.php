@@ -11,8 +11,8 @@ class MagazineBranchAssignmentFilterType extends AdminFilterType
 	protected function addMainFields(FormBuilderInterface $builder, array $options) {
 		parent::addMainFields($builder, $options);
 		
-		$this->addChoiceEntityFilterField($builder, $options, 'magazines');
-		$this->addChoiceEntityFilterField($builder, $options, 'branches');
+		$this->addEntityChoiceFilterField($builder, $options, 'magazines');
+		$this->addEntityChoiceFilterField($builder, $options, 'branches');
 	}
 	
 	protected function getDefaultOptions() {

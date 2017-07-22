@@ -7,7 +7,7 @@ use AppBundle\Entity\NewsletterBlock;
 use AppBundle\Entity\NewsletterBlockTemplate;
 use AppBundle\Entity\NewsletterPage;
 use AppBundle\Filter\Admin\Main\NewsletterBlockFilter;
-use AppBundle\Form\Editor\Main\NewsletterBlockEditorType;
+use AppBundle\Form\Editor\Admin\Main\NewsletterBlockEditorType;
 use AppBundle\Form\Filter\Admin\Main\NewsletterBlockFilterType;
 use AppBundle\Manager\Entity\Common\NewsletterBlockManager;
 use AppBundle\Manager\Filter\Base\FilterManager;

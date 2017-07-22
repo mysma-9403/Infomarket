@@ -3,6 +3,7 @@
 namespace AppBundle\Controller\Admin\Main;
 
 use AppBundle\Controller\Admin\Base\SimpleEntityController;
+use AppBundle\Entity\NewsletterGroup;
 use AppBundle\Entity\NewsletterUser;
 use AppBundle\Entity\NewsletterUserNewsletterGroupAssignment;
 use AppBundle\Entity\Other\ImportNewsletterUsers;
@@ -11,7 +12,7 @@ use AppBundle\Factory\Admin\Import\NewsletterUser\ImportErrorFactory;
 use AppBundle\Factory\Admin\Import\NewsletterUser\PreparedEntryFactory;
 use AppBundle\Filter\Admin\Main\NewsletterUserFilter;
 use AppBundle\Form\Base\BaseType;
-use AppBundle\Form\Editor\Main\NewsletterUserEditorType;
+use AppBundle\Form\Editor\Admin\Main\NewsletterUserEditorType;
 use AppBundle\Form\Filter\Admin\Main\NewsletterUserFilterType;
 use AppBundle\Form\Other\ImportNewsletterUsersType;
 use AppBundle\Logic\Admin\Import\NewsletterUser\ImportLogic;
@@ -174,9 +175,15 @@ class NewsletterUserController extends SimpleEntityController {
 		$am = $this->getAnalyticsManager();
 		$am->sendPageviewAnalytics($params['domain'], $params['route']);
 	
+		$options = [];
+		
+		/** @var NewsletterGroupRepository $newsletterGroupRepository */
+		$newsletterGroupRepository = $this->getDoctrine()->getRepository(NewsletterGroup::class);
+		$options[BaseType::getChoicesName('newsletterGroups')] = $newsletterGroupRepository->findFilterItems();
+		
 		$importItem = new ImportNewsletterUsers();
 	
-		$importForm = $this->createForm(ImportNewsletterUsersType::class, $importItem);
+		$importForm = $this->createForm(ImportNewsletterUsersType::class, $importItem, $options);
 		$importForm->handleRequest($request);
 	
 		if ($importForm->isSubmitted() && $importForm->isValid()) {

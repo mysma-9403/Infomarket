@@ -11,8 +11,10 @@ use AppBundle\Entity\Brand;
 use AppBundle\Entity\Category;
 use AppBundle\Entity\Other\ArticleTagAssignments;
 use AppBundle\Entity\Tag;
+use AppBundle\Entity\User;
 use AppBundle\Filter\Admin\Main\ArticleFilter;
-use AppBundle\Form\Editor\Main\ArticleEditorType;
+use AppBundle\Form\Base\BaseType;
+use AppBundle\Form\Editor\Admin\Main\ArticleEditorType;
 use AppBundle\Form\Filter\Admin\Main\ArticleFilterType;
 use AppBundle\Form\Other\ArticleTagAssignmentsType;
 use AppBundle\Manager\Entity\Admin\ArticleManager;
@@ -25,9 +27,6 @@ use AppBundle\Repository\Admin\Main\CategoryRepository;
 use AppBundle\Repository\Admin\Main\TagRepository;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\HttpFoundation\Request;
-use AppBundle\Form\Base\BaseType;
-use AppBundle\Factory\Common\Choices\Base\TwigChoicesFactory;
-use AppBundle\Entity\User;
 
 class ArticleController extends FeaturedEntityController {
 	
@@ -197,7 +196,13 @@ class ArticleController extends FeaturedEntityController {
 		$entry = new ArticleTagAssignments();
 		$entry->setArticle($article);
 		
-		$form = $this->createForm(ArticleTagAssignmentsType::class, $entry);
+		$options = [];
+
+		/** @var TagRepository $tagRepository */
+		$tagRepository = $this->getDoctrine()->getRepository(Tag::class);
+		$options[BaseType::getChoicesName('tags')] = $tagRepository->findFilterItems();
+		
+		$form = $this->createForm(ArticleTagAssignmentsType::class, $entry, $options);
 	
 		$form->handleRequest($request);
 	
@@ -344,6 +349,10 @@ class ArticleController extends FeaturedEntityController {
 		/** @var ChoicesFactory $infoproduktChoicesFactory */
 		$infoproduktChoicesFactory = $this->get('app.factory.choices.base.filter.infoproduktChoices');
 		$options[BaseType::getChoicesName('infoprodukt')] = $infoproduktChoicesFactory->getItems();
+		
+		/** @var ChoicesFactory $featuredChoicesFactory */
+		$featuredChoicesFactory = $this->get('app.factory.choices.base.filter.featuredChoices');
+		$options[BaseType::getChoicesName('featured')] = $featuredChoicesFactory->getItems();
 		
 		return $options;
 	}

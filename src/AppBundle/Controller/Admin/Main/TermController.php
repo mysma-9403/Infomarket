@@ -6,7 +6,7 @@ use AppBundle\Controller\Admin\Base\SimpleEntityController;
 use AppBundle\Entity\Category;
 use AppBundle\Entity\Term;
 use AppBundle\Filter\Admin\Main\TermFilter;
-use AppBundle\Form\Editor\Main\TermEditorType;
+use AppBundle\Form\Editor\Admin\Main\TermEditorType;
 use AppBundle\Form\Filter\Admin\Main\TermFilterType;
 use AppBundle\Manager\Entity\Common\TermManager;
 use AppBundle\Manager\Filter\Base\FilterManager;

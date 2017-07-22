@@ -8,7 +8,7 @@ use AppBundle\Entity\Article;
 use AppBundle\Entity\ArticleCategoryAssignment;
 use AppBundle\Entity\Category;
 use AppBundle\Filter\Admin\Assignments\ArticleCategoryAssignmentFilter;
-use AppBundle\Form\Editor\Assignments\ArticleCategoryAssignmentEditorType;
+use AppBundle\Form\Editor\Admin\Assignments\ArticleCategoryAssignmentEditorType;
 use AppBundle\Form\Filter\Admin\Assignments\ArticleCategoryAssignmentFilterType;
 use AppBundle\Manager\Entity\Common\ArticleCategoryAssignmentManager;
 use AppBundle\Manager\Filter\Base\FilterManager;

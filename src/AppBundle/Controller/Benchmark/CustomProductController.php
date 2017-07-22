@@ -12,10 +12,11 @@ use AppBundle\Entity\ProductNote;
 use AppBundle\Factory\Common\BenchmarkField\SimpleBenchmarkFieldFactory;
 use AppBundle\Filter\Benchmark\CustomProductFilter;
 use AppBundle\Filter\Common\Other\ProductFilter;
-use AppBundle\Form\Benchmark\CategoryFilterType;
-use AppBundle\Form\Benchmark\SubcategoryFilterType;
-use AppBundle\Form\Editor\Common\ProductEditorType;
+use AppBundle\Form\Base\BaseType;
+use AppBundle\Form\Editor\Admin\Main\ProductEditorType;
+use AppBundle\Form\Filter\Benchmark\CategoryFilterType;
 use AppBundle\Form\Filter\Benchmark\CustomProductFilterType;
+use AppBundle\Form\Filter\Benchmark\SubcategoryFilterType;
 use AppBundle\Logic\Common\BenchmarkField\Initializer\BenchmarkFieldsInitializerImpl;
 use AppBundle\Logic\Common\BenchmarkField\Provider\BenchmarkFieldsProvider;
 use AppBundle\Manager\Entity\Base\EntityManager;
@@ -23,6 +24,7 @@ use AppBundle\Manager\Entity\Benchmark\ProductManager;
 use AppBundle\Manager\Filter\Base\FilterManager;
 use AppBundle\Manager\Params\Benchmark\ContextParamsManager;
 use AppBundle\Manager\Params\EntryParams\Benchmark\CustomProductEntryParamsManager;
+use AppBundle\Repository\Benchmark\CategoryRepository;
 use AppBundle\Repository\Benchmark\CustomProductRepository;
 use AppBundle\Repository\Common\BenchmarkFieldMetadataRepository;
 use AppBundle\Utils\Entity\DataBase\BenchmarkFieldDataBaseUtils;
@@ -150,7 +152,14 @@ class CustomProductController extends ImageEntityController {
 	
 		$tokenStorage = $this->get('security.token_storage');
 		$user = $tokenStorage->getToken()->getUser()->getId();
-		$form = $this->createForm(CategoryFilterType::class, $categoryFilter, ['user' => $user]);
+		
+		$options = [];
+		
+		$em = $this->getDoctrine()->getManager();
+		$categoryRepository = new CategoryRepository($em, $em->getClassMetadata(Category::class));
+		$options[BaseType::getChoicesName('category')] = $categoryRepository->findFilterItemsByUser($user);
+		
+		$form = $this->createForm(CategoryFilterType::class, $categoryFilter, $options);
 		
 		$form->handleRequest($request);
 	
@@ -177,7 +186,15 @@ class CustomProductController extends ImageEntityController {
 		
 		$tokenStorage = $this->get('security.token_storage');
 		$user = $tokenStorage->getToken()->getUser()->getId();
-		$form = $this->createForm(SubcategoryFilterType::class, $subcategoryFilter, ['user' => $user, 'category' => $category]);
+		
+		//----- other method
+		$options = [];
+		
+		$em = $this->getDoctrine()->getManager();
+		$categoryRepository = new CategoryRepository($em, $em->getClassMetadata(Category::class));
+		$options[BaseType::getChoicesName('subcategory')] = $categoryRepository->findFilterItemsByUserAndCategory($user, $category);
+		
+		$form = $this->createForm(SubcategoryFilterType::class, $subcategoryFilter, $options);
 		
 		$form->handleRequest($request);
 	
@@ -200,11 +217,11 @@ class CustomProductController extends ImageEntityController {
 	
 		/** @var BrandRepository $brandRepository */
 		$brandRepository = $this->getDoctrine()->getRepository(Brand::class);
-		$options['brands'] = $brandRepository->findFilterItems();
+		$options[BaseType::getChoicesName('brands')] = $brandRepository->findFilterItems();
 	
 		/** @var CategoryRepository $categoryRepository */
 		$categoryRepository = $this->getDoctrine()->getRepository(Category::class);
-		$options['categories'] = $categoryRepository->findFilterItems();
+		$options[BaseType::getChoicesName('categories')] = $categoryRepository->findFilterItems();
 	
 		return $options;
 	}

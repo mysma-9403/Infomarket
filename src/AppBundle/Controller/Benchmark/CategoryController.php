@@ -9,8 +9,8 @@ use AppBundle\Entity\Product;
 use AppBundle\Factory\Common\BenchmarkField\CategoryBenchmarkFieldFactory;
 use AppBundle\Filter\Benchmark\CategoryFilter;
 use AppBundle\Filter\Benchmark\SubcategoryFilter;
-use AppBundle\Form\Benchmark\CategoryFilterType;
-use AppBundle\Form\Benchmark\SubcategoryFilterType;
+use AppBundle\Form\Filter\Benchmark\CategoryFilterType;
+use AppBundle\Form\Filter\Benchmark\SubcategoryFilterType;
 use AppBundle\Logic\Benchmark\Fields\BenchmarkChartLogic;
 use AppBundle\Logic\Common\BenchmarkField\Initializer\BenchmarkFieldsInitializerImpl;
 use AppBundle\Logic\Common\BenchmarkField\Provider\BenchmarkFieldsProvider;
@@ -20,13 +20,13 @@ use AppBundle\Manager\Filter\Base\FilterManager;
 use AppBundle\Manager\Params\Benchmark\ContextParamsManager;
 use AppBundle\Manager\Params\EntryParams\Benchmark\CategoryParamsManager;
 use AppBundle\Manager\Route\RouteManager;
-use AppBundle\Repository\Benchmark\BenchmarkFieldRepository;
 use AppBundle\Repository\Benchmark\CategoryRepository;
 use AppBundle\Repository\Benchmark\ProductRepository;
 use AppBundle\Repository\Common\BenchmarkFieldMetadataRepository;
 use AppBundle\Utils\Entity\DataBase\BenchmarkFieldDataBaseUtils;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Form\Base\BaseType;
 
 class CategoryController extends DummyController {
 	
@@ -67,8 +67,14 @@ class CategoryController extends DummyController {
 		$category = $contextParams['category'];
 		$categoryFilter = new CategoryFilter();
 		$categoryFilter->setCategory($category);
-
-		$categoryFilterForm = $this->createForm(CategoryFilterType::class, $categoryFilter, ['user' => $user]);
+		
+		$options = [];
+		
+		$em = $this->getDoctrine()->getManager();
+		$categoryRepository = new CategoryRepository($em, $em->getClassMetadata(Category::class));
+		$options[BaseType::getChoicesName('category')] = $categoryRepository->findFilterItemsByUser($user);
+		
+		$categoryFilterForm = $this->createForm(CategoryFilterType::class, $categoryFilter, $options);
 		$categoryFilterForm->handleRequest($request);
 
 		if ($categoryFilterForm->isSubmitted() && $categoryFilterForm->isValid()) {
@@ -83,7 +89,12 @@ class CategoryController extends DummyController {
 		$subcategoryFilter = new SubcategoryFilter();
 		$subcategoryFilter->setSubcategory($subcategory);
 		
-		$subcategoryFilterForm = $this->createForm(SubcategoryFilterType::class, $subcategoryFilter, ['user' => $user, 'category' => $category]);
+		//----- other method
+		$options = [];
+		
+		$options[BaseType::getChoicesName('subcategory')] = $categoryRepository->findFilterItemsByUserAndCategory($user, $category);
+		
+		$subcategoryFilterForm = $this->createForm(SubcategoryFilterType::class, $subcategoryFilter, $options);
 		$subcategoryFilterForm->handleRequest($request);
 		
 		if ($subcategoryFilterForm->isSubmitted() && $subcategoryFilterForm->isValid()) {

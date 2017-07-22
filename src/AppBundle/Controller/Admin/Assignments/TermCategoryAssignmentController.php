@@ -8,7 +8,7 @@ use AppBundle\Entity\Category;
 use AppBundle\Entity\Term;
 use AppBundle\Entity\TermCategoryAssignment;
 use AppBundle\Filter\Admin\Assignments\TermCategoryAssignmentFilter;
-use AppBundle\Form\Editor\Assignments\TermCategoryAssignmentEditorType;
+use AppBundle\Form\Editor\Admin\Assignments\TermCategoryAssignmentEditorType;
 use AppBundle\Form\Filter\Admin\Assignments\TermCategoryAssignmentFilterType;
 use AppBundle\Manager\Entity\Common\TermCategoryAssignmentManager;
 use AppBundle\Manager\Filter\Base\FilterManager;

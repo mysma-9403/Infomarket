@@ -11,8 +11,8 @@ class MenuEntryBranchAssignmentFilterType extends AdminFilterType
 	protected function addMainFields(FormBuilderInterface $builder, array $options) {
 		parent::addMainFields($builder, $options);
 		
-		$this->addChoiceEntityFilterField($builder, $options, 'menuEntries');
-		$this->addChoiceEntityFilterField($builder, $options, 'branches');
+		$this->addEntityChoiceFilterField($builder, $options, 'menuEntries');
+		$this->addEntityChoiceFilterField($builder, $options, 'branches');
 	}
 	
 	protected function getDefaultOptions() {

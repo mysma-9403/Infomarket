@@ -8,7 +8,7 @@ use AppBundle\Entity\Branch;
 use AppBundle\Entity\Category;
 use AppBundle\Entity\Magazine;
 use AppBundle\Filter\Admin\Main\MagazineFilter;
-use AppBundle\Form\Editor\Main\MagazineEditorType;
+use AppBundle\Form\Editor\Admin\Main\MagazineEditorType;
 use AppBundle\Form\Filter\Admin\Main\MagazineFilterType;
 use AppBundle\Manager\Entity\Common\MagazineManager;
 use AppBundle\Manager\Filter\Base\FilterManager;
@@ -157,6 +157,10 @@ class MagazineController extends FeaturedEntityController {
 		/** @var ChoicesFactory $infoproduktChoicesFactory */
 		$infoproduktChoicesFactory = $this->get('app.factory.choices.base.filter.infoproduktChoices');
 		$options[BaseType::getChoicesName('infoprodukt')] = $infoproduktChoicesFactory->getItems();
+		
+		/** @var ChoicesFactory $featuredChoicesFactory */
+		$featuredChoicesFactory = $this->get('app.factory.choices.base.filter.featuredChoices');
+		$options[BaseType::getChoicesName('featured')] = $featuredChoicesFactory->getItems();
 		
 		return $options;
 	}

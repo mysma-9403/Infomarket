@@ -5,7 +5,7 @@ namespace AppBundle\Controller\Admin\Main;
 use AppBundle\Controller\Admin\Base\ImageEntityController;
 use AppBundle\Controller\Admin\Base\SimpleEntityController;
 use AppBundle\Entity\Branch;
-use AppBundle\Form\Editor\Main\BranchEditorType;
+use AppBundle\Form\Editor\Admin\Main\BranchEditorType;
 use AppBundle\Manager\Entity\Common\BranchManager;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Form\Base\BaseType;

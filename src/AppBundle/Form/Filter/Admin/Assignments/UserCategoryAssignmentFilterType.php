@@ -11,8 +11,8 @@ class UserCategoryAssignmentFilterType extends AdminFilterType
 	protected function addMainFields(FormBuilderInterface $builder, array $options) {
 		parent::addMainFields($builder, $options);
 		
-		$this->addChoiceEntityFilterField($builder, $options, 'users');
-		$this->addChoiceEntityFilterField($builder, $options, 'categories');
+		$this->addEntityChoiceFilterField($builder, $options, 'users');
+		$this->addEntityChoiceFilterField($builder, $options, 'categories');
 	}
 	
 	protected function getDefaultOptions() {

@@ -21,8 +21,8 @@ class AdminFilterType extends FilterType
 		$this->addDateTimeField($builder, 'updatedAfter', 'label.updatedAfter', false);
 		$this->addDateTimeField($builder, 'updatedBefore', 'label.updatedBefore', false);
 		
-		$this->addChoiceEntityFilterField($builder, $options, 'createdBy');
-		$this->addChoiceEntityFilterField($builder, $options, 'updatedBy');
+		$this->addEntityChoiceFilterField($builder, $options, 'createdBy');
+		$this->addEntityChoiceFilterField($builder, $options, 'updatedBy');
 	}
 	
 	protected function getDefaultOptions() {

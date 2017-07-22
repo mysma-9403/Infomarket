@@ -8,7 +8,7 @@ use AppBundle\Entity\Article;
 use AppBundle\Entity\NewsletterBlock;
 use AppBundle\Entity\NewsletterBlockArticleAssignment;
 use AppBundle\Filter\Admin\Assignments\NewsletterBlockArticleAssignmentFilter;
-use AppBundle\Form\Editor\Assignments\NewsletterBlockArticleAssignmentEditorType;
+use AppBundle\Form\Editor\Admin\Assignments\NewsletterBlockArticleAssignmentEditorType;
 use AppBundle\Form\Filter\Admin\Assignments\NewsletterBlockArticleAssignmentFilterType;
 use AppBundle\Manager\Entity\Common\NewsletterBlockArticleAssignmentManager;
 use AppBundle\Manager\Filter\Base\FilterManager;

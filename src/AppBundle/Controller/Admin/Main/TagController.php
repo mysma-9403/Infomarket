@@ -4,7 +4,7 @@ namespace AppBundle\Controller\Admin\Main;
 
 use AppBundle\Controller\Admin\Base\SimpleEntityController;
 use AppBundle\Entity\Tag;
-use AppBundle\Form\Editor\Main\TagEditorType;
+use AppBundle\Form\Editor\Admin\Main\TagEditorType;
 use AppBundle\Manager\Entity\Common\TagManager;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Form\Base\BaseType;
