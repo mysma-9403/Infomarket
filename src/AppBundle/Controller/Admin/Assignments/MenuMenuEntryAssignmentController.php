@@ -8,12 +8,10 @@ use AppBundle\Entity\Menu;
 use AppBundle\Entity\MenuEntry;
 use AppBundle\Entity\MenuMenuEntryAssignment;
 use AppBundle\Filter\Admin\Assignments\MenuMenuEntryAssignmentFilter;
-use AppBundle\Form\Editor\Assignments\MenuMenuEntryAssignmentEditorType;
+use AppBundle\Form\Editor\Admin\Assignments\MenuMenuEntryAssignmentEditorType;
 use AppBundle\Form\Filter\Admin\Assignments\MenuMenuEntryAssignmentFilterType;
 use AppBundle\Manager\Entity\Common\MenuMenuEntryAssignmentManager;
 use AppBundle\Manager\Filter\Base\FilterManager;
-use AppBundle\Repository\Admin\Main\MenuEntryRepository;
-use AppBundle\Repository\Admin\Main\MenuRepository;
 use Symfony\Component\HttpFoundation\Request;
 
 class MenuMenuEntryAssignmentController extends AssignmentController {
@@ -97,16 +95,20 @@ class MenuMenuEntryAssignmentController extends AssignmentController {
 	// Internal logic
 	//---------------------------------------------------------------------------
 	
-	protected function getFormOptions() {
-		$options = parent::getFormOptions();
+	protected function getFilterFormOptions() {
+		$options = parent::getFilterFormOptions();
 	
-		/** @var MenuRepository $menuRepository */
-		$menuRepository = $this->getDoctrine()->getRepository(Menu::class);
-		$options['menus'] = $menuRepository->findFilterItems();
-		
-		/** @var MenuEntryRepository $menuEntryRepository */
-		$menuEntryRepository = $this->getDoctrine()->getRepository(MenuEntry::class);
-		$options['menuEntries'] = $menuEntryRepository->findFilterItems();
+		$this->addEntityChoicesFormOption($options, Menu::class, 'menus');
+		$this->addEntityChoicesFormOption($options, MenuEntry::class, 'menuEntries');
+	
+		return $options;
+	}
+	
+	protected function getEditorFormOptions() {
+		$options = parent::getEditorFormOptions();
+	
+		$this->addEntityChoicesFormOption($options, Menu::class, 'menu');
+		$this->addEntityChoicesFormOption($options, MenuEntry::class, 'menuEntry');
 	
 		return $options;
 	}

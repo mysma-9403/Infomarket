@@ -8,12 +8,10 @@ use AppBundle\Entity\Article;
 use AppBundle\Entity\NewsletterBlock;
 use AppBundle\Entity\NewsletterBlockArticleAssignment;
 use AppBundle\Filter\Admin\Assignments\NewsletterBlockArticleAssignmentFilter;
-use AppBundle\Form\Editor\Assignments\NewsletterBlockArticleAssignmentEditorType;
+use AppBundle\Form\Editor\Admin\Assignments\NewsletterBlockArticleAssignmentEditorType;
 use AppBundle\Form\Filter\Admin\Assignments\NewsletterBlockArticleAssignmentFilterType;
 use AppBundle\Manager\Entity\Common\NewsletterBlockArticleAssignmentManager;
 use AppBundle\Manager\Filter\Base\FilterManager;
-use AppBundle\Repository\Admin\Main\ArticleRepository;
-use AppBundle\Repository\Admin\Main\NewsletterBlockRepository;
 use Symfony\Component\HttpFoundation\Request;
 
 class NewsletterBlockArticleAssignmentController extends AssignmentController {
@@ -97,16 +95,20 @@ class NewsletterBlockArticleAssignmentController extends AssignmentController {
 	// Internal logic
 	//---------------------------------------------------------------------------
 	
-	protected function getFormOptions() {
-		$options = parent::getFormOptions();
+	protected function getFilterFormOptions() {
+		$options = parent::getFilterFormOptions();
 	
-		/** @var NewsletterBlockRepository $newsletterBlockRepository */
-		$newsletterBlockRepository = $this->getDoctrine()->getRepository(NewsletterBlock::class);
-		$options['newsletterBlocks'] = $newsletterBlockRepository->findFilterItems();
+		$this->addEntityChoicesFormOption($options, NewsletterBlock::class, 'newsletterBlocks');
+		$this->addEntityChoicesFormOption($options, Article::class, 'articles');
 	
-		/** @var ArticleRepository $articleRepository */
-		$articleRepository = $this->getDoctrine()->getRepository(Article::class);
-		$options['articles'] = $articleRepository->findFilterItems();
+		return $options;
+	}
+	
+	protected function getEditorFormOptions() {
+		$options = parent::getEditorFormOptions();
+	
+		$this->addEntityChoicesFormOption($options, NewsletterBlock::class, 'newsletterBlock');
+		$this->addEntityChoicesFormOption($options, Article::class, 'article');
 	
 		return $options;
 	}

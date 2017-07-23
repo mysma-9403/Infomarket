@@ -5,7 +5,7 @@ namespace AppBundle\Controller\Admin\Main;
 use AppBundle\Controller\Admin\Base\BaseEntityController;
 use AppBundle\Controller\Admin\Base\SimpleEntityController;
 use AppBundle\Entity\BenchmarkEnum;
-use AppBundle\Form\Editor\Main\BenchmarkEnumEditorType;
+use AppBundle\Form\Editor\Admin\Main\BenchmarkEnumEditorType;
 use AppBundle\Manager\Entity\Common\BenchmarkEnumManager;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Manager\Filter\Base\FilterManager;

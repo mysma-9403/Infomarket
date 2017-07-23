@@ -5,7 +5,9 @@ namespace AppBundle\Controller\Admin\Main;
 use AppBundle\Controller\Admin\Base\ImageEntityController;
 use AppBundle\Controller\Admin\Base\SimpleEntityController;
 use AppBundle\Entity\Brand;
-use AppBundle\Form\Editor\Main\BrandEditorType;
+use AppBundle\Factory\Common\Choices\Bool\InfomarketChoicesFactory;
+use AppBundle\Factory\Common\Choices\Bool\InfoproduktChoicesFactory;
+use AppBundle\Form\Editor\Admin\Main\BrandEditorType;
 use AppBundle\Manager\Entity\Common\BrandManager;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -122,9 +124,18 @@ class BrandController extends ImageEntityController {
 		return $this->setFeaturedActionInternal($request, $id);
 	}
 	
-	//---------------------------------------------------------------------------
+	//------------------------------------------------------------------------
 	// Internal logic
-	//---------------------------------------------------------------------------
+	//------------------------------------------------------------------------
+	
+	protected function getFilterFormOptions() {
+		$options = parent::getFilterFormOptions();
+		
+		$this->addFactoryChoicesFormOption($options, InfomarketChoicesFactory::class, 'infomarket');
+		$this->addFactoryChoicesFormOption($options, InfoproduktChoicesFactory::class, 'infoprodukt');
+	
+		return $options;
+	}
 	
 	/**
 	 *

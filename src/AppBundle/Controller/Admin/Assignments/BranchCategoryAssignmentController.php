@@ -8,12 +8,10 @@ use AppBundle\Entity\Branch;
 use AppBundle\Entity\BranchCategoryAssignment;
 use AppBundle\Entity\Category;
 use AppBundle\Filter\Admin\Assignments\BranchCategoryAssignmentFilter;
-use AppBundle\Form\Editor\Assignments\BranchCategoryAssignmentEditorType;
+use AppBundle\Form\Editor\Admin\Assignments\BranchCategoryAssignmentEditorType;
 use AppBundle\Form\Filter\Admin\Assignments\BranchCategoryAssignmentFilterType;
 use AppBundle\Manager\Entity\Common\BranchCategoryAssignmentManager;
 use AppBundle\Manager\Filter\Base\FilterManager;
-use AppBundle\Repository\Admin\Main\BranchRepository;
-use AppBundle\Repository\Admin\Main\CategoryRepository;
 use Symfony\Component\HttpFoundation\Request;
 
 class BranchCategoryAssignmentController extends AssignmentController {
@@ -97,16 +95,20 @@ class BranchCategoryAssignmentController extends AssignmentController {
 	// Internal logic
 	//---------------------------------------------------------------------------
 	
-	protected function getFormOptions() {
-		$options = parent::getFormOptions();
+	protected function getFilterFormOptions() {
+		$options = parent::getFilterFormOptions();
 	
-		/** @var BranchRepository $branchRepository */
-		$branchRepository = $this->getDoctrine()->getRepository(Branch::class);
-		$options['branches'] = $branchRepository->findFilterItems();
+		$this->addEntityChoicesFormOption($options, Branch::class, 'branches');
+		$this->addEntityChoicesFormOption($options, Category::class, 'categories');
 	
-		/** @var CategoryRepository $categoryRepository */
-		$categoryRepository = $this->getDoctrine()->getRepository(Category::class);
-		$options['categories'] = $categoryRepository->findFilterItems();
+		return $options;
+	}
+	
+	protected function getEditorFormOptions() {
+		$options = parent::getEditorFormOptions();
+	
+		$this->addEntityChoicesFormOption($options, Branch::class, 'branch');
+		$this->addEntityChoicesFormOption($options, Category::class, 'category');
 	
 		return $options;
 	}

@@ -1,0 +1,13 @@
+services:
+    # Name Factories
+    AppBundle\Factory\Common\Name\:
+        resource: '../../../src/AppBundle/Factory/Common/Name/*'
+        
+    # Boolean Filter Choices Factories
+    AppBundle\Factory\Common\Choices\Bool\:
+        resource: '../../../src/AppBundle/Factory/Common/Choices/Bool/*'
+
+    # Entity Choices Factories   
+    AppBundle\Factory\Common\Choices\Enum\:
+        resource: '../../../src/AppBundle/Factory/Common/Choices/Enum/*'
+        tags: [twig.extension]

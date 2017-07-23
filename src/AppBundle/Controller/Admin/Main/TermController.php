@@ -5,12 +5,13 @@ namespace AppBundle\Controller\Admin\Main;
 use AppBundle\Controller\Admin\Base\SimpleEntityController;
 use AppBundle\Entity\Category;
 use AppBundle\Entity\Term;
+use AppBundle\Factory\Common\Choices\Bool\InfomarketChoicesFactory;
+use AppBundle\Factory\Common\Choices\Bool\InfoproduktChoicesFactory;
 use AppBundle\Filter\Admin\Main\TermFilter;
-use AppBundle\Form\Editor\Main\TermEditorType;
+use AppBundle\Form\Editor\Admin\Main\TermEditorType;
 use AppBundle\Form\Filter\Admin\Main\TermFilterType;
 use AppBundle\Manager\Entity\Common\TermManager;
 use AppBundle\Manager\Filter\Base\FilterManager;
-use AppBundle\Repository\Admin\Main\CategoryRepository;
 use Symfony\Component\HttpFoundation\Request;
 
 class TermController extends SimpleEntityController {
@@ -130,13 +131,14 @@ class TermController extends SimpleEntityController {
 	// Internal logic
 	//---------------------------------------------------------------------------
 	
-	protected function getFormOptions() {
-		$options = parent::getFormOptions();
+	protected function getFilterFormOptions() {
+		$options = parent::getFilterFormOptions();
 	
-		/** @var CategoryRepository $categoryRepository */
-		$categoryRepository = $this->getDoctrine()->getRepository(Category::class);
-		$options['categories'] = $categoryRepository->findFilterItems();
-	
+		$this->addEntityChoicesFormOption($options, Category::class, 'categories');
+		
+		$this->addFactoryChoicesFormOption($options, InfomarketChoicesFactory::class, 'infomarket');
+		$this->addFactoryChoicesFormOption($options, InfoproduktChoicesFactory::class, 'infoprodukt');
+		
 		return $options;
 	}
 	

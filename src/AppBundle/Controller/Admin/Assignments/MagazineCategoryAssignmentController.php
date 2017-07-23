@@ -8,12 +8,10 @@ use AppBundle\Entity\Category;
 use AppBundle\Entity\Magazine;
 use AppBundle\Entity\MagazineCategoryAssignment;
 use AppBundle\Filter\Admin\Assignments\MagazineCategoryAssignmentFilter;
-use AppBundle\Form\Editor\Assignments\MagazineCategoryAssignmentEditorType;
+use AppBundle\Form\Editor\Admin\Assignments\MagazineCategoryAssignmentEditorType;
 use AppBundle\Form\Filter\Admin\Assignments\MagazineCategoryAssignmentFilterType;
 use AppBundle\Manager\Entity\Common\MagazineCategoryAssignmentManager;
 use AppBundle\Manager\Filter\Base\FilterManager;
-use AppBundle\Repository\Admin\Main\CategoryRepository;
-use AppBundle\Repository\Admin\Main\MagazineRepository;
 use Symfony\Component\HttpFoundation\Request;
 
 class MagazineCategoryAssignmentController extends AssignmentController {
@@ -97,16 +95,20 @@ class MagazineCategoryAssignmentController extends AssignmentController {
 	// Internal logic
 	//---------------------------------------------------------------------------
 	
-	protected function getFormOptions() {
-		$options = parent::getFormOptions();
+	protected function getFilterFormOptions() {
+		$options = parent::getFilterFormOptions();
 	
-		/** @var MagazineRepository $magazineRepository */
-		$magazineRepository = $this->getDoctrine()->getRepository(Magazine::class);
-		$options['magazines'] = $magazineRepository->findFilterItems();
+		$this->addEntityChoicesFormOption($options, Magazine::class, 'magazines');
+		$this->addEntityChoicesFormOption($options, Category::class, 'categories');
 	
-		/** @var CategoryRepository $categoryRepository */
-		$categoryRepository = $this->getDoctrine()->getRepository(Category::class);
-		$options['categories'] = $categoryRepository->findFilterItems();
+		return $options;
+	}
+	
+	protected function getEditorFormOptions() {
+		$options = parent::getEditorFormOptions();
+	
+		$this->addEntityChoicesFormOption($options, Magazine::class, 'magazine');
+		$this->addEntityChoicesFormOption($options, Category::class, 'category');
 	
 		return $options;
 	}

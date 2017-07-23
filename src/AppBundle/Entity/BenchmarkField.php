@@ -7,14 +7,7 @@ use AppBundle\Entity\Base\Audit;
 /**
  * BenchmarkField
  */
-class BenchmarkField extends Audit
-{
-	//TODO remove
-	const DECIMAL_VALUE_TYPE = 11;
-	const INTEGER_VALUE_TYPE = 21;
-	const STRING_VALUE_TYPE = 31;
-	
-	
+class BenchmarkField extends Audit {
 	
 	const DECIMAL_FIELD_TYPE = 11;
 	
@@ -24,17 +17,6 @@ class BenchmarkField extends Audit
 	const STRING_FIELD_TYPE = 31;
 	const SINGLE_ENUM_FIELD_TYPE = 32;
 	const MULTI_ENUM_FIELD_TYPE = 33;
-	
-	
-	//TODO remove
-	const DECIMAL_FILTER_TYPE = 11;
-	
-	const INTEGER_FILTER_TYPE = 21;
-	const BOOLEAN_FILTER_TYPE = 22;
-	
-	const STRING_FILTER_TYPE = 31;
-	const SINGLE_ENUM_FILTER_TYPE = 32;
-	const MULTI_ENUM_FILTER_TYPE = 33;
 	
 	
 	
@@ -49,97 +31,9 @@ class BenchmarkField extends Audit
 	const GT_BETTER_THAN_TYPE = 20;
 	const GTE_BETTER_THAN_TYPE = 21;
 	const EQUAL_BETTER_THAN_TYPE = 30;
-	
-	public static function getValueTypeName($valueType) {
-		switch($valueType) {
-			case self::DECIMAL_VALUE_TYPE:
-				return 'label.benchmarkField.valueType.decimal';
-			case self::INTEGER_VALUE_TYPE:
-				return 'label.benchmarkField.valueType.integer';
-			case self::STRING_VALUE_TYPE:
-				return 'label.benchmarkField.valueType.string';
-			default:
-				return null;
-		}
-	}
-	
-	public static function getFieldTypeName($fieldType) {
-		switch($fieldType) {
-			case self::DECIMAL_FIELD_TYPE:
-				return 'label.benchmarkField.fieldType.decimal';
-			case self::INTEGER_FIELD_TYPE:
-				return 'label.benchmarkField.fieldType.integer';
-			case self::BOOLEAN_FIELD_TYPE:
-				return 'label.benchmarkField.fieldType.boolean';
-			case self::STRING_FIELD_TYPE:
-				return 'label.benchmarkField.fieldType.string';
-			case self::SINGLE_ENUM_FIELD_TYPE:
-				return 'label.benchmarkField.fieldType.singleEnum';
-			case self::MULTI_ENUM_FIELD_TYPE:
-				return 'label.benchmarkField.fieldType.multiEnum';
-			default:
-				return null;
-		}
-	}
-	
-	public static function getFilterTypeName($filterType) {
-		switch($filterType) {
-			case self::DECIMAL_FILTER_TYPE:
-				return 'label.benchmarkField.filterType.decimal';
-			case self::INTEGER_FILTER_TYPE:
-				return 'label.benchmarkField.filterType.integer';
-			case self::BOOLEAN_FILTER_TYPE:
-				return 'label.benchmarkField.filterType.boolean';
-			case self::STRING_FILTER_TYPE:
-				return 'label.benchmarkField.filterType.string';
-			case self::SINGLE_ENUM_FILTER_TYPE:
-				return 'label.benchmarkField.filterType.singleEnum';
-			case self::MULTI_ENUM_FILTER_TYPE:
-				return 'label.benchmarkField.filterType.multiEnum';
-			default:
-				return null;
-		}
-	}
-	
-	public static function getNoteTypeName($noteType) {
-		switch($noteType) {
-			case self::NONE_NOTE_TYPE:
-				return 'label.benchmarkField.noteType.none';
-			case self::ASC_NOTE_TYPE:
-				return 'label.benchmarkField.noteType.ascending';
-			case self::DESC_NOTE_TYPE:
-				return 'label.benchmarkField.noteType.descending';
-			case self::ENUM_NOTE_TYPE:
-				return 'label.benchmarkField.noteType.enum';
-			default:
-				return null;
-		}
-	}
-	
-	public static function getBetterThanTypeName($noteType) {
-		switch($noteType) {
-			case self::NONE_BETTER_THAN_TYPE:
-				return 'label.benchmarkField.betterThanType.none';
-			case self::LT_BETTER_THAN_TYPE:
-				return 'label.benchmarkField.betterThanType.lesserThan';
-			case self::LTE_BETTER_THAN_TYPE:
-				return 'label.benchmarkField.betterThanType.lesserThanEqual';
-			case self::GT_BETTER_THAN_TYPE:
-				return 'label.benchmarkField.betterThanType.greaterThan';
-			case self::GTE_BETTER_THAN_TYPE:
-				return 'label.benchmarkField.betterThanType.greaterThanEqual';
-			case self::EQUAL_BETTER_THAN_TYPE:
-				return 'label.benchmarkField.betterThanType.equal';
-			default:
-				return null;
-		}
-	}
-	
-    /**
-     * @var integer
-     */
-    private $valueType;
 
+	
+	
     /**
      * @var integer
      */
@@ -163,11 +57,6 @@ class BenchmarkField extends Audit
     /**
      * @var integer
      */
-    private $filterType;
-
-    /**
-     * @var integer
-     */
     private $filterNumber;
 
     /**
@@ -179,31 +68,6 @@ class BenchmarkField extends Audit
      * @var \AppBundle\Entity\Category
      */
     private $category;
-
-
-    /**
-     * Set valueType
-     *
-     * @param integer $valueType
-     *
-     * @return BenchmarkField
-     */
-    public function setValueType($valueType)
-    {
-        $this->valueType = $valueType;
-
-        return $this;
-    }
-
-    /**
-     * Get valueType
-     *
-     * @return integer
-     */
-    public function getValueType()
-    {
-        return $this->valueType;
-    }
 
     /**
      * Set valueNumber
@@ -299,30 +163,6 @@ class BenchmarkField extends Audit
     public function getShowField()
     {
         return $this->showField;
-    }
-
-    /**
-     * Set filterType
-     *
-     * @param integer $filterType
-     *
-     * @return BenchmarkField
-     */
-    public function setFilterType($filterType)
-    {
-        $this->filterType = $filterType;
-
-        return $this;
-    }
-
-    /**
-     * Get filterType
-     *
-     * @return integer
-     */
-    public function getFilterType()
-    {
-        return $this->filterType;
     }
 
     /**

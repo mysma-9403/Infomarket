@@ -2,9 +2,9 @@
 
 namespace AppBundle\Form\Filter\Admin\Base;
 
+use AppBundle\Filter\Admin\Base\SimpleEntityFilter;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
-use AppBundle\Filter\Admin\Base\SimpleEntityFilter;
 
 class SimpleEntityFilterType extends SimpleFilterType
 {

@@ -197,7 +197,8 @@ abstract class AdminController extends StandardController {
 	protected function initIndexFilterForm(Request $request, array &$params) {
 		$viewParams = $params['viewParams'];
 		$filter = $viewParams['entryFilter'];
-		$options = $this->getFormOptions();
+		
+		$options = $this->getFilterFormOptions();
 		
 		$filterForm = $this->createForm($this->getFilterFormType(), $filter, $options);
 		$filterForm->handleRequest($request);
@@ -223,12 +224,13 @@ abstract class AdminController extends StandardController {
 	protected function initIndexListForm(Request $request, array &$params) {
 		$viewParams = $params['viewParams'];
 		$filter = $viewParams['entryFilter'];
+		
 		$items = $viewParams['entries'];
 		$selectedEntries = $this->getSelectedEntries($filter, $items);
 		
 		$listItems = $this->getListItems($items);
 		
-		$form = $this->createForm($this->getListFormType(), $selectedEntries, ['choices' => $listItems]);
+		$form = $this->createForm($this->getListFormType(), $selectedEntries, $this->getListFormOptions($listItems));
 		$form->handleRequest($request);
 		
 		if ($form->isSubmitted() && $form->isValid())
@@ -266,8 +268,8 @@ abstract class AdminController extends StandardController {
 	protected function initUpdateForm(Request $request, array &$params) {
 		$viewParams = $params['viewParams'];
 		$entry = $viewParams['entry'];
-	
-		$form = $this->createForm($this->getEditorFormType(), $entry);
+		
+		$form = $this->createForm($this->getEditorFormType(), $entry, $this->getEditorFormOptions());
 	
 		$form->handleRequest($request);
 	
@@ -364,12 +366,28 @@ abstract class AdminController extends StandardController {
 	}
 	
 	//---------------------------------------------------------------------------
-	// Internal logic
+	// Form options
 	//---------------------------------------------------------------------------
 	
-	protected function getFormOptions() {
+	protected function getListFormOptions(array $listItems) {
+		$options = [];
+		
+		$this->addChoicesFormOption($options, $listItems, 'entries');
+		
+		return $options;
+	}
+	
+	protected function getFilterFormOptions() {
 		return array();
 	}
+	
+	protected function getEditorFormOptions() {
+		return array();
+	}
+	
+	//---------------------------------------------------------------------------
+	// Internal logic
+	//---------------------------------------------------------------------------
 	
 	protected function getListItems($items) {
 		$listItems = array();

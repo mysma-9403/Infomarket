@@ -9,9 +9,9 @@
 {% endblock %}
 
 {% block moreFields2 %}
+	{{ form_row(form.fieldType, { 'label': 'label.benchmarkField.fieldType' }) }}
 	{{ form_row(form.valueNumber, { 'label': 'label.benchmarkField.valueNumber' }) }}
 	
-	{{ form_row(form.fieldType, { 'label': 'label.benchmarkField.fieldType' }) }}
 	{{ form_row(form.fieldName, { 'label': 'label.benchmarkField.fieldName' }) }}
 	{{ form_row(form.fieldNumber, { 'label': 'label.benchmarkField.fieldNumber' }) }}
 	{{ form_row(form.showField, { 'label': 'label.benchmarkField.showField' }) }}

@@ -4,7 +4,9 @@ namespace AppBundle\Controller\Admin\Main;
 
 use AppBundle\Controller\Admin\Base\SimpleEntityController;
 use AppBundle\Entity\NewsletterGroup;
-use AppBundle\Form\Editor\Main\NewsletterGroupEditorType;
+use AppBundle\Factory\Common\Choices\Bool\InfomarketChoicesFactory;
+use AppBundle\Factory\Common\Choices\Bool\InfoproduktChoicesFactory;
+use AppBundle\Form\Editor\Admin\Main\NewsletterGroupEditorType;
 use AppBundle\Manager\Entity\Common\NewsletterGroupManager;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -142,6 +144,19 @@ class NewsletterGroupController extends SimpleEntityController {
 		$em->flush();
 	
 		return $this->redirectToReferer($request);
+	}
+	
+	//---------------------------------------------------------------------------
+	// Internal logic
+	//---------------------------------------------------------------------------
+	
+	protected function getFilterFormOptions() {
+		$options = parent::getFilterFormOptions();
+	
+		$this->addFactoryChoicesFormOption($options, InfomarketChoicesFactory::class, 'infomarket');
+		$this->addFactoryChoicesFormOption($options, InfoproduktChoicesFactory::class, 'infoprodukt');
+	
+		return $options;
 	}
 	
 	//---------------------------------------------------------------------------

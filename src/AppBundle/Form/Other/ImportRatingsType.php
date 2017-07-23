@@ -2,12 +2,13 @@
 
 namespace AppBundle\Form\Other;
 
-use AppBundle\Entity\ImportRatings;
-use AppBundle\Form\Editor\Base\BaseEntityEditorType;
+use AppBundle\Entity\Other\ImportRatings;
+use AppBundle\Form\Base\BaseType;
 use FM\ElfinderBundle\Form\Type\ElFinderType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 
-class ImportRatingsType extends BaseEntityEditorType
+class ImportRatingsType extends BaseType
 {
 	/**
 	 * {@inheritDoc}
@@ -19,6 +20,10 @@ class ImportRatingsType extends BaseEntityEditorType
 					'required' => true
 			))
 			;
+	}
+	
+	protected function addActions(FormBuilderInterface $builder, array $options) {
+		$builder->add('submit', SubmitType::class);
 	}
 	
 	/**

@@ -5,10 +5,14 @@ namespace AppBundle\Controller\Admin\Main;
 use AppBundle\Controller\Admin\Base\SimpleEntityController;
 use AppBundle\Entity\Branch;
 use AppBundle\Entity\Category;
+use AppBundle\Entity\Link;
 use AppBundle\Entity\Menu;
 use AppBundle\Entity\MenuEntry;
+use AppBundle\Entity\Page;
+use AppBundle\Factory\Common\Choices\Bool\InfomarketChoicesFactory;
+use AppBundle\Factory\Common\Choices\Bool\InfoproduktChoicesFactory;
 use AppBundle\Filter\Admin\Main\MenuEntryFilter;
-use AppBundle\Form\Editor\Main\MenuEntryEditorType;
+use AppBundle\Form\Editor\Admin\Main\MenuEntryEditorType;
 use AppBundle\Form\Filter\Admin\Main\MenuEntryFilterType;
 use AppBundle\Manager\Entity\Common\MenuEntryManager;
 use AppBundle\Manager\Filter\Base\FilterManager;
@@ -118,24 +122,26 @@ class MenuEntryController extends SimpleEntityController {
 	// Internal logic
 	//---------------------------------------------------------------------------
 	
-	protected function getFormOptions() {
-		$options = parent::getFormOptions();
+	protected function getFilterFormOptions() {
+		$options = parent::getFilterFormOptions();
 	
-		/** @var MenuRepository $menuRepository */
-		$menuRepository = $this->getDoctrine()->getRepository(Menu::class);
-		$options['menus'] = $menuRepository->findFilterItems();
+		$this->addEntityChoicesFormOption($options, Menu::class, 'menus');
+		$this->addEntityChoicesFormOption($options, MenuEntry::class, 'parents');
+		$this->addEntityChoicesFormOption($options, Branch::class, 'branches');
+		$this->addEntityChoicesFormOption($options, Category::class, 'categories');
 		
-		/** @var MenuEntryRepository $menuEntryRepository */
-		$menuEntryRepository = $this->getDoctrine()->getRepository(MenuEntry::class);
-		$options['parents'] = $menuEntryRepository->findFilterItems();
+		$this->addFactoryChoicesFormOption($options, InfomarketChoicesFactory::class, 'infomarket');
+		$this->addFactoryChoicesFormOption($options, InfoproduktChoicesFactory::class, 'infoprodukt');
+		
+		return $options;
+	}
 	
-		/** @var BranchRepository $branchRepository */
-		$branchRepository = $this->getDoctrine()->getRepository(Branch::class);
-		$options['branches'] = $branchRepository->findFilterItems();
+	protected function getEditorFormOptions() {
+		$options = parent::getEditorFormOptions();
 	
-		/** @var CategoryRepository $categoryRepository */
-		$categoryRepository = $this->getDoctrine()->getRepository(Category::class);
-		$options['categories'] = $categoryRepository->findFilterItems();
+		$this->addEntityChoicesFormOption($options, MenuEntry::class, 'parent');
+		$this->addEntityChoicesFormOption($options, Page::class, 'page');
+		$this->addEntityChoicesFormOption($options, Link::class, 'link');
 	
 		return $options;
 	}

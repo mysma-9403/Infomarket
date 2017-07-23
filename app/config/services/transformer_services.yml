@@ -1,0 +1,116 @@
+services:
+    # Base Transformers
+    AppBundle\Form\Transformer\:
+        resource: '../../../src/AppBundle/Form/Transformer/*'
+    
+    # Entity Transformers
+    app.form.transformer.advert_2_number:
+        class: AppBundle\Form\Transformer\EntityToNumberTransformer
+        arguments: ["@app.repository.advert"]
+        tags:
+            - { name: form.transformer }
+    app.form.transformer.article_2_number:
+        class: AppBundle\Form\Transformer\EntityToNumberTransformer
+        arguments: ["@app.repository.article"]
+        tags:
+            - { name: form.transformer }
+    app.form.transformer.article_category_2_number:
+        class: AppBundle\Form\Transformer\EntityToNumberTransformer
+        arguments: ["@app.repository.article_category"]
+        tags:
+            - { name: form.transformer }
+    app.form.transformer.branch_2_number:
+        class: AppBundle\Form\Transformer\EntityToNumberTransformer
+        arguments: ["@app.repository.branch"]
+        tags:
+            - { name: form.transformer }
+    app.form.transformer.brand_2_number:
+        class: AppBundle\Form\Transformer\EntityToNumberTransformer
+        arguments: ["@app.repository.brand"]
+        tags:
+            - { name: form.transformer }
+    app.form.transformer.category_2_number:
+        class: AppBundle\Form\Transformer\EntityToNumberTransformer
+        arguments: ["@app.repository.category"]
+        tags:
+            - { name: form.transformer }
+    app.form.transformer.link_2_number:
+        class: AppBundle\Form\Transformer\EntityToNumberTransformer
+        arguments: ["@app.repository.link"]
+        tags:
+            - { name: form.transformer }
+    app.form.transformer.magazine_2_number:
+        class: AppBundle\Form\Transformer\EntityToNumberTransformer
+        arguments: ["@app.repository.magazine"]
+        tags:
+            - { name: form.transformer }
+    app.form.transformer.menu_2_number:
+        class: AppBundle\Form\Transformer\EntityToNumberTransformer
+        arguments: ["@app.repository.menu"]
+        tags:
+            - { name: form.transformer }
+    app.form.transformer.menu_entry_2_number:
+        class: AppBundle\Form\Transformer\EntityToNumberTransformer
+        arguments: ["@app.repository.menu_entry"]
+        tags:
+            - { name: form.transformer }
+    app.form.transformer.newsletter_block_2_number:
+        class: AppBundle\Form\Transformer\EntityToNumberTransformer
+        arguments: ["@app.repository.newsletter_block"]
+        tags:
+            - { name: form.transformer }
+    app.form.transformer.newsletter_block_template_2_number:
+        class: AppBundle\Form\Transformer\EntityToNumberTransformer
+        arguments: ["@app.repository.newsletter_block_template"]
+        tags:
+            - { name: form.transformer }
+    app.form.transformer.newsletter_group_2_number:
+        class: AppBundle\Form\Transformer\EntityToNumberTransformer
+        arguments: ["@app.repository.newsletter_group"]
+        tags:
+            - { name: form.transformer }
+    app.form.transformer.newsletter_page_2_number:
+        class: AppBundle\Form\Transformer\EntityToNumberTransformer
+        arguments: ["@app.repository.newsletter_page"]
+        tags:
+            - { name: form.transformer }
+    app.form.transformer.newsletter_page_template_2_number:
+        class: AppBundle\Form\Transformer\EntityToNumberTransformer
+        arguments: ["@app.repository.newsletter_page_template"]
+        tags:
+            - { name: form.transformer }
+    app.form.transformer.newsletter_user_2_number:
+        class: AppBundle\Form\Transformer\EntityToNumberTransformer
+        arguments: ["@app.repository.newsletter_user"]
+        tags:
+            - { name: form.transformer }
+    app.form.transformer.page_2_number:
+        class: AppBundle\Form\Transformer\EntityToNumberTransformer
+        arguments: ["@app.repository.page"]
+        tags:
+            - { name: form.transformer }
+    app.form.transformer.product_2_number:
+        class: AppBundle\Form\Transformer\EntityToNumberTransformer
+        arguments: ["@app.repository.product"]
+        tags:
+            - { name: form.transformer }
+    app.form.transformer.segment_2_number:
+        class: AppBundle\Form\Transformer\EntityToNumberTransformer
+        arguments: ["@app.repository.segment"]
+        tags:
+            - { name: form.transformer }
+    app.form.transformer.term_2_number:
+        class: AppBundle\Form\Transformer\EntityToNumberTransformer
+        arguments: ["@app.repository.term"]
+        tags:
+            - { name: form.transformer }
+    app.form.transformer.tag_2_number:
+        class: AppBundle\Form\Transformer\EntityToNumberTransformer
+        arguments: ["@app.repository.tag"]
+        tags:
+            - { name: form.transformer }
+    app.form.transformer.user_2_number:
+        class: AppBundle\Form\Transformer\EntityToNumberTransformer
+        arguments: ["@app.repository.user"]
+        tags:
+            - { name: form.transformer }

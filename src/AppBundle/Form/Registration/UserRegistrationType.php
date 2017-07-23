@@ -8,10 +8,9 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 
-class UserRegistrationType extends AbstractType
-{
-    public function buildForm(FormBuilderInterface $builder, array $options)
-    {
+class UserRegistrationType extends AbstractType {
+    
+	public function buildForm(FormBuilderInterface $builder, array $options) {
     	$builder
         ->add('forename', TextType::class, array(
 				'required' => true
@@ -40,16 +39,11 @@ class UserRegistrationType extends AbstractType
         ;
     }
 
-    public function getParent()
-    {
+    public function getParent() {
         return RegistrationFormType::class;
     }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getBlockPrefix()
-    {
+    
+    public function getBlockPrefix() {
         return 'app_user_registration';
     }
 }

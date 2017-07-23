@@ -4,8 +4,10 @@ namespace AppBundle\Controller\Admin\Main;
 
 use AppBundle\Controller\Admin\Base\SimpleEntityController;
 use AppBundle\Entity\Link;
+use AppBundle\Factory\Common\Choices\Bool\InfomarketChoicesFactory;
+use AppBundle\Factory\Common\Choices\Bool\InfoproduktChoicesFactory;
 use AppBundle\Filter\Admin\Main\LinkFilter;
-use AppBundle\Form\Editor\Main\LinkEditorType;
+use AppBundle\Form\Editor\Admin\Main\LinkEditorType;
 use AppBundle\Form\Filter\Admin\Main\LinkFilterType;
 use AppBundle\Manager\Entity\Common\LinkManager;
 use AppBundle\Manager\Filter\Base\FilterManager;
@@ -109,6 +111,19 @@ class LinkController extends SimpleEntityController {
 	public function setIPPublishedAction(Request $request, $id)
 	{
 		return $this->setIPPublishedActionInternal($request, $id);
+	}
+	
+	//------------------------------------------------------------------------
+	// Internal logic
+	//------------------------------------------------------------------------
+	
+	protected function getFilterFormOptions() {
+		$options = parent::getFilterFormOptions();
+	
+		$this->addFactoryChoicesFormOption($options, InfomarketChoicesFactory::class, 'infomarket');
+		$this->addFactoryChoicesFormOption($options, InfoproduktChoicesFactory::class, 'infoprodukt');
+	
+		return $options;
 	}
 	
 	//---------------------------------------------------------------------------

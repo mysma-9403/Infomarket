@@ -20,7 +20,7 @@ class BenchmarkFieldRepository extends AuditRepository
 	{
 		$builder = new QueryBuilder($this->getEntityManager());
 			
-		$builder->select("e.valueType, e.valueNumber, e.fieldType, e.fieldName, e.decimalPlaces");
+		$builder->select("e.valueNumber, e.fieldType, e.fieldName, e.decimalPlaces");
 		$builder->from($this->getEntityType(), "e");
 	
 		$expr = $builder->expr();
@@ -47,7 +47,7 @@ class BenchmarkFieldRepository extends AuditRepository
 	protected function buildOrderBy(QueryBuilder &$builder, Filter $filter) {
 		$builder->addOrderBy('c.name', 'ASC');
 		$builder->addOrderBy('c.subname', 'ASC');
-		$builder->addOrderBy('e.valueType', 'ASC');
+		$builder->addOrderBy('e.fieldType', 'ASC');
 		$builder->addOrderBy('e.valueNumber', 'ASC');
 	}
 	

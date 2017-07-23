@@ -30,6 +30,10 @@ class User extends BaseUser
 		return $this->username;
 	}
 	
+	public function setId($id) {
+		$this->id = $id;
+	}
+	
     /**
      * @var string
      */

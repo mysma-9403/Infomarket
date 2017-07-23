@@ -4,7 +4,8 @@ namespace AppBundle\Controller\Admin\Main;
 
 use AppBundle\Controller\Admin\Base\SimpleEntityController;
 use AppBundle\Entity\Menu;
-use AppBundle\Form\Editor\Main\MenuEditorType;
+use AppBundle\Factory\Common\Choices\Bool\InfomarketChoicesFactory;
+use AppBundle\Factory\Common\Choices\Bool\InfoproduktChoicesFactory;
 use AppBundle\Manager\Entity\Common\MenuManager;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -61,6 +62,19 @@ class MenuController extends SimpleEntityController {
 		return $this->setIPPublishedActionInternal($request, $id);
 	}
 	
+	//------------------------------------------------------------------------
+	// Internal logic
+	//------------------------------------------------------------------------
+	
+	protected function getFilterFormOptions() {
+		$options = parent::getFilterFormOptions();
+	
+		$this->addFactoryChoicesFormOption($options, InfomarketChoicesFactory::class, 'infomarket');
+		$this->addFactoryChoicesFormOption($options, InfoproduktChoicesFactory::class, 'infoprodukt');
+	
+		return $options;
+	}
+	
 	//---------------------------------------------------------------------------
 	// Managers
 	//---------------------------------------------------------------------------
@@ -87,14 +101,7 @@ class MenuController extends SimpleEntityController {
 	// Forms
 	//---------------------------------------------------------------------------
 	
-	/**
-	 * 
-	 * {@inheritDoc}
-	 * @see \AppBundle\Controller\Admin\Base\SimpleEntityController::getFormType()
-	 */
-	protected function getEditorFormType() {
-		return MenuEditorType::class;
-	}
+	protected function getEditorFormType() { }
 	
 	//---------------------------------------------------------------------------
 	// Permissions

@@ -2,18 +2,27 @@
 
 namespace AppBundle\Form\Base;
 
+use AppBundle\Utils\FormUtils;
 use AppBundle\Utils\StringUtils;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
+use AppBundle\Factory\Common\Name\NameFactory;
 
-abstract class BaseType extends AbstractType
-{
-	/**
-	 * 
-	 * {@inheritDoc}
-	 * @see \Symfony\Component\Form\AbstractType::buildForm()
-	 */
+abstract class BaseType extends AbstractType {
+	
+	protected $choicesNameFactory;
+	
+	
+	
+	public function __construct(NameFactory $choicesNameFactory) {
+		$this->choicesNameFactory = $choicesNameFactory;
+	}
+	
+	
+	
 	public function buildForm(FormBuilderInterface $builder, array $options) {
 		$this->addMainFields($builder, $options);
 		$this->addMoreFields($builder, $options);
@@ -51,6 +60,73 @@ abstract class BaseType extends AbstractType
 	 */
 	protected function addActions(FormBuilderInterface $builder, array $options) { }
 	
+	
+	
+	protected function addDateTimeField(FormBuilderInterface $builder, $field, $label, $required = true) {
+		$builder->add($field, DateTimeType::class, array(
+				'widget' => 'single_text',
+				'format' => 'dd/MM/yyyy HH:mm',
+				'required' => $required,
+				'attr' => [
+						'class' => 'form-control input-inline datetimepicker',
+						'data-provide' => 'datepicker',
+						'data-date-format' => 'DD/MM/YYYY HH:mm',
+						'placeholder' => $label
+				]
+		));
+	}
+	
+	
+	protected function addNumberChoiceEditorField(FormBuilderInterface $builder, array $options, $field, $required = true, $multiple = false, $expanded = false) {
+		$this->addNumberChoiceField($builder, $options, $field, $required, $multiple, $expanded);
+	}
+	
+	protected function addNumberChoiceFilterField(FormBuilderInterface $builder, array $options, $field, $expanded = false) {
+		$this->addNumberChoiceField($builder, $options, $field, false, true, $expanded);
+	}
+	
+	protected function addBooleanChoiceFilterField(FormBuilderInterface $builder, array $options, $field, $expanded = false) {
+		$this->addNumberChoiceField($builder, $options, $field, true, false, $expanded);
+	}
+	
+	private function addNumberChoiceField(FormBuilderInterface $builder, array $options, $field, $required, $multiple, $expanded) {
+		$builder->add($field, ChoiceType::class, array(
+				'choices'		=> $options[self::getChoicesName($field)],
+				'required'      => $required,
+				'multiple'      => $multiple,
+				'expanded'      => $expanded
+		));
+	}
+	
+	
+	protected function addTrueEntityChoiceEditorField(FormBuilderInterface $builder, array $options, $transformer, $field, $required = true) {
+		$this->addTransformerChoiceField($builder, $options, $transformer, $field, $required, false, false);
+	}
+	
+	private function addTransformerChoiceField(FormBuilderInterface $builder, array $options, $transformer, $field, $required, $multiple, $expanded) {
+		$this->addEntityChoiceField($builder, $options, $field, $required, $multiple, $expanded);
+		$builder->get($field)->addModelTransformer($transformer);
+	}
+	
+	protected function addTempEntityChoiceEditorField(FormBuilderInterface $builder, array $options, $field, $required = true, $multiple = false, $expanded = false) {
+		$this->addEntityChoiceField($builder, $options, $field, $required, $multiple, $expanded);
+	}
+	
+	protected function addEntityChoiceFilterField(FormBuilderInterface $builder, array $options, $field, $required = false, $multiple = true, $expanded = false) {
+		$this->addEntityChoiceField($builder, $options, $field, $required, $multiple, $expanded);
+	}
+	
+	private function addEntityChoiceField(FormBuilderInterface $builder, array $options, $field, $required, $multiple, $expanded) {
+		$builder->add($field, ChoiceType::class, array(
+				'choices' 		=> $options[self::getChoicesName($field)],
+				'choice_label' => function ($value, $key, $index) { return FormUtils::getListLabel($value, $key, $index); }, //TODO FormUtils --> DI
+				'choice_translation_domain' => false,
+				'required'		=> $required,
+				'multiple'      => $multiple,
+				'expanded'      => $expanded
+		));
+	}
+	
 	/**
 	 * 
 	 * {@inheritDoc}
@@ -78,6 +154,10 @@ abstract class BaseType extends AbstractType
 	
 	public function getName() {
 		return 'app_' . StringUtils::getClassName($this->getEntityType());
+	}
+	
+	public function getChoicesName($field) {
+		return $this->choicesNameFactory->getName($field);
 	}
 	
 	/**

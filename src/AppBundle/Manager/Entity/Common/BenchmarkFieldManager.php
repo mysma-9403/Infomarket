@@ -36,16 +36,14 @@ class BenchmarkFieldManager extends BaseEntityManager {
 		
 		$entry->setCategory($template->getCategory());
 		
-		$entry->setValueType($template->getValueType());
+		$entry->setFieldType($template->getFieldType());
 		$entry->setValueNumber($template->getValueNumber());
 		
 		$entry->setFieldName($template->getFieldName());
-		$entry->setFieldType($template->getFieldType());
 		$entry->setFieldNumber($template->getFieldNumber());
 		$entry->setShowField($template->getShowField());
 		
 		$entry->setFilterName($template->getFilterName());
-		$entry->setFilterType($template->getFilterType());
 		$entry->setFilterNumber($template->getFilterNumber());
 		$entry->setShowFilter($template->getShowFilter());
 		

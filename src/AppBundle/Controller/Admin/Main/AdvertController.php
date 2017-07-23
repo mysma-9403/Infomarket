@@ -6,12 +6,15 @@ use AppBundle\Controller\Admin\Base\ImageEntityController;
 use AppBundle\Controller\Admin\Base\SimpleEntityController;
 use AppBundle\Entity\Advert;
 use AppBundle\Entity\Category;
+use AppBundle\Factory\Common\Choices\Bool\InfomarketChoicesFactory;
+use AppBundle\Factory\Common\Choices\Bool\InfoproduktChoicesFactory;
+use AppBundle\Factory\Common\Choices\Enum\AdvertLocationsFactory;
 use AppBundle\Filter\Admin\Main\AdvertFilter;
-use AppBundle\Form\Editor\Main\AdvertEditorType;
+use AppBundle\Form\Editor\Admin\Main\AdvertEditorType;
 use AppBundle\Form\Filter\Admin\Main\AdvertFilterType;
 use AppBundle\Manager\Entity\Common\AdvertManager;
 use AppBundle\Manager\Filter\Base\FilterManager;
-use AppBundle\Repository\Admin\Main\CategoryRepository;
+use phpDocumentor\Reflection\Location;
 use Symfony\Component\HttpFoundation\Request;
 
 class AdvertController extends ImageEntityController {
@@ -118,13 +121,24 @@ class AdvertController extends ImageEntityController {
 	// Internal logic
 	//------------------------------------------------------------------------
 	
-	protected function getFormOptions() {
-		$options = parent::getFormOptions();
+	protected function getFilterFormOptions() {
+		$options = parent::getFilterFormOptions();
 	
-		/** @var CategoryRepository $categoryRepository */
-		$categoryRepository = $this->getDoctrine()->getRepository(Category::class);
-		$options['categories'] = $categoryRepository->findFilterItems();
+		$this->addEntityChoicesFormOption($options, Category::class, 'categories');
+		
+		$this->addFactoryChoicesFormOption($options, AdvertLocationsFactory::class, 'locations');
+		
+		$this->addFactoryChoicesFormOption($options, InfomarketChoicesFactory::class, 'infomarket');
+		$this->addFactoryChoicesFormOption($options, InfoproduktChoicesFactory::class, 'infoprodukt');
 	
+		return $options;
+	}
+	
+	protected function getEditorFormOptions() {
+		$options = parent::getEditorFormOptions();
+		
+		$this->addFactoryChoicesFormOption($options, AdvertLocationsFactory::class, 'location');
+		
 		return $options;
 	}
 	

@@ -8,12 +8,10 @@ use AppBundle\Entity\Category;
 use AppBundle\Entity\Term;
 use AppBundle\Entity\TermCategoryAssignment;
 use AppBundle\Filter\Admin\Assignments\TermCategoryAssignmentFilter;
-use AppBundle\Form\Editor\Assignments\TermCategoryAssignmentEditorType;
+use AppBundle\Form\Editor\Admin\Assignments\TermCategoryAssignmentEditorType;
 use AppBundle\Form\Filter\Admin\Assignments\TermCategoryAssignmentFilterType;
 use AppBundle\Manager\Entity\Common\TermCategoryAssignmentManager;
 use AppBundle\Manager\Filter\Base\FilterManager;
-use AppBundle\Repository\Admin\Main\CategoryRepository;
-use AppBundle\Repository\Admin\Main\TermRepository;
 use Symfony\Component\HttpFoundation\Request;
 
 class TermCategoryAssignmentController extends AssignmentController {
@@ -97,16 +95,20 @@ class TermCategoryAssignmentController extends AssignmentController {
 	// Internal logic
 	//---------------------------------------------------------------------------
 	
-	protected function getFormOptions() {
-		$options = parent::getFormOptions();
+	protected function getFilterFormOptions() {
+		$options = parent::getFilterFormOptions();
 	
-		/** @var TermRepository $termRepository */
-		$termRepository = $this->getDoctrine()->getRepository(Term::class);
-		$options['terms'] = $termRepository->findFilterItems();
+		$this->addEntityChoicesFormOption($options, Term::class, 'terms');
+		$this->addEntityChoicesFormOption($options, Category::class, 'categories');
 	
-		/** @var CategoryRepository $categoryRepository */
-		$categoryRepository = $this->getDoctrine()->getRepository(Category::class);
-		$options['categories'] = $categoryRepository->findFilterItems();
+		return $options;
+	}
+	
+	protected function getEditorFormOptions() {
+		$options = parent::getEditorFormOptions();
+	
+		$this->addEntityChoicesFormOption($options, Term::class, 'term');
+		$this->addEntityChoicesFormOption($options, Category::class, 'category');
 	
 		return $options;
 	}

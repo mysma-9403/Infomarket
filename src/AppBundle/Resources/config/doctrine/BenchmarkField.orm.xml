@@ -10,18 +10,16 @@
         
         <many-to-one field="category" target-entity="Category" inversed-by="benchmarkFields" nullable="false" />
         
-        <field name="valueType" type="integer" nullable="false"/>
+        <field name="fieldType" type="integer" nullable="false"/>
         <field name="valueNumber" type="integer" nullable="false"/>
         
         <field name="fieldName" type="string" length="64" nullable="true"/>
-        <field name="fieldType" type="integer" nullable="true"/>
         <field name="fieldNumber" type="integer" nullable="true"/>
         <field name="showField" type="boolean" nullable="false" default="0" />
         
         <field name="decimalPlaces" type="integer" nullable="false" default="0" />
         
         <field name="filterName" type="string" length="64" nullable="true"/>
-        <field name="filterType" type="integer" nullable="true"/>
         <field name="filterNumber" type="integer" nullable="true"/>
         <field name="showFilter" type="boolean" nullable="false" default="0" />
         

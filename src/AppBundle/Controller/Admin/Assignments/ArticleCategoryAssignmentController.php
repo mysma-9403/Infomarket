@@ -8,12 +8,10 @@ use AppBundle\Entity\Article;
 use AppBundle\Entity\ArticleCategoryAssignment;
 use AppBundle\Entity\Category;
 use AppBundle\Filter\Admin\Assignments\ArticleCategoryAssignmentFilter;
-use AppBundle\Form\Editor\Assignments\ArticleCategoryAssignmentEditorType;
+use AppBundle\Form\Editor\Admin\Assignments\ArticleCategoryAssignmentEditorType;
 use AppBundle\Form\Filter\Admin\Assignments\ArticleCategoryAssignmentFilterType;
 use AppBundle\Manager\Entity\Common\ArticleCategoryAssignmentManager;
 use AppBundle\Manager\Filter\Base\FilterManager;
-use AppBundle\Repository\Admin\Main\ArticleRepository;
-use AppBundle\Repository\Admin\Main\CategoryRepository;
 use Symfony\Component\HttpFoundation\Request;
 
 class ArticleCategoryAssignmentController extends AssignmentController {
@@ -97,16 +95,20 @@ class ArticleCategoryAssignmentController extends AssignmentController {
 	// Internal logic
 	//---------------------------------------------------------------------------
 	
-	protected function getFormOptions() {
-		$options = parent::getFormOptions();
+	protected function getFilterFormOptions() {
+		$options = parent::getFilterFormOptions();
 	
-		/** @var ArticleRepository $articleRepository */
-		$articleRepository = $this->getDoctrine()->getRepository(Article::class);
-		$options['articles'] = $articleRepository->findFilterItems();
+		$this->addEntityChoicesFormOption($options, Article::class, 'articles');
+		$this->addEntityChoicesFormOption($options, Category::class, 'categories');
 	
-		/** @var CategoryRepository $categoryRepository */
-		$categoryRepository = $this->getDoctrine()->getRepository(Category::class);
-		$options['categories'] = $categoryRepository->findFilterItems();
+		return $options;
+	}
+	
+	protected function getEditorFormOptions() {
+		$options = parent::getEditorFormOptions();
+	
+		$this->addEntityChoicesFormOption($options, Article::class, 'article');
+		$this->addEntityChoicesFormOption($options, Category::class, 'category');
 	
 		return $options;
 	}

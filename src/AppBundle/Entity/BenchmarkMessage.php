@@ -19,25 +19,6 @@ class BenchmarkMessage extends Audit
 	const COMPLETED_STATE = 30;
 	
 	
-	
-	public static function getStateName($state) {
-		switch($state) {
-			case self::REPORTED_STATE:
-				return 'label.benchmarkMessage.state.reported';
-			case self::IN_PROCESS_STATE:
-				return 'label.benchmarkMessage.state.inProcess';
-			case self::INFORMATION_REQUIRED_STATE:
-				return 'label.benchmarkMessage.state.informationRequired';
-			case self::INFORMATION_SUPPLIED_STATE:
-				return 'label.benchmarkMessage.state.informationSupplied';
-			case self::COMPLETED_STATE:
-				return 'label.benchmarkMessage.state.completed';
-			default:
-				return null;
-		}
-	}
-	
-	
 	/**
 	 * Constructor
 	 */

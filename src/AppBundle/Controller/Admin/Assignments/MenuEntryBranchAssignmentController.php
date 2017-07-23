@@ -8,12 +8,10 @@ use AppBundle\Entity\Branch;
 use AppBundle\Entity\MenuEntry;
 use AppBundle\Entity\MenuEntryBranchAssignment;
 use AppBundle\Filter\Admin\Assignments\MenuEntryBranchAssignmentFilter;
-use AppBundle\Form\Editor\Assignments\MenuEntryBranchAssignmentEditorType;
+use AppBundle\Form\Editor\Admin\Assignments\MenuEntryBranchAssignmentEditorType;
 use AppBundle\Form\Filter\Admin\Assignments\MenuEntryBranchAssignmentFilterType;
 use AppBundle\Manager\Entity\Common\MenuEntryBranchAssignmentManager;
 use AppBundle\Manager\Filter\Base\FilterManager;
-use AppBundle\Repository\Admin\Main\BranchRepository;
-use AppBundle\Repository\Admin\Main\MenuEntryRepository;
 use Symfony\Component\HttpFoundation\Request;
 
 class MenuEntryBranchAssignmentController extends AssignmentController {
@@ -97,16 +95,20 @@ class MenuEntryBranchAssignmentController extends AssignmentController {
 	// Internal logic
 	//---------------------------------------------------------------------------
 	
-	protected function getFormOptions() {
-		$options = parent::getFormOptions();
+	protected function getFilterFormOptions() {
+		$options = parent::getFilterFormOptions();
 	
-		/** @var MenuEntryRepository $menuEntryRepository */
-		$menuEntryRepository = $this->getDoctrine()->getRepository(MenuEntry::class);
-		$options['menuEntries'] = $menuEntryRepository->findFilterItems();
+		$this->addEntityChoicesFormOption($options, MenuEntry::class, 'menuEntries');
+		$this->addEntityChoicesFormOption($options, Branch::class, 'branches');
 	
-		/** @var BranchRepository $branchRepository */
-		$branchRepository = $this->getDoctrine()->getRepository(Branch::class);
-		$options['branches'] = $branchRepository->findFilterItems();
+		return $options;
+	}
+	
+	protected function getEditorFormOptions() {
+		$options = parent::getEditorFormOptions();
+	
+		$this->addEntityChoicesFormOption($options, MenuEntry::class, 'menuEntry');
+		$this->addEntityChoicesFormOption($options, Branch::class, 'branch');
 	
 		return $options;
 	}

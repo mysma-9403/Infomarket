@@ -8,12 +8,10 @@ use AppBundle\Entity\Advert;
 use AppBundle\Entity\AdvertCategoryAssignment;
 use AppBundle\Entity\Category;
 use AppBundle\Filter\Admin\Assignments\AdvertCategoryAssignmentFilter;
-use AppBundle\Form\Editor\Assignments\AdvertCategoryAssignmentEditorType;
+use AppBundle\Form\Editor\Admin\Assignments\AdvertCategoryAssignmentEditorType;
 use AppBundle\Form\Filter\Admin\Assignments\AdvertCategoryAssignmentFilterType;
 use AppBundle\Manager\Entity\Common\AdvertCategoryAssignmentManager;
 use AppBundle\Manager\Filter\Base\FilterManager;
-use AppBundle\Repository\Admin\Main\AdvertRepository;
-use AppBundle\Repository\Admin\Main\CategoryRepository;
 use Symfony\Component\HttpFoundation\Request;
 
 class AdvertCategoryAssignmentController extends AssignmentController {
@@ -97,16 +95,20 @@ class AdvertCategoryAssignmentController extends AssignmentController {
 	// Internal logic
 	//---------------------------------------------------------------------------
 	
-	protected function getFormOptions() {
-		$options = parent::getFormOptions();
+	protected function getFilterFormOptions() {
+		$options = parent::getFilterFormOptions();
 	
-		/** @var AdvertRepository $advertRepository */
-		$advertRepository = $this->getDoctrine()->getRepository(Advert::class);
-		$options['adverts'] = $advertRepository->findFilterItems();
-		
-		/** @var CategoryRepository $categoryRepository */
-		$categoryRepository = $this->getDoctrine()->getRepository(Category::class);
-		$options['categories'] = $categoryRepository->findFilterItems();
+		$this->addEntityChoicesFormOption($options, Advert::class, 'adverts');
+		$this->addEntityChoicesFormOption($options, Category::class, 'categories');
+	
+		return $options;
+	}
+	
+	protected function getEditorFormOptions() {
+		$options = parent::getEditorFormOptions();
+	
+		$this->addEntityChoicesFormOption($options, Advert::class, 'advert');
+		$this->addEntityChoicesFormOption($options, Category::class, 'category');
 	
 		return $options;
 	}

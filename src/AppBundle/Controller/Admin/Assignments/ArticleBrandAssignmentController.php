@@ -8,12 +8,10 @@ use AppBundle\Entity\Article;
 use AppBundle\Entity\ArticleBrandAssignment;
 use AppBundle\Entity\Brand;
 use AppBundle\Filter\Admin\Assignments\ArticleBrandAssignmentFilter;
-use AppBundle\Form\Editor\Assignments\ArticleBrandAssignmentEditorType;
+use AppBundle\Form\Editor\Admin\Assignments\ArticleBrandAssignmentEditorType;
 use AppBundle\Form\Filter\Admin\Assignments\ArticleBrandAssignmentFilterType;
 use AppBundle\Manager\Entity\Common\ArticleBrandAssignmentManager;
 use AppBundle\Manager\Filter\Base\FilterManager;
-use AppBundle\Repository\Admin\Main\ArticleRepository;
-use AppBundle\Repository\Admin\Main\BrandRepository;
 use Symfony\Component\HttpFoundation\Request;
 
 class ArticleBrandAssignmentController extends AssignmentController {
@@ -97,16 +95,20 @@ class ArticleBrandAssignmentController extends AssignmentController {
 	// Internal logic
 	//---------------------------------------------------------------------------
 	
-	protected function getFormOptions() {
-		$options = parent::getFormOptions();
+	protected function getFilterFormOptions() {
+		$options = parent::getFilterFormOptions();
 	
-		/** @var ArticleRepository $articleRepository */
-		$articleRepository = $this->getDoctrine()->getRepository(Article::class);
-		$options['articles'] = $articleRepository->findFilterItems();
+		$this->addEntityChoicesFormOption($options, Article::class, 'articles');
+		$this->addEntityChoicesFormOption($options, Brand::class, 'brands');
+		
+		return $options;
+	}
 	
-		/** @var BrandRepository $brandRepository */
-		$brandRepository = $this->getDoctrine()->getRepository(Brand::class);
-		$options['brands'] = $brandRepository->findFilterItems();
+	protected function getEditorFormOptions() {
+		$options = parent::getEditorFormOptions();
+	
+		$this->addEntityChoicesFormOption($options, Article::class, 'article');
+		$this->addEntityChoicesFormOption($options, Brand::class, 'brand');
 	
 		return $options;
 	}
@@ -154,6 +156,8 @@ class ArticleBrandAssignmentController extends AssignmentController {
 	protected function getEditorFormType() {
 		return ArticleBrandAssignmentEditorType::class;
 	}
+	
+	
 	
 	/**
 	 * 

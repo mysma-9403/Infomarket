@@ -7,47 +7,31 @@ use AppBundle\Form\Base\BaseType;
 use FM\ElfinderBundle\Form\Type\ElFinderType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Doctrine\Common\Persistence\ObjectManager;
-use AppBundle\Repository\Admin\Main\NewsletterGroupRepository;
-use AppBundle\Entity\NewsletterGroup;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use AppBundle\Utils\FormUtils;
 
-class ImportNewsletterUsersType extends BaseType
-{
-	protected $em;
-	
-	public function __construct(ObjectManager $em)
-	{
-		$this->em = $em;
-	}
+class ImportNewsletterUsersType extends BaseType {
 	
 	protected function addMainFields(FormBuilderInterface $builder, array $options) {
-		
-		/** @var NewsletterGroupRepository $newsletterGroupRepository */
-		$newsletterGroupRepository = $this->em->getRepository(NewsletterGroup::class);
-		$newsletterGroups = $newsletterGroupRepository->findFilterItems();
 		
 		$builder
 		->add('importFile', ElFinderType::class, array(
 				'instance'=>'newsletter_users',
 				'required' => true
 		))
-		->add('newsletterGroups', ChoiceType::class, array(
-				'choices' 		=> $newsletterGroups,
-				'choice_label' 	=> function ($value, $key, $index) { return FormUtils::getListLabel($value, $key, $index); },
-				'choice_translation_domain' => false,
-				'required'		=> true,
-				'expanded'      => false,
-				'multiple'      => true
-		))
 		;
+		
+		$this->addTempEntityChoiceEditorField($builder, $options, 'newsletterGroups', true, true);
 	}
 	
 	protected function addActions(FormBuilderInterface $builder, array $options) {
-		$builder
-		->add('submit', SubmitType::class)
-		;
+		$builder->add('submit', SubmitType::class);
+	}
+	
+	protected function getDefaultOptions() {
+		$options = parent::getDefaultOptions();
+		
+		$options[$this->getChoicesName('newsletterGroups')] = [];
+		
+		return $options;
 	}
 	
 	/**

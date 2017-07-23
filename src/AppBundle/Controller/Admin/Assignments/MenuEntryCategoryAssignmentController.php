@@ -8,12 +8,10 @@ use AppBundle\Entity\Category;
 use AppBundle\Entity\MenuEntry;
 use AppBundle\Entity\MenuEntryCategoryAssignment;
 use AppBundle\Filter\Admin\Assignments\MenuEntryCategoryAssignmentFilter;
-use AppBundle\Form\Editor\Assignments\MenuEntryCategoryAssignmentEditorType;
+use AppBundle\Form\Editor\Admin\Assignments\MenuEntryCategoryAssignmentEditorType;
 use AppBundle\Form\Filter\Admin\Assignments\MenuEntryCategoryAssignmentFilterType;
 use AppBundle\Manager\Entity\Common\MenuEntryCategoryAssignmentManager;
 use AppBundle\Manager\Filter\Base\FilterManager;
-use AppBundle\Repository\Admin\Main\CategoryRepository;
-use AppBundle\Repository\Admin\Main\MenuEntryRepository;
 use Symfony\Component\HttpFoundation\Request;
 
 class MenuEntryCategoryAssignmentController extends AssignmentController {
@@ -97,16 +95,20 @@ class MenuEntryCategoryAssignmentController extends AssignmentController {
 	// Internal logic
 	//---------------------------------------------------------------------------
 	
-	protected function getFormOptions() {
-		$options = parent::getFormOptions();
+	protected function getFilterFormOptions() {
+		$options = parent::getFilterFormOptions();
 	
-		/** @var MenuEntryRepository $menuEntryRepository */
-		$menuEntryRepository = $this->getDoctrine()->getRepository(MenuEntry::class);
-		$options['menuEntries'] = $menuEntryRepository->findFilterItems();
+		$this->addEntityChoicesFormOption($options, MenuEntry::class, 'menuEntries');
+		$this->addEntityChoicesFormOption($options, Category::class, 'categories');
 	
-		/** @var CategoryRepository $categoryRepository */
-		$categoryRepository = $this->getDoctrine()->getRepository(Category::class);
-		$options['categories'] = $categoryRepository->findFilterItems();
+		return $options;
+	}
+	
+	protected function getEditorFormOptions() {
+		$options = parent::getEditorFormOptions();
+	
+		$this->addEntityChoicesFormOption($options, MenuEntry::class, 'menuEntry');
+		$this->addEntityChoicesFormOption($options, Category::class, 'category');
 	
 		return $options;
 	}

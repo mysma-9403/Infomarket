@@ -2,19 +2,17 @@
 
 namespace AppBundle\Controller\Admin\Assignments;
 
+use AppBundle\Controller\Admin\Base\AssignmentController;
 use AppBundle\Controller\Admin\Base\BaseEntityController;
 use AppBundle\Entity\Article;
 use AppBundle\Entity\ArticleArticleCategoryAssignment;
 use AppBundle\Entity\ArticleCategory;
 use AppBundle\Filter\Admin\Assignments\ArticleArticleCategoryAssignmentFilter;
-use AppBundle\Form\Editor\Assignments\ArticleArticleCategoryAssignmentEditorType;
+use AppBundle\Form\Editor\Admin\Assignments\ArticleArticleCategoryAssignmentEditorType;
 use AppBundle\Form\Filter\Admin\Assignments\ArticleArticleCategoryAssignmentFilterType;
 use AppBundle\Manager\Entity\Common\ArticleArticleCategoryAssignmentManager;
 use AppBundle\Manager\Filter\Base\FilterManager;
-use AppBundle\Repository\Admin\Main\ArticleCategoryRepository;
-use AppBundle\Repository\Admin\Main\ArticleRepository;
 use Symfony\Component\HttpFoundation\Request;
-use AppBundle\Controller\Admin\Base\AssignmentController;
 
 class ArticleArticleCategoryAssignmentController extends AssignmentController {
 	
@@ -97,16 +95,20 @@ class ArticleArticleCategoryAssignmentController extends AssignmentController {
 	// Internal logic
 	//---------------------------------------------------------------------------
 	
-	protected function getFormOptions() {
-		$options = parent::getFormOptions();
+	protected function getFilterFormOptions() {
+		$options = parent::getFilterFormOptions();
 	
-		/** @var ArticleRepository $articleRepository */
-		$articleRepository = $this->getDoctrine()->getRepository(Article::class);
-		$options['articles'] = $articleRepository->findFilterItems();
+		$this->addEntityChoicesFormOption($options, Article::class, 'articles');
+		$this->addEntityChoicesFormOption($options, ArticleCategory::class, 'articleCategories');
 	
-		/** @var ArticleCategoryRepository $articleArticleCategoryRepository */
-		$articleCategoryRepository = $this->getDoctrine()->getRepository(ArticleCategory::class);
-		$options['articleCategories'] = $articleCategoryRepository->findFilterItems();
+		return $options;
+	}
+	
+	protected function getEditorFormOptions() {
+		$options = parent::getEditorFormOptions();
+	
+		$this->addEntityChoicesFormOption($options, Article::class, 'article');
+		$this->addEntityChoicesFormOption($options, ArticleCategory::class, 'articleCategory');
 	
 		return $options;
 	}

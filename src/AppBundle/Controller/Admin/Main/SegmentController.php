@@ -4,7 +4,9 @@ namespace AppBundle\Controller\Admin\Main;
 
 use AppBundle\Controller\Admin\Base\ImageEntityController;
 use AppBundle\Entity\Segment;
-use AppBundle\Form\Editor\Main\SegmentEditorType;
+use AppBundle\Factory\Common\Choices\Bool\InfomarketChoicesFactory;
+use AppBundle\Factory\Common\Choices\Bool\InfoproduktChoicesFactory;
+use AppBundle\Form\Editor\Admin\Main\SegmentEditorType;
 use AppBundle\Manager\Entity\Common\SegmentManager;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -106,6 +108,19 @@ class SegmentController extends ImageEntityController {
 	public function setIPPublishedAction(Request $request, $id)
 	{
 		return $this->setIPPublishedActionInternal($request, $id);
+	}
+	
+	//------------------------------------------------------------------------
+	// Internal logic
+	//------------------------------------------------------------------------
+	
+	protected function getFilterFormOptions() {
+		$options = parent::getFilterFormOptions();
+	
+		$this->addFactoryChoicesFormOption($options, InfomarketChoicesFactory::class, 'infomarket');
+		$this->addFactoryChoicesFormOption($options, InfoproduktChoicesFactory::class, 'infoprodukt');
+	
+		return $options;
 	}
 	
 	//---------------------------------------------------------------------------

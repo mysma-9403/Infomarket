@@ -11,17 +11,20 @@ use AppBundle\Entity\Brand;
 use AppBundle\Entity\Category;
 use AppBundle\Entity\Other\ArticleTagAssignments;
 use AppBundle\Entity\Tag;
+use AppBundle\Entity\User;
+use AppBundle\Factory\Common\Choices\Bool\FeaturedChoicesFactory;
+use AppBundle\Factory\Common\Choices\Bool\InfomarketChoicesFactory;
+use AppBundle\Factory\Common\Choices\Bool\InfoproduktChoicesFactory;
+use AppBundle\Factory\Common\Choices\Enum\ArticleImageSizesFactory;
+use AppBundle\Factory\Common\Choices\Enum\ArticleLayoutsFactory;
 use AppBundle\Filter\Admin\Main\ArticleFilter;
-use AppBundle\Form\Editor\Main\ArticleEditorType;
+use AppBundle\Form\Editor\Admin\Main\ArticleEditorType;
 use AppBundle\Form\Filter\Admin\Main\ArticleFilterType;
 use AppBundle\Form\Other\ArticleTagAssignmentsType;
 use AppBundle\Manager\Entity\Admin\ArticleManager;
 use AppBundle\Manager\Entity\Base\EntityManager;
 use AppBundle\Manager\Filter\Base\FilterManager;
 use AppBundle\Manager\Params\EntryParams\Admin\ArticleEntryParamsManager;
-use AppBundle\Repository\Admin\Main\ArticleCategoryRepository;
-use AppBundle\Repository\Admin\Main\BrandRepository;
-use AppBundle\Repository\Admin\Main\CategoryRepository;
 use AppBundle\Repository\Admin\Main\TagRepository;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\HttpFoundation\Request;
@@ -194,7 +197,7 @@ class ArticleController extends FeaturedEntityController {
 		$entry = new ArticleTagAssignments();
 		$entry->setArticle($article);
 		
-		$form = $this->createForm(ArticleTagAssignmentsType::class, $entry);
+		$form = $this->createForm(ArticleTagAssignmentsType::class, $entry, $this->getTagAssignmentsFormOptions());
 	
 		$form->handleRequest($request);
 	
@@ -319,21 +322,37 @@ class ArticleController extends FeaturedEntityController {
 	// Internal logic
 	//---------------------------------------------------------------------------
 	
-	protected function getFormOptions() { //TODO move to FilterForm like in EditorForms
-		$options = parent::getFormOptions();
+	protected function getFilterFormOptions() {
+		$options = parent::getFilterFormOptions();
 	
-		/** @var BrandRepository $brandRepository */
-		$brandRepository = $this->getDoctrine()->getRepository(Brand::class);
-		$options['brands'] = $brandRepository->findFilterItems();
-		
-		/** @var CategoryRepository $categoryRepository */
-		$categoryRepository = $this->getDoctrine()->getRepository(Category::class);
-		$options['categories'] = $categoryRepository->findFilterItems();
-		
-		/** @var ArticleCategoryRepository $branchRepository */
-		$articleCategoryRepository = $this->getDoctrine()->getRepository(ArticleCategory::class);
-		$options['articleCategories'] = $articleCategoryRepository->findFilterItems();
+		$this->addEntityChoicesFormOption($options, Brand::class, 'brands');
+		$this->addEntityChoicesFormOption($options, Category::class, 'categories');
+		$this->addEntityChoicesFormOption($options, ArticleCategory::class, 'articleCategories');
 	
+		$this->addFactoryChoicesFormOption($options, InfomarketChoicesFactory::class, 'infomarket');
+		$this->addFactoryChoicesFormOption($options, InfoproduktChoicesFactory::class, 'infoprodukt');
+		$this->addFactoryChoicesFormOption($options, FeaturedChoicesFactory::class, 'featured');
+		
+		return $options;
+	}
+	
+	protected function getEditorFormOptions() {
+		$options = parent::getEditorFormOptions();
+		
+		$this->addEntityChoicesFormOption($options, Article::class, 'parent');
+		$this->addEntityChoicesFormOption($options, User::class, 'author');
+		
+		$this->addFactoryChoicesFormOption($options, ArticleImageSizesFactory::class, 'imageSize');
+		$this->addFactoryChoicesFormOption($options, ArticleLayoutsFactory::class, 'layout');
+		
+		return $options;
+	}
+	
+	protected function getTagAssignmentsFormOptions() {
+		$options = [];
+		
+		$this->addEntityChoicesFormOption($options, Tag::class, 'tags');
+		
 		return $options;
 	}
 	

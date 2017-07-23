@@ -8,12 +8,10 @@ use AppBundle\Entity\Brand;
 use AppBundle\Entity\BrandCategoryAssignment;
 use AppBundle\Entity\Category;
 use AppBundle\Filter\Admin\Assignments\BrandCategoryAssignmentFilter;
-use AppBundle\Form\Editor\Assignments\BrandCategoryAssignmentEditorType;
+use AppBundle\Form\Editor\Admin\Assignments\BrandCategoryAssignmentEditorType;
 use AppBundle\Form\Filter\Admin\Assignments\BrandCategoryAssignmentFilterType;
 use AppBundle\Manager\Entity\Common\BrandCategoryAssignmentManager;
 use AppBundle\Manager\Filter\Base\FilterManager;
-use AppBundle\Repository\Admin\Main\BrandRepository;
-use AppBundle\Repository\Admin\Main\CategoryRepository;
 use Symfony\Component\HttpFoundation\Request;
 
 class BrandCategoryAssignmentController extends AssignmentController {
@@ -97,16 +95,20 @@ class BrandCategoryAssignmentController extends AssignmentController {
 	// Internal logic
 	//---------------------------------------------------------------------------
 	
-	protected function getFormOptions() {
-		$options = parent::getFormOptions();
+	protected function getFilterFormOptions() {
+		$options = parent::getFilterFormOptions();
 	
-		/** @var BrandRepository $brandRepository */
-		$brandRepository = $this->getDoctrine()->getRepository(Brand::class);
-		$options['brands'] = $brandRepository->findFilterItems();
+		$this->addEntityChoicesFormOption($options, Brand::class, 'brands');
+		$this->addEntityChoicesFormOption($options, Category::class, 'categories');
 	
-		/** @var CategoryRepository $categoryRepository */
-		$categoryRepository = $this->getDoctrine()->getRepository(Category::class);
-		$options['categories'] = $categoryRepository->findFilterItems();
+		return $options;
+	}
+	
+	protected function getEditorFormOptions() {
+		$options = parent::getEditorFormOptions();
+	
+		$this->addEntityChoicesFormOption($options, Brand::class, 'brand');
+		$this->addEntityChoicesFormOption($options, Category::class, 'category');
 	
 		return $options;
 	}

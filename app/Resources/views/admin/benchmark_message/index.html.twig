@@ -5,16 +5,16 @@
 
 {% block filterMoreFields1 %}
 	<li class="col-xs-12 col-sm-6 col-md-4 col-lg-2">
-{# 		{{ form_widget(filter.products) }}#}
+		{{ form_widget(filter.products) }}
 	</li>
 	<li class="col-xs-12 col-sm-6 col-md-4 col-lg-2">
-{# 		{{ form_widget(filter.authors) }}#}
+		{{ form_widget(filter.authors) }}
 	</li>
 	<li class="col-xs-12 col-sm-6 col-md-4 col-lg-2">
-{# 		{{ form_widget(filter.states) }}#}
+		{{ form_widget(filter.states) }}
 	</li>
 	<li class="col-xs-12 col-sm-6 col-md-4 col-lg-2">
-{# 		{{ form_widget(filter.readByAdmin) }}#}
+		{{ form_widget(filter.readByAdmin) }}
 	</li>
 {% endblock %}
 
@@ -31,7 +31,7 @@
 	<th><i class="fa fa-list"></i> {{ 'label.product'|trans }}</th>
 	<th><i class="fa fa-list"></i> {{ 'label.benchmarkMessage.author'|trans }}</th>
 	<th><i class="fa fa-list"></i> {{ 'label.benchmarkMessage.state'|trans }}</th>
-	<th><i class="fa fa-list"></i> {{ 'label.benchmarkMessage.read'|trans }}</th>
+	<th><i class="fa fa-list"></i> {{ 'label.read'|trans }}</th>
 {% endblock %}
 
 {% block entryMoreFields2 %}
@@ -48,7 +48,7 @@
 		{% include 'common/fields/bool_action_field.html.twig' with 
 			{ 'id': item.id, 'value': item.readByAdmin, 'extPath': '_set_read',
 				'trueIcon': 'fa-envelope-open-o', 'falseIcon': 'fa-envelope-o',
-				'trueTooltip': 'label.benchmarkMessage.read'|trans, 'falseTooltip': 'label.benchmarkMessage.unread'|trans, canEdit: true } %}
+				'trueTooltip': 'label.read'|trans, 'falseTooltip': 'label.benchmarkMessage.unread'|trans, canEdit: true } %}
 	</td>
 	
 {% endblock %}

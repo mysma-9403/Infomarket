@@ -4,7 +4,7 @@ namespace AppBundle\Controller\Admin\Main;
 
 use AppBundle\Controller\Admin\Base\SimpleEntityController;
 use AppBundle\Entity\NewsletterPageTemplate;
-use AppBundle\Form\Editor\Main\NewsletterPageTemplateEditorType;
+use AppBundle\Form\Editor\Admin\Main\NewsletterPageTemplateEditorType;
 use AppBundle\Manager\Entity\Common\NewsletterPageTemplateManager;
 use Symfony\Component\HttpFoundation\Request;
 

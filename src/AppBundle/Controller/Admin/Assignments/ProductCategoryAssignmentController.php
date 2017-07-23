@@ -2,22 +2,21 @@
 
 namespace AppBundle\Controller\Admin\Assignments;
 
+use AppBundle\Controller\Admin\Base\AssignmentController;
 use AppBundle\Controller\Admin\Base\BaseEntityController;
+use AppBundle\Entity\Brand;
 use AppBundle\Entity\Category;
 use AppBundle\Entity\Product;
 use AppBundle\Entity\ProductCategoryAssignment;
+use AppBundle\Entity\Segment;
+use AppBundle\Factory\Common\Choices\Bool\FeaturedChoicesFactory;
 use AppBundle\Filter\Admin\Assignments\ProductCategoryAssignmentFilter;
-use AppBundle\Form\Editor\Assignments\ProductCategoryAssignmentEditorType;
+use AppBundle\Form\Editor\Admin\Assignments\ProductCategoryAssignmentEditorType;
 use AppBundle\Form\Filter\Admin\Assignments\ProductCategoryAssignmentFilterType;
 use AppBundle\Manager\Entity\Common\ProductCategoryAssignmentManager;
 use AppBundle\Manager\Filter\Base\FilterManager;
-use AppBundle\Repository\Admin\Main\CategoryRepository;
-use AppBundle\Repository\Admin\Main\ProductRepository;
 use AppBundle\Utils\StringUtils;
 use Symfony\Component\HttpFoundation\Request;
-use AppBundle\Entity\Brand;
-use AppBundle\Entity\Segment;
-use AppBundle\Controller\Admin\Base\AssignmentController;
 
 class ProductCategoryAssignmentController extends AssignmentController {
 	
@@ -150,24 +149,25 @@ class ProductCategoryAssignmentController extends AssignmentController {
 	// Internal logic
 	//---------------------------------------------------------------------------
 	
-	protected function getFormOptions() {
-		$options = parent::getFormOptions();
+	protected function getFilterFormOptions() {
+		$options = parent::getFilterFormOptions();
 	
-		/** @var ProductRepository $productRepository */
-		$productRepository = $this->getDoctrine()->getRepository(Product::class);
-		$options['products'] = $productRepository->findFilterItems();
+		$this->addEntityChoicesFormOption($options, Product::class, 'products');
+		$this->addEntityChoicesFormOption($options, Brand::class, 'brands');
+		$this->addEntityChoicesFormOption($options, Segment::class, 'segments');
+		$this->addEntityChoicesFormOption($options, Category::class, 'categories');
 	
-		/** @var BrandRepository $brandRepository */
-		$brandRepository = $this->getDoctrine()->getRepository(Brand::class);
-		$options['brands'] = $brandRepository->findFilterItems();
+		$this->addFactoryChoicesFormOption($options, FeaturedChoicesFactory::class, 'featured');
 		
-		/** @var SegmentRepository $segmentRepository */
-		$segmentRepository = $this->getDoctrine()->getRepository(Segment::class);
-		$options['segments'] = $segmentRepository->findFilterItems();
-		
-		/** @var CategoryRepository $categoryRepository */
-		$categoryRepository = $this->getDoctrine()->getRepository(Category::class);
-		$options['categories'] = $categoryRepository->findFilterItems();
+		return $options;
+	}
+	
+	protected function getEditorFormOptions() {
+		$options = parent::getEditorFormOptions();
+	
+		$this->addEntityChoicesFormOption($options, Product::class, 'product');
+		$this->addEntityChoicesFormOption($options, Segment::class, 'segment');
+		$this->addEntityChoicesFormOption($options, Category::class, 'category');
 	
 		return $options;
 	}

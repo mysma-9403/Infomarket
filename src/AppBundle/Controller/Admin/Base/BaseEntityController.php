@@ -8,7 +8,6 @@ use AppBundle\Filter\Admin\Base\AuditFilter;
 use AppBundle\Form\Filter\Admin\Base\AdminFilterType;
 use AppBundle\Form\Lists\Base\BaseEntityListType;
 use AppBundle\Manager\Filter\Base\FilterManager;
-use AppBundle\Repository\Admin\Main\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 
@@ -19,12 +18,11 @@ abstract class BaseEntityController extends AdminController
 	// Internal logic
 	//---------------------------------------------------------------------------
 	
-	protected function getFormOptions() {
-		$options = parent::getFormOptions();
+	protected function getFilterFormOptions() {
+		$options = parent::getFilterFormOptions();
 		
-		/** @var UserRepository $userRepository */
-		$userRepository = $this->getDoctrine()->getRepository(User::class);
-		$options['users'] = $userRepository->findFilterItems();
+		$this->addEntityChoicesFormOption($options, User::class, 'createdBy');
+		$this->addEntityChoicesFormOption($options, User::class, 'updatedBy');
 		
 		return $options;
 	}

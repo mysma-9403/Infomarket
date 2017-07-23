@@ -8,12 +8,10 @@ use AppBundle\Entity\Category;
 use AppBundle\Entity\User;
 use AppBundle\Entity\UserCategoryAssignment;
 use AppBundle\Filter\Admin\Assignments\UserCategoryAssignmentFilter;
-use AppBundle\Form\Editor\Assignments\UserCategoryAssignmentEditorType;
+use AppBundle\Form\Editor\Admin\Assignments\UserCategoryAssignmentEditorType;
 use AppBundle\Form\Filter\Admin\Assignments\UserCategoryAssignmentFilterType;
 use AppBundle\Manager\Entity\Common\UserCategoryAssignmentManager;
 use AppBundle\Manager\Filter\Base\FilterManager;
-use AppBundle\Repository\Admin\Main\CategoryRepository;
-use AppBundle\Repository\Admin\Main\UserRepository;
 use Symfony\Component\HttpFoundation\Request;
 
 class UserCategoryAssignmentController extends AssignmentController {
@@ -97,16 +95,20 @@ class UserCategoryAssignmentController extends AssignmentController {
 	// Internal logic
 	//---------------------------------------------------------------------------
 	
-	protected function getFormOptions() {
-		$options = parent::getFormOptions();
+	protected function getFilterFormOptions() {
+		$options = parent::getFilterFormOptions();
 	
-		/** @var UserRepository $userRepository */
-		$userRepository = $this->getDoctrine()->getRepository(User::class);
-		$options['users'] = $userRepository->findFilterItems();
+		$this->addEntityChoicesFormOption($options, User::class, 'users');
+		$this->addEntityChoicesFormOption($options, Category::class, 'categories');
 	
-		/** @var CategoryRepository $categoryRepository */
-		$categoryRepository = $this->getDoctrine()->getRepository(Category::class);
-		$options['categories'] = $categoryRepository->findFilterItems();
+		return $options;
+	}
+	
+	protected function getEditorFormOptions() {
+		$options = parent::getEditorFormOptions();
+	
+		$this->addEntityChoicesFormOption($options, User::class, 'user');
+		$this->addEntityChoicesFormOption($options, Category::class, 'category');
 	
 		return $options;
 	}

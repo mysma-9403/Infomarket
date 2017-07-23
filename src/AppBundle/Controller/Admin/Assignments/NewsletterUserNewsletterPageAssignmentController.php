@@ -2,18 +2,17 @@
 
 namespace AppBundle\Controller\Admin\Assignments;
 
+use AppBundle\Controller\Admin\Base\AssignmentController;
 use AppBundle\Controller\Admin\Base\BaseEntityController;
 use AppBundle\Entity\NewsletterPage;
 use AppBundle\Entity\NewsletterUser;
 use AppBundle\Entity\NewsletterUserNewsletterPageAssignment;
+use AppBundle\Factory\Common\Choices\Enum\NewsletterUserNewsletterPageAssignmentStatesFactory;
 use AppBundle\Filter\Admin\Assignments\NewsletterUserNewsletterPageAssignmentFilter;
 use AppBundle\Form\Filter\Admin\Assignments\NewsletterUserNewsletterPageAssignmentFilterType;
 use AppBundle\Manager\Entity\Common\NewsletterUserNewsletterPageAssignmentManager;
 use AppBundle\Manager\Filter\Base\FilterManager;
-use AppBundle\Repository\Admin\Main\NewsletterPageRepository;
-use AppBundle\Repository\Admin\Main\NewsletterUserRepository;
 use Symfony\Component\HttpFoundation\Request;
-use AppBundle\Controller\Admin\Base\AssignmentController;
 
 class NewsletterUserNewsletterPageAssignmentController extends AssignmentController {
 	
@@ -61,16 +60,22 @@ class NewsletterUserNewsletterPageAssignmentController extends AssignmentControl
 	// Internal logic
 	//---------------------------------------------------------------------------
 	
-	protected function getFormOptions() {
-		$options = parent::getFormOptions();
+	protected function getFilterFormOptions() {
+		$options = parent::getFilterFormOptions();
 	
-		/** @var NewsletterUserRepository $newsletterUserRepository */
-		$newsletterUserRepository = $this->getDoctrine()->getRepository(NewsletterUser::class);
-		$options['newsletterUsers'] = $newsletterUserRepository->findFilterItems();
+		$this->addEntityChoicesFormOption($options, NewsletterUser::class, 'newsletterUsers');
+		$this->addEntityChoicesFormOption($options, NewsletterPage::class, 'newsletterPages');
 	
-		/** @var NewsletterPageRepository $newsletterPageRepository */
-		$newsletterPageRepository = $this->getDoctrine()->getRepository(NewsletterPage::class);
-		$options['newsletterPages'] = $newsletterPageRepository->findFilterItems();
+		$this->addFactoryChoicesFormOption($options, NewsletterUserNewsletterPageAssignmentStatesFactory::class, 'states');
+		
+		return $options;
+	}
+	
+	protected function getEditorFormOptions() {
+		$options = parent::getEditorFormOptions();
+	
+		$this->addEntityChoicesFormOption($options, NewsletterUser::class, 'newsletterUser');
+		$this->addEntityChoicesFormOption($options, NewsletterPage::class, 'newsletterPage');
 	
 		return $options;
 	}
@@ -95,6 +100,21 @@ class NewsletterUserNewsletterPageAssignmentController extends AssignmentControl
 	 */
 	protected function getFilterManager($doctrine) {
 		return new FilterManager(new NewsletterUserNewsletterPageAssignmentFilter());
+	}
+	
+	//---------------------------------------------------------------------------
+	// Permissions
+	//---------------------------------------------------------------------------
+	protected function canCreate() {
+		return false;
+	}
+	
+	protected function canCopy() {
+		return false;
+	}
+	
+	protected function canEdit() {
+		return false;
 	}
 	
 	//---------------------------------------------------------------------------

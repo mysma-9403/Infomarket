@@ -8,12 +8,10 @@ use AppBundle\Entity\Magazine;
 use AppBundle\Entity\NewsletterBlock;
 use AppBundle\Entity\NewsletterBlockMagazineAssignment;
 use AppBundle\Filter\Admin\Assignments\NewsletterBlockMagazineAssignmentFilter;
-use AppBundle\Form\Editor\Assignments\NewsletterBlockMagazineAssignmentEditorType;
+use AppBundle\Form\Editor\Admin\Assignments\NewsletterBlockMagazineAssignmentEditorType;
 use AppBundle\Form\Filter\Admin\Assignments\NewsletterBlockMagazineAssignmentFilterType;
 use AppBundle\Manager\Entity\Common\NewsletterBlockMagazineAssignmentManager;
 use AppBundle\Manager\Filter\Base\FilterManager;
-use AppBundle\Repository\Admin\Main\MagazineRepository;
-use AppBundle\Repository\Admin\Main\NewsletterBlockRepository;
 use Symfony\Component\HttpFoundation\Request;
 
 class NewsletterBlockMagazineAssignmentController extends AssignmentController {
@@ -97,16 +95,20 @@ class NewsletterBlockMagazineAssignmentController extends AssignmentController {
 	// Internal logic
 	//---------------------------------------------------------------------------
 	
-	protected function getFormOptions() {
-		$options = parent::getFormOptions();
+	protected function getFilterFormOptions() {
+		$options = parent::getFilterFormOptions();
 	
-		/** @var NewsletterBlockRepository $newsletterBlockRepository */
-		$newsletterBlockRepository = $this->getDoctrine()->getRepository(NewsletterBlock::class);
-		$options['newsletterBlocks'] = $newsletterBlockRepository->findFilterItems();
-		
-		/** @var MagazineRepository $magazineRepository */
-		$magazineRepository = $this->getDoctrine()->getRepository(Magazine::class);
-		$options['magazines'] = $magazineRepository->findFilterItems();
+		$this->addEntityChoicesFormOption($options, NewsletterBlock::class, 'newsletterBlocks');
+		$this->addEntityChoicesFormOption($options, Magazine::class, 'magazines');
+	
+		return $options;
+	}
+	
+	protected function getEditorFormOptions() {
+		$options = parent::getEditorFormOptions();
+	
+		$this->addEntityChoicesFormOption($options, NewsletterBlock::class, 'newsletterBlock');
+		$this->addEntityChoicesFormOption($options, Magazine::class, 'magazine');
 	
 		return $options;
 	}

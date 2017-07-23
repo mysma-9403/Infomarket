@@ -5,7 +5,9 @@ namespace AppBundle\Controller\Admin\Main;
 use AppBundle\Controller\Admin\Base\ImageEntityController;
 use AppBundle\Controller\Admin\Base\SimpleEntityController;
 use AppBundle\Entity\Page;
-use AppBundle\Form\Editor\Main\PageEditorType;
+use AppBundle\Factory\Common\Choices\Bool\InfomarketChoicesFactory;
+use AppBundle\Factory\Common\Choices\Bool\InfoproduktChoicesFactory;
+use AppBundle\Form\Editor\Admin\Main\PageEditorType;
 use AppBundle\Manager\Entity\Common\PageManager;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -119,6 +121,19 @@ class PageController extends ImageEntityController {
 	public function setFeaturedAction(Request $request, $id)
 	{
 		return $this->setFeaturedActionInternal($request, $id);
+	}
+	
+	//------------------------------------------------------------------------
+	// Internal logic
+	//------------------------------------------------------------------------
+	
+	protected function getFilterFormOptions() {
+		$options = parent::getFilterFormOptions();
+	
+		$this->addFactoryChoicesFormOption($options, InfomarketChoicesFactory::class, 'infomarket');
+		$this->addFactoryChoicesFormOption($options, InfoproduktChoicesFactory::class, 'infoprodukt');
+	
+		return $options;
 	}
 	
 	//---------------------------------------------------------------------------

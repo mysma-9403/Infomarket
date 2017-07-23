@@ -4,56 +4,24 @@ namespace AppBundle\Form\Filter\Infomarket;
 
 use AppBundle\Filter\Infomarket\Main\ArticleFilter;
 use AppBundle\Form\Base\FilterType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
-use AppBundle\Utils\FormUtils;
 
-class ArticleFilterType extends FilterType
-{	
-	/**
-	 * 
-	 * {@inheritDoc}
-	 * @see \AppBundle\Form\Base\BaseFormType::addMoreFields()
-	 */
+class ArticleFilterType extends FilterType {
+	
 	protected function addMainFields(FormBuilderInterface $builder, array $options) {
-		
-		$articleCategories = $options['articleCategories'];
-		$categories = $options['categories'];
-		
-		$builder
-		->add('articleCategories', ChoiceType::class, array(
-				'choices' 		=> $articleCategories, 
-				'choice_label' => function ($value, $key, $index) { return FormUtils::getListLabel($value, $key, $index); },
-				'choice_translation_domain' => false,
-				'required'		=> false,
-				'expanded'      => true,
-				'multiple'      => true
-		))
-		->add('categories', ChoiceType::class, array(
-				'choices'		=> $categories, 
-				'choice_label' => function ($value, $key, $index) { return FormUtils::getListLabel($value, $key, $index); },
-				'choice_translation_domain' => false,
-				'required'		=> false,
-				'expanded'      => true,
-				'multiple'      => true
-		))
-		;
+		$this->addEntityChoiceFilterField($builder, $options, 'articleCategories', false, true, true);
+		$this->addEntityChoiceFilterField($builder, $options, 'categories', false, true, true);
 	}
 	
 	protected function getDefaultOptions() {
 		$options = parent::getDefaultOptions();
 		
-		$options['articleCategories'] = array();
-		$options['categories'] = array();
+		$options[$this->getChoicesName('articleCategories')] = [];
+		$options[$this->getChoicesName('categories')] = [];
 	
 		return $options;
 	}
 	
-	/**
-	 * 
-	 * {@inheritDoc}
-	 * @see \AppBundle\Form\Entity\Filter\Base\SimpleEntityFilterType::getEntityType()
-	 */
 	protected function getEntityType() {
 		return ArticleFilter::class;
 	}

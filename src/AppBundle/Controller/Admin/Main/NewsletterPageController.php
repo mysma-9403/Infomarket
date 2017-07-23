@@ -3,20 +3,21 @@
 namespace AppBundle\Controller\Admin\Main;
 
 use AppBundle\Controller\Admin\Base\SimpleEntityController;
+use AppBundle\Entity\NewsletterGroup;
 use AppBundle\Entity\NewsletterPage;
 use AppBundle\Entity\NewsletterPageTemplate;
 use AppBundle\Entity\NewsletterUser;
 use AppBundle\Entity\NewsletterUserNewsletterPageAssignment;
 use AppBundle\Filter\Admin\Main\NewsletterPageFilter;
 use AppBundle\Filter\Admin\Other\SendNewsletterFilter;
-use AppBundle\Form\Editor\Main\NewsletterPageEditorType;
+use AppBundle\Form\Editor\Admin\Main\NewsletterPageEditorType;
 use AppBundle\Form\Filter\Admin\Main\NewsletterPageFilterType;
 use AppBundle\Form\Filter\Admin\Other\SendNewsletterFilterType;
 use AppBundle\Manager\Entity\Base\EntityManager;
 use AppBundle\Manager\Entity\Common\NewsletterPageManager;
 use AppBundle\Manager\Filter\Base\FilterManager;
 use AppBundle\Manager\Params\EntryParams\Admin\NewsletterPageEntryParamsManager;
-use AppBundle\Repository\Admin\Main\NewsletterPageTemplateRepository;
+use AppBundle\Repository\Admin\Main\NewsletterGroupRepository;
 use AppBundle\Utils\StringUtils;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Filesystem\Filesystem;
@@ -232,10 +233,15 @@ class NewsletterPageController extends SimpleEntityController {
 		
 		$viewParams = $params['viewParams'];
 		
+		$options = [];
+		
+		/** @var NewsletterGroupRepository $newsletterGroupRepository */
+		$groupRepository = $this->getDoctrine()->getRepository(NewsletterGroup::class);
+		$options['groups'] = $groupRepository->findFilterItems();
 		
 		$filter = $viewParams['sendNewsletterFilter'];
 		
-		$filterForm = $this->createForm(SendNewsletterFilterType::class, $filter);
+		$filterForm = $this->createForm(SendNewsletterFilterType::class, $filter, $options);
 		$filterForm->handleRequest($request);
 		
 		if ($filterForm->isSubmitted() && $filterForm->isValid()) {
@@ -406,12 +412,18 @@ class NewsletterPageController extends SimpleEntityController {
 		return $params;
 	}
 	
-	protected function getFormOptions() {
-		$options = parent::getFormOptions();
+	protected function getFilterFormOptions() {
+		$options = parent::getFilterFormOptions();
+		
+		$this->addEntityChoicesFormOption($options, NewsletterPageTemplate::class, 'newsletterPageTemplates');
 	
-		/** @var NewsletterPageTemplateRepository $newsletterPageTemplateRepository */
-		$newsletterPageTemplateRepository = $this->getDoctrine()->getRepository(NewsletterPageTemplate::class);
-		$options['newsletterPageTemplates'] = $newsletterPageTemplateRepository->findFilterItems();
+		return $options;
+	}
+	
+	protected function getEditorFormOptions() {
+		$options = parent::getEditorFormOptions();
+	
+		$this->addEntityChoicesFormOption($options, NewsletterPageTemplate::class, 'newsletterPageTemplate');
 	
 		return $options;
 	}

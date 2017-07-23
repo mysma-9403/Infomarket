@@ -8,12 +8,10 @@ use AppBundle\Entity\Advert;
 use AppBundle\Entity\NewsletterBlock;
 use AppBundle\Entity\NewsletterBlockAdvertAssignment;
 use AppBundle\Filter\Admin\Assignments\NewsletterBlockAdvertAssignmentFilter;
-use AppBundle\Form\Editor\Assignments\NewsletterBlockAdvertAssignmentEditorType;
+use AppBundle\Form\Editor\Admin\Assignments\NewsletterBlockAdvertAssignmentEditorType;
 use AppBundle\Form\Filter\Admin\Assignments\NewsletterBlockAdvertAssignmentFilterType;
 use AppBundle\Manager\Entity\Common\NewsletterBlockAdvertAssignmentManager;
 use AppBundle\Manager\Filter\Base\FilterManager;
-use AppBundle\Repository\Admin\Main\AdvertRepository;
-use AppBundle\Repository\Admin\Main\NewsletterBlockRepository;
 use Symfony\Component\HttpFoundation\Request;
 
 class NewsletterBlockAdvertAssignmentController extends AssignmentController {
@@ -97,16 +95,20 @@ class NewsletterBlockAdvertAssignmentController extends AssignmentController {
 	// Internal logic
 	//---------------------------------------------------------------------------
 	
-	protected function getFormOptions() {
-		$options = parent::getFormOptions();
+	protected function getFilterFormOptions() {
+		$options = parent::getFilterFormOptions();
 	
-		/** @var NewsletterBlockRepository $newsletterBlockRepository */
-		$newsletterBlockRepository = $this->getDoctrine()->getRepository(NewsletterBlock::class);
-		$options['newsletterBlocks'] = $newsletterBlockRepository->findFilterItems();
+		$this->addEntityChoicesFormOption($options, NewsletterBlock::class, 'newsletterBlocks');
+		$this->addEntityChoicesFormOption($options, Advert::class, 'adverts');
 	
-		/** @var AdvertRepository $advertRepository */
-		$advertRepository = $this->getDoctrine()->getRepository(Advert::class);
-		$options['adverts'] = $advertRepository->findFilterItems();
+		return $options;
+	}
+	
+	protected function getEditorFormOptions() {
+		$options = parent::getEditorFormOptions();
+	
+		$this->addEntityChoicesFormOption($options, NewsletterBlock::class, 'newsletterBlock');
+		$this->addEntityChoicesFormOption($options, Advert::class, 'advert');
 	
 		return $options;
 	}

@@ -4,7 +4,9 @@ namespace AppBundle\Controller\Admin\Main;
 
 use AppBundle\Controller\Admin\Base\SimpleEntityController;
 use AppBundle\Entity\Tag;
-use AppBundle\Form\Editor\Main\TagEditorType;
+use AppBundle\Factory\Common\Choices\Bool\InfomarketChoicesFactory;
+use AppBundle\Factory\Common\Choices\Bool\InfoproduktChoicesFactory;
+use AppBundle\Form\Editor\Admin\Main\TagEditorType;
 use AppBundle\Manager\Entity\Common\TagManager;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -119,6 +121,19 @@ class TagController extends SimpleEntityController {
 	public function setFeaturedAction(Request $request, $id)
 	{
 		return $this->setFeaturedActionInternal($request, $id);
+	}
+	
+	//------------------------------------------------------------------------
+	// Internal logic
+	//------------------------------------------------------------------------
+	
+	protected function getFilterFormOptions() {
+		$options = parent::getFilterFormOptions();
+	
+		$this->addFactoryChoicesFormOption($options, InfomarketChoicesFactory::class, 'infomarket');
+		$this->addFactoryChoicesFormOption($options, InfoproduktChoicesFactory::class, 'infoprodukt');
+	
+		return $options;
 	}
 	
 	//---------------------------------------------------------------------------

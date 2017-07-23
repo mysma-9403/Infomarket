@@ -3,23 +3,27 @@
 namespace AppBundle\Controller\Admin\Main;
 
 use AppBundle\Controller\Admin\Base\SimpleEntityController;
+use AppBundle\Entity\NewsletterGroup;
 use AppBundle\Entity\NewsletterUser;
 use AppBundle\Entity\NewsletterUserNewsletterGroupAssignment;
 use AppBundle\Entity\Other\ImportNewsletterUsers;
+use AppBundle\Factory\Admin\Import\FileEntryFactory;
+use AppBundle\Factory\Admin\Import\NewsletterUser\ImportErrorFactory;
+use AppBundle\Factory\Admin\Import\NewsletterUser\PreparedEntryFactory;
+use AppBundle\Factory\Common\Choices\Bool\InfomarketChoicesFactory;
+use AppBundle\Factory\Common\Choices\Bool\InfoproduktChoicesFactory;
+use AppBundle\Factory\Common\Choices\Bool\SubscribedChoicesFactory;
 use AppBundle\Filter\Admin\Main\NewsletterUserFilter;
-use AppBundle\Form\Editor\Main\NewsletterUserEditorType;
+use AppBundle\Form\Editor\Admin\Main\NewsletterUserEditorType;
 use AppBundle\Form\Filter\Admin\Main\NewsletterUserFilterType;
 use AppBundle\Form\Other\ImportNewsletterUsersType;
+use AppBundle\Logic\Admin\Import\NewsletterUser\ImportLogic;
+use AppBundle\Logic\Admin\Import\NewsletterUser\ImportValidator;
 use AppBundle\Manager\Entity\Base\EntityManager;
 use AppBundle\Manager\Entity\Common\NewsletterUserManager;
 use AppBundle\Manager\Filter\Base\FilterManager;
 use AppBundle\Manager\Params\EntryParams\Admin\NewsletterUserEntryParamsManager;
 use Symfony\Component\HttpFoundation\Request;
-use AppBundle\Logic\Admin\Import\NewsletterUser\ImportLogic;
-use AppBundle\Factory\Admin\Import\NewsletterUser\ImportErrorFactory;
-use AppBundle\Factory\Admin\Import\FileEntryFactory;
-use AppBundle\Factory\Admin\Import\NewsletterUser\PreparedEntryFactory;
-use AppBundle\Logic\Admin\Import\NewsletterUser\ImportValidator;
 
 class NewsletterUserController extends SimpleEntityController {
 	
@@ -172,10 +176,10 @@ class NewsletterUserController extends SimpleEntityController {
 	
 		$am = $this->getAnalyticsManager();
 		$am->sendPageviewAnalytics($params['domain'], $params['route']);
-	
+		
 		$importItem = new ImportNewsletterUsers();
 	
-		$importForm = $this->createForm(ImportNewsletterUsersType::class, $importItem);
+		$importForm = $this->createForm(ImportNewsletterUsersType::class, $importItem, $this->getImportFormOptions());
 		$importForm->handleRequest($request);
 	
 		if ($importForm->isSubmitted() && $importForm->isValid()) {
@@ -236,6 +240,25 @@ class NewsletterUserController extends SimpleEntityController {
 	//---------------------------------------------------------------------------
 	// Internal logic
 	//---------------------------------------------------------------------------
+	
+	protected function getFilterFormOptions() {
+		$options = parent::getFilterFormOptions();
+	
+		$this->addFactoryChoicesFormOption($options, SubscribedChoicesFactory::class, 'subscribed');
+		
+		$this->addFactoryChoicesFormOption($options, InfomarketChoicesFactory::class, 'infomarket');
+		$this->addFactoryChoicesFormOption($options, InfoproduktChoicesFactory::class, 'infoprodukt');
+		
+		return $options;
+	}
+	
+	protected function getImportFormOptions() {
+		$options = [];
+		
+		$this->addEntityChoicesFormOption($options, NewsletterGroup::class, 'newsletterGroups');
+		
+		return $options;
+	}
 	
 	protected function deleteMore($entry)
 	{

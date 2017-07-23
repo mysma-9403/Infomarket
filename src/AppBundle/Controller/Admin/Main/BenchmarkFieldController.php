@@ -6,12 +6,14 @@ use AppBundle\Controller\Admin\Base\BaseEntityController;
 use AppBundle\Controller\Admin\Base\SimpleEntityController;
 use AppBundle\Entity\BenchmarkField;
 use AppBundle\Entity\Category;
+use AppBundle\Factory\Common\Choices\Enum\BenchmarkFieldBetterThanTypesFactory;
+use AppBundle\Factory\Common\Choices\Enum\BenchmarkFieldFieldTypesFactory;
+use AppBundle\Factory\Common\Choices\Enum\BenchmarkFieldNoteTypesFactory;
 use AppBundle\Filter\Admin\Main\BenchmarkFieldFilter;
-use AppBundle\Form\Editor\Main\BenchmarkFieldEditorType;
+use AppBundle\Form\Editor\Admin\Main\BenchmarkFieldEditorType;
 use AppBundle\Form\Filter\Admin\Main\BenchmarkFieldFilterType;
 use AppBundle\Manager\Entity\Common\BenchmarkFieldManager;
 use AppBundle\Manager\Filter\Base\FilterManager;
-use AppBundle\Repository\Admin\Main\CategoryRepository;
 use Symfony\Component\HttpFoundation\Request;
 
 class BenchmarkFieldController extends BaseEntityController {
@@ -94,49 +96,30 @@ class BenchmarkFieldController extends BaseEntityController {
 	// Internal logic
 	//------------------------------------------------------------------------
 	
-	protected function getFormOptions() {
-		$options = parent::getFormOptions();
+	protected function getFilterFormOptions() {
+		$options = parent::getFilterFormOptions();
 	
-		/** @var CategoryRepository $categoryRepository */
-		$categoryRepository = $this->getDoctrine()->getRepository(Category::class);
-		$options['categories'] = $categoryRepository->findFilterItems();
+		$this->addEntityChoicesFormOption($options, Category::class, 'categories');
+		
+		$this->addFactoryChoicesFormOption($options, BenchmarkFieldFieldTypesFactory::class, 'fieldTypes');
+		
+		return $options;
+	}
 	
+	protected function getEditorFormOptions() {
+		$options = parent::getEditorFormOptions();
+		
+		$this->addEntityChoicesFormOption($options, Category::class, 'category');
+		
+		$this->addFactoryChoicesFormOption($options, BenchmarkFieldFieldTypesFactory::class, 'betterThanType');
+		$this->addFactoryChoicesFormOption($options, BenchmarkFieldBetterThanTypesFactory::class, 'fieldType');
+		$this->addFactoryChoicesFormOption($options, BenchmarkFieldNoteTypesFactory::class, 'noteType');
+		
 		return $options;
 	}
 	
 	protected function getListItemKeyFields($item) {
 		return [$item['id'], $item['fieldName']];
-	}
-	
-	protected function prepareEntry($request, &$entry, $params) {
-		parent::prepareEntry($request, $entry, $params);
-		/** @var BenchmarkField $entry */
-		switch($entry->getFieldType()) {
-			case BenchmarkField::DECIMAL_FIELD_TYPE:
-				$entry->setValueType(BenchmarkField::DECIMAL_VALUE_TYPE);
-				$entry->setFilterType(BenchmarkField::DECIMAL_FILTER_TYPE);
-				break;
-			case BenchmarkField::INTEGER_FIELD_TYPE:
-				$entry->setValueType(BenchmarkField::INTEGER_VALUE_TYPE);
-				$entry->setFilterType(BenchmarkField::INTEGER_FILTER_TYPE);
-				break;
-			case BenchmarkField::BOOLEAN_FIELD_TYPE:
-				$entry->setValueType(BenchmarkField::INTEGER_VALUE_TYPE);
-				$entry->setFilterType(BenchmarkField::BOOLEAN_FILTER_TYPE);
-				break;
-			case BenchmarkField::STRING_FIELD_TYPE:
-				$entry->setValueType(BenchmarkField::STRING_VALUE_TYPE);
-				$entry->setFilterType(BenchmarkField::STRING_FILTER_TYPE);
-				break;
-			case BenchmarkField::SINGLE_ENUM_FIELD_TYPE:
-				$entry->setValueType(BenchmarkField::STRING_VALUE_TYPE);
-				$entry->setFilterType(BenchmarkField::SINGLE_ENUM_FILTER_TYPE);
-				break;
-			case BenchmarkField::MULTI_ENUM_FIELD_TYPE:
-				$entry->setValueType(BenchmarkField::STRING_VALUE_TYPE);
-				$entry->setFilterType(BenchmarkField::MULTI_ENUM_FILTER_TYPE);
-				break;
-		}
 	}
 	
 	//---------------------------------------------------------------------------
