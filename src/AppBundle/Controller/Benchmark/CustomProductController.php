@@ -119,9 +119,10 @@ class CustomProductController extends ImageEntityController {
 		$viewParams = $params['viewParams'];
 		$entry = $viewParams['entry'];
 	
-		$productFilter = $viewParams['productFilter'];
+		$options = $this->getEditorFormOptions();
+		$options['filter'] = $viewParams['productFilter']; //TODO refactor -> move to: getEditorFormOptions($params)
 	
-		$form = $this->createForm($this->getEditorFormType(), $entry, ['filter' => $productFilter]);
+		$form = $this->createForm($this->getEditorFormType(), $entry, $options);
 	
 		$form->handleRequest($request);
 	
@@ -194,6 +195,14 @@ class CustomProductController extends ImageEntityController {
 	
 		$this->addEntityChoicesFormOption($options, Brand::class, 'brands');
 		$this->addEntityChoicesFormOption($options, Category::class, 'categories');
+	
+		return $options;
+	}
+	
+	protected function getEditorFormOptions() {
+		$options = parent::getEditorFormOptions();
+	
+		$this->addEntityChoicesFormOption($options, Brand::class, 'brand');
 	
 		return $options;
 	}

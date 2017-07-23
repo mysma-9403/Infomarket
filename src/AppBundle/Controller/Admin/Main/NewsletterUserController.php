@@ -10,6 +10,8 @@ use AppBundle\Entity\Other\ImportNewsletterUsers;
 use AppBundle\Factory\Admin\Import\FileEntryFactory;
 use AppBundle\Factory\Admin\Import\NewsletterUser\ImportErrorFactory;
 use AppBundle\Factory\Admin\Import\NewsletterUser\PreparedEntryFactory;
+use AppBundle\Factory\Common\Choices\Bool\InfomarketChoicesFactory;
+use AppBundle\Factory\Common\Choices\Bool\InfoproduktChoicesFactory;
 use AppBundle\Factory\Common\Choices\Bool\SubscribedChoicesFactory;
 use AppBundle\Filter\Admin\Main\NewsletterUserFilter;
 use AppBundle\Form\Editor\Admin\Main\NewsletterUserEditorType;
@@ -243,6 +245,9 @@ class NewsletterUserController extends SimpleEntityController {
 		$options = parent::getFilterFormOptions();
 	
 		$this->addFactoryChoicesFormOption($options, SubscribedChoicesFactory::class, 'subscribed');
+		
+		$this->addFactoryChoicesFormOption($options, InfomarketChoicesFactory::class, 'infomarket');
+		$this->addFactoryChoicesFormOption($options, InfoproduktChoicesFactory::class, 'infoprodukt');
 		
 		return $options;
 	}

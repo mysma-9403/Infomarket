@@ -122,37 +122,6 @@ class BenchmarkFieldController extends BaseEntityController {
 		return [$item['id'], $item['fieldName']];
 	}
 	
-	protected function prepareEntry($request, &$entry, $params) {
-		parent::prepareEntry($request, $entry, $params);
-		/** @var BenchmarkField $entry */
-		switch($entry->getFieldType()) {
-			case BenchmarkField::DECIMAL_FIELD_TYPE:
-				$entry->setValueType(BenchmarkField::DECIMAL_VALUE_TYPE);
-				$entry->setFilterType(BenchmarkField::DECIMAL_FILTER_TYPE);
-				break;
-			case BenchmarkField::INTEGER_FIELD_TYPE:
-				$entry->setValueType(BenchmarkField::INTEGER_VALUE_TYPE);
-				$entry->setFilterType(BenchmarkField::INTEGER_FILTER_TYPE);
-				break;
-			case BenchmarkField::BOOLEAN_FIELD_TYPE:
-				$entry->setValueType(BenchmarkField::INTEGER_VALUE_TYPE);
-				$entry->setFilterType(BenchmarkField::BOOLEAN_FILTER_TYPE);
-				break;
-			case BenchmarkField::STRING_FIELD_TYPE:
-				$entry->setValueType(BenchmarkField::STRING_VALUE_TYPE);
-				$entry->setFilterType(BenchmarkField::STRING_FILTER_TYPE);
-				break;
-			case BenchmarkField::SINGLE_ENUM_FIELD_TYPE:
-				$entry->setValueType(BenchmarkField::STRING_VALUE_TYPE);
-				$entry->setFilterType(BenchmarkField::SINGLE_ENUM_FILTER_TYPE);
-				break;
-			case BenchmarkField::MULTI_ENUM_FIELD_TYPE:
-				$entry->setValueType(BenchmarkField::STRING_VALUE_TYPE);
-				$entry->setFilterType(BenchmarkField::MULTI_ENUM_FILTER_TYPE);
-				break;
-		}
-	}
-	
 	//---------------------------------------------------------------------------
 	// Managers
 	//---------------------------------------------------------------------------

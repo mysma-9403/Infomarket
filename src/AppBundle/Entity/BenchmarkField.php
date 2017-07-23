@@ -7,14 +7,7 @@ use AppBundle\Entity\Base\Audit;
 /**
  * BenchmarkField
  */
-class BenchmarkField extends Audit
-{
-	//TODO remove
-	const DECIMAL_VALUE_TYPE = 11;
-	const INTEGER_VALUE_TYPE = 21;
-	const STRING_VALUE_TYPE = 31;
-	
-	
+class BenchmarkField extends Audit {
 	
 	const DECIMAL_FIELD_TYPE = 11;
 	
@@ -24,17 +17,6 @@ class BenchmarkField extends Audit
 	const STRING_FIELD_TYPE = 31;
 	const SINGLE_ENUM_FIELD_TYPE = 32;
 	const MULTI_ENUM_FIELD_TYPE = 33;
-	
-	
-	//TODO remove
-	const DECIMAL_FILTER_TYPE = 11;
-	
-	const INTEGER_FILTER_TYPE = 21;
-	const BOOLEAN_FILTER_TYPE = 22;
-	
-	const STRING_FILTER_TYPE = 31;
-	const SINGLE_ENUM_FILTER_TYPE = 32;
-	const MULTI_ENUM_FILTER_TYPE = 33;
 	
 	
 	
@@ -49,13 +31,9 @@ class BenchmarkField extends Audit
 	const GT_BETTER_THAN_TYPE = 20;
 	const GTE_BETTER_THAN_TYPE = 21;
 	const EQUAL_BETTER_THAN_TYPE = 30;
-	
-	
-    /**
-     * @var integer
-     */
-    private $valueType;
 
+	
+	
     /**
      * @var integer
      */
@@ -79,11 +57,6 @@ class BenchmarkField extends Audit
     /**
      * @var integer
      */
-    private $filterType;
-
-    /**
-     * @var integer
-     */
     private $filterNumber;
 
     /**
@@ -95,31 +68,6 @@ class BenchmarkField extends Audit
      * @var \AppBundle\Entity\Category
      */
     private $category;
-
-
-    /**
-     * Set valueType
-     *
-     * @param integer $valueType
-     *
-     * @return BenchmarkField
-     */
-    public function setValueType($valueType)
-    {
-        $this->valueType = $valueType;
-
-        return $this;
-    }
-
-    /**
-     * Get valueType
-     *
-     * @return integer
-     */
-    public function getValueType()
-    {
-        return $this->valueType;
-    }
 
     /**
      * Set valueNumber
@@ -215,30 +163,6 @@ class BenchmarkField extends Audit
     public function getShowField()
     {
         return $this->showField;
-    }
-
-    /**
-     * Set filterType
-     *
-     * @param integer $filterType
-     *
-     * @return BenchmarkField
-     */
-    public function setFilterType($filterType)
-    {
-        $this->filterType = $filterType;
-
-        return $this;
-    }
-
-    /**
-     * Get filterType
-     *
-     * @return integer
-     */
-    public function getFilterType()
-    {
-        return $this->filterType;
     }
 
     /**

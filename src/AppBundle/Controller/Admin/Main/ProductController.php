@@ -318,7 +318,7 @@ class ProductController extends ImageEntityController {
 		$repository = $this->getDoctrine()->getRepository(Category::class);
 		$choices = $repository->findFilterItemsByProduct($entry->getId());
 		
-		$this->addChoicesFormOption($options, $choices, 'categories');
+		$this->addChoicesFormOption($options, $choices, 'category');
 		
 		return $options;
 	}

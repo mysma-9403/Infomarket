@@ -21,6 +21,7 @@ use AppBundle\Repository\Common\BenchmarkFieldMetadataRepository;
 use AppBundle\Utils\Entity\DataBase\BenchmarkFieldDataBaseUtils;
 use AppBundle\Utils\StringUtils;
 use Symfony\Component\HttpFoundation\Request;
+use Doctrine\Common\Persistence\ObjectManager;
 
 class BenchmarkQueryController extends BaseEntityController {
 	
@@ -129,6 +130,20 @@ class BenchmarkQueryController extends BaseEntityController {
 			}
 			$em->flush();
 		}
+	}
+	
+	protected function deleteMore($entry) {
+		/** @var BenchmarkQuery $entry */
+		parent::deleteMore($entry);
+		
+		/** @var ObjectManager $em */
+		$em = $this->getDoctrine()->getManager();
+		
+		foreach ($entry->getProducts() as $product) {
+			$em->remove($product);
+		}
+		
+		$em->flush();
 	}
 	
 	//---------------------------------------------------------------------------

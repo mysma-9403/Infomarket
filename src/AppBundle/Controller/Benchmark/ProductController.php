@@ -41,6 +41,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 use Symfony\Component\Validator\Constraints\Date;
+use AppBundle\Factory\Common\Choices\Bool\BooleanChoicesFactory;
 
 class ProductController extends DummyController {
 	
@@ -361,28 +362,30 @@ class ProductController extends DummyController {
 		$filter = $viewParams['entryFilter'];
 		$options['filter'] = $filter;
 		
-		$categoryId = $contextParams['category'];
+		$subcategoryId = $contextParams['subcategory'];
 		$userId = $contextParams['user'];
 		
 		/** @var ObjectManager $em */
 		$em = $this->getDoctrine()->getManager();
 		
 		$categoryRepository = new CategoryRepository($em, $em->getClassMetadata(Category::class));
-		$choices = $categoryRepository->findFilterItemsByUserAndCategory($userId, $categoryId);
+		$choices = $categoryRepository->findFilterItemsByUserAndCategory($userId, $subcategoryId);
 		$this->addChoicesFormOption($options, $choices, 'categories');
 		
 		$brandRepository = new BrandRepository($em, $em->getClassMetadata(Brand::class));
-		$choices = $brandRepository->findFilterItemsByCategory($categoryId);
+		$choices = $brandRepository->findFilterItemsByCategory($subcategoryId);
 		$this->addChoicesFormOption($options, $choices, 'brands');
 		
-		$productRepository = $this->get(ProductRepository::class);//new ProductRepository($em, $em->getClassMetadata(Product::class));
+		$productRepository = $this->get(ProductRepository::class);
 		
 		$choices = [];
 		foreach ($filter->getFilterFields() as $field) {
 			$valueField = $field['valueField'];
-			$choices[$valueField] = $productRepository->findFilterItemsByValue($categoryId, $valueField);
+			$choices[$valueField] = $productRepository->findFilterItemsByValue($subcategoryId, $valueField);
 		}
 		$options['choices'] = $choices;
+		
+		$this->addFactoryChoicesFormOption($options, BooleanChoicesFactory::class, 'boolean');
 		
 		return $options;
 	}

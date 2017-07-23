@@ -880,14 +880,6 @@
                 <source>label.benchmarkMessage.state.completed</source>
                 <target>Zakończona</target>
             </trans-unit>
-            <trans-unit id="label.benchmarkMessage.read">
-                <source>label.benchmarkMessage.read</source>
-                <target>Przeczytana</target>
-            </trans-unit>
-            <trans-unit id="label.benchmarkMessage.unread">
-                <source>label.benchmarkMessage.unread</source>
-                <target>Nieprzeczytana</target>
-            </trans-unit>
             
             
             <trans-unit id="label.benchmarkQuery.archived">
@@ -2105,6 +2097,17 @@
             <trans-unit id="label.placeholder.none">
                 <source>label.placeholder.none</source>
                 <target>(Brak)</target>
+            </trans-unit>
+            
+            
+            
+            <trans-unit id="label.read">
+                <source>label.read</source>
+                <target>Przeczytana</target>
+            </trans-unit>
+            <trans-unit id="label.unread">
+                <source>label.unread</source>
+                <target>Nieprzeczytana</target>
             </trans-unit>
             
             

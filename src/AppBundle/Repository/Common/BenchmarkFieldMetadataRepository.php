@@ -18,7 +18,7 @@ class BenchmarkFieldMetadataRepository extends EntityRepository
 	{
 		$builder = new QueryBuilder($this->getEntityManager());
 			
-		$builder->select("e.valueType, e.valueNumber, e.fieldType, e.fieldName, e.decimalPlaces, e.noteType, e.noteWeight, e.betterThanType, e.compareWeight");
+		$builder->select("e.valueNumber, e.fieldType, e.fieldName, e.decimalPlaces, e.noteType, e.noteWeight, e.betterThanType, e.compareWeight");
 		$builder->from($this->getEntityType(), "e");
 	
 		$expr = $builder->expr();
@@ -44,7 +44,7 @@ class BenchmarkFieldMetadataRepository extends EntityRepository
 	{
 		$builder = new QueryBuilder($this->getEntityManager());
 			
-		$builder->select("e.valueType, e.valueNumber, e.fieldType, e.fieldName, e.decimalPlaces, e.noteType, e.noteWeight, e.betterThanType, e.compareWeight");
+		$builder->select("e.valueNumber, e.fieldType, e.fieldName, e.decimalPlaces, e.noteType, e.noteWeight, e.betterThanType, e.compareWeight");
 		$builder->from($this->getEntityType(), "e");
 	
 		$expr = $builder->expr();
@@ -71,7 +71,7 @@ class BenchmarkFieldMetadataRepository extends EntityRepository
 	{
 		$builder = new QueryBuilder($this->getEntityManager());
 			
-		$builder->select("e.valueType, e.valueNumber, e.fieldType, e.filterName");
+		$builder->select("e.valueNumber, e.fieldType, e.filterName");
 		$builder->from($this->getEntityType(), "e");
 	
 		$expr = $builder->expr();
@@ -98,7 +98,7 @@ class BenchmarkFieldMetadataRepository extends EntityRepository
 	{
 		$builder = new QueryBuilder($this->getEntityManager());
 			
-		$builder->select("e.valueType, e.valueNumber, e.fieldType");
+		$builder->select("e.valueNumber, e.fieldType");
 		$builder->from($this->getEntityType(), "e");
 	
 		$expr = $builder->expr();
@@ -150,7 +150,7 @@ class BenchmarkFieldMetadataRepository extends EntityRepository
 	{
 		$builder = new QueryBuilder($this->getEntityManager());
 			
-		$builder->select("e.valueType, e.valueNumber, e.fieldType, e.fieldName, e.decimalPlaces");
+		$builder->select("e.valueNumber, e.fieldType, e.fieldName, e.decimalPlaces");
 		$builder->from($this->getEntityType(), "e");
 	
 		$builder->innerJoin(Category::class, 'c', Join::WITH, 'e.category = c.id');

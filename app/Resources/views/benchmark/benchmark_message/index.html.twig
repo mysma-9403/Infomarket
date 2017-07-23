@@ -33,7 +33,7 @@
 {% block headerMoreFields2 %}
 	<th><i class="fa fa-list"></i> {{ 'label.product'|trans }}</th>
 	<th><i class="fa fa-list"></i> {{ 'label.benchmarkMessage.state'|trans }}</th>
-	<th><i class="fa fa-list"></i> {{ 'label.benchmarkMessage.read'|trans }}</th>
+	<th><i class="fa fa-list"></i> {{ 'label.read'|trans }}</th>
 {% endblock %}
 
 {% block entryMoreFields2 %}
@@ -47,7 +47,7 @@
 		{% include 'common/fields/bool_action_field.html.twig' with 
 			{ 'id': item.id, 'value': item.readByAuthor, 'extPath': '_set_read',
 				'trueIcon': 'fa-envelope-open-o', 'falseIcon': 'fa-envelope-o',
-				'trueTooltip': 'label.benchmarkMessage.read'|trans, 'falseTooltip': 'label.benchmarkMessage.unread'|trans, canEdit: true } %}
+				'trueTooltip': 'label.read'|trans, 'falseTooltip': 'label.benchmarkMessage.unread'|trans, canEdit: true } %}
 	</td>
 	
 {% endblock %}

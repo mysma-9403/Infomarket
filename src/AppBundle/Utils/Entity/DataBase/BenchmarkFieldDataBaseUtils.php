@@ -13,14 +13,14 @@ class BenchmarkFieldDataBaseUtils {
 	const NOTE = 'Note';
 	
 	public function getValueFieldProperty($fieldType, $valueNumber) {
-		return $this->getValueTypeDataBaseName($fieldType) . $valueNumber;
+		return $this->getFieldTypeDataBaseName($fieldType) . $valueNumber;
 	}
 	
 	public function getNoteFieldProperty($fieldType, $valueNumber) {
-		return $this->getValueTypeDataBaseName($fieldType) . self::NOTE . $valueNumber;
+		return $this->getFieldTypeDataBaseName($fieldType) . self::NOTE . $valueNumber;
 	}
 	
-	protected function getValueTypeDataBaseName($fieldType) {
+	protected function getFieldTypeDataBaseName($fieldType) {
 		switch($fieldType) {
 			case BenchmarkField::DECIMAL_FIELD_TYPE:
 				return self::DECIMAL_NAME;

@@ -147,7 +147,7 @@ class UpdateProductNotesCommand extends ContainerAwareCommand
 		
 		foreach ($fields as $field) {
 			$valueField = $field['valueField'];
-			$valueType = $field['valueType'];
+			$fieldType = $field['fieldType'];
 			$noteField = $field['noteField'];
 			$noteType = $field['noteType'];
 			$noteWeight = $field['noteWeight'];
@@ -156,7 +156,7 @@ class UpdateProductNotesCommand extends ContainerAwareCommand
 				$value = $product[$valueField];
 				$note = 5.;
 				
-				switch($valueType) {
+				switch($fieldType) {
 					case BenchmarkField::DECIMAL_FIELD_TYPE:
 					case BenchmarkField::INTEGER_FIELD_TYPE:
 					case BenchmarkField::BOOLEAN_FIELD_TYPE:

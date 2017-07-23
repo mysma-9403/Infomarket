@@ -210,30 +210,23 @@ class ImportLogic {
 				$fieldTypeName = $fieldTypes[$i];
 				if($fieldTypeName && strlen($fieldTypeName) > 0) {
 					
-					$valueType = null;
 					$fieldType = null;
 					
 					if($fieldTypeName == 'decimal') {
-						$valueType = BenchmarkField::DECIMAL_VALUE_TYPE;
 						$fieldType = BenchmarkField::DECIMAL_FIELD_TYPE;
 					} else if($fieldTypeName == 'integer') {
-						$valueType = BenchmarkField::INTEGER_VALUE_TYPE;
 						$fieldType = BenchmarkField::INTEGER_FIELD_TYPE;
 					} else if($fieldTypeName == 'boolean' || $fieldTypeName == 'bool') {
-						$valueType = BenchmarkField::INTEGER_VALUE_TYPE;
 						$fieldType = BenchmarkField::BOOLEAN_FIELD_TYPE;
 					} else if($fieldTypeName == 'string') {
-						$valueType = BenchmarkField::STRING_VALUE_TYPE;
 						$fieldType = BenchmarkField::STRING_FIELD_TYPE;
 					} else if($fieldTypeName == 'single enum' || $fieldTypeName == 'singleenum') {
-						$valueType = BenchmarkField::STRING_VALUE_TYPE;
 						$fieldType = BenchmarkField::SINGLE_ENUM_FIELD_TYPE;
 					} else if($fieldTypeName == 'multi enum' || $fieldTypeName == 'multienum') {
-						$valueType = BenchmarkField::STRING_VALUE_TYPE;
 						$fieldType = BenchmarkField::MULTI_ENUM_FIELD_TYPE;
 					}
 					
-					if($valueType) {
+					if($fieldType) {
 						$valueNumber = $valueNumbers[$i];
 						
 						$fieldNumber = $fieldNumbers[$i];
@@ -250,15 +243,14 @@ class ImportLogic {
 						
 						$item = array();
 						
-						$itemName = $this->benchmarkFieldDataBaseUtils->getValueFieldProperty($valueType, $valueNumber);
+						$itemName = $this->benchmarkFieldDataBaseUtils->getValueFieldProperty($fieldType, $valueNumber);
 						
 						$item['index'] = $i;
 						$item['name'] = $itemName;
 						
-						$item['valueType'] = $valueType;
+						$item['fieldType'] = $fieldType;
 						$item['valueNumber'] = $valueNumber;
 						
-						$item['fieldType'] = $fieldType;
 						$item['fieldName'] = $fieldName;
 						$item['fieldNumber'] = $fieldNumber;
 						$item['showField'] = $showField;
@@ -388,7 +380,7 @@ class ImportLogic {
 		$entry['errors'] = $errors;
 		
 		foreach ($columns as $column) {
-			if(key_exists('valueType', $column)) {
+			if(key_exists('fieldType', $column)) {
 				$value = trim($fileEntry[$column['index']]);
 				if(strlen($value) < 1) {
 					$value = null;
@@ -544,7 +536,7 @@ class ImportLogic {
 				$product->setMimeType('image/' . $imageType);
 				
 				foreach ($columns as $column) {
-					if(key_exists('valueType', $column)) {
+					if(key_exists('fieldType', $column)) {
 						$columnName = $column['name'];
 						$product->offsetSet($columnName, $preparedEntry[$columnName]);
 					}
@@ -567,7 +559,7 @@ class ImportLogic {
 				}
 				
 				foreach ($columns as $column) {
-					if(key_exists('valueType', $column)) {
+					if(key_exists('fieldType', $column)) {
 						$columnName = $column['name'];
 						if($product->offsetGet($columnName) != $preparedEntry[$columnName]) {
 							$product->offsetSet($columnName, $preparedEntry[$columnName]);
@@ -593,7 +585,7 @@ class ImportLogic {
 		$result = array();
 	
 		foreach ($columns as $column) {
-			if(key_exists('valueType', $column)) {
+			if(key_exists('fieldType', $column)) {
 				$result[] = $this->getDataBaseColumn($category, $column);
 			}
 		}
@@ -607,24 +599,23 @@ class ImportLogic {
 	
 		$benchmarkFieldRepository = $this->doctrine->getRepository(BenchmarkField::class);
 	
-		$valueType = $column['valueType'];
+		$fieldType = $column['fieldType'];
 		$valueNumber = $column['valueNumber'];
-		$benchmarkField = $benchmarkFieldRepository->findOneBy(['category' => $category->getId(), 'valueType' => $valueType, 'valueNumber' => $valueNumber]);
+		$benchmarkField = $benchmarkFieldRepository->findOneBy(['category' => $category->getId(), 'fieldType' => $fieldType, 'valueNumber' => $valueNumber]);
 		if(!$benchmarkField) {
 			$benchmarkField = new BenchmarkField();
 			
 			$benchmarkField->setCategory($category);
-			$benchmarkField->setValueType($valueType);
+			
+			$benchmarkField->setFieldType($column['fieldType']);
 			$benchmarkField->setValueNumber($valueNumber);
 			
 			$benchmarkField->setFieldName($column['fieldName']);
 			$benchmarkField->setFieldNumber($column['fieldNumber']);
-			$benchmarkField->setFieldType($column['fieldType']);
 			$benchmarkField->setShowField($column['showField']);
 			
 			$benchmarkField->setFilterName($column['filterName']);
 			$benchmarkField->setFilterNumber($column['filterNumber']);
-			$benchmarkField->setFilterType($column['filterType']);
 			$benchmarkField->setShowFilter($column['showFilter']);
 			
 			if($column['fieldType'] == BenchmarkField::DECIMAL_VALUE_TYPE) {
@@ -677,12 +668,6 @@ class ImportLogic {
 			$filterNumber = $column['filterNumber'];
 			if($benchmarkField->getFilterNumber() != $filterNumber) {
 				$benchmarkField->setFilterNumber($filterNumber);
-				$forUpdate = true;
-			}
-				
-			$filterType = $column['filterType'];
-			if($benchmarkField->getFilterType() != $filterType) {
-				$benchmarkField->setFilterType($filterType);
 				$forUpdate = true;
 			}
 				

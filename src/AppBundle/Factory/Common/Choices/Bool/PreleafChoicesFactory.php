@@ -8,8 +8,8 @@ use AppBundle\Filter\Base\Filter;
 class PreleafChoicesFactory extends SimpleChoicesFactory {
 	public function __construct() {
 		$this->items['label.all'] = Filter::ALL_VALUES;
-		$this->items['label.preleaf'] = Filter::TRUE_VALUES;
-		$this->items['label.notPreleaf'] = Filter::FALSE_VALUES;
+		$this->items['label.category.preleaf'] = Filter::TRUE_VALUES;
+		$this->items['label.category.notPreleaf'] = Filter::FALSE_VALUES;
 	}
 	
 }

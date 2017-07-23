@@ -268,10 +268,8 @@ abstract class AdminController extends StandardController {
 	protected function initUpdateForm(Request $request, array &$params) {
 		$viewParams = $params['viewParams'];
 		$entry = $viewParams['entry'];
-	
-		$options = $this->getEditorFormOptions();
 		
-		$form = $this->createForm($this->getEditorFormType(), $entry, $options);
+		$form = $this->createForm($this->getEditorFormType(), $entry, $this->getEditorFormOptions());
 	
 		$form->handleRequest($request);
 	
