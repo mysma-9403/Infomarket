@@ -14,21 +14,29 @@
 		{{ form_widget(filter.link, { 'label': 'label.advert.link' }) }}
 	</li>
 {% endblock %}
-
-{% block headerMoreFields3 %}
-	<th><i class="fa fa-globe"></i> {{ 'label.advert.link'|trans }}</th>
 	
-	<th><i class="fa fa-eye"></i> {{ 'label.advert.showCount'|trans }}</th>
-	<th><i class="fa fa-eye-slash"></i> {{ 'label.advert.showLimit'|trans }}</th>
-	<th><i class="fa fa-hand-pointer-o"></i> {{ 'label.advert.clickCount'|trans }}</th>
-	<th><i class="fa fa-hand-stop-o"></i> {{ 'label.advert.clickLimit'|trans }}</th>
+{% block headerMoreFields3 %}
+	<th class="visible-lg">
+		{% include 'common/fields/table/icon_field.html.twig' 
+			with { label: 'label.advert.short.showCount', tooltip: 'label.advert.showCount', icon: 'eye'} %}
+	</th>
+	<th class="visible-lg">
+		{% include 'common/fields/table/icon_field.html.twig' 
+			with { label: 'label.advert.short.showLimit', tooltip: 'label.advert.showLimit', icon: 'eye-slash'} %}
+	</th>
+	<th class="visible-lg">
+		{% include 'common/fields/table/icon_field.html.twig' 
+			with { label: 'label.advert.short.clickCount', tooltip: 'label.advert.clickCount', icon: 'hand-pointer-o'} %}
+	</th>
+	<th class="visible-lg">
+		{% include 'common/fields/table/icon_field.html.twig' 
+			with { label: 'label.advert.short.clickLimit', tooltip: 'label.advert.clickLimit', icon: 'hand-stop-o'} %}
+	</th>
 {% endblock %}
 
 {% block entryMoreFields3 %}
-	<td>{{ item.link}}</td>
-	
-	<td>{{ item.showCount }}</td>
-	<td>{{ item.showLimit }}</td>
-	<td>{{ item.clickCount }}</td>
-	<td>{{ item.clickLimit }}</td>
+	<td class="visible-lg">{{ item.showCount }}</td>
+	<td class="visible-lg">{{ item.showLimit }}</td>
+	<td class="visible-lg">{{ item.clickCount }}</td>
+	<td class="visible-lg">{{ item.clickLimit }}</td>
 {% endblock %}

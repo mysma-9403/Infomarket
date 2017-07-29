@@ -338,6 +338,14 @@ class CategoryController extends FeaturedEntityController {
 	// Internal logic
 	//---------------------------------------------------------------------------
 	
+	protected function getListItemKeyFields($item) {
+		$fields = parent::getListItemKeyFields($item);
+	
+		$fields[] = $item['subname'];
+	
+		return $fields;
+	}
+	
 	protected function getFilterFormOptions() {
 		$options = parent::getFilterFormOptions();
 		

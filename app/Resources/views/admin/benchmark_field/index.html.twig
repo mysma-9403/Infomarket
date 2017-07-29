@@ -21,13 +21,18 @@
 
 {% block headerMoreFields2 %}
 	<th><i class="fa"></i> {{ 'label.benchmarkField.fieldType'|trans }}</th>
-	<th><i class="fa"></i> {{ 'label.benchmarkField.valueNumber'|trans }}</th>
-	<th><i class="fa fa-eye"></i> {{ 'label.benchmarkField.showField'|trans }}</th>
+	<th>
+		{% include 'common/fields/table/icon_field.html.twig' with { tooltip: 'label.benchmarkField.valueNumber', icon: 'list-ol'} %}
+	</th>
+	<th>
+		{% include 'common/fields/table/icon_field.html.twig' with { tooltip: 'label.benchmarkField.showField', icon: 'eye'} %}
+	</th>
 {% endblock %}
 
 {% block entryMainFields1 %}
 	<td>
-		{% include 'common/links/simple_link.html.twig' with { type: 'category', value: { id: item.categoryId, name: item.categoryName, subname: item.categorySubname } } %}
+		{% include 'common/links/simple_link.html.twig' 
+			with { type: 'category', value: { id: item.categoryId, name: item.categoryName, subname: item.categorySubname } } %}
 	</td>
 {% endblock %}
 
@@ -39,6 +44,8 @@
 		{{ item.valueNumber}}
 	</td>
 	<td>
-		{{ item.showField }}
+		{% include 'common/fields/table/bool_field.html.twig' 
+			with { value: item.showField, iconTrue: 'eye', iconFalse: 'eye-slash', 
+			tooltipTrue: 'label.benchmarkField.showField', tooltipFalse: 'label.benchmarkField.notShowField' } %}
 	</td>
 {% endblock %}

@@ -67,7 +67,9 @@
 	    		<table class="table table-striped vert-align">
 					<thead>
 						{% block tableHeader %}
-							<th><i class="fa fa-check-square-o"></i> {{ 'label.selected'|trans }}</th>
+							<th>
+								{% include 'common/fields/table/icon_field.html.twig' with { tooltip: 'label.selected', icon: 'check-square-o'} %}
+							</th>
 							
 							{% block headerMoreFields1 %}
 							{% endblock %}

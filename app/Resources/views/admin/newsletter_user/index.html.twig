@@ -11,7 +11,9 @@
 {% endblock %}
 
 {% block headerMoreFields3 %}
-	<th><i class="fa fa-envelope-o"></i> {{ 'label.newsletter.subscribed'|trans }}</th>
+	<th>
+		{% include 'common/fields/table/icon_field.html.twig' with { tooltip: 'label.newsletter.subscribed', icon: 'envelope-o'} %}
+	</th>
 {% endblock %}
 
 {% block entryMoreFields3 %}

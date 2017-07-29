@@ -31,7 +31,9 @@
 	<th><i class="fa fa-list"></i> {{ 'label.product'|trans }}</th>
 	<th><i class="fa fa-list"></i> {{ 'label.benchmarkMessage.author'|trans }}</th>
 	<th><i class="fa fa-list"></i> {{ 'label.benchmarkMessage.state'|trans }}</th>
-	<th><i class="fa fa-list"></i> {{ 'label.read'|trans }}</th>
+	<th>
+		{% include 'common/fields/table/icon_field.html.twig' with { tooltip: 'label.read', icon: 'envelope-o'} %}
+	</th>
 {% endblock %}
 
 {% block entryMoreFields2 %}

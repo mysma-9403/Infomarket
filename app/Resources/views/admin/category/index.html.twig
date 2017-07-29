@@ -22,16 +22,16 @@
 {% endblock %}
 
 {% block headerMoreFields1 %}
-	<th>{{ 'label.subname'|trans }}</th>
 	<th>{{ 'label.category.parent'|trans }}</th>
 {% endblock %}
 
 {% block headerMoreFields2 %}
-	<th><i class="fa fa-leaf"></i> {{ 'label.preleafs'|trans }}</th>
+	<th>
+		{% include 'common/fields/table/icon_field.html.twig' with { tooltip: 'label.preleafs', icon: 'leaf'} %}
+	</th>
 {% endblock %}
 
 {% block entryMoreFields1 %}
-	<td>{{ item.subname }}</td>
 	<td>
 		{% include 'common/links/simple_link.html.twig' with { type: 'category', value: { id: item.parentId, name: item.parentName, subname: item.parentSubname } } %}
 	</td>

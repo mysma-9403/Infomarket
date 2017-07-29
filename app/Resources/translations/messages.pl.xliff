@@ -623,6 +623,23 @@
                 <target>Limit kliknięć</target>
             </trans-unit>
             
+            <trans-unit id="label.advert.short.showCount">
+                <source>label.advert.short.showCount</source>
+                <target>LW</target>
+            </trans-unit>
+            <trans-unit id="label.advert.short.showLimit">
+                <source>label.advert.short.showLimit</source>
+                <target>LW</target>
+            </trans-unit>
+            <trans-unit id="label.advert.short.clickCount">
+                <source>label.advert.short.clickCount</source>
+                <target>LK</target>
+            </trans-unit>
+            <trans-unit id="label.advert.short.clickLimit">
+                <source>label.advert.short.clickLimit</source>
+                <target>LK</target>
+            </trans-unit>
+            
             
             
             <trans-unit id="label.article.assignTags">
@@ -703,6 +720,10 @@
             <trans-unit id="label.benchmarkField.showField">
                 <source>label.benchmarkField.showField</source>
                 <target>Pokaż pole</target>
+            </trans-unit>
+            <trans-unit id="label.benchmarkField.notShowField">
+                <source>label.benchmarkField.notShowField</source>
+                <target>Nie pokazuj pola</target>
             </trans-unit>
             
             <trans-unit id="label.benchmarkField.filterName">
@@ -828,21 +849,9 @@
                 <source>label.benchmarkField.betterThanType.lesserThan</source>
                 <target>Mniejszy</target>
             </trans-unit>
-            <trans-unit id="label.benchmarkField.betterThanType.lesserThanEqual">
-                <source>label.benchmarkField.betterThanType.lesserThanEqual</source>
-                <target>Mniejszy lub równy</target>
-            </trans-unit>
             <trans-unit id="label.benchmarkField.betterThanType.greaterThan">
                 <source>label.benchmarkField.betterThanType.greaterThan</source>
                 <target>Większy</target>
-            </trans-unit>
-            <trans-unit id="label.benchmarkField.betterThanType.greaterThanEqual">
-                <source>label.benchmarkField.betterThanType.greaterThanEqual</source>
-                <target>Większy lub równy</target>
-            </trans-unit>
-            <trans-unit id="label.benchmarkField.betterThanType.equal">
-                <source>label.benchmarkField.betterThanType.equal</source>
-                <target>Równy</target>
             </trans-unit>
             
             <trans-unit id="label.benchmarkField.compareWeight">
@@ -1238,10 +1247,6 @@
                 <target>Dzieci</target>
             </trans-unit>
             
-            <trans-unit id="label.publishedAt">
-                <source>label.publishedAt</source>
-                <target>Opublikowane o</target>
-            </trans-unit>
             <trans-unit id="label.createdAt">
                 <source>label.createdAt</source>
                 <target>Utworzone o</target>
@@ -1250,11 +1255,6 @@
                 <source>label.updatedAt</source>
                 <target>Edytowane o</target>
             </trans-unit>
-            
-            <trans-unit id="label.publishedBy">
-                <source>label.publishedBy</source>
-                <target>Opublikowane przez</target>
-            </trans-unit>
             <trans-unit id="label.createdBy">
                 <source>label.createdBy</source>
                 <target>Utworzone przez</target>
@@ -1262,6 +1262,23 @@
             <trans-unit id="label.updatedBy">
                 <source>label.updatedBy</source>
                 <target>Edytowane przez</target>
+            </trans-unit>
+            
+            <trans-unit id="label.short.createdAt">
+                <source>label.short.createdAt</source>
+                <target>Utw.</target>
+            </trans-unit>
+            <trans-unit id="label.short.updatedAt">
+                <source>label.short.updatedAt</source>
+                <target>Ed.</target>
+            </trans-unit>
+            <trans-unit id="label.short.createdBy">
+                <source>label.short.createdBy</source>
+                <target>Utw.</target>
+            </trans-unit>
+            <trans-unit id="label.short.updatedBy">
+                <source>label.short.updatedBy</source>
+                <target>Ed.</target>
             </trans-unit>
             
             
@@ -1452,6 +1469,10 @@
                 <source>label.fm.notInfomarket</source>
                 <target>Nie opublikowana (IM)</target>
             </trans-unit>
+            <trans-unit id="label.short.infomarket">
+                <source>label.short.infomarket</source>
+                <target>IM</target>
+            </trans-unit>
             
             <trans-unit id="label.infoprodukt">
                 <source>label.infoprodukt</source>
@@ -1476,6 +1497,10 @@
             <trans-unit id="label.fm.notInfoprodukt">
                 <source>label.fm.notInfoprodukt</source>
                 <target>Nie opublikowana (IP)</target>
+            </trans-unit>
+            <trans-unit id="label.short.infoprodukt">
+                <source>label.short.infoprodukt</source>
+                <target>IP</target>
             </trans-unit>
             
             
@@ -1562,6 +1587,12 @@
             <trans-unit id="label.category.benchmark">
                 <source>label.category.benchmark</source>
                 <target>Benchmarkowa</target>
+            </trans-unit>
+            
+            
+            <trans-unit id="label.link.url">
+                <source>label.link.url</source>
+                <target>Adres URL</target>
             </trans-unit>
             
             

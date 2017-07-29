@@ -24,8 +24,12 @@
 
 {# Header section #}
 {% block headerMainFields2 %}
-	<th><i class="fa fa-check"></i> {{ 'label.infomarket'|trans }}</th>
-	<th><i class="fa fa-check"></i> {{ 'label.infoprodukt'|trans }}</th>
+	<th>
+		{% include 'common/fields/table/icon_field.html.twig' with { tooltip: 'label.infomarket', icon: 'check'} %}
+	</th>
+	<th>
+		{% include 'common/fields/table/icon_field.html.twig' with { tooltip: 'label.infoprodukt', icon: 'check'} %}
+	</th>
 	
 	{% block simpleHeaderMainFields2More %}
 	{% endblock %}

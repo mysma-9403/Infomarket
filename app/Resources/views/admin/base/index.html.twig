@@ -95,35 +95,47 @@
 {# Header section #}	
 {% block headerMainFields3 %}
 	{% if isAdmin %}
-		<th><i class="fa fa-calendar-o"></i> {{ 'label.updatedAt'|trans }}</th>
-		<th><i class="fa fa-user"></i> {{ 'label.updatedBy'|trans }}</th>
-		<th><i class="fa fa-calendar-plus-o"></i> {{ 'label.createdAt'|trans }}</th>
-		<th><i class="fa fa-user"></i> {{ 'label.createdBy'|trans }}</th>
+		<th class="visible-lg">
+			{% include 'common/fields/table/icon_field.html.twig' 
+				with { label: 'label.short.updatedAt', tooltip: 'label.updatedAt', icon: 'calendar-o'} %}
+		</th>
+		<th class="visible-lg">
+			{% include 'common/fields/table/icon_field.html.twig' 
+				with { label: 'label.short.updatedBy', tooltip: 'label.updatedBy', icon: 'user'} %}
+		</th>
+		<th class="visible-lg">
+			{% include 'common/fields/table/icon_field.html.twig' 
+				with { label: 'label.short.createdAt', tooltip: 'label.createdAt', icon: 'calendar-o'} %}
+		</th>
+		<th class="visible-lg">
+			{% include 'common/fields/table/icon_field.html.twig' 
+				with { label: 'label.short.createdBy', tooltip: 'label.createdBy', icon: 'user'} %}
+		</th>
 	{% endif %}
 {% endblock %}
 
 {% block headerActions %}
-	<th><i class="fa fa-play"></i> {{ 'label.actions'|trans }}</th>
+	<th width="300px"><i class="fa fa-play"></i> {{ 'label.actions'|trans }}</th>
 {% endblock %}
 
 {# Entry section #}
 {% block entryMainFields3 %}	
 	{% if isAdmin %}
-		<td>
+		<td class="visible-lg">
 			{% if item.updatedAt > date("01-01-1900") %}
 	    		{{ item.updatedAt|date('d.m.Y H:i:s') }}
 			{% endif %}
 		</td>
-		<td>
+		<td class="visible-lg">
 			{% include 'common/links/user_link.html.twig' with { value: { id: item.updatedById, surname: item.updatedBySurname, forename: item.updatedByForename } } %}
 		</td>
 		        
-		<td>
+		<td class="visible-lg">
 			{% if item.createdAt > date("01-01-1900") %}
 		    	{{ item.createdAt|date('d.m.Y H:i:s') }}
 			{% endif %}
 		</td>
-		<td>
+		<td class="visible-lg">
 			{% include 'common/links/user_link.html.twig' with { value: { id: item.createdById, surname: item.createdBySurname, forename: item.createdByForename } } %}
 		</td>
 	{% endif %}

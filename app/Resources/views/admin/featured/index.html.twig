@@ -19,7 +19,9 @@
 
 {# Header section #}
 {% block simpleHeaderMainFields2More %}
-	<th><i class="fa fa-star"></i> {{ ('label.' ~ gender ~ 'featured')|trans }}</th>
+	<th>
+		{% include 'common/fields/table/icon_field.html.twig' with { tooltip: 'label.' ~ gender ~ 'featured', icon: 'star'} %}
+	</th>
 {% endblock %}
 
 {# Entry section #}
