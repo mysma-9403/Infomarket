@@ -180,10 +180,6 @@ class UserController extends AdminController
 		return false;
 	}
 	
-	protected function canCopy() {
-		return false;
-	}
-	
 	//---------------------------------------------------------------------------
 	// Roles
 	//---------------------------------------------------------------------------

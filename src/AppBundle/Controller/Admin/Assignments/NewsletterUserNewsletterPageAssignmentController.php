@@ -105,13 +105,6 @@ class NewsletterUserNewsletterPageAssignmentController extends AssignmentControl
 	//---------------------------------------------------------------------------
 	// Permissions
 	//---------------------------------------------------------------------------
-	protected function canCreate() {
-		return false;
-	}
-	
-	protected function canCopy() {
-		return false;
-	}
 	
 	protected function canEdit() {
 		return false;

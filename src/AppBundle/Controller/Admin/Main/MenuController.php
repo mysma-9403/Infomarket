@@ -110,16 +110,4 @@ class MenuController extends SimpleEntityController {
 	protected function canEdit() {
 		return false;
 	}
-	
-	protected function canCreate() {
-		return false;
-	}
-	
-	protected function canCopy() {
-		return false;
-	}
-	
-	protected function canDelete() {
-		return false;
-	}
 }

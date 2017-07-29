@@ -201,10 +201,6 @@ class BenchmarkQueryController extends BaseEntityController {
 		return false;
 	}
 	
-	protected function canCopy() {
-		return false;
-	}
-	
 	protected function isAdmin() {
 		return false;
 	}

@@ -520,15 +520,15 @@ abstract class AdminController extends StandardController {
 	}
 	
 	protected function canCreate() {
-		return $this->isGranted($this->getCreateRole());
+		return $this->canEdit() && $this->isGranted($this->getCreateRole());
 	}
 	
 	protected function canCopy() {
-		return $this->isGranted($this->getCopyRole());
+		return $this->canCreate() && $this->isGranted($this->getCopyRole());
 	}
 	
 	protected function canDelete() {
-		return $this->isGranted($this->getDeleteRole());
+		return $this->canEdit() && $this->isGranted($this->getDeleteRole());
 	}
 	
 	protected function isAdmin() {

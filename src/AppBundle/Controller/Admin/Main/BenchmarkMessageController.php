@@ -327,22 +327,6 @@ class BenchmarkMessageController extends BaseEntityController {
 		return false;
 	}
 	
-	protected function canCreate() {
-		return false;
-	}
-	
-	protected function canCopy() {
-		return false;
-	}
-	
-	protected function canDelete() {
-		return false;
-	}
-	
-	protected function isAdmin() {
-		return $this->isGranted($this->getAdminRole());
-	}
-	
 	//---------------------------------------------------------------------------
 	// Routes
 	//---------------------------------------------------------------------------
