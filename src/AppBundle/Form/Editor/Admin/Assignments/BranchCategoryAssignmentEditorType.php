@@ -3,7 +3,6 @@
 namespace AppBundle\Form\Editor\Admin\Assignments;
 
 use AppBundle\Entity\BranchCategoryAssignment;
-use AppBundle\Factory\Common\Name\NameFactory;
 use AppBundle\Form\Editor\Admin\Base\BaseEntityEditorType;
 use AppBundle\Form\Transformer\EntityToNumberTransformer;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -23,10 +22,8 @@ class BranchCategoryAssignmentEditorType extends BaseEntityEditorType
 	protected $categoryTransformer;
 	
 	public function __construct(
-			NameFactory $choicesNameFactory, 
 			EntityToNumberTransformer $branchTransformer, 
 			EntityToNumberTransformer $categoryTransformer) {
-		parent::__construct($choicesNameFactory);
 		
 		$this->branchTransformer = $branchTransformer;
 		$this->categoryTransformer = $categoryTransformer;

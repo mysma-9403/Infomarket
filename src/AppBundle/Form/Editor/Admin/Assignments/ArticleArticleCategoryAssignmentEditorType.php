@@ -3,7 +3,6 @@
 namespace AppBundle\Form\Editor\Admin\Assignments;
 
 use AppBundle\Entity\ArticleArticleCategoryAssignment;
-use AppBundle\Factory\Common\Name\NameFactory;
 use AppBundle\Form\Editor\Admin\Base\BaseEntityEditorType;
 use AppBundle\Form\Transformer\EntityToNumberTransformer;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -23,10 +22,8 @@ class ArticleArticleCategoryAssignmentEditorType extends BaseEntityEditorType
 	protected $articleCategoryTransformer;
 	
 	public function __construct(
-			NameFactory $choicesNameFactory, 
 			EntityToNumberTransformer $articleTransformer, 
 			EntityToNumberTransformer $articleCategoryTransformer) {
-		parent::__construct($choicesNameFactory);
 		
 		$this->articleTransformer = $articleTransformer;
 		$this->articleCategoryTransformer = $articleCategoryTransformer;

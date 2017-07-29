@@ -4,10 +4,11 @@ namespace Tests\AppBundle\Controller;
 
 use AppBundle\Factory\Admin\ErrorFactory;
 use AppBundle\Factory\Admin\Import\NewsletterUser\ImportErrorFactory;
-use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use AppBundle\Factory\Admin\Import\NewsletterUser\PreparedEntryFactory;
+use Tests\AppBundle\Test\CommonTestCase;
+use AppBundle\Validation\ParamValidation;
 
-class PreparedEntryFactoryTest extends WebTestCase {
+class PreparedEntryFactoryTest extends CommonTestCase {
 	/**
 	 *
 	 * @var ImportErrorFactory $errorFactory
@@ -19,13 +20,13 @@ class PreparedEntryFactoryTest extends WebTestCase {
 	 * @var PreparedEntryFactory $entryFactory
 	 */
 	protected $entryFactory;
+	
+	//TODO refactor Error Factory -> should be mocked
 	protected function setUp() {
-		self::bootKernel ();
-		
-		$translator = static::$kernel->getContainer ()->get ( 'translator' );
-		$this->errorFactory = new ImportErrorFactory ( $translator );
-		$this->entryFactory = new PreparedEntryFactory ( $this->errorFactory );
+		$this->errorFactory = new ImportErrorFactory ($this->getTranslatorMock());
+		$this->entryFactory = new PreparedEntryFactory($this->errorFactory, $this->getMailValidationMock());
 	}
+	
 	public function testGetEntriesSubscribed01() {
 		$this->getRowEntries ( [ 
 				'test@wp.pl' 
@@ -660,5 +661,13 @@ class PreparedEntryFactoryTest extends WebTestCase {
 			$this->assertEquals ( $expectedEntry ['mail'], $resultEntry ['mail'] );
 			$this->assertEquals ( $expectedEntry ['subscribed'], $resultEntry ['subscribed'] );
 		}
+	}
+	
+	private function getMailValidationMock() {
+		$mock = $this->getMockBuilder(ParamValidation::class)->disableOriginalConstructor()->getMock();
+	
+		$mock->expects($this->any())->method('isValid')->willReturn(true);
+	
+		return $mock;
 	}
 }

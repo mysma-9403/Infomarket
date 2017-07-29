@@ -2,24 +2,16 @@
 
 namespace AppBundle\Form\Base;
 
+use AppBundle\Utils\ClassUtils;
 use AppBundle\Utils\FormUtils;
-use AppBundle\Utils\StringUtils;
+use AppBundle\Utils\ParamUtils;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
-use AppBundle\Factory\Common\Name\NameFactory;
 
 abstract class BaseType extends AbstractType {
-	
-	protected $choicesNameFactory;
-	
-	
-	
-	public function __construct(NameFactory $choicesNameFactory) {
-		$this->choicesNameFactory = $choicesNameFactory;
-	}
 	
 	
 	
@@ -119,7 +111,7 @@ abstract class BaseType extends AbstractType {
 	private function addEntityChoiceField(FormBuilderInterface $builder, array $options, $field, $required, $multiple, $expanded) {
 		$builder->add($field, ChoiceType::class, array(
 				'choices' 		=> $options[self::getChoicesName($field)],
-				'choice_label' => function ($value, $key, $index) { return FormUtils::getListLabel($value, $key, $index); }, //TODO FormUtils --> DI
+				'choice_label' => function ($value, $key, $index) { return FormUtils::getChoiceLabel($value, $key, $index); },
 				'choice_translation_domain' => false,
 				'required'		=> $required,
 				'multiple'      => $multiple,
@@ -153,11 +145,11 @@ abstract class BaseType extends AbstractType {
 	}
 	
 	public function getName() {
-		return 'app_' . StringUtils::getClassName($this->getEntityType());
+		return 'app_' . ClassUtils::getUnderscoreName($this->getEntityType());
 	}
 	
 	public function getChoicesName($field) {
-		return $this->choicesNameFactory->getName($field);
+		return ParamUtils::getChoicesName($field);
 	}
 	
 	/**

@@ -3,7 +3,6 @@
 namespace AppBundle\Form\Filter\Benchmark;
 
 use AppBundle\Entity\Product;
-use AppBundle\Factory\Common\Name\NameFactory;
 use AppBundle\Filter\Base\Filter;
 use AppBundle\Filter\Benchmark\ProductFilter;
 use AppBundle\Form\Base\FilterType;
@@ -23,8 +22,7 @@ class ProductFilterType extends FilterType {
 	
 	
 	
-	public function __construct(NameFactory $choicesNameFactory, BenchmarkFilterFieldBuilder $benchmarkFilterFieldBuilder) {
-		parent::__construct($choicesNameFactory);
+	public function __construct(BenchmarkFilterFieldBuilder $benchmarkFilterFieldBuilder) {
 		$this->benchmarkFilterFieldBuilder = $benchmarkFilterFieldBuilder;
 	}
 	

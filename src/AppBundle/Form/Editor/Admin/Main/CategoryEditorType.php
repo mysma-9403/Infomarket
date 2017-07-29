@@ -3,8 +3,6 @@
 namespace AppBundle\Form\Editor\Admin\Main;
 
 use AppBundle\Entity\Category;
-use AppBundle\Factory\Common\Name\ChoicesNameFactory;
-use AppBundle\Factory\Common\Name\NameFactory;
 use AppBundle\Form\Editor\Admin\Base\ImageEntityEditorType;
 use AppBundle\Form\Transformer\EntityToNumberTransformer;
 use FM\ElfinderBundle\Form\Type\ElFinderType;
@@ -22,9 +20,7 @@ class CategoryEditorType extends ImageEntityEditorType
 	 */
 	protected $categoryToNumberTransformer;
 	
-	public function __construct(NameFactory $choicesNameFactory, EntityToNumberTransformer $categoryToNumberTransformer) {
-		parent::__construct($choicesNameFactory);
-		
+	public function __construct(EntityToNumberTransformer $categoryToNumberTransformer) {
 		$this->categoryToNumberTransformer = $categoryToNumberTransformer;
 	}
 	

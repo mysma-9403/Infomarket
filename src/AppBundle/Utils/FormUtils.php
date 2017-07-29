@@ -4,9 +4,9 @@ namespace AppBundle\Utils;
 
 class FormUtils {
 	
-	public static function getListLabel($value, $key, $index) {
+	public static function getChoiceLabel($value, $key, $index) {
 		$index = strpos($key, ' ');
-		if($index !== false) return substr($key, $index);
+		if($index !== false) return substr($key, $index+1);
 		else return ' ';
 	}
 }

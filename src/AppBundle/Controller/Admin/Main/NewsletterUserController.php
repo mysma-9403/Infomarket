@@ -184,10 +184,13 @@ class NewsletterUserController extends SimpleEntityController {
 	
 		if ($importForm->isSubmitted() && $importForm->isValid()) {
 			
+			//TODO configure in services!
 			$translator = $this->get('translator');
 			$errorFactory = new ImportErrorFactory($translator);
 			$fileEntryFactory = new FileEntryFactory($errorFactory);
-			$preparedEntryFactory = new PreparedEntryFactory($errorFactory);
+			
+			$preparedEntryFactory = $this->get(PreparedEntryFactory::class);
+			
 			$validator = new ImportValidator($errorFactory);
 			
 			$logic = new ImportLogic($this->getDoctrine(), $errorFactory, $fileEntryFactory, $preparedEntryFactory, $validator);

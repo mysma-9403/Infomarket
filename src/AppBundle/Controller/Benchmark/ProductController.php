@@ -11,6 +11,7 @@ use AppBundle\Entity\Product;
 use AppBundle\Factory\Common\BenchmarkField\CompareBenchmarkFieldFactory;
 use AppBundle\Factory\Common\BenchmarkField\NoteBenchmarkFieldFactory;
 use AppBundle\Factory\Common\BenchmarkField\SimpleBenchmarkFieldFactory;
+use AppBundle\Factory\Common\Choices\Bool\BooleanChoicesFactory;
 use AppBundle\Filter\Base\Filter;
 use AppBundle\Filter\Benchmark\CategoryFilter;
 use AppBundle\Filter\Benchmark\ProductFilter;
@@ -34,14 +35,13 @@ use AppBundle\Repository\Benchmark\BrandRepository;
 use AppBundle\Repository\Benchmark\CategoryRepository;
 use AppBundle\Repository\Benchmark\ProductRepository;
 use AppBundle\Repository\Common\BenchmarkFieldMetadataRepository;
+use AppBundle\Utils\ClassUtils;
 use AppBundle\Utils\Entity\DataBase\BenchmarkFieldDataBaseUtils;
-use AppBundle\Utils\StringUtils;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 use Symfony\Component\Validator\Constraints\Date;
-use AppBundle\Factory\Common\Choices\Bool\BooleanChoicesFactory;
 
 class ProductController extends DummyController {
 	
@@ -572,9 +572,8 @@ class ProductController extends DummyController {
 		return $this->getIndexRoute() . '_compare';
 	}
 	
-	protected function getCreateQueryRoute()
-	{
-		return $this->getDomain() . '_' . StringUtils::getClassName(BenchmarkQuery::class) . '_new';
+	protected function getCreateQueryRoute() {
+		return $this->getDomain() . '_' . ClassUtils::getUnderscoreName(BenchmarkQuery::class) . '_new';
 	}
 	
 	protected function getHomeRoute() {

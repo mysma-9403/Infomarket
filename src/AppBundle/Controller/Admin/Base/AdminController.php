@@ -8,7 +8,6 @@ use AppBundle\Filter\Admin\Base\AuditFilter;
 use AppBundle\Filter\Base\Filter;
 use AppBundle\Manager\Params\Admin\ContextParamsManager;
 use AppBundle\Manager\Route\RouteManager;
-use AppBundle\Utils\StringUtils;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -277,10 +276,7 @@ abstract class AdminController extends StandardController {
 		{
 			$this->saveEntry($request, $entry, $params);
 	
-			$translator = $this->get('translator');
-			$message = $translator->trans('success.created');
-			$message = str_replace('%type%', '<b>' . StringUtils::getClassName($this->getEntityType()) . '</b>', $message);
-			$this->addFlash('success', $message);
+			$this->flashCreatedMessage();
 				
 			if ($form->get('save')->isClicked()) {
 				return $this->redirectToRoute($this->getEditRoute(), array('id' => $entry->getId()));

@@ -3,7 +3,6 @@
 namespace AppBundle\Form\Editor\Admin\Assignments;
 
 use AppBundle\Entity\BrandCategoryAssignment;
-use AppBundle\Factory\Common\Name\NameFactory;
 use AppBundle\Form\Editor\Admin\Base\BaseEntityEditorType;
 use AppBundle\Form\Transformer\EntityToNumberTransformer;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
@@ -24,10 +23,8 @@ class BrandCategoryAssignmentEditorType extends BaseEntityEditorType
 	protected $categoryTransformer;
 	
 	public function __construct(
-			NameFactory $choicesNameFactory, 
 			EntityToNumberTransformer $brandTransformer, 
 			EntityToNumberTransformer $categoryTransformer) {
-		parent::__construct($choicesNameFactory);
 		
 		$this->brandTransformer = $brandTransformer;
 		$this->categoryTransformer = $categoryTransformer;
