@@ -35,11 +35,8 @@ class BenchmarkFieldBetterThanTypesFactoryTest extends TestCase {
 	public function testGetItems() {
 		$result = $this->factory->getItems();
 		
-		$this->assertContains(BenchmarkField::EQUAL_BETTER_THAN_TYPE, $result);
 		$this->assertContains(BenchmarkField::GT_BETTER_THAN_TYPE, $result);
-		$this->assertContains(BenchmarkField::GTE_BETTER_THAN_TYPE, $result);
 		$this->assertContains(BenchmarkField::LT_BETTER_THAN_TYPE, $result);
-		$this->assertContains(BenchmarkField::LTE_BETTER_THAN_TYPE, $result);
 		$this->assertContains(BenchmarkField::NONE_BETTER_THAN_TYPE, $result);
 	}
 	

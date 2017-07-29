@@ -367,19 +367,10 @@ class ProductRepository extends BaseRepository
 	
 		switch($betterThanType) {
 			case BenchmarkField::GT_BETTER_THAN_TYPE:
-				$where->add($expr->gt('e.' . $valueName, $value));
-				break;
-			case BenchmarkField::GTE_BETTER_THAN_TYPE:
 				$where->add($expr->gte('e.' . $valueName, $value));
 				break;
 			case BenchmarkField::LT_BETTER_THAN_TYPE:
-				$where->add($expr->lt('e.' . $valueName, $value));
-				break;
-			case BenchmarkField::LTE_BETTER_THAN_TYPE:
 				$where->add($expr->lte('e.' . $valueName, $value));
-				break;
-			case BenchmarkField::EQUAL_BETTER_THAN_TYPE:
-				$where->add($expr->eq('e.' . $valueName, $value));
 				break;
 		}
 		

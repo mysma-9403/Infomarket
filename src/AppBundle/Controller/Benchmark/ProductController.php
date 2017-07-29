@@ -31,6 +31,7 @@ use AppBundle\Manager\Filter\Base\FilterManager;
 use AppBundle\Manager\Params\Benchmark\ContextParamsManager;
 use AppBundle\Manager\Params\EntryParams\Benchmark\ProductParamsManager;
 use AppBundle\Manager\Route\RouteManager;
+use AppBundle\Repository\Base\BaseRepository;
 use AppBundle\Repository\Benchmark\BrandRepository;
 use AppBundle\Repository\Benchmark\CategoryRepository;
 use AppBundle\Repository\Benchmark\ProductRepository;
@@ -148,7 +149,9 @@ class ProductController extends DummyController {
 		if ($filterForm->isSubmitted() && $filterForm->isValid()) {
 			
 			if ($filterForm->get('saveQuery')->isClicked()) {
-				return $this->redirectToRoute($this->getCreateQueryRoute(), array_merge($contextParams, $filter->getRequestValues()));
+				$params = $filter->getRequestValues();
+				$params['name'] = $this->getBenchmarkQueryName($subcategory);
+				return $this->redirectToRoute($this->getCreateQueryRoute(), array_merge($contextParams, $params));
 			}
 			
 			if ($filterForm->get('search')->isClicked()) {
@@ -315,6 +318,21 @@ class ProductController extends DummyController {
 		$viewParams = $params['viewParams'];
 	
 		return $this->render($this->getCompareView(), $viewParams);
+	}
+	
+	//---------------------------------------------------------------------------
+	// Internal logic
+	//---------------------------------------------------------------------------
+	
+	protected function getBenchmarkQueryName($subcategoryId) {
+		$date = new \DateTime();
+		
+		/** @var BaseRepository $em */
+		$repository = $this->getDoctrine()->getRepository(Category::class);
+		/** @var Category $subcategory */
+		$subcategory = $repository->find($subcategoryId);
+		
+		return $date->format('Y-m-d H:i ') . $subcategory->getDisplayName();
 	}
 	
 	//---------------------------------------------------------------------------

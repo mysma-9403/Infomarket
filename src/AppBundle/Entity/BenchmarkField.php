@@ -27,10 +27,7 @@ class BenchmarkField extends Audit {
 	
 	const NONE_BETTER_THAN_TYPE = 0;
 	const LT_BETTER_THAN_TYPE = 10;
-	const LTE_BETTER_THAN_TYPE = 11;
 	const GT_BETTER_THAN_TYPE = 20;
-	const GTE_BETTER_THAN_TYPE = 21;
-	const EQUAL_BETTER_THAN_TYPE = 30;
 
 	
 	

@@ -89,9 +89,22 @@
 					</tr>
 					<tr>
 						<th class="text-right">{{ 'label.benchmark.product.price'|trans }}</th>
-						<td class="text-center">{{ entry.price|number_format(2, '.', ' ') }}</td>
-						{% for entry in entries %}
-							<td class="text-center">{{ entry.price|number_format(2, '.', ' ') }}</td>
+						<th class="text-center">{{ entry.price|number_format(2, '.', ' ') }}</th>
+						{% for compared in entries %}
+							{% if compared.price > entry.price %}	
+								{% set color = 'text-success' %}
+								{% set icon = 'arrow-circle-up' %}
+							{% elseif compared.price < entry.price %}	
+								{% set color = 'text-danger' %}
+								{% set icon = 'arrow-circle-down' %}
+							{% else %}
+								{% set color = 'text-primary' %}
+								{% set icon = 'stop-circle' %}
+							{% endif %}
+							<td class="text-center {{ color }}">
+								{{ compared.price|number_format(2, '.', ' ') }}
+								<span class="fa fa-{{ icon }}"></span>
+							</td>
 						{% endfor %}
 						<td></td>
 					</tr>
@@ -100,35 +113,58 @@
 						{% set key = field.valueField %}
 						<tr>
 							<th class="text-right">{{ field.fieldName }}</th>
-							<td class="text-center">
+							<th class="text-center">
 								{% if field.fieldType == constant('AppBundle\\Entity\\BenchmarkField::BOOLEAN_FIELD_TYPE') %}
-							        {{ entry[key] ? '+' : '-' }}
+									{% if entry[key] %}
+										<span class="text-success fa fa-check-circle"></span>
+									{% else %}
+										<span class="text-danger fa fa-minus-circle"></span>
+									{% endif %}
 								{% elseif field.fieldType == constant('AppBundle\\Entity\\BenchmarkField::DECIMAL_FIELD_TYPE') %}
 									{{ entry[key] ? entry[key]|number_format(field.decimalPlaces, '.', ' ') : '' }}
 						        {% else %}
 							        {{ entry[key] }}
 								{% endif%}
-							</td>
+							</th>
 							{% for compared in entries %}
 								<td class="text-center">
 									{% if field.fieldType == constant('AppBundle\\Entity\\BenchmarkField::BOOLEAN_FIELD_TYPE') %}
-								        {{ compared[key] ? '+' : '-' }}
+										{% if compared[key] %}
+											<span class="text-success fa fa-check-circle"></span>
+										{% else %}
+											<span class="text-danger fa fa-minus-circle"></span>
+										{% endif %}
 									{% elseif field.fieldType == constant('AppBundle\\Entity\\BenchmarkField::DECIMAL_FIELD_TYPE') or 
 												field.fieldType == constant('AppBundle\\Entity\\BenchmarkField::INTEGER_FIELD_TYPE') %}
-										{% if field.betterThanType == constant('AppBundle\\Entity\\BenchmarkField::GTE_BETTER_THAN_TYPE') %}
-											{% set color = compared[key] >= entry[key] ? 'text-success' : 'text-danger' %}
-										{% elseif field.betterThanType == constant('AppBundle\\Entity\\BenchmarkField::LTE_BETTER_THAN_TYPE') %}
-											{% set color = compared[key] <= entry[key] ? 'text-success' : 'text-danger' %}
-										{% elseif field.betterThanType == constant('AppBundle\\Entity\\BenchmarkField::GT_BETTER_THAN_TYPE') %}
-											{% set color = compared[key] > entry[key] ? 'text-success' : compared[key] < entry[key] ? 'text-danger' : 'text-primary' %}
+										
+										{% if field.betterThanType == constant('AppBundle\\Entity\\BenchmarkField::GT_BETTER_THAN_TYPE') %}
+											{% if compared[key] > entry[key] %}	
+												{% set color = 'text-success' %}
+												{% set icon = 'arrow-circle-up' %}
+											{% elseif compared[key] < entry[key] %}	
+												{% set color = 'text-danger' %}
+												{% set icon = 'arrow-circle-down' %}
+											{% else %}
+												{% set color = 'text-primary' %}
+												{% set icon = 'minus-circle' %}
+											{% endif %}
 										{% elseif field.betterThanType == constant('AppBundle\\Entity\\BenchmarkField::LT_BETTER_THAN_TYPE') %}
-											{% set color = compared[key] < entry[key] ? 'text-success' : compared[key] > entry[key] ? 'text-danger' : 'text-primary' %}
-										{% else %}
-											{% set color = '' %}
+											{% if compared[key] > entry[key] %}	
+												{% set color = 'text-danger' %}
+												{% set icon = 'arrow-circle-up' %}
+											{% elseif compared[key] < entry[key] %}	
+												{% set color = 'text-success' %}
+												{% set icon = 'arrow-circle-down' %}
+											{% else %}
+												{% set color = 'text-primary' %}
+												{% set icon = 'minus-circle' %}
+											{% endif %}
 										{% endif %}
 										<span class="{{ color }}">
-											{{ compared[key] ? compared[key]|number_format(field.decimalPlaces, '.', ' ') : '' }}
+											{{ compared[key] ? compared[key]|number_format(field.decimalPlaces, '.', ' ') : '' }} 
+											<span class="fa fa-{{ icon }}"></span>
 										</span>
+										
 							        {% else %}
 								        {{ compared[key] }}
 									{% endif%}
@@ -140,7 +176,7 @@
 					
 					<tr>
 						<th class="text-right">{{ 'label.actions'|trans }}</th>
-						<td class="text-center"></td>
+						<th class="text-center"></th>
 						{% for entry in entries %}
 							<td class="text-center">
 								<a class="btn btn-primary" href="{{ path(basePath ~ mainPath ~ '_show', { id: entry.id }) }}" data-toggle="tooltip" title="{{ 'action.show'|trans }}">

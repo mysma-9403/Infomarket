@@ -23,6 +23,7 @@ class BenchmarkQueryManager extends BaseEntityManager {
 	public function createFromRequest(Request $request) {
 		$entry = new BenchmarkQuery();
 		
+		$entry->setName($request->get('name'));
 		$entry->setContent($request->getQueryString());
 		
 		return $entry;
