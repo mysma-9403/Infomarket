@@ -2,17 +2,15 @@
 
 namespace Tests\AppBundle\Logic\Admin\Import\NewsletterUser;
 
-use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
-use AppBundle\Logic\Admin\NewsletterUserImportLogic;
-use AppBundle\Factory\Admin\NewsletterUserImportErrorFactory;
+use PHPUnit\Framework\TestCase;
 
-class ImportLogicTest extends WebTestCase {
+class ImportLogicTest extends TestCase {
 	
 	public function testImport() {
 	}
 	
 	protected function getPreparedRowEntries() {
-		new NewsletterUserImportErrorFactory ( $translator );
-		new NewsletterUserImportLogic ( null, $errorFactory );
+// 		new NewsletterUserImportErrorFactory ( $translator );
+// 		new NewsletterUserImportLogic ( null, $errorFactory );
 	}
 }

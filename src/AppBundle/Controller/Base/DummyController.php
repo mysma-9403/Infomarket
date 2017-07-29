@@ -2,13 +2,14 @@
 
 namespace AppBundle\Controller\Base;
 
+use AppBundle\Factory\Common\Message\LifecycleMessageFactory;
 use AppBundle\Manager\Analytics\AnalyticsManager;
 use AppBundle\Manager\Route\RouteManager;
-use AppBundle\Utils\StringUtils;
+use AppBundle\Utils\ClassUtils;
+use AppBundle\Utils\ParamUtils;
 use Doctrine\Common\Persistence\ObjectRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-use AppBundle\Factory\Common\Name\ChoicesNameFactory;
 
 abstract class DummyController extends Controller
 {
@@ -51,28 +52,23 @@ abstract class DummyController extends Controller
 	//---------------------------------------------------------------------------
 	
 	protected function addFactoryChoicesFormOption(&$options, $class, $name) {
-		/** @var NameFactory $nameFactory */
-		$nameFactory = $this->get(ChoicesNameFactory::class);
-	
 		/** @var ChoicesFactory $choicesFactory */
 		$choicesFactory = $this->get($class);
-		$options[$nameFactory->getName($name)] = $choicesFactory->getItems();
+		$choices = $choicesFactory->getItems();
+		
+		$this->addChoicesFormOption($options, $choices, $name);
 	}
 	
 	protected function addEntityChoicesFormOption(&$options, $class, $name) {
-		/** @var NameFactory $nameFactory */
-		$nameFactory = $this->get(ChoicesNameFactory::class);
-	
 		/** @var BaseRepository $repository */
 		$repository = $this->getDoctrine()->getRepository($class);
-		$options[$nameFactory->getName($name)] = $repository->findFilterItems();
+		$choices = $repository->findFilterItems();
+		
+		$this->addChoicesFormOption($options, $choices, $name);
 	}
 	
 	protected function addChoicesFormOption(&$options, $choices, $name) {
-		/** @var NameFactory $nameFactory */
-		$nameFactory = $this->get(ChoicesNameFactory::class);
-	
-		$options[$nameFactory->getName($name)] = $choices;
+		$options[ParamUtils::getChoicesName($name)] = $choices;
 	}
 	
 	//---------------------------------------------------------------------------
@@ -126,6 +122,17 @@ abstract class DummyController extends Controller
 	}
 	
 	//---------------------------------------------------------------------------
+	// Messages
+	//---------------------------------------------------------------------------
+	
+	protected function flashCreatedMessage() {
+		/** @var LifecycleMessageFactory $classMessageFactory */
+		$classMessageFactory = $this->get(LifecycleMessageFactory::class);
+		$message = $classMessageFactory->getMessage('success.created', $this->getEntityType());
+		$this->addFlash('success', $message);
+	}
+	
+	//---------------------------------------------------------------------------
 	// EntityType related
 	//---------------------------------------------------------------------------
     
@@ -133,17 +140,15 @@ abstract class DummyController extends Controller
      * 
      * @return ObjectRepository
      */
-    protected function getEntityRepository()
-    {
+    protected function getEntityRepository() {
     	return $this->getDoctrine()->getRepository($this->getEntityType());
     }
     
     /**
      * @return string
      */
-    protected function getEntityName()
-    {
-    	return StringUtils::getClassName($this->getEntityType());
+    protected function getEntityName() {
+    	return ClassUtils::getUnderscoreName($this->getEntityType());
     }
     
     /**

@@ -60,9 +60,12 @@ services:
         tags:
             - { name: form.builder }
     AppBundle\Form\FormBuilder\BenchmarkFilterFieldBuilder:
-        arguments: ['@AppBundle\Factory\Common\Name\ChoicesNameFactory']
         tags:
             - { name: form.builder }
+            
+    # Validation
+    AppBundle\Validation\:
+        resource: '../../src/AppBundle/Validation/*'
             
     # Washers //TODO change to one common Product filter
     app.benchmark.washer_filter:

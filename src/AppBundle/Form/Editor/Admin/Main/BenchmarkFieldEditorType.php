@@ -4,8 +4,6 @@ namespace AppBundle\Form\Editor\Admin\Main;
 
 use AppBundle\Entity\BenchmarkField;
 use AppBundle\Entity\Category;
-use AppBundle\Factory\Common\Name\ChoicesNameFactory;
-use AppBundle\Factory\Common\Name\NameFactory;
 use AppBundle\Form\Editor\Admin\Base\BaseEntityEditorType;
 use AppBundle\Form\Transformer\EntityToNumberTransformer;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
@@ -22,9 +20,7 @@ class BenchmarkFieldEditorType extends BaseEntityEditorType
 	 */
 	protected $categoryToNumberTransformer;
 	
-	public function __construct(NameFactory $choicesNameFactory, EntityToNumberTransformer $categoryToNumberTransformer) {
-		parent::__construct($choicesNameFactory);
-		
+	public function __construct(EntityToNumberTransformer $categoryToNumberTransformer) {
 		$this->categoryToNumberTransformer = $categoryToNumberTransformer;
 	}
 	

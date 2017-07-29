@@ -4,8 +4,6 @@ namespace AppBundle\Form\Editor\Admin\Main;
 
 use AppBundle\Entity\NewsletterPage;
 use AppBundle\Entity\NewsletterPageTemplate;
-use AppBundle\Factory\Common\Name\ChoicesNameFactory;
-use AppBundle\Factory\Common\Name\NameFactory;
 use AppBundle\Form\Editor\Admin\Base\SimpleEntityEditorType;
 use AppBundle\Form\Transformer\EntityToNumberTransformer;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -19,11 +17,7 @@ class NewsletterPageEditorType extends SimpleEntityEditorType
 	 */
 	protected $newsletterPageTemplateToNumberTransformer;
 	
-	public function __construct(
-			NameFactory $choicesNameFactory, 
-			EntityToNumberTransformer $newsletterPageTemplateToNumberTransformer) {
-		parent::__construct($choicesNameFactory);
-		
+	public function __construct(EntityToNumberTransformer $newsletterPageTemplateToNumberTransformer) {
 		$this->newsletterPageTemplateToNumberTransformer = $newsletterPageTemplateToNumberTransformer;
 	}
 	

@@ -19,7 +19,6 @@ use AppBundle\Manager\Entity\Common\BenchmarkMessageManager;
 use AppBundle\Manager\Filter\Base\FilterManager;
 use AppBundle\Manager\Params\EntryParams\Admin\BenchmarkMessageParamsManager;
 use AppBundle\Repository\Admin\Main\BenchmarkMessageRepository;
-use AppBundle\Utils\StringUtils;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -190,10 +189,7 @@ class BenchmarkMessageController extends BaseEntityController {
 				$entry->setState($newEntry->getState());
 				$this->saveEntry($request, $entry, $viewParams);
 				
-				$translator = $this->get('translator');
-				$message = $translator->trans('success.created');
-				$message = str_replace('%type%', '<b>' . StringUtils::getClassName($this->getEntityType()) . '</b>', $message);
-				$this->addFlash('success', $message);
+				$this->flashCreatedMessage();
 				
 				return $this->redirectToRoute($this->getShowRoute(), array('id' => $entry->getId()));
 			}

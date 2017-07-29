@@ -27,7 +27,6 @@ use AppBundle\Repository\Benchmark\CategoryRepository;
 use AppBundle\Repository\Benchmark\CustomProductRepository;
 use AppBundle\Repository\Common\BenchmarkFieldMetadataRepository;
 use AppBundle\Utils\Entity\DataBase\BenchmarkFieldDataBaseUtils;
-use AppBundle\Utils\StringUtils;
 use Symfony\Component\HttpFoundation\Request;
 
 class CustomProductController extends ImageEntityController {
@@ -130,10 +129,7 @@ class CustomProductController extends ImageEntityController {
 		{
 			$this->saveEntry($request, $entry, $params);
 	
-			$translator = $this->get('translator');
-			$message = $translator->trans('success.created');
-			$message = str_replace('%type%', '<b>' . StringUtils::getClassName($this->getEntityType()) . '</b>', $message);
-			$this->addFlash('success', $message);
+			$this->flashCreatedMessage();
 	
 			if ($form->get('save')->isClicked()) {
 				return $this->redirectToRoute($this->getEditRoute(), array('id' => $entry->getId()));

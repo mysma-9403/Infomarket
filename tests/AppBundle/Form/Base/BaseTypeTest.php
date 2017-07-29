@@ -2,8 +2,8 @@
 
 namespace Tests\AppBundle\Form\Base;
 
-use AppBundle\Factory\Common\Name\ChoicesNameFactory;
 use AppBundle\Form\Transformer\EntityToNumberTransformer;
+use AppBundle\Utils\ParamUtils;
 use Ivory\CKEditorBundle\Form\Type\CKEditorType;
 use Ivory\CKEditorBundle\Model\ConfigManagerInterface;
 use Ivory\CKEditorBundle\Model\PluginManagerInterface;
@@ -12,14 +12,6 @@ use Ivory\CKEditorBundle\Model\TemplateManagerInterface;
 use Symfony\Component\Form\Test\TypeTestCase;
 
 abstract class BaseTypeTest extends TypeTestCase {
-	
-	protected $stringFactory;
-	
-	
-	
-	public function __construct() {
-		$this->stringFactory = new ChoicesNameFactory();
-	}
 	
 	
 	
@@ -118,6 +110,6 @@ abstract class BaseTypeTest extends TypeTestCase {
 	}
 	
 	protected function getChoicesName($field) {
-		return $this->stringFactory->getName($field);
+		return ParamUtils::getChoicesName($field);
 	}
 }

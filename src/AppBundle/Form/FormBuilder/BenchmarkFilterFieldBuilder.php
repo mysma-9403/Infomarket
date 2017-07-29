@@ -3,7 +3,7 @@
 namespace AppBundle\Form\FormBuilder;
 
 use AppBundle\Entity\BenchmarkField;
-use AppBundle\Factory\Common\Name\NameFactory;
+use AppBundle\Utils\ParamUtils;
 use AppBundle\Utils\StringUtils;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
@@ -12,15 +12,6 @@ use Symfony\Component\Form\FormBuilderInterface;
 
 class BenchmarkFilterFieldBuilder implements FormBuilder {
 	
-	/**
-	 * 
-	 * @var NameFactory
-	 */
-	protected $choicesStringFactory;
-	
-	public function __construct(NameFactory $choicesStringFactory) {
-		$this->choicesStringFactory = $choicesStringFactory;
-	}
 	
 	//TODO use some builder utility --> FieldBuilder
 	public function add(FormBuilderInterface &$builder, array $params, $options) {
@@ -29,7 +20,7 @@ class BenchmarkFilterFieldBuilder implements FormBuilder {
 		$valueField = $params['valueField'];
 		
 		$choices = $options['choices'];
-		$booleanChoices = $options[$this->choicesStringFactory->getName('boolean')];
+		$booleanChoices = $options[ParamUtils::getChoicesName('boolean')];
 		
 		switch($fieldType) {
 				case BenchmarkField::DECIMAL_FIELD_TYPE:

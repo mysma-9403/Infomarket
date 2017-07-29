@@ -18,10 +18,10 @@ use AppBundle\Manager\Filter\Base\FilterManager;
 use AppBundle\Manager\Params\Benchmark\ContextParamsManager;
 use AppBundle\Repository\Benchmark\ProductRepository;
 use AppBundle\Repository\Common\BenchmarkFieldMetadataRepository;
+use AppBundle\Utils\ClassUtils;
 use AppBundle\Utils\Entity\DataBase\BenchmarkFieldDataBaseUtils;
-use AppBundle\Utils\StringUtils;
-use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
+use Symfony\Component\HttpFoundation\Request;
 
 class BenchmarkQueryController extends BaseEntityController {
 	
@@ -173,9 +173,8 @@ class BenchmarkQueryController extends BaseEntityController {
 	// Routes
 	//---------------------------------------------------------------------------
 	
-	protected function getProductsIndexRoute()
-	{
-		return $this->getDomain() . '_' . StringUtils::getClassName(Product::class);
+	protected function getProductsIndexRoute() {
+		return $this->getDomain() . '_' . ClassUtils::getUnderscoreName(Product::class);
 	}
 	
 	//---------------------------------------------------------------------------

@@ -238,10 +238,7 @@ class ProductController extends ImageEntityController {
 		{
 			$this->saveEntry($request, $entry, $params);
 	
-			$translator = $this->get('translator');
-			$message = $translator->trans('success.created');
-			$message = str_replace('%type%', '<b>' . StringUtils::getClassName($this->getEntityType()) . '</b>', $message);
-			$this->addFlash('success', $message);
+			$this->flashCreatedMessage();
 	
 			if ($form->get('save')->isClicked()) {
 				return $this->redirectToRoute($this->getEditRoute(), array('id' => $entry->getId()));

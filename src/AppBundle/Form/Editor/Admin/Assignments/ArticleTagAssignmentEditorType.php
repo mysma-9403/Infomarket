@@ -3,7 +3,6 @@
 namespace AppBundle\Form\Editor\Admin\Assignments;
 
 use AppBundle\Entity\ArticleTagAssignment;
-use AppBundle\Factory\Common\Name\NameFactory;
 use AppBundle\Form\Editor\Admin\Base\BaseEntityEditorType;
 use AppBundle\Form\Transformer\EntityToNumberTransformer;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -23,10 +22,8 @@ class ArticleTagAssignmentEditorType extends BaseEntityEditorType
 	protected $tagTransformer;
 	
 	public function __construct(
-			NameFactory $choicesNameFactory, 
 			EntityToNumberTransformer $articleTransformer, 
 			EntityToNumberTransformer $tagTransformer) {
-		parent::__construct($choicesNameFactory);
 				
 		$this->articleTransformer = $articleTransformer;
 		$this->tagTransformer = $tagTransformer;

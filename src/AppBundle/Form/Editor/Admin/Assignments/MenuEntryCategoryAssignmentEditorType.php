@@ -3,7 +3,6 @@
 namespace AppBundle\Form\Editor\Admin\Assignments;
 
 use AppBundle\Entity\MenuEntryCategoryAssignment;
-use AppBundle\Factory\Common\Name\NameFactory;
 use AppBundle\Form\Editor\Admin\Base\BaseEntityEditorType;
 use AppBundle\Form\Transformer\EntityToNumberTransformer;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -23,10 +22,8 @@ class MenuEntryCategoryAssignmentEditorType extends BaseEntityEditorType
 	protected $categoryTransformer;
 	
 	public function __construct(
-			NameFactory $choicesNameFactory, 
 			EntityToNumberTransformer $menuEntryTransformer, 
 			EntityToNumberTransformer $categoryTransformer) {
-		parent::__construct($choicesNameFactory);
 		
 		$this->menuEntryTransformer = $menuEntryTransformer;
 		$this->categoryTransformer = $categoryTransformer;

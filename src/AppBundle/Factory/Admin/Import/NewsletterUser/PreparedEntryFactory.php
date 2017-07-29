@@ -2,7 +2,7 @@
 
 namespace AppBundle\Factory\Admin\Import\NewsletterUser;
 
-use AppBundle\Utils\StringUtils;
+use AppBundle\Validation\ParamValidation;
 
 class PreparedEntryFactory {
 	
@@ -12,8 +12,15 @@ class PreparedEntryFactory {
 	 */
 	protected $errorFactory;
 	
-	public function __construct(ImportErrorFactory $errorFactory) {
+	/**
+	 * 
+	 * @var ParamValidation
+	 */
+	protected $mailValidation;
+	
+	public function __construct(ImportErrorFactory $errorFactory, ParamValidation $mailValidation) {
 		$this->errorFactory = $errorFactory;
+		$this->mailValidation = $mailValidation;
 	}
 	
 	public function getEntries($fileEntries) {
@@ -117,7 +124,7 @@ class PreparedEntryFactory {
 					}
 				}
 				
-				if(!StringUtils::isMailValid($mail)) {
+				if(!$this->mailValidation->isValid($mail)) {
 					$errors[] = $this->errorFactory->createInvalidMailError($lineNumber, $mail);
 				}
 				
