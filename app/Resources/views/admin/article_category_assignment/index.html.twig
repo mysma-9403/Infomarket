@@ -1,27 +1,29 @@
-{% extends 'admin/base/index.html.twig' %}
+{% extends 'admin/simple/index.html.twig' %}
 
 {% set mainPath = 'article_category_assignment' %}
 {% set title = 'title.article_category_assignments'|trans %}
 
-{% block filterMoreFields1 %}
-	<li class="col-xs-12 col-sm-6 col-md-4 col-lg-2">
-		{{ form_widget(filter.categories, { 'label': 'label.categories' }) }}
-	</li>
-	<li class="col-xs-12 col-sm-6 col-md-4 col-lg-2">
-		{{ form_widget(filter.articles, { 'label': 'label.articles' }) }}
-	</li>
+
+
+{% block filterLargeFields %}
+	{% include 'common/fields/filter/simple_field.html.twig' with 
+		{ field: filter.categories, label: 'label.categories' } %}
+	{% include 'common/fields/filter/simple_field.html.twig' with 
+		{ field: filter.articles, label: 'label.articles' } %}
 {% endblock %}
 
-{% block headerMainFields1 %}
-	<th><i class="fa fa-"></i> {{ 'label.article'|trans }}</th>
-	<th><i class="fa fa-"></i> {{ 'label.category'|trans }}</th>
+
+
+{% block simpleHeaderFields %}
+	{% include 'common/fields/table_header/icon_field.html.twig' with 
+		{ icon: 'fa-page', label: 'label.article' } %}
+	{% include 'common/fields/table_header/icon_field.html.twig' with 
+		{ icon: 'fa-tag', label: 'label.category' } %}
 {% endblock %}
 
-{% block entryMainFields1 %}
-	<td>
-		{% include 'common/links/simple_link.html.twig' with { type: 'article', value: { id: item.articleId, name: item.articleName } } %}
-	</td>
-	<td>
-		{% include 'common/links/simple_link.html.twig' with { type: 'category', value: { id: item.categoryId, name: item.categoryName } } %}
-	</td>
+{% block simpleEntryFields %}
+	{% include 'common/fields/table/simple_link_field.html.twig' with 
+		{ type: 'article', id: item.articleId, name: item.articleName } %}
+	{% include 'common/fields/table/simple_link_field.html.twig' with 
+		{ type: 'category', id: item.categoryId, name: item.categoryName } %}
 {% endblock %}

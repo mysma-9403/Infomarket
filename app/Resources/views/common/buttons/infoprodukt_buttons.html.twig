@@ -1,0 +1,9 @@
+<div class="btn-group {{ hidden }}">
+		{% include 'common/buttons/widget_button.html.twig' with
+			{ action: form.ipPublishSelected, icon: 'fa-check', 
+				tooltip: 'action.ipPublishSelected' } %}
+		
+		{% include 'common/buttons/widget_button.html.twig' with
+			{ action: form.ipUnpublishSelected, icon: 'fa-remove', 
+				tooltip: 'action.ipUnpublishSelected' } %}
+	</div>

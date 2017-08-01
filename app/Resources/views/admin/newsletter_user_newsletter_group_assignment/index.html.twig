@@ -1,27 +1,28 @@
-{% extends 'admin/base/index.html.twig' %}
+{% extends 'admin/simple/index.html.twig' %}
 
 {% set mainPath = 'newsletter_user_newsletter_group_assignment' %}
 {% set title = 'title.newsletter_user_newsletter_group_assignments'|trans %}
 
-{% block filterMoreFields1 %}
-	<li class="col-xs-12 col-sm-6 col-md-4 col-lg-2">
-		{{ form_widget(filter.newsletterUsers, { 'label': 'label.newsletterUsers' }) }}
-	</li>
-	<li class="col-xs-12 col-sm-6 col-md-4 col-lg-2">
-		{{ form_widget(filter.newsletterGroups, { 'label': 'label.newsletterGroups' }) }}
-	</li>
+
+{% block filterLargeFields %}
+	{% include 'common/fields/filter/simple_field.html.twig' with 
+		{ field: filter.newsletterUsers, label: 'label.newsletterUsers' } %}
+	{% include 'common/fields/filter/simple_field.html.twig' with 
+		{ field: filter.newsletterGroups, label: 'label.newsletterGroups' } %}
 {% endblock %}
 
-{% block headerMainFields1 %}
-	<th><i class="fa fa-"></i> {{ 'label.newsletterUser'|trans }}</th>
-	<th><i class="fa fa-"></i> {{ 'label.newsletterGroup'|trans }}</th>
+
+
+{% block simpleHeaderFields %}
+	{% include 'common/fields/table_header/icon_field.html.twig' with 
+		{ icon: 'fa-user', label: 'label.newsletterUser' } %}
+	{% include 'common/fields/table_header/icon_field.html.twig' with 
+		{ icon: 'fa-user-group', label: 'label.newsletterGroup' } %}
 {% endblock %}
 
-{% block entryMainFields1 %}
-	<td>
-		{% include 'common/links/simple_link.html.twig' with { type: 'newsletter_user', value: { id: item.newsletterUserId, name: item.newsletterUserName } } %}
-	</td>
-	<td>
-		{% include 'common/links/simple_link.html.twig' with { type: 'newsletter_group', value: { id: item.newsletterGroupId, name: item.newsletterGroupName } } %}
-	</td>
+{% block simpleEntryFields %}
+	{% include 'common/fields/table/simple_link_field.html.twig' with 
+		{ type: 'newsletter_user', id: item.newsletterUserId, name: item.newsletterUserName } %}
+	{% include 'common/fields/table/simple_link_field.html.twig' with 
+		{ type: 'newsletter_group', id: item.newsletterGroupId, name: item.newsletterGroupName } %}
 {% endblock %}

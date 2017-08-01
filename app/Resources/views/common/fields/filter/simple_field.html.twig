@@ -1,0 +1,7 @@
+{% set hidden = hidden|default('') %}
+
+{% set label = label|default('') %}
+
+<div class="col-xs-12 col-sm-6 col-lg-3 padding-5 {{ hidden }}">
+	{{ form_widget(field, { label: label }) }}
+</div>

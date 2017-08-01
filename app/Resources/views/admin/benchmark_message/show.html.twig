@@ -12,15 +12,21 @@
 
 {% block moreFields2 %}
 	<h3>{{ entry.name }}</h3>
-	{% include 'common/fields/text_field.html.twig' with { 'label': 'label.benchmarkMessage.state', 'value': benchmarkMessageStateName(entry.state)|trans } %}
-	{% include 'common/fields/text_field.html.twig' with { 'label': 'label.benchmarkMessage.author', 'value': entry.author } %}
+	{% include 'common/fields/text_field.html.twig' with 
+		{ label: 'label.benchmarkMessage.state', 
+			value: benchmarkMessageStateName(entry.state)|trans } %}
+	{% include 'common/fields/text_field.html.twig' with 
+		{ label: 'label.benchmarkMessage.author', value: entry.author } %}
 	<p>{{ entry.content|raw }}</p>
 	<hr>
 	
 	{% for entry in entry.children %}
 		<h3>{{ entry.name }}</h3>
-		{% include 'common/fields/text_field.html.twig' with { 'label': 'label.benchmarkMessage.state', 'value': benchmarkMessageStateName(entry.state)|trans } %}
-		{% include 'common/fields/text_field.html.twig' with { 'label': 'label.benchmarkMessage.author', 'value': entry.author } %}
+		{% include 'common/fields/text_field.html.twig' with 
+			{ label: 'label.benchmarkMessage.state', 
+				value: benchmarkMessageStateName(entry.state)|trans } %}
+		{% include 'common/fields/text_field.html.twig' with 
+			{ label: 'label.benchmarkMessage.author', value: entry.author } %}
 		<p>{{ entry.content|raw }}</p>
 		<hr>
 	{% endfor %}

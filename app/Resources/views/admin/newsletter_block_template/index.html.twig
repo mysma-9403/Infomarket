@@ -2,3 +2,10 @@
 
 {% set title = 'title.newsletterBlockTemplates'|trans %}
 {% set mainPath = 'newsletter_block_template' %}
+
+
+
+{% block filterSmallFields %}
+	{% include 'common/fields/filter/simple_field.html.twig' with 
+		{ field: filter.name, label: 'label.name' } %}
+{% endblock %}

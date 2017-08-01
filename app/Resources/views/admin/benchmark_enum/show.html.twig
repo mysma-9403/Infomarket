@@ -4,9 +4,11 @@
 {% set title = 'title.benchmarkEnums'|trans %}
 
 {% block mainFields1 %}
-	{% include 'common/fields/text_field.html.twig' with { 'label': 'label.benchmarkEnum.name', 'value': entry.name } %}
+	{% include 'common/fields/text_field.html.twig' with 
+		{ 'label': 'label.benchmarkEnum.name', 'value': entry.name } %}
 {% endblock %}
 
 {% block moreFields2 %}
-	{% include 'common/fields/text_field.html.twig' with { 'label': 'label.benchmarkEnum.value', 'value': entry.value } %}
+	{% include 'common/fields/text_field.html.twig' with 
+		{ 'label': 'label.benchmarkEnum.value', 'value': entry.value } %}
 {% endblock %}

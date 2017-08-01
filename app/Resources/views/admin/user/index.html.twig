@@ -4,45 +4,29 @@
 {% set title = 'title.users'|trans %}
 {% set gender = 'm.' %}
 
-{# Filter section #}
-{% block filterMainFields1 %}
-	<li class="col-xs-12 col-sm-6 col-md-4 col-lg-2">
-		{{ form_widget(filter.username, { 'label': 'label.user.username' }) }}
-	</li>
-{% endblock %}
 
-{% block filterMainFields2 %}
-{% endblock %}
 
-{% block filterMainFields3 %}
-{% endblock %}
-
-{% block filterMoreFields2 %}
-	<li class="col-xs-12 col-sm-6 col-md-4 col-lg-2">
-		{{ form_widget(filter.surname, { 'label': 'label.user.surname' }) }}
-	</li>
-	<li class="col-xs-12 col-sm-6 col-md-4 col-lg-2">
-		{{ form_widget(filter.forename, { 'label': 'label.user.forename' }) }}
-	</li>
+{% block filterSmallFields %}
+	{% include 'common/fields/filter/simple_field.html.twig' with 
+		{ field: filter.username, label: 'label.user.username' } %}
+	{% include 'common/fields/filter/simple_field.html.twig' with 
+		{ field: filter.surname, label: 'label.user.surname' } %}
+	{% include 'common/fields/filter/simple_field.html.twig' with 
+		{ field: filter.forename, label: 'label.user.forename' } %}
 {% endblock %}
 
 
 
-
-{# Header section #}
-{% block headerMainFields2 %}
-	<th>{{ 'label.user.surname'|trans }}</th>
-	<th>{{ 'label.user.forename'|trans }}</th>
-{% endblock %}
-	
-{% block headerMainFields3 %}
+{% block headerFields %}
+	{% include 'common/fields/table_header/icon_field.html.twig' with 
+		{ icon: 'fa-user', label: 'label.user.surname' } %}
+	{% include 'common/fields/table_header/icon_field.html.twig' with 
+		{ icon: 'fa-user', label: 'label.user.forename' } %}
 {% endblock %}
 
-{# Entry section #}
-{% block entryMainFields2 %}
-	<td>{{ item.surname }}</td>
-	<td>{{ item.forename }}</td>
-{% endblock %}
-
-{% block entryMainFields3 %}
+{% block entryFields %}
+	{% include 'common/fields/table/simple_field.html.twig' with 
+		{ value: item.surname } %}
+	{% include 'common/fields/table/simple_field.html.twig' with 
+		{ value: item.forename } %}
 {% endblock %}

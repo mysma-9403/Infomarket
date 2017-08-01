@@ -1,146 +1,78 @@
 {% extends 'admin/list.html.twig' %}
 
-{# Filter section #}
-{% block filterMainFields3 %}
+{% set hidden = isAdmin ? "" : "hidden" %}
 
-    {% set hidden = isAdmin ? "" : "hidden" %}
-    
-	<li class="col-xs-12 col-sm-6 col-md-4 col-lg-2 {{ hidden }}">
-		<div class='input-group date' id='datetimepicker3'>
-			{{ form_widget(filter.updatedAfter) }}
-			<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-	    </div>
-    </li>
-    
-    <li class="col-xs-12 col-sm-6 col-md-4 col-lg-2 {{ hidden }}">
-		<div class='input-group date' id='datetimepicker4'>
-			{{ form_widget(filter.updatedBefore) }}
-			<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-	    </div>
-    </li>
-    
-    <li class="col-xs-12 col-sm-6 col-md-4 col-lg-2 {{ hidden }}">
-		<div class='input-group date' id='datetimepicker5'>
-			{{ form_widget(filter.createdAfter) }}
-			<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-	    </div>
-    </li>
-    
-    <li class="col-xs-12 col-sm-6 col-md-4 col-lg-2 {{ hidden }}">
-		<div class='input-group date' id='datetimepicker6'>
-			{{ form_widget(filter.createdBefore) }}
-			<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-	    </div>
-    </li>
-	
-	<li class="col-xs-12 col-sm-6 col-md-4 col-lg-2">
-		{{ form_widget(filter.updatedBy, { 'label': 'label.updatedBy' }) }}
-	</li>
-	
-	<li class="col-xs-12 col-sm-6 col-md-4 col-lg-2">
-		{{ form_widget(filter.createdBy, { 'label': 'label.createdBy' }) }}
-	</li>
-    
-    <script type="text/javascript">
+{% block listMoreJavascripts %}
+	<script type="text/javascript">
 		$(function () {
 			$('div.date').datetimepicker();
 		});
 	</script>
-{% endblock %}
-					
-{% block filterActions %}
-	<li class="col-xs-12 col-sm-6 col-sm-offset-6 col-md-4 col-md-offset-8 col-lg-3 col-lg-offset-9">
-		<div class="btn-group">
-			{{ form_widget(filter.search, { 'icon': 'fa-search', 'label': 'action.search', 'attr': {'class': 'btn btn-primary'} }) }}
-			{{ form_widget(filter.clear, { 'icon': 'fa-eraser', 'label': 'action.clear', 'attr': {'class': 'btn btn-warning'} }) }}
-		</div>
-	</li>
+	
+	{% block baseMoreJavascripts %}
+	{% endblock %}
 {% endblock %}
 
 
 
+{% block filterSearchActions %}
+	{% include 'common/fields/filter/button_field.html.twig' 
+		with { field: filter.search, icon: 'fa-search', label: 'action.search' } %}
+	{% include 'common/fields/filter/button_field.html.twig' 
+		with { field: filter.clear, icon: 'fa-eraser', label: 'action.clear', type: 'btn-warning' } %}
+{% endblock %}
+							
+							
+							
 {% block mainActions %}
 	
+	{% set hidden = canSelect ? "" : "hidden" %}
+	<div class="btn-group {{ hidden }}">
+		{% include 'common/buttons/widget_button.html.twig' with 
+			{ action: form.selectAll, icon: 'fa-check-square-o', 
+				tooltip: 'action.selectAll' } %}
+		
+		{% include 'common/buttons/widget_button.html.twig' with 
+			{ action: form.selectNone, icon: 'fa-square-o', 
+				tooltip: 'action.selectNone' } %}
+	</div>
+	
 	{% if canCreate %}
-		<li>
-			<a type="button" class="btn btn-sm btn-success" href="{{ path(basePath ~ mainPath ~ '_new') }}">
-				<i class="fa fa-plus"></i> {{ 'action.new'|trans }}
-			</a>
-		</li>
+		<a type="button" class="btn btn-success" title="{{ 'action.new'|trans }}"
+			href="{{ path(basePath ~ mainPath ~ '_new') }}">
+			<i class="fa fa-plus"></i>
+		</a>
 	{% endif %}
 	
-	{% set hidden = canSelect ? "" : "hidden" %}
-	<li>
-		<div class="btn-group {{ hidden }}">
-			{{ form_widget(form.selectAll, { 'icon': 'fa-check-square-o', 'label': 'action.selectAll', 'attr': {'class': 'btn btn-primary', 'type': 'button'} }) }}
-			{{ form_widget(form.selectNone, { 'icon': 'fa-square-o', 'label': 'action.selectNone', 'attr': {'class': 'btn btn-primary', 'type': 'button'} }) }}
-		</div>
-	</li>
+	{% block baseMainActions %}
+	{% endblock %}
+{% endblock %}
+
+{% block moreActions %}
 	
 	{% set hidden = canDelete ? "" : "hidden" %}
 		
 	{% set confirm = 'return confirm("' ~ 'confirm.deleteSelected'|trans ~ '")' %}
-	<li>
-		<div class="{{ hidden }}">
-			{{ form_widget(form.deleteSelected, { 'icon': 'fa-trash', 'label': 'action.deleteSelected', 'attr': {'class': 'btn btn-danger', 'type': 'button', 'onclick': confirm } }) }}
-		</div>
-	</li>
+	<div class="btn-group {{ hidden }}">
+		{% include 'common/buttons/widget_button.html.twig' with 
+			{ action: form.deleteSelected, icon: 'fa-trash', type: 'btn-danger',
+				tooltip: 'action.deleteSelected', onclick: confirm } %}
+	</div>
 	
-	{% block baseMainMoreActions %}
+	{% block baseMoreActions %}
 	{% endblock %}
 {% endblock %}
-	    	
 
 
-{# Header section #}	
-{% block headerMainFields3 %}
-	{% if isAdmin %}
-		<th class="visible-lg">
-			{% include 'common/fields/table/icon_field.html.twig' 
-				with { label: 'label.short.updatedAt', tooltip: 'label.updatedAt', icon: 'calendar-o'} %}
-		</th>
-		<th class="visible-lg">
-			{% include 'common/fields/table/icon_field.html.twig' 
-				with { label: 'label.short.updatedBy', tooltip: 'label.updatedBy', icon: 'user'} %}
-		</th>
-		<th class="visible-lg">
-			{% include 'common/fields/table/icon_field.html.twig' 
-				with { label: 'label.short.createdAt', tooltip: 'label.createdAt', icon: 'calendar-o'} %}
-		</th>
-		<th class="visible-lg">
-			{% include 'common/fields/table/icon_field.html.twig' 
-				with { label: 'label.short.createdBy', tooltip: 'label.createdBy', icon: 'user'} %}
-		</th>
-	{% endif %}
-{% endblock %}
+
 
 {% block headerActions %}
-	<th width="300px"><i class="fa fa-play"></i> {{ 'label.actions'|trans }}</th>
+	{% include 'common/fields/table_header/icon_field.html.twig' with 
+		{ class: 'actions', icon: 'fa-play', label: 'label.actions' } %}
 {% endblock %}
 
-{# Entry section #}
-{% block entryMainFields3 %}	
-	{% if isAdmin %}
-		<td class="visible-lg">
-			{% if item.updatedAt > date("01-01-1900") %}
-	    		{{ item.updatedAt|date('d.m.Y H:i:s') }}
-			{% endif %}
-		</td>
-		<td class="visible-lg">
-			{% include 'common/links/user_link.html.twig' with { value: { id: item.updatedById, surname: item.updatedBySurname, forename: item.updatedByForename } } %}
-		</td>
-		        
-		<td class="visible-lg">
-			{% if item.createdAt > date("01-01-1900") %}
-		    	{{ item.createdAt|date('d.m.Y H:i:s') }}
-			{% endif %}
-		</td>
-		<td class="visible-lg">
-			{% include 'common/links/user_link.html.twig' with { value: { id: item.createdById, surname: item.createdBySurname, forename: item.createdByForename } } %}
-		</td>
-	{% endif %}
-{% endblock %}
-	 
+
+
 {% block entryActions %}
 	<td>
 		<a type="button" class="btn btn-sm btn-primary" href="{{ path(basePath ~ mainPath ~ '_show', { id: item.id }) }}">

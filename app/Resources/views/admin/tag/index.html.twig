@@ -2,3 +2,41 @@
 
 {% set mainPath = 'tag' %}
 {% set title = 'title.tags'|trans %}
+
+
+
+{% block filterSmallFields %}
+	{% include 'common/fields/filter/simple_field.html.twig' with 
+		{ field: filter.name, label: 'label.name' } %}
+	{% include 'common/fields/filter/simple_field.html.twig' with 
+		{ field: filter.infomarket, label: 'label.infomarket' } %}
+	{% include 'common/fields/filter/simple_field.html.twig' with 
+		{ field: filter.infoprodukt, label: 'label.infoprodukt' } %}
+{% endblock %}
+
+
+
+{% block simpleHeaderFields %}
+	{% include 'common/fields/table_header/icon_field.html.twig' with 
+		{ icon: 'fa-check', tooltip: 'label.infomarket' } %}
+	{% include 'common/fields/table_header/icon_field.html.twig' with 
+		{ icon: 'fa-check', tooltip: 'label.infoprodukt' } %}
+{% endblock %}
+
+{% block simpleEntryFields %}
+	{% include 'common/fields/table/bool_action_field.html.twig' with
+		{ id: item.id, value: item.infomarket, extPath: '_set_im_published',
+			trueTooltip: 'label.infomarket', falseTooltip: 'label.notInfomarket' } %}
+	{% include 'common/fields/table/bool_action_field.html.twig' with
+		{ id: item.id, value: item.infoprodukt, extPath: '_set_ip_published',
+			trueTooltip: 'label.infoprodukt', falseTooltip: 'label.notInfoprodukt' } %}
+{% endblock %}
+
+
+
+{% block baseMoreActions %}
+	{% set hidden = canEdit ? '' : 'hidden' %}
+	
+	{% include 'common/buttons/infomarket_buttons.html.twig' %}
+	{% include 'common/buttons/infoprodukt_buttons.html.twig' %}
+{% endblock %}

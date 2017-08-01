@@ -1,55 +1,54 @@
-{% extends 'admin/base/index.html.twig' %}
+{% extends 'admin/simple/index.html.twig' %}
 
 {% set mainPath = 'product_category_assignment' %}
 {% set title = 'title.product_category_assignments'|trans %}
 
-{% block filterMoreFields1 %}
-	<li class="col-xs-12 col-sm-6 col-md-4 col-lg-2">
-		{{ form_widget(filter.categories, { 'label': 'label.categories' }) }}
-	</li>
-	<li class="col-xs-12 col-sm-6 col-md-4 col-lg-2">
-		{{ form_widget(filter.segments, { 'label': 'label.segments' }) }}
-	</li>
-	<li class="col-xs-12 col-sm-6 col-md-4 col-lg-2">
-		{{ form_widget(filter.brands, { 'label': 'label.brands' }) }}
-	</li>
-	<li class="col-xs-12 col-sm-6 col-md-4 col-lg-2">
-		{{ form_widget(filter.products, { 'label': 'label.products' }) }}
-	</li>
+
+
+{% block filterSmallFields %}
+	{% include 'common/fields/filter/simple_field.html.twig' with 
+		{ field: filter.featured, label: 'label.' ~ gender ~ 'featured' } %}
 {% endblock %}
 
-{% block filterMoreFields3 %}
-	<li class="col-xs-12 col-sm-6 col-md-4 col-lg-2">
-		{{ form_widget(filter.featured, { 'label': 'label.' ~ gender ~ 'featured' }) }}
+{% block filterLargeFields %}
+	{% include 'common/fields/filter/simple_field.html.twig' with 
+		{ field: filter.categories, label: 'label.categories' } %}
+	{% include 'common/fields/filter/simple_field.html.twig' with 
+		{ field: filter.segments, label: 'label.segments' } %}
+	{% include 'common/fields/filter/simple_field.html.twig' with 
+		{ field: filter.brands, label: 'label.brands' } %}
+	{% include 'common/fields/filter/simple_field.html.twig' with 
+		{ field: filter.products, label: 'label.products' } %}
 {% endblock %}
 
 
 
-{% block headerMainFields1 %}
-	<th><i class="fa fa-"></i> {{ 'label.category'|trans }}</th>
-	<th><i class="fa fa-"></i> {{ 'label.segment'|trans }}</th>
-	<th><i class="fa fa-"></i> {{ 'label.brand'|trans }}</th>
-	<th><i class="fa fa-"></i> {{ 'label.product'|trans }}</th>
-	<th><i class="fa fa-star"></i> {{ 'label.featured'|trans }}</th>
+{% block simpleHeaderFields %}
+	{% include 'common/fields/table_header/icon_field.html.twig' with 
+		{ icon: 'fa-tag', label: 'label.category' } %}
+	{% include 'common/fields/table_header/icon_field.html.twig' with 
+		{ icon: 'fa-', label: 'label.segment' } %}
+	{% include 'common/fields/table_header/icon_field.html.twig' with 
+		{ icon: 'fa-globe', label: 'label.brand' } %}
+	{% include 'common/fields/table_header/icon_field.html.twig' with 
+		{ icon: 'fa-camera', label: 'label.product' } %}
+	
+	{% include 'common/fields/table_header/icon_field.html.twig' with 
+		{ icon: 'fa-star', tooltip: 'label.featured' } %}
 {% endblock %}
 
-{% block entryMainFields1 %}
-	<td>
-		{% include 'common/links/simple_link.html.twig' with { type: 'category', value: { id: item.categoryId, name: item.categoryName } } %}
-	</td>
-	<td>
-		{% include 'common/links/simple_link.html.twig' with { type: 'segment', value: { id: item.segmentId, name: item.segmentName } } %}
-	</td>
-	<td>
-		{% include 'common/links/simple_link.html.twig' with { type: 'brand', value: { id: item.brandId, name: item.brandName } } %}
-	</td>
-	<td>
-		{% include 'common/links/simple_link.html.twig' with { type: 'product', value: { id: item.productId, name: item.productName } } %}
-	</td>
-	<td>
-		{% include 'common/fields/bool_action_field.html.twig' with 
-			{ 'id': item.id, 'value': item.featured, 'extPath': '_set_featured',
-				'trueTooltip': 'label.featured'|trans, 'falseTooltip': 'label.notFeatured'|trans,
-				'trueIcon': 'fa-star', 'falseIcon': 'fa-star-o' } %}
-	</td>
+{% block simpleEntryFields %}
+	{% include 'common/fields/table/simple_link_field.html.twig' with 
+		{ type: 'category', id: item.categoryId, name: item.categoryName } %}
+	{% include 'common/fields/table/simple_link_field.html.twig' with 
+		{ type: 'segment', id: item.segmentId, name: item.segmentName } %}
+	{% include 'common/fields/table/simple_link_field.html.twig' with 
+		{ type: 'brand', id: item.brandId, name: item.brandName } %}
+	{% include 'common/fields/table/simple_link_field.html.twig' with 
+		{ type: 'product', id: item.productId, name: item.productName } %}
+		
+	{% include 'common/fields/table/bool_action_field.html.twig' with
+		{ id: item.id, value: item.featured, extPath: '_set_featured',
+			trueTooltip: 'label.featured', falseTooltip: 'label.notFeatured',
+			trueIcon: 'fa-star', falseIcon: 'fa-star-o' } %}
 {% endblock %}

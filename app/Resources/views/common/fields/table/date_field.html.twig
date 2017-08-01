@@ -1,0 +1,7 @@
+{% set class = class|default('') %}
+
+<td class="{{ class }}">
+	{% if value > date("01-01-1900") %}
+    		{{ value|date('d.m.Y H:i:s') }}
+	{% endif %}
+</td>

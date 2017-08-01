@@ -82,12 +82,16 @@ abstract class BaseType extends AbstractType {
 	}
 	
 	private function addNumberChoiceField(FormBuilderInterface $builder, array $options, $field, $required, $multiple, $expanded) {
-		$builder->add($field, ChoiceType::class, array(
-				'choices'		=> $options[self::getChoicesName($field)],
-				'required'      => $required,
-				'multiple'      => $multiple,
-				'expanded'      => $expanded
-		));
+		$params = [
+			'choices'		=> $options[self::getChoicesName($field)],
+			'required'      => $required,
+			'multiple'      => $multiple,
+			'expanded'      => $expanded
+		];
+		if($multiple && !$expanded) {
+			$params['attr'] = ['class' => 'multiple'];
+		}
+		$builder->add($field, ChoiceType::class, $params);
 	}
 	
 	
@@ -109,14 +113,18 @@ abstract class BaseType extends AbstractType {
 	}
 	
 	private function addEntityChoiceField(FormBuilderInterface $builder, array $options, $field, $required, $multiple, $expanded) {
-		$builder->add($field, ChoiceType::class, array(
+		$params = [
 				'choices' 		=> $options[self::getChoicesName($field)],
 				'choice_label' => function ($value, $key, $index) { return FormUtils::getChoiceLabel($value, $key, $index); },
 				'choice_translation_domain' => false,
 				'required'		=> $required,
 				'multiple'      => $multiple,
 				'expanded'      => $expanded
-		));
+		];
+		if($multiple && !$expanded) {
+			$params['attr'] = ['class' => 'multiple'];
+		}
+		$builder->add($field, ChoiceType::class, $params);
 	}
 	
 	/**

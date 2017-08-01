@@ -1,42 +1,83 @@
-{% extends 'admin/image/index.html.twig' %}
+{% extends 'admin/simple/index.html.twig' %}
 
 {% set mainPath = 'advert' %}
 {% set title = 'title.adverts'|trans %}
 
-{% block filterMoreFields3 %}
-	<li class="col-xs-12 col-sm-6 col-md-4 col-lg-2">
-		{{ form_widget(filter.locations, { 'label': 'label.advert.locations' }) }}
-	</li>
-	<li class="col-xs-12 col-sm-6 col-md-4 col-lg-2">
-		{{ form_widget(filter.categories, { 'label': 'label.categories' }) }}
-	</li>
-	<li class="col-xs-12 col-sm-6 col-md-4 col-lg-2">
-		{{ form_widget(filter.link, { 'label': 'label.advert.link' }) }}
-	</li>
-{% endblock %}
+
+
+{% block filterSmallFields %}
+	{% include 'common/fields/filter/simple_field.html.twig' with 
+		{ field: filter.name, label: 'label.name' } %}
+	{% include 'common/fields/filter/simple_field.html.twig' with 
+		{ field: filter.link, label: 'label.advert.link' } %}
 	
-{% block headerMoreFields3 %}
-	<th class="visible-lg">
-		{% include 'common/fields/table/icon_field.html.twig' 
-			with { label: 'label.advert.short.showCount', tooltip: 'label.advert.showCount', icon: 'eye'} %}
-	</th>
-	<th class="visible-lg">
-		{% include 'common/fields/table/icon_field.html.twig' 
-			with { label: 'label.advert.short.showLimit', tooltip: 'label.advert.showLimit', icon: 'eye-slash'} %}
-	</th>
-	<th class="visible-lg">
-		{% include 'common/fields/table/icon_field.html.twig' 
-			with { label: 'label.advert.short.clickCount', tooltip: 'label.advert.clickCount', icon: 'hand-pointer-o'} %}
-	</th>
-	<th class="visible-lg">
-		{% include 'common/fields/table/icon_field.html.twig' 
-			with { label: 'label.advert.short.clickLimit', tooltip: 'label.advert.clickLimit', icon: 'hand-stop-o'} %}
-	</th>
+	{% include 'common/fields/filter/simple_field.html.twig' with 
+		{ field: filter.infomarket, label: 'label.infomarket' } %}
+	{% include 'common/fields/filter/simple_field.html.twig' with 
+		{ field: filter.infoprodukt, label: 'label.infoprodukt' } %}
 {% endblock %}
 
-{% block entryMoreFields3 %}
-	<td class="visible-lg">{{ item.showCount }}</td>
-	<td class="visible-lg">{{ item.showLimit }}</td>
-	<td class="visible-lg">{{ item.clickCount }}</td>
-	<td class="visible-lg">{{ item.clickLimit }}</td>
+{% block filterLargeFields %}
+	{% include 'common/fields/filter/simple_field.html.twig' with 
+		{ field: filter.locations, label: 'label.advert.locations' } %}
+	{% include 'common/fields/filter/simple_field.html.twig' with 
+		{ field: filter.categories, label: 'label.categories' } %}
+{% endblock %}
+
+
+
+{% block simpleHeaderFields %}
+	{% include 'common/fields/table_header/icon_field.html.twig' with 
+		{ icon: 'photo', label: 'label.image' } %}
+	
+	{% include 'common/fields/table_header/icon_field.html.twig' with 
+		{ icon: 'fa-check', tooltip: 'label.infomarket' } %}
+	{% include 'common/fields/table_header/icon_field.html.twig' with 
+		{ icon: 'fa-check', tooltip: 'label.infoprodukt' } %}
+		
+	{% include 'common/fields/table_header/icon_field.html.twig' with 
+		{ class: "visible-lg", label: 'label.advert.short.showCount', 
+			tooltip: 'label.advert.showCount', icon: 'fa-eye'} %}
+			
+	{% include 'common/fields/table_header/icon_field.html.twig' with 
+		{ class: "visible-lg", label: 'label.advert.short.showLimit', 
+			tooltip: 'label.advert.showLimit', icon: 'fa-eye-slash'} %}
+			
+	{% include 'common/fields/table_header/icon_field.html.twig' with 
+		{ class: "visible-lg", label: 'label.advert.short.clickCount', 
+			tooltip: 'label.advert.clickCount', icon: 'fa-hand-pointer-o'} %}
+			
+	{% include 'common/fields/table_header/icon_field.html.twig' with 
+		{ class: "visible-lg", label: 'label.advert.short.clickLimit', 
+			tooltip: 'label.advert.clickLimit', icon: 'fa-hand-stop-o'} %}
+{% endblock %}
+
+{% block simpleEntryFields %}
+	{% include 'common/fields/table/image_field.html.twig' with 
+		{ item: item } %}
+	
+	{% include 'common/fields/table/bool_action_field.html.twig' with
+		{ id: item.id, value: item.infomarket, extPath: '_set_im_published',
+			trueTooltip: 'label.infomarket', falseTooltip: 'label.notInfomarket' } %}
+	{% include 'common/fields/table/bool_action_field.html.twig' with
+		{ id: item.id, value: item.infoprodukt, extPath: '_set_ip_published',
+			trueTooltip: 'label.infoprodukt', falseTooltip: 'label.notInfoprodukt' } %}
+			
+	{% include 'common/fields/table/simple_field.html.twig' with 
+		{ class: 'visible-lg', value: item.showCount } %}
+	{% include 'common/fields/table/simple_field.html.twig' with 
+		{ class: 'visible-lg', value: item.showLimit } %}
+	{% include 'common/fields/table/simple_field.html.twig' with 
+		{ class: 'visible-lg', value: item.clickCount } %}
+	{% include 'common/fields/table/simple_field.html.twig' with 
+		{ class: 'visible-lg', value: item.clickLimit } %}
+{% endblock %}
+
+
+
+{% block baseMoreActions %}
+	{% set hidden = canEdit ? '' : 'hidden' %}
+	
+	{% include 'common/buttons/infomarket_buttons.html.twig' %}
+	{% include 'common/buttons/infoprodukt_buttons.html.twig' %}
 {% endblock %}

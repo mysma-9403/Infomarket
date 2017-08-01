@@ -1,0 +1,7 @@
+{% set class = class|default('') %}
+
+<td class="{{ class }}">
+	{% if value %}
+		{{ value|date('i:s') }}
+	{% endif %}
+</td>

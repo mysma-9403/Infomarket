@@ -179,10 +179,10 @@
 						<th class="text-center"></th>
 						{% for entry in entries %}
 							<td class="text-center">
-								<a class="btn btn-primary" href="{{ path(basePath ~ mainPath ~ '_show', { id: entry.id }) }}" data-toggle="tooltip" title="{{ 'action.show'|trans }}">
+								<a class="btn btn-primary" href="{{ path(basePath ~ mainPath ~ '_show', { id: entry.id }) }}" title="{{ 'action.show'|trans }}">
 									<span class="fa fa-eye"></span>
 								</a>
-								<a class="btn btn-warning" href="{{ path(basePath ~ mainPath ~ '_compare', { id: entry.id }) }}" data-toggle="tooltip" title="{{ 'action.compare'|trans }}">
+								<a class="btn btn-warning" href="{{ path(basePath ~ mainPath ~ '_compare', { id: entry.id }) }}" title="{{ 'action.compare'|trans }}">
 									<span class="fa fa-balance-scale"></span>
 								</a>
 								{% if entry.benchmarkMessage %}
@@ -192,7 +192,7 @@
 									{% set messagePath = basePath ~ 'benchmark_message_new' %}
 									{% set messageParams = { product: entry.id } %}
 								{% endif %}
-								<a class="btn btn-danger" href="{{ path(messagePath, messageParams) }}" data-toggle="tooltip" title="{{ 'action.reportError'|trans }}">
+								<a class="btn btn-danger" href="{{ path(messagePath, messageParams) }}" title="{{ 'action.reportError'|trans }}">
 									<span class="fa fa-exclamation-circle"></span>
 								</a>
 							</td>

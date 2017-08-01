@@ -1,27 +1,29 @@
-{% extends 'admin/base/index.html.twig' %}
+{% extends 'admin/simple/index.html.twig' %}
 
 {% set mainPath = 'menu_menu_entry_assignment' %}
 {% set title = 'title.menuMenuEntryAssignments'|trans %}
 
-{% block filterMoreFields1 %}
-	<li class="col-xs-12 col-sm-6 col-md-4 col-lg-2">
-		{{ form_widget(filter.menus, { 'label': 'label.menus' }) }}
-	</li>
-	<li class="col-xs-12 col-sm-6 col-md-4 col-lg-2">
-		{{ form_widget(filter.menuEntries, { 'label': 'label.menuEntries' }) }}
-	</li>
+
+
+{% block filterLargeFields %}
+	{% include 'common/fields/filter/simple_field.html.twig' with 
+		{ field: filter.menus, label: 'label.menus' } %}
+	{% include 'common/fields/filter/simple_field.html.twig' with 
+		{ field: filter.menuEntries, label: 'label.menuEntries' } %}
 {% endblock %}
 
-{% block headerMainFields1 %}
-	<th><i class="fa fa-"></i> {{ 'label.menu'|trans }}</th>
-	<th><i class="fa fa-"></i> {{ 'label.menuEntry'|trans }}</th>
+
+
+{% block simpleHeaderFields %}
+	{% include 'common/fields/table_header/icon_field.html.twig' with 
+		{ icon: 'fa-list', label: 'label.menu' } %}
+	{% include 'common/fields/table_header/icon_field.html.twig' with 
+		{ icon: 'fa-list', label: 'label.menuEntry' } %}
 {% endblock %}
 
-{% block entryMainFields1 %}
-	<td>
-		{% include 'common/links/readonly_link.html.twig' with { type: 'menu', value: { id: item.menuId, name: item.menuName } } %}
-	</td>
-	<td>
-		{% include 'common/links/simple_link.html.twig' with { type: 'menu_entry', value: { id: item.menuEntryId, name: item.menuEntryName } } %}
-	</td>
+{% block simpleEntryFields %}
+	{% include 'common/fields/table/simple_link_field.html.twig' with 
+		{ type: 'menu', id: item.menuId, name: item.menuName } %}
+	{% include 'common/fields/table/simple_link_field.html.twig' with 
+		{ type: 'menu_entry', id: item.menuEntryId, name: item.menuEntryName } %}
 {% endblock %}

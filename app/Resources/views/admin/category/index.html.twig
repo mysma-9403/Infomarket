@@ -1,47 +1,83 @@
-{% extends 'admin/featured/index.html.twig' %}
+{% extends 'admin/simple/index.html.twig' %}
 
 {% set mainPath = 'category' %}
 {% set title = 'title.categories'|trans %}
 
-{% block filterMoreFields2 %}
-	<li class="col-xs-12 col-sm-6 col-md-4 col-lg-2">
-		{{ form_widget(filter.subname, { 'label': 'label.subname' }) }}
-	</li>
+
+
+{% block filterSmallFields %}
+	{% include 'common/fields/filter/simple_field.html.twig' with 
+		{ field: filter.name, label: 'label.name' } %}
+	{% include 'common/fields/filter/simple_field.html.twig' with 
+		{ field: filter.subname, label: 'label.subname' } %}
+	
+	{% include 'common/fields/filter/new_line_field.html.twig' %}
+	
+	{% include 'common/fields/filter/simple_field.html.twig' with 
+		{ field: filter.infomarket, label: 'label.infomarket' } %}
+	{% include 'common/fields/filter/simple_field.html.twig' with 
+		{ field: filter.infoprodukt, label: 'label.infoprodukt' } %}
+	{% include 'common/fields/filter/simple_field.html.twig' with 
+		{ field: filter.featured, label: 'label.featured' } %}
+	{% include 'common/fields/filter/simple_field.html.twig' with 
+		{ field: filter.preleaf, label: 'label.preleaf' } %}
 {% endblock %}
 
-{% block filterMoreFields3 %}
-	<li class="col-xs-12 col-sm-6 col-md-4 col-lg-2">
-		{{ form_widget(filter.branches, { 'label': 'label.branch' }) }}
-	</li>
-	<li class="col-xs-12 col-sm-6 col-md-4 col-lg-2">
-		{{ form_widget(filter.parents, { 'label': 'label.category.parent' }) }}
-	</li>
-	<li class="col-xs-12 col-sm-6 col-md-4 col-lg-2">
-		{{ form_widget(filter.preleaf, { 'label': 'label.preleaf' }) }}
-	</li>
+{% block filterLargeFields %}
+	{% include 'common/fields/filter/simple_field.html.twig' with 
+		{ field: filter.branches } %}
+	{% include 'common/fields/filter/simple_field.html.twig' with 
+		{ field: filter.parents } %}
 {% endblock %}
 
-{% block headerMoreFields1 %}
-	<th>{{ 'label.category.parent'|trans }}</th>
+
+
+{% block simpleHeaderFields %}
+	{% include 'common/fields/table_header/icon_field.html.twig' with 
+		{ icon: 'fa-', label: 'label.category.parent' } %}
+		
+	{% include 'common/fields/table_header/icon_field.html.twig' with 
+		{ icon: 'photo', label: 'label.image' } %}
+		
+	{% include 'common/fields/table_header/icon_field.html.twig' with 
+		{ icon: 'fa-check', tooltip: 'label.infomarket' } %}
+	{% include 'common/fields/table_header/icon_field.html.twig' with 
+		{ icon: 'fa-check', tooltip: 'label.infoprodukt' } %}
+	{% include 'common/fields/table_header/icon_field.html.twig' with 
+		{ icon: 'fa-star', tooltip: 'label.featured' } %}
+	{% include 'common/fields/table_header/icon_field.html.twig' with 
+		{ icon: 'fa-leaf', tooltip: 'label.preleaf' } %}
 {% endblock %}
 
-{% block headerMoreFields2 %}
-	<th>
-		{% include 'common/fields/table/icon_field.html.twig' with { tooltip: 'label.preleafs', icon: 'leaf'} %}
-	</th>
+{% block simpleEntryFields %}
+	{% include 'common/fields/table/simple_link_field.html.twig' with
+		{ type: 'category', id: item.id, name: item.name } %}
+			
+	{% include 'common/fields/table/image_field.html.twig' with 
+		{ item: item } %}
+	
+	{% include 'common/fields/table/bool_action_field.html.twig' with
+		{ id: item.id, value: item.infomarket, extPath: '_set_im_published',
+			trueTooltip: 'label.infomarket', falseTooltip: 'label.notInfomarket' } %}
+	{% include 'common/fields/table/bool_action_field.html.twig' with
+		{ id: item.id, value: item.infoprodukt, extPath: '_set_ip_published',
+			trueTooltip: 'label.infoprodukt', falseTooltip: 'label.notInfoprodukt' } %}
+	{% include 'common/fields/table/bool_action_field.html.twig' with
+		{ id: item.id, value: item.featured, extPath: '_set_featured',
+			trueTooltip: 'label.featured', falseTooltip: 'label.notFeatured',
+			trueIcon: 'fa-star', falseIcon: 'fa-star-o' } %}
+	{% include 'common/fields/table/bool_action_field.html.twig' with 
+		{ id: item.id, value: item.preleaf, extPath: '_set_preleaf',
+			trueTooltip: 'label.preleafs', falseTooltip: 'label.others',
+			trueIcon: 'fa-leaf text-green', falseIcon: 'fa-leaf text-red' } %}
 {% endblock %}
 
-{% block entryMoreFields1 %}
-	<td>
-		{% include 'common/links/simple_link.html.twig' with { type: 'category', value: { id: item.parentId, name: item.parentName, subname: item.parentSubname } } %}
-	</td>
-{% endblock %}
 
-{% block entryMoreFields2 %}
-	<td>
-		{% include 'common/fields/bool_action_field.html.twig' with 
-			{ 'id': item.id, 'value': item.preleaf, 'extPath': '_set_preleaf',
-				'trueTooltip': 'label.preleafs'|trans, 'falseTooltip': 'label.others'|trans,
-				'trueIcon': 'fa-leaf text-green', 'falseIcon': 'fa-leaf text-red' } %}
-	</td>
+
+{% block baseMoreActions %}
+	{% set hidden = canEdit ? '' : 'hidden' %}
+	
+	{% include 'common/buttons/infomarket_buttons.html.twig' %}
+	{% include 'common/buttons/infoprodukt_buttons.html.twig' %}
+	{% include 'common/buttons/featured_buttons.html.twig' %}
 {% endblock %}

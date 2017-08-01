@@ -1,56 +1,60 @@
-{% extends 'admin/base/index.html.twig' %}
+{% extends 'admin/simple/index.html.twig' %}
 
 {% set mainPath = 'benchmark_message' %}
 {% set title = 'title.benchmarkMessages'|trans %}
 
-{% block filterMoreFields1 %}
-	<li class="col-xs-12 col-sm-6 col-md-4 col-lg-2">
-		{{ form_widget(filter.products) }}
-	</li>
-	<li class="col-xs-12 col-sm-6 col-md-4 col-lg-2">
-		{{ form_widget(filter.authors) }}
-	</li>
-	<li class="col-xs-12 col-sm-6 col-md-4 col-lg-2">
-		{{ form_widget(filter.states) }}
-	</li>
-	<li class="col-xs-12 col-sm-6 col-md-4 col-lg-2">
-		{{ form_widget(filter.readByAdmin) }}
-	</li>
+
+
+{% block filterSmallFields %}
+	{% include 'common/fields/filter/simple_field.html.twig' with 
+		{ field: filter.readByAdmin } %}
 {% endblock %}
 
-{% block baseMainMoreActions %}
-	<li>	
-		<div class="btn-group">
-			{{ form_widget(form.setReadSelected, { 'icon': 'fa-envelope-open-o', 'label': 'action.benchmarkMessage.setReadSelected', 'attr': {'class': 'btn btn-primary', 'type': 'button'} }) }}
-			{{ form_widget(form.setUnreadSelected, { 'icon': 'fa-envelope-o', 'label': 'action.benchmarkMessage.setUnreadSelected', 'attr': {'class': 'btn btn-primary', 'type': 'button'} }) }}
-		</div>
-	</li>
+{% block filterLargeFields %}
+	{% include 'common/fields/filter/simple_field.html.twig' with 
+		{ field: filter.products } %}
+	{% include 'common/fields/filter/simple_field.html.twig' with 
+		{ field: filter.authors } %}
+	{% include 'common/fields/filter/simple_field.html.twig' with 
+		{ field: filter.states } %}
 {% endblock %}
 
-{% block headerMoreFields2 %}
-	<th><i class="fa fa-list"></i> {{ 'label.product'|trans }}</th>
-	<th><i class="fa fa-list"></i> {{ 'label.benchmarkMessage.author'|trans }}</th>
-	<th><i class="fa fa-list"></i> {{ 'label.benchmarkMessage.state'|trans }}</th>
-	<th>
-		{% include 'common/fields/table/icon_field.html.twig' with { tooltip: 'label.read', icon: 'envelope-o'} %}
-	</th>
+
+
+{% block simpleHeaderFields %}	
+	{% include 'common/fields/table_header/icon_field.html.twig' with 
+		{ icon: 'fa-camera', label: 'label.product' } %}
+	{% include 'common/fields/table_header/icon_field.html.twig' with 
+		{ icon: 'fa-user', label: 'label.benchmarkMessage.author' } %}
+		
+	{% include 'common/fields/table_header/icon_field.html.twig' with 
+		{ icon: 'fa-envelope-o', tooltip: 'label.read' } %}
+		
+	{% include 'common/fields/table_header/icon_field.html.twig' with 
+		{ icon: 'fa-gears', label: 'label.benchmarkMessage.state' } %}
 {% endblock %}
 
-{% block entryMoreFields2 %}
-	<td>
-		{% include 'common/links/simple_link.html.twig' with { type: 'product', value: { id: item.productId, name: item.brandName, subname: item.productName } } %}
-	</td>
-	<td>
-		{% include 'common/links/simple_link.html.twig' with { type: 'user', value: { id: item.authorId, name: item.authorName } } %}
-	</td>
-	<td>
-		{{ benchmarkMessageStateName(item.state)|trans }}
-	</td>
-	<td>
-		{% include 'common/fields/bool_action_field.html.twig' with 
-			{ 'id': item.id, 'value': item.readByAdmin, 'extPath': '_set_read',
-				'trueIcon': 'fa-envelope-open-o', 'falseIcon': 'fa-envelope-o',
-				'trueTooltip': 'label.read'|trans, 'falseTooltip': 'label.benchmarkMessage.unread'|trans, canEdit: true } %}
-	</td>
+{% block simpleEntryFields %}		
+	{% include 'common/fields/table/simple_link_field.html.twig' with
+		{ type: 'product', id: item.productId, name: item.brandName, subname: item.productName } %}
+			
+	{% include 'common/fields/table/simple_link_field.html.twig' with
+		{ type: 'user', id: item.authorId, name: item.authorName } %}
+		
+	{% include 'common/fields/table/bool_action_field.html.twig' with
+		{ id: item.id, value: item.readByAdmin, extPath: '_set_read',
+			trueTooltip: 'label.read', falseTooltip: 'label.unread',
+			trueIcon: 'fa-envelope-open-o', falseIcon: 'fa-envelope-o' } %}
+			
+	{% include 'common/fields/table/simple_field.html.twig' with
+		{ value: benchmarkMessageStateName(item.state)|trans } %}
+{% endblock %}
+
+
+
+{% block baseMoreActions %}
+	{% set hidden = '' %}
+	
+	{% include 'common/buttons/read_buttons.html.twig' %}
 	
 {% endblock %}

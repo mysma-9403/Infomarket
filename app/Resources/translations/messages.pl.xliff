@@ -2243,6 +2243,10 @@
                 <source>action.filter</source>
                 <target>Filtruj</target>
             </trans-unit>
+            <trans-unit id="action.filterMore">
+                <source>action.filterMore</source>
+                <target>Więcej...</target>
+            </trans-unit>
             <trans-unit id="action.selectAll">
                 <source>action.selectAll</source>
                 <target>Zaznacz wszystkie</target>
