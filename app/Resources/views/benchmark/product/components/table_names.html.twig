@@ -1,0 +1,13 @@
+<tr>
+	<th class="text-right">{{ 'label.benchmark.product.name'|trans }}</th>
+	
+	{% for entry in entries|slice(0,half) %}
+		<th class="text-center">{{ entry.name }}</th>
+	{% endfor %}
+	<th class="selected text-center">{{ entry.name }}</th>
+	{% for entry in entries|slice(half) %}
+		<th class="text-center">{{ entry.name }}</th>
+	{% endfor %}
+	
+	<th></th>
+</tr>

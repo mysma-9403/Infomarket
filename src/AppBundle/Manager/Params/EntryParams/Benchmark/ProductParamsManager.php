@@ -231,7 +231,7 @@ class ProductParamsManager extends EntryParamsManager {
 		$viewParams['benchmarkFields'] = $fields;
 		
 		
-		$entries = $productRepository->findNeighbourItems($categoryId, $entry, $fields, 5);
+		$entries = $productRepository->findNeighbourItems($categoryId, $entry, $fields, 6);
 		for ($i = 0; $i < count($entries); $i++) {
 			$entry = $entries[$i];
 			

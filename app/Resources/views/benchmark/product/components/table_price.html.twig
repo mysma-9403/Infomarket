@@ -1,0 +1,15 @@
+{% if compared.price > entry.price %}	
+	{% set color = 'text-success' %}
+	{% set icon = 'arrow-circle-up' %}
+{% elseif compared.price < entry.price %}	
+	{% set color = 'text-danger' %}
+	{% set icon = 'arrow-circle-down' %}
+{% else %}
+	{% set color = 'text-primary' %}
+	{% set icon = 'stop-circle' %}
+{% endif %}
+
+<td class="text-center {{ color }}">
+	{{ compared.price|number_format(2, '.', ' ') }}
+	<span class="fa fa-{{ icon }}"></span>
+</td>

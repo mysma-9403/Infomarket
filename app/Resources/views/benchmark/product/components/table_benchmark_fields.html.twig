@@ -1,0 +1,22 @@
+{% for field in benchmarkFields %}
+	{% set key = field.valueField %}
+	<tr>
+		<th class="text-right">{{ field.fieldName }}</th>
+		
+		{% for compared in entries|slice(0,half) %}
+			<td class="text-center">
+				{% include 'benchmark/product/components/table_benchmark_field.html.twig' %}
+			</td>
+		{% endfor %}
+		<th class="selected text-center">
+			{% include 'benchmark/product/components/table_benchmark_selected_field.html.twig' %}
+		</th>
+		{% for compared in entries|slice(half) %}
+			<td class="text-center">
+				{% include 'benchmark/product/components/table_benchmark_field.html.twig' %}
+			</td>
+		{% endfor %}
+		
+		<td></td>
+	</tr>
+{% endfor %}

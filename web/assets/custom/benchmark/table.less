@@ -1,0 +1,11 @@
+@import "../common/variables.less";
+
+.table-striped > tbody > tr:nth-child(odd) > td, 
+.table-striped > tbody > tr:nth-child(odd) > th {
+   background-color: @blue-lighter;
+}
+
+.table-striped > tbody > tr:nth-child(odd) > td.selected, 
+.table-striped > tbody > tr:nth-child(odd) > th.selected {
+   background-color: @red-lighter;
+}

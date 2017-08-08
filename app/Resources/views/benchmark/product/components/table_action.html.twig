@@ -1,0 +1,32 @@
+{% set showShow = showShow|default(true) %}
+{% set showCompare = showCompare|default(true) %}
+{% set showIssue = showIssue|default(true) %}
+
+{% if showShow %}
+	<a class="btn btn-primary" href="{{ path(basePath ~ mainPath ~ '_show', { id: entry.id }) }}" 
+		data-toggle="tooltip" title="{{ 'action.show'|trans }}">
+		<span class="fa fa-eye"></span>
+	</a>
+{% endif %}
+
+{% if showCompare %}
+	<a class="btn btn-warning" href="{{ path(basePath ~ mainPath ~ '_compare', { id: entry.id }) }}" 
+		data-toggle="tooltip" title="{{ 'action.compare'|trans }}">
+		<span class="fa fa-balance-scale"></span>
+	</a>
+{% endif %}
+
+{% if showIssue %}
+	{% if benchmarkMessage %}
+		{% set messagePath = basePath ~ 'benchmark_message_show' %}
+		{% set messageParams = { id: benchmarkMessage.id } %}
+	{% else %}
+		{% set messagePath = basePath ~ 'benchmark_message_new' %}
+		{% set messageParams = { product: entry.id } %}
+	{% endif %}
+	
+	<a class="btn btn-danger" href="{{ path(messagePath, messageParams) }}" 
+		data-toggle="tooltip" title="{{ 'action.reportError'|trans }}">
+		<span class="fa fa-exclamation-circle"></span>
+	</a>
+{% endif %}
