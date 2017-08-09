@@ -2,12 +2,12 @@
 	<th class="text-right">{{ 'label.brand'|trans }}</th>
 	
 	{% for entry in entries|slice(0,half) %}
-		<th class="text-center">{{ entry.brandName }}</th>
+		<td class="text-center">{{ entry.brandName }}</td>
 	{% endfor %}
-	<th class="selected text-center">{{ entry.brand.name }}</th>
+	<td class="selected text-center">{{ entry.brand.name }}</td>
 	{% for entry in entries|slice(half) %}
-		<th class="text-center">{{ entry.brandName }}</th>
+		<td class="text-center">{{ entry.brandName }}</td>
 	{% endfor %}
 	
-	<th></th>
+	<td></td>
 </tr>

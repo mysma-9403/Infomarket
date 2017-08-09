@@ -8,9 +8,9 @@
 				{% include 'benchmark/product/components/table_benchmark_field.html.twig' %}
 			</td>
 		{% endfor %}
-		<th class="selected text-center">
+		<td class="selected text-center">
 			{% include 'benchmark/product/components/table_benchmark_selected_field.html.twig' %}
-		</th>
+		</td>
 		{% for compared in entries|slice(half) %}
 			<td class="text-center">
 				{% include 'benchmark/product/components/table_benchmark_field.html.twig' %}
