@@ -1,0 +1,266 @@
+{% block itemContent %}
+	<h2 class="lowered-25">{{ entry.name }} {{ entry.subname }}</h2>
+	
+	<div class="row padding-5">
+		<div class="col-md-6 col-lg-4 padding-5">
+			<div class="rect">
+	    		{% if entry.image %}
+					{% include 'common/image/image_entry.html.twig' with { 'entry': entry } %}
+				{% endif %}
+			</div>
+		</div>
+		<div class="col-md-6 col-lg-8 padding-5">
+			<table class="table table-striped vert-align">
+				<tr>
+					<th class="text-center">{{ 'label.segment'|trans }}</th>
+					<th class="text-center">{{ 'label.benchmark.numOfProducts'|trans }}</th>
+				</tr>
+				
+				{% for segment in segments %}
+					<tr>
+						<th class="text-right">{{ segment.name }}</th>
+						<td class="text-center">{{ segment.numOfProducts }}</td>
+					</tr>
+				{% endfor %}
+				
+				<tr>
+					<th class="text-right">{{ 'label.benchmark.total'|trans }}</th>
+					<th class="text-center">{{ numOfProducts }}</th>
+				</tr>
+			</table>
+			
+			<a class="btn btn-primary" href="{{ path(basePath ~ 'product_show', { id: bestProduct }) }}">
+				<i class="fa fa-eye"></i> {{ 'label.benchmark.category.showBestProduct'|trans }}
+			 </a>
+			<a class="btn btn-primary" href="{{ path(basePath ~ 'product_show', { id: worstProduct }) }}">
+				<i class="fa fa-eye"></i> {{ 'label.benchmark.category.showWorstProduct'|trans }}
+			</a>
+		</div>
+	</div>
+{% endblock %}
+
+{% block tableContent %}
+	{% if numberFields|length > 0 %}
+		<div class="row lowered-25"></div>
+		
+		<div class="row">
+			<table class="table table-striped vert-align">
+				<tr>
+					<th width="20%" class="text-center">{{ 'label.benchmark.param'|trans }}</th>
+					<th class="text-center">{{ 'label.benchmark.min'|trans }}</th>
+					<th class="text-center">{{ 'label.benchmark.max'|trans }}</th>
+					<th class="text-center">{{ 'label.benchmark.mode'|trans }}</th>
+					<th class="text-center">{{ 'label.benchmark.median'|trans }}</th>
+					<th class="text-center">{{ 'label.benchmark.mean'|trans }}</th>
+					<th width="20%" class="text-center">{{ 'label.benchmark.distribution'|trans }}</th>
+				</tr>
+				
+				<tr>
+					<th class="text-right">{{ 'label.benchmark.product.price'|trans }}</th>
+					<td class="text-center">{{ priceField.min|number_format(2, '.', ' ') }}</td>
+					<td class="text-center">{{ priceField.max|number_format(2, '.', ' ') }}</td>
+					<td class="text-center">{{ priceField.mode|number_format(2, '.', ' ') }}</td>
+					<td class="text-center">{{ priceField.median|number_format(2, '.', ' ') }}</td>
+					<td class="text-center">{{ priceField.mean|number_format(2, '.', ' ') }}</td>
+					<td class="text-center">
+						{% if priceField.chart %}
+							<a href="#" class="btn btn-primary {{ priceField.valueField }}_pop">
+								<span class="fa fa-bar-chart"></span> {{ 'action.show'|trans }}
+							</a>
+						{% endif %}
+					</td>
+				</tr>
+					
+				{% for field in numberFields %}
+					<tr>
+						<th class="text-right">{{ field.fieldName }}</td>
+						<td class="text-center">{{ field.min|number_format(field.decimalPlaces, '.', ' ') }}</th>
+						<td class="text-center">{{ field.max|number_format(field.decimalPlaces, '.', ' ') }}</td>
+						<td class="text-center">{{ field.mode|number_format(field.decimalPlaces, '.', ' ') }}</td>
+						<td class="text-center">{{ field.median|number_format(field.decimalPlaces, '.', ' ') }}</td>
+						<td class="text-center">{{ field.mean|number_format(field.decimalPlaces, '.', ' ') }}</td>
+						<td class="text-center">
+							{% if field.chart %}
+								<a href="#" class="btn btn-primary {{ field.valueField }}_pop">
+									<span class="fa fa-bar-chart"></span> {{ 'action.show'|trans }}
+								</a>
+							{% endif %}
+						</td>
+					</tr>
+				{% endfor %}
+			</table>
+		</div>
+	{% endif %}
+	
+	{% if enumFields|length > 0 %}
+		<div class="row lowered-25"></div>
+		
+		<div class="row">
+			<table class="table table-striped vert-align">
+				<tr>
+					<th width="20%" class="text-center">{{ 'label.benchmark.param'|trans }}</th>
+					<th class="text-center">{{ 'label.benchmark.values'|trans }}</th>
+					<th width="20%" class="text-center">{{ 'label.benchmark.distribution'|trans }}</th>
+				</tr>
+				{% for field in enumFields %}
+					<tr>
+						<th class="text-right">{{ field.fieldName }}</th>
+						<td class="text-center">{{ field.values }}</td>
+						<td class="text-center">
+							{% if field.chart %}
+								<a href="#" class="btn btn-primary {{ field.valueField }}_pop">
+									<span class="fa fa-bar-chart"></span> {{ 'action.show'|trans }}
+								</a>
+							{% endif %}
+						</td>
+					</tr>
+				{% endfor %}
+			</table>
+		</div>
+	{% endif %}
+	
+	{% if boolFields|length > 0 %}
+		<div class="row lowered-25"></div>
+		
+		<div class="row">
+			<table class="table table-striped vert-align">
+				<tr>
+					<th width="20%" class="text-center">{{ 'label.benchmark.param'|trans }}</th>
+					<th class="text-center">{{ 'label.benchmark.numOfProducts'|trans }}</th>
+					<th class="text-center">{{ 'label.benchmark.percent'|trans }}</th>
+					<th width="20%" class="text-center">{{ 'label.benchmark.distribution'|trans }}</th>
+				</tr>
+				{% for field in boolFields %}
+					<tr>
+						<th class="text-right">{{ field.fieldName }}</th>
+						<td class="text-center">{{ field.count }}</td>
+						<td class="text-center">{{ (100 * field.count / numOfProducts)|number_format(0, '.', ' ') }}%</td>
+						<td class="text-center">
+							{% if field.chart %}
+								<a href="#" class="btn btn-primary {{ field.valueField }}_pop">
+									<span class="fa fa-bar-chart"></span> {{ 'action.show'|trans }}
+								</a>
+							{% endif %}
+						</td>
+					</tr>
+				{% endfor %}
+			</table>
+		</div>
+	{% endif %}
+{% endblock %}
+
+{% block boolCharts %}
+	{% for field in boolFields %}
+		{% if field.chart %}
+			<div class="modal fade" id="{{ field.valueField }}_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">              
+						<div class="modal-body">
+							<div class="row" id="{{ field.valueField }}_histogram"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<script type="text/javascript">
+		        {{ gc_draw([field.chart], [field.valueField ~ '_histogram']) }}
+		    </script>
+		    
+		    <script type="text/javascript">
+				<!--
+				$(function() {
+					$('.{{ field.valueField }}_pop').on('click', function() {
+						$('#{{ field.valueField }}_modal').modal('show');   
+					});		
+				});
+				//-->
+			</script>
+		{% endif %}
+	{% endfor %}
+{% endblock %}
+
+{% block numberCharts %}
+	{% for field in numberFields %}
+		{% if field.chart %}
+			<div class="modal fade" id="{{ field.valueField }}_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">              
+						<div class="modal-body">
+							<div class="row" id="{{ field.valueField }}_histogram"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<script type="text/javascript">
+		        {{ gc_draw([field.chart], [field.valueField ~ '_histogram']) }}
+		    </script>
+		    
+		    <script type="text/javascript">
+				<!--
+				$(function() {
+					$('.{{ field.valueField }}_pop').on('click', function() {
+						$('#{{ field.valueField }}_modal').modal('show');   
+					});		
+				});
+				//-->
+			</script>
+		{% endif %}
+	{% endfor %}
+	
+	{% if priceField.chart %}
+		<div class="modal fade" id="{{ priceField.valueField }}_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">              
+					<div class="modal-body">
+						<div class="row" id="{{ priceField.valueField }}_histogram"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<script type="text/javascript">
+	        {{ gc_draw([priceField.chart], [priceField.valueField ~ '_histogram']) }}
+	    </script>
+	    
+	    <script type="text/javascript">
+			<!--
+			$(function() {
+				$('.{{ priceField.valueField }}_pop').on('click', function() {
+					$('#{{ priceField.valueField }}_modal').modal('show');   
+				});		
+			});
+			//-->
+		</script>
+	{% endif %}
+{% endblock %}
+
+{% block enumCharts %}
+	{% for field in enumFields %}
+		{% if field.chart %}
+			<div class="modal fade" id="{{ field.valueField }}_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">              
+						<div class="modal-body">
+							<div class="row" id="{{ field.valueField }}_histogram"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<script type="text/javascript">
+		        {{ gc_draw([field.chart], [field.valueField ~ '_histogram']) }}
+		    </script>
+		    
+		    <script type="text/javascript">
+				<!--
+				$(function() {
+					$('.{{ field.valueField }}_pop').on('click', function() {
+						$('#{{ field.valueField }}_modal').modal('show');   
+					});		
+				});
+				//-->
+			</script>
+		{% endif %}
+	{% endfor %}
+{% endblock %}
