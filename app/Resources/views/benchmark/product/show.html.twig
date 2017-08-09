@@ -5,63 +5,58 @@
 	
 {% block content %}
 	<div class="container-fluid">
-{# 		<div class="col-sm-2">#}
-{# 			{% block sidebar %}#}
-{# 				<div class="col-xs-12">#}
-{# 					<h3>{{ entry.brand.name }} - {{ entry.name }}</h3>#}
-					
-{# 					<div class="rect">#}
-{# 			    		{% if entry.image %}#}
-{# 							{% include 'common/image/image_entry.html.twig' with { 'entry': entry } %}#}
-{# 						{% endif %}#}
-{# 					</div>#}
-{# 				</div>#}
-				
-{# 				<a class="btn btn-warning" href="{{ path(basePath ~ mainPath ~ '_compare', { id: entry.id }) }}">#}
-{# 					<span class="fa fa-balance-scale"></span>#}
-{# 					{{ 'action.compare'|trans }}#}
-{# 				</a>#}
-{# 				{% if not entry.custom %}#}
-{# 					{% if benchmarkMessage %}#}
-{# 						{% set messagePath = basePath ~ 'benchmark_message_show' %}#}
-{# 						{% set messageParams = { id: benchmarkMessage.id } %}#}
-{# 					{% else %}#}
-{# 						{% set messagePath = basePath ~ 'benchmark_message_new' %}#}
-{# 						{% set messageParams = { product: entry.id } %}#}
-{# 					{% endif %}#}
-{# 					<a class="btn btn-danger" href="{{ path(messagePath, messageParams) }}">#}
-{# 						<span class="fa fa-exclamation-circle"></span>#}
-{# 						{{ 'action.reportError'|trans }}#}
-{# 					</a>#}
-{# 				{% endif %}#}
-{# 			{% endblock %}#}
-{# 		</div>#}
-{# 		<div class="col-sm-10">#}
-			{% block itemHeaderContent %}
-				<div class="row">
-					<div class="col-sm-4 col-md-3">
-						<div class="rect">
-				    		{% if entry.image %}
-								{% include 'common/image/image_entry.html.twig' with { 'entry': entry } %}
+		<div class="row equal">
+			<div class="col-xs-12 col-sm-4 col-md-3 col-lg-2 side-filter">
+				{% block sidebar %}
+					<div class="row">
+						<div class="col-xs-12 padding-5">
+							<h3>{{ entry.brand.name }} - {{ entry.name }}</h3>
+							
+							<div class="rect">
+					    		{% if entry.image %}
+									{% include 'common/image/image_entry.html.twig' with { 'entry': entry } %}
+								{% endif %}
+							</div>
+						</div>
+						
+						<div class="col-xs-12 padding-5">
+							<a class="btn btn-warning" href="{{ path(basePath ~ mainPath ~ '_compare', { id: entry.id }) }}"
+								data-target="tooltip" title="{{ 'action.compare'|trans }}">
+								<span class="fa fa-balance-scale"></span>
+							</a>
+							{% if not entry.custom %}
+								{% if benchmarkMessage %}
+									{% set messagePath = basePath ~ 'benchmark_message_show' %}
+									{% set messageParams = { id: benchmarkMessage.id } %}
+								{% else %}
+									{% set messagePath = basePath ~ 'benchmark_message_new' %}
+									{% set messageParams = { product: entry.id } %}
+								{% endif %}
+								<a class="btn btn-danger" href="{{ path(messagePath, messageParams) }}"
+									data-target="tooltip" title="{{ 'action.reportError'|trans }}">
+									<span class="fa fa-exclamation-circle"></span>
+								</a>
 							{% endif %}
 						</div>
-					</div>
-					<div class="col-sm-8 col-md-9">
-						<h2>{{ entry.brand.name }}</h2>
-						<h3>{{ entry.name }}</h3>
 						
-						<h1 class="text-success lowered-25">{{ overalNote|number_format(1, '.', ' ') }}</h1>
-						<p>{{ 'label.benchmark.note'|trans }}</p>
-						
-						<h1 class="text-success lowered-25">{{ priceFactor|number_format(1, '.', ' ') }}</h1>
-						<p>{{ 'label.benchmark.priceFactor'|trans }}</p>
+						<div class="col-xs-12 padding-5">
+							<h2>{{ entry.brand.name }}</h2>
+							<h3>{{ entry.name }}</h3>
+							
+							<h1 class="text-success lowered-25">{{ overalNote|number_format(1, '.', ' ') }}</h1>
+							<p>{{ 'label.benchmark.note'|trans }}</p>
+							
+							<h1 class="text-success lowered-25">{{ priceFactor|number_format(1, '.', ' ') }}</h1>
+							<p>{{ 'label.benchmark.priceFactor'|trans }}</p>
+						</div>
 					</div>
-				</div>
-			{% endblock %}
+				{% endblock %}	
+			</div>
 			
-			{% block tableContent %}
-				<div class="row">
-					<div class="col-xs-12">
+			<div class="col-xs-12 col-sm-8 col-md-9 col-lg-10 main-content">
+				
+				{% block tableContent %}
+					<div class="row">
 						<table class="table table-striped vert-align">
 							<tr>
 								<th class="text-center">{{ 'label.benchmark.param'|trans }}</th>
@@ -131,8 +126,8 @@
 							{% endfor %}
 						</table>
 					</div>
-				</div>
-			{% endblock %}
-{# 		</div>	#}
+				{% endblock %}
+			</div>
+		</div>
 	</div>
 {% endblock %}
