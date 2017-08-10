@@ -1,0 +1,19 @@
+<tr>
+	<th></th>
+	
+	{% for entry in entries|slice(0,half) %}
+		<td>
+			{% include 'benchmark/product/components/compare/table_image.html.twig' %}
+		</td>
+	{% endfor %}
+	<td class="selected">
+		{% include 'benchmark/product/components/compare/table_image.html.twig' %}
+	</td>
+	{% for entry in entries|slice(half) %}
+		<td>
+			{% include 'benchmark/product/components/compare/table_image.html.twig' %}
+		</td>
+	{% endfor %}
+	
+	<td></td>
+</tr>

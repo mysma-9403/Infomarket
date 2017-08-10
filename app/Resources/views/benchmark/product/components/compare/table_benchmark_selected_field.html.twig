@@ -1,7 +1,7 @@
 {% if field.fieldType == constant('AppBundle\\Entity\\BenchmarkField::BOOLEAN_FIELD_TYPE') %}
-	{% include 'benchmark/product/components/table_benchmark_bool_field.html.twig' with { value: entry[key] } %}
+	{% include 'benchmark/product/components/compare/table_benchmark_bool_field.html.twig' with { value: entry[key] } %}
 {% elseif field.fieldType == constant('AppBundle\\Entity\\BenchmarkField::DECIMAL_FIELD_TYPE') %}
 	{{ entry[key] ? entry[key]|number_format(field.decimalPlaces, '.', ' ') : '' }}
 {% else %}
-	{% include 'benchmark/product/components/table_benchmark_text_field.html.twig' with { value: entry[key] } %}
+	{% include 'benchmark/product/components/compare/table_benchmark_text_field.html.twig' with { value: entry[key] } %}
 {% endif%}

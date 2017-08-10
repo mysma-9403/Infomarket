@@ -5,15 +5,15 @@
 		
 		{% for compared in entries|slice(0,half) %}
 			<td class="text-center">
-				{% include 'benchmark/product/components/table_benchmark_field.html.twig' %}
+				{% include 'benchmark/product/components/compare/table_benchmark_field.html.twig' %}
 			</td>
 		{% endfor %}
 		<td class="selected text-center">
-			{% include 'benchmark/product/components/table_benchmark_selected_field.html.twig' %}
+			{% include 'benchmark/product/components/compare/table_benchmark_selected_field.html.twig' %}
 		</td>
 		{% for compared in entries|slice(half) %}
 			<td class="text-center">
-				{% include 'benchmark/product/components/table_benchmark_field.html.twig' %}
+				{% include 'benchmark/product/components/compare/table_benchmark_field.html.twig' %}
 			</td>
 		{% endfor %}
 		

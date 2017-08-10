@@ -1,0 +1,13 @@
+{% block header %}
+<div class="col-xs-12">
+	<h3>{{ category.name }} {{ category.subname }}</h3>
+</div>
+{% endblock %}
+
+{% block categoryFilterForm %}
+	{% include 'benchmark/common/form/category_filter.twig' %}
+{% endblock %}
+
+{% block subcategoryFilterForm %}
+	{% include 'benchmark/common/form/subcategory_filter.twig' %}
+{% endblock %}

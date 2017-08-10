@@ -1,0 +1,21 @@
+<div class="modal fade" id="{{ field.valueField }}_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">              
+			<div class="modal-body">
+				<div class="row" id="{{ field.valueField }}_histogram"></div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+	<!--
+	{{ gc_draw([field.chart], [field.valueField ~ '_histogram']) }}
+	
+	$(function() {
+		$('.{{ field.valueField }}_pop').on('click', function() {
+			$('#{{ field.valueField }}_modal').modal('show');   
+		});		
+	});
+	-->
+</script>

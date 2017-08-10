@@ -1,8 +1,0 @@
-{% if field.fieldType == constant('AppBundle\\Entity\\BenchmarkField::BOOLEAN_FIELD_TYPE') %}
-	{% include 'benchmark/product/components/table_benchmark_bool_field.html.twig' with { value: compared[key] } %}
-{% elseif field.fieldType == constant('AppBundle\\Entity\\BenchmarkField::DECIMAL_FIELD_TYPE') or 
-			field.fieldType == constant('AppBundle\\Entity\\BenchmarkField::INTEGER_FIELD_TYPE') %}
-	{% include 'benchmark/product/components/table_benchmark_number_field.html.twig' with { value: entry[key], compared: compared[key] } %}	
-{% else %}
-	{% include 'benchmark/product/components/table_benchmark_text_field.html.twig' with { value: compared[key] } %}
-{% endif%}

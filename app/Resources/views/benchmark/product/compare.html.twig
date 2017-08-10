@@ -8,19 +8,19 @@
 
 	<div class="container-fluid">
 		<div class="row">
-			{% block tableContent %}
+			{% block mainContent %}
 				<table class="table table-striped vert-align">
 					<tbody>
-						{% include 'benchmark/product/components/table_header.html.twig' %}
+						{% include 'benchmark/product/components/compare/table_header.html.twig' %}
 						
-						{% include 'benchmark/product/components/table_images.html.twig' %}
-						{% include 'benchmark/product/components/table_brands.html.twig' %}
-						{% include 'benchmark/product/components/table_names.html.twig' %}
-						{% include 'benchmark/product/components/table_prices.html.twig' %}
+						{% include 'benchmark/product/components/compare/table_images.html.twig' %}
+						{% include 'benchmark/product/components/compare/table_brands.html.twig' %}
+						{% include 'benchmark/product/components/compare/table_names.html.twig' %}
+						{% include 'benchmark/product/components/compare/table_prices.html.twig' %}
 						
-						{% include 'benchmark/product/components/table_benchmark_fields.html.twig' %}
+						{% include 'benchmark/product/components/compare/table_benchmark_fields.html.twig' %}
 						
-						{% include 'benchmark/product/components/table_actions.html.twig' %}
+						{% include 'benchmark/product/components/compare/table_actions.html.twig' %}
 					</tbody>
 				</table>
 			{% endblock %}

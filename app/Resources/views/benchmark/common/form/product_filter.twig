@@ -1,0 +1,51 @@
+{% form_theme filter 'form/fields.html.twig' %}
+	
+{{ form_start(filter) }}
+	{% set hidden = filter.categories.vars.choices|length > 0 ? '' : 'hidden' %}
+	<div class="col-xs-12 {{ hidden }}">
+		{{ form_row(filter.categories, { label: 'label.benchmark.categories' }) }}
+	</div>
+	
+	{% set hidden = filter.brands.vars.choices|length > 0 ? '' : 'hidden' %}
+	<div class="col-xs-12 {{ hidden }}">
+		{{ form_row(filter.brands, { label: 'label.benchmark.brands' }) }}
+	</div>
+	
+	<div class="col-xs-12 {{ hidden }}">
+		{{ form_row(filter.name, { label: 'label.benchmark.product.name' }) }}
+	</div>
+	
+	<div class="col-xs-6">
+		{{ form_row(filter.minPrice, { label: 'label.benchmark.product.minPrice' }) }}
+	</div>
+	<div class="col-xs-6">
+		{{ form_row(filter.maxPrice, { label: 'label.benchmark.product.maxPrice' }) }}
+	</div>
+	
+	{% for field in entryFilter.filterFields %}
+		{% if field.fieldType == constant('AppBundle\\Entity\\BenchmarkField::DECIMAL_FIELD_TYPE') 
+			or field.fieldType == constant('AppBundle\\Entity\\BenchmarkField::INTEGER_FIELD_TYPE') %}
+			<div class="col-xs-6">
+				{{ form_row(filter[field.filterName|cleanName ~ '_min'], { label: field.filterName ~ ' (min)' }) }}
+			</div>
+			<div class="col-xs-6">
+				{{ form_row(filter[field.filterName|cleanName ~ '_max'], { label: field.filterName ~ ' (max)' }) }}
+			</div>
+		{% else %}
+			<div class="col-xs-12">
+				{{ form_row(filter[field.filterName|cleanName], { label: field.filterName }) }}
+			</div>
+		{% endif %}
+	{% endfor %}
+	
+	<div class="col-xs-12 padding-5">
+		<div class="btn-group">
+			{{ form_widget(filter.search, { 'icon': 'fa-search', 'label': 'action.search', 'attr': {'class': 'btn btn-primary'} }) }}
+			{{ form_widget(filter.clear, { 'icon': 'fa-eraser', 'label': 'action.clear', 'attr': {'class': 'btn btn-warning'} }) }}
+		</div>
+	</div>
+	<div class="col-xs-12 padding-5 {{ entryFilter.benchmarkQuery ? "hidden" : "" }}">
+		{{ form_widget(filter.saveQuery, { 'icon': 'fa-save', 'label': 'action.saveQuery', 'attr': {'class': 'btn btn-success'} }) }}
+	</div>
+	
+{{ form_end(filter) }}
