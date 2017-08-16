@@ -10,6 +10,6 @@
 {% endif %}
 
 <td class="text-center {{ color }}">
-	{{ compared.price|number_format(2, '.', ' ') }}
+	{{ compared.price|number_format(2, '.', ' ') }} {# &nbsp; #}
 	<span class="fa fa-{{ icon }}"></span>
 </td>

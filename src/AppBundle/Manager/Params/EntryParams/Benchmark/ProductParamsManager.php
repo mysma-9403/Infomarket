@@ -91,13 +91,12 @@ class ProductParamsManager extends EntryParamsManager {
 			$field = $fields[$i];
 			
 			$valueField = $field['valueField'];
+			$value = $entry->offsetGet($valueField);
 			
 			switch($field['fieldType']) {
 				case BenchmarkField::DECIMAL_FIELD_TYPE:
 				case BenchmarkField::INTEGER_FIELD_TYPE:
 				case BenchmarkField::BOOLEAN_FIELD_TYPE:
-					$value = $entry->offsetGet($valueField);
-					
 					$noteType = $fields[$i]['noteType'];
 					$noteWeight = $fields[$i]['noteWeight'];
 					if($value && $noteType != BenchmarkField::NONE_NOTE_TYPE) {

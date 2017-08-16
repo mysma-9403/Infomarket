@@ -61,6 +61,13 @@ class BenchmarkFieldEditorType extends BaseEntityEditorType
 				'required' => false
 		))
 		
+		->add('featuredField', CheckboxType::class, array(
+				'required' => false
+		))
+		->add('featuredFilter', CheckboxType::class, array(
+				'required' => false
+		))
+		
 		->add('decimalPlaces', IntegerType::class, array(
 				'required' => false,
 				'attr' => ['placeholder' => 'label.benchmarkField.decimalPlaces']

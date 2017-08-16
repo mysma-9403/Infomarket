@@ -1,49 +1,6 @@
-{% block itemContent %}
-	<h2 class="lowered-25">{{ entry.name }} {{ entry.subname }}</h2>
-	
-	<div class="row padding-5">
-		<div class="col-md-6 col-lg-4 padding-5">
-			<div class="rect">
-	    		{% if entry.image %}
-					{% include 'common/image/image_entry.html.twig' with { 'entry': entry } %}
-				{% endif %}
-			</div>
-		</div>
-		<div class="col-md-6 col-lg-8 padding-5">
-			<table class="table table-striped vert-align">
-				<tr>
-					<th class="text-center">{{ 'label.segment'|trans }}</th>
-					<th class="text-center">{{ 'label.benchmark.numOfProducts'|trans }}</th>
-				</tr>
-				
-				{% for segment in segments %}
-					<tr>
-						<th class="text-right">{{ segment.name }}</th>
-						<td class="text-center">{{ segment.numOfProducts }}</td>
-					</tr>
-				{% endfor %}
-				
-				<tr>
-					<th class="text-right">{{ 'label.benchmark.total'|trans }}</th>
-					<th class="text-center">{{ numOfProducts }}</th>
-				</tr>
-			</table>
-			
-			<a class="btn btn-primary" href="{{ path(basePath ~ 'product_show', { id: bestProduct }) }}">
-				<i class="fa fa-eye"></i> {{ 'label.benchmark.category.showBestProduct'|trans }}
-			 </a>
-			<a class="btn btn-primary" href="{{ path(basePath ~ 'product_show', { id: worstProduct }) }}">
-				<i class="fa fa-eye"></i> {{ 'label.benchmark.category.showWorstProduct'|trans }}
-			</a>
-		</div>
-	</div>
-{% endblock %}
-
 {% block tableContent %}
 	{% if numberFields|length > 0 %}
-		<div class="row lowered-25"></div>
-		
-		<div class="row">
+		<div class="row no-padding">
 			<table class="table table-striped vert-align">
 				{% include 'benchmark/category/components/number_table_header.html.twig' %}
 				
@@ -55,11 +12,11 @@
 				{% endfor %}
 			</table>
 		</div>
+		
+		<div class="row lowered-25"></div>
 	{% endif %}
 	
 	{% if enumFields|length > 0 %}
-		<div class="row lowered-25"></div>
-		
 		<div class="row">
 			<table class="table table-striped vert-align">
 				{% include 'benchmark/category/components/enum_table_header.html.twig' %}
@@ -69,11 +26,11 @@
 				{% endfor %}
 			</table>
 		</div>
+		
+		<div class="row lowered-25"></div>
 	{% endif %}
 	
 	{% if boolFields|length > 0 %}
-		<div class="row lowered-25"></div>
-		
 		<div class="row">
 			<table class="table table-striped vert-align">
 				{% include 'benchmark/category/components/bool_table_header.html.twig' %}
@@ -82,6 +39,8 @@
 				{% endfor %}
 			</table>
 		</div>
+		
+		<div class="row lowered-25"></div>
 	{% endif %}
 {% endblock %}
 

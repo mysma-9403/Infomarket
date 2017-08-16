@@ -4,7 +4,7 @@
 	{% for compared in entries|slice(0,half) %}
 		{% include 'benchmark/product/components/compare/table_price.html.twig' %}
 	{% endfor %}
-	<td class="selected text-center">{{ entry.price|number_format(2, '.', ' ') }}</td>
+	<td class="selected text-center">{{ entry.price|number_format(2, '.', ' ') }}</td> {# &nbsp; #}
 	{% for compared in entries|slice(half) %}
 		{% include 'benchmark/product/components/compare/table_price.html.twig' %}
 	{% endfor %}

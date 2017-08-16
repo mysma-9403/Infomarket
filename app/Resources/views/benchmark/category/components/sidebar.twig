@@ -1,13 +1,73 @@
-{% block header %}
-<div class="col-xs-12">
-	<h3>{{ category.name }} {{ category.subname }}</h3>
+<div class="row">
+	{% block header %}
+		<div class="col-xs-8">
+			<h3>{{ category.name }} {{ category.subname }}</h3>
+		</div>
+		
+		<div class="col-xs-4 padding-5">
+			<a class="btn btn-success toggle" data-parent="#categoryAccordion" href="#categoryFilter" 
+				data-toggle="collapse" title="{{ 'action.showCategoryFilter'|trans }}">
+				<i class="fa fa-star"></i>
+			</a>
+		</div>
+	{% endblock %}
+	
+	<div class="panel-group" id="categoryAccordion">
+		<div id="categoryFilter" class="accordion-body collapse">
+			{% block categoryFilterForm %}
+				{% include 'benchmark/common/form/category_filter.twig' %}
+			{% endblock %}
+			
+			{% block subcategoryFilterForm %}
+				{% include 'benchmark/common/form/subcategory_filter.twig' %}
+			{% endblock %}
+		</div>
+	</div>
+	
+	{% block image %}
+		<div class="rect bkg-white">
+			{% if entry.image %}
+				{% include 'common/image/image_entry.html.twig' with { entry: entry, tile: true } %}
+			{% endif %}
+		</div>
+	{% endblock %}
+	
+	{% block subcategoryTitle %}
+		<div class="col-xs-12 padding-5">
+			<h3>{{ entry.name }} {{ entry.subname }}</h3>
+		</div>
+	{% endblock %}
+	
+	{% if segments is defined %}
+		{% block segments %}
+		<div class="col-xs-12 padding-5">
+			<table class="table table-striped vert-align">
+				<tr>
+					<th class="text-center">{{ 'label.segment'|trans }}</th>
+					<th class="text-center">{{ 'label.benchmark.numOfProducts'|trans }}</th>
+				</tr>
+				
+				{% for segment in segments %}
+					<tr>
+						<th class="text-right">{{ segment.name }}</th>
+						<th class="text-center">{{ segment.numOfProducts }}</th>
+					</tr>
+				{% endfor %}
+				
+				<tr>
+					<th class="text-right">{{ 'label.benchmark.total'|trans }}</th>
+					<th class="text-center">{{ numOfProducts }}</th>
+				</tr>
+			</table>
+			
+			{% include 'benchmark/common/action/action_button.twig' with 
+				{ mainPath: 'product', routeParams : { id: bestProduct}, 
+					label: 'label.benchmark.category.showBestProduct', icon: 'fa-thumbs-o-up' } %}
+	
+			{% include 'benchmark/common/action/action_button.twig' with 
+				{ mainPath: 'product', routeParams : { id: worstProduct}, 
+					label: 'label.benchmark.category.showWorstProduct', icon: 'fa-thumbs-o-down' } %}
+		</div>
+		{% endblock %}
+	{% endif %}
 </div>
-{% endblock %}
-
-{% block categoryFilterForm %}
-	{% include 'benchmark/common/form/category_filter.twig' %}
-{% endblock %}
-
-{% block subcategoryFilterForm %}
-	{% include 'benchmark/common/form/subcategory_filter.twig' %}
-{% endblock %}

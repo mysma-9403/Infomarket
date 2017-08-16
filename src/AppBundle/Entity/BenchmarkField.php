@@ -436,4 +436,62 @@ class BenchmarkField extends Audit {
     {
         return $this->compareWeight;
     }
+    /**
+     * @var boolean
+     */
+    private $featuredField;
+
+    /**
+     * @var boolean
+     */
+    private $featuredFilter;
+
+
+    /**
+     * Set featuredField
+     *
+     * @param boolean $featuredField
+     *
+     * @return BenchmarkField
+     */
+    public function setFeaturedField($featuredField)
+    {
+        $this->featuredField = $featuredField;
+
+        return $this;
+    }
+
+    /**
+     * Get featuredField
+     *
+     * @return boolean
+     */
+    public function getFeaturedField()
+    {
+        return $this->featuredField;
+    }
+
+    /**
+     * Set featuredFilter
+     *
+     * @param boolean $featuredFilter
+     *
+     * @return BenchmarkField
+     */
+    public function setFeaturedFilter($featuredFilter)
+    {
+        $this->featuredFilter = $featuredFilter;
+
+        return $this;
+    }
+
+    /**
+     * Get featuredFilter
+     *
+     * @return boolean
+     */
+    public function getFeaturedFilter()
+    {
+        return $this->featuredFilter;
+    }
 }

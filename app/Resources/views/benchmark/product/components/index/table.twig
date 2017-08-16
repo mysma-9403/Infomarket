@@ -42,7 +42,7 @@
 	<tr>
 		<th class="text-right">{{ 'label.benchmark.product.price'|trans }}</th>
 		{% for entry in entries %}
-			<td class="text-center">{{ entry.price|number_format(2, '.', ' ') }}</td>
+			<td class="text-center">{{ entry.price|number_format(2, '.', ' ') }}</td> {# &nbsp; #}
 		{% endfor %}
 		<td></td>
 	</tr>
@@ -63,7 +63,7 @@
 						{% if field.fieldType == constant('AppBundle\\Entity\\BenchmarkField::BOOLEAN_FIELD_TYPE') %}
 					        {{ entry[key] ? '+' : '-' }}
 						{% elseif field.fieldType == constant('AppBundle\\Entity\\BenchmarkField::DECIMAL_FIELD_TYPE') %}
-							{{ entry[key] ? entry[key]|number_format(field.decimalPlaces, '.', ' ') : '' }}
+							{{ entry[key] ? entry[key]|number_format(field.decimalPlaces, '.', ' ') : '' }} {# &nbsp; #}
 				        {% else %}
 					        {{ entry[key] }}
 						{% endif%}

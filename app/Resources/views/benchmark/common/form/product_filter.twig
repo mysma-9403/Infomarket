@@ -22,30 +22,35 @@
 		{{ form_row(filter.maxPrice, { label: 'label.benchmark.product.maxPrice' }) }}
 	</div>
 	
+	
 	{% for field in entryFilter.filterFields %}
-		{% if field.fieldType == constant('AppBundle\\Entity\\BenchmarkField::DECIMAL_FIELD_TYPE') 
-			or field.fieldType == constant('AppBundle\\Entity\\BenchmarkField::INTEGER_FIELD_TYPE') %}
-			<div class="col-xs-6">
-				{{ form_row(filter[field.filterName|cleanName ~ '_min'], { label: field.filterName ~ ' (min)' }) }}
-			</div>
-			<div class="col-xs-6">
-				{{ form_row(filter[field.filterName|cleanName ~ '_max'], { label: field.filterName ~ ' (max)' }) }}
-			</div>
-		{% else %}
-			<div class="col-xs-12">
-				{{ form_row(filter[field.filterName|cleanName], { label: field.filterName }) }}
-			</div>
+		{% if field.featuredFilter %}
+			{% include 'benchmark/common/form/components/filter_field.twig' %}
 		{% endif %}
 	{% endfor %}
 	
-	<div class="col-xs-12 padding-5">
-		<div class="btn-group">
-			{{ form_widget(filter.search, { 'icon': 'fa-search', 'label': 'action.search', 'attr': {'class': 'btn btn-primary'} }) }}
-			{{ form_widget(filter.clear, { 'icon': 'fa-eraser', 'label': 'action.clear', 'attr': {'class': 'btn btn-warning'} }) }}
+	<div class="panel-group" id="extendedAccodrion">
+		<div id="extendedFilter" class="accordion-body collapse">
+			{% for field in entryFilter.filterFields %}
+				{% if not field.featuredFilter %}
+					{% include 'benchmark/common/form/components/filter_field.twig' %}
+				{% endif %}
+			{% endfor %}
 		</div>
 	</div>
-	<div class="col-xs-12 padding-5 {{ entryFilter.benchmarkQuery ? "hidden" : "" }}">
-		{{ form_widget(filter.saveQuery, { 'icon': 'fa-save', 'label': 'action.saveQuery', 'attr': {'class': 'btn btn-success'} }) }}
-	</div>
 	
+	<div class="col-xs-10 padding-5">
+		<div class="btn-group">
+			{{ form_widget(filter.search, { 'icon': 'fa-search', 'label': ' ', 
+				'attr': { class: 'btn btn-primary', 'data-toggle': 'tooltip', title: 'action.search'} }) }}
+			{{ form_widget(filter.clear, { 'icon': 'fa-eraser', 'label': ' ', 
+				'attr': { class: 'btn btn-warning', 'data-toggle': 'tooltip', title: 'action.clear'} }) }}
+		</div>
+	</div>
+	<div class="col-xs-2 padding-5 {{ entryFilter.benchmarkQuery ? "hidden" : "" }}">
+		{{ form_widget(filter.saveQuery, { 'icon': 'fa-save', 'label': ' ', 
+			'attr': { class: 'btn btn-success', 'data-toggle': 'tooltip', title: 'action.saveQuery' } }) }}
+	</div>
 {{ form_end(filter) }}
+
+<script type="text/javascript">$("#extendedFilter").collapse("hide");</script>

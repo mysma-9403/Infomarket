@@ -721,6 +721,11 @@
                 <source>label.benchmarkField.showField</source>
                 <target>Pokaż pole</target>
             </trans-unit>
+            <trans-unit id="label.benchmarkField.featuredField">
+                <source>label.benchmarkField.featuredField</source>
+                <target>Wyróżnione pole</target>
+            </trans-unit>
+            
             <trans-unit id="label.benchmarkField.notShowField">
                 <source>label.benchmarkField.notShowField</source>
                 <target>Nie pokazuj pola</target>
@@ -741,6 +746,10 @@
             <trans-unit id="label.benchmarkField.showFilter">
                 <source>label.benchmarkField.showFilter</source>
                 <target>Pokaż filtr</target>
+            </trans-unit>
+            <trans-unit id="label.benchmarkField.featuredFilter">
+                <source>label.benchmarkField.featuredFilter</source>
+                <target>Wyróżniony filtr</target>
             </trans-unit>
             
             <trans-unit id="label.benchmarkField.decimalPlaces">
@@ -2337,6 +2346,18 @@
             <trans-unit id="action.image.remove">
                 <source>action.image.remove</source>
                 <target>Usuń zdjęcie</target>
+            </trans-unit>
+            
+            
+            
+            <trans-unit id="action.showCategoryFilter">
+                <source>action.showCategoryFilter</source>
+                <target>Zmień kategorię</target>
+            </trans-unit>
+            
+            <trans-unit id="action.showExtendedFilter">
+                <source>action.showextendedFilter</source>
+                <target>Pokaż zaawansowane</target>
             </trans-unit>
             
             

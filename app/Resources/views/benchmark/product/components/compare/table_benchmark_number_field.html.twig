@@ -20,9 +20,12 @@
 		{% set color = 'text-primary' %}
 		{% set icon = 'minus-circle' %}
 	{% endif %}
+{% else %}
+	{% set color = '' %}
+	{% set icon = '' %}
 {% endif %}
 
 <span class="{{ color }}">
-	{{ compared ? compared|number_format(field.decimalPlaces, '.', ' ') : '' }} 
+	{{ compared ? compared|number_format(field.decimalPlaces, '.', ' ') : '' }} {# &nbsp; #} 
 	<span class="fa fa-{{ icon }}"></span>
 </span>
