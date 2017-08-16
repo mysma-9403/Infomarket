@@ -15,6 +15,7 @@ use AppBundle\Repository\Benchmark\CategoryRepository;
 use AppBundle\Repository\Benchmark\ProductRepository;
 use AppBundle\Repository\Benchmark\SegmentRepository;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
 
 class CategoryParamsManager extends EntryParamsManager {
 	
@@ -26,15 +27,19 @@ class CategoryParamsManager extends EntryParamsManager {
 	
 	protected $benchmarkFieldsInitializer;
 	
+	protected $tokenStorage;
+	
 	public function __construct(EntityManager $em, FilterManager $fm, $doctrine, 
 			BenchmarkChartLogic $chartLogic,
 			BenchmarkFieldsProvider $benchmarkFieldsProvider,
-			BenchmarkFieldsInitializer $benchmarkFieldsInitializer) {
+			BenchmarkFieldsInitializer $benchmarkFieldsInitializer,
+			TokenStorage $tokenStorage) {
 		parent::__construct($em, $fm, $doctrine);
 		
 		$this->chartLogic = $chartLogic;
 		$this->benchmarkFieldsProvider = $benchmarkFieldsProvider;
 		$this->benchmarkFieldsInitializer = $benchmarkFieldsInitializer;
+		$this->tokenStorage = $tokenStorage;
 		
 		//TODO refactor -> make Dependency Injection!!
 		$emm = $this->doctrine->getManager();
@@ -42,17 +47,34 @@ class CategoryParamsManager extends EntryParamsManager {
 	}
 	
 	public function getShowParams(Request $request, array $params, $id) {
+		$id = $this->getCategoryId($request, $id);
+		
+    	$params = parent::getShowParams($request, $params, $id);
+    	
+    	$viewParams = $params['viewParams'];
+    	/** @var Category $entry */
+    	$entry = $viewParams['entry'];
+    	
+    	if($entry->getPreleaf()) {
+    		return $this->getShowCategoryParams($request, $params, $id);
+    	} else {
+    		return $this->getShowSubcategoryParams($request, $params, $id);
+    	}
+	}
+	
+	protected function getCategoryId(Request $request, $id) {
 		if($id <= 0) {
 			$id = $request->get('category', 0);
-			
+				
 			if($id <= 0) {
 				$id = $request->get('subcategory', 0);
-				
+		
 				if($id <= 0) {
 					$em = $this->doctrine->getManager();
 					$repository = new CategoryRepository($em, $em->getClassMetadata(Category::class));
-				
-					$items = $repository->findFilterItems();
+					
+					$userId = $this->tokenStorage->getToken()->getUser()->getId();
+					$items = $repository->findFilterItemsByUser($userId);
 					if(count($items) > 0) {
 						$id = $items[key($items)];
 					}
@@ -60,29 +82,45 @@ class CategoryParamsManager extends EntryParamsManager {
 			}
 		}
 		
-    	$params = parent::getShowParams($request, $params, $id);
-    	
-    	$em = $this->doctrine->getManager();
-    	
-    	
-    	$viewParams = $params['viewParams'];
-    	
-    	$segmentRepository = new SegmentRepository($em, $em->getClassMetadata(Segment::class));
-    	$viewParams['segments'] = $segmentRepository->findItemsByCategory($id);
-    	
-    	$productRepository = new ProductRepository($em, $em->getClassMetadata(Product::class));
-    	$viewParams['numOfProducts'] = $productRepository->findItemsCount($id, 'id');
-    	
-    	
-    	$viewParams = $this->initBenchmarkFields($viewParams, $id);
-    	$viewParams = $this->initCharts($viewParams);
-    	
-    	$viewParams['bestProduct'] = $this->getBestProduct($id);
-    	$viewParams['worstProduct'] = $this->getWorstProduct($id);
-    	
-    	$params['viewParams'] = $viewParams;
-    	
-    	return $params;
+		return $id;
+	}
+	
+	protected function getShowCategoryParams(Request $request, array $params, $id) {
+		$viewParams = $params['viewParams'];
+		
+		$em = $this->doctrine->getManager();
+		$repository = new CategoryRepository($em, $em->getClassMetadata(Category::class));
+		
+		$userId = $this->tokenStorage->getToken()->getUser()->getId();
+		$subcategories = $repository->findFilterItemsByUserAndCategory($userId, $id);
+		$viewParams['subcategories'] = $repository->findBy(['id' => $subcategories]);
+		
+		$params['viewParams'] = $viewParams;
+		
+		return $params;
+	}
+	
+	protected function getShowSubcategoryParams(Request $request, array $params, $id) {
+		$viewParams = $params['viewParams'];
+		
+		$em = $this->doctrine->getManager();
+		 
+		$segmentRepository = new SegmentRepository($em, $em->getClassMetadata(Segment::class));
+		$viewParams['segments'] = $segmentRepository->findItemsByCategory($id);
+		 
+		$productRepository = new ProductRepository($em, $em->getClassMetadata(Product::class));
+		$viewParams['numOfProducts'] = $productRepository->findItemsCount($id, 'id');
+		 
+		 
+		$viewParams = $this->initBenchmarkFields($viewParams, $id);
+		$viewParams = $this->initCharts($viewParams);
+		 
+		$viewParams['bestProduct'] = $this->getBestProduct($id);
+		$viewParams['worstProduct'] = $this->getWorstProduct($id);
+		 
+		$params['viewParams'] = $viewParams;
+		 
+		return $params;
 	}
 	
 	protected function initBenchmarkFields($viewParams, $categoryId) {

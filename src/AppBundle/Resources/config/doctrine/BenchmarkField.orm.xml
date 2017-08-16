@@ -16,12 +16,14 @@
         <field name="fieldName" type="string" length="64" nullable="true"/>
         <field name="fieldNumber" type="integer" nullable="true"/>
         <field name="showField" type="boolean" nullable="false" default="0" />
+        <field name="featuredField" type="boolean" nullable="false" default="0" />
         
         <field name="decimalPlaces" type="integer" nullable="false" default="0" />
         
         <field name="filterName" type="string" length="64" nullable="true"/>
         <field name="filterNumber" type="integer" nullable="true"/>
         <field name="showFilter" type="boolean" nullable="false" default="0" />
+        <field name="featuredFilter" type="boolean" nullable="false" default="0" />
         
         <field name="noteType" type="integer" nullable="true"/>
         <field name="noteWeight" type="integer" nullable="true"/>

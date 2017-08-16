@@ -31,7 +31,7 @@
 	{ 'label': 'label.brand', 'value': entry.brand.name } %}
 	
 	{% include 'common/fields/text_field.html.twig' with 
-	{ 'label': 'label.product.price', 'value': entry.price|number_format(2, '.', ' ') } %}
+	{ 'label': 'label.product.price', 'value': entry.price|number_format(2, '.', ' ') } %} {# &nbsp; #}
 	
 	{% for field in productFilter.editorFields %}
 		{% set key = field.valueField %}
@@ -41,7 +41,7 @@
 				{ 'label': field.fieldName, 'value': entry[key] } %}
 		{% elseif field.fieldType == constant('AppBundle\\Entity\\BenchmarkField::DECIMAL_FIELD_TYPE') %}
 			{% include 'common/fields/text_field.html.twig' with 
-				{ 'label': field.fieldName, 'value': entry[key] ? entry[key]|number_format(field.decimalPlaces, '.', ' ') : '' } %}
+				{ 'label': field.fieldName, 'value': entry[key] ? entry[key]|number_format(field.decimalPlaces, '.', ' ') : '' } %} {# &nbsp; #}
 		{% else %}
 			{% include 'common/fields/text_field.html.twig' with 
 				{ 'label': field.fieldName, 'value': entry[key] } %}

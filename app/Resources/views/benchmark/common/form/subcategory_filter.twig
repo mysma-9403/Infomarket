@@ -1,0 +1,11 @@
+{% form_theme subcategoryFilter 'form/fields.html.twig' %}
+
+{{ form_start(subcategoryFilter) }}
+	<div class="col-xs-12">
+		{{ form_row(subcategoryFilter.subcategory) }}
+	</div>
+	<div class="col-xs-12">
+		{{ form_row(subcategoryFilter.submit, { 'icon': 'fa-check', 'label': 'action.submit', 
+			'attr': {'class': 'btn btn-success'} }) }}
+	</div>	
+{{ form_end(subcategoryFilter) }}

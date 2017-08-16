@@ -1,0 +1,13 @@
+{% set decimalPlaces = decimalPlaces|default(field.decimalPlaces) %}
+
+<tr>
+	<th class="text-right">{{ field.fieldName }}</td>
+	<td class="text-center">{{ field.min|number_format(decimalPlaces, '.', ' ') }}</th> {# &nbsp; #}
+	<td class="text-center">{{ field.max|number_format(decimalPlaces, '.', ' ') }}</td> {# &nbsp; #}
+	<td class="text-center">{{ field.mode|number_format(decimalPlaces, '.', ' ') }}</td> {# &nbsp; #}
+	<td class="text-center">{{ field.median|number_format(decimalPlaces, '.', ' ') }}</td> {# &nbsp; #}
+	<td class="text-center">{{ field.mean|number_format(decimalPlaces, '.', ' ') }}</td> {# &nbsp; #}
+	<td class="text-center">
+		{% include 'benchmark/category/components/chart_button.html.twig' %}
+	</td>
+</tr>

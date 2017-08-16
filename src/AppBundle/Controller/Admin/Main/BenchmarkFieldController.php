@@ -111,8 +111,8 @@ class BenchmarkFieldController extends BaseEntityController {
 		
 		$this->addEntityChoicesFormOption($options, Category::class, 'category');
 		
-		$this->addFactoryChoicesFormOption($options, BenchmarkFieldFieldTypesFactory::class, 'betterThanType');
-		$this->addFactoryChoicesFormOption($options, BenchmarkFieldBetterThanTypesFactory::class, 'fieldType');
+		$this->addFactoryChoicesFormOption($options, BenchmarkFieldFieldTypesFactory::class, 'fieldType');
+		$this->addFactoryChoicesFormOption($options, BenchmarkFieldBetterThanTypesFactory::class, 'betterThanType');
 		$this->addFactoryChoicesFormOption($options, BenchmarkFieldNoteTypesFactory::class, 'noteType');
 		
 		return $options;

@@ -1,0 +1,103 @@
+{% set restWidth = 90 - entries|length * 15 %}
+
+<table class="table table-striped vert-align no-padding">
+	<tr>
+		<th width="10%" class="text-right">{{ 'label.category'|trans }}</th>
+		{% for entry in entries %}
+			<td width="15%" class="text-center">
+				{% if filter.categories.vars.choices|length > 0 %}
+					{{ entry.categoryName }}&nbsp;{{ entry.categorySubname }}
+				{% endif %}
+			</td>
+		{% endfor %}
+		<td width="{{ restWidth }}%"></td>
+	</tr>
+	<tr>
+		<th></th>
+		{% for entry in entries %}
+			<td>
+				<div class="rect">
+					<div class="div-center">
+						<img class="img-responsive" alt="{{ entry.name }}" src="{{ asset(entry.image) }}" />
+					</div>
+				</div>
+			</td>
+		{% endfor %}
+		<td></td>
+	</tr>
+	<tr>
+		<th class="text-right">{{ 'label.brand'|trans }}</th>
+		{% for entry in entries %}
+			<td class="text-center">{{ entry.brandName }}</td>
+		{% endfor %}
+		<td></td>
+	</tr>
+	<tr>
+		<th class="text-right">{{ 'label.benchmark.product.name'|trans }}</th>
+		{% for entry in entries %}
+			<td class="text-center">{{ entry.name }}</td>
+		{% endfor %}
+		<td></td>
+	</tr>
+	<tr>
+		<th class="text-right">{{ 'label.benchmark.product.price'|trans }}</th>
+		{% for entry in entries %}
+			<td class="text-center">{{ entry.price|number_format(2, '.', ' ') }}</td> {# &nbsp; #}
+		{% endfor %}
+		<td></td>
+	</tr>
+	
+	{% for field in entryFilter.showFields %}
+		{% set key = field.valueField %}
+		{% set show = false %}
+		{% for entry in entries if show == false %}
+			{% if entry[key] %}
+				{% set show = true %}
+			{% endif %}
+		{% endfor %}
+		{% if show %}
+			<tr>
+				<th class="text-right">{{ field.fieldName }}</th>
+				{% for entry in entries %}
+					<td class="text-center">
+						{% if field.fieldType == constant('AppBundle\\Entity\\BenchmarkField::BOOLEAN_FIELD_TYPE') %}
+					        {{ entry[key] ? '+' : '-' }}
+						{% elseif field.fieldType == constant('AppBundle\\Entity\\BenchmarkField::DECIMAL_FIELD_TYPE') %}
+							{{ entry[key] ? entry[key]|number_format(field.decimalPlaces, '.', ' ') : '' }} {# &nbsp; #}
+				        {% else %}
+					        {{ entry[key] }}
+						{% endif%}
+					</td>
+				{% endfor %}
+				<td></td>
+			</tr>		
+		{% endif %}					
+	{% endfor %}
+	
+	{% if not entryFilter.benchmarkQuery %}
+		<tr>
+			<th class="text-right">{{ 'label.actions'|trans }}</th>
+			{% for entry in entries %}
+				<td class="text-center">
+					<a class="btn btn-primary" href="{{ path(basePath ~ mainPath ~ '_show', { id: entry.id }) }}" data-toggle="tooltip" title="{{ 'action.show'|trans }}">
+						<span class="fa fa-eye"></span>
+					</a>
+					<a class="btn btn-warning" href="{{ path(basePath ~ mainPath ~ '_compare', { id: entry.id }) }}" data-toggle="tooltip" title="{{ 'action.compare'|trans }}">
+						<span class="fa fa-balance-scale"></span>
+					</a>
+					{% if entry.benchmarkMessage %}
+						{% set messagePath = basePath ~ 'benchmark_message_show' %}
+						{% set messageParams = { id: entry.benchmarkMessage.id } %}
+					{% else %}
+						{% set messagePath = basePath ~ 'benchmark_message_new' %}
+						{% set messageParams = { product: entry.id } %}
+					{% endif %}
+					<a class="btn btn-danger" href="{{ path(messagePath, messageParams) }}" data-toggle="tooltip" title="{{ 'action.reportError'|trans }}">
+						<span class="fa fa-exclamation-circle"></span>
+					</a>
+				</td>
+			{% endfor %}
+			<td></td>
+		</tr>
+	{% endif %}
+</table>

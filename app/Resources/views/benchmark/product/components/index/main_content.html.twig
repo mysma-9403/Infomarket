@@ -1,0 +1,23 @@
+<div class="row">
+	{% block table %}
+		{% include 'benchmark/product/components/index/table.twig' %}
+	{% endblock %}
+</div>
+	
+<div class="row">
+	{% block tablePaginator %}
+		<div class="col-xs-12 padding-5">
+			{{ knp_pagination_render(entries) }}
+		</div>
+	{% endblock %}
+				
+	{% block actions %}
+		<div class="col-xs-12 padding-5">
+			{% include 'benchmark/common/action/export_button.twig' with { mimeType: 'image', extPath: '_export_to_image'} %}
+			{% include 'benchmark/common/action/export_button.twig' with { mimeType: 'pdf', extPath: '_export_to_pdf' } %}
+			{% include 'benchmark/common/action/export_button.twig' with { mimeType: 'csv', extPath: '_export_to_csv' } %}
+			{% include 'benchmark/common/action/export_button.twig' with { mimeType: 'excel', extPath: '_export_to_excel' } %}
+			{% include 'benchmark/common/action/export_button.twig' with { mimeType: 'html', extPath: '_export_to_html' } %}
+		</div>	
+	{% endblock %}
+</div>

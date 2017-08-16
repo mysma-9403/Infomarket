@@ -1,0 +1,73 @@
+{% block tableContent %}
+	{% if numberFields|length > 0 %}
+		<div class="row no-padding">
+			<table class="table table-striped vert-align">
+				{% include 'benchmark/category/components/number_table_header.html.twig' %}
+				
+				{% include 'benchmark/category/components/number_table_row.html.twig' with 
+					{ field: priceField, decimalPlaces: 2 } %}
+					
+				{% for field in numberFields %}
+					{% include 'benchmark/category/components/number_table_row.html.twig' %}
+				{% endfor %}
+			</table>
+		</div>
+		
+		<div class="row lowered-25"></div>
+	{% endif %}
+	
+	{% if enumFields|length > 0 %}
+		<div class="row">
+			<table class="table table-striped vert-align">
+				{% include 'benchmark/category/components/enum_table_header.html.twig' %}
+				
+				{% for field in enumFields %}
+					{% include 'benchmark/category/components/enum_table_row.html.twig' %}
+				{% endfor %}
+			</table>
+		</div>
+		
+		<div class="row lowered-25"></div>
+	{% endif %}
+	
+	{% if boolFields|length > 0 %}
+		<div class="row">
+			<table class="table table-striped vert-align">
+				{% include 'benchmark/category/components/bool_table_header.html.twig' %}
+				{% for field in boolFields %}
+					{% include 'benchmark/category/components/bool_table_row.html.twig' %}
+				{% endfor %}
+			</table>
+		</div>
+		
+		<div class="row lowered-25"></div>
+	{% endif %}
+{% endblock %}
+
+{% block boolCharts %}
+	{% for field in boolFields %}
+		{% if field.chart %}
+			{% include 'benchmark/category/components/field_chart.html.twig' %}
+		{% endif %}
+	{% endfor %}
+{% endblock %}
+
+{% block numberCharts %}
+	{% for field in numberFields %}
+		{% if field.chart %}
+			{% include 'benchmark/category/components/field_chart.html.twig' %}
+		{% endif %}
+	{% endfor %}
+	
+	{% if priceField.chart %}
+		{% include 'benchmark/category/components/field_chart.html.twig' with { field: priceField } %}
+	{% endif %}
+{% endblock %}
+
+{% block enumCharts %}
+	{% for field in enumFields %}
+		{% if field.chart %}
+			{% include 'benchmark/category/components/field_chart.html.twig' %}
+		{% endif %}
+	{% endfor %}
+{% endblock %}

@@ -1,0 +1,95 @@
+//Navbar
+.navbar {
+	padding-bottom: 0px !important;
+    margin-bottom: 0px !important;
+	
+	color: @gray-lighter;
+    background-color: @brand-primary;
+}
+
+
+
+//Brand
+.navbar a.navbar-brand {
+	margin-left: 15px;
+	background-color: @white;
+}
+
+.navbar a.navbar-brand:hover,
+.navbar a.navbar-brand:focus {
+	background-color: @gray-light;
+}
+
+.navbar a.navbar-brand > img.brand-image {
+	margin-top: -24px;
+	
+	height: 60px;
+	width: auto;
+}
+
+
+
+//Greet
+.navbar .navbar-greet p {
+	margin: 0px;
+	
+    padding-top: 10px;
+	padding-left: 15px;
+	padding-bottom: 0px;
+}
+
+.navbar .navbar-greet p > a {
+    color: @white; 
+}
+
+.navbar .navbar-greet p > a:hover,
+.navbar .navbar-greet p > a:focus {
+    color: @gray-light;
+}
+
+
+
+//Links	
+.navbar ul.navbar-nav > li > a {
+	margin: 0px;
+	
+	padding-top: 25px;
+	padding-bottom: 0px;
+	
+	color: @white;
+	background-color: @brand-primary;
+}
+
+.navbar ul.navbar-nav > li.active > a {
+	color: @red;
+}
+
+.navbar ul.navbar-nav > li > a:hover,
+.navbar ul.navbar-nav > li > a:focus {
+	color: @gray-light;
+}
+
+//Badges
+.navbar ul.navbar-nav > li > a > .badge {
+	margin: 0px;
+	margin-top: -3px;
+	
+	padding-top: 1px;
+	padding-bottom: 1px;
+	
+	font-size: 9px;
+	
+	color: @brand-primary;
+	background-color: @white; 
+}
+
+.navbar ul.navbar-nav > li.active > a > .badge {
+	color: @white;
+	background-color: @red; 
+}
+
+.navbar ul.navbar-nav > li > a:hover > .badge,
+.navbar ul.navbar-nav > li > a:focus > .badge {
+	color: @brand-primary;
+	background-color: @gray-light;
+}

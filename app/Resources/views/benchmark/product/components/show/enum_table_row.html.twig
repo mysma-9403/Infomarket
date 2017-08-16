@@ -1,0 +1,9 @@
+<tr>
+	<th class="text-right">{{ field.fieldName }}</th>
+	
+	<td class="text-center">{{ value }}</td>
+	<td class="text-center text-success">-</td>
+	<td class="text-center">{{ field.note ? field.note|number_format(1, '.', ' ') : '-' }}</td> {# &nbsp; #}
+	
+	<td></td>
+</tr>
