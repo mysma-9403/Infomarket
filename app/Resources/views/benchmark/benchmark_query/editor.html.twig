@@ -3,7 +3,7 @@
 {% set mainPath = 'benchmark_query' %}
 {% set title = 'title.benchmarkQueries'|trans %}
 
-{%  block mainFields2 %}
+{%  block flagFields %}
 	{{ form_row(form.name, { 'label': 'label.name' }) }}	
     <div class="hidden">{{ form_row(form.content, { 'label': 'label.content' }) }}</div>
 	<div class="{{ entry.id ? "hidden" : "" }}">{{ form_row(form.archived, { 'label': 'label.benchmarkQuery.archived' }) }}</div>

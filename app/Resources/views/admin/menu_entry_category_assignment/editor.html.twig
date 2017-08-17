@@ -3,7 +3,7 @@
 {% set mainPath = 'menu_entry_category_assignment' %}
 {% set title = 'title.menuEntryCategoryAssignments'|trans %}
 
-{% block moreFields2 %}
+{% block simpleHeaderFields %}
 	{{ form_row(form.menuEntry, { 'label': 'label.menuEntry' }) }}
 	{{ form_row(form.category, { 'label': 'label.category' }) }}
 {% endblock %}

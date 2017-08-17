@@ -4,10 +4,10 @@
 {% set title = 'title.brand_category_assignments'|trans %}
 {% set gender = '' %}
 
-{% block mainFields1 %}
+{% block headerFields %}
 {% endblock %}
 
-{% block moreFields2 %}
+{% block simpleHeaderFields %}
 	{{ form_row(form.brand, { 'label': 'label.brand' }) }}
 	{{ form_row(form.category, { 'label': 'label.category' }) }}
 	{{ form_row(form.orderNumber, { 'label': 'label.orderNumber' }) }}

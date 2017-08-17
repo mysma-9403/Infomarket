@@ -1,0 +1,18 @@
+{% set extPath = extPath|default('') %}
+
+{% set icon = icon|default('') %}
+
+{% set label = label|default(' ') %}
+{% set tooltip = tooltip|default(label) %}
+
+{% set type = type|default('btn-primary') %}
+
+{% set onclick = onclick|default('') %}
+
+{% set routeParams = routeParams|default({}) %}
+
+<a type="button" class="btn {{ type }}" data-target="tooltip" title="{{ tooltip|trans }}"
+	onclick="{{ onclick }}" href="{{ path(basePath ~ mainPath ~ extPath, routeParams) }}">
+	<i class="fa {{ icon }}"></i> 
+	{{ label|trans }}
+</a>

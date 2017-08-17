@@ -4,10 +4,10 @@
 {% set title = 'title.article_tag_assignments'|trans %}
 {% set gender = '' %}
 
-{% block mainFields1 %}
+{% block headerFields %}
 {% endblock %}
 
-{% block moreFields2 %}
+{% block simpleHeaderFields %}
 	{{ form_row(form.article, { 'label': 'label.article' }) }}
 	{{ form_row(form.tag, { 'label': 'label.tag' }) }}
 {% endblock %}

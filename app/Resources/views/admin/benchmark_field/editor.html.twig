@@ -4,11 +4,11 @@
 {% set title = 'title.benchmarkFields'|trans %}
 {% set gender = '' %}
 
-{% block mainFields1 %}
+{% block headerFields %}
 	{{ form_row(form.category, { 'label': 'label.category' }) }}
 {% endblock %}
 
-{% block moreFields2 %}
+{% block simpleHeaderFields %}
 	{{ form_row(form.fieldType, { 'label': 'label.benchmarkField.fieldType' }) }}
 	{{ form_row(form.valueNumber, { 'label': 'label.benchmarkField.valueNumber' }) }}
 	

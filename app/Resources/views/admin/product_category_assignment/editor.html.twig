@@ -3,10 +3,10 @@
 {% set mainPath = 'product_category_assignment' %}
 {% set title = 'title.product_category_assignments'|trans %}
 
-{% block mainFields1 %}
+{% block headerFields %}
 {% endblock %}
 
-{% block moreFields2 %}
+{% block simpleHeaderFields %}
 	{{ form_row(form.product, { 'label': 'label.product' }) }}
 	{{ form_row(form.segment, { 'label': 'label.segment' }) }}
 	{{ form_row(form.category, { 'label': 'label.category' }) }}

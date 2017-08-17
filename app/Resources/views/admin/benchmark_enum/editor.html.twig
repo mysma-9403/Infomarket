@@ -3,10 +3,10 @@
 {% set mainPath = 'benchmark_enum' %}
 {% set title = 'title.benchmarkEnums'|trans %}
 
-{% block mainFields1 %}
+{% block headerFields %}
 	{{ form_row(form.name, { 'label': 'label.benchmarkEnum.name' }) }}
 {% endblock %}
 
-{% block moreFields2 %}
+{% block simpleHeaderFields %}
 	{{ form_row(form.value, { 'label': 'label.benchmarkEnum.value' }) }}
 {% endblock %}

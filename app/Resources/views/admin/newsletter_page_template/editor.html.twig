@@ -4,7 +4,10 @@
 {% set mainPath = 'newsletter_page_template' %}
 {% set gender = 'm.' %}
 	
-{% block moreFields3 %}	
-	{{ form_row(form.style, { 'label': 'label.newsletterPageTemplate.style' }) }}
-    {{ form_row(form.content, { 'label': 'label.content' }) }}
+{% block contentFields %}
+	{% include 'admin/common/editor/form_field.twig' with 
+	{ field: form.style, label: 'label.newsletterPageTemplate.style' } %}
+	
+	{% include 'admin/common/editor/form_field.twig' with 
+	{ field: form.content, label: 'label.newsletterPageTemplate.content' } %}
 {% endblock %}

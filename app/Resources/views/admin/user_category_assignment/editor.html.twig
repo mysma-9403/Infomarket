@@ -4,10 +4,10 @@
 {% set title = 'title.user_category_assignments'|trans %}
 {% set gender = '' %}
 
-{% block mainFields1 %}
+{% block headerFields %}
 {% endblock %}
 
-{% block moreFields2 %}
+{% block simpleHeaderFields %}
 	{{ form_row(form.user, { 'label': 'label.user' }) }}
 	{{ form_row(form.category, { 'label': 'label.category' }) }}
 {% endblock %}

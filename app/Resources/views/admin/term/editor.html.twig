@@ -4,10 +4,18 @@
 {% set title = 'title.terms'|trans %}
 {% set gender = 'm.' %}
 
-{%  block moreFields3 %}
-    {{ form_row(form.content, { 'label': 'label.content' }) }}
+{% block contentFields %}
+	{% include 'admin/common/editor/form_field.twig' with 
+	{ field: form.infomarket, label: 'label.' ~ gender ~ 'infomarket', xs: 6, md: 3 } %}
+	{% include 'admin/common/editor/form_field.twig' with 
+	{ field: form.infoprodukt, label: 'label.' ~ gender ~ 'infoprodukt', xs: 6, md: 3 } %}
+	
+	<div class="row"></div>
+	
+	{% include 'admin/common/editor/form_field.twig' with 
+	{ field: form.content, label: 'label.content' } %}
 {%  endblock %}
 
 {% block assignments %}
-	{% include 'admin/term/assignments.html.twig' with { 'entry': entry } %}
+	{% include 'admin/term/assignments.html.twig' %}
 {% endblock %}

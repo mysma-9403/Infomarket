@@ -1,0 +1,21 @@
+<div class="vr-space-40"></div>
+	
+{% form_theme tagAssignmentsForm 'form/fields.html.twig' %}
+
+<div class="row">
+	{{ form_start(tagAssignmentsForm) }}
+		{% include 'admin/common/editor/form_field.twig' with 
+			{ field: tagAssignmentsForm.tags, label: 'label.article.assignTags' } %}
+		
+		{% include 'admin/common/editor/form_field.twig' with 
+			{ field: tagAssignmentsForm.tagsString, label: 'label.article.assignTags' } %}
+		
+		{{ form_errors(tagAssignmentsForm) }}
+		
+		<div class="col-xs-12">
+			{% include 'admin/common/editor/form_button.twig' with 
+				{ button: tagAssignmentsForm.submit, tooltip: 'action.save', 
+					icon: 'fa-save', type: 'btn-success' } %}
+		</div>
+	{{ form_end(tagAssignmentsForm) }}
+</div>

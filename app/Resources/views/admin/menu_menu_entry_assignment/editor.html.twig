@@ -4,10 +4,10 @@
 {% set title = 'title.menuMenuEntryAssignments'|trans %}
 {% set gender = '' %}
 
-{% block mainFields1 %}
+{% block headerFields %}
 {% endblock %}
 
-{% block moreFields2 %}
+{% block simpleHeaderFields %}
 	{{ form_row(form.menu, { 'label': 'label.menu' }) }}
 	{{ form_row(form.menuEntry, { 'label': 'label.menuEntry' }) }}
 	{{ form_row(form.orderNumber, { 'label': 'label.orderNumber' }) }}

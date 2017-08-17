@@ -4,7 +4,7 @@
 {% set title = 'title.newsletter_user_newsletter_group_assignments'|trans %}
 {% set gender = '' %}
 
-{% block moreFields2 %}
+{% block simpleHeaderFields %}
 	{{ form_row(form.newsletterUser, { 'label': 'label.newsletterUser' }) }}
 	{{ form_row(form.newsletterGroup, { 'label': 'label.newsletterGroup' }) }}
 {% endblock %}
