@@ -22,7 +22,7 @@
 {% endblock %}
 
 {% block simpleEntryFields %}
-	{% include 'common/fields/table/simple_link_field.html.twig' with 
+	{% include 'common/fields/table/readonly_link_field.html.twig' with 
 		{ type: 'menu', id: item.menuId, name: item.menuName } %}
 	{% include 'common/fields/table/simple_link_field.html.twig' with 
 		{ type: 'menu_entry', id: item.menuEntryId, name: item.menuEntryName } %}

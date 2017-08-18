@@ -4,10 +4,9 @@
 {% set title = 'title.user_category_assignments'|trans %}
 {% set gender = '' %}
 
-{% block headerFields %}
-{% endblock %}
-
-{% block simpleHeaderFields %}
-	{{ form_row(form.user, { 'label': 'label.user' }) }}
-	{{ form_row(form.category, { 'label': 'label.category' }) }}
-{% endblock %}
+{% block contentFields %}
+	{% include 'admin/common/editor/form_field.twig' with 
+	{ field: form.user, label: 'label.user' } %}
+	{% include 'admin/common/editor/form_field.twig' with 
+	{ field: form.category, label: 'label.category' } %}
+{%  endblock %}

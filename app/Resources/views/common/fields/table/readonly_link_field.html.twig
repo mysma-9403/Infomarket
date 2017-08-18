@@ -1,0 +1,5 @@
+{% set class = class|default('') %}
+
+<td class="{{ class }}">
+	{% include 'common/links/readonly_link.html.twig' with { type: type, value: { id: id, name: name } } %}
+</td>

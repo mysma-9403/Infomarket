@@ -1,13 +1,12 @@
-{% extends 'admin/base/editor.html.twig' %}
+{% extends 'admin/simple/editor.html.twig' %}
 
 {% set mainPath = 'article_tag_assignment' %}
 {% set title = 'title.article_tag_assignments'|trans %}
 {% set gender = '' %}
 
-{% block headerFields %}
-{% endblock %}
-
-{% block simpleHeaderFields %}
-	{{ form_row(form.article, { 'label': 'label.article' }) }}
-	{{ form_row(form.tag, { 'label': 'label.tag' }) }}
-{% endblock %}
+{% block contentFields %}
+	{% include 'admin/common/editor/form_field.twig' with 
+	{ field: form.article, label: 'label.article' } %}
+	{% include 'admin/common/editor/form_field.twig' with 
+	{ field: form.tag, label: 'label.tag' } %}
+{%  endblock %}

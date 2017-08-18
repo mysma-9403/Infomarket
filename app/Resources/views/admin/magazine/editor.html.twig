@@ -4,9 +4,16 @@
 {% set title = 'title.magazines'|trans %}
 {% set gender = 'm.' %}
 
+
 {% block moreJavascripts %}
 	{% include 'admin/common/editor/date_script.twig' %}
 {% endblock %}
+
+
+{% block headerFields %}
+	{% include 'admin/common/editor/form_field.twig' with 
+	{ field: form.name, label: 'label.name' } %}
+{%  endblock %}
 
 {% block contentFields %}
 	{% include 'admin/common/editor/image.twig' %}

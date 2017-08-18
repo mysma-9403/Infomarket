@@ -1,31 +1,54 @@
-{% extends 'admin/base/editor.html.twig' %}
+{% extends 'admin/simple/editor.html.twig' %}
 
 {% set mainPath = 'benchmark_field' %}
 {% set title = 'title.benchmarkFields'|trans %}
 {% set gender = '' %}
 
 {% block headerFields %}
-	{{ form_row(form.category, { 'label': 'label.category' }) }}
+	{% include 'admin/common/editor/form_field.twig' with 
+	{ field: form.category, label: 'label.category' } %}
 {% endblock %}
 
-{% block simpleHeaderFields %}
-	{{ form_row(form.fieldType, { 'label': 'label.benchmarkField.fieldType' }) }}
-	{{ form_row(form.valueNumber, { 'label': 'label.benchmarkField.valueNumber' }) }}
+{% block contentFields %}
+	{% include 'admin/common/editor/form_field.twig' with 
+	{ field: form.fieldType, label: 'label.benchmarkField.fieldType', sm: 6 } %}
+	{% include 'admin/common/editor/form_field.twig' with 
+	{ field: form.valueNumber, label: 'label.benchmarkField.valueNumber', sm: 6 } %}
 	
-	{{ form_row(form.fieldName, { 'label': 'label.benchmarkField.fieldName' }) }}
-	{{ form_row(form.fieldNumber, { 'label': 'label.benchmarkField.fieldNumber' }) }}
-	{{ form_row(form.showField, { 'label': 'label.benchmarkField.showField' }) }}
+	<div class="row"></div>
 	
-	{{ form_row(form.filterName, { 'label': 'label.benchmarkField.filterName' }) }}
-	{{ form_row(form.filterNumber, { 'label': 'label.benchmarkField.filterNumber' }) }}
-	{{ form_row(form.showFilter, { 'label': 'label.benchmarkField.showFilter' }) }}
+	{% include 'admin/common/editor/form_field.twig' with 
+	{ field: form.fieldName, label: 'label.benchmarkField.fieldName', sm: 6 } %}
+	{% include 'admin/common/editor/form_field.twig' with 
+	{ field: form.fieldNumber, label: 'label.benchmarkField.fieldNumber', sm: 6 } %}
+	{% include 'admin/common/editor/form_field.twig' with 
+	{ field: form.showField, label: 'label.benchmarkField.showField' } %}
 	
-	{{ form_row(form.decimalPlaces, { 'label': 'label.benchmarkField.decimalPlaces' }) }}
+	<div class="row"></div>
 	
-	{{ form_row(form.noteType, { 'label': 'label.benchmarkField.noteType' }) }}
-	{{ form_row(form.noteWeight, { 'label': 'label.benchmarkField.noteWeight' }) }}
+	{% include 'admin/common/editor/form_field.twig' with 
+	{ field: form.filterName, label: 'label.benchmarkField.filterName', sm: 6 } %}
+	{% include 'admin/common/editor/form_field.twig' with 
+	{ field: form.filterNumber, label: 'label.benchmarkField.filterNumber', sm: 6 } %}
+	{% include 'admin/common/editor/form_field.twig' with 
+	{ field: form.showFilter, label: 'label.benchmarkField.showFilter' } %}
 	
-	{{ form_row(form.betterThanType, { 'label': 'label.benchmarkField.betterThanType' }) }}
+	<div class="row"></div>
 	
-	{{ form_row(form.compareWeight, { 'label': 'label.benchmarkField.compareWeight' }) }}
-{% endblock %}
+	{% include 'admin/common/editor/form_field.twig' with 
+	{ field: form.noteType, label: 'label.benchmarkField.noteType', sm: 6 } %}
+	{% include 'admin/common/editor/form_field.twig' with 
+	{ field: form.noteWeight, label: 'label.benchmarkField.noteWeight', sm: 6 } %}
+	
+	<div class="row"></div>
+	
+	{% include 'admin/common/editor/form_field.twig' with 
+	{ field: form.betterThanType, label: 'label.benchmarkField.betterThanType', sm: 6 } %}
+	{% include 'admin/common/editor/form_field.twig' with 
+	{ field: form.compareWeight, label: 'label.benchmarkField.compareWeight', sm: 6 } %}
+	
+	<div class="row"></div>
+	
+	{% include 'admin/common/editor/form_field.twig' with 
+	{ field: form.decimalPlaces, label: 'label.benchmarkField.decimalPlaces' } %}
+{%  endblock %}

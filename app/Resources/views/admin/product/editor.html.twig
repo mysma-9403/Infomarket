@@ -4,6 +4,7 @@
 {% set title = 'title.products'|trans %}
 {% set gender = 'm.' %}
 
+
 {% block preFormBlock %}
 	{% if categoryFilterForm is defined and categoryFilterForm.category.vars.choices|length > 0 %}	
 		{% form_theme categoryFilterForm 'form/fields.html.twig' %}
@@ -16,6 +17,7 @@
 		{{ form_end(categoryFilterForm) }}
 	{% endif %}
 {% endblock %}
+
 		
 {%  block headerFields %}	
 	{% include 'admin/common/editor/form_field.twig' with 

@@ -4,6 +4,12 @@
 {% set mainPath = 'newsletter_group' %}
 {% set gender = 'fm.' %}
 
+
+{% block headerFields %}
+	{% include 'admin/common/editor/form_field.twig' with 
+	{ field: form.name, label: 'label.name' } %}
+{% endblock %}
+
 {% block contentFields %}
 	{% include 'admin/common/editor/form_field.twig' with 
 	{ field: form.infomarket, label: 'label.' ~ gender ~ 'infomarket', xs: 6, md: 3 } %}
