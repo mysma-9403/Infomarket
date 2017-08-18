@@ -1,14 +1,19 @@
-{% extends 'admin/base/show.html.twig' %}
+{% extends 'admin/simple/show.html.twig' %}
 
 {% set mainPath = 'benchmark_enum' %}
 {% set title = 'title.benchmarkEnums'|trans %}
 
-{% block mainFields1 %}
-	{% include 'common/fields/text_field.html.twig' with 
-		{ 'label': 'label.benchmarkEnum.name', 'value': entry.name } %}
+
+{% block headerFields %}
+	{% include 'common/fields/header_field.html.twig' with 
+	{ value: entry.name } %}
 {% endblock %}
 
-{% block moreFields2 %}
+{% block contentFields %}
 	{% include 'common/fields/text_field.html.twig' with 
-		{ 'label': 'label.benchmarkEnum.value', 'value': entry.value } %}
+	{ label: 'label.benchmarkEnum.value', value: entry.value } %}
+	
+	<div class="vr-space-40"></div>
+	
+	{% include 'admin/simple/components/show/audit_fields.twig' %}
 {% endblock %}

@@ -16,7 +16,7 @@
 {% endblock %}
 
 {% block contentFields %}
-	{% include 'admin/common/editor/image.twig' %}
+	{% include 'admin/image/components/editor/image.twig' %}
 	
 	<div class="row"></div>
 	
@@ -50,5 +50,5 @@
 {% endblock %}
 
 {% block assignments %}
-	{% include 'admin/advert/assignments.html.twig' with { 'entry': entry } %}
+	{% include 'admin/advert/assignments.html.twig' %}
 {% endblock %}

@@ -1,6 +1,0 @@
-{% extends 'admin/image/show.html.twig' %}
-
-{% block simpleMainFields2More %}
-	{% include 'common/fields/bool_field.html.twig' with 
-		{ label: ('label.' ~ gender ~ 'featured')|trans, value: entry.featured } %}
-{% endblock %}

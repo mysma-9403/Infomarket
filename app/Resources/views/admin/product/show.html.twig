@@ -4,69 +4,50 @@
 {% set title = 'title.products'|trans %}
 {% set gender = 'm.' %}
 
-{% block moreFields1 %}
-	{% if entry.brand %}
-		<div class="row">
-			<div class="col-xs-12">
-				<h2>{{ entry.brand.name | raw }}</h2>
-			</div>
-		</div>
-	{% endif %}
-	
-	{% if entry.topProduktImage %}
-	<div class="row">
-	    <div class="col-xs-12">
-	    	<div class="rect-1x1">
-				<img alt="{{ entry.name | raw }}" src="{{ asset(entry.topProduktImage) }}" class="div-center" />
-			</div>
-		</div>
-	</div>
-	{% endif %}
+
+{% block headerFields %}
+	{% include 'common/fields/header_field.html.twig' with 
+	{ value: entry.brand.name ~ ' ' ~ entry.name } %}
 {% endblock %}
 	
-{% block moreFields3 %}
-	<div class="lowered-25"></div>
+{% block contentFields %}
+	{% include 'admin/image/components/show/image.twig' %}
+	
+	<div class="vr-space-40"></div>
+	
+	{% include 'admin/common/show/custom_image.twig' with 
+	{ image: entry.topProduktImage } %}
+	
+	<div class="vr-space-40"></div>
+	
+	{% include 'common/fields/bool_field.html.twig' with 
+	{ label: 'label.' ~ gender ~ 'infomarket', value: entry.infomarket } %}
+	{% include 'common/fields/bool_field.html.twig' with 
+	{ label: 'label.' ~ gender ~ 'infoprodukt', value: entry.infoprodukt } %}
+	
+	<div class="vr-space-40"></div>
 	
 	{% include 'common/fields/simple_field.html.twig' with 
-	{ 'label': 'label.brand', 'value': entry.brand, 'object': 'brand' } %}
+	{ label: 'label.brand', value: entry.brand, object: 'brand' } %}
 	
-	{% include 'common/fields/text_field.html.twig' with 
-	{ 'label': 'label.product.price', 'value': entry.price|number_format(2, '.', ' ') } %}
+	{% include 'common/fields/number_field.html.twig' with 
+	{ label: 'label.product.price', value: entry.price } %}
 	
-	<div class="lowered-25"></div>
-	
+	<div class="vr-space-40"></div>
 	
 	{% block categoryFilterForm %}	
-		{% if categoryFilterForm.category.vars.choices|length > 0 %}	
-			{% form_theme categoryFilterForm 'form/fields.html.twig' %}
-			
-			{{ form_start(categoryFilterForm) }}
-				
-				{{ form_row(categoryFilterForm.category, { 'label': 'label.category' }) }}
-				{{ form_row(categoryFilterForm.submit, { 'label': 'action.submit', 'attr': {'class': 'btn btn-success'} }) }}
-				
-			{{ form_end(categoryFilterForm) }}
-		{% endif %}
+		{% include 'admin/product/components/category_filter.twig' %}
 	{% endblock %}
 	
-	{% for field in productFilter.editorFields %}
-		<div class="col-xs-12">
-			{% set key = field.valueField %}
-			
-			{% if field.fieldType == constant('AppBundle\\Entity\\BenchmarkField::BOOLEAN_FIELD_TYPE') %}
-				{% include 'common/fields/bool_field.html.twig' with 
-					{ 'label': field.fieldName, 'value': entry[key] } %}
-			{% elseif field.fieldType == constant('AppBundle\\Entity\\BenchmarkField::DECIMAL_FIELD_TYPE') %}
-				{% include 'common/fields/text_field.html.twig' with 
-					{ 'label': field.fieldName, 'value': entry[key] ? entry[key]|number_format(field.decimalPlaces, '.', ' ') : '' } %}
-			{% else %}
-				{% include 'common/fields/text_field.html.twig' with 
-					{ 'label': field.fieldName, 'value': entry[key] } %}
-			{% endif %}
-		</div>
-	{% endfor %}
+	{% block productFilterForm %}	
+		{% include 'admin/product/components/product_filter.twig' %}
+	{% endblock %}
+	
+	<div class="vr-space-40"></div>
+	
+	{% include 'admin/simple/components/show/audit_fields.twig' %}
 {% endblock %}
 
 {% block assignments %}
-	{% include 'admin/product/assignments.html.twig' with { 'entry': entry } %}
+	{% include 'admin/product/assignments.html.twig' %}
 {% endblock %}

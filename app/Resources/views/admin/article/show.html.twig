@@ -1,86 +1,76 @@
-{% extends 'admin/featured/show.html.twig' %}
+{% extends 'admin/image/show.html.twig' %}
 
 {% set title = 'title.articles'|trans %}
 {% set mainPath = 'article' %}
 {% set gender = 'm.' %}
 
-{% block moreFields2 %}
-	<div class="row">
-		<div class="col-xs-12">
-			<h4>{{ entry.subname | raw }}</h4>
-		</div>
-	</div>
+{% block headerFields %}
+	{% include 'common/fields/header_field.html.twig' with 
+	{ value: entry.name ~ ' ' ~ entry.subname } %}
 {% endblock %}
 
-{% block moreFields3 %}
+{% block contentFields %}
+	{% include 'admin/image/components/show/image.twig' %}
 	
-	<div class="lowered-25"></div>
+	<div class="vr-space-40"></div>
+	
+	{% include 'common/fields/bool_field.html.twig' with 
+	{ label: 'label.' ~ gender ~ 'infomarket', value: entry.infomarket } %}
+	{% include 'common/fields/bool_field.html.twig' with 
+	{ label: 'label.' ~ gender ~ 'infoprodukt', value: entry.infoprodukt } %}
+	{% include 'common/fields/bool_field.html.twig' with 
+	{ label: 'label.' ~ gender ~ 'featured', value: entry.featured } %}
+	
+	<div class="vr-space-40"></div>
 	
 	{% include 'common/fields/simple_field.html.twig' with 
-		{ 'label': 'label.article.parent', 'value': entry.parent,
-			'object': 'article', 'routeId': entry.id } %}
-	
-	
-	<div class="lowered-25"></div>
-	
-	{% include 'common/fields/text_field.html.twig' with 
-		{ 'label': 'label.article.page'|trans, 'value': entry.page } %}
+	{ label: 'label.article.parent', value: entry.parent,
+		object: 'article', routeId: entry.id } %}
+
+	<div class="vr-space-40"></div>
 	
 	{% include 'common/fields/text_field.html.twig' with 
-		{ 'label': 'label.orderNumber'|trans, 'value': entry.orderNumber } %}
-	
-	
-	<div class="lowered-25"></div>
+	{ label: 'label.article.page', value: entry.page } %}
 	
 	{% include 'common/fields/text_field.html.twig' with 
-		{ 'label': 'label.article.layout'|trans, 'value': articleLayoutName(entry.layout)|trans } %}
+	{ label: 'label.orderNumber', value: entry.orderNumber } %}
+	
+	<div class="vr-space-40"></div>
 	
 	{% include 'common/fields/text_field.html.twig' with 
-		{ 'label': 'label.article.imageSize'|trans, 'value': articleImageSizeName(entry.imageSize)|trans } %}
+	{ label: 'label.article.layout', value: articleLayoutName(entry.layout)|trans } %}
 	
+	{% include 'common/fields/text_field.html.twig' with 
+	{ label: 'label.article.imageSize', value: articleImageSizeName(entry.imageSize)|trans } %}
 	
-	
-	<div class="lowered-25"></div>
+	<div class="vr-space-40"></div>
 	
 	{% include 'common/fields/date_field.html.twig' with 
-	{ 'label': 'label.article.date'|trans, 'value': entry.date } %}
+	{ label: 'label.article.date', value: entry.date } %}
 	
 	{% include 'common/fields/date_field.html.twig' with 
-	{ 'label': 'label.article.endDate'|trans, 'value': entry.endDate } %}
+	{ label: 'label.article.endDate', value: entry.endDate } %}
 	
 	{% include 'common/fields/user_field.html.twig' with 
-	{ 'label': 'label.article.author', 'value': entry.author } %}
+	{ label: 'label.article.author', value: entry.author } %}
 	
+	<div class="vr-space-40"></div>
 	
+	{% include 'common/fields/content_field.html.twig' with 
+	{ label: 'label.intro', value: entry.intro } %}
 	
-	<div class="row">
-		<div class="col-sm-9">
-			<h4>{{ 'label.intro'|trans }}</h4>
-		</div>
-		<div class="col-sm-9">
-			{{ entry.intro | raw }}
-		</div>
-	</div>
+	{% include 'common/fields/content_field.html.twig' with 
+	{ label: 'label.content', value: entry.content } %}
 	
-	<div class="row">
-		<div class="col-sm-9">
-			<h4>{{ 'label.content'|trans }}</h4>
-		</div>
-		<div class="col-sm-9">
-			{{ entry.content | raw }}
-		</div>
-	</div>
+	<div class="vr-space-40"></div>
 	
+	{% include 'admin/simple/components/show/audit_fields.twig' %}
 {% endblock %}
 
-{% block moreActions1 %}
-	<a href="{{ path('admin_article_preview', { id: entry.id }) }}"
-		class="btn btn-primary">
-		<span class="fa fa-eye"></span> 
-		{{ 'action.article.preview'|trans }} 
-	</a>
+{% block actions %}
+	{% include 'admin/article/components/show/actions.twig' %}
 {% endblock %}
 
 {% block assignments %}
-	{% include 'admin/article/assignments.html.twig' with { 'entry': entry } %}
+	{% include 'admin/article/assignments.html.twig' %}
 {% endblock %}

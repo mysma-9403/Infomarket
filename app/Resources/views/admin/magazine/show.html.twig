@@ -1,33 +1,50 @@
-{% extends 'admin/featured/show.html.twig' %}
+{% extends 'admin/image/show.html.twig' %}
 
 {% set mainPath = 'magazine' %}
 {% set title = 'title.magazines'|trans %}
 {% set gender = 'm.' %}
 
-{% block moreFields3 %}
+
+{% block headerFields %}
+	{% include 'common/fields/header_field.html.twig' with 
+	{ value: entry.name } %}
+{% endblock %}
+
+{% block contentFields %}
+	{% include 'admin/image/components/show/image.twig' %}
+	
+	<div class="vr-space-40"></div>
+	
 	{% include 'common/fields/bool_field.html.twig' with 
-	{ 'label': ('label.main')|trans, 'value': entry.main } %}
+		{ label: 'label.' ~ gender ~ 'infomarket', value: entry.infomarket } %}
+	{% include 'common/fields/bool_field.html.twig' with 
+		{ label: 'label.' ~ gender ~ 'infoprodukt', value: entry.infoprodukt } %}
+	{% include 'common/fields/bool_field.html.twig' with 
+		{ label: 'label.' ~ gender ~ 'featured', value: entry.featured } %}
+	
+	<div class="vr-space-40"></div>
+		
+	{% include 'common/fields/bool_field.html.twig' with 
+	{ label: ('label.main')|trans, value: entry.main } %}
 	
 	{% include 'common/fields/simple_field.html.twig' with 
-		{ 'label': 'label.magazine.parent', 'value': entry.parent,
-			'object': 'magazine', 'routeId': entry.id } %}
+		{ label: 'label.magazine.parent', value: entry.parent,
+			object: 'magazine', routeId: entry.id } %}
 	
 	{% include 'common/fields/text_field.html.twig' with 
-	{ 'label': 'label.orderNumber'|trans, 'value': entry.orderNumber } %}
+	{ label: 'label.orderNumber'|trans, value: entry.orderNumber } %}
 	
 	{% include 'common/fields/text_field.html.twig' with 
-	{ 'label': ('label.magazine.magazineFile')|trans, 'value': entry.magazineFile } %}
+	{ label: ('label.magazine.magazineFile')|trans, value: entry.magazineFile } %}
 	
-	<div class="row">
-		<div class="col-xs-12">
-			<h4>{{ 'label.content'|trans }}</h4>
-		</div>
-		<div class="col-xs-12">
-			{{ entry.content | raw }}
-		</div>
-	</div>
+	{% include 'common/fields/content_field.html.twig' with 
+	{ label: 'label.content', value: entry.content } %}
+	
+	<div class="vr-space-40"></div>
+	
+	{% include 'admin/simple/components/show/audit_fields.twig' %}
 {% endblock %}
 
 {% block assignments %}
-	{% include 'admin/magazine/assignments.html.twig' with { 'entry': entry } %}
+	{% include 'admin/magazine/assignments.html.twig' %}
 {% endblock %}

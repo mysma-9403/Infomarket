@@ -4,22 +4,19 @@
 {% set mainPath = 'newsletter_page_template' %}
 {% set gender = 'm.' %}
 
-{% block moreFields3 %}
-	<div class="row">
-		<div class="col-sm-9">
-			<h4>{{ 'label.newsletterPageTemplate.style'|trans }}</h4>
-		</div>
-		<div class="col-sm-9">
-			{{ entry.style }}
-		</div>
-	</div>
+
+{% block headerFields %}
+	{% include 'common/fields/header_field.html.twig' with 
+	{ value: entry.name } %}
+{% endblock %}
+
+{% block contentFields %}
+	{% include 'common/fields/content_field.html.twig' with 
+	{ label: 'label.newsletterPageTemplate.style', value: entry.style } %}
+	{% include 'common/fields/content_field.html.twig' with 
+	{ label: 'label.content', value: entry.content } %}
 	
-	<div class="row">
-		<div class="col-sm-9">
-			<h4>{{ 'label.content'|trans }}</h4>
-		</div>
-		<div class="col-sm-9">
-			{{ entry.content }}
-		</div>
-	</div>
+	<div class="vr-space-40"></div>
+	
+	{% include 'admin/simple/components/show/audit_fields.twig' %}
 {% endblock %}

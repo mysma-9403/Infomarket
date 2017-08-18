@@ -1,24 +1,33 @@
-{% extends 'admin/base/show.html.twig' %}
+{% extends 'admin/simple/show.html.twig' %}
 
 {% set mainPath = 'newsletter_block_article_assignment' %}
 {% set title = 'title.newsletter_block_article_assignments'|trans %}
-{% set gender = '' %}
 
-{% block mainFields1 %}	
+
+{% block contentFields %}	
 	{% include 'common/fields/simple_field.html.twig' with 
-	{ 'label': 'label.newsletterBlock', 'value': entry.newsletterBlock,
-		'object': 'newsletter_block', 'routeId': entry.id } %}
+	{ label: 'label.newsletterBlock', value: entry.newsletterBlock,
+		object: 'newsletter_block', routeId: entry.id } %}
 		
 	{% include 'common/fields/simple_field.html.twig' with 
-	{ 'label': 'label.article', 'value': entry.article,
-		'object': 'article', 'routeId': entry.id } %}
+	{ label: 'label.article', value: entry.article,
+		object: 'article', routeId: entry.id } %}
+	
+	<div class="vr-space-40"></div>
 		
 	{% include 'common/fields/text_field.html.twig' with 
-		{ 'label': 'label.newsletterBlockArticleAssignment.alternativeName', 'value': entry.alternativeName } %}
+	{ label: 'label.newsletterBlockArticleAssignment.alternativeName', 
+		value: entry.alternativeName } %}
 		
 	{% include 'common/fields/text_field.html.twig' with 
-		{ 'label': 'label.newsletterBlockArticleAssignment.alternativeSubname', 'value': entry.alternativeSubname } %}
+	{ label: 'label.newsletterBlockArticleAssignment.alternativeSubname', 	
+		value: entry.alternativeSubname } %}
 		
 	{% include 'common/fields/text_field.html.twig' with 
-		{ 'label': 'label.newsletterBlockArticleAssignment.alternativeBrands', 'value': entry.alternativeBrands} %}
+	{ label: 'label.newsletterBlockArticleAssignment.alternativeBrands', 
+		value: entry.alternativeBrands } %}
+		
+	<div class="vr-space-40"></div>
+	
+	{% include 'admin/simple/components/show/audit_fields.twig' %}
 {% endblock %}

@@ -1,15 +1,19 @@
-{% extends 'admin/base/show.html.twig' %}
+{% extends 'admin/simple/show.html.twig' %}
 
 {% set mainPath = 'article_tag_assignment' %}
 {% set title = 'title.article_tag_assignments'|trans %}
-{% set gender = '' %}
 
-{% block mainFields1 %}	
+
+{% block contentFields %}	
 	{% include 'common/fields/simple_field.html.twig' with 
-	{ 'label': 'label.article', 'value': entry.article,
-		'object': 'article', 'routeId': entry.id } %}
+	{ label: 'label.article', value: entry.article,
+		object: 'article', routeId: entry.id } %}
 		
 	{% include 'common/fields/simple_field.html.twig' with 
-	{ 'label': 'label.tag', 'value': entry.tag,
-		'object': 'tag', 'routeId': entry.id } %}
+	{ label: 'label.tag', value: entry.tag,
+		object: 'tag', routeId: entry.id } %}
+		
+	<div class="vr-space-40"></div>
+	
+	{% include 'admin/simple/components/show/audit_fields.twig' %}
 {% endblock %}

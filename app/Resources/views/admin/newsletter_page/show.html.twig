@@ -4,63 +4,31 @@
 {% set mainPath = 'newsletter_page' %}
 {% set gender = 'fm.' %}
 
+
 {% block moreJavascripts %}
-	<script type="text/javascript">
-	<!--
-	$(function() {
-		$('.pop').on('click', function() {
-			$('#codemodal').modal('show');   
-		});		
-	});
-	//-->
-	</script>
+	{% include 'admin/newsletter_page/components/modal_script.twig' %}
 {% endblock %}
 
-{% block moreFields2 %}
-	<div class="row">
-		<div class="col-xs-12">
-			<h3>{{ entry.subname | raw }}</h3>
-		</div>
-	</div>
+
+{% block headerFields %}
+	{% include 'common/fields/header_field.html.twig' with 
+	{ value: entry.name ~ ' ' ~ entry.subname } %}
 {% endblock %}
 
-{% block moreFields3 %}
+{% block contentFields %}
 	{% include 'common/fields/simple_field.html.twig' with 
-		{ 'label': 'label.newsletterPageTemplate', 'value': entry.newsletterPageTemplate, 'object': 'newsletter_page_template' } %}
+	{ label: 'label.newsletterPageTemplate', value: entry.newsletterPageTemplate, 
+		object: 'newsletter_page_template' } %}
 {% endblock %}
 
-{% block moreActions1 %}
-	<a class="btn btn-primary" href="{{ path(basePath ~ mainPath ~ '_preview', { id: entry.id }) }}">
-		<span class="fa fa-eye"></span> {{ 'action.newsletterPage.preview'|trans }}
-	</a>
-	<a href="#" class="btn btn-primary pop">
-		<span class="fa fa-code"></span> {{ 'action.newsletterPage.showCode'|trans }}
-	</a>
-	<a class="btn btn-primary" href="{{ path(basePath ~ mainPath ~ '_save_file', { id: entry.id }) }}">
-		<span class="fa fa-save"></span> {{ 'action.newsletterPage.saveFile'|trans }}
-	</a>
-	<a class="btn btn-primary" href="{{ path(basePath ~ mainPath ~ '_send_newsletter_form', { id: entry.id }) }}">
-		<span class="fa fa-send"></span> {{ 'action.newsletterPage.sendNewsletter'|trans }}
-	</a>
+{% block actions %}
+	{% include 'admin/newsletter_page/components/show/actions.twig' %}
 {% endblock %}
 
 {% block assignments %}
-	{% include 'admin/newsletter_page/assignments.html.twig' with { 'entry': entry } %}
+	{% include 'admin/newsletter_page/assignments.html.twig' %}
 {% endblock %}
 
 {% block moreContent %}
-	<div class="modal fade" id="codemodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-		<div class="modal-dialog">
-			<div class="modal-content">              
-				<div class="modal-body">
-					<button type="button" class="close" data-dismiss="modal">
-						<span aria-hidden="true">&times;</span>
-						<span class="sr-only">Close</span>
-					</button>
-					
-					<textarea id="newsletterCode" type="text" cols="85" rows="20">{{ entry.getNewsletterCode() | raw }}</textarea>
-				</div>
-			</div>
-		</div>
-	</div>
+	{% include 'admin/newsletter_page/components/modal_dialog.twig' %}
 {% endblock %}

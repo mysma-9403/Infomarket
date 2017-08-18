@@ -23,28 +23,28 @@
 	{% endif %}
 {% endblock %}
 
-{% block moreFields3 %}
+{% block contentFields %}
 	<div class="lowered-25"></div>
 	
 	
 	{% include 'common/fields/text_field.html.twig' with 
-	{ 'label': 'label.brand', 'value': entry.brand.name } %}
+	{ label: 'label.brand', value: entry.brand.name } %}
 	
 	{% include 'common/fields/text_field.html.twig' with 
-	{ 'label': 'label.product.price', 'value': entry.price|number_format(2, '.', ' ') } %}
+	{ label: 'label.product.price', value: entry.price|number_format(2, '.', ' ') } %}
 	
 	{% for field in productFilter.editorFields %}
 		{% set key = field.valueField %}
 		
 		{% if field.fieldType == constant('AppBundle\\Entity\\BenchmarkField::BOOLEAN_FIELD_TYPE') %}
 			{% include 'common/fields/bool_field.html.twig' with 
-				{ 'label': field.fieldName, 'value': entry[key] } %}
+				{ label: field.fieldName, value: entry[key] } %}
 		{% elseif field.fieldType == constant('AppBundle\\Entity\\BenchmarkField::DECIMAL_FIELD_TYPE') %}
 			{% include 'common/fields/text_field.html.twig' with 
-				{ 'label': field.fieldName, 'value': entry[key] ? entry[key]|number_format(field.decimalPlaces, '.', ' ') : '' } %}
+				{ label: field.fieldName, value: entry[key] ? entry[key]|number_format(field.decimalPlaces, '.', ' ') : '' } %}
 		{% else %}
 			{% include 'common/fields/text_field.html.twig' with 
-				{ 'label': field.fieldName, 'value': entry[key] } %}
+				{ label: field.fieldName, value: entry[key] } %}
 		{% endif %}
 	{% endfor %}
 {% endblock %}

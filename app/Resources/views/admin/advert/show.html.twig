@@ -4,38 +4,59 @@
 {% set mainPath = 'advert' %}
 {% set gender = 'fm.' %}
 
-{% block moreFields3 %}
+
+{% block headerFields %}
+	{% include 'common/fields/header_field.html.twig' with 
+	{ value: entry.name } %}
+{% endblock %}
+
+{% block contentFields %}
+	{% include 'admin/image/components/show/image.twig' %}
+	
+	<div class="vr-space-40"></div>
+	
+	{% include 'common/fields/bool_field.html.twig' with 
+	{ label: 'label.' ~ gender ~ 'infomarket', value: entry.infomarket } %}
+	{% include 'common/fields/bool_field.html.twig' with 
+	{ label: 'label.' ~ gender ~ 'infoprodukt', value: entry.infoprodukt } %}
+	
+	<div class="vr-space-40"></div>
+	
 	{% include 'common/fields/text_field.html.twig' with 
-	{ 'label': 'label.advert.location'|trans, 'value': advertLocationName(entry.location)|trans } %}
+	{ label: 'label.advert.location', value: advertLocationName(entry.location)|trans } %}
 	
-	<div class="lowered-25"></div>
+	<div class="vr-space-40"></div>
 	
 	{% include 'common/fields/text_field.html.twig' with 
-	{ 'label': 'label.advert.link'|trans, 'value': entry.link } %}
+	{ label: 'label.advert.link'|trans, value: entry.link } %}
 	
-	<div class="lowered-25"></div>
+	<div class="vr-space-40"></div>
 	
 	{% include 'common/fields/date_field.html.twig' with 
-	{ 'label': 'label.advert.dateFrom'|trans, 'value': entry.dateFrom } %}
+	{ label: 'label.advert.dateFrom'|trans, value: entry.dateFrom } %}
 	
 	{% include 'common/fields/date_field.html.twig' with 
-	{ 'label': 'label.advert.dateTo'|trans, 'value': entry.dateTo } %}
+	{ label: 'label.advert.dateTo'|trans, value: entry.dateTo } %}
 	
-	<div class="lowered-25"></div>
-	
-	{% include 'common/fields/text_field.html.twig' with 
-	{ 'label': 'label.advert.showCount'|trans, 'value': entry.showCount } %}
+	<div class="vr-space-40"></div>
 	
 	{% include 'common/fields/text_field.html.twig' with 
-	{ 'label': 'label.advert.showLimit'|trans, 'value': entry.showLimit } %}
+	{ label: 'label.advert.showCount'|trans, value: entry.showCount } %}
 	
 	{% include 'common/fields/text_field.html.twig' with 
-	{ 'label': 'label.advert.clickCount'|trans, 'value': entry.clickCount } %}
+	{ label: 'label.advert.showLimit'|trans, value: entry.showLimit } %}
 	
 	{% include 'common/fields/text_field.html.twig' with 
-	{ 'label': 'label.advert.clickLimit'|trans, 'value': entry.clickLimit } %}
+	{ label: 'label.advert.clickCount'|trans, value: entry.clickCount } %}
+	
+	{% include 'common/fields/text_field.html.twig' with 
+	{ label: 'label.advert.clickLimit'|trans, value: entry.clickLimit } %}
+	
+	<div class="vr-space-40"></div>
+	
+	{% include 'admin/simple/components/show/audit_fields.twig' %}
 {% endblock %}
 
 {% block assignments %}
-	{% include 'admin/advert/assignments.html.twig' with { 'entry': entry } %}
+	{% include 'admin/advert/assignments.html.twig' %}
 {% endblock %}

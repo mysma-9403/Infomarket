@@ -1,23 +1,6 @@
 {% extends 'admin/base/show.html.twig' %}
 
-{% block mainFields1 %}
-	<div class="row">
-		<div class="col-xs-12">
-			<h3>{{ entry.name | raw }}</h3>
-		</div>
-	</div>
-{% endblock %}
 
-{% block mainFields2 %}
-	{% block simpleMainFields2Prev %}
-	{% endblock %}
-	
-	<div class="row lowered-25"></div>
-	{% include 'common/fields/bool_field.html.twig' with 
-		{ label: ('label.' ~ gender ~ 'infomarket')|trans, value: entry.infomarket } %}
-	{% include 'common/fields/bool_field.html.twig' with 
-		{ label: ('label.' ~ gender ~ 'infoprodukt')|trans, value: entry.infoprodukt } %}
-	
-	{% block simpleMainFields2More %}
-	{% endblock %}
+{% block contentFields %}
+	{% include 'admin/simple/components/show/audit_fields.twig' %}
 {% endblock %}

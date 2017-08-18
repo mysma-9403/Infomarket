@@ -1,12 +1,12 @@
 <div class="row">
 	<div class="col-xs-6">
-		{% include 'admin/base/components/actions.twig' %}
+		{% include 'admin/base/components/editor/actions.twig' %}
 	</div>
 	
 	<div class="col-xs-6">
 		{% if entry.id %}
 			<a href="#" class="btn btn-primary pop">
-				<span class="fa fa-eye"></span> {{ 'action.newsletterPage.showCode'|trans }}
+				<span class="fa fa-code"></span> {{ 'action.newsletterPage.showCode'|trans }}
 			</a>
 		{% endif %}
 	</div>

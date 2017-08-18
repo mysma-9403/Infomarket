@@ -1,0 +1,10 @@
+{% if categoryFilterForm.category.vars.choices|length > 0 %}	
+	{% form_theme categoryFilterForm 'form/fields.html.twig' %}
+	
+	{{ form_start(categoryFilterForm) }}
+		
+		{{ form_row(categoryFilterForm.category, { label: 'label.category' }) }}
+		{{ form_row(categoryFilterForm.submit, { label: 'action.submit', 'attr': {'class': 'btn btn-success'} }) }}
+		
+	{{ form_end(categoryFilterForm) }}
+{% endif %}

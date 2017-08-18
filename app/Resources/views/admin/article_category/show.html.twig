@@ -1,18 +1,33 @@
-{% extends 'admin/featured/show.html.twig' %}
+{% extends 'admin/image/show.html.twig' %}
 
 {% set mainPath = 'article_category' %}
 {% set title = 'title.article_categories'|trans %}
 {% set gender = 'fm.' %}
 
-{% block moreFields2 %}
-	<div class="row">
-		<div class="col-xs-12">
-			<h4>{{ entry.subname | raw }}</h4>
-		</div>
-	</div>
+
+{% block headerFields %}
+	{% include 'common/fields/header_field.html.twig' with 
+	{ value: entry.name ~ ' ' ~ entry.subname } %}
 {% endblock %}
 
-{% block moreFields3 %}
+{% block contentFields %}
+	{% include 'admin/image/components/show/image.twig' %}
+	
+	<div class="vr-space-40"></div>
+	
+	{% include 'common/fields/bool_field.html.twig' with 
+	{ label: 'label.' ~ gender ~ 'infomarket', value: entry.infomarket } %}
+	{% include 'common/fields/bool_field.html.twig' with 
+	{ label: 'label.' ~ gender ~ 'infoprodukt', value: entry.infoprodukt } %}
+	{% include 'common/fields/bool_field.html.twig' with 
+	{ label: 'label.' ~ gender ~ 'featured', value: entry.featured } %}
+
+	<div class="vr-space-40"></div>
+	
 	{% include 'common/fields/text_field.html.twig' with 
-		{ 'label': 'label.orderNumber'|trans, 'value': entry.orderNumber } %}
+	{ label: 'label.orderNumber', value: entry.orderNumber } %}
+	
+	<div class="vr-space-40"></div>
+		
+	{% include 'admin/simple/components/show/audit_fields.twig' %}
 {% endblock %}

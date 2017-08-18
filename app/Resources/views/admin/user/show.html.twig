@@ -1,37 +1,27 @@
-{% extends 'admin/simple/show.html.twig' %}
+{% extends 'admin/base/show.html.twig' %}
 
 {% set mainPath = 'user' %}
 {% set title = 'title.users'|trans %}
 {% set gender = 'm.' %}
 
-{% block mainFields1 %}
-	<div class="row">
-		<div class="col-xs-12">
-			<h3>{{ entry.username | raw }}</h3>
-		</div>
-	</div>
+
+{% block headerFields %}
+	{% include 'common/fields/header_field.html.twig' with 
+	{ value: entry.username|raw } %}
 {% endblock %}
 
-{% block mainFields2 %}
-{% endblock %}
-
-{% block moreFields3 %}
+{% block contentFields %}
+	{% include 'common/fields/text_field.html.twig' with 
+	{ label: 'label.user.email'|trans, value: entry.email } %}
+	
+	<div class="vr-space-40"></div>
 	
 	{% include 'common/fields/text_field.html.twig' with 
-	{ 'label': 'label.user.email'|trans, 'value': entry.email } %}
-	
-	<div class="row lowered-25"></div>
+	{ label: 'label.user.forename'|trans, value: entry.forename } %}
 	
 	{% include 'common/fields/text_field.html.twig' with 
-	{ 'label': 'label.user.forename'|trans, 'value': entry.forename } %}
+	{ label: 'label.user.surname'|trans, value: entry.surname } %}
 	
 	{% include 'common/fields/text_field.html.twig' with 
-	{ 'label': 'label.user.surname'|trans, 'value': entry.surname } %}
-	
-	{% include 'common/fields/text_field.html.twig' with 
-	{ 'label': 'label.user.pseudonym'|trans, 'value': entry.pseudonym } %}
-	
-{% endblock %}
-            
-{% block auditFields %}
+	{ label: 'label.user.pseudonym'|trans, value: entry.pseudonym } %}
 {% endblock %}

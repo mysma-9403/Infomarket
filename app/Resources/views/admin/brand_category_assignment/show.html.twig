@@ -1,18 +1,24 @@
-{% extends 'admin/base/show.html.twig' %}
+{% extends 'admin/simple/show.html.twig' %}
 
 {% set mainPath = 'brand_category_assignment' %}
 {% set title = 'title.brand_category_assignments'|trans %}
-{% set gender = '' %}
 
-{% block mainFields1 %}	
+
+{% block contentFields %}	
 	{% include 'common/fields/simple_field.html.twig' with 
-	{ 'label': 'label.brand', 'value': entry.brand,
-		'object': 'brand', 'routeId': entry.id } %}
+	{ label: 'label.brand', value: entry.brand,
+		object: 'brand', routeId: entry.id } %}
 		
 	{% include 'common/fields/simple_field.html.twig' with 
-	{ 'label': 'label.category', 'value': entry.category,
-		'object': 'category', 'routeId': entry.id } %}
+	{ label: 'label.category', value: entry.category,
+		object: 'category', routeId: entry.id } %}
+	
+	<div class="vr-space-40"></div>
 		
 	{% include 'common/fields/text_field.html.twig' with 
-	{ 'label': 'label.orderNumber', 'value': entry.orderNumber } %}
+	{ label: 'label.orderNumber', value: entry.orderNumber } %}
+	
+	<div class="vr-space-40"></div>
+	
+	{% include 'admin/simple/components/show/audit_fields.twig' %}
 {% endblock %}

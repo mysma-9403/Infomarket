@@ -23,7 +23,7 @@
 							{{ form_row(categoryFilter.category, { label: 'label.benchmark.category' }) }}
 						</div>
 						<div class="col-xs-12">
-								{{ form_row(categoryFilter.submit, { 'icon': 'fa-check', 'label': 'action.submit', 'attr': {'class': 'btn btn-success'} }) }}
+								{{ form_row(categoryFilter.submit, { 'icon': 'fa-check', label: 'action.submit', 'attr': {'class': 'btn btn-success'} }) }}
 						</div>		
 					{{ form_end(categoryFilter) }}
 					
@@ -34,7 +34,7 @@
 							{{ form_row(subcategoryFilter.subcategory, { label: 'label.benchmark.subcategory' }) }}
 						</div>
 						<div class="col-xs-12">
-							{{ form_row(subcategoryFilter.submit, { 'icon': 'fa-check', 'label': 'action.submit', 'attr': {'class': 'btn btn-success'} }) }}
+							{{ form_row(subcategoryFilter.submit, { 'icon': 'fa-check', label: 'action.submit', 'attr': {'class': 'btn btn-success'} }) }}
 						</div>	
 					{{ form_end(subcategoryFilter) }}
 				{% endblock %}

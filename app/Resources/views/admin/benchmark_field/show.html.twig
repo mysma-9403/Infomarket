@@ -1,49 +1,61 @@
-{% extends 'admin/base/show.html.twig' %}
+{% extends 'admin/simple/show.html.twig' %}
 
 {% set mainPath = 'benchmark_field' %}
 {% set title = 'title.benchmarkFields'|trans %}
-{% set gender = '' %}
 
-{% block mainFields1 %}	
-	{% include 'common/fields/simple_field.html.twig' with 
-		{ label: 'label.category', value: entry.category, 
-			object: 'category', routeId: entry.id } %}
+
+{% block headerFields %}
+	{% include 'common/fields/header_field.html.twig' with 
+	{ value: entry.category.name ~ ' ' ~ entry.category.subname } %}
 {% endblock %}
 
-{% block moreFields2 %}
+{% block contentFields %}
 	{% include 'common/fields/text_field.html.twig' with 
-		{ label: 'label.benchmarkField.fieldType', 
-			value: benchmarkFieldFieldTypeName(entry.fieldType)|trans } %}
+	{ label: 'label.benchmarkField.fieldType', 
+		value: benchmarkFieldFieldTypeName(entry.fieldType)|trans } %}
 	{% include 'common/fields/text_field.html.twig' with 
-		{ label: 'label.benchmarkField.valueNumber', value: entry.valueNumber } %}
+	{ label: 'label.benchmarkField.valueNumber', value: entry.valueNumber } %}
+	
+	<div class="vr-space-40"></div>
 	
 	{% include 'common/fields/text_field.html.twig' with 
-		{ label: 'label.benchmarkField.fieldName', value: entry.fieldName } %}
+	{ label: 'label.benchmarkField.fieldName', value: entry.fieldName } %}
 	{% include 'common/fields/text_field.html.twig' with 
-		{ label: 'label.benchmarkField.fieldNumber', value: entry.fieldNumber } %}
+	{ label: 'label.benchmarkField.fieldNumber', value: entry.fieldNumber } %}
 	{% include 'common/fields/bool_field.html.twig' with 
-		{ label: 'label.benchmarkField.showField', value: entry.showField } %}
+	{ label: 'label.benchmarkField.showField', value: entry.showField } %}
+	
+	<div class="vr-space-40"></div>
 	
 	{% include 'common/fields/text_field.html.twig' with 
-		{ label: 'label.benchmarkField.filterName', value: entry.filterName } %}
+	{ label: 'label.benchmarkField.filterName', value: entry.filterName } %}
 	{% include 'common/fields/text_field.html.twig' with 
-		{ label: 'label.benchmarkField.filterNumber', value: entry.filterNumber } %}
+	{ label: 'label.benchmarkField.filterNumber', value: entry.filterNumber } %}
 	{% include 'common/fields/bool_field.html.twig' with 
-		{ label: 'label.benchmarkField.showFilter', value: entry.showFilter } %}
+	{ label: 'label.benchmarkField.showFilter', value: entry.showFilter } %}
+	
+	<div class="vr-space-40"></div>
 	
 	{% include 'common/fields/text_field.html.twig' with 
-		{ label: 'label.benchmarkField.decimalPlaces', value: entry.decimalPlaces } %}
+	{ label: 'label.benchmarkField.noteType', 
+		value: benchmarkFieldNoteTypeName(entry.noteType)|trans } %}
+	{% include 'common/fields/text_field.html.twig' with 
+	{ label: 'label.benchmarkField.noteWeight', value: entry.noteWeight } %}
+	
+	<div class="vr-space-40"></div>
 	
 	{% include 'common/fields/text_field.html.twig' with 
-		{ label: 'label.benchmarkField.noteType', 
-			value: benchmarkFieldNoteTypeName(entry.noteType)|trans } %}
+	{ label: 'label.benchmarkField.noteType', 
+		value: benchmarkFieldBetterThanTypeName(entry.betterThanType)|trans } %}
 	{% include 'common/fields/text_field.html.twig' with 
-		{ label: 'label.benchmarkField.noteWeight', value: entry.noteWeight } %}
+	{ label: 'label.benchmarkField.compareWeight', value: entry.compareWeight } %}
 	
+	<div class="vr-space-40"></div>
+		
 	{% include 'common/fields/text_field.html.twig' with 
-		{ label: 'label.benchmarkField.noteType', 
-			value: benchmarkFieldBetterThanTypeName(entry.betterThanType)|trans } %}
+	{ label: 'label.benchmarkField.decimalPlaces', value: entry.decimalPlaces } %}
 	
-	{% include 'common/fields/text_field.html.twig' with 
-		{ label: 'label.benchmarkField.compareWeight', value: entry.compareWeight } %}
+	<div class="vr-space-40"></div>
+	
+	{% include 'admin/simple/components/show/audit_fields.twig' %}
 {% endblock %}

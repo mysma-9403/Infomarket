@@ -16,7 +16,7 @@
 {% endblock %}
 	
 {% block contentFields %}
-	{% include 'admin/common/editor/image.twig' %}
+	{% include 'admin/image/components/editor/image.twig' %}
 	
 	<div class="row"></div>
 	
@@ -68,11 +68,13 @@
 {% endblock %}
 
 {% block actions %}
-	{% include 'admin/article/components/actions.twig' %}
+	{% include 'admin/article/components/editor/actions.twig' %}
 {% endblock %}
 
 {% block moreForms %}
-	{% include 'admin/article/components/tag_assignments_form.twig' %}
+	{% if entry.id %}
+		{% include 'admin/article/components/tag_assignments_form.twig' %}
+	{% endif %}
 {% endblock %}
 
 {% block assignments %}	
