@@ -1,42 +1,75 @@
-{% extends 'admin/image/index.html.twig' %}
+{% extends 'admin/simple/index.html.twig' %}
 
 {% set mainPath = 'product' %}
-{% set title = 'title.products'|trans %}
+{% set title = 'label.products'|trans %}
 
-{% block filterMoreFields1 %}
-	<li class="col-xs-12 col-sm-6 col-md-4 col-lg-2">
-		{{ form_widget(filter.categories, { 'label': 'label.categories' }) }}
-	</li>
-	<li class="col-xs-12 col-sm-6 col-md-4 col-lg-2">
-		{{ form_widget(filter.brands, { 'label': 'label.brands' }) }}
-	</li>
+
+
+{% block filterSmallFields %}
+	{% include 'common/fields/filter/simple_field.html.twig' with 
+		{ field: filter.name, label: 'label.name' } %}
+	{% include 'common/fields/filter/simple_field.html.twig' with 
+		{ field: filter.infomarket, label: 'label.infomarket' } %}
+	{% include 'common/fields/filter/simple_field.html.twig' with 
+		{ field: filter.infoprodukt, label: 'label.infoprodukt' } %}
 {% endblock %}
 
-	
-{% block simpleMainMoreActions %}
+{% block filterLargeFields %}
+	{% include 'common/fields/filter/simple_field.html.twig' with 
+		{ field: filter.categories } %}
+	{% include 'common/fields/filter/simple_field.html.twig' with 
+		{ field: filter.brands } %}
+{% endblock %}
 
+
+
+{% block simpleHeaderFields %}
+	{% include 'common/fields/table_header/icon_field.html.twig' with 
+		{ icon: 'globe', label: 'label.brand' } %}
+
+	{% include 'common/fields/table_header/icon_field.html.twig' with 
+		{ icon: 'photo', label: 'label.image' } %}
+	
+	{% include 'common/fields/table_header/icon_field.html.twig' with 
+		{ icon: 'fa-check', tooltip: 'label.infomarket' } %}
+	{% include 'common/fields/table_header/icon_field.html.twig' with 
+		{ icon: 'fa-check', tooltip: 'label.infoprodukt' } %}
+{% endblock %}
+
+{% block simpleEntryFields %}
+	{% include 'common/fields/table/simple_link_field.html.twig' with 
+		{ type: 'brand', id: item.brandId, name: item.brandName } %}
+	
+	{% include 'common/fields/table/image_field.html.twig' with 
+		{ item: item } %}
+	
+	{% include 'common/fields/table/bool_action_field.html.twig' with
+		{ id: item.id, value: item.infomarket, extPath: '_set_im_published',
+			trueTooltip: 'label.infomarket', falseTooltip: 'label.notInfomarket' } %}
+	{% include 'common/fields/table/bool_action_field.html.twig' with
+		{ id: item.id, value: item.infoprodukt, extPath: '_set_ip_published',
+			trueTooltip: 'label.infoprodukt', falseTooltip: 'label.notInfoprodukt' } %}
+{% endblock %}
+
+
+
+{% block baseMoreActions %}
+	{% set hidden = canEdit ? '' : 'hidden' %}
+	
+	{% include 'common/buttons/infomarket_buttons.html.twig' %}
+	{% include 'common/buttons/infoprodukt_buttons.html.twig' %}
+
+	
 	{% if is_granted('ROLE_RATING_EDITOR') %}
 		{% set confirm = 'return confirm("' ~ 'confirm.deleteUnused'|trans ~ '")' %}
-		<li>
-			<a type="button" class="btn btn-danger" onclick="{{ confirm }}"
-				href="{{ path(basePath ~ mainPath ~ '_delete_unused') }}">
-				<i class="fa fa-trash"></i> {{ 'action.product.deleteUnused'|trans }}
-			</a>
-			<a type="button" class="btn btn-primary""
-				href="{{ path(basePath ~ mainPath ~ '_get_top_products') }}">
-				<i class="fa fa-file-text-o"></i> {{ 'action.product.getTopProducts'|trans }}
-			</a>
-		</li>
+		
+		{% include 'admin/common/buttons/action_button.twig' with 
+		{ extPath: '_delete_unused', tooltip: 'action.product.deleteUnused', 
+			onclick: confirm, icon: 'fa-trash', type: 'btn-danger' } %}
+		
+		{% include 'admin/common/buttons/action_button.twig' with 
+		{ extPath: '_get_top_products', tooltip: 'action.product.getTopProducts', 
+			icon: 'fa-file-text-o' } %}
 	{% endif %}
 	
-{% endblock %}
-
-{% block headerMainFields2 %}
-	<th><i class="fa fa-"></i> {{ 'label.brand'|trans }}</th>
-{% endblock %}
-
-{% block entryMainFields2 %}
-	<td>
-		{% include 'common/links/simple_link.html.twig' with { type: 'brand', value: { id: item.brandId, name: item.brandName } } %}
-	</td>
 {% endblock %}

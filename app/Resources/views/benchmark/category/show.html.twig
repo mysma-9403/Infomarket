@@ -1,8 +1,8 @@
 {% extends 'benchmark/index.html.twig' %}
 
+{% set title = title|default('label.categories') %}
 {% set mainPath = 'category' %}
 {% set extPath = '_show' %}
-{% set title = title|default('title.categories')|trans %}
 	
 {% block moreJavascripts %}
 	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
@@ -10,6 +10,7 @@
 	
 {% block content %}
 	<div class="container-fluid">
+
 		<div class="row equal">
 			<div class="col-xs-12 col-sm-4 col-md-3 col-lg-2 side-filter">
 				{% block sidebar %}

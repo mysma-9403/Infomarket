@@ -1,14 +1,15 @@
-{% extends 'admin/base/editor.html.twig' %}
+{% extends 'admin/simple/editor.html.twig' %}
 
 {% set mainPath = 'menu_menu_entry_assignment' %}
-{% set title = 'title.menuMenuEntryAssignments'|trans %}
-{% set gender = '' %}
+{% set title = 'label.menuMenuEntryAssignments'|trans %}
 
-{% block mainFields1 %}
-{% endblock %}
 
-{% block moreFields2 %}
-	{{ form_row(form.menu, { 'label': 'label.menu' }) }}
-	{{ form_row(form.menuEntry, { 'label': 'label.menuEntry' }) }}
-	{{ form_row(form.orderNumber, { 'label': 'label.orderNumber' }) }}
-{% endblock %}
+{% block contentFields %}
+	{% include 'admin/common/editor/form_field.twig' with 
+	{ field: form.menu, label: 'label.menu' } %}
+	{% include 'admin/common/editor/form_field.twig' with 
+	{ field: form.menuEntry, label: 'label.menuEntry' } %}
+	
+	{% include 'admin/common/editor/form_field.twig' with 
+	{ field: form.orderNumber, label: 'label.orderNumber' } %}
+{%  endblock %}

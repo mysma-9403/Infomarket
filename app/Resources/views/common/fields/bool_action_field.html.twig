@@ -1,27 +1,17 @@
-{% if trueIcon is not defined %}
-	{% set trueIcon = 'fa-check' %}
-{% endif %}
+{% set trueIcon = trueIcon|default('fa-check') %}
+{% set falseIcon = falseIcon|default('fa-remove') %}
 
-{% if falseIcon is not defined %}
-	{% set falseIcon = 'fa-remove' %}
-{% endif %}
-
-{% if trueTooltip is not defined %}
-	{% set trueTooltip = 'label.yes'|trans %}
-{% endif %}
-
-{% if falseTooltip is not defined %}
-	{% set falseTooltip = 'label.no'|trans %}
-{% endif %}
+{% set trueTooltip = trueTooltip|default('label.yes') %}
+{% set falseTooltip = falseTooltip|default('label.no') %}
 
 {% if canEdit %}
 	<a href="{{ path(basePath ~ mainPath ~ extPath, { id: id, value: value ? false : true }) }}">
 		<span class="fa {{ value ? trueIcon : falseIcon }}" data-toggle="tooltip" 
-			title="{{ value ? trueTooltip : falseTooltip }}">
+			title="{{ value ? trueTooltip|trans : falseTooltip|trans }}">
 		</span>
 	</a>
 {% else %}
 	<span class="fa {{ value ? trueIcon : falseIcon }}" data-toggle="tooltip" 
-		title="{{ value ? trueTooltip : falseTooltip }}">
+		title="{{ value ? trueTooltip|trans : falseTooltip|trans }}">
 	</span>
 {% endif %}

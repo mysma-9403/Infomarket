@@ -2,401 +2,412 @@
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
     <file source-language="en" target-language="pl" datatype="plaintext" original="file.ext">
         <body>
-        	<trans-unit id="title.welcome">
-                <source>title.welcome</source>
+        	<trans-unit id="label.welcome">
+                <source>label.welcome</source>
                 <target>Witamy</target>
             </trans-unit>
-        	<trans-unit id="title.site">
-                <source>title.site</source>
+        	<trans-unit id="label.site">
+                <source>label.site</source>
                 <target>InfoMarket</target>
             </trans-unit>
-        	<trans-unit id="title.admin">
-                <source>title.admin</source>
+        	<trans-unit id="label.admin">
+                <source>label.admin</source>
                 <target>Panel administratora</target>
             </trans-unit>
-            <trans-unit id="title.benchmark">
-                <source>title.benchmark</source>
+            <trans-unit id="label.benchmark">
+                <source>label.benchmark</source>
                 <target>Benchmark</target>
             </trans-unit>
-            <trans-unit id="title.home">
-                <source>title.home</source>
+            <trans-unit id="label.home">
+                <source>label.home</source>
                 <target>Strona domowa</target>
             </trans-unit>
-            <trans-unit id="title.office">
-                <source>title.office</source>
+            <trans-unit id="label.office">
+                <source>label.office</source>
                 <target>Redakcja</target>
             </trans-unit>
             
-            <trans-unit id="title.otgers">
-                <source>title.others</source>
+            <trans-unit id="label.others">
+                <source>label.others</source>
                 <target>Inne</target>
             </trans-unit>
             
-            <trans-unit id="title.advert">
-                <source>title.advert</source>
+            <trans-unit id="label.advert">
+                <source>label.advert</source>
                 <target>Reklama</target>
             </trans-unit>
-            <trans-unit id="title.adverts">
-                <source>title.adverts</source>
+            <trans-unit id="label.adverts">
+                <source>label.adverts</source>
                 <target>Reklamy</target>
             </trans-unit>
-            <trans-unit id="title.archivedArticle">
-                <source>title.archivedArticle</source>
+            <trans-unit id="label.archivedArticle">
+                <source>label.archivedArticle</source>
                 <target>Artykuł archiwalny</target>
             </trans-unit>
-            <trans-unit id="title.archivedArticles">
-                <source>title.archivedArticles</source>
+            <trans-unit id="label.archivedArticles">
+                <source>label.archivedArticles</source>
                 <target>Artykuły archiwalne</target>
             </trans-unit>
-            <trans-unit id="title.article">
-                <source>title.article</source>
+            <trans-unit id="label.article">
+                <source>label.article</source>
                 <target>Artykuł</target>
             </trans-unit>
-            <trans-unit id="title.articles">
-                <source>title.articles</source>
+            <trans-unit id="label.articles">
+                <source>label.articles</source>
                 <target>Artykuły</target>
             </trans-unit>
-            <trans-unit id="title.articleCategories">
-                <source>title.articleCategories</source>
+           	<trans-unit id="label.articleCategory">
+                <source>label.articleCategory</source>
+                <target>Kategoria artykułów</target>
+            </trans-unit>
+            <trans-unit id="label.articleCategories">
+                <source>label.articleCategories</source>
                 <target>Kategorie artykułów</target>
             </trans-unit>
-            <trans-unit id="title.benchmarkEnum">
-                <source>title.benchmarkEnum</source>
+            <trans-unit id="label.benchmarkEnum">
+                <source>label.benchmarkEnum</source>
                 <target>Typ wyliczeniowy benchmarku</target>
             </trans-unit>
-            <trans-unit id="title.benchmarkEnums">
-                <source>title.benchmarkEnums</source>
+            <trans-unit id="label.benchmarkEnums">
+                <source>label.benchmarkEnums</source>
                 <target>Typy wyliczeniowe benchmarku</target>
             </trans-unit>
-            <trans-unit id="title.benchmarkField">
-                <source>title.benchmarkField</source>
+            <trans-unit id="label.benchmarkField">
+                <source>label.benchmarkField</source>
                 <target>Pole benchmarku</target>
             </trans-unit>
-            <trans-unit id="title.benchmarkFields">
-                <source>title.benchmarkFields</source>
+            <trans-unit id="label.benchmarkFields">
+                <source>label.benchmarkFields</source>
                 <target>Pola benchmarku</target>
             </trans-unit>
-            <trans-unit id="title.benchmarkMessage">
-                <source>title.benchmarkMessage</source>
+            <trans-unit id="label.benchmarkMessage">
+                <source>label.benchmarkMessage</source>
                 <target>Wiadomość</target>
             </trans-unit>
-            <trans-unit id="title.benchmarkMessages">
-                <source>title.benchmarkMessages</source>
+            <trans-unit id="label.benchmarkMessages">
+                <source>label.benchmarkMessages</source>
                 <target>Wiadomości</target>
             </trans-unit>
-            <trans-unit id="title.benchmarkQuery">
-                <source>title.benchmarkQuery</source>
+            <trans-unit id="label.benchmarkQuery">
+                <source>label.benchmarkQuery</source>
                 <target>Zapytanie</target>
             </trans-unit>
-            <trans-unit id="title.benchmarkQueries">
-                <source>title.benchmarkQueries</source>
+            <trans-unit id="label.benchmarkQueries">
+                <source>label.benchmarkQueries</source>
                 <target>Zapytania</target>
             </trans-unit>
-            <trans-unit id="title.branch">
-                <source>title.branch</source>
+            <trans-unit id="label.branch">
+                <source>label.branch</source>
                 <target>Branża</target>
             </trans-unit>
-            <trans-unit id="title.branches">
-                <source>title.branches</source>
+            <trans-unit id="label.branches">
+                <source>label.branches</source>
                 <target>Branże</target>
             </trans-unit>
-            <trans-unit id="title.brands">
-                <source>title.brands</source>
+           	<trans-unit id="label.brand">
+                <source>label.brand</source>
+                <target>Marka</target>
+            </trans-unit>
+            <trans-unit id="label.brands">
+                <source>label.brands</source>
                 <target>Marki</target>
             </trans-unit>
-            <trans-unit id="title.category">
-                <source>title.category</source>
+            <trans-unit id="label.category">
+                <source>label.category</source>
                 <target>Kategoria</target>
             </trans-unit>
-            <trans-unit id="title.categories">
-                <source>title.categories</source>
+            <trans-unit id="label.categories">
+                <source>label.categories</source>
                 <target>Kategorie</target>
             </trans-unit>
-           	<trans-unit id="title.link">
-                <source>title.link</source>
+           	<trans-unit id="label.link">
+                <source>label.link</source>
                 <target>Link</target>
             </trans-unit>
-            <trans-unit id="title.links">
-                <source>title.links</source>
+            <trans-unit id="label.links">
+                <source>label.links</source>
                 <target>Linki</target>
             </trans-unit>
-            <trans-unit id="title.magazine">
-                <source>title.magazine</source>
+            <trans-unit id="label.magazine">
+                <source>label.magazine</source>
                 <target>Magazyn</target>
             </trans-unit>
-            <trans-unit id="title.magazines">
-                <source>title.magazines</source>
+            <trans-unit id="label.magazines">
+                <source>label.magazines</source>
                 <target>Magazyny</target>
             </trans-unit>
-           	<trans-unit id="title.menu">
-                <source>title.menu</source>
+           	<trans-unit id="label.menu">
+                <source>label.menu</source>
                 <target>Menu</target>
             </trans-unit>
-            <trans-unit id="title.menus">
-                <source>title.menus</source>
+            <trans-unit id="label.menus">
+                <source>label.menus</source>
                 <target>Menu</target>
             </trans-unit>
-            <trans-unit id="title.menuEntry">
-                <source>title.menuEntry</source>
+            <trans-unit id="label.menuEntry">
+                <source>label.menuEntry</source>
                 <target>Pozycja menu</target>
             </trans-unit>
-            <trans-unit id="title.menuEntries">
-                <source>title.menuEntries</source>
+            <trans-unit id="label.menuEntries">
+                <source>label.menuEntries</source>
                 <target>Pozycje menu</target>
             </trans-unit>
-            <trans-unit id="title.menuMenuEntryAssignment">
-                <source>title.menuMenuEntryAssignment</source>
+            <trans-unit id="label.menuMenuEntryAssignment">
+                <source>label.menuMenuEntryAssignment</source>
                 <target>Menu - Pozycja menu</target>
             </trans-unit>
-            <trans-unit id="title.menuMenuEntryAssignments">
-                <source>title.menuMenuEntryAssignments</source>
+            <trans-unit id="label.menuMenuEntryAssignments">
+                <source>label.menuMenuEntryAssignments</source>
                 <target>Menu - Pozycje menu</target>
             </trans-unit>
-            <trans-unit id="title.newsletter">
-                <source>title.newsletter</source>
+            <trans-unit id="label.newsletter">
+                <source>label.newsletter</source>
                 <target>Newsletter</target>
             </trans-unit>
-            <trans-unit id="title.newsletterBlock">
-                <source>title.newsletterBlock</source>
+            <trans-unit id="label.newsletterBlock">
+                <source>label.newsletterBlock</source>
                 <target>Blok newslettera</target>
             </trans-unit>
-            <trans-unit id="title.newsletterBlocks">
-                <source>title.newsletterBlocks</source>
+            <trans-unit id="label.newsletterBlocks">
+                <source>label.newsletterBlocks</source>
                 <target>Bloki newslettera</target>
             </trans-unit>
-            <trans-unit id="title.newsletterBlockTemplate">
-                <source>title.newsletterBlockTemplate</source>
+            <trans-unit id="label.newsletterBlockTemplate">
+                <source>label.newsletterBlockTemplate</source>
                 <target>Szablon bloku newslettera</target>
             </trans-unit>
-            <trans-unit id="title.newsletterBlockTemplates">
-                <source>title.newsletterBlockTemplates</source>
+            <trans-unit id="label.newsletterBlockTemplates">
+                <source>label.newsletterBlockTemplates</source>
                 <target>Szablony bloków newslettera</target>
             </trans-unit>
-            <trans-unit id="title.newsletterPage">
-                <source>title.newsletterPage</source>
+            <trans-unit id="label.newsletterPage">
+                <source>label.newsletterPage</source>
                 <target>Strona newslettera</target>
             </trans-unit>
-            <trans-unit id="title.newsletterPages">
-                <source>title.newsletterPages</source>
+            <trans-unit id="label.newsletterPages">
+                <source>label.newsletterPages</source>
                 <target>Strony newslettera</target>
             </trans-unit>
-            <trans-unit id="title.newsletterPageTemplate">
-                <source>title.newsletterPageTemplate</source>
+            <trans-unit id="label.newsletterPageTemplate">
+                <source>label.newsletterPageTemplate</source>
                 <target>Szablon strony newslettera</target>
             </trans-unit>
-            <trans-unit id="title.newsletterPageTemplates">
-                <source>title.newsletterPageTemplates</source>
+            <trans-unit id="label.newsletterPageTemplates">
+                <source>label.newsletterPageTemplates</source>
                 <target>Szablony stron newslettera</target>
             </trans-unit>
-            <trans-unit id="title.newsletterUser">
-                <source>title.newsletterUser</source>
+            <trans-unit id="label.newsletterUser">
+                <source>label.newsletterUser</source>
                 <target>Subskrybent</target>
             </trans-unit>
-            <trans-unit id="title.newsletterUsers">
-                <source>title.newsletterUsers</source>
+            <trans-unit id="label.newsletterUsers">
+                <source>label.newsletterUsers</source>
                 <target>Subskrybenci</target>
             </trans-unit>
-            <trans-unit id="title.newsletterGroup">
-                <source>title.newsletterGroup</source>
+            <trans-unit id="label.newsletterGroup">
+                <source>label.newsletterGroup</source>
                 <target>Grupa subskrybentów</target>
             </trans-unit>
-            <trans-unit id="title.newsletterGroups">
-                <source>title.newsletterGroups</source>
+            <trans-unit id="label.newsletterGroups">
+                <source>label.newsletterGroups</source>
                 <target>Grupy subskrybentów</target>
             </trans-unit>
-            <trans-unit id="title.product">
-                <source>title.product</source>
+            <trans-unit id="label.product">
+                <source>label.product</source>
                 <target>Produkt</target>
             </trans-unit>
-            <trans-unit id="title.products">
-                <source>title.products</source>
+            <trans-unit id="label.products">
+                <source>label.products</source>
                 <target>Produkty</target>
             </trans-unit>
-            <trans-unit id="title.customProduct">
-                <source>title.customProduct</source>
+            <trans-unit id="label.customProduct">
+                <source>label.customProduct</source>
                 <target>Produkt użytkownika</target>
             </trans-unit>
-            <trans-unit id="title.customProducts">
-                <source>title.customProducts</source>
+            <trans-unit id="label.customProducts">
+                <source>label.customProducts</source>
                 <target>Produkty użytkownika</target>
             </trans-unit>
-            <trans-unit id="title.page">
-                <source>title.page</source>
+            <trans-unit id="label.page">
+                <source>label.page</source>
                 <target>Strona</target>
             </trans-unit>
-            <trans-unit id="title.pages">
-                <source>title.pages</source>
+            <trans-unit id="label.pages">
+                <source>label.pages</source>
                 <target>Strony</target>
             </trans-unit>
-            <trans-unit id="title.segment">
-                <source>title.segment</source>
+            <trans-unit id="label.segment">
+                <source>label.segment</source>
                 <target>Segment</target>
             </trans-unit>
-            <trans-unit id="title.segments">
-                <source>title.segments</source>
+            <trans-unit id="label.segments">
+                <source>label.segments</source>
                 <target>Segmenty</target>
             </trans-unit>
-            <trans-unit id="title.settings">
-                <source>title.settings</source>
+            <trans-unit id="label.settings">
+                <source>label.settings</source>
                 <target>Ustawienia</target>
             </trans-unit>
-            <trans-unit id="title.search">
-                <source>title.search</source>
+            <trans-unit id="label.search">
+                <source>label.search</source>
                 <target>Wyszukiwanie</target>
             </trans-unit>
-            <trans-unit id="title.tags">
-                <source>title.tags</source>
+           	<trans-unit id="label.tag">
+                <source>label.tag</source>
+                <target>Tag</target>
+            </trans-unit>
+            <trans-unit id="label.tags">
+                <source>label.tags</source>
                 <target>Tagi</target>
             </trans-unit>
-            <trans-unit id="title.terms">
-                <source>title.terms</source>
+           	<trans-unit id="label.term">
+                <source>label.term</source>
+                <target>Pojęcie</target>
+            </trans-unit>
+            <trans-unit id="label.terms">
+                <source>label.terms</source>
                 <target>Leksykon pojęć</target>
             </trans-unit>
-            <trans-unit id="title.user">
-                <source>title.user</source>
+            <trans-unit id="label.user">
+                <source>label.user</source>
                 <target>Użytkownik</target>
             </trans-unit>
-            <trans-unit id="title.users">
-                <source>title.users</source>
+            <trans-unit id="label.users">
+                <source>label.users</source>
                 <target>Użytkownicy</target>
             </trans-unit>
             
-            <trans-unit id="title.article_categories">
-                <source>title.article_categories</source>
+            <trans-unit id="label.article_categories">
+                <source>label.article_categories</source>
                 <target>Kategorie artykułów</target>
             </trans-unit>
             
-            <trans-unit id="title.assignments">
-                <source>title.assignments</source>
+            <trans-unit id="label.assignments">
+                <source>label.assignments</source>
                 <target>Powiązania</target>
             </trans-unit>
             
-            <trans-unit id="title.advert_category_assignments">
-                <source>title.advert_category_assignments</source>
+            <trans-unit id="label.advert_category_assignments">
+                <source>label.advert_category_assignments</source>
                 <target>Reklamy - Kategorie</target>
             </trans-unit>
-            <trans-unit id="title.article_article_category_assignments">
-                <source>title.article_article_category_assignments</source>
+            <trans-unit id="label.article_article_category_assignments">
+                <source>label.article_article_category_assignments</source>
                 <target>Artykuły - Kategorie artykułów</target>
             </trans-unit>
-            <trans-unit id="title.article_brand_assignments">
-                <source>title.article_brand_assignments</source>
+            <trans-unit id="label.article_brand_assignments">
+                <source>label.article_brand_assignments</source>
                 <target>Artykuły - Marki</target>
             </trans-unit>
-            <trans-unit id="title.article_category_assignments">
-                <source>title.article_category_assignments</source>
+            <trans-unit id="label.article_category_assignments">
+                <source>label.article_category_assignments</source>
                 <target>Artykuły - Kategorie</target>
             </trans-unit>
-            <trans-unit id="title.article_tag_assignments">
-                <source>title.article_tag_assignments</source>
+            <trans-unit id="label.article_tag_assignments">
+                <source>label.article_tag_assignments</source>
                 <target>Artykuły - Tagi</target>
             </trans-unit>
-            <trans-unit id="title.branch_category_assignments">
-                <source>title.branch_category_assignments</source>
+            <trans-unit id="label.branch_category_assignments">
+                <source>label.branch_category_assignments</source>
                 <target>Branże - Kategorie</target>
             </trans-unit>
-            <trans-unit id="title.brand_category_assignments">
-                <source>title.brand_category_assignments</source>
+            <trans-unit id="label.brand_category_assignments">
+                <source>label.brand_category_assignments</source>
                 <target>Marki - Kategorie</target>
             </trans-unit>
-            <trans-unit id="title.magazine_branch_assignments">
-                <source>title.magazine_branch_assignments</source>
+            <trans-unit id="label.magazine_branch_assignments">
+                <source>label.magazine_branch_assignments</source>
                 <target>Magazyny - Branże</target>
             </trans-unit>
-            <trans-unit id="title.magazine_category_assignments">
-                <source>title.magazine_category_assignments</source>
+            <trans-unit id="label.magazine_category_assignments">
+                <source>label.magazine_category_assignments</source>
                 <target>Magazyny - Kategorie</target>
             </trans-unit>
-            <trans-unit id="title.menuEntryBranchAssignments">
-                <source>title.menuEntryBranchAssignments</source>
+            <trans-unit id="label.menuEntryBranchAssignments">
+                <source>label.menuEntryBranchAssignments</source>
                 <target>Pozycje menu - Branże</target>
             </trans-unit>
-            <trans-unit id="title.menuEntryCategoryAssignments">
-                <source>title.menuEntryCategoryAssignments</source>
+            <trans-unit id="label.menuEntryCategoryAssignments">
+                <source>label.menuEntryCategoryAssignments</source>
                 <target>Pozycje menu - Kategorie</target>
             </trans-unit>
-            <trans-unit id="title.newsletter_block_advert_assignments">
-                <source>title.newsletter_block_advert_assignments</source>
+            <trans-unit id="label.newsletter_block_advert_assignments">
+                <source>label.newsletter_block_advert_assignments</source>
                 <target>Bloki newslettera - Reklamy</target>
             </trans-unit>
-            <trans-unit id="title.newsletter_block_article_assignments">
-                <source>title.newsletter_block_article_assignments</source>
+            <trans-unit id="label.newsletter_block_article_assignments">
+                <source>label.newsletter_block_article_assignments</source>
                 <target>Bloki newslettera - Artykuły</target>
             </trans-unit>
-            <trans-unit id="title.newsletter_block_magazine_assignments">
-                <source>title.newsletter_block_magazine_assignments</source>
+            <trans-unit id="label.newsletter_block_magazine_assignments">
+                <source>label.newsletter_block_magazine_assignments</source>
                 <target>Bloki newslettera - Magazyny</target>
             </trans-unit>
-            <trans-unit id="title.newsletter_user_newsletter_group_assignments">
-                <source>title.newsletter_user_newsletter_group_assignments</source>
+            <trans-unit id="label.newsletter_user_newsletter_group_assignments">
+                <source>label.newsletter_user_newsletter_group_assignments</source>
                 <target>Subskrybenci - Grupy subskrybentów</target>
             </trans-unit>
-            <trans-unit id="title.newsletter_user_newsletter_page_assignments">
-                <source>title.newsletter_user_newsletter_page_assignments</source>
+            <trans-unit id="label.newsletter_user_newsletter_page_assignments">
+                <source>label.newsletter_user_newsletter_page_assignments</source>
                 <target>Subskrybenci - Wysłane newslettery</target>
             </trans-unit>
-            <trans-unit id="title.product_category_assignments">
-                <source>title.product_category_assignments</source>
+            <trans-unit id="label.product_category_assignments">
+                <source>label.product_category_assignments</source>
                 <target>Produkty - Kategorie</target>
             </trans-unit>
-            <trans-unit id="title.term_category_assignments">
-                <source>title.term_category_assignments</source>
+            <trans-unit id="label.term_category_assignments">
+                <source>label.term_category_assignments</source>
                 <target>Terminy - Kategorie</target>
             </trans-unit>
-            <trans-unit id="title.user_category_assignments">
-                <source>title.user_category_assignments</source>
+            <trans-unit id="label.user_category_assignments">
+                <source>label.user_category_assignments</source>
                 <target>Użytkownicy - Kategorie</target>
             </trans-unit>
-            <trans-unit id="title.category_tree">
-                <source>title.category_tree</source>
+            <trans-unit id="label.category_tree">
+                <source>label.category_tree</source>
                 <target>Drzewo kategorii</target>
             </trans-unit>
-            <trans-unit id="title.ratings">
-                <source>title.ratings</source>
+            <trans-unit id="label.ratings">
+                <source>label.ratings</source>
                 <target>Ratingi</target>
             </trans-unit>
             
-            <trans-unit id="title.login">
-                <source>title.login</source>
+            <trans-unit id="label.login">
+                <source>label.login</source>
                 <target>Logowanie</target>
             </trans-unit>
-            <trans-unit id="title.register">
-                <source>title.register</source>
+            <trans-unit id="label.register">
+                <source>label.register</source>
                 <target>Rejestracja</target>
             </trans-unit>
-            <trans-unit id="title.resetting">
-                <source>title.resetting</source>
+            <trans-unit id="label.resetting">
+                <source>label.resetting</source>
                 <target>Resetowanie</target>
             </trans-unit>
             
-            <trans-unit id="title.featured">
-                <source>title.featured</source>
-                <target>Wyróżnione</target>
-            </trans-unit>
             
             
-            
-            <trans-unit id="title.footer.copyright">
-                <source>title.footer.copyright</source>
+            <trans-unit id="label.footer.copyright">
+                <source>label.footer.copyright</source>
                 <target>2017 InfoMarket</target>
             </trans-unit>
-            <trans-unit id="title.footer.office">
-                <source>title.footer.office</source>
+            <trans-unit id="label.footer.office">
+                <source>label.footer.office</source>
                 <target>Redakcja</target>
             </trans-unit>
-            <trans-unit id="title.footer.magazine">
-                <source>title.footer.magazine</source>
+            <trans-unit id="label.footer.magazine">
+                <source>label.footer.magazine</source>
                 <target>Magazyn</target>
             </trans-unit>
             
             
-            <trans-unit id="title.infomarket.home">
-                <source>title.infomarket.home</source>
+            <trans-unit id="label.infomarket.home">
+                <source>label.infomarket.home</source>
                 <target>Dział</target>
             </trans-unit>
             
-            <trans-unit id="title.infoprodukt.terms">
-                <source>title.infoprodukt.terms</source>
+            <trans-unit id="label.infoprodukt.terms">
+                <source>label.infoprodukt.terms</source>
                 <target>Leksykon pojęć</target>
             </trans-unit>
             
@@ -511,56 +522,6 @@
                 <target>Wydarzenia</target>
             </trans-unit>
             
-            
-            
-            <trans-unit id="label.advert">
-                <source>label.advert</source>
-                <target>Reklama</target>
-            </trans-unit>
-            <trans-unit id="label.article">
-                <source>label.article</source>
-                <target>Artyuł</target>
-            </trans-unit>
-            <trans-unit id="label.articleCategory">
-                <source>label.articleCategory</source>
-                <target>Kategoria artyułu</target>
-            </trans-unit>
-            <trans-unit id="label.branch">
-                <source>label.branch</source>
-                <target>Branża</target>
-            </trans-unit>
-            <trans-unit id="label.brand">
-                <source>label.brand</source>
-                <target>Marka</target>
-            </trans-unit>
-            <trans-unit id="label.category">
-                <source>label.category</source>
-                <target>Kategoria</target>
-            </trans-unit>
-            <trans-unit id="label.page">
-                <source>label.page</source>
-                <target>Strona</target>
-            </trans-unit>
-            <trans-unit id="label.product">
-                <source>label.product</source>
-                <target>Produkt</target>
-            </trans-unit>
-            <trans-unit id="label.segment">
-                <source>label.segment</source>
-                <target>Segment</target>
-            </trans-unit>
-            <trans-unit id="label.tag">
-                <source>label.tag</source>
-                <target>Tag</target>
-            </trans-unit>
-            <trans-unit id="label.term">
-                <source>label.term</source>
-                <target>Pojęcie</target>
-            </trans-unit>
-            <trans-unit id="label.user">
-                <source>label.user</source>
-                <target>Użytkownik</target>
-            </trans-unit>
             
             
             <trans-unit id="label.mainCategory.brands">
@@ -678,10 +639,8 @@
                 <target>Duży</target>
             </trans-unit>
             
-            <trans-unit id="label.benchmarkEnum">
-                <source>label.benchmarkEnum</source>
-                <target>Typ wyliczeniowy benchmarku</target>
-            </trans-unit>
+            
+            
             <trans-unit id="label.benchmarkEnum.name">
                 <source>label.benchmarkEnum.name</source>
                 <target>Wartość (nazwa)</target>
@@ -691,10 +650,7 @@
                 <target>Wartość (ocena)</target>
             </trans-unit>
             
-            <trans-unit id="label.benchmarkField">
-                <source>label.benchmarkField</source>
-                <target>Pole benchmarku</target>
-            </trans-unit>
+            
             
             <trans-unit id="label.benchmarkField.valueType">
                 <source>label.benchmarkField.valueType</source>
@@ -1098,23 +1054,6 @@
                 <source>label.filter</source>
                 <target>Filtr</target>
             </trans-unit>
-            <trans-unit id="label.categories">
-                <source>label.categories</source>
-                <target>Kategorie</target>
-            </trans-unit>
-            <trans-unit id="label.links">
-                <source>label.links</source>
-                <target>Menu</target>
-            </trans-unit>
-            
-            <trans-unit id="label.home">
-                <source>label.home</source>
-                <target>Strona domowa</target>
-            </trans-unit>
-            <trans-unit id="label.welcome">
-                <source>label.welcome</source>
-                <target>Witaj</target>
-            </trans-unit>
             
             <trans-unit id="label.all">
                 <source>label.all</source>
@@ -1241,10 +1180,6 @@
             <trans-unit id="label.preleafs">
                 <source>label.preleafs</source>
                 <target>Główne</target>
-            </trans-unit>
-            <trans-unit id="label.others">
-                <source>label.others</source>
-                <target>Pozostałe</target>
             </trans-unit>
             
             <trans-unit id="label.roots">
@@ -1606,10 +1541,6 @@
             
             
             
-            <trans-unit id="label.magazine">
-                <source>label.magazine</source>
-                <target>Magazyn</target>
-            </trans-unit>
             <trans-unit id="label.magazine.date">
                 <source>label.magazine.date</source>
                 <target>Data wydania</target>
@@ -1650,15 +1581,11 @@
             
             
             
-            <trans-unit id="label.menu">
-                <source>label.menu</source>
-                <target>Menu</target>
+            <trans-unit id="label.menuEntry.children">
+                <source>label.menuEntry.children</source>
+                <target>Pozycje podrzędne</target>
             </trans-unit>
             
-            <trans-unit id="label.menuEntry">
-                <source>label.menuEntry</source>
-                <target>Pozycja menu</target>
-            </trans-unit>
             <trans-unit id="label.menuEntry.link">
                 <source>label.menuEntry.link</source>
                 <target>Powiązany link</target>
@@ -1694,26 +1621,6 @@
             </trans-unit>
             
             
-            <trans-unit id="label.newsletterBlock">
-                <source>label.newsletterBlock</source>
-                <target>Blok newslettera</target>
-            </trans-unit>
-            <trans-unit id="label.newsletterBlocks">
-                <source>label.newsletterBlocks</source>
-                <target>Bloki newslettera</target>
-            </trans-unit>
-            <trans-unit id="label.newsletterBlockTemplate">
-                <source>label.newsletterBlockTemplate</source>
-                <target>Szablon bloku newslettera</target>
-            </trans-unit>
-            <trans-unit id="label.newsletterPage">
-                <source>label.newsletterPage</source>
-                <target>Strona newslettera</target>
-            </trans-unit>
-            <trans-unit id="label.newsletterPageTemplate">
-                <source>label.newsletterPageTemplate</source>
-                <target>Szablon strony newslettera</target>
-            </trans-unit>
             
             <trans-unit id="label.newsletterPage.sendNewsletter.sources">
                 <source>label.newsletterPage.sendNewsletter.sources</source>
@@ -1741,23 +1648,7 @@
                 <target>Odbiorcy</target>
             </trans-unit>
             
-            <trans-unit id="label.newsletterGroup">
-                <source>label.newsletterGroup</source>
-                <target>Grupa subskrybentów</target>
-            </trans-unit>
-            <trans-unit id="label.newsletterGroups">
-                <source>label.newsletterGroups</source>
-                <target>Grupy subskrybentów</target>
-            </trans-unit>
             
-            <trans-unit id="label.newsletterUser">
-                <source>label.newsletterUser</source>
-                <target>Subskrybent</target>
-            </trans-unit>
-            <trans-unit id="label.newsletterUsers">
-                <source>label.newsletterUsers</source>
-                <target>Subskrybenci</target>
-            </trans-unit>
             
             <trans-unit id="label.newsletterUser.import">
                 <source>label.newsletterUser.import</source>
@@ -2251,6 +2142,10 @@
             <trans-unit id="action.filter">
                 <source>action.filter</source>
                 <target>Filtruj</target>
+            </trans-unit>
+            <trans-unit id="action.filterMore">
+                <source>action.filterMore</source>
+                <target>Więcej...</target>
             </trans-unit>
             <trans-unit id="action.selectAll">
                 <source>action.selectAll</source>

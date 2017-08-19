@@ -1,4 +1,11 @@
 {% extends 'admin/simple/index.html.twig' %}
 
-{% set title = 'title.newsletterPageTemplates'|trans %}
+{% set title = 'label.newsletterPageTemplates'|trans %}
 {% set mainPath = 'newsletter_page_template' %}
+
+
+
+{% block filterSmallFields %}
+	{% include 'common/fields/filter/simple_field.html.twig' with 
+		{ field: filter.name, label: 'label.name' } %}
+{% endblock %}

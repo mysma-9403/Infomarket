@@ -1,13 +1,28 @@
 {% extends 'admin/simple/editor.html.twig' %}
 
-{% set title = 'title.newsletterBlockTemplates'|trans %}
+{% set title = 'label.newsletterBlockTemplates'|trans %}
 {% set mainPath = 'newsletter_block_template' %}
 {% set gender = 'm.' %}
+
+
+{% block headerFields %}
+	{% include 'admin/common/editor/form_field.twig' with 
+	{ field: form.name, label: 'label.name' } %}
+{% endblock %}
+
+{% block contentFields %}
+	{% include 'admin/common/editor/form_field.twig' with 
+	{ field: form.style, label: 'label.newsletterBlockTemplate.style' } %}
 	
-{% block moreFields3 %}
-	{{ form_row(form.style, { 'label': 'label.newsletterBlockTemplate.style' }) }}	
-    {{ form_row(form.content, { 'label': 'label.newsletterBlockTemplate.content' }) }}
-    {{ form_row(form.advertContent, { 'label': 'label.newsletterBlockTemplate.advertContent' }) }}
-    {{ form_row(form.articleContent, { 'label': 'label.newsletterBlockTemplate.articleContent' }) }}
-    {{ form_row(form.magazineContent, { 'label': 'label.newsletterBlockTemplate.magazineContent' }) }}
+	{% include 'admin/common/editor/form_field.twig' with 
+	{ field: form.content, label: 'label.newsletterBlockTemplate.content' } %}
+	
+	{% include 'admin/common/editor/form_field.twig' with 
+	{ field: form.advertContent, label: 'label.newsletterBlockTemplate.advertContent' } %}
+	
+	{% include 'admin/common/editor/form_field.twig' with 
+	{ field: form.articleContent, label: 'label.newsletterBlockTemplate.articleContent' } %}
+	
+	{% include 'admin/common/editor/form_field.twig' with 
+	{ field: form.magazineContent, label: 'label.newsletterBlockTemplate.magazineContent' } %}
 {% endblock %}

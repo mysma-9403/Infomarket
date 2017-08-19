@@ -1,27 +1,34 @@
 {% extends 'admin/image/show.html.twig' %}
 
 {% set mainPath = 'segment' %}
-{% set title = 'title.segments'|trans %}
+{% set title = 'label.segments'|trans %}
 {% set gender = 'm.' %}
 
-{% block moreFields2 %}
-	<div class="row">
-		<div class="col-xs-12">
-			<h4>{{ entry.subname | raw }}</h4>
-		</div>
-	</div>
+
+{% block headerFields %}
+	{% include 'common/fields/header_field.html.twig' with 
+	{ value: entry.name } %}
 {% endblock %}
 
-{% block moreFields3 %}
-	{% include 'common/fields/color_field.html.twig' with 
-	{ 'label': 'label.color'|trans, 'value': entry.color } %}
+{% block contentFields %}
+	{% include 'admin/image/components/show/image.twig' %}
 	
-	<div class="row">
-		<div class="col-xs-12">
-			<h4>{{ 'label.content'|trans }}</h4>
-		</div>
-		<div class="col-xs-12">
-			{{ entry.content | raw }}
-		</div>
-	</div>
+	<div class="vr-space-40"></div>
+	
+	{% include 'common/fields/bool_field.html.twig' with 
+	{ label: 'label.' ~ gender ~ 'infomarket', value: entry.infomarket } %}
+	{% include 'common/fields/bool_field.html.twig' with 
+	{ label: 'label.' ~ gender ~ 'infoprodukt', value: entry.infoprodukt } %}
+	
+	<div class="vr-space-40"></div>
+	
+	{% include 'common/fields/color_field.html.twig' with 
+	{ label: 'label.color', value: entry.color } %}
+	
+	{% include 'common/fields/content_field.html.twig' with 
+	{ label: 'label.content', value: entry.content } %}
+	
+	<div class="vr-space-40"></div>
+	
+	{% include 'admin/simple/components/show/audit_fields.twig' %}
 {% endblock %}

@@ -1,22 +1,31 @@
 {% extends 'admin/simple/show.html.twig' %}
 
 {% set mainPath = 'term' %}
-{% set title = 'title.terms'|trans %}
+{% set title = 'label.terms'|trans %}
 {% set gender = 'm.' %}
 
-{% block moreFields3 %}
+
+{% block headerFields %}
+	{% include 'common/fields/header_field.html.twig' with 
+	{ value: entry.name } %}
+{% endblock %}
+
+{% block contentFields %}	
+	{% include 'common/fields/bool_field.html.twig' with 
+	{ label: 'label.' ~ gender ~ 'infomarket', value: entry.infomarket } %}
+	{% include 'common/fields/bool_field.html.twig' with 
+	{ label: 'label.' ~ gender ~ 'infoprodukt', value: entry.infoprodukt } %}
 	
-	<div class="row">
-		<div class="col-xs-12">
-			<h4>{{ 'label.content'|trans }}</h4>
-		</div>
-		<div class="col-xs-12">
-			{{ entry.content | raw }}
-		</div>
-	</div>
+	<div class="vr-space-40"></div>
 	
+	{% include 'common/fields/content_field.html.twig' with 
+	{ label: 'label.content', value: entry.content } %}
+	
+	<div class="vr-space-40"></div>
+	
+	{% include 'admin/simple/components/show/audit_fields.twig' %}
 {% endblock %}
 
 {% block assignments %}
-	{% include 'admin/term/assignments.html.twig' with { 'entry': entry } %}
+	{% include 'admin/term/components/assignments.html.twig' %}
 {% endblock %}

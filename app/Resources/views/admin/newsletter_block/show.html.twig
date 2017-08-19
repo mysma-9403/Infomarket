@@ -1,50 +1,56 @@
 {% extends 'admin/simple/show.html.twig' %}
 
-{% set title = 'title.newsletterBlocks'|trans %}
+{% set title = 'label.newsletterBlocks'|trans %}
 {% set mainPath = 'newsletter_block' %}
 {% set gender = 'm.' %}
 
-{% block moreFields2 %}
-	<div class="row">
-		<div class="col-xs-12">
-			<h4>{{ entry.subname | raw }}</h4>
-		</div>
-	</div>
+
+{% block headerFields %}
+	{% include 'common/fields/header_field.html.twig' with 
+	{ value: entry.name ~ ' ' ~ entry.subname } %}
 {% endblock %}
 
-{% block moreFields3 %}
+{% block contentFields %}
 	{% include 'common/fields/simple_field.html.twig' with 
-		{ 'label': 'label.newsletterPage', 'value': entry.newsletterPage, 'object': 'newsletter_page' } %}
-	{% include 'common/fields/text_field.html.twig' with 
-		{ 'label': 'label.orderNumber', 'value': entry.orderNumber } %}
+	{ label: 'label.newsletterPage', value: entry.newsletterPage, 
+		object: 'newsletter_page' } %}
 	{% include 'common/fields/simple_field.html.twig' with 
-		{ 'label': 'label.newsletterBlockTemplate', 'value': entry.newsletterBlockTemplate, 'object': 'newsletter_block_template' } %}
-		
-	{% include 'common/fields/text_field.html.twig' with 
-		{ 'label': 'label.newsletterBlock.xAdvertRatio', 'value': entry.xAdvertRatio } %}
-	{% include 'common/fields/text_field.html.twig' with 
-		{ 'label': 'label.newsletterBlock.yAdvertRatio', 'value': entry.yAdvertRatio } %}
+	{ label: 'label.newsletterBlockTemplate', value: entry.newsletterBlockTemplate, 
+		object: 'newsletter_block_template' } %}
 	
 	{% include 'common/fields/text_field.html.twig' with 
-		{ 'label': 'label.newsletterBlock.xArticleRatio', 'value': entry.xArticleRatio } %}
+	{ label: 'label.orderNumber', value: entry.orderNumber } %}
+	
+	<div class="vr-space-40"></div>
+	
 	{% include 'common/fields/text_field.html.twig' with 
-		{ 'label': 'label.newsletterBlock.yArticleRatio', 'value': entry.yArticleRatio } %}
+	{ label: 'label.newsletterBlock.xAdvertRatio', value: entry.xAdvertRatio } %}
+	{% include 'common/fields/text_field.html.twig' with 
+	{ label: 'label.newsletterBlock.yAdvertRatio', value: entry.yAdvertRatio } %}
+	
+	{% include 'common/fields/text_field.html.twig' with 
+	{ label: 'label.newsletterBlock.xArticleRatio', value: entry.xArticleRatio } %}
+	{% include 'common/fields/text_field.html.twig' with 
+	{ label: 'label.newsletterBlock.yArticleRatio', value: entry.yArticleRatio } %}
 		
 	{% include 'common/fields/text_field.html.twig' with 
-		{ 'label': 'label.newsletterBlock.xMagazineRatio', 'value': entry.xMagazineRatio } %}
+	{ label: 'label.newsletterBlock.xMagazineRatio', value: entry.xMagazineRatio } %}
 	{% include 'common/fields/text_field.html.twig' with 
-		{ 'label': 'label.newsletterBlock.yMagazineRatio', 'value': entry.yMagazineRatio } %}
+	{ label: 'label.newsletterBlock.yMagazineRatio', value: entry.yMagazineRatio } %}
 		
 	{% include 'common/fields/text_field.html.twig' with 
-		{ 'label': 'label.newsletterBlock.magazinePadding', 'value': entry.magazinePadding } %}
-		
+	{ label: 'label.newsletterBlock.articleSeparator', value: entry.articleSeparator } %}
 	{% include 'common/fields/text_field.html.twig' with 
-		{ 'label': 'label.newsletterBlock.articleSeparator', 'value': entry.articleSeparator } %}
-		
+	{ label: 'label.newsletterBlock.magazineSeparator', value: entry.magazineSeparator } %}
+	
 	{% include 'common/fields/text_field.html.twig' with 
-		{ 'label': 'label.newsletterBlock.magazineSeparator', 'value': entry.magazineSeparator } %}
+	{ label: 'label.newsletterBlock.magazinePadding', value: entry.magazinePadding } %}
+	
+	<div class="vr-space-40"></div>
+	
+	{% include 'admin/simple/components/show/audit_fields.twig' %}
 {% endblock %}
 
 {% block assignments %}
-	{% include 'admin/newsletter_block/assignments.html.twig' %}
+	{% include 'admin/newsletter_block/components/assignments.html.twig' %}
 {% endblock %}

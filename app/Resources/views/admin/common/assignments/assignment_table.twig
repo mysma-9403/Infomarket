@@ -1,0 +1,32 @@
+{% set showImage = showImage|default(false) %}
+{% set xxx = xxx|default('') %}
+
+<div class="bkg-blue">
+	<div class="container">
+		<div class="row bkg-white no-padding">
+			<table class="table table-striped vert-align">
+				<tbody>
+					<tr>
+						{% block headerFields %}
+							{% include 'common/fields/table_header/icon_field.html.twig' with 
+							{ icon: 'fa-tag', label: entryLabel|trans } %}
+						{% endblock %}
+						
+						{% include 'common/fields/table_header/icon_field.html.twig' with 
+						{ class: 'actions', icon: 'fa-play', label: 'label.actions' } %}
+					</tr>
+					{% for item in items %}
+						<tr>
+							{% block entryFields %}
+							{% endblock %}
+							
+							{% block actions %}
+								{% include 'admin/common/assignments/assignment_actions.twig' %}
+							{% endblock %}
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>

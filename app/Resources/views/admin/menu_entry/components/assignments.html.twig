@@ -1,0 +1,33 @@
+{% include 'admin/common/assignments/assignment_header.twig' with 
+{ mainPath: 'menu_entry', extPath: '_new', routeParams: { parent: entry.id },
+	tooltip: 'action.createSubmenuEntry', header: 'label.menuEntry.children' } %}
+
+{% include 'admin/common/assignments/item_assignment_table.twig' with 
+{ object: 'menu_entry', items: entry.children, entryLabel: 'label.menuEntry' } %}
+
+
+{% include 'admin/common/assignments/assignment_header.twig' with 
+{ mainPath: 'menu_menu_entry_assignment', extPath: '_new', routeParams: { 'menu_entry': entry.id },
+	tooltip: 'action.assignMenu', header: 'label.menus' } %}
+
+{% include 'admin/common/assignments/menu_assignment_table.twig' with 
+{ object: 'menu_menu_entry_assignment', items: entry.menuMenuEntryAssignments,
+	entryLabel: 'label.menu' } %}
+	
+	
+{% include 'admin/common/assignments/assignment_header.twig' with 
+{ mainPath: 'menu_entry_branch_assignment', extPath: '_new', routeParams: { 'menu_entry': entry.id },
+	tooltip: 'action.assignBranch', header: 'label.branches' } %}
+
+{% include 'admin/common/assignments/branch_assignment_table.twig' with 
+{ object: 'menu_entry_branch_assignment', items: entry.menuEntryBranchAssignments,
+	entryLabel: 'label.branch' } %}
+	
+	
+{% include 'admin/common/assignments/assignment_header.twig' with 
+{ mainPath: 'menu_entry_category_assignment', extPath: '_new', routeParams: { 'menu_entry': entry.id },
+	tooltip: 'action.assignCategory', header: 'label.categories' } %}
+
+{% include 'admin/common/assignments/category_assignment_table.twig' with 
+{ object: 'menu_entry_category_assignment', items: entry.menuEntryCategoryAssignments,
+	entryLabel: 'label.category' } %}

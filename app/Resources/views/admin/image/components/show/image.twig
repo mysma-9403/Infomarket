@@ -1,0 +1,19 @@
+<div class="row">
+    <div class="col-xs-6 col-sm-4 col-md-3">
+    	<div class="rect">
+    		{% if entry.image %}
+				{% include 'common/image/image_entry.html.twig' %}
+			{% endif %}
+		</div>
+	</div>
+	<div class="col-xs-6 col-sm-8 col-md-9">
+		{% include 'common/fields/bool_field.html.twig' with 
+		{ label: 'label.image.vertical', 'value': entry.vertical } %}
+		
+		{% include 'common/fields/number_field.html.twig' with 
+		{ label: 'label.image.forcedWidth', 'value': entry.forcedWidth } %}
+		
+		{% include 'common/fields/number_field.html.twig' with 
+		{ label: 'label.image.forcedHeight', 'value': entry.forcedHeight } %}
+	</div>
+</div>

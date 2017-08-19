@@ -1,20 +1,28 @@
 {% extends 'admin/simple/index.html.twig' %}
 
-{% set title = 'title.newsletterPages'|trans %}
+{% set title = 'label.newsletterPages'|trans %}
 {% set mainPath = 'newsletter_page' %}
 
-{% block filterMoreFields3 %}
-	<li class="col-xs-12 col-sm-6 col-md-4 col-lg-2">
-		{{ form_widget(filter.newsletterPageTemplates, { 'label': 'label.choose.newsletterPageTemplates' }) }}
-	</li>
+
+
+{% block filterSmallFields %}
+	{% include 'common/fields/filter/simple_field.html.twig' with 
+		{ field: filter.name, label: 'label.name' } %}
 {% endblock %}
 
-{% block headerMoreFields2 %}
-	<th><i class="fa fa-file-o"></i> {{ 'label.newsletterPageTemplate'|trans }}</th>
+{% block filterLargeFields %}
+	{% include 'common/fields/filter/simple_field.html.twig' with 
+		{ field: filter.newsletterPageTemplates } %}
 {% endblock %}
 
-{% block entryMoreFields2 %}
-	<td>
-		{% include 'common/links/simple_link.html.twig' with { 'type': 'newsletter_page_template', 'value': { id: item.newsletterPageTemplateId, name: item.newsletterPageTemplateName } } %}
-	</td>
+
+
+{% block simpleHeaderFields %}
+	{% include 'common/fields/table_header/icon_field.html.twig' with 
+		{ icon: 'fa-', label: 'label.newsletterPageTemplate' } %}
+{% endblock %}
+
+{% block simpleEntryFields %}
+	{% include 'common/fields/table/simple_link_field.html.twig' with
+		{ type: 'newsletter_page_template', id: item.newsletterPageTemplateId, name: item.newsletterPageTemplateName } %}
 {% endblock %}

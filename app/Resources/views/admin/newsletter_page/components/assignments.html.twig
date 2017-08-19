@@ -1,0 +1,7 @@
+{% include 'admin/common/assignments/assignment_header.twig' with 
+{ mainPath: 'newsletter_block', extPath: '_new', routeParams: { 'newsletter_page': entry.id },
+	tooltip: 'action.createNewsletterBlock', header: 'label.newsletterBlocks' } %}
+
+{% include 'admin/common/assignments/item_assignment_table.twig' with 
+{ object: 'newsletter_block', items: entry.newsletterBlocks, entryLabel: 'label.newsletterBlock',
+	showSubname: true } %}

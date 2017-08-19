@@ -1,22 +1,44 @@
 {% extends 'admin/simple/show.html.twig' %}
 
 {% set mainPath = 'menu_entry' %}
-{% set title = 'title.menuEntries'|trans %}
+{% set title = 'label.menuEntries'|trans %}
 
-{% block moreFields3 %}
-	{% include 'common/fields/simple_field.html.twig' with 
-	{ 'label': 'label.menuEntry.parent', 'value': entry.parent, 'object': 'menu_entry', 'routeId': entry.id } %}
-		
-	{% include 'common/fields/text_field.html.twig' with 
-	{ 'label': 'label.orderNumber'|trans, 'value': entry.orderNumber } %}
+
+{% block headerFields %}
+	{% include 'common/fields/header_field.html.twig' with 
+	{ value: entry.name } %}
+{% endblock %}
+
+{% block contentFields %}
+	{% include 'common/fields/bool_field.html.twig' with 
+	{ label: 'label.' ~ gender ~ 'infomarket', value: entry.infomarket } %}
+	{% include 'common/fields/bool_field.html.twig' with 
+	{ label: 'label.' ~ gender ~ 'infoprodukt', value: entry.infoprodukt } %}
+	
+	<div class="vr-space-40"></div>
 	
 	{% include 'common/fields/simple_field.html.twig' with 
-	{ 'label': 'label.menuEntry.page', 'value': entry.page, 'object': 'page', 'routeId': entry.id } %}
+	{ label: 'label.menuEntry.parent', value: entry.parent, 
+		object: 'menu_entry', routeId: entry.id } %}
+		
+	{% include 'common/fields/text_field.html.twig' with 
+	{ label: 'label.orderNumber', value: entry.orderNumber } %}
+	
+	<div class="vr-space-40"></div>
+	
+	{% include 'common/fields/simple_field.html.twig' with 
+	{ label: 'label.menuEntry.page', value: entry.page, 
+		object: 'page', routeId: entry.id } %}
 		
 	{% include 'common/fields/simple_field.html.twig' with 
-	{ 'label': 'label.menuEntry.link', 'value': entry.link, 'object': 'link', 'routeId': entry.id } %}
+	{ label: 'label.menuEntry.link', value: entry.link, 
+		object: 'link', routeId: entry.id } %}
+		
+	<div class="vr-space-40"></div>
+	
+	{% include 'admin/simple/components/show/audit_fields.twig' %}
 {% endblock %}
 
 {% block assignments %}
-	{% include 'admin/menu_entry/assignments.html.twig' with { 'entry': entry } %}
+	{% include 'admin/menu_entry/components/assignments.html.twig' %}
 {% endblock %}

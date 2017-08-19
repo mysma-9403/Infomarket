@@ -1,0 +1,12 @@
+{% set hidden = hidden|default('') %}
+
+{% set icon = icon|default('') %}
+{% set label = label|default('') %}
+{% set type = type|default('btn-primary') %}
+{% set offset = offset|default('') %}
+
+<div class="col-xs-12 col-sm-6 col-lg-3 padding-5 {{ hidden }} {{ offset }}">
+	<a class="btn btn-block {{ type }} toggle" data-toggle="collapse" data-parent="#{{ parent }}" href="#{{ parent }}">
+		<i class="fa {{ icon }}"></i> {{ label|trans }}
+	</a>
+</div>

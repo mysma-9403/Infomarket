@@ -1,16 +1,1 @@
 {% extends 'admin/base/editor.html.twig' %}
-
-{% block mainFields1 %}	
-    {{ form_row(form.name, { 'label': 'label.name' }) }}
-{%  endblock %}
-
-{% block mainFields2 %}
-	{% block simpleMainFields2Prev %}
-	{% endblock %}
-	
-	{{ form_row(form.infomarket, { 'label': 'label.' ~ gender ~ 'infomarket' }) }}
-	{{ form_row(form.infoprodukt, { 'label': 'label.' ~ gender ~ 'infoprodukt' }) }}
-	
-	{% block simpleMainFields2More %}
-	{% endblock %}
-{% endblock %}

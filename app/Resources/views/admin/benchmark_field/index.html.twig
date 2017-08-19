@@ -1,51 +1,46 @@
-{% extends 'admin/base/index.html.twig' %}
+{% extends 'admin/simple/index.html.twig' %}
 
 {% set mainPath = 'benchmark_field' %}
-{% set title = 'title.benchmarkFields'|trans %}
+{% set title = 'label.benchmarkFields'|trans %}
 
-{% block filterMoreFields1 %}
-	<li class="col-xs-12 col-sm-6 col-md-4 col-lg-2">
-		{{ form_widget(filter.categories) }}
-	</li>
-	<li class="col-xs-12 col-sm-6 col-md-4 col-lg-2">
-		{{ form_widget(filter.fieldTypes) }}
-	</li>
-	<li class="col-xs-12 col-sm-6 col-md-4 col-lg-2">
-		{{ form_widget(filter.fieldName) }}
-	</li>
+
+
+{% block filterSmallFields %}
+	{% include 'common/fields/filter/simple_field.html.twig' with 
+		{ field: filter.fieldName } %}
 {% endblock %}
 
-{% block headerMainFields1 %}
-	<th><i class="fa fa-list"></i> {{ 'label.category'|trans }}</th>
+{% block filterLargeFields %}
+	{% include 'common/fields/filter/simple_field.html.twig' with 
+		{ field: filter.categories } %}
+	{% include 'common/fields/filter/simple_field.html.twig' with 
+		{ field: filter.fieldTypes } %}
 {% endblock %}
 
-{% block headerMoreFields2 %}
-	<th><i class="fa"></i> {{ 'label.benchmarkField.fieldType'|trans }}</th>
-	<th>
-		{% include 'common/fields/table/icon_field.html.twig' with { tooltip: 'label.benchmarkField.valueNumber', icon: 'list-ol'} %}
-	</th>
-	<th>
-		{% include 'common/fields/table/icon_field.html.twig' with { tooltip: 'label.benchmarkField.showField', icon: 'eye'} %}
-	</th>
+
+
+{% block simpleHeaderFields %}
+	{% include 'common/fields/table_header/icon_field.html.twig' with 
+		{ icon: 'fa-list', label: 'label.category' } %}
+	{% include 'common/fields/table_header/icon_field.html.twig' with 
+		{ icon: 'fa-', label: 'label.benchmarkField.fieldType' } %}
+	{% include 'common/fields/table_header/icon_field.html.twig' with 
+		{ icon: 'fa-list-ol', tooltip: 'label.benchmarkField.valueNumber' } %}
+	{% include 'common/fields/table_header/icon_field.html.twig' with 
+		{ icon: 'fa-eye', tooltip: 'label.benchmarkField.showField' } %}
 {% endblock %}
 
-{% block entryMainFields1 %}
-	<td>
-		{% include 'common/links/simple_link.html.twig' 
-			with { type: 'category', value: { id: item.categoryId, name: item.categoryName, subname: item.categorySubname } } %}
-	</td>
-{% endblock %}
-
-{% block entryMoreFields2 %}
-	<td>
-		{{ benchmarkFieldFieldTypeName(item.fieldType)|trans }}
-	</td>
-	<td>
-		{{ item.valueNumber}}
-	</td>
-	<td>
-		{% include 'common/fields/table/bool_field.html.twig' 
-			with { value: item.showField, iconTrue: 'eye', iconFalse: 'eye-slash', 
+{% block simpleEntryFields %}
+	{% include 'common/fields/table/simple_link_field.html.twig' with
+		{ type: 'category', id: item.categoryId, name: item.categoryName, subname: item.categorySubname } %}
+			
+	{% include 'common/fields/table/simple_field.html.twig' with
+		{ value: benchmarkFieldFieldTypeName(item.fieldType)|trans } %}
+		
+	{% include 'common/fields/table/simple_field.html.twig' with
+		{ value: item.valueNumber } %}
+			
+	{% include 'common/fields/table/bool_field.html.twig' with 
+		{ value: item.showField, iconTrue: 'eye', iconFalse: 'eye-slash', 
 			tooltipTrue: 'label.benchmarkField.showField', tooltipFalse: 'label.benchmarkField.notShowField' } %}
-	</td>
 {% endblock %}

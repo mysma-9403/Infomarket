@@ -1,9 +1,11 @@
-{% extends 'admin/base/editor.html.twig' %}
+{% extends 'admin/simple/editor.html.twig' %}
 
 {% set mainPath = 'menu_entry_branch_assignment' %}
-{% set title = 'title.menuEntryBranchAssignments'|trans %}
+{% set title = 'label.menuEntryBranchAssignments'|trans %}
 
-{% block moreFields2 %}
-	{{ form_row(form.menuEntry, { 'label': 'label.menuEntry' }) }}
-	{{ form_row(form.branch, { 'label': 'label.branch' }) }}
-{% endblock %}
+{% block contentFields %}
+	{% include 'admin/common/editor/form_field.twig' with 
+	{ field: form.menuEntry, label: 'label.menuEntry' } %}
+	{% include 'admin/common/editor/form_field.twig' with 
+	{ field: form.branch, label: 'label.branch' } %}
+{%  endblock %}

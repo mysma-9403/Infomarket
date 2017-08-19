@@ -1,0 +1,16 @@
+{% include 'admin/common/assignments/assignment_header.twig' with 
+{ mainPath: 'magazine_branch_assignment', extPath: '_new', routeParams: { magazine: entry.id },
+	tooltip: 'action.assignBranch', header: 'label.branches' } %}
+
+{% include 'admin/common/assignments/branch_assignment_table.twig' with 
+{ object: 'magazine_branch_assignment', items: entry.magazineBranchAssignments,
+	entryLabel: 'label.branch' } %}
+	
+	
+{% include 'admin/common/assignments/assignment_header.twig' with 
+{ mainPath: 'magazine_category_assignment', extPath: '_new', routeParams: { magazine: entry.id },
+	tooltip: 'action.assignCategory', header: 'label.categories' } %}
+
+{% include 'admin/common/assignments/category_assignment_table.twig' with 
+{ object: 'magazine_category_assignment', items: entry.magazineCategoryAssignments,
+	entryLabel: 'label.category' } %}

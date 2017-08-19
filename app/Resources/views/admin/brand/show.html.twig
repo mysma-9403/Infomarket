@@ -1,25 +1,38 @@
 {% extends 'admin/image/show.html.twig' %}
 
 {% set mainPath = 'brand' %}
-{% set title = 'title.brands'|trans %}
+{% set title = 'label.brands'|trans %}
 {% set gender = 'fm.' %}
 
-{% block moreFields3 %}
+
+{% block headerFields %}
+	{% include 'common/fields/header_field.html.twig' with 
+	{ value: entry.name } %}
+{% endblock %}
+
+{% block contentFields %}
+	{% include 'admin/image/components/show/image.twig' %}
+	
+	<div class="vr-space-40"></div>
+	
+	{% include 'common/fields/bool_field.html.twig' with 
+	{ label: 'label.' ~ gender ~ 'infomarket', value: entry.infomarket } %}
+	{% include 'common/fields/bool_field.html.twig' with 
+	{ label: 'label.' ~ gender ~ 'infoprodukt', value: entry.infoprodukt } %}
+	
+	<div class="vr-space-40"></div>
 	
 	{% include 'common/fields/url_field.html.twig' with 
-	{ 'label': 'label.www'|trans, 'value': entry.www } %}
+	{ label: 'label.www'|trans, value: entry.www } %}
 	
-	<div class="row">
-		<div class="col-xs-12">
-			<h4>{{ 'label.content'|trans }}</h4>
-		</div>
-		<div class="col-xs-12">
-			{{ entry.content | raw }}
-		</div>
-	</div>
+	{% include 'common/fields/content_field.html.twig' with 
+	{ label: 'label.content', value: entry.content } %}
 	
+	<div class="vr-space-40"></div>
+	
+	{% include 'admin/simple/components/show/audit_fields.twig' %}
 {% endblock %}
 
 {% block assignments %}
-	{% include 'admin/brand/assignments.html.twig' with { 'entry': entry } %}
+	{% include 'admin/brand/components/assignments.html.twig' %}
 {% endblock %}

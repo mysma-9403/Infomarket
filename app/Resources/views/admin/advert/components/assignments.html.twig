@@ -1,0 +1,7 @@
+{% include 'admin/common/assignments/assignment_header.twig' with 
+{ mainPath: 'advert_category_assignment', extPath: '_new', routeParams: { advert: entry.id },
+	tooltip: 'action.assignCategory', header: 'label.categories' } %}
+
+{% include 'admin/common/assignments/category_assignment_table.twig' with 
+{ object: 'advert_category_assignment', items: entry.advertCategoryAssignments,
+	entryLabel: 'label.category' } %}

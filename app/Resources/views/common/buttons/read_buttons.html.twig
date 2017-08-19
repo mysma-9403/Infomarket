@@ -1,0 +1,9 @@
+<div class="btn-group {{ hidden }}">
+	{% include 'common/buttons/widget_button.html.twig' with 
+		{ action: form.setReadSelected, icon: 'fa-envelope-open-o', 
+			tooltip: 'action.setReadSelected' } %}
+	
+	{% include 'common/buttons/widget_button.html.twig' with 
+		{ action: form.setUnreadSelected, icon: 'fa-envelope-o', 
+			tooltip: 'action.setUnreadSelected' } %}
+</div>

@@ -1,52 +1,28 @@
 {% extends 'admin/simple/show.html.twig' %}
 
-{% set title = 'title.newsletterBlockTemplates'|trans %}
+{% set title = 'label.newsletterBlockTemplates'|trans %}
 {% set mainPath = 'newsletter_block_template' %}
 {% set gender = 'm.' %}
 
-{% block moreFields3 %}
-	<div class="row">
-		<div class="col-sm-9">
-			<h4>{{ 'label.newsletterBlockTemplate.style'|trans }}</h4>
-		</div>
-		<div class="col-sm-9">
-			{{ entry.style }}
-		</div>
-	</div>
+
+{% block headerFields %}
+	{% include 'common/fields/header_field.html.twig' with 
+	{ value: entry.name } %}
+{% endblock %}
+
+{% block contentFields %}
+	{% include 'common/fields/content_field.html.twig' with 
+	{ label: 'label.newsletterBlockTemplate.style', value: entry.style } %}
+	{% include 'common/fields/content_field.html.twig' with 
+	{ label: 'label.content', value: entry.content } %}
+	{% include 'common/fields/content_field.html.twig' with 
+	{ label: 'label.newsletterBlockTemplate.advertContent', value: entry.advertContent } %}
+	{% include 'common/fields/content_field.html.twig' with 
+	{ label: 'label.newsletterBlockTemplate.articleContent', value: entry.articleContent } %}
+	{% include 'common/fields/content_field.html.twig' with 
+	{ label: 'label.newsletterBlockTemplate.magazineContent', value: entry.magazineContent } %}
 	
-	<div class="row">
-		<div class="col-sm-9">
-			<h4>{{ 'label.newsletterBlockTemplate.content'|trans }}</h4>
-		</div>
-		<div class="col-sm-9">
-			{{ entry.content }}
-		</div>
-	</div>
+	<div class="vr-space-40"></div>
 	
-	<div class="row">
-		<div class="col-sm-9">
-			<h4>{{ 'label.newsletterBlockTemplate.advertContent'|trans }}</h4>
-		</div>
-		<div class="col-sm-9">
-			{{ entry.advertContent }}
-		</div>
-	</div>
-	
-	<div class="row">
-		<div class="col-sm-9">
-			<h4>{{ 'label.newsletterBlockTemplate.articleContent'|trans }}</h4>
-		</div>
-		<div class="col-sm-9">
-			{{ entry.articleContent }}
-		</div>
-	</div>
-	
-	<div class="row">
-		<div class="col-sm-9">
-			<h4>{{ 'label.newsletterBlockTemplate.magazineContent'|trans }}</h4>
-		</div>
-		<div class="col-sm-9">
-			{{ entry.magazineContent }}
-		</div>
-	</div>
+	{% include 'admin/simple/components/show/audit_fields.twig' %}
 {% endblock %}

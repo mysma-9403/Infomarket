@@ -1,14 +1,4 @@
-{% extends 'admin/show.html.twig' %}
+{% extends 'admin/article/preview.html.twig' %}
 
-{% set title = 'title.archivedArticles'|trans %}
+{% set title = 'label.archivedArticles'|trans %}
 {% set mainPath = 'archived_article' %}
-{% set extPath = '_preview' %}
-{% set gender = 'm.' %}
-
-{% block content %}
-	<div class="container">
-		<div class="col-sm-9">
-			{% include 'common/article/article.html.twig' with { 'entry': entry } %}
-		</div>
-	</div>
-{% endblock %}

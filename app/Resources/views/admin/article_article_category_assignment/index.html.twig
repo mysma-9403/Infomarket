@@ -1,27 +1,29 @@
-{% extends 'admin/base/index.html.twig' %}
+{% extends 'admin/simple/index.html.twig' %}
 
 {% set mainPath = 'article_article_category_assignment' %}
-{% set title = 'title.article_article_category_assignments'|trans %}
+{% set title = 'label.article_article_category_assignments'|trans %}
 
-{% block filterMoreFields1 %}
-	<li class="col-xs-12 col-sm-6 col-md-4 col-lg-2">
-		{{ form_widget(filter.articleCategories, { 'label': 'label.articleCategories' }) }}
-	</li>
-	<li class="col-xs-12 col-sm-6 col-md-4 col-lg-2">
-		{{ form_widget(filter.articles, { 'label': 'label.articles' }) }}
-	</li>
+
+
+{% block filterLargeFields %}
+	{% include 'common/fields/filter/simple_field.html.twig' with 
+		{ field: filter.articleCategories, label: 'label.articleCategories' } %}
+	{% include 'common/fields/filter/simple_field.html.twig' with 
+		{ field: filter.articles, label: 'label.articles' } %}
 {% endblock %}
 
-{% block headerMainFields1 %}
-	<th><i class="fa fa-"></i> {{ 'label.article'|trans }}</th>
-	<th><i class="fa fa-"></i> {{ 'label.articleCategory'|trans }}</th>
+
+
+{% block simpleHeaderFields %}
+	{% include 'common/fields/table_header/icon_field.html.twig' with 
+		{ icon: 'fa-page', label: 'label.article' } %}
+	{% include 'common/fields/table_header/icon_field.html.twig' with 
+		{ icon: 'fa-tag', label: 'label.articleCategory' } %}
 {% endblock %}
 
-{% block entryMainFields1 %}
-	<td>
-		{% include 'common/links/simple_link.html.twig' with { type: 'article', value: { id: item.articleId, name: item.articleName } } %}
-	</td>
-	<td>
-		{% include 'common/links/simple_link.html.twig' with { type: 'article_category', value: { id: item.articleCategoryId, name: item.articleCategoryName } } %}
-	</td>
+{% block simpleEntryFields %}
+	{% include 'common/fields/table/simple_link_field.html.twig' with 
+		{ type: 'article', id: item.articleId, name: item.articleName } %}
+	{% include 'common/fields/table/simple_link_field.html.twig' with 
+		{ type: 'article_category', id: item.articleCategoryId, name: item.articleCategoryName } %}
 {% endblock %}

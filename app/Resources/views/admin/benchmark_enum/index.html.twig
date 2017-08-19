@@ -1,20 +1,23 @@
-{% extends 'admin/base/index.html.twig' %}
+{% extends 'admin/simple/index.html.twig' %}
 
 {% set mainPath = 'benchmark_enum' %}
-{% set title = 'title.benchmarkEnums'|trans %}
+{% set title = 'label.benchmarkEnums'|trans %}
 
-{% block filterMoreFields1 %}
-	<li class="col-xs-12 col-sm-6 col-md-4 col-lg-2">
-		{{ form_widget(filter.name) }}
-	</li>
+
+
+{% block filterSmallFields %}
+	{% include 'common/fields/filter/simple_field.html.twig' with 
+		{ field: filter.name } %}
 {% endblock %}
 
-{% block headerMoreFields2 %}
-	<th><i class="fa"></i> {{ 'label.benchmarkEnum.value'|trans }}</th>
+
+
+{% block simpleHeaderFields %}
+	{% include 'common/fields/table_header/icon_field.html.twig' with 
+		{ icon: 'fa-', label: 'label.benchmarkEnum.value' } %}
 {% endblock %}
 
-{% block entryMoreFields2 %}
-	<td>
-		{{ item.value}}
-	</td>
+{% block simpleEntryFields %}
+	{% include 'common/fields/table/simple_field.html.twig' with 
+		{ value: item.value } %}
 {% endblock %}

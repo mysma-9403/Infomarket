@@ -1,0 +1,9 @@
+<div class="btn-group {{ hidden }}">
+	{% include 'common/buttons/widget_button.html.twig' with 
+		{ action: form.setFeaturedSelected, icon: 'fa-star', 
+			tooltip: 'action.setFeaturedSelected' } %}
+	
+	{% include 'common/buttons/widget_button.html.twig' with 
+		{ action: form.setNotFeaturedSelected, icon: 'fa-star-o', 
+			tooltip: 'action.setNotFeaturedSelected' } %}
+</div>

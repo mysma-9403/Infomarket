@@ -1,10 +1,19 @@
 {% extends 'admin/simple/editor.html.twig' %}
 
-{% set title = 'title.newsletterPageTemplates'|trans %}
+{% set title = 'label.newsletterPageTemplates'|trans %}
 {% set mainPath = 'newsletter_page_template' %}
 {% set gender = 'm.' %}
+
+
+{% block headerFields %}
+	{% include 'admin/common/editor/form_field.twig' with 
+	{ field: form.name, label: 'label.name' } %}
+{% endblock %}
+
+{% block contentFields %}
+	{% include 'admin/common/editor/form_field.twig' with 
+	{ field: form.style, label: 'label.newsletterPageTemplate.style' } %}
 	
-{% block moreFields3 %}	
-	{{ form_row(form.style, { 'label': 'label.newsletterPageTemplate.style' }) }}
-    {{ form_row(form.content, { 'label': 'label.content' }) }}
+	{% include 'admin/common/editor/form_field.twig' with 
+	{ field: form.content, label: 'label.newsletterPageTemplate.content' } %}
 {% endblock %}

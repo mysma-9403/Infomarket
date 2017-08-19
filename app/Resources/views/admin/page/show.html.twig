@@ -1,25 +1,31 @@
 {% extends 'admin/image/show.html.twig' %}
 
 {% set mainPath = 'page' %}
-{% set title = 'title.pages'|trans %}
+{% set title = 'label.pages'|trans %}
 {% set gender = 'fm.' %}
 
-{% block moreFields2 %}
-	<div class="row">
-		<div class="col-xs-12">
-			<h4>{{ entry.subname | raw }}</h4>
-		</div>
-	</div>
+
+{% block headerFields %}
+	{% include 'common/fields/header_field.html.twig' with 
+	{ value: entry.name ~ ' ' ~ entry.subname } %}
 {% endblock %}
 
-{% block moreFields3 %}
-	<div class="lowered-25"></div>
-	<div class="row">
-		<div class="col-sm-9">
-			<h4>{{ 'label.content'|trans }}</h4>
-		</div>
-		<div class="col-sm-9">
-			{{ entry.content | raw }}
-		</div>
-	</div>
+{% block contentFields %}
+	{% include 'admin/image/components/show/image.twig' %}
+	
+	<div class="vr-space-40"></div>
+	
+	{% include 'common/fields/bool_field.html.twig' with 
+	{ label: 'label.' ~ gender ~ 'infomarket', value: entry.infomarket } %}
+	{% include 'common/fields/bool_field.html.twig' with 
+	{ label: 'label.' ~ gender ~ 'infoprodukt', value: entry.infoprodukt } %}
+	
+	<div class="vr-space-40"></div>
+	
+	{% include 'common/fields/content_field.html.twig' with 
+	{ label: 'label.content', value: entry.content } %}
+	
+	<div class="vr-space-40"></div>
+	
+	{% include 'admin/simple/components/show/audit_fields.twig' %}
 {% endblock %}

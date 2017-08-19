@@ -1,33 +1,64 @@
 {% extends 'admin/simple/index.html.twig' %}
 
 {% set mainPath = 'menu_entry' %}
-{% set title = 'title.menuEntries'|trans %}
+{% set title = 'label.menuEntries'|trans %}
 
-{% block filterMoreFields1 %}
-	<li class="col-xs-12 col-sm-6 col-md-4 col-lg-2">
-		{{ form_widget(filter.menus, { 'label': 'label.menus' }) }}
-	</li>
-	<li class="col-xs-12 col-sm-6 col-md-4 col-lg-2">
-		{{ form_widget(filter.parents, { 'label': 'label.magazine.parents' }) }}
-	</li>
-	<li class="col-xs-12 col-sm-6 col-md-4 col-lg-2">
-		{{ form_widget(filter.branches, { 'label': 'label.branches' }) }}
-	</li>
-	<li class="col-xs-12 col-sm-6 col-md-4 col-lg-2">
-		{{ form_widget(filter.categories, { 'label': 'label.categories' }) }}
-	</li>
+
+
+{% block filterSmallFields %}
+	{% include 'common/fields/filter/simple_field.html.twig' with 
+		{ field: filter.name, label: 'label.name' } %}
+	{% include 'common/fields/filter/simple_field.html.twig' with 
+		{ field: filter.infomarket, label: 'label.infomarket' } %}
+	{% include 'common/fields/filter/simple_field.html.twig' with 
+		{ field: filter.infoprodukt, label: 'label.infoprodukt' } %}
 {% endblock %}
 
-{% block headerMoreFields3 %}
-	<th><i class="fa fa-file-o"></i> {{ 'label.menuEntry.pages'|trans }}</th>
-	<th><i class="fa fa-link"></i> {{ 'label.menuEntry.links'|trans }}</th>
+{% block filterLargeFields %}
+	{% include 'common/fields/filter/simple_field.html.twig' with 
+		{ field: filter.menus } %}
+	{% include 'common/fields/filter/simple_field.html.twig' with 
+		{ field: filter.parents } %}
+	{% include 'common/fields/filter/simple_field.html.twig' with 
+		{ field: filter.branches } %}
+	{% include 'common/fields/filter/simple_field.html.twig' with 
+		{ field: filter.categories } %}
 {% endblock %}
 
-{% block entryMoreFields3 %}
-	<td>
-		{% include 'common/links/simple_link.html.twig' with { type: 'page', value: { id: item.pageId, name: item.pageName } } %}
-	</td>
-	<td>
-		{% include 'common/links/simple_link.html.twig' with { type: 'link', value: { id: item.linkId, name: item.linkName } } %}
-	</td>
+
+
+{% block simpleHeaderFields %}
+	{% include 'common/fields/table_header/icon_field.html.twig' with 
+		{ icon: 'fa-check', tooltip: 'label.infomarket' } %}
+	{% include 'common/fields/table_header/icon_field.html.twig' with 
+		{ icon: 'fa-check', tooltip: 'label.infoprodukt' } %}
+		
+	{% include 'common/fields/table_header/icon_field.html.twig' with 
+		{ icon: 'fa-file-o', label: 'label.menuEntry.pages' } %}
+	{% include 'common/fields/table_header/icon_field.html.twig' with 
+		{ icon: 'fa-link', label: 'label.menuEntry.links' } %}
+{% endblock %}
+
+{% block simpleEntryFields %}
+	{% include 'common/fields/table/bool_action_field.html.twig' with
+		{ id: item.id, value: item.infomarket, extPath: '_set_im_published',
+			trueTooltip: 'label.infomarket', falseTooltip: 'label.notInfomarket' } %}
+	{% include 'common/fields/table/bool_action_field.html.twig' with
+		{ id: item.id, value: item.infoprodukt, extPath: '_set_ip_published',
+			trueTooltip: 'label.infoprodukt', falseTooltip: 'label.notInfoprodukt' } %}
+			
+	{% include 'common/fields/table/simple_link_field.html.twig' with
+		{ type: 'page', id: item.pageId, name: item.pageName } %}
+		
+	{% include 'common/fields/table/simple_link_field.html.twig' with
+		{ type: 'link', id: item.linkId, name: item.linkName } %}
+{% endblock %}
+
+
+
+{% block baseMoreActions %}
+	{% set hidden = canEdit ? '' : 'hidden' %}
+	
+	{% include 'common/buttons/infomarket_buttons.html.twig' %}
+	{% include 'common/buttons/infoprodukt_buttons.html.twig' %}
 {% endblock %}

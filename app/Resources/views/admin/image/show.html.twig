@@ -1,29 +1,9 @@
 {% extends 'admin/simple/show.html.twig' %}
 
-{% block simpleMainFields2Prev %}
-
-    <div class="row">
-	    <div class="col-xs-6 col-sm-4 col-md-3">
-	    	<div class="rect">
-	    		{% if entry.image %}
-					{% include 'common/image/image_entry.html.twig' with { 'entry': entry } %}
-				{% endif %}
-			</div>
-		</div>
-		<div class="col-xs-6 col-sm-8 col-md-9">
-			{% include 'common/fields/bool_field.html.twig' with 
-			{ 'label': ('label.image.vertical')|trans, 'value': entry.vertical } %}
-			
-			{% include 'common/fields/text_field.html.twig' with 
-			{ 'label': 'label.image.forcedWidth'|trans, 'value': entry.forcedWidth } %}
-			
-			{% include 'common/fields/text_field.html.twig' with 
-			{ 'label': 'label.image.forcedHeight'|trans, 'value': entry.forcedHeight } %}
-			
-			{% block imageMainFields2More %}
-			{% endblock %}
-		</div>
-	</div>
+{% block contentFields %}
+	{% include 'admin/image/components/show/image.twig' %}
 	
-	<div class="row lowered-25"></div>
+	<div class="vr-space-40"></div>
+	
+	{% include 'admin/simple/components/show/audit_fields.twig' %}
 {% endblock %}

@@ -1,7 +1,7 @@
 {% extends 'benchmark/image/editor.html.twig' %}
 
 {% set mainPath = 'custom_product' %}
-{% set title = 'title.products'|trans %}
+{% set title = 'label.products'|trans %}
 
 {% block preFormBlock %}
 	{% if categoryFilterForm is defined and categoryFilterForm.category.vars.choices|length > 0 %}	
@@ -27,7 +27,7 @@
 	{% endif %}
 {% endblock %}
     
-{%  block moreFields2 %}
+{%  block simpleHeaderFields %}
 	{# TODO So dirty hack -> remove it!! :( #}
 	<div class="hidden">
 	    {{ form_row(form.infomarket, { 'label': 'label.brand' }) }}
@@ -50,7 +50,7 @@
 	{{ form_row(form.topProduktImage, { 'label': 'label.product.topProduktImage' }) }}
 {% endblock %}
 
-{%  block moreFields3 %}
+{%  block contentFields %}
 	{% if productFilter is defined %}
 		{% for field in productFilter.editorFields %}
 			<div class="col-xs-12">

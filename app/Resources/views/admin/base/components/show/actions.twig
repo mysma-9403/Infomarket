@@ -1,0 +1,28 @@
+{% if entry.id %}	
+	{% if canEdit %}
+		{% include 'admin/common/buttons/action_button.twig' with 
+			{ extPath: '_edit', routeParams: { id: entry.id }, 
+				tooltip: 'action.edit', icon: 'fa-edit', type: 'btn-warning' } %}
+	{% endif %}
+	
+   	{% if canCreate %}
+   		{% include 'admin/common/buttons/action_button.twig' with 
+			{ extPath: '_new', tooltip: 'action.new', icon: 'fa-file-o', type: 'btn-success' } %}
+	{% endif %}
+	
+	{% if canCopy %}
+		{% include 'admin/common/buttons/action_button.twig' with 
+			{ extPath: '_copy', routeParams: { id: entry.id }, 
+				tooltip: 'action.copy', icon: 'fa-copy', type: 'btn-warning' } %}
+    {% endif %}
+	
+    {% if canDelete %}
+		{% include 'admin/common/buttons/action_button.twig' with 
+			{ extPath: '_delete', routeParams: { id: entry.id }, 
+				tooltip: 'action.delete', icon: 'fa-trash', type: 'btn-danger',
+				onclick: 'return confirm(' ~ 'confirm.delete'|trans ~ ')' } %}
+	{% endif %}
+{% endif %}
+
+{% include 'admin/common/buttons/action_button.twig' with 
+	{ extPath: '', tooltip: 'action.back', icon: 'fa-list-ul' } %}

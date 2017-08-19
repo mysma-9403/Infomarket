@@ -1,0 +1,15 @@
+{% if isAdmin %}
+	<div class="vr-space-40"></div>
+	
+	{% include 'common/fields/date_field.html.twig' with 
+	{ label: 'label.' ~ gender ~ 'updatedAt', value: entry.updatedAt } %}
+	{% include 'common/fields/user_field.html.twig' with 
+	{ label: 'label.' ~ gender ~ 'updatedBy', value: entry.updatedBy, routeId: entry.id } %}
+	
+	<div class="vr-space-40"></div>
+	
+	{% include 'common/fields/date_field.html.twig' with 
+	{ label: 'label.' ~ gender ~ 'createdAt', value: entry.createdAt } %}
+	{% include 'common/fields/user_field.html.twig' with 
+	{ label: 'label.' ~ gender ~ 'createdBy', value: entry.createdBy, routeId: entry.id } %}
+{% endif %}

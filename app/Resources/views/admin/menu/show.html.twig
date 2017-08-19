@@ -1,10 +1,21 @@
 {% extends 'admin/simple/show.html.twig' %}
 
 {% set mainPath = 'menu' %}
-{% set title = 'title.menu'|trans %}
+{% set title = 'label.menu'|trans %}
 
-{% block mainActions %}
-	<a type="button" class="btn btn-primary" href="{{ path(basePath ~ mainPath) }}">
-    	<i class="fa fa-close"></i>{{ 'action.back'|trans }}
-	</a>
+
+{% block headerFields %}
+	{% include 'common/fields/header_field.html.twig' with 
+	{ value: entry.name } %}
+{% endblock %}
+
+{% block contentFields %}
+	{% include 'common/fields/bool_field.html.twig' with 
+	{ label: 'label.' ~ gender ~ 'infomarket', value: entry.infomarket } %}
+	{% include 'common/fields/bool_field.html.twig' with 
+	{ label: 'label.' ~ gender ~ 'infoprodukt', value: entry.infoprodukt } %}
+	
+	<div class="vr-space-40"></div>
+	
+	{% include 'admin/simple/components/show/audit_fields.twig' %}
 {% endblock %}

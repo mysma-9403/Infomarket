@@ -19,27 +19,21 @@
 				{% block moreFields1 %}
 			    {% endblock %}
 			
-			    {% block mainFields1 %}
+			    {% block headerFields %}
 			    {% endblock %}
 			    
-			    {% block moreFields2 %}
+			    {% block simpleHeaderFields %}
 			    {% endblock %}
 			    
-			    {% block mainFields2 %}
+			    {% block flagFields %}
 			    {% endblock %}
 			    
-			    {% block moreFields3 %}
+			    {% block contentFields %}
 			    {% endblock %}
 			
 				{{ form_errors(form) }}
 			
-				{% block moreActions1 %}
-			    {% endblock %}
-			    
-				{% block mainActions %}
-			    {% endblock %}
-			    
-			    {% block moreActions2 %}
+				{% block actions %}
 			    {% endblock %}
 			{{ form_end(form) }}
 			</div>

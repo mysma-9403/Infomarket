@@ -1,0 +1,9 @@
+{% set icon = icon|default('') %}
+{% set label = label|default(' ') %}
+{% set tooltip = tooltip|default(label) %}
+{% set type = type|default('btn-primary') %}
+{% set onclick = onclick|default('') %}
+
+{{ form_widget(action, { icon: icon, label: label, 
+	attr: { class: 'btn ' ~ type, type: 'button', 
+		title: tooltip ? tooltip|trans, onclick: onclick } }) }}

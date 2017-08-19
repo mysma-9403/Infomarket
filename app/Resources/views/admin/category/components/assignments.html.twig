@@ -1,0 +1,34 @@
+{% include 'admin/common/assignments/assignment_header.twig' with 
+{ mainPath: 'brand_category_assignment', extPath: '_new', routeParams: { category: entry.id },
+	tooltip: 'action.assignBrand', header: 'label.brands' } %}
+
+{% include 'admin/common/assignments/brand_assignment_table.twig' with 
+{ object: 'brand_category_assignment', items: entry.brandCategoryAssignments,
+	entryLabel: 'label.brand' } %}
+	
+
+{% include 'admin/common/assignments/assignment_header.twig' with 
+{ mainPath: 'magazine_category_assignment', extPath: '_new', routeParams: { category: entry.id },
+	tooltip: 'action.assignMagazine', header: 'label.magazines' } %}
+
+{% include 'admin/common/assignments/magazine_assignment_table.twig' with 
+{ object: 'magazine_category_assignment', items: entry.magazineCategoryAssignments,
+	entryLabel: 'label.magazine' } %}
+
+
+{% include 'admin/common/assignments/assignment_header.twig' with 
+{ mainPath: 'branch_category_assignment', extPath: '_new', routeParams: { category: entry.id },
+	tooltip: 'action.assignBranch', header: 'label.branches' } %}
+
+{% include 'admin/common/assignments/branch_assignment_table.twig' with 
+{ object: 'branch_category_assignment', items: entry.branchCategoryAssignments,
+	entryLabel: 'label.branch' } %}
+
+
+{% include 'admin/common/assignments/assignment_header.twig' with 
+{ mainPath: 'category', extPath: '_new', routeParams: { parent: entry.id },
+	tooltip: 'action.createSubcategory', header: 'label.category.children' } %}
+
+{% include 'admin/common/assignments/item_assignment_table.twig' with 
+{ object: 'category', items: entry.children, entryLabel: 'label.category',
+	showImage: true, showSubname: true } %}

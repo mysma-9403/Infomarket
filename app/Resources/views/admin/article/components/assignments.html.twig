@@ -1,0 +1,45 @@
+{% if entry.parent == null %}
+	{% include 'admin/common/assignments/assignment_header.twig' with 
+	{ mainPath: 'article', extPath: '_new', routeParams: { parent: entry.id },
+		tooltip: 'action.createSubarticle', header: 'label.article.children' } %}
+	
+	{% include 'admin/common/assignments/item_assignment_table.twig' with 
+	{ object: 'article', items: entry.children, entryLabel: 'label.article',
+		showImage: true, showSubname: true } %}
+	
+	
+	{% include 'admin/common/assignments/assignment_header.twig' with 
+	{ mainPath: 'article_brand_assignment', extPath: '_new', routeParams: { article: entry.id },
+		tooltip: 'action.assignBrand', header: 'label.brands' } %}
+	
+	{% include 'admin/common/assignments/brand_assignment_table.twig' with 
+	{ object: 'article_brand_assignment', items: entry.articleBrandAssignments,
+		entryLabel: 'label.brand' } %}
+	
+	
+	{% include 'admin/common/assignments/assignment_header.twig' with 
+	{ mainPath: 'article_article_category_assignment', extPath: '_new', routeParams: { article: entry.id },
+		tooltip: 'action.assignArticleCategory', header: 'label.articleCategories' } %}
+	
+	{% include 'admin/common/assignments/article_category_assignment_table.twig' with 
+	{ object: 'article_article_category_assignment', items: entry.articleArticleCategoryAssignments,
+		entryLabel: 'label.articleCategory' } %}
+	
+	
+	{% include 'admin/common/assignments/assignment_header.twig' with 
+	{ mainPath: 'article_category_assignment', extPath: '_new', routeParams: { article: entry.id },
+		tooltip: 'action.assignCategory', header: 'label.categories' } %}
+	
+	{% include 'admin/common/assignments/category_assignment_table.twig' with 
+	{ object: 'article_category_assignment', items: entry.articleCategoryAssignments,
+		entryLabel: 'label.category' } %}
+		
+		
+	{% include 'admin/common/assignments/assignment_header.twig' with 
+	{ mainPath: 'article_tag_assignment', extPath: '_new', routeParams: { article: entry.id },
+		tooltip: 'action.assignTag', header: 'label.tags' } %}
+	
+	{% include 'admin/common/assignments/tag_assignment_table.twig' with 
+	{ object: 'article_tag_assignment', items: entry.articleTagAssignments,
+		entryLabel: 'label.tag' } %}
+{% endif %}

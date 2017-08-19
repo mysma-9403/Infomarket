@@ -1,0 +1,14 @@
+{% set xs = xs|default(12) %}
+{% set sm = sm|default(xs) %}
+{% set md = md|default(sm) %}
+{% set lg = lg|default(md) %}
+
+<div class="col-xs-{{ xs }} col-sm-{{ sm }} col-md-{{ md }} col-lg-{{ lg }} padding-5">
+	<div class="form-group">
+		<label>{{ label|trans }}</label>
+		<div class='input-group date'>
+			{{ form_widget(field) }}
+			<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+	    </div>
+    </div>
+</div>

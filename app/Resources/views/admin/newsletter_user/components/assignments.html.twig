@@ -1,0 +1,7 @@
+{% include 'admin/common/assignments/assignment_header.twig' with 
+{ mainPath: 'newsletter_user_newsletter_group_assignment', extPath: '_new', routeParams: { 'newsletter_user': entry.id },
+	tooltip: 'action.assignNewsletterGroup', header: 'label.newsletterGroups' } %}
+
+{% include 'admin/common/assignments/newsletter_group_assignment_table.twig' with 
+{ object: 'newsletter_user_newsletter_group_assignment', items: entry.newsletterUserNewsletterGroupAssignments,
+	entryLabel: 'label.newsletterGroup' } %}

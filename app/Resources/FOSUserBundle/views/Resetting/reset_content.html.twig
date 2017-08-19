@@ -2,7 +2,7 @@
 
 {% form_theme form 'form/fields.html.twig' %}
 
-{% set title = 'title.resetting' %}
+{% set title = 'label.resetting' %}
 
 <div class="form-register">
 	{{ form_start(form, { 'action': path('fos_user_resetting_reset', {'token': token}), 'attr': { 'class': 'fos_user_resetting_reset' } }) }}

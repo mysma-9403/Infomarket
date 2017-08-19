@@ -1,15 +1,15 @@
 {% extends 'benchmark/editor.html.twig' %}
 
 {% set mainPath = 'benchmarkMessage' %}
-{% set title = 'title.benchmarkMessages'|trans %}
+{% set title = 'label.benchmarkMessages'|trans %}
 {% set gender = 'fm.' %}
 		
-{%  block mainFields1 %}
+{%  block headerFields %}
 	<h2>{{ product.brandName }}</h2>	
     <h3>{{ product.name }}</h3>
 {% endblock %}
 
-{%  block mainFields2 %}
+{%  block flagFields %}
 	{{ form_row(form.name, { 'label': 'label.name' }) }}	
     {{ form_row(form.content, { 'label': 'label.content' }) }}
 {% endblock %}

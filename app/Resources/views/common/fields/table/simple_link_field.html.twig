@@ -1,0 +1,7 @@
+{% set class = class|default('') %}
+
+{% set subname = subname|default('') %}
+
+<td class="{{ class }}">
+	{% include 'common/links/simple_link.html.twig' with { type: type, value: { id: id, name: name, subname: subname } } %}
+</td>

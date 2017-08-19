@@ -1,0 +1,7 @@
+{% set decimalPlaces = decimalPlaces|default(2) %}
+{% set decimalSeparator = decimalSeparator|default('.') %}
+{% set thousandsSeparator = thousandsSeparator|default(' ') %} {# &nbsp; #}
+
+{% include 'common/fields/text_field.html.twig' with 
+	{ label: label, value: value ? value|number_format(
+		decimalPlaces, decimalSeparator, thousandsSeparator) : '-' } %}

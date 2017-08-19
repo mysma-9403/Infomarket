@@ -1,11 +1,9 @@
 {% extends 'admin/index.html.twig' %}
 
-{% set extPath = '_edit' %}
+{% set extPath = extPath|default('_edit') %}
 
 {% block content %}
-	
 	<div class="container">
-		
 		{% block errorsBlock %}
 			{% include 'common/errors.html.twig' %}
 		{% endblock %}
@@ -14,45 +12,32 @@
 		{% endblock %}
 		
 		{% block formBlock %}
-		{% form_theme form 'form/fields.html.twig' %}
-		
-		<div class="row">
-			<div class="col-xs-12">
-			{{ form_start(form) }}
-				{% block moreFields1 %}
-			    {% endblock %}
+			{% form_theme form 'form/fields.html.twig' %}
 			
-			    {% block mainFields1 %}
-			    {% endblock %}
-			    
-			    {% block moreFields2 %}
-			    {% endblock %}
-			    
-			    {% block mainFields2 %}
-			    {% endblock %}
-			    
-			    {% block moreFields3 %}
-			    {% endblock %}
-			
-				{{ form_errors(form) }}
-			
-				{% block moreActions1 %}
-			    {% endblock %}
-			    
-				{% block mainActions %}
-			    {% endblock %}
-			    
-			    {% block moreActions2 %}
-			    {% endblock %}
-			{{ form_end(form) }}
-			</div>
-		</div>
-			    
+			<div class="row">
+				{{ form_start(form) }}
+					{% block headerFields %}
+				    {% endblock %}
+				    
+				    {% block contentFields %}
+				    {% endblock %}
+				
+					{{ form_errors(form) }}
+				    
+				    <div class="col-xs-12">
+						{% block actions %}
+					    {% endblock %}
+				    </div>
+				    
+				{{ form_end(form) }}
+			</div> 
 		{% endblock %}
-		
 	</div>
 	
-	<div class="vr-space-40"></div>
+	<div class="container">
+		{% block moreForms %}
+		{% endblock %}
+	</div>
 	
 	<div class="row">
 		{% if entry.id %}
@@ -63,4 +48,6 @@
 	
 	{% block moreContent %}
 	{% endblock %}
+	
+	<div class="vr-space-40"></div>
 {% endblock %}

@@ -73,16 +73,6 @@ class MenuEntryRepository extends SimpleEntityRepository
 	
 	
 	
-	protected function getFilterWhere(QueryBuilder &$builder) {
-		$where = parent::getFilterWhere($builder);
-	
-		$where->add('e.parent IS NULL');
-	
-		return $where;
-	}
-	
-	
-	
     /**
 	 * {@inheritdoc}
 	 */

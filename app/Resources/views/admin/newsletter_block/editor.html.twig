@@ -1,33 +1,57 @@
 {% extends 'admin/simple/editor.html.twig' %}
 
-{% set title = 'title.newsletterBlocks'|trans %}
+{% set title = 'label.newsletterBlocks'|trans %}
 {% set mainPath = 'newsletter_block' %}
 {% set gender = 'm.' %}
 
-{% block moreFields2 %}
-	{{ form_row(form.subname, { 'label': 'label.subname' }) }}
+{% block headerFields %}
+	{% include 'admin/common/editor/form_field.twig' with 
+	{ field: form.name, label: 'label.name' } %}
+	{% include 'admin/common/editor/form_field.twig' with 
+	{ field: form.subname, label: 'label.subname' } %}
 {% endblock %}
 	
-{% block moreFields3 %}
-	{{ form_row(form.newsletterPage, { 'label': 'label.newsletterPage' }) }}
-	{{ form_row(form.orderNumber, { 'label': 'label.orderNumber' }) }}
-	{{ form_row(form.newsletterBlockTemplate, { 'label': 'label.newsletterBlockTemplate' }) }}
+{% block contentFields %}
+	{% include 'admin/common/editor/form_field.twig' with 
+	{ field: form.newsletterPage, label: 'label.newsletterPage', sm: 6 } %}
+	{% include 'admin/common/editor/form_field.twig' with 
+	{ field: form.newsletterBlockTemplate, label: 'label.newsletterBlockTemplate', sm: 6 } %}
 	
-	{{ form_row(form.xAdvertRatio, { 'label': 'label.newsletterBlock.xAdvertRatio' }) }}
-	{{ form_row(form.yAdvertRatio, { 'label': 'label.newsletterBlock.yAdvertRatio' }) }}
+	{% include 'admin/common/editor/form_field.twig' with 
+	{ field: form.orderNumber, label: 'label.orderNumber' } %}
 	
-	{{ form_row(form.xArticleRatio, { 'label': 'label.newsletterBlock.xArticleRatio' }) }}
-	{{ form_row(form.yArticleRatio, { 'label': 'label.newsletterBlock.yArticleRatio' }) }}
+	<div class="row"></div>
 	
-	{{ form_row(form.xMagazineRatio, { 'label': 'label.newsletterBlock.xMagazineRatio' }) }}
-	{{ form_row(form.yMagazineRatio, { 'label': 'label.newsletterBlock.yMagazineRatio' }) }}
+	{% include 'admin/common/editor/form_field.twig' with 
+	{ field: form.xAdvertRatio, label: 'label.newsletterBlock.xAdvertRatio', sm: 6 } %}
+	{% include 'admin/common/editor/form_field.twig' with 
+	{ field: form.yAdvertRatio, label: 'label.newsletterBlock.yAdvertRatio', sm: 6 } %}
 	
-	{{ form_row(form.magazinePadding, { 'label': 'label.newsletterBlock.magazinePadding' }) }}
+	<div class="row"></div>
 	
-	{{ form_row(form.articleSeparator, { 'label': 'label.newsletterBlock.articleSeparator' }) }}
-	{{ form_row(form.magazineSeparator, { 'label': 'label.newsletterBlock.magazineSeparator' }) }}
+	{% include 'admin/common/editor/form_field.twig' with 
+	{ field: form.xArticleRatio, label: 'label.newsletterBlock.xArticleRatio', sm: 6 } %}
+	{% include 'admin/common/editor/form_field.twig' with 
+	{ field: form.yArticleRatio, label: 'label.newsletterBlock.yArticleRatio', sm: 6 } %}
+	
+	<div class="row"></div>
+	
+	{% include 'admin/common/editor/form_field.twig' with 
+	{ field: form.xMagazineRatio, label: 'label.newsletterBlock.xMagazineRatio', sm: 6 } %}
+	{% include 'admin/common/editor/form_field.twig' with 
+	{ field: form.yMagazineRatio, label: 'label.newsletterBlock.yMagazineRatio', sm: 6 } %}
+	
+	<div class="row"></div>
+	
+	{% include 'admin/common/editor/form_field.twig' with 
+	{ field: form.articleSeparator, label: 'label.newsletterBlock.articleSeparator', sm: 6 } %}
+	{% include 'admin/common/editor/form_field.twig' with 
+	{ field: form.magazineSeparator, label: 'label.newsletterBlock.magazineSeparator', sm: 6 } %}
+	
+	{% include 'admin/common/editor/form_field.twig' with 
+	{ field: form.magazinePadding, label: 'label.newsletterBlock.magazinePadding' } %}
 {% endblock %}
 
 {% block assignments %}
-	{% include 'admin/newsletter_block/assignments.html.twig' %}
+	{% include 'admin/newsletter_block/components/assignments.html.twig' %}
 {% endblock %}

@@ -1,14 +1,14 @@
 {% extends 'infomarket/base/index.html.twig' %}
 
-{% set title = 'title.products'|trans %}
-{% set type = 'title.products'|trans %}
+{% set title = 'label.products'|trans %}
+{% set type = 'label.products'|trans %}
 {% set mainPath = 'product' %}
 		
 {% block mainContent %}
 	{% block products %}
 	<div class="row">
 		<div class="col-xs-12">
-			<h1>{{ 'title.products'|trans }}</h1>
+			<h1>{{ 'label.products'|trans }}</h1>
 			
 			{% for entry in entries %}
 				<div class="col-sm-3">

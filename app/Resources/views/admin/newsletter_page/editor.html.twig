@@ -1,52 +1,33 @@
 {% extends 'admin/simple/editor.html.twig' %}
 
-{% set title = 'title.newsletterPages'|trans %}
+{% set title = 'label.newsletterPages'|trans %}
 {% set mainPath = 'newsletter_page' %}
 {% set gender = 'fm.' %}
 
-{% block moreFields2 %}
-	{{ form_row(form.subname, { 'label': 'label.subname' }) }}
-{% endblock %}
-	
-{% block moreFields3 %}
-	{{ form_row(form.newsletterPageTemplate, { 'label': 'label.newsletterPageTemplate' }) }}
+{% block moreJavascripts %}
+	{% include 'admin/newsletter_page/components/modal_script.twig' %}
 {% endblock %}
 
-{% block moreActions1 %}
-	<a href="#" class="btn btn-primary pop">
-		<span class="fa fa-eye"></span> {{ 'action.newsletterPage.showCode'|trans }}
-	</a>
+{% block headerFields %}
+	{% include 'admin/common/editor/form_field.twig' with 
+	{ field: form.name, label: 'label.name' } %}
+	{% include 'admin/common/editor/form_field.twig' with 
+	{ field: form.subname, label: 'label.subname' } %}
+{% endblock %}
+	
+{% block contentFields %}
+	{% include 'admin/common/editor/form_field.twig' with 
+	{ field: form.newsletterPageTemplate, label: 'label.newsletterPageTemplate' } %}
+{% endblock %}
+
+{% block actions %}
+	{% include 'admin/newsletter_page/components/editor/actions.twig' %}
 {% endblock %}
 
 {% block assignments %}
-	{% include 'admin/newsletter_page/assignments.html.twig' with { 'entry': entry } %}
+	{% include 'admin/newsletter_page/components/assignments.html.twig' %}
 {% endblock %}
 
 {% block moreContent %}
-	<div class="modal fade" id="codemodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-		<div class="modal-dialog">
-			<div class="modal-content">              
-				<div class="modal-body">
-					<button type="button" class="close" data-dismiss="modal">
-						<span aria-hidden="true">&times;</span>
-						<span class="sr-only">Close</span>
-					</button>
-					
-					<textarea id="newsletterCode" type="text" cols="85" rows="20">{{ entry.getNewsletterCode() | raw }}</textarea>
-				</div>
-			</div>
-		</div>
-	</div>
-{% endblock %}
-
-{% block moreJavascripts %}
-	<script type="text/javascript">
-	<!--
-	$(function() {
-		$('.pop').on('click', function() {
-			$('#codemodal').modal('show');   
-		});		
-	});
-	//-->
-	</script>
+	{% include 'admin/newsletter_page/components/modal_dialog.twig' %}
 {% endblock %}

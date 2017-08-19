@@ -1,43 +1,47 @@
-{% extends 'admin/base/index.html.twig' %}
+{% extends 'admin/simple/index.html.twig' %}
 
 {% set mainPath = 'newsletter_user_newsletter_page_assignment' %}
-{% set title = 'title.newsletter_user_newsletter_page_assignments'|trans %}
+{% set title = 'label.newsletter_user_newsletter_page_assignments'|trans %}
 
-{% block filterMoreFields1 %}
-	<li class="col-xs-12 col-sm-6 col-md-4 col-lg-2">
-		{{ form_widget(filter.newsletterUsers, { 'label': 'label.newsletterUsers' }) }}
-	</li>
-	<li class="col-xs-12 col-sm-6 col-md-4 col-lg-2">
-		{{ form_widget(filter.newsletterPages, { 'label': 'label.newsletterPages' }) }}
-	</li>
-	<li class="col-xs-12 col-sm-6 col-md-4 col-lg-2">
-		{{ form_widget(filter.states, { 'label': 'label.newsletterUserNewsletterPageAssginment.state' }) }}
-	</li>
+
+
+{% block filterLargeFields %}
+	{% include 'common/fields/filter/simple_field.html.twig' with 
+		{ field: filter.newsletterUsers, label: 'label.newsletterUsers' } %}
+	{% include 'common/fields/filter/simple_field.html.twig' with 
+		{ field: filter.newsletterPages, label: 'label.newsletterPages' } %}
+	{% include 'common/fields/filter/simple_field.html.twig' 
+		with { field: filter.states, label: 'label.newsletterUserNewsletterPageAssginment.state' } %}
 {% endblock %}
 
-{% block headerMainFields1 %}
-	<th><i class="fa fa-"></i> {{ 'label.newsletterUser'|trans }}</th>
-	<th><i class="fa fa-"></i> {{ 'label.newsletterPage'|trans }}</th>
-	<th><i class="fa fa-"></i> {{ 'label.newsletterUserNewsletterPageAssignment.state'|trans }}</th>
-	<th><i class="fa fa-timer"></i> {{ 'label.newsletterUserNewsletterPageAssignment.processingTime'|trans }}</th>
+
+
+{% block simpleHeaderFields %}
+	{% include 'common/fields/table_header/icon_field.html.twig' with 
+		{ icon: 'fa-user', label: 'label.newsletterUser' } %}
+	{% include 'common/fields/table_header/icon_field.html.twig' with 
+		{ icon: 'fa-page', label: 'label.newsletterPage' } %}
+	
+	{% include 'common/fields/table_header/icon_field.html.twig' with 
+		{ icon: 'fa-', label: 'label.newsletterUserNewsletterPageAssignment.state' } %}
+	{% include 'common/fields/table_header/icon_field.html.twig' with 
+		{ icon: 'fa-timer', label: 'label.newsletterUserNewsletterPageAssignment.processingTime' } %}
 {% endblock %}
 
-{% block entryMainFields1 %}
-	<td>
-		{% include 'common/links/simple_link.html.twig' with { type: 'newsletter_user', value: { id: item.newsletterUserId, name: item.newsletterUserName } } %}
-	</td>
-	<td>
-		{% include 'common/links/simple_link.html.twig' with { type: 'newsletter_page', value: { id: item.newsletterPageId, name: item.newsletterPageName } } %}
-	</td>
-	<td>
-		{{ newsletterUserNewsletterPageAssignmentStateName(item.state)|trans }}
-	</td>
-	<td>
-		{% if item.processingTime %}
-			{{ item.processingTime|date('i:s') }}
-		{% endif %}
-	</td>
+{% block simpleEntryFields %}
+	{% include 'common/fields/table/simple_link_field.html.twig' with 
+		{ type: 'newsletter_user', id: item.newsletterUserId, name: item.newsletterUserName } %}
+	{% include 'common/fields/table/simple_link_field.html.twig' with 
+		{ type: 'newsletter_page', id: item.newsletterPageId, name: item.newsletterPageName } %}
+		
+	{% include 'common/fields/table/simple_field.html.twig' with 
+		{ value: newsletterUserNewsletterPageAssignmentStateName(item.state)|trans } %}
+		
+	{% include 'common/fields/table/time_field.html.twig' with 
+		{ value: item.processingTime } %}
 {% endblock %}
+
+
 
 {% block entryActions %}
 	<td>

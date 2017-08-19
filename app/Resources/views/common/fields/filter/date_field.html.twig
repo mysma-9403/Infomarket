@@ -1,0 +1,8 @@
+{% set hidden = hidden|default('') %}
+
+<div class="col-xs-12 col-sm-6 col-lg-3 padding-5 {{ hidden }}">
+	<div class='input-group date' id='datetimepicker'>
+		{{ form_widget(field) }}
+		<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+	</div>
+</div>

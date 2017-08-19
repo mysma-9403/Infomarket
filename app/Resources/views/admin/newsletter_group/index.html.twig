@@ -1,5 +1,25 @@
 {% extends 'admin/simple/index.html.twig' %}
 
 {% set mainPath = 'newsletter_group' %}
-{% set title = 'title.newsletterGroups'|trans %}
+{% set title = 'label.newsletterGroups'|trans %}
 {% set gender = 'fm.' %}
+
+
+
+{% block filterSmallFields %}
+	{% include 'common/fields/filter/simple_field.html.twig' with 
+		{ field: filter.name, label: 'label.name' } %}
+	{% include 'common/fields/filter/simple_field.html.twig' with 
+		{ field: filter.infomarket, label: 'label.infomarket' } %}
+	{% include 'common/fields/filter/simple_field.html.twig' with 
+		{ field: filter.infoprodukt, label: 'label.infoprodukt' } %}
+{% endblock %}
+
+
+
+{% block baseMoreActions %}
+	{% set hidden = canEdit ? '' : 'hidden' %}
+	
+	{% include 'common/buttons/infomarket_buttons.html.twig' %}
+	{% include 'common/buttons/infoprodukt_buttons.html.twig' %}
+{% endblock %}

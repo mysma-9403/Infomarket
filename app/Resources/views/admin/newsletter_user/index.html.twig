@@ -1,26 +1,53 @@
 {% extends 'admin/simple/index.html.twig' %}
 
 {% set mainPath = 'newsletter_user' %}
-{% set title = 'title.newsletterUsers'|trans %}
+{% set title = 'label.newsletterUsers'|trans %}
 {% set gender = 'm.' %}
 
-{% block filterMoreFields3 %}
-	<li class="col-xs-12 col-sm-6 col-md-4 col-lg-2">
-		{{ form_widget(filter.subscribed, { 'label': 'label.newsletter.subscribed' }) }}
-	</li>
+
+
+{% block filterSmallFields %}
+	{% include 'common/fields/filter/simple_field.html.twig' with 
+		{ field: filter.name, label: 'label.name' } %}
+	{% include 'common/fields/filter/simple_field.html.twig' with 
+		{ field: filter.infomarket, label: 'label.infomarket' } %}
+	{% include 'common/fields/filter/simple_field.html.twig' with 
+		{ field: filter.infoprodukt, label: 'label.infoprodukt' } %}
+	{% include 'common/fields/filter/simple_field.html.twig' with 
+		{ field: filter.subscribed, label: 'label.newsletter.subscribe' } %}
 {% endblock %}
 
-{% block headerMoreFields3 %}
-	<th>
-		{% include 'common/fields/table/icon_field.html.twig' with { tooltip: 'label.newsletter.subscribed', icon: 'envelope-o'} %}
-	</th>
+
+
+{% block simpleHeaderFields %}
+	{% include 'common/fields/table_header/icon_field.html.twig' with 
+		{ icon: 'fa-check', tooltip: 'label.infomarket' } %}
+	{% include 'common/fields/table_header/icon_field.html.twig' with 
+		{ icon: 'fa-check', tooltip: 'label.infoprodukt' } %}
+		
+	{% include 'common/fields/table_header/icon_field.html.twig' with 
+		{ icon: 'fa-envelope-o', label: 'label.newsletter.subscribed' } %}
 {% endblock %}
 
-{% block entryMoreFields3 %}
-	<td>
-		{% include 'common/fields/bool_action_field.html.twig' with 
-			{ 'id': item.id, 'value': item.subscribed, 'extPath': '_set_subscribed',
-				'trueTooltip': 'label.newsletter.subscribed'|trans, 'falseTooltip': 'label.newsletter.unsubscribed'|trans,
-				'trueIcon': 'fa-eye', 'falseIcon': 'fa-eye-slash' } %}
-	</td>
+{% block simpleEntryFields %}
+	{% include 'common/fields/table/bool_action_field.html.twig' with
+		{ id: item.id, value: item.infomarket, extPath: '_set_im_published',
+			trueTooltip: 'label.infomarket', falseTooltip: 'label.notInfomarket' } %}
+	{% include 'common/fields/table/bool_action_field.html.twig' with
+		{ id: item.id, value: item.infoprodukt, extPath: '_set_ip_published',
+			trueTooltip: 'label.infoprodukt', falseTooltip: 'label.notInfoprodukt' } %}
+			
+	{% include 'common/fields/table/bool_action_field.html.twig' with 
+		{ id: item.id, value: item.subscribed, extPath: '_set_subscribed',
+			trueTooltip: 'label.newsletter.subscribed', falseTooltip: 'label.newsletter.unsubscribed',
+			trueIcon: 'fa-eye', falseIcon: 'fa-eye-slash' } %}
+{% endblock %}
+
+
+
+{% block baseMoreActions %}
+	{% set hidden = canEdit ? '' : 'hidden' %}
+	
+	{% include 'common/buttons/infomarket_buttons.html.twig' %}
+	{% include 'common/buttons/infoprodukt_buttons.html.twig' %}
 {% endblock %}

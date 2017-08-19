@@ -1,16 +1,12 @@
 {% extends 'benchmark/base.html.twig' %}
 
+{% set title = title|default('label.benchmark') %}
 {% set basePath = 'benchmark_' %}
-{% set extPath = extPath|default('') %}
+{% set gender = gender|default('') %}
 
-{% set title = title|default('title.benchmark')|trans %}
-
-{% set gender = gender | default('') %}
-
-{% block title %}{{ title }}{% endblock %}
+{% block title %}{{ title|trans }}{% endblock %}
 
 {% block body %}
-	
 	{% block navigationBar %}
 	<nav class="navbar navbar-fixed-top">
 		{% block navigationHeader %}
@@ -51,14 +47,14 @@
 			<ul class="nav navbar-nav navbar-right">
 				{% include 'benchmark/common/menu/link.html.twig' with 
 					{ linkPath: "category_show", linkTitle: "title.categories" } %}
-      			{% include 'benchmark/common/menu/link.html.twig' with 
-      				{ linkPath: "product", linkTitle: "title.products" } %}
-      			{% include 'benchmark/common/menu/link.html.twig' with 
-      				{ linkPath: "custom_product", linkTitle: "title.customProducts" } %}
-      			{% include 'benchmark/common/menu/link.html.twig' with 
-      				{ linkPath: "benchmark_query", linkTitle: "title.benchmarkQueries" } %}
-      			{% include 'benchmark/common/menu/link.html.twig' with 
-      				{ linkPath: "benchmark_message", linkTitle: "title.benchmarkMessages", badge: unreadMessagesCount } %}
+        {% include 'benchmark/common/menu/link.html.twig' with 
+          { linkPath: "product", linkTitle: "title.products" } %}
+        {% include 'benchmark/common/menu/link.html.twig' with 
+          { linkPath: "custom_product", linkTitle: "title.customProducts" } %}
+        {% include 'benchmark/common/menu/link.html.twig' with 
+          { linkPath: "benchmark_query", linkTitle: "title.benchmarkQueries" } %}
+        {% include 'benchmark/common/menu/link.html.twig' with 
+          { linkPath: "benchmark_message", linkTitle: "title.benchmarkMessages", badge: unreadMessagesCount } %}
 			</ul>
 		</div>
 		{% endblock %}

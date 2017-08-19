@@ -1,27 +1,35 @@
 {% extends 'admin/simple/index.html.twig' %}
 
-{% set title = 'title.newsletterBlocks'|trans %}
+{% set title = 'label.newsletterBlocks'|trans %}
 {% set mainPath = 'newsletter_block' %}
 
-{% block filterMoreFields1 %}
-	<li class="col-xs-12 col-sm-6 col-md-4 col-lg-2">
-		{{ form_widget(filter.newsletterPages, { 'label': 'label.choose.newsletterPages' }) }}
-	</li>
-	<li class="col-xs-12 col-sm-6 col-md-4 col-lg-2">
-		{{ form_widget(filter.newsletterBlockTemplates, { 'label': 'label.choose.newsletterBlockTemplates' }) }}
-	</li>
+
+
+{% block filterSmallFields %}
+	{% include 'common/fields/filter/simple_field.html.twig' with 
+		{ field: filter.name, label: 'label.name' } %}
 {% endblock %}
 
-{% block headerMoreFields3 %}
-	<th><i class="fa fa-file-o"></i> {{ 'label.newsletterPage'|trans }}</th>
-	<th><i class="fa fa-file-o"></i> {{ 'label.newsletterBlockTemplate'|trans }}</th>
+{% block filterLargeFields %}
+	{% include 'common/fields/filter/simple_field.html.twig' with 
+		{ field: filter.newsletterPages } %}
+	{% include 'common/fields/filter/simple_field.html.twig' with 
+		{ field: filter.newsletterBlockTemplates } %}
 {% endblock %}
 
-{% block entryMoreFields3 %}
-	<td>
-		{% include 'common/links/simple_link.html.twig' with { 'type': 'newsletter_page', 'value': { id: item.newsletterPageId, name: item.newsletterPageName } } %}
-	</td>
-	<td>
-		{% include 'common/links/simple_link.html.twig' with { 'type': 'newsletter_block_template', 'value': { id: item.newsletterBlockTemplateId, name: item.newsletterBlockTemplateName } } %}
-	</td>
+
+
+{% block simpleHeaderFields %}
+	{% include 'common/fields/table_header/icon_field.html.twig' with 
+		{ icon: 'fa-file-o', label: 'label.newsletterPage' } %}
+	{% include 'common/fields/table_header/icon_field.html.twig' with 
+		{ icon: 'fa-', label: 'label.newsletterBlockTemplate' } %}
+{% endblock %}
+
+{% block simpleEntryFields %}
+	{% include 'common/fields/table/simple_link_field.html.twig' with
+		{ type: 'newsletter_page', id: item.newsletterPageId, name: item.newsletterPageName } %}
+		
+	{% include 'common/fields/table/simple_link_field.html.twig' with
+		{ type: 'newsletter_block_template', id: item.newsletterBlockTemplateId, name: item.newsletterBlockTemplateName } %}
 {% endblock %}
