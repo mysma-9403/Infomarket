@@ -1,0 +1,19 @@
+<tr>
+	<th class="text-right">{{ 'label.actions'|trans }}</th>
+	
+	{% for entry in entries|slice(0,half) %}
+		<td class="text-center">
+			{% include 'benchmark/product/components/compare/table_action.html.twig' with { benchmarkMessage: entry.benchmarkMessage } %}
+		</td>
+	{% endfor %}
+	<td class="text-center selected">
+		{% include 'benchmark/product/components/compare/table_action.html.twig' with { showCompare: 0 } %}
+	</td>
+	{% for entry in entries|slice(half) %}
+		<td class="text-center">
+			{% include 'benchmark/product/components/compare/table_action.html.twig' with { benchmarkMessage: entry.benchmarkMessage } %}
+		</td>
+	{% endfor %}
+	
+	<td></td>
+</tr>

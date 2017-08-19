@@ -1,0 +1,15 @@
+{% set restWidth = 90 - entries|length * 12 - 12 %}
+
+<tr>
+	<th width="10%">&nbsp</th>
+	
+	{% for entry in entries|slice(0,half) %}
+		<td width="12%"></td>
+	{% endfor %}
+	<td class="selected" width="14%"></td>
+	{% for entry in entries|slice(half) %}
+		<td width="12%"></td>
+	{% endfor %}
+	
+	<td width="{{ restWidth }}%"></td>
+</tr>

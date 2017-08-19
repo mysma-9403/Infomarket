@@ -1,0 +1,13 @@
+{% if field.fieldType == constant('AppBundle\\Entity\\BenchmarkField::DECIMAL_FIELD_TYPE') 
+	or field.fieldType == constant('AppBundle\\Entity\\BenchmarkField::INTEGER_FIELD_TYPE') %}
+	<div class="col-xs-6">
+		{{ form_row(filter[field.filterName|cleanName ~ '_min'], { label: field.filterName ~ ' (min)' }) }}
+	</div>
+	<div class="col-xs-6">
+		{{ form_row(filter[field.filterName|cleanName ~ '_max'], { label: field.filterName ~ ' (max)' }) }}
+	</div>
+{% else %}
+	<div class="col-xs-12">
+		{{ form_row(filter[field.filterName|cleanName], { label: field.filterName }) }}
+	</div>
+{% endif %}

@@ -199,7 +199,9 @@ class CategoryController extends DummyController {
 		
 		$benchmarkFieldFactory = new CategoryBenchmarkFieldFactory($benchmarkFieldDataBaseUtils, $productRepository);
 		$benchmarkFieldsInitializer = new BenchmarkFieldsInitializerImpl($benchmarkFieldFactory);
-		return new CategoryParamsManager($em, $fm, $doctrine, $chartLogic, $benchmarkFieldsProvider, $benchmarkFieldsInitializer);
+		
+		$tokenStorage = $this->get('security.token_storage');
+		return new CategoryParamsManager($em, $fm, $doctrine, $chartLogic, $benchmarkFieldsProvider, $benchmarkFieldsInitializer, $tokenStorage);
 	}
 	
 	protected function getEntityManager($doctrine, $paginator) {

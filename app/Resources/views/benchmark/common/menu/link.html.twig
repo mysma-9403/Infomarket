@@ -1,10 +1,13 @@
 {% set linkTitle = linkTitle|default("benchmark") %}
 {% set linkPath = linkPath|default("benchmark") %}
 
-{% set active = linkPath in mainPath ? "active" : "" %}
+{% set active = linkPath starts with mainPath ? "active" : "" %}
 
 <li class="{{ active }}">
 	<a href="{{ path(basePath ~ linkPath) }}">
 		{{ linkTitle|trans }}
+		{% if badge is defined %}
+			<span class="badge">{{ badge > 0 ? badge : '' }}</span>
+		{% endif %}
 	</a>
 </li>

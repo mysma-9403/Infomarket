@@ -1,0 +1,56 @@
+{% form_theme filter 'form/fields.html.twig' %}
+	
+{{ form_start(filter) }}
+	{% set hidden = filter.categories.vars.choices|length > 0 ? '' : 'hidden' %}
+	<div class="col-xs-12 {{ hidden }}">
+		{{ form_row(filter.categories, { label: 'label.benchmark.categories' }) }}
+	</div>
+	
+	{% set hidden = filter.brands.vars.choices|length > 0 ? '' : 'hidden' %}
+	<div class="col-xs-12 {{ hidden }}">
+		{{ form_row(filter.brands, { label: 'label.benchmark.brands' }) }}
+	</div>
+	
+	<div class="col-xs-12 {{ hidden }}">
+		{{ form_row(filter.name, { label: 'label.benchmark.product.name' }) }}
+	</div>
+	
+	<div class="col-xs-6">
+		{{ form_row(filter.minPrice, { label: 'label.benchmark.product.minPrice' }) }}
+	</div>
+	<div class="col-xs-6">
+		{{ form_row(filter.maxPrice, { label: 'label.benchmark.product.maxPrice' }) }}
+	</div>
+	
+	
+	{% for field in entryFilter.filterFields %}
+		{% if field.featuredFilter %}
+			{% include 'benchmark/common/form/components/filter_field.twig' %}
+		{% endif %}
+	{% endfor %}
+	
+	<div class="panel-group" id="extendedAccodrion">
+		<div id="extendedFilter" class="accordion-body collapse">
+			{% for field in entryFilter.filterFields %}
+				{% if not field.featuredFilter %}
+					{% include 'benchmark/common/form/components/filter_field.twig' %}
+				{% endif %}
+			{% endfor %}
+		</div>
+	</div>
+	
+	<div class="col-xs-10 padding-5">
+		<div class="btn-group">
+			{{ form_widget(filter.search, { 'icon': 'fa-search', 'label': ' ', 
+				'attr': { class: 'btn btn-primary', 'data-toggle': 'tooltip', title: 'action.search'} }) }}
+			{{ form_widget(filter.clear, { 'icon': 'fa-eraser', 'label': ' ', 
+				'attr': { class: 'btn btn-warning', 'data-toggle': 'tooltip', title: 'action.clear'} }) }}
+		</div>
+	</div>
+	<div class="col-xs-2 padding-5 {{ entryFilter.benchmarkQuery ? "hidden" : "" }}">
+		{{ form_widget(filter.saveQuery, { 'icon': 'fa-save', 'label': ' ', 
+			'attr': { class: 'btn btn-success', 'data-toggle': 'tooltip', title: 'action.saveQuery' } }) }}
+	</div>
+{{ form_end(filter) }}
+
+<script type="text/javascript">$("#extendedFilter").collapse("hide");</script>

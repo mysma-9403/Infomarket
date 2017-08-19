@@ -1,0 +1,31 @@
+{% if field.betterThanType == constant('AppBundle\\Entity\\BenchmarkField::GT_BETTER_THAN_TYPE') %}
+	{% if compared > value %}	
+		{% set color = 'text-success' %}
+		{% set icon = 'arrow-circle-up' %}
+	{% elseif compared < value %}	
+		{% set color = 'text-danger' %}
+		{% set icon = 'arrow-circle-down' %}
+	{% else %}
+		{% set color = 'text-primary' %}
+		{% set icon = 'minus-circle' %}
+	{% endif %}
+{% elseif field.betterThanType == constant('AppBundle\\Entity\\BenchmarkField::LT_BETTER_THAN_TYPE') %}
+	{% if compared > value %}	
+		{% set color = 'text-danger' %}
+		{% set icon = 'arrow-circle-up' %}
+	{% elseif compared < value %}	
+		{% set color = 'text-success' %}
+		{% set icon = 'arrow-circle-down' %}
+	{% else %}
+		{% set color = 'text-primary' %}
+		{% set icon = 'minus-circle' %}
+	{% endif %}
+{% else %}
+	{% set color = '' %}
+	{% set icon = '' %}
+{% endif %}
+
+<span class="{{ color }}">
+	{{ compared ? compared|number_format(field.decimalPlaces, '.', ' ') : '' }} {# &nbsp; #} 
+	<span class="fa fa-{{ icon }}"></span>
+</span>

@@ -15,6 +15,7 @@ module.exports = function (grunt) {
                 	'web/css/admin.css': 'web/assets/custom/admin/admin.less',
                 	'web/css/infoprodukt.css': 'web/assets/custom/infoprodukt/infoprodukt.less',
                 	'web/css/infomarket.css': 'web/assets/custom/infomarket/infomarket.less',
+                	'web/css/benchmark.css': 'web/assets/custom/benchmark.less',
                     'web/css/font-awesome.css': 'web/assets/vendor/font-awesome/less/font-awesome.less'
                 }
             },
@@ -30,6 +31,7 @@ module.exports = function (grunt) {
                 	'web/css/admin.min.css': 'web/assets/custom/admin/admin.less',
                 	'web/css/infoprodukt.min.css': 'web/assets/custom/infoprodukt/infoprodukt.less',
                 	'web/css/infomarket.min.css': 'web/assets/custom/infomarket/infomarket.less',
+                	'web/css/benchmark.min.css': 'web/assets/custom/benchmark.less',
                 	'web/css/font-awesome.min.css': 'web/assets/vendor/font-awesome/less/font-awesome.less'
                 }
             }
