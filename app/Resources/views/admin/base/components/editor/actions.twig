@@ -1,5 +1,5 @@
 {% if entry.id %}
-	{% include 'admin/common/editor/action_button.twig' with 
+	{% include 'admin/common/buttons/action_button.twig' with 
 		{ extPath: '_show', routeParams: { id: entry.id }, 
 			tooltip: 'action.show', icon: 'fa-eye' } %}
 {% endif %}
@@ -9,21 +9,21 @@
 	
 {% if entry.id %}
    	{% if canCreate %}
-   		{% include 'admin/common/editor/action_button.twig' with 
+   		{% include 'admin/common/buttons/action_button.twig' with 
 			{ extPath: '_new', tooltip: 'action.new', icon: 'fa-file-o', type: 'btn-success' } %}
 	{% endif %}
 	{% if canCopy %}
-		{% include 'admin/common/editor/action_button.twig' with 
+		{% include 'admin/common/buttons/action_button.twig' with 
 			{ extPath: '_copy', routeParams: { id: entry.id }, 
 				tooltip: 'action.copy', icon: 'fa-copy', type: 'btn-warning' } %}
     {% endif %}
 	{% if canDelete %}
-		{% include 'admin/common/editor/action_button.twig' with 
+		{% include 'admin/common/buttons/action_button.twig' with 
 			{ extPath: '_delete', routeParams: { id: entry.id }, 
 				tooltip: 'action.delete', icon: 'fa-trash', type: 'btn-danger',
 				onclick: 'return confirm(' ~ 'confirm.delete'|trans ~ ')' } %}
 	{% endif %}
 {% endif %}
 
-{% include 'admin/common/editor/action_button.twig' with 
-	{ extPath: '', tooltip: 'action.back', icon: 'fa-close' } %}
+{% include 'admin/common/buttons/action_button.twig' with 
+	{ extPath: '', tooltip: 'action.back', icon: 'fa-list-ul' } %}

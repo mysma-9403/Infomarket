@@ -1,6 +1,6 @@
 {% extends 'admin/image/show.html.twig' %}
 
-{% set title = 'title.adverts'|trans %}
+{% set title = 'label.adverts'|trans %}
 {% set mainPath = 'advert' %}
 {% set gender = 'fm.' %}
 
@@ -58,5 +58,5 @@
 {% endblock %}
 
 {% block assignments %}
-	{% include 'admin/advert/assignments.html.twig' %}
+	{% include 'admin/advert/components/assignments.html.twig' %}
 {% endblock %}

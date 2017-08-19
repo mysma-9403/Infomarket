@@ -101,7 +101,7 @@
 									{% block navigationMenu %}
 										<li class="{% if mainPath == 'home' %}active{% endif %} branch-{{ contextBranchId }}">
 											<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-												<span class="fa fa-search"></span> {{ 'title.infomarket.home'|trans }} <span class="caret">
+												<span class="fa fa-search"></span> {{ 'label.infomarket.home'|trans }} <span class="caret">
 											</a>
 											<ul class="dropdown-menu">
 												{% for menuBranch in menuBranches %}
@@ -116,7 +116,7 @@
 										</li>
 										<li class="{% if mainPath == 'article' %}active{% endif %} branch-{{ contextBranchId }}">
 											<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-												<span class="fa fa-file-text-o"></span> {{ 'title.articles'|trans }} <span class="caret">
+												<span class="fa fa-file-text-o"></span> {{ 'label.articles'|trans }} <span class="caret">
 											</a>
 											<ul class="dropdown-menu">
 												{% for articleCategory in menuArticleCategories %}
@@ -136,7 +136,7 @@
 										</li>
 										<li class="{% if mainPath == 'category' %}active{% endif %} branch-{{ contextBranchId }}">
 											<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-												<span class="fa fa-camera-retro"></span> {{ 'title.products'|trans }} <span class="caret">
+												<span class="fa fa-camera-retro"></span> {{ 'label.products'|trans }} <span class="caret">
 											</a>
 											<ul class="dropdown-menu category-menu">
 												{% for category in menuCategories | slice(0,10) %}
@@ -156,7 +156,7 @@
 										</li>
 										<li class="{% if mainPath == 'magazine' %}active{% endif %} branch-{{ contextBranchId }}">
 											<a href="{{ path(basePath ~ 'magazine') }}">
-												<span class="fa fa-newspaper-o"></span> {{ 'title.magazines'|trans }}</a>
+												<span class="fa fa-newspaper-o"></span> {{ 'label.magazines'|trans }}</a>
 										</li>
 										
 										<li class="{% if mainPath == 'advertisement' or mainPath == 'brand' %}active{% endif %} branch-{{ contextBranchId }}">
@@ -243,7 +243,7 @@
 					
 			<div class="row">
 				<div class="col-xs-12">
-					<h5 class="text-right text-brand title padding-5">&copy; {{ 'title.footer.copyright'|trans }}</h5>
+					<h5 class="text-right text-brand title padding-5">&copy; {{ 'label.footer.copyright'|trans }}</h5>
 				</div>
 			</div>
 		</div>    

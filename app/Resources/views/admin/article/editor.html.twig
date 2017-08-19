@@ -1,6 +1,6 @@
 {% extends 'admin/image/editor.html.twig' %}
 
-{% set title = 'title.articles'|trans %}
+{% set title = 'label.articles'|trans %}
 {% set mainPath = 'article' %}
 {% set gender = 'm.' %}
 
@@ -73,10 +73,10 @@
 
 {% block moreForms %}
 	{% if entry.id %}
-		{% include 'admin/article/components/tag_assignments_form.twig' %}
+		{% include 'admin/article/components/editor/tag_assignments_form.twig' %}
 	{% endif %}
 {% endblock %}
 
 {% block assignments %}	
-	{% include 'admin/article/assignments.html.twig' %}
+	{% include 'admin/article/components/assignments.html.twig' %}
 {% endblock %}

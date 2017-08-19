@@ -1,7 +1,7 @@
 {% extends 'admin/image/show.html.twig' %}
 
 {% set mainPath = 'magazine' %}
-{% set title = 'title.magazines'|trans %}
+{% set title = 'label.magazines'|trans %}
 {% set gender = 'm.' %}
 
 
@@ -46,5 +46,5 @@
 {% endblock %}
 
 {% block assignments %}
-	{% include 'admin/magazine/assignments.html.twig' %}
+	{% include 'admin/magazine/components/assignments.html.twig' %}
 {% endblock %}

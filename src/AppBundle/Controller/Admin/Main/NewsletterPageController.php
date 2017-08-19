@@ -17,7 +17,6 @@ use AppBundle\Manager\Entity\Base\EntityManager;
 use AppBundle\Manager\Entity\Common\NewsletterPageManager;
 use AppBundle\Manager\Filter\Base\FilterManager;
 use AppBundle\Manager\Params\EntryParams\Admin\NewsletterPageEntryParamsManager;
-use AppBundle\Repository\Admin\Main\NewsletterGroupRepository;
 use AppBundle\Validation\StringValidation;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Filesystem\Filesystem;
@@ -235,9 +234,7 @@ class NewsletterPageController extends SimpleEntityController {
 		
 		$options = [];
 		
-		/** @var NewsletterGroupRepository $newsletterGroupRepository */
-		$groupRepository = $this->getDoctrine()->getRepository(NewsletterGroup::class);
-		$options['groups'] = $groupRepository->findFilterItems();
+		$this->addEntityChoicesFormOption($options, NewsletterGroup::class, 'newsletterGroups');
 		
 		$filter = $viewParams['sendNewsletterFilter'];
 		

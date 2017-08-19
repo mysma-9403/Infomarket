@@ -1,6 +1,6 @@
 {% extends 'infoprodukt/base/index.html.twig' %}
 
-{% set title = 'title.search'|trans %}
+{% set title = 'label.search'|trans %}
 {% set mainPath = 'search' %}
 		
 {% block mainContent %}
@@ -10,7 +10,7 @@
 		<div class="row">
 			<div class="col-xs-12">
 				<a href="{{ path('infoprodukt_category') }}">
-					<h2>{{ 'title.categories'|trans }}</h2>
+					<h2>{{ 'label.categories'|trans }}</h2>
 				</a>
 				
 				<div class="row">
@@ -38,7 +38,7 @@
 		<div class="row">
 			<div class="col-xs-12">
 				<a href="{{ path('infoprodukt_product') }}">
-					<h2>{{ 'title.products'|trans }}</h2>
+					<h2>{{ 'label.products'|trans }}</h2>
 				</a>
 				
 				{% include 'common/tile_list.html.twig' with {'entries': products, 'entryPath': 'product', 'limit': 12} %}
@@ -60,7 +60,7 @@
 		<div class="row">
 			<div class="col-xs-12">
 				<a href="{{ path('infoprodukt_article') }}">
-					<h2>{{ 'title.articles'|trans }}</h2>
+					<h2>{{ 'label.articles'|trans }}</h2>
 				</a>
 				
 				{% include 'common/tile_list.html.twig' with {'entries': articles, 'entryPath': 'article', 'limit': 12} %}	
@@ -82,7 +82,7 @@
 {# 	<div class="row">#}
 {# 		<div class="col-xs-12">#}
 {# 			<a href="{{ path('infoprodukt_brand') }}">#}
-{# 				<h2>{{ 'title.brands'|trans }}</h2>#}
+{# 				<h2>{{ 'label.brands'|trans }}</h2>#}
 {# 			</a>#}
 			
 {# 			{% include 'common/tile_list.html.twig' with {'entries': brands, 'entryPath': 'brand', 'limit': 12} %}#}
@@ -104,7 +104,7 @@
 		<div class="row">
 			<div class="col-xs-12">
 				<a href="{{ path('infoprodukt_term') }}">
-					<h2>{{ 'title.terms'|trans }}</h2>
+					<h2>{{ 'label.terms'|trans }}</h2>
 				</a>
 				
 				{% for entry in terms %}

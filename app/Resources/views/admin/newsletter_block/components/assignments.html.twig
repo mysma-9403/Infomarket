@@ -1,0 +1,25 @@
+{% include 'admin/common/assignments/assignment_header.twig' with 
+{ mainPath: 'newsletter_block_advert_assignment', extPath: '_new', routeParams: { 'newsletter_block': entry.id },
+	tooltip: 'action.assignAdvert', header: 'label.adverts' } %}
+
+{% include 'admin/common/assignments/advert_assignment_table.twig' with 
+{ object: 'newsletter_block_advert_assignment', items: entry.newsletterBlockAdvertAssignments,
+	entryLabel: 'label.advert' } %}
+
+
+{% include 'admin/common/assignments/assignment_header.twig' with 
+{ mainPath: 'newsletter_block_article_assignment', extPath: '_new', routeParams: { 'newsletter_block': entry.id },
+	tooltip: 'action.assignArticle', header: 'label.articles' } %}
+
+{% include 'admin/common/assignments/article_assignment_table.twig' with 
+{ object: 'newsletter_block_article_assignment', items: entry.newsletterBlockArticleAssignments,
+	entryLabel: 'label.article' } %}
+	
+	
+{% include 'admin/common/assignments/assignment_header.twig' with 
+{ mainPath: 'newsletter_block_magazine_assignment', extPath: '_new', routeParams: { 'newsletter_block': entry.id },
+	tooltip: 'action.assignMagazine', header: 'label.magazines' } %}
+
+{% include 'admin/common/assignments/magazine_assignment_table.twig' with 
+{ object: 'newsletter_block_magazine_assignment', items: entry.newsletterBlockMagazineAssignments,
+	entryLabel: 'label.magazine' } %}

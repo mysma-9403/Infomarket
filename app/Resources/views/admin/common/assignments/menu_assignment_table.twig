@@ -1,0 +1,7 @@
+{% extends 'admin/common/assignments/assignment_table.twig' %}
+
+
+{% block entryFields %}
+	{% include 'common/fields/table/readonly_link_field.html.twig' with 
+	{ id: item.menu.id, name: item.menu.name, type: 'menu' } %}
+{% endblock %}

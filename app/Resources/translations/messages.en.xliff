@@ -2,65 +2,65 @@
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
     <file source-language="en" target-language="en" datatype="plaintext" original="file.ext">
         <body>
-        	<trans-unit id="title.admin">
-                <source>title.admin</source>
+        	<trans-unit id="label.admin">
+                <source>label.admin</source>
                 <target>Admin panel</target>
             </trans-unit>
-            <trans-unit id="title.home">
-                <source>title.home</source>
+            <trans-unit id="label.home">
+                <source>label.home</source>
                 <target>Home</target>
             </trans-unit>
-            <trans-unit id="title.magazine">
-                <source>title.magazine</source>
+            <trans-unit id="label.magazine">
+                <source>label.magazine</source>
                 <target>Magazine</target>
             </trans-unit>
-            <trans-unit id="title.office">
-                <source>title.office</source>
+            <trans-unit id="label.office">
+                <source>label.office</source>
                 <target>Office</target>
             </trans-unit>
             
-            <trans-unit id="title.articles">
-                <source>title.articles</source>
+            <trans-unit id="label.articles">
+                <source>label.articles</source>
                 <target>News</target>
             </trans-unit>
-            <trans-unit id="title.branch">
-                <source>title.branch</source>
+            <trans-unit id="label.branch">
+                <source>label.branch</source>
                 <target>Branch</target>
             </trans-unit>
-            <trans-unit id="title.branches">
-                <source>title.branches</source>
+            <trans-unit id="label.branches">
+                <source>label.branches</source>
                 <target>Branches</target>
             </trans-unit>
-            <trans-unit id="title.brands">
-                <source>title.brands</source>
+            <trans-unit id="label.brands">
+                <source>label.brands</source>
                 <target>Brands</target>
             </trans-unit>
-            <trans-unit id="title.category">
-                <source>title.category</source>
+            <trans-unit id="label.category">
+                <source>label.category</source>
                 <target>Category</target>
             </trans-unit>
-            <trans-unit id="title.categories">
-                <source>title.categories</source>
+            <trans-unit id="label.categories">
+                <source>label.categories</source>
                 <target>Categories</target>
             </trans-unit>
-            <trans-unit id="title.segment">
-                <source>title.segment</source>
+            <trans-unit id="label.segment">
+                <source>label.segment</source>
                 <target>Segment</target>
             </trans-unit>
-            <trans-unit id="title.segments">
-                <source>title.segments</source>
+            <trans-unit id="label.segments">
+                <source>label.segments</source>
                 <target>Segments</target>
             </trans-unit>
-            <trans-unit id="title.product">
-                <source>title.product</source>
+            <trans-unit id="label.product">
+                <source>label.product</source>
                 <target>Product</target>
             </trans-unit>
-            <trans-unit id="title.products">
-                <source>title.products</source>
+            <trans-unit id="label.products">
+                <source>label.products</source>
                 <target>Products</target>
             </trans-unit>
-            <trans-unit id="title.terms">
-                <source>title.terms</source>
+            <trans-unit id="label.terms">
+                <source>label.terms</source>
                 <target>Terms</target>
             </trans-unit>
             

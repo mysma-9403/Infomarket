@@ -1,7 +1,7 @@
 {% extends 'admin/simple/index.html.twig' %}
 
 {% set mainPath = 'product' %}
-{% set title = 'title.products'|trans %}
+{% set title = 'label.products'|trans %}
 
 
 
@@ -59,17 +59,17 @@
 	{% include 'common/buttons/infomarket_buttons.html.twig' %}
 	{% include 'common/buttons/infoprodukt_buttons.html.twig' %}
 
-{# 	TODO move somewhere else :)#}
+	
 	{% if is_granted('ROLE_RATING_EDITOR') %}
 		{% set confirm = 'return confirm("' ~ 'confirm.deleteUnused'|trans ~ '")' %}
-		<a type="button" class="btn btn-danger" onclick="{{ confirm }}"
-			href="{{ path(basePath ~ mainPath ~ '_delete_unused') }}">
-			<i class="fa fa-trash"></i> {{ 'action.product.deleteUnused'|trans }}
-		</a>
-		<a type="button" class="btn btn-primary""
-			href="{{ path(basePath ~ mainPath ~ '_get_top_products') }}">
-			<i class="fa fa-file-text-o"></i> {{ 'action.product.getTopProducts'|trans }}
-		</a>
+		
+		{% include 'admin/common/buttons/action_button.twig' with 
+		{ extPath: '_delete_unused', tooltip: 'action.product.deleteUnused', 
+			onclick: confirm, icon: 'fa-trash', type: 'btn-danger' } %}
+		
+		{% include 'admin/common/buttons/action_button.twig' with 
+		{ extPath: '_get_top_products', tooltip: 'action.product.getTopProducts', 
+			icon: 'fa-file-text-o' } %}
 	{% endif %}
 	
 {% endblock %}

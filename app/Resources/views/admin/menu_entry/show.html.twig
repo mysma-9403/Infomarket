@@ -1,7 +1,7 @@
 {% extends 'admin/simple/show.html.twig' %}
 
 {% set mainPath = 'menu_entry' %}
-{% set title = 'title.menuEntries'|trans %}
+{% set title = 'label.menuEntries'|trans %}
 
 
 {% block headerFields %}
@@ -40,5 +40,5 @@
 {% endblock %}
 
 {% block assignments %}
-	{% include 'admin/menu_entry/assignments.html.twig' %}
+	{% include 'admin/menu_entry/components/assignments.html.twig' %}
 {% endblock %}

@@ -12,17 +12,17 @@
 	{% endif %}
 	
 	<li role="presentation" class="{{ mainPath == 'article' ? 'active' : ''}}">
-		<a href="{{ path(basePath ~ 'article', { category: preleafCategoryId }) }}">{{ 'title.articles'|trans }}</a>
+		<a href="{{ path(basePath ~ 'article', { category: preleafCategoryId }) }}">{{ 'label.articles'|trans }}</a>
 	</li>
 	
 	<li role="presentation" class="{{ mainPath == 'category' ? 'active' : ''}}">
 		<a href="{{ path(basePath ~ 'category' ~ (preleafCategoryId ? '_show' : ''), { id: preleafCategoryId, category: preleafCategoryId, top_products: 1 }) }}">
-			{{ childCategoryId ? 'label.rating.topProducts'|trans : 'title.categories'|trans }}
+			{{ childCategoryId ? 'label.rating.topProducts'|trans : 'label.categories'|trans }}
 		</a>
 	</li>
 	
 {# 	<li role="presentation" class="{{ mainPath == 'term' ? 'active' : ''}}">#}
-{# 		<a href="{{ path(basePath ~ 'term', { category: preleafCategoryId }) }}">{{ 'title.terms'|trans }}</a>#}
+{# 		<a href="{{ path(basePath ~ 'term', { category: preleafCategoryId }) }}">{{ 'label.terms'|trans }}</a>#}
 {# 	</li>#}
 		
 </ul>

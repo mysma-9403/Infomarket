@@ -5,7 +5,7 @@
 	
 	<div class="col-xs-6">
 		{% if entry.id %}
-			{% include 'admin/common/editor/action_button.twig' with 
+			{% include 'admin/common/buttons/action_button.twig' with 
 				{ extPath: '_preview', routeParams: { id: entry.id }, 
 					tooltip: 'action.article.preview', icon: 'fa-eye' } %}
 		{% endif %}

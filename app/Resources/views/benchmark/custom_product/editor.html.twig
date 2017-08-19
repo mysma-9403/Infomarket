@@ -1,7 +1,7 @@
 {% extends 'benchmark/image/editor.html.twig' %}
 
 {% set mainPath = 'custom_product' %}
-{% set title = 'title.products'|trans %}
+{% set title = 'label.products'|trans %}
 
 {% block preFormBlock %}
 	{% if categoryFilterForm is defined and categoryFilterForm.category.vars.choices|length > 0 %}	

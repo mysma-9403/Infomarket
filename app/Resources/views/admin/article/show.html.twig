@@ -1,6 +1,6 @@
 {% extends 'admin/image/show.html.twig' %}
 
-{% set title = 'title.articles'|trans %}
+{% set title = 'label.articles'|trans %}
 {% set mainPath = 'article' %}
 {% set gender = 'm.' %}
 
@@ -72,5 +72,5 @@
 {% endblock %}
 
 {% block assignments %}
-	{% include 'admin/article/assignments.html.twig' %}
+	{% include 'admin/article/components/assignments.html.twig' %}
 {% endblock %}

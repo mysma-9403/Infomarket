@@ -1,7 +1,7 @@
 {% extends 'admin/image/show.html.twig' %}
 
 {% set mainPath = 'product' %}
-{% set title = 'title.products'|trans %}
+{% set title = 'label.products'|trans %}
 {% set gender = 'm.' %}
 
 
@@ -49,5 +49,5 @@
 {% endblock %}
 
 {% block assignments %}
-	{% include 'admin/product/assignments.html.twig' %}
+	{% include 'admin/product/components/assignments.html.twig' %}
 {% endblock %}

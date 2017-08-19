@@ -1,6 +1,6 @@
 {% extends 'infoprodukt/base/index.html.twig' %}
 
-{% set title = 'title.articles'|trans %}
+{% set title = 'label.articles'|trans %}
 {% set mainPath = 'article' %}
 
 {% block moreMoreBreadcrumbs%}
@@ -15,7 +15,7 @@
 			
 {% block moreSidebarContent %}
 	{% block articleCategoriesBlock %}
-		<h1>{{ 'title.articleCategories'|trans }}</h1>
+		<h1>{{ 'label.articleCategories'|trans }}</h1>
 		
 		{% form_theme articleFilterForm 'form/fields.html.twig' %}
 		
@@ -38,7 +38,7 @@
 	{% block articles %}
 	<div class="row">
 		<div class="col-xs-12">
-			<h1>{{ 'title.articles'|trans }}</h1>
+			<h1>{{ 'label.articles'|trans }}</h1>
 			
 			{% for entry in entries%}
 				<div class="row">

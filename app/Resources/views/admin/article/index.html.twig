@@ -1,8 +1,7 @@
 {% extends 'admin/simple/index.html.twig' %}
 
+{% set title = title|default('label.articles'|trans) %}
 {% set mainPath = mainPath|default('article') %}
-{% set title = title|default('title.articles'|trans) %}
-
 
 
 {% block filterSmallFields %}

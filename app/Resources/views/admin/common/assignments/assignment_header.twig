@@ -1,0 +1,17 @@
+{% set icon = icon|default('fa-plus') %}
+{% set type = type|default('btn-success') %}
+
+<div class="vr-space-40"></div>
+
+<div class="container">
+	<div class="row">	
+		<div class="col-xs-6">
+			<h3>{{ header|trans }}</h3>
+		</div>
+		{% if canEdit %}
+			<div class="col-xs-6">
+				{% include 'admin/common/buttons/action_button.twig' %}
+			</div>
+		{% endif %}
+	</div>
+</div>

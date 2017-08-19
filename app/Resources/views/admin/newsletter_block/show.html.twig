@@ -1,6 +1,6 @@
 {% extends 'admin/simple/show.html.twig' %}
 
-{% set title = 'title.newsletterBlocks'|trans %}
+{% set title = 'label.newsletterBlocks'|trans %}
 {% set mainPath = 'newsletter_block' %}
 {% set gender = 'm.' %}
 
@@ -52,5 +52,5 @@
 {% endblock %}
 
 {% block assignments %}
-	{% include 'admin/newsletter_block/assignments.html.twig' %}
+	{% include 'admin/newsletter_block/components/assignments.html.twig' %}
 {% endblock %}

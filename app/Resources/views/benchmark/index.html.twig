@@ -1,7 +1,7 @@
 {% extends 'benchmark/base.html.twig' %}
 
 {% set basePath = 'benchmark_' %}
-{% set title = title|default('title.benchmark')|trans %}
+{% set title = title|default('label.benchmark')|trans %}
 
 {% set gender = gender | default('') %}
 
@@ -27,13 +27,13 @@
 	{% block menu %}
 		<div class="container-fluid">
       		<ul class="nav navbar-nav navbar-right">
-      			{% include 'benchmark/common/menu/link.html.twig' with { linkPath: "category_show", linkTitle: "title.categories" } %}
-      			{% include 'benchmark/common/menu/link.html.twig' with { linkPath: "product", linkTitle: "title.products" } %}
-      			{% include 'benchmark/common/menu/link.html.twig' with { linkPath: "custom_product", linkTitle: "title.customProducts" } %}
-      			{% include 'benchmark/common/menu/link.html.twig' with { linkPath: "benchmark_query", linkTitle: "title.benchmarkQueries" } %}
+      			{% include 'benchmark/common/menu/link.html.twig' with { linkPath: "category_show", linkTitle: "label.categories" } %}
+      			{% include 'benchmark/common/menu/link.html.twig' with { linkPath: "product", linkTitle: "label.products" } %}
+      			{% include 'benchmark/common/menu/link.html.twig' with { linkPath: "custom_product", linkTitle: "label.customProducts" } %}
+      			{% include 'benchmark/common/menu/link.html.twig' with { linkPath: "benchmark_query", linkTitle: "label.benchmarkQueries" } %}
       			<li>
 					<a href="{{ path(basePath ~ 'benchmark_message') }}">
-						{{ 'title.benchmarkMessages'|trans }}
+						{{ 'label.benchmarkMessages'|trans }}
 						<span class="badge">{{ unreadMessagesCount > 0 ? unreadMessagesCount : '' }}</span>
 					</a>
 				</li>

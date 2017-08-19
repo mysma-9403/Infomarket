@@ -12,7 +12,7 @@
 {% set routeParams = routeParams|default({}) %}
 
 <a type="button" class="btn {{ type }}" data-target="tooltip" title="{{ tooltip|trans }}"
-	onclick="{{ onclick }}" href="{{ path(basePath ~ mainPath ~ extPath, routeParams) }}">
+	onclick="{{ onclick }}" href="{{ href is defined ? href : path(basePath ~ mainPath ~ extPath, routeParams) }}">
 	<i class="fa {{ icon }}"></i> 
 	{{ label|trans }}
 </a>

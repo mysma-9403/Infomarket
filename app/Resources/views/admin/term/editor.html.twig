@@ -1,7 +1,7 @@
 {% extends 'admin/simple/editor.html.twig' %}
 
 {% set mainPath = 'term' %}
-{% set title = 'title.terms'|trans %}
+{% set title = 'label.terms'|trans %}
 {% set gender = 'm.' %}
 
 
@@ -23,5 +23,5 @@
 {%  endblock %}
 
 {% block assignments %}
-	{% include 'admin/term/assignments.html.twig' %}
+	{% include 'admin/term/components/assignments.html.twig' %}
 {% endblock %}

@@ -1,0 +1,7 @@
+{% extends 'admin/common/assignments/assignment_table.twig' %}
+
+
+{% block entryFields %}
+	{% include 'common/fields/table/simple_link_field.html.twig' with 
+	{ id: item.brand.id, name: item.brand.name, type: 'brand' } %}
+{% endblock %}
