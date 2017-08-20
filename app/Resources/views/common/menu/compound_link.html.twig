@@ -1,0 +1,33 @@
+{% set active = '' %}
+
+{% for sublink in sublinks if active == '' %}
+	{% if sublink.type == 'link' and sublink.path == mainPath %}
+		{% set active = 'active' %}
+	{% endif %}
+{% endfor %}
+
+<li class="{{ active }} dropdown">
+	<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" 
+		aria-haspopup="true" aria-expanded="false">
+		{{ linkLabel|trans }}
+		{% if badge is defined %}
+			<span class="badge">{{ badge > 0 ? badge : '' }}</span>
+		{% endif %}
+		<span class="caret"></span>
+	</a>
+	<ul class="dropdown-menu">
+		{% block sublinksMenu %}
+			{% for sublink in sublinks %}
+				{% if isAdmin or (sublink.adminRequired is not defined) or 
+					(sublink.adminRequired == false) %}
+					{% if sublink.type == 'link' %}
+						{% include 'common/menu/simple_link.html.twig' with
+						{ linkPath: sublink.path, linkLabel: sublink.label } %}
+					{% elseif sublink.type == 'divider' %}
+						<li class="divider"></li>
+					{% endif %}
+				{% endif %}
+			{% endfor %}
+		{% endblock %}
+	</ul>
+</li>

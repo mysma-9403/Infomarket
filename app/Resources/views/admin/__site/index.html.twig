@@ -7,359 +7,75 @@
 
 {% block body %}
 
-	{% block header %}
-		<div class="container-fluid page-header">
-			<div class="col-xs-12">
-				<h1>{{ title }}</h1>
-				
-				<p>
-					{{ 'label.welcome'|trans }} <strong>{{ app.user.username }}</strong>, <br>
-					<a href="{{ path(basePath ~ 'logout') }}">
-						{{ 'label.logout'|trans }}
-					</a>
-				</p>
-			</div>	
+	{% block navigationBar %}
+	<nav class="navbar navbar-fixed-top">
+		{% block navigationHeader %}
+			<div class="navbar-header">
+				{% block navigationButton %}
+				<button type="button" class="navbar-toggle collapsed" 
+						data-toggle="collapse" 
+						data-target="#catbar" 
+						aria-expanded="false">
+			        <span class="sr-only">Toggle navigation</span>
+			        <span class="icon-bar"></span>
+			        <span class="icon-bar"></span>
+			        <span class="icon-bar"></span>
+		      	</button>
+	      		{% endblock %}
+	      		
+				{% block navigationBrand %}
+				<a class="navbar-brand" href="{{ path('infoprodukt_home') }}">
+					<img class="brand-image" src="{{ asset('img/logo-infomarket.png') }}">
+				</a>
+				{% endblock %}
+	    	</div>
+    	{% endblock %}
+		
+		{% block navigationSearch %}
+		<div class="navbar-greet navbar-left hidden-xs hidden-sm">
+			<p>
+				{{ 'label.welcome'|trans }} {{ app.user.username }}, <br>
+				<a href="{{ path('admin_logout') }}">
+					{{ 'label.logout'|trans }}
+				</a>
+			</p>
 		</div>
-	{% endblock %}
-	
-	{% block menu %}
-		<div class="container-fluid">
-{# 			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">#}
-      		<ul class="nav navbar-nav navbar-right">
-{# 			<ul class="nav nav-tabs">#}
+		{% endblock %}
+		
+		{% block navigationLinks %}
+		<div class="collapse navbar-collapse" id="catbar">
+			<ul class="nav navbar-nav navbar-right">
+				{% include 'admin/__site/components/index/article_link.twig' with 
+				{ linkLabel: 'label.articles' } %}
+				{% include 'admin/__site/components/index/category_link.twig' with 
+				{ linkLabel: 'label.categories' } %}
+				{% include 'admin/__site/components/index/product_link.twig' with 
+				{ linkLabel: 'label.products' } %}
+				{% include 'admin/__site/components/index/advert_link.twig' with 
+				{ linkLabel: 'label.adverts' } %}
 				
-				<li {% if mainPath == 'admin' %} class="active" {% endif %}><a href="{{ path('admin') }}">{% trans %}label.admin{% endtrans %}</a></li>
-				<li {% if 'article' in mainPath %} class="active" {% endif %} class="dropdown">
-					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-						<span class="txt-success"></span> {{ 'label.articles'|trans }} <span class="caret"></span>
-					</a>
-					<ul class="dropdown-menu">
-						<li>
-							<a href="{{ path('admin_' ~ 'article') }}">
-								{{ 'label.articles'|trans }}
-							</a>
-						</li>
-						<li>
-							<a href="{{ path('admin_' ~ 'archived_article') }}">
-								{{ 'label.archivedArticles'|trans }}
-							</a>
-						</li>
-						<li>
-							<a href="{{ path('admin_' ~ 'article_category') }}">
-								{{ 'label.article_categories'|trans }}
-							</a>
-						</li>
-						<li>
-							<a href="{{ path('admin_' ~ 'tag') }}">
-								{{ 'label.tags'|trans }}
-							</a>
-						</li>
-						<li class="divider"></li>
-						<li>
-							<a href="{{ path('admin_' ~ 'article_brand_assignment') }}">
-								{{ 'label.article_brand_assignments'|trans }}
-							</a>
-						</li>
-						<li>
-							<a href="{{ path('admin_' ~ 'article_article_category_assignment') }}">
-								{{ 'label.article_article_category_assignments'|trans }}
-							</a>
-						</li>
-						<li>
-							<a href="{{ path('admin_' ~ 'article_category_assignment') }}">
-								{{ 'label.article_category_assignments'|trans }}
-							</a>
-						</li>
-						<li>
-							<a href="{{ path('admin_' ~ 'article_tag_assignment') }}">
-								{{ 'label.article_tag_assignments'|trans }}
-							</a>
-						</li>
-					</ul>
-				</li>
-				<li {% if 'category' in mainPath %} class="active" {% endif %} class="dropdown">
-					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-						<span class="txt-success "></span> {{ 'label.categories'|trans }} <span class="caret"></span>
-					</a>
-					<ul class="dropdown-menu">
-						<li>
-							<a href="{{ path('admin_' ~ 'category') }}">
-								{{ 'label.categories'|trans }}
-							</a>
-						</li>
-						<li>
-							<a href="{{ path('admin_' ~ 'category_tree') }}">
-								{{ 'label.category_tree'|trans }}
-							</a>
-						</li>
-						<li class="divider"></li>
-						<li>
-							<a href="{{ path('admin_' ~ 'branch_category_assignment') }}">
-								{{ 'label.branch_category_assignments'|trans }}
-							</a>
-						</li>
-						<li>
-							<a href="{{ path('admin_' ~ 'brand_category_assignment') }}">
-								{{ 'label.brand_category_assignments'|trans }}
-							</a>
-						</li>
-						<li>
-							<a href="{{ path('admin_' ~ 'product_category_assignment') }}">
-								{{ 'label.product_category_assignments'|trans }}
-							</a>
-						</li>
-						<li>
-							<a href="{{ path('admin_' ~ 'term_category_assignment') }}">
-								{{ 'label.term_category_assignments'|trans }}
-							</a>
-						</li>
-						<li>
-							<a href="{{ path('admin_' ~ 'user_category_assignment') }}">
-								{{ 'label.user_category_assignments'|trans }}
-							</a>
-						</li>
-					</ul>
-				</li>
-				<li {% if 'product' in mainPath %} class="active" {% endif %} class="dropdown">
-					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-						<span class="txt-success "></span> {{ 'label.products'|trans }} <span class="caret"></span>
-					</a>
-					<ul class="dropdown-menu">
-						<li>
-							<a href="{{ path(basePath ~ 'product') }}">
-								{{ 'label.products'|trans }}
-							</a>
-						</li>
-						<li>
-							<a href="{{ path(basePath ~ 'brand') }}">
-								{{ 'label.brands'|trans }}
-							</a>
-						</li>
-						<li>
-							<a href="{{ path(basePath ~ 'segment') }}">
-								{{ 'label.segments'|trans }}
-							</a>
-						</li>
-					</ul>
-				</li>
-				<li {% if 'advert' in mainPath %} class="active" {% endif %} class="dropdown">
-					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-						<span class="txt-success "></span> {{ 'label.adverts'|trans }} <span class="caret"></span>
-					</a>
-					<ul class="dropdown-menu">
-						<li>
-							<a href="{{ path('admin_' ~ 'advert') }}">
-								{{ 'label.adverts'|trans }}
-							</a>
-						</li>
-						<li class="divider"></li>
-						<li>
-							<a href="{{ path('admin_' ~ 'advert_category_assignment') }}">
-								{{ 'label.advert_category_assignments'|trans }}
-							</a>
-						</li>
-					</ul>
-				</li>
 				{% if isAdmin %}
-					<li {% if 'newsletter' in mainPath %} class="active" {% endif %} class="dropdown">
-						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-							<span class="txt-success"></span> {{ 'label.newsletter'|trans }} <span class="caret"></span>
-						</a>
-						<ul class="dropdown-menu">
-							<li>
-								<a href="{{ path(basePath ~ 'newsletter_user') }}">
-									{{ 'label.newsletterUsers'|trans }}
-								</a>
-							</li>
-							<li>
-								<a href="{{ path(basePath ~ 'newsletter_group') }}">
-									{{ 'label.newsletterGroups'|trans }}
-								</a>
-							</li>
-							<li class="divider"></li>
-							<li>
-								<a href="{{ path(basePath ~ 'newsletter_user_import') }}">
-									{{ 'label.newsletterUser.import'|trans }}
-								</a>
-							</li>
-							<li class="divider"></li>
-							<li>
-								<a href="{{ path(basePath ~ 'newsletter_page') }}">
-									{{ 'label.newsletterPages'|trans }}
-								</a>
-							</li>
-							<li>
-								<a href="{{ path(basePath ~ 'newsletter_block') }}">
-									{{ 'label.newsletterBlocks'|trans }}
-								</a>
-							</li>
-							<li class="divider"></li>
-							<li>
-								<a href="{{ path(basePath ~ 'newsletter_page_template') }}">
-									{{ 'label.newsletterPageTemplates'|trans }}
-								</a>
-							</li>
-							<li>
-								<a href="{{ path(basePath ~ 'newsletter_block_template') }}">
-									{{ 'label.newsletterBlockTemplates'|trans }}
-								</a>
-							</li>
-							<li class="divider"></li>
-							<li>
-								<a href="{{ path(basePath ~ 'newsletter_user_newsletter_group_assignment') }}">
-									{{ 'label.newsletter_user_newsletter_group_assignments'|trans }}
-								</a>
-							</li>
-							<li>
-								<a href="{{ path(basePath ~ 'newsletter_user_newsletter_page_assignment') }}">
-									{{ 'label.newsletter_user_newsletter_page_assignments'|trans }}
-								</a>
-							</li>
-							<li class="divider"></li>
-							<li>
-								<a href="{{ path(basePath ~ 'newsletter_block_advert_assignment') }}">
-									{{ 'label.newsletter_block_advert_assignments'|trans }}
-								</a>
-							</li>
-							<li>
-								<a href="{{ path(basePath ~ 'newsletter_block_article_assignment') }}">
-									{{ 'label.newsletter_block_article_assignments'|trans }}
-								</a>
-							</li>
-							<li>
-								<a href="{{ path(basePath ~ 'newsletter_block_magazine_assignment') }}">
-									{{ 'label.newsletter_block_magazine_assignments'|trans }}
-								</a>
-							</li>
-						</ul>
-					</li>
+					{% include 'admin/__site/components/index/newsletter_link.twig' with 
+					{ linkLabel: 'label.newsletter' } %}
 				{% endif %}
-				<li {% if 'menu' in mainPath %} class="active" {% endif %} class="dropdown">
-					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-						<span class="txt-success "></span> {{ 'label.menus'|trans }} <span class="caret"></span>
-					</a>
-					<ul class="dropdown-menu">
-						<li>
-							<a href="{{ path(basePath ~ 'menu') }}">
-								{{ 'label.menus'|trans }}
-							</a>
-						</li>
-						<li>
-							<a href="{{ path(basePath ~ 'menu_entry') }}">
-								{{ 'label.menuEntries'|trans }}
-							</a>
-						</li>
-						<li class="divider"></li>
-						<li>
-							<a href="{{ path(basePath ~ 'menu_menu_entry_assignment') }}">
-								{{ 'label.menuMenuEntryAssignments'|trans }}
-							</a>
-						</li>
-						<li class="divider"></li>
-						<li>
-							<a href="{{ path(basePath ~ 'menu_entry_branch_assignment') }}">
-								{{ 'label.menuEntryBranchAssignments'|trans }}
-							</a>
-						</li>
-						<li>
-							<a href="{{ path(basePath ~ 'menu_entry_category_assignment') }}">
-								{{ 'label.menuEntryCategoryAssignments'|trans }}
-							</a>
-						</li>
-					</ul>
-				</li>
-				<li {% if 'magazine' in mainPath %} class="active" {% endif %} class="dropdown">
-					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-						<span class="txt-success "></span> {{ 'label.magazines'|trans }} <span class="caret"></span>
-					</a>
-					<ul class="dropdown-menu">
-						<li>
-							<a href="{{ path(basePath ~ 'magazine') }}">
-								{{ 'label.magazines'|trans }}
-							</a>
-						</li>
-						<li class="divider"></li>
-						<li>
-							<a href="{{ path(basePath ~ 'magazine_branch_assignment') }}">
-								{{ 'label.magazine_branch_assignments'|trans }}
-							</a>
-						</li>
-						<li>
-							<a href="{{ path(basePath ~ 'magazine_category_assignment') }}">
-								{{ 'label.magazine_category_assignments'|trans }}
-							</a>
-						</li>
-					</ul>
-				</li>
-				<li {% if 'other' in mainPath %} class="active" {% endif %} class="dropdown">
-					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-						<span class="txt-success "></span> {{ 'label.others'|trans }} <span class="caret"></span>
-					</a>
-					<ul class="dropdown-menu">
-						<li>
-							<a href="{{ path('admin_' ~ 'branch') }}">
-								{{ 'label.branches'|trans }}
-							</a>
-						</li>
-						<li>
-							<a href="{{ path(basePath ~ 'page') }}">
-								{{ 'label.pages'|trans }}
-							</a>
-						</li>
-						<li>
-							<a href="{{ path(basePath ~ 'link') }}">
-								{{ 'label.links'|trans }}
-							</a>
-						</li>
-						<li>
-							<a href="{{ path(basePath ~ 'term') }}">
-								{{ 'label.terms'|trans }}
-							</a>
-						</li>
-						{% if isAdmin %}
-							<li>
-								<a href="{{ path(basePath ~ 'user') }}">
-									{{ 'label.users'|trans }}
-								</a>
-							</li>
-						{% endif %}
-					</ul>
-				</li>
-				<li {% if 'benchmark' in mainPath %} class="active" {% endif %} class="dropdown">
-					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-						{{ 'label.benchmark'|trans }} 
-						<span class="caret"></span>
-						<span class="badge">{{ unreadMessagesCount > 0 ? unreadMessagesCount : '' }}</span>
-					</a>
-					<ul class="dropdown-menu">
-						<li>
-							<a href="{{ path('admin_' ~ 'benchmark_field') }}">
-								{{ 'label.benchmarkFields'|trans }}
-							</a>
-						</li>
-						<li>
-							<a href="{{ path(basePath ~ 'benchmark_enum') }}">
-								{{ 'label.benchmarkEnums'|trans }}
-							</a>
-						</li>
-						<li>
-							<a href="{{ path(basePath ~ 'benchmark_message') }}">
-								{{ 'label.benchmarkMessages'|trans }}
-								<span class="badge">{{ unreadMessagesCount > 0 ? unreadMessagesCount : '' }}</span>
-							</a>
-						</li>
-					</ul>
-				</li>
-				<li>
-					<a href="{{ path(basePath ~ 'user_settings') }}">
-						{{ 'label.settings'|trans }}
-					</a>
-				</li>
+				
+				{% include 'admin/__site/components/index/menu_link.twig' with 
+				{ linkLabel: 'label.menus' } %}
+				{% include 'admin/__site/components/index/magazine_link.twig' with 
+				{ linkLabel: 'label.magazines' } %}
+				{% include 'admin/__site/components/index/other_link.twig' with 
+				{ linkLabel: 'label.others' } %}
+				{% include 'admin/__site/components/index/benchmark_link.twig' with 
+				{ linkLabel: 'label.benchmark' } %}
+				{% include 'admin/__site/components/index/user_link.twig' with 
+				{ linkLabel: 'label.settings' } %}
 			</ul>
 		</div>
+		{% endblock %}
+	</nav>
 	{% endblock %}
 	
-	<div class="container-fluid">
+	<div class="container-fluid content">
 		{% block content %}
 		{% endblock %}
 	</div>

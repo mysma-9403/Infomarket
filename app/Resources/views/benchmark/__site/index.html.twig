@@ -45,16 +45,16 @@
 		{% block navigationLinks %}
 		<div class="collapse navbar-collapse" id="catbar">
 			<ul class="nav navbar-nav navbar-right">
-				{% include 'benchmark/common/menu/link.html.twig' with 
-					{ linkPath: "category_show", linkTitle: "label.categories" } %}
-		        {% include 'benchmark/common/menu/link.html.twig' with 
-		          { linkPath: "product", linkTitle: "label.products" } %}
-		        {% include 'benchmark/common/menu/link.html.twig' with 
-		          { linkPath: "custom_product", linkTitle: "label.customProducts" } %}
-		        {% include 'benchmark/common/menu/link.html.twig' with 
-		          { linkPath: "benchmark_query", linkTitle: "label.benchmarkQueries" } %}
-		        {% include 'benchmark/common/menu/link.html.twig' with 
-		          { linkPath: "benchmark_message", linkTitle: "label.benchmarkMessages", badge: unreadMessagesCount } %}
+				{% include 'common/menu/simple_link.html.twig' with 
+					{ linkPath: "category_show", linkLabel: "label.categories" } %}
+		        {% include 'common/menu/simple_link.html.twig' with 
+		          { linkPath: "product", linkLabel: "label.products" } %}
+		        {% include 'common/menu/simple_link.html.twig' with 
+		          { linkPath: "custom_product", linkLabel: "label.customProducts" } %}
+		        {% include 'common/menu/simple_link.html.twig' with 
+		          { linkPath: "benchmark_query", linkLabel: "label.benchmarkQueries" } %}
+		        {% include 'common/menu/simple_link.html.twig' with 
+		          { linkPath: "benchmark_message", linkLabel: "label.benchmarkMessages", badge: unreadMessagesCount } %}
 			</ul>
 		</div>
 		{% endblock %}

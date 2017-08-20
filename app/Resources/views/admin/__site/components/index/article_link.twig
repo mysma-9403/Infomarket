@@ -1,0 +1,18 @@
+{% extends 'common/menu/compound_link.html.twig' %}
+
+{% set sublinks = [
+	{type: 'link', path: 'article', label: 'label.articles'},
+	{type: 'link', path: 'archived_article', label: 'label.archivedArticles'},
+	
+	{type: 'divider'},
+	
+	{type: 'link', path: 'article_category', label: 'label.article_categories'},
+	{type: 'link', path: 'tag', label: 'label.tags'},
+	
+	{type: 'divider'},
+	
+	{type: 'link', path: 'article_brand_assignment', label: 'label.article_brand_assignments'},
+	{type: 'link', path: 'article_article_category_assignment', label: 'label.article_article_category_assignments'},
+	{type: 'link', path: 'article_category_assignment', label: 'label.article_category_assignments'},
+	{type: 'link', path: 'article_tag_assignment', label: 'label.article_tag_assignments'}
+] %}

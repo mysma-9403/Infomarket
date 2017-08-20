@@ -1,0 +1,11 @@
+{% extends 'common/menu/compound_link.html.twig' %}
+
+{% set sublinks = [
+	{type: 'link', path: 'branch', label: 'label.branches'},
+	{type: 'link', path: 'page', label: 'label.pages'},
+	
+	{type: 'divider'},
+	
+	{type: 'link', path: 'link', label: 'label.links'},
+	{type: 'link', path: 'term', label: 'label.terms'}
+] %}

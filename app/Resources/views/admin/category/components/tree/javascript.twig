@@ -1,0 +1,26 @@
+{% include 'admin/__site/components/base/javascript.twig' %}
+<script type="text/javascript">
+	<!--
+	$(document).ready(function () {
+	     $('.collapse')
+	         .on('shown.bs.collapse', function() {
+	             $(this)
+	                 .parent()
+	                 .children('a')
+	                 .find(".fa-caret-square-o-right")
+	                 .filter(":first")
+	                 .removeClass("fa-caret-square-o-right")
+	                 .addClass("fa-caret-square-o-down");
+	             })
+	         .on('hidden.bs.collapse', function() {
+	             $(this)
+	                 .parent()
+	                 .children('a')
+	                 .find(".fa-caret-square-o-down")
+	                 .filter(":first")
+	                 .removeClass("fa-caret-square-o-down")
+	                 .addClass("fa-caret-square-o-right");
+	             });
+	});
+	-->
+</script>

@@ -1,0 +1,10 @@
+{% extends 'common/menu/compound_link.html.twig' %}
+
+{% set sublinks = [
+	{type: 'link', path: 'magazine', label: 'label.magazines'},
+	
+	{type: 'divider'},
+	
+	{type: 'link', path: 'magazine_branch_assignment', label: 'label.magazine_branch_assignments'},
+	{type: 'link', path: 'magazine_category_assignment', label: 'label.magazine_category_assignments'}
+] %}

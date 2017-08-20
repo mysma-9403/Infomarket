@@ -1,0 +1,8 @@
+{% extends 'common/menu/compound_link.html.twig' %}
+
+{% set sublinks = [
+	{type: 'link', path: 'benchmark_field', label: 'label.benchmarkFields'},
+	{type: 'link', path: 'benchmark_enum', label: 'label.benchmarkEnums'},
+	{type: 'link', path: 'benchmark_message', label: 'benchmarkMessages.links', 
+		badge: (unreadMessagesCount > 0 ? unreadMessagesCount : '') }
+] %}

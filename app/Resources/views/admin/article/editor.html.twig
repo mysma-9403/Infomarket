@@ -1,7 +1,7 @@
 {% extends 'admin/_image/editor.html.twig' %}
 
 {% set title = 'label.articles'|trans %}
-{% set mainPath = 'article' %}
+{% set mainPath = mainPath|default('article') %}
 {% set gender = 'm.' %}
 
 {% block moreJavascripts %}

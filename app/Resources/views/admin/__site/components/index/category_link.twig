@@ -1,0 +1,14 @@
+{% extends 'common/menu/compound_link.html.twig' %}
+
+{% set sublinks = [
+	{type: 'link', path: 'category', label: 'label.categories'},
+	{type: 'link', path: 'category_tree', label: 'label.category_tree'},
+	
+	{type: 'divider'},
+	
+	{type: 'link', path: 'branch_category_assignment', label: 'label.branch_category_assignments'},
+	{type: 'link', path: 'brand_category_assignment', label: 'label.brand_category_assignments'},
+	{type: 'link', path: 'product_category_assignment', label: 'label.product_category_assignments'},
+	{type: 'link', path: 'term_category_assignment', label: 'label.term_category_assignments'},
+	{type: 'link', path: 'user_category_assignment', label: 'label.user_category_assignments'}
+] %}

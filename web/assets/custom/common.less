@@ -1,17 +1,19 @@
-@import "..\..\vendor\bootstrap\less\bootstrap.less";
-@import "..\..\vendor\eonasdan-bootstrap-datetimepicker\src\less\_bootstrap-datetimepicker.less";
+@import "..\vendor\bootstrap\less\bootstrap.less";
+@import "..\vendor\eonasdan-bootstrap-datetimepicker\src\less\_bootstrap-datetimepicker.less";
 
-@import "variables.less";
-@import "colors.less";
-@import "fonts.less";
+@import "common\variables.less";
+@import "common\colors.less";
+@import "common\fonts.less";
 
-@import "footer.less";
-@import "carousel.less";
+@import "common\footer.less";
+@import "common\carousel.less";
 
-@import "rects.less";
-@import "tiles\tiles.less";
+@import "common\rects.less";
+@import "common\tiles\tiles.less";
 
-@import "social-menu.less";
+@import "common\social-menu.less";
+
+@import "common\signin.less";
 
 
 
@@ -619,22 +621,6 @@ body {
 .navbar-inverse {
 	color: @gray-lighter;
     background-color: @gray;
-}
-
-
-
-
-
-.thumb {
-    padding-bottom: 100%;
-}
-
-.thumb img,
-.thumb div {
-	width:100%;
-	
-	bottom: 0;
-	position: absolute;
 }
 
 

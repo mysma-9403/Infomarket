@@ -1,0 +1,10 @@
+{% set active = linkPath == mainPath ? "active" : "" %}
+
+<li class="{{ active }}">
+	<a href="{{ path(basePath ~ linkPath) }}">
+		{{ linkLabel|trans }}
+		{% if badge is defined %}
+			<span class="badge">{{ badge > 0 ? badge : '' }}</span>
+		{% endif %}
+	</a>
+</li>

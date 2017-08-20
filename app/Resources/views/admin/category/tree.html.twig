@@ -3,40 +3,19 @@
 {% set mainPath = 'category' %}
 {% set title = 'label.categories'|trans %}
 
-{% block content %}
-    <nav class="navbar">
-        <div class="navbar-inner">
-        	<ul class="nav-tree">
-				{% for entry in entries %}
-					{% include 'common/category_node.html.twig' with { 'entry': entry } %}
-				{% endfor %}
-			</ul>
-        </div>
-    </nav>
+
+{% block javascript %}
+	{% include 'admin/category/components/tree/javascript.twig' %}
 {% endblock %}
 
-{% block moreJavascripts %}
-	<script type="text/javascript">
-		$(document).ready(function () {
-		     $('.collapse')
-		         .on('shown.bs.collapse', function() {
-		             $(this)
-		                 .parent()
-		                 .children('a')
-		                 .find(".fa-caret-square-o-right")
-		                 .filter(":first")
-		                 .removeClass("fa-caret-square-o-right")
-		                 .addClass("fa-caret-square-o-down");
-		             })
-		         .on('hidden.bs.collapse', function() {
-		             $(this)
-		                 .parent()
-		                 .children('a')
-		                 .find(".fa-caret-square-o-down")
-		                 .filter(":first")
-		                 .removeClass("fa-caret-square-o-down")
-		                 .addClass("fa-caret-square-o-right");
-		             });
-         });
-    </script>
+{% block content %}
+	<div class="vr-space-40"></div>
+	
+	<div class="container">
+		<ul class="nav-tree">
+			{% for entry in entries %}
+				{% include 'common/category_node.html.twig' with { 'entry': entry } %}
+			{% endfor %}
+		</ul>
+	</div>
 {% endblock %}

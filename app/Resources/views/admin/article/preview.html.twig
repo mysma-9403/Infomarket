@@ -1,7 +1,7 @@
 {% extends 'admin/show.html.twig' %}
 
 {% set title = 'label.articles'|trans %}
-{% set mainPath = 'article' %}
+{% set mainPath = mainPath|default('article') %}
 {% set extPath = '_preview' %}
 {% set gender = 'm.' %}
 

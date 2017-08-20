@@ -1,0 +1,9 @@
+{% extends 'common/menu/compound_link.html.twig' %}
+
+{% set sublinks = [
+	{type: 'link', path: 'user_settings', label: 'label.settings'},
+		
+	{type: 'divider', adminRequired: true},
+
+	{type: 'link', path: 'user', label: 'label.users', adminRequired: true}
+] %}

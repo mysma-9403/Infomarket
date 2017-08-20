@@ -1,0 +1,31 @@
+{% extends 'common/menu/compound_link.html.twig' %}
+
+{% set sublinks = [
+	{type: 'link', path: 'newsletter_user', label: 'label.newsletterUsers'},
+	{type: 'link', path: 'newsletter_group', label: 'label.newsletterGroups'},
+	
+	{type: 'divider'},
+	
+	{type: 'link', path: 'newsletter_user_import', label: 'label.newsletterUser.import'},
+	
+	{type: 'divider'},
+	
+	{type: 'link', path: 'newsletter_page', label: 'label.newsletterPages'},
+	{type: 'link', path: 'newsletter_block', label: 'label.newsletterBlocks'},
+	
+	{type: 'divider'},
+	
+	{type: 'link', path: 'newsletter_page_template', label: 'label.newsletterPageTemplates'},
+	{type: 'link', path: 'newsletter_block_template', label: 'label.newsletterBlockTemplates'},
+	
+	{type: 'divider'},
+	
+	{type: 'link', path: 'newsletter_user_newsletter_group_assignment', label: 'label.newsletter_user_newsletter_group_assignments'},
+	{type: 'link', path: 'newsletter_user_newsletter_page_assignment', label: 'label.newsletter_user_newsletter_page_assignments'},
+	
+	{type: 'divider'},
+	
+	{type: 'link', path: 'newsletter_block_advert_assignment', label: 'label.newsletter_block_advert_assignments'},
+	{type: 'link', path: 'newsletter_block_article_assignment', label: 'label.newsletter_block_article_assignments'},
+	{type: 'link', path: 'newsletter_block_magazine_assignment', label: 'label.newsletter_block_magazine_assignments'}
+] %}

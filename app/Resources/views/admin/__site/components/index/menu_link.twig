@@ -1,0 +1,12 @@
+{% extends 'common/menu/compound_link.html.twig' %}
+
+{% set sublinks = [
+	{type: 'link', path: 'menu', label: 'label.menus'},
+	{type: 'link', path: 'menu_entry', label: 'label.menuEntries'},
+	
+	{type: 'divider'},
+	
+	{type: 'link', path: 'menu_menu_entry_assignment', label: 'label.menuMenuEntryAssignments'},
+	{type: 'link', path: 'menu_entry_branch_assignment', label: 'label.menuEntryBranchAssignments'},
+	{type: 'link', path: 'menu_entry_category_assignment', label: 'label.menuEntryCategoryAssignments'}
+] %}
