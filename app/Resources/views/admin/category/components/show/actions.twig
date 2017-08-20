@@ -1,11 +1,11 @@
 <div class="row">
 	<div class="col-xs-6">
-		{% include 'admin/base/components/show/actions.twig' %}
+		{% include 'admin/_item/components/show/actions.twig' %}
 	</div>
 	
 	<div class="col-xs-6">
 		{% if entry.id %}
-			{% include 'admin/common/buttons/action_button.twig' with 
+			{% include 'common/buttons/action_button.twig' with 
 				{ extPath: '_ratings', routeParams: { id: entry.id }, 
 					tooltip: 'label.rating.topProducts', icon: 'fa-star' } %}
 		{% endif %}

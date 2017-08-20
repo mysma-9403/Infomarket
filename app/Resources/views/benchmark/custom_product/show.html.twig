@@ -1,31 +1,20 @@
-{% extends 'benchmark/image/show.html.twig' %}
+{% extends 'benchmark/_image/show.html.twig' %}
 
 {% set title = title|default('label.products') %}
 {% set mainPath = 'custom_product' %}
+{% set gender = 'm.' %}
 
-{% block moreFields1 %}
-	{% if entry.brand %}
-		<div class="row">
-			<div class="col-xs-12">
-				<h2>{{ entry.brand.name | raw }}</h2>
-			</div>
-		</div>
-	{% endif %}
-	
-	{% if entry.topProduktImage %}
-	<div class="row">
-	    <div class="col-xs-12">
-	    	<div class="rect-1x1">
-				<img alt="{{ entry.name | raw }}" src="{{ asset(entry.topProduktImage) }}" class="div-center" />
-			</div>
-		</div>
-	</div>
-	{% endif %}
+
+{% block headerFields %}
+	{% include 'common/fields/header_field.html.twig' with 
+	{ value: entry.brand.name ~ ' ' ~ entry.name } %}
 {% endblock %}
 
+
 {% block contentFields %}
-	<div class="lowered-25"></div>
+	{% include 'benchmark/_image/components/show/image.twig' %}
 	
+	<div class="vr-space-40"></div>
 	
 	{% include 'common/fields/text_field.html.twig' with 
 	{ label: 'label.brand', value: entry.brand.name } %}
@@ -33,18 +22,13 @@
 	{% include 'common/fields/number_field.html.twig' with 
 	{ label: 'label.product.price', value: entry.price } %}
 	
-	{% for field in productFilter.editorFields %}
-		{% set key = field.valueField %}
-		
-		{% if field.fieldType == constant('AppBundle\\Entity\\BenchmarkField::BOOLEAN_FIELD_TYPE') %}
-			{% include 'common/fields/bool_field.html.twig' with 
-				{ label: field.fieldName, value: entry[key] } %}
-		{% elseif field.fieldType == constant('AppBundle\\Entity\\BenchmarkField::DECIMAL_FIELD_TYPE') %}
-			{% include 'common/fields/number_field.html.twig' with 
-				{ label: field.fieldName, value: entry[key], decimalPlaces: field.decimalPlaces } %}
-		{% else %}
-			{% include 'common/fields/text_field.html.twig' with 
-				{ label: field.fieldName, value: entry[key] } %}
-		{% endif %}
-	{% endfor %}
+	<div class="vr-space-40"></div>
+	
+	{% block productFilterForm %}	
+		{% include 'admin/product/components/product_filter.twig' %}
+	{% endblock %}
+{% endblock %}
+
+{% block actions %}
+	{% include 'benchmark/custom_product/components/show/actions.twig' %}
 {% endblock %}

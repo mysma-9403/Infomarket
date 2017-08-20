@@ -158,13 +158,11 @@ abstract class StandardController extends DummyController
     //---------------------------------------------------------------------------
     // Routes
     //---------------------------------------------------------------------------
-    protected function getShowRoute()
-    {
+    protected function getShowRoute() {
     	return $this->getIndexRoute() . '_show';
     }
     
-    protected function getIndexRoute()
-    {
+    protected function getIndexRoute() {
     	return $this->getDomain() . '_' . $this->getEntityName();
     }
 }

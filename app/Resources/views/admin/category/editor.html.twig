@@ -1,4 +1,4 @@
-{% extends 'admin/image/editor.html.twig' %}
+{% extends 'admin/_image/editor.html.twig' %}
 
 {% set mainPath = 'category' %}
 {% set title = 'label.categories'|trans %}
@@ -6,51 +6,51 @@
 
 
 {% block headerFields %}
-	{% include 'admin/common/editor/form_field.twig' with 
+	{% include 'common/editor/form_field.twig' with 
 	{ field: form.name, label: 'label.name' } %}
-	{% include 'admin/common/editor/form_field.twig' with 
+	{% include 'common/editor/form_field.twig' with 
 	{ field: form.subname, label: 'label.subname' } %}
 {% endblock %}
 	
 {% block contentFields %}
-	{% include 'admin/image/components/editor/image.twig' %}
+	{% include 'admin/_image/components/editor/image.twig' %}
 	
 	<div class="row"></div>
 	
-	{% include 'admin/common/editor/form_field.twig' with 
+	{% include 'common/editor/form_field.twig' with 
 	{ field: form.infomarket, label: 'label.' ~ gender ~ 'infomarket', xs: 6, md: 3 } %}
-	{% include 'admin/common/editor/form_field.twig' with 
+	{% include 'common/editor/form_field.twig' with 
 	{ field: form.infoprodukt, label: 'label.' ~ gender ~ 'infoprodukt', xs: 6, md: 3 } %}
-	{% include 'admin/common/editor/form_field.twig' with 
+	{% include 'common/editor/form_field.twig' with 
 	{ field: form.featured, label: 'label.' ~ gender ~ 'featured', xs: 6, md: 3 } %}
-	{% include 'admin/common/editor/form_field.twig' with 
+	{% include 'common/editor/form_field.twig' with 
 	{ field: form.preleaf, label: 'label.category.preleaf', xs: 6, md: 3 } %}
-	{% include 'admin/common/editor/form_field.twig' with 
+	{% include 'common/editor/form_field.twig' with 
 	{ field: form.benchmark, label: 'label.category.benchmark', xs: 6, md: 3 } %}
 	
 	<div class="row"></div>
 	
-	{% include 'admin/common/editor/custom_image.twig' with 
+	{% include 'common/editor/custom_image.twig' with 
 	{ field: form.featuredImage, image: entry.featuredImage, label: 'label.category.featuredImage'} %}
 	
-	{% include 'admin/common/editor/custom_image.twig' with 
+	{% include 'common/editor/custom_image.twig' with 
 	{ field: form.iconImage, image: entry.iconImage, label: 'label.category.iconImage'} %}
 	
 	<div class="row"></div>
 	
-	{% include 'admin/common/editor/form_field.twig' with 
+	{% include 'common/editor/form_field.twig' with 
 	{ field: form.parent, label: 'label.category.parent' } %}
 	
 	<div class="row"></div>
 	
-	{% include 'admin/common/editor/form_field.twig' with 
+	{% include 'common/editor/form_field.twig' with 
 	{ field: form.icon, label: 'label.icon', sm: 6 } %}
-	{% include 'admin/common/editor/form_field.twig' with 
+	{% include 'common/editor/form_field.twig' with 
 	{ field: form.orderNumber, label: 'label.orderNumber', sm: 6 } %}
 	
 	<div class="row"></div>
 	
-	{% include 'admin/common/editor/form_field.twig' with 
+	{% include 'common/editor/form_field.twig' with 
 	{ field: form.content, label: 'label.content' } %}
 {% endblock %}
 

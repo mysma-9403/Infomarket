@@ -1,4 +1,4 @@
-{% extends 'admin/simple/editor.html.twig' %}
+{% extends 'admin/_simple/editor.html.twig' %}
 
 {% set mainPath = 'user' %}
 {% set title = 'label.users'|trans %}
@@ -6,26 +6,26 @@
 
 
 {% block headerFields %}
-	{% include 'admin/common/editor/form_field.twig' with 
+	{% include 'common/editor/form_field.twig' with 
 	{ field: form.username, label: 'label.user.username' } %}
 {% endblock %}
 
 {% block contentFields %}
-	{% include 'admin/common/editor/form_field.twig' with 
+	{% include 'common/editor/form_field.twig' with 
 	{ field: form.email, label: 'label.user.email', sm: 6 } %}
-	{% include 'admin/common/editor/form_field.twig' with 
+	{% include 'common/editor/form_field.twig' with 
 	{ field: form.pseudonym, label: 'label.user.pseudonym', sm: 6 } %}
 	
 	<div class="row"></div>
 	
-	{% include 'admin/common/editor/form_field.twig' with 
+	{% include 'common/editor/form_field.twig' with 
 	{ field: form.forename, label: 'label.user.forename', sm: 6 } %}
-	{% include 'admin/common/editor/form_field.twig' with 
+	{% include 'common/editor/form_field.twig' with 
 	{ field: form.surname, label: 'label.user.surname', sm: 6 } %}
 	
 	<div class="row"></div>
 	
 	{% set hidden = is_granted('ROLE_SUPER_ADMIN') ? "" : "hidden" %}
-	{% include 'admin/common/editor/form_field.twig' with 
+	{% include 'common/editor/form_field.twig' with 
 	{ field: form.roles, label: 'label.user.roles', attr: { class: hidden } } %}
 {% endblock %}

@@ -1,4 +1,4 @@
-{% extends 'admin/image/show.html.twig' %}
+{% extends 'admin/_image/show.html.twig' %}
 
 {% set mainPath = 'branch' %}
 {% set title = 'label.branches'|trans %}
@@ -11,7 +11,7 @@
 {% endblock %}
 
 {% block contentFields %}
-	{% include 'admin/image/components/show/image.twig' %}
+	{% include 'admin/_image/components/show/image.twig' %}
 	
 	<div class="vr-space-40"></div>
 	
@@ -38,5 +38,5 @@
 	
 	<div class="vr-space-40"></div>
 	
-	{% include 'admin/simple/components/show/audit_fields.twig' %}
+	{% include 'admin/_simple/components/show/audit_fields.twig' %}
 {% endblock %}

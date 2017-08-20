@@ -1,0 +1,24 @@
+<td>
+	{% include 'common/buttons/action_button.twig' with 
+	{ extPath: '_show', routeParams: { id: item.id }, 
+		tooltip: 'action.show', icon: 'fa-eye' } %}
+	
+	{% if canEdit %}
+		{% include 'common/buttons/action_button.twig' with 
+		{ extPath: '_edit', routeParams: { id: item.id }, 
+			tooltip: 'action.edit', icon: 'fa-edit', type: 'btn-success' } %}
+	{% endif %}
+	
+	{% if canCopy %}
+		{% include 'common/buttons/action_button.twig' with 
+		{ extPath: '_copy', routeParams: { id: item.id }, 
+			tooltip: 'action.copy', icon: 'fa-copy', type: 'btn-warning' } %}
+	{% endif %}
+	
+	{% if canDelete %}
+		{% include 'common/buttons/action_button.twig' with 
+		{ extPath: '_delete', routeParams: { id: item.id }, 
+			tooltip: 'action.delete', icon: 'fa-trash', type: 'btn-danger',
+			onclick: 'return confirm(' ~ 'confirm.delete'|trans ~ ')' } %}
+	{% endif %}
+</td>

@@ -1,21 +1,17 @@
-{% extends 'benchmark/editor.html.twig' %}
+{% extends 'benchmark/_simple/editor.html.twig' %}
 
-{% set mainPath = 'benchmarkMessage' %}
 {% set title = 'label.benchmarkMessages'|trans %}
+{% set mainPath = 'benchmark_message' %}
 {% set gender = 'fm.' %}
 		
 {%  block headerFields %}
-	<h2>{{ product.brandName }}</h2>	
-    <h3>{{ product.name }}</h3>
+	{% include 'common/fields/header_field.html.twig' with 
+	{ value: product.brandName ~ ' ' ~ product.name } %}
 {% endblock %}
 
-{%  block flagFields %}
-	{{ form_row(form.name, { 'label': 'label.name' }) }}	
-    {{ form_row(form.content, { 'label': 'label.content' }) }}
-{% endblock %}
-
-{% block mainActions %}
-	<div class="btn-group">
-		{{ form_widget(form.save, { 'icon': 'fa-save', 'label': 'action.save', 'attr': {'class': 'btn btn-success'} }) }}
-	</div>
+{%  block contentFields %}
+	{% include 'common/editor/form_field.twig' with 
+	{ field: form.name, label: 'label.name' } %}
+	{% include 'common/editor/form_field.twig' with 
+	{ field: form.content, label: 'label.content' } %}
 {% endblock %}

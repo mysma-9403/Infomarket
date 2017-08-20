@@ -404,6 +404,8 @@ class ProductRepository extends BaseRepository
 		$selectFields[] = 'e.id';
 		
 		$selectFields[] = 'e.name';
+		$selectFields[] = 'e.custom';
+		
 		$selectFields[] = 'e.image';
 		$selectFields[] = 'e.mimeType';
 		

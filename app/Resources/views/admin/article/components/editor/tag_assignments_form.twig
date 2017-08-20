@@ -4,16 +4,16 @@
 
 <div class="row">
 	{{ form_start(tagAssignmentsForm) }}
-		{% include 'admin/common/editor/form_field.twig' with 
+		{% include 'common/editor/form_field.twig' with 
 			{ field: tagAssignmentsForm.tags, label: 'label.article.assignTags' } %}
 		
-		{% include 'admin/common/editor/form_field.twig' with 
+		{% include 'common/editor/form_field.twig' with 
 			{ field: tagAssignmentsForm.tagsString, label: 'label.article.assignTags' } %}
 		
 		{{ form_errors(tagAssignmentsForm) }}
 		
 		<div class="col-xs-12">
-			{% include 'admin/common/editor/form_button.twig' with 
+			{% include 'common/editor/form_button.twig' with 
 				{ button: tagAssignmentsForm.submit, tooltip: 'action.save', 
 					icon: 'fa-save', type: 'btn-success' } %}
 		</div>

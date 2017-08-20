@@ -1,18 +1,24 @@
-{% extends 'benchmark/base/editor.html.twig' %}
+{% extends 'benchmark/_item/editor.html.twig' %}
 
 {% set mainPath = 'benchmark_query' %}
 {% set title = 'label.benchmarkQueries'|trans %}
 
-{%  block flagFields %}
-	{{ form_row(form.name, { 'label': 'label.name' }) }}	
-    <div class="hidden">{{ form_row(form.content, { 'label': 'label.content' }) }}</div>
-	<div class="{{ entry.id ? "hidden" : "" }}">{{ form_row(form.archived, { 'label': 'label.benchmarkQuery.archived' }) }}</div>
+
+{%  block headerFields %}
+	{% include 'common/editor/form_field.twig' with 
+	{ field: form.name, label: 'label.name' } %}
 {% endblock %}
 
-{% block baseMoreActions %}
-	{% if entry.id %}
-		<a type="button" class="btn btn-primary" href="{{ path(basePath ~ mainPath ~ '_show', { id: entry.id, product_benchmark_query: entry.id }) }}">
-			<i class="fa fa-archive"></i> {{ 'action.benchmarkQuery.showArchived'|trans }}
-		</a>
-	{% endif %}
+{%  block contentFields %}
+	{% include 'common/editor/form_field.twig' with 
+	{ field: form.archived, label: 'label.benchmarkQuery.archived',
+		class: entry.id ? 'hidden' : '' } %}
+	
+	{% include 'common/editor/form_field.twig' with 
+	{ field: form.content, label: 'label.content', class: 'hidden' } %}
+{% endblock %}
+
+
+{% block actions %}
+	{% include 'benchmark/benchmark_query/components/editor/actions.twig' %}
 {% endblock %}

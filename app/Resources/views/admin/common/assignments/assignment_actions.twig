@@ -1,15 +1,15 @@
 <td>
-	{% include 'admin/common/buttons/action_button.twig' with
+	{% include 'common/buttons/action_button.twig' with
 	{ mainPath: object, extPath: '_show', routeParams: { id: item.id },
 		icon: 'fa-eye', tooltip: 'action.show' } %}
 	
 	{% if canEdit %}
-		{% include 'admin/common/buttons/action_button.twig' with
+		{% include 'common/buttons/action_button.twig' with
 		{ mainPath: object, extPath: '_edit', routeParams: { id: item.id },
 			icon: 'fa-edit', tooltip: 'action.edit', type: 'btn-warning' } %}
 	{% endif %}
 	{% if canDelete %}
-		{% include 'admin/common/buttons/action_button.twig' with
+		{% include 'common/buttons/action_button.twig' with
 		{ mainPath: object, extPath: '_delete', routeParams: { id: item.id },
 			icon: 'fa-trash', tooltip: 'action.delete', type: 'btn-danger' } %}
 	{% endif %}

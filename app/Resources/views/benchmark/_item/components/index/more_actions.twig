@@ -1,0 +1,8 @@
+{% set hidden = canDelete ? "" : "hidden" %}
+		
+{% set confirm = 'return confirm("' ~ 'confirm.deleteSelected'|trans ~ '")' %}
+<div class="btn-group {{ hidden }}">
+	{% include 'common/buttons/widget_button.html.twig' with 
+		{ action: form.deleteSelected, icon: 'fa-trash', type: 'btn-danger',
+			tooltip: 'action.deleteSelected', onclick: confirm } %}
+</div>

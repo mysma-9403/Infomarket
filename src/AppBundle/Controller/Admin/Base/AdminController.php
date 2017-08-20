@@ -596,8 +596,7 @@ abstract class AdminController extends StandardController {
 	// Views
 	//---------------------------------------------------------------------------
 	
-	protected function getEditView()
-	{
+	protected function getEditView() {
 		return $this->getDomain() . '/' . $this->getEntityName() . '/editor.html.twig';
 	}
 	

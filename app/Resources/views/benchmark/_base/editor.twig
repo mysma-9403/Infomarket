@@ -1,0 +1,52 @@
+{% extends 'benchmark/__site/index.html.twig' %}
+
+{% block content %}
+	<div class="container">
+		{% block errorsBlock %}
+			{% include 'common/errors.html.twig' %}
+		{% endblock %}
+		
+		<div class="vr-space-40"></div>
+		
+		{% block preFormBlock %}
+		{% endblock %}
+		
+		{% block formBlock %}
+			{% form_theme form 'form/fields.html.twig' %}
+			
+			<div class="row">
+				{{ form_start(form) }}
+					{% block headerFields %}
+				    {% endblock %}
+				    
+				    {% block contentFields %}
+				    {% endblock %}
+				
+					{{ form_errors(form) }}
+				    
+				    <div class="col-xs-12">
+						{% block actions %}
+					    {% endblock %}
+				    </div>
+				{{ form_end(form) }}
+			</div> 
+		{% endblock %}
+	</div>
+	
+	<div class="container">
+		{% block moreForms %}
+		{% endblock %}
+	</div>
+	
+	<div class="row">
+		{% if entry.id %}
+			{% block assignments %}
+	    	{% endblock %}
+    	{% endif %}
+	</div>
+	
+	{% block moreContent %}
+	{% endblock %}
+	
+	<div class="vr-space-40"></div>
+{% endblock %}

@@ -2,46 +2,239 @@
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
     <file source-language="en" target-language="en" datatype="plaintext" original="file.ext">
         <body>
+        	<trans-unit id="label.welcome">
+                <source>label.welcome</source>
+                <target>Witamy</target>
+            </trans-unit>
+        	<trans-unit id="label.site">
+                <source>label.site</source>
+                <target>InfoMarket</target>
+            </trans-unit>
         	<trans-unit id="label.admin">
                 <source>label.admin</source>
-                <target>Admin panel</target>
+                <target>Panel administratora</target>
+            </trans-unit>
+            <trans-unit id="label.benchmark">
+                <source>label.benchmark</source>
+                <target>Benchmark</target>
             </trans-unit>
             <trans-unit id="label.home">
                 <source>label.home</source>
-                <target>Home</target>
-            </trans-unit>
-            <trans-unit id="label.magazine">
-                <source>label.magazine</source>
-                <target>Magazine</target>
+                <target>Strona domowa</target>
             </trans-unit>
             <trans-unit id="label.office">
                 <source>label.office</source>
-                <target>Office</target>
+                <target>Redakcja</target>
             </trans-unit>
             
+            <trans-unit id="label.others">
+                <source>label.others</source>
+                <target>Inne</target>
+            </trans-unit>
+            
+            <trans-unit id="label.advert">
+                <source>label.advert</source>
+                <target>Reklama</target>
+            </trans-unit>
+            <trans-unit id="label.adverts">
+                <source>label.adverts</source>
+                <target>Reklamy</target>
+            </trans-unit>
+            <trans-unit id="label.archivedArticle">
+                <source>label.archivedArticle</source>
+                <target>Artykuł archiwalny</target>
+            </trans-unit>
+            <trans-unit id="label.archivedArticles">
+                <source>label.archivedArticles</source>
+                <target>Artykuły archiwalne</target>
+            </trans-unit>
+            <trans-unit id="label.article">
+                <source>label.article</source>
+                <target>Artykuł</target>
+            </trans-unit>
             <trans-unit id="label.articles">
                 <source>label.articles</source>
-                <target>News</target>
+                <target>Artykuły</target>
+            </trans-unit>
+           	<trans-unit id="label.articleCategory">
+                <source>label.articleCategory</source>
+                <target>Kategoria artykułów</target>
+            </trans-unit>
+            <trans-unit id="label.articleCategories">
+                <source>label.articleCategories</source>
+                <target>Kategorie artykułów</target>
+            </trans-unit>
+            <trans-unit id="label.benchmarkEnum">
+                <source>label.benchmarkEnum</source>
+                <target>Typ wyliczeniowy benchmarku</target>
+            </trans-unit>
+            <trans-unit id="label.benchmarkEnums">
+                <source>label.benchmarkEnums</source>
+                <target>Typy wyliczeniowe benchmarku</target>
+            </trans-unit>
+            <trans-unit id="label.benchmarkField">
+                <source>label.benchmarkField</source>
+                <target>Pole benchmarku</target>
+            </trans-unit>
+            <trans-unit id="label.benchmarkFields">
+                <source>label.benchmarkFields</source>
+                <target>Pola benchmarku</target>
+            </trans-unit>
+            <trans-unit id="label.benchmarkMessage">
+                <source>label.benchmarkMessage</source>
+                <target>Wiadomość</target>
+            </trans-unit>
+            <trans-unit id="label.benchmarkMessages">
+                <source>label.benchmarkMessages</source>
+                <target>Wiadomości</target>
+            </trans-unit>
+            <trans-unit id="label.benchmarkQuery">
+                <source>label.benchmarkQuery</source>
+                <target>Zapytanie</target>
+            </trans-unit>
+            <trans-unit id="label.benchmarkQueries">
+                <source>label.benchmarkQueries</source>
+                <target>Zapytania</target>
             </trans-unit>
             <trans-unit id="label.branch">
                 <source>label.branch</source>
-                <target>Branch</target>
+                <target>Branża</target>
             </trans-unit>
             <trans-unit id="label.branches">
                 <source>label.branches</source>
-                <target>Branches</target>
+                <target>Branże</target>
+            </trans-unit>
+           	<trans-unit id="label.brand">
+                <source>label.brand</source>
+                <target>Marka</target>
             </trans-unit>
             <trans-unit id="label.brands">
                 <source>label.brands</source>
-                <target>Brands</target>
+                <target>Marki</target>
             </trans-unit>
             <trans-unit id="label.category">
                 <source>label.category</source>
-                <target>Category</target>
+                <target>Kategoria</target>
             </trans-unit>
             <trans-unit id="label.categories">
                 <source>label.categories</source>
-                <target>Categories</target>
+                <target>Kategorie</target>
+            </trans-unit>
+           	<trans-unit id="label.link">
+                <source>label.link</source>
+                <target>Link</target>
+            </trans-unit>
+            <trans-unit id="label.links">
+                <source>label.links</source>
+                <target>Linki</target>
+            </trans-unit>
+            <trans-unit id="label.magazine">
+                <source>label.magazine</source>
+                <target>Magazyn</target>
+            </trans-unit>
+            <trans-unit id="label.magazines">
+                <source>label.magazines</source>
+                <target>Magazyny</target>
+            </trans-unit>
+           	<trans-unit id="label.menu">
+                <source>label.menu</source>
+                <target>Menu</target>
+            </trans-unit>
+            <trans-unit id="label.menus">
+                <source>label.menus</source>
+                <target>Menu</target>
+            </trans-unit>
+            <trans-unit id="label.menuEntry">
+                <source>label.menuEntry</source>
+                <target>Pozycja menu</target>
+            </trans-unit>
+            <trans-unit id="label.menuEntries">
+                <source>label.menuEntries</source>
+                <target>Pozycje menu</target>
+            </trans-unit>
+            <trans-unit id="label.menuMenuEntryAssignment">
+                <source>label.menuMenuEntryAssignment</source>
+                <target>Menu - Pozycja menu</target>
+            </trans-unit>
+            <trans-unit id="label.menuMenuEntryAssignments">
+                <source>label.menuMenuEntryAssignments</source>
+                <target>Menu - Pozycje menu</target>
+            </trans-unit>
+            <trans-unit id="label.newsletter">
+                <source>label.newsletter</source>
+                <target>Newsletter</target>
+            </trans-unit>
+            <trans-unit id="label.newsletterBlock">
+                <source>label.newsletterBlock</source>
+                <target>Blok newslettera</target>
+            </trans-unit>
+            <trans-unit id="label.newsletterBlocks">
+                <source>label.newsletterBlocks</source>
+                <target>Bloki newslettera</target>
+            </trans-unit>
+            <trans-unit id="label.newsletterBlockTemplate">
+                <source>label.newsletterBlockTemplate</source>
+                <target>Szablon bloku newslettera</target>
+            </trans-unit>
+            <trans-unit id="label.newsletterBlockTemplates">
+                <source>label.newsletterBlockTemplates</source>
+                <target>Szablony bloków newslettera</target>
+            </trans-unit>
+            <trans-unit id="label.newsletterPage">
+                <source>label.newsletterPage</source>
+                <target>Strona newslettera</target>
+            </trans-unit>
+            <trans-unit id="label.newsletterPages">
+                <source>label.newsletterPages</source>
+                <target>Strony newslettera</target>
+            </trans-unit>
+            <trans-unit id="label.newsletterPageTemplate">
+                <source>label.newsletterPageTemplate</source>
+                <target>Szablon strony newslettera</target>
+            </trans-unit>
+            <trans-unit id="label.newsletterPageTemplates">
+                <source>label.newsletterPageTemplates</source>
+                <target>Szablony stron newslettera</target>
+            </trans-unit>
+            <trans-unit id="label.newsletterUser">
+                <source>label.newsletterUser</source>
+                <target>Subskrybent</target>
+            </trans-unit>
+            <trans-unit id="label.newsletterUsers">
+                <source>label.newsletterUsers</source>
+                <target>Subskrybenci</target>
+            </trans-unit>
+            <trans-unit id="label.newsletterGroup">
+                <source>label.newsletterGroup</source>
+                <target>Grupa subskrybentów</target>
+            </trans-unit>
+            <trans-unit id="label.newsletterGroups">
+                <source>label.newsletterGroups</source>
+                <target>Grupy subskrybentów</target>
+            </trans-unit>
+            <trans-unit id="label.product">
+                <source>label.product</source>
+                <target>Produkt</target>
+            </trans-unit>
+            <trans-unit id="label.products">
+                <source>label.products</source>
+                <target>Produkty</target>
+            </trans-unit>
+            <trans-unit id="label.customProduct">
+                <source>label.customProduct</source>
+                <target>Produkt użytkownika</target>
+            </trans-unit>
+            <trans-unit id="label.customProducts">
+                <source>label.customProducts</source>
+                <target>Produkty użytkownika</target>
+            </trans-unit>
+            <trans-unit id="label.page">
+                <source>label.page</source>
+                <target>Strona</target>
+            </trans-unit>
+            <trans-unit id="label.pages">
+                <source>label.pages</source>
+                <target>Strony</target>
             </trans-unit>
             <trans-unit id="label.segment">
                 <source>label.segment</source>
@@ -49,127 +242,2401 @@
             </trans-unit>
             <trans-unit id="label.segments">
                 <source>label.segments</source>
-                <target>Segments</target>
+                <target>Segmenty</target>
             </trans-unit>
-            <trans-unit id="label.product">
-                <source>label.product</source>
-                <target>Product</target>
+            <trans-unit id="label.settings">
+                <source>label.settings</source>
+                <target>Ustawienia</target>
             </trans-unit>
-            <trans-unit id="label.products">
-                <source>label.products</source>
-                <target>Products</target>
+            <trans-unit id="label.search">
+                <source>label.search</source>
+                <target>Wyszukiwanie</target>
+            </trans-unit>
+           	<trans-unit id="label.tag">
+                <source>label.tag</source>
+                <target>Tag</target>
+            </trans-unit>
+            <trans-unit id="label.tags">
+                <source>label.tags</source>
+                <target>Tagi</target>
+            </trans-unit>
+           	<trans-unit id="label.term">
+                <source>label.term</source>
+                <target>Pojęcie</target>
             </trans-unit>
             <trans-unit id="label.terms">
                 <source>label.terms</source>
-                <target>Terms</target>
+                <target>Leksykon pojęć</target>
+            </trans-unit>
+            <trans-unit id="label.user">
+                <source>label.user</source>
+                <target>Użytkownik</target>
+            </trans-unit>
+            <trans-unit id="label.users">
+                <source>label.users</source>
+                <target>Użytkownicy</target>
             </trans-unit>
             
+            <trans-unit id="label.article_categories">
+                <source>label.article_categories</source>
+                <target>Kategorie artykułów</target>
+            </trans-unit>
+            
+            <trans-unit id="label.assignments">
+                <source>label.assignments</source>
+                <target>Powiązania</target>
+            </trans-unit>
+            
+            <trans-unit id="label.advert_category_assignments">
+                <source>label.advert_category_assignments</source>
+                <target>Reklamy - Kategorie</target>
+            </trans-unit>
+            <trans-unit id="label.article_article_category_assignments">
+                <source>label.article_article_category_assignments</source>
+                <target>Artykuły - Kategorie artykułów</target>
+            </trans-unit>
+            <trans-unit id="label.article_brand_assignments">
+                <source>label.article_brand_assignments</source>
+                <target>Artykuły - Marki</target>
+            </trans-unit>
+            <trans-unit id="label.article_category_assignments">
+                <source>label.article_category_assignments</source>
+                <target>Artykuły - Kategorie</target>
+            </trans-unit>
+            <trans-unit id="label.article_tag_assignments">
+                <source>label.article_tag_assignments</source>
+                <target>Artykuły - Tagi</target>
+            </trans-unit>
+            <trans-unit id="label.branch_category_assignments">
+                <source>label.branch_category_assignments</source>
+                <target>Branże - Kategorie</target>
+            </trans-unit>
+            <trans-unit id="label.brand_category_assignments">
+                <source>label.brand_category_assignments</source>
+                <target>Marki - Kategorie</target>
+            </trans-unit>
+            <trans-unit id="label.magazine_branch_assignments">
+                <source>label.magazine_branch_assignments</source>
+                <target>Magazyny - Branże</target>
+            </trans-unit>
+            <trans-unit id="label.magazine_category_assignments">
+                <source>label.magazine_category_assignments</source>
+                <target>Magazyny - Kategorie</target>
+            </trans-unit>
+            <trans-unit id="label.menuEntryBranchAssignments">
+                <source>label.menuEntryBranchAssignments</source>
+                <target>Pozycje menu - Branże</target>
+            </trans-unit>
+            <trans-unit id="label.menuEntryCategoryAssignments">
+                <source>label.menuEntryCategoryAssignments</source>
+                <target>Pozycje menu - Kategorie</target>
+            </trans-unit>
+            <trans-unit id="label.newsletter_block_advert_assignments">
+                <source>label.newsletter_block_advert_assignments</source>
+                <target>Bloki newslettera - Reklamy</target>
+            </trans-unit>
+            <trans-unit id="label.newsletter_block_article_assignments">
+                <source>label.newsletter_block_article_assignments</source>
+                <target>Bloki newslettera - Artykuły</target>
+            </trans-unit>
+            <trans-unit id="label.newsletter_block_magazine_assignments">
+                <source>label.newsletter_block_magazine_assignments</source>
+                <target>Bloki newslettera - Magazyny</target>
+            </trans-unit>
+            <trans-unit id="label.newsletter_user_newsletter_group_assignments">
+                <source>label.newsletter_user_newsletter_group_assignments</source>
+                <target>Subskrybenci - Grupy subskrybentów</target>
+            </trans-unit>
+            <trans-unit id="label.newsletter_user_newsletter_page_assignments">
+                <source>label.newsletter_user_newsletter_page_assignments</source>
+                <target>Subskrybenci - Wysłane newslettery</target>
+            </trans-unit>
+            <trans-unit id="label.product_category_assignments">
+                <source>label.product_category_assignments</source>
+                <target>Produkty - Kategorie</target>
+            </trans-unit>
+            <trans-unit id="label.term_category_assignments">
+                <source>label.term_category_assignments</source>
+                <target>Terminy - Kategorie</target>
+            </trans-unit>
+            <trans-unit id="label.user_category_assignments">
+                <source>label.user_category_assignments</source>
+                <target>Użytkownicy - Kategorie</target>
+            </trans-unit>
+            <trans-unit id="label.category_tree">
+                <source>label.category_tree</source>
+                <target>Drzewo kategorii</target>
+            </trans-unit>
+            <trans-unit id="label.ratings">
+                <source>label.ratings</source>
+                <target>Ratingi</target>
+            </trans-unit>
+            
+            <trans-unit id="label.login">
+                <source>label.login</source>
+                <target>Logowanie</target>
+            </trans-unit>
+            <trans-unit id="label.register">
+                <source>label.register</source>
+                <target>Rejestracja</target>
+            </trans-unit>
+            <trans-unit id="label.resetting">
+                <source>label.resetting</source>
+                <target>Resetowanie</target>
+            </trans-unit>
+            
+            
+            
+            <trans-unit id="label.footer.copyright">
+                <source>label.footer.copyright</source>
+                <target>2017 InfoMarket</target>
+            </trans-unit>
+            <trans-unit id="label.footer.office">
+                <source>label.footer.office</source>
+                <target>Redakcja</target>
+            </trans-unit>
+            <trans-unit id="label.footer.magazine">
+                <source>label.footer.magazine</source>
+                <target>Magazyn</target>
+            </trans-unit>
+            
+            
+            <trans-unit id="label.infomarket.home">
+                <source>label.infomarket.home</source>
+                <target>Dział</target>
+            </trans-unit>
+            
+            <trans-unit id="label.infoprodukt.terms">
+                <source>label.infoprodukt.terms</source>
+                <target>Leksykon pojęć</target>
+            </trans-unit>
+            
+            
+            <trans-unit id="header.articles">
+                <source>header.articles</source>
+                <target>Artykuły</target>
+            </trans-unit>
+            <trans-unit id="header.news">
+                <source>header.news</source>
+                <target>Informacje</target>
+            </trans-unit>
+            <trans-unit id="header.promotions">
+                <source>header.promotions</source>
+                <target>Promocje</target>
+            </trans-unit>
+            <trans-unit id="header.magazines">
+                <source>header.magazines</source>
+                <target>Magazyny</target>
+            </trans-unit>
+            <trans-unit id="header.ratings">
+                <source>header.ratings</source>
+                <target>Ratingi</target>
+            </trans-unit>
+            
+            
+            
+            
+            
+            
+            <trans-unit id="header.categories.1">
+                <source>header.categories.1</source>
+                <target>Popularne</target>
+            </trans-unit>
+            <trans-unit id="header.categories.2">
+                <source>header.categories.2</source>
+                <target>kategorie</target>
+            </trans-unit>
+            
+            <trans-unit id="header.magazines.1">
+                <source>header.magazines.1</source>
+                <target>Nasze</target>
+            </trans-unit>
+            <trans-unit id="header.magazines.2">
+                <source>header.magazines.2</source>
+                <target>magazyny</target>
+            </trans-unit>
+            
+            
+            <trans-unit id="header.featuredBrands.1">
+                <source>header.featuredBrands.1</source>
+                <target>MARKI</target>
+            </trans-unit>
+            <trans-unit id="header.featuredBrands.2">
+                <source>header.featuredBrands.2</source>
+                <target>REKOMENDOWANE</target>
+            </trans-unit>
+            
+            <trans-unit id="header.featuredAds.1">
+                <source>header.featuredAds.1</source>
+                <target>Sekcja</target>
+            </trans-unit>
+            <trans-unit id="header.featuredAds.2">
+                <source>header.featuredAds.2</source>
+                <target>reklamowa</target>
+            </trans-unit>
+            
+            <trans-unit id="header.usefulItems.1">
+                <source>header.usefulItems.1</source>
+                <target>Przydatne</target>
+            </trans-unit>
+            <trans-unit id="header.usefulItems.2">
+                <source>header.usefulItems.2</source>
+                <target>i ciekawe</target>
+            </trans-unit>
+            
+            <trans-unit id="header.contact.1">
+                <source>header.contact.1</source>
+                <target>Kontakt</target>
+            </trans-unit>
+            <trans-unit id="header.contact.2">
+                <source>header.contact.2</source>
+                <target>z redakcją</target>
+            </trans-unit>
+            
+            <trans-unit id="header.newsletter.1">
+                <source>header.newsletter.1</source>
+                <target>Zapisz się</target>
+            </trans-unit>
+            <trans-unit id="header.newsletter.2">
+                <source>header.newsletter.2</source>
+                <target>do newslettera</target>
+            </trans-unit>
+            
+            <trans-unit id="header.currentMagazines.1">
+                <source>header.currentMagazines.1</source>
+                <target>Aktualne</target>
+            </trans-unit>
+            <trans-unit id="header.currentMagazines.2">
+                <source>header.currentMagazines.2</source>
+                <target>magazyny</target>
+            </trans-unit>
+            
+            
+            
+            <trans-unit id="header.home.news">
+                <source>header.home.news</source>
+                <target>Informacje</target>
+            </trans-unit>
+            <trans-unit id="header.home.events">
+                <source>header.home.events</source>
+                <target>Wydarzenia</target>
+            </trans-unit>
+            
+            
+            
+            <trans-unit id="label.mainCategory.brands">
+                <source>label.mainCategory.brands</source>
+                <target>Marki</target>
+            </trans-unit>
+            <trans-unit id="label.mainCategory.terms">
+                <source>label.mainCategory.terms</source>
+                <target>Pojęcia</target>
+            </trans-unit>
+            
+            
+            
+            <trans-unit id="label.advert.location.top">
+                <source>label.advert.location.top</source>
+                <target>Baner górny</target>
+            </trans-unit>
+            <trans-unit id="label.advert.location.side">
+                <source>label.advert.location.side</source>
+                <target>Baner boczny</target>
+            </trans-unit>
+            <trans-unit id="label.advert.location.text">
+                <source>label.advert.location.text</source>
+                <target>Baner śródtekstowy</target>
+            </trans-unit>
+            <trans-unit id="label.advert.location.featured">
+                <source>label.advert.location.featured</source>
+                <target>Baner wyróżniony</target>
+            </trans-unit>
+            <trans-unit id="label.advert.location">
+                <source>label.advert.location</source>
+                <target>Pozycja</target>
+            </trans-unit>
+            <trans-unit id="label.advert.link">
+                <source>label.advert.link</source>
+                <target>Link</target>
+            </trans-unit>
+            <trans-unit id="label.advert.dateFrom">
+                <source>label.advert.dateFrom</source>
+                <target>Widoczna od</target>
+            </trans-unit>
+            <trans-unit id="label.advert.dateTo">
+                <source>label.advert.dateTo</source>
+                <target>Widoczna do</target>
+            </trans-unit>
+            <trans-unit id="label.advert.showCount">
+                <source>label.advert.showCount</source>
+                <target>Liczba wyświetleń</target>
+            </trans-unit>
+            <trans-unit id="label.advert.showLimit">
+                <source>label.advert.showLimit</source>
+                <target>Limit wyświetleń</target>
+            </trans-unit>
+            <trans-unit id="label.advert.clickCount">
+                <source>label.advert.clickCount</source>
+                <target>Liczba kliknięć</target>
+            </trans-unit>
+            <trans-unit id="label.advert.clickLimit">
+                <source>label.advert.clickLimit</source>
+                <target>Limit kliknięć</target>
+            </trans-unit>
+            
+            <trans-unit id="label.advert.short.showCount">
+                <source>label.advert.short.showCount</source>
+                <target>LW</target>
+            </trans-unit>
+            <trans-unit id="label.advert.short.showLimit">
+                <source>label.advert.short.showLimit</source>
+                <target>LW</target>
+            </trans-unit>
+            <trans-unit id="label.advert.short.clickCount">
+                <source>label.advert.short.clickCount</source>
+                <target>LK</target>
+            </trans-unit>
+            <trans-unit id="label.advert.short.clickLimit">
+                <source>label.advert.short.clickLimit</source>
+                <target>LK</target>
+            </trans-unit>
+            
+            
+            
+            <trans-unit id="label.article.assignTags">
+                <source>label.article.assignTags</source>
+                <target>Przypisz tagi</target>
+            </trans-unit>
+            
+            <trans-unit id="label.article.layout.left">
+                <source>label.article.layout.left</source>
+                <target>Do lewej</target>
+            </trans-unit>
+            <trans-unit id="label.article.layout.mid">
+                <source>label.article.layout.mid</source>
+                <target>Do środka</target>
+            </trans-unit>
+            <trans-unit id="label.article.layout.right">
+                <source>label.article.layout.right</source>
+                <target>Do prawej</target>
+            </trans-unit>
+            <trans-unit id="label.article.layout.bottom">
+                <source>label.article.layout.bottom</source>
+                <target>Na dole</target>
+            </trans-unit>
+            
+            
+            <trans-unit id="label.article.imageSize.small">
+                <source>label.article.imageSize.small</source>
+                <target>Mały</target>
+            </trans-unit>
+            <trans-unit id="label.article.imageSize.medium">
+                <source>label.article.imageSize.medium</source>
+                <target>Średni</target>
+            </trans-unit>
+            <trans-unit id="label.article.imageSize.large">
+                <source>label.article.imageSize.large</source>
+                <target>Duży</target>
+            </trans-unit>
+            
+            
+            
+            <trans-unit id="label.benchmarkEnum.name">
+                <source>label.benchmarkEnum.name</source>
+                <target>Wartość (nazwa)</target>
+            </trans-unit>
+            <trans-unit id="label.benchmarkEnum.value">
+                <source>label.benchmarkEnum.value</source>
+                <target>Wartość (ocena)</target>
+            </trans-unit>
+            
+            
+            
+            <trans-unit id="label.benchmarkField.valueType">
+                <source>label.benchmarkField.valueType</source>
+                <target>Typ wartości</target>
+            </trans-unit>
+            <trans-unit id="label.benchmarkField.valueNumber">
+                <source>label.benchmarkField.valueNumber</source>
+                <target>Numer wartości</target>
+            </trans-unit>
+            
+            <trans-unit id="label.benchmarkField.fieldName">
+                <source>label.benchmarkField.fieldName</source>
+                <target>Nazwa pola</target>
+            </trans-unit>
+            <trans-unit id="label.benchmarkField.fieldType">
+                <source>label.benchmarkField.fieldType</source>
+                <target>Typ pola</target>
+            </trans-unit>
+            <trans-unit id="label.benchmarkField.fieldNumber">
+                <source>label.benchmarkField.fieldNumber</source>
+                <target>Numer pola</target>
+            </trans-unit>
+            <trans-unit id="label.benchmarkField.showField">
+                <source>label.benchmarkField.showField</source>
+                <target>Pokaż pole</target>
+            </trans-unit>
+            <trans-unit id="label.benchmarkField.featuredField">
+                <source>label.benchmarkField.featuredField</source>
+                <target>Wyróżnione pole</target>
+            </trans-unit>
+            
+            <trans-unit id="label.benchmarkField.notShowField">
+                <source>label.benchmarkField.notShowField</source>
+                <target>Nie pokazuj pola</target>
+            </trans-unit>
+            
+            <trans-unit id="label.benchmarkField.filterName">
+                <source>label.benchmarkField.filterName</source>
+                <target>Nazwa filtra</target>
+            </trans-unit>
+            <trans-unit id="label.benchmarkField.filterType">
+                <source>label.benchmarkField.filterType</source>
+                <target>Typ filtra</target>
+            </trans-unit>
+            <trans-unit id="label.benchmarkField.filterNumber">
+                <source>label.benchmarkField.filterNumber</source>
+                <target>Numer filtra</target>
+            </trans-unit>
+            <trans-unit id="label.benchmarkField.showFilter">
+                <source>label.benchmarkField.showFilter</source>
+                <target>Pokaż filtr</target>
+            </trans-unit>
+            <trans-unit id="label.benchmarkField.featuredFilter">
+                <source>label.benchmarkField.featuredFilter</source>
+                <target>Wyróżniony filtr</target>
+            </trans-unit>
+            
+            <trans-unit id="label.benchmarkField.decimalPlaces">
+                <source>label.benchmarkField.decimalPlaces</source>
+                <target>Liczba miejsc po przecinku</target>
+            </trans-unit>
+            
+            <trans-unit id="label.benchmarkField.valueType.decimal">
+                <source>label.benchmarkField.valueType.decimal</source>
+                <target>Liczba zmiennoprzecinkowa</target>
+            </trans-unit>
+            <trans-unit id="label.benchmarkField.valueType.integer">
+                <source>label.benchmarkField.valueType.integer</source>
+                <target>Liczba całkowita</target>
+            </trans-unit>
+            <trans-unit id="label.benchmarkField.valueType.string">
+                <source>label.benchmarkField.valueType.string</source>
+                <target>Tekst</target>
+            </trans-unit>
+            
+            <trans-unit id="label.benchmarkField.fieldType.decimal">
+                <source>label.benchmarkField.fieldType.decimal</source>
+                <target>Pole liczbowe (zmiennoprzecinkowe)</target>
+            </trans-unit>
+            <trans-unit id="label.benchmarkField.fieldType.integer">
+                <source>label.benchmarkField.fieldType.integer</source>
+                <target>Pole liczbowe (całkowite)</target>
+            </trans-unit>
+            <trans-unit id="label.benchmarkField.fieldType.boolean">
+                <source>label.benchmarkField.fieldType.boolean</source>
+                <target>Pole logiczne (tak/nie)</target>
+            </trans-unit>
+            <trans-unit id="label.benchmarkField.fieldType.string">
+                <source>label.benchmarkField.fieldType.string</source>
+                <target>Pole tekstowe</target>
+            </trans-unit>
+            <trans-unit id="label.benchmarkField.fieldType.singleEnum">
+                <source>label.benchmarkField.fieldType.singleEnum</source>
+                <target>Pole wyliczeniowe (lista jednokrotnego wyboru)</target>
+            </trans-unit>
+            <trans-unit id="label.benchmarkField.fieldType.multiEnum">
+                <source>label.benchmarkField.fieldType.multiEnum</source>
+                <target>Pole wyliczeniowe (lista wielokrotnego wyboru)</target>
+            </trans-unit>
+            
+            <trans-unit id="label.benchmarkField.filterType.decimal">
+                <source>label.benchmarkField.filterType.decimal</source>
+                <target>Filtr liczbowy (zmiennoprzecinkowy)</target>
+            </trans-unit>
+            <trans-unit id="label.benchmarkField.filterType.integer">
+                <source>label.benchmarkField.filterType.integer</source>
+                <target>Filtr liczbowy (całkowity)</target>
+            </trans-unit>
+            <trans-unit id="label.benchmarkField.filterType.boolean">
+                <source>label.benchmarkField.filterType.boolean</source>
+                <target>Filtr logiczny (tak/nie)</target>
+            </trans-unit>
+            <trans-unit id="label.benchmarkField.filterType.string">
+                <source>label.benchmarkField.filterType.string</source>
+                <target>Filtr tekstowy</target>
+            </trans-unit>
+            <trans-unit id="label.benchmarkField.filterType.singleEnum">
+                <source>label.benchmarkField.filterType.singleEnum</source>
+                <target>Filtr wyliczeniowy (lista)</target>
+            </trans-unit>
+            <trans-unit id="label.benchmarkField.filterType.multiEnum">
+                <source>label.benchmarkField.filterType.multiEnum</source>
+                <target>Filtr wyliczeniowy (lista)</target>
+            </trans-unit>
+            
+            <trans-unit id="label.benchmarkField.noteType">
+                <source>label.benchmarkField.noteType</source>
+                <target>Typ oceny</target>
+            </trans-unit>
+            <trans-unit id="label.benchmarkField.noteType.none">
+                <source>label.benchmarkField.noteType.none</source>
+                <target>Bez oceny</target>
+            </trans-unit>
+            <trans-unit id="label.benchmarkField.noteType.ascending">
+                <source>label.benchmarkField.noteType.ascending</source>
+                <target>Rosnąca</target>
+            </trans-unit>
+            <trans-unit id="label.benchmarkField.noteType.descending">
+                <source>label.benchmarkField.noteType.descending</source>
+                <target>Malejąca</target>
+            </trans-unit>
+            <trans-unit id="label.benchmarkField.noteType.enum">
+                <source>label.benchmarkField.noteType.enum</source>
+                <target>Wyliczeniowa</target>
+            </trans-unit>
+            
+            <trans-unit id="label.benchmarkField.noteWeight">
+                <source>label.benchmarkField.noteWeight</source>
+                <target>Waga oceny</target>
+            </trans-unit>
+            
+            <trans-unit id="label.benchmarkField.betterThanType">
+                <source>label.benchmarkField.betterThanType</source>
+                <target>Typ porównania (lepszy niż)</target>
+            </trans-unit>
+            <trans-unit id="label.benchmarkField.betterThanType.none">
+                <source>label.benchmarkField.betterThanType.none</source>
+                <target>Bez porównania</target>
+            </trans-unit>
+            <trans-unit id="label.benchmarkField.betterThanType.lesserThan">
+                <source>label.benchmarkField.betterThanType.lesserThan</source>
+                <target>Mniejszy</target>
+            </trans-unit>
+            <trans-unit id="label.benchmarkField.betterThanType.greaterThan">
+                <source>label.benchmarkField.betterThanType.greaterThan</source>
+                <target>Większy</target>
+            </trans-unit>
+            
+            <trans-unit id="label.benchmarkField.compareWeight">
+                <source>label.benchmarkField.compareWeight</source>
+                <target>Waga porównania</target>
+            </trans-unit>
+            
+            
+            
+            <trans-unit id="label.benchmarkMessage.author">
+                <source>label.benchmarkMessage.author</source>
+                <target>Autor wiadomości</target>
+            </trans-unit>
+            <trans-unit id="label.benchmarkMessage.state">
+                <source>label.benchmarkMessage.state</source>
+                <target>Status wiadomości</target>
+            </trans-unit>
+            <trans-unit id="label.benchmarkMessage.state.reported">
+                <source>label.benchmarkMessage.state.reported</source>
+                <target>Zgłoszona</target>
+            </trans-unit>
+            <trans-unit id="label.benchmarkMessage.state.inProcess">
+                <source>label.benchmarkMessage.state.inProcess</source>
+                <target>Przetwarzana</target>
+            </trans-unit>
+            <trans-unit id="label.benchmarkMessage.state.informationRequired">
+                <source>label.benchmarkMessage.state.informationRequired</source>
+                <target>Wymaga dodatkowych informacji</target>
+            </trans-unit>
+            <trans-unit id="label.benchmarkMessage.state.informationSupplied">
+                <source>label.benchmarkMessage.state.informationSupplied</source>
+                <target>Informacje dostarczone</target>
+            </trans-unit>
+            <trans-unit id="label.benchmarkMessage.state.completed">
+                <source>label.benchmarkMessage.state.completed</source>
+                <target>Zakończona</target>
+            </trans-unit>
+            
+            
+            <trans-unit id="label.benchmarkQuery.archived">
+                <source>label.benchmarkQuery.archived</source>
+                <target>Archiwalne</target>
+            </trans-unit>
+            
+            
+            <trans-unit id="label.benchmark.category">
+                <source>label.benchmark.category</source>
+                <target>Kategoria główna</target>
+            </trans-unit>
+            <trans-unit id="label.benchmark.subcategory">
+                <source>label.benchmark.subcategory</source>
+                <target>Kategoria wewnętrzna</target>
+            </trans-unit>
+            
+            <trans-unit id="label.benchmark.subcategories">
+                <source>label.benchmark.subcategories</source>
+                <target>Podkategorie</target>
+            </trans-unit>
+            <trans-unit id="label.benchmark.brands">
+                <source>label.benchmark.brands</source>
+                <target>Marki</target>
+            </trans-unit>
+            
+            <trans-unit id="label.benchmark.product.name">
+                <source>label.benchmark.product.name</source>
+                <target>Symbol</target>
+            </trans-unit>
+            <trans-unit id="label.benchmark.product.price">
+                <source>label.benchmark.product.price</source>
+                <target>Średnia cena rynkowa [PLN]</target>
+            </trans-unit>
+            <trans-unit id="label.benchmark.product.minPrice">
+                <source>label.benchmark.product.minPrice</source>
+                <target>Cena (min)</target>
+            </trans-unit>
+            <trans-unit id="label.benchmark.product.maxPrice">
+                <source>label.benchmark.product.maxPrice</source>
+                <target>Cena (max)</target>
+            </trans-unit>
+            
+            <trans-unit id="label.benchmark.distribution">
+                <source>label.benchmark.distribution</source>
+                <target>Rozkład</target>
+            </trans-unit>
+			<trans-unit id="label.benchmark.all">
+                <source>label.benchmark.all</source>
+                <target>Wszystkie (+/-)</target>
+            </trans-unit>
+            <trans-unit id="label.benchmark.true">
+                <source>label.benchmark.true</source>
+                <target>Tak (+)</target>
+            </trans-unit>
+            <trans-unit id="label.benchmark.false">
+                <source>label.benchmark.false</source>
+                <target>Nie (-)</target>
+            </trans-unit>
+            
+            
+            <trans-unit id="label.benchmark.numOfProducts">
+                <source>label.benchmark.numOfProducts</source>
+                <target>Ilość modeli</target>
+            </trans-unit>
+            <trans-unit id="label.benchmark.percent">
+                <source>label.benchmark.percent</source>
+                <target>Procent</target>
+            </trans-unit>
+            
+            <trans-unit id="label.benchmark.total">
+                <source>label.benchmark.total</source>
+                <target>Razem</target>
+            </trans-unit>
+            
+            <trans-unit id="label.benchmark.param">
+                <source>label.benchmark.param</source>
+                <target>Parametr</target>
+            </trans-unit>
+            <trans-unit id="label.benchmark.values">
+                <source>label.benchmark.values</source>
+                <target>Dostępne wartości</target>
+            </trans-unit>
+            <trans-unit id="label.benchmark.min">
+                <source>label.benchmark.min</source>
+                <target>Minimum</target>
+            </trans-unit>
+            <trans-unit id="label.benchmark.max">
+                <source>label.benchmark.max</source>
+                <target>Maksimum</target>
+            </trans-unit>
+            <trans-unit id="label.benchmark.mode">
+                <source>label.benchmark.mode</source>
+                <target>Dominanta</target>
+            </trans-unit>
+            <trans-unit id="label.benchmark.median">
+                <source>label.benchmark.median</source>
+                <target>Mediana</target>
+            </trans-unit>
+            <trans-unit id="label.benchmark.mean">
+                <source>label.benchmark.mean</source>
+                <target>Średnia</target>
+            </trans-unit>
+            
+            <trans-unit id="label.benchmark.value">
+                <source>label.benchmark.value</source>
+                <target>Wartość</target>
+            </trans-unit>
+            <trans-unit id="label.benchmark.betterThan">
+                <source>label.benchmark.betterThan</source>
+                <target>Lepszy od</target>
+            </trans-unit>
+            <trans-unit id="label.benchmark.note">
+                <source>label.benchmark.note</source>
+                <target>Ocena</target>
+            </trans-unit>
+            <trans-unit id="label.benchmark.priceFactor">
+                <source>label.benchmark.priceFactor</source>
+                <target>Stosunek do ceny</target>
+            </trans-unit>
+            
+            
+            <trans-unit id="label.benchmark.category.showBestProduct">
+                <source>label.benchmark.category.showBestProduct</source>
+                <target>Pokaż najlepszy produkt</target>
+            </trans-unit>
+            <trans-unit id="label.benchmark.category.showWorstProduct">
+                <source>label.benchmark.category.showWorstProduct</source>
+                <target>Pokaż najgorszy produkt</target>
+            </trans-unit>
+            
+            
+            <trans-unit id="action.benchmark.export.image">
+                <source>action.benchmark.export.image</source>
+                <target>Eksportuj do jpg</target>
+            </trans-unit>
+            <trans-unit id="action.benchmark.export.pdf">
+                <source>action.benchmark.export.pdf</source>
+                <target>Eksportuj do pdf</target>
+            </trans-unit>
+            <trans-unit id="action.benchmark.export.csv">
+                <source>action.benchmark.export.csv</source>
+                <target>Eksportuj do csv</target>
+            </trans-unit>
+            <trans-unit id="action.benchmark.export.excel">
+                <source>action.benchmark.export.excel</source>
+                <target>Eksportuj do xlsx</target>
+            </trans-unit>
+            <trans-unit id="action.benchmark.export.html">
+                <source>action.benchmark.export.html</source>
+                <target>Eksportuj do html</target>
+            </trans-unit>
+            
+            <trans-unit id="action.benchmarkMessage.setReadSelected">
+                <source>action.benchmarkMessage.setReadSelected</source>
+                <target>Oznacz jako przeczytane</target>
+            </trans-unit>
+            <trans-unit id="action.benchmarkMessage.setUnreadSelected">
+                <source>action.benchmarkMessage.setUnreadSelected</source>
+                <target>Oznacz jako nieprzeczytane</target>
+            </trans-unit>
+            
+            <trans-unit id="action.benchmarkQuery.showArchived">
+                <source>action.benchmarkQuery.showArchived</source>
+                <target>Pokaż archiwalne</target>
+            </trans-unit>
+            
+            
+            
+            <trans-unit id="label.rating.brands">
+                <source>label.rating.brands</source>
+                <target>Zalecane marki</target>
+            </trans-unit>
+            <trans-unit id="label.rating.products">
+                <source>label.rating.products</source>
+                <target>Zalecane produkty</target>
+            </trans-unit>
+            <trans-unit id="label.rating.topBrand">
+                <source>label.rating.topBrand</source>
+                <target>Top marka</target>
+            </trans-unit>
+           	<trans-unit id="label.rating.topBrands">
+                <source>label.rating.topBrands</source>
+                <target>Top marki</target>
+            </trans-unit>
+            <trans-unit id="label.rating.topProduct">
+                <source>label.rating.topProduct</source>
+                <target>Top produkt</target>
+            </trans-unit>
+            <trans-unit id="label.rating.topProducts">
+                <source>label.rating.topProducts</source>
+                <target>Top produkty</target>
+            </trans-unit>
             
             
             
             <trans-unit id="label.filter">
-                <source>label.moreArticles</source>
-                <target>More news...</target>
-            </trans-unit>
-            <trans-unit id="label.categories">
-                <source>label.categories</source>
-                <target>Categories</target>
-            </trans-unit>
-            <trans-unit id="label.links">
-                <source>label.links</source>
-                <target>Links</target>
+                <source>label.filter</source>
+                <target>Filtr</target>
             </trans-unit>
             
+            <trans-unit id="label.all">
+                <source>label.all</source>
+                <target>Wszystkie</target>
+            </trans-unit>
+            <trans-unit id="label.showAll">
+                <source>label.showAll</source>
+                <target>Pokaż wszystkie</target>
+            </trans-unit>
+            <trans-unit id="label.findUs">
+                <source>label.findUs</source>
+                <target>Znajdź nas na</target>
+            </trans-unit>
+            
+            <trans-unit id="label.more">
+                <source>label.more</source>
+                <target>Więcej...</target>
+            </trans-unit>
             <trans-unit id="label.readMore">
                 <source>label.readMore</source>
-                <target>Read more...</target>
+                <target>Czytaj więcej...</target>
+            </trans-unit>
+            <trans-unit id="label.showMore">
+                <source>label.showMore</source>
+                <target>Pokaż więcej...</target>
             </trans-unit>
             <trans-unit id="label.moreArticles">
                 <source>label.moreArticles</source>
-                <target>More news...</target>
+                <target>Więcej informacji...</target>
             </trans-unit>
             <trans-unit id="label.back">
                 <source>label.back</source>
-                <target>Back</target>
+                <target>Powrót</target>
             </trans-unit>
             <trans-unit id="label.top">
                 <source>label.top</source>
-                <target>Top of the page</target>
+                <target>Początek strony</target>
             </trans-unit>
             
+            <trans-unit id="label.prev">
+                <source>label.prev</source>
+                <target>Poprzedni</target>
+            </trans-unit>
+            <trans-unit id="label.next">
+                <source>label.next</source>
+                <target>Następny</target>
+            </trans-unit>
+            
+            
+            
+            <trans-unit id="label.sections">
+                <source>label.sections</source>
+                <target>Sekcje</target>
+            </trans-unit>
+            
+            <trans-unit id="label.latestArticles">
+                <source>label.latestArticles</source>
+                <target>Najnowsze</target>
+            </trans-unit>
             
             
             
 			<trans-unit id="label.name">
                 <source>label.name</source>
-                <target>Name</target>
+                <target>Tytuł</target>
+            </trans-unit>
+            <trans-unit id="label.subname">
+                <source>label.subname</source>
+                <target>Podtytuł</target>
             </trans-unit>
             <trans-unit id="label.image">
                 <source>label.image</source>
-                <target>Image</target>
+                <target>Zdjęcie</target>
             </trans-unit>
-            <trans-unit id="label.description">
-                <source>label.description</source>
-                <target>Description</target>
+            <trans-unit id="label.image.vertical">
+                <source>label.image.vertical</source>
+                <target>Zdjęcie pionowe</target>
+            </trans-unit>
+            <trans-unit id="label.image.forcedWidth">
+                <source>label.image.forcedWidth</source>
+                <target>Wymuszona szerokość</target>
+            </trans-unit>
+            <trans-unit id="label.image.forcedHeight">
+                <source>label.image.forcedHeight</source>
+                <target>Wymuszona wysokość</target>
+            </trans-unit>
+            <trans-unit id="label.intro">
+                <source>label.intro</source>
+                <target>Wprowadzenie</target>
+            </trans-unit>
+            <trans-unit id="label.content">
+                <source>label.content</source>
+                <target>Treść</target>
+            </trans-unit>
+            <trans-unit id="label.actions">
+                <source>label.actions</source>
+                <target>Akcje</target>
             </trans-unit>
             
             
             
-            <trans-unit id="label.list.name">
-                <source>label.list.name</source>
-                <target>Name</target>
+            
+            <trans-unit id="label.published">
+                <source>label.published</source>
+                <target>Opublikowane</target>
             </trans-unit>
-            <trans-unit id="label.list.image">
-                <source>label.list.image</source>
-                <target>Image</target>
+            <trans-unit id="label.unpublished">
+                <source>label.unpublished</source>
+                <target>Nieopublikowane</target>
             </trans-unit>
-            <trans-unit id="label.list.actions">
-                <source>label.list.actions</source>
-                <target>Actions</target>
+            <trans-unit id="label.featured">
+                <source>label.featured</source>
+                <target>Wyróżnione</target>
+            </trans-unit>
+            <trans-unit id="label.notFeatured">
+                <source>label.notFeatured</source>
+                <target>Niewyróżnione</target>
+            </trans-unit>
+            <trans-unit id="label.selected">
+                <source>label.selected</source>
+                <target>Zaznaczone</target>
+            </trans-unit>
+            
+            <trans-unit id="label.preleafs">
+                <source>label.preleafs</source>
+                <target>Główne</target>
+            </trans-unit>
+            
+            <trans-unit id="label.roots">
+                <source>label.roots</source>
+                <target>Korzenie</target>
+            </trans-unit>
+            <trans-unit id="label.children">
+                <source>label.children</source>
+                <target>Dzieci</target>
+            </trans-unit>
+            
+            <trans-unit id="label.createdAt">
+                <source>label.createdAt</source>
+                <target>Utworzone o</target>
+            </trans-unit>
+            <trans-unit id="label.updatedAt">
+                <source>label.updatedAt</source>
+                <target>Edytowane o</target>
+            </trans-unit>
+            <trans-unit id="label.createdBy">
+                <source>label.createdBy</source>
+                <target>Utworzone przez</target>
+            </trans-unit>
+            <trans-unit id="label.updatedBy">
+                <source>label.updatedBy</source>
+                <target>Edytowane przez</target>
+            </trans-unit>
+            
+            <trans-unit id="label.short.createdAt">
+                <source>label.short.createdAt</source>
+                <target>Utw.</target>
+            </trans-unit>
+            <trans-unit id="label.short.updatedAt">
+                <source>label.short.updatedAt</source>
+                <target>Ed.</target>
+            </trans-unit>
+            <trans-unit id="label.short.createdBy">
+                <source>label.short.createdBy</source>
+                <target>Utw.</target>
+            </trans-unit>
+            <trans-unit id="label.short.updatedBy">
+                <source>label.short.updatedBy</source>
+                <target>Ed.</target>
             </trans-unit>
             
             
+            
+            
+            <trans-unit id="label.orderNumber">
+                <source>label.orderNumber</source>
+                <target>Numer porządkowy</target>
+            </trans-unit>
+            <trans-unit id="label.icon">
+                <source>label.icon</source>
+                <target>Ikonka</target>
+            </trans-unit>
+            <trans-unit id="label.color">
+                <source>label.color</source>
+                <target>Kolor</target>
+            </trans-unit>
+            <trans-unit id="label.www">
+                <source>label.www</source>
+                <target>www</target>
+            </trans-unit>
+            
+            <trans-unit id="label.url">
+                <source>label.url</source>
+                <target>Adres URL</target>
+            </trans-unit>
+            
+            <trans-unit id="label.logout">
+                <source>label.logout</source>
+                <target>Wyloguj</target>
+            </trans-unit>
+            
+            
+            
+            <trans-unit id="label.m.published">
+                <source>label.m.published</source>
+                <target>Opublikowany</target>
+            </trans-unit>
+            <trans-unit id="label.m.featured">
+                <source>label.m.featured</source>
+                <target>Wyróżniony</target>
+            </trans-unit>
+            
+            <trans-unit id="label.m.publishedAt">
+                <source>label.m.publishedAt</source>
+                <target>Opublikowany o</target>
+            </trans-unit>
+            <trans-unit id="label.m.createdAt">
+                <source>label.m.createdAt</source>
+                <target>Utworzony o</target>
+            </trans-unit>
+            <trans-unit id="label.m.updatedAt">
+                <source>label.m.updatedAt</source>
+                <target>Edytowany o</target>
+            </trans-unit>
+            
+            <trans-unit id="label.m.publishedBy">
+                <source>label.m.publishedBy</source>
+                <target>Opublikowany przez</target>
+            </trans-unit>
+            <trans-unit id="label.m.createdBy">
+                <source>label.m.createdBy</source>
+                <target>Utworzony przez</target>
+            </trans-unit>
+            <trans-unit id="label.m.updatedBy">
+                <source>label.m.updatedBy</source>
+                <target>Edytowany przez</target>
+            </trans-unit>
+            
+            
+            
+            <trans-unit id="label.publishedAfter">
+                <source>label.publishedAfter</source>
+                <target>Opublikowane po</target>
+            </trans-unit>
+            <trans-unit id="label.publishedBefore">
+                <source>label.publishedBefore</source>
+                <target>Opublikowane przed</target>
+            </trans-unit>
+            <trans-unit id="label.updatedAfter">
+                <source>label.updatedAfter</source>
+                <target>Edytowane po</target>
+            </trans-unit>
+            <trans-unit id="label.updatedBefore">
+                <source>label.updatedBefore</source>
+                <target>Edytowane przed</target>
+            </trans-unit>
+            <trans-unit id="label.createdAfter">
+                <source>label.createdAfter</source>
+                <target>Stworzone po</target>
+            </trans-unit>
+            <trans-unit id="label.createdBefore">
+                <source>label.createdBefore</source>
+                <target>Stworzone przed</target>
+            </trans-unit>
+            
+            
+            
+            
+            <trans-unit id="label.fm.published">
+                <source>label.fm.published</source>
+                <target>Opublikowana</target>
+            </trans-unit>
+            <trans-unit id="label.fm.featured">
+                <source>label.fm.featured</source>
+                <target>Wyróżniona</target>
+            </trans-unit>
+            
+            <trans-unit id="label.fm.publishedAt">
+                <source>label.fm.publishedAt</source>
+                <target>Opublikowana o</target>
+            </trans-unit>
+            <trans-unit id="label.fm.createdAt">
+                <source>label.fm.createdAt</source>
+                <target>Utworzona o</target>
+            </trans-unit>
+            <trans-unit id="label.fm.updatedAt">
+                <source>label.fm.updatedAt</source>
+                <target>Edytowana o</target>
+            </trans-unit>
+            
+            <trans-unit id="label.fm.publishedBy">
+                <source>label.fm.publishedBy</source>
+                <target>Opublikowana przez</target>
+            </trans-unit>
+            <trans-unit id="label.fm.createdBy">
+                <source>label.fm.createdBy</source>
+                <target>Utworzona przez</target>
+            </trans-unit>
+            <trans-unit id="label.fm.updatedBy">
+                <source>label.fm.updatedBy</source>
+                <target>Edytowana przez</target>
+            </trans-unit>
+            
+            
+            
+            <trans-unit id="label.count">
+                <source>label.count</source>
+                <target>Ilość</target>
+            </trans-unit>
+            <trans-unit id="label.yes">
+                <source>label.yes</source>
+                <target>Tak</target>
+            </trans-unit>
+            <trans-unit id="label.no">
+                <source>label.no</source>
+                <target>Nie</target>
+            </trans-unit>
+            
+            <trans-unit id="label.noEntries">
+                <source>label.noEntries</source>
+                <target>Brak wyników.</target>
+            </trans-unit>
+            
+            
+            
+            
+            <trans-unit id="label.main">
+                <source>label.main</source>
+                <target>Główny</target>
+            </trans-unit>
+            <trans-unit id="label.notMain">
+                <source>label.notMain</source>
+                <target>Wkładka</target>
+            </trans-unit>
+            
+            <trans-unit id="label.infomarket">
+                <source>label.infomarket</source>
+                <target>Opublikowane (IM)</target>
+            </trans-unit>
+            <trans-unit id="label.m.infomarket">
+                <source>label.m.infomarket</source>
+                <target>Opublikowany (IM)</target>
+            </trans-unit>
+            <trans-unit id="label.fm.infomarket">
+                <source>label.fm.infomarket</source>
+                <target>Opublikowana (IM)</target>
+            </trans-unit>
+            <trans-unit id="label.notInfomarket">
+                <source>label.notInfomarket</source>
+                <target>Nie opublikowane (IM)</target>
+            </trans-unit>
+            <trans-unit id="label.m.notInfomarket">
+                <source>label.m.notInfomarket</source>
+                <target>Nie opublikowany (IM)</target>
+            </trans-unit>
+            <trans-unit id="label.fm.notInfomarket">
+                <source>label.fm.notInfomarket</source>
+                <target>Nie opublikowana (IM)</target>
+            </trans-unit>
+            <trans-unit id="label.short.infomarket">
+                <source>label.short.infomarket</source>
+                <target>IM</target>
+            </trans-unit>
+            
+            <trans-unit id="label.infoprodukt">
+                <source>label.infoprodukt</source>
+                <target>Opublikowane (IP)</target>
+            </trans-unit>
+            <trans-unit id="label.m.infoprodukt">
+                <source>label.m.infoprodukt</source>
+                <target>Opublikowany (IP)</target>
+            </trans-unit>
+            <trans-unit id="label.fm.infoprodukt">
+                <source>label.fm.infoprodukt</source>
+                <target>Opublikowana (IP)</target>
+            </trans-unit>
+            <trans-unit id="label.notInfoprodukt">
+                <source>label.notInfoprodukt</source>
+                <target>Nie opublikowane (IP)</target>
+            </trans-unit>
+            <trans-unit id="label.m.notInfoprodukt">
+                <source>label.m.notInfoprodukt</source>
+                <target>Nie opublikowany (IP)</target>
+            </trans-unit>
+            <trans-unit id="label.fm.notInfoprodukt">
+                <source>label.fm.notInfoprodukt</source>
+                <target>Nie opublikowana (IP)</target>
+            </trans-unit>
+            <trans-unit id="label.short.infoprodukt">
+                <source>label.short.infoprodukt</source>
+                <target>IP</target>
+            </trans-unit>
+            
+            
+            
+            <trans-unit id="label.article.parent">
+                <source>label.article.parent</source>
+                <target>Artykuł główny</target>
+            </trans-unit>
+            <trans-unit id="label.article.layout">
+                <source>label.article.layout</source>
+                <target>Ułożenie zdjęcia</target>
+            </trans-unit>
+            <trans-unit id="label.article.page">
+                <source>label.article.page</source>
+                <target>Strona</target>
+            </trans-unit>
+            <trans-unit id="label.article.imageSize">
+                <source>label.article.imageSize</source>
+                <target>Rozmiar zdjęcia</target>
+            </trans-unit>
+            <trans-unit id="label.article.archived">
+                <source>label.article.archived</source>
+                <target>Archiwalny</target>
+            </trans-unit>
+            
+            <trans-unit id="label.article.main">
+                <source>label.article.main</source>
+                <target>Artykuły główne</target>
+            </trans-unit>
+            <trans-unit id="label.article.children">
+                <source>label.article.children</source>
+                <target>Podartykuły</target>
+            </trans-unit>
+            
+            <trans-unit id="label.article.date">
+                <source>label.article.date</source>
+                <target>Data artykułu</target>
+            </trans-unit>
+            <trans-unit id="label.article.endDate">
+                <source>label.article.endDate</source>
+                <target>Koniec wyświetlania</target>
+            </trans-unit>
+            
+            <trans-unit id="label.article.author">
+                <source>label.article.author</source>
+                <target>Autor</target>
+            </trans-unit>
+            
+            
+            
+            
+            <trans-unit id="label.category.parent">
+                <source>label.category.parent</source>
+                <target>Kategoria nadrzędna</target>
+            </trans-unit>
+            <trans-unit id="label.category.magazine">
+                <source>label.category.magazine</source>
+                <target>Powiązany magazyn</target>
+            </trans-unit>
+            <trans-unit id="label.category.subtitle">
+                <source>label.category.subtitle</source>
+                <target>klasyfikacja</target>
+            </trans-unit>
+            <trans-unit id="label.category.preleaf">
+                <source>label.category.preleaf</source>
+                <target>Główna</target>
+            </trans-unit>
+            <trans-unit id="label.category.notPreleaf">
+                <source>label.category.notPreleaf</source>
+                <target>Zwykła</target>
+            </trans-unit>
+            <trans-unit id="label.category.children">
+                <source>label.category.children</source>
+                <target>Podkategorie</target>
+            </trans-unit>
+            <trans-unit id="label.category.featuredImage">
+                <source>label.category.featuredImage</source>
+                <target>Zdjęcie wyróżnione</target>
+            </trans-unit>
+            <trans-unit id="label.category.iconImage">
+                <source>label.category.iconImage</source>
+                <target>Ikonka własna</target>
+            </trans-unit>
+            <trans-unit id="label.category.benchmark">
+                <source>label.category.benchmark</source>
+                <target>Benchmarkowa</target>
+            </trans-unit>
+            
+            
+            <trans-unit id="label.link.url">
+                <source>label.link.url</source>
+                <target>Adres URL</target>
+            </trans-unit>
+            
+            
+            
+            <trans-unit id="label.magazine.date">
+                <source>label.magazine.date</source>
+                <target>Data wydania</target>
+            </trans-unit>
+            <trans-unit id="label.magazine.magazineFile">
+                <source>label.magazine.magazineFile</source>
+                <target>Plik magazynu</target>
+            </trans-unit>
+            <trans-unit id="label.magazine.main">
+                <source>label.magazine.main</source>
+                <target>Główny / wkładka</target>
+            </trans-unit>
+            <trans-unit id="label.magazine.parents">
+                <source>label.magazine.parents</source>
+                <target>Magazyny główne</target>
+            </trans-unit>
+            <trans-unit id="label.magazine.parent">
+                <source>label.magazine.parent</source>
+                <target>Magazyn główny</target>
+            </trans-unit>
+            <trans-unit id="label.magazine.children">
+                <source>label.magazine.children</source>
+                <target>Wkładki</target>
+            </trans-unit>
+            
+            <trans-unit id="label.magazine.download">
+                <source>label.magazine.download</source>
+                <target>Pobierz</target>
+            </trans-unit>
+            <trans-unit id="label.magazine.digitalNumber">
+                <source>label.magazine.digitalNumber</source>
+                <target>cyfrowy numer</target>
+            </trans-unit>
+            <trans-unit id="label.magazine.currentNumber">
+                <source>label.magazine.currentNumber</source>
+                <target>aktualny numer</target>
+            </trans-unit>
+            
+            
+            
+            <trans-unit id="label.menuEntry.children">
+                <source>label.menuEntry.children</source>
+                <target>Pozycje podrzędne</target>
+            </trans-unit>
+            
+            <trans-unit id="label.menuEntry.link">
+                <source>label.menuEntry.link</source>
+                <target>Powiązany link</target>
+            </trans-unit>
+            <trans-unit id="label.menuEntry.links">
+                <source>label.menuEntry.links</source>
+                <target>Powiązane linki</target>
+            </trans-unit>
+            <trans-unit id="label.menuEntry.page">
+                <source>label.menuEntry.page</source>
+                <target>Powiązana strona</target>
+            </trans-unit>
+            <trans-unit id="label.menuEntry.pages">
+                <source>label.menuEntry.pages</source>
+                <target>Powiązane strony</target>
+            </trans-unit>
+            <trans-unit id="label.menuEntry.parent">
+                <source>label.menuEntry.parent</source>
+                <target>Pozycja nadrzędna</target>
+            </trans-unit>
+            <trans-unit id="label.menuEntry.parents">
+                <source>label.menuEntry.parents</source>
+                <target>Pozycje nadrzędne</target>
+            </trans-unit>
+            
+            <trans-unit id="label.menuEntry.menu.footer">
+                <source>label.menuEntry.menu.footer</source>
+                <target>Stopka</target>
+            </trans-unit>
+            <trans-unit id="label.menuEntry.menu.main">
+                <source>label.menuEntry.menu.main</source>
+                <target>Menu główne</target>
+            </trans-unit>
+            
+            
+            
+            <trans-unit id="label.newsletterPage.sendNewsletter.sources">
+                <source>label.newsletterPage.sendNewsletter.sources</source>
+                <target>Źródła subskrybentów</target>
+            </trans-unit>
+            <trans-unit id="label.newsletterPage.sendNewsletter.groups">
+                <source>label.newsletterPage.sendNewsletter.groups</source>
+                <target>Grupy subskrybentów</target>
+            </trans-unit>
+            <trans-unit id="label.newsletterPage.sendNewsletter.embedImages">
+                <source>label.newsletterPage.sendNewsletter.embedImages</source>
+                <target>Wstaw obrazki do treści newslettera</target>
+            </trans-unit>
+            <trans-unit id="label.newsletterPage.sendNewsletter.forceSend">
+                <source>label.newsletterPage.sendNewsletter.forceSend</source>
+                <target>Wymuś ponowne wysłanie</target>
+            </trans-unit>
+            
+            <trans-unit id="label.newsletterPage.sendNewsletter.settings">
+                <source>label.newsletterPage.sendNewsletter.settings</source>
+                <target>Ustawienia</target>
+            </trans-unit>
+            <trans-unit id="label.newsletterPage.sendNewsletter.recipients">
+                <source>label.newsletterPage.sendNewsletter.recipients</source>
+                <target>Odbiorcy</target>
+            </trans-unit>
+            
+            
+            
+            <trans-unit id="label.newsletterUser.import">
+                <source>label.newsletterUser.import</source>
+                <target>Import subskrybentów</target>
+            </trans-unit>
+            <trans-unit id="label.newsletterUser.import.importFile">
+                <source>label.newsletterUser.import.importFile</source>
+                <target>Importowany plik</target>
+            </trans-unit>
+            <trans-unit id="label.newsletterUser.import.newsletterGroups">
+                <source>label.newsletterUser.import.newsletterGroups</source>
+                <target>Przypisz do grup</target>
+            </trans-unit>
+            
+            <trans-unit id="label.newsletterUserNewsletterPageAssignment.state">
+                <source>label.newsletterUserNewsletterPageAssignment.state</source>
+                <target>Status wysłania</target>
+            </trans-unit>
+            <trans-unit id="label.newsletterUserNewsletterPageAssignment.state.waiting">
+                <source>label.newsletterUserNewsletterPageAssignment.state.waiting</source>
+                <target>Czeka na wysłanie</target>
+            </trans-unit>
+            <trans-unit id="label.newsletterUserNewsletterPageAssignment.state.sending">
+                <source>label.newsletterUserNewsletterPageAssignment.state.sending</source>
+                <target>W trakcie wysyłania</target>
+            </trans-unit>
+            <trans-unit id="label.newsletterUserNewsletterPageAssignment.state.sent">
+                <source>label.newsletterUserNewsletterPageAssignment.state.sent</source>
+                <target>Wysłane poprawnie</target>
+            </trans-unit>
+            <trans-unit id="label.newsletterUserNewsletterPageAssignment.state.error">
+                <source>label.newsletterUserNewsletterPageAssignment.state.error</source>
+                <target>Błąd wysyłania</target>
+            </trans-unit>
+            
+            <trans-unit id="label.newsletterUserNewsletterPageAssignment.processingTime">
+                <source>label.newsletterUserNewsletterPageAssignment.processingTime</source>
+                <target>Czas wysyłania</target>
+            </trans-unit>
+            
+            
+            
+            
+            <trans-unit id="label.newsletter.subscribed">
+                <source>label.newsletter.subscribed</source>
+                <target>Zapisany</target>
+            </trans-unit>
+            
+            <trans-unit id="label.newsletter.unsubscribed">
+                <source>label.newsletter.unsubscribed</source>
+                <target>Wypisany</target>
+            </trans-unit>
+            
+            
+            
+            
+            <trans-unit id="label.choose.location">
+                <source>label.choose.location</source>
+                <target>Wybierz pozycję</target>
+            </trans-unit>
+            <trans-unit id="label.choose.advert">
+                <source>label.choose.advert</source>
+                <target>Wybierz reklamę</target>
+            </trans-unit>
+            <trans-unit id="label.choose.article">
+                <source>label.choose.article</source>
+                <target>Wybierz artyuł</target>
+            </trans-unit>
+            <trans-unit id="label.choose.articleCategory">
+                <source>label.choose.articleCategory</source>
+                <target>Wybierz kategorię artyułu</target>
+            </trans-unit>
+            <trans-unit id="label.choose.branch">
+                <source>label.choose.branch</source>
+                <target>Wybierz branżę</target>
+            </trans-unit>
+            <trans-unit id="label.choose.brand">
+                <source>label.choose.brand</source>
+                <target>Wybierz markę</target>
+            </trans-unit>
+            <trans-unit id="label.choose.category">
+                <source>label.choose.category</source>
+                <target>Wybierz kategorię</target>
+            </trans-unit>
+            <trans-unit id="label.choose.link">
+                <source>label.choose.link</source>
+                <target>Wybierz link</target>
+            </trans-unit>
+            <trans-unit id="label.choose.magazine">
+                <source>label.choose.magazine</source>
+                <target>Wybierz magazyn</target>
+            </trans-unit>
+            <trans-unit id="label.choose.menu">
+                <source>label.choose.menu</source>
+                <target>Wybierz menu</target>
+            </trans-unit>
+            <trans-unit id="label.choose.menuEntry">
+                <source>label.choose.menuEntry</source>
+                <target>Wybierz pozycję menu</target>
+            </trans-unit>
+            <trans-unit id="label.choose.segment">
+                <source>label.choose.segment</source>
+                <target>Wybierz segment</target>
+            </trans-unit>
+            <trans-unit id="label.choose.page">
+                <source>label.choose.page</source>
+                <target>Wybierz stronę</target>
+            </trans-unit>
+            <trans-unit id="label.choose.pageCategory">
+                <source>label.choose.pageCategory</source>
+                <target>Wybierz kategorię strony</target>
+            </trans-unit>
+            <trans-unit id="label.choose.product">
+                <source>label.choose.product</source>
+                <target>Wybierz produkt</target>
+            </trans-unit>
+            <trans-unit id="label.choose.term">
+                <source>label.choose.term</source>
+                <target>Wybierz pojęcie</target>
+            </trans-unit>
+            <trans-unit id="label.choose.tag">
+                <source>label.choose.tag</source>
+                <target>Wybierz tag</target>
+            </trans-unit>
+            <trans-unit id="label.choose.article.parent">
+                <source>label.choose.article.parent</source>
+                <target>Wybierz artykuł główny</target>
+            </trans-unit>
+            <trans-unit id="label.choose.category.parent">
+                <source>label.choose.category.parent</source>
+                <target>Wybierz kategorię główną</target>
+            </trans-unit>
+            <trans-unit id="label.choose.user">
+                <source>label.choose.user</source>
+                <target>Wybierz użytkownika</target>
+            </trans-unit>
+            
+            <trans-unit id="label.choose.magazine.parent">
+                <source>label.choose.magazine.parent</source>
+                <target>Wybierz magazyn główny</target>
+            </trans-unit>
+            
+            <trans-unit id="label.choose.newsletterBlock">
+                <source>label.choose.newsletterBlock</source>
+                <target>Wybierz blok newslettera</target>
+            </trans-unit>
+            <trans-unit id="label.choose.newsletterBlocks">
+                <source>label.choose.newsletterBlocks</source>
+                <target>Wybierz bloki newslettera</target>
+            </trans-unit>
+            <trans-unit id="label.choose.newsletterBlockTemplate">
+                <source>label.choose.newsletterBlockTemplate</source>
+                <target>Wybierz szablon bloku newslettera</target>
+            </trans-unit>
+            <trans-unit id="label.choose.newsletterBlockTemplates">
+                <source>label.choose.newsletterBlockTemplates</source>
+                <target>Wybierz szablony bloków newslettera</target>
+            </trans-unit>
+            
+            <trans-unit id="label.choose.newsletterPage">
+                <source>label.choose.newsletterPage</source>
+                <target>Wybierz stronę newslettera</target>
+            </trans-unit>
+            <trans-unit id="label.choose.newsletterPages">
+                <source>label.choose.newsletterPages</source>
+                <target>Wybierz strony newslettera</target>
+            </trans-unit>
+            <trans-unit id="label.choose.newsletterPageTemplate">
+                <source>label.choose.newsletterPageTemplate</source>
+                <target>Wybierz szablon strony newslettera</target>
+            </trans-unit>
+            <trans-unit id="label.choose.newsletterPageTemplates">
+                <source>label.choose.newsletterPageTemplates</source>
+                <target>Wybierz szablony stron newslettera</target>
+            </trans-unit>
+            
+            
+            
+            <trans-unit id="label.newsletterBlock.xAdvertRatio">
+                <source>label.newsletterBlock.xAdvertRatio</source>
+                <target>Proporcja x (reklamy)</target>
+            </trans-unit>
+            <trans-unit id="label.newsletterBlock.yAdvertRatio">
+                <source>label.newsletterBlock.yAdvertRatio</source>
+                <target>Proporcja y (reklamy)</target>
+            </trans-unit>
+            
+            <trans-unit id="label.newsletterBlock.xArticleRatio">
+                <source>label.newsletterBlock.xArticleRatio</source>
+                <target>Proporcja x (artykuły)</target>
+            </trans-unit>
+            <trans-unit id="label.newsletterBlock.yArticleRatio">
+                <source>label.newsletterBlock.yArticleRatio</source>
+                <target>Proporcja y (artykuły)</target>
+            </trans-unit>
+            
+            <trans-unit id="label.newsletterBlock.xMagazineRatio">
+                <source>label.newsletterBlock.xMagazineRatio</source>
+                <target>Proporcja x (magazyny)</target>
+            </trans-unit>
+            <trans-unit id="label.newsletterBlock.yMagazineRatio">
+                <source>label.newsletterBlock.yMagazineRatio</source>
+                <target>Proporcja y (magazyny)</target>
+            </trans-unit>
+            
+            <trans-unit id="label.newsletterBlock.magazinePadding">
+                <source>label.newsletterBlock.magazinePadding</source>
+                <target>Marginesy (magazyny)</target>
+            </trans-unit>
+            
+            <trans-unit id="label.newsletterBlock.articleSeparator">
+                <source>label.newsletterBlock.articleSeparator</source>
+                <target>Separator nazwy (artykuły)</target>
+            </trans-unit>
+            
+            <trans-unit id="label.newsletterBlock.magazineSeparator">
+                <source>label.newsletterBlock.magazineSeparator</source>
+                <target>Separator nazwy (magazyny)</target>
+            </trans-unit>
+            
+            
+            
+            <trans-unit id="label.newsletterBlockArticleAssignment.alternativeName">
+                <source>label.newsletterBlockArticleAssignment.alternativeName</source>
+                <target>Alternatywny tytuł</target>
+            </trans-unit>
+            
+            <trans-unit id="label.newsletterBlockArticleAssignment.alternativeSubname">
+                <source>label.newsletterBlockArticleAssignment.alternativeSubname</source>
+                <target>Alternatywny podtytuł</target>
+            </trans-unit>
+            
+            <trans-unit id="label.newsletterBlockArticleAssignment.alternativeBrands">
+                <source>label.newsletterBlockArticleAssignment.alternativeBrands</source>
+                <target>Alternatywne marki</target>
+            </trans-unit>
+            
+            
+            
+            <trans-unit id="label.newsletterBlockMagazineAssignment.alternativeName">
+                <source>label.newsletterBlockMagazineAssignment.alternativeName</source>
+                <target>Alternatywny tytuł</target>
+            </trans-unit>
+            
+            
+            
+            <trans-unit id="label.newsletterBlockTemplate.style">
+                <source>label.newsletterBlockTemplate.style</source>
+                <target>Styl (CSS)</target>
+            </trans-unit>
+            
+            <trans-unit id="label.newsletterBlockTemplate.content">
+                <source>label.newsletterBlockTemplate.content</source>
+                <target>Treść główna (lista)</target>
+            </trans-unit>
+            
+            <trans-unit id="label.newsletterBlockTemplate.advertContent">
+                <source>label.newsletterBlockTemplate.advertContent</source>
+                <target>Treść reklamy (element listy)</target>
+            </trans-unit>
+            <trans-unit id="label.newsletterBlockTemplate.articleContent">
+                <source>label.newsletterBlockTemplate.articleContent</source>
+                <target>Treść artykułu (element listy)</target>
+            </trans-unit>
+            <trans-unit id="label.newsletterBlockTemplate.magazineContent">
+                <source>label.newsletterBlockTemplate.magazineContent</source>
+                <target>Treść magazynu (element listy)</target>
+            </trans-unit>
+            
+            <trans-unit id="label.newsletterPageTemplate.style">
+                <source>label.newsletterPageTemplate.style</source>
+                <target>Styl (CSS)</target>
+            </trans-unit>
+            
+            <trans-unit id="label.product.topProduktImage">
+                <source>label.product.topProduktImage</source>
+                <target>Logo TOP PRODUKT</target>
+            </trans-unit>
+            <trans-unit id="label.product.price">
+                <source>label.product.price</source>
+                <target>Cena</target>
+            </trans-unit>
+            <trans-unit id="label.product.guarantee">
+                <source>label.product.guarantee</source>
+                <target>Gwarancja</target>
+            </trans-unit>
+            <trans-unit id="label.product.symbol">
+                <source>label.product.symbol</source>
+                <target>Symbol</target>
+            </trans-unit>
+            
+            
+            
+            
+            <trans-unit id="label.tag.newTag">
+                <source>label.tag.newTag</source>
+                <target>Nowy tag</target>
+            </trans-unit>
+            
+            
+            
+            <trans-unit id="label.user.username">
+                <source>label.user.username</source>
+                <target>Login</target>
+            </trans-unit>
+            <trans-unit id="label.user.forename">
+                <source>label.user.forename</source>
+                <target>Imię</target>
+            </trans-unit>
+            <trans-unit id="label.user.surname">
+                <source>label.user.surname</source>
+                <target>Nazwisko</target>
+            </trans-unit>
+            <trans-unit id="label.user.pseudonym">
+                <source>label.user.pseudonym</source>
+                <target>Pseudonim</target>
+            </trans-unit>
+            <trans-unit id="label.user.email">
+                <source>label.user.email</source>
+                <target>E-mail</target>
+            </trans-unit>
+            <trans-unit id="label.user.roles">
+                <source>label.user.roles</source>
+                <target>Uprawnienia</target>
+            </trans-unit>
+            <trans-unit id="label.user.street">
+                <source>label.user.street</source>
+                <target>Ulica</target>
+            </trans-unit>
+            <trans-unit id="label.user.zipCode">
+                <source>label.user.zipCode</source>
+                <target>Kod pocztowy</target>
+            </trans-unit>
+            <trans-unit id="label.user.city">
+                <source>label.user.city</source>
+                <target>Miasto</target>
+            </trans-unit>
+            <trans-unit id="label.user.digitalSubscription">
+                <source>label.user.digitalSubscription</source>
+                <target>Chcę otrzymywać poradniki drogą elektroniczną</target>
+            </trans-unit>
+            <trans-unit id="label.user.physicalSubscription">
+                <source>label.user.physicalSubscription</source>
+                <target>Chcę otrzymywać poradniki drogą pocztową</target>
+            </trans-unit>
+            <trans-unit id="label.user.dataProcessingAgreement">
+                <source>label.user.dataProcessingAgreement</source>
+                <target>Wyrażam zgodę na przetwarzanie moich danych osobowych do celów marketingowych zgodnie z ustawą z dnia 29 sierpnia 1997 r. o ochronie danych osobowych (Dz.U. nr 133, poz. 883) przez Elektrospecjaliści Sp. z o.o., ul. Trylogii 2/16, 01-982 Warszawa.</target>
+            </trans-unit>
+            
+            <trans-unit id="label.user.role.guest">
+                <source>label.user.role.guest</source>
+                <target>Gość</target>
+            </trans-unit>
+            <trans-unit id="label.user.role.editor">
+                <source>label.user.role.editor</source>
+                <target>Edytor</target>
+            </trans-unit>
+            <trans-unit id="label.user.role.publisher">
+                <source>label.user.role.publisher</source>
+                <target>Redaktor</target>
+            </trans-unit>
+            <trans-unit id="label.user.role.ratingEditor">
+                <source>label.user.role.ratingEditor</source>
+                <target>Edytor ratingów</target>
+            </trans-unit>
+            <trans-unit id="label.user.role.admin">
+                <source>label.user.role.admin</source>
+                <target>Moderator</target>
+            </trans-unit>
+            <trans-unit id="label.user.role.superAdmin">
+                <source>label.user.role.superAdmin</source>
+                <target>Administrator</target>
+            </trans-unit>
+            
+            
+            <trans-unit id="label.placeholder.none">
+                <source>label.placeholder.none</source>
+                <target>(Brak)</target>
+            </trans-unit>
+            
+            
+            
+            <trans-unit id="label.read">
+                <source>label.read</source>
+                <target>Przeczytana</target>
+            </trans-unit>
+            <trans-unit id="label.unread">
+                <source>label.unread</source>
+                <target>Nieprzeczytana</target>
+            </trans-unit>
+            
+            
+            
+            
+            <trans-unit id="label.infomarket.footer.title">
+                <source>label.infomarket.footer.title</source>
+                <target>Infomarket Sp z o.o.</target>
+            </trans-unit>
+            <trans-unit id="label.infomarket.footer.address1">
+                <source>label.infomarket.footer.address1</source>
+                <target>ul. Trylogii 2/16,</target>
+            </trans-unit>
+            <trans-unit id="label.infomarket.footer.address2">
+                <source>label.infomarket.footer.address2</source>
+                <target>01-982 Warszawa</target>
+            </trans-unit>
+            <trans-unit id="label.infomarket.footer.phone">
+                <source>label.infomarket.footer.phone</source>
+                <target>tel./fax: (22) 835 19 17</target>
+            </trans-unit>
+            <trans-unit id="label.infomarket.footer.mail">
+                <source>label.infomarket.footer.mail</source>
+                <target>redakcja@infomarket.edu.pl</target>
+            </trans-unit>
+            
+            
+            <trans-unit id="label.infoprodukt.footer.title">
+                <source>label.infoprodukt.footer.title</source>
+                <target>Elektrospecjaliści Sp z o.o.</target>
+            </trans-unit>
+            <trans-unit id="label.infoprodukt.footer.address1">
+                <source>label.infoprodukt.footer.address1</source>
+                <target>ul. Trylogii 2/16,</target>
+            </trans-unit>
+            <trans-unit id="label.infoprodukt.footer.address2">
+                <source>label.infoprodukt.footer.address2</source>
+                <target>01-982 Warszawa</target>
+            </trans-unit>
+            <trans-unit id="label.infoprodukt.footer.phone">
+                <source>label.infoprodukt.footer.phone</source>
+                <target>tel./fax: (22) 835 19 17</target>
+            </trans-unit>
+            <trans-unit id="label.infoprodukt.footer.mail">
+                <source>label.infoprodukt.footer.mail</source>
+                <target>redakcja@infoprodukt.pl</target>
+            </trans-unit>
+            
+            
+            
+            <trans-unit id="label.search.string">
+                <source>label.search.string</source>
+                <target>Wyszukaj</target>
+            </trans-unit>
+            
+            
+            
+            <trans-unit id="action.submit">
+                <source>action.submit</source>
+                <target>Zatwierdź</target>
+            </trans-unit>
+            
+            <trans-unit id="action.search">
+                <source>action.search</source>
+                <target>Szukaj</target>
+            </trans-unit>
+            <trans-unit id="action.clear">
+                <source>action.clear</source>
+                <target>Wyczyść</target>
+            </trans-unit>
+            
+            <trans-unit id="action.back">
+                <source>action.back</source>
+                <target>Wróć</target>
+            </trans-unit>
+            <trans-unit id="action.toTop">
+                <source>action.toTop</source>
+                <target>Do góry</target>
+            </trans-unit>
             
             <trans-unit id="action.show">
                 <source>action.show</source>
-                <target>Show</target>
+                <target>Pokaż</target>
             </trans-unit>
             <trans-unit id="action.new">
                 <source>action.new</source>
-                <target>New</target>
+                <target>Utwórz</target>
             </trans-unit>
             <trans-unit id="action.edit">
                 <source>action.edit</source>
-                <target>Edit</target>
+                <target>Edytuj</target>
             </trans-unit>
             <trans-unit id="action.copy">
                 <source>action.copy</source>
-                <target>Copy</target>
+                <target>Kopiuj</target>
             </trans-unit>
             <trans-unit id="action.delete">
                 <source>action.delete</source>
-                <target>Delete</target>
+                <target>Usuń</target>
             </trans-unit>
-            <trans-unit id="action.delete_selected">
-                <source>action.delete_selected</source>
-                <target>Delete selected</target>
+            <trans-unit id="action.filter">
+                <source>action.filter</source>
+                <target>Filtruj</target>
+            </trans-unit>
+            <trans-unit id="action.filterMore">
+                <source>action.filterMore</source>
+                <target>Więcej...</target>
+            </trans-unit>
+            <trans-unit id="action.selectAll">
+                <source>action.selectAll</source>
+                <target>Zaznacz wszystkie</target>
+            </trans-unit>
+            <trans-unit id="action.selectNone">
+                <source>action.selectNone</source>
+                <target>Odznacz wszystkie</target>
+            </trans-unit>
+            <trans-unit id="action.deleteSelected">
+                <source>action.deleteSelected</source>
+                <target>Usuń zaznaczone</target>
+            </trans-unit>
+            <trans-unit id="action.imPublishSelected">
+                <source>action.imPublishSelected</source>
+                <target>Publikuj zaznaczone (IM)</target>
+            </trans-unit>
+            <trans-unit id="action.imUnpublishSelected">
+                <source>action.imUnpublishSelected</source>
+                <target>Nie publikuj zaznaczonych (IM)</target>
+            </trans-unit>
+            <trans-unit id="action.ipPublishSelected">
+                <source>action.ipPublishSelected</source>
+                <target>Publikuj zaznaczone (IP)</target>
+            </trans-unit>
+            <trans-unit id="action.ipUnpublishSelected">
+                <source>action.ipUnpublishSelected</source>
+                <target>Nie publikuj zaznaczonych (IP)</target>
+            </trans-unit>
+            <trans-unit id="action.setFeaturedSelected">
+                <source>action.setFeaturedSelected</source>
+                <target>Wyróżnij zaznaczone</target>
+            </trans-unit>
+            <trans-unit id="action.setNotFeaturedSelected">
+                <source>action.setNotFeaturedSelected</source>
+                <target>Nie wyróżniaj zaznaczonych</target>
+            </trans-unit>
+            
+            
+            
+            <trans-unit id="action.login">
+                <source>action.login</source>
+                <target>Zaloguj</target>
+            </trans-unit>
+            <trans-unit id="action.register">
+                <source>action.register</source>
+                <target>Zarejestruj</target>
+            </trans-unit>
+            <trans-unit id="action.logout">
+                <source>action.logout</source>
+                <target>Wyloguj</target>
+            </trans-unit>
+            
+            
+            
+            <trans-unit id="action.save">
+                <source>action.save</source>
+                <target>Zapisz</target>
+            </trans-unit>
+            <trans-unit id="action.saveAndNew">
+                <source>action.saveAndNew</source>
+                <target>Zapisz i utwórz</target>
+            </trans-unit>
+            <trans-unit id="action.saveAndCopy">
+                <source>action.saveAndCopy</source>
+                <target>Zapisz i kopiuj</target>
+            </trans-unit>
+            <trans-unit id="action.saveAndQuit">
+                <source>action.saveAndQuit</source>
+                <target>Zapisz i wróć</target>
+            </trans-unit>
+            
+            
+            <trans-unit id="action.compare">
+                <source>action.compare</source>
+                <target>Porównaj</target>
+            </trans-unit>
+            <trans-unit id="action.reportError">
+                <source>action.reportError</source>
+                <target>Zgłoś błąd</target>
+            </trans-unit>
+            
+            <trans-unit id="action.saveQuery">
+                <source>action.saveQuery</source>
+                <target>Zapisz zapytanie</target>
+            </trans-unit>
+            <trans-unit id="action.saveResults">
+                <source>action.saveResults</source>
+                <target>Zapisz wyniki zapytania</target>
+            </trans-unit>
+            
+            
+            <trans-unit id="action.image.remove">
+                <source>action.image.remove</source>
+                <target>Usuń zdjęcie</target>
+            </trans-unit>
+            
+            
+            
+            <trans-unit id="action.showCategoryFilter">
+                <source>action.showCategoryFilter</source>
+                <target>Zmień kategorię</target>
+            </trans-unit>
+            
+            <trans-unit id="action.showExtendedFilter">
+                <source>action.showextendedFilter</source>
+                <target>Pokaż zaawansowane</target>
+            </trans-unit>
+            
+            
+            
+            <trans-unit id="action.article.preview">
+                <source>action.article.preview</source>
+                <target>Podgląd artykułu</target>
             </trans-unit>
             
             
             
             
-            <trans-unit id="action.form.saveAndNew">
-                <source>action.form.saveAndNew</source>
-                <target>Save &amp; new</target>
+            <trans-unit id="action.createSubarticle">
+                <source>action.createSubarticle</source>
+                <target>Stwórz podartykuł</target>
             </trans-unit>
-            <trans-unit id="action.form.saveAndCopy">
-                <source>action.form.saveAndCopy</source>
-                <target>Save &amp; copy</target>
+            <trans-unit id="action.createSubcategory">
+                <source>action.createSubcategory</source>
+                <target>Stwórz podkategorię</target>
             </trans-unit>
-            <trans-unit id="action.form.saveAndQuit">
-                <source>action.form.saveAndQuit</source>
-                <target>Save &amp; quit</target>
+            
+            
+            
+            <trans-unit id="action.assignAdvert">
+                <source>action.assignAdvert</source>
+                <target>Przypisz reklamę</target>
             </trans-unit>
+            <trans-unit id="action.assignArticle">
+                <source>action.assignArticle</source>
+                <target>Przypisz artykuł</target>
+            </trans-unit>
+            <trans-unit id="action.assignArticleCategory">
+                <source>action.assignArticleCategory</source>
+                <target>Przypisz kategorię artykułu</target>
+            </trans-unit>
+            <trans-unit id="action.assignBranch">
+                <source>action.assignBranch</source>
+                <target>Przypisz branżę</target>
+            </trans-unit>
+            <trans-unit id="action.assignBrand">
+                <source>action.assignBrand</source>
+                <target>Przypisz markę</target>
+            </trans-unit>
+            <trans-unit id="action.assignCategory">
+                <source>action.assignCategory</source>
+                <target>Przypisz kategorię</target>
+            </trans-unit>
+            <trans-unit id="action.assignMagazine">
+                <source>action.assignMagazine</source>
+                <target>Przypisz magazyn</target>
+            </trans-unit>
+            <trans-unit id="action.assignMenu">
+                <source>action.assignMenu</source>
+                <target>Przypisz menu</target>
+            </trans-unit>
+            <trans-unit id="action.assign.newsletterGroup">
+                <source>action.assign.newsletterGroup</source>
+                <target>Przypisz grupę</target>
+            </trans-unit>
+            <trans-unit id="action.assignProduct">
+                <source>action.assignProduct</source>
+                <target>Przypisz product</target>
+            </trans-unit>
+            <trans-unit id="action.assignSegment">
+                <source>action.assignSegment</source>
+                <target>Przypisz segment</target>
+            </trans-unit>
+            <trans-unit id="action.assignTag">
+                <source>action.assignTag</source>
+                <target>Przypisz tag</target>
+            </trans-unit>
+            
+            <trans-unit id="action.menuEntry.createSubentry">
+                <source>action.menuEntry.createSubentry</source>
+                <target>Stwórz podpozycję menu</target>
+            </trans-unit>
+            
+            
+            <trans-unit id="action.newsletterPage.preview">
+                <source>action.newsletterPage.preview</source>
+                <target>Podgląd</target>
+            </trans-unit>
+            <trans-unit id="action.newsletterPage.showCode">
+                <source>action.newsletterPage.showCode</source>
+                <target>Pokaż kod wynikowy</target>
+            </trans-unit>
+            <trans-unit id="action.newsletterPage.saveFile">
+                <source>action.newsletterPage.saveFile</source>
+                <target>Zapisz do pliku</target>
+            </trans-unit>
+            <trans-unit id="action.newsletterPage.sendNewsletter">
+                <source>action.newsletterPage.sendNewsletter</source>
+                <target>Wyślij newsletter</target>
+            </trans-unit>
+            
+            <trans-unit id="action.create.newsletterBlock">
+                <source>action.create.newsletterBlock</source>
+                <target>Dodaj nowy blok newslettera</target>
+            </trans-unit>
+            
+            <trans-unit id="action.newsletterUser.import.submit">
+                <source>action.newsletterUser.import.submit</source>
+                <target>Importuj</target>
+            </trans-unit>
+            
+            
+            
+            
+            <trans-unit id="action.category.clearRatings">
+                <source>action.category.clearRatings</source>
+                <target>Wyczyść ratingi</target>
+            </trans-unit>
+            <trans-unit id="action.category.importRatings">
+                <source>action.category.importRatings</source>
+                <target>Importuj rating</target>
+            </trans-unit>
+            
+            
+            
+            
+            <trans-unit id="action.product.deleteUnused">
+                <source>action.product.deleteUnused</source>
+                <target>Usuń nieużywane</target>
+            </trans-unit>
+            
+            <trans-unit id="action.product.getTopProducts">
+                <source>action.product.getTopProducts</source>
+                <target>Pobierz listę TOP PRODUKT</target>
+            </trans-unit>
+            
+            
+            
+            <trans-unit id="action.user.changePassword">
+                <source>action.user.changePassword</source>
+                <target>Zmień hasło</target>
+            </trans-unit>
+            
+            
+            
+            <trans-unit id="confirm.delete">
+                <source>confirm.delete</source>
+                <target>Jesteś pewien, że chcesz usunąć ten obiekt?</target>
+            </trans-unit>
+            <trans-unit id="confirm.deleteSelected">
+                <source>confirm.deleteSelected</source>
+                <target>Jesteś pewien, że chcesz usunąć zaznaczone obiekty?</target>
+            </trans-unit>
+            <trans-unit id="confirm.deleteUnused">
+                <source>confirm.deleteUnused</source>
+                <target>Jesteś pewien, że chcesz usunąć nieużywane obiekty?</target>
+            </trans-unit>
+            <trans-unit id="confirm.clearRatings">
+                <source>confirm.clearRatings</source>
+                <target>Jesteś pewien, że chcesz usunąć wszystkie powiązania?</target>
+            </trans-unit>
+            
+            
+            
+            
+            <trans-unit id="success.created">
+                <source>success.created</source>
+                <target>Obiekt typu %type% został poprawnie zapisany.</target>
+            </trans-unit>
+            
+            <trans-unit id="success.subscribed">
+                <source>success.subscribed</source>
+                <target>Adres %mail% został z powodzeniem dodany do newslettera.</target>
+            </trans-unit>
+            
+            <trans-unit id="success.article.tagsAssigned">
+                <source>success.article.tagsAssigned</source>
+                <target>Tagi zostały przypisane do artykułu:
+                	- istniejące: %existingCount%
+                	- przypisane: %assignedCount%
+                	- utworzone: %createdCount%
+                </target>
+            </trans-unit>
+            
+            <trans-unit id="success.category.ratingsImported">
+                <source>success.category.ratingsImported</source>
+                <target>Rating produktów został pomyślnie zaimportowany:
+                
+                	- Przetworzone wiersze: %lines% 
+                	
+                	- Produkty:
+                	-- dodane: %createdProducts% 
+                	-- zmienione: %updatedProducts%
+                	-- duplikaty: %duplicateProducts%  
+                	-- wszystkie: %allProducts%
+                	
+                	- Powiązania:
+                	-- dodane: %createdAssignments% 
+                	-- zmienione: %updatedAssignments% 
+                	-- wszystkie: %allAssignments%
+                	
+                	- Marki: 
+                	-- zmienione: %updatedBrands% 
+                	-- wszystkie: %allBrands%
+                	
+                	- Kolumny: 
+                	-- dodane: %createdBenchmarkFields%
+                	-- zmienione: %updatedBenchmarkFields% 
+                	-- wszystkie: %allBenchmarkFields%  
+               	</target>
+            </trans-unit>
+            
+            <trans-unit id="success.category.ratingsCleared">
+                <source>success.category.ratingsCleared</source>
+                <target>Rating produktów został pomyślnie wyczyszczony:
+                	- Usunięte powiązania: %count%
+               	</target>
+            </trans-unit>
+            
+            <trans-unit id="success.product.unusedRemoved">
+                <source>success.product.unusedRemoved</source>
+                <target>Nieużywane produkty zostały pomyślnie usunięte:
+                	- Usunięte produkty: %count%
+               	</target>
+            </trans-unit>
+            
+            <trans-unit id="success.newsletterPage.newsletterSent">
+                <source>success.newsletterPage.newsletterSent</source>
+                <target>Newsletter został pomyślnie zweryfikowany. Trwa wysyłanie %count% wiadomości.
+               	</target>
+            </trans-unit>
+            
+            <trans-unit id="success.newsletterUser.import">
+                <source>success.newsletterUser.import</source>
+                <target>Lista użytkowników została pomyślnie zaimportowana:
+                
+                	- Przetworzone wiersze: %lines% 
+                	
+                	- Użytkownicy:
+                	-- dodane: %createdItems% 
+                	-- zmienione: %updatedItems%
+                	-- duplikaty: %duplicateItems%  
+                	-- wszystkie: %allItems%
+                	
+                	- Przypisania do grup:
+                	-- dodane: %createdAssignments%
+                	-- zmienione: %updatedAssignments%
+                	-- wszystkie: %allAssignments%
+               	</target>
+            </trans-unit>
+            
+            
+            
+            
+            <trans-unit id="text.slogan1">
+                <source>text.slogan1</source>
+                <target>Sam wybieraj najlepsze produkty.</target>
+            </trans-unit>
+            <trans-unit id="text.slogan2">
+                <source>text.slogan2</source>
+                <target>Kupuj głową, nie ceną.</target>
+            </trans-unit>
+            
+            
+            <trans-unit id="error.item.notExists">
+                <source>error.item.notExists</source>
+                <target>Obiekt o podanym id (%id%) nie istnieje.</target>
+            </trans-unit>
+            
+            
+            <trans-unit id="error.importRatings.column.notExists">
+                <source>error.importRatings.column.notExists</source>
+                <target>Kolumna %name% nie istnieje.</target>
+            </trans-unit>
+            <trans-unit id="error.importRatings.column.duplicate">
+                <source>error.importRatings.column.duplicate</source>
+                <target>Kolumna %currIndex% odnosi się do tego samego pola (%name%) co kolumna %prevIndex%.</target>
+            </trans-unit>
+            
+            <trans-unit id="error.importRatings.brand.empty">
+                <source>error.importRatings.brand.empty</source>
+                <target>Nazwa marki jest pusta.</target>
+            </trans-unit>
+            <trans-unit id="error.importRatings.segment.empty">
+                <source>error.importRatings.segment.empty</source>
+                <target>Nazwa segmentu jest pusta.</target>
+            </trans-unit>
+            <trans-unit id="error.importRatings.category.empty">
+                <source>error.importRatings.category.empty</source>
+                <target>Nazwa kategorii jest pusta.</target>
+            </trans-unit>
+            
+            <trans-unit id="error.importRatings.brand.notExists">
+                <source>error.importRatings.brand.notExists</source>
+                <target>Marka o nazwie "%name%" nie istnieje.</target>
+            </trans-unit>
+            <trans-unit id="error.importRatings.segment.notExists">
+                <source>error.importRatings.segment.notExists</source>
+                <target>Segment o nazwie "%name%" nie istnieje.</target>
+            </trans-unit>
+            <trans-unit id="error.importRatings.category.notExists">
+                <source>error.importRatings.category.notExists</source>
+                <target>Kategoria o nazwie "%name% %subname%" nie istnieje.</target>
+            </trans-unit>
+            
+            <trans-unit id="error.importRatings.product.inconsistentData">
+                <source>error.importRatings.product.inconsistentData</source>
+                <target>Wykryto sprzeczne dane dla produktu "%brandName% %productName%".</target>
+            </trans-unit>
+            <trans-unit id="error.importRatings.product.sameCategory">
+                <source>error.importRatings.product.sameCategory</source>
+                <target>Produkt "%brandName% %productName%" jest przypisany do kategorii "%categoryName% %categorySubname%" więcej niż raz.</target>
+            </trans-unit>
+            
+            <trans-unit id="error.importRatings.category.invalid">
+                <source>error.importRatings.category.invalid</source>
+                <target>Podano niepoprawną kategorię. Oczekiwana: %expectedName%, podana: %givenName%.</target>
+            </trans-unit>
+            
+            
+            
+            
+            <trans-unit id="error.import.lineNumber">
+                <source>error.import.lineNumber</source>
+                <target>Wiersz %number%: </target>
+            </trans-unit>
+            
+            <trans-unit id="error.import.lineNumbers">
+                <source>error.import.lineNumbers</source>
+                <target>Wiersze %prevNumber% i %nextNumber%: </target>
+            </trans-unit>
+            
+            <trans-unit id="error.import.cannotOpenFile">
+                <source>error.import.cannotOpenFile</source>
+                <target>Nie można otworzyć pliku %fileName%.</target>
+            </trans-unit>
+
+            <trans-unit id="error.newsletterUser.import.invalidMail">
+                <source>error.newsletterUser.import.invalidMail</source>
+                <target>Adres %mail% jest niepoprawny.</target>
+            </trans-unit>            
+            <trans-unit id="error.newsletterUser.import.inconsistentData">
+                <source>error.newsletterUser.import.inconsistentData</source>
+                <target>Wykryto sprzeczne dane dla adresu %mail%.</target>
+            </trans-unit>
+            <trans-unit id="error.newsletterUser.import.saveFailed">
+                <source>error.newsletterUser.import.saveFailed</source>
+                <target>Subskrybent %name% nie został poprawnie zapisany.</target>
+            </trans-unit>
+            
+            <trans-unit id="error.newsletterPage.sendNewsletter.invalidImagePath">
+                <source>error.newsletterPage.sendNewsletter.invalidImagePath</source>
+                <target>Ścieżka do zdjęcia '%imagePath%' zawiera niedozwolone znaki.</target>
+            </trans-unit>
+            <trans-unit id="error.newsletterPage.sendNewsletter.imageNotFound">
+                <source>error.newsletterPage.sendNewsletter.imageNotFound</source>
+                <target>Nie można odnaleźć zdjęcia '%imagePath%'.</target>
+            </trans-unit>
+            
+            
+            
+            <trans-unit id="info.cookies.main1">
+                <source>info.cookies.main1</source>
+                <target>Strona korzysta z plików cookies w celu realizacji usług i zgodnie z</target>
+            </trans-unit>
+            <trans-unit id="info.cookies.link">
+                <source>info.cookies.link</source>
+                <target>Polityką Plików Cookies</target>
+            </trans-unit>
+            <trans-unit id="info.cookies.main2">
+                <source>info.cookies.main2</source>
+                <target>. Możesz określić warunki przechowywania lub dostępu do plików cookies w Twojej przeglądarce.</target>
+            </trans-unit>
+            
+            
+            
+            <trans-unit id="knp.label.next">
+                <source>Next</source>
+                <target>Następny</target>
+            </trans-unit>
+            <trans-unit id="knp.label.previous">
+                <source>Previous</source>
+                <target>Poprzedni</target>
+            </trans-unit>
+            
+            <trans-unit id="form.label.entries">
+                <source>Entries</source>
+                <target>Brak wpisów</target>
+            </trans-unit>
+            
         </body>
     </file>
 </xliff>

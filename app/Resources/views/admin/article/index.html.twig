@@ -1,4 +1,4 @@
-{% extends 'admin/simple/index.html.twig' %}
+{% extends 'admin/_simple/index.html.twig' %}
 
 {% set title = title|default('label.articles'|trans) %}
 {% set mainPath = mainPath|default('article') %}
@@ -60,11 +60,6 @@
 {% endblock %}
 
 
-
-{% block baseMoreActions %}
-	{% set hidden = canEdit ? '' : 'hidden' %}
-	
-	{% include 'common/buttons/infomarket_buttons.html.twig' %}
-	{% include 'common/buttons/infoprodukt_buttons.html.twig' %}
-	{% include 'common/buttons/featured_buttons.html.twig' %}
+{% block moreActions %}
+	{% include 'admin/article/components/index/more_actions.twig' %}
 {% endblock %}

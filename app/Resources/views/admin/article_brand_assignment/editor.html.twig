@@ -1,12 +1,12 @@
-{% extends 'admin/simple/editor.html.twig' %}
+{% extends 'admin/_simple/editor.html.twig' %}
 
 {% set mainPath = 'article_brand_assignment' %}
 {% set title = 'label.article_brand_assignments'|trans %}
 
 
 {% block contentFields %}
-	{% include 'admin/common/editor/form_field.twig' with 
+	{% include 'common/editor/form_field.twig' with 
 	{ field: form.article, label: 'label.article' } %}
-	{% include 'admin/common/editor/form_field.twig' with 
+	{% include 'common/editor/form_field.twig' with 
 	{ field: form.brand, label: 'label.brand' } %}
 {%  endblock %}

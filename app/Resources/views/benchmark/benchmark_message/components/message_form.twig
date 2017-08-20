@@ -1,0 +1,16 @@
+{% form_theme newMessageForm 'form/fields.html.twig' %}
+		
+<div class="row">
+	<div class="col-xs-12">
+		{{ form_start(newMessageForm) }}
+		
+		{{ form_row(newMessageForm.name, { label: 'label.name' }) }}	
+		{{ form_row(newMessageForm.content, { label: 'label.content' }) }}
+		
+		<div class="btn-group">
+			{{ form_widget(newMessageForm.save, { 'icon': 'fa-save', label: 'action.save', 'attr': {'class': 'btn btn-success'} }) }}
+		</div>
+		
+		{{ form_end(newMessageForm) }}
+	</div>
+</div>	 

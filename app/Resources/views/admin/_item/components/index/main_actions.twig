@@ -1,0 +1,18 @@
+{% set hidden = canSelect ? "" : "hidden" %}
+
+<div class="btn-group {{ hidden }}">
+	{% include 'common/buttons/widget_button.html.twig' with 
+		{ action: form.selectAll, icon: 'fa-check-square-o', 
+			tooltip: 'action.selectAll' } %}
+	
+	{% include 'common/buttons/widget_button.html.twig' with 
+		{ action: form.selectNone, icon: 'fa-square-o', 
+			tooltip: 'action.selectNone' } %}
+</div>
+
+
+{% if canCreate %}
+	{% include 'common/buttons/action_button.twig' with 
+		{ extPath: '_new', icon: 'fa-plus', 
+			tooltip: 'action.new', type: 'btn-success' } %}
+{% endif %}

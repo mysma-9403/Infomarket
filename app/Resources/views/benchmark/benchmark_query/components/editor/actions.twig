@@ -1,0 +1,13 @@
+<div class="row">
+	<div class="col-xs-6">
+		{% include 'benchmark/_item/components/editor/actions.twig' %}
+	</div>
+	
+	<div class="col-xs-6">
+		{% if entry.id %}
+			{% include 'common/buttons/action_button.twig' with 
+			{ extPath: '_show', routeParams: { id: entry.id, product_benchmark_query: entry.id }, 
+				tooltip: 'action.benchmarkQuery.showArchived', icon: 'fa-archive' } %}
+		{% endif %}
+	</div>
+</div>

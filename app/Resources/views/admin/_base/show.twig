@@ -1,0 +1,36 @@
+{% extends 'admin/__site/index.html.twig' %}
+
+{% block content %}
+	<div class="container">
+		{% block errorsBlock %}
+			{% include 'common/errors.html.twig' %}
+		{% endblock %}
+		
+		<div class="vr-space-40"></div>
+		
+		{% block headerFields %}
+		{% endblock %}
+		
+		<div class="vr-space-40"></div>
+		
+	    {% block contentFields %}
+		{% endblock %}
+		
+		<div class="vr-space-40"></div>
+	    
+		{% block actions %}
+		{% endblock %}
+	</div>
+	
+	<div class="row">
+		{% if entry.id %}
+			{% block assignments %}
+	    	{% endblock %}
+    	{% endif %}
+	</div>
+	
+	{% block moreContent %}
+	{% endblock %}
+	
+	<div class="vr-space-40"></div>
+{% endblock %}

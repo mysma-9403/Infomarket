@@ -1,4 +1,4 @@
-{% extends 'admin/simple/index.html.twig' %}
+{% extends 'admin/_simple/index.html.twig' %}
 
 {% set mainPath = 'benchmark_message' %}
 {% set title = 'label.benchmarkMessages'|trans %}
@@ -51,10 +51,6 @@
 {% endblock %}
 
 
-
-{% block baseMoreActions %}
-	{% set hidden = '' %}
-	
-	{% include 'common/buttons/read_buttons.html.twig' %}
-	
+{% block moreActions %}
+	{% include 'admin/benchmark_message/components/index/more_actions.twig' %}
 {% endblock %}

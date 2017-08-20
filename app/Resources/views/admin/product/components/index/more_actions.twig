@@ -1,0 +1,19 @@
+{% include 'admin/_item/components/index/more_actions.twig' %}
+
+{% set hidden = canEdit ? '' : 'hidden' %}
+	
+{% include 'common/buttons/infomarket_buttons.html.twig' %}
+{% include 'common/buttons/infoprodukt_buttons.html.twig' %}
+
+
+{% if is_granted('ROLE_RATING_EDITOR') %}
+	{% set confirm = 'return confirm("' ~ 'confirm.deleteUnused'|trans ~ '")' %}
+	
+	{% include 'common/buttons/action_button.twig' with 
+	{ extPath: '_delete_unused', tooltip: 'action.product.deleteUnused', 
+		onclick: confirm, icon: 'fa-trash', type: 'btn-danger' } %}
+	
+	{% include 'common/buttons/action_button.twig' with 
+	{ extPath: '_get_top_products', tooltip: 'action.product.getTopProducts', 
+		icon: 'fa-file-text-o' } %}
+{% endif %}

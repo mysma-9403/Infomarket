@@ -1,4 +1,4 @@
-{% extends 'admin/image/show.html.twig' %}
+{% extends 'admin/_image/show.html.twig' %}
 
 {% set mainPath = 'category' %}
 {% set title = 'label.categories'|trans %}
@@ -11,16 +11,16 @@
 {% endblock %}
 
 {% block contentFields %}
-	{% include 'admin/image/components/show/image.twig' %}
+	{% include 'admin/_image/components/show/image.twig' %}
 	
 	<div class="vr-space-40"></div>
 	
-	{% include 'admin/common/show/custom_image.twig' with 
+	{% include 'common/show/custom_image.twig' with 
 	{ image: entry.featuredImage} %}
 	
 	<div class="vr-space-40"></div>
 	
-	{% include 'admin/common/show/custom_image.twig' with 
+	{% include 'common/show/custom_image.twig' with 
 	{ image: entry.iconImage} %}
 	
 	<div class="vr-space-40"></div>
@@ -54,7 +54,7 @@
 	
 	<div class="vr-space-40"></div>
 	
-	{% include 'admin/simple/components/show/audit_fields.twig' %}
+	{% include 'admin/_simple/components/show/audit_fields.twig' %}
 {% endblock %}
 
 {% block actions %}

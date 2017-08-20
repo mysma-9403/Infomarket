@@ -1,8 +1,8 @@
 eclipse.preferences.version=1
 encoding//app/Resources/translations/validators/validators.en.yml=UTF-8
 encoding//app/Resources/translations/validators/validators.pl.yml=UTF-8
-encoding//app/Resources/views/admin/index.html.twig=UTF-8
-encoding//app/Resources/views/admin/list.html.twig=UTF-8
+encoding//app/Resources/views/admin/__site/index.html.twig=UTF-8
+encoding//app/Resources/views/admin/_base/index.twig=UTF-8
 encoding//src/AppBundle/Controller/Admin/Main/HomeController.php=UTF-8
 encoding/<project>=UTF-8
 encoding/composer.json=UTF-8

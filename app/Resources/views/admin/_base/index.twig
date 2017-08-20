@@ -1,0 +1,127 @@
+{% extends 'admin/__site/index.html.twig' %}
+
+{% block javascript %}
+	{% include 'admin/_base/components/index/javascript.twig' %}
+{% endblock %}
+
+{% block content %}
+	
+	{% block filterMenu %}
+		<div class="panel-group accordion-body collapse" id="filter">
+			<div class="col-xs-12 col-sm-8 col-sm-offset-2">
+				{% block filterForm %}
+					{% form_theme filter 'form/fields.html.twig' %}
+					
+					{{ form_start(filter) }}
+					<div class="row">
+						<div class="col-xs-12">
+							{% block filterSmallFields %}
+							{% endblock %}
+						</div>
+						<div class="col-xs-12">
+							{% block filterLargeFields %}
+							{% endblock %}
+						</div>
+					</div>
+					<div class="row accordion-body collapse" id="auditFilter">
+						<div class="col-xs-12">
+							{% block filterAuditSmallFields %}
+							{% endblock %}
+						</div>
+						<div class="col-xs-12">
+							{% block filterAuditLargeFields %}
+							{% endblock %}
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-xs-12">
+							{% block filterSearchActions %}
+							{% endblock %}
+						</div>
+					</div>
+					{{ form_end(filter) }}
+				{% endblock %}
+			</div>
+		</div>
+	{%  endblock %}
+	
+	{% block errorsBlock %}
+		{% include 'common/errors.html.twig' %}
+	{% endblock %}
+	
+	{%  block listBlock %}
+	
+		{% form_theme form 'form/fields.html.twig' %}
+	
+		{{ form_start(form) }}
+			{% block listActions %}
+				<div class="col-xs-12 col-sm-8 col-sm-offset-2">
+					<div class="col-xs-12 col-sm-6 col-lg-3 padding-5">
+						{% block filterActions %}
+							<a class="btn btn-primary toggle" data-toggle="collapse" 
+								title="{{ 'action.filter'|trans }}" data-parent="#accodrion" href="#filter">
+								<i class="fa fa-filter"></i>
+							</a>
+						{% endblock %}
+						
+						{% block mainActions %}
+						{% endblock %}
+					</div>
+					<div class="col-xs-12 col-sm-6 col-lg-9 padding-5">
+						{% block moreActions %}
+						{% endblock %}
+					</div>
+				</div>
+			{% endblock %}
+	    	
+    		{% block listTable %}
+	    		<div class="row">
+		    		<table class="table table-striped vert-align">
+						<thead>
+							{% block tableHeader %}
+								{% include 'common/fields/table_header/icon_field.html.twig' with 
+								{ tooltip: 'label.selected', icon: 'fa-check-square-o'} %}
+								
+								{% block headerFields %}
+								{% endblock %}
+								
+								{% block headerActions %}
+								{% endblock %}
+							{% endblock %}
+						</thead>
+						<tbody>
+							{% block tableBody %} 
+								{% for key in form.entries|keys %}
+								    {% set formEntry = form.entries[key] %}
+								    {% set item = entries[key] %}
+								    
+								    {% block tableRow %}
+									    <tr>
+									    	{% block tableEntry %}
+									    		<td>{{ form_widget(formEntry) }}</td>
+									    		
+										    	{% block entryFields %}
+												{% endblock %}
+												
+												{% block entryActions %}
+												{% endblock %}
+									    	{% endblock %}
+									    </tr>
+								    {% endblock %}
+								    
+							    {% endfor %}
+							{% endblock %}
+						</tbody>
+					</table>
+				</div>
+			{% endblock %}
+		{{ form_end(form) }}
+	{% endblock %}
+	
+	{% block listPaginator %}
+		<div>
+	        {{ knp_pagination_render(entries) }}
+	    </div>
+    {% endblock %}
+    
+{% endblock %}

@@ -1,19 +1,19 @@
 <li class="tree-node">
 	{% if canEdit %}
-		<a href="{{ path('admin_' ~ mainPath ~ '_new', { parent: entry.id }) }}">
+		<a href="{{ path(basePath ~ mainPath ~ '_new', { parent: entry.id }) }}">
 			<span class="fa fa-file-o"></span>
 		</a>
 		 
-		<a href="{{ path('admin_' ~ mainPath ~ '_edit', { id: entry.id }) }}">
+		<a href="{{ path(basePath ~ mainPath ~ '_edit', { id: entry.id }) }}">
 			<span class="fa fa-edit"></span>
 		</a>
 		
-		<a href="{{ path('admin_' ~ mainPath ~ '_copy', { id: entry.id }) }}" class="horizontal-break">
+		<a href="{{ path(basePath ~ mainPath ~ '_copy', { id: entry.id }) }}" class="horizontal-break">
 			<span class="fa fa-copy"></span>
 		</a>
 	{% endif %}
 	
-	<a href="{{ path('admin_' ~ mainPath ~ '_ratings', { id: entry.id }) }}" class="horizontal-break">
+	<a href="{{ path(basePath ~ mainPath ~ '_ratings', { id: entry.id }) }}" class="horizontal-break">
 		<span class="fa fa-tasks"></span>
 	</a>
 	
@@ -37,7 +37,7 @@
 			
 	<span class="horizontal-break"></span>
 	
-	<a href="{{ path('admin_' ~ mainPath ~ '_show', { id: entry.id }) }}" class="horizontal-break">
+	<a href="{{ path(basePath ~ mainPath ~ '_show', { id: entry.id }) }}" class="horizontal-break">
 		{{ entry.name | raw }} <span class="text-red">{{ entry.subname | raw }}</span>
 	</a>
 	

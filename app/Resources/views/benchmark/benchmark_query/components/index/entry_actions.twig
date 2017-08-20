@@ -1,0 +1,7 @@
+{% include 'benchmark/_item/components/index/entry_actions.twig' %}
+
+{% if item.archived %}
+	{% include 'common/buttons/action_button.twig' with 
+	{ extPath: '_show', routeParams: { id: item.id, product_benchmark_query: item.id }, 
+		icon: 'fa-archive', tooltip: 'action.benchmarkQuery.showArchived' } %}
+{% endif %}

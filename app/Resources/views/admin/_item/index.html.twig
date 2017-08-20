@@ -1,0 +1,36 @@
+{% extends 'admin/_base/index.twig' %}
+
+{% set hidden = isAdmin ? "" : "hidden" %}
+
+
+{% block javascript %}
+	{% include 'admin/_item/components/index/javascript.twig' %}
+{% endblock %}
+
+
+{% block filterSearchActions %}
+	{% include 'common/fields/filter/button_field.html.twig' 
+		with { field: filter.search, icon: 'fa-search', label: 'action.search' } %}
+	{% include 'common/fields/filter/button_field.html.twig' 
+		with { field: filter.clear, icon: 'fa-eraser', label: 'action.clear', type: 'btn-warning' } %}
+{% endblock %}
+							
+							
+{% block mainActions %}
+	{% include 'admin/_item/components/index/main_actions.twig' %}
+{% endblock %}
+
+{% block moreActions %}
+	{% include 'admin/_item/components/index/more_actions.twig' %}
+{% endblock %}
+
+
+{% block headerActions %}
+	{% include 'common/fields/table_header/icon_field.html.twig' with 
+		{ class: 'actions', icon: 'fa-play', label: 'label.actions' } %}
+{% endblock %}
+
+
+{% block entryActions %}
+	{% include 'admin/_item/components/index/entry_actions.twig' %}
+{% endblock %}

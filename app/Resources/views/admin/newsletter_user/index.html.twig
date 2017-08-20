@@ -1,4 +1,4 @@
-{% extends 'admin/simple/index.html.twig' %}
+{% extends 'admin/_simple/index.html.twig' %}
 
 {% set mainPath = 'newsletter_user' %}
 {% set title = 'label.newsletterUsers'|trans %}
@@ -44,10 +44,6 @@
 {% endblock %}
 
 
-
-{% block baseMoreActions %}
-	{% set hidden = canEdit ? '' : 'hidden' %}
-	
-	{% include 'common/buttons/infomarket_buttons.html.twig' %}
-	{% include 'common/buttons/infoprodukt_buttons.html.twig' %}
+{% block moreActions %}
+	{% include 'admin/newsletter_user/components/index/more_actions.twig' %}
 {% endblock %}

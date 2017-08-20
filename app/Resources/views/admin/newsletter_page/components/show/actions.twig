@@ -1,24 +1,24 @@
 <div class="row">
 	<div class="col-xs-6">
-		{% include 'admin/base/components/show/actions.twig' %}
+		{% include 'admin/_item/components/show/actions.twig' %}
 	</div>
 	
 	<div class="col-xs-6">
 		{% if entry.id %}
-			{% include 'admin/common/buttons/action_button.twig' with 
+			{% include 'common/buttons/action_button.twig' with 
 			{ extPath: '_preview', routeParams: { id: entry.id }, 
 				tooltip: 'action.newsletterPage.preview', icon: 'fa-eye' } %}
 				
-			{% include 'admin/common/buttons/action_button.twig' with 
+			{% include 'common/buttons/action_button.twig' with 
 			{ href: '#', tooltip: 'action.newsletterPage.showCode', 
 				icon: 'fa-code', type: 'btn-primary pop' } %}
 			
-			{% include 'admin/common/buttons/action_button.twig' with 
+			{% include 'common/buttons/action_button.twig' with 
 			{ extPath: '_save_file', routeParams: { id: entry.id }, 
 				tooltip: 'action.newsletterPage.saveFile', icon: 'fa-save', type: 'btn-success' } %}
 				
 
-			{% include 'admin/common/buttons/action_button.twig' with 
+			{% include 'common/buttons/action_button.twig' with 
 			{ extPath: '_send_newsletter_form', routeParams: { id: entry.id }, 
 				tooltip: 'action.newsletterPage.sendNewsletter', icon: 'fa-send' } %}
 		{% endif %}

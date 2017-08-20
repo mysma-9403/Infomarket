@@ -1,4 +1,4 @@
-{% extends 'admin/simple/editor.html.twig' %}
+{% extends 'admin/_simple/editor.html.twig' %}
 
 {% set title = 'label.newsletterPages'|trans %}
 {% set mainPath = 'newsletter_page' %}
@@ -9,14 +9,14 @@
 {% endblock %}
 
 {% block headerFields %}
-	{% include 'admin/common/editor/form_field.twig' with 
+	{% include 'common/editor/form_field.twig' with 
 	{ field: form.name, label: 'label.name' } %}
-	{% include 'admin/common/editor/form_field.twig' with 
+	{% include 'common/editor/form_field.twig' with 
 	{ field: form.subname, label: 'label.subname' } %}
 {% endblock %}
 	
 {% block contentFields %}
-	{% include 'admin/common/editor/form_field.twig' with 
+	{% include 'common/editor/form_field.twig' with 
 	{ field: form.newsletterPageTemplate, label: 'label.newsletterPageTemplate' } %}
 {% endblock %}
 

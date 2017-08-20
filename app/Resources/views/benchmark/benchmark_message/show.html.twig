@@ -1,49 +1,23 @@
-{% extends 'benchmark/index.html.twig' %}
+{% extends 'benchmark/_simple/show.html.twig' %}
 
-{% set mainPath = 'benchmarkMessage' %}
 {% set title = title|default('label.benchmarkMessages')|trans %}
-	
-{% block content %}
-	<div class="container">
-		<div class="row">
-			<div class="col-xs-12">
-				<h2>{{ entry.product.brand.name }}</h2>
-				<h3>{{ entry.product.name }}</h3>
-			</div>
+{% set mainPath = 'benchmark_message' %}
 
-			<h3>{{ entry.name }}</h3>
-			{% include 'common/fields/text_field.html.twig' with 
-				{ label: 'label.benchmarkMessage.state', value: benchmarkMessageStateName(entry.state)|trans } %}
-			<p>{{ entry.content|raw }}</p>
-			<hr>
-			
-			{% for entry in entry.children %}
-				<h3>{{ entry.name }}</h3>
-				{% include 'common/fields/text_field.html.twig' with 
-					{ label: 'label.benchmarkMessage.state', value: benchmarkMessageStateName(entry.state)|trans } %}
-				<p>{{ entry.content|raw }}</p>
-				<hr>
-			{% endfor %}
-			
-			{% block formBlock %}
-				{% form_theme newMessageForm 'form/fields.html.twig' %}
-				
-				<div class="row">
-					<div class="col-xs-12">
-						{{ form_start(newMessageForm) }}
-						
-						{{ form_row(newMessageForm.name, { label: 'label.name' }) }}	
-		    			{{ form_row(newMessageForm.content, { label: 'label.content' }) }}
-						
-						<div class="btn-group">
-							{{ form_widget(newMessageForm.save, { 'icon': 'fa-save', label: 'action.save', 'attr': {'class': 'btn btn-success'} }) }}
-						</div>
-						
-						{{ form_end(newMessageForm) }}
-					</div>
-				</div>	    
-			{% endblock %}
-		</div>
-	</div>
+
+{% block headerFields %}
+	{% include 'common/fields/header_field.html.twig' with 
+	{ value: entry.name ~ ' ' ~ entry.product.brand.name } %}
+{% endblock %}
+
+{% block contentFields %}
+	{% include 'benchmark/benchmark_message/components/message_content.twig' %}
+	
+	{% for entry in entry.children %}
+		{% include 'benchmark/benchmark_message/components/message_content.twig' %}
+	{% endfor %}
+	
+	{% block messageForm %}
+		{% include 'benchmark/benchmark_message/components/message_form.twig' %}
+	{% endblock %}
 	
 {% endblock %}

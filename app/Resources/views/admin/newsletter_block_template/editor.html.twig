@@ -1,4 +1,4 @@
-{% extends 'admin/simple/editor.html.twig' %}
+{% extends 'admin/_simple/editor.html.twig' %}
 
 {% set title = 'label.newsletterBlockTemplates'|trans %}
 {% set mainPath = 'newsletter_block_template' %}
@@ -6,23 +6,23 @@
 
 
 {% block headerFields %}
-	{% include 'admin/common/editor/form_field.twig' with 
+	{% include 'common/editor/form_field.twig' with 
 	{ field: form.name, label: 'label.name' } %}
 {% endblock %}
 
 {% block contentFields %}
-	{% include 'admin/common/editor/form_field.twig' with 
+	{% include 'common/editor/form_field.twig' with 
 	{ field: form.style, label: 'label.newsletterBlockTemplate.style' } %}
 	
-	{% include 'admin/common/editor/form_field.twig' with 
+	{% include 'common/editor/form_field.twig' with 
 	{ field: form.content, label: 'label.newsletterBlockTemplate.content' } %}
 	
-	{% include 'admin/common/editor/form_field.twig' with 
+	{% include 'common/editor/form_field.twig' with 
 	{ field: form.advertContent, label: 'label.newsletterBlockTemplate.advertContent' } %}
 	
-	{% include 'admin/common/editor/form_field.twig' with 
+	{% include 'common/editor/form_field.twig' with 
 	{ field: form.articleContent, label: 'label.newsletterBlockTemplate.articleContent' } %}
 	
-	{% include 'admin/common/editor/form_field.twig' with 
+	{% include 'common/editor/form_field.twig' with 
 	{ field: form.magazineContent, label: 'label.newsletterBlockTemplate.magazineContent' } %}
 {% endblock %}

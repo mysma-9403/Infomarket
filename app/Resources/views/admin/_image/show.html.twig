@@ -1,0 +1,9 @@
+{% extends 'admin/_simple/show.html.twig' %}
+
+{% block contentFields %}
+	{% include 'admin/_image/components/show/image.twig' %}
+	
+	<div class="vr-space-40"></div>
+	
+	{% include 'admin/_simple/components/show/audit_fields.twig' %}
+{% endblock %}

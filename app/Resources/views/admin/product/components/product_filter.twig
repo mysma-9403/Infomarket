@@ -1,16 +1,14 @@
 {% for field in productFilter.editorFields %}
-	<div class="col-xs-12">
-		{% set key = field.valueField %}
-		
-		{% if field.fieldType == constant('AppBundle\\Entity\\BenchmarkField::BOOLEAN_FIELD_TYPE') %}
-			{% include 'common/fields/bool_field.html.twig' with 
-				{ label: field.fieldName, value: entry[key] } %}
-		{% elseif field.fieldType == constant('AppBundle\\Entity\\BenchmarkField::DECIMAL_FIELD_TYPE') %}
-			{% include 'common/fields/text_field.html.twig' with 
-				{ label: field.fieldName, value: entry[key] ? entry[key]|number_format(field.decimalPlaces, '.', ' ') : '' } %}
-		{% else %}
-			{% include 'common/fields/text_field.html.twig' with 
-				{ label: field.fieldName, value: entry[key] } %}
-		{% endif %}
-	</div>
+	{% set key = field.valueField %}
+	
+	{% if field.fieldType == constant('AppBundle\\Entity\\BenchmarkField::BOOLEAN_FIELD_TYPE') %}
+		{% include 'common/fields/bool_field.html.twig' with 
+			{ label: field.fieldName, value: entry[key] } %}
+	{% elseif field.fieldType == constant('AppBundle\\Entity\\BenchmarkField::DECIMAL_FIELD_TYPE') %}
+		{% include 'common/fields/number_field.html.twig' with 
+			{ label: field.fieldName, value: entry[key] } %}
+	{% else %}
+		{% include 'common/fields/text_field.html.twig' with 
+			{ label: field.fieldName, value: entry[key] } %}
+	{% endif %}
 {% endfor %}

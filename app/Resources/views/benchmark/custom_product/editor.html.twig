@@ -1,7 +1,7 @@
-{% extends 'benchmark/image/editor.html.twig' %}
+{% extends 'benchmark/_image/editor.html.twig' %}
 
-{% set mainPath = 'custom_product' %}
 {% set title = 'label.products'|trans %}
+{% set mainPath = 'custom_product' %}
 
 {% block preFormBlock %}
 	{% if categoryFilterForm is defined and categoryFilterForm.category.vars.choices|length > 0 %}	
@@ -27,30 +27,23 @@
 	{% endif %}
 {% endblock %}
     
-{%  block simpleHeaderFields %}
-	{# TODO So dirty hack -> remove it!! :( #}
-	<div class="hidden">
-	    {{ form_row(form.infomarket, { 'label': 'label.brand' }) }}
-	    {{ form_row(form.infoprodukt, { 'label': 'label.product.price' }) }}
-    </div>
-    	
-    {{ form_row(form.brand, { 'label': 'label.brand' }) }}
-    {{ form_row(form.price, { 'label': 'label.product.price' }) }}
-    
-    {% if entry.topProduktImage %}
-	<div class="row">
-	    <div class="col-xs-12">
-	    	<div class="rect-2x1">
-				<img alt="{{ entry.name | raw }}" src="{{ asset(entry.topProduktImage) }}" class="div-center" />
-			</div>
-		</div>
-	</div>
-	{% endif %}
-	
-	{{ form_row(form.topProduktImage, { 'label': 'label.product.topProduktImage' }) }}
+{%  block headerFields %}	
+	{% include 'common/editor/form_field.twig' with 
+	{ field: form.brand, label: 'label.brand' } %}
+	{% include 'common/editor/form_field.twig' with 
+	{ field: form.name, label: 'label.name' } %}
 {% endblock %}
 
 {%  block contentFields %}
+	{% include 'admin/_image/components/editor/image.twig' %}
+	
+	<div class="row"></div>
+	
+	{% include 'common/editor/form_field.twig' with 
+	{ field: form.price, label: 'label.product.price' } %}
+	
+	<div class="row"></div>
+
 	{% if productFilter is defined %}
 		{% for field in productFilter.editorFields %}
 			<div class="col-xs-12">
@@ -59,3 +52,7 @@
 		{% endfor %}
 	{% endif %}
 {%  endblock %}
+
+{% block actions %}
+	{% include 'benchmark/custom_product/components/editor/actions.twig' %}
+{% endblock %}

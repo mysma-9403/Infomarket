@@ -1,4 +1,4 @@
-{% extends 'benchmark/index.html.twig' %}
+{% extends 'benchmark/__site/index.html.twig' %}
 
 {% set mainPath = 'product' %}
 {% set title = title|default('label.products')|trans %}
@@ -23,6 +23,8 @@
 						{% include 'benchmark/product/components/compare/table_actions.html.twig' %}
 					</tbody>
 				</table>
+				
+				<div class="vr-space-40"></div>
 			{% endblock %}
 		</div>
 	</div>

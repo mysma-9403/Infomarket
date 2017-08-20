@@ -1,0 +1,11 @@
+{% include 'benchmark/_item/components/index/entry_actions.twig' %}
+
+{% if item.categoryId %}
+	{% include 'common/buttons/action_button.twig' with 
+	{ mainPath: 'product', extPath: '_show', routeParams: { id: item.id }, 
+		icon: 'fa-bar-chart', tooltip: 'action.show' } %}
+		
+	{% include 'common/buttons/action_button.twig' with 
+	{ mainPath: 'product', extPath: '_compare', routeParams: { id: item.id },
+		icon: 'fa-balance-scale', tooltip: 'action.compare', type: 'btn-warning' } %}
+{% endif %}

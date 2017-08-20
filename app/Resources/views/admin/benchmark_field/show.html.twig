@@ -1,4 +1,4 @@
-{% extends 'admin/simple/show.html.twig' %}
+{% extends 'admin/_simple/show.html.twig' %}
 
 {% set mainPath = 'benchmark_field' %}
 {% set title = 'label.benchmarkFields'|trans %}
@@ -24,6 +24,8 @@
 	{ label: 'label.benchmarkField.fieldNumber', value: entry.fieldNumber } %}
 	{% include 'common/fields/bool_field.html.twig' with 
 	{ label: 'label.benchmarkField.showField', value: entry.showField } %}
+	{% include 'common/fields/bool_field.html.twig' with 
+	{ label: 'label.benchmarkField.featuredField', value: entry.featuredField } %}
 	
 	<div class="vr-space-40"></div>
 	
@@ -33,6 +35,8 @@
 	{ label: 'label.benchmarkField.filterNumber', value: entry.filterNumber } %}
 	{% include 'common/fields/bool_field.html.twig' with 
 	{ label: 'label.benchmarkField.showFilter', value: entry.showFilter } %}
+	{% include 'common/fields/bool_field.html.twig' with 
+	{ label: 'label.benchmarkField.featuredFilter', value: entry.featuredFilter } %}
 	
 	<div class="vr-space-40"></div>
 	
@@ -45,7 +49,7 @@
 	<div class="vr-space-40"></div>
 	
 	{% include 'common/fields/text_field.html.twig' with 
-	{ label: 'label.benchmarkField.noteType', 
+	{ label: 'label.benchmarkField.betterThanType', 
 		value: benchmarkFieldBetterThanTypeName(entry.betterThanType)|trans } %}
 	{% include 'common/fields/text_field.html.twig' with 
 	{ label: 'label.benchmarkField.compareWeight', value: entry.compareWeight } %}
@@ -57,5 +61,5 @@
 	
 	<div class="vr-space-40"></div>
 	
-	{% include 'admin/simple/components/show/audit_fields.twig' %}
+	{% include 'admin/_simple/components/show/audit_fields.twig' %}
 {% endblock %}

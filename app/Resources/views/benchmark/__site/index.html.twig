@@ -1,0 +1,69 @@
+{% extends 'benchmark/__site/base.html.twig' %}
+
+{% set title = title|default('label.benchmark') %}
+{% set basePath = 'benchmark_' %}
+{% set gender = gender|default('') %}
+
+{% block title %}{{ title|trans }}{% endblock %}
+
+{% block body %}
+	{% block navigationBar %}
+	<nav class="navbar navbar-fixed-top">
+		{% block navigationHeader %}
+			<div class="navbar-header">
+				{% block navigationButton %}
+				<button type="button" class="navbar-toggle collapsed" 
+						data-toggle="collapse" 
+						data-target="#catbar" 
+						aria-expanded="false">
+			        <span class="sr-only">Toggle navigation</span>
+			        <span class="icon-bar"></span>
+			        <span class="icon-bar"></span>
+			        <span class="icon-bar"></span>
+		      	</button>
+	      		{% endblock %}
+	      		
+				{% block navigationBrand %}
+				<a class="navbar-brand" href="{{ path('infoprodukt_home') }}">
+					<img class="brand-image" src="{{ asset('img/logo-infomarket.png') }}">
+				</a>
+				{% endblock %}
+	    	</div>
+    	{% endblock %}
+		
+		{% block navigationSearch %}
+		<div class="navbar-greet navbar-left hidden-xs hidden-sm">
+			<p>
+				{{ 'label.welcome'|trans }} {{ app.user.username }}, <br>
+				<a href="{{ path('admin_logout') }}"> {# TODO benchmark_logout ?? #}
+					{{ 'label.logout'|trans }}
+				</a>
+			</p>
+		</div>
+		{% endblock %}
+		
+		{% block navigationLinks %}
+		<div class="collapse navbar-collapse" id="catbar">
+			<ul class="nav navbar-nav navbar-right">
+				{% include 'benchmark/common/menu/link.html.twig' with 
+					{ linkPath: "category_show", linkTitle: "label.categories" } %}
+		        {% include 'benchmark/common/menu/link.html.twig' with 
+		          { linkPath: "product", linkTitle: "label.products" } %}
+		        {% include 'benchmark/common/menu/link.html.twig' with 
+		          { linkPath: "custom_product", linkTitle: "label.customProducts" } %}
+		        {% include 'benchmark/common/menu/link.html.twig' with 
+		          { linkPath: "benchmark_query", linkTitle: "label.benchmarkQueries" } %}
+		        {% include 'benchmark/common/menu/link.html.twig' with 
+		          { linkPath: "benchmark_message", linkTitle: "label.benchmarkMessages", badge: unreadMessagesCount } %}
+			</ul>
+		</div>
+		{% endblock %}
+	</nav>
+	{% endblock %}
+	
+	<div class="container-fluid content">
+		{% block content %}
+		{% endblock %}
+	</div>
+	
+{% endblock %}

@@ -1,53 +1,32 @@
-{% extends 'benchmark/base/index.html.twig' %}
+{% extends 'benchmark/_item/index.html.twig' %}
 
 {% set mainPath = 'benchmark_query' %}
 {% set title = 'label.benchmarkQueries'|trans %}
 
-{% block filterMoreFields1 %}
-	<li class="col-xs-12 col-sm-6 col-md-4 col-lg-2">
-		{{ form_widget(filter.name, { 'label': 'label.name' }) }}
-	</li>
+
+{% block filterSmallFields %}
+	{% include 'common/fields/filter/simple_field.html.twig' with 
+	{ field: filter.name } %}
+	
+	{% include 'common/fields/filter/date_field.html.twig' with 
+	{ field: filter.createdAfter } %}
+	
+	{% include 'common/fields/filter/date_field.html.twig' with 
+	{ field: filter.createdBefore } %}
 {% endblock %}
 
-{% block filterMoreFields2 %}
-    
-    <li class="col-xs-12 col-sm-6 col-md-4 col-lg-2">
-		<div class='input-group date' id='datetimepicker5'>
-			{{ form_widget(filter.createdAfter) }}
-			<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-	    </div>
-    </li>
-    
-    <li class="col-xs-12 col-sm-6 col-md-4 col-lg-2">
-		<div class='input-group date' id='datetimepicker6'>
-			{{ form_widget(filter.createdBefore) }}
-			<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-	    </div>
-    </li>
-    
-    <script type="text/javascript">
-		$(function () {
-			$('div.date').datetimepicker();
-		});
-	</script>
+
+{% block headerFields %}
+	{% include 'common/fields/table_header/icon_field.html.twig' with 
+	{ icon: 'fa-calendar-plus-o', label: 'label.createdAt' } %}
 {% endblock %}
 
-{% block headerMainFields3 %}
-	<th><i class="fa fa-calendar-plus-o"></i> {{ 'label.createdAt'|trans }}</th>
+{% block entryFields %}
+	{% include 'common/fields/table/date_field.html.twig' with 
+	{ value: item.createdAt } %}
 {% endblock %}
 
-{% block entryMainFields3 %}
-	<td>
-		{% if item.createdAt > date("01-01-1900") %}
-	    	{{ item.createdAt|date('d.m.Y H:i:s') }}
-		{% endif %}
-	</td>
-{% endblock %}
 
-{% block entryMoreActions %}
-	{% if item.archived %}
-		<a type="button" class="btn btn-sm btn-primary" href="{{ path(basePath ~ mainPath ~ '_show', { id: item.id, product_benchmark_query: item.id }) }}">
-			<i class="fa fa-archive"></i> {{ 'action.benchmarkQuery.showArchived'|trans }}
-		</a>
-	{% endif %}
+{% block entryActions %}
+	{% include 'benchmark/benchmark_query/components/index/entry_actions.twig' %}
 {% endblock %}

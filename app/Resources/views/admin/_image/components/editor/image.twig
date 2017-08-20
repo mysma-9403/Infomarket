@@ -1,0 +1,33 @@
+<div class="row">
+    <div class="col-xs-6 col-md-4">
+    	<div class="rect">
+    		{% if entry.image %}
+				{% include 'common/image/image_entry.html.twig' with { 'entry': entry } %}
+			{% endif %}
+		</div>
+	</div>
+    <div class="col-xs-6 col-md-8">
+    
+	    {% include 'common/editor/form_field.twig' with 
+		{ field: form.file, label: 'label.image' } %}
+		{% include 'common/editor/form_field.twig' with 
+		{ field: form.vertical, label: 'label.image.vertical' } %}
+	    
+	    <div class="row"></div>
+	    
+	    {% include 'common/editor/form_field.twig' with 
+		{ field: form.forcedWidth, label: 'label.image.forcedWidth', xs: 6 } %}
+		{% include 'common/editor/form_field.twig' with 
+		{ field: form.forcedHeight, label: 'label.image.forcedHeight', xs: 6 } %}
+	    
+	    {% if entry.image %}
+	    	<div class="row"></div>
+	    	
+	    	<div class="col-xs-12">
+		    	<a href="{{ path(basePath ~ mainPath ~ '_remove_image', { id: entry.id }) }}" class="btn btn-danger">
+		    		<span class="fa fa-trash"></span> {{ 'action.image.remove'|trans }}
+	    		</a>
+    		</div>
+		{% endif %}
+	</div>
+</div>

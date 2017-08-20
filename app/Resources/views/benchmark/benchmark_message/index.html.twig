@@ -1,53 +1,48 @@
-{% extends 'benchmark/base/index.html.twig' %}
+{% extends 'benchmark/_simple/index.html.twig' %}
 
-{% set mainPath = 'benchmark_message' %}
 {% set title = 'label.benchmarkMessages'|trans %}
+{% set mainPath = 'benchmark_message' %}
 
-{% block filterMoreFields1 %}
-	<li class="col-xs-12 col-sm-6 col-md-4 col-lg-2">
-		{{ form_widget(filter.name, { 'label': 'label.name' }) }}
-	</li>
-	<li class="col-xs-12 col-sm-6 col-md-4 col-lg-2">
-		{{ form_widget(filter.readByAuthor, { 'label': 'label.readByAuthor' }) }}
-	</li>
-{% endblock %}
 
-{% block filterMoreFields2 %}
-	<li class="col-xs-12 col-sm-6 col-md-4 col-lg-2">
-		{{ form_widget(filter.products, { 'label': 'label.products' }) }}
-	</li>
-	<li class="col-xs-12 col-sm-6 col-md-4 col-lg-2">
-		{{ form_widget(filter.states, { 'label': 'label.states' }) }}
-	</li>
-{% endblock %}
-
-{% block baseMainMoreActions %}
-	<li>	
-		<div class="btn-group">
-			{{ form_widget(form.setReadSelected, { 'icon': 'fa-envelope-open-o', 'label': 'action.benchmarkMessage.setReadSelected', 'attr': {'class': 'btn btn-primary', 'type': 'button'} }) }}
-			{{ form_widget(form.setUnreadSelected, { 'icon': 'fa-envelope-o', 'label': 'action.benchmarkMessage.setUnreadSelected', 'attr': {'class': 'btn btn-primary', 'type': 'button'} }) }}
-		</div>
-	</li>
-{% endblock %}
-
-{% block headerMoreFields2 %}
-	<th><i class="fa fa-list"></i> {{ 'label.product'|trans }}</th>
-	<th><i class="fa fa-list"></i> {{ 'label.benchmarkMessage.state'|trans }}</th>
-	<th><i class="fa fa-list"></i> {{ 'label.read'|trans }}</th>
-{% endblock %}
-
-{% block entryMoreFields2 %}
-	<td>
-		{% include 'common/links/readonly_link.html.twig' with { type: 'product', value: { id: item.productId, name: item.brandName, subname: item.productName } } %}
-	</td>
-	<td>
-		{{ benchmarkMessageStateName(item.state)|trans }}
-	</td>
-	<td>
-		{% include 'common/fields/bool_action_field.html.twig' with 
-			{ 'id': item.id, 'value': item.readByAuthor, 'extPath': '_set_read',
-				'trueIcon': 'fa-envelope-open-o', 'falseIcon': 'fa-envelope-o',
-				'trueTooltip': 'label.read'|trans, 'falseTooltip': 'label.benchmarkMessage.unread'|trans, canEdit: true } %}
-	</td>
+{% block filterSmallFields %}
+	{% include 'common/fields/filter/simple_field.html.twig' with 
+	{ field: filter.name } %}
 	
+	{% include 'common/fields/filter/simple_field.html.twig' with 
+	{ field: filter.readByAuthor } %}
+{% endblock %}
+
+{% block filterLargeFields %}
+	{% include 'common/fields/filter/simple_field.html.twig' with 
+	{ field: filter.products } %}
+	{% include 'common/fields/filter/simple_field.html.twig' with 
+	{ field: filter.states } %}
+{% endblock %}
+
+		
+{% block simpleHeaderFields %}
+	{% include 'common/fields/table_header/icon_field.html.twig' with 
+	{ icon: 'fa-camera', label: 'label.product' } %}	
+	{% include 'common/fields/table_header/icon_field.html.twig' with 
+	{ icon: 'fa-envelope-o', tooltip: 'label.read' } %}
+	{% include 'common/fields/table_header/icon_field.html.twig' with 
+	{ icon: 'fa-gears', label: 'label.benchmarkMessage.state' } %}
+{% endblock %}
+
+{% block simpleEntryFields %}		
+	{% include 'common/fields/table/readonly_link_field.html.twig' with
+	{ type: 'product', id: item.productId, name: item.brandName, subname: item.productName } %}
+		
+	{% include 'common/fields/table/bool_action_field.html.twig' with
+	{ id: item.id, value: item.readByAuthor, extPath: '_set_read',
+		trueTooltip: 'label.read', falseTooltip: 'label.unread',
+		trueIcon: 'fa-envelope-open-o', falseIcon: 'fa-envelope-o', canEdit: true } %}
+			
+	{% include 'common/fields/table/simple_field.html.twig' with
+	{ value: benchmarkMessageStateName(item.state)|trans } %}
+{% endblock %}
+
+
+{% block moreActions %}
+	{% include 'benchmark/benchmark_message/components/index/more_actions.twig' %}
 {% endblock %}

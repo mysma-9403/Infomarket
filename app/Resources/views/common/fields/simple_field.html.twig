@@ -3,16 +3,18 @@
 		<strong>{{ label | trans }}: </strong>
 	</div>
 	<div class="col-xs-12 col-sm-6 col-md-9">
-		{% if value %}
-			{% if linkPath is not defined %}
-				{% set linkPath = basePath ~ object ~ '_show' %}
+		<p>
+			{% if value %}
+				{% if linkPath is not defined %}
+					{% set linkPath = basePath ~ object ~ '_show' %}
+				{% endif %}
+				
+				<a href="{{ path(linkPath, { id: value.id }) }}">
+					{{ value.name }}
+				</a>
+			{% else %}
+				-
 			{% endif %}
-			
-			<a href="{{ path(linkPath, { id: value.id }) }}">
-				{{ value.name }}
-			</a>
-		{% else %}
-			-
-		{% endif %}
+		</p>
 	</div>
 </div>
