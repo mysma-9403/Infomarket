@@ -6,8 +6,11 @@ use AppBundle\Controller\Admin\Base\SimpleEntityController;
 use AppBundle\Entity\Tag;
 use AppBundle\Factory\Common\Choices\Bool\InfomarketChoicesFactory;
 use AppBundle\Factory\Common\Choices\Bool\InfoproduktChoicesFactory;
+use AppBundle\Filter\Admin\Main\TagFilter;
 use AppBundle\Form\Editor\Admin\Main\TagEditorType;
+use AppBundle\Form\Filter\Admin\Main\TagFilterType;
 use AppBundle\Manager\Entity\Common\TagManager;
+use AppBundle\Manager\Filter\Base\FilterManager;
 use Symfony\Component\HttpFoundation\Request;
 
 class TagController extends SimpleEntityController {
@@ -144,6 +147,9 @@ class TagController extends SimpleEntityController {
 		return new TagManager($doctrine, $paginator);
 	}
 	
+	protected function getFilterManager($doctrine) {
+		return new FilterManager(new TagFilter());
+	}
 	
 	//------------------------------------------------------------------------
 	// EntityType related
@@ -156,6 +162,10 @@ class TagController extends SimpleEntityController {
 	 */
 	protected function getEntityType() {
 		return Tag::class;
+	}
+	
+	protected function getFilterFormType() {
+		return TagFilterType::class;
 	}
 	
 	

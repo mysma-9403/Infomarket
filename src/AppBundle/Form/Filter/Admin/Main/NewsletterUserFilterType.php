@@ -12,12 +12,18 @@ class NewsletterUserFilterType extends SimpleEntityFilterType
 	protected function addMoreFields(FormBuilderInterface $builder, array $options) {
 		parent::addMoreFields($builder, $options);
 		
+		$this->addFilterTextField($builder, 'name', 'label.name');
+		
+		$this->addBooleanChoiceFilterField($builder, $options, 'infomarket');
+		$this->addBooleanChoiceFilterField($builder, $options, 'infoprodukt');
 		$this->addBooleanChoiceFilterField($builder, $options, 'subscribed');
 	}
 	
 	protected function getDefaultOptions() {
 		$options = parent::getDefaultOptions();
 		
+		$options[$this->getChoicesName('infomarket')] = [];
+		$options[$this->getChoicesName('infoprodukt')] = [];
 		$options[$this->getChoicesName('subscribed')] = [];
 		
 		return $options;

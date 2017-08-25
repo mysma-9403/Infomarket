@@ -7,9 +7,7 @@ use AppBundle\Filter\Base\Filter;
 use AppBundle\Filter\Benchmark\ProductFilter;
 use AppBundle\Form\Base\FilterType;
 use AppBundle\Form\FormBuilder\BenchmarkFilterFieldBuilder;
-use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 
 class ProductFilterType extends FilterType {
@@ -30,20 +28,10 @@ class ProductFilterType extends FilterType {
 	
 	protected function addMainFields(FormBuilderInterface $builder, array $options) {
 		
-		$builder
-		->add('name', TextType::class, array(
-				'attr' => ['placeholder' => 'label.benchmark.product.name'],
-				'required' => false
-		));
-		$builder->add('minPrice', NumberType::class, array(
-				'attr' => ['placeholder' => 'label.benchmark.product.minPrice'],
-				'required' => false
-		));
-		$builder->add('maxPrice', NumberType::class, array(
-				'attr' => ['placeholder' => 'label.benchmark.product.maxPrice'],
-				'required' => false
-		))
-		;
+		$this->addFilterTextField($builder, 'name', 'label.benchmark.product.name');
+		
+		$this->addFilterNumberField($builder, 'minPrice', 'label.benchmark.product.minPrice');
+		$this->addFilterNumberField($builder, 'maxPrice', 'label.benchmark.product.maxPrice');
 		
 		$this->addEntityChoiceFilterField($builder, $options, 'brands');
 		$this->addEntityChoiceFilterField($builder, $options, 'categories');

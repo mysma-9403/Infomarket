@@ -1,13 +1,13 @@
 <?php
 
-namespace AppBundle\Form\Filter\Benchmark;
+namespace AppBundle\Form\Filter\Admin\Main;
 
-use AppBundle\Filter\Benchmark\BenchmarkQueryFilter;
-use AppBundle\Form\Base\FilterType;
+use AppBundle\Filter\Admin\Main\NewsletterPageTemplateFilter;
+use AppBundle\Form\Filter\Admin\Base\SimpleEntityFilterType;
 use Symfony\Component\Form\FormBuilderInterface;
 
-class BenchmarkQueryFilterType extends FilterType {
-	
+class NewsletterPageTemplateFilterType extends SimpleEntityFilterType
+{
 	protected function addMainFields(FormBuilderInterface $builder, array $options) {
 		parent::addMainFields($builder, $options);
 		
@@ -15,6 +15,6 @@ class BenchmarkQueryFilterType extends FilterType {
 	}
 	
 	protected function getEntityType() {
-		return BenchmarkQueryFilter::class;
+		return NewsletterPageTemplateFilter::class;
 	}
 }

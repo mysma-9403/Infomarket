@@ -11,6 +11,8 @@ class NewsletterPageFilterType extends SimpleEntityFilterType
 	protected function addMainFields(FormBuilderInterface $builder, array $options) {
 		parent::addMainFields($builder, $options);
 		
+		$this->addFilterTextField($builder, 'name', 'label.name');
+		
 		$this->addEntityChoiceFilterField($builder, $options, 'newsletterPageTemplates');
 	}
 	

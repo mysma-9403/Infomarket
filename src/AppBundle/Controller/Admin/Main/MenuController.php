@@ -6,7 +6,10 @@ use AppBundle\Controller\Admin\Base\SimpleEntityController;
 use AppBundle\Entity\Menu;
 use AppBundle\Factory\Common\Choices\Bool\InfomarketChoicesFactory;
 use AppBundle\Factory\Common\Choices\Bool\InfoproduktChoicesFactory;
+use AppBundle\Filter\Admin\Main\MenuFilter;
+use AppBundle\Form\Filter\Admin\Main\MenuFilterType;
 use AppBundle\Manager\Entity\Common\MenuManager;
+use AppBundle\Manager\Filter\Base\FilterManager;
 use Symfony\Component\HttpFoundation\Request;
 
 class MenuController extends SimpleEntityController {
@@ -83,6 +86,10 @@ class MenuController extends SimpleEntityController {
 		return new MenuManager($doctrine, $paginator);
 	}
 	
+	protected function getFilterManager($doctrine) {
+		return new FilterManager(new MenuFilter());
+	}
+	
 	//---------------------------------------------------------------------------
 	// EntityType related
 	//---------------------------------------------------------------------------
@@ -94,6 +101,10 @@ class MenuController extends SimpleEntityController {
 	 */
 	protected function getEntityType() {
 		return Menu::class;
+	}
+	
+	protected function getFilterFormType() {
+		return MenuFilterType::class;
 	}
 	
 	

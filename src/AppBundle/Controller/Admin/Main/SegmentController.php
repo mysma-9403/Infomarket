@@ -6,8 +6,11 @@ use AppBundle\Controller\Admin\Base\ImageEntityController;
 use AppBundle\Entity\Segment;
 use AppBundle\Factory\Common\Choices\Bool\InfomarketChoicesFactory;
 use AppBundle\Factory\Common\Choices\Bool\InfoproduktChoicesFactory;
+use AppBundle\Filter\Admin\Main\SegmentFilter;
 use AppBundle\Form\Editor\Admin\Main\SegmentEditorType;
+use AppBundle\Form\Filter\Admin\Main\SegmentFilterType;
 use AppBundle\Manager\Entity\Common\SegmentManager;
+use AppBundle\Manager\Filter\Base\FilterManager;
 use Symfony\Component\HttpFoundation\Request;
 
 class SegmentController extends ImageEntityController {
@@ -131,6 +134,10 @@ class SegmentController extends ImageEntityController {
 		return new SegmentManager($doctrine, $paginator);
 	}
 	
+	protected function getFilterManager($doctrine) {
+		return new FilterManager(new SegmentFilter());
+	}
+	
 	//------------------------------------------------------------------------
 	// EntityType related
 	//------------------------------------------------------------------------
@@ -151,5 +158,9 @@ class SegmentController extends ImageEntityController {
 	 */
 	protected function getEditorFormType() {
 		return SegmentEditorType::class;
+	}
+	
+	protected function getFilterFormType() {
+		return SegmentFilterType::class;
 	}
 }

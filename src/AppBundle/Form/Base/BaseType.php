@@ -10,6 +10,9 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 
 abstract class BaseType extends AbstractType {
 	
@@ -51,6 +54,41 @@ abstract class BaseType extends AbstractType {
 	 * @see \AppBundle\Form\Base\FormType::addActions()
 	 */
 	protected function addActions(FormBuilderInterface $builder, array $options) { }
+	
+	
+	
+	protected function addFilterTextField(FormBuilderInterface $builder, $field, $label) {
+		$this->addTextField($builder, $field, $label, false);
+	}
+	
+	protected function addTextField(FormBuilderInterface $builder, $field, $label, $required = true) {
+		$builder->add($field, TextType::class, array(
+				'attr' => [ 'placeholder' => $label],
+				'required' => $required,
+		));
+	}
+	
+	
+	
+	protected function addFilterNumberField(FormBuilderInterface $builder, $field, $label) {
+		$this->addNumberField($builder, $field, $label, false);
+	}
+	
+	protected function addNumberField(FormBuilderInterface $builder, $field, $label, $required = true) {
+		$builder->add($field, NumberType::class, array(
+				'attr' => [ 'placeholder' => $label],
+				'required' => $required,
+		));
+	}
+	
+	
+	
+	protected function addCheckboxField(FormBuilderInterface $builder, $field, $label) {
+		$builder->add($field, CheckboxType::class, array(
+				'label' => $label,
+				'required' => false
+		));
+	}
 	
 	
 	
@@ -126,6 +164,9 @@ abstract class BaseType extends AbstractType {
 		}
 		$builder->add($field, ChoiceType::class, $params);
 	}
+	
+	
+	
 	
 	/**
 	 * 

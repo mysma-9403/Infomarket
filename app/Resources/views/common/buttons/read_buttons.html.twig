@@ -1,3 +1,5 @@
+{% set hidden = hidden|default('') %}
+
 <div class="btn-group {{ hidden }}">
 	{% include 'common/buttons/widget_button.html.twig' with 
 		{ action: form.setReadSelected, icon: 'fa-envelope-open-o', 

@@ -7,8 +7,11 @@ use AppBundle\Controller\Admin\Base\SimpleEntityController;
 use AppBundle\Entity\Branch;
 use AppBundle\Factory\Common\Choices\Bool\InfomarketChoicesFactory;
 use AppBundle\Factory\Common\Choices\Bool\InfoproduktChoicesFactory;
+use AppBundle\Filter\Admin\Main\BranchFilter;
 use AppBundle\Form\Editor\Admin\Main\BranchEditorType;
+use AppBundle\Form\Filter\Admin\Main\BranchFilterType;
 use AppBundle\Manager\Entity\Common\BranchManager;
+use AppBundle\Manager\Filter\Base\FilterManager;
 use Symfony\Component\HttpFoundation\Request;
 
 class BranchController extends ImageEntityController {
@@ -145,6 +148,10 @@ class BranchController extends ImageEntityController {
 		return new BranchManager($doctrine, $paginator);
 	}
 	
+	protected function getFilterManager($doctrine) {
+		return new FilterManager(new BranchFilter());
+	}
+	
 	
 	//------------------------------------------------------------------------
 	// EntityType related
@@ -157,6 +164,10 @@ class BranchController extends ImageEntityController {
 	 */
 	protected function getEntityType() {
 		return Branch::class;
+	}
+	
+	protected function getFilterFormType() {
+		return BranchFilterType::class;
 	}
 	
 	

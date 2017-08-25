@@ -4,8 +4,11 @@ namespace AppBundle\Controller\Admin\Main;
 
 use AppBundle\Controller\Admin\Base\SimpleEntityController;
 use AppBundle\Entity\NewsletterBlockTemplate;
+use AppBundle\Filter\Admin\Main\NewsletterBlockTemplateFilter;
 use AppBundle\Form\Editor\Admin\Main\NewsletterBlockTemplateEditorType;
+use AppBundle\Form\Filter\Admin\Main\NewsletterBlockTemplateFilterType;
 use AppBundle\Manager\Entity\Common\NewsletterBlockTemplateManager;
+use AppBundle\Manager\Filter\Base\FilterManager;
 use Symfony\Component\HttpFoundation\Request;
 
 class NewsletterBlockTemplateController extends SimpleEntityController {
@@ -117,6 +120,10 @@ class NewsletterBlockTemplateController extends SimpleEntityController {
 		return new NewsletterBlockTemplateManager($doctrine, $paginator);
 	}
 	
+	protected function getFilterManager($doctrine) {
+		return new FilterManager(new NewsletterBlockTemplateFilter());
+	}
+	
 	//---------------------------------------------------------------------------
 	// Roles
 	//---------------------------------------------------------------------------
@@ -139,6 +146,10 @@ class NewsletterBlockTemplateController extends SimpleEntityController {
 	 */
 	protected function getEntityType() {
 		return NewsletterBlockTemplate::class;
+	}
+	
+	protected function getFilterFormType() {
+		return NewsletterBlockTemplateFilterType::class;
 	}
 	
 	

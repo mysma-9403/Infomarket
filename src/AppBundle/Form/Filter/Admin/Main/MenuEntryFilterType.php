@@ -12,6 +12,11 @@ class MenuEntryFilterType extends SimpleEntityFilterType
 	protected function addMainFields(FormBuilderInterface $builder, array $options) {
 		parent::addMainFields($builder, $options);
 		
+		$this->addFilterTextField($builder, 'name', 'label.name');
+		
+		$this->addBooleanChoiceFilterField($builder, $options, 'infomarket');
+		$this->addBooleanChoiceFilterField($builder, $options, 'infoprodukt');
+		
 		$this->addEntityChoiceFilterField($builder, $options, 'menus');
 		$this->addEntityChoiceFilterField($builder, $options, 'parents');
 		$this->addEntityChoiceFilterField($builder, $options, 'branches');
@@ -20,6 +25,9 @@ class MenuEntryFilterType extends SimpleEntityFilterType
 	
 	protected function getDefaultOptions() {
 		$options = parent::getDefaultOptions();
+		
+		$options[$this->getChoicesName('infomarket')] = [];
+		$options[$this->getChoicesName('infoprodukt')] = [];
 		
 		$options[$this->getChoicesName('menus')] = [];
 		$options[$this->getChoicesName('parents')] = [];

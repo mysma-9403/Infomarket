@@ -5,21 +5,15 @@ namespace AppBundle\Form\Filter\Admin\Main;
 use AppBundle\Entity\BenchmarkField;
 use AppBundle\Filter\Admin\Main\BenchmarkFieldFilter;
 use AppBundle\Filter\Base\Filter;
-use AppBundle\Form\Filter\Admin\Base\AdminFilterType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
+use AppBundle\Form\Filter\Admin\Base\SimpleEntityFilterType;
 use Symfony\Component\Form\FormBuilderInterface;
 
-class BenchmarkFieldFilterType extends AdminFilterType
+class BenchmarkFieldFilterType extends SimpleEntityFilterType
 {
 	protected function addMainFields(FormBuilderInterface $builder, array $options) {
 		parent::addMainFields($builder, $options);
 		
-		$builder
-		->add('fieldName', TextType::class, array(
-				'required' => false,
-				'attr' => ['placeholder' => 'label.benchmarkField.fieldName']
-		))
-		;
+		$this->addFilterTextField($builder, 'fieldName', 'label.benchmarkField.fieldName');
 		
 		$this->addEntityChoiceFilterField($builder, $options, 'categories');
 		$this->addNumberChoiceFilterField($builder, $options, 'fieldTypes');

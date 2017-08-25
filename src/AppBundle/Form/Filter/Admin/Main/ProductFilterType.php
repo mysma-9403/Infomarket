@@ -12,12 +12,20 @@ class ProductFilterType extends SimpleEntityFilterType
 	protected function addMainFields(FormBuilderInterface $builder, array $options) {
 		parent::addMainFields($builder, $options);
 		
+		$this->addFilterTextField($builder, 'name', 'label.name');
+		
+		$this->addBooleanChoiceFilterField($builder, $options, 'infomarket');
+		$this->addBooleanChoiceFilterField($builder, $options, 'infoprodukt');
+		
 		$this->addEntityChoiceFilterField($builder, $options, 'brands');
 		$this->addEntityChoiceFilterField($builder, $options, 'categories');
 	}
 	
 	protected function getDefaultOptions() {
 		$options = parent::getDefaultOptions();
+		
+		$options[$this->getChoicesName('infomarket')] = [];
+		$options[$this->getChoicesName('infoprodukt')] = [];
 		
 		$options[$this->getChoicesName('brands')] = [];
 		$options[$this->getChoicesName('categories')] = [];

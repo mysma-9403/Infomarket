@@ -7,8 +7,11 @@ use AppBundle\Controller\Admin\Base\SimpleEntityController;
 use AppBundle\Entity\Page;
 use AppBundle\Factory\Common\Choices\Bool\InfomarketChoicesFactory;
 use AppBundle\Factory\Common\Choices\Bool\InfoproduktChoicesFactory;
+use AppBundle\Filter\Admin\Main\PageFilter;
 use AppBundle\Form\Editor\Admin\Main\PageEditorType;
+use AppBundle\Form\Filter\Admin\Main\PageFilterType;
 use AppBundle\Manager\Entity\Common\PageManager;
+use AppBundle\Manager\Filter\Base\FilterManager;
 use Symfony\Component\HttpFoundation\Request;
 
 class PageController extends ImageEntityController {
@@ -144,6 +147,10 @@ class PageController extends ImageEntityController {
 		return new PageManager($doctrine, $paginator);
 	}
 	
+	protected function getFilterManager($doctrine) {
+		return new FilterManager(new PageFilter());
+	}
+	
 	//------------------------------------------------------------------------
 	// EntityType related
 	//------------------------------------------------------------------------
@@ -164,5 +171,9 @@ class PageController extends ImageEntityController {
 	 */
 	protected function getEditorFormType() {
 		return PageEditorType::class;
+	}
+	
+	protected function getFilterFormType() {
+		return PageFilterType::class;
 	}
 }

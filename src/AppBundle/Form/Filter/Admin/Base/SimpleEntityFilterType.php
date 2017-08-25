@@ -3,35 +3,32 @@
 namespace AppBundle\Form\Filter\Admin\Base;
 
 use AppBundle\Filter\Admin\Base\SimpleEntityFilter;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
+use AppBundle\Form\Base\FilterType;
 
-class SimpleEntityFilterType extends SimpleFilterType
-{
-	/**
-	 * 
-	 * {@inheritDoc}
-	 * @see \AppBundle\Form\Filter\Base\BaseEntityFilterType::addMainFields()
-	 */
+class SimpleEntityFilterType extends FilterType {
+	
 	protected function addMainFields(FormBuilderInterface $builder, array $options) {
-		parent::addMainFields($builder, $options);
-		
-		$builder
-		->add('name', TextType::class, array(
-				'attr' => array(
-						'autofocus' => true,
-						'placeholder' => 'label.name'
-				),
-				'required' => false
-		))
-		;
+	
+		$this->addDateTimeField($builder, 'createdAfter', 'label.createdAfter', false);
+		$this->addDateTimeField($builder, 'createdBefore', 'label.createdBefore', false);
+	
+		$this->addDateTimeField($builder, 'updatedAfter', 'label.updatedAfter', false);
+		$this->addDateTimeField($builder, 'updatedBefore', 'label.updatedBefore', false);
+	
+		$this->addEntityChoiceFilterField($builder, $options, 'createdBy');
+		$this->addEntityChoiceFilterField($builder, $options, 'updatedBy');
 	}
 	
-	/**
-	 * 
-	 * {@inheritDoc}
-	 * @see \AppBundle\Form\Filter\Base\BaseEntityFilterType::getEntityType()
-	 */
+	protected function getDefaultOptions() {
+		$options = parent::getDefaultOptions();
+	
+		$options[$this->getChoicesName('createdBy')] = [];
+		$options[$this->getChoicesName('updatedBy')] = [];
+	
+		return $options;
+	}
+	
 	protected function getEntityType() {
 		return SimpleEntityFilter::class;
 	}

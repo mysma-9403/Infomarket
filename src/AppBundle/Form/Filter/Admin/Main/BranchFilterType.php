@@ -2,12 +2,11 @@
 
 namespace AppBundle\Form\Filter\Admin\Main;
 
-use AppBundle\Filter\Admin\Main\MagazineFilter;
-use AppBundle\Filter\Base\Filter;
+use AppBundle\Filter\Admin\Main\BranchFilter;
 use AppBundle\Form\Filter\Admin\Base\SimpleEntityFilterType;
 use Symfony\Component\Form\FormBuilderInterface;
 
-class MagazineFilterType extends SimpleEntityFilterType
+class BranchFilterType extends SimpleEntityFilterType
 {
 	protected function addMainFields(FormBuilderInterface $builder, array $options) {
 		parent::addMainFields($builder, $options);
@@ -16,11 +15,6 @@ class MagazineFilterType extends SimpleEntityFilterType
 		
 		$this->addBooleanChoiceFilterField($builder, $options, 'infomarket');
 		$this->addBooleanChoiceFilterField($builder, $options, 'infoprodukt');
-		$this->addBooleanChoiceFilterField($builder, $options, 'featured');
-		
-		$this->addEntityChoiceFilterField($builder, $options, 'parents');
-		$this->addEntityChoiceFilterField($builder, $options, 'branches');
-		$this->addEntityChoiceFilterField($builder, $options, 'categories');
 	}
 	
 	protected function getDefaultOptions() {
@@ -28,16 +22,11 @@ class MagazineFilterType extends SimpleEntityFilterType
 		
 		$options[$this->getChoicesName('infomarket')] = [];
 		$options[$this->getChoicesName('infoprodukt')] = [];
-		$options[$this->getChoicesName('featured')] = [];
-		
-		$options[$this->getChoicesName('parents')] = [];
-		$options[$this->getChoicesName('branches')] = [];
-		$options[$this->getChoicesName('categories')] = [];
 	
 		return $options;
 	}
 	
 	protected function getEntityType() {
-		return MagazineFilter::class;
+		return BranchFilter::class;
 	}
 }

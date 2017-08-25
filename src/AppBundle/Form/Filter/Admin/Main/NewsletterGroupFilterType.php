@@ -1,15 +1,17 @@
 <?php
 
-namespace AppBundle\Form\Filter\Admin\Base;
+namespace AppBundle\Form\Filter\Admin\Main;
 
-use AppBundle\Filter\Admin\Base\SimpleFilter;
-use AppBundle\Filter\Base\Filter;
+use AppBundle\Filter\Admin\Main\NewsletterGroupFilter;
+use AppBundle\Form\Filter\Admin\Base\SimpleEntityFilterType;
 use Symfony\Component\Form\FormBuilderInterface;
 
-class SimpleFilterType extends AdminFilterType //TODO change hierarchy Simple -> this or remove like featured
+class NewsletterGroupFilterType extends SimpleEntityFilterType
 {
 	protected function addMainFields(FormBuilderInterface $builder, array $options) {
 		parent::addMainFields($builder, $options);
+		
+		$this->addFilterTextField($builder, 'name', 'label.name');
 		
 		$this->addBooleanChoiceFilterField($builder, $options, 'infomarket');
 		$this->addBooleanChoiceFilterField($builder, $options, 'infoprodukt');
@@ -20,11 +22,11 @@ class SimpleFilterType extends AdminFilterType //TODO change hierarchy Simple ->
 		
 		$options[$this->getChoicesName('infomarket')] = [];
 		$options[$this->getChoicesName('infoprodukt')] = [];
-		
+	
 		return $options;
 	}
 	
 	protected function getEntityType() {
-		return SimpleFilter::class;
+		return NewsletterGroupFilter::class;
 	}
 }

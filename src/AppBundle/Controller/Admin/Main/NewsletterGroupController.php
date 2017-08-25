@@ -6,8 +6,11 @@ use AppBundle\Controller\Admin\Base\SimpleEntityController;
 use AppBundle\Entity\NewsletterGroup;
 use AppBundle\Factory\Common\Choices\Bool\InfomarketChoicesFactory;
 use AppBundle\Factory\Common\Choices\Bool\InfoproduktChoicesFactory;
+use AppBundle\Filter\Admin\Main\NewsletterGroupFilter;
 use AppBundle\Form\Editor\Admin\Main\NewsletterGroupEditorType;
+use AppBundle\Form\Filter\Admin\Main\NewsletterGroupFilterType;
 use AppBundle\Manager\Entity\Common\NewsletterGroupManager;
+use AppBundle\Manager\Filter\Base\FilterManager;
 use Symfony\Component\HttpFoundation\Request;
 
 class NewsletterGroupController extends SimpleEntityController {
@@ -167,6 +170,10 @@ class NewsletterGroupController extends SimpleEntityController {
 		return new NewsletterGroupManager($doctrine, $paginator);
 	}
 	
+	protected function getFilterManager($doctrine) {
+		return new FilterManager(new NewsletterGroupFilter());
+	}
+	
 	//---------------------------------------------------------------------------
 	// Roles
 	//---------------------------------------------------------------------------
@@ -189,6 +196,10 @@ class NewsletterGroupController extends SimpleEntityController {
 	 */
 	protected function getEntityType() {
 		return NewsletterGroup::class;
+	}
+	
+	protected function getFilterFormType() {
+		return NewsletterGroupFilterType::class;
 	}
 	
 	
