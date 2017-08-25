@@ -94,25 +94,19 @@ class MenuController extends SimpleEntityController {
 	// EntityType related
 	//---------------------------------------------------------------------------
 	
-	/**
-	 * 
-	 * {@inheritDoc}
-	 * @see \AppBundle\Controller\Admin\Base\SimpleEntityController::getEntityType()
-	 */
 	protected function getEntityType() {
 		return Menu::class;
 	}
-	
-	protected function getFilterFormType() {
-		return MenuFilterType::class;
-	}
-	
 	
 	//---------------------------------------------------------------------------
 	// Forms
 	//---------------------------------------------------------------------------
 	
 	protected function getEditorFormType() { }
+	
+	protected function getFilterFormType() {
+		return MenuFilterType::class;
+	}
 	
 	//---------------------------------------------------------------------------
 	// Permissions

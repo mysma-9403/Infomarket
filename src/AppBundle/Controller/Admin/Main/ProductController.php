@@ -3,7 +3,6 @@
 namespace AppBundle\Controller\Admin\Main;
 
 use AppBundle\Controller\Admin\Base\ImageEntityController;
-use AppBundle\Controller\Admin\Base\SimpleEntityController;
 use AppBundle\Entity\BenchmarkField;
 use AppBundle\Entity\Brand;
 use AppBundle\Entity\Category;
@@ -16,6 +15,7 @@ use AppBundle\Filter\Admin\Main\ProductFilter;
 use AppBundle\Form\Editor\Admin\Main\ProductEditorType;
 use AppBundle\Form\Filter\Admin\Main\ProductFilterType;
 use AppBundle\Form\Filter\Admin\Other\CategoryFilterType;
+use AppBundle\Form\Lists\Base\InfoMarketEntityListType;
 use AppBundle\Logic\Common\BenchmarkField\Initializer\BenchmarkFieldsInitializerImpl;
 use AppBundle\Logic\Common\BenchmarkField\Provider\BenchmarkFieldsProvider;
 use AppBundle\Manager\Entity\Base\EntityManager;
@@ -431,35 +431,23 @@ class ProductController extends ImageEntityController {
 	// EntityType related
 	//------------------------------------------------------------------------
 	
-	/**
-	 * 
-	 * {@inheritDoc}
-	 * @see \AppBundle\Controller\Admin\Base\SimpleEntityController::getEntityType()
-	 */
 	protected function getEntityType() {
 		return Product::class;
 	}
-	
 	
 	//------------------------------------------------------------------------
 	// Forms
 	//------------------------------------------------------------------------
 	
-	/**
-	 * 
-	 * {@inheritDoc}
-	 * @see \AppBundle\Controller\Admin\Base\SimpleEntityController::getFormType()
-	 */
 	protected function getEditorFormType() {
 		return ProductEditorType::class;
 	}
 	
-	/**
-	 *
-	 * {@inheritDoc}
-	 * @see \AppBundle\Controller\Admin\Base\SimpleEntityController::getFilterFormType()
-	 */
 	protected function getFilterFormType() {
 		return ProductFilterType::class;
+	}
+	
+	protected function getListFormType() {
+		return InfoMarketEntityListType::class;
 	}
 }

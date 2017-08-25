@@ -3,7 +3,6 @@
 namespace AppBundle\Controller\Admin\Main;
 
 use AppBundle\Controller\Admin\Base\FeaturedEntityController;
-use AppBundle\Controller\Admin\Base\SimpleEntityController;
 use AppBundle\Entity\ArticleCategory;
 use AppBundle\Factory\Common\Choices\Bool\FeaturedChoicesFactory;
 use AppBundle\Factory\Common\Choices\Bool\InfomarketChoicesFactory;
@@ -11,6 +10,7 @@ use AppBundle\Factory\Common\Choices\Bool\InfoproduktChoicesFactory;
 use AppBundle\Filter\Admin\Main\ArticleCategoryFilter;
 use AppBundle\Form\Editor\Admin\Main\ArticleCategoryEditorType;
 use AppBundle\Form\Filter\Admin\Main\ArticleCategoryFilterType;
+use AppBundle\Form\Lists\Base\FeaturedEntityListType;
 use AppBundle\Manager\Entity\Common\ArticleCategoryManager;
 use AppBundle\Manager\Filter\Base\FilterManager;
 use Symfony\Component\HttpFoundation\Request;
@@ -168,35 +168,23 @@ class ArticleCategoryController extends FeaturedEntityController {
 	// EntityType related
 	//------------------------------------------------------------------------
 	
-	/**
-	 * 
-	 * {@inheritDoc}
-	 * @see \AppBundle\Controller\Admin\Base\SimpleEntityController::getEntityType()
-	 */
 	protected function getEntityType() {
 		return ArticleCategory::class;
 	}
-	
 	
 	//------------------------------------------------------------------------
 	// Forms
 	//------------------------------------------------------------------------
 	
-	/**
-	 * 
-	 * {@inheritDoc}
-	 * @see \AppBundle\Controller\Admin\Base\SimpleEntityController::getFormType()
-	 */
 	protected function getEditorFormType() {
 		return ArticleCategoryEditorType::class;
 	}
 	
-	/**
-	 *
-	 * {@inheritDoc}
-	 * @see \AppBundle\Controller\Admin\Base\SimpleEntityController::getFilterFormType()
-	 */
 	protected function getFilterFormType() {
 		return ArticleCategoryFilterType::class;
+	}
+	
+	protected function getListFormType() {
+		return FeaturedEntityListType::class;
 	}
 }

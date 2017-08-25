@@ -3,7 +3,6 @@
 namespace AppBundle\Controller\Admin\Main;
 
 use AppBundle\Controller\Admin\Base\FeaturedEntityController;
-use AppBundle\Controller\Admin\Base\SimpleEntityController;
 use AppBundle\Entity\Article;
 use AppBundle\Entity\ArticleCategory;
 use AppBundle\Entity\ArticleTagAssignment;
@@ -20,6 +19,7 @@ use AppBundle\Factory\Common\Choices\Enum\ArticleLayoutsFactory;
 use AppBundle\Filter\Admin\Main\ArticleFilter;
 use AppBundle\Form\Editor\Admin\Main\ArticleEditorType;
 use AppBundle\Form\Filter\Admin\Main\ArticleFilterType;
+use AppBundle\Form\Lists\Base\FeaturedEntityListType;
 use AppBundle\Form\Other\ArticleTagAssignmentsType;
 use AppBundle\Manager\Entity\Admin\ArticleManager;
 use AppBundle\Manager\Entity\Base\EntityManager;
@@ -439,36 +439,24 @@ class ArticleController extends FeaturedEntityController {
 	// Entity type related
 	//------------------------------------------------------------------------
 	
-	/**
-	 * 
-	 * {@inheritDoc}
-	 * @see \AppBundle\Controller\Admin\Base\SimpleEntityController::getEntityType()
-	 */
 	protected function getEntityType() {
 		return Article::class;
 	}
-	
 	
 	//------------------------------------------------------------------------
 	// Forms
 	//------------------------------------------------------------------------
 	
-	/**
-	 * 
-	 * {@inheritDoc}
-	 * @see \AppBundle\Controller\Admin\Base\SimpleEntityController::getFormType()
-	 */
 	protected function getEditorFormType() {
 		return ArticleEditorType::class;
 	}
 	
-	/**
-	 * 
-	 * {@inheritDoc}
-	 * @see \AppBundle\Controller\Admin\Base\SimpleEntityController::getFilterFormType()
-	 */
 	protected function getFilterFormType() {
 		return ArticleFilterType::class;
+	}
+	
+	protected function getListFormType() {
+		return FeaturedEntityListType::class;
 	}
 	
 	//---------------------------------------------------------------------------

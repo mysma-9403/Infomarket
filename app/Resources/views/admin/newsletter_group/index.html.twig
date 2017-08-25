@@ -9,13 +9,4 @@
 {% block filterSmallFields %}
 	{% include 'common/fields/filter/simple_field.html.twig' with 
 		{ field: filter.name, label: 'label.name' } %}
-	{% include 'common/fields/filter/simple_field.html.twig' with 
-		{ field: filter.infomarket, label: 'label.infomarket' } %}
-	{% include 'common/fields/filter/simple_field.html.twig' with 
-		{ field: filter.infoprodukt, label: 'label.infoprodukt' } %}
-{% endblock %}
-
-
-{% block moreActions %}
-	{% include 'admin/newsletter_group/components/index/more_actions.twig' %}
 {% endblock %}

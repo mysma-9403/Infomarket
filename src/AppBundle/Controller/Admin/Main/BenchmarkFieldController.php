@@ -3,7 +3,6 @@
 namespace AppBundle\Controller\Admin\Main;
 
 use AppBundle\Controller\Admin\Base\BaseEntityController;
-use AppBundle\Controller\Admin\Base\SimpleEntityController;
 use AppBundle\Entity\BenchmarkField;
 use AppBundle\Entity\Category;
 use AppBundle\Factory\Common\Choices\Enum\BenchmarkFieldBetterThanTypesFactory;
@@ -139,34 +138,18 @@ class BenchmarkFieldController extends BaseEntityController {
 	// EntityType related
 	//------------------------------------------------------------------------
 	
-	/**
-	 *
-	 * {@inheritDoc}
-	 * @see \AppBundle\Controller\Admin\Base\SimpleEntityController::getEntityType()
-	 */
 	protected function getEntityType() {
 		return BenchmarkField::class;
 	}
-	
 	
 	//------------------------------------------------------------------------
 	// Forms
 	//------------------------------------------------------------------------
 	
-	/**
-	 *
-	 * {@inheritDoc}
-	 * @see \AppBundle\Controller\Admin\Base\SimpleEntityController::getFormType()
-	 */
 	protected function getEditorFormType() {
 		return BenchmarkFieldEditorType::class;
 	}
 	
-	/**
-	 * 
-	 * {@inheritDoc}
-	 * @see \AppBundle\Controller\Admin\Base\SimpleEntityController::getFilterFormType()
-	 */
 	protected function getFilterFormType() {
 		return BenchmarkFieldFilterType::class;
 	}

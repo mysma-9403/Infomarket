@@ -12,6 +12,7 @@ use AppBundle\Form\Filter\Admin\Main\SegmentFilterType;
 use AppBundle\Manager\Entity\Common\SegmentManager;
 use AppBundle\Manager\Filter\Base\FilterManager;
 use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Form\Lists\Base\InfoMarketEntityListType;
 
 class SegmentController extends ImageEntityController {
 	
@@ -142,25 +143,23 @@ class SegmentController extends ImageEntityController {
 	// EntityType related
 	//------------------------------------------------------------------------
 	
-	/**
-	 * 
-	 * {@inheritDoc}
-	 * @see \AppBundle\Controller\Admin\Base\SimpleEntityController::getEntityType()
-	 */
 	protected function getEntityType() {
 		return Segment::class;
 	}
 	
-	/**
-	 * 
-	 * {@inheritDoc}
-	 * @see \AppBundle\Controller\Admin\Base\SimpleEntityController::getFormType()
-	 */
+	//------------------------------------------------------------------------
+	// Forms
+	//------------------------------------------------------------------------
+	
 	protected function getEditorFormType() {
 		return SegmentEditorType::class;
 	}
 	
 	protected function getFilterFormType() {
 		return SegmentFilterType::class;
+	}
+	
+	protected function getListFormType() {
+		return InfoMarketEntityListType::class;
 	}
 }

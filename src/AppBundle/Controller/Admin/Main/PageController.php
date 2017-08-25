@@ -3,13 +3,13 @@
 namespace AppBundle\Controller\Admin\Main;
 
 use AppBundle\Controller\Admin\Base\ImageEntityController;
-use AppBundle\Controller\Admin\Base\SimpleEntityController;
 use AppBundle\Entity\Page;
 use AppBundle\Factory\Common\Choices\Bool\InfomarketChoicesFactory;
 use AppBundle\Factory\Common\Choices\Bool\InfoproduktChoicesFactory;
 use AppBundle\Filter\Admin\Main\PageFilter;
 use AppBundle\Form\Editor\Admin\Main\PageEditorType;
 use AppBundle\Form\Filter\Admin\Main\PageFilterType;
+use AppBundle\Form\Lists\Base\InfoMarketEntityListType;
 use AppBundle\Manager\Entity\Common\PageManager;
 use AppBundle\Manager\Filter\Base\FilterManager;
 use Symfony\Component\HttpFoundation\Request;
@@ -155,25 +155,23 @@ class PageController extends ImageEntityController {
 	// EntityType related
 	//------------------------------------------------------------------------
 	
-	/**
-	 * 
-	 * {@inheritDoc}
-	 * @see \AppBundle\Controller\Admin\Base\SimpleEntityController::getEntityType()
-	 */
 	protected function getEntityType() {
 		return Page::class;
 	}
 	
-	/**
-	 * 
-	 * {@inheritDoc}
-	 * @see \AppBundle\Controller\Admin\Base\SimpleEntityController::getFormType()
-	 */
+	//------------------------------------------------------------------------
+	// Forms
+	//------------------------------------------------------------------------
+	
 	protected function getEditorFormType() {
 		return PageEditorType::class;
 	}
 	
 	protected function getFilterFormType() {
 		return PageFilterType::class;
+	}
+	
+	protected function getListFormType() {
+		return InfoMarketEntityListType::class;
 	}
 }

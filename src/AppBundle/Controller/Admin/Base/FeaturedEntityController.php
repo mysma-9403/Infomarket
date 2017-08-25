@@ -5,13 +5,11 @@ namespace AppBundle\Controller\Admin\Base;
 use AppBundle\Filter\Admin\Base\AuditFilter;
 use AppBundle\Filter\Admin\Base\FeaturedEntityFilter;
 use AppBundle\Filter\Base\Filter;
-use AppBundle\Form\Filter\Admin\Base\FeaturedEntityFilterType;
-use AppBundle\Form\Lists\Base\FeaturedEntityListType;
 use AppBundle\Manager\Filter\Base\FilterManager;
+use AppBundle\Repository\Admin\Base\FeaturedEntityRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Request;
-use AppBundle\Repository\Admin\Base\FeaturedEntityRepository;
 
 
 
@@ -92,26 +90,6 @@ abstract class FeaturedEntityController extends ImageEntityController
 	
 	protected function getFilterManager($doctrine) {	
 		return new FilterManager(new FeaturedEntityFilter());
-	}
-	
-	//---------------------------------------------------------------------------
-	// EntityType related
-	//---------------------------------------------------------------------------
-	
-	/**
-	 *
-	 * @return FilterFormType
-	 */
-	protected function getFilterFormType() {
-		return FeaturedEntityFilterType::class;
-	}
-	
-	/**
-	 *
-	 * @return BaseEntityListType
-	 */
-	protected function getListFormType() {
-		return FeaturedEntityListType::class;
 	}
 	
 	//---------------------------------------------------------------------------

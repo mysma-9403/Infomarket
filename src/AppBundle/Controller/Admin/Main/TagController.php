@@ -12,6 +12,7 @@ use AppBundle\Form\Filter\Admin\Main\TagFilterType;
 use AppBundle\Manager\Entity\Common\TagManager;
 use AppBundle\Manager\Filter\Base\FilterManager;
 use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Form\Lists\Base\InfoMarketEntityListType;
 
 class TagController extends SimpleEntityController {
 	
@@ -155,30 +156,23 @@ class TagController extends SimpleEntityController {
 	// EntityType related
 	//------------------------------------------------------------------------
 	
-	/**
-	 * 
-	 * {@inheritDoc}
-	 * @see \AppBundle\Controller\Admin\Base\SimpleEntityController::getEntityType()
-	 */
 	protected function getEntityType() {
 		return Tag::class;
+	}
+	
+	//------------------------------------------------------------------------
+	// Forms
+	//------------------------------------------------------------------------
+	
+	protected function getEditorFormType() {
+		return TagEditorType::class;
 	}
 	
 	protected function getFilterFormType() {
 		return TagFilterType::class;
 	}
 	
-	
-	//------------------------------------------------------------------------
-	// Forms
-	//------------------------------------------------------------------------
-	
-	/**
-	 * 
-	 * {@inheritDoc}
-	 * @see \AppBundle\Controller\Admin\Base\SimpleEntityController::getFormType()
-	 */
-	protected function getEditorFormType() {
-		return TagEditorType::class;
+	protected function getListFormType() {
+		return InfoMarketEntityListType::class;
 	}
 }

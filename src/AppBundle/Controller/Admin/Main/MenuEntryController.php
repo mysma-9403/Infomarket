@@ -14,6 +14,7 @@ use AppBundle\Factory\Common\Choices\Bool\InfoproduktChoicesFactory;
 use AppBundle\Filter\Admin\Main\MenuEntryFilter;
 use AppBundle\Form\Editor\Admin\Main\MenuEntryEditorType;
 use AppBundle\Form\Filter\Admin\Main\MenuEntryFilterType;
+use AppBundle\Form\Lists\Base\InfoMarketEntityListType;
 use AppBundle\Manager\Entity\Common\MenuEntryManager;
 use AppBundle\Manager\Filter\Base\FilterManager;
 use Symfony\Component\HttpFoundation\Request;
@@ -162,35 +163,23 @@ class MenuEntryController extends SimpleEntityController {
 	// EntityType related
 	//---------------------------------------------------------------------------
 	
-	/**
-	 * 
-	 * {@inheritDoc}
-	 * @see \AppBundle\Controller\Admin\Base\SimpleEntityController::getEntityType()
-	 */
 	protected function getEntityType() {
 		return MenuEntry::class;
 	}
-	
 	
 	//---------------------------------------------------------------------------
 	// Forms
 	//---------------------------------------------------------------------------
 	
-	/**
-	 * 
-	 * {@inheritDoc}
-	 * @see \AppBundle\Controller\Admin\Base\SimpleEntityController::getFormType()
-	 */
 	protected function getEditorFormType() {
 		return MenuEntryEditorType::class;
 	}
-
-	/**
-	 * 
-	 * {@inheritDoc}
-	 * @see \AppBundle\Controller\Admin\Base\SimpleEntityController::getFilterFormType()
-	 */
+	
 	protected function getFilterFormType() {
 		return MenuEntryFilterType::class;
+	}
+	
+	protected function getListFormType() {
+		return InfoMarketEntityListType::class;
 	}
 }

@@ -5,7 +5,6 @@ namespace AppBundle\Controller\Admin\Base;
 use AppBundle\Entity\Lists\Base\BaseEntityList;
 use AppBundle\Entity\User;
 use AppBundle\Filter\Admin\Base\AuditFilter;
-use AppBundle\Form\Filter\Admin\Base\AdminFilterType;
 use AppBundle\Form\Lists\Base\BaseEntityListType;
 use AppBundle\Manager\Filter\Base\FilterManager;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -45,14 +44,6 @@ abstract class BaseEntityController extends AdminController
 	
 	protected function createNewList() {
 		return new BaseEntityList();
-	}
-	
-	/**
-	 *
-	 * @return FilterFormType
-	 */
-	protected function getFilterFormType() {
-		return AdminFilterType::class;
 	}
 	
 	/**

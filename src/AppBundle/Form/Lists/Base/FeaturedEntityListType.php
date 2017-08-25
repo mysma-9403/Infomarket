@@ -5,7 +5,7 @@ namespace AppBundle\Form\Lists\Base;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 
-class FeaturedEntityListType extends SimpleEntityListType
+class FeaturedEntityListType extends InfoMarketEntityListType
 {	
 	/**
 	 * 

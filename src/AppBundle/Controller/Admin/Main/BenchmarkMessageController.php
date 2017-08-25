@@ -3,7 +3,6 @@
 namespace AppBundle\Controller\Admin\Main;
 
 use AppBundle\Controller\Admin\Base\BaseEntityController;
-use AppBundle\Controller\Admin\Base\SimpleEntityController;
 use AppBundle\Entity\BenchmarkMessage;
 use AppBundle\Entity\Product;
 use AppBundle\Entity\User;
@@ -279,28 +278,13 @@ class BenchmarkMessageController extends BaseEntityController {
 		return new BenchmarkMessageParamsManager($em, $fm, $doctrine);
 	}
 	
-	
 	//------------------------------------------------------------------------
 	// EntityType related
 	//------------------------------------------------------------------------
 	
-	/**
-	 *
-	 * {@inheritDoc}
-	 * @see \AppBundle\Controller\Admin\Base\SimpleEntityController::getEntityType()
-	 */
 	protected function getEntityType() {
 		return BenchmarkMessage::class;
 	}
-	
-	/**
-	 *
-	 * @return BaseEntityListType
-	 */
-	protected function getListFormType() {
-		return BenchmarkMessageListType::class;
-	}
-	
 	
 	//------------------------------------------------------------------------
 	// Forms
@@ -310,13 +294,12 @@ class BenchmarkMessageController extends BaseEntityController {
 		return BenchmarkMessageEditorType::class;
 	}
 	
-	/**
-	 * 
-	 * {@inheritDoc}
-	 * @see \AppBundle\Controller\Admin\Base\SimpleEntityController::getFilterFormType()
-	 */
 	protected function getFilterFormType() {
 		return BenchmarkMessageFilterType::class;
+	}
+	
+	protected function getListFormType() {
+		return BenchmarkMessageListType::class;
 	}
 	
 	//---------------------------------------------------------------------------

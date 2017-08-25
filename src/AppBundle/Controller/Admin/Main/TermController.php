@@ -10,6 +10,7 @@ use AppBundle\Factory\Common\Choices\Bool\InfoproduktChoicesFactory;
 use AppBundle\Filter\Admin\Main\TermFilter;
 use AppBundle\Form\Editor\Admin\Main\TermEditorType;
 use AppBundle\Form\Filter\Admin\Main\TermFilterType;
+use AppBundle\Form\Lists\Base\InfoMarketEntityListType;
 use AppBundle\Manager\Entity\Common\TermManager;
 use AppBundle\Manager\Filter\Base\FilterManager;
 use Symfony\Component\HttpFoundation\Request;
@@ -159,30 +160,23 @@ class TermController extends SimpleEntityController {
 	// EntityType related
 	//------------------------------------------------------------------------
 	
-	/**
-	 * 
-	 * {@inheritDoc}
-	 * @see \AppBundle\Controller\Admin\Base\SimpleEntityController::getEntityType()
-	 */
 	protected function getEntityType() {
 		return Term::class;
 	}
-	
 	
 	//------------------------------------------------------------------------
 	// Forms
 	//------------------------------------------------------------------------
 	
-	/**
-	 * 
-	 * {@inheritDoc}
-	 * @see \AppBundle\Controller\Admin\Base\SimpleEntityController::getFormType()
-	 */
 	protected function getEditorFormType() {
 		return TermEditorType::class;
 	}
 	
 	protected function getFilterFormType() {
 		return TermFilterType::class;
+	}
+	
+	protected function getListFormType() {
+		return InfoMarketEntityListType::class;
 	}
 }

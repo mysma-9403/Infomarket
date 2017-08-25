@@ -6,7 +6,6 @@ use AppBundle\Filter\Admin\Base\AuditFilter;
 use AppBundle\Filter\Admin\Base\SimpleEntityFilter;
 use AppBundle\Filter\Base\Filter;
 use AppBundle\Form\Filter\Admin\Base\SimpleEntityFilterType;
-use AppBundle\Form\Lists\Base\SimpleEntityListType;
 use AppBundle\Manager\Filter\Base\FilterManager;
 use AppBundle\Repository\Admin\Base\SimpleRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -163,14 +162,6 @@ abstract class SimpleEntityController extends BaseEntityController
 	 */
 	protected function getFilterFormType() {
 		return SimpleEntityFilterType::class;
-	}
-	
-	/**
-	 *
-	 * @return BaseEntityListType
-	 */
-	protected function getListFormType() {
-		return SimpleEntityListType::class;
 	}
 	
 	//---------------------------------------------------------------------------

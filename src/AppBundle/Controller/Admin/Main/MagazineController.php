@@ -3,7 +3,6 @@
 namespace AppBundle\Controller\Admin\Main;
 
 use AppBundle\Controller\Admin\Base\FeaturedEntityController;
-use AppBundle\Controller\Admin\Base\SimpleEntityController;
 use AppBundle\Entity\Branch;
 use AppBundle\Entity\Category;
 use AppBundle\Entity\Magazine;
@@ -16,6 +15,7 @@ use AppBundle\Form\Filter\Admin\Main\MagazineFilterType;
 use AppBundle\Manager\Entity\Common\MagazineManager;
 use AppBundle\Manager\Filter\Base\FilterManager;
 use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Form\Lists\Base\FeaturedEntityListType;
 
 class MagazineController extends FeaturedEntityController {
 	
@@ -173,35 +173,23 @@ class MagazineController extends FeaturedEntityController {
 	// EntityType related
 	//------------------------------------------------------------------------
 	
-	/**
-	 * 
-	 * {@inheritDoc}
-	 * @see \AppBundle\Controller\Admin\Base\SimpleEntityController::getEntityType()
-	 */
 	protected function getEntityType() {
 		return Magazine::class;
 	}
-	
 	
 	//------------------------------------------------------------------------
 	// Forms
 	//------------------------------------------------------------------------
 	
-	/**
-	 * 
-	 * {@inheritDoc}
-	 * @see \AppBundle\Controller\Admin\Base\SimpleEntityController::getFormType()
-	 */
 	protected function getEditorFormType() {
 		return MagazineEditorType::class;
 	}
 	
-	/**
-	 *
-	 * {@inheritDoc}
-	 * @see \AppBundle\Controller\Admin\Base\SimpleEntityController::getFilterFormType()
-	 */
 	protected function getFilterFormType() {
 		return MagazineFilterType::class;
+	}
+	
+	protected function getListFormType() {
+		return FeaturedEntityListType::class;
 	}
 }

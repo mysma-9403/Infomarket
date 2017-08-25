@@ -4,7 +4,6 @@ namespace AppBundle\Controller\Admin\Main;
 
 use AppBundle\Controller\Admin\Base\FeaturedEntityController;
 use AppBundle\Controller\Admin\Base\ImageEntityController;
-use AppBundle\Controller\Admin\Base\SimpleEntityController;
 use AppBundle\Entity\Branch;
 use AppBundle\Entity\Category;
 use AppBundle\Entity\Other\ImportRatings;
@@ -17,6 +16,7 @@ use AppBundle\Factory\Common\Choices\Bool\PreleafChoicesFactory;
 use AppBundle\Filter\Admin\Main\CategoryFilter;
 use AppBundle\Form\Editor\Admin\Main\CategoryEditorType;
 use AppBundle\Form\Filter\Admin\Main\CategoryFilterType;
+use AppBundle\Form\Lists\Base\FeaturedEntityListType;
 use AppBundle\Form\Other\ImportRatingsType;
 use AppBundle\Logic\Admin\Import\Product\ImportLogic;
 use AppBundle\Manager\Entity\Base\EntityManager;
@@ -518,36 +518,24 @@ class CategoryController extends FeaturedEntityController {
 	// EntityType related
 	//---------------------------------------------------------------------------
 	
-	/**
-	 * 
-	 * {@inheritDoc}
-	 * @see \AppBundle\Controller\Admin\Base\SimpleEntityController::getEntityType()
-	 */
 	protected function getEntityType() {
 		return Category::class;
 	}
-	
 	
 	//---------------------------------------------------------------------------
 	// Forms
 	//---------------------------------------------------------------------------
 	
-	/**
-	 * 
-	 * {@inheritDoc}
-	 * @see \AppBundle\Controller\Admin\Base\SimpleEntityController::getFormType()
-	 */
 	protected function getEditorFormType() {
 		return CategoryEditorType::class;
 	}
 
-	/**
-	 * 
-	 * {@inheritDoc}
-	 * @see \AppBundle\Controller\Admin\Base\SimpleEntityController::getFilterFormType()
-	 */
 	protected function getFilterFormType() {
 		return CategoryFilterType::class;
+	}
+	
+	protected function getListFormType() {
+		return FeaturedEntityListType::class;
 	}
 	
 	//---------------------------------------------------------------------------

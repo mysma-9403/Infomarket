@@ -9,7 +9,7 @@ use AppBundle\Factory\Common\Choices\Enum\UserRolesFactory;
 use AppBundle\Filter\Admin\Main\UserFilter;
 use AppBundle\Form\Editor\Admin\Main\UserEditorType;
 use AppBundle\Form\Filter\Admin\Main\UserFilterType;
-use AppBundle\Form\Lists\UserListType;
+use AppBundle\Form\Lists\Base\BaseEntityListType;
 use AppBundle\Manager\Entity\Base\EntityManager;
 use AppBundle\Manager\Entity\Common\UserManager;
 use AppBundle\Manager\Filter\Base\FilterManager;
@@ -183,6 +183,7 @@ class UserController extends AdminController
 	//---------------------------------------------------------------------------
 	// Roles
 	//---------------------------------------------------------------------------
+	
 	protected function getShowRole() {
 		return 'ROLE_ADMIN';
 	}
@@ -203,40 +204,24 @@ class UserController extends AdminController
 		return new BaseEntityList();
 	}
 	
-	/**
-	 *
-	 * {@inheritDoc}
-	 * @see \AppBundle\Controller\Admin\Base\SimpleEntityController::getEntityType()
-	 */
 	protected function getEntityType() {
 		return User::class;
 	}
 	
-	/**
-	 * 
-	 * {@inheritDoc}
-	 * @see \AppBundle\Controller\Admin\Base\SimpleEntityController::getFormType()
-	 */
+	//------------------------------------------------------------------------
+	// Forms
+	//------------------------------------------------------------------------
+	
 	protected function getEditorFormType() {
 		return UserEditorType::class;
 	}
 	
-	/**
-	 * 
-	 * {@inheritDoc}
-	 * @see \AppBundle\Controller\Admin\Base\AdminEntityController::getFilterFormType()
-	 */
 	protected function getFilterFormType() {
 		return UserFilterType::class;
 	}
 	
-	/**
-	 * 
-	 * {@inheritDoc}
-	 * @see \AppBundle\Controller\Admin\Base\AdminEntityController::getListFormType()
-	 */
 	protected function getListFormType() {
-		return UserListType::class;
+		return BaseEntityListType::class; 
 	}
 	
 	//------------------------------------------------------------------------

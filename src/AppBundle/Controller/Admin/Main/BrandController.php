@@ -3,13 +3,13 @@
 namespace AppBundle\Controller\Admin\Main;
 
 use AppBundle\Controller\Admin\Base\ImageEntityController;
-use AppBundle\Controller\Admin\Base\SimpleEntityController;
 use AppBundle\Entity\Brand;
 use AppBundle\Factory\Common\Choices\Bool\InfomarketChoicesFactory;
 use AppBundle\Factory\Common\Choices\Bool\InfoproduktChoicesFactory;
 use AppBundle\Filter\Admin\Main\BrandFilter;
 use AppBundle\Form\Editor\Admin\Main\BrandEditorType;
 use AppBundle\Form\Filter\Admin\Main\BrandFilterType;
+use AppBundle\Form\Lists\Base\InfoMarketEntityListType;
 use AppBundle\Manager\Entity\Common\BrandManager;
 use AppBundle\Manager\Filter\Base\FilterManager;
 use Symfony\Component\HttpFoundation\Request;
@@ -172,30 +172,23 @@ class BrandController extends ImageEntityController {
 	// EntityType related
 	//------------------------------------------------------------------------
 	
-	/**
-	 *
-	 * {@inheritDoc}
-	 * @see \AppBundle\Controller\Admin\Base\SimpleEntityController::getEntityType()
-	 */
 	protected function getEntityType() {
 		return Brand::class;
+	}
+	
+	//------------------------------------------------------------------------
+	// Forms
+	//------------------------------------------------------------------------
+	
+	protected function getEditorFormType() {
+		return BrandEditorType::class;
 	}
 	
 	protected function getFilterFormType() {
 		return BrandFilterType::class;
 	}
 	
-	
-	//------------------------------------------------------------------------
-	// Forms
-	//------------------------------------------------------------------------
-	
-	/**
-	 *
-	 * {@inheritDoc}
-	 * @see \AppBundle\Controller\Admin\Base\SimpleEntityController::getFormType()
-	 */
-	protected function getEditorFormType() {
-		return BrandEditorType::class;
+	protected function getListFormType() {
+		return InfoMarketEntityListType::class;
 	}
 }

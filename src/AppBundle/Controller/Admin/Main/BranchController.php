@@ -3,13 +3,13 @@
 namespace AppBundle\Controller\Admin\Main;
 
 use AppBundle\Controller\Admin\Base\ImageEntityController;
-use AppBundle\Controller\Admin\Base\SimpleEntityController;
 use AppBundle\Entity\Branch;
 use AppBundle\Factory\Common\Choices\Bool\InfomarketChoicesFactory;
 use AppBundle\Factory\Common\Choices\Bool\InfoproduktChoicesFactory;
 use AppBundle\Filter\Admin\Main\BranchFilter;
 use AppBundle\Form\Editor\Admin\Main\BranchEditorType;
 use AppBundle\Form\Filter\Admin\Main\BranchFilterType;
+use AppBundle\Form\Lists\Base\InfoMarketEntityListType;
 use AppBundle\Manager\Entity\Common\BranchManager;
 use AppBundle\Manager\Filter\Base\FilterManager;
 use Symfony\Component\HttpFoundation\Request;
@@ -157,30 +157,23 @@ class BranchController extends ImageEntityController {
 	// EntityType related
 	//------------------------------------------------------------------------
 	
-	/**
-	 * 
-	 * {@inheritDoc}
-	 * @see \AppBundle\Controller\Admin\Base\SimpleEntityController::getEntityType()
-	 */
 	protected function getEntityType() {
 		return Branch::class;
+	}
+	
+	//------------------------------------------------------------------------
+	// Forms
+	//------------------------------------------------------------------------
+	
+	protected function getEditorFormType() {
+		return BranchEditorType::class;
 	}
 	
 	protected function getFilterFormType() {
 		return BranchFilterType::class;
 	}
 	
-	
-	//------------------------------------------------------------------------
-	// Forms
-	//------------------------------------------------------------------------
-	
-	/**
-	 * 
-	 * {@inheritDoc}
-	 * @see \AppBundle\Controller\Admin\Base\SimpleEntityController::getFormType()
-	 */
-	protected function getEditorFormType() {
-		return BranchEditorType::class;
+	protected function getListFormType() {
+		return InfoMarketEntityListType::class;
 	}
 }

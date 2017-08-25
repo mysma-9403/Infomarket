@@ -4,8 +4,6 @@ namespace AppBundle\Controller\Admin\Main;
 
 use AppBundle\Controller\Admin\Base\SimpleEntityController;
 use AppBundle\Entity\NewsletterGroup;
-use AppBundle\Factory\Common\Choices\Bool\InfomarketChoicesFactory;
-use AppBundle\Factory\Common\Choices\Bool\InfoproduktChoicesFactory;
 use AppBundle\Filter\Admin\Main\NewsletterGroupFilter;
 use AppBundle\Form\Editor\Admin\Main\NewsletterGroupEditorType;
 use AppBundle\Form\Filter\Admin\Main\NewsletterGroupFilterType;
@@ -150,19 +148,6 @@ class NewsletterGroupController extends SimpleEntityController {
 	}
 	
 	//---------------------------------------------------------------------------
-	// Internal logic
-	//---------------------------------------------------------------------------
-	
-	protected function getFilterFormOptions() {
-		$options = parent::getFilterFormOptions();
-	
-		$this->addFactoryChoicesFormOption($options, InfomarketChoicesFactory::class, 'infomarket');
-		$this->addFactoryChoicesFormOption($options, InfoproduktChoicesFactory::class, 'infoprodukt');
-	
-		return $options;
-	}
-	
-	//---------------------------------------------------------------------------
 	// Managers
 	//---------------------------------------------------------------------------
 	
@@ -177,6 +162,7 @@ class NewsletterGroupController extends SimpleEntityController {
 	//---------------------------------------------------------------------------
 	// Roles
 	//---------------------------------------------------------------------------
+	
 	protected function getShowRole() {
 		return 'ROLE_ADMIN';
 	}
@@ -189,30 +175,19 @@ class NewsletterGroupController extends SimpleEntityController {
 	// EntityType related
 	//------------------------------------------------------------------------
 	
-	/**
-	 *
-	 * {@inheritDoc}
-	 * @see \AppBundle\Controller\Admin\Base\SimpleEntityController::getEntityType()
-	 */
 	protected function getEntityType() {
 		return NewsletterGroup::class;
 	}
-	
-	protected function getFilterFormType() {
-		return NewsletterGroupFilterType::class;
-	}
-	
 	
 	//------------------------------------------------------------------------
 	// Forms
 	//------------------------------------------------------------------------
 	
-	/**
-	 *
-	 * {@inheritDoc}
-	 * @see \AppBundle\Controller\Admin\Base\SimpleEntityController::getFormType()
-	 */
 	protected function getEditorFormType() {
 		return NewsletterGroupEditorType::class;
+	}
+	
+	protected function getFilterFormType() {
+		return NewsletterGroupFilterType::class;
 	}
 }

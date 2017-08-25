@@ -3,14 +3,13 @@
 namespace AppBundle\Controller\Admin\Main;
 
 use AppBundle\Controller\Admin\Base\BaseEntityController;
-use AppBundle\Controller\Admin\Base\SimpleEntityController;
 use AppBundle\Entity\BenchmarkEnum;
-use AppBundle\Form\Editor\Admin\Main\BenchmarkEnumEditorType;
-use AppBundle\Manager\Entity\Common\BenchmarkEnumManager;
-use Symfony\Component\HttpFoundation\Request;
-use AppBundle\Manager\Filter\Base\FilterManager;
 use AppBundle\Filter\Admin\Main\BenchmarkEnumFilter;
+use AppBundle\Form\Editor\Admin\Main\BenchmarkEnumEditorType;
 use AppBundle\Form\Filter\Admin\Main\BenchmarkEnumFilterType;
+use AppBundle\Manager\Entity\Common\BenchmarkEnumManager;
+use AppBundle\Manager\Filter\Base\FilterManager;
+use Symfony\Component\HttpFoundation\Request;
 
 class BenchmarkEnumController extends BaseEntityController {
 	
@@ -114,25 +113,14 @@ class BenchmarkEnumController extends BaseEntityController {
 	// EntityType related
 	//------------------------------------------------------------------------
 	
-	/**
-	 *
-	 * {@inheritDoc}
-	 * @see \AppBundle\Controller\Admin\Base\SimpleEntityController::getEntityType()
-	 */
 	protected function getEntityType() {
 		return BenchmarkEnum::class;
 	}
-	
 	
 	//------------------------------------------------------------------------
 	// Forms
 	//------------------------------------------------------------------------
 	
-	/**
-	 *
-	 * {@inheritDoc}
-	 * @see \AppBundle\Controller\Admin\Base\SimpleEntityController::getFormType()
-	 */
 	protected function getEditorFormType() {
 		return BenchmarkEnumEditorType::class;
 	}

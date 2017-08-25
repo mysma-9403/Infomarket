@@ -3,7 +3,6 @@
 namespace AppBundle\Controller\Admin\Main;
 
 use AppBundle\Controller\Admin\Base\ImageEntityController;
-use AppBundle\Controller\Admin\Base\SimpleEntityController;
 use AppBundle\Entity\Advert;
 use AppBundle\Entity\Category;
 use AppBundle\Factory\Common\Choices\Bool\InfomarketChoicesFactory;
@@ -12,6 +11,7 @@ use AppBundle\Factory\Common\Choices\Enum\AdvertLocationsFactory;
 use AppBundle\Filter\Admin\Main\AdvertFilter;
 use AppBundle\Form\Editor\Admin\Main\AdvertEditorType;
 use AppBundle\Form\Filter\Admin\Main\AdvertFilterType;
+use AppBundle\Form\Lists\Base\InfoMarketEntityListType;
 use AppBundle\Manager\Entity\Common\AdvertManager;
 use AppBundle\Manager\Filter\Base\FilterManager;
 use phpDocumentor\Reflection\Location;
@@ -175,35 +175,23 @@ class AdvertController extends ImageEntityController {
 	// EntityType related
 	//------------------------------------------------------------------------
 	
-	/**
-	 *
-	 * {@inheritDoc}
-	 * @see \AppBundle\Controller\Admin\Base\SimpleEntityController::getEntityType()
-	 */
 	protected function getEntityType() {
 		return Advert::class;
 	}
-	
 	
 	//------------------------------------------------------------------------
 	// Forms
 	//------------------------------------------------------------------------
 	
-	/**
-	 *
-	 * {@inheritDoc}
-	 * @see \AppBundle\Controller\Admin\Base\SimpleEntityController::getFormType()
-	 */
 	protected function getEditorFormType() {
 		return AdvertEditorType::class;
 	}
 	
-	/**
-	 * 
-	 * {@inheritDoc}
-	 * @see \AppBundle\Controller\Admin\Base\SimpleEntityController::getFilterFormType()
-	 */
 	protected function getFilterFormType() {
 		return AdvertFilterType::class;
+	}
+	
+	protected function getListFormType() {
+		return InfoMarketEntityListType::class;
 	}
 }

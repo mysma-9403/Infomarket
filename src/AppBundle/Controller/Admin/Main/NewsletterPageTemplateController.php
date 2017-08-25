@@ -138,6 +138,7 @@ class NewsletterPageTemplateController extends SimpleEntityController {
 	//---------------------------------------------------------------------------
 	// Roles
 	//---------------------------------------------------------------------------
+	
 	protected function getShowRole() {
 		return 'ROLE_ADMIN';
 	}
@@ -150,20 +151,14 @@ class NewsletterPageTemplateController extends SimpleEntityController {
 	// EntityType related
 	//------------------------------------------------------------------------
 	
-	/**
-	 * 
-	 * {@inheritDoc}
-	 * @see \AppBundle\Controller\Admin\Base\SimpleEntityController::getEntityType()
-	 */
 	protected function getEntityType() {
 		return NewsletterPageTemplate::class;
 	}
 	
-	/**
-	 * 
-	 * {@inheritDoc}
-	 * @see \AppBundle\Controller\Admin\Base\SimpleEntityController::getFormType()
-	 */
+	//---------------------------------------------------------------------------
+	// Forms
+	//---------------------------------------------------------------------------
+	
 	protected function getEditorFormType() {
 		return NewsletterPageTemplateEditorType::class;
 	}

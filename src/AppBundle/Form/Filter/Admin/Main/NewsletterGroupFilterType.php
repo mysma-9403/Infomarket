@@ -12,18 +12,6 @@ class NewsletterGroupFilterType extends SimpleEntityFilterType
 		parent::addMainFields($builder, $options);
 		
 		$this->addFilterTextField($builder, 'name', 'label.name');
-		
-		$this->addBooleanChoiceFilterField($builder, $options, 'infomarket');
-		$this->addBooleanChoiceFilterField($builder, $options, 'infoprodukt');
-	}
-	
-	protected function getDefaultOptions() {
-		$options = parent::getDefaultOptions();
-		
-		$options[$this->getChoicesName('infomarket')] = [];
-		$options[$this->getChoicesName('infoprodukt')] = [];
-	
-		return $options;
 	}
 	
 	protected function getEntityType() {

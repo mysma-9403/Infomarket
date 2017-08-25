@@ -127,6 +127,7 @@ class NewsletterBlockTemplateController extends SimpleEntityController {
 	//---------------------------------------------------------------------------
 	// Roles
 	//---------------------------------------------------------------------------
+	
 	protected function getShowRole() {
 		return 'ROLE_ADMIN';
 	}
@@ -139,30 +140,19 @@ class NewsletterBlockTemplateController extends SimpleEntityController {
 	// EntityType related
 	//------------------------------------------------------------------------
 	
-	/**
-	 * 
-	 * {@inheritDoc}
-	 * @see \AppBundle\Controller\Admin\Base\SimpleEntityController::getEntityType()
-	 */
 	protected function getEntityType() {
 		return NewsletterBlockTemplate::class;
 	}
-	
-	protected function getFilterFormType() {
-		return NewsletterBlockTemplateFilterType::class;
-	}
-	
 	
 	//------------------------------------------------------------------------
 	// Forms
 	//------------------------------------------------------------------------
 	
-	/**
-	 * 
-	 * {@inheritDoc}
-	 * @see \AppBundle\Controller\Admin\Base\SimpleEntityController::getFormType()
-	 */
 	protected function getEditorFormType() {
 		return NewsletterBlockTemplateEditorType::class;
+	}
+	
+	protected function getFilterFormType() {
+		return NewsletterBlockTemplateFilterType::class;
 	}
 }

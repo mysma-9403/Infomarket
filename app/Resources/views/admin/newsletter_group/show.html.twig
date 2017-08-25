@@ -10,13 +10,6 @@
 	{ value: entry.name } %}
 {% endblock %}
 
-{% block contentFields %}
-	{% include 'common/fields/bool_field.html.twig' with 
-	{ label: 'label.' ~ gender ~ 'infomarket', value: entry.infomarket } %}
-	{% include 'common/fields/bool_field.html.twig' with 
-	{ label: 'label.' ~ gender ~ 'infoprodukt', value: entry.infoprodukt } %}
-	
-	<div class="vr-space-40"></div>
-	
+{% block contentFields %}	
 	{% include 'admin/_simple/components/show/audit_fields.twig' %}
 {% endblock %}
