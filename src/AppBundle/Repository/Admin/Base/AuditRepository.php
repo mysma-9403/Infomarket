@@ -9,8 +9,8 @@ use AppBundle\Repository\Base\BaseRepository;
 use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\ORM\QueryBuilder;
 
-abstract class AuditRepository extends BaseRepository
-{
+abstract class AuditRepository extends BaseRepository {
+
 	protected function getSelectFields(QueryBuilder &$builder, Filter $filter) {
 		$fields = parent::getSelectFields($builder, $filter);
 		
@@ -27,47 +27,29 @@ abstract class AuditRepository extends BaseRepository
 		
 		return $fields;
 	}
-	
+
 	protected function buildJoins(QueryBuilder &$builder, Filter $filter) {
 		$builder->leftJoin(User::class, 'cu', Join::WITH, 'e.createdBy = cu.id');
 		$builder->leftJoin(User::class, 'uu', Join::WITH, 'e.createdBy = uu.id');
 	}
-	
+
 	protected function getWhere(QueryBuilder &$builder, Filter $filter) {
-		/** @var AuditFilter $filter */
 		$where = parent::getWhere($builder, $filter);
+		/** @var AuditFilter $filter */
 		
+		$this->addDateAfterWhere($builder, $where, 'e.updatedAt', $filter->getUpdatedAfter());
+		$this->addDateBeforeWhere($builder, $where, 'e.updatedAt', $filter->getUpdatedBefore());
 		
-		if($filter->getUpdatedAfter()) {
-			$where->add($builder->expr()->gt('e.updatedAt', $builder->expr()->literal($filter->getUpdatedAfter()->format('Y-m-d h:i:s'))));
-		}
+		$this->addDateAfterWhere($builder, $where, 'e.createdAt', $filter->getCreatedAfter());
+		$this->addDateBeforeWhere($builder, $where, 'e.createdAt', $filter->getCreatedBefore());
 		
-		if($filter->getUpdatedBefore()) {
-			$where->add($builder->expr()->lt('e.updatedAt', $builder->expr()->literal($filter->getUpdatedBefore()->format('Y-m-d h:i:s'))));
-		}
-		
-		
-		if($filter->getCreatedAfter()) {
-			$where->add($builder->expr()->gt('e.createdAt', $builder->expr()->literal($filter->getCreatedAfter()->format('Y-m-d h:i:s'))));
-		}
-		
-		if($filter->getCreatedBefore()) {
-			$where->add($builder->expr()->lt('e.createdAt', $builder->expr()->literal($filter->getCreatedBefore()->format('Y-m-d h:i:s'))));
-		}
-		
-		
-		if(count($filter->getCreatedBy()) > 0) {
-			$where->add($builder->expr()->in('e.createdBy', $filter->getCreatedBy()));
-		}
-		
-		if(count($filter->getUpdatedBy()) > 0) {
-			$where->add($builder->expr()->in('e.updatedBy', $filter->getUpdatedBy()));
-		}
+		$this->addArrayWhere($builder, $where, 'e.createdBy', $filter->getCreatedBy());
+		$this->addArrayWhere($builder, $where, 'e.updatedBy', $filter->getUpdatedBy());
 		
 		return $where;
 	}
-	
-	protected function buildLimit(QueryBuilder &$builder, Filter $filter) { 
+
+	protected function buildLimit(QueryBuilder &$builder, Filter $filter) {
 		$builder->setMaxResults(8);
 	}
 }

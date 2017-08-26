@@ -12,33 +12,37 @@ use AppBundle\Filter\Admin\Main\MenuEntryFilter;
 use AppBundle\Entity\Page;
 use AppBundle\Entity\Link;
 use Doctrine\ORM\QueryBuilder;
+use AppBundle\Entity\MenuMenuEntryAssignment;
 
-class MenuEntryRepository extends SimpleEntityRepository
-{	
+class MenuEntryRepository extends SimpleEntityRepository {
+
 	protected function buildJoins(QueryBuilder &$builder, Filter $filter) {
-		/** @var MenuEntryFilter $filter */
 		parent::buildJoins($builder, $filter);
-	
+		/** @var MenuEntryFilter $filter */
+		
 		$builder->leftJoin(Page::class, 'p', Join::WITH, 'p.id = e.page');
 		$builder->leftJoin(Link::class, 'l', Join::WITH, 'l.id = e.link');
 		
-		if(count($filter->getMenus()) > 0) {
-			$builder->leftJoin(MenuEntryBranchAssignment::class, 'mmea', Join::WITH, 'e.id = mmea.menuEntry');
+		if (count($filter->getMenus()) > 0) {
+			$builder->leftJoin(MenuMenuEntryAssignment::class, 'mmea', Join::WITH, 'e.id = mmea.menuEntry');
 		}
 		
-		if(count($filter->getBranches()) > 0) {
+		if (count($filter->getBranches()) > 0) {
 			$builder->leftJoin(MenuEntryBranchAssignment::class, 'meba', Join::WITH, 'e.id = meba.menuEntry');
 		}
-	
-		if(count($filter->getCategories()) > 0) {
+		
+		if (count($filter->getCategories()) > 0) {
 			$builder->leftJoin(MenuEntryCategoryAssignment::class, 'meca', Join::WITH, 'e.id = meca.menuEntry');
 		}
 	}
-	
-	
-	
+
 	protected function getSelectFields(QueryBuilder &$builder, Filter $filter) {
 		$fields = parent::getSelectFields($builder, $filter);
+		
+		$fields[] = 'e.name';
+		
+		$fields[] = 'e.infomarket';
+		$fields[] = 'e.infoprodukt';
 		
 		$fields[] = 'p.id AS pageId';
 		$fields[] = 'p.name AS pageName';
@@ -47,35 +51,40 @@ class MenuEntryRepository extends SimpleEntityRepository
 		
 		return $fields;
 	}
-	
+
 	protected function getWhere(QueryBuilder &$builder, Filter $filter) {
-		/** @var MenuEntryFilter $filter */
 		$where = parent::getWhere($builder, $filter);
-	
-		if(count($filter->getMenus()) > 0) {
-			$where->add($builder->expr()->in('mmea.menu', $filter->getMenus()));
-		}
+		/** @var MenuEntryFilter $filter */
 		
-		if(count($filter->getParents()) > 0) {
-			$where->add($builder->expr()->in('e.parent', $filter->getParents()));
-		}
-	
-		if(count($filter->getBranches()) > 0) {
-			$where->add($builder->expr()->in('meba.branch', $filter->getBranches()));
-		}
-	
-		if(count($filter->getCategories()) > 0) {
-			$where->add($builder->expr()->in('meca.category', $filter->getCategories()));
-		}
-	
+		$this->addStringWhere($builder, $where, 'e.name', $filter->getName());
+		
+		$this->addBooleanWhere($builder, $where, 'e.infomarket', $filter->getInfomarket());
+		$this->addBooleanWhere($builder, $where, 'e.infoprodukt', $filter->getInfoprodukt());
+		
+		$this->addArrayWhere($builder, $where, 'mmea.menu', $filter->getMenus());
+		$this->addArrayWhere($builder, $where, 'e.parent', $filter->getParents());
+		$this->addArrayWhere($builder, $where, 'meba.branch', $filter->getBranches());
+		$this->addArrayWhere($builder, $where, 'meca.category', $filter->getCategories());
+		
 		return $where;
 	}
 	
+	protected function getFilterSelectFields(QueryBuilder &$builder) {
+		$fields = parent::getFilterSelectFields($builder);
 	
+		$fields[] = 'e.name';
 	
-    /**
-	 * {@inheritdoc}
-	 */
+		return $fields;
+	}
+	
+	protected function getFilterItemKeyFields($item) {
+		$fields = parent::getFilterItemKeyFields($item);
+	
+		$fields[] = $item['name'];
+	
+		return $fields;
+	}
+
 	protected function getEntityType() {
 		return MenuEntry::class;
 	}

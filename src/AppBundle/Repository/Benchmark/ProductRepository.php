@@ -16,30 +16,33 @@ use Doctrine\ORM\AbstractQuery;
 use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\ORM\QueryBuilder;
 
-class ProductRepository extends BaseRepository
-{
+class ProductRepository extends BaseRepository {
+
 	protected function getItemSelectFields(QueryBuilder &$builder) {
-		return ['e.id', 'e.name', 'b.name AS brandName'];
+		return [ 
+				'e.id',
+				'e.name',
+				'b.name AS brandName' 
+		];
 	}
-	
+
 	protected function buildItemJoins(QueryBuilder &$builder) {
 		$builder->innerJoin(Brand::class, 'b', Join::WITH, 'b.id = e.brand');
 	}
-	
+
 	public function findFilterItemsByValue($categoryId, $valueName) {
 		$items = $this->queryFilterItemsByValue($categoryId, $valueName)->getScalarResult();
 		return $this->getFilterItemsFromValues($items, $valueName);
 	}
-	
-	protected function queryFilterItemsByValue($categoryId, $valueName)
-	{
+
+	protected function queryFilterItemsByValue($categoryId, $valueName) {
 		$builder = new QueryBuilder($this->getEntityManager());
-			
+		
 		$builder->select("e." . $valueName);
 		$builder->distinct();
 		
 		$builder->from($this->getEntityType(), "e");
-	
+		
 		$builder->innerJoin(ProductCategoryAssignment::class, 'pca', Join::WITH, 'e.id = pca.product');
 		$builder->innerJoin(Category::class, 'c', Join::WITH, 'c.id = pca.category');
 		
@@ -47,31 +50,33 @@ class ProductRepository extends BaseRepository
 		$where = $expr->andX();
 		$where->add($expr->isNull('e.benchmarkQuery'));
 		$where->add($builder->expr()->like('c.treePath', $builder->expr()->literal('%-' . $categoryId . '#%')));
-	
+		
 		$builder->where($where);
-	
+		
 		$builder->orderBy('e.' . $valueName, 'ASC');
-			
+		
 		return $builder->getQuery();
 	}
-	
+
 	protected function getFilterItemsFromValues(array $items, $valueName) {
-		$result = array();
+		$result = array ();
 		
 		foreach ($items as $item) {
 			$multivalue = $item[$valueName];
 			
 			$temp = $multivalue;
-			while(true) {
+			while (true) {
 				$start = strpos($temp, '(');
-				if($start == false) break;
+				if ($start == false)
+					break;
 				$end = strpos($temp, ')');
-				if($end == false) break;
+				if ($end == false)
+					break;
 				
 				$substr = substr($temp, $start, $end - $start);
 				$replace = str_replace(',', '#', $substr);
 				
-				$temp = substr($temp, $end+1);
+				$temp = substr($temp, $end + 1);
 				
 				$multivalue = str_replace($substr, $replace, $multivalue);
 			}
@@ -79,7 +84,7 @@ class ProductRepository extends BaseRepository
 			$values = explode(',', $multivalue);
 			
 			foreach ($values as $value) {
-				if($value && strlen($value) > 0) {
+				if ($value && strlen($value) > 0) {
 					$value = trim($value);
 					$value = str_replace('#', ',', $value);
 					$result[$value] = $value;
@@ -89,184 +94,175 @@ class ProductRepository extends BaseRepository
 		
 		return $result;
 	}
-	
-	
-	
+
 	public function findMinMaxValues($categoryId, $valueName) {
 		return $this->queryMinMaxValues($categoryId, $valueName)->getSingleResult(AbstractQuery::HYDRATE_SCALAR);
 	}
-	
-	protected function queryMinMaxValues($categoryId, $valueName)
-	{
+
+	protected function queryMinMaxValues($categoryId, $valueName) {
 		$builder = new QueryBuilder($this->getEntityManager());
-	
+		
 		$expr = $builder->expr();
 		
 		$builder->select($expr->min("e." . $valueName) . ' AS vmin', $expr->max("e." . $valueName) . ' AS vmax');
 		$builder->distinct();
 		$builder->from($this->getEntityType(), "e");
-	
+		
 		$builder->innerJoin(ProductCategoryAssignment::class, 'pca', Join::WITH, 'e.id = pca.product');
 		$builder->innerJoin(Category::class, 'c', Join::WITH, 'c.id = pca.category');
-	
+		
 		$where = $expr->andX();
 		$where->add($expr->isNull('e.benchmarkQuery'));
 		$where->add($expr->isNotNull('e.' . $valueName));
 		$where->add($builder->expr()->like('c.treePath', $builder->expr()->literal('%-' . $categoryId . '#%')));
-	
+		
 		$builder->where($where);
-			
+		
 		return $builder->getQuery();
 	}
-	
+
 	public function findMinMaxAvgValues($categoryId, $valueName) {
 		return $this->queryMinMaxAvgValues($categoryId, $valueName)->getSingleResult(AbstractQuery::HYDRATE_SCALAR);
 	}
-	
-	protected function queryMinMaxAvgValues($categoryId, $valueName)
-	{
+
+	protected function queryMinMaxAvgValues($categoryId, $valueName) {
 		$builder = new QueryBuilder($this->getEntityManager());
-	
+		
 		$expr = $builder->expr();
-	
+		
 		$builder->select($expr->min("e." . $valueName) . ' AS vmin', $expr->max("e." . $valueName) . ' AS vmax', $expr->avg("e." . $valueName) . ' AS vavg');
 		$builder->distinct();
 		$builder->from($this->getEntityType(), "e");
-	
+		
 		$builder->innerJoin(ProductCategoryAssignment::class, 'pca', Join::WITH, 'e.id = pca.product');
 		$builder->innerJoin(Category::class, 'c', Join::WITH, 'c.id = pca.category');
-	
+		
 		$where = $expr->andX();
 		$where->add($expr->isNull('e.benchmarkQuery'));
 		$where->add($expr->isNotNull('e.' . $valueName));
 		$where->add($builder->expr()->like('c.treePath', $builder->expr()->literal('%-' . $categoryId . '#%')));
-	
+		
 		$builder->where($where);
-			
+		
 		return $builder->getQuery();
 	}
-	
+
 	public function findMaxEnumValue($categoryId, $valueName) {
 		return $this->queryMaxEnumValue($categoryId, $valueName)->getSingleScalarResult();
 	}
-	
-	protected function queryMaxEnumValue($categoryId, $valueName)
-	{
+
+	protected function queryMaxEnumValue($categoryId, $valueName) {
 		$builder = new QueryBuilder($this->getEntityManager());
-	
+		
 		$expr = $builder->expr();
-	
+		
 		$builder->select("SUM(be.value) AS value");
 		$builder->from($this->getEntityType(), "e");
-	
+		
 		$builder->innerJoin(ProductCategoryAssignment::class, 'pca', Join::WITH, 'e.id = pca.product');
 		$builder->innerJoin(Category::class, 'c', Join::WITH, 'c.id = pca.category');
 		$builder->leftJoin(BenchmarkEnum::class, 'be', Join::WITH, 'e.' . $valueName . ' LIKE CONCAT(\'%\', be.name, \'%\')');
-	
+		
 		$where = $expr->andX();
 		$where->add($expr->isNull('e.benchmarkQuery'));
 		$where->add($expr->isNotNull('e.' . $valueName));
 		$where->add($builder->expr()->like('c.treePath', $builder->expr()->literal('%-' . $categoryId . '#%')));
-	
+		
 		$builder->where($where);
 		
 		$builder->groupBy('e.id');
 		
 		$builder->orderBy('value', 'DESC');
 		$builder->setMaxResults(1);
-			
+		
 		return $builder->getQuery();
 	}
-	
+
 	public function findMinEnumValue($categoryId, $valueName) {
 		return $this->queryMinEnumValue($categoryId, $valueName)->getSingleScalarResult();
 	}
-	
-	protected function queryMinEnumValue($categoryId, $valueName)
-	{
+
+	protected function queryMinEnumValue($categoryId, $valueName) {
 		$builder = new QueryBuilder($this->getEntityManager());
-	
+		
 		$expr = $builder->expr();
-	
+		
 		$builder->select("SUM(be.value) AS value");
 		$builder->from($this->getEntityType(), "e");
-	
+		
 		$builder->innerJoin(ProductCategoryAssignment::class, 'pca', Join::WITH, 'e.id = pca.product');
 		$builder->innerJoin(Category::class, 'c', Join::WITH, 'c.id = pca.category');
 		$builder->leftJoin(BenchmarkEnum::class, 'be', Join::WITH, 'e.' . $valueName . ' LIKE CONCAT(\'%\', be.name, \'%\')');
-	
+		
 		$where = $expr->andX();
 		$where->add($expr->isNull('e.benchmarkQuery'));
 		$where->add($expr->isNotNull('e.' . $valueName));
 		$where->add($builder->expr()->like('c.treePath', $builder->expr()->literal('%-' . $categoryId . '#%')));
-	
+		
 		$builder->where($where);
-	
+		
 		$builder->groupBy('e.id');
-	
+		
 		$builder->orderBy('value', 'ASC');
 		$builder->setMaxResults(1);
-			
+		
 		return $builder->getQuery();
 	}
-	
+
 	public function findEnumValue($productId, $valueName) {
 		return $this->queryEnumValue($productId, $valueName)->getSingleScalarResult();
 	}
-	
-	protected function queryEnumValue($productId, $valueName)
-	{
+
+	protected function queryEnumValue($productId, $valueName) {
 		$builder = new QueryBuilder($this->getEntityManager());
-	
+		
 		$expr = $builder->expr();
-	
+		
 		$builder->select("SUM(be.value) AS value");
 		$builder->from($this->getEntityType(), "e");
 		
 		$builder->innerJoin(BenchmarkEnum::class, 'be', Join::WITH, 'e.' . $valueName . ' LIKE CONCAT(\'%\', be.name, \'%\')');
-	
+		
 		$where = $expr->andX();
 		$where->add($expr->eq('e.id', $productId));
-	
+		
 		$builder->where($where);
-			
+		
 		return $builder->getQuery();
 	}
-	
+
 	public function findValueCounts($categoryId, $valueName) {
 		return $this->queryValueCounts($categoryId, $valueName)->getScalarResult();
 	}
-	
-	protected function queryValueCounts($categoryId, $valueName)
-	{
+
+	protected function queryValueCounts($categoryId, $valueName) {
 		$builder = new QueryBuilder($this->getEntityManager());
-	
+		
 		$expr = $builder->expr();
-	
+		
 		$builder->select($expr->count('e.id') . ' AS vcount', "e." . $valueName);
 		$builder->from($this->getEntityType(), "e");
-	
+		
 		$builder->innerJoin(ProductCategoryAssignment::class, 'pca', Join::WITH, 'e.id = pca.product');
 		$builder->innerJoin(Category::class, 'c', Join::WITH, 'c.id = pca.category');
-	
+		
 		$where = $expr->andX();
 		$where->add($expr->isNull('e.benchmarkQuery'));
 		$where->add($expr->isNotNull('e.' . $valueName));
 		$where->add($builder->expr()->like('c.treePath', $builder->expr()->literal('%-' . $categoryId . '#%')));
-	
+		
 		$builder->where($where);
 		
 		$builder->groupBy("e." . $valueName);
-			
+		
 		return $builder->getQuery();
 	}
-	
+
 	public function findAllValues($categoryId, $valueName) {
 		return $this->queryAllValues($categoryId, $valueName)->getScalarResult();
 	}
-	
-	protected function queryAllValues($categoryId, $valueName)
-	{
+
+	protected function queryAllValues($categoryId, $valueName) {
 		$builder = new QueryBuilder($this->getEntityManager());
 		
 		$expr = $builder->expr();
@@ -274,89 +270,34 @@ class ProductRepository extends BaseRepository
 		$builder->select('e.id', "e." . $valueName);
 		$builder->distinct();
 		$builder->from($this->getEntityType(), "e");
-	
+		
 		$builder->innerJoin(ProductCategoryAssignment::class, 'pca', Join::WITH, 'e.id = pca.product');
 		$builder->innerJoin(Category::class, 'c', Join::WITH, 'c.id = pca.category');
-	
+		
 		$where = $expr->andX();
 		$where->add($expr->isNull('e.benchmarkQuery'));
 		$where->add($expr->isNotNull('e.' . $valueName));
 		$where->add($builder->expr()->like('c.treePath', $builder->expr()->literal('%-' . $categoryId . '#%')));
-	
+		
 		$builder->where($where);
 		
 		$builder->orderBy("e." . $valueName);
-			
+		
 		return $builder->getQuery();
 	}
-	
+
 	public function findEnumValues($categoryId, $valueName) {
 		return $this->queryEnumValues($categoryId, $valueName)->getScalarResult();
 	}
-	
-	protected function queryEnumValues($categoryId, $valueName)
-	{
+
+	protected function queryEnumValues($categoryId, $valueName) {
 		$builder = new QueryBuilder($this->getEntityManager());
-	
+		
 		$expr = $builder->expr();
-	
+		
 		$builder->select("e." . $valueName);
 		$builder->from($this->getEntityType(), "e");
-	
-		$builder->innerJoin(ProductCategoryAssignment::class, 'pca', Join::WITH, 'e.id = pca.product');
-		$builder->innerJoin(Category::class, 'c', Join::WITH, 'c.id = pca.category');
-	
-		$where = $expr->andX();
-		$where->add($expr->isNull('e.benchmarkQuery'));
-		$where->add($expr->isNotNull('e.' . $valueName));
-		$where->add($builder->expr()->like('c.treePath', $builder->expr()->literal('%-' . $categoryId . '#%')));
-	
-		$builder->where($where);
-			
-		return $builder->getQuery();
-	}
-	
-	public function findItemsCount($categoryId, $valueName) {
-		return $this->queryItemsCount($categoryId, $valueName)->getSingleScalarResult();
-	}
-	
-	protected function queryItemsCount($categoryId, $valueName)
-	{
-		$builder = new QueryBuilder($this->getEntityManager());
-	
-		$expr = $builder->expr();
-	
-		$builder->select($expr->count('e.id'));
-		$builder->distinct();
-		$builder->from($this->getEntityType(), "e");
-	
-		$builder->innerJoin(ProductCategoryAssignment::class, 'pca', Join::WITH, 'e.id = pca.product');
-		$builder->innerJoin(Category::class, 'c', Join::WITH, 'c.id = pca.category');
-	
-		$where = $expr->andX();
-		$where->add($expr->isNull('e.benchmarkQuery'));
-		$where->add($expr->isNotNull('e.' . $valueName));
-		$where->add($builder->expr()->like('c.treePath', $builder->expr()->literal('%-' . $categoryId . '#%')));
-	
-		$builder->where($where);
-			
-		return $builder->getQuery();
-	}
-	
-	public function findBetterThanCount($categoryId, $valueName, $value, $betterThanType) {
-		return $this->queryBetterThanCount($categoryId, $valueName, $value, $betterThanType)->getSingleScalarResult();
-	}
-	
-	protected function queryBetterThanCount($categoryId, $valueName, $value, $betterThanType)
-	{
-		$builder = new QueryBuilder($this->getEntityManager());
-	
-		$expr = $builder->expr();
-	
-		$builder->select($expr->count('e.id'));
-		$builder->distinct();
-		$builder->from($this->getEntityType(), "e");
-	
+		
 		$builder->innerJoin(ProductCategoryAssignment::class, 'pca', Join::WITH, 'e.id = pca.product');
 		$builder->innerJoin(Category::class, 'c', Join::WITH, 'c.id = pca.category');
 		
@@ -364,8 +305,60 @@ class ProductRepository extends BaseRepository
 		$where->add($expr->isNull('e.benchmarkQuery'));
 		$where->add($expr->isNotNull('e.' . $valueName));
 		$where->add($builder->expr()->like('c.treePath', $builder->expr()->literal('%-' . $categoryId . '#%')));
-	
-		switch($betterThanType) {
+		
+		$builder->where($where);
+		
+		return $builder->getQuery();
+	}
+
+	public function findItemsCount($categoryId, $valueName) {
+		return $this->queryItemsCount($categoryId, $valueName)->getSingleScalarResult();
+	}
+
+	protected function queryItemsCount($categoryId, $valueName) {
+		$builder = new QueryBuilder($this->getEntityManager());
+		
+		$expr = $builder->expr();
+		
+		$builder->select($expr->count('e.id'));
+		$builder->distinct();
+		$builder->from($this->getEntityType(), "e");
+		
+		$builder->innerJoin(ProductCategoryAssignment::class, 'pca', Join::WITH, 'e.id = pca.product');
+		$builder->innerJoin(Category::class, 'c', Join::WITH, 'c.id = pca.category');
+		
+		$where = $expr->andX();
+		$where->add($expr->isNull('e.benchmarkQuery'));
+		$where->add($expr->isNotNull('e.' . $valueName));
+		$where->add($builder->expr()->like('c.treePath', $builder->expr()->literal('%-' . $categoryId . '#%')));
+		
+		$builder->where($where);
+		
+		return $builder->getQuery();
+	}
+
+	public function findBetterThanCount($categoryId, $valueName, $value, $betterThanType) {
+		return $this->queryBetterThanCount($categoryId, $valueName, $value, $betterThanType)->getSingleScalarResult();
+	}
+
+	protected function queryBetterThanCount($categoryId, $valueName, $value, $betterThanType) {
+		$builder = new QueryBuilder($this->getEntityManager());
+		
+		$expr = $builder->expr();
+		
+		$builder->select($expr->count('e.id'));
+		$builder->distinct();
+		$builder->from($this->getEntityType(), "e");
+		
+		$builder->innerJoin(ProductCategoryAssignment::class, 'pca', Join::WITH, 'e.id = pca.product');
+		$builder->innerJoin(Category::class, 'c', Join::WITH, 'c.id = pca.category');
+		
+		$where = $expr->andX();
+		$where->add($expr->isNull('e.benchmarkQuery'));
+		$where->add($expr->isNotNull('e.' . $valueName));
+		$where->add($builder->expr()->like('c.treePath', $builder->expr()->literal('%-' . $categoryId . '#%')));
+		
+		switch ($betterThanType) {
 			case BenchmarkField::GT_BETTER_THAN_TYPE:
 				$where->add($expr->gte('e.' . $valueName, $value));
 				break;
@@ -375,31 +368,27 @@ class ProductRepository extends BaseRepository
 		}
 		
 		$builder->where($where);
-			
+		
 		return $builder->getQuery();
 	}
-	
-	
-	
-	
+
 	public function findNeighbourItems($categoryId, $entry, $fields, $limit) {
 		return $this->queryNeighbourItems($categoryId, $entry, $fields, $limit)->getScalarResult();
 	}
-	
+
 	/**
-	 * 
-	 * @param unknown $categoryId
-	 * @param Product $entry
-	 * @param unknown $fields
-	 * @param unknown $limit
+	 *
+	 * @param unknown $categoryId        	
+	 * @param Product $entry        	
+	 * @param unknown $fields        	
+	 * @param unknown $limit        	
 	 */
-	protected function queryNeighbourItems($categoryId, $entry, $fields, $limit)
-	{
+	protected function queryNeighbourItems($categoryId, $entry, $fields, $limit) {
 		$builder = new QueryBuilder($this->getEntityManager());
-	
+		
 		$expr = $builder->expr();
-	
-		$selectFields = array();
+		
+		$selectFields = array ();
 		
 		$selectFields[] = 'e.id';
 		
@@ -418,7 +407,7 @@ class ProductRepository extends BaseRepository
 		
 		$selectFields[] = 'e.price';
 		
-		$distanceFields = array();
+		$distanceFields = array ();
 		
 		foreach ($fields as $field) {
 			$valueField = $field['valueField'];
@@ -427,24 +416,24 @@ class ProductRepository extends BaseRepository
 			$weight = $field['compareWeight'];
 			$min = key_exists('min', $field) ? $field['min'] : null;
 			$max = key_exists('max', $field) ? $field['max'] : null;
-			if($weight > 0 && $min && $max) {
+			if ($weight > 0 && $min && $max) {
 				$norm = $max - $min;
 				$value = $weight / $norm;
 				$diff = $expr->abs($expr->diff($selectField, $entry->offsetGet($valueField)));
 				$distanceFields[] = $expr->prod($value, $diff);
 			}
 		}
-		if(count($distanceFields) > 0) {
+		if (count($distanceFields) > 0) {
 			$selectFields[] = join(' + ', $distanceFields) . ' AS distance';
 		}
 		
 		$builder->select($selectFields);
 		$builder->from($this->getEntityType(), "e");
-	
+		
 		$builder->innerJoin(Brand::class, 'b', Join::WITH, 'b.id = e.brand');
 		$builder->innerJoin(ProductCategoryAssignment::class, 'pca', Join::WITH, 'e.id = pca.product');
 		$builder->innerJoin(Category::class, 'c', Join::WITH, 'c.id = pca.category');
-	
+		
 		$where = $expr->andX();
 		$where->add($builder->expr()->like('c.treePath', $builder->expr()->literal('%-' . $categoryId . '#%')));
 		$where->add($expr->neq('e.id', $entry->getId()));
@@ -453,46 +442,41 @@ class ProductRepository extends BaseRepository
 			$valueField = $field['valueField'];
 			$selectField = 'e.' . $valueField;
 			$weight = $field['compareWeight'];
-			if($weight > 0) {
+			if ($weight > 0) {
 				$where->add($expr->isNotNull($selectField));
 			}
 		}
 		
 		$builder->where($where);
 		
-		if(count($distanceFields) > 0) {
+		if (count($distanceFields) > 0) {
 			$builder->orderBy('distance');
 		}
 		
 		$builder->setMaxResults($limit);
-			
+		
 		return $builder->getQuery();
 	}
-	
-	
-	
-	
-	protected function  buildJoins(QueryBuilder &$builder, Filter $filter) {
+
+	protected function buildJoins(QueryBuilder &$builder, Filter $filter) {
 		/** @var ProductFilter $filter */
 		$builder->innerJoin(Brand::class, 'b', Join::WITH, 'b.id = e.brand');
-	
-		if(!$filter->getBenchmarkQuery()) {
+		
+		if (! $filter->getBenchmarkQuery()) {
 			$builder->innerJoin(ProductCategoryAssignment::class, 'pca', Join::WITH, 'e.id = pca.product');
 			$builder->innerJoin(Category::class, 'c', Join::WITH, 'c.id = pca.category');
 		}
 	}
-	
+
 	protected function buildOrderBy(QueryBuilder &$builder, Filter $filter) {
 		$builder->addOrderBy('b.name', 'ASC');
 		$builder->addOrderBy('e.name', 'ASC');
 	}
-	
-	
-	
+
 	protected function getSelectFields(QueryBuilder &$builder, Filter $filter) {
 		/** @var ProductFilter $filter */
 		$fields = parent::getSelectFields($builder, $filter);
-	
+		
 		$fields[] = 'e.name';
 		$fields[] = 'e.image';
 		$fields[] = 'e.mimeType';
@@ -500,7 +484,7 @@ class ProductRepository extends BaseRepository
 		$fields[] = 'b.id AS brandId';
 		$fields[] = 'b.name AS brandName';
 		
-		if(!$filter->getBenchmarkQuery()) {
+		if (! $filter->getBenchmarkQuery()) {
 			$fields[] = 'c.id AS categoryId';
 			$fields[] = 'c.name AS categoryName';
 			$fields[] = 'c.subname AS categorySubname';
@@ -512,59 +496,59 @@ class ProductRepository extends BaseRepository
 		foreach ($showFields as $showField) {
 			$fields[] = 'e.' . $showField['valueField'];
 		}
-	
+		
 		return $fields;
 	}
-	
+
 	protected function getWhere(QueryBuilder &$builder, Filter $filter) {
 		/** @var ProductFilter $filter */
 		$where = parent::getWhere($builder, $filter);
-	
+		
 		$expr = $builder->expr();
 		
-		if($filter->getBenchmarkQuery()) {
+		if ($filter->getBenchmarkQuery()) {
 			$where->add($expr->eq('e.benchmarkQuery', $filter->getBenchmarkQuery()));
 		} else {
 			$where->add($expr->isNull('e.benchmarkQuery'));
-		
-			if(count($filter->getBrands()) > 0) {
+			
+			if (count($filter->getBrands()) > 0) {
 				$where->add($expr->in('e.brand', $filter->getBrands()));
 			}
-		
-			if(count($filter->getCategories()) > 0) {
+			
+			if (count($filter->getCategories()) > 0) {
 				$where->add($expr->in('pca.category', $filter->getCategories()));
 			} else {
 				$where->add($expr->like('c.treePath', $builder->expr()->literal('%-' . $filter->getContextCategory() . '#%')));
 			}
 			
-			if($filter->getName()) {
+			if ($filter->getName()) {
 				$where->add($this->buildStringsExpression($builder, 'e.name', $filter->getName(), true));
 			}
 			
-			if($filter->getMinPrice()) {
+			if ($filter->getMinPrice()) {
 				$where->add($expr->gte('e.price', $filter->getMinPrice()));
 			}
-			if($filter->getMaxPrice()) {
+			if ($filter->getMaxPrice()) {
 				$where->add($expr->lte('e.price', $filter->getMaxPrice()));
 			}
 			
 			$filterFields = $filter->getFilterFields();
 			foreach ($filterFields as $filterField) {
 				$value = $filterField['value'];
-				if($value != null) {
+				if ($value != null) {
 					$valueName = $filterField['valueField'];
 					switch ($filterField['fieldType']) {
 						case BenchmarkField::DECIMAL_FIELD_TYPE:
 						case BenchmarkField::INTEGER_FIELD_TYPE:
-							if($value['min']) {
+							if ($value['min']) {
 								$where->add($expr->gte('e.' . $valueName, $value['min']));
 							}
-							if($value['max']) {
+							if ($value['max']) {
 								$where->add($expr->lte('e.' . $valueName, $value['max']));
 							}
 							break;
 						case BenchmarkField::BOOLEAN_FIELD_TYPE:
-							if($value != Filter::ALL_VALUES) {
+							if ($value != Filter::ALL_VALUES) {
 								$where->add($expr->eq('e.' . $valueName, $value));
 							}
 							break;
@@ -585,82 +569,82 @@ class ProductRepository extends BaseRepository
 				}
 			}
 		}
-	
+		
 		return $where;
 	}
-	
+
 	public function findBestItem($categoryId) {
 		return $this->queryBestItem($categoryId)->getSingleResult(AbstractQuery::HYDRATE_SCALAR);
 	}
-	
-	protected function queryBestItem($categoryId)
-	{
+
+	protected function queryBestItem($categoryId) {
 		$builder = new QueryBuilder($this->getEntityManager());
-	
+		
 		$expr = $builder->expr();
-	
+		
 		$builder->select('e.id');
 		$builder->distinct();
 		$builder->from($this->getEntityType(), "e");
-	
+		
 		$builder->innerJoin(ProductCategoryAssignment::class, 'pca', Join::WITH, 'e.id = pca.product');
 		$builder->innerJoin(Category::class, 'c', Join::WITH, 'c.id = pca.category');
 		
 		$builder->innerJoin(ProductNote::class, 'pn', Join::WITH, 'pn.product = e.id');
-	
+		
 		$where = $expr->andX();
 		$where->add($expr->isNull('e.benchmarkQuery'));
 		$where->add($builder->expr()->like('c.treePath', $builder->expr()->literal('%-' . $categoryId . '#%')));
-	
-		//TODO default note should be 2.0?
-// 		$where->add($expr->isNotNull('pn.overalNote'));
+		
+		// TODO default note should be 2.0?
+		// $where->add($expr->isNotNull('pn.overalNote'));
 		
 		$builder->where($where);
 		
 		$builder->orderBy('pn.overalNote', 'DESC');
 		$builder->setMaxResults(1);
-			
+		
 		return $builder->getQuery();
 	}
-	
+
 	public function findWorstItem($categoryId) {
 		return $this->queryWorstItem($categoryId)->getSingleResult(AbstractQuery::HYDRATE_SCALAR);
 	}
-	
-	protected function queryWorstItem($categoryId)
-	{
+
+	protected function queryWorstItem($categoryId) {
 		$builder = new QueryBuilder($this->getEntityManager());
-	
+		
 		$expr = $builder->expr();
-	
+		
 		$builder->select('e.id');
 		$builder->distinct();
 		$builder->from($this->getEntityType(), "e");
-	
+		
 		$builder->innerJoin(ProductCategoryAssignment::class, 'pca', Join::WITH, 'e.id = pca.product');
 		$builder->innerJoin(Category::class, 'c', Join::WITH, 'c.id = pca.category');
-	
+		
 		$builder->innerJoin(ProductNote::class, 'pn', Join::WITH, 'pn.product = e.id');
-	
+		
 		$where = $expr->andX();
 		$where->add($expr->isNull('e.benchmarkQuery'));
 		$where->add($builder->expr()->like('c.treePath', $builder->expr()->literal('%-' . $categoryId . '#%')));
-	
-		//TODO default note should be 2.0?
-// 		$where->add($expr->isNotNull('pn.overalNote'));
+		
+		// TODO default note should be 2.0?
+		// $where->add($expr->isNotNull('pn.overalNote'));
 		
 		$builder->where($where);
-	
+		
 		$builder->orderBy('pn.overalNote', 'ASC');
 		$builder->setMaxResults(1);
-			
+		
 		return $builder->getQuery();
 	}
-	
-    /**
+
+	/**
+	 *
 	 * {@inheritdoc}
+	 *
 	 */
 	protected function getEntityType() {
-		return Product::class ;
+		return Product::class;
 	}
 }

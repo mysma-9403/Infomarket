@@ -85,6 +85,10 @@ class BenchmarkQueryController extends BaseEntityController {
 		return $fields;
 	}
 	
+	protected function getFilterFormOptions() {
+		return [];
+	}
+	
 	protected function saveMore($request, $entry, $params) {
 		parent::saveMore($request, $entry, $params);
 		

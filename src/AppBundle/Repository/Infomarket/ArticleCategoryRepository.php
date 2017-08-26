@@ -6,15 +6,13 @@ use AppBundle\Entity\ArticleCategory;
 use AppBundle\Repository\Base\BaseRepository;
 use Doctrine\ORM\QueryBuilder;
 
-class ArticleCategoryRepository extends BaseRepository
-{
+class ArticleCategoryRepository extends BaseRepository {
+
 	protected function buildFilterOrderBy(QueryBuilder &$builder) {
 		parent::buildFilterOrderBy($builder);
 		$builder->addOrderBy('e.subname', 'ASC');
 	}
-	
-	
-	
+
 	protected function getFilterSelectFields(QueryBuilder &$builder) {
 		$fields = parent::getFilterSelectFields($builder);
 		
@@ -22,7 +20,7 @@ class ArticleCategoryRepository extends BaseRepository
 		
 		return $fields;
 	}
-	
+
 	protected function getFilterWhere(QueryBuilder &$builder) {
 		$where = parent::getFilterWhere($builder);
 		
@@ -31,9 +29,7 @@ class ArticleCategoryRepository extends BaseRepository
 		
 		return $where;
 	}
-	
-	
-	
+
 	protected function getFilterItemKeyFields($item) {
 		$fields = parent::getFilterItemKeyFields($item);
 		
@@ -41,20 +37,17 @@ class ArticleCategoryRepository extends BaseRepository
 		
 		return $fields;
 	}
-	
-	
-	
+
 	public function findMenuItems() {
 		return $this->queryMenuItems()->getScalarResult();
 	}
-	
-	public function queryMenuItems()
-	{
+
+	public function queryMenuItems() {
 		$builder = new QueryBuilder($this->getEntityManager());
 		
 		$builder->select("e.id, e.name, e.subname");
 		$builder->from($this->getEntityType(), "e");
-	
+		
 		$where = $builder->expr()->andX();
 		$where->add($builder->expr()->eq('e.infomarket', 1));
 		$where->add($builder->expr()->eq('e.featured', 1));
@@ -62,32 +55,29 @@ class ArticleCategoryRepository extends BaseRepository
 		
 		$builder->addOrderBy('e.orderNumber', 'ASC');
 		$builder->addOrderBy('e.name', 'ASC');
-	
+		
 		return $builder->getQuery();
 	}
-	
-	
-	
+
 	public function findHomeItems() {
 		return $this->queryHomeItems()->getScalarResult();
 	}
-	
-	public function queryHomeItems()
-	{
+
+	public function queryHomeItems() {
 		$builder = new QueryBuilder($this->getEntityManager());
-			
+		
 		$builder->select("e.id, e.name, e.subname, e.image, e.vertical");
 		$builder->from($this->getEntityType(), "e");
-	
+		
 		$builder->where($builder->expr()->eq('e.infomarket', 1));
 		
 		return $builder->getQuery();
 	}
-	
-	
-	
-    /**
+
+	/**
+	 *
 	 * {@inheritdoc}
+	 *
 	 */
 	protected function getEntityType() {
 		return ArticleCategory::class;

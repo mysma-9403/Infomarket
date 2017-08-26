@@ -8,14 +8,12 @@ use AppBundle\Repository\Base\BaseRepository;
 use Doctrine\ORM\AbstractQuery;
 use Doctrine\ORM\QueryBuilder;
 
-class MagazineRepository extends BaseRepository
-{	
+class MagazineRepository extends BaseRepository {
+
 	protected function buildOrderBy(QueryBuilder &$builder, Filter $filter) {
 		$builder->addOrderBy('e.name', 'ASC');
 	}
-	
-	
-	
+
 	protected function getSelectFields(QueryBuilder &$builder, Filter $filter) {
 		$fields = parent::getSelectFields($builder, $filter);
 		
@@ -25,7 +23,7 @@ class MagazineRepository extends BaseRepository
 		
 		return $fields;
 	}
-	
+
 	protected function getWhere(QueryBuilder &$builder, Filter $filter) {
 		$where = parent::getWhere($builder, $filter);
 		
@@ -33,22 +31,19 @@ class MagazineRepository extends BaseRepository
 		
 		$where->add($expr->eq('e.infoprodukt', 1));
 		$where->add($expr->eq('e.main', 0));
-			
+		
 		$builder->where($where);
 		
 		return $where;
 	}
-	
-	
-	
-	
+
 	public function findItem($id) {
 		return $this->queryItem($id)->getSingleResult(AbstractQuery::HYDRATE_SCALAR);
 	}
-		
+
 	protected function queryItem($id) {
 		$builder = new QueryBuilder($this->getEntityManager());
-			
+		
 		$builder->select("e.id, e.name, e.image, e.date");
 		$builder->from($this->getEntityType(), "e");
 		$builder->where($builder->expr()->eq('e.id', $id));
@@ -56,32 +51,28 @@ class MagazineRepository extends BaseRepository
 		
 		return $builder->getQuery();
 	}
-	
+
 	public function findChildren($parentId) {
 		return $this->queryChildren($parentId)->getScalarResult();
 	}
-	
+
 	protected function queryChildren($parentId) {
 		$builder = new QueryBuilder($this->getEntityManager());
-			
+		
 		$builder->select("e.id, e.name, e.image, e.date");
 		$builder->from($this->getEntityType(), "e");
 		$builder->where($builder->expr()->eq('e.parent', $parentId));
 		
 		return $builder->getQuery();
 	}
-	
-	
-	
-	
+
 	public function findHomeItems() {
 		return $this->queryHomeItems()->getScalarResult();
 	}
-	
-	protected function queryHomeItems()
-	{
+
+	protected function queryHomeItems() {
 		$builder = new QueryBuilder($this->getEntityManager());
-		 
+		
 		$builder->select("e.id, e.name, e.image, e.date");
 		$builder->from($this->getEntityType(), "e");
 		
@@ -89,21 +80,23 @@ class MagazineRepository extends BaseRepository
 		$where->add($builder->expr()->eq('e.infoprodukt', 1));
 		$where->add($builder->expr()->eq('e.featured', 1));
 		$where->add($builder->expr()->eq('e.main', 0));
-		 
+		
 		$builder->where($where);
 		
 		$builder->addOrderBy('e.orderNumber', 'ASC');
 		$builder->addOrderBy('e.name', 'DESC');
 		
 		$builder->setMaxResults(6);
-		 
+		
 		return $builder->getQuery();
 	}
-	
-    /**
+
+	/**
+	 *
 	 * {@inheritdoc}
+	 *
 	 */
 	protected function getEntityType() {
-		return Magazine::class ;
+		return Magazine::class;
 	}
 }

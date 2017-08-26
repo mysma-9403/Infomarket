@@ -8,8 +8,8 @@ use AppBundle\Filter\Benchmark\BenchmarkQueryFilter;
 use AppBundle\Repository\Base\BaseRepository;
 use Doctrine\ORM\QueryBuilder;
 
-class BenchmarkQueryRepository extends BaseRepository
-{	
+class BenchmarkQueryRepository extends BaseRepository {
+
 	protected function getSelectFields(QueryBuilder &$builder, Filter $filter) {
 		$fields = parent::getSelectFields($builder, $filter);
 		
@@ -28,19 +28,21 @@ class BenchmarkQueryRepository extends BaseRepository
 		/** @var BenchmarkQueryFilter $filter */
 		$where->add($expr->eq('e.createdBy', $filter->getContextUser()));
 		
-		if($filter->getName()) {
+		if ($filter->getName()) {
 			$where->add($this->buildStringsExpression($builder, 'e.name', $filter->getName(), true));
 		}
 		
 		return $where;
 	}
-	
+
 	protected function buildOrderBy(QueryBuilder &$builder, Filter $filter) {
 		$builder->addOrderBy('e.name', 'ASC');
-	}	
-	
-    /**
+	}
+
+	/**
+	 *
 	 * {@inheritdoc}
+	 *
 	 */
 	protected function getEntityType() {
 		return BenchmarkQuery::class;

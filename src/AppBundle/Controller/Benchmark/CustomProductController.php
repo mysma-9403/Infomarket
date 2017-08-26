@@ -187,7 +187,7 @@ class CustomProductController extends ImageEntityController {
 	}
 	
 	protected function getFilterFormOptions() {
-		$options = parent::getFilterFormOptions();
+		$options = [];
 	
 		$this->addEntityChoicesFormOption($options, Brand::class, 'brands');
 		$this->addEntityChoicesFormOption($options, Category::class, 'categories');

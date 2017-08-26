@@ -11,7 +11,6 @@ use AppBundle\Manager\Entity\Base\EntityManager;
 use AppBundle\Manager\Entity\Infoprodukt\ArticleManager;
 use AppBundle\Manager\Filter\Base\FilterManager;
 use AppBundle\Manager\Params\EntryParams\Infoprodukt\ArticleEntryParamsManager;
-use AppBundle\Repository\Infoprodukt\ArticleCategoryRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -99,13 +98,10 @@ class ArticleController extends InfoproduktController
 		/** @var Filter $itemFilter */
 		$itemFilter = $viewParams['entryFilter'];
 		
-		$em = $this->getDoctrine()->getManager();
+		$options = [];
+		$this->addEntityChoicesFormOption($options, ArticleCategory::class, 'articleCategories');
 		
-		/** @var ArticleCategoryRepository $articleCategoryRepository */
-		$articleCategoryRepository = new ArticleCategoryRepository($em, $em->getClassMetadata(ArticleCategory::class));
-		$articleCategories = $articleCategoryRepository->findFilterItems();
-		
-		$articleFilterForm = $this->createForm(ArticleFilterType::class, $itemFilter, ['articleCategories' => $articleCategories]);
+		$articleFilterForm = $this->createForm(ArticleFilterType::class, $itemFilter, $options);
 		$articleFilterForm->handleRequest($request);
 		
 		if ($articleFilterForm->isSubmitted() && $articleFilterForm->isValid()) {

@@ -7,7 +7,6 @@ use AppBundle\Filter\Admin\Base\SimpleEntityFilter;
 use AppBundle\Filter\Base\Filter;
 use AppBundle\Form\Filter\Admin\Base\SimpleEntityFilterType;
 use AppBundle\Manager\Filter\Base\FilterManager;
-use AppBundle\Repository\Admin\Base\SimpleRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Request;
@@ -31,28 +30,28 @@ abstract class SimpleEntityController extends BaseEntityController
 			$data = $form->getData();
 			$entries = $data->getEntries();
 			$filter->setSelected($entries);
-			$this->setIMPublishedSelected($entries, 1);
+			$this->setValueForSelected($entries, 'infomarket', 1);
 		}
 	
 		if ($form->get('imUnpublishSelected')->isClicked()) {
 			$data = $form->getData();
 			$entries = $data->getEntries();
 			$filter->setSelected($entries);
-			$this->setIMPublishedSelected($entries, 0);
+			$this->setValueForSelected($entries, 'infomarket', 0);
 		}
 		
 		if ($form->get('ipPublishSelected')->isClicked()) {
 			$data = $form->getData();
 			$entries = $data->getEntries();
 			$filter->setSelected($entries);
-			$this->setIPPublishedSelected($entries, 1);
+			$this->setValueForSelected($entries, 'infoprodukt', 1);
 		}
 		
 		if ($form->get('ipUnpublishSelected')->isClicked()) {
 			$data = $form->getData();
 			$entries = $data->getEntries();
 			$filter->setSelected($entries);
-			$this->setIPPublishedSelected($entries, 0);
+			$this->setValueForSelected($entries, 'infoprodukt', 0);
 		}
 	
 		return parent::listFormActionInternal($request, $form, $filter, $listItems);
@@ -110,38 +109,6 @@ abstract class SimpleEntityController extends BaseEntityController
 		$fields[] = $item['name'];
 		
 		return $fields;
-	}
-	
-	/**
-	 *
-	 * @param array $entries
-	 * @param boolean $published
-	 */
-	protected function setIMPublishedSelected($items, $published)
-	{
-		$this->denyAccessUnlessGranted($this->getEditRole(), null, 'Unable to access this page!');
-	
-		if(count($items) > 0) {
-			/** @var SimpleRepository $repository */
-			$repository = $this->getEntityRepository();
-			$repository->setIMPublished($items, $published);
-		}
-	}
-	
-	/**
-	 *
-	 * @param array $entries
-	 * @param boolean $published
-	 */
-	protected function setIPPublishedSelected($items, $published)
-	{
-		$this->denyAccessUnlessGranted($this->getEditRole(), null, 'Unable to access this page!');
-	
-		if(count($items) > 0) {
-			/** @var SimpleRepository $repository */
-			$repository = $this->getEntityRepository();
-			$repository->setIPPublished($items, $published);
-		}
 	}
 	
 	//---------------------------------------------------------------------------

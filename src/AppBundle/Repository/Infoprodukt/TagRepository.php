@@ -8,12 +8,12 @@ use AppBundle\Repository\Base\BaseRepository;
 use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\ORM\QueryBuilder;
 
-class TagRepository extends BaseRepository
-{	
+class TagRepository extends BaseRepository {
+
 	public function findItemsByArticles($articlesIds) {
 		return $this->queryItemsByArticles($articlesIds)->getScalarResult();
 	}
-	
+
 	protected function queryItemsByArticles($articlesIds) {
 		$builder = new QueryBuilder($this->getEntityManager());
 		
@@ -35,13 +35,13 @@ class TagRepository extends BaseRepository
 		
 		return $builder->getQuery();
 	}
-	
-	
-	
-    /**
+
+	/**
+	 *
 	 * {@inheritdoc}
+	 *
 	 */
 	protected function getEntityType() {
-		return Tag::class ;
+		return Tag::class;
 	}
 }

@@ -10,6 +10,7 @@ use AppBundle\Utils\ParamUtils;
 use Doctrine\Common\Persistence\ObjectRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Factory\Common\Choices\Base\ChoicesFactory;
 
 abstract class DummyController extends Controller
 {

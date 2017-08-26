@@ -9,15 +9,15 @@ use AppBundle\Repository\Base\BaseRepository;
 use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\ORM\QueryBuilder;
 
-class ProductRepository extends BaseRepository
-{
+class ProductRepository extends BaseRepository {
+
 	public function findTopItems($category, $segment) {
 		return $this->queryTopItems($category, $segment)->getScalarResult();
 	}
-	
+
 	protected function queryTopItems($category, $segment) {
 		$builder = new QueryBuilder($this->getEntityManager());
-	
+		
 		$builder->select('e.id, e.name, e.image, e.mimeType, e.vertical, e.forcedWidth, e.forcedHeight, pca.featured AS featured,
 				b.id AS brandId, b.name AS brandName, b.www AS brandWww, b.image AS brandImage, b.mimeType AS brandMimeType,
 				b.forcedWidth AS brandForcedWidth, b.forcedHeight AS brandForcedHeight, b.vertical AS brandVertical');
@@ -41,11 +41,13 @@ class ProductRepository extends BaseRepository
 		
 		return $builder->getQuery();
 	}
-	
-    /**
+
+	/**
+	 *
 	 * {@inheritdoc}
+	 *
 	 */
 	protected function getEntityType() {
-		return Product::class ;
+		return Product::class;
 	}
 }

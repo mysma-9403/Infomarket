@@ -13,7 +13,6 @@ use AppBundle\Manager\Entity\Base\EntityManager;
 use AppBundle\Manager\Entity\Infomarket\ArticleManager;
 use AppBundle\Manager\Filter\Base\FilterManager;
 use AppBundle\Manager\Params\EntryParams\Infomarket\ArticleEntryParamsManager;
-use AppBundle\Repository\Infomarket\ArticleCategoryRepository;
 use AppBundle\Repository\Infomarket\CategoryRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -106,15 +105,16 @@ class ArticleController extends InfomarketController
 		
 		$em = $this->getDoctrine()->getManager();
 		
-		/** @var ArticleCategoryRepository $articleCategoryRepository */
-		$articleCategoryRepository = new ArticleCategoryRepository($em, $em->getClassMetadata(ArticleCategory::class));
-		$articleCategories = $articleCategoryRepository->findFilterItems();
-		
 		/** @var CategoryRepository $categoryRepository */
 		$categoryRepository = new CategoryRepository($em, $em->getClassMetadata(Category::class));
 		$categories = $categoryRepository->findFilterItemsByBranch($branchId);
 		
-		$articleFilterForm = $this->createForm(ArticleFilterType::class, $itemFilter, ['articleCategories' => $articleCategories, 'categories' => $categories]);
+		$options = [];
+		
+		$this->addEntityChoicesFormOption($options, ArticleCategory::class, 'articleCategories');
+		$this->addChoicesFormOption($options, $categories, 'categories');
+		
+		$articleFilterForm = $this->createForm(ArticleFilterType::class, $itemFilter, $options);
 		$articleFilterForm->handleRequest($request);
 		
 		if ($articleFilterForm->isSubmitted() && $articleFilterForm->isValid()) {

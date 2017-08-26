@@ -17,7 +17,6 @@ use AppBundle\Manager\Entity\Base\EntityManager;
 use AppBundle\Manager\Entity\Common\BenchmarkMessageManager;
 use AppBundle\Manager\Filter\Base\FilterManager;
 use AppBundle\Manager\Params\EntryParams\Admin\BenchmarkMessageParamsManager;
-use AppBundle\Repository\Admin\Main\BenchmarkMessageRepository;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -142,14 +141,14 @@ class BenchmarkMessageController extends BaseEntityController {
 			$data = $form->getData();
 			$entries = $data->getEntries();
 			$filter->setSelected($entries);
-			$this->setReadSelected($entries, 1);
+			$this->setValueForSelected($entries, 'readByAdmin', 1);
 		}
 	
 		if ($form->get('setUnreadSelected')->isClicked()) {
 			$data = $form->getData();
 			$entries = $data->getEntries();
 			$filter->setSelected($entries);
-			$this->setReadSelected($entries, 0);
+			$this->setValueForSelected($entries, 'readByAdmin', 0);
 		}
 	
 		return parent::listFormActionInternal($request, $form, $filter, $listItems);
@@ -232,22 +231,6 @@ class BenchmarkMessageController extends BaseEntityController {
 		$entry->setReadByAdmin($read);
 		$em->persist($entry);
 		$em->flush();
-	}
-	
-	/**
-	 *
-	 * @param array $entries
-	 * @param boolean $read
-	 */
-	protected function setReadSelected($items, $read)
-	{
-		$this->denyAccessUnlessGranted($this->getEditRole(), null, 'Unable to access this page!');
-	
-		if(count($items) > 0) {
-			/** @var BenchmarkMessageRepository $repository */
-			$repository = $this->getEntityRepository();
-			$repository->setRead($items, $read);
-		}
 	}
 	
 	/**

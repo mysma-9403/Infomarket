@@ -11,74 +11,64 @@ use AppBundle\Repository\Admin\Base\AuditRepository;
 use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\ORM\QueryBuilder;
 
-class NewsletterBlockRepository extends AuditRepository
-{	
+class NewsletterBlockRepository extends AuditRepository {
+
 	protected function buildJoins(QueryBuilder &$builder, Filter $filter) {
 		parent::buildJoins($builder, $filter);
-	
+		
 		$builder->leftJoin(NewsletterPage::class, 'np', Join::WITH, 'np.id = e.newsletterPage');
 		$builder->innerJoin(NewsletterBlockTemplate::class, 'nbt', Join::WITH, 'nbt.id = e.newsletterBlockTemplate');
 	}
-	
+
 	protected function buildOrderBy(QueryBuilder &$builder, Filter $filter) {
 		$builder->addOrderBy('e.name', 'ASC');
 	}
-	
-	
+
 	protected function getSelectFields(QueryBuilder &$builder, Filter $filter) {
 		$fields = parent::getSelectFields($builder, $filter);
-	
+		
 		$fields[] = 'e.name';
 		
 		$fields[] = 'np.id AS newsletterPageId';
 		$fields[] = 'np.name AS newsletterPageName';
 		$fields[] = 'nbt.id AS newsletterBlockTemplateId';
 		$fields[] = 'nbt.name AS newsletterBlockTemplateName';
-	
+		
 		return $fields;
 	}
-	
+
 	protected function getWhere(QueryBuilder &$builder, Filter $filter) {
-		/** @var NewsletterBlockFilter $filter */
 		$where = parent::getWhere($builder, $filter);
+		/** @var NewsletterBlockFilter $filter */
 		
-		if($filter->getName() && strlen($filter->getName()) > 0) {
-			$where->add($this->buildStringsExpression($builder, 'e.name', $filter->getName()));
-		}
+		$this->addStringWhere($builder, $where, 'e.name', $filter->getName());
 		
-		if(count($filter->getNewsletterPages()) > 0) {
-			$where->add($builder->expr()->in('e.newsletterPage', $filter->getNewsletterPages()));
-		}
+		$this->addArrayWhere($builder, $where, 'e.newsletterPage', $filter->getNewsletterPages());
+		$this->addArrayWhere($builder, $where, 'e.newsletterBlockTemplate', $filter->getNewsletterBlockTemplates());
 		
-		if(count($filter->getNewsletterBlockTemplates()) > 0) {
-			$where->add($builder->expr()->in('e.newsletterBlockTemplate', $filter->getNewsletterBlockTemplates()));
-		}
-	
 		return $where;
 	}
-	
-	
-	
-	
+
 	protected function buildFilterOrderBy(QueryBuilder &$builder) {
-		parent::buildFilterOrderBy($builder);
-		
-		$builder->addOrderBy('e.subname', 'ASC');
+		$builder->addOrderBy('e.name', 'ASC');
 	}
-	
-	
-	
+
 	protected function getFilterSelectFields(QueryBuilder &$builder) {
 		$fields = parent::getFilterSelectFields($builder);
 		
-		$fields[] = 'e.subname';
+		$fields[] = 'e.name';
 		
 		return $fields;
 	}
 	
-    /**
-	 * {@inheritdoc}
-	 */
+	protected function getFilterItemKeyFields($item) {
+		$fields = parent::getFilterItemKeyFields($item);
+	
+		$fields[] = $item['name'];
+	
+		return $fields;
+	}
+
 	protected function getEntityType() {
 		return NewsletterBlock::class;
 	}

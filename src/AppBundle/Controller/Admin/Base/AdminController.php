@@ -483,6 +483,22 @@ abstract class AdminController extends StandardController {
 		return array();
 	}
 	
+	/**
+	 *
+	 * @param array $entries
+	 * @param boolean $published
+	 */
+	protected function setValueForSelected($items, $field, $published)
+	{
+		$this->denyAccessUnlessGranted($this->getEditRole(), null, 'Unable to access this page!');
+	
+		if(count($items) > 0) {
+			/** @var BaseRepository $repository */
+			$repository = $this->getEntityRepository();
+			$repository->setValue($items, $field, $published);
+		}
+	}
+	
 	//---------------------------------------------------------------------------
 	// EntityType related
 	//---------------------------------------------------------------------------

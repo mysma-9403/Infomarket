@@ -2,25 +2,6 @@
 
 
 
-{% block filterAuditSmallFields %}
-    {% include 'common/fields/filter/date_field.html.twig' with 
-    	{ field: filter.updatedAfter } %}
-    {% include 'common/fields/filter/date_field.html.twig' with 
-    	{ field: filter.updatedBefore } %}
-    {% include 'common/fields/filter/date_field.html.twig' with 
-    	{ field: filter.createdAfter } %}
-    {% include 'common/fields/filter/date_field.html.twig' with 
-    	{ field: filter.createdBefore } %}
-{% endblock %}
-
-{% block filterAuditLargeFields %}
-	{% include 'common/fields/filter/simple_field.html.twig' with 
-		{ field: filter.updatedBy } %}
-	{% include 'common/fields/filter/simple_field.html.twig' with 
-		{ field: filter.createdBy } %}
-{% endblock %}
-
-
 
 {% block filterSearchActions %}
 	{% include 'common/fields/filter/button_field.html.twig' 
@@ -38,40 +19,11 @@
 {% block headerFields %}
 	{% block simpleHeaderFields %}
 	{% endblock %}
-
-	{% block auditHeaderFields %}
-		{% if isAdmin %}
-			{% include 'common/fields/table_header/icon_field.html.twig' 
-				with { class: 'visible-lg', label: 'label.short.updatedAt', tooltip: 'label.updatedAt', icon: 'fa-calendar-o'} %}
-			{% include 'common/fields/table_header/icon_field.html.twig' 
-				with { class: 'visible-lg', label: 'label.short.updatedBy', tooltip: 'label.updatedBy', icon: 'fa-user'} %}
-			{% include 'common/fields/table_header/icon_field.html.twig' 
-				with { class: 'visible-lg', label: 'label.short.createdAt', tooltip: 'label.createdAt', icon: 'fa-calendar-o'} %}
-			{% include 'common/fields/table_header/icon_field.html.twig' 
-				with { class: 'visible-lg', label: 'label.short.createdBy', tooltip: 'label.createdBy', icon: 'fa-user'} %}
-		{% endif %}	
-	{% endblock %}
 {% endblock %}
 
 
 
 {% block entryFields %}	
 	{% block simpleEntryFields %}
-	{% endblock %}
-	
-	{% block auditEntryFields %}
-		{% if isAdmin %}
-			{% include 'common/fields/table/date_field.html.twig' with 
-				{ class: 'visible-lg', value: item.updatedAt } %}
-			{% include 'common/fields/table/user_link_field.html.twig' with 
-				{ class: 'visible-lg', id: item.updatedById, 
-					surname: item.updatedBySurname, forename: item.updatedByForename } %}
-			
-			{% include 'common/fields/table/date_field.html.twig' with 
-				{ class: 'visible-lg', value: item.createdAt } %}
-			{% include 'common/fields/table/user_link_field.html.twig' with 
-				{ class: 'visible-lg', id: item.updatedById, 
-					surname: item.updatedBySurname, forename: item.updatedByForename } %}
-		{% endif %}
 	{% endblock %}
 {% endblock %}

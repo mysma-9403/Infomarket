@@ -91,14 +91,14 @@ class BenchmarkMessageController extends BaseEntityController {
 			$data = $form->getData();
 			$entries = $data->getEntries();
 			$filter->setSelected($entries);
-			$this->setReadSelected($entries, 1);
+			$this->setValueForSelected($entries, 'readByAuthor', 1);
 		}
 	
 		if ($form->get('setUnreadSelected')->isClicked()) {
 			$data = $form->getData();
 			$entries = $data->getEntries();
 			$filter->setSelected($entries);
-			$this->setReadSelected($entries, 0);
+			$this->setValueForSelected($entries, 'readByAuthor', 0);
 		}
 	
 		return parent::listFormActionInternal($request, $form, $filter, $listItems);
@@ -182,7 +182,7 @@ class BenchmarkMessageController extends BaseEntityController {
 	//---------------------------------------------------------------------------
 	
 	protected function getFilterFormOptions() {
-		$options = parent::getFilterFormOptions();
+		$options = [];
 	
 		$this->addEntityChoicesFormOption($options, Product::class, 'products');
 		
@@ -221,22 +221,6 @@ class BenchmarkMessageController extends BaseEntityController {
 		
 		$entry->setReadByAdmin(false);
 		$entry->setReadByAuthor(true);
-	}
-	
-	/**
-	 *
-	 * @param array $entries
-	 * @param boolean $read
-	 */
-	protected function setReadSelected($items, $read)
-	{
-		$this->denyAccessUnlessGranted($this->getEditRole(), null, 'Unable to access this page!');
-	
-		if(count($items) > 0) {
-			/** @var BenchmarkMessageRepository $repository */
-			$repository = $this->getEntityRepository();
-			$repository->setRead($items, $read);
-		}
 	}
 	
 	//---------------------------------------------------------------------------

@@ -6,7 +6,6 @@ use AppBundle\Filter\Admin\Base\AuditFilter;
 use AppBundle\Filter\Admin\Base\FeaturedEntityFilter;
 use AppBundle\Filter\Base\Filter;
 use AppBundle\Manager\Filter\Base\FilterManager;
-use AppBundle\Repository\Admin\Base\FeaturedEntityRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Request;
@@ -30,14 +29,14 @@ abstract class FeaturedEntityController extends ImageEntityController
 			$data = $form->getData();
 			$entries = $data->getEntries();
 			$filter->setSelected($entries);
-			$this->setFeaturedSelected($entries, 1);
+			$this->setValueForSelected($entries, 'featured', 1);
 		}
 	
 		if ($form->get('setNotFeaturedSelected')->isClicked()) {
 			$data = $form->getData();
 			$entries = $data->getEntries();
 			$filter->setSelected($entries);
-			$this->setFeaturedSelected($entries, 0);
+			$this->setValueForSelected($entries, 'featured', 0);
 		}
 	
 		return parent::listFormActionInternal($request, $form, $filter, $listItems);
@@ -62,26 +61,6 @@ abstract class FeaturedEntityController extends ImageEntityController
 		$em->flush();
 	
 		return $this->redirectToReferer($request);
-	}
-	
-	//---------------------------------------------------------------------------
-	// Internal logic
-	//---------------------------------------------------------------------------
-	
-	/**
-	 *
-	 * @param array $entries
-	 * @param boolean $published
-	 */
-	protected function setFeaturedSelected($items, $featured)
-	{
-		$this->denyAccessUnlessGranted($this->getEditRole(), null, 'Unable to access this page!');
-	
-		if(count($items) > 0) {
-			/** @var FeaturedEntityRepository $repository */
-			$repository = $this->getEntityRepository();
-			$repository->setFeatured($items, $featured);
-		}
 	}
 	
 	//---------------------------------------------------------------------------

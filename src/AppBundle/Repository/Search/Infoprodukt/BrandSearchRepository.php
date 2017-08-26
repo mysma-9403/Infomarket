@@ -8,8 +8,8 @@ use AppBundle\Filter\Common\SearchFilter;
 use AppBundle\Repository\Search\Base\SearchRepository;
 use Doctrine\ORM\QueryBuilder;
 
-class BrandSearchRepository extends SearchRepository
-{
+class BrandSearchRepository extends SearchRepository {
+
 	protected function getSelectFields(QueryBuilder &$builder, Filter $filter) {
 		$fields = parent::getSelectFields($builder, $filter);
 		
@@ -18,7 +18,7 @@ class BrandSearchRepository extends SearchRepository
 		
 		return $fields;
 	}
-	
+
 	protected function getWhere(QueryBuilder &$builder, Filter $filter) {
 		/** @var SearchFilter $filter */
 		$where = parent::getWhere($builder, $filter);
@@ -28,9 +28,8 @@ class BrandSearchRepository extends SearchRepository
 		
 		return $where;
 	}
-	
-	
+
 	protected function getEntityType() {
-		return Brand::class ;
+		return Brand::class;
 	}
 }
