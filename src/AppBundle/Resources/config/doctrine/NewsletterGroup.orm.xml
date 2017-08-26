@@ -8,6 +8,8 @@
         table="newsletter_groups"
         repository-class="AppBundle\Repository\Admin\Main\NewsletterGroupRepository">
         
+        <field name="name" type="string" length="128" nullable="false" />
+        
         <one-to-many field="newsletterUserNewsletterGroupAssignments" target-entity="NewsletterUserNewsletterGroupAssignment" mapped-by="newsletterGroup">
         </one-to-many>
     </entity>

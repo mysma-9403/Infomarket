@@ -6,24 +6,24 @@ use AppBundle\Filter\Admin\Assignments\MenuEntryBranchAssignmentFilter;
 use AppBundle\Form\Filter\Admin\Base\SimpleEntityFilterType;
 use Symfony\Component\Form\FormBuilderInterface;
 
-class MenuEntryBranchAssignmentFilterType extends SimpleEntityFilterType
-{
-	protected function addMainFields(FormBuilderInterface $builder, array $options) {
-		parent::addMainFields($builder, $options);
+class MenuEntryBranchAssignmentFilterType extends SimpleEntityFilterType {
+
+	protected function addFields(FormBuilderInterface $builder, array $options) {
+		parent::addFields($builder, $options);
 		
-		$this->addEntityChoiceFilterField($builder, $options, 'menuEntries');
-		$this->addEntityChoiceFilterField($builder, $options, 'branches');
+		$this->addFilterEntityChoiceField($builder, $options, 'menuEntries');
+		$this->addFilterEntityChoiceField($builder, $options, 'branches');
 	}
-	
+
 	protected function getDefaultOptions() {
 		$options = parent::getDefaultOptions();
 		
-		$options[$this->getChoicesName('menuEntries')] = [];
-		$options[$this->getChoicesName('branches')] = [];
-	
+		$options[$this->getChoicesName('menuEntries')] = [ ];
+		$options[$this->getChoicesName('branches')] = [ ];
+		
 		return $options;
 	}
-	
+
 	protected function getEntityType() {
 		return MenuEntryBranchAssignmentFilter::class;
 	}

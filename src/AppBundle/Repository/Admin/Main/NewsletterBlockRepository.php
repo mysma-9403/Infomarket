@@ -3,15 +3,15 @@
 namespace AppBundle\Repository\Admin\Main;
 
 use AppBundle\Entity\NewsletterBlock;
-use AppBundle\Repository\Admin\Base\SimpleEntityRepository;
-use Doctrine\ORM\QueryBuilder;
-use AppBundle\Filter\Base\Filter;
 use AppBundle\Entity\NewsletterBlockTemplate;
-use Doctrine\ORM\Query\Expr\Join;
 use AppBundle\Entity\NewsletterPage;
 use AppBundle\Filter\Admin\Main\NewsletterBlockFilter;
+use AppBundle\Filter\Base\Filter;
+use AppBundle\Repository\Admin\Base\AuditRepository;
+use Doctrine\ORM\Query\Expr\Join;
+use Doctrine\ORM\QueryBuilder;
 
-class NewsletterBlockRepository extends SimpleEntityRepository
+class NewsletterBlockRepository extends AuditRepository
 {	
 	protected function buildJoins(QueryBuilder &$builder, Filter $filter) {
 		parent::buildJoins($builder, $filter);
@@ -20,11 +20,16 @@ class NewsletterBlockRepository extends SimpleEntityRepository
 		$builder->innerJoin(NewsletterBlockTemplate::class, 'nbt', Join::WITH, 'nbt.id = e.newsletterBlockTemplate');
 	}
 	
+	protected function buildOrderBy(QueryBuilder &$builder, Filter $filter) {
+		$builder->addOrderBy('e.name', 'ASC');
+	}
 	
 	
 	protected function getSelectFields(QueryBuilder &$builder, Filter $filter) {
 		$fields = parent::getSelectFields($builder, $filter);
 	
+		$fields[] = 'e.name';
+		
 		$fields[] = 'np.id AS newsletterPageId';
 		$fields[] = 'np.name AS newsletterPageName';
 		$fields[] = 'nbt.id AS newsletterBlockTemplateId';
@@ -36,7 +41,11 @@ class NewsletterBlockRepository extends SimpleEntityRepository
 	protected function getWhere(QueryBuilder &$builder, Filter $filter) {
 		/** @var NewsletterBlockFilter $filter */
 		$where = parent::getWhere($builder, $filter);
-	
+		
+		if($filter->getName() && strlen($filter->getName()) > 0) {
+			$where->add($this->buildStringsExpression($builder, 'e.name', $filter->getName()));
+		}
+		
 		if(count($filter->getNewsletterPages()) > 0) {
 			$where->add($builder->expr()->in('e.newsletterPage', $filter->getNewsletterPages()));
 		}

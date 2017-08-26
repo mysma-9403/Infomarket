@@ -13,7 +13,7 @@
         
         <field name="orderNumber" type="integer" default="0" />
         
-        <field name="magazineFile" type="string" length="256"/>
+        <field name="magazineFile" type="string" length="256" nullable="true" />
         
         <field name="content" type="text" nullable="true" />
         

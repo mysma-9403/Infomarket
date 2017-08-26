@@ -40,7 +40,7 @@
 	{% include 'common/fields/table/simple_field.html.twig' with
 		{ value: item.valueNumber } %}
 			
-	{% include 'common/fields/table/bool_field.html.twig' with 
-		{ value: item.showField, iconTrue: 'eye', iconFalse: 'eye-slash', 
+	{% include 'common/fields/table/bool_action_field.html.twig' with 
+		{ value: item.showField, canEdit: false, iconTrue: 'eye', iconFalse: 'eye-slash', 
 			tooltipTrue: 'label.benchmarkField.showField', tooltipFalse: 'label.benchmarkField.notShowField' } %}
 {% endblock %}

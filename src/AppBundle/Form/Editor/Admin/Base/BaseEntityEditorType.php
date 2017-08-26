@@ -2,17 +2,7 @@
 
 namespace AppBundle\Form\Editor\Admin\Base;
 
-use AppBundle\Entity\Base\Audit;
 use AppBundle\Form\Base\EditorType;
 
-class BaseEntityEditorType extends EditorType
-{	
-	/**
-	 * 
-	 * {@inheritDoc}
-	 * @see \AppBundle\Form\Base\BaseType::getEntityType()
-	 */
-	protected function getEntityType() {
-		return Audit::class;
-	}
+abstract class BaseEntityEditorType extends EditorType {
 }

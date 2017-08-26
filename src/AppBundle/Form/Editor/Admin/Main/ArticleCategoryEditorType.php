@@ -4,38 +4,23 @@ namespace AppBundle\Form\Editor\Admin\Main;
 
 use AppBundle\Entity\ArticleCategory;
 use AppBundle\Form\Editor\Admin\Base\ImageEntityEditorType;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
-use Symfony\Component\Form\Extension\Core\Type\IntegerType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 
-class ArticleCategoryEditorType extends ImageEntityEditorType
-{
-	/**
-	 * 
-	 * {@inheritDoc}
-	 * @see \AppBundle\Form\Base\SimpleEntityType::addMoreFields()
-	 */
-	protected function addMoreFields(FormBuilderInterface $builder, array $options) {
+class ArticleCategoryEditorType extends ImageEntityEditorType {
+
+	protected function addFields(FormBuilderInterface $builder, array $options) {
+		parent::addFields($builder, $options);
 		
-		$builder
-			->add('featured', CheckboxType::class, array(
-					'required' => false
-			))
-			->add('subname', TextType::class, array(
-					'required' => false
-			))
-			->add('orderNumber', IntegerType::class, array(
-					'required' => true
-			))
-		;
+		$this->addTextField($builder, 'name', 'label.name');
+		$this->addTextField($builder, 'subname', 'label.subname', false);
+		
+		$this->addCheckboxField($builder, 'infomarket', 'label.infomarket');
+		$this->addCheckboxField($builder, 'infoprodukt', 'label.infoprodukt');
+		$this->addCheckboxField($builder, 'featured', 'label.featured');
+		
+		$this->addIntegerField($builder, 'orderNumber', 'label.orderNumber');
 	}
-	
-	/**
-	 * 
-	 * {@inheritDoc}
-	 * @see \AppBundle\Form\Base\SimpleEntityType::getEntityType()
-	 */
+
 	protected function getEntityType() {
 		return ArticleCategory::class;
 	}

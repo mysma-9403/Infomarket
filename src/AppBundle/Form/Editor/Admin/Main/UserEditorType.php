@@ -4,63 +4,32 @@ namespace AppBundle\Form\Editor\Admin\Main;
 
 use AppBundle\Entity\User;
 use AppBundle\Form\Editor\Admin\Base\BaseEntityEditorType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 
-class UserEditorType extends BaseEntityEditorType
-{
-	protected function addMainFields(FormBuilderInterface $builder, array $options) {
-	
-		$builder
-		->add('username', TextType::class, array(
-				'attr' => array('autofocus' => true),
-				'required' => true
-		))
-		;
-	}
-	
-	/**
-	 *
-	 * {@inheritDoc}
-	 * @see \AppBundle\Form\Base\SimpleEntityType::addMoreFields()
-	 */
-	protected function addMoreFields(FormBuilderInterface $builder, array $options) {
+class UserEditorType extends BaseEntityEditorType {
+
+	protected function addFields(FormBuilderInterface $builder, array $options) {
+		parent::addFields($builder, $options);
 		
-		$builder
-		->add('forename', TextType::class, array(
-				'attr' => array('autofocus' => true),
-				'required' => false
-		))
-		->add('surname', TextType::class, array(
-				'attr' => array('autofocus' => true),
-				'required' => false
-		))
-		->add('pseudonym', TextType::class, array(
-				'attr' => array('autofocus' => true),
-				'required' => false
-		))
-		->add('email', TextType::class, array(
-				'attr' => array('autofocus' => true),
-				'required' => false
-		))
-		;
+		$this->addTextField($builder, 'username', 'label.user.username');
 		
-		$this->addNumberChoiceEditorField($builder, $options, 'roles', true, true, true);
+		$this->addTextField($builder, 'email', 'label.user.email');
+		
+		$this->addTextField($builder, 'forename', 'label.user.forename', false);
+		$this->addTextField($builder, 'surname', 'label.user.surname', false);
+		$this->addTextField($builder, 'pseudonym', 'label.user.pseudonym', false);
+		
+		$this->addNumberChoiceField($builder, $options, 'roles', true, true, true);
 	}
-	
+
 	protected function getDefaultOptions() {
 		$options = parent::getDefaultOptions();
-	
-		$options[self::getChoicesName('roles')] = [];
-	
+		
+		$options[self::getChoicesName('roles')] = [ ];
+		
 		return $options;
 	}
-	
-	/**
-	 * 
-	 * {@inheritDoc}
-	 * @see \AppBundle\Form\Base\SimpleEntityType::getEntityType()
-	 */
+
 	protected function getEntityType() {
 		return User::class;
 	}

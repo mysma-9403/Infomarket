@@ -8,7 +8,6 @@
 	<buildpathentry kind="src" path="vendor/guzzlehttp/streams/src"/>
 	<buildpathentry kind="src" path="vendor/egeloen/ckeditor-bundle"/>
 	<buildpathentry kind="src" path="vendor/doctrine/annotations/lib/Doctrine/Common/Annotations"/>
-	<buildpathentry kind="src" path="tests"/>
 	<buildpathentry kind="con" path="org.eclipse.php.core.LANGUAGE"/>
 	<buildpathentry kind="src" path="vendor/symfony/swiftmailer-bundle"/>
 	<buildpathentry kind="src" path="vendor/php-http/promise/src"/>
@@ -37,6 +36,7 @@
 	<buildpathentry kind="src" path="vendor/intervention/image/src/Intervention/Image"/>
 	<buildpathentry kind="src" path="vendor/knplabs/knp-snappy/src/Knp/Snappy"/>
 	<buildpathentry kind="src" path="vendor/symfony/symfony/src/Symfony/Bridge/Monolog"/>
+	<buildpathentry external="true" kind="lib" path="E:/Symfony/workspace/Infomarket/vendor/bin/phpunit.bat"/>
 	<buildpathentry kind="src" path="vendor/php-http/guzzle5-adapter/src"/>
 	<buildpathentry kind="src" path="vendor/doctrine/doctrine-bundle"/>
 	<buildpathentry kind="src" path="vendor/symfony/polyfill-php56"/>
@@ -94,7 +94,6 @@
 	<buildpathentry excluding="Resources/stubs/" kind="src" path="vendor/symfony/polyfill-php70"/>
 	<buildpathentry kind="src" path="vendor/phpoffice/phpexcel/Classes"/>
 	<buildpathentry external="true" kind="lib" path="E:/Symfony/workspace/Infomarket/vendor/bin/phpunit"/>
-	<buildpathentry external="true" kind="lib" path="E:/Symfony/workspace/Infomarket/vendor/bin/phpunit.bat"/>
 	<buildpathentry kind="src" path="vendor/symfony/symfony/src/Symfony/Bundle"/>
 	<buildpathentry kind="src" path="vendor/incenteev/composer-parameter-handler"/>
 	<buildpathentry kind="src" path="vendor/symfony/polyfill-mbstring"/>

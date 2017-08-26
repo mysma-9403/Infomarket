@@ -6,106 +6,59 @@ use AppBundle\Entity\BenchmarkField;
 use AppBundle\Entity\Category;
 use AppBundle\Form\Editor\Admin\Base\BaseEntityEditorType;
 use AppBundle\Form\Transformer\EntityToNumberTransformer;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
-use Symfony\Component\Form\Extension\Core\Type\IntegerType;
-use Symfony\Component\Form\Extension\Core\Type\NumberType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 
-class BenchmarkFieldEditorType extends BaseEntityEditorType
-{
+class BenchmarkFieldEditorType extends BaseEntityEditorType {
+
 	/**
-	 * 
+	 *
 	 * @var EntityToNumberTransformer
 	 */
 	protected $categoryToNumberTransformer;
-	
+
 	public function __construct(EntityToNumberTransformer $categoryToNumberTransformer) {
 		$this->categoryToNumberTransformer = $categoryToNumberTransformer;
 	}
-	
-	/**
-	 * 
-	 * {@inheritDoc}
-	 * @see \AppBundle\Form\Base\SimpleEntityType::addMoreFields()
-	 */
-	protected function addMoreFields(FormBuilderInterface $builder, array $options) {
+
+	protected function addFields(FormBuilderInterface $builder, array $options) {
+		parent::addFields($builder, $options);
 		
-		$builder
-		->add('valueNumber', IntegerType::class, array(
-				'required' => true,
-				'attr' => ['placeholder' => 'label.benchmarkField.valueNumber']
-		))
-		->add('fieldNumber', IntegerType::class, array(
-				'required' => false,
-				'attr' => ['placeholder' => 'label.benchmarkField.fieldNumber']
-		))
-		->add('filterNumber', IntegerType::class, array(
-				'required' => false,
-				'attr' => ['placeholder' => 'label.benchmarkField.filterNumber']
-		))
+		$this->addIntegerField($builder, 'valueNumber', 'label.benchmarkField.valueNumber');
+		$this->addIntegerField($builder, 'fieldNumber', 'label.benchmarkField.fieldNumber', false);
+		$this->addIntegerField($builder, 'filterNumber', 'label.benchmarkField.filterNumber', false);
 		
-		->add('fieldName', TextType::class, array(
-				'required' => false,
-				'attr' => ['placeholder' => 'label.benchmarkField.fieldName']
-		))
-		->add('filterName', TextType::class, array(
-				'required' => false,
-				'attr' => ['placeholder' => 'label.benchmarkField.filterName']
-		))
+		$this->addTextField($builder, 'fieldName', 'label.benchmarkField.fieldName', false);
+		$this->addTextField($builder, 'filterName', 'label.benchmarkField.filterName', false);
 		
-		->add('showField', CheckboxType::class, array(
-				'required' => false
-		))
-		->add('showFilter', CheckboxType::class, array(
-				'required' => false
-		))
+		$this->addCheckboxField($builder, 'showField', 'label.benchmarkField.showField');
+		$this->addCheckboxField($builder, 'showFilter', 'label.benchmarkField.showFilter');
 		
-		->add('featuredField', CheckboxType::class, array(
-				'required' => false
-		))
-		->add('featuredFilter', CheckboxType::class, array(
-				'required' => false
-		))
+		$this->addCheckboxField($builder, 'featuredField', 'label.benchmarkField.featuredField');
+		$this->addCheckboxField($builder, 'featuredFilter', 'label.benchmarkField.featuredFilter');
 		
-		->add('decimalPlaces', IntegerType::class, array(
-				'required' => false,
-				'attr' => ['placeholder' => 'label.benchmarkField.decimalPlaces']
-		))
+		$this->addIntegerField($builder, 'decimalPlaces', 'label.benchmarkField.decimalPlaces', false);
 		
-		->add('noteWeight', NumberType::class, array(
-				'required' => false,
-				'attr' => ['placeholder' => 'label.benchmarkField.noteWeight']
-		))
-		->add('compareWeight', NumberType::class, array(
-				'required' => false,
-				'attr' => ['placeholder' => 'label.benchmarkField.compareWeight']
-		))
-		;
+		$this->addNumberField($builder, 'noteWeight', 'label.benchmarkField.noteWeight', false);
+		$this->addNumberField($builder, 'compareWeight', 'label.benchmarkField.compareWeight', false);
 		
-		$this->addNumberChoiceEditorField($builder, $options, 'fieldType');
-		$this->addNumberChoiceEditorField($builder, $options, 'noteType');
-		$this->addNumberChoiceEditorField($builder, $options, 'betterThanType');
+		$this->addNumberChoiceField($builder, $options, 'fieldType');
+		$this->addNumberChoiceField($builder, $options, 'noteType');
+		$this->addNumberChoiceField($builder, $options, 'betterThanType');
 		
-		$this->addTrueEntityChoiceEditorField($builder, $options, $this->categoryToNumberTransformer, 'category');
+		$this->addTrueEntityChoiceField($builder, $options, $this->categoryToNumberTransformer, 'category');
 	}
-	
+
 	protected function getDefaultOptions() {
 		$options = parent::getDefaultOptions();
-	
-		$options[self::getChoicesName('category')] = [];
-		$options[self::getChoicesName('fieldType')] = [];
-		$options[self::getChoicesName('noteType')] = [];
-		$options[self::getChoicesName('betterThanType')] = [];
-	
+		
+		$options[self::getChoicesName('category')] = [ ];
+		$options[self::getChoicesName('fieldType')] = [ ];
+		$options[self::getChoicesName('noteType')] = [ ];
+		$options[self::getChoicesName('betterThanType')] = [ ];
+		
 		return $options;
 	}
-	
-	/**
-	 * 
-	 * {@inheritDoc}
-	 * @see \AppBundle\Form\Base\SimpleEntityType::getEntityType()
-	 */
+
 	protected function getEntityType() {
 		return BenchmarkField::class;
 	}

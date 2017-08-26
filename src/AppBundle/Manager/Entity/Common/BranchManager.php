@@ -20,6 +20,9 @@ class BranchManager extends SimpleEntityManager {
 		
 		$entry->setIcon($request->get('icon'));
 		$entry->setColor($request->get('color'));
+		
+		$entry->setOrderNumber($request->get('order_number', 99));
+		
 		$entry->setContent($request->get('content'));
 		
 		return $entry;

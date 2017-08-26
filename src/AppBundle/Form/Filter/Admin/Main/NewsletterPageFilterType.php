@@ -6,24 +6,24 @@ use AppBundle\Filter\Admin\Main\NewsletterPageFilter;
 use AppBundle\Form\Filter\Admin\Base\SimpleEntityFilterType;
 use Symfony\Component\Form\FormBuilderInterface;
 
-class NewsletterPageFilterType extends SimpleEntityFilterType
-{
-	protected function addMainFields(FormBuilderInterface $builder, array $options) {
-		parent::addMainFields($builder, $options);
+class NewsletterPageFilterType extends SimpleEntityFilterType {
+
+	protected function addFields(FormBuilderInterface $builder, array $options) {
+		parent::addFields($builder, $options);
 		
 		$this->addFilterTextField($builder, 'name', 'label.name');
 		
-		$this->addEntityChoiceFilterField($builder, $options, 'newsletterPageTemplates');
+		$this->addFilterEntityChoiceField($builder, $options, 'newsletterPageTemplates');
 	}
-	
+
 	protected function getDefaultOptions() {
 		$options = parent::getDefaultOptions();
 		
-		$options[$this->getChoicesName('newsletterPageTemplates')] = [];
-	
+		$options[$this->getChoicesName('newsletterPageTemplates')] = [ ];
+		
 		return $options;
 	}
-	
+
 	protected function getEntityType() {
 		return NewsletterPageFilter::class;
 	}

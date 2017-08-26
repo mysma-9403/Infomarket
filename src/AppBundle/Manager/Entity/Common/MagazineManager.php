@@ -20,7 +20,7 @@ class MagazineManager extends FeaturedEntityManager {
 		
 		$entry->setContent($request->get('content'));
 		
-		$entry->setOrderNumber($request->get('order_number'));
+		$entry->setOrderNumber($request->get('order_number', 99));
 		
 		return $entry;
 	}

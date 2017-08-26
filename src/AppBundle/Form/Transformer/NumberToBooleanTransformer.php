@@ -4,17 +4,16 @@ namespace AppBundle\Form\Transformer;
 
 use Symfony\Component\Form\DataTransformerInterface;
 
-class NumberToBooleanTransformer implements DataTransformerInterface
-{
+class NumberToBooleanTransformer implements DataTransformerInterface {
+
 	/**
 	 * Transforms number to boolean.
 	 *
-	 * @param  mixed $value
+	 * @param mixed $value        	
 	 * @return boolean
 	 */
-	public function transform($value)
-	{
-		if (!$value) {
+	public function transform($value) {
+		if (! $value) {
 			return;
 		}
 		return $value > 0;
@@ -23,12 +22,11 @@ class NumberToBooleanTransformer implements DataTransformerInterface
 	/**
 	 * Transforms boolean to number.
 	 *
-	 * @param  boolean $value
+	 * @param boolean $value        	
 	 * @return mixed
 	 */
-	public function reverseTransform($value)
-	{
-		if (!$value) {
+	public function reverseTransform($value) {
+		if (! $value) {
 			return;
 		}
 		return $value ? 1 : 0;

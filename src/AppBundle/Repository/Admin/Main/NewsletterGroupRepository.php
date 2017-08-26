@@ -3,13 +3,38 @@
 namespace AppBundle\Repository\Admin\Main;
 
 use AppBundle\Entity\NewsletterGroup;
-use AppBundle\Repository\Admin\Base\SimpleEntityRepository;
-use Doctrine\ORM\QueryBuilder;
 use AppBundle\Entity\NewsletterUserNewsletterGroupAssignment;
+use AppBundle\Filter\Base\Filter;
+use AppBundle\Repository\Admin\Base\AuditRepository;
 use Doctrine\ORM\Query\Expr\Join;
+use Doctrine\ORM\QueryBuilder;
 
-class NewsletterGroupRepository extends SimpleEntityRepository
+class NewsletterGroupRepository extends AuditRepository
 {
+	protected function buildOrderBy(QueryBuilder &$builder, Filter $filter) {
+		$builder->addOrderBy('e.name', 'ASC');
+	}
+	
+	protected function getSelectFields(QueryBuilder &$builder, Filter $filter) {
+		$fields = parent::getSelectFields($builder, $filter);
+	
+		$fields[] = 'e.name';
+	
+		return $fields;
+	}
+	
+	protected function getWhere(QueryBuilder &$builder, Filter $filter) {
+		/** @var SimpleEntityFilter $filter */
+		$where = parent::getWhere($builder, $filter);
+	
+	
+		if($filter->getName() && strlen($filter->getName()) > 0) {
+			$where->add($this->buildStringsExpression($builder, 'e.name', $filter->getName()));
+		}
+	
+		return $where;
+	}
+	
 	public function findItemsByNewsletterUser($newsletterUserId) {
 		return $this->queryItemsByNewsletterUser($newsletterUserId)->getScalarResult();
 	}

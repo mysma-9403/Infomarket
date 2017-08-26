@@ -8,25 +8,25 @@ use AppBundle\Form\Base\FilterType;
 use Symfony\Component\Form\FormBuilderInterface;
 
 class CustomProductFilterType extends FilterType {
-	
-	protected function addMainFields(FormBuilderInterface $builder, array $options) {
-		parent::addMainFields($builder, $options);
+
+	protected function addFields(FormBuilderInterface $builder, array $options) {
+		parent::addFields($builder, $options);
 		
 		$this->addFilterTextField($builder, 'name', 'label.name');
 		
-		$this->addEntityChoiceFilterField($builder, $options, 'brands');
-		$this->addEntityChoiceFilterField($builder, $options, 'categories');
+		$this->addFilterEntityChoiceField($builder, $options, 'brands');
+		$this->addFilterEntityChoiceField($builder, $options, 'categories');
 	}
-	
+
 	protected function getDefaultOptions() {
 		$options = parent::getDefaultOptions();
 		
-		$options[$this->getChoicesName('brands')] = [];
-		$options[$this->getChoicesName('categories')] = [];
-	
+		$options[$this->getChoicesName('brands')] = [ ];
+		$options[$this->getChoicesName('categories')] = [ ];
+		
 		return $options;
 	}
-	
+
 	protected function getEntityType() {
 		return CustomProductFilter::class;
 	}

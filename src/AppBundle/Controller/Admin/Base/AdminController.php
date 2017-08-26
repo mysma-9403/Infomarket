@@ -463,7 +463,7 @@ abstract class AdminController extends StandardController {
 		$em = $this->getDoctrine()->getManager();
 	
 		$this->prepareEntry($request, $entry, $params);
-			
+		
 		$em->persist($entry);
 		$em->flush();
 		

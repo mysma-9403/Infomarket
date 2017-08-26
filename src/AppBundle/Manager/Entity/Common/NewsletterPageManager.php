@@ -4,10 +4,10 @@ namespace AppBundle\Manager\Entity\Common;
 
 use AppBundle\Entity\NewsletterPage;
 use AppBundle\Entity\NewsletterPageTemplate;
-use AppBundle\Manager\Entity\Base\SimpleEntityManager;
+use AppBundle\Manager\Entity\Base\BaseEntityManager;
 use Symfony\Component\HttpFoundation\Request;
 
-class NewsletterPageManager extends SimpleEntityManager {
+class NewsletterPageManager extends BaseEntityManager {
 	
 	/**
 	 * Create new entry with request parameters.
@@ -19,6 +19,7 @@ class NewsletterPageManager extends SimpleEntityManager {
 		/** @var NewsletterPage $entry */
 		$entry = parent::createFromRequest($request);
 		
+		$entry->setName($request->get('name'));
 		$entry->setSubname($request->get('subname'));
 		
 		$entry->setNewsletterPageTemplate($this->getParam($request, NewsletterPageTemplate::class));
@@ -36,6 +37,7 @@ class NewsletterPageManager extends SimpleEntityManager {
 		/** @var NewsletterPage $entry */
 		$entry = parent::createFromTemplate($template);
 		
+		$entry->setName($template->getName());
 		$entry->setSubname($template->getSubname());
 		
 		$entry->setNewsletterPageTemplate($template->getNewsletterPageTemplate());

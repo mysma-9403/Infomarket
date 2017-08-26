@@ -2,15 +2,49 @@
 
 namespace AppBundle\Entity;
 
-use AppBundle\Entity\Base\SimpleEntity;
+use AppBundle\Entity\Base\Audit;
 
 /**
  * NewsletterGroup
  */
-class NewsletterGroup extends SimpleEntity
+class NewsletterGroup extends Audit
 {
 	const INFOMARKET_GROUP = 1;
 	const INFOPRODUKT_GROUP = 2;
+	
+	public function getDisplayName() {
+		return $this->getName();
+	}
+	
+	/**
+	 * @var string
+	 */
+	protected $name;
+	
+	
+	/**
+	 * Set name
+	 *
+	 * @param string $name
+	 *
+	 * @return SimpleEntity
+	 */
+	public function setName($name)
+	{
+		$this->name = $name;
+	
+		return $this;
+	}
+	
+	/**
+	 * Get name
+	 *
+	 * @return string
+	 */
+	public function getName()
+	{
+		return $this->name;
+	}
 	
     /**
      * @var \Doctrine\Common\Collections\Collection
@@ -51,4 +85,12 @@ class NewsletterGroup extends SimpleEntity
     {
         return $this->newsletterUserNewsletterGroupAssignments;
     }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->newsletterUserNewsletterGroupAssignments = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
 }

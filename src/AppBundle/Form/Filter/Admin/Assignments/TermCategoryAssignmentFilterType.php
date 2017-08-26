@@ -6,24 +6,24 @@ use AppBundle\Filter\Admin\Assignments\TermCategoryAssignmentFilter;
 use AppBundle\Form\Filter\Admin\Base\SimpleEntityFilterType;
 use Symfony\Component\Form\FormBuilderInterface;
 
-class TermCategoryAssignmentFilterType extends SimpleEntityFilterType
-{
-	protected function addMainFields(FormBuilderInterface $builder, array $options) {
-		parent::addMainFields($builder, $options);
+class TermCategoryAssignmentFilterType extends SimpleEntityFilterType {
+
+	protected function addFields(FormBuilderInterface $builder, array $options) {
+		parent::addFields($builder, $options);
 		
-		$this->addEntityChoiceFilterField($builder, $options, 'terms');
-		$this->addEntityChoiceFilterField($builder, $options, 'categories');
+		$this->addFilterEntityChoiceField($builder, $options, 'terms');
+		$this->addFilterEntityChoiceField($builder, $options, 'categories');
 	}
-	
+
 	protected function getDefaultOptions() {
 		$options = parent::getDefaultOptions();
 		
-		$options[$this->getChoicesName('terms')] = [];
-		$options[$this->getChoicesName('categories')] = [];
-	
+		$options[$this->getChoicesName('terms')] = [ ];
+		$options[$this->getChoicesName('categories')] = [ ];
+		
 		return $options;
 	}
-	
+
 	protected function getEntityType() {
 		return TermCategoryAssignmentFilter::class;
 	}

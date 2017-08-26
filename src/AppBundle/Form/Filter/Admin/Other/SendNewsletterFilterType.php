@@ -9,26 +9,28 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 
 class SendNewsletterFilterType extends BaseType {
-	
-	protected function addMainFields(FormBuilderInterface $builder, array $options) {
+
+	protected function addFields(FormBuilderInterface $builder, array $options) {
+		parent::addFields($builder, $options);
+		
 		$this->addCheckboxField($builder, 'embedImages', 'label.newsletterPage.sendNewsletter.embedImages');
 		$this->addCheckboxField($builder, 'forceSend', 'label.newsletterPage.sendNewsletter.forceSend');
 		
-		$this->addEntityChoiceFilterField($builder, $options, 'newsletterGroups');
+		$this->addFilterEntityChoiceField($builder, $options, 'newsletterGroups');
 	}
-	
+
 	protected function addActions(FormBuilderInterface $builder, array $options) {
 		$builder->add('submit', SubmitType::class);
 	}
-	
+
 	protected function getDefaultOptions() {
 		$options = parent::getDefaultOptions();
 		
-		$options[$this->getChoicesName('newsletterGroups')] = [];
+		$options[$this->getChoicesName('newsletterGroups')] = [ ];
 		
 		return $options;
 	}
-	
+
 	protected function getEntityType() {
 		return SendNewsletterFilter::class;
 	}

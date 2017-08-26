@@ -4,73 +4,37 @@ namespace AppBundle\Form\Editor\Admin\Main;
 
 use AppBundle\Entity\Advert;
 use AppBundle\Form\Editor\Admin\Base\ImageEntityEditorType;
-use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
-use Symfony\Component\Form\Extension\Core\Type\IntegerType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 
-class AdvertEditorType extends ImageEntityEditorType
-{
-	/**
-	 * 
-	 * {@inheritDoc}
-	 * @see \AppBundle\Form\Base\SimpleEntityType::addMoreFields()
-	 */
-	protected function addMoreFields(FormBuilderInterface $builder, array $options) {
+class AdvertEditorType extends ImageEntityEditorType {
+
+	protected function addFields(FormBuilderInterface $builder, array $options) {
+		parent::addFields($builder, $options);
 		
-		$builder
-		->add('dateFrom', DateTimeType::class, array(
-				'widget' => 'single_text',
-				'format' => 'dd/MM/yyyy HH:mm',
-				'required' => false,
-				'attr' => [
-						'class' => 'form-control input-inline datetimepicker',
-						'data-provide' => 'datetimepicker',
-						'data-date-format' => 'DD/MM/YYYY HH:mm',
-						'placeholder' => 'label.advert.dateFrom'
-				]
-		))
-		->add('dateTo', DateTimeType::class, array(
-				'widget' => 'single_text',
-				'format' => 'dd/MM/yyyy HH:mm',
-				'required' => false,
-				'attr' => [
-						'class' => 'form-control input-inline datetimepicker',
-						'data-provide' => 'datetimepicker',
-						'data-date-format' => 'DD/MM/YYYY HH:mm',
-						'placeholder' => 'label.advert.dateTo'
-				]
-		))
-		->add('link', TextType::class, array(
-				'required' => true,
-				'attr' => ['placeholder' => 'label.advert.link']
-		))
-		->add('showLimit', IntegerType::class, array(
-				'required' => false,
-				'attr' => ['placeholder' => 'label.advert.showLimit']
-		))
-		->add('clickLimit', IntegerType::class, array(
-				'required' => false,
-				'attr' => ['placeholder' => 'label.advert.clickLimit']
-		))
-		;
+		$this->addTextField($builder, 'name', 'label.name');
 		
-		$this->addNumberChoiceEditorField($builder, $options, 'location');
+		$this->addCheckboxField($builder, 'infomarket', 'label.infomarket');
+		$this->addCheckboxField($builder, 'infoprodukt', 'label.infoprodukt');
+		
+		$this->addDateTimeField($builder, 'dateFrom', 'label.advert.dateFrom', false);
+		$this->addDateTimeField($builder, 'dateTo', 'label.advert.dateTo', false);
+		
+		$this->addTextField($builder, 'link', 'label.advert.link');
+		
+		$this->addIntegerField($builder, 'showLimit', 'label.advert.showLimit', false);
+		$this->addIntegerField($builder, 'clickLimit', 'label.advert.clickLimit', false);
+		
+		$this->addNumberChoiceField($builder, $options, 'location');
 	}
-	
+
 	protected function getDefaultOptions() {
 		$options = parent::getDefaultOptions();
-	
-		$options[self::getChoicesName('location')] = [];
-	
+		
+		$options[self::getChoicesName('location')] = [ ];
+		
 		return $options;
 	}
-	
-	/**
-	 * 
-	 * {@inheritDoc}
-	 * @see \AppBundle\Form\Base\SimpleEntityType::getEntityType()
-	 */
+
 	protected function getEntityType() {
 		return Advert::class;
 	}

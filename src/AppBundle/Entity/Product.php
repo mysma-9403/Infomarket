@@ -47,6 +47,9 @@ class Product extends ImageEntity implements \ArrayAccess
      */
     public function __construct() {
     	parent::__construct();
+    	
+    	$this->custom = false;
+    	
         $this->productCategoryAssignments = new \Doctrine\Common\Collections\ArrayCollection();
     }
     

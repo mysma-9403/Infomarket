@@ -5,10 +5,10 @@ namespace AppBundle\Manager\Entity\Common;
 use AppBundle\Entity\NewsletterBlock;
 use AppBundle\Entity\NewsletterBlockTemplate;
 use AppBundle\Entity\NewsletterPage;
-use AppBundle\Manager\Entity\Base\SimpleEntityManager;
+use AppBundle\Manager\Entity\Base\BaseEntityManager;
 use Symfony\Component\HttpFoundation\Request;
 
-class NewsletterBlockManager extends SimpleEntityManager {
+class NewsletterBlockManager extends BaseEntityManager {
 	
 	/**
 	 * Create new entry with request parameters.
@@ -20,6 +20,7 @@ class NewsletterBlockManager extends SimpleEntityManager {
 		/** @var NewsletterBlock $entry */
 		$entry = parent::createFromRequest($request);
 		
+		$entry->setSubname($request->get('name'));
 		$entry->setSubname($request->get('subname'));
 		
 		$entry->setNewsletterBlockTemplate($this->getParam($request, NewsletterBlockTemplate::class));
@@ -52,6 +53,7 @@ class NewsletterBlockManager extends SimpleEntityManager {
 		/** @var NewsletterBlock $entry */
 		$entry = parent::createFromTemplate($template);
 		
+		$entry->setName($template->getName());
 		$entry->setSubname($template->getSubname());
 		
 		$entry->setNewsletterBlockTemplate($template->getNewsletterBlockTemplate());

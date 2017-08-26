@@ -4,35 +4,22 @@ namespace AppBundle\Form\Editor\Admin\Main;
 
 use AppBundle\Entity\Page;
 use AppBundle\Form\Editor\Admin\Base\ImageEntityEditorType;
-use Ivory\CKEditorBundle\Form\Type\CKEditorType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 
-class PageEditorType extends ImageEntityEditorType
-{
-	/**
-	 * 
-	 * {@inheritDoc}
-	 * @see \AppBundle\Form\Base\SimpleEntityType::addMoreFields()
-	 */
-	protected function addMoreFields(FormBuilderInterface $builder, array $options) {
-		$builder
-			->add('subname', TextType::class, array(
-					'required' => false
-			))
-			->add('content', CKEditorType::class, array(
-					'config' => array(
-							'uiColor' => '#ffffff'),
-					'required' => false
-			))
-		;
+class PageEditorType extends ImageEntityEditorType {
+
+	protected function addFields(FormBuilderInterface $builder, array $options) {
+		parent::addFields($builder, $options);
+		
+		$this->addTextField($builder, 'name', 'label.name');
+		$this->addTextField($builder, 'subname', 'label.subname', false);
+		
+		$this->addCheckboxField($builder, 'infomarket', 'label.infomarket');
+		$this->addCheckboxField($builder, 'infoprodukt', 'label.infoprodukt');
+		
+		$this->addCKEditorField($builder, 'content', 'label.content');
 	}
-	
-	/**
-	 * 
-	 * {@inheritDoc}
-	 * @see \AppBundle\Form\Base\SimpleEntityType::getEntityType()
-	 */
+
 	protected function getEntityType() {
 		return Page::class;
 	}

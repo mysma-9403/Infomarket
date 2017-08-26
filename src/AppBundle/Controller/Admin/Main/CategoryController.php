@@ -407,7 +407,7 @@ class CategoryController extends FeaturedEntityController {
 		} else {
 			/** @var CategoryRepository $repository */
 			$repository = $this->getDoctrine()->getRepository(Category::class);
-			$items = $repository->findChildrenIds($entry->getId(), $rootId);
+			$items = $repository->findChildrenIds($entry->getId(), $entry->getId());
 			
 			if(count($items) > 0) {
 				$repository->setRootId($items, $entry->getId());

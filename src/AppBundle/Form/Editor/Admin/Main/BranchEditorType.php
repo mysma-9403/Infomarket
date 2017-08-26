@@ -4,42 +4,26 @@ namespace AppBundle\Form\Editor\Admin\Main;
 
 use AppBundle\Entity\Branch;
 use AppBundle\Form\Editor\Admin\Base\ImageEntityEditorType;
-use Ivory\CKEditorBundle\Form\Type\CKEditorType;
-use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\FormBuilderInterface;
 
-class BranchEditorType extends ImageEntityEditorType
-{
-	/**
-	 * 
-	 * {@inheritDoc}
-	 * @see \AppBundle\Form\Base\BaseFormType::addMoreFields()
-	 */
-	protected function addMoreFields(FormBuilderInterface $builder, array $options) {
+class BranchEditorType extends ImageEntityEditorType {
+
+	protected function addFields(FormBuilderInterface $builder, array $options) {
+		parent::addFields($builder, $options);
 		
-		$builder
-			->add('icon', null, array(
-					'required' => false
-			))
-			->add('color', null, array(
-					'required' => true
-			))
-			->add('orderNumber', IntegerType::class, array(
-					'required' => true
-			))
-			->add('content', CKEditorType::class, array(
-					'config' => array(
-							'uiColor' => '#ffffff'),
-					'required' => false
-			))
-		;
+		$this->addTextField($builder, 'name', 'label.name');
+		
+		$this->addCheckboxField($builder, 'infomarket', 'label.infomarket');
+		$this->addCheckboxField($builder, 'infoprodukt', 'label.infoprodukt');
+		
+		$this->addTextField($builder, 'icon', 'label.icon', false);
+		$this->addTextField($builder, 'color', 'label.color');
+		
+		$this->addIntegerField($builder, 'orderNumber', 'label.orderNumber');
+		
+		$this->addCKEditorField($builder, 'content', 'label.content', false);
 	}
-	
-	/**
-	 * 
-	 * {@inheritDoc}
-	 * @see \AppBundle\Form\Base\ImageEntityType::getEntityType()
-	 */
+
 	protected function getEntityType() {
 		return Branch::class;
 	}

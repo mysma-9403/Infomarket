@@ -2,10 +2,11 @@
 
 namespace AppBundle\Entity;
 
-use AppBundle\Entity\Base\SimpleEntity;
+use AppBundle\Entity\Base\Audit;
 
-class NewsletterPage extends SimpleEntity
+class NewsletterPage extends Audit
 {
+	
 	public function getNewsletterCode() {
 		$content = $this->newsletterPageTemplate->getContent();
 		
@@ -40,15 +41,37 @@ class NewsletterPage extends SimpleEntity
 	}
 	
 	public function getDisplayName() {
-		$result = parent::getDisplayName();
-		if($this->subname) {
-			if($result == '<empty>')
-				$result = $this->subname;
-				else
-					$result .= ' ' . $this->subname;
-		}
+		return $this->getName() . ' ' . $this->getSubname();
+	}
 	
-		return $result;
+	/**
+	 * @var string
+	 */
+	protected $name;
+	
+	
+	/**
+	 * Set name
+	 *
+	 * @param string $name
+	 *
+	 * @return SimpleEntity
+	 */
+	public function setName($name)
+	{
+		$this->name = $name;
+	
+		return $this;
+	}
+	
+	/**
+	 * Get name
+	 *
+	 * @return string
+	 */
+	public function getName()
+	{
+		return $this->name;
 	}
 	
     /**
@@ -187,4 +210,13 @@ class NewsletterPage extends SimpleEntity
     {
         return $this->newsletterUserNewsletterPageAssignments;
     }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->newsletterBlocks = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->newsletterUserNewsletterPageAssignments = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
 }

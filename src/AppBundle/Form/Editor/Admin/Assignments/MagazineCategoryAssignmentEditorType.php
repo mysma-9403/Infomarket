@@ -7,52 +7,41 @@ use AppBundle\Form\Editor\Admin\Base\BaseEntityEditorType;
 use AppBundle\Form\Transformer\EntityToNumberTransformer;
 use Symfony\Component\Form\FormBuilderInterface;
 
-class MagazineCategoryAssignmentEditorType extends BaseEntityEditorType
-{
+class MagazineCategoryAssignmentEditorType extends BaseEntityEditorType {
+
 	/**
 	 *
 	 * @var EntityToNumberTransformer
 	 */
 	protected $magazineTransformer;
-	
+
 	/**
 	 *
 	 * @var EntityToNumberTransformer
 	 */
 	protected $categoryTransformer;
-	
-	public function __construct(
-			EntityToNumberTransformer $magazineTransformer, 
-			EntityToNumberTransformer $categoryTransformer) {
-		
+
+	public function __construct(EntityToNumberTransformer $magazineTransformer, EntityToNumberTransformer $categoryTransformer) {
 		$this->magazineTransformer = $magazineTransformer;
 		$this->categoryTransformer = $categoryTransformer;
 	}
-	
-	/**
-	 *
-	 * {@inheritDoc}
-	 * @see \AppBundle\Form\Base\BaseFormType::addMoreFields()
-	 */
-	protected function addMainFields(FormBuilderInterface $builder, array $options) {
-		$this->addTrueEntityChoiceEditorField($builder, $options, $this->magazineTransformer, 'magazine');
-		$this->addTrueEntityChoiceEditorField($builder, $options, $this->categoryTransformer, 'category');
+
+	protected function addFields(FormBuilderInterface $builder, array $options) {
+		parent::addFields($builder, $options);
+		
+		$this->addTrueEntityChoiceField($builder, $options, $this->magazineTransformer, 'magazine');
+		$this->addTrueEntityChoiceField($builder, $options, $this->categoryTransformer, 'category');
 	}
-	
+
 	protected function getDefaultOptions() {
 		$options = parent::getDefaultOptions();
-	
-		$options[self::getChoicesName('magazine')] = [];
-		$options[self::getChoicesName('category')] = [];
-	
+		
+		$options[self::getChoicesName('magazine')] = [ ];
+		$options[self::getChoicesName('category')] = [ ];
+		
 		return $options;
 	}
-	
-	/**
-	 * 
-	 * {@inheritDoc}
-	 * @see \AppBundle\Form\Base\ImageEntityType::getEntityType()
-	 */
+
 	protected function getEntityType() {
 		return MagazineCategoryAssignment::class;
 	}

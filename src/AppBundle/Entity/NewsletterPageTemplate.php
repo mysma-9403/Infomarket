@@ -2,10 +2,44 @@
 
 namespace AppBundle\Entity;
 
+use AppBundle\Entity\Base\Audit;
 use AppBundle\Entity\Base\SimpleEntity;
 
-class NewsletterPageTemplate extends SimpleEntity
+class NewsletterPageTemplate extends Audit
 {
+	public function getDisplayName() {
+		return $this->getName();
+	}
+	
+	/**
+	 * @var string
+	 */
+	protected $name;
+	
+	
+	/**
+	 * Set name
+	 *
+	 * @param string $name
+	 *
+	 * @return SimpleEntity
+	 */
+	public function setName($name)
+	{
+		$this->name = $name;
+	
+		return $this;
+	}
+	
+	/**
+	 * Get name
+	 *
+	 * @return string
+	 */
+	public function getName()
+	{
+		return $this->name;
+	}
 	
     /**
      * @var string
