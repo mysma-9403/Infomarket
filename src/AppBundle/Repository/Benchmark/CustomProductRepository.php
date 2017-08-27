@@ -59,17 +59,10 @@ class CustomProductRepository extends BaseRepository {
 		$where->add($expr->eq('e.custom', 1));
 		$where->add($expr->eq('e.createdBy', $filter->getContextUser()));
 		
-		if (count($filter->getBrands()) > 0) {
-			$where->add($expr->in('e.brand', $filter->getBrands()));
-		}
+		$this->addStringWhere($builder, $where, 'e.name', $filter->getName(), true);
 		
-		if (count($filter->getCategories()) > 0) {
-			$where->add($expr->in('pca.category', $filter->getCategories()));
-		}
-		
-		if ($filter->getName()) {
-			$where->add($this->buildStringsExpression($builder, 'e.name', $filter->getName(), true));
-		}
+		$this->addArrayWhere($builder, $where, 'e.brand', $filter->getBrands());
+		$this->addArrayWhere($builder, $where, 'pca.category', $filter->getCategories());
 		
 		return $where;
 	}

@@ -22,15 +22,13 @@ class BenchmarkQueryRepository extends BaseRepository {
 
 	protected function getWhere(QueryBuilder &$builder, Filter $filter) {
 		$where = parent::getWhere($builder, $filter);
+		/** @var BenchmarkQueryFilter $filter */
 		
 		$expr = $builder->expr();
 		
-		/** @var BenchmarkQueryFilter $filter */
 		$where->add($expr->eq('e.createdBy', $filter->getContextUser()));
 		
-		if ($filter->getName()) {
-			$where->add($this->buildStringsExpression($builder, 'e.name', $filter->getName(), true));
-		}
+		$this->addStringWhere($builder, $where, 'e.name', $filter->getName(), true);
 		
 		return $where;
 	}
@@ -39,11 +37,6 @@ class BenchmarkQueryRepository extends BaseRepository {
 		$builder->addOrderBy('e.name', 'ASC');
 	}
 
-	/**
-	 *
-	 * {@inheritdoc}
-	 *
-	 */
 	protected function getEntityType() {
 		return BenchmarkQuery::class;
 	}

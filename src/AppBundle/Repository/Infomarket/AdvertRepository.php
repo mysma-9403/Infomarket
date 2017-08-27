@@ -84,11 +84,6 @@ class AdvertRepository extends BaseRepository {
 		return $builder->getQuery()->execute();
 	}
 
-	/**
-	 *
-	 * {@inheritdoc}
-	 *
-	 */
 	protected function getEntityType() {
 		return Advert::class;
 	}

@@ -36,11 +36,6 @@ class TagRepository extends BaseRepository {
 		return $builder->getQuery();
 	}
 
-	/**
-	 *
-	 * {@inheritdoc}
-	 *
-	 */
 	protected function getEntityType() {
 		return Tag::class;
 	}

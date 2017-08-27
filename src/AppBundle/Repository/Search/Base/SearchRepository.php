@@ -26,12 +26,10 @@ abstract class SearchRepository extends BaseRepository {
 	}
 
 	protected function getWhere(QueryBuilder &$builder, Filter $filter) {
-		/** @var SearchFilter $filter */
 		$where = parent::getWhere($builder, $filter);
+		/** @var SearchFilter $filter */
 		
-		if ($filter->getString() && strlen($filter->getString()) > 0) {
-			$where->add($this->buildStringsExpression($builder, 'e.name', $filter->getString(), true));
-		}
+		$this->addStringWhere($builder, $where, 'e.name', $filter->getString(), true);
 		
 		return $where;
 	}

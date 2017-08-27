@@ -111,11 +111,6 @@ abstract class ArticleRepository extends BaseRepository {
 		return $item;
 	}
 
-	/**
-	 *
-	 * {@inheritdoc}
-	 *
-	 */
 	protected function getEntityType() {
 		return Article::class;
 	}

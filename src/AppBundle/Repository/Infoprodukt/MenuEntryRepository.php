@@ -52,11 +52,6 @@ class MenuEntryRepository extends BaseRepository {
 		return $builder->getQuery();
 	}
 
-	/**
-	 *
-	 * {@inheritdoc}
-	 *
-	 */
 	protected function getEntityType() {
 		return MenuEntry::class;
 	}

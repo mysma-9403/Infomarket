@@ -27,20 +27,20 @@ class BenchmarkEnumRepository extends AuditRepository {
 		
 		return $where;
 	}
-	
+
 	protected function getFilterSelectFields(QueryBuilder &$builder) {
 		$fields = parent::getFilterSelectFields($builder);
-	
+		
 		$fields[] = 'e.name';
-	
+		
 		return $fields;
 	}
-	
+
 	protected function getFilterItemKeyFields($item) {
 		$fields = parent::getFilterItemKeyFields($item);
-	
+		
 		$fields[] = $item['name'];
-	
+		
 		return $fields;
 	}
 

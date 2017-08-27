@@ -6,10 +6,10 @@ use AppBundle\Entity\Article;
 use AppBundle\Entity\ArticleBrandAssignment;
 use AppBundle\Entity\ArticleCategoryAssignment;
 use AppBundle\Filter\Base\Filter;
-use AppBundle\Filter\Common\BrandCategorySearchFilter;
 use AppBundle\Repository\Search\Base\SearchRepository;
 use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\ORM\QueryBuilder;
+use AppBundle\Filter\Common\BrandCategorySearchFilter;
 
 class ArticleSearchRepository extends SearchRepository {
 
@@ -37,20 +37,16 @@ class ArticleSearchRepository extends SearchRepository {
 
 	protected function getWhere(QueryBuilder &$builder, Filter $filter) {
 		/** @var BrandCategorySearchFilter $filter */
-		$where = null;
-		
 		$expr = $builder->expr();
+		$where = $expr->andX();
 		
 		if (count($filter->getCategories()) > 0) {
-			$where = $expr->andX();
 			$where->add($expr->in('aca.category', $filter->getCategories()));
 		} else if (count($filter->getBrands()) > 0) {
-			$where = $expr->andX();
 			$where->add($expr->in('aba.brand', $filter->getBrands()));
-		} else {
-			$where = $expr->andX();
 		}
 		
+		// TODO make automated from array [e.name, e.subname] + use in other (admin) repositories
 		if ($filter->getString() && strlen($filter->getString()) > 0) {
 			$name = $expr->concat($expr->trim('e.name'), $expr->literal(' '));
 			$name = $expr->concat($name, $expr->trim('e.subname'));

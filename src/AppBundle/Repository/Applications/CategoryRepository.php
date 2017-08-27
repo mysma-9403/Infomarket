@@ -32,11 +32,6 @@ class CategoryRepository extends BaseRepository {
 		return $builder->getQuery();
 	}
 
-	/**
-	 *
-	 * {@inheritdoc}
-	 *
-	 */
 	protected function getEntityType() {
 		return Category::class;
 	}

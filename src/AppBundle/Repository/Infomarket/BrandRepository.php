@@ -2,16 +2,16 @@
 
 namespace AppBundle\Repository\Infomarket;
 
-use AppBundle\Entity\Brand;
-use AppBundle\Repository\Base\BaseRepository;
-use Doctrine\ORM\QueryBuilder;
-use AppBundle\Entity\BrandCategoryAssignment;
-use Doctrine\ORM\Query\Expr\Join;
 use AppBundle\Entity\ArticleBrandAssignment;
-use AppBundle\Filter\Base\Filter;
+use AppBundle\Entity\Brand;
+use AppBundle\Entity\BrandCategoryAssignment;
+use AppBundle\Entity\Category;
 use AppBundle\Entity\Product;
 use AppBundle\Entity\ProductCategoryAssignment;
-use AppBundle\Entity\Category;
+use AppBundle\Filter\Base\Filter;
+use AppBundle\Repository\Base\BaseRepository;
+use Doctrine\ORM\Query\Expr\Join;
+use Doctrine\ORM\QueryBuilder;
 
 class BrandRepository extends BaseRepository {
 
@@ -105,11 +105,6 @@ class BrandRepository extends BaseRepository {
 		return $builder->getQuery();
 	}
 
-	/**
-	 *
-	 * {@inheritdoc}
-	 *
-	 */
 	protected function getEntityType() {
 		return Brand::class;
 	}

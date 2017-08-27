@@ -12,7 +12,7 @@ use AppBundle\Entity\ProductNote;
 use AppBundle\Factory\Common\BenchmarkField\SimpleBenchmarkFieldFactory;
 use AppBundle\Filter\Benchmark\CustomProductFilter;
 use AppBundle\Filter\Common\Other\ProductFilter;
-use AppBundle\Form\Editor\Admin\Main\ProductEditorType;
+use AppBundle\Form\Editor\Benchmark\ProductEditorType;
 use AppBundle\Form\Filter\Benchmark\CategoryFilterType;
 use AppBundle\Form\Filter\Benchmark\CustomProductFilterType;
 use AppBundle\Form\Filter\Benchmark\SubcategoryFilterType;
@@ -278,11 +278,6 @@ class CustomProductController extends ImageEntityController {
 		}
 	}
 	
-	/**
-	 *
-	 * {@inheritDoc}
-	 * @see \AppBundle\Controller\Admin\Base\AdminEntityController::deleteMore()
-	 */
 	protected function deleteMore($entry)
 	{
 		/** @var Product $entry */

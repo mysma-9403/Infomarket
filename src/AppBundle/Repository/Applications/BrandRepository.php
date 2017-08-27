@@ -39,11 +39,6 @@ class BrandRepository extends BaseRepository {
 		return $builder->getQuery();
 	}
 
-	/**
-	 *
-	 * {@inheritdoc}
-	 *
-	 */
 	protected function getEntityType() {
 		return Brand::class;
 	}

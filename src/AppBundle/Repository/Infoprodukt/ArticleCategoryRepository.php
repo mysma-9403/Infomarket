@@ -3,23 +3,10 @@
 namespace AppBundle\Repository\Infoprodukt;
 
 use AppBundle\Entity\ArticleCategory;
-use AppBundle\Repository\Base\BaseRepository;
+use AppBundle\Repository\Admin\Main\ArticleCategoryRepository as BaseRepository;
 use Doctrine\ORM\QueryBuilder;
 
 class ArticleCategoryRepository extends BaseRepository {
-
-	protected function buildFilterOrderBy(QueryBuilder &$builder) {
-		parent::buildFilterOrderBy($builder);
-		$builder->addOrderBy('e.subname', 'ASC');
-	}
-
-	protected function getFilterSelectFields(QueryBuilder &$builder) {
-		$fields = parent::getFilterSelectFields($builder);
-		
-		$fields[] = 'e.subname';
-		
-		return $fields;
-	}
 
 	protected function getFilterWhere(QueryBuilder &$builder) {
 		$where = parent::getFilterWhere($builder);
@@ -28,14 +15,6 @@ class ArticleCategoryRepository extends BaseRepository {
 		$where->add($expr->eq('e.infoprodukt', 1));
 		
 		return $where;
-	}
-
-	protected function getFilterItemKeyFields($item) {
-		$fields = parent::getFilterItemKeyFields($item);
-		
-		$fields[] = $item['subname'];
-		
-		return $fields;
 	}
 
 	public function findHomeItems() {
@@ -53,11 +32,6 @@ class ArticleCategoryRepository extends BaseRepository {
 		return $builder->getQuery();
 	}
 
-	/**
-	 *
-	 * {@inheritdoc}
-	 *
-	 */
 	protected function getEntityType() {
 		return ArticleCategory::class;
 	}

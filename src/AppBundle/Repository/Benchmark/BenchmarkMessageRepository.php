@@ -3,13 +3,13 @@
 namespace AppBundle\Repository\Benchmark;
 
 use AppBundle\Entity\BenchmarkMessage;
+use AppBundle\Entity\Brand;
+use AppBundle\Entity\Product;
 use AppBundle\Filter\Base\Filter;
 use AppBundle\Filter\Benchmark\BenchmarkMessageFilter;
 use AppBundle\Repository\Base\BaseRepository;
-use Doctrine\ORM\QueryBuilder;
-use AppBundle\Entity\Product;
-use AppBundle\Entity\Brand;
 use Doctrine\ORM\Query\Expr\Join;
+use Doctrine\ORM\QueryBuilder;
 
 class BenchmarkMessageRepository extends BaseRepository {
 
@@ -81,28 +81,19 @@ class BenchmarkMessageRepository extends BaseRepository {
 
 	protected function getWhere(QueryBuilder &$builder, Filter $filter) {
 		$where = parent::getWhere($builder, $filter);
+		/** @var BenchmarkMessageFilter $filter */
 		
 		$expr = $builder->expr();
 		
-		/** @var BenchmarkMessageFilter $filter */
 		$where->add($expr->isNull('e.parent'));
 		$where->add($expr->eq('e.createdBy', $filter->getContextUser()));
 		
-		if (count($filter->getProducts()) > 0) {
-			$where->add($expr->in('e.product', $filter->getProducts()));
-		}
+		$this->addArrayWhere($builder, $where, 'e.product', $filter->getProducts());
+		$this->addArrayWhere($builder, $where, 'e.state', $filter->getStates());
 		
-		if (count($filter->getStates()) > 0) {
-			$where->add($expr->in('e.state', $filter->getStates()));
-		}
+		$this->addStringWhere($builder, $where, 'e.name', $filter->getName(), true);
 		
-		if ($filter->getName()) {
-			$where->add($this->buildStringsExpression($builder, 'e.name', $filter->getName(), true));
-		}
-		
-		if ($filter->getReadByAuthor() != Filter::ALL_VALUES) {
-			$where->add($expr->eq('e.readByAuthor', $filter->getReadByAuthor()));
-		}
+		$this->addBooleanWhere($builder, $where, 'e.readByAuthor', $filter->getReadByAuthor());
 		
 		return $where;
 	}
@@ -111,21 +102,6 @@ class BenchmarkMessageRepository extends BaseRepository {
 		$builder->addOrderBy('e.name', 'ASC');
 	}
 
-	public function setRead(array $items, $read) {
-		$builder = new QueryBuilder($this->getEntityManager());
-		
-		$builder->update($this->getEntityType(), 'e');
-		$builder->set('e.readByAuthor', $read);
-		$builder->where($builder->expr()->in('e.id', $items));
-		
-		$builder->getQuery()->execute();
-	}
-
-	/**
-	 *
-	 * {@inheritdoc}
-	 *
-	 */
 	protected function getEntityType() {
 		return BenchmarkMessage::class;
 	}

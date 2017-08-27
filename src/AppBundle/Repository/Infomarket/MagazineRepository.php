@@ -5,11 +5,11 @@ namespace AppBundle\Repository\Infomarket;
 use AppBundle\Entity\Magazine;
 use AppBundle\Entity\MagazineBranchAssignment;
 use AppBundle\Filter\Base\Filter;
+use AppBundle\Filter\Infomarket\Base\BranchDependentFilter;
 use AppBundle\Repository\Base\BaseRepository;
 use Doctrine\ORM\AbstractQuery;
 use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\ORM\QueryBuilder;
-use AppBundle\Filter\Infomarket\Base\BranchDependentFilter;
 
 class MagazineRepository extends BaseRepository {
 
@@ -33,8 +33,8 @@ class MagazineRepository extends BaseRepository {
 	}
 
 	protected function getWhere(QueryBuilder &$builder, Filter $filter) {
-		/** @var BranchDependentFilter $filter */
 		$where = parent::getWhere($builder, $filter);
+		/** @var BranchDependentFilter $filter */
 		
 		$expr = $builder->expr();
 		
@@ -105,11 +105,6 @@ class MagazineRepository extends BaseRepository {
 		return $builder->getQuery();
 	}
 
-	/**
-	 *
-	 * {@inheritdoc}
-	 *
-	 */
 	protected function getEntityType() {
 		return Magazine::class;
 	}

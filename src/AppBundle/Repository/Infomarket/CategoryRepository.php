@@ -4,11 +4,11 @@ namespace AppBundle\Repository\Infomarket;
 
 use AppBundle\Entity\BranchCategoryAssignment;
 use AppBundle\Entity\Category;
+use AppBundle\Filter\Base\Filter;
 use AppBundle\Repository\Base\BaseRepository;
+use Doctrine\ORM\AbstractQuery;
 use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\ORM\QueryBuilder;
-use AppBundle\Filter\Base\Filter;
-use Doctrine\ORM\AbstractQuery;
 
 class CategoryRepository extends BaseRepository {
 
@@ -33,8 +33,8 @@ class CategoryRepository extends BaseRepository {
 	}
 
 	protected function getWhere(QueryBuilder &$builder, Filter $filter) {
-		/** @var BranchDependentFilter $filter */
 		$where = parent::getWhere($builder, $filter);
+		/** @var BranchDependentFilter $filter */
 		
 		$expr = $builder->expr();
 		
@@ -226,11 +226,6 @@ class CategoryRepository extends BaseRepository {
 		return $items;
 	}
 
-	/**
-	 *
-	 * {@inheritdoc}
-	 *
-	 */
 	protected function getEntityType() {
 		return Category::class;
 	}

@@ -3,24 +3,13 @@
 namespace AppBundle\Repository\Infomarket;
 
 use AppBundle\Entity\ArticleCategory;
-use AppBundle\Repository\Base\BaseRepository;
+use AppBundle\Repository\Admin\Main\ArticleCategoryRepository as BaseRepository;
 use Doctrine\ORM\QueryBuilder;
 
 class ArticleCategoryRepository extends BaseRepository {
-
-	protected function buildFilterOrderBy(QueryBuilder &$builder) {
-		parent::buildFilterOrderBy($builder);
-		$builder->addOrderBy('e.subname', 'ASC');
-	}
-
-	protected function getFilterSelectFields(QueryBuilder &$builder) {
-		$fields = parent::getFilterSelectFields($builder);
-		
-		$fields[] = 'e.subname';
-		
-		return $fields;
-	}
-
+	
+	// TODO the same as in admin -> make common + env agnostic:
+	// $where->add($expr->eq('e.infomarket', 1)); can be set in IM filter
 	protected function getFilterWhere(QueryBuilder &$builder) {
 		$where = parent::getFilterWhere($builder);
 		
@@ -28,14 +17,6 @@ class ArticleCategoryRepository extends BaseRepository {
 		$where->add($expr->eq('e.infomarket', 1));
 		
 		return $where;
-	}
-
-	protected function getFilterItemKeyFields($item) {
-		$fields = parent::getFilterItemKeyFields($item);
-		
-		$fields[] = $item['subname'];
-		
-		return $fields;
 	}
 
 	public function findMenuItems() {
@@ -74,11 +55,6 @@ class ArticleCategoryRepository extends BaseRepository {
 		return $builder->getQuery();
 	}
 
-	/**
-	 *
-	 * {@inheritdoc}
-	 *
-	 */
 	protected function getEntityType() {
 		return ArticleCategory::class;
 	}

@@ -5,9 +5,9 @@ namespace AppBundle\Repository\Infoprodukt;
 use AppBundle\Entity\Category;
 use AppBundle\Filter\Base\Filter;
 use AppBundle\Repository\Base\BaseRepository;
+use Doctrine\ORM\AbstractQuery;
 use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\ORM\QueryBuilder;
-use Doctrine\ORM\AbstractQuery;
 
 class CategoryRepository extends BaseRepository {
 
@@ -181,11 +181,6 @@ class CategoryRepository extends BaseRepository {
 		return $builder->getQuery();
 	}
 
-	/**
-	 *
-	 * {@inheritdoc}
-	 *
-	 */
 	protected function getEntityType() {
 		return Category::class;
 	}

@@ -6,11 +6,11 @@ use AppBundle\Entity\Category;
 use AppBundle\Entity\Product;
 use AppBundle\Entity\ProductCategoryAssignment;
 use AppBundle\Entity\Segment;
-use AppBundle\Repository\Admin\Base\SimpleEntityRepository;
+use AppBundle\Repository\Admin\Main\SegmentRepository as BaseRepository;
 use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\ORM\QueryBuilder;
 
-class SegmentRepository extends SimpleEntityRepository {
+class SegmentRepository extends BaseRepository {
 
 	public function findItemsByCategory($categoryId) {
 		return $this->queryItemsByCategory($categoryId)->getScalarResult();
@@ -39,11 +39,6 @@ class SegmentRepository extends SimpleEntityRepository {
 		return $builder->getQuery();
 	}
 
-	/**
-	 *
-	 * {@inheritdoc}
-	 *
-	 */
 	protected function getEntityType() {
 		return Segment::class;
 	}

@@ -157,11 +157,6 @@ class BenchmarkFieldMetadataRepository extends EntityRepository {
 		return $builder->getQuery();
 	}
 
-	/**
-	 *
-	 * {@inheritdoc}
-	 *
-	 */
 	protected function getEntityType() {
 		return BenchmarkField::class;
 	}

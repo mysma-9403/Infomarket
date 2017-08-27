@@ -64,15 +64,6 @@ class CategoryRepository extends BaseRepository {
 		return $builder->getQuery();
 	}
 
-	protected function getItemSelectFields(QueryBuilder &$builder) {
-		$fields = parent::getItemSelectFields($builder);
-		
-		$fields[] = 'e.name';
-		$fields[] = 'e.subname';
-		
-		return $fields;
-	}
-
 	protected function getFilterWhere(QueryBuilder &$builder) {
 		$where = parent::getFilterWhere($builder);
 		

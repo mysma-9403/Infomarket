@@ -65,22 +65,22 @@ class UserRepository extends BaseRepository {
 		
 		return $where;
 	}
-	
+
 	protected function getFilterSelectFields(QueryBuilder &$builder) {
 		$fields = parent::getFilterSelectFields($builder);
-	
+		
 		$fields[] = 'e.surname';
 		$fields[] = 'e.forename';
-	
+		
 		return $fields;
 	}
-	
+
 	protected function getFilterItemKeyFields($item) {
 		$fields = parent::getFilterItemKeyFields($item);
-	
+		
 		$fields[] = $item['surname'];
 		$fields[] = $item['forename'];
-	
+		
 		return $fields;
 	}
 

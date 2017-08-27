@@ -25,8 +25,8 @@ class CategorySearchRepository extends SearchRepository {
 	}
 
 	protected function getWhere(QueryBuilder &$builder, Filter $filter) {
-		/** @var SearchFilter $filter */
 		$where = parent::getWhere($builder, $filter);
+		/** @var SearchFilter $filter */
 		
 		$expr = $builder->expr();
 		$where->add($expr->eq('e.infoprodukt', 1));

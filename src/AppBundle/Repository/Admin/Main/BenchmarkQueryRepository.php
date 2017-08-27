@@ -20,20 +20,20 @@ class BenchmarkQueryRepository extends BaseRepository {
 	protected function buildOrderBy(QueryBuilder &$builder, Filter $filter) {
 		$builder->addOrderBy('e.name', 'ASC');
 	}
-	
+
 	protected function getFilterSelectFields(QueryBuilder &$builder) {
 		$fields = parent::getFilterSelectFields($builder);
-	
+		
 		$fields[] = 'e.name';
-	
+		
 		return $fields;
 	}
-	
+
 	protected function getFilterItemKeyFields($item) {
 		$fields = parent::getFilterItemKeyFields($item);
-	
+		
 		$fields[] = $item['name'];
-	
+		
 		return $fields;
 	}
 

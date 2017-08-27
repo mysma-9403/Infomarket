@@ -17,6 +17,14 @@ services:
         tags:
             - { name: form.type }
             
+    # Benchmark Editor Forms
+    AppBundle\Form\Editor\Benchmark\ProductEditorType:
+        arguments:
+            - "@app.form.transformer.brand_2_number"
+            - '@AppBundle\Form\FormBuilder\BenchmarkEditorFieldBuilder'
+        tags:
+            - { name: form.type }        
+            
     # Main Editor Forms
     AppBundle\Form\Editor\Admin\Main\ArticleEditorType:
         arguments:

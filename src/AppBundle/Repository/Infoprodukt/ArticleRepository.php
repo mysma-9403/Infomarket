@@ -49,8 +49,8 @@ class ArticleRepository extends BaseArticleRepository {
 	}
 
 	protected function getWhere(QueryBuilder &$builder, Filter $filter) {
-		/** @var ArticleFilter $filter */
 		$where = parent::getWhere($builder, $filter);
+		/** @var ArticleFilter $filter */
 		
 		$expr = $builder->expr();
 		
@@ -63,15 +63,8 @@ class ArticleRepository extends BaseArticleRepository {
 		$where->add('e.date IS NULL OR e.date <= \'' . $date->format('Y-m-d H:i') . "\'");
 		$where->add('e.endDate IS NULL OR e.endDate >= \'' . $date->format('Y-m-d H:i') . "\'");
 		
-		if (count($filter->getContextCategories()) > 0) {
-			$where->add($builder->expr()->in('aca.category', $filter->getContextCategories()));
-		}
-		
-		if (count($filter->getArticleCategories()) > 0) {
-			$where->add($builder->expr()->in('aaca.articleCategory', $filter->getArticleCategories()));
-		}
-		
-		$builder->where($where);
+		$this->addArrayWhere($builder, $where, 'aca.category', $filter->getContextCategories());
+		$this->addArrayWhere($builder, $where, 'aaca.articleCategory', $filter->getArticleCategories());
 		
 		return $where;
 	}
@@ -156,11 +149,6 @@ class ArticleRepository extends BaseArticleRepository {
 		return $builder->getQuery();
 	}
 
-	/**
-	 *
-	 * {@inheritdoc}
-	 *
-	 */
 	protected function getEntityType() {
 		return Article::class;
 	}

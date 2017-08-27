@@ -177,9 +177,9 @@ abstract class BaseRepository extends EntityRepository {
 		}
 	}
 
-	protected function addStringWhere(QueryBuilder &$builder, &$where, $field, $value) {
+	protected function addStringWhere(QueryBuilder &$builder, &$where, $field, $value, $addDecorators = false) {
 		if ($value && strlen($value) > 0) {
-			$where->add($this->buildStringsExpression($builder, $field, $value));
+			$where->add($this->buildStringsExpression($builder, $field, $value, $addDecorators));
 		}
 	}
 
@@ -251,14 +251,14 @@ abstract class BaseRepository extends EntityRepository {
 		
 		return $result;
 	}
-	
+
 	public function setValue(array $items, $field, $value) {
 		$builder = new QueryBuilder($this->getEntityManager());
-	
+		
 		$builder->update($this->getEntityType(), 'e');
 		$builder->set('e.' . $field, $value);
 		$builder->where($builder->expr()->in('e.id', $items));
-	
+		
 		$builder->getQuery()->execute();
 	}
 	

@@ -60,12 +60,12 @@ class NewsletterBlockRepository extends AuditRepository {
 		
 		return $fields;
 	}
-	
+
 	protected function getFilterItemKeyFields($item) {
 		$fields = parent::getFilterItemKeyFields($item);
-	
+		
 		$fields[] = $item['name'];
-	
+		
 		return $fields;
 	}
 

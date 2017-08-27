@@ -2,12 +2,12 @@
 
 namespace AppBundle\Repository\Infomarket;
 
-use AppBundle\Entity\Product;
-use AppBundle\Repository\Base\BaseRepository;
-use Doctrine\ORM\QueryBuilder;
 use AppBundle\Entity\Brand;
-use Doctrine\ORM\Query\Expr\Join;
+use AppBundle\Entity\Product;
 use AppBundle\Entity\ProductCategoryAssignment;
+use AppBundle\Repository\Base\BaseRepository;
+use Doctrine\ORM\Query\Expr\Join;
+use Doctrine\ORM\QueryBuilder;
 
 class ProductRepository extends BaseRepository {
 
@@ -42,11 +42,6 @@ class ProductRepository extends BaseRepository {
 		return $builder->getQuery();
 	}
 
-	/**
-	 *
-	 * {@inheritdoc}
-	 *
-	 */
 	protected function getEntityType() {
 		return Product::class;
 	}

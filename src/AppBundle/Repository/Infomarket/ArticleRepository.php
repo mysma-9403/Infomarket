@@ -46,8 +46,8 @@ class ArticleRepository extends BaseArticleRepository {
 	}
 
 	protected function getWhere(QueryBuilder &$builder, Filter $filter) {
-		/** @var ArticleFilter $filter */
 		$where = parent::getWhere($builder, $filter);
+		/** @var ArticleFilter $filter */
 		
 		$expr = $builder->expr();
 		

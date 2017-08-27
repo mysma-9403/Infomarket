@@ -4,11 +4,11 @@ namespace AppBundle\Repository\Infoprodukt;
 
 use AppBundle\Entity\Advert;
 use AppBundle\Entity\AdvertCategoryAssignment;
+use AppBundle\Entity\Category;
 use AppBundle\Repository\Base\BaseRepository;
 use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\ORM\QueryBuilder;
 use Symfony\Component\Validator\Constraints\Date;
-use AppBundle\Entity\Category;
 
 class AdvertRepository extends BaseRepository {
 
@@ -78,11 +78,6 @@ class AdvertRepository extends BaseRepository {
 		return $builder->getQuery()->execute();
 	}
 
-	/**
-	 *
-	 * {@inheritdoc}
-	 *
-	 */
 	protected function getEntityType() {
 		return Advert::class;
 	}

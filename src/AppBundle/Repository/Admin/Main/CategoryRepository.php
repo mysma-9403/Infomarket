@@ -13,6 +13,15 @@ use Doctrine\ORM\QueryBuilder;
 
 class CategoryRepository extends ImageEntityRepository {
 
+	protected function getItemSelectFields(QueryBuilder &$builder) {
+		$fields = parent::getItemSelectFields($builder);
+		
+		$fields[] = 'e.name';
+		$fields[] = 'e.subname';
+		
+		return $fields;
+	}
+
 	protected function buildJoins(QueryBuilder &$builder, Filter $filter) {
 		parent::buildJoins($builder, $filter);
 		/** @var CategoryFilter $filter */

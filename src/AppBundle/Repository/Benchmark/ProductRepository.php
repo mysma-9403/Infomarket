@@ -459,8 +459,8 @@ class ProductRepository extends BaseRepository {
 	}
 
 	protected function buildJoins(QueryBuilder &$builder, Filter $filter) {
-		/** @var ProductFilter $filter */
 		$builder->innerJoin(Brand::class, 'b', Join::WITH, 'b.id = e.brand');
+		/** @var ProductFilter $filter */
 		
 		if (! $filter->getBenchmarkQuery()) {
 			$builder->innerJoin(ProductCategoryAssignment::class, 'pca', Join::WITH, 'e.id = pca.product');
@@ -474,8 +474,8 @@ class ProductRepository extends BaseRepository {
 	}
 
 	protected function getSelectFields(QueryBuilder &$builder, Filter $filter) {
-		/** @var ProductFilter $filter */
 		$fields = parent::getSelectFields($builder, $filter);
+		/** @var ProductFilter $filter */
 		
 		$fields[] = 'e.name';
 		$fields[] = 'e.image';
@@ -501,8 +501,8 @@ class ProductRepository extends BaseRepository {
 	}
 
 	protected function getWhere(QueryBuilder &$builder, Filter $filter) {
-		/** @var ProductFilter $filter */
 		$where = parent::getWhere($builder, $filter);
+		/** @var ProductFilter $filter */
 		
 		$expr = $builder->expr();
 		
@@ -511,18 +511,14 @@ class ProductRepository extends BaseRepository {
 		} else {
 			$where->add($expr->isNull('e.benchmarkQuery'));
 			
-			if (count($filter->getBrands()) > 0) {
-				$where->add($expr->in('e.brand', $filter->getBrands()));
-			}
+			$this->addStringWhere($builder, $where, 'e.name', $filter->getName(), true);
+			
+			$this->addArrayWhere($builder, $where, 'e.brand', $filter->getBrands());
 			
 			if (count($filter->getCategories()) > 0) {
 				$where->add($expr->in('pca.category', $filter->getCategories()));
 			} else {
 				$where->add($expr->like('c.treePath', $builder->expr()->literal('%-' . $filter->getContextCategory() . '#%')));
-			}
-			
-			if ($filter->getName()) {
-				$where->add($this->buildStringsExpression($builder, 'e.name', $filter->getName(), true));
 			}
 			
 			if ($filter->getMinPrice()) {
@@ -639,11 +635,6 @@ class ProductRepository extends BaseRepository {
 		return $builder->getQuery();
 	}
 
-	/**
-	 *
-	 * {@inheritdoc}
-	 *
-	 */
 	protected function getEntityType() {
 		return Product::class;
 	}
