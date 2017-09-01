@@ -7,7 +7,7 @@ use AppBundle\Entity\NewsletterGroup;
 use AppBundle\Filter\Admin\Main\NewsletterGroupFilter;
 use AppBundle\Form\Editor\Admin\Main\NewsletterGroupEditorType;
 use AppBundle\Form\Filter\Admin\Main\NewsletterGroupFilterType;
-use AppBundle\Manager\Entity\Common\NewsletterGroupManager;
+use AppBundle\Manager\Entity\Common\Main\NewsletterGroupManager;
 use AppBundle\Manager\Filter\Base\FilterManager;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -152,7 +152,7 @@ class NewsletterGroupController extends SimpleEntityController {
 	//---------------------------------------------------------------------------
 	
 	protected function getEntityManager($doctrine, $paginator) {
-		return new NewsletterGroupManager($doctrine, $paginator);
+		return $this->get(NewsletterGroupManager::class);
 	}
 	
 	protected function getFilterManager($doctrine) {

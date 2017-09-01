@@ -12,10 +12,10 @@ use AppBundle\Factory\Common\Choices\Bool\InfoproduktChoicesFactory;
 use AppBundle\Filter\Admin\Main\MagazineFilter;
 use AppBundle\Form\Editor\Admin\Main\MagazineEditorType;
 use AppBundle\Form\Filter\Admin\Main\MagazineFilterType;
-use AppBundle\Manager\Entity\Common\MagazineManager;
+use AppBundle\Form\Lists\Base\FeaturedEntityListType;
+use AppBundle\Manager\Entity\Common\Main\MagazineManager;
 use AppBundle\Manager\Filter\Base\FilterManager;
 use Symfony\Component\HttpFoundation\Request;
-use AppBundle\Form\Lists\Base\FeaturedEntityListType;
 
 class MagazineController extends FeaturedEntityController {
 	
@@ -161,7 +161,7 @@ class MagazineController extends FeaturedEntityController {
 	//---------------------------------------------------------------------------
 	
 	protected function getEntityManager($doctrine, $paginator) {
-		return new MagazineManager($doctrine, $paginator);
+		return $this->get(MagazineManager::class);
 	}
 	
 	protected function getFilterManager($doctrine) {

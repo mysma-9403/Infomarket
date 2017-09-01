@@ -4,22 +4,23 @@ namespace AppBundle\Controller\Infoprodukt\Base;
 
 use AppBundle\Controller\Base\StandardController;
 use AppBundle\Entity\Advert;
+use AppBundle\Entity\NewsletterGroup;
 use AppBundle\Entity\NewsletterUser;
+use AppBundle\Entity\NewsletterUserNewsletterGroupAssignment;
 use AppBundle\Entity\Page;
 use AppBundle\Filter\Common\SearchFilter;
 use AppBundle\Form\Base\SearchFilterType;
 use AppBundle\Form\Editor\Admin\Main\NewsletterUserEditorType;
-use AppBundle\Manager\Params\Infoprodukt\AdvertParamsManager;
+use AppBundle\Manager\Entity\Base\EntityManager;
+use AppBundle\Manager\Filter\Base\FilterManager;
+use AppBundle\Manager\Params\Base\ParamsManager;
+use AppBundle\Manager\Params\EntryParams\Infoprodukt\Base\EntryParamsManager;
 use AppBundle\Manager\Params\Infoprodukt\ContextParamsManager;
 use AppBundle\Manager\Params\Infoprodukt\MenuParamsManager;
 use AppBundle\Manager\Route\RouteManager;
+use AppBundle\Repository\Infoprodukt\CategoryRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-use AppBundle\Entity\NewsletterGroup;
-use AppBundle\Entity\NewsletterUserNewsletterGroupAssignment;
-use AppBundle\Manager\Params\EntryParams\Infoprodukt\Base\EntryParamsManager;
-use AppBundle\Manager\Entity\Base\EntityManager;
-use AppBundle\Manager\Filter\Base\FilterManager;
 
 abstract class InfoproduktController extends StandardController
 {	
@@ -170,8 +171,6 @@ abstract class InfoproduktController extends StandardController
 	//---------------------------------------------------------------------------
 	
 	protected function getContextParamsManager(Request $request) {
-		$doctrine = $this->getDoctrine();
-	
 		$rm = new RouteManager();
 		$lastRoute = $rm->getLastRoute($request, $this->getHomeRoute());
 		$lastRouteParams = $lastRoute['routeParams'];
@@ -179,21 +178,20 @@ abstract class InfoproduktController extends StandardController
 		if(!$lastRouteParams) {
 			$lastRouteParams = array();
 		}
-	
-		return new ContextParamsManager($doctrine, $lastRouteParams);
+		
+		$categoryRepository = $this->get(CategoryRepository::class);
+		
+		$paramManager = $this->get(ParamsManager::class);
+		
+		return new ContextParamsManager($categoryRepository, $paramManager, $lastRouteParams);
 	}
 	
 	protected function getAdvertParamsManager() {
-		$doctrine = $this->getDoctrine();
-		$advertLocations = [Advert::TOP_LOCATION, Advert::SIDE_LOCATION];
-	
-		return new AdvertParamsManager($doctrine, $advertLocations);
+		return $this->get('app.manager.param.infoprodukt.advert.top-side');
 	}
 	
 	protected function getMenuParamsManager() {
-		$doctrine = $this->getDoctrine();
-	
-		return new MenuParamsManager($doctrine);
+		return $this->get(MenuParamsManager::class);
 	}
 	
 	protected function getInternalEntryParamsManager(EntityManager $em, FilterManager $fm, $doctrine) {

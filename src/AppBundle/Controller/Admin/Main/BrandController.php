@@ -10,7 +10,7 @@ use AppBundle\Filter\Admin\Main\BrandFilter;
 use AppBundle\Form\Editor\Admin\Main\BrandEditorType;
 use AppBundle\Form\Filter\Admin\Main\BrandFilterType;
 use AppBundle\Form\Lists\Base\InfoMarketEntityListType;
-use AppBundle\Manager\Entity\Common\BrandManager;
+use AppBundle\Manager\Entity\Common\Main\BrandManager;
 use AppBundle\Manager\Filter\Base\FilterManager;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -161,7 +161,7 @@ class BrandController extends ImageEntityController {
 	//---------------------------------------------------------------------------
 	
 	protected function getEntityManager($doctrine, $paginator) {
-		return new BrandManager($doctrine, $paginator);
+		return $this->get(BrandManager::class);
 	}
 	
 	protected function getFilterManager($doctrine) {

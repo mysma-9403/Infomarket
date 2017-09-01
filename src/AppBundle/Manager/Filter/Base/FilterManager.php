@@ -13,6 +13,8 @@ class FilterManager {
 	 */
 	protected $filter;
 	
+	//TODO take class argument and use reflection to create filter, 
+	// then it will be possible to define services in .yml (see reflection in EntityManager?)
 	public function __construct(Filter $filter = null) {
 		$this->filter = $filter ? $filter : new Filter();
 	}

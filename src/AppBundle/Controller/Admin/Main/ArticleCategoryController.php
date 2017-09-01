@@ -11,7 +11,7 @@ use AppBundle\Filter\Admin\Main\ArticleCategoryFilter;
 use AppBundle\Form\Editor\Admin\Main\ArticleCategoryEditorType;
 use AppBundle\Form\Filter\Admin\Main\ArticleCategoryFilterType;
 use AppBundle\Form\Lists\Base\FeaturedEntityListType;
-use AppBundle\Manager\Entity\Common\ArticleCategoryManager;
+use AppBundle\Manager\Entity\Common\Main\ArticleCategoryManager;
 use AppBundle\Manager\Filter\Base\FilterManager;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -156,7 +156,7 @@ class ArticleCategoryController extends FeaturedEntityController {
 	//---------------------------------------------------------------------------
 	
 	protected function getEntityManager($doctrine, $paginator) {
-		return new ArticleCategoryManager($doctrine, $paginator);
+		return $this->get(ArticleCategoryManager::class);
 	}
 	
 	protected function getFilterManager($doctrine) {

@@ -3,16 +3,25 @@
 namespace AppBundle\Manager\Params\Infoprodukt;
 
 use AppBundle\Entity\Advert;
-use AppBundle\Manager\Params\Base\ParamsManager;
 use AppBundle\Repository\Infoprodukt\AdvertRepository;
 use Symfony\Component\HttpFoundation\Request;
 
-class AdvertParamsManager extends ParamsManager {
+class AdvertParamsManager {
 	
+	/**
+	 *
+	 * @var array
+	 */
 	protected $advertLocations;
+
+	/**
+	 *
+	 * @var AdvertRepository
+	 */
+	protected $advertRepository;
 	
-	public function __construct($doctrine, array $advertLocations) {
-		parent::__construct($doctrine);
+	public function __construct(AdvertRepository $advertRepository, array $advertLocations) {
+		$this->advertRepository = $advertRepository;
 		$this->advertLocations = $advertLocations;
 	}
 	
@@ -21,20 +30,15 @@ class AdvertParamsManager extends ParamsManager {
 		$viewParams = $params['viewParams'];
 		
 		if(count($this->advertLocations) > 0) {
-			
-			$em = $this->doctrine->getManager();
-			
 			$categories = $contextParams['categories'];
 			
-			/** @var AdvertRepository $advertRepository */
-			$advertRepository = new AdvertRepository($em, $em->getClassMetadata(Advert::class));
 			foreach($this->advertLocations as $advertLocation) {
-				$adverts = $advertRepository->findAdvertItems($advertLocation, $categories);
+				$adverts = $this->advertRepository->findAdvertItems($advertLocation, $categories);
 				$viewParams[Advert::getLocationParam($advertLocation)] = $adverts;
 				
 				if(count($adverts) > 0) {
-					$advertsIds = $advertRepository->getIds($adverts);
-					$advertRepository->updateAdvertsShowCounts($advertsIds);
+					$advertsIds = $this->advertRepository->getIds($adverts);
+					$this->advertRepository->updateAdvertsShowCounts($advertsIds);
 				}
 			}
 		}

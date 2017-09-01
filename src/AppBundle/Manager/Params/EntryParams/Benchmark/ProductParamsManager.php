@@ -14,6 +14,18 @@ use Symfony\Component\HttpFoundation\Request;
 
 class ProductParamsManager extends EntryParamsManager {
 	
+	/**
+	 * 
+	 * @var ProductRepository
+	 */
+	protected $productRepository;
+	
+	/**
+	 * 
+	 * @var BenchmarkMessageRepository
+	 */
+	protected $benchmarkMessageRepository;
+	
 	protected $tokenStorage;
 	
 	/**
@@ -35,14 +47,21 @@ class ProductParamsManager extends EntryParamsManager {
 	protected $compareBenchmarkFieldsInitializer;
 	
 	public function __construct($em, $fm, $doctrine, $tokenStorage,
+			ProductRepository $productRepository,
+			BenchmarkMessageRepository $benchmarkMessageRepository,
 			BenchmarkFieldsProvider $benchmarkFieldsProvider,
 			BenchmarkFieldsInitializer $showBenchmarkFieldsInitializer,
 			BenchmarkFieldsInitializer $compareBenchmarkFieldsInitializer) {
 		
 		parent::__construct($em, $fm, $doctrine);
 		
+		$this->productRepository = $productRepository;
+		$this->benchmarkMessageRepository = $benchmarkMessageRepository;
+		
 		$this->tokenStorage = $tokenStorage;
+		
 		$this->benchmarkFieldsProvider = $benchmarkFieldsProvider;
+		
 		$this->showBenchmarkFieldsInitializer = $showBenchmarkFieldsInitializer;
 		$this->compareBenchmarkFieldsInitializer = $compareBenchmarkFieldsInitializer;
 	}
@@ -72,10 +91,6 @@ class ProductParamsManager extends EntryParamsManager {
 		
 		/** @var Product $entry */
 		$entry = $viewParams['entry'];
-		
-		$em = $this->doctrine->getManager();
-		
-		$productRepository = new ProductRepository($em, $em->getClassMetadata(Product::class));
 		
 		$assignment = $entry->getProductCategoryAssignments()->first();
 		$categoryId = $assignment->getCategory()->getId();
@@ -123,8 +138,8 @@ class ProductParamsManager extends EntryParamsManager {
 					
 					$betterThanType = $fields[$i]['betterThanType'];
 					if($value && $betterThanType != BenchmarkField::NONE_BETTER_THAN_TYPE) {
-						$totalCount = $productRepository->findItemsCount($categoryId, $valueField);
-						$betterThanCount = $productRepository->findBetterThanCount($categoryId, $valueField, $value, $betterThanType);
+						$totalCount = $this->productRepository->findItemsCount($categoryId, $valueField);
+						$betterThanCount = $this->productRepository->findBetterThanCount($categoryId, $valueField, $value, $betterThanType);
 						if($totalCount > 0) {
 							$field['betterThan'] = 100. * $betterThanCount / $totalCount;
 						} else {
@@ -142,7 +157,7 @@ class ProductParamsManager extends EntryParamsManager {
 						$min = $field['min'];
 						$max = $field['max'];
 						
-						$value = $productRepository->findEnumValue($entry->getId(), $valueField);
+						$value = $this->productRepository->findEnumValue($entry->getId(), $valueField);
 						
 						//TODO what if $value == null?? note = 2.0??
 						
@@ -179,7 +194,7 @@ class ProductParamsManager extends EntryParamsManager {
 		$viewParams['overalNote'] = $overalNote;
 		
 		
-		$minMaxPrice = $productRepository->findMinMaxValues($categoryId, 'price');
+		$minMaxPrice = $this->productRepository->findMinMaxValues($categoryId, 'price');
 		$minPrice = $minMaxPrice['vmin'];
 		$maxPrice = $minMaxPrice['vmax'];
 		
@@ -202,10 +217,6 @@ class ProductParamsManager extends EntryParamsManager {
 		
 		/** @var Product $entry */
 		$entry = $viewParams['entry'];
-		
-		$em = $this->doctrine->getManager();
-		
-		$productRepository = new ProductRepository($em, $em->getClassMetadata(Product::class));
 		
 		$assignment = $entry->getProductCategoryAssignments()->first();
 		$categoryId = $assignment->getCategory()->getId();
@@ -230,7 +241,7 @@ class ProductParamsManager extends EntryParamsManager {
 		$viewParams['benchmarkFields'] = $fields;
 		
 		
-		$entries = $productRepository->findNeighbourItems($categoryId, $entry, $fields, 6);
+		$entries = $this->productRepository->findNeighbourItems($categoryId, $entry, $fields, 6);
 		for ($i = 0; $i < count($entries); $i++) {
 			$entry = $entries[$i];
 			
@@ -254,11 +265,7 @@ class ProductParamsManager extends EntryParamsManager {
 	
 	protected function getBenchmarkMessage($productId) {
 		$authorId = $this->tokenStorage->getToken()->getUser()->getId();
-		
-		$em = $this->doctrine->getManager();
-		
-		$benchmarkMessageRepository = new BenchmarkMessageRepository($em, $em->getClassMetadata(BenchmarkMessage::class));
-		$benchmarkMessages = $benchmarkMessageRepository->findItemsByAuthorAndProduct($authorId, $productId);
+		$benchmarkMessages = $this->benchmarkMessageRepository->findItemsByAuthorAndProduct($authorId, $productId);
 		
 		return count($benchmarkMessages) > 0 ? $benchmarkMessages[0] : null;
 	}

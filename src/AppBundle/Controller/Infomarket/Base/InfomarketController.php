@@ -5,22 +5,25 @@ namespace AppBundle\Controller\Infomarket\Base;
 use AppBundle\AppBundle;
 use AppBundle\Controller\Base\StandardController;
 use AppBundle\Entity\Advert;
+use AppBundle\Entity\NewsletterGroup;
 use AppBundle\Entity\NewsletterUser;
+use AppBundle\Entity\NewsletterUserNewsletterGroupAssignment;
 use AppBundle\Filter\Common\SearchFilter;
 use AppBundle\Form\Base\SearchFilterType;
 use AppBundle\Form\Editor\Admin\Main\NewsletterUserEditorType;
-use AppBundle\Manager\Params\Infomarket\AdvertParamsManager;
-use AppBundle\Manager\Params\Infomarket\ContextParamsManager;
-use AppBundle\Manager\Params\Infomarket\MenuParamsManager;
-use AppBundle\Manager\Route\RouteManager;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\Request;
-use AppBundle\Entity\NewsletterUserNewsletterGroupAssignment;
-use Doctrine\Common\Persistence\ObjectManager;
-use AppBundle\Entity\NewsletterGroup;
 use AppBundle\Manager\Entity\Base\EntityManager;
 use AppBundle\Manager\Filter\Base\FilterManager;
 use AppBundle\Manager\Params\EntryParams\Infomarket\Base\EntryParamsManager;
+use AppBundle\Manager\Params\Infomarket\ContextParamsManager;
+use AppBundle\Manager\Params\Infomarket\MenuParamsManager;
+use AppBundle\Manager\Route\RouteManager;
+use Doctrine\Common\Persistence\ObjectManager;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Repository\Infomarket\ArticleCategoryRepository;
+use AppBundle\Repository\Infomarket\BranchRepository;
+use AppBundle\Repository\Infomarket\CategoryRepository;
+use AppBundle\Manager\Params\Base\ParamsManager;
 
 abstract class InfomarketController extends StandardController
 {
@@ -169,8 +172,6 @@ abstract class InfomarketController extends StandardController
 	//---------------------------------------------------------------------------
 	
 	protected function getContextParamsManager(Request $request) {
-		$doctrine = $this->getDoctrine();
-	
 		$rm = new RouteManager();
 		$lastRoute = $rm->getLastRoute($request, $this->getHomeRoute());
 		$lastRouteParams = $lastRoute['routeParams'];
@@ -179,20 +180,22 @@ abstract class InfomarketController extends StandardController
 			$lastRouteParams = array();
 		}
 	
-		return new ContextParamsManager($doctrine, $lastRouteParams);
+		$articleCategoryRepository = $this->get(ArticleCategoryRepository::class);
+		$branchRepository = $this->get(BranchRepository::class);
+		$categoryRepository = $this->get(CategoryRepository::class);
+		
+		$paramManager = $this->get(ParamsManager::class);
+		
+		return new ContextParamsManager($articleCategoryRepository, $branchRepository,
+				$categoryRepository, $paramManager, $lastRouteParams);
 	}
 	
 	protected function getAdvertParamsManager() {
-		$doctrine = $this->getDoctrine();
-		$advertLocations = [Advert::TOP_LOCATION, Advert::SIDE_LOCATION];
-	
-		return new AdvertParamsManager($doctrine, $advertLocations);
+		return $this->get('app.manager.param.infomarket.advert.top-side');
 	}
 	
 	protected function getMenuParamsManager() {
-		$doctrine = $this->getDoctrine();
-		
-		return new MenuParamsManager($doctrine);
+		return $this->get(MenuParamsManager::class);
 	}
 	
 	protected function getInternalEntryParamsManager(EntityManager $em, FilterManager $fm, $doctrine) {

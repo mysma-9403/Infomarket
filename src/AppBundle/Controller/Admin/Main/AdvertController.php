@@ -12,7 +12,7 @@ use AppBundle\Filter\Admin\Main\AdvertFilter;
 use AppBundle\Form\Editor\Admin\Main\AdvertEditorType;
 use AppBundle\Form\Filter\Admin\Main\AdvertFilterType;
 use AppBundle\Form\Lists\Base\InfoMarketEntityListType;
-use AppBundle\Manager\Entity\Common\AdvertManager;
+use AppBundle\Manager\Entity\Common\Main\AdvertManager;
 use AppBundle\Manager\Filter\Base\FilterManager;
 use phpDocumentor\Reflection\Location;
 use Symfony\Component\HttpFoundation\Request;
@@ -163,7 +163,7 @@ class AdvertController extends ImageEntityController {
 	//---------------------------------------------------------------------------
 	
 	protected function getEntityManager($doctrine, $paginator) {
-		return new AdvertManager($doctrine, $paginator);
+		return $this->get(AdvertManager::class);
 	}
 	
 	protected function getFilterManager($doctrine) {

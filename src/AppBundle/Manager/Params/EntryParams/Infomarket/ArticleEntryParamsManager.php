@@ -6,8 +6,22 @@ use AppBundle\Entity\Article;
 use AppBundle\Manager\Params\EntryParams\Infomarket\Base\EntryParamsManager;
 use AppBundle\Repository\Infomarket\ArticleRepository;
 use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Manager\Entity\Base\EntityManager;
+use AppBundle\Manager\Filter\Base\FilterManager;
 
 class ArticleEntryParamsManager extends EntryParamsManager {
+	
+	/**
+	 * 
+	 * @var ArticleRepository
+	 */
+	protected $articleRepository;
+	
+	public function __construct(EntityManager $em, FilterManager $fm, ArticleRepository $articleRepository) {
+		parent::__construct($em, $fm);
+		
+		$this->articleRepository = $articleRepository;
+	}
 	
 	public function getPreviewParams(Request $request, array $params, $id, $page) {
 		$params = parent::getShowParams($request, $params, $id);
@@ -18,21 +32,18 @@ class ArticleEntryParamsManager extends EntryParamsManager {
 		/** @var Article $entry */ //TODO make scalar too
 		$entry = $viewParams['entry'];
 	
-		$em = $this->doctrine->getManager();
-		$articleRepository = $this->getRepository($em);
-	
-		$pages = $articleRepository->findLastPage($entry->getId());
+		$pages = $this->articleRepository->findLastPage($entry->getId());
 	
 		$viewParams['pages'] = $pages;
 		if($page > $pages) $page = $pages;
 		$viewParams['page'] = $page;
 	
-		$subarticles = $articleRepository->findChildren($entry->getId(), $page);
+		$subarticles = $this->articleRepository->findChildren($entry->getId(), $page);
 		$viewParams['subarticles'] = $subarticles;
 	
 		if(key_exists('categories', $contextParams)) {
 			$contextCategories = $contextParams['categories'];
-			$articlesIds = $articleRepository->findItemsIds($contextCategories);
+			$articlesIds = $this->articleRepository->findItemsIds($contextCategories);
 	
 			$count = 0;
 			$lastArticlesIds = array();
@@ -52,16 +63,12 @@ class ArticleEntryParamsManager extends EntryParamsManager {
 				}
 			}
 	
-			$viewParams['lastArticles'] = count($lastArticlesIds) > 0 ? $articleRepository->findItemsByIds($lastArticlesIds) : [];
-			if($prevArticleId) $viewParams['prevArticle'] = $articleRepository->findItem($prevArticleId);
-			if($nextArticleId) $viewParams['nextArticle'] = $articleRepository->findItem($nextArticleId);
+			$viewParams['lastArticles'] = count($lastArticlesIds) > 0 ? $this->articleRepository->findItemsByIds($lastArticlesIds) : [];
+			if($prevArticleId) $viewParams['prevArticle'] = $this->articleRepository->findItem($prevArticleId);
+			if($nextArticleId) $viewParams['nextArticle'] = $this->articleRepository->findItem($nextArticleId);
 		}
 	
 		$params['viewParams'] = $viewParams;
 		return $params;
-	}
-	
-	protected function getRepository($em) {
-		return new ArticleRepository($em, $em->getClassMetadata(Article::class));
 	}
 }

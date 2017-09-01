@@ -26,6 +26,7 @@ use AppBundle\Repository\Common\BenchmarkFieldMetadataRepository;
 use AppBundle\Utils\Entity\DataBase\BenchmarkFieldDataBaseUtils;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Repository\Benchmark\SegmentRepository;
 
 class CategoryController extends DummyController {
 	
@@ -185,6 +186,11 @@ class CategoryController extends DummyController {
 	}
 	
 	protected function getInternalEntryParamsManager(EntityManager $em, FilterManager $fm, $doctrine) {
+		$categoryRepository = $this->get(CategoryRepository::class);
+		$productRepository = $this->get(ProductRepository::class);
+		$segmentRepository = $this->get(SegmentRepository::class);
+
+		//TODO services.yml!!!
 		$translator = $this->get('translator');
 		$chartLogic = new BenchmarkChartLogic($translator);
 		
@@ -195,27 +201,21 @@ class CategoryController extends DummyController {
 		$benchmarkFieldsProvider = new BenchmarkFieldsProvider($benchmarkFieldMetadataRepository, $translator);
 		
 		$benchmarkFieldDataBaseUtils = new BenchmarkFieldDataBaseUtils(); //TODO make service??
-		$productRepository = new ProductRepository($manager, $manager->getClassMetadata(Product::class));
 		
 		$benchmarkFieldFactory = new CategoryBenchmarkFieldFactory($benchmarkFieldDataBaseUtils, $productRepository);
 		$benchmarkFieldsInitializer = new BenchmarkFieldsInitializerImpl($benchmarkFieldFactory);
 		
 		$tokenStorage = $this->get('security.token_storage');
-		return new CategoryParamsManager($em, $fm, $doctrine, $chartLogic, $benchmarkFieldsProvider, $benchmarkFieldsInitializer, $tokenStorage);
+		
+		return new CategoryParamsManager($em, $fm, $doctrine,
+				$categoryRepository, $productRepository, $segmentRepository,
+				$chartLogic, $benchmarkFieldsProvider, $benchmarkFieldsInitializer, $tokenStorage);
 	}
 	
 	protected function getEntityManager($doctrine, $paginator) {
-		$em = $doctrine->getManager();
-		$repository = new CategoryRepository($em, $em->getClassMetadata(Category::class));
-		
-		return new CategoryManager($doctrine, $paginator, $repository);
+		return $this->get(CategoryManager::class);
 	}
 	
-	/**
-	 *
-	 * {@inheritDoc}
-	 * @see \AppBundle\Controller\Base\BaseEntityController::getFilterManager()
-	 */
 	protected function getFilterManager($doctrine) {
 		return new FilterManager(new CategoryFilter());
 	}

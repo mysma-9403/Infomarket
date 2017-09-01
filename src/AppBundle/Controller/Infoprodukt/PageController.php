@@ -4,7 +4,7 @@ namespace AppBundle\Controller\Infoprodukt;
 
 use AppBundle\Controller\Infoprodukt\Base\InfoproduktController;
 use AppBundle\Entity\Page;
-use AppBundle\Manager\Entity\Common\PageManager;
+use AppBundle\Manager\Entity\Infoprodukt\PageManager;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -42,18 +42,13 @@ class PageController extends InfoproduktController
 	//---------------------------------------------------------------------------
 	
 	protected function getEntityManager($doctrine, $paginator) {
-		return new PageManager($doctrine, $paginator);
+		return $this->get(PageManager::class);
 	}
 	
 	//---------------------------------------------------------------------------
 	// EntityType related
 	//---------------------------------------------------------------------------
 	
-	/**
-     * 
-     * {@inheritDoc}
-     * @see \AppBundle\Controller\Infomarket\Base\SimpleEntityController::getEntityType()
-     */
     protected function getEntityType()
     {
     	return Page::class;
@@ -63,11 +58,6 @@ class PageController extends InfoproduktController
     // Routes
     //---------------------------------------------------------------------------
     
-    /**
-     * 
-     * {@inheritDoc}
-     * @see \AppBundle\Controller\Base\BaseEntityController::getIndexRoute()
-     */
     protected function getIndexRoute()
     {
     	return $this->getDomain() . '_home';

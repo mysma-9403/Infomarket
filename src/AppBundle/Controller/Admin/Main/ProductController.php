@@ -19,7 +19,7 @@ use AppBundle\Form\Lists\Base\InfoMarketEntityListType;
 use AppBundle\Logic\Common\BenchmarkField\Initializer\BenchmarkFieldsInitializerImpl;
 use AppBundle\Logic\Common\BenchmarkField\Provider\BenchmarkFieldsProvider;
 use AppBundle\Manager\Entity\Base\EntityManager;
-use AppBundle\Manager\Entity\Common\ProductManager;
+use AppBundle\Manager\Entity\Benchmark\ProductManager;
 use AppBundle\Manager\Filter\Base\FilterManager;
 use AppBundle\Manager\Params\EntryParams\Admin\ProductEntryParamsManager;
 use AppBundle\Repository\Admin\Main\CategoryRepository;
@@ -406,6 +406,7 @@ class ProductController extends ImageEntityController {
 		
 		$translator = $this->get('translator');
 		
+		//TODO services.yml!!!
 		$manager = $doctrine->getManager();
 		$benchmarkFieldMetadataRepository = new BenchmarkFieldMetadataRepository($manager, $manager->getClassMetadata(BenchmarkField::class));
 		$benchmarkFieldsProvider = new BenchmarkFieldsProvider($benchmarkFieldMetadataRepository, $translator);
@@ -415,11 +416,13 @@ class ProductController extends ImageEntityController {
 		$benchmarkFieldsInitializer = new BenchmarkFieldsInitializerImpl($benchmarkFieldFactory);
 		
 		$productFilter = new \AppBundle\Filter\Common\Other\ProductFilter($benchmarkFieldsProvider, $benchmarkFieldsInitializer);
-		return new ProductEntryParamsManager($em, $fm, $doctrine, $productFilter);
+		
+		$categoryRepository = $this->get(CategoryRepository::class);
+		return new ProductEntryParamsManager($em, $fm, $productFilter, $categoryRepository);
 	}
 	
 	protected function getEntityManager($doctrine, $paginator) {
-		return new ProductManager($doctrine, $paginator);
+		return $this->get(ProductManager::class);
 	}
 	
 	protected function getFilterManager($doctrine) {

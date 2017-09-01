@@ -8,6 +8,8 @@ use AppBundle\Manager\Entity\Base\EntityManager;
 use AppBundle\Manager\Entity\Infoprodukt\CategoryManager;
 use AppBundle\Manager\Filter\Base\FilterManager;
 use AppBundle\Manager\Params\EntryParams\Infoprodukt\HomeEntryParamsManager;
+use AppBundle\Repository\Infoprodukt\CategoryRepository;
+use AppBundle\Repository\Infoprodukt\MagazineRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -30,21 +32,20 @@ class HomeController extends InfoproduktController
 	//---------------------------------------------------------------------------
 	
 	protected function getInternalEntryParamsManager(EntityManager $em, FilterManager $fm, $doctrine) {
-		return new HomeEntryParamsManager($em, $fm, $doctrine);
+		$categoryRepository = $this->get(CategoryRepository::class);
+		$magazineRepository = $this->get(MagazineRepository::class);
+		
+		return new HomeEntryParamsManager($em, $fm, $categoryRepository, $magazineRepository);
 	}
 	
 	protected function getEntityManager($doctrine, $paginator) {
-		return new CategoryManager($doctrine, $paginator);
+		return $this->get(CategoryManager::class);
 	}
 	
 	//---------------------------------------------------------------------------
 	// EntityType related
 	//---------------------------------------------------------------------------
-	/**
-	 * 
-	 * {@inheritDoc}
-	 * @see \AppBundle\Controller\Infomarket\HomeController::getEntityType()
-	 */
+	
 	protected function getEntityType()
 	{
 		return Category::class;

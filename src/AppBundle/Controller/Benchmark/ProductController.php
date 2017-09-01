@@ -502,17 +502,9 @@ class ProductController extends DummyController {
 	}
 	
 	protected function getEntityManager($doctrine, $paginator) {
-		$em = $doctrine->getManager();
-		$repository = new ProductRepository($em, $em->getClassMetadata(Product::class));
-		
-		return new ProductManager($doctrine, $paginator, $repository);
+		return $this->get(ProductManager::class);
 	}
 	
-	/**
-	 *
-	 * {@inheritDoc}
-	 * @see \AppBundle\Controller\Base\BaseEntityController::getFilterManager()
-	 */
 	protected function getFilterManager($doctrine) {
 		$em = $doctrine->getManager();
 		$benchmarkFieldMetadataRepository = new BenchmarkFieldMetadataRepository($em, $em->getClassMetadata(BenchmarkField::class));

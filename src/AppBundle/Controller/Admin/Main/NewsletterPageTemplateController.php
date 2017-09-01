@@ -7,7 +7,7 @@ use AppBundle\Entity\NewsletterPageTemplate;
 use AppBundle\Filter\Admin\Main\NewsletterPageTemplateFilter;
 use AppBundle\Form\Editor\Admin\Main\NewsletterPageTemplateEditorType;
 use AppBundle\Form\Filter\Admin\Main\NewsletterPageTemplateFilterType;
-use AppBundle\Manager\Entity\Common\NewsletterPageTemplateManager;
+use AppBundle\Manager\Entity\Common\Main\NewsletterPageTemplateManager;
 use AppBundle\Manager\Filter\Base\FilterManager;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -128,7 +128,7 @@ class NewsletterPageTemplateController extends SimpleEntityController {
 	//---------------------------------------------------------------------------
 	
 	protected function getEntityManager($doctrine, $paginator) {
-		return new NewsletterPageTemplateManager($doctrine, $paginator);
+		return $this->get(NewsletterPageTemplateManager::class);
 	}
 	
 	protected function getFilterManager($doctrine) {

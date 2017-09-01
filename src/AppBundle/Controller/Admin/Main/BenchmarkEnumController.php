@@ -7,7 +7,7 @@ use AppBundle\Entity\BenchmarkEnum;
 use AppBundle\Filter\Admin\Main\BenchmarkEnumFilter;
 use AppBundle\Form\Editor\Admin\Main\BenchmarkEnumEditorType;
 use AppBundle\Form\Filter\Admin\Main\BenchmarkEnumFilterType;
-use AppBundle\Manager\Entity\Common\BenchmarkEnumManager;
+use AppBundle\Manager\Entity\Common\Main\BenchmarkEnumManager;
 use AppBundle\Manager\Filter\Base\FilterManager;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -101,7 +101,7 @@ class BenchmarkEnumController extends BaseEntityController {
 	//---------------------------------------------------------------------------
 	
 	protected function getEntityManager($doctrine, $paginator) {
-		return new BenchmarkEnumManager($doctrine, $paginator);
+		return $this->get(BenchmarkEnumManager::class);
 	}
 	
 	protected function getFilterManager($doctrine) {

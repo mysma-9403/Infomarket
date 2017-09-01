@@ -10,7 +10,7 @@ use AppBundle\Filter\Admin\Main\PageFilter;
 use AppBundle\Form\Editor\Admin\Main\PageEditorType;
 use AppBundle\Form\Filter\Admin\Main\PageFilterType;
 use AppBundle\Form\Lists\Base\InfoMarketEntityListType;
-use AppBundle\Manager\Entity\Common\PageManager;
+use AppBundle\Manager\Entity\Common\Main\PageManager;
 use AppBundle\Manager\Filter\Base\FilterManager;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -144,7 +144,7 @@ class PageController extends ImageEntityController {
 	//---------------------------------------------------------------------------
 	
 	protected function getEntityManager($doctrine, $paginator) {
-		return new PageManager($doctrine, $paginator);
+		return $this->get(PageManager::class);
 	}
 	
 	protected function getFilterManager($doctrine) {

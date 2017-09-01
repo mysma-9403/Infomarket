@@ -8,6 +8,7 @@ use AppBundle\Entity\ProductCategoryAssignment;
 use AppBundle\Repository\Base\BaseRepository;
 use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\ORM\QueryBuilder;
+use AppBundle\Filter\Base\Filter;
 
 class ProductRepository extends BaseRepository {
 
@@ -40,6 +41,32 @@ class ProductRepository extends BaseRepository {
 		$builder->addOrderBy('e.name', 'ASC');
 		
 		return $builder->getQuery();
+	}
+	
+	protected function buildJoins(QueryBuilder &$builder, Filter $filter) {
+		$builder->innerJoin(Brand::class, 'b', Join::WITH, 'b.id = e.brand');
+	}
+	
+	protected function getSelectFields(QueryBuilder &$builder, Filter $filter) {
+		$fields = parent::getSelectFields($builder, $filter);
+	
+		$fields[] = 'e.name';
+		
+		$fields[] = 'e.image';
+		$fields[] = 'e.vertical';
+		$fields[] = 'b.name AS brandName';
+	
+		return $fields;
+	}
+	
+	protected function getWhere(QueryBuilder &$builder, Filter $filter) {
+		$where = parent::getWhere($builder, $filter);
+		
+		$expr = $builder->expr();
+	
+		$where->add($expr->eq('e.infomarket', 1));
+	
+		return $where;
 	}
 
 	protected function getEntityType() {

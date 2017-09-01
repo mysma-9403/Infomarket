@@ -21,13 +21,13 @@ use AppBundle\Form\Editor\Admin\Main\ArticleEditorType;
 use AppBundle\Form\Filter\Admin\Main\ArticleFilterType;
 use AppBundle\Form\Lists\Base\FeaturedEntityListType;
 use AppBundle\Form\Other\ArticleTagAssignmentsType;
-use AppBundle\Manager\Entity\Admin\ArticleManager;
 use AppBundle\Manager\Entity\Base\EntityManager;
 use AppBundle\Manager\Filter\Base\FilterManager;
 use AppBundle\Manager\Params\EntryParams\Admin\ArticleEntryParamsManager;
 use AppBundle\Repository\Admin\Main\TagRepository;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Manager\Entity\Common\Main\ArticleManager;
 
 class ArticleController extends FeaturedEntityController {
 	
@@ -386,8 +386,7 @@ class ArticleController extends FeaturedEntityController {
 	}
 	
 	protected function getEntityManager($doctrine, $paginator) {
-		$tokenStorage = $this->get('security.token_storage');
-		return new ArticleManager($doctrine, $paginator, $tokenStorage);
+		return $this->get(ArticleManager::class);
 	}
 	
 	protected function getFilterManager($doctrine) {

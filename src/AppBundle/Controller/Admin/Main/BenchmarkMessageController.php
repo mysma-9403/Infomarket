@@ -14,12 +14,12 @@ use AppBundle\Form\Editor\Admin\Main\BenchmarkMessageEditorType;
 use AppBundle\Form\Filter\Admin\Main\BenchmarkMessageFilterType;
 use AppBundle\Form\Lists\BenchmarkMessageListType;
 use AppBundle\Manager\Entity\Base\EntityManager;
-use AppBundle\Manager\Entity\Common\BenchmarkMessageManager;
 use AppBundle\Manager\Filter\Base\FilterManager;
 use AppBundle\Manager\Params\EntryParams\Admin\BenchmarkMessageParamsManager;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use AppBundle\Manager\Entity\Common\Main\BenchmarkMessageManager;
 
 class BenchmarkMessageController extends BaseEntityController {
 	
@@ -249,8 +249,7 @@ class BenchmarkMessageController extends BaseEntityController {
 	//---------------------------------------------------------------------------
 	
 	protected function getEntityManager($doctrine, $paginator) {
-		$tokenStorage = $this->get('security.token_storage');
-		return new BenchmarkMessageManager($doctrine, $paginator, $tokenStorage);
+		return $this->get(BenchmarkMessageManager::class);
 	}
 	
 	protected function getFilterManager($doctrine) {

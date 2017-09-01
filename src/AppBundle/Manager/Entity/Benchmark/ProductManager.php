@@ -2,31 +2,14 @@
 
 namespace AppBundle\Manager\Entity\Benchmark;
 
-use AppBundle\Manager\Entity\Common\ProductManager as CommonProductManager;
+use AppBundle\Manager\Entity\Common\Main\ProductManager as CommonProductManager;
+use AppBundle\Repository\Base\BaseRepository;
+use AppBundle\Manager\Params\Base\ParamsManager;
 
 class ProductManager extends CommonProductManager {
 	
-	//TODO remove $doctrine
-	//TODO move $repository to the base class
-	protected $repository;
-	
-	public function __construct($doctrine, $paginator, $repository) {
-		parent::__construct($doctrine, $paginator);
-		
-		$this->repository = $repository;
+	public function __construct(BaseRepository $repository, $paginator, ParamsManager $paramsManager) {
+		parent::__construct($repository, $paginator, $paramsManager);
 		$this->entriesPerPage = 6;
-	}
-	
-	public function createFromTemplate($template) {
-		/** @var Product $entry */
-		$entry = parent::createFromTemplate($template);
-		
-		//TODO :)
-	
-		return $entry;
-	}
-	
-	protected function getRepository() {
-		return $this->repository;
 	}
 }

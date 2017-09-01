@@ -160,7 +160,7 @@ class BenchmarkQueryController extends BaseEntityController {
 	}
 	
 	protected function getEntityManager($doctrine, $paginator) {
-		return new BenchmarkQueryManager($doctrine, $paginator);
+		return $this->get(BenchmarkQueryManager::class);
 	}
 	
 	protected function getFilterManager($doctrine) {

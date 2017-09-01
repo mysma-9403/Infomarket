@@ -11,7 +11,7 @@ use AppBundle\Factory\Common\Choices\Enum\BenchmarkFieldNoteTypesFactory;
 use AppBundle\Filter\Admin\Main\BenchmarkFieldFilter;
 use AppBundle\Form\Editor\Admin\Main\BenchmarkFieldEditorType;
 use AppBundle\Form\Filter\Admin\Main\BenchmarkFieldFilterType;
-use AppBundle\Manager\Entity\Common\BenchmarkFieldManager;
+use AppBundle\Manager\Entity\Common\Main\BenchmarkFieldManager;
 use AppBundle\Manager\Filter\Base\FilterManager;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -126,7 +126,7 @@ class BenchmarkFieldController extends BaseEntityController {
 	//---------------------------------------------------------------------------
 	
 	protected function getEntityManager($doctrine, $paginator) {
-		return new BenchmarkFieldManager($doctrine, $paginator);
+		return $this->get(BenchmarkFieldManager::class);
 	}
 	
 	protected function getFilterManager($doctrine) {

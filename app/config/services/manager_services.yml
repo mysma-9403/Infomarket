@@ -1,0 +1,347 @@
+imports:
+    - { resource: manager/param_manager_services.yml }
+    
+services:
+    # Utils
+    
+    # Assignments Managers
+    AppBundle\Manager\Utils\ArticleBrandAssignmentsManager: ~
+    AppBundle\Manager\Utils\ArticleTagAssignmentsManager: ~
+            
+    # Params Manager
+    AppBundle\Manager\Params\Base\ParamsManager:
+        arguments:
+            - '@doctrine.orm.default_entity_manager'
+                    
+    # Benchmark Managers        
+    AppBundle\Manager\Entity\Benchmark\BenchmarkMessageManager:
+        arguments:
+            - '@AppBundle\Repository\Benchmark\BenchmarkMessageRepository'
+            - '@knp_paginator'
+            - '@AppBundle\Manager\Params\Base\ParamsManager'
+            - '@security.token_storage'
+    AppBundle\Manager\Entity\Benchmark\BenchmarkQueryManager:
+        arguments:
+            - '@AppBundle\Repository\Benchmark\BenchmarkQueryRepository'
+            - '@knp_paginator'
+    AppBundle\Manager\Entity\Benchmark\CategoryManager:
+        arguments:
+            - '@AppBundle\Repository\Benchmark\CategoryRepository'
+            - '@knp_paginator'
+            - '@AppBundle\Manager\Params\Base\ParamsManager'
+    AppBundle\Manager\Entity\Benchmark\CustomProductManager:
+        class: AppBundle\Manager\Entity\Benchmark\ProductManager
+        arguments:
+            - '@AppBundle\Repository\Benchmark\CustomProductRepository'
+            - '@knp_paginator'
+            - '@AppBundle\Manager\Params\Base\ParamsManager'
+    AppBundle\Manager\Entity\Benchmark\ProductManager:
+        arguments:
+            - '@AppBundle\Repository\Benchmark\ProductRepository'
+            - '@knp_paginator'
+            - '@AppBundle\Manager\Params\Base\ParamsManager'
+                    
+    # Infomarket Managers
+    AppBundle\Manager\Entity\Infomarket\ArticleManager:
+        arguments:
+            - '@AppBundle\Repository\Infomarket\ArticleRepository'
+            - '@knp_paginator'
+            - '@AppBundle\Manager\Params\Base\ParamsManager'
+            - '@AppBundle\Repository\Infomarket\BrandRepository'
+            - '@AppBundle\Repository\Infomarket\TagRepository'
+            - '@AppBundle\Manager\Utils\ArticleBrandAssignmentsManager'
+            - '@AppBundle\Manager\Utils\ArticleTagAssignmentsManager'
+    AppBundle\Manager\Entity\Infomarket\BrandManager:
+        arguments:
+            - '@AppBundle\Repository\Infomarket\BrandRepository'
+            - '@knp_paginator'
+    AppBundle\Manager\Entity\Infomarket\CategoryManager:
+        arguments:
+            - '@AppBundle\Repository\Infomarket\CategoryRepository'
+            - '@knp_paginator'
+            - '@AppBundle\Manager\Params\Base\ParamsManager'
+    AppBundle\Manager\Entity\Infomarket\MagazineManager:
+        arguments:
+            - '@AppBundle\Repository\Infomarket\MagazineRepository'
+            - '@knp_paginator'
+    AppBundle\Manager\Entity\Infomarket\PageManager:
+        arguments:
+            - '@AppBundle\Repository\Admin\Main\PageRepository'
+            - '@knp_paginator'
+    AppBundle\Manager\Entity\Infomarket\ProductManager:
+        arguments:
+            - '@AppBundle\Repository\Infomarket\ProductRepository'
+            - '@knp_paginator'
+            - '@AppBundle\Manager\Params\Base\ParamsManager'
+    AppBundle\Manager\Entity\Infomarket\TermManager:
+        arguments:
+            - '@AppBundle\Repository\Admin\Main\TermRepository'
+            - '@knp_paginator'
+    ## Infomarket Search Managers
+    AppBundle\Manager\Entity\Infomarket\SearchManager:
+        arguments:
+            - '@AppBundle\Repository\Search\Infomarket\CategorySearchRepository'
+            - '@knp_paginator'
+            - '@AppBundle\Manager\Params\Base\ParamsManager'
+    
+    # Infoprodukt Managers
+    AppBundle\Manager\Entity\Infoprodukt\ArticleManager:
+        arguments:
+            - '@AppBundle\Repository\Infoprodukt\ArticleRepository'
+            - '@knp_paginator'
+            - '@AppBundle\Manager\Params\Base\ParamsManager'
+            - '@AppBundle\Repository\Infoprodukt\BrandRepository'
+            - '@AppBundle\Repository\Infoprodukt\TagRepository'
+            - '@AppBundle\Manager\Utils\ArticleBrandAssignmentsManager'
+            - '@AppBundle\Manager\Utils\ArticleTagAssignmentsManager'
+    AppBundle\Manager\Entity\Infoprodukt\BrandManager:
+        arguments:
+            - '@AppBundle\Repository\Infoprodukt\BrandRepository'
+            - '@knp_paginator'
+    AppBundle\Manager\Entity\Infoprodukt\CategoryManager:
+        arguments:
+            - '@AppBundle\Repository\Infoprodukt\CategoryRepository'
+            - '@knp_paginator'
+            - '@AppBundle\Manager\Params\Base\ParamsManager'
+    AppBundle\Manager\Entity\Infoprodukt\MagazineManager:
+        arguments:
+            - '@AppBundle\Repository\Infoprodukt\MagazineRepository'
+            - '@knp_paginator'
+    AppBundle\Manager\Entity\Infoprodukt\PageManager:
+        arguments:
+            - '@AppBundle\Repository\Admin\Main\PageRepository'
+            - '@knp_paginator'
+    AppBundle\Manager\Entity\Infoprodukt\ProductManager:
+        arguments:
+            - '@AppBundle\Repository\Infoprodukt\ProductRepository'
+            - '@knp_paginator'
+            - '@AppBundle\Manager\Params\Base\ParamsManager'
+    AppBundle\Manager\Entity\Infoprodukt\TermManager:
+        arguments:
+            - '@AppBundle\Repository\Admin\Main\TermRepository'
+            - '@knp_paginator'
+    ## Infoprodukt Search Managers
+    AppBundle\Manager\Entity\Infoprodukt\SearchManager:
+        arguments:
+            - '@AppBundle\Repository\Search\Infoprodukt\CategorySearchRepository'
+            - '@knp_paginator'
+            - '@AppBundle\Manager\Params\Base\ParamsManager'
+                                                                                        
+    # Main Managers
+    AppBundle\Manager\Entity\Common\Main\AdvertManager:
+        arguments:
+            - '@AppBundle\Repository\Admin\Main\AdvertRepository'
+            - '@knp_paginator'
+    AppBundle\Manager\Entity\Common\Main\ArticleCategoryManager:
+        arguments:
+            - '@AppBundle\Repository\Admin\Main\ArticleCategoryRepository'
+            - '@knp_paginator'
+    AppBundle\Manager\Entity\Common\Main\ArchivedArticleManager:
+        arguments:
+            - '@AppBundle\Repository\Admin\Main\ArchivedArticleRepository'
+            - '@knp_paginator'
+            - '@AppBundle\Manager\Params\Base\ParamsManager'
+    AppBundle\Manager\Entity\Common\Main\ArticleManager:
+        arguments:
+            - '@AppBundle\Repository\Admin\Main\ArticleRepository'
+            - '@knp_paginator'
+            - '@AppBundle\Manager\Params\Base\ParamsManager'
+    AppBundle\Manager\Entity\Common\Main\BenchmarkEnumManager:
+        arguments:
+            - '@AppBundle\Repository\Admin\Main\BenchmarkEnumRepository'
+            - '@knp_paginator'
+    AppBundle\Manager\Entity\Common\Main\BenchmarkFieldManager:
+        arguments:
+            - '@AppBundle\Repository\Admin\Main\BenchmarkFieldRepository'
+            - '@knp_paginator'
+    AppBundle\Manager\Entity\Common\Main\BenchmarkMessageManager:
+        arguments:
+            - '@AppBundle\Repository\Admin\Main\BenchmarkMessageRepository'
+            - '@knp_paginator'
+            - '@AppBundle\Manager\Params\Base\ParamsManager'
+            - '@security.token_storage'
+    AppBundle\Manager\Entity\Common\Main\BranchManager:
+        arguments:
+            - '@AppBundle\Repository\Admin\Main\BranchRepository'
+            - '@knp_paginator'
+    AppBundle\Manager\Entity\Common\Main\BrandManager:
+        arguments:
+            - '@AppBundle\Repository\Admin\Main\BrandRepository'
+            - '@knp_paginator'
+    AppBundle\Manager\Entity\Common\Main\CategoryManager:
+        arguments:
+            - '@AppBundle\Repository\Admin\Main\CategoryRepository'
+            - '@knp_paginator'
+            - '@AppBundle\Manager\Params\Base\ParamsManager'
+    AppBundle\Manager\Entity\Common\Main\LinkManager:
+        arguments:
+            - '@AppBundle\Repository\Admin\Main\LinkRepository'
+            - '@knp_paginator'
+    AppBundle\Manager\Entity\Common\Main\MagazineManager:
+        arguments:
+            - '@AppBundle\Repository\Admin\Main\MagazineRepository'
+            - '@knp_paginator'
+    AppBundle\Manager\Entity\Common\Main\MenuEntryManager:
+        arguments:
+            - '@AppBundle\Repository\Admin\Main\MenuEntryRepository'
+            - '@knp_paginator'
+            - '@AppBundle\Manager\Params\Base\ParamsManager'
+    AppBundle\Manager\Entity\Common\Main\MenuManager:
+        arguments:
+            - '@AppBundle\Repository\Admin\Main\MenuRepository'
+            - '@knp_paginator'
+    AppBundle\Manager\Entity\Common\Main\NewsletterBlockManager:
+        arguments:
+            - '@AppBundle\Repository\Admin\Main\NewsletterBlockRepository'
+            - '@knp_paginator'
+            - '@AppBundle\Manager\Params\Base\ParamsManager'
+    AppBundle\Manager\Entity\Common\Main\NewsletterBlockTemplateManager:
+        arguments:
+            - '@AppBundle\Repository\Admin\Main\NewsletterBlockTemplateRepository'
+            - '@knp_paginator'
+    AppBundle\Manager\Entity\Common\Main\NewsletterGroupManager:
+        arguments:
+            - '@AppBundle\Repository\Admin\Main\NewsletterGroupRepository'
+            - '@knp_paginator'
+    AppBundle\Manager\Entity\Common\Main\NewsletterPageManager:
+        arguments:
+            - '@AppBundle\Repository\Admin\Main\NewsletterPageRepository'
+            - '@knp_paginator'
+            - '@AppBundle\Manager\Params\Base\ParamsManager'
+    AppBundle\Manager\Entity\Common\Main\NewsletterPageTemplateManager:
+        arguments:
+            - '@AppBundle\Repository\Admin\Main\NewsletterPageTemplateRepository'
+            - '@knp_paginator'
+    AppBundle\Manager\Entity\Common\Main\NewsletterUserManager:
+        arguments:
+            - '@AppBundle\Repository\Admin\Main\NewsletterUserRepository'
+            - '@knp_paginator'
+    AppBundle\Manager\Entity\Common\Main\PageManager:
+        arguments:
+            - '@AppBundle\Repository\Admin\Main\PageRepository'
+            - '@knp_paginator'
+    AppBundle\Manager\Entity\Common\Main\ProductManager:
+        arguments:
+            - '@AppBundle\Repository\Admin\Main\ProductRepository'
+            - '@knp_paginator'
+            - '@AppBundle\Manager\Params\Base\ParamsManager'
+    AppBundle\Manager\Entity\Common\Main\SegmentManager:
+        arguments:
+            - '@AppBundle\Repository\Admin\Main\SegmentRepository'
+            - '@knp_paginator'
+    AppBundle\Manager\Entity\Common\Main\TagManager:
+        arguments:
+            - '@AppBundle\Repository\Admin\Main\TagRepository'
+            - '@knp_paginator'
+    AppBundle\Manager\Entity\Common\Main\TermManager:
+        arguments:
+            - '@AppBundle\Repository\Admin\Main\TermRepository'
+            - '@knp_paginator'
+    AppBundle\Manager\Entity\Common\Main\UserManager:
+        arguments:
+            - '@AppBundle\Repository\Admin\Main\UserRepository'
+            - '@knp_paginator'
+             
+    # Assignments Managers
+    AppBundle\Manager\Entity\Common\Assignments\AdvertCategoryAssignmentManager:
+        arguments:
+            - '@AppBundle\Repository\Admin\Assignments\AdvertCategoryAssignmentRepository'
+            - '@knp_paginator'
+            - '@AppBundle\Manager\Params\Base\ParamsManager'
+    AppBundle\Manager\Entity\Common\Assignments\ArticleArticleCategoryAssignmentManager:
+        arguments:
+            - '@AppBundle\Repository\Admin\Assignments\ArticleArticleCategoryAssignmentRepository'
+            - '@knp_paginator'
+            - '@AppBundle\Manager\Params\Base\ParamsManager'
+    AppBundle\Manager\Entity\Common\Assignments\ArticleBrandAssignmentManager:
+        arguments:
+            - '@AppBundle\Repository\Admin\Assignments\ArticleBrandAssignmentRepository'
+            - '@knp_paginator'
+            - '@AppBundle\Manager\Params\Base\ParamsManager'
+    AppBundle\Manager\Entity\Common\Assignments\ArticleCategoryAssignmentManager:
+        arguments:
+            - '@AppBundle\Repository\Admin\Assignments\ArticleCategoryAssignmentRepository'
+            - '@knp_paginator'
+            - '@AppBundle\Manager\Params\Base\ParamsManager'
+    AppBundle\Manager\Entity\Common\Assignments\ArticleTagAssignmentManager:
+        arguments:
+            - '@AppBundle\Repository\Admin\Assignments\ArticleTagAssignmentRepository'
+            - '@knp_paginator'
+            - '@AppBundle\Manager\Params\Base\ParamsManager'
+    AppBundle\Manager\Entity\Common\Assignments\BranchCategoryAssignmentManager:
+        arguments:
+            - '@AppBundle\Repository\Admin\Assignments\BranchCategoryAssignmentRepository'
+            - '@knp_paginator'
+            - '@AppBundle\Manager\Params\Base\ParamsManager'
+    AppBundle\Manager\Entity\Common\Assignments\BrandCategoryAssignmentManager:
+        arguments:
+            - '@AppBundle\Repository\Admin\Assignments\BrandCategoryAssignmentRepository'
+            - '@knp_paginator'
+            - '@AppBundle\Manager\Params\Base\ParamsManager'
+    AppBundle\Manager\Entity\Common\Assignments\MagazineBranchAssignmentManager:
+        arguments:
+            - '@AppBundle\Repository\Admin\Assignments\MagazineBranchAssignmentRepository'
+            - '@knp_paginator'
+            - '@AppBundle\Manager\Params\Base\ParamsManager'
+    AppBundle\Manager\Entity\Common\Assignments\MagazineCategoryAssignmentManager:
+        arguments:
+            - '@AppBundle\Repository\Admin\Assignments\MagazineCategoryAssignmentRepository'
+            - '@knp_paginator'
+            - '@AppBundle\Manager\Params\Base\ParamsManager'
+    AppBundle\Manager\Entity\Common\Assignments\MenuEntryBranchAssignmentManager:
+        arguments:
+            - '@AppBundle\Repository\Admin\Assignments\MenuEntryBranchAssignmentRepository'
+            - '@knp_paginator'
+            - '@AppBundle\Manager\Params\Base\ParamsManager'
+    AppBundle\Manager\Entity\Common\Assignments\MenuEntryCategoryAssignmentManager:
+        arguments:
+            - '@AppBundle\Repository\Admin\Assignments\MenuEntryCategoryAssignmentRepository'
+            - '@knp_paginator'
+            - '@AppBundle\Manager\Params\Base\ParamsManager'
+    AppBundle\Manager\Entity\Common\Assignments\MenuMenuEntryAssignmentManager:
+        arguments:
+            - '@AppBundle\Repository\Admin\Assignments\MenuMenuEntryAssignmentRepository'
+            - '@knp_paginator'
+            - '@AppBundle\Manager\Params\Base\ParamsManager'
+    AppBundle\Manager\Entity\Common\Assignments\NewsletterBlockAdvertAssignmentManager:
+        arguments:
+            - '@AppBundle\Repository\Admin\Assignments\NewsletterBlockAdvertAssignmentRepository'
+            - '@knp_paginator'
+            - '@AppBundle\Manager\Params\Base\ParamsManager'
+    AppBundle\Manager\Entity\Common\Assignments\NewsletterBlockArticleAssignmentManager:
+        arguments:
+            - '@AppBundle\Repository\Admin\Assignments\NewsletterBlockArticleAssignmentRepository'
+            - '@knp_paginator'
+            - '@AppBundle\Manager\Params\Base\ParamsManager'
+    AppBundle\Manager\Entity\Common\Assignments\NewsletterBlockMagazineAssignmentManager:
+        arguments:
+            - '@AppBundle\Repository\Admin\Assignments\NewsletterBlockMagazineAssignmentRepository'
+            - '@knp_paginator'
+            - '@AppBundle\Manager\Params\Base\ParamsManager'
+    AppBundle\Manager\Entity\Common\Assignments\NewsletterUserNewsletterGroupAssignmentManager:
+        arguments:
+            - '@AppBundle\Repository\Admin\Assignments\NewsletterUserNewsletterGroupAssignmentRepository'
+            - '@knp_paginator'
+            - '@AppBundle\Manager\Params\Base\ParamsManager'
+    AppBundle\Manager\Entity\Common\Assignments\NewsletterUserNewsletterPageAssignmentManager:
+        arguments:
+            - '@AppBundle\Repository\Admin\Assignments\NewsletterUserNewsletterPageAssignmentRepository'
+            - '@knp_paginator'
+            - '@AppBundle\Manager\Params\Base\ParamsManager'
+    AppBundle\Manager\Entity\Common\Assignments\ProductCategoryAssignmentManager:
+        arguments:
+            - '@AppBundle\Repository\Admin\Assignments\ProductCategoryAssignmentRepository'
+            - '@knp_paginator'
+            - '@AppBundle\Manager\Params\Base\ParamsManager'
+    AppBundle\Manager\Entity\Common\Assignments\TermCategoryAssignmentManager:
+        arguments:
+            - '@AppBundle\Repository\Admin\Assignments\TermCategoryAssignmentRepository'
+            - '@knp_paginator'
+            - '@AppBundle\Manager\Params\Base\ParamsManager'
+    AppBundle\Manager\Entity\Common\Assignments\UserCategoryAssignmentManager:
+        arguments:
+            - '@AppBundle\Repository\Admin\Assignments\UserCategoryAssignmentRepository'
+            - '@knp_paginator'
+            - '@AppBundle\Manager\Params\Base\ParamsManager'
+    
+            

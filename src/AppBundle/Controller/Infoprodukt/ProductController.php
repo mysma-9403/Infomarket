@@ -4,7 +4,7 @@ namespace AppBundle\Controller\Infoprodukt;
 
 use AppBundle\Controller\Infoprodukt\Base\InfoproduktController;
 use AppBundle\Entity\Product;
-use AppBundle\Manager\Entity\Common\ProductManager;
+use AppBundle\Manager\Entity\Infoprodukt\ProductManager;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -42,9 +42,7 @@ class ProductController extends InfoproduktController
 	//---------------------------------------------------------------------------
 	
 	protected function getEntityManager($doctrine, $paginator) {
-		$em = new ProductManager($doctrine, $paginator);
-		$em->setEntriesPerPage(12);
-		return $em;
+		return $this->get(ProductManager::class);
 	}
 	
 	protected function isFilterByCategories() {
@@ -59,11 +57,6 @@ class ProductController extends InfoproduktController
 	// EntityType related
 	//---------------------------------------------------------------------------
 	
-	/**
-     * 
-     * {@inheritDoc}
-     * @see \AppBundle\Controller\Infomarket\Base\SimpleEntityController::getEntityType()
-     */
     protected function getEntityType()
     {
     	return Product::class;

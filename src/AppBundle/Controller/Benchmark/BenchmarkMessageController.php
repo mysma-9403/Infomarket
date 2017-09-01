@@ -163,8 +163,7 @@ class BenchmarkMessageController extends BaseEntityController {
 	}
 	
 	protected function getEntityManager($doctrine, $paginator) {
-		$tokenStorage = $this->get('security.token_storage');
-		return new BenchmarkMessageManager($doctrine, $paginator, $tokenStorage);
+		return $this->get(BenchmarkMessageManager::class);
 	}
 	
 	protected function getFilterManager($doctrine) {

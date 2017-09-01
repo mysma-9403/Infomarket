@@ -15,7 +15,7 @@ use AppBundle\Filter\Admin\Main\MenuEntryFilter;
 use AppBundle\Form\Editor\Admin\Main\MenuEntryEditorType;
 use AppBundle\Form\Filter\Admin\Main\MenuEntryFilterType;
 use AppBundle\Form\Lists\Base\InfoMarketEntityListType;
-use AppBundle\Manager\Entity\Common\MenuEntryManager;
+use AppBundle\Manager\Entity\Common\Main\MenuEntryManager;
 use AppBundle\Manager\Filter\Base\FilterManager;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -152,7 +152,7 @@ class MenuEntryController extends SimpleEntityController {
 	//---------------------------------------------------------------------------
 	
 	protected function getEntityManager($doctrine, $paginator) {
-		return new MenuEntryManager($doctrine, $paginator);
+		return $this->get(MenuEntryManager::class);
 	}
 	
 	protected function getFilterManager($doctrine) {

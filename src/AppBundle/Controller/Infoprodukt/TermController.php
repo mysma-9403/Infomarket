@@ -4,9 +4,9 @@ namespace AppBundle\Controller\Infoprodukt;
 
 use AppBundle\Controller\Infoprodukt\Base\InfoproduktController;
 use AppBundle\Entity\Term;
-use AppBundle\Manager\Entity\Common\TermManager;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Manager\Entity\Infoprodukt\TermManager;
 
 class TermController extends InfoproduktController
 {   
@@ -42,9 +42,7 @@ class TermController extends InfoproduktController
 	//---------------------------------------------------------------------------
 	
 	protected function getEntityManager($doctrine, $paginator) {
-		$em = new TermManager($doctrine, $paginator);
-		$em->setEntriesPerPage(36);
-		return $em;
+		return $this->get(TermManager::class);
 	}
 	
 	protected function isFilterByCategories() {
@@ -59,11 +57,6 @@ class TermController extends InfoproduktController
 	// EntityType related
 	//---------------------------------------------------------------------------
 	
-	/**
-	 *
-	 * {@inheritDoc}
-	 * @see \AppBundle\Controller\Infomarket\Base\SimpleEntityController::getEntityType()
-	 */
 	protected function getEntityType()
 	{
 		return Term::class;

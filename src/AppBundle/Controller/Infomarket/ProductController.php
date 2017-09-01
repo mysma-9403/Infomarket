@@ -4,7 +4,7 @@ namespace AppBundle\Controller\Infomarket;
 
 use AppBundle\Controller\Infomarket\Base\InfomarketController;
 use AppBundle\Entity\Product;
-use AppBundle\Manager\Entity\Common\ProductManager;
+use AppBundle\Manager\Entity\Infomarket\ProductManager;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -42,7 +42,7 @@ class ProductController extends InfomarketController
 	//---------------------------------------------------------------------------
 	
 	protected function getEntityManager($doctrine, $paginator) {
-		return new ProductManager($doctrine, $paginator);
+		return $this->get(ProductManager::class);
 	}
 	
 	protected function isFilterByCategories() {
@@ -53,11 +53,6 @@ class ProductController extends InfomarketController
 	// EntityType related
 	//---------------------------------------------------------------------------
 	
-	/**
-     * 
-     * {@inheritDoc}
-     * @see \AppBundle\Controller\Infomarket\Base\SimpleEntityController::getEntityType()
-     */
     protected function getEntityType()
     {
     	return Product::class;

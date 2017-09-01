@@ -19,8 +19,8 @@ class CustomProductEntryParamsManager extends EntryParamsManager {
 	 */
 	protected $productFilter;
 	
-	public function __construct(EntityManager $em, FilterManager $fm, $doctrine, ProductFilter $productFilter) {
-		parent::__construct($em, $fm, $doctrine);
+	public function __construct(EntityManager $em, FilterManager $fm, ProductFilter $productFilter) {
+		parent::__construct($em, $fm);
 		
 		$this->productFilter = $productFilter;
 	}

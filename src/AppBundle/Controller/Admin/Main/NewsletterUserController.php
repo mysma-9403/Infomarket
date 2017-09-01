@@ -20,10 +20,11 @@ use AppBundle\Form\Other\ImportNewsletterUsersType;
 use AppBundle\Logic\Admin\Import\NewsletterUser\ImportLogic;
 use AppBundle\Logic\Admin\Import\NewsletterUser\ImportValidator;
 use AppBundle\Manager\Entity\Base\EntityManager;
-use AppBundle\Manager\Entity\Common\NewsletterUserManager;
+use AppBundle\Manager\Entity\Common\Main\NewsletterUserManager;
 use AppBundle\Manager\Filter\Base\FilterManager;
 use AppBundle\Manager\Params\EntryParams\Admin\NewsletterUserEntryParamsManager;
 use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Repository\Admin\Main\NewsletterGroupRepository;
 
 class NewsletterUserController extends SimpleEntityController {
 	
@@ -293,11 +294,12 @@ class NewsletterUserController extends SimpleEntityController {
 	//---------------------------------------------------------------------------
 	
 	protected function getInternalEntryParamsManager(EntityManager $em, FilterManager $fm, $doctrine) {
-		return new NewsletterUserEntryParamsManager($em, $fm, $doctrine);
+		$newsletterGroupRepository = $this->get(NewsletterGroupRepository::class);
+		return new NewsletterUserEntryParamsManager($em, $fm, $newsletterGroupRepository);
 	}
 	
 	protected function getEntityManager($doctrine, $paginator) {
-		return new NewsletterUserManager($doctrine, $paginator);
+		return $this->get(NewsletterUserManager::class);
 	}
 	
 	protected function getFilterManager($doctrine) {

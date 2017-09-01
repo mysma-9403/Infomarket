@@ -9,10 +9,30 @@ use Symfony\Component\HttpFoundation\Request;
 
 class ContextParamsManager extends ParamsManager {
 	
+	/**
+	 *
+	 * @var array
+	 */
 	protected $lastRouteParams;
+
+	/**
+	 *
+	 * @var CategoryRepository
+	 */
+	protected $categoryRepository;
+
+	/**
+	 *
+	 * @var ParamsManager
+	 */
+	protected $paramsManager;
 	
-	public function __construct($doctrine, array $lastRouteParams) {
-		parent::__construct($doctrine);
+	//TODO lastRouteParams should be moved to function params or within params array -> then it will be possible to define service
+	public function __construct(CategoryRepository $categoryRepository, ParamsManager $paramsManager, array $lastRouteParams) {
+		$this->categoryRepository = $categoryRepository;
+		
+		$this->paramsManager = $paramsManager;
+		
 		$this->lastRouteParams = $lastRouteParams;
 	}
 	
@@ -20,25 +40,22 @@ class ContextParamsManager extends ParamsManager {
 		$contextParams = $params['contextParams'];
 		$routeParams = $params['routeParams'];
 		$viewParams = $params['viewParams'];
-		
-		$em = $this->doctrine->getManager();
     	
-		
-		$categoryRepository = new CategoryRepository($em, $em->getClassMetadata(Category::class)); 
-    	$categories = $categoryRepository->findMenuItems();
+		 
+    	$categories = $this->categoryRepository->findMenuItems();
     	
     	$viewParams['menuCategories'] = $categories;
     	$viewParams['menuWidths'] = $this->getMenuWidths($categories);
     	
     	
-    	$categoryId = $this->getParamId($request, Category::class, null);
+    	$categoryId = $this->paramsManager->getIdByClass($request, Category::class, null);
     	if($categoryId) {
     		$contextParams['category'] = $categoryId;
     		$routeParams['category'] = $categoryId;
-    		$viewParams['category'] = $categoryRepository->find($categoryId);
+    		$viewParams['category'] = $this->categoryRepository->find($categoryId);
     		
-    		$categories = $categoryRepository->findContextParents($categoryId);
-    		$categories = array_merge($categories, $categoryRepository->findContextChildren($categoryId));
+    		$categories = $this->categoryRepository->findContextParents($categoryId);
+    		$categories = array_merge($categories, $this->categoryRepository->findContextChildren($categoryId));
     		$contextParams['categories'] = $categories;
     	} else {
     		$contextParams['category'] = null;

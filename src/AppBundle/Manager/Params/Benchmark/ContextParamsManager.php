@@ -51,7 +51,7 @@ class ContextParamsManager extends ParamsManager {
 		$category = null;
 		
 		if(count($categories) > 0) {
-			$categoryId = $this->getParamId($request, Category::class, $categories[key($categories)]);
+			$categoryId = $this->getIdByClass($request, Category::class, $categories[key($categories)]);
 			$category = $categoryRepository->findItem($categoryId);
 		}
 		
@@ -66,7 +66,7 @@ class ContextParamsManager extends ParamsManager {
 		$subcategories = $categoryRepository->findFilterItemsByUserAndCategory($userId, $categoryId);
 		
 		if(count($subcategories) > 0) {
-			$subcategoryId = $this->getParamIdByName($request, 'subcategory');
+			$subcategoryId = $this->getIdByName($request, 'subcategory');
 			if(!in_array($subcategoryId, $subcategories)) {
 				$subcategoryId = $subcategories[key($subcategories)];
 			}

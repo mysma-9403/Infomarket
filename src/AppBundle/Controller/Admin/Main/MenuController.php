@@ -8,7 +8,7 @@ use AppBundle\Factory\Common\Choices\Bool\InfomarketChoicesFactory;
 use AppBundle\Factory\Common\Choices\Bool\InfoproduktChoicesFactory;
 use AppBundle\Filter\Admin\Main\MenuFilter;
 use AppBundle\Form\Filter\Admin\Main\MenuFilterType;
-use AppBundle\Manager\Entity\Common\MenuManager;
+use AppBundle\Manager\Entity\Common\Main\MenuManager;
 use AppBundle\Manager\Filter\Base\FilterManager;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -83,7 +83,7 @@ class MenuController extends SimpleEntityController {
 	//---------------------------------------------------------------------------
 	
 	protected function getEntityManager($doctrine, $paginator) {
-		return new MenuManager($doctrine, $paginator);
+		return $this->get(MenuManager::class);
 	}
 	
 	protected function getFilterManager($doctrine) {

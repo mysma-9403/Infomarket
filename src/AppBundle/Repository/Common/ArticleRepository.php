@@ -90,27 +90,6 @@ abstract class ArticleRepository extends BaseRepository {
 
 	protected abstract function queryItemsIds($categories);
 
-	public function assignItems($items, array $assignments, $type) {
-		$size = count($items);
-		for ($i = 0; $i < $size; $i ++) {
-			$items[$i] = $this->assignItem($items[$i], $assignments, $type);
-		}
-		
-		return $items;
-	}
-
-	public function assignItem(array $item, array $assignments, $type) {
-		$itemAssignments = array ();
-		foreach ($assignments as $assignment) {
-			if ($assignment['article'] == $item['id']) {
-				$itemAssignments[] = $assignment;
-			}
-		}
-		$item[$type] = $itemAssignments;
-		
-		return $item;
-	}
-
 	protected function getEntityType() {
 		return Article::class;
 	}

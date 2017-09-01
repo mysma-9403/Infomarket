@@ -6,22 +6,22 @@ use AppBundle\Controller\Infoprodukt\Base\InfoproduktController;
 use AppBundle\Entity\Category;
 use AppBundle\Filter\Common\SearchFilter;
 use AppBundle\Manager\Entity\Base\EntityManager;
-use AppBundle\Manager\Entity\Infoprodukt\SearchManager;
 use AppBundle\Manager\Filter\Base\FilterManager;
 use AppBundle\Manager\Params\EntryParams\Infoprodukt\SearchEntryParamsManager;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Manager\Entity\Infoprodukt\SearchManager;
+use AppBundle\Repository\Search\Infoprodukt\ArticleSearchRepository;
+use AppBundle\Repository\Search\Infoprodukt\BrandSearchRepository;
+use AppBundle\Repository\Search\Infoprodukt\ProductSearchRepository;
+use AppBundle\Repository\Search\Infoprodukt\TermSearchRepository;
 
 class SearchController extends InfoproduktController
 {
 	//---------------------------------------------------------------------------
 	// Actions
 	//---------------------------------------------------------------------------
-	/**
-	 * 
-	 * {@inheritDoc}
-	 * @see \AppBundle\Controller\Infomarket\HomeController::indexAction()
-	 */
+	
 	public function indexAction(Request $request)
 	{
 		return $this->indexActionInternal($request, 1);
@@ -32,11 +32,17 @@ class SearchController extends InfoproduktController
 	//---------------------------------------------------------------------------
 	
 	protected function getInternalEntryParamsManager(EntityManager $em, FilterManager $fm, $doctrine) {
-		return new SearchEntryParamsManager($em, $fm, $doctrine);
+		$articleRepository = $this->get(ArticleSearchRepository::class);
+		$brandRepository = $this->get(BrandSearchRepository::class);
+		$productRepository = $this->get(ProductSearchRepository::class);
+		$termRepository = $this->get(TermSearchRepository::class);
+		
+		return new SearchEntryParamsManager($em, $fm, $articleRepository,
+				$brandRepository, $productRepository, $termRepository);
 	}
 	
 	protected function getEntityManager($doctrine, $paginator) {
-		return new SearchManager($doctrine, $paginator);
+		return $this->get(SearchManager::class);
 	}
 	
 	protected function getFilterManager($doctrine) {
@@ -46,11 +52,7 @@ class SearchController extends InfoproduktController
 	//---------------------------------------------------------------------------
 	// EntityType related
 	//---------------------------------------------------------------------------
-	/**
-	 * 
-	 * {@inheritDoc}
-	 * @see \AppBundle\Controller\Infomarket\HomeController::getEntityType()
-	 */
+	
 	protected function getEntityType()
 	{
 		return Category::class;

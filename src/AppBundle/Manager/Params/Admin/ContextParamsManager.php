@@ -22,7 +22,7 @@ class ContextParamsManager extends ParamsManager {
 	protected $benchmarkMessageRepository;
 	
 	public function __construct($doctrine, array $lastRouteParams) {
-		parent::__construct($doctrine);
+		parent::__construct($doctrine, null);
 		
 		$this->lastRouteParams = $lastRouteParams;
 		

@@ -19,12 +19,11 @@ use AppBundle\Form\Filter\Benchmark\SubcategoryFilterType;
 use AppBundle\Logic\Common\BenchmarkField\Initializer\BenchmarkFieldsInitializerImpl;
 use AppBundle\Logic\Common\BenchmarkField\Provider\BenchmarkFieldsProvider;
 use AppBundle\Manager\Entity\Base\EntityManager;
-use AppBundle\Manager\Entity\Benchmark\ProductManager;
+use AppBundle\Manager\Entity\Benchmark\CustomProductManager;
 use AppBundle\Manager\Filter\Base\FilterManager;
 use AppBundle\Manager\Params\Benchmark\ContextParamsManager;
 use AppBundle\Manager\Params\EntryParams\Benchmark\CustomProductEntryParamsManager;
 use AppBundle\Repository\Benchmark\CategoryRepository;
-use AppBundle\Repository\Benchmark\CustomProductRepository;
 use AppBundle\Repository\Common\BenchmarkFieldMetadataRepository;
 use AppBundle\Utils\Entity\DataBase\BenchmarkFieldDataBaseUtils;
 use Symfony\Component\HttpFoundation\Request;
@@ -80,11 +79,12 @@ class CustomProductController extends ImageEntityController {
 		
 		$productFilter = new ProductFilter($benchmarkFieldsProvider, $benchmarkFieldsInitializer);
 		
-		return new CustomProductEntryParamsManager($em, $fm, $doctrine, $productFilter);
+		return new CustomProductEntryParamsManager($em, $fm, $productFilter);
 	}
 	
 	protected function getEntityManager($doctrine, $paginator) {
-		return new ProductManager($doctrine, $paginator, $this->getEntityRepository());
+		return $this->get(CustomProductManager::class);
+		
 	}
 	
 	protected function getFilterManager($doctrine) {
@@ -322,11 +322,6 @@ class CustomProductController extends ImageEntityController {
 	//---------------------------------------------------------------------------
 	// EntityType related
 	//---------------------------------------------------------------------------
-	
-	protected function getEntityRepository() {
-		$em = $this->getDoctrine()->getManager();
-		return new CustomProductRepository($em, $em->getClassMetadata(Product::class));
-	}
 	
 	protected function getEditorFormType() {
 		return ProductEditorType::class;

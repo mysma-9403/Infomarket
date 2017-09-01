@@ -20,12 +20,13 @@ use AppBundle\Form\Lists\Base\FeaturedEntityListType;
 use AppBundle\Form\Other\ImportRatingsType;
 use AppBundle\Logic\Admin\Import\Product\ImportLogic;
 use AppBundle\Manager\Entity\Base\EntityManager;
-use AppBundle\Manager\Entity\Common\CategoryManager;
+use AppBundle\Manager\Entity\Common\Main\CategoryManager;
 use AppBundle\Manager\Filter\Base\FilterManager;
 use AppBundle\Manager\Params\EntryParams\Admin\CategoryEntryParamsManager;
 use AppBundle\Repository\Admin\Main\CategoryRepository;
 use AppBundle\Utils\Entity\DataBase\BenchmarkFieldDataBaseUtils;
 use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Repository\Admin\Main\SegmentRepository;
 
 class CategoryController extends FeaturedEntityController {
 	
@@ -457,11 +458,14 @@ class CategoryController extends FeaturedEntityController {
 	//---------------------------------------------------------------------------
 	
 	protected function getInternalEntryParamsManager(EntityManager $em, FilterManager $fm, $doctrine) {
-		return new CategoryEntryParamsManager($em, $fm, $doctrine);
+		$categoryRepository = $this->get(CategoryRepository::class);
+		$segmentRepository = $this->get(SegmentRepository::class);
+		
+		return new CategoryEntryParamsManager($em, $fm, $categoryRepository, $segmentRepository);
 	}
 	
 	protected function getEntityManager($doctrine, $paginator) {
-		return new CategoryManager($doctrine, $paginator);
+		return $this->get(CategoryManager::class);
 	}
 	
 	protected function getFilterManager($doctrine) {

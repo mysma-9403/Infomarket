@@ -9,10 +9,10 @@ use AppBundle\Factory\Common\Choices\Bool\InfoproduktChoicesFactory;
 use AppBundle\Filter\Admin\Main\SegmentFilter;
 use AppBundle\Form\Editor\Admin\Main\SegmentEditorType;
 use AppBundle\Form\Filter\Admin\Main\SegmentFilterType;
-use AppBundle\Manager\Entity\Common\SegmentManager;
+use AppBundle\Form\Lists\Base\InfoMarketEntityListType;
+use AppBundle\Manager\Entity\Common\Main\SegmentManager;
 use AppBundle\Manager\Filter\Base\FilterManager;
 use Symfony\Component\HttpFoundation\Request;
-use AppBundle\Form\Lists\Base\InfoMarketEntityListType;
 
 class SegmentController extends ImageEntityController {
 	
@@ -132,7 +132,7 @@ class SegmentController extends ImageEntityController {
 	//---------------------------------------------------------------------------
 	
 	protected function getEntityManager($doctrine, $paginator) {
-		return new SegmentManager($doctrine, $paginator);
+		return $this->get(SegmentManager::class);
 	}
 	
 	protected function getFilterManager($doctrine) {

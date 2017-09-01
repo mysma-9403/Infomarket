@@ -9,8 +9,8 @@ class UserEntryParamsManager extends EntryParamsManager {
 	
 	protected $tokenStorage;
 	
-	public function __construct($em, $fm, $doctrine, $tokenStorage) {
-		parent::__construct($em, $fm, $doctrine);
+	public function __construct($em, $fm, $tokenStorage) {
+		parent::__construct($em, $fm);
 		
 		$this->tokenStorage = $tokenStorage;
 	}

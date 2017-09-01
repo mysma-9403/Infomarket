@@ -9,10 +9,10 @@ use AppBundle\Factory\Common\Choices\Bool\InfoproduktChoicesFactory;
 use AppBundle\Filter\Admin\Main\TagFilter;
 use AppBundle\Form\Editor\Admin\Main\TagEditorType;
 use AppBundle\Form\Filter\Admin\Main\TagFilterType;
-use AppBundle\Manager\Entity\Common\TagManager;
+use AppBundle\Form\Lists\Base\InfoMarketEntityListType;
 use AppBundle\Manager\Filter\Base\FilterManager;
 use Symfony\Component\HttpFoundation\Request;
-use AppBundle\Form\Lists\Base\InfoMarketEntityListType;
+use AppBundle\Manager\Entity\Common\Main\TagManager;
 
 class TagController extends SimpleEntityController {
 	
@@ -145,7 +145,7 @@ class TagController extends SimpleEntityController {
 	//---------------------------------------------------------------------------
 	
 	protected function getEntityManager($doctrine, $paginator) {
-		return new TagManager($doctrine, $paginator);
+		return $this->get(TagManager::class);
 	}
 	
 	protected function getFilterManager($doctrine) {

@@ -42,20 +42,13 @@ class BrandController extends InfoproduktController
 	//---------------------------------------------------------------------------
 	
 	protected function getEntityManager($doctrine, $paginator) {
-		$em = new BrandManager($doctrine, $paginator);
-		$em->setEntriesPerPage(12);
-		return $em;
+		return $this->get(BrandManager::class);
 	}
 	
 	//---------------------------------------------------------------------------
 	// EntityType related
 	//---------------------------------------------------------------------------
 	
-	/**
-     * 
-     * {@inheritDoc}
-     * @see \AppBundle\Controller\Infomarket\Base\SimpleEntityController::getEntityType()
-     */
     protected function getEntityType()
     {
     	return Brand::class;

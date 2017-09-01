@@ -3,17 +3,31 @@
 namespace AppBundle\Manager\Entity\Benchmark;
 
 use AppBundle\Entity\BenchmarkMessage;
-use AppBundle\Manager\Entity\Base\BaseEntityManager;
-use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Entity\Product;
+use AppBundle\Manager\Entity\Base\EntityManager;
 use AppBundle\Repository\Benchmark\BenchmarkMessageRepository;
+use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Repository\Base\BaseRepository;
+use AppBundle\Manager\Params\Base\ParamsManager;
 
-class BenchmarkMessageManager extends BaseEntityManager {
+class BenchmarkMessageManager extends EntityManager {
 	
-	private $tokenStorage;
+	/**
+	 * 
+	 * @var ParamsManager
+	 */
+	protected $paramsManager;
 	
-	public function __construct($doctrine, $paginator, $tokenStorage) {
-		parent::__construct($doctrine, $paginator);
+	/**
+	 * 
+	 * @var unknown
+	 */
+	protected $tokenStorage;
+	
+	public function __construct(BaseRepository $repository, $paginator, ParamsManager $paramsManager, $tokenStorage) {
+		parent::__construct($repository, $paginator);
+		
+		$this->paramsManager = $paramsManager;
 		$this->tokenStorage = $tokenStorage;
 	}
 	
@@ -22,18 +36,18 @@ class BenchmarkMessageManager extends BaseEntityManager {
 		return new BenchmarkMessageRepository($em, $em->getClassMetadata(BenchmarkMessage::class));
 	}
 	
-	/**
-	 * Create new entry with request parameters.
-	 * @param Request $request
-	 * 
-	 * @return BenchmarkMessage
-	 */
 	public function createFromRequest(Request $request) {
-		$entry = new BenchmarkMessage();
+		$entry = parent::createFromRequest($request);
+		/** @var BenchmarkMessage $entry */
 		
-		$entry->setProduct($this->getParam($request, Product::class));
+		$entry->setName($request->get('name'));
+		$entry->setContent($request->get('content'));
+		
+		$entry->setProduct($this->paramsManager->getParamByClass($request, Product::class));
 		
 		$entry->setAuthor($this->tokenStorage->getToken()->getUser());
+		
+		$entry->setState(BenchmarkMessage::REPORTED_STATE);
 		
 		$entry->setReadByAdmin(false);
 		$entry->setReadByAuthor(false);
@@ -42,23 +56,23 @@ class BenchmarkMessageManager extends BaseEntityManager {
 	}
 	
 	/**
-	 * Create new entry with template parameters.
+	 *
 	 * @param BenchmarkMessage $template
+	 *
+	 * {@inheritDoc}
 	 * 
-	 * @return BenchmarkMessage
+	 * @see \AppBundle\Manager\Entity\Base\EntityManager::createFromTemplate()
 	 */
 	public function createFromTemplate($template) {
-		/** @var BenchmarkMessage $entry */
 		$entry = parent::createFromTemplate($template);
-		
-		$entry->setProduct($template->getProduct());
-		
-		$entry->setAuthor($this->tokenStorage->getToken()->getUser());
+		/** @var BenchmarkMessage $entry */
 		
 		$entry->setName($template->getName());
 		$entry->setContent($template->getContent());
 		
 		$entry->setProduct($template->getProduct());
+		
+		$entry->setAuthor($this->tokenStorage->getToken()->getUser());
 		
 		$entry->setState(BenchmarkMessage::REPORTED_STATE);
 		

@@ -11,10 +11,10 @@ use AppBundle\Form\Editor\Admin\Main\UserEditorType;
 use AppBundle\Form\Filter\Admin\Main\UserFilterType;
 use AppBundle\Form\Lists\Base\BaseEntityListType;
 use AppBundle\Manager\Entity\Base\EntityManager;
-use AppBundle\Manager\Entity\Common\UserManager;
 use AppBundle\Manager\Filter\Base\FilterManager;
 use AppBundle\Manager\Params\EntryParams\Admin\UserEntryParamsManager;
 use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Manager\Entity\Common\Main\UserManager;
 
 class UserController extends AdminController
 {
@@ -150,11 +150,11 @@ class UserController extends AdminController
 	
 	protected function getInternalEntryParamsManager(EntityManager $em, FilterManager $fm, $doctrine) {
 		$tokenStorage = $this->get('security.token_storage');
-		return new UserEntryParamsManager($em, $fm, $doctrine, $tokenStorage);
+		return new UserEntryParamsManager($em, $fm, $tokenStorage);
 	}
 	
 	protected function getEntityManager($doctrine, $paginator) {
-		return new UserManager($doctrine, $paginator);
+		return $this->get(UserManager::class);
 	}
 	
 	protected function getFilterManager($doctrine) {

@@ -3,7 +3,6 @@
 namespace AppBundle\Controller\Infomarket;
 
 use AppBundle\Controller\Infomarket\Base\InfomarketController;
-use AppBundle\Entity\Advert;
 use AppBundle\Entity\Category;
 use AppBundle\Filter\Infomarket\Base\BranchDependentFilter;
 use AppBundle\Manager\Entity\Base\EntityManager;
@@ -13,6 +12,10 @@ use AppBundle\Manager\Params\EntryParams\Infomarket\CategoryEntryParamsManager;
 use AppBundle\Manager\Params\Infomarket\CategoryAdvertParamsManager;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Repository\Infomarket\BrandRepository;
+use AppBundle\Repository\Infomarket\CategoryRepository;
+use AppBundle\Repository\Infomarket\ProductRepository;
+use AppBundle\Repository\Infomarket\SegmentRepository;
 
 class CategoryController extends InfomarketController
 {
@@ -44,11 +47,16 @@ class CategoryController extends InfomarketController
 	//---------------------------------------------------------------------------
 	
 	protected function getInternalEntryParamsManager(EntityManager $em, FilterManager $fm, $doctrine) {
-		return new CategoryEntryParamsManager($em, $fm, $doctrine);
+		$brandRepository = $this->get(BrandRepository::class);
+		$categoryRepository = $this->get(CategoryRepository::class);
+		$productRepository = $this->get(ProductRepository::class);
+		$segmentRepository = $this->get(SegmentRepository::class);
+		return new CategoryEntryParamsManager($em, $fm, $brandRepository,
+				$categoryRepository, $productRepository, $segmentRepository);
 	}
 	
 	protected function getEntityManager($doctrine, $paginator) {
-		return new CategoryManager($doctrine, $paginator);
+		return $this->get(CategoryManager::class);
 	}
 	
 	protected function getFilterManager($doctrine) {
@@ -56,10 +64,7 @@ class CategoryController extends InfomarketController
 	}
 	
 	protected function getAdvertParamsManager() {
-		$doctrine = $this->getDoctrine();
-		$advertLocations = [Advert::TOP_LOCATION, Advert::SIDE_LOCATION];
-		
-		return new CategoryAdvertParamsManager($doctrine, $advertLocations);
+		return $this->get(CategoryAdvertParamsManager::class);
 	}
 	
 	//---------------------------------------------------------------------------

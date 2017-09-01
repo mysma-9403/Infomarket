@@ -11,6 +11,7 @@ use AppBundle\Manager\Entity\Base\EntityManager;
 use AppBundle\Manager\Entity\Infoprodukt\ArticleManager;
 use AppBundle\Manager\Filter\Base\FilterManager;
 use AppBundle\Manager\Params\EntryParams\Infoprodukt\ArticleEntryParamsManager;
+use AppBundle\Repository\Infoprodukt\ArticleRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -150,12 +151,12 @@ class ArticleController extends InfoproduktController
 	//---------------------------------------------------------------------------
 	
 	protected function getInternalEntryParamsManager(EntityManager $em, FilterManager $fm, $doctrine) {
-		return new ArticleEntryParamsManager($em, $fm, $doctrine);
+		$articleRepository = $this->get(ArticleRepository::class);
+		return new ArticleEntryParamsManager($em, $fm, $articleRepository);
 	}
 	
 	protected function getEntityManager($doctrine, $paginator) {
-		$tokenStorage = $this->get('security.token_storage');
-		return new ArticleManager($doctrine, $paginator, $tokenStorage);
+		return $this->get(ArticleManager::class);
 	}
 	
 	protected function getFilterManager($doctrine) {
@@ -166,11 +167,6 @@ class ArticleController extends InfoproduktController
 	// EntityType related
 	//---------------------------------------------------------------------------
 	
-	/**
-	 * 
-	 * {@inheritDoc}
-	 * @see \AppBundle\Controller\Infomarket\Base\BaseEntityController::getEntityType()
-	 */
     protected function getEntityType()
     {
     	return Article::class;

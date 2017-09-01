@@ -14,7 +14,7 @@ use AppBundle\Form\Editor\Admin\Main\NewsletterPageEditorType;
 use AppBundle\Form\Filter\Admin\Main\NewsletterPageFilterType;
 use AppBundle\Form\Filter\Admin\Other\SendNewsletterFilterType;
 use AppBundle\Manager\Entity\Base\EntityManager;
-use AppBundle\Manager\Entity\Common\NewsletterPageManager;
+use AppBundle\Manager\Entity\Common\Main\NewsletterPageManager;
 use AppBundle\Manager\Filter\Base\FilterManager;
 use AppBundle\Manager\Params\EntryParams\Admin\NewsletterPageEntryParamsManager;
 use AppBundle\Validation\StringValidation;
@@ -22,6 +22,8 @@ use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\StreamedResponse;
+use AppBundle\Repository\Admin\Main\NewsletterGroupRepository;
+use AppBundle\Repository\Admin\Other\SendNewsletterRepository;
 
 class NewsletterPageController extends SimpleEntityController {
 	
@@ -433,11 +435,13 @@ class NewsletterPageController extends SimpleEntityController {
 	//---------------------------------------------------------------------------
 	
 	protected function getInternalEntryParamsManager(EntityManager $em, FilterManager $fm, $doctrine) {
-		return new NewsletterPageEntryParamsManager($em, $fm, $doctrine);
+		$newsletterGroupRepository = $this->get(NewsletterGroupRepository::class);
+		$sendNewsletterRepository = $this->get(SendNewsletterRepository::class);
+		return new NewsletterPageEntryParamsManager($em, $fm, $newsletterGroupRepository, $sendNewsletterRepository);
 	}
 	
 	protected function getEntityManager($doctrine, $paginator) {
-		return new NewsletterPageManager($doctrine, $paginator);
+		return $this->get(NewsletterPageManager::class);
 	}
 	
 	protected function getFilterManager($doctrine) {

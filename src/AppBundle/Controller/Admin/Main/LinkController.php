@@ -10,7 +10,7 @@ use AppBundle\Filter\Admin\Main\LinkFilter;
 use AppBundle\Form\Editor\Admin\Main\LinkEditorType;
 use AppBundle\Form\Filter\Admin\Main\LinkFilterType;
 use AppBundle\Form\Lists\Base\InfoMarketEntityListType;
-use AppBundle\Manager\Entity\Common\LinkManager;
+use AppBundle\Manager\Entity\Common\Main\LinkManager;
 use AppBundle\Manager\Filter\Base\FilterManager;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -132,7 +132,7 @@ class LinkController extends SimpleEntityController {
 	//---------------------------------------------------------------------------
 	
 	protected function getEntityManager($doctrine, $paginator) {
-		return new LinkManager($doctrine, $paginator);
+		return $this->get(LinkManager::class);
 	}
 	
 	protected function getFilterManager($doctrine) {

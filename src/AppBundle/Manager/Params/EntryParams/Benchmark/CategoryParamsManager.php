@@ -4,7 +4,6 @@ namespace AppBundle\Manager\Params\EntryParams\Benchmark;
 
 use AppBundle\Entity\Category;
 use AppBundle\Entity\Product;
-use AppBundle\Entity\Segment;
 use AppBundle\Logic\Benchmark\Fields\BenchmarkChartLogic;
 use AppBundle\Logic\Common\BenchmarkField\Initializer\BenchmarkFieldsInitializer;
 use AppBundle\Logic\Common\BenchmarkField\Provider\BenchmarkFieldsProvider;
@@ -21,7 +20,23 @@ class CategoryParamsManager extends EntryParamsManager {
 	
 	protected $chartLogic;
 	
+	/**
+	 *
+	 * @var CategoryRepository
+	 */
+	protected $categoryRepository;
+	
+	/**
+	 * 
+	 * @var ProductRepository
+	 */
 	protected $productRepository;
+	
+	/**
+	 *
+	 * @var SegmentRepository
+	 */
+	protected $segmentRepository;
 	
 	protected $benchmarkFieldsProvider;
 	
@@ -29,21 +44,26 @@ class CategoryParamsManager extends EntryParamsManager {
 	
 	protected $tokenStorage;
 	
-	public function __construct(EntityManager $em, FilterManager $fm, $doctrine, 
+	public function __construct(EntityManager $em, FilterManager $fm,
+			CategoryRepository $categoryRepository,
+			ProductRepository $productRepository,
+			SegmentRepository $segmentRepository,
 			BenchmarkChartLogic $chartLogic,
 			BenchmarkFieldsProvider $benchmarkFieldsProvider,
 			BenchmarkFieldsInitializer $benchmarkFieldsInitializer,
 			TokenStorage $tokenStorage) {
-		parent::__construct($em, $fm, $doctrine);
+		parent::__construct($em, $fm);
+		
+		$this->productRepository = $productRepository;
+		$this->categoryRepository = $categoryRepository;
+		$this->segmentRepository = $segmentRepository;
 		
 		$this->chartLogic = $chartLogic;
+		
 		$this->benchmarkFieldsProvider = $benchmarkFieldsProvider;
 		$this->benchmarkFieldsInitializer = $benchmarkFieldsInitializer;
-		$this->tokenStorage = $tokenStorage;
 		
-		//TODO refactor -> make Dependency Injection!!
-		$emm = $this->doctrine->getManager();
-		$this->productRepository = new ProductRepository($emm, $emm->getClassMetadata(Product::class));
+		$this->tokenStorage = $tokenStorage;
 	}
 	
 	public function getShowParams(Request $request, array $params, $id) {
@@ -70,11 +90,8 @@ class CategoryParamsManager extends EntryParamsManager {
 				$id = $request->get('subcategory', 0);
 		
 				if($id <= 0) {
-					$em = $this->doctrine->getManager();
-					$repository = new CategoryRepository($em, $em->getClassMetadata(Category::class));
-					
 					$userId = $this->tokenStorage->getToken()->getUser()->getId();
-					$items = $repository->findFilterItemsByUser($userId);
+					$items = $this->categoryRepository->findFilterItemsByUser($userId);
 					if(count($items) > 0) {
 						$id = $items[key($items)];
 					}
@@ -88,12 +105,9 @@ class CategoryParamsManager extends EntryParamsManager {
 	protected function getShowCategoryParams(Request $request, array $params, $id) {
 		$viewParams = $params['viewParams'];
 		
-		$em = $this->doctrine->getManager();
-		$repository = new CategoryRepository($em, $em->getClassMetadata(Category::class));
-		
 		$userId = $this->tokenStorage->getToken()->getUser()->getId();
-		$subcategories = $repository->findFilterItemsByUserAndCategory($userId, $id);
-		$viewParams['subcategories'] = $repository->findBy(['id' => $subcategories]);
+		$subcategories = $this->categoryRepository->findFilterItemsByUserAndCategory($userId, $id);
+		$viewParams['subcategories'] = $this->categoryRepository->findBy(['id' => $subcategories]);
 		
 		$params['viewParams'] = $viewParams;
 		
@@ -102,15 +116,9 @@ class CategoryParamsManager extends EntryParamsManager {
 	
 	protected function getShowSubcategoryParams(Request $request, array $params, $id) {
 		$viewParams = $params['viewParams'];
-		
-		$em = $this->doctrine->getManager();
 		 
-		$segmentRepository = new SegmentRepository($em, $em->getClassMetadata(Segment::class));
-		$viewParams['segments'] = $segmentRepository->findItemsByCategory($id);
-		 
-		$productRepository = new ProductRepository($em, $em->getClassMetadata(Product::class));
-		$viewParams['numOfProducts'] = $productRepository->findItemsCount($id, 'id');
-		 
+		$viewParams['segments'] = $this->segmentRepository->findItemsByCategory($id);
+		$viewParams['numOfProducts'] = $this->productRepository->findItemsCount($id, 'id');
 		 
 		$viewParams = $this->initBenchmarkFields($viewParams, $id);
 		$viewParams = $this->initCharts($viewParams);

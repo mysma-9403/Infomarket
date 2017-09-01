@@ -11,9 +11,9 @@ use AppBundle\Filter\Admin\Main\TermFilter;
 use AppBundle\Form\Editor\Admin\Main\TermEditorType;
 use AppBundle\Form\Filter\Admin\Main\TermFilterType;
 use AppBundle\Form\Lists\Base\InfoMarketEntityListType;
-use AppBundle\Manager\Entity\Common\TermManager;
 use AppBundle\Manager\Filter\Base\FilterManager;
 use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Manager\Entity\Common\Main\TermManager;
 
 class TermController extends SimpleEntityController {
 	
@@ -148,7 +148,7 @@ class TermController extends SimpleEntityController {
 	//---------------------------------------------------------------------------
 	
 	protected function getEntityManager($doctrine, $paginator) {
-		return new TermManager($doctrine, $paginator);
+		return $this->get(TermManager::class);
 	}
 	
 	protected function getFilterManager($doctrine) {

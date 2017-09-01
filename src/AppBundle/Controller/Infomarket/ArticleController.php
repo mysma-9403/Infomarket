@@ -16,6 +16,7 @@ use AppBundle\Manager\Params\EntryParams\Infomarket\ArticleEntryParamsManager;
 use AppBundle\Repository\Infomarket\CategoryRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Repository\Infomarket\ArticleRepository;
 
 class ArticleController extends InfomarketController
 {   
@@ -163,12 +164,13 @@ class ArticleController extends InfomarketController
 	//---------------------------------------------------------------------------
 	
 	protected function getInternalEntryParamsManager(EntityManager $em, FilterManager $fm, $doctrine) {
-		return new ArticleEntryParamsManager($em, $fm, $doctrine);
+		$articleRepository = $this->get(ArticleRepository::class);
+		return new ArticleEntryParamsManager($em, $fm, $articleRepository);
 	}
 	
 	protected function getEntityManager($doctrine, $paginator) {
-		$tokenStorage = $this->get('security.token_storage');
-		return new ArticleManager($doctrine, $paginator, $tokenStorage);
+		return $this->get(ArticleManager::class);
+		
 	}
 	
 	protected function getFilterManager($doctrine) {

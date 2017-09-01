@@ -73,10 +73,7 @@ class MagazineController extends InfomarketController
 	//---------------------------------------------------------------------------
 	
 	protected function getEntityManager($doctrine, $paginator) {
-		$em = new MagazineManager($doctrine, $paginator);
-		$em->setEntriesPerPage(12);
-		
-		return $em;
+		return $this->get(MagazineManager::class);
 	}
 	
 	protected function getFilterManager($doctrine) {

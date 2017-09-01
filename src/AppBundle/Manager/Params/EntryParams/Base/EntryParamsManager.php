@@ -4,10 +4,9 @@ namespace AppBundle\Manager\Params\EntryParams\Base;
 
 use AppBundle\Manager\Entity\Base\EntityManager;
 use AppBundle\Manager\Filter\Base\FilterManager;
-use AppBundle\Manager\Params\Base\ParamsManager;
 use Symfony\Component\HttpFoundation\Request;
 
-class EntryParamsManager extends ParamsManager {
+class EntryParamsManager {
 	
 	/** @var EntityManager */
 	protected $em;
@@ -20,9 +19,7 @@ class EntryParamsManager extends ParamsManager {
 	 * @param EntityManager $entityManager
 	 * @param unknown $doctrine
 	 */
-	public function __construct(EntityManager $em, FilterManager $fm, $doctrine) {
-		parent::__construct($doctrine);
-		
+	public function __construct(EntityManager $em, FilterManager $fm) {
 		$this->em = $em;
 		$this->fm = $fm;
 	}
