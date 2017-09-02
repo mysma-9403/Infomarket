@@ -2,7 +2,7 @@
 
 namespace AppBundle\Form\Filter\Admin\Assignments;
 
-use AppBundle\Filter\Admin\Assignments\ArticleBrandAssignmentFilter;
+use AppBundle\Filter\Common\Assignments\ArticleBrandAssignmentFilter;
 use AppBundle\Form\Filter\Admin\Base\SimpleEntityFilterType;
 use Symfony\Component\Form\FormBuilderInterface;
 

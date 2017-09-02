@@ -8,7 +8,7 @@ use AppBundle\Entity\Category;
 use AppBundle\Factory\Common\Choices\Bool\InfomarketChoicesFactory;
 use AppBundle\Factory\Common\Choices\Bool\InfoproduktChoicesFactory;
 use AppBundle\Factory\Common\Choices\Enum\AdvertLocationsFactory;
-use AppBundle\Filter\Admin\Main\AdvertFilter;
+use AppBundle\Filter\Common\Main\AdvertFilter;
 use AppBundle\Form\Editor\Admin\Main\AdvertEditorType;
 use AppBundle\Form\Filter\Admin\Main\AdvertFilterType;
 use AppBundle\Form\Lists\Base\InfoMarketEntityListType;

@@ -3,7 +3,7 @@
 namespace AppBundle\Repository\Admin\Main;
 
 use AppBundle\Entity\BenchmarkEnum;
-use AppBundle\Filter\Admin\Main\BenchmarkEnumFilter;
+use AppBundle\Filter\Common\Main\BenchmarkEnumFilter;
 use AppBundle\Filter\Base\Filter;
 use AppBundle\Repository\Admin\Base\AuditRepository;
 use Doctrine\ORM\QueryBuilder;

@@ -7,7 +7,7 @@ use AppBundle\Entity\NewsletterPage;
 use AppBundle\Entity\NewsletterUser;
 use AppBundle\Entity\NewsletterUserNewsletterPageAssignment;
 use AppBundle\Factory\Common\Choices\Enum\NewsletterUserNewsletterPageAssignmentStatesFactory;
-use AppBundle\Filter\Admin\Assignments\NewsletterUserNewsletterPageAssignmentFilter;
+use AppBundle\Filter\Common\Assignments\NewsletterUserNewsletterPageAssignmentFilter;
 use AppBundle\Form\Filter\Admin\Assignments\NewsletterUserNewsletterPageAssignmentFilterType;
 use AppBundle\Manager\Entity\Common\Assignments\NewsletterUserNewsletterPageAssignmentManager;
 use AppBundle\Manager\Filter\Base\FilterManager;

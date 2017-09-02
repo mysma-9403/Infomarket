@@ -6,7 +6,7 @@ use AppBundle\Controller\Admin\Base\AssignmentController;
 use AppBundle\Entity\Article;
 use AppBundle\Entity\ArticleArticleCategoryAssignment;
 use AppBundle\Entity\ArticleCategory;
-use AppBundle\Filter\Admin\Assignments\ArticleArticleCategoryAssignmentFilter;
+use AppBundle\Filter\Common\Assignments\ArticleArticleCategoryAssignmentFilter;
 use AppBundle\Form\Editor\Admin\Assignments\ArticleArticleCategoryAssignmentEditorType;
 use AppBundle\Form\Filter\Admin\Assignments\ArticleArticleCategoryAssignmentFilterType;
 use AppBundle\Manager\Filter\Base\FilterManager;

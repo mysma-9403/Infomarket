@@ -4,7 +4,7 @@ namespace AppBundle\Controller\Infoprodukt;
 
 use AppBundle\Controller\Infoprodukt\Base\InfoproduktController;
 use AppBundle\Entity\Category;
-use AppBundle\Filter\Common\SearchFilter;
+use AppBundle\Filter\Common\Search\SearchFilter;
 use AppBundle\Manager\Entity\Base\EntityManager;
 use AppBundle\Manager\Filter\Base\FilterManager;
 use AppBundle\Manager\Params\EntryParams\Infoprodukt\SearchEntryParamsManager;

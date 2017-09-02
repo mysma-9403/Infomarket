@@ -6,7 +6,7 @@ use AppBundle\Controller\Admin\Base\SimpleEntityController;
 use AppBundle\Entity\Tag;
 use AppBundle\Factory\Common\Choices\Bool\InfomarketChoicesFactory;
 use AppBundle\Factory\Common\Choices\Bool\InfoproduktChoicesFactory;
-use AppBundle\Filter\Admin\Main\TagFilter;
+use AppBundle\Filter\Common\Main\TagFilter;
 use AppBundle\Form\Editor\Admin\Main\TagEditorType;
 use AppBundle\Form\Filter\Admin\Main\TagFilterType;
 use AppBundle\Form\Lists\Base\InfoMarketEntityListType;

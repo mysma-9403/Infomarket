@@ -74,14 +74,15 @@ class AssignmentsManager {
 
 	/**
 	 * Assigns matching entries from $assignees to the $item entry.
-	 * Assignee matches item, if their key fields have the same value 
+	 * Assignee matches item, if their key fields have the same value
 	 * (e.g. item.id = assignee.item).
 	 *
-	 * @param $item
-	 * @param array $assignees
+	 * @param
+	 *        	$item
+	 * @param array $assignees        	
 	 *
 	 * @return array items with assigned values
-	 *
+	 *        
 	 * @see AssignmentsManager.setItemKey
 	 * @see AssignmentsManager.setAssigneeKey
 	 */

@@ -2,7 +2,7 @@
 
 namespace Tests\AppBundle\Form\Filter\Admin\Assignments;
 
-use AppBundle\Filter\Admin\Assignments\MagazineCategoryAssignmentFilter;
+use AppBundle\Filter\Common\Assignments\MagazineCategoryAssignmentFilter;
 use AppBundle\Form\Filter\Admin\Assignments\MagazineCategoryAssignmentFilterType;
 use Tests\AppBundle\Form\Filter\Admin\Base\BaseEntityFilterTypeTest;
 

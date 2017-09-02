@@ -4,12 +4,12 @@ namespace AppBundle\Manager\Params\EntryParams\Admin;
 
 use AppBundle\Entity\Category;
 use AppBundle\Filter\Admin\Other\CategoryFilter;
-use AppBundle\Filter\Common\Other\ProductFilter;
+use AppBundle\Filter\Common\Main\ProductFilter;
+use AppBundle\Manager\Entity\Base\EntityManager;
+use AppBundle\Manager\Filter\Base\FilterManager;
 use AppBundle\Manager\Params\EntryParams\Base\EntryParamsManager;
 use AppBundle\Repository\Admin\Main\CategoryRepository;
 use Symfony\Component\HttpFoundation\Request;
-use AppBundle\Manager\Entity\Base\EntityManager;
-use AppBundle\Manager\Filter\Base\FilterManager;
 
 class ProductEntryParamsManager extends EntryParamsManager {
 
@@ -18,15 +18,14 @@ class ProductEntryParamsManager extends EntryParamsManager {
 	 * @var ProductFilter
 	 */
 	protected $productFilter;
-	
+
 	/**
 	 *
 	 * @var CategoryRepository
 	 */
 	protected $categoryRepository;
 
-	public function __construct(EntityManager $em, FilterManager $fm, 
-			ProductFilter $productFilter, CategoryRepository $categoryRepository) {
+	public function __construct(EntityManager $em, FilterManager $fm, ProductFilter $productFilter, CategoryRepository $categoryRepository) {
 		parent::__construct($em, $fm);
 		
 		$this->productFilter = $productFilter;

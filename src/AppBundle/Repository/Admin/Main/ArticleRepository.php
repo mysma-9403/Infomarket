@@ -6,7 +6,7 @@ use AppBundle\Entity\Article;
 use AppBundle\Entity\ArticleArticleCategoryAssignment;
 use AppBundle\Entity\ArticleBrandAssignment;
 use AppBundle\Entity\ArticleCategoryAssignment;
-use AppBundle\Filter\Admin\Main\ArticleFilter;
+use AppBundle\Filter\Common\Main\ArticleFilter;
 use AppBundle\Filter\Base\Filter;
 use AppBundle\Repository\Admin\Base\ImageEntityRepository;
 use Doctrine\ORM\Query\Expr\Join;

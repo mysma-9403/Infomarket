@@ -3,7 +3,7 @@
 namespace AppBundle\Form\Filter\Admin\Main;
 
 use AppBundle\Entity\Advert;
-use AppBundle\Filter\Admin\Main\AdvertFilter;
+use AppBundle\Filter\Common\Main\AdvertFilter;
 use AppBundle\Filter\Base\Filter;
 use AppBundle\Form\Filter\Admin\Base\SimpleEntityFilterType;
 use Symfony\Component\Form\FormBuilderInterface;

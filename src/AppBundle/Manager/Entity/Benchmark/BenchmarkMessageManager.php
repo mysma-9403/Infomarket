@@ -11,31 +11,31 @@ use AppBundle\Repository\Base\BaseRepository;
 use AppBundle\Manager\Params\Base\ParamsManager;
 
 class BenchmarkMessageManager extends EntityManager {
-	
+
 	/**
-	 * 
+	 *
 	 * @var ParamsManager
 	 */
 	protected $paramsManager;
-	
+
 	/**
-	 * 
+	 *
 	 * @var unknown
 	 */
 	protected $tokenStorage;
-	
+
 	public function __construct(BaseRepository $repository, $paginator, ParamsManager $paramsManager, $tokenStorage) {
 		parent::__construct($repository, $paginator);
 		
 		$this->paramsManager = $paramsManager;
 		$this->tokenStorage = $tokenStorage;
 	}
-	
+
 	protected function getRepository() {
 		$em = $this->doctrine->getManager();
 		return new BenchmarkMessageRepository($em, $em->getClassMetadata(BenchmarkMessage::class));
 	}
-	
+
 	public function createFromRequest(Request $request) {
 		$entry = parent::createFromRequest($request);
 		/** @var BenchmarkMessage $entry */
@@ -54,13 +54,13 @@ class BenchmarkMessageManager extends EntityManager {
 		
 		return $entry;
 	}
-	
+
 	/**
 	 *
-	 * @param BenchmarkMessage $template
+	 * @param BenchmarkMessage $template        	
 	 *
 	 * {@inheritDoc}
-	 * 
+	 *
 	 * @see \AppBundle\Manager\Entity\Base\EntityManager::createFromTemplate()
 	 */
 	public function createFromTemplate($template) {
@@ -81,7 +81,7 @@ class BenchmarkMessageManager extends EntityManager {
 		
 		return $entry;
 	}
-	
+
 	protected function getEntityType() {
 		return BenchmarkMessage::class;
 	}

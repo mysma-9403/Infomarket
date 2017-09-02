@@ -9,7 +9,7 @@ use AppBundle\Filter\Base\Filter;
 use AppBundle\Repository\Search\Base\SearchRepository;
 use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\ORM\QueryBuilder;
-use AppBundle\Filter\Common\BrandCategorySearchFilter;
+use AppBundle\Filter\Common\Search\BrandCategorySearchFilter;
 
 class ArticleSearchRepository extends SearchRepository {
 

@@ -6,7 +6,7 @@ use AppBundle\Controller\Admin\Base\AssignmentController;
 use AppBundle\Entity\Branch;
 use AppBundle\Entity\BranchCategoryAssignment;
 use AppBundle\Entity\Category;
-use AppBundle\Filter\Admin\Assignments\BranchCategoryAssignmentFilter;
+use AppBundle\Filter\Common\Assignments\BranchCategoryAssignmentFilter;
 use AppBundle\Form\Editor\Admin\Assignments\BranchCategoryAssignmentEditorType;
 use AppBundle\Form\Filter\Admin\Assignments\BranchCategoryAssignmentFilterType;
 use AppBundle\Manager\Entity\Common\Assignments\BranchCategoryAssignmentManager;

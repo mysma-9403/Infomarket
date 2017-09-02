@@ -2,7 +2,7 @@
 
 namespace Tests\AppBundle\Form\Filter\Admin\Assignments;
 
-use AppBundle\Filter\Admin\Assignments\ArticleTagAssignmentFilter;
+use AppBundle\Filter\Common\Assignments\ArticleTagAssignmentFilter;
 use AppBundle\Form\Filter\Admin\Assignments\ArticleTagAssignmentFilterType;
 use Tests\AppBundle\Form\Filter\Admin\Base\BaseEntityFilterTypeTest;
 

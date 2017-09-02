@@ -5,7 +5,7 @@ namespace AppBundle\Repository\Admin\Assignments;
 use AppBundle\Entity\NewsletterPage;
 use AppBundle\Entity\NewsletterUser;
 use AppBundle\Entity\NewsletterUserNewsletterPageAssignment;
-use AppBundle\Filter\Admin\Assignments\NewsletterUserNewsletterPageAssignmentFilter;
+use AppBundle\Filter\Common\Assignments\NewsletterUserNewsletterPageAssignmentFilter;
 use AppBundle\Filter\Base\Filter;
 use AppBundle\Repository\Admin\Base\AuditRepository;
 use Doctrine\ORM\Query\Expr\Join;

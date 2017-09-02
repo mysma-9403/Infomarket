@@ -6,7 +6,7 @@ use AppBundle\Controller\Admin\Base\AssignmentController;
 use AppBundle\Entity\Article;
 use AppBundle\Entity\ArticleBrandAssignment;
 use AppBundle\Entity\Brand;
-use AppBundle\Filter\Admin\Assignments\ArticleBrandAssignmentFilter;
+use AppBundle\Filter\Common\Assignments\ArticleBrandAssignmentFilter;
 use AppBundle\Form\Editor\Admin\Assignments\ArticleBrandAssignmentEditorType;
 use AppBundle\Form\Filter\Admin\Assignments\ArticleBrandAssignmentFilterType;
 use AppBundle\Manager\Entity\Common\Assignments\ArticleBrandAssignmentManager;

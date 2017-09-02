@@ -6,7 +6,7 @@ use AppBundle\Controller\Admin\Base\AdminController;
 use AppBundle\Entity\Lists\Base\BaseEntityList;
 use AppBundle\Entity\User;
 use AppBundle\Factory\Common\Choices\Enum\UserRolesFactory;
-use AppBundle\Filter\Admin\Main\UserFilter;
+use AppBundle\Filter\Common\Main\UserFilter;
 use AppBundle\Form\Editor\Admin\Main\UserEditorType;
 use AppBundle\Form\Filter\Admin\Main\UserFilterType;
 use AppBundle\Form\Lists\Base\BaseEntityListType;

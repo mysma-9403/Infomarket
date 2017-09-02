@@ -8,19 +8,19 @@ use AppBundle\Repository\Admin\Main\BenchmarkMessageRepository;
 use Symfony\Component\HttpFoundation\Request;
 
 class ContextParamsManager extends ParamsManager {
-	
+
 	/**
-	 * 
+	 *
 	 * @var array
 	 */
 	protected $lastRouteParams;
-	
+
 	/**
 	 *
 	 * @var BenchmarkMessageRepository
 	 */
 	protected $benchmarkMessageRepository;
-	
+
 	public function __construct($doctrine, array $lastRouteParams) {
 		parent::__construct($doctrine, null);
 		
@@ -30,19 +30,18 @@ class ContextParamsManager extends ParamsManager {
 		
 		$this->benchmarkMessageRepository = new BenchmarkMessageRepository($em, $em->getClassMetadata(BenchmarkMessage::class));
 	}
-	
+
 	public function getParams(Request $request, array $params) {
 		$viewParams = $params['viewParams'];
 		
 		$unreadMessagesCount = $this->getUnreadMessagesCount();
 		$viewParams['unreadMessagesCount'] = $unreadMessagesCount;
 		
-    	$params['viewParams'] = $viewParams;
-    	
-    	return $params;
+		$params['viewParams'] = $viewParams;
+		
+		return $params;
 	}
-	
-	
+
 	protected function getUnreadMessagesCount() {
 		return $this->benchmarkMessageRepository->findUnreadItemsCount();
 	}

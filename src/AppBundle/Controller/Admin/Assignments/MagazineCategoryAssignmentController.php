@@ -6,7 +6,7 @@ use AppBundle\Controller\Admin\Base\AssignmentController;
 use AppBundle\Entity\Category;
 use AppBundle\Entity\Magazine;
 use AppBundle\Entity\MagazineCategoryAssignment;
-use AppBundle\Filter\Admin\Assignments\MagazineCategoryAssignmentFilter;
+use AppBundle\Filter\Common\Assignments\MagazineCategoryAssignmentFilter;
 use AppBundle\Form\Editor\Admin\Assignments\MagazineCategoryAssignmentEditorType;
 use AppBundle\Form\Filter\Admin\Assignments\MagazineCategoryAssignmentFilterType;
 use AppBundle\Manager\Entity\Common\Assignments\MagazineCategoryAssignmentManager;

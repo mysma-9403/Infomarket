@@ -5,7 +5,7 @@ namespace AppBundle\Repository\Admin\Main;
 use AppBundle\Entity\Magazine;
 use AppBundle\Entity\MagazineBranchAssignment;
 use AppBundle\Entity\MagazineCategoryAssignment;
-use AppBundle\Filter\Admin\Main\MagazineFilter;
+use AppBundle\Filter\Common\Main\MagazineFilter;
 use AppBundle\Filter\Base\Filter;
 use AppBundle\Repository\Admin\Base\ImageEntityRepository;
 use Doctrine\ORM\Query\Expr\Join;

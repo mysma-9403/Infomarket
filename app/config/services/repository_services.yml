@@ -67,6 +67,10 @@ services:
         factory: ['@AppBundle\Repository\Factory\InfomarketRepositoryFactory', getRepository]
         arguments:
             - AppBundle\Repository\Infomarket\TagRepository
+    AppBundle\Repository\Infomarket\TermRepository:
+        factory: ['@AppBundle\Repository\Factory\InfomarketRepositoryFactory', getRepository]
+        arguments:
+            - AppBundle\Repository\Infomarket\TermRepository
     ## Infomarket Search Repositories        
     AppBundle\Repository\Search\Infomarket\ArticleSearchRepository:
         factory: ['@AppBundle\Repository\Factory\InfomarketRepositoryFactory', getRepository]
@@ -130,6 +134,10 @@ services:
         factory: ['@AppBundle\Repository\Factory\InfoproduktRepositoryFactory', getRepository]
         arguments:
             - AppBundle\Repository\Infoprodukt\TagRepository
+    AppBundle\Repository\Infoprodukt\TermRepository:
+        factory: ['@AppBundle\Repository\Factory\InfoproduktRepositoryFactory', getRepository]
+        arguments:
+            - AppBundle\Repository\Infoprodukt\TermRepository
     ## Infoprodukt Search Repositories        
     AppBundle\Repository\Search\Infoprodukt\ArticleSearchRepository:
         factory: ['@AppBundle\Repository\Factory\InfoproduktRepositoryFactory', getRepository]

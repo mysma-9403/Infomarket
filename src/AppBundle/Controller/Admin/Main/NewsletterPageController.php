@@ -8,8 +8,8 @@ use AppBundle\Entity\NewsletterPage;
 use AppBundle\Entity\NewsletterPageTemplate;
 use AppBundle\Entity\NewsletterUser;
 use AppBundle\Entity\NewsletterUserNewsletterPageAssignment;
-use AppBundle\Filter\Admin\Main\NewsletterPageFilter;
 use AppBundle\Filter\Admin\Other\SendNewsletterFilter;
+use AppBundle\Filter\Common\Main\NewsletterPageFilter;
 use AppBundle\Form\Editor\Admin\Main\NewsletterPageEditorType;
 use AppBundle\Form\Filter\Admin\Main\NewsletterPageFilterType;
 use AppBundle\Form\Filter\Admin\Other\SendNewsletterFilterType;
@@ -17,13 +17,13 @@ use AppBundle\Manager\Entity\Base\EntityManager;
 use AppBundle\Manager\Entity\Common\Main\NewsletterPageManager;
 use AppBundle\Manager\Filter\Base\FilterManager;
 use AppBundle\Manager\Params\EntryParams\Admin\NewsletterPageEntryParamsManager;
+use AppBundle\Repository\Admin\Main\NewsletterGroupRepository;
+use AppBundle\Repository\Admin\Other\SendNewsletterRepository;
 use AppBundle\Validation\StringValidation;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\StreamedResponse;
-use AppBundle\Repository\Admin\Main\NewsletterGroupRepository;
-use AppBundle\Repository\Admin\Other\SendNewsletterRepository;
 
 class NewsletterPageController extends SimpleEntityController {
 	

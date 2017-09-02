@@ -3,7 +3,7 @@
 namespace AppBundle\Repository\Admin\Main;
 
 use AppBundle\Entity\Link;
-use AppBundle\Filter\Admin\Main\LinkFilter;
+use AppBundle\Filter\Common\Main\LinkFilter;
 use AppBundle\Filter\Base\Filter;
 use AppBundle\Repository\Admin\Base\SimpleEntityRepository;
 use Doctrine\ORM\QueryBuilder;

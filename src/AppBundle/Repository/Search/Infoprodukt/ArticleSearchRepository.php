@@ -6,7 +6,7 @@ use AppBundle\Entity\Article;
 use AppBundle\Entity\ArticleBrandAssignment;
 use AppBundle\Entity\ArticleCategoryAssignment;
 use AppBundle\Filter\Base\Filter;
-use AppBundle\Filter\Common\BrandCategorySearchFilter;
+use AppBundle\Filter\Common\Search\BrandCategorySearchFilter;
 use AppBundle\Repository\Search\Base\SearchRepository;
 use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\ORM\QueryBuilder;

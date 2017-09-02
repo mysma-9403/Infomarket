@@ -6,7 +6,7 @@ use AppBundle\Controller\Admin\Base\AssignmentController;
 use AppBundle\Entity\Menu;
 use AppBundle\Entity\MenuEntry;
 use AppBundle\Entity\MenuMenuEntryAssignment;
-use AppBundle\Filter\Admin\Assignments\MenuMenuEntryAssignmentFilter;
+use AppBundle\Filter\Common\Assignments\MenuMenuEntryAssignmentFilter;
 use AppBundle\Form\Editor\Admin\Assignments\MenuMenuEntryAssignmentEditorType;
 use AppBundle\Form\Filter\Admin\Assignments\MenuMenuEntryAssignmentFilterType;
 use AppBundle\Manager\Entity\Common\Assignments\MenuMenuEntryAssignmentManager;

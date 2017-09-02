@@ -4,7 +4,7 @@ namespace AppBundle\Repository\Admin\Main;
 
 use AppBundle\Entity\BenchmarkField;
 use AppBundle\Entity\Category;
-use AppBundle\Filter\Admin\Main\BenchmarkFieldFilter;
+use AppBundle\Filter\Common\Main\BenchmarkFieldFilter;
 use AppBundle\Filter\Base\Filter;
 use AppBundle\Repository\Admin\Base\AuditRepository;
 use Doctrine\ORM\Query\Expr\Join;

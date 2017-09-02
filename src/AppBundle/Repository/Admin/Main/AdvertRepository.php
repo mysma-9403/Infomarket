@@ -4,7 +4,7 @@ namespace AppBundle\Repository\Admin\Main;
 
 use AppBundle\Entity\Advert;
 use AppBundle\Entity\AdvertCategoryAssignment;
-use AppBundle\Filter\Admin\Main\AdvertFilter;
+use AppBundle\Filter\Common\Main\AdvertFilter;
 use AppBundle\Filter\Base\Filter;
 use AppBundle\Repository\Admin\Base\ImageEntityRepository;
 use Doctrine\ORM\Query\Expr\Join;

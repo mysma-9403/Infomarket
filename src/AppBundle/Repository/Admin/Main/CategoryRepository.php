@@ -5,7 +5,7 @@ namespace AppBundle\Repository\Admin\Main;
 use AppBundle\Entity\BranchCategoryAssignment;
 use AppBundle\Entity\Category;
 use AppBundle\Entity\ProductCategoryAssignment;
-use AppBundle\Filter\Admin\Main\CategoryFilter;
+use AppBundle\Filter\Common\Main\CategoryFilter;
 use AppBundle\Filter\Base\Filter;
 use AppBundle\Repository\Admin\Base\ImageEntityRepository;
 use Doctrine\ORM\Query\Expr\Join;

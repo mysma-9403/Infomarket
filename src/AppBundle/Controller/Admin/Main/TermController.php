@@ -7,7 +7,7 @@ use AppBundle\Entity\Category;
 use AppBundle\Entity\Term;
 use AppBundle\Factory\Common\Choices\Bool\InfomarketChoicesFactory;
 use AppBundle\Factory\Common\Choices\Bool\InfoproduktChoicesFactory;
-use AppBundle\Filter\Admin\Main\TermFilter;
+use AppBundle\Filter\Common\Main\TermFilter;
 use AppBundle\Form\Editor\Admin\Main\TermEditorType;
 use AppBundle\Form\Filter\Admin\Main\TermFilterType;
 use AppBundle\Form\Lists\Base\InfoMarketEntityListType;

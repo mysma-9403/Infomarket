@@ -4,7 +4,7 @@ namespace AppBundle\Repository\Admin\Main;
 
 use AppBundle\Entity\NewsletterUser;
 use AppBundle\Entity\NewsletterUserNewsletterPageAssignment;
-use AppBundle\Filter\Admin\Main\NewsletterUserFilter;
+use AppBundle\Filter\Common\Main\NewsletterUserFilter;
 use AppBundle\Filter\Base\Filter;
 use AppBundle\Repository\Admin\Base\SimpleEntityRepository;
 use Doctrine\ORM\Query\Expr\Join;

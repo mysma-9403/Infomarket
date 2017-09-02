@@ -6,7 +6,7 @@ use AppBundle\Controller\Admin\Base\AssignmentController;
 use AppBundle\Entity\Category;
 use AppBundle\Entity\User;
 use AppBundle\Entity\UserCategoryAssignment;
-use AppBundle\Filter\Admin\Assignments\UserCategoryAssignmentFilter;
+use AppBundle\Filter\Common\Assignments\UserCategoryAssignmentFilter;
 use AppBundle\Form\Editor\Admin\Assignments\UserCategoryAssignmentEditorType;
 use AppBundle\Form\Filter\Admin\Assignments\UserCategoryAssignmentFilterType;
 use AppBundle\Manager\Entity\Common\Assignments\UserCategoryAssignmentManager;

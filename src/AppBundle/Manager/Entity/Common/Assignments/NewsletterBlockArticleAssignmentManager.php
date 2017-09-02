@@ -23,7 +23,7 @@ class NewsletterBlockArticleAssignmentManager extends AssignmentManager {
 		
 		return $entry;
 	}
-	
+
 	public function createFromTemplate($template) {
 		$entry = parent::createFromTemplate($template);
 		/** @var NewsletterBlockArticleAssignment $entry */

@@ -9,7 +9,7 @@ use AppBundle\Entity\Magazine;
 use AppBundle\Factory\Common\Choices\Bool\FeaturedChoicesFactory;
 use AppBundle\Factory\Common\Choices\Bool\InfomarketChoicesFactory;
 use AppBundle\Factory\Common\Choices\Bool\InfoproduktChoicesFactory;
-use AppBundle\Filter\Admin\Main\MagazineFilter;
+use AppBundle\Filter\Common\Main\MagazineFilter;
 use AppBundle\Form\Editor\Admin\Main\MagazineEditorType;
 use AppBundle\Form\Filter\Admin\Main\MagazineFilterType;
 use AppBundle\Form\Lists\Base\FeaturedEntityListType;

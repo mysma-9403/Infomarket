@@ -4,7 +4,7 @@ namespace AppBundle\Repository\Search\Infoprodukt;
 
 use AppBundle\Entity\Category;
 use AppBundle\Filter\Base\Filter;
-use AppBundle\Filter\Common\SearchFilter;
+use AppBundle\Filter\Common\Search\SearchFilter;
 use AppBundle\Repository\Search\Base\SearchRepository;
 use Doctrine\ORM\QueryBuilder;
 

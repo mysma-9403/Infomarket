@@ -7,8 +7,8 @@ use AppBundle\Entity\BenchmarkMessage;
 use AppBundle\Entity\Product;
 use AppBundle\Factory\Common\Choices\Bool\ReadChoicesFactory;
 use AppBundle\Factory\Common\Choices\Enum\BenchmarkMessageStatesFactory;
-use AppBundle\Filter\Admin\Base\AuditFilter;
 use AppBundle\Filter\Benchmark\BenchmarkMessageFilter;
+use AppBundle\Filter\Common\Base\BaseFilter;
 use AppBundle\Form\Editor\Benchmark\BenchmarkMessageEditorType;
 use AppBundle\Form\Filter\Benchmark\BenchmarkMessageFilterType;
 use AppBundle\Form\Lists\BenchmarkMessageListType;
@@ -85,7 +85,7 @@ class BenchmarkMessageController extends BaseEntityController {
 		return $this->redirectToReferer($request);
 	}
 	
-	protected function listFormActionInternal(Request $request, Form $form, AuditFilter $filter, array $listItems) {
+	protected function listFormActionInternal(Request $request, Form $form, BaseFilter $filter, array $listItems) {
 	
 		if ($form->get('setReadSelected')->isClicked()) {
 			$data = $form->getData();

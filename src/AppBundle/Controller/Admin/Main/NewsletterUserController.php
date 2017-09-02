@@ -13,7 +13,7 @@ use AppBundle\Factory\Admin\Import\NewsletterUser\PreparedEntryFactory;
 use AppBundle\Factory\Common\Choices\Bool\InfomarketChoicesFactory;
 use AppBundle\Factory\Common\Choices\Bool\InfoproduktChoicesFactory;
 use AppBundle\Factory\Common\Choices\Bool\SubscribedChoicesFactory;
-use AppBundle\Filter\Admin\Main\NewsletterUserFilter;
+use AppBundle\Filter\Common\Main\NewsletterUserFilter;
 use AppBundle\Form\Editor\Admin\Main\NewsletterUserEditorType;
 use AppBundle\Form\Filter\Admin\Main\NewsletterUserFilterType;
 use AppBundle\Form\Other\ImportNewsletterUsersType;

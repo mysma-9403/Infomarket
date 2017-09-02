@@ -6,7 +6,7 @@ use AppBundle\Controller\Admin\Base\AssignmentController;
 use AppBundle\Entity\Magazine;
 use AppBundle\Entity\NewsletterBlock;
 use AppBundle\Entity\NewsletterBlockMagazineAssignment;
-use AppBundle\Filter\Admin\Assignments\NewsletterBlockMagazineAssignmentFilter;
+use AppBundle\Filter\Common\Assignments\NewsletterBlockMagazineAssignmentFilter;
 use AppBundle\Form\Editor\Admin\Assignments\NewsletterBlockMagazineAssignmentEditorType;
 use AppBundle\Form\Filter\Admin\Assignments\NewsletterBlockMagazineAssignmentFilterType;
 use AppBundle\Manager\Entity\Common\Assignments\NewsletterBlockMagazineAssignmentManager;

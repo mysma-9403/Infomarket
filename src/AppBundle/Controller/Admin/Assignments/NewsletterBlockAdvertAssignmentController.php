@@ -6,7 +6,7 @@ use AppBundle\Controller\Admin\Base\AssignmentController;
 use AppBundle\Entity\Advert;
 use AppBundle\Entity\NewsletterBlock;
 use AppBundle\Entity\NewsletterBlockAdvertAssignment;
-use AppBundle\Filter\Admin\Assignments\NewsletterBlockAdvertAssignmentFilter;
+use AppBundle\Filter\Common\Assignments\NewsletterBlockAdvertAssignmentFilter;
 use AppBundle\Form\Editor\Admin\Assignments\NewsletterBlockAdvertAssignmentEditorType;
 use AppBundle\Form\Filter\Admin\Assignments\NewsletterBlockAdvertAssignmentFilterType;
 use AppBundle\Manager\Entity\Common\Assignments\NewsletterBlockAdvertAssignmentManager;

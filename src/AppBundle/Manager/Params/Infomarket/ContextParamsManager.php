@@ -40,8 +40,8 @@ class ContextParamsManager {
 	 * @var ParamsManager
 	 */
 	protected $paramsManager;
-
-	//TODO lastRouteParams should be moved to function params or within params array -> then it will be possible to define service
+	
+	// TODO lastRouteParams should be moved to function params or within params array -> then it will be possible to define service
 	public function __construct(ArticleCategoryRepository $articleCategoryRepository, BranchRepository $branchRepository, CategoryRepository $categoryRepository, ParamsManager $paramsManager, array $lastRouteParams) {
 		$this->articleCategoryRepository = $articleCategoryRepository;
 		$this->branchRepository = $branchRepository;

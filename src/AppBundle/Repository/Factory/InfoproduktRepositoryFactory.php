@@ -29,6 +29,7 @@ use AppBundle\Repository\Search\Infoprodukt\CategorySearchRepository;
 use AppBundle\Repository\Search\Infoprodukt\ProductSearchRepository;
 use AppBundle\Repository\Search\Infoprodukt\TermSearchRepository;
 use Doctrine\Common\Persistence\ObjectManager;
+use AppBundle\Repository\Infoprodukt\TermRepository;
 
 class InfoproduktRepositoryFactory {
 
@@ -72,6 +73,9 @@ class InfoproduktRepositoryFactory {
 		}
 		if ($class == TagRepository::class) {
 			return new TagRepository($this->em, $this->em->getClassMetadata(Tag::class));
+		}
+		if ($class == TermRepository::class) {
+			return new TermRepository($this->em, $this->em->getClassMetadata(Term::class));
 		}
 		
 		if ($class == ArticleSearchRepository::class) {

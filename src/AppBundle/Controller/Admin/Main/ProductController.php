@@ -11,15 +11,15 @@ use AppBundle\Entity\ProductNote;
 use AppBundle\Factory\Common\BenchmarkField\SimpleBenchmarkFieldFactory;
 use AppBundle\Factory\Common\Choices\Bool\InfomarketChoicesFactory;
 use AppBundle\Factory\Common\Choices\Bool\InfoproduktChoicesFactory;
-use AppBundle\Filter\Admin\Main\ProductFilter;
+use AppBundle\Filter\Common\Main\ProductFilter;
 use AppBundle\Form\Editor\Admin\Main\ProductEditorType;
+use AppBundle\Form\Filter\Admin\Main\CategoryFilterType;
 use AppBundle\Form\Filter\Admin\Main\ProductFilterType;
-use AppBundle\Form\Filter\Admin\Other\CategoryFilterType;
 use AppBundle\Form\Lists\Base\InfoMarketEntityListType;
 use AppBundle\Logic\Common\BenchmarkField\Initializer\BenchmarkFieldsInitializerImpl;
 use AppBundle\Logic\Common\BenchmarkField\Provider\BenchmarkFieldsProvider;
 use AppBundle\Manager\Entity\Base\EntityManager;
-use AppBundle\Manager\Entity\Benchmark\ProductManager;
+use AppBundle\Manager\Entity\Common\Main\ProductManager;
 use AppBundle\Manager\Filter\Base\FilterManager;
 use AppBundle\Manager\Params\EntryParams\Admin\ProductEntryParamsManager;
 use AppBundle\Repository\Admin\Main\CategoryRepository;
@@ -415,7 +415,7 @@ class ProductController extends ImageEntityController {
 		$benchmarkFieldFactory = new SimpleBenchmarkFieldFactory($benchmarkFieldDataBaseUtils);
 		$benchmarkFieldsInitializer = new BenchmarkFieldsInitializerImpl($benchmarkFieldFactory);
 		
-		$productFilter = new \AppBundle\Filter\Common\Other\ProductFilter($benchmarkFieldsProvider, $benchmarkFieldsInitializer);
+		$productFilter = new ProductFilter($benchmarkFieldsProvider, $benchmarkFieldsInitializer);
 		
 		$categoryRepository = $this->get(CategoryRepository::class);
 		return new ProductEntryParamsManager($em, $fm, $productFilter, $categoryRepository);

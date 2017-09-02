@@ -5,7 +5,7 @@ namespace AppBundle\Repository\Admin\Main;
 use AppBundle\Entity\NewsletterBlock;
 use AppBundle\Entity\NewsletterBlockTemplate;
 use AppBundle\Entity\NewsletterPage;
-use AppBundle\Filter\Admin\Main\NewsletterBlockFilter;
+use AppBundle\Filter\Common\Main\NewsletterBlockFilter;
 use AppBundle\Filter\Base\Filter;
 use AppBundle\Repository\Admin\Base\AuditRepository;
 use Doctrine\ORM\Query\Expr\Join;

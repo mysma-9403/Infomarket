@@ -6,7 +6,7 @@ use AppBundle\Entity\NewsletterUser;
 use AppBundle\Repository\Admin\Other\SendNewsletterRepository;
 use Doctrine\Common\Persistence\ObjectManager;
 
-class InfomarketRepositoryFactory {
+class AdminRepositoryFactory {
 
 	/**
 	 *

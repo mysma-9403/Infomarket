@@ -7,9 +7,9 @@ use AppBundle\Manager\Params\Base\ParamsManager;
 use AppBundle\Repository\Base\BaseRepository;
 
 class ProductManager extends CommonProductManager {
-	
+
 	public function __construct(BaseRepository $repository, $paginator, ParamsManager $paramsManager) {
 		parent::__construct($repository, $paginator, $paramsManager);
-		$this->entriesPerPage = 12; //TODO same here -> services.yml
+		$this->entriesPerPage = 12; // TODO same here -> services.yml
 	}
 }

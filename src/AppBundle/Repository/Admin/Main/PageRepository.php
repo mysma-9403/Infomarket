@@ -3,7 +3,7 @@
 namespace AppBundle\Repository\Admin\Main;
 
 use AppBundle\Entity\Page;
-use AppBundle\Filter\Admin\Main\PageFilter;
+use AppBundle\Filter\Common\Main\PageFilter;
 use AppBundle\Filter\Base\Filter;
 use AppBundle\Repository\Admin\Base\ImageEntityRepository;
 use Doctrine\ORM\QueryBuilder;

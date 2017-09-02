@@ -5,7 +5,7 @@ namespace AppBundle\Repository\Admin\Assignments;
 use AppBundle\Entity\Category;
 use AppBundle\Entity\MenuEntry;
 use AppBundle\Entity\MenuEntryCategoryAssignment;
-use AppBundle\Filter\Admin\Assignments\MenuEntryCategoryAssignmentFilter;
+use AppBundle\Filter\Common\Assignments\MenuEntryCategoryAssignmentFilter;
 use AppBundle\Filter\Base\Filter;
 use AppBundle\Repository\Admin\Base\AuditRepository;
 use Doctrine\ORM\Query\Expr\Join;

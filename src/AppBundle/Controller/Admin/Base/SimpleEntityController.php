@@ -2,9 +2,9 @@
 
 namespace AppBundle\Controller\Admin\Base;
 
-use AppBundle\Filter\Admin\Base\AuditFilter;
-use AppBundle\Filter\Admin\Base\SimpleEntityFilter;
 use AppBundle\Filter\Base\Filter;
+use AppBundle\Filter\Common\Base\BaseFilter;
+use AppBundle\Filter\Common\Base\SimpleEntityFilter;
 use AppBundle\Form\Filter\Admin\Base\SimpleEntityFilterType;
 use AppBundle\Manager\Filter\Base\FilterManager;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -24,7 +24,7 @@ abstract class SimpleEntityController extends BaseEntityController
 	 * @param Request $request
 	 * @param BaseFormType $form
 	 */
-	protected function listFormActionInternal(Request $request, Form $form, AuditFilter $filter, array $listItems) {
+	protected function listFormActionInternal(Request $request, Form $form, BaseFilter $filter, array $listItems) {
 		
 		if ($form->get('imPublishSelected')->isClicked()) {
 			$data = $form->getData();

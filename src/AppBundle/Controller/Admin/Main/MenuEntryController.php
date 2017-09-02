@@ -11,7 +11,7 @@ use AppBundle\Entity\MenuEntry;
 use AppBundle\Entity\Page;
 use AppBundle\Factory\Common\Choices\Bool\InfomarketChoicesFactory;
 use AppBundle\Factory\Common\Choices\Bool\InfoproduktChoicesFactory;
-use AppBundle\Filter\Admin\Main\MenuEntryFilter;
+use AppBundle\Filter\Common\Main\MenuEntryFilter;
 use AppBundle\Form\Editor\Admin\Main\MenuEntryEditorType;
 use AppBundle\Form\Filter\Admin\Main\MenuEntryFilterType;
 use AppBundle\Form\Lists\Base\InfoMarketEntityListType;

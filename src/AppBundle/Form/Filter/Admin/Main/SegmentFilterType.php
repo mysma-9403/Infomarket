@@ -2,7 +2,7 @@
 
 namespace AppBundle\Form\Filter\Admin\Main;
 
-use AppBundle\Filter\Admin\Main\SegmentFilter;
+use AppBundle\Filter\Common\Main\SegmentFilter;
 use AppBundle\Form\Filter\Admin\Base\SimpleEntityFilterType;
 use Symfony\Component\Form\FormBuilderInterface;
 

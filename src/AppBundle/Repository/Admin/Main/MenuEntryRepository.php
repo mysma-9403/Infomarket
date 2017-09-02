@@ -8,7 +8,7 @@ use AppBundle\Filter\Base\Filter;
 use AppBundle\Entity\MenuEntryBranchAssignment;
 use AppBundle\Entity\MenuEntryCategoryAssignment;
 use Doctrine\ORM\Query\Expr\Join;
-use AppBundle\Filter\Admin\Main\MenuEntryFilter;
+use AppBundle\Filter\Common\Main\MenuEntryFilter;
 use AppBundle\Entity\Page;
 use AppBundle\Entity\Link;
 use Doctrine\ORM\QueryBuilder;

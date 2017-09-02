@@ -2,7 +2,7 @@
 
 namespace AppBundle\Form\Filter\Admin\Main;
 
-use AppBundle\Filter\Admin\Main\NewsletterGroupFilter;
+use AppBundle\Filter\Common\Main\NewsletterGroupFilter;
 use AppBundle\Form\Filter\Admin\Base\SimpleEntityFilterType;
 use Symfony\Component\Form\FormBuilderInterface;
 

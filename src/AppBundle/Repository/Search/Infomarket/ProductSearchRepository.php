@@ -5,7 +5,7 @@ namespace AppBundle\Repository\Search\Infomarket;
 use AppBundle\Entity\Product;
 use AppBundle\Entity\ProductCategoryAssignment;
 use AppBundle\Filter\Base\Filter;
-use AppBundle\Filter\Common\BrandCategorySearchFilter;
+use AppBundle\Filter\Common\Search\BrandCategorySearchFilter;
 use AppBundle\Repository\Search\Base\SearchRepository;
 use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\ORM\QueryBuilder;

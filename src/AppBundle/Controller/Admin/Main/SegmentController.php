@@ -6,7 +6,7 @@ use AppBundle\Controller\Admin\Base\ImageEntityController;
 use AppBundle\Entity\Segment;
 use AppBundle\Factory\Common\Choices\Bool\InfomarketChoicesFactory;
 use AppBundle\Factory\Common\Choices\Bool\InfoproduktChoicesFactory;
-use AppBundle\Filter\Admin\Main\SegmentFilter;
+use AppBundle\Filter\Common\Main\SegmentFilter;
 use AppBundle\Form\Editor\Admin\Main\SegmentEditorType;
 use AppBundle\Form\Filter\Admin\Main\SegmentFilterType;
 use AppBundle\Form\Lists\Base\InfoMarketEntityListType;

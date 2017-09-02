@@ -15,7 +15,7 @@ class ArticleManager extends EntityManager {
 	 * @var ParamsManager
 	 */
 	protected $paramsManager;
-
+	
 	// TODO common manager shouldn't use admin repository
 	public function __construct(BaseRepository $repository, $paginator, ParamsManager $paramsManager) {
 		parent::__construct($repository, $paginator);

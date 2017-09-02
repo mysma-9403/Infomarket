@@ -8,18 +8,18 @@ use AppBundle\Entity\Product;
 use AppBundle\Entity\User;
 use AppBundle\Factory\Common\Choices\Bool\ReadChoicesFactory;
 use AppBundle\Factory\Common\Choices\Enum\BenchmarkMessageStatesFactory;
-use AppBundle\Filter\Admin\Base\AuditFilter;
-use AppBundle\Filter\Admin\Main\BenchmarkMessageFilter;
+use AppBundle\Filter\Common\Base\BaseFilter;
+use AppBundle\Filter\Common\Main\BenchmarkMessageFilter;
 use AppBundle\Form\Editor\Admin\Main\BenchmarkMessageEditorType;
 use AppBundle\Form\Filter\Admin\Main\BenchmarkMessageFilterType;
 use AppBundle\Form\Lists\BenchmarkMessageListType;
 use AppBundle\Manager\Entity\Base\EntityManager;
+use AppBundle\Manager\Entity\Common\Main\BenchmarkMessageManager;
 use AppBundle\Manager\Filter\Base\FilterManager;
 use AppBundle\Manager\Params\EntryParams\Admin\BenchmarkMessageParamsManager;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use AppBundle\Manager\Entity\Common\Main\BenchmarkMessageManager;
 
 class BenchmarkMessageController extends BaseEntityController {
 	
@@ -135,7 +135,7 @@ class BenchmarkMessageController extends BaseEntityController {
 		return $this->redirectToReferer($request);
 	}
 	
-	protected function listFormActionInternal(Request $request, Form $form, AuditFilter $filter, array $listItems) {
+	protected function listFormActionInternal(Request $request, Form $form, BaseFilter $filter, array $listItems) {
 	
 		if ($form->get('setReadSelected')->isClicked()) {
 			$data = $form->getData();

@@ -13,7 +13,7 @@ use AppBundle\Factory\Common\Choices\Bool\FeaturedChoicesFactory;
 use AppBundle\Factory\Common\Choices\Bool\InfomarketChoicesFactory;
 use AppBundle\Factory\Common\Choices\Bool\InfoproduktChoicesFactory;
 use AppBundle\Factory\Common\Choices\Bool\PreleafChoicesFactory;
-use AppBundle\Filter\Admin\Main\CategoryFilter;
+use AppBundle\Filter\Common\Main\CategoryFilter;
 use AppBundle\Form\Editor\Admin\Main\CategoryEditorType;
 use AppBundle\Form\Filter\Admin\Main\CategoryFilterType;
 use AppBundle\Form\Lists\Base\FeaturedEntityListType;

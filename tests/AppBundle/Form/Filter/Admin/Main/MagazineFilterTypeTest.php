@@ -2,7 +2,7 @@
 
 namespace Tests\AppBundle\Form\Filter\Admin\Main;
 
-use AppBundle\Filter\Admin\Main\MagazineFilter;
+use AppBundle\Filter\Common\Main\MagazineFilter;
 use AppBundle\Form\Filter\Admin\Main\MagazineFilterType;
 use Tests\AppBundle\Form\Filter\Admin\Base\BaseEntityFilterTypeTest;
 

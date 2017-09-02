@@ -6,7 +6,7 @@ use AppBundle\Controller\Admin\Base\ImageEntityController;
 use AppBundle\Entity\Page;
 use AppBundle\Factory\Common\Choices\Bool\InfomarketChoicesFactory;
 use AppBundle\Factory\Common\Choices\Bool\InfoproduktChoicesFactory;
-use AppBundle\Filter\Admin\Main\PageFilter;
+use AppBundle\Filter\Common\Main\PageFilter;
 use AppBundle\Form\Editor\Admin\Main\PageEditorType;
 use AppBundle\Form\Filter\Admin\Main\PageFilterType;
 use AppBundle\Form\Lists\Base\InfoMarketEntityListType;

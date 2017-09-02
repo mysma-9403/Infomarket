@@ -2,7 +2,7 @@
 
 namespace AppBundle\Form\Filter\Admin\Assignments;
 
-use AppBundle\Filter\Admin\Assignments\UserCategoryAssignmentFilter;
+use AppBundle\Filter\Common\Assignments\UserCategoryAssignmentFilter;
 use AppBundle\Form\Filter\Admin\Base\SimpleEntityFilterType;
 use Symfony\Component\Form\FormBuilderInterface;
 

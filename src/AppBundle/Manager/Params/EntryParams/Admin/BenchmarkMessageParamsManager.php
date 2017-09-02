@@ -7,7 +7,7 @@ use AppBundle\Manager\Params\EntryParams\Base\EntryParamsManager;
 use Symfony\Component\HttpFoundation\Request;
 
 class BenchmarkMessageParamsManager extends EntryParamsManager {
-	
+
 	public function getShowParams(Request $request, array $params, $id) {
 		$params = parent::getShowParams($request, $params, $id);
 		$viewParams = $params['viewParams'];
@@ -23,7 +23,6 @@ class BenchmarkMessageParamsManager extends EntryParamsManager {
 		$newEntry->setProduct($entry->getProduct());
 		$newEntry->setReadByAdmin(true);
 		$newEntry->setReadByAuthor(false);
-		
 		
 		$viewParams['entry'] = $entry;
 		$viewParams['newEntry'] = $newEntry;

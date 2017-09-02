@@ -19,7 +19,7 @@ class ProductRepository extends ImageEntityRepository {
 		$builder->innerJoin(Brand::class, 'b', Join::WITH, 'b.id = e.brand');
 		
 		if (count($filter->getCategories()) > 0) {
-			$builder->leftJoin(ProductCategoryAssignment::class, 'pca', Join::WITH, 'e.id = mca.product');
+			$builder->leftJoin(ProductCategoryAssignment::class, 'pca', Join::WITH, 'e.id = pca.product');
 		}
 	}
 

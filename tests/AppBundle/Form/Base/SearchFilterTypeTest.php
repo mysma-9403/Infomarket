@@ -3,7 +3,7 @@
 namespace Tests\AppBundle\Form\Base;
 
 use AppBundle\Form\Base\SearchFilterType;
-use AppBundle\Filter\Common\SearchFilter;
+use AppBundle\Filter\Common\Search\SearchFilter;
 
 class SearchFilterTypeTest extends BaseTypeTest {
 	

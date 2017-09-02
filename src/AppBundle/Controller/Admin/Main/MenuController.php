@@ -6,7 +6,7 @@ use AppBundle\Controller\Admin\Base\SimpleEntityController;
 use AppBundle\Entity\Menu;
 use AppBundle\Factory\Common\Choices\Bool\InfomarketChoicesFactory;
 use AppBundle\Factory\Common\Choices\Bool\InfoproduktChoicesFactory;
-use AppBundle\Filter\Admin\Main\MenuFilter;
+use AppBundle\Filter\Common\Main\MenuFilter;
 use AppBundle\Form\Filter\Admin\Main\MenuFilterType;
 use AppBundle\Manager\Entity\Common\Main\MenuManager;
 use AppBundle\Manager\Filter\Base\FilterManager;

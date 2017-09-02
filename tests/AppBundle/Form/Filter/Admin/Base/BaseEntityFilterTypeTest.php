@@ -3,7 +3,7 @@
 namespace Tests\AppBundle\Form\Filter\Admin\Base;
 
 
-use AppBundle\Filter\Admin\Base\AuditFilter;
+use AppBundle\Filter\Common\Base\AuditFilter;
 use AppBundle\Form\Filter\Admin\Base\AdminFilterType;
 use Tests\AppBundle\Form\Base\FilterTypeTest;
 

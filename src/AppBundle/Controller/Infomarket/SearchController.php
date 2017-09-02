@@ -4,7 +4,7 @@ namespace AppBundle\Controller\Infomarket;
 
 use AppBundle\Controller\Infomarket\Base\InfomarketController;
 use AppBundle\Entity\Category;
-use AppBundle\Filter\Common\SearchFilter;
+use AppBundle\Filter\Common\Search\SearchFilter;
 use AppBundle\Manager\Entity\Base\EntityManager;
 use AppBundle\Manager\Entity\Infomarket\SearchManager;
 use AppBundle\Manager\Filter\Base\FilterManager;

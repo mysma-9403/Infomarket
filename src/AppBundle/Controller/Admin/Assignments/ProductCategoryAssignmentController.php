@@ -9,7 +9,7 @@ use AppBundle\Entity\Product;
 use AppBundle\Entity\ProductCategoryAssignment;
 use AppBundle\Entity\Segment;
 use AppBundle\Factory\Common\Choices\Bool\FeaturedChoicesFactory;
-use AppBundle\Filter\Admin\Assignments\ProductCategoryAssignmentFilter;
+use AppBundle\Filter\Common\Assignments\ProductCategoryAssignmentFilter;
 use AppBundle\Form\Editor\Admin\Assignments\ProductCategoryAssignmentEditorType;
 use AppBundle\Form\Filter\Admin\Assignments\ProductCategoryAssignmentFilterType;
 use AppBundle\Manager\Entity\Common\Assignments\ProductCategoryAssignmentManager;

@@ -16,9 +16,9 @@ class BenchmarkMessageManager extends EntityManager {
 	 * @var ParamsManager
 	 */
 	protected $paramsManager;
-	
+
 	/**
-	 * 
+	 *
 	 * @var unknown
 	 */
 	protected $tokenStorage;

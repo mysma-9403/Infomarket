@@ -75,7 +75,7 @@ services:
             - '@AppBundle\Manager\Params\Base\ParamsManager'
     AppBundle\Manager\Entity\Infomarket\TermManager:
         arguments:
-            - '@AppBundle\Repository\Admin\Main\TermRepository'
+            - '@AppBundle\Repository\Infomarket\TermRepository'
             - '@knp_paginator'
     ## Infomarket Search Managers
     AppBundle\Manager\Entity\Infomarket\SearchManager:
@@ -118,7 +118,7 @@ services:
             - '@AppBundle\Manager\Params\Base\ParamsManager'
     AppBundle\Manager\Entity\Infoprodukt\TermManager:
         arguments:
-            - '@AppBundle\Repository\Admin\Main\TermRepository'
+            - '@AppBundle\Repository\Infoprodukt\TermRepository'
             - '@knp_paginator'
     ## Infoprodukt Search Managers
     AppBundle\Manager\Entity\Infoprodukt\SearchManager:

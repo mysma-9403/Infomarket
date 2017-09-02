@@ -4,7 +4,7 @@ namespace AppBundle\Controller\Admin\Main;
 
 use AppBundle\Controller\Admin\Base\SimpleEntityController;
 use AppBundle\Entity\NewsletterGroup;
-use AppBundle\Filter\Admin\Main\NewsletterGroupFilter;
+use AppBundle\Filter\Common\Main\NewsletterGroupFilter;
 use AppBundle\Form\Editor\Admin\Main\NewsletterGroupEditorType;
 use AppBundle\Form\Filter\Admin\Main\NewsletterGroupFilterType;
 use AppBundle\Manager\Entity\Common\Main\NewsletterGroupManager;

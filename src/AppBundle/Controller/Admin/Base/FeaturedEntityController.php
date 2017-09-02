@@ -2,81 +2,64 @@
 
 namespace AppBundle\Controller\Admin\Base;
 
-use AppBundle\Filter\Admin\Base\AuditFilter;
-use AppBundle\Filter\Admin\Base\FeaturedEntityFilter;
 use AppBundle\Filter\Base\Filter;
-use AppBundle\Manager\Filter\Base\FilterManager;
+use AppBundle\Filter\Common\Base\BaseFilter;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Request;
 
-
-
-abstract class FeaturedEntityController extends ImageEntityController
-{
-	//---------------------------------------------------------------------------
+abstract class FeaturedEntityController extends ImageEntityController {
+	// ---------------------------------------------------------------------------
 	// Internal actions
-	//---------------------------------------------------------------------------
+	// ---------------------------------------------------------------------------
 	
 	/**
 	 *
-	 * @param Request $request
-	 * @param BaseFormType $form
+	 * @param Request $request        	
+	 * @param BaseFormType $form        	
 	 */
-	protected function listFormActionInternal(Request $request, Form $form, AuditFilter $filter, array $listItems) {
-		
+	protected function listFormActionInternal(Request $request, Form $form, BaseFilter $filter, array $listItems) {
 		if ($form->get('setFeaturedSelected')->isClicked()) {
 			$data = $form->getData();
 			$entries = $data->getEntries();
 			$filter->setSelected($entries);
 			$this->setValueForSelected($entries, 'featured', 1);
 		}
-	
+		
 		if ($form->get('setNotFeaturedSelected')->isClicked()) {
 			$data = $form->getData();
 			$entries = $data->getEntries();
 			$filter->setSelected($entries);
 			$this->setValueForSelected($entries, 'featured', 0);
 		}
-	
+		
 		return parent::listFormActionInternal($request, $form, $filter, $listItems);
 	}
-	
-	protected function setFeaturedActionInternal(Request $request, $id)
-	{
+
+	protected function setFeaturedActionInternal(Request $request, $id) {
 		$this->denyAccessUnlessGranted($this->getEditRole(), null, 'Unable to access this page!');
-	
+		
 		$params = $this->createParams($this->getSetFeaturedRoute());
 		$params = $this->getEditParams($request, $params, $id);
-	
+		
 		$viewParams = $params['viewParams'];
 		$entry = $viewParams['entry'];
-	
+		
 		$featured = $request->get('value', false);
-	
+		
 		$em = $this->getDoctrine()->getManager();
-	
+		
 		$entry->setFeatured($featured);
 		$em->persist($entry);
 		$em->flush();
-	
+		
 		return $this->redirectToReferer($request);
 	}
 	
-	//---------------------------------------------------------------------------
-	// Managers
-	//---------------------------------------------------------------------------
-	
-	protected function getFilterManager($doctrine) {	
-		return new FilterManager(new FeaturedEntityFilter());
-	}
-	
-	//---------------------------------------------------------------------------
+	// ---------------------------------------------------------------------------
 	// Routes
-	//---------------------------------------------------------------------------
-	
-	protected function getSetFeaturedRoute()
-	{
+	// ---------------------------------------------------------------------------
+	protected function getSetFeaturedRoute() {
 		return $this->getIndexRoute() . 'set_featured';
 	}
 }

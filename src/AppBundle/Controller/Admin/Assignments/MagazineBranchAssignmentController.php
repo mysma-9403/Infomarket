@@ -6,7 +6,7 @@ use AppBundle\Controller\Admin\Base\AssignmentController;
 use AppBundle\Entity\Branch;
 use AppBundle\Entity\Magazine;
 use AppBundle\Entity\MagazineBranchAssignment;
-use AppBundle\Filter\Admin\Assignments\MagazineBranchAssignmentFilter;
+use AppBundle\Filter\Common\Assignments\MagazineBranchAssignmentFilter;
 use AppBundle\Form\Editor\Admin\Assignments\MagazineBranchAssignmentEditorType;
 use AppBundle\Form\Filter\Admin\Assignments\MagazineBranchAssignmentFilterType;
 use AppBundle\Manager\Entity\Common\Assignments\MagazineBranchAssignmentManager;

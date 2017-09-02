@@ -5,7 +5,6 @@ namespace AppBundle\Controller\Benchmark;
 use AppBundle\Controller\Base\DummyController;
 use AppBundle\Entity\BenchmarkField;
 use AppBundle\Entity\Category;
-use AppBundle\Entity\Product;
 use AppBundle\Factory\Common\BenchmarkField\CategoryBenchmarkFieldFactory;
 use AppBundle\Filter\Benchmark\CategoryFilter;
 use AppBundle\Filter\Benchmark\SubcategoryFilter;
@@ -22,11 +21,11 @@ use AppBundle\Manager\Params\EntryParams\Benchmark\CategoryParamsManager;
 use AppBundle\Manager\Route\RouteManager;
 use AppBundle\Repository\Benchmark\CategoryRepository;
 use AppBundle\Repository\Benchmark\ProductRepository;
+use AppBundle\Repository\Benchmark\SegmentRepository;
 use AppBundle\Repository\Common\BenchmarkFieldMetadataRepository;
 use AppBundle\Utils\Entity\DataBase\BenchmarkFieldDataBaseUtils;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\HttpFoundation\Request;
-use AppBundle\Repository\Benchmark\SegmentRepository;
 
 class CategoryController extends DummyController {
 	

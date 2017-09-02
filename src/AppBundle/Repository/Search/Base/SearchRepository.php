@@ -3,7 +3,7 @@
 namespace AppBundle\Repository\Search\Base;
 
 use AppBundle\Filter\Base\Filter;
-use AppBundle\Filter\Common\SearchFilter;
+use AppBundle\Filter\Common\Search\SearchFilter;
 use AppBundle\Repository\Base\BaseRepository;
 use Doctrine\ORM\QueryBuilder;
 

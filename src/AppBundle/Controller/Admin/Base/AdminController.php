@@ -4,8 +4,8 @@ namespace AppBundle\Controller\Admin\Base;
 
 use AppBundle\Controller\Base\StandardController;
 use AppBundle\Entity\Lists\Base\BaseEntityList;
-use AppBundle\Filter\Admin\Base\AuditFilter;
 use AppBundle\Filter\Base\Filter;
+use AppBundle\Filter\Common\Base\BaseFilter;
 use AppBundle\Manager\Params\Admin\ContextParamsManager;
 use AppBundle\Manager\Route\RouteManager;
 use Symfony\Component\Form\Form;
@@ -155,7 +155,7 @@ abstract class AdminController extends StandardController {
 	 * @param Request $request
 	 * @param BaseFormType $form
 	 */
-	protected function listFormActionInternal(Request $request, Form $form, AuditFilter $filter, array $listItems) {
+	protected function listFormActionInternal(Request $request, Form $form, BaseFilter $filter, array $listItems) {
 		if ($form->get('selectAll')->isClicked()) {
 			foreach ($listItems as $item) {
 				$filter->addSelected($item);

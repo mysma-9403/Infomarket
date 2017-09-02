@@ -17,10 +17,10 @@ class BenchmarkQueryManager extends EntityManager {
 		
 		return $entry;
 	}
-	
+
 	/**
 	 *
-	 * @param BenchmarkQuery $template
+	 * @param BenchmarkQuery $template        	
 	 *
 	 * {@inheritDoc}
 	 *

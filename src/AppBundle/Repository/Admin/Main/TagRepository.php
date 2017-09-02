@@ -4,7 +4,7 @@ namespace AppBundle\Repository\Admin\Main;
 
 use AppBundle\Entity\ArticleTagAssignment;
 use AppBundle\Entity\Tag;
-use AppBundle\Filter\Admin\Main\TagFilter;
+use AppBundle\Filter\Common\Main\TagFilter;
 use AppBundle\Filter\Base\Filter;
 use AppBundle\Repository\Admin\Base\SimpleEntityRepository;
 use Doctrine\ORM\QueryBuilder;

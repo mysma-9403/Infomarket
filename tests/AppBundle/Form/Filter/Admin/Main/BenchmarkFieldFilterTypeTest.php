@@ -2,7 +2,7 @@
 
 namespace Tests\AppBundle\Form\Filter\Admin\Main;
 
-use AppBundle\Filter\Admin\Main\BenchmarkFieldFilter;
+use AppBundle\Filter\Common\Main\BenchmarkFieldFilter;
 use AppBundle\Form\Filter\Admin\Main\BenchmarkFieldFilterType;
 use Tests\AppBundle\Form\Filter\Admin\Base\BaseEntityFilterTypeTest;
 

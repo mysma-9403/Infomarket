@@ -7,7 +7,7 @@ use AppBundle\Entity\ArticleCategory;
 use AppBundle\Factory\Common\Choices\Bool\FeaturedChoicesFactory;
 use AppBundle\Factory\Common\Choices\Bool\InfomarketChoicesFactory;
 use AppBundle\Factory\Common\Choices\Bool\InfoproduktChoicesFactory;
-use AppBundle\Filter\Admin\Main\ArticleCategoryFilter;
+use AppBundle\Filter\Common\Main\ArticleCategoryFilter;
 use AppBundle\Form\Editor\Admin\Main\ArticleCategoryEditorType;
 use AppBundle\Form\Filter\Admin\Main\ArticleCategoryFilterType;
 use AppBundle\Form\Lists\Base\FeaturedEntityListType;

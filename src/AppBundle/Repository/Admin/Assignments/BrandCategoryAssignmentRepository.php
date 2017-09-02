@@ -5,7 +5,7 @@ namespace AppBundle\Repository\Admin\Assignments;
 use AppBundle\Entity\Brand;
 use AppBundle\Entity\BrandCategoryAssignment;
 use AppBundle\Entity\Category;
-use AppBundle\Filter\Admin\Assignments\BrandCategoryAssignmentFilter;
+use AppBundle\Filter\Common\Assignments\BrandCategoryAssignmentFilter;
 use AppBundle\Filter\Base\Filter;
 use AppBundle\Repository\Admin\Base\AuditRepository;
 use Doctrine\ORM\Query\Expr\Join;

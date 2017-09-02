@@ -4,7 +4,7 @@ namespace AppBundle\Controller\Admin\Main;
 
 use AppBundle\Controller\Admin\Base\BaseEntityController;
 use AppBundle\Entity\BenchmarkEnum;
-use AppBundle\Filter\Admin\Main\BenchmarkEnumFilter;
+use AppBundle\Filter\Common\Main\BenchmarkEnumFilter;
 use AppBundle\Form\Editor\Admin\Main\BenchmarkEnumEditorType;
 use AppBundle\Form\Filter\Admin\Main\BenchmarkEnumFilterType;
 use AppBundle\Manager\Entity\Common\Main\BenchmarkEnumManager;

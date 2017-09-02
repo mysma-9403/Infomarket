@@ -49,7 +49,7 @@ class ProductCategoryAssignmentRepository extends AuditRepository {
 		/** @var ProductCategoryAssignmentFilter $filter */
 		
 		$this->addArrayWhere($builder, $where, 'e.product', $filter->getProducts());
-		$this->addArrayWhere($builder, $where, 'e.brand', $filter->getBrands());
+		$this->addArrayWhere($builder, $where, 'p.brand', $filter->getBrands());
 		$this->addArrayWhere($builder, $where, 'e.segment', $filter->getSegments());
 		$this->addArrayWhere($builder, $where, 'e.category', $filter->getCategories());
 		

@@ -2,7 +2,7 @@
 
 namespace AppBundle\Form\Filter\Admin\Base;
 
-use AppBundle\Filter\Admin\Base\SimpleEntityFilter;
+use AppBundle\Filter\Common\Base\SimpleEntityFilter;
 use Symfony\Component\Form\FormBuilderInterface;
 use AppBundle\Form\Base\FilterType;
 

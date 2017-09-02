@@ -6,7 +6,7 @@ use AppBundle\Controller\Admin\Base\ImageEntityController;
 use AppBundle\Entity\Branch;
 use AppBundle\Factory\Common\Choices\Bool\InfomarketChoicesFactory;
 use AppBundle\Factory\Common\Choices\Bool\InfoproduktChoicesFactory;
-use AppBundle\Filter\Admin\Main\BranchFilter;
+use AppBundle\Filter\Common\Main\BranchFilter;
 use AppBundle\Form\Editor\Admin\Main\BranchEditorType;
 use AppBundle\Form\Filter\Admin\Main\BranchFilterType;
 use AppBundle\Form\Lists\Base\InfoMarketEntityListType;

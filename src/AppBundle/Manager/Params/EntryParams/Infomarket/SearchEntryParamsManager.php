@@ -2,7 +2,7 @@
 
 namespace AppBundle\Manager\Params\EntryParams\Infomarket;
 
-use AppBundle\Filter\Common\BrandCategorySearchFilter;
+use AppBundle\Filter\Common\Search\BrandCategorySearchFilter;
 use AppBundle\Manager\Entity\Base\EntityManager;
 use AppBundle\Manager\Filter\Base\FilterManager;
 use AppBundle\Manager\Params\EntryParams\Infomarket\Base\EntryParamsManager;
@@ -39,9 +39,7 @@ class SearchEntryParamsManager extends EntryParamsManager {
 	 */
 	protected $termRepository;
 
-	public function __construct(EntityManager $em, FilterManager $fm, 
-			ArticleSearchRepository $articleRepository, BrandSearchRepository $brandRepository, 
-			ProductSearchRepository $productRepository, TermSearchRepository $termRepository) {
+	public function __construct(EntityManager $em, FilterManager $fm, ArticleSearchRepository $articleRepository, BrandSearchRepository $brandRepository, ProductSearchRepository $productRepository, TermSearchRepository $termRepository) {
 		parent::__construct($em, $fm);
 		
 		$this->articleRepository = $articleRepository;

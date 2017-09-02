@@ -16,7 +16,7 @@ use AppBundle\Factory\Common\Choices\Bool\InfomarketChoicesFactory;
 use AppBundle\Factory\Common\Choices\Bool\InfoproduktChoicesFactory;
 use AppBundle\Factory\Common\Choices\Enum\ArticleImageSizesFactory;
 use AppBundle\Factory\Common\Choices\Enum\ArticleLayoutsFactory;
-use AppBundle\Filter\Admin\Main\ArticleFilter;
+use AppBundle\Filter\Common\Main\ArticleFilter;
 use AppBundle\Form\Editor\Admin\Main\ArticleEditorType;
 use AppBundle\Form\Filter\Admin\Main\ArticleFilterType;
 use AppBundle\Form\Lists\Base\FeaturedEntityListType;

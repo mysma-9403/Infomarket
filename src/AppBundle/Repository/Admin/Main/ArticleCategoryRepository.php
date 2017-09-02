@@ -3,7 +3,7 @@
 namespace AppBundle\Repository\Admin\Main;
 
 use AppBundle\Entity\ArticleCategory;
-use AppBundle\Filter\Admin\Main\ArticleCategoryFilter;
+use AppBundle\Filter\Common\Main\ArticleCategoryFilter;
 use AppBundle\Filter\Base\Filter;
 use AppBundle\Repository\Admin\Base\ImageEntityRepository;
 use Doctrine\ORM\QueryBuilder;

@@ -15,12 +15,12 @@ class CategoryManager extends EntityManager {
 	 * @var ParamsManager
 	 */
 	protected $paramsManager;
-	
+
 	public function __construct(BaseRepository $repository, $paginator, ParamsManager $paramsManager) {
 		parent::__construct($repository, $paginator);
 		$this->paramsManager = $paramsManager;
 	}
-	
+
 	public function createFromRequest(Request $request) {
 		$entry = parent::createFromRequest($request);
 		/** @var Category $entry */

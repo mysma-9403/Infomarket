@@ -5,7 +5,7 @@ namespace AppBundle\Repository\Admin\Assignments;
 use AppBundle\Entity\Branch;
 use AppBundle\Entity\BranchCategoryAssignment;
 use AppBundle\Entity\Category;
-use AppBundle\Filter\Admin\Assignments\BranchCategoryAssignmentFilter;
+use AppBundle\Filter\Common\Assignments\BranchCategoryAssignmentFilter;
 use AppBundle\Filter\Base\Filter;
 use AppBundle\Repository\Admin\Base\AuditRepository;
 use Doctrine\ORM\Query\Expr\Join;

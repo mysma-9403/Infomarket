@@ -2,7 +2,7 @@
 
 namespace AppBundle\Form\Filter\Admin\Main;
 
-use AppBundle\Filter\Admin\Main\BenchmarkEnumFilter;
+use AppBundle\Filter\Common\Main\BenchmarkEnumFilter;
 use AppBundle\Filter\Base\Filter;
 use AppBundle\Form\Filter\Admin\Base\SimpleEntityFilterType;
 use Symfony\Component\Form\FormBuilderInterface;

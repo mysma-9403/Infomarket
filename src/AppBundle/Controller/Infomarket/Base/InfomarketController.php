@@ -8,7 +8,7 @@ use AppBundle\Entity\Advert;
 use AppBundle\Entity\NewsletterGroup;
 use AppBundle\Entity\NewsletterUser;
 use AppBundle\Entity\NewsletterUserNewsletterGroupAssignment;
-use AppBundle\Filter\Common\SearchFilter;
+use AppBundle\Filter\Common\Search\SearchFilter;
 use AppBundle\Form\Base\SearchFilterType;
 use AppBundle\Form\Editor\Admin\Main\NewsletterUserEditorType;
 use AppBundle\Manager\Entity\Base\EntityManager;

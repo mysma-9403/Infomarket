@@ -10,7 +10,10 @@ use AppBundle\Entity\Brand;
 use AppBundle\Entity\Category;
 use AppBundle\Entity\Magazine;
 use AppBundle\Entity\MenuEntry;
+use AppBundle\Entity\Product;
+use AppBundle\Entity\Segment;
 use AppBundle\Entity\Tag;
+use AppBundle\Entity\Term;
 use AppBundle\Repository\Infomarket\AdvertRepository;
 use AppBundle\Repository\Infomarket\ArticleCategoryRepository;
 use AppBundle\Repository\Infomarket\ArticleRepository;
@@ -20,17 +23,15 @@ use AppBundle\Repository\Infomarket\CategoryRepository;
 use AppBundle\Repository\Infomarket\MagazineRepository;
 use AppBundle\Repository\Infomarket\MenuEntryRepository;
 use AppBundle\Repository\Infomarket\ProductRepository;
-use AppBundle\Repository\Infomarket\TagRepository;
-use Doctrine\Common\Persistence\ObjectManager;
 use AppBundle\Repository\Infomarket\SegmentRepository;
-use AppBundle\Entity\Segment;
-use AppBundle\Entity\Product;
+use AppBundle\Repository\Infomarket\TagRepository;
 use AppBundle\Repository\Search\Infomarket\ArticleSearchRepository;
 use AppBundle\Repository\Search\Infomarket\BrandSearchRepository;
+use AppBundle\Repository\Search\Infomarket\CategorySearchRepository;
 use AppBundle\Repository\Search\Infomarket\ProductSearchRepository;
 use AppBundle\Repository\Search\Infomarket\TermSearchRepository;
-use AppBundle\Entity\Term;
-use AppBundle\Repository\Search\Infomarket\CategorySearchRepository;
+use Doctrine\Common\Persistence\ObjectManager;
+use AppBundle\Repository\Infomarket\TermRepository;
 
 class InfomarketRepositoryFactory {
 
@@ -77,6 +78,9 @@ class InfomarketRepositoryFactory {
 		}
 		if ($class == TagRepository::class) {
 			return new TagRepository($this->em, $this->em->getClassMetadata(Tag::class));
+		}
+		if ($class == TermRepository::class) {
+			return new TermRepository($this->em, $this->em->getClassMetadata(Term::class));
 		}
 		
 		if ($class == ArticleSearchRepository::class) {

@@ -3,7 +3,7 @@
 namespace AppBundle\Repository\Admin\Main;
 
 use AppBundle\Entity\User;
-use AppBundle\Filter\Admin\Main\UserFilter;
+use AppBundle\Filter\Common\Main\UserFilter;
 use AppBundle\Filter\Base\Filter;
 use Doctrine\ORM\QueryBuilder;
 use AppBundle\Repository\Base\BaseRepository;

@@ -13,7 +13,7 @@ class ParamsManager {
 	public function __construct($doctrine) {
 		$this->doctrine = $doctrine;
 	}
-	
+
 	/**
 	 *
 	 * @param Request $request        	

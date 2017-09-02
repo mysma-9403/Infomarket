@@ -3,8 +3,8 @@
 namespace AppBundle\Repository\Admin\Base;
 
 use AppBundle\Entity\User;
-use AppBundle\Filter\Admin\Base\AuditFilter;
 use AppBundle\Filter\Base\Filter;
+use AppBundle\Filter\Common\Base\BaseFilter;
 use AppBundle\Repository\Base\BaseRepository;
 use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\ORM\QueryBuilder;
@@ -35,7 +35,7 @@ abstract class AuditRepository extends BaseRepository {
 
 	protected function getWhere(QueryBuilder &$builder, Filter $filter) {
 		$where = parent::getWhere($builder, $filter);
-		/** @var AuditFilter $filter */
+		/** @var BaseFilter $filter */
 		
 		$this->addDateAfterWhere($builder, $where, 'e.updatedAt', $filter->getUpdatedAfter());
 		$this->addDateBeforeWhere($builder, $where, 'e.updatedAt', $filter->getUpdatedBefore());

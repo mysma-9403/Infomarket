@@ -4,7 +4,7 @@ namespace AppBundle\Repository\Admin\Main;
 
 use AppBundle\Entity\Term;
 use AppBundle\Entity\TermCategoryAssignment;
-use AppBundle\Filter\Admin\Main\TermFilter;
+use AppBundle\Filter\Common\Main\TermFilter;
 use AppBundle\Filter\Base\Filter;
 use AppBundle\Repository\Admin\Base\SimpleEntityRepository;
 use Doctrine\ORM\Query\Expr\Join;

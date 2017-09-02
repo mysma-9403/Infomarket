@@ -6,7 +6,7 @@ use AppBundle\Entity\BenchmarkMessage;
 use AppBundle\Entity\Brand;
 use AppBundle\Entity\Product;
 use AppBundle\Entity\User;
-use AppBundle\Filter\Admin\Main\BenchmarkMessageFilter;
+use AppBundle\Filter\Common\Main\BenchmarkMessageFilter;
 use AppBundle\Filter\Base\Filter;
 use AppBundle\Repository\Admin\Base\AuditRepository;
 use Doctrine\ORM\Query\Expr\Join;

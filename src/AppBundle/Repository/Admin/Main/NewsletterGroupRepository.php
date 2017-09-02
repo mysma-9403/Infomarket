@@ -4,7 +4,7 @@ namespace AppBundle\Repository\Admin\Main;
 
 use AppBundle\Entity\NewsletterGroup;
 use AppBundle\Entity\NewsletterUserNewsletterGroupAssignment;
-use AppBundle\Filter\Admin\Main\NewsletterGroupFilter;
+use AppBundle\Filter\Common\Main\NewsletterGroupFilter;
 use AppBundle\Filter\Base\Filter;
 use AppBundle\Repository\Admin\Base\AuditRepository;
 use Doctrine\ORM\Query\Expr\Join;

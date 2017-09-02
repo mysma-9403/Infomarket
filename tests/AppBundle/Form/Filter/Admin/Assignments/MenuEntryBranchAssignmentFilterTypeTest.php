@@ -2,7 +2,7 @@
 
 namespace Tests\AppBundle\Form\Filter\Admin\Assignments;
 
-use AppBundle\Filter\Admin\Assignments\MenuEntryBranchAssignmentFilter;
+use AppBundle\Filter\Common\Assignments\MenuEntryBranchAssignmentFilter;
 use AppBundle\Form\Filter\Admin\Assignments\MenuEntryBranchAssignmentFilterType;
 use Tests\AppBundle\Form\Filter\Admin\Base\BaseEntityFilterTypeTest;
 

@@ -11,46 +11,41 @@ use AppBundle\Repository\Infomarket\TagRepository;
 use AppBundle\Manager\Utils\ArticleTagAssignmentsManager;
 
 class ArticleManager extends CommonArticleManager {
-	
+
 	/**
-	 * 
+	 *
 	 * @var BrandRepository
 	 */
 	protected $brandRepository;
-	
+
 	/**
-	 * 
-	* @var TagRepository
-	*/
+	 *
+	 * @var TagRepository
+	 */
 	protected $tagRepository;
-	
+
 	/**
 	 *
 	 * @var ArticleBrandAssignmentsManager
 	 */
 	protected $abaManager;
-	
+
 	/**
 	 *
 	 * @var ArticleTagAssignmentsManager
 	 */
 	protected $ataManager;
-	
-	public function __construct(BaseRepository $repository, $paginator, ParamsManager $paramsManager,
-			BrandRepository $brandRepository,
-			TagRepository $tagRepository,
-			ArticleBrandAssignmentsManager $abaManager,
-			ArticleTagAssignmentsManager $ataManager) {
+
+	public function __construct(BaseRepository $repository, $paginator, ParamsManager $paramsManager, BrandRepository $brandRepository, TagRepository $tagRepository, ArticleBrandAssignmentsManager $abaManager, ArticleTagAssignmentsManager $ataManager) {
+		parent::__construct($repository, $paginator, $paramsManager);
 		
-				parent::__construct($repository, $paginator, $paramsManager);
-				
-				$this->brandRepository = $brandRepository;
-				$this->tagRepository = $tagRepository;
-				
-				$this->abaManager = $abaManager;
-				$this->ataManager = $ataManager;
+		$this->brandRepository = $brandRepository;
+		$this->tagRepository = $tagRepository;
+		
+		$this->abaManager = $abaManager;
+		$this->ataManager = $ataManager;
 	}
-	
+
 	public function getEntries($filter, $page) {
 		$items = parent::getEntries($filter, $page);
 		

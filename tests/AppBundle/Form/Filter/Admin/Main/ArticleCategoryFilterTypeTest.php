@@ -2,7 +2,7 @@
 
 namespace Tests\AppBundle\Form\Filter\Admin\Main;
 
-use AppBundle\Filter\Admin\Main\ArticleCategoryFilter;
+use AppBundle\Filter\Common\Main\ArticleCategoryFilter;
 use AppBundle\Form\Filter\Admin\Main\ArticleCategoryFilterType;
 use Tests\AppBundle\Form\Filter\Admin\Base\BaseEntityFilterTypeTest;
 

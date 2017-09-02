@@ -50,7 +50,7 @@ class HomeController extends InfomarketController
 	}
 	
 	protected function getAdvertParamsManager() {
-		return $this->get('app.manager.param.advert.featured');
+		return $this->get('app.manager.param.infomarket.advert.featured');
 	}
 	
 	protected function getEntityManager($doctrine, $paginator) { 

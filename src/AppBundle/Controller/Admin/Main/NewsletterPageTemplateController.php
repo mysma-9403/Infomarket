@@ -4,7 +4,7 @@ namespace AppBundle\Controller\Admin\Main;
 
 use AppBundle\Controller\Admin\Base\SimpleEntityController;
 use AppBundle\Entity\NewsletterPageTemplate;
-use AppBundle\Filter\Admin\Main\NewsletterPageTemplateFilter;
+use AppBundle\Filter\Common\Main\NewsletterPageTemplateFilter;
 use AppBundle\Form\Editor\Admin\Main\NewsletterPageTemplateEditorType;
 use AppBundle\Form\Filter\Admin\Main\NewsletterPageTemplateFilterType;
 use AppBundle\Manager\Entity\Common\Main\NewsletterPageTemplateManager;

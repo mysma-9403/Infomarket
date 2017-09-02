@@ -2,7 +2,7 @@
 
 namespace Tests\AppBundle\Form\Filter\Admin\Assignments;
 
-use AppBundle\Filter\Admin\Assignments\NewsletterUserNewsletterGroupAssignmentFilter;
+use AppBundle\Filter\Common\Assignments\NewsletterUserNewsletterGroupAssignmentFilter;
 use AppBundle\Form\Filter\Admin\Assignments\NewsletterUserNewsletterGroupAssignmentFilterType;
 use Tests\AppBundle\Form\Filter\Admin\Base\BaseEntityFilterTypeTest;
 

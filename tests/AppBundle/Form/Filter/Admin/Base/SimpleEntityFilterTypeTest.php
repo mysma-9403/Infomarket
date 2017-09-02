@@ -2,7 +2,7 @@
 
 namespace Tests\AppBundle\Form\Filter\Admin\Base;
 
-use AppBundle\Filter\Admin\Base\SimpleEntityFilter;
+use AppBundle\Filter\Common\Base\SimpleEntityFilter;
 use AppBundle\Form\Filter\Admin\Base\SimpleEntityFilterType;
 
 class SimpleEntityFilterTypeTest extends BaseEntityFilterTypeTest {

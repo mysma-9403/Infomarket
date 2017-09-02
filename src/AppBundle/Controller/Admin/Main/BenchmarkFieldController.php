@@ -8,7 +8,7 @@ use AppBundle\Entity\Category;
 use AppBundle\Factory\Common\Choices\Enum\BenchmarkFieldBetterThanTypesFactory;
 use AppBundle\Factory\Common\Choices\Enum\BenchmarkFieldFieldTypesFactory;
 use AppBundle\Factory\Common\Choices\Enum\BenchmarkFieldNoteTypesFactory;
-use AppBundle\Filter\Admin\Main\BenchmarkFieldFilter;
+use AppBundle\Filter\Common\Main\BenchmarkFieldFilter;
 use AppBundle\Form\Editor\Admin\Main\BenchmarkFieldEditorType;
 use AppBundle\Form\Filter\Admin\Main\BenchmarkFieldFilterType;
 use AppBundle\Manager\Entity\Common\Main\BenchmarkFieldManager;

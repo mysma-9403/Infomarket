@@ -3,7 +3,7 @@
 namespace AppBundle\Repository\Admin\Main;
 
 use AppBundle\Entity\Menu;
-use AppBundle\Filter\Admin\Main\MenuFilter;
+use AppBundle\Filter\Common\Main\MenuFilter;
 use AppBundle\Filter\Base\Filter;
 use AppBundle\Repository\Admin\Base\SimpleEntityRepository;
 use Doctrine\ORM\QueryBuilder;

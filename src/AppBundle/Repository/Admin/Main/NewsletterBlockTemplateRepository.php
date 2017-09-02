@@ -3,7 +3,7 @@
 namespace AppBundle\Repository\Admin\Main;
 
 use AppBundle\Entity\NewsletterBlockTemplate;
-use AppBundle\Filter\Admin\Main\NewsletterBlockTemplateFilter;
+use AppBundle\Filter\Common\Main\NewsletterBlockTemplateFilter;
 use AppBundle\Filter\Base\Filter;
 use AppBundle\Repository\Admin\Base\AuditRepository;
 use Doctrine\ORM\QueryBuilder;

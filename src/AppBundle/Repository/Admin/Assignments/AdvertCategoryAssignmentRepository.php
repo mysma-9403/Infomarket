@@ -9,7 +9,7 @@ use AppBundle\Filter\Base\Filter;
 use AppBundle\Repository\Admin\Base\AuditRepository;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\ORM\Query\Expr\Join;
-use AppBundle\Filter\Admin\Assignments\AdvertCategoryAssignmentFilter;
+use AppBundle\Filter\Common\Assignments\AdvertCategoryAssignmentFilter;
 
 class AdvertCategoryAssignmentRepository extends AuditRepository {
 
