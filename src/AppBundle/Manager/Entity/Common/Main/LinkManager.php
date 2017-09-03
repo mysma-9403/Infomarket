@@ -2,7 +2,7 @@
 
 namespace AppBundle\Manager\Entity\Common\Main;
 
-use AppBundle\Entity\Link;
+use AppBundle\Entity\Main\Link;
 use AppBundle\Manager\Entity\Base\EntityManager;
 use Symfony\Component\HttpFoundation\Request;
 

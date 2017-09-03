@@ -2,12 +2,12 @@
 
 namespace AppBundle\Controller\Admin\Main;
 
-use AppBundle\Controller\Admin\Base\FeaturedEntityController;
-use AppBundle\Controller\Admin\Base\ImageEntityController;
-use AppBundle\Entity\Branch;
-use AppBundle\Entity\Category;
+use AppBundle\Controller\Admin\Base\FeaturedController;
+use AppBundle\Controller\Admin\Base\ImageController;
+use AppBundle\Entity\Main\Branch;
+use AppBundle\Entity\Main\Category;
 use AppBundle\Entity\Other\ImportRatings;
-use AppBundle\Entity\ProductCategoryAssignment;
+use AppBundle\Entity\Assignments\ProductCategoryAssignment;
 use AppBundle\Factory\Admin\Import\Product\ImportErrorFactory;
 use AppBundle\Factory\Common\Choices\Bool\FeaturedChoicesFactory;
 use AppBundle\Factory\Common\Choices\Bool\InfomarketChoicesFactory;
@@ -16,7 +16,7 @@ use AppBundle\Factory\Common\Choices\Bool\PreleafChoicesFactory;
 use AppBundle\Filter\Common\Main\CategoryFilter;
 use AppBundle\Form\Editor\Admin\Main\CategoryEditorType;
 use AppBundle\Form\Filter\Admin\Main\CategoryFilterType;
-use AppBundle\Form\Lists\Base\FeaturedEntityListType;
+use AppBundle\Form\Lists\Base\FeaturedListType;
 use AppBundle\Form\Other\ImportRatingsType;
 use AppBundle\Logic\Admin\Import\Product\ImportLogic;
 use AppBundle\Manager\Entity\Base\EntityManager;
@@ -28,196 +28,179 @@ use AppBundle\Utils\Entity\DataBase\BenchmarkFieldDataBaseUtils;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Repository\Admin\Main\SegmentRepository;
 
-class CategoryController extends FeaturedEntityController {
+class CategoryController extends FeaturedController {
 	
-	//---------------------------------------------------------------------------
+	// ---------------------------------------------------------------------------
 	// Actions
-	//---------------------------------------------------------------------------
+	// ---------------------------------------------------------------------------
 	/**
-	 * 
-	 * @param Request $request
-	 * @param integer $page
-	 * 
+	 *
+	 * @param Request $request        	
+	 * @param integer $page        	
+	 *
 	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
 	 */
-	public function indexAction(Request $request, $page)
-	{
+	public function indexAction(Request $request, $page) {
 		return $this->indexActionInternal($request, $page);
 	}
-	
+
 	/**
-	 * 
-	 * @param Request $request
-	 * @param integer $id
-	 * 
+	 *
+	 * @param Request $request        	
+	 * @param integer $id        	
+	 *
 	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
 	 */
-	public function showAction(Request $request, $id)
-	{
+	public function showAction(Request $request, $id) {
 		return $this->showActionInternal($request, $id);
 	}
-	
+
 	/**
-	 * 
-	 * @param Request $request
-	 * 
+	 *
+	 * @param Request $request        	
+	 *
 	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
 	 */
-	public function newAction(Request $request)
-	{
+	public function newAction(Request $request) {
 		return $this->newActionInternal($request);
 	}
-	
+
 	/**
-	 * 
-	 * @param Request $request
-	 * @param integer $id
-	 * 
+	 *
+	 * @param Request $request        	
+	 * @param integer $id        	
+	 *
 	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
 	 */
-	public function copyAction(Request $request, $id)
-	{
+	public function copyAction(Request $request, $id) {
 		return $this->copyActionInternal($request, $id);
 	}
-	
+
 	/**
-	 * 
-	 * @param Request $request
-	 * @param integer $id
-	 * 
+	 *
+	 * @param Request $request        	
+	 * @param integer $id        	
+	 *
 	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
 	 */
-	public function editAction(Request $request, $id)
-	{
+	public function editAction(Request $request, $id) {
 		return $this->editActionInternal($request, $id);
 	}
-	
+
 	/**
-	 * 
-	 * @param Request $request
-	 * @param integer $id
-	 * 
+	 *
+	 * @param Request $request        	
+	 * @param integer $id        	
+	 *
 	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
 	 */
-	public function deleteAction(Request $request, $id)
-	{
+	public function deleteAction(Request $request, $id) {
 		return $this->deleteActionInternal($request, $id);
 	}
-	
+
 	/**
-	 * 
-	 * @param Request $request
-	 * @param integer $id
-	 * 
+	 *
+	 * @param Request $request        	
+	 * @param integer $id        	
+	 *
 	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
 	 */
-	public function setIMPublishedAction(Request $request, $id)
-	{
+	public function setIMPublishedAction(Request $request, $id) {
 		return $this->setIMPublishedActionInternal($request, $id);
 	}
-	
+
 	/**
 	 *
-	 * @param Request $request
-	 * @param integer $id
+	 * @param Request $request        	
+	 * @param integer $id        	
 	 *
 	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
 	 */
-	public function setIPPublishedAction(Request $request, $id)
-	{
+	public function setIPPublishedAction(Request $request, $id) {
 		return $this->setIPPublishedActionInternal($request, $id);
 	}
-	
+
 	/**
-	 * 
-	 * @param Request $request
-	 * @param integer $id
-	 * 
+	 *
+	 * @param Request $request        	
+	 * @param integer $id        	
+	 *
 	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
 	 */
-	public function setFeaturedAction(Request $request, $id)
-	{
+	public function setFeaturedAction(Request $request, $id) {
 		return $this->setFeaturedActionInternal($request, $id);
 	}
-	
+
 	/**
-	 * 
-	 * @param Request $request
-	 * @param integer $id
-	 * 
+	 *
+	 * @param Request $request        	
+	 * @param integer $id        	
+	 *
 	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
 	 */
-	public function setPreleafAction(Request $request, $id)
-	{
+	public function setPreleafAction(Request $request, $id) {
 		return $this->setPreleafActionInternal($request, $id);
 	}
-	
+
 	/**
-	 * 
-	 * @param Request $request
-	 * 
+	 *
+	 * @param Request $request        	
+	 *
 	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
 	 */
-	public function treeAction(Request $request)
-	{
+	public function treeAction(Request $request) {
 		return $this->treeActionInternal($request);
 	}
-	
+
 	/**
-	 * 
-	 * @param Request $request
-	 * @param integer $id
-	 * 
+	 *
+	 * @param Request $request        	
+	 * @param integer $id        	
+	 *
 	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
 	 */
-	public function ratingsAction(Request $request, $id)
-	{
+	public function ratingsAction(Request $request, $id) {
 		return $this->ratingsActionInternal($request, $id);
 	}
-	
-	public function clearRatingsAction(Request $request, $id)
-	{
+
+	public function clearRatingsAction(Request $request, $id) {
 		return $this->clearRatingsActionInternal($request, $id);
 	}
 	
-	//---------------------------------------------------------------------------
+	// ---------------------------------------------------------------------------
 	// Internal actions
-	//---------------------------------------------------------------------------
-	
-	protected function setPreleafActionInternal(Request $request, $id)
-	{
+	// ---------------------------------------------------------------------------
+	protected function setPreleafActionInternal(Request $request, $id) {
 		$this->denyAccessUnlessGranted('ROLE_EDITOR', null, 'Unable to access this page!');
-	
+		
 		$params = $this->createParams($this->getSetPreleafRoute());
 		$params = $this->getEditParams($request, $params, $id);
-	
+		
 		$viewParams = $params['viewParams'];
 		$entry = $viewParams['entry'];
-	
+		
 		$preleaf = $request->get('value', false);
-	
+		
 		$em = $this->getDoctrine()->getManager();
-	
+		
 		$entry->setPreleaf($preleaf);
 		$em->persist($entry);
 		$em->flush();
-	
+		
 		return $this->redirectToReferer($request);
 	}
-	
-	protected function treeActionInternal(Request $request)
-	{
+
+	protected function treeActionInternal(Request $request) {
 		$params = $this->createParams($this->getTreeRoute());
 		$params = $this->getTreeParams($request, $params);
-	
+		
 		$viewParams = $params['viewParams'];
 		
 		return $this->render($this->getTreeView(), $viewParams);
 	}
 	
-	//TODO make form blocks like in AdminController
-	protected function ratingsActionInternal(Request $request, $id)
-	{
+	// TODO make form blocks like in AdminController
+	protected function ratingsActionInternal(Request $request, $id) {
 		$params = $this->createParams($this->getRatingsRoute());
 		$params = $this->getRatingsParams($request, $params, $id);
 		
@@ -228,11 +211,9 @@ class CategoryController extends FeaturedEntityController {
 		$am->sendPageviewAnalytics($params['domain'], $params['route']);
 		$am->sendEventAnalytics($this->getEntityName(), 'ratings', $id);
 		
-		
 		$viewParams = $params['viewParams'];
 		
 		$entry = $viewParams['entry'];
-		
 		
 		$importRatings = new ImportRatings();
 		
@@ -249,7 +230,7 @@ class CategoryController extends FeaturedEntityController {
 			
 			$result = $importLogic->importRatings($importRatings, $entry);
 			$errors = $result['errors'];
-			if(count($errors) > 0) {
+			if (count($errors) > 0) {
 				foreach ($errors as $error) {
 					$this->addFlash('error', $error);
 				}
@@ -303,17 +284,16 @@ class CategoryController extends FeaturedEntityController {
 		
 		return $this->render($this->getRatingsView(), $viewParams);
 	}
-	
-	protected function clearRatingsActionInternal(Request $request, $id)
-	{
+
+	protected function clearRatingsActionInternal(Request $request, $id) {
 		$this->denyAccessUnlessGranted('ROLE_RATING_EDITOR', null, 'Unable to access this page!');
-	
+		
 		$params = $this->createParams($this->getRatingsRoute());
 		$params = $this->getEditParams($request, $params, $id);
-	
+		
 		$viewParams = $params['viewParams'];
 		$entry = $viewParams['entry'];
-	
+		
 		$result = $this->clearRatings($entry);
 		$errors = $result['errors'];
 		if (count($errors) > 0) {
@@ -322,7 +302,7 @@ class CategoryController extends FeaturedEntityController {
 			}
 		} else {
 			$translator = $this->get('translator');
-				
+			
 			$count = $result['count'];
 			
 			$msg = $translator->trans('success.category.ratingsCleared');
@@ -335,18 +315,17 @@ class CategoryController extends FeaturedEntityController {
 		return $this->redirectToReferer($request);
 	}
 	
-	//---------------------------------------------------------------------------
+	// ---------------------------------------------------------------------------
 	// Internal logic
-	//---------------------------------------------------------------------------
-	
+	// ---------------------------------------------------------------------------
 	protected function getListItemKeyFields($item) {
 		$fields = parent::getListItemKeyFields($item);
-	
+		
 		$fields[] = $item['subname'];
-	
+		
 		return $fields;
 	}
-	
+
 	protected function getFilterFormOptions() {
 		$options = parent::getFilterFormOptions();
 		
@@ -360,29 +339,30 @@ class CategoryController extends FeaturedEntityController {
 		
 		return $options;
 	}
-	
+
 	protected function getEditorFormOptions() {
 		$options = parent::getEditorFormOptions();
-	
+		
 		$this->addEntityChoicesFormOption($options, Category::class, 'parent');
-	
+		
 		return $options;
 	}
-	
+
 	/**
-	 * 
+	 *
 	 * {@inheritDoc}
-	 * @see \AppBundle\Controller\Admin\Base\ImageEntityController::prepareEntry()
-	 * 
+	 *
+	 * @see \AppBundle\Controller\Admin\Base\ImageController::prepareEntry()
+	 *
 	 */
 	protected function prepareEntry($request, &$entry, $params) {
 		parent::prepareEntry($request, $entry, $params);
 		
 		/** @var Category $entry */
 		$parent = $entry->getParent();
-		if($parent) {
+		if ($parent) {
 			$rootId = $parent->getRootId();
-			if($rootId) {
+			if ($rootId) {
 				$entry->setRootId($rootId);
 			} else {
 				$entry->setRootId($parent->getId());
@@ -391,18 +371,19 @@ class CategoryController extends FeaturedEntityController {
 			$entry->setRootId(null);
 		}
 	}
-	
+
 	protected function saveMore($request, $entry, $params) {
-		$parent = $entry->getParent(); 
-		if($parent) {
+		$parent = $entry->getParent();
+		if ($parent) {
 			$rootId = $parent->getRootId();
-			if(!$rootId) $rootId = $parent->getId();
+			if (! $rootId)
+				$rootId = $parent->getId();
 			
 			/** @var CategoryRepository $repository */
 			$repository = $this->getDoctrine()->getRepository(Category::class);
 			$items = $repository->findChildrenIds($entry->getId(), $rootId);
 			
-			if(count($items) > 0) {
+			if (count($items) > 0) {
 				$repository->setRootId($items, $rootId);
 			}
 		} else {
@@ -410,19 +391,19 @@ class CategoryController extends FeaturedEntityController {
 			$repository = $this->getDoctrine()->getRepository(Category::class);
 			$items = $repository->findChildrenIds($entry->getId(), $entry->getId());
 			
-			if(count($items) > 0) {
+			if (count($items) > 0) {
 				$repository->setRootId($items, $entry->getId());
 			}
 		}
 	}
-	
+
 	/**
-	 * 
-	 * @param Category $entry
+	 *
+	 * @param Category $entry        	
 	 */
 	protected function clearRatings($entry) {
-		$result = array();
-		$errors = array();
+		$result = array ();
+		$errors = array ();
 		
 		$count = 0;
 		
@@ -432,13 +413,13 @@ class CategoryController extends FeaturedEntityController {
 		try {
 			foreach ($entry->getProductCategoryAssignments() as $productCategoryAssignment) {
 				$em->remove($productCategoryAssignment);
-				$count++;
+				$count ++;
 			}
 			$em->flush();
 			
 			foreach ($entry->getBrandCategoryAssignments() as $brandCategoryAssignment) {
 				$em->remove($brandCategoryAssignment);
-				$count++;
+				$count ++;
 			}
 			$em->flush();
 			
@@ -453,83 +434,79 @@ class CategoryController extends FeaturedEntityController {
 		return $result;
 	}
 	
-	//---------------------------------------------------------------------------
+	// ---------------------------------------------------------------------------
 	// Managers
-	//---------------------------------------------------------------------------
-	
+	// ---------------------------------------------------------------------------
 	protected function getInternalEntryParamsManager(EntityManager $em, FilterManager $fm, $doctrine) {
 		$categoryRepository = $this->get(CategoryRepository::class);
 		$segmentRepository = $this->get(SegmentRepository::class);
 		
 		return new CategoryEntryParamsManager($em, $fm, $categoryRepository, $segmentRepository);
 	}
-	
+
 	protected function getEntityManager($doctrine, $paginator) {
 		return $this->get(CategoryManager::class);
 	}
-	
+
 	protected function getFilterManager($doctrine) {
 		return new FilterManager(new CategoryFilter());
 	}
 	
-	//---------------------------------------------------------------------------
+	// ---------------------------------------------------------------------------
 	// Params
-	//---------------------------------------------------------------------------
+	// ---------------------------------------------------------------------------
 	/**
 	 *
-	 * @param array $params
+	 * @param array $params        	
 	 * @return array
 	 */
 	protected function getTreeParams(Request $request, array $params) {
 		$params = $this->getParams($request, $params);
-	
+		
 		$em = $this->getEntryParamsManager();
 		$params = $em->getTreeParams($request, $params);
-	
+		
 		return $params;
 	}
-	
-	protected function getRatingsParams(Request $request, array $params, $id)
-	{
+
+	protected function getRatingsParams(Request $request, array $params, $id) {
 		$params = $this->getParams($request, $params);
-	
+		
 		$em = $this->getEntryParamsManager();
 		$params = $em->getRatingsParams($request, $params, $id);
-	
+		
 		return $params;
 	}
 	
-	//---------------------------------------------------------------------------
+	// ---------------------------------------------------------------------------
 	// Internal logic
-	//---------------------------------------------------------------------------
+	// ---------------------------------------------------------------------------
 	/**
 	 *
 	 * {@inheritDoc}
+	 *
 	 * @see \AppBundle\Controller\Admin\Base\AdminEntityController::deleteMore()
 	 */
-	protected function deleteMore($entry)
-	{
+	protected function deleteMore($entry) {
 		$em = $this->getDoctrine()->getManager();
 		foreach ($entry->getBranchCategoryAssignments() as $branchCategoryAssignment) {
 			$em->remove($branchCategoryAssignment);
 		}
 		$em->flush();
-	
-		return array();
+		
+		return array ();
 	}
 	
-	//---------------------------------------------------------------------------
+	// ---------------------------------------------------------------------------
 	// EntityType related
-	//---------------------------------------------------------------------------
-	
+	// ---------------------------------------------------------------------------
 	protected function getEntityType() {
 		return Category::class;
 	}
 	
-	//---------------------------------------------------------------------------
+	// ---------------------------------------------------------------------------
 	// Forms
-	//---------------------------------------------------------------------------
-	
+	// ---------------------------------------------------------------------------
 	protected function getEditorFormType() {
 		return CategoryEditorType::class;
 	}
@@ -537,41 +514,34 @@ class CategoryController extends FeaturedEntityController {
 	protected function getFilterFormType() {
 		return CategoryFilterType::class;
 	}
-	
+
 	protected function getListFormType() {
-		return FeaturedEntityListType::class;
+		return FeaturedListType::class;
 	}
 	
-	//---------------------------------------------------------------------------
+	// ---------------------------------------------------------------------------
 	// Views
-	//---------------------------------------------------------------------------
-	
-	protected function getTreeView()
-	{
+	// ---------------------------------------------------------------------------
+	protected function getTreeView() {
 		return $this->getDomain() . '/' . $this->getEntityName() . '/tree.html.twig';
 	}
-	
-	protected function getRatingsView()
-	{
+
+	protected function getRatingsView() {
 		return $this->getDomain() . '/' . $this->getEntityName() . '/ratings.html.twig';
 	}
 	
-	//---------------------------------------------------------------------------
+	// ---------------------------------------------------------------------------
 	// Routes
-	//---------------------------------------------------------------------------
-	
-	protected function getTreeRoute()
-    {
-    	return $this->getIndexRoute() . '_tree';
-    }
-    
-    protected function getRatingsRoute()
-    {
-    	return $this->getIndexRoute() . '_ratings';
-    }
-    
-    protected function getSetPreleafRoute()
-    {
-    	return $this->getIndexRoute() . '_set_preleaf';
-    }
+	// ---------------------------------------------------------------------------
+	protected function getTreeRoute() {
+		return $this->getIndexRoute() . '_tree';
+	}
+
+	protected function getRatingsRoute() {
+		return $this->getIndexRoute() . '_ratings';
+	}
+
+	protected function getSetPreleafRoute() {
+		return $this->getIndexRoute() . '_set_preleaf';
+	}
 }

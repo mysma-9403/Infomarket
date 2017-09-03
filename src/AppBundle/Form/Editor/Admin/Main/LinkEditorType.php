@@ -2,11 +2,11 @@
 
 namespace AppBundle\Form\Editor\Admin\Main;
 
-use AppBundle\Entity\Link;
-use AppBundle\Form\Editor\Admin\Base\SimpleEntityEditorType;
+use AppBundle\Entity\Main\Link;
+use AppBundle\Form\Editor\Admin\Base\SimpleEditorType;
 use Symfony\Component\Form\FormBuilderInterface;
 
-class LinkEditorType extends SimpleEntityEditorType {
+class LinkEditorType extends SimpleEditorType {
 
 	protected function addFields(FormBuilderInterface $builder, array $options) {
 		parent::addFields($builder, $options);

@@ -2,9 +2,9 @@
 
 namespace AppBundle\Manager\Entity\Common\Assignments;
 
-use AppBundle\Entity\Article;
-use AppBundle\Entity\ArticleTagAssignment;
-use AppBundle\Entity\Tag;
+use AppBundle\Entity\Assignments\ArticleTagAssignment;
+use AppBundle\Entity\Main\Article;
+use AppBundle\Entity\Main\Tag;
 use AppBundle\Manager\Entity\Base\AssignmentManager;
 use Symfony\Component\HttpFoundation\Request;
 

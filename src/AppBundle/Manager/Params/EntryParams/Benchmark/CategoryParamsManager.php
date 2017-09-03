@@ -2,8 +2,8 @@
 
 namespace AppBundle\Manager\Params\EntryParams\Benchmark;
 
-use AppBundle\Entity\Category;
-use AppBundle\Entity\Product;
+use AppBundle\Entity\Main\Category;
+use AppBundle\Entity\Main\Product;
 use AppBundle\Logic\Benchmark\Fields\BenchmarkChartLogic;
 use AppBundle\Logic\Common\BenchmarkField\Initializer\BenchmarkFieldsInitializer;
 use AppBundle\Logic\Common\BenchmarkField\Provider\BenchmarkFieldsProvider;
@@ -44,7 +44,10 @@ class CategoryParamsManager extends EntryParamsManager {
 
 	protected $tokenStorage;
 
-	public function __construct(EntityManager $em, FilterManager $fm, CategoryRepository $categoryRepository, ProductRepository $productRepository, SegmentRepository $segmentRepository, BenchmarkChartLogic $chartLogic, BenchmarkFieldsProvider $benchmarkFieldsProvider, BenchmarkFieldsInitializer $benchmarkFieldsInitializer, TokenStorage $tokenStorage) {
+	public function __construct(EntityManager $em, FilterManager $fm, CategoryRepository $categoryRepository, 
+			ProductRepository $productRepository, SegmentRepository $segmentRepository, 
+			BenchmarkChartLogic $chartLogic, BenchmarkFieldsProvider $benchmarkFieldsProvider, 
+			BenchmarkFieldsInitializer $benchmarkFieldsInitializer, TokenStorage $tokenStorage) {
 		parent::__construct($em, $fm);
 		
 		$this->productRepository = $productRepository;
@@ -100,8 +103,7 @@ class CategoryParamsManager extends EntryParamsManager {
 		
 		$userId = $this->tokenStorage->getToken()->getUser()->getId();
 		$subcategories = $this->categoryRepository->findFilterItemsByUserAndCategory($userId, $id);
-		$viewParams['subcategories'] = $this->categoryRepository->findBy([ 
-				'id' => $subcategories 
+		$viewParams['subcategories'] = $this->categoryRepository->findBy([ 'id' => $subcategories 
 		]);
 		
 		$params['viewParams'] = $viewParams;
@@ -127,13 +129,16 @@ class CategoryParamsManager extends EntryParamsManager {
 	}
 
 	protected function initBenchmarkFields($viewParams, $categoryId) {
-		$viewParams['numberFields'] = $this->benchmarkFieldsInitializer->init($this->benchmarkFieldsProvider->getNumberFields($categoryId), $categoryId);
-		$viewParams['enumFields'] = $this->benchmarkFieldsInitializer->init($this->benchmarkFieldsProvider->getEnumFields($categoryId), $categoryId);
-		$viewParams['boolFields'] = $this->benchmarkFieldsInitializer->init($this->benchmarkFieldsProvider->getBoolFields($categoryId), $categoryId);
+		$viewParams['numberFields'] = $this->benchmarkFieldsInitializer->init(
+				$this->benchmarkFieldsProvider->getNumberFields($categoryId), $categoryId);
+		$viewParams['enumFields'] = $this->benchmarkFieldsInitializer->init(
+				$this->benchmarkFieldsProvider->getEnumFields($categoryId), $categoryId);
+		$viewParams['boolFields'] = $this->benchmarkFieldsInitializer->init(
+				$this->benchmarkFieldsProvider->getBoolFields($categoryId), $categoryId);
 		
-		$viewParams['priceField'] = $this->benchmarkFieldsInitializer->init([ 
-				$this->benchmarkFieldsProvider->getPriceField() 
-		], $categoryId)[0];
+		$viewParams['priceField'] = $this->benchmarkFieldsInitializer->init(
+				[ $this->benchmarkFieldsProvider->getPriceField() 
+				], $categoryId)[0];
 		
 		return $viewParams;
 	}

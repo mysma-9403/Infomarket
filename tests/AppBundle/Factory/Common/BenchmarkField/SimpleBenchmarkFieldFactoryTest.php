@@ -2,7 +2,7 @@
 
 namespace Tests\AppBundle\Factory\Common\BenchmarkField;
 
-use AppBundle\Entity\BenchmarkField;
+use AppBundle\Entity\Main\BenchmarkField;
 use AppBundle\Factory\Common\BenchmarkField\SimpleBenchmarkFieldFactory;
 use AppBundle\Utils\Entity\DataBase\BenchmarkFieldDataBaseUtils;
 use PHPUnit\Framework\TestCase;

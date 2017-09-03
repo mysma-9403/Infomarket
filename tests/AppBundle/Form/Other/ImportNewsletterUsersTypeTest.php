@@ -2,7 +2,7 @@
 
 namespace Tests\AppBundle\Form\Other;
 
-use AppBundle\Entity\Other\ImportNewsletterUsers;
+use AppBundle\Entity\Main\Other\ImportNewsletterUsers;
 use AppBundle\Form\Other\ImportNewsletterUsersType;
 use Tests\AppBundle\Form\Base\BaseTypeTest;
 

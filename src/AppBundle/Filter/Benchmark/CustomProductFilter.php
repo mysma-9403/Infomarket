@@ -3,11 +3,11 @@
 namespace AppBundle\Filter\Benchmark;
 
 use AppBundle;
-use AppBundle\Filter\Common\Base\SimpleEntityFilter;
+use AppBundle\Filter\Common\Base\SimpleFilter;
 use AppBundle\Filter\Base\Filter;
 use Symfony\Component\HttpFoundation\Request;
 
-class CustomProductFilter extends SimpleEntityFilter {
+class CustomProductFilter extends SimpleFilter {
 
 	/**
 	 *

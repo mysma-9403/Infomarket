@@ -2,7 +2,7 @@
 
 namespace AppBundle\Manager\Params\EntryParams\Admin;
 
-use AppBundle\Entity\BenchmarkMessage;
+use AppBundle\Entity\Main\BenchmarkMessage;
 use AppBundle\Manager\Params\EntryParams\Base\EntryParamsManager;
 use Symfony\Component\HttpFoundation\Request;
 

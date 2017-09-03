@@ -2,11 +2,11 @@
 
 namespace Tests\AppBundle\Form\Editor\Admin\Main;
 
-use AppBundle\Entity\Advert;
+use AppBundle\Entity\Main\Advert;
 use AppBundle\Form\Editor\Admin\Main\AdvertEditorType;
-use Tests\AppBundle\Form\Editor\Admin\Base\ImageEntityEditorTypeTest;
+use Tests\AppBundle\Form\Editor\Admin\Base\ImageEditorTypeTest;
 
-class AdvertEditorTypeTest extends ImageEntityEditorTypeTest {
+class AdvertEditorTypeTest extends ImageEditorTypeTest {
 	
 	const LOCATION = 13;
 	const DATE_FROM = '19/10/1987 12:00';

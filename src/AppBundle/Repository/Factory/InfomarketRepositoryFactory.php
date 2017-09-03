@@ -2,18 +2,18 @@
 
 namespace AppBundle\Repository\Factory;
 
-use AppBundle\Entity\Advert;
-use AppBundle\Entity\Article;
-use AppBundle\Entity\ArticleCategory;
-use AppBundle\Entity\Branch;
-use AppBundle\Entity\Brand;
-use AppBundle\Entity\Category;
-use AppBundle\Entity\Magazine;
-use AppBundle\Entity\MenuEntry;
-use AppBundle\Entity\Product;
-use AppBundle\Entity\Segment;
-use AppBundle\Entity\Tag;
-use AppBundle\Entity\Term;
+use AppBundle\Entity\Main\Advert;
+use AppBundle\Entity\Main\Article;
+use AppBundle\Entity\Main\ArticleCategory;
+use AppBundle\Entity\Main\Branch;
+use AppBundle\Entity\Main\Brand;
+use AppBundle\Entity\Main\Category;
+use AppBundle\Entity\Main\Magazine;
+use AppBundle\Entity\Main\MenuEntry;
+use AppBundle\Entity\Main\Product;
+use AppBundle\Entity\Main\Segment;
+use AppBundle\Entity\Main\Tag;
+use AppBundle\Entity\Main\Term;
 use AppBundle\Repository\Infomarket\AdvertRepository;
 use AppBundle\Repository\Infomarket\ArticleCategoryRepository;
 use AppBundle\Repository\Infomarket\ArticleRepository;

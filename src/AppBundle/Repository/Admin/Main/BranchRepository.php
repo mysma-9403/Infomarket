@@ -2,13 +2,13 @@
 
 namespace AppBundle\Repository\Admin\Main;
 
-use AppBundle\Entity\Branch;
+use AppBundle\Entity\Main\Branch;
 use AppBundle\Filter\Common\Main\BranchFilter;
 use AppBundle\Filter\Base\Filter;
-use AppBundle\Repository\Admin\Base\ImageEntityRepository;
+use AppBundle\Repository\Admin\Base\ImageRepository;
 use Doctrine\ORM\QueryBuilder;
 
-class BranchRepository extends ImageEntityRepository {
+class BranchRepository extends ImageRepository {
 
 	protected function buildOrderBy(QueryBuilder &$builder, Filter $filter) {
 		parent::buildOrderBy($builder, $filter);

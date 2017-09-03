@@ -2,8 +2,8 @@
 
 namespace AppBundle\Repository\Infomarket;
 
-use AppBundle\Entity\BranchCategoryAssignment;
-use AppBundle\Entity\Category;
+use AppBundle\Entity\Assignments\BranchCategoryAssignment;
+use AppBundle\Entity\Main\Category;
 use AppBundle\Filter\Base\Filter;
 use AppBundle\Repository\Base\BaseRepository;
 use Doctrine\ORM\AbstractQuery;
@@ -196,7 +196,8 @@ class CategoryRepository extends BaseRepository {
 	}
 
 	public function findContextParents($categoryId) {
-		$treePath = $this->queryContextTreePath($categoryId)->getSingleResult(AbstractQuery::HYDRATE_SINGLE_SCALAR);
+		$treePath = $this->queryContextTreePath($categoryId)->getSingleResult(
+				AbstractQuery::HYDRATE_SINGLE_SCALAR);
 		return $this->getContextParents($treePath);
 	}
 

@@ -2,7 +2,7 @@
 
 namespace Tests\AppBundle\Form\Other;
 
-use AppBundle\Entity\Other\ArticleTagAssignments;
+use AppBundle\Entity\Assignments\Other\ArticleTagAssignments;
 use AppBundle\Form\Other\ArticleTagAssignmentsType;
 use Tests\AppBundle\Form\Base\BaseTypeTest;
 

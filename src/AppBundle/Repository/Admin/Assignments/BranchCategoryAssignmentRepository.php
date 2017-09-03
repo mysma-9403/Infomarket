@@ -2,16 +2,16 @@
 
 namespace AppBundle\Repository\Admin\Assignments;
 
-use AppBundle\Entity\Branch;
-use AppBundle\Entity\BranchCategoryAssignment;
-use AppBundle\Entity\Category;
-use AppBundle\Filter\Common\Assignments\BranchCategoryAssignmentFilter;
+use AppBundle\Entity\Assignments\BranchCategoryAssignment;
+use AppBundle\Entity\Main\Branch;
+use AppBundle\Entity\Main\Category;
 use AppBundle\Filter\Base\Filter;
-use AppBundle\Repository\Admin\Base\AuditRepository;
+use AppBundle\Filter\Common\Assignments\BranchCategoryAssignmentFilter;
+use AppBundle\Repository\Admin\Base\SimpleRepository;
 use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\ORM\QueryBuilder;
 
-class BranchCategoryAssignmentRepository extends AuditRepository {
+class BranchCategoryAssignmentRepository extends SimpleRepository {
 
 	protected function getSelectFields(QueryBuilder &$builder, Filter $filter) {
 		$fields = parent::getSelectFields($builder, $filter);

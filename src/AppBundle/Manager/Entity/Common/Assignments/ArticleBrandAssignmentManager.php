@@ -2,9 +2,9 @@
 
 namespace AppBundle\Manager\Entity\Common\Assignments;
 
-use AppBundle\Entity\Article;
-use AppBundle\Entity\ArticleBrandAssignment;
-use AppBundle\Entity\Brand;
+use AppBundle\Entity\Assignments\ArticleBrandAssignment;
+use AppBundle\Entity\Main\Article;
+use AppBundle\Entity\Main\Brand;
 use AppBundle\Manager\Entity\Base\AssignmentManager;
 use Symfony\Component\HttpFoundation\Request;
 

@@ -2,13 +2,13 @@
 
 namespace AppBundle\Repository\Admin\Main;
 
-use AppBundle\Entity\BenchmarkEnum;
+use AppBundle\Entity\Main\BenchmarkEnum;
 use AppBundle\Filter\Common\Main\BenchmarkEnumFilter;
 use AppBundle\Filter\Base\Filter;
-use AppBundle\Repository\Admin\Base\AuditRepository;
+use AppBundle\Repository\Admin\Base\SimpleRepository;
 use Doctrine\ORM\QueryBuilder;
 
-class BenchmarkEnumRepository extends AuditRepository {
+class BenchmarkEnumRepository extends SimpleRepository {
 
 	protected function getSelectFields(QueryBuilder &$builder, Filter $filter) {
 		$fields = parent::getSelectFields($builder, $filter);

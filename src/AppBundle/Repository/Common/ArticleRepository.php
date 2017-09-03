@@ -2,7 +2,7 @@
 
 namespace AppBundle\Repository\Common;
 
-use AppBundle\Entity\Article;
+use AppBundle\Entity\Main\Article;
 use AppBundle\Repository\Base\BaseRepository;
 use Doctrine\ORM\QueryBuilder;
 
@@ -49,7 +49,8 @@ abstract class ArticleRepository extends BaseRepository {
 		
 		$expr = $builder->expr();
 		
-		$builder->select('e.id, e.name, e.subname, e.image, e.intro, e.content, e.layout, IDENTITY(e.parent) AS parent, e.imageSize');
+		$builder->select(
+				'e.id, e.name, e.subname, e.image, e.intro, e.content, e.layout, IDENTITY(e.parent) AS parent, e.imageSize');
 		$builder->from($this->getEntityType(), "e");
 		
 		$where = $expr->andX();

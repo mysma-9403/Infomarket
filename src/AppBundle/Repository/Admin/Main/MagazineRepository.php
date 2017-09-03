@@ -2,16 +2,16 @@
 
 namespace AppBundle\Repository\Admin\Main;
 
-use AppBundle\Entity\Magazine;
-use AppBundle\Entity\MagazineBranchAssignment;
-use AppBundle\Entity\MagazineCategoryAssignment;
-use AppBundle\Filter\Common\Main\MagazineFilter;
+use AppBundle\Entity\Assignments\MagazineBranchAssignment;
+use AppBundle\Entity\Assignments\MagazineCategoryAssignment;
+use AppBundle\Entity\Main\Magazine;
 use AppBundle\Filter\Base\Filter;
-use AppBundle\Repository\Admin\Base\ImageEntityRepository;
+use AppBundle\Filter\Common\Main\MagazineFilter;
+use AppBundle\Repository\Admin\Base\ImageRepository;
 use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\ORM\QueryBuilder;
 
-class MagazineRepository extends ImageEntityRepository {
+class MagazineRepository extends ImageRepository {
 
 	protected function buildJoins(QueryBuilder &$builder, Filter $filter) {
 		parent::buildJoins($builder, $filter);

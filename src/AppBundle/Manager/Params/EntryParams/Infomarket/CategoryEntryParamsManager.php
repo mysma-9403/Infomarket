@@ -2,8 +2,8 @@
 
 namespace AppBundle\Manager\Params\EntryParams\Infomarket;
 
-use AppBundle\Entity\Category;
-use AppBundle\Entity\Segment;
+use AppBundle\Entity\Main\Category;
+use AppBundle\Entity\Main\Segment;
 use AppBundle\Manager\Entity\Base\EntityManager;
 use AppBundle\Manager\Filter\Base\FilterManager;
 use AppBundle\Manager\Params\EntryParams\Infomarket\Base\EntryParamsManager;
@@ -39,7 +39,9 @@ class CategoryEntryParamsManager extends EntryParamsManager {
 	 */
 	protected $segmentRepository;
 
-	public function __construct(EntityManager $em, FilterManager $fm, BrandRepository $brandRepository, CategoryRepository $categoryRepository, ProductRepository $productRepository, SegmentRepository $segmentRepository) {
+	public function __construct(EntityManager $em, FilterManager $fm, BrandRepository $brandRepository, 
+			CategoryRepository $categoryRepository, ProductRepository $productRepository, 
+			SegmentRepository $segmentRepository) {
 		parent::__construct($em, $fm);
 		
 		$this->brandRepository = $brandRepository;

@@ -2,8 +2,8 @@
 
 namespace AppBundle\Repository\Common;
 
-use AppBundle\Entity\BenchmarkField;
-use AppBundle\Entity\Category;
+use AppBundle\Entity\Main\BenchmarkField;
+use AppBundle\Entity\Main\Category;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\ORM\QueryBuilder;
@@ -17,7 +17,8 @@ class BenchmarkFieldMetadataRepository extends EntityRepository {
 	protected function queryItemsByCategory($categoryId) {
 		$builder = new QueryBuilder($this->getEntityManager());
 		
-		$builder->select("e.valueNumber, e.fieldType, e.fieldName, e.decimalPlaces, e.noteType, e.noteWeight, e.betterThanType, e.compareWeight");
+		$builder->select(
+				"e.valueNumber, e.fieldType, e.fieldName, e.decimalPlaces, e.noteType, e.noteWeight, e.betterThanType, e.compareWeight");
 		$builder->from($this->getEntityType(), "e");
 		
 		$expr = $builder->expr();
@@ -39,7 +40,8 @@ class BenchmarkFieldMetadataRepository extends EntityRepository {
 	protected function queryShowItemsByCategory($categoryId) {
 		$builder = new QueryBuilder($this->getEntityManager());
 		
-		$builder->select("e.valueNumber, e.fieldType, e.fieldName, e.decimalPlaces, 
+		$builder->select(
+				"e.valueNumber, e.fieldType, e.fieldName, e.decimalPlaces, 
 							e.noteType, e.noteWeight, e.betterThanType, e.compareWeight, e.featuredField");
 		$builder->from($this->getEntityType(), "e");
 		
@@ -108,10 +110,9 @@ class BenchmarkFieldMetadataRepository extends EntityRepository {
 	}
 
 	protected function queryNumberItemsByCategory($categoryId) {
-		return $this->queryItemsByTypesAndCategory($categoryId, [ 
-				BenchmarkField::DECIMAL_FIELD_TYPE,
-				BenchmarkField::INTEGER_FIELD_TYPE 
-		]);
+		return $this->queryItemsByTypesAndCategory($categoryId, 
+				[ BenchmarkField::DECIMAL_FIELD_TYPE,BenchmarkField::INTEGER_FIELD_TYPE 
+				]);
 	}
 
 	public function findEnumItemsByCategory($categoryId) {
@@ -119,10 +120,9 @@ class BenchmarkFieldMetadataRepository extends EntityRepository {
 	}
 
 	protected function queryEnumItemsByCategory($categoryId) {
-		return $this->queryItemsByTypesAndCategory($categoryId, [ 
-				BenchmarkField::SINGLE_ENUM_FIELD_TYPE,
-				BenchmarkField::MULTI_ENUM_FIELD_TYPE 
-		]);
+		return $this->queryItemsByTypesAndCategory($categoryId, 
+				[ BenchmarkField::SINGLE_ENUM_FIELD_TYPE,BenchmarkField::MULTI_ENUM_FIELD_TYPE 
+				]);
 	}
 
 	public function findBoolItemsByCategory($categoryId) {
@@ -130,9 +130,9 @@ class BenchmarkFieldMetadataRepository extends EntityRepository {
 	}
 
 	protected function queryBoolItemsByCategory($categoryId) {
-		return $this->queryItemsByTypesAndCategory($categoryId, [ 
-				BenchmarkField::BOOLEAN_FIELD_TYPE 
-		]);
+		return $this->queryItemsByTypesAndCategory($categoryId, 
+				[ BenchmarkField::BOOLEAN_FIELD_TYPE 
+				]);
 	}
 
 	protected function queryItemsByTypesAndCategory($categoryId, $types) {

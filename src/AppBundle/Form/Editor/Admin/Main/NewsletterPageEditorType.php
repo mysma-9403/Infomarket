@@ -2,13 +2,13 @@
 
 namespace AppBundle\Form\Editor\Admin\Main;
 
-use AppBundle\Entity\NewsletterPage;
-use AppBundle\Entity\NewsletterPageTemplate;
-use AppBundle\Form\Editor\Admin\Base\SimpleEntityEditorType;
+use AppBundle\Entity\Main\NewsletterPage;
+use AppBundle\Entity\Main\NewsletterPageTemplate;
+use AppBundle\Form\Editor\Admin\Base\SimpleEditorType;
 use AppBundle\Form\Transformer\EntityToNumberTransformer;
 use Symfony\Component\Form\FormBuilderInterface;
 
-class NewsletterPageEditorType extends SimpleEntityEditorType {
+class NewsletterPageEditorType extends SimpleEditorType {
 
 	/**
 	 *
@@ -26,7 +26,8 @@ class NewsletterPageEditorType extends SimpleEntityEditorType {
 		$this->addTextField($builder, 'name', 'label.name');
 		$this->addTextField($builder, 'subname', 'label.subname', false);
 		
-		$this->addTrueEntityChoiceField($builder, $options, $this->newsletterPageTemplateToNumberTransformer, 'newsletterPageTemplate');
+		$this->addTrueEntityChoiceField($builder, $options, $this->newsletterPageTemplateToNumberTransformer, 
+				'newsletterPageTemplate');
 	}
 
 	protected function getDefaultOptions() {

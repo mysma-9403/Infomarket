@@ -2,9 +2,9 @@
 
 namespace AppBundle\Repository\Search\Infoprodukt;
 
-use AppBundle\Entity\Article;
-use AppBundle\Entity\ArticleBrandAssignment;
-use AppBundle\Entity\ArticleCategoryAssignment;
+use AppBundle\Entity\Assignments\ArticleBrandAssignment;
+use AppBundle\Entity\Assignments\ArticleCategoryAssignment;
+use AppBundle\Entity\Main\Article;
 use AppBundle\Filter\Base\Filter;
 use AppBundle\Filter\Common\Search\BrandCategorySearchFilter;
 use AppBundle\Repository\Search\Base\SearchRepository;

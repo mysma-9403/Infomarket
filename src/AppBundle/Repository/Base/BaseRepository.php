@@ -34,8 +34,7 @@ abstract class BaseRepository extends EntityRepository {
 	}
 
 	protected function getItemSelectFields(QueryBuilder &$builder) {
-		return [ 
-				'e.id' 
+		return [ 'e.id' 
 		];
 	}
 
@@ -87,8 +86,7 @@ abstract class BaseRepository extends EntityRepository {
 	}
 
 	protected function getSelectFields(QueryBuilder &$builder, Filter $filter) {
-		return [ 
-				'e.id' 
+		return [ 'e.id' 
 		];
 	}
 
@@ -139,8 +137,7 @@ abstract class BaseRepository extends EntityRepository {
 	}
 
 	protected function getFilterSelectFields(QueryBuilder &$builder) {
-		return [ 
-				'e.id' 
+		return [ 'e.id' 
 		];
 	}
 
@@ -160,8 +157,7 @@ abstract class BaseRepository extends EntityRepository {
 	}
 
 	protected function getFilterItemKeyFields($item) {
-		return [ 
-				$item['id'] 
+		return [ $item['id'] 
 		];
 	}
 
@@ -348,7 +344,7 @@ abstract class BaseRepository extends EntityRepository {
 	}
 
 	/**
-	 * Get entity type (e.g <strong>AppBundle:SimpleEntity</strong>)
+	 * Get entity type (e.g <strong>AppBundle:Simple</strong>)
 	 *
 	 * @return string
 	 */

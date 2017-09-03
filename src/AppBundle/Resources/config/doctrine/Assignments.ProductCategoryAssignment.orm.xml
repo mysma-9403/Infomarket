@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+        http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+	<entity name="AppBundle\Entity\Assignments\ProductCategoryAssignment"
+		table="product_category_assignments"
+		repository-class="AppBundle\Repository\Admin\Assignments\ProductCategoryAssignmentRepository">
+
+		<many-to-one field="product" target-entity="AppBundle\Entity\Main\Product"
+			inversed-by="productCategoryAssignments" />
+		<many-to-one field="segment" target-entity="AppBundle\Entity\Main\Segment"
+			inversed-by="productCategoryAssignments" />
+		<many-to-one field="category" target-entity="AppBundle\Entity\Main\Category"
+			inversed-by="productCategoryAssignments" />
+
+		<field name="orderNumber" type="integer" default="1" />
+
+		<field name="featured" type="boolean" default="false" />
+
+	</entity>
+
+</doctrine-mapping>

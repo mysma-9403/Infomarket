@@ -2,10 +2,10 @@
 
 namespace AppBundle\Repository\Benchmark;
 
-use AppBundle\Entity\Brand;
-use AppBundle\Entity\Category;
-use AppBundle\Entity\Product;
-use AppBundle\Entity\ProductCategoryAssignment;
+use AppBundle\Entity\Assignments\ProductCategoryAssignment;
+use AppBundle\Entity\Main\Brand;
+use AppBundle\Entity\Main\Category;
+use AppBundle\Entity\Main\Product;
 use AppBundle\Filter\Base\Filter;
 use AppBundle\Filter\Benchmark\CustomProductFilter;
 use AppBundle\Filter\Benchmark\ProductFilter;

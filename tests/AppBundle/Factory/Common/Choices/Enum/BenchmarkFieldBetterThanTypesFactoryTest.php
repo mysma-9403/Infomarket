@@ -2,7 +2,7 @@
 
 namespace Tests\AppBundle\Factory\Common\Choices\Bool;
 
-use AppBundle\Entity\BenchmarkField;
+use AppBundle\Entity\Main\BenchmarkField;
 use AppBundle\Factory\Common\Choices\Enum\BenchmarkFieldBetterThanTypesFactory;
 use PHPUnit\Framework\TestCase;
 

@@ -2,12 +2,12 @@
 
 namespace AppBundle\Form\Editor\Admin\Assignments;
 
-use AppBundle\Entity\MagazineCategoryAssignment;
-use AppBundle\Form\Editor\Admin\Base\BaseEntityEditorType;
+use AppBundle\Entity\Assignments\MagazineCategoryAssignment;
+use AppBundle\Form\Editor\Admin\Base\BaseEditorType;
 use AppBundle\Form\Transformer\EntityToNumberTransformer;
 use Symfony\Component\Form\FormBuilderInterface;
 
-class MagazineCategoryAssignmentEditorType extends BaseEntityEditorType {
+class MagazineCategoryAssignmentEditorType extends BaseEditorType {
 
 	/**
 	 *
@@ -21,7 +21,8 @@ class MagazineCategoryAssignmentEditorType extends BaseEntityEditorType {
 	 */
 	protected $categoryTransformer;
 
-	public function __construct(EntityToNumberTransformer $magazineTransformer, EntityToNumberTransformer $categoryTransformer) {
+	public function __construct(EntityToNumberTransformer $magazineTransformer, 
+			EntityToNumberTransformer $categoryTransformer) {
 		$this->magazineTransformer = $magazineTransformer;
 		$this->categoryTransformer = $categoryTransformer;
 	}

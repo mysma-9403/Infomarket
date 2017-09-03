@@ -2,7 +2,7 @@
 
 namespace AppBundle\Repository\Infomarket;
 
-use AppBundle\Entity\Branch;
+use AppBundle\Entity\Main\Branch;
 use AppBundle\Repository\Base\BaseRepository;
 use Doctrine\ORM\QueryBuilder;
 

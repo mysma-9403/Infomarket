@@ -3,9 +3,9 @@
 namespace AppBundle\Controller\Admin\Assignments;
 
 use AppBundle\Controller\Admin\Base\AssignmentController;
-use AppBundle\Entity\Article;
-use AppBundle\Entity\ArticleTagAssignment;
-use AppBundle\Entity\Tag;
+use AppBundle\Entity\Main\Article;
+use AppBundle\Entity\Assignments\ArticleTagAssignment;
+use AppBundle\Entity\Main\Tag;
 use AppBundle\Filter\Common\Assignments\ArticleTagAssignmentFilter;
 use AppBundle\Form\Editor\Admin\Assignments\ArticleTagAssignmentEditorType;
 use AppBundle\Form\Filter\Admin\Assignments\ArticleTagAssignmentFilterType;

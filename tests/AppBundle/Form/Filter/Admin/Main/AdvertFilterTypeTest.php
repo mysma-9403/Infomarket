@@ -4,9 +4,9 @@ namespace Tests\AppBundle\Form\Filter\Admin\Main;
 
 use AppBundle\Filter\Common\Main\AdvertFilter;
 use AppBundle\Form\Filter\Admin\Main\AdvertFilterType;
-use Tests\AppBundle\Form\Filter\Admin\Base\BaseEntityFilterTypeTest;
+use Tests\AppBundle\Form\Filter\Admin\Base\BaseFilterTypeTest;
 
-class AdvertFilterTypeTest extends BaseEntityFilterTypeTest {
+class AdvertFilterTypeTest extends BaseFilterTypeTest {
 		
 	const NAME = '*name*';
 	const LINK = '*link*';

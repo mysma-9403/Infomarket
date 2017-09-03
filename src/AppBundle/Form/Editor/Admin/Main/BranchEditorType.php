@@ -2,11 +2,11 @@
 
 namespace AppBundle\Form\Editor\Admin\Main;
 
-use AppBundle\Entity\Branch;
-use AppBundle\Form\Editor\Admin\Base\ImageEntityEditorType;
+use AppBundle\Entity\Main\Branch;
+use AppBundle\Form\Editor\Admin\Base\ImageEditorType;
 use Symfony\Component\Form\FormBuilderInterface;
 
-class BranchEditorType extends ImageEntityEditorType {
+class BranchEditorType extends ImageEditorType {
 
 	protected function addFields(FormBuilderInterface $builder, array $options) {
 		parent::addFields($builder, $options);

@@ -4,9 +4,9 @@ namespace Tests\AppBundle\Form\Filter\Admin\Main;
 
 use AppBundle\Filter\Common\Main\NewsletterPageFilter;
 use AppBundle\Form\Filter\Admin\Main\NewsletterPageFilterType;
-use Tests\AppBundle\Form\Filter\Admin\Base\BaseEntityFilterTypeTest;
+use Tests\AppBundle\Form\Filter\Admin\Base\BaseFilterTypeTest;
 
-class NewsletterPageFilterTypeTest extends BaseEntityFilterTypeTest {
+class NewsletterPageFilterTypeTest extends BaseFilterTypeTest {
 		
 	const NAME = '*name*';
 	

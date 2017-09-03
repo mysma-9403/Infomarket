@@ -2,9 +2,9 @@
 
 namespace AppBundle\Manager\Entity\Common\Assignments;
 
-use AppBundle\Entity\Article;
-use AppBundle\Entity\ArticleArticleCategoryAssignment;
-use AppBundle\Entity\ArticleCategory;
+use AppBundle\Entity\Assignments\ArticleArticleCategoryAssignment;
+use AppBundle\Entity\Main\Article;
+use AppBundle\Entity\Main\ArticleCategory;
 use AppBundle\Manager\Entity\Base\AssignmentManager;
 use Symfony\Component\HttpFoundation\Request;
 

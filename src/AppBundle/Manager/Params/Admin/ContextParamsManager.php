@@ -2,7 +2,7 @@
 
 namespace AppBundle\Manager\Params\Admin;
 
-use AppBundle\Entity\BenchmarkMessage;
+use AppBundle\Entity\Main\BenchmarkMessage;
 use AppBundle\Manager\Params\Base\ParamsManager;
 use AppBundle\Repository\Admin\Main\BenchmarkMessageRepository;
 use Symfony\Component\HttpFoundation\Request;
@@ -28,7 +28,8 @@ class ContextParamsManager extends ParamsManager {
 		
 		$em = $this->doctrine->getManager();
 		
-		$this->benchmarkMessageRepository = new BenchmarkMessageRepository($em, $em->getClassMetadata(BenchmarkMessage::class));
+		$this->benchmarkMessageRepository = new BenchmarkMessageRepository($em, 
+				$em->getClassMetadata(BenchmarkMessage::class));
 	}
 
 	public function getParams(Request $request, array $params) {

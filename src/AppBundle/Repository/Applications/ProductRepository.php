@@ -2,10 +2,10 @@
 
 namespace AppBundle\Repository\Applications;
 
-use AppBundle\Entity\Brand;
-use AppBundle\Entity\Category;
-use AppBundle\Entity\Product;
-use AppBundle\Entity\ProductCategoryAssignment;
+use AppBundle\Entity\Main\Brand;
+use AppBundle\Entity\Main\Category;
+use AppBundle\Entity\Main\Product;
+use AppBundle\Entity\Assignments\ProductCategoryAssignment;
 use AppBundle\Repository\Base\BaseRepository;
 use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\ORM\QueryBuilder;

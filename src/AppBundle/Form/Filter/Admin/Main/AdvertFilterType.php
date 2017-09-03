@@ -2,13 +2,13 @@
 
 namespace AppBundle\Form\Filter\Admin\Main;
 
-use AppBundle\Entity\Advert;
+use AppBundle\Entity\Main\Advert;
 use AppBundle\Filter\Common\Main\AdvertFilter;
 use AppBundle\Filter\Base\Filter;
-use AppBundle\Form\Filter\Admin\Base\SimpleEntityFilterType;
+use AppBundle\Form\Filter\Admin\Base\SimpleFilterType;
 use Symfony\Component\Form\FormBuilderInterface;
 
-class AdvertFilterType extends SimpleEntityFilterType {
+class AdvertFilterType extends SimpleFilterType {
 
 	protected function addFields(FormBuilderInterface $builder, array $options) {
 		parent::addFields($builder, $options);

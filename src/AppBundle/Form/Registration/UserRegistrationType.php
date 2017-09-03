@@ -12,22 +12,14 @@ class UserRegistrationType extends AbstractType {
 	
 	// TODO check if can be BaseType'd
 	public function buildForm(FormBuilderInterface $builder, array $options) {
-		$builder->add('forename', TextType::class, array (
-				'required' => true 
-		))->add('surname', TextType::class, array (
-				'required' => true 
-		))->add('street', TextType::class, array (
-				'required' => true 
-		))->add('zipCode', TextType::class, array (
-				'required' => true 
-		))->add('city', TextType::class, array (
-				'required' => true 
-		))->add('digitalSubscription', CheckboxType::class, array (
-				'required' => false 
-		))->add('physicalSubscription', CheckboxType::class, array (
-				'required' => false 
-		))->add('dataProcessingAgreement', CheckboxType::class, array (
-				'required' => true 
+		$builder->add('forename', TextType::class, array ('required' => true 
+		))->add('surname', TextType::class, array ('required' => true 
+		))->add('street', TextType::class, array ('required' => true 
+		))->add('zipCode', TextType::class, array ('required' => true 
+		))->add('city', TextType::class, array ('required' => true 
+		))->add('digitalSubscription', CheckboxType::class, array ('required' => false 
+		))->add('physicalSubscription', CheckboxType::class, array ('required' => false 
+		))->add('dataProcessingAgreement', CheckboxType::class, array ('required' => true 
 		));
 	}
 

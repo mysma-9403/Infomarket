@@ -40,7 +40,9 @@ class SearchEntryParamsManager extends EntryParamsManager {
 	 */
 	protected $termRepository;
 
-	public function __construct(EntityManager $em, FilterManager $fm, ArticleSearchRepository $articleRepository, BrandSearchRepository $brandRepository, ProductSearchRepository $productRepository, TermSearchRepository $termRepository) {
+	public function __construct(EntityManager $em, FilterManager $fm, ArticleSearchRepository $articleRepository, 
+			BrandSearchRepository $brandRepository, ProductSearchRepository $productRepository, 
+			TermSearchRepository $termRepository) {
 		parent::__construct($em, $fm);
 		
 		$this->articleRepository = $articleRepository;

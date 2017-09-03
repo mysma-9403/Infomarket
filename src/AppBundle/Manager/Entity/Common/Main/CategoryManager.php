@@ -2,7 +2,7 @@
 
 namespace AppBundle\Manager\Entity\Common\Main;
 
-use AppBundle\Entity\Category;
+use AppBundle\Entity\Main\Category;
 use AppBundle\Manager\Entity\Base\EntityManager;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Manager\Params\Base\ParamsManager;

@@ -2,8 +2,8 @@
 
 namespace AppBundle\Repository\Infoprodukt;
 
-use AppBundle\Entity\ArticleTagAssignment;
-use AppBundle\Entity\Tag;
+use AppBundle\Entity\Assignments\ArticleTagAssignment;
+use AppBundle\Entity\Main\Tag;
 use AppBundle\Repository\Base\BaseRepository;
 use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\ORM\QueryBuilder;

@@ -2,15 +2,15 @@
 
 namespace AppBundle\Repository\Admin\Assignments;
 
-use AppBundle\Entity\NewsletterGroup;
-use AppBundle\Entity\NewsletterUser;
-use AppBundle\Entity\NewsletterUserNewsletterGroupAssignment;
+use AppBundle\Entity\Assignments\NewsletterUserNewsletterGroupAssignment;
+use AppBundle\Entity\Main\NewsletterGroup;
+use AppBundle\Entity\Main\NewsletterUser;
 use AppBundle\Filter\Base\Filter;
-use AppBundle\Repository\Admin\Base\AuditRepository;
+use AppBundle\Repository\Admin\Base\SimpleRepository;
 use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\ORM\QueryBuilder;
 
-class NewsletterUserNewsletterGroupAssignmentRepository extends AuditRepository {
+class NewsletterUserNewsletterGroupAssignmentRepository extends SimpleRepository {
 
 	protected function getSelectFields(QueryBuilder &$builder, Filter $filter) {
 		$fields = parent::getSelectFields($builder, $filter);

@@ -2,7 +2,7 @@
 
 namespace AppBundle\Manager\Entity\Common\Main;
 
-use AppBundle\Entity\Segment;
+use AppBundle\Entity\Main\Segment;
 use AppBundle\Manager\Entity\Base\EntityManager;
 use Symfony\Component\HttpFoundation\Request;
 

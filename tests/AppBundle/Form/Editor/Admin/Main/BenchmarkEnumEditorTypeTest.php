@@ -2,11 +2,11 @@
 
 namespace Tests\AppBundle\Form\Editor\Admin\Main;
 
-use AppBundle\Entity\BenchmarkEnum;
+use AppBundle\Entity\Main\BenchmarkEnum;
 use AppBundle\Form\Editor\Admin\Main\BenchmarkEnumEditorType;
-use Tests\AppBundle\Form\Editor\Admin\Base\BaseEntityEditorTypeTest;
+use Tests\AppBundle\Form\Editor\Admin\Base\BaseEditorTypeTest;
 
-class BenchmarkEnumEditorTypeTest extends BaseEntityEditorTypeTest {
+class BenchmarkEnumEditorTypeTest extends BaseEditorTypeTest {
 	
 	const NAME = 'Test name';
 	const VALUE = 15;

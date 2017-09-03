@@ -36,7 +36,9 @@ class ArticleManager extends CommonArticleManager {
 	 */
 	protected $ataManager;
 
-	public function __construct(BaseRepository $repository, $paginator, ParamsManager $paramsManager, BrandRepository $brandRepository, TagRepository $tagRepository, ArticleBrandAssignmentsManager $abaManager, ArticleTagAssignmentsManager $ataManager) {
+	public function __construct(BaseRepository $repository, $paginator, ParamsManager $paramsManager, 
+			BrandRepository $brandRepository, TagRepository $tagRepository, 
+			ArticleBrandAssignmentsManager $abaManager, ArticleTagAssignmentsManager $ataManager) {
 		parent::__construct($repository, $paginator, $paramsManager);
 		
 		$this->brandRepository = $brandRepository;

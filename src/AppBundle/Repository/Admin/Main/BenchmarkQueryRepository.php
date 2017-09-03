@@ -2,7 +2,7 @@
 
 namespace AppBundle\Repository\Admin\Main;
 
-use AppBundle\Entity\BenchmarkQuery;
+use AppBundle\Entity\Main\BenchmarkQuery;
 use AppBundle\Repository\Base\BaseRepository;
 use AppBundle\Filter\Base\Filter;
 use Doctrine\ORM\QueryBuilder;

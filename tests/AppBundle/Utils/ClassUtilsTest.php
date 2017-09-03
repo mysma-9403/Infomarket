@@ -2,7 +2,7 @@
 
 namespace Tests\AppBundle\Factory\Common\Choices\Bool;
 
-use AppBundle\Entity\ArticleCategory;
+use AppBundle\Entity\Main\ArticleCategory;
 use AppBundle\Utils\ClassUtils;
 use PHPUnit\Framework\TestCase;
 

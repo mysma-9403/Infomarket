@@ -3,7 +3,7 @@
 namespace AppBundle\Controller\Infomarket;
 
 use AppBundle\Controller\Infomarket\Base\InfomarketController;
-use AppBundle\Entity\Category;
+use AppBundle\Entity\Main\Category;
 use AppBundle\Filter\Common\Search\SearchFilter;
 use AppBundle\Manager\Entity\Base\EntityManager;
 use AppBundle\Manager\Entity\Infomarket\SearchManager;
@@ -33,8 +33,8 @@ class SearchController extends InfomarketController {
 		$productRepository = $this->get(ProductSearchRepository::class);
 		$termRepository = $this->get(TermSearchRepository::class);
 		
-		return new SearchEntryParamsManager($em, $fm, $articleRepository,
-				$brandRepository, $productRepository, $termRepository);
+		return new SearchEntryParamsManager($em, $fm, $articleRepository, $brandRepository, $productRepository, 
+				$termRepository);
 	}
 
 	protected function getEntityManager($doctrine, $paginator) {

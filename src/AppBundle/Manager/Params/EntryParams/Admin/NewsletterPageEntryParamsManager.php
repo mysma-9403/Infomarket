@@ -24,7 +24,9 @@ class NewsletterPageEntryParamsManager extends EntryParamsManager {
 	 */
 	protected $sendNewsletterRepository;
 
-	public function __construct(EntityManager $em, FilterManager $fm, NewsletterGroupRepository $newsletterGroupRepository, SendNewsletterRepository $sendNewsletterRepository) {
+	public function __construct(EntityManager $em, FilterManager $fm, 
+			NewsletterGroupRepository $newsletterGroupRepository, 
+			SendNewsletterRepository $sendNewsletterRepository) {
 		parent::__construct($em, $fm);
 		
 		$this->newsletterGroupRepository = $newsletterGroupRepository;
@@ -62,7 +64,8 @@ class NewsletterPageEntryParamsManager extends EntryParamsManager {
 		
 		$viewParams['sendNewsletterFilter'] = $sendNewsletterFilter;
 		
-		$viewParams['newsletterGroups'] = $this->newsletterGroupRepository->findItemsByIds($sendNewsletterFilter->getNewsletterGroups());
+		$viewParams['newsletterGroups'] = $this->newsletterGroupRepository->findItemsByIds(
+				$sendNewsletterFilter->getNewsletterGroups());
 		
 		$viewParams['recipients'] = $this->sendNewsletterRepository->findItems($sendNewsletterFilter);
 		

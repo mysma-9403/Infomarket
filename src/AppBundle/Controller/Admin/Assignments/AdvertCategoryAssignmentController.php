@@ -3,9 +3,9 @@
 namespace AppBundle\Controller\Admin\Assignments;
 
 use AppBundle\Controller\Admin\Base\AssignmentController;
-use AppBundle\Entity\Advert;
-use AppBundle\Entity\AdvertCategoryAssignment;
-use AppBundle\Entity\Category;
+use AppBundle\Entity\Main\Advert;
+use AppBundle\Entity\Assignments\AdvertCategoryAssignment;
+use AppBundle\Entity\Main\Category;
 use AppBundle\Filter\Common\Assignments\AdvertCategoryAssignmentFilter;
 use AppBundle\Form\Editor\Admin\Assignments\AdvertCategoryAssignmentEditorType;
 use AppBundle\Form\Filter\Admin\Assignments\AdvertCategoryAssignmentFilterType;

@@ -4,9 +4,9 @@ namespace Tests\AppBundle\Form\Filter\Admin\Assignments;
 
 use AppBundle\Filter\Common\Assignments\BrandCategoryAssignmentFilter;
 use AppBundle\Form\Filter\Admin\Assignments\BrandCategoryAssignmentFilterType;
-use Tests\AppBundle\Form\Filter\Admin\Base\BaseEntityFilterTypeTest;
+use Tests\AppBundle\Form\Filter\Admin\Base\BaseFilterTypeTest;
 
-class BrandCategoryAssignmentFilterTypeTest extends BaseEntityFilterTypeTest {
+class BrandCategoryAssignmentFilterTypeTest extends BaseFilterTypeTest {
 		
 	const BRAND_1 = 101;
 	const BRAND_2 = 102;

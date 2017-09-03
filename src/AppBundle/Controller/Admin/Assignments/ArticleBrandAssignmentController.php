@@ -3,9 +3,9 @@
 namespace AppBundle\Controller\Admin\Assignments;
 
 use AppBundle\Controller\Admin\Base\AssignmentController;
-use AppBundle\Entity\Article;
-use AppBundle\Entity\ArticleBrandAssignment;
-use AppBundle\Entity\Brand;
+use AppBundle\Entity\Main\Article;
+use AppBundle\Entity\Assignments\ArticleBrandAssignment;
+use AppBundle\Entity\Main\Brand;
 use AppBundle\Filter\Common\Assignments\ArticleBrandAssignmentFilter;
 use AppBundle\Form\Editor\Admin\Assignments\ArticleBrandAssignmentEditorType;
 use AppBundle\Form\Filter\Admin\Assignments\ArticleBrandAssignmentFilterType;

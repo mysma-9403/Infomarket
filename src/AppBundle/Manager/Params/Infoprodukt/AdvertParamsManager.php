@@ -2,7 +2,7 @@
 
 namespace AppBundle\Manager\Params\Infoprodukt;
 
-use AppBundle\Entity\Advert;
+use AppBundle\Entity\Main\Advert;
 use AppBundle\Repository\Infoprodukt\AdvertRepository;
 use Symfony\Component\HttpFoundation\Request;
 

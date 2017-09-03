@@ -2,9 +2,9 @@
 
 namespace AppBundle\Manager\Entity\Common\Assignments;
 
-use AppBundle\Entity\NewsletterPage;
-use AppBundle\Entity\NewsletterUser;
-use AppBundle\Entity\NewsletterUserNewsletterPageAssignment;
+use AppBundle\Entity\Assignments\NewsletterUserNewsletterPageAssignment;
+use AppBundle\Entity\Main\NewsletterPage;
+use AppBundle\Entity\Main\NewsletterUser;
 use AppBundle\Manager\Entity\Base\AssignmentManager;
 use Symfony\Component\HttpFoundation\Request;
 

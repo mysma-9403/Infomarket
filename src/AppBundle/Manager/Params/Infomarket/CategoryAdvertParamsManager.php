@@ -2,7 +2,7 @@
 
 namespace AppBundle\Manager\Params\Infomarket;
 
-use AppBundle\Entity\Category;
+use AppBundle\Entity\Main\Category;
 use AppBundle\Repository\Infomarket\CategoryRepository;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Repository\Infomarket\AdvertRepository;
@@ -15,7 +15,8 @@ class CategoryAdvertParamsManager extends AdvertParamsManager {
 	 */
 	protected $categoryRepository;
 
-	public function __construct(AdvertRepository $advertRepository, array $advertLocations, CategoryRepository $categoryRepository) {
+	public function __construct(AdvertRepository $advertRepository, array $advertLocations, 
+			CategoryRepository $categoryRepository) {
 		parent::__construct($advertRepository, $advertLocations);
 		
 		$this->categoryRepository = $categoryRepository;

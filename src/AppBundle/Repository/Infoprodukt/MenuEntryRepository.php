@@ -2,9 +2,9 @@
 
 namespace AppBundle\Repository\Infoprodukt;
 
-use AppBundle\Entity\MenuEntry;
-use AppBundle\Entity\MenuEntryCategoryAssignment;
-use AppBundle\Entity\MenuMenuEntryAssignment;
+use AppBundle\Entity\Assignments\MenuEntryCategoryAssignment;
+use AppBundle\Entity\Assignments\MenuMenuEntryAssignment;
+use AppBundle\Entity\Main\MenuEntry;
 use AppBundle\Repository\Base\BaseRepository;
 use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\ORM\QueryBuilder;
@@ -29,7 +29,8 @@ class MenuEntryRepository extends BaseRepository {
 	protected function queryMenuItems($menuId, $categories) {
 		$builder = new QueryBuilder($this->getEntityManager());
 		
-		$builder->select("e.id, IDENTITY(e.parent) AS parent, e.name, IDENTITY(e.link) AS link, IDENTITY(e.page) AS page");
+		$builder->select(
+				"e.id, IDENTITY(e.parent) AS parent, e.name, IDENTITY(e.link) AS link, IDENTITY(e.page) AS page");
 		$builder->from($this->getEntityType(), "e");
 		
 		$builder->innerJoin(MenuMenuEntryAssignment::class, 'mmea', Join::WITH, 'e.id = mmea.menuEntry');

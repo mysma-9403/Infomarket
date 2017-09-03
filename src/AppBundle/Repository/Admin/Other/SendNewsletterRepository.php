@@ -2,20 +2,21 @@
 
 namespace AppBundle\Repository\Admin\Other;
 
-use AppBundle\Entity\NewsletterUser;
-use AppBundle\Entity\NewsletterUserNewsletterGroupAssignment;
+use AppBundle\Entity\Assignments\NewsletterUserNewsletterGroupAssignment;
+use AppBundle\Entity\Assignments\NewsletterUserNewsletterPageAssignment;
+use AppBundle\Entity\Main\NewsletterUser;
 use AppBundle\Filter\Admin\Other\SendNewsletterFilter;
 use AppBundle\Filter\Base\Filter;
 use AppBundle\Repository\Base\BaseRepository;
 use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\ORM\QueryBuilder;
-use AppBundle\Entity\NewsletterUserNewsletterPageAssignment;
 
 class SendNewsletterRepository extends BaseRepository {
 
 	protected function buildJoins(QueryBuilder &$builder, Filter $filter) {
 		if (count($filter->getNewsletterGroups()) > 0) {
-			$builder->join(NewsletterUserNewsletterGroupAssignment::class, 'nunga', Join::WITH, 'e.id = nunga.newsletterUser');
+			$builder->join(NewsletterUserNewsletterGroupAssignment::class, 'nunga', Join::WITH, 
+					'e.id = nunga.newsletterUser');
 		}
 	}
 
@@ -42,7 +43,10 @@ class SendNewsletterRepository extends BaseRepository {
 		$this->addArrayWhere($builder, $where, 'nunga.newsletterGroup', $filter->getNewsletterGroups());
 		
 		if (! $filter->getForceSend()) {
-			$where->add('NOT EXISTS (SELECT nunpa.id FROM ' . NewsletterUserNewsletterPageAssignment::class . ' nunpa WHERE nunpa.newsletterUser = e.id AND nunpa.newsletterPage = ' . $filter->getNewsletterPage() . ')');
+			$where->add(
+					'NOT EXISTS (SELECT nunpa.id FROM ' . NewsletterUserNewsletterPageAssignment::class .
+							 ' nunpa WHERE nunpa.newsletterUser = e.id AND nunpa.newsletterPage = ' .
+							 $filter->getNewsletterPage() . ')');
 		}
 		
 		return $where;

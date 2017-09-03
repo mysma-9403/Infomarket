@@ -2,11 +2,11 @@
 
 namespace AppBundle\Form\Editor\Admin\Main;
 
-use AppBundle\Entity\User;
-use AppBundle\Form\Editor\Admin\Base\BaseEntityEditorType;
+use AppBundle\Entity\Main\User;
+use AppBundle\Form\Editor\Admin\Base\BaseEditorType;
 use Symfony\Component\Form\FormBuilderInterface;
 
-class UserEditorType extends BaseEntityEditorType {
+class UserEditorType extends BaseEditorType {
 
 	protected function addFields(FormBuilderInterface $builder, array $options) {
 		parent::addFields($builder, $options);

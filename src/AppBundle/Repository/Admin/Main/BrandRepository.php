@@ -2,12 +2,12 @@
 
 namespace AppBundle\Repository\Admin\Main;
 
-use AppBundle\Entity\Brand;
+use AppBundle\Entity\Main\Brand;
 use AppBundle\Filter\Base\Filter;
-use AppBundle\Repository\Admin\Base\ImageEntityRepository;
+use AppBundle\Repository\Admin\Base\ImageRepository;
 use Doctrine\ORM\QueryBuilder;
 
-class BrandRepository extends ImageEntityRepository {
+class BrandRepository extends ImageRepository {
 
 	protected function buildOrderBy(QueryBuilder &$builder, Filter $filter) {
 		$builder->addOrderBy('e.name', 'ASC');

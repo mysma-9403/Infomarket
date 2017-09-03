@@ -3,7 +3,7 @@
 namespace AppBundle\Controller\Infomarket;
 
 use AppBundle\Controller\Infomarket\Base\InfomarketController;
-use AppBundle\Entity\Term;
+use AppBundle\Entity\Main\Term;
 use AppBundle\Manager\Entity\Infomarket\TermManager;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;

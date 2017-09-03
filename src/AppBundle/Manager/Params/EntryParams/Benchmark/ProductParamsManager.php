@@ -2,9 +2,9 @@
 
 namespace AppBundle\Manager\Params\EntryParams\Benchmark;
 
-use AppBundle\Entity\BenchmarkField;
-use AppBundle\Entity\BenchmarkMessage;
-use AppBundle\Entity\Product;
+use AppBundle\Entity\Main\BenchmarkField;
+use AppBundle\Entity\Main\BenchmarkMessage;
+use AppBundle\Entity\Main\Product;
 use AppBundle\Logic\Common\BenchmarkField\Initializer\BenchmarkFieldsInitializer;
 use AppBundle\Logic\Common\BenchmarkField\Provider\BenchmarkFieldsProvider;
 use AppBundle\Manager\Params\EntryParams\Base\EntryParamsManager;
@@ -46,8 +46,12 @@ class ProductParamsManager extends EntryParamsManager {
 	 */
 	protected $compareBenchmarkFieldsInitializer;
 
-	public function __construct($em, $fm, $doctrine, $tokenStorage, ProductRepository $productRepository, BenchmarkMessageRepository $benchmarkMessageRepository, BenchmarkFieldsProvider $benchmarkFieldsProvider, BenchmarkFieldsInitializer $showBenchmarkFieldsInitializer, BenchmarkFieldsInitializer $compareBenchmarkFieldsInitializer) {
-		parent::__construct($em, $fm, $doctrine);
+	public function __construct($em, $fm, $tokenStorage, ProductRepository $productRepository, 
+			BenchmarkMessageRepository $benchmarkMessageRepository, 
+			BenchmarkFieldsProvider $benchmarkFieldsProvider, 
+			BenchmarkFieldsInitializer $showBenchmarkFieldsInitializer, 
+			BenchmarkFieldsInitializer $compareBenchmarkFieldsInitializer) {
+		parent::__construct($em, $fm);
 		
 		$this->productRepository = $productRepository;
 		$this->benchmarkMessageRepository = $benchmarkMessageRepository;
@@ -132,7 +136,8 @@ class ProductParamsManager extends EntryParamsManager {
 					$betterThanType = $fields[$i]['betterThanType'];
 					if ($value && $betterThanType != BenchmarkField::NONE_BETTER_THAN_TYPE) {
 						$totalCount = $this->productRepository->findItemsCount($categoryId, $valueField);
-						$betterThanCount = $this->productRepository->findBetterThanCount($categoryId, $valueField, $value, $betterThanType);
+						$betterThanCount = $this->productRepository->findBetterThanCount($categoryId, 
+								$valueField, $value, $betterThanType);
 						if ($totalCount > 0) {
 							$field['betterThan'] = 100. * $betterThanCount / $totalCount;
 						} else {
@@ -191,7 +196,8 @@ class ProductParamsManager extends EntryParamsManager {
 		$maxPrice = $minMaxPrice['vmax'];
 		
 		if ($maxPrice > $minPrice) {
-			$viewParams['priceFactor'] = 2. + ($overalNote - 2.) * (1. - ($entry->getPrice() - $minPrice) / ($maxPrice - $minPrice));
+			$viewParams['priceFactor'] = 2. +
+					 ($overalNote - 2.) * (1. - ($entry->getPrice() - $minPrice) / ($maxPrice - $minPrice));
 		} else {
 			$viewParams['priceFactor'] = 5.;
 		}
@@ -255,7 +261,8 @@ class ProductParamsManager extends EntryParamsManager {
 
 	protected function getBenchmarkMessage($productId) {
 		$authorId = $this->tokenStorage->getToken()->getUser()->getId();
-		$benchmarkMessages = $this->benchmarkMessageRepository->findItemsByAuthorAndProduct($authorId, $productId);
+		$benchmarkMessages = $this->benchmarkMessageRepository->findItemsByAuthorAndProduct($authorId, 
+				$productId);
 		
 		return count($benchmarkMessages) > 0 ? $benchmarkMessages[0] : null;
 	}

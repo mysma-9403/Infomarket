@@ -2,12 +2,12 @@
 
 namespace Tests\AppBundle\Form\Editor\Admin\Main;
 
-use AppBundle\Entity\Magazine;
+use AppBundle\Entity\Main\Magazine;
 use AppBundle\Form\Editor\Admin\Main\MagazineEditorType;
 use Symfony\Component\Form\PreloadedExtension;
-use Tests\AppBundle\Form\Editor\Admin\Base\ImageEntityEditorTypeTest;
+use Tests\AppBundle\Form\Editor\Admin\Base\ImageEditorTypeTest;
 
-class MagazineEditorTypeTest extends ImageEntityEditorTypeTest {
+class MagazineEditorTypeTest extends ImageEditorTypeTest {
 	
 	const ORDER_NUMBER = 76;
 	const MAGAZINE_FILE = 'c:/test/file.pdf';

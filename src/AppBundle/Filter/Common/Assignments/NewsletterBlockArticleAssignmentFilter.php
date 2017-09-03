@@ -3,10 +3,10 @@
 namespace AppBundle\Filter\Common\Assignments;
 
 use AppBundle;
-use AppBundle\Filter\Common\Base\SimpleEntityFilter;
+use AppBundle\Filter\Common\Base\SimpleFilter;
 use Symfony\Component\HttpFoundation\Request;
 
-class NewsletterBlockArticleAssignmentFilter extends SimpleEntityFilter {
+class NewsletterBlockArticleAssignmentFilter extends SimpleFilter {
 
 	/**
 	 *

@@ -4,9 +4,9 @@ namespace Tests\AppBundle\Form\Filter\Admin\Main;
 
 use AppBundle\Filter\Common\Main\ArticleFilter;
 use AppBundle\Form\Filter\Admin\Main\ArticleFilterType;
-use Tests\AppBundle\Form\Filter\Admin\Base\BaseEntityFilterTypeTest;
+use Tests\AppBundle\Form\Filter\Admin\Base\BaseFilterTypeTest;
 
-class ArticleFilterTypeTest extends BaseEntityFilterTypeTest {
+class ArticleFilterTypeTest extends BaseFilterTypeTest {
 		
 	const NAME = '*name*';
 	const SUBNAME = '*subname*';

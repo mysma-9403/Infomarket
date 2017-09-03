@@ -2,12 +2,12 @@
 
 namespace AppBundle\Form\Editor\Admin\Main;
 
-use AppBundle\Entity\Magazine;
-use AppBundle\Form\Editor\Admin\Base\ImageEntityEditorType;
+use AppBundle\Entity\Main\Magazine;
+use AppBundle\Form\Editor\Admin\Base\ImageEditorType;
 use AppBundle\Form\Transformer\EntityToNumberTransformer;
 use Symfony\Component\Form\FormBuilderInterface;
 
-class MagazineEditorType extends ImageEntityEditorType {
+class MagazineEditorType extends ImageEditorType {
 
 	/**
 	 *

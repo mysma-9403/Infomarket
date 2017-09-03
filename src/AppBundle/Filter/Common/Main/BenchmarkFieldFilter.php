@@ -2,10 +2,10 @@
 
 namespace AppBundle\Filter\Common\Main;
 
-use AppBundle\Filter\Common\Base\SimpleEntityFilter;
+use AppBundle\Filter\Common\Base\SimpleFilter;
 use Symfony\Component\HttpFoundation\Request;
 
-class BenchmarkFieldFilter extends SimpleEntityFilter {
+class BenchmarkFieldFilter extends SimpleFilter {
 
 	/**
 	 *

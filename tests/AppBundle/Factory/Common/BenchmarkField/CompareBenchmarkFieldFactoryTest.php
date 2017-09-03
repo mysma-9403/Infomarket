@@ -2,7 +2,7 @@
 
 namespace Tests\AppBundle\Factory\Common\BenchmarkField;
 
-use AppBundle\Entity\BenchmarkField;
+use AppBundle\Entity\Main\BenchmarkField;
 use AppBundle\Factory\Common\BenchmarkField\CompareBenchmarkFieldFactory;
 use AppBundle\Repository\Benchmark\ProductRepository;
 use AppBundle\Utils\Entity\DataBase\BenchmarkFieldDataBaseUtils;

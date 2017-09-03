@@ -2,7 +2,7 @@
 
 namespace AppBundle\Manager\Entity\Common\Main;
 
-use AppBundle\Entity\Article;
+use AppBundle\Entity\Main\Article;
 use AppBundle\Manager\Entity\Base\EntityManager;
 use AppBundle\Manager\Params\Base\ParamsManager;
 use AppBundle\Repository\Base\BaseRepository;

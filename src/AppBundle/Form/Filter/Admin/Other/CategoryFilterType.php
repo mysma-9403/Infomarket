@@ -2,7 +2,7 @@
 
 namespace AppBundle\Form\Filter\Admin\Other;
 
-use AppBundle\Entity\Category;
+use AppBundle\Entity\Main\Category;
 use AppBundle\Filter\Admin\Other\CategoryFilter;
 use AppBundle\Form\Base\BaseType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;

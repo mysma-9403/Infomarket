@@ -2,7 +2,7 @@
 
 namespace AppBundle\Manager\Entity\Common\Main;
 
-use AppBundle\Entity\Page;
+use AppBundle\Entity\Main\Page;
 use AppBundle\Manager\Entity\Base\EntityManager;
 use Symfony\Component\HttpFoundation\Request;
 

@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+        http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+	<entity name="AppBundle\Entity\Main\Product" table="products"
+		repository-class="AppBundle\Repository\Admin\Main\ProductRepository">
+
+		<field name="name" type="string" length="128" nullable="false" />
+
+		<field name="infomarket" type="boolean" nullable="false" default="0" />
+		<field name="infoprodukt" type="boolean" nullable="false" default="0" />
+		<field name="custom" type="boolean" nullable="false" default="0" />
+
+		<field name="topProduktImage" type="string" length="256" nullable="true" />
+
+		<field name="price" type="decimal" precision="12" scale="4" nullable="true" />
+
+		<one-to-one field="productNote" target-entity="ProductNote"
+			mapped-by="product" />
+
+		<many-to-one field="brand" target-entity="Brand" inversed-by="products"
+			nullable="false" />
+
+		<many-to-one field="benchmarkQuery" target-entity="BenchmarkQuery"
+			inversed-by="products" nullable="false" />
+
+		<field name="decimal1" type="decimal" precision="12" scale="4" nullable="true" />
+		<field name="decimal2" type="decimal" precision="12" scale="4" nullable="true" />
+		<field name="decimal3" type="decimal" precision="12" scale="4" nullable="true" />
+		<field name="decimal4" type="decimal" precision="12" scale="4" nullable="true" />
+		<field name="decimal5" type="decimal" precision="12" scale="4" nullable="true" />
+		<field name="decimal6" type="decimal" precision="12" scale="4" nullable="true" />
+		<field name="decimal7" type="decimal" precision="12" scale="4" nullable="true" />
+		<field name="decimal8" type="decimal" precision="12" scale="4" nullable="true" />
+		<field name="decimal9" type="decimal" precision="12" scale="4" nullable="true" />
+		<field name="decimal10" type="decimal" precision="12" scale="4"
+			nullable="true" />
+
+		<field name="decimal11" type="decimal" precision="12" scale="4"
+			nullable="true" />
+		<field name="decimal12" type="decimal" precision="12" scale="4"
+			nullable="true" />
+		<field name="decimal13" type="decimal" precision="12" scale="4"
+			nullable="true" />
+		<field name="decimal14" type="decimal" precision="12" scale="4"
+			nullable="true" />
+		<field name="decimal15" type="decimal" precision="12" scale="4"
+			nullable="true" />
+		<field name="decimal16" type="decimal" precision="12" scale="4"
+			nullable="true" />
+		<field name="decimal17" type="decimal" precision="12" scale="4"
+			nullable="true" />
+		<field name="decimal18" type="decimal" precision="12" scale="4"
+			nullable="true" />
+		<field name="decimal19" type="decimal" precision="12" scale="4"
+			nullable="true" />
+		<field name="decimal20" type="decimal" precision="12" scale="4"
+			nullable="true" />
+
+
+		<field name="integer1" type="integer" nullable="true" />
+		<field name="integer2" type="integer" nullable="true" />
+		<field name="integer3" type="integer" nullable="true" />
+		<field name="integer4" type="integer" nullable="true" />
+		<field name="integer5" type="integer" nullable="true" />
+		<field name="integer6" type="integer" nullable="true" />
+		<field name="integer7" type="integer" nullable="true" />
+		<field name="integer8" type="integer" nullable="true" />
+		<field name="integer9" type="integer" nullable="true" />
+		<field name="integer10" type="integer" nullable="true" />
+
+		<field name="integer11" type="integer" nullable="true" />
+		<field name="integer12" type="integer" nullable="true" />
+		<field name="integer13" type="integer" nullable="true" />
+		<field name="integer14" type="integer" nullable="true" />
+		<field name="integer15" type="integer" nullable="true" />
+		<field name="integer16" type="integer" nullable="true" />
+		<field name="integer17" type="integer" nullable="true" />
+		<field name="integer18" type="integer" nullable="true" />
+		<field name="integer19" type="integer" nullable="true" />
+		<field name="integer20" type="integer" nullable="true" />
+
+
+		<field name="string1" type="string" length="256" nullable="true" />
+		<field name="string2" type="string" length="256" nullable="true" />
+		<field name="string3" type="string" length="256" nullable="true" />
+		<field name="string4" type="string" length="256" nullable="true" />
+		<field name="string5" type="string" length="256" nullable="true" />
+		<field name="string6" type="string" length="256" nullable="true" />
+		<field name="string7" type="string" length="256" nullable="true" />
+		<field name="string8" type="string" length="256" nullable="true" />
+		<field name="string9" type="string" length="256" nullable="true" />
+		<field name="string10" type="string" length="256" nullable="true" />
+
+		<field name="string11" type="string" length="256" nullable="true" />
+		<field name="string12" type="string" length="256" nullable="true" />
+		<field name="string13" type="string" length="256" nullable="true" />
+		<field name="string14" type="string" length="256" nullable="true" />
+		<field name="string15" type="string" length="256" nullable="true" />
+		<field name="string16" type="string" length="256" nullable="true" />
+		<field name="string17" type="string" length="256" nullable="true" />
+		<field name="string18" type="string" length="256" nullable="true" />
+		<field name="string19" type="string" length="256" nullable="true" />
+		<field name="string20" type="string" length="256" nullable="true" />
+
+
+		<one-to-many field="productCategoryAssignments"
+			target-entity="AppBundle\Entity\Assignments\ProductCategoryAssignment"
+			mapped-by="product">
+			<order-by>
+				<order-by-field name="category" direction="ASC" />
+				<order-by-field name="segment" direction="ASC" />
+			</order-by>
+		</one-to-many>
+
+	</entity>
+
+</doctrine-mapping>

@@ -2,22 +2,23 @@
 
 namespace AppBundle\Repository\Admin\Main;
 
-use AppBundle\Entity\NewsletterBlock;
-use AppBundle\Entity\NewsletterBlockTemplate;
-use AppBundle\Entity\NewsletterPage;
+use AppBundle\Entity\Main\NewsletterBlock;
+use AppBundle\Entity\Main\NewsletterBlockTemplate;
+use AppBundle\Entity\Main\NewsletterPage;
 use AppBundle\Filter\Common\Main\NewsletterBlockFilter;
 use AppBundle\Filter\Base\Filter;
-use AppBundle\Repository\Admin\Base\AuditRepository;
+use AppBundle\Repository\Admin\Base\SimpleRepository;
 use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\ORM\QueryBuilder;
 
-class NewsletterBlockRepository extends AuditRepository {
+class NewsletterBlockRepository extends SimpleRepository {
 
 	protected function buildJoins(QueryBuilder &$builder, Filter $filter) {
 		parent::buildJoins($builder, $filter);
 		
 		$builder->leftJoin(NewsletterPage::class, 'np', Join::WITH, 'np.id = e.newsletterPage');
-		$builder->innerJoin(NewsletterBlockTemplate::class, 'nbt', Join::WITH, 'nbt.id = e.newsletterBlockTemplate');
+		$builder->innerJoin(NewsletterBlockTemplate::class, 'nbt', Join::WITH, 
+				'nbt.id = e.newsletterBlockTemplate');
 	}
 
 	protected function buildOrderBy(QueryBuilder &$builder, Filter $filter) {
@@ -44,7 +45,8 @@ class NewsletterBlockRepository extends AuditRepository {
 		$this->addStringWhere($builder, $where, 'e.name', $filter->getName());
 		
 		$this->addArrayWhere($builder, $where, 'e.newsletterPage', $filter->getNewsletterPages());
-		$this->addArrayWhere($builder, $where, 'e.newsletterBlockTemplate', $filter->getNewsletterBlockTemplates());
+		$this->addArrayWhere($builder, $where, 'e.newsletterBlockTemplate', 
+				$filter->getNewsletterBlockTemplates());
 		
 		return $where;
 	}

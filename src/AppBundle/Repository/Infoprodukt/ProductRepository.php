@@ -2,13 +2,13 @@
 
 namespace AppBundle\Repository\Infoprodukt;
 
-use AppBundle\Entity\Brand;
-use AppBundle\Entity\Product;
-use AppBundle\Entity\ProductCategoryAssignment;
+use AppBundle\Entity\Assignments\ProductCategoryAssignment;
+use AppBundle\Entity\Main\Brand;
+use AppBundle\Entity\Main\Product;
+use AppBundle\Filter\Base\Filter;
 use AppBundle\Repository\Base\BaseRepository;
 use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\ORM\QueryBuilder;
-use AppBundle\Filter\Base\Filter;
 
 class ProductRepository extends BaseRepository {
 
@@ -19,7 +19,8 @@ class ProductRepository extends BaseRepository {
 	protected function queryTopItems($category, $segment) {
 		$builder = new QueryBuilder($this->getEntityManager());
 		
-		$builder->select('e.id, e.name, e.image, e.mimeType, e.vertical, e.forcedWidth, e.forcedHeight, pca.featured AS featured,
+		$builder->select(
+				'e.id, e.name, e.image, e.mimeType, e.vertical, e.forcedWidth, e.forcedHeight, pca.featured AS featured,
 				b.id AS brandId, b.name AS brandName, b.www AS brandWww, b.image AS brandImage, b.mimeType AS brandMimeType,
 				b.forcedWidth AS brandForcedWidth, b.forcedHeight AS brandForcedHeight, b.vertical AS brandVertical');
 		$builder->from($this->getEntityType(), "e");

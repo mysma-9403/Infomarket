@@ -2,14 +2,14 @@
 
 namespace AppBundle\Repository\Admin\Main;
 
-use AppBundle\Entity\ArticleTagAssignment;
-use AppBundle\Entity\Tag;
-use AppBundle\Filter\Common\Main\TagFilter;
+use AppBundle\Entity\Assignments\ArticleTagAssignment;
+use AppBundle\Entity\Main\Tag;
 use AppBundle\Filter\Base\Filter;
-use AppBundle\Repository\Admin\Base\SimpleEntityRepository;
+use AppBundle\Filter\Common\Main\TagFilter;
+use AppBundle\Repository\Admin\Base\SimpleRepository;
 use Doctrine\ORM\QueryBuilder;
 
-class TagRepository extends SimpleEntityRepository {
+class TagRepository extends SimpleRepository {
 
 	protected function buildOrderBy(QueryBuilder &$builder, Filter $filter) {
 		$builder->addOrderBy('e.name', 'ASC');

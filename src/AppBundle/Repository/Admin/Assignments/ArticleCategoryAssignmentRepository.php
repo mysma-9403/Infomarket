@@ -2,15 +2,15 @@
 
 namespace AppBundle\Repository\Admin\Assignments;
 
-use AppBundle\Entity\Article;
-use AppBundle\Entity\ArticleCategoryAssignment;
-use AppBundle\Entity\Category;
+use AppBundle\Entity\Assignments\ArticleCategoryAssignment;
+use AppBundle\Entity\Main\Article;
+use AppBundle\Entity\Main\Category;
 use AppBundle\Filter\Base\Filter;
-use AppBundle\Repository\Admin\Base\AuditRepository;
-use Doctrine\ORM\QueryBuilder;
+use AppBundle\Repository\Admin\Base\SimpleRepository;
 use Doctrine\ORM\Query\Expr\Join;
+use Doctrine\ORM\QueryBuilder;
 
-class ArticleCategoryAssignmentRepository extends AuditRepository {
+class ArticleCategoryAssignmentRepository extends SimpleRepository {
 
 	protected function getSelectFields(QueryBuilder &$builder, Filter $filter) {
 		$fields = parent::getSelectFields($builder, $filter);

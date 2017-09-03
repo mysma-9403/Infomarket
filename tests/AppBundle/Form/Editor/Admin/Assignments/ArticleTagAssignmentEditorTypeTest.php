@@ -2,14 +2,14 @@
 
 namespace Tests\AppBundle\Form\Editor\Admin\Assignments;
 
-use AppBundle\Entity\Article;
-use AppBundle\Entity\ArticleTagAssignment;
-use AppBundle\Entity\Tag;
+use AppBundle\Entity\Assignments\Article;
+use AppBundle\Entity\Assignments\ArticleTagAssignment;
+use AppBundle\Entity\Assignments\Tag;
 use AppBundle\Form\Editor\Admin\Assignments\ArticleTagAssignmentEditorType;
 use Symfony\Component\Form\PreloadedExtension;
-use Tests\AppBundle\Form\Editor\Admin\Base\BaseEntityEditorTypeTest;
+use Tests\AppBundle\Form\Editor\Admin\Base\BaseEditorTypeTest;
 
-class ArticleTagAssignmentEditorTypeTest extends BaseEntityEditorTypeTest {
+class ArticleTagAssignmentEditorTypeTest extends BaseEditorTypeTest {
 		
 	const ARTICLE_ID = 100;
 	const ARTICLE_NAME = 'Test article';

@@ -2,12 +2,12 @@
 
 namespace AppBundle\Form\Editor\Admin\Assignments;
 
-use AppBundle\Entity\NewsletterBlockAdvertAssignment;
-use AppBundle\Form\Editor\Admin\Base\BaseEntityEditorType;
+use AppBundle\Entity\Assignments\NewsletterBlockAdvertAssignment;
+use AppBundle\Form\Editor\Admin\Base\BaseEditorType;
 use AppBundle\Form\Transformer\EntityToNumberTransformer;
 use Symfony\Component\Form\FormBuilderInterface;
 
-class NewsletterBlockAdvertAssignmentEditorType extends BaseEntityEditorType {
+class NewsletterBlockAdvertAssignmentEditorType extends BaseEditorType {
 
 	/**
 	 *
@@ -21,7 +21,8 @@ class NewsletterBlockAdvertAssignmentEditorType extends BaseEntityEditorType {
 	 */
 	protected $advertTransformer;
 
-	public function __construct(EntityToNumberTransformer $newsletterBlockTransformer, EntityToNumberTransformer $advertTransformer) {
+	public function __construct(EntityToNumberTransformer $newsletterBlockTransformer, 
+			EntityToNumberTransformer $advertTransformer) {
 		$this->newsletterBlockTransformer = $newsletterBlockTransformer;
 		$this->advertTransformer = $advertTransformer;
 	}
@@ -29,7 +30,8 @@ class NewsletterBlockAdvertAssignmentEditorType extends BaseEntityEditorType {
 	protected function addFields(FormBuilderInterface $builder, array $options) {
 		parent::addFields($builder, $options);
 		
-		$this->addTrueEntityChoiceField($builder, $options, $this->newsletterBlockTransformer, 'newsletterBlock');
+		$this->addTrueEntityChoiceField($builder, $options, $this->newsletterBlockTransformer, 
+				'newsletterBlock');
 		$this->addTrueEntityChoiceField($builder, $options, $this->advertTransformer, 'advert');
 	}
 

@@ -3,9 +3,9 @@
 namespace AppBundle\Controller\Admin\Assignments;
 
 use AppBundle\Controller\Admin\Base\AssignmentController;
-use AppBundle\Entity\NewsletterPage;
-use AppBundle\Entity\NewsletterUser;
-use AppBundle\Entity\NewsletterUserNewsletterPageAssignment;
+use AppBundle\Entity\Main\NewsletterPage;
+use AppBundle\Entity\Main\NewsletterUser;
+use AppBundle\Entity\Assignments\NewsletterUserNewsletterPageAssignment;
 use AppBundle\Factory\Common\Choices\Enum\NewsletterUserNewsletterPageAssignmentStatesFactory;
 use AppBundle\Filter\Common\Assignments\NewsletterUserNewsletterPageAssignmentFilter;
 use AppBundle\Form\Filter\Admin\Assignments\NewsletterUserNewsletterPageAssignmentFilterType;
@@ -61,7 +61,8 @@ class NewsletterUserNewsletterPageAssignmentController extends AssignmentControl
 		$this->addEntityChoicesFormOption($options, NewsletterUser::class, 'newsletterUsers');
 		$this->addEntityChoicesFormOption($options, NewsletterPage::class, 'newsletterPages');
 		
-		$this->addFactoryChoicesFormOption($options, NewsletterUserNewsletterPageAssignmentStatesFactory::class, 'states');
+		$this->addFactoryChoicesFormOption($options, NewsletterUserNewsletterPageAssignmentStatesFactory::class, 
+				'states');
 		
 		return $options;
 	}

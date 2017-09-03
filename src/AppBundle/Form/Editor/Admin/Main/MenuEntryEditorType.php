@@ -2,14 +2,14 @@
 
 namespace AppBundle\Form\Editor\Admin\Main;
 
-use AppBundle\Entity\Link;
-use AppBundle\Entity\MenuEntry;
-use AppBundle\Entity\Page;
-use AppBundle\Form\Editor\Admin\Base\SimpleEntityEditorType;
+use AppBundle\Entity\Main\Link;
+use AppBundle\Entity\Main\MenuEntry;
+use AppBundle\Entity\Main\Page;
+use AppBundle\Form\Editor\Admin\Base\SimpleEditorType;
 use AppBundle\Form\Transformer\EntityToNumberTransformer;
 use Symfony\Component\Form\FormBuilderInterface;
 
-class MenuEntryEditorType extends SimpleEntityEditorType {
+class MenuEntryEditorType extends SimpleEditorType {
 
 	/**
 	 *
@@ -29,7 +29,9 @@ class MenuEntryEditorType extends SimpleEntityEditorType {
 	 */
 	protected $linkToNumberTransformer;
 
-	public function __construct(EntityToNumberTransformer $parentToNumberTransformer, EntityToNumberTransformer $pageToNumberTransformer, EntityToNumberTransformer $linkToNumberTransformer) {
+	public function __construct(EntityToNumberTransformer $parentToNumberTransformer, 
+			EntityToNumberTransformer $pageToNumberTransformer, 
+			EntityToNumberTransformer $linkToNumberTransformer) {
 		$this->parentToNumberTransformer = $parentToNumberTransformer;
 		$this->pageToNumberTransformer = $pageToNumberTransformer;
 		$this->linkToNumberTransformer = $linkToNumberTransformer;

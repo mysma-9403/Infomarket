@@ -1,9 +1,0 @@
-AppBundle\Entity\ArticleTagAssignment:
-    constraints:
-        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
-            fields: [article, tag]
-            errorPath: tag
-            ignoreNull: false
-            message: 'articleTagAssignment.unique'
-        - Callback: validate
-                

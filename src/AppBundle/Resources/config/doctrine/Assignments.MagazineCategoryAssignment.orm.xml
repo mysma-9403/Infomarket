@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+        http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+	<entity name="AppBundle\Entity\Assignments\MagazineCategoryAssignment"
+		table="magazine_category_assignments"
+		repository-class="AppBundle\Repository\Admin\Assignments\MagazineCategoryAssignmentRepository">
+
+		<many-to-one field="magazine" target-entity="AppBundle\Entity\Main\Magazine"
+			inversed-by="magazineCategoryAssignments" />
+		<many-to-one field="category" target-entity="AppBundle\Entity\Main\Category"
+			inversed-by="magazineCategoryAssignments" />
+
+	</entity>
+
+</doctrine-mapping>

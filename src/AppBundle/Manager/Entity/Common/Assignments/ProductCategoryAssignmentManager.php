@@ -2,10 +2,10 @@
 
 namespace AppBundle\Manager\Entity\Common\Assignments;
 
-use AppBundle\Entity\Category;
-use AppBundle\Entity\Product;
-use AppBundle\Entity\ProductCategoryAssignment;
-use AppBundle\Entity\Segment;
+use AppBundle\Entity\Assignments\ProductCategoryAssignment;
+use AppBundle\Entity\Main\Category;
+use AppBundle\Entity\Main\Product;
+use AppBundle\Entity\Main\Segment;
 use AppBundle\Manager\Entity\Base\AssignmentManager;
 use Symfony\Component\HttpFoundation\Request;
 

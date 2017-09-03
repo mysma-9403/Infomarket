@@ -2,12 +2,12 @@
 
 namespace AppBundle\Form\Editor\Admin\Assignments;
 
-use AppBundle\Entity\MenuEntryCategoryAssignment;
-use AppBundle\Form\Editor\Admin\Base\BaseEntityEditorType;
+use AppBundle\Entity\Assignments\MenuEntryCategoryAssignment;
+use AppBundle\Form\Editor\Admin\Base\BaseEditorType;
 use AppBundle\Form\Transformer\EntityToNumberTransformer;
 use Symfony\Component\Form\FormBuilderInterface;
 
-class MenuEntryCategoryAssignmentEditorType extends BaseEntityEditorType {
+class MenuEntryCategoryAssignmentEditorType extends BaseEditorType {
 
 	/**
 	 *
@@ -21,7 +21,8 @@ class MenuEntryCategoryAssignmentEditorType extends BaseEntityEditorType {
 	 */
 	protected $categoryTransformer;
 
-	public function __construct(EntityToNumberTransformer $menuEntryTransformer, EntityToNumberTransformer $categoryTransformer) {
+	public function __construct(EntityToNumberTransformer $menuEntryTransformer, 
+			EntityToNumberTransformer $categoryTransformer) {
 		$this->menuEntryTransformer = $menuEntryTransformer;
 		$this->categoryTransformer = $categoryTransformer;
 	}

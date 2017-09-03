@@ -1,7 +1,0 @@
-AppBundle\Entity\MenuEntryBranchAssignment:
-    constraints:
-        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
-            fields: [menuEntry, branch]
-            ignoreNull: false
-            message: 'menuEntryBranchAssignment.unique'
-                

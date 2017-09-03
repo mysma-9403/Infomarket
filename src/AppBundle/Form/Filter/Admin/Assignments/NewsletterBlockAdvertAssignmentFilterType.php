@@ -3,10 +3,10 @@
 namespace AppBundle\Form\Filter\Admin\Assignments;
 
 use AppBundle\Filter\Common\Assignments\NewsletterBlockAdvertAssignmentFilter;
-use AppBundle\Form\Filter\Admin\Base\SimpleEntityFilterType;
+use AppBundle\Form\Filter\Admin\Base\SimpleFilterType;
 use Symfony\Component\Form\FormBuilderInterface;
 
-class NewsletterBlockAdvertAssignmentFilterType extends SimpleEntityFilterType {
+class NewsletterBlockAdvertAssignmentFilterType extends SimpleFilterType {
 
 	protected function addFields(FormBuilderInterface $builder, array $options) {
 		parent::addFields($builder, $options);

@@ -2,11 +2,11 @@
 
 namespace AppBundle\Form\Editor\Admin\Main;
 
-use AppBundle\Entity\Segment;
-use AppBundle\Form\Editor\Admin\Base\ImageEntityEditorType;
+use AppBundle\Entity\Main\Segment;
+use AppBundle\Form\Editor\Admin\Base\ImageEditorType;
 use Symfony\Component\Form\FormBuilderInterface;
 
-class SegmentEditorType extends ImageEntityEditorType {
+class SegmentEditorType extends ImageEditorType {
 
 	protected function addFields(FormBuilderInterface $builder, array $options) {
 		parent::addFields($builder, $options);

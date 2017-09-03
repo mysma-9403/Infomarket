@@ -3,10 +3,10 @@
 namespace AppBundle\Filter\Common\Main;
 
 use AppBundle;
-use AppBundle\Filter\Common\Base\SimpleEntityFilter;
+use AppBundle\Filter\Common\Base\SimpleFilter;
 use Symfony\Component\HttpFoundation\Request;
 
-class MenuFilter extends SimpleEntityFilter {
+class MenuFilter extends SimpleFilter {
 
 	/**
 	 *

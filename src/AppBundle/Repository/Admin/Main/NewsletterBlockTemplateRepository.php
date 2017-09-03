@@ -2,13 +2,13 @@
 
 namespace AppBundle\Repository\Admin\Main;
 
-use AppBundle\Entity\NewsletterBlockTemplate;
+use AppBundle\Entity\Main\NewsletterBlockTemplate;
 use AppBundle\Filter\Common\Main\NewsletterBlockTemplateFilter;
 use AppBundle\Filter\Base\Filter;
-use AppBundle\Repository\Admin\Base\AuditRepository;
+use AppBundle\Repository\Admin\Base\SimpleRepository;
 use Doctrine\ORM\QueryBuilder;
 
-class NewsletterBlockTemplateRepository extends AuditRepository {
+class NewsletterBlockTemplateRepository extends SimpleRepository {
 
 	protected function buildOrderBy(QueryBuilder &$builder, Filter $filter) {
 		$builder->addOrderBy('e.name', 'ASC');

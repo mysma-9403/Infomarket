@@ -2,7 +2,7 @@
 
 namespace AppBundle\Repository\Infoprodukt;
 
-use AppBundle\Entity\Magazine;
+use AppBundle\Entity\Main\Magazine;
 use AppBundle\Filter\Base\Filter;
 use AppBundle\Repository\Base\BaseRepository;
 use Doctrine\ORM\AbstractQuery;

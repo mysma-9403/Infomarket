@@ -2,9 +2,9 @@
 
 namespace AppBundle\Repository\Benchmark;
 
-use AppBundle\Entity\BenchmarkMessage;
-use AppBundle\Entity\Brand;
-use AppBundle\Entity\Product;
+use AppBundle\Entity\Main\BenchmarkMessage;
+use AppBundle\Entity\Main\Brand;
+use AppBundle\Entity\Main\Product;
 use AppBundle\Filter\Base\Filter;
 use AppBundle\Filter\Benchmark\BenchmarkMessageFilter;
 use AppBundle\Repository\Base\BaseRepository;

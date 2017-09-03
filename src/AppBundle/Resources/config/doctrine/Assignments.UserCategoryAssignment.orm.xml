@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+        http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+	<entity name="AppBundle\Entity\Assignments\UserCategoryAssignment"
+		table="user_category_assignments"
+		repository-class="AppBundle\Repository\Admin\Assignments\UserCategoryAssignmentRepository">
+
+		<many-to-one field="user" target-entity="AppBundle\Entity\Main\User"
+			inversed-by="userCategoryAssignments" />
+		<many-to-one field="category" target-entity="AppBundle\Entity\Main\Category"
+			inversed-by="userCategoryAssignments" />
+
+	</entity>
+
+</doctrine-mapping>

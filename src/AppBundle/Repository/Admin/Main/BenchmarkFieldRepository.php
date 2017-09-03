@@ -2,15 +2,15 @@
 
 namespace AppBundle\Repository\Admin\Main;
 
-use AppBundle\Entity\BenchmarkField;
-use AppBundle\Entity\Category;
+use AppBundle\Entity\Main\BenchmarkField;
+use AppBundle\Entity\Main\Category;
 use AppBundle\Filter\Common\Main\BenchmarkFieldFilter;
 use AppBundle\Filter\Base\Filter;
-use AppBundle\Repository\Admin\Base\AuditRepository;
+use AppBundle\Repository\Admin\Base\SimpleRepository;
 use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\ORM\QueryBuilder;
 
-class BenchmarkFieldRepository extends AuditRepository {
+class BenchmarkFieldRepository extends SimpleRepository {
 
 	public function findItemsByCategory($categoryId) {
 		return $this->queryItemsByCategory($categoryId)->getScalarResult();

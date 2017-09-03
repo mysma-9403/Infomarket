@@ -4,9 +4,9 @@ namespace Tests\AppBundle\Form\Filter\Admin\Main;
 
 use AppBundle\Filter\Common\Main\LinkFilter;
 use AppBundle\Form\Filter\Admin\Main\LinkFilterType;
-use Tests\AppBundle\Form\Filter\Admin\Base\BaseEntityFilterTypeTest;
+use Tests\AppBundle\Form\Filter\Admin\Base\BaseFilterTypeTest;
 
-class LinkFilterTypeTest extends BaseEntityFilterTypeTest {
+class LinkFilterTypeTest extends BaseFilterTypeTest {
 		
 	const NAME = '*name*';
 	const LINK = '*url*';

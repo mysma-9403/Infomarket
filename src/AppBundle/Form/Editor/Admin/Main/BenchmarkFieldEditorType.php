@@ -2,13 +2,13 @@
 
 namespace AppBundle\Form\Editor\Admin\Main;
 
-use AppBundle\Entity\BenchmarkField;
-use AppBundle\Entity\Category;
-use AppBundle\Form\Editor\Admin\Base\BaseEntityEditorType;
+use AppBundle\Entity\Main\BenchmarkField;
+use AppBundle\Entity\Main\Category;
+use AppBundle\Form\Editor\Admin\Base\BaseEditorType;
 use AppBundle\Form\Transformer\EntityToNumberTransformer;
 use Symfony\Component\Form\FormBuilderInterface;
 
-class BenchmarkFieldEditorType extends BaseEntityEditorType {
+class BenchmarkFieldEditorType extends BaseEditorType {
 
 	/**
 	 *

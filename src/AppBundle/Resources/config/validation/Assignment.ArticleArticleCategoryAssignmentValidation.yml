@@ -1,0 +1,8 @@
+AppBundle\Entity\Assignments\ArticleArticleCategoryAssignment:
+    constraints:
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
+            fields: [article, articleCategory]
+            errorPath: articleCategory
+            ignoreNull: false
+            message: 'articleArticleCategoryAssignment.unique'
+        - Callback: validate

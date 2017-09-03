@@ -2,7 +2,7 @@
 
 namespace AppBundle\Manager\Params\EntryParams\Admin;
 
-use AppBundle\Entity\Article;
+use AppBundle\Entity\Main\Article;
 use AppBundle\Manager\Params\EntryParams\Base\EntryParamsManager;
 use AppBundle\Repository\Infomarket\ArticleRepository;
 use Symfony\Component\HttpFoundation\Request;
@@ -56,7 +56,8 @@ class ArticleEntryParamsManager extends EntryParamsManager {
 				}
 			}
 			
-			$viewParams['lastArticles'] = count($lastArticlesIds) > 0 ? $articleRepository->findItemsByIds($lastArticlesIds) : [ ];
+			$viewParams['lastArticles'] = count($lastArticlesIds) > 0 ? $articleRepository->findItemsByIds(
+					$lastArticlesIds) : [ ];
 			if ($prevArticleId)
 				$viewParams['prevArticle'] = $articleRepository->findItem($prevArticleId);
 			if ($nextArticleId)

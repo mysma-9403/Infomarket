@@ -2,11 +2,11 @@
 
 namespace AppBundle\Manager\Entity\Common\Assignments;
 
-use AppBundle\Entity\Article;
-use AppBundle\Entity\ArticleCategoryAssignment;
-use AppBundle\Entity\Category;
-use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Entity\Assignments\ArticleCategoryAssignment;
+use AppBundle\Entity\Main\Article;
+use AppBundle\Entity\Main\Category;
 use AppBundle\Manager\Entity\Base\AssignmentManager;
+use Symfony\Component\HttpFoundation\Request;
 
 class ArticleCategoryAssignmentManager extends AssignmentManager {
 

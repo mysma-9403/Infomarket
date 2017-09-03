@@ -2,11 +2,11 @@
 
 namespace Tests\AppBundle\Form\Editor\Admin\Main;
 
-use AppBundle\Entity\Link;
+use AppBundle\Entity\Main\Link;
 use AppBundle\Form\Editor\Admin\Main\LinkEditorType;
-use Tests\AppBundle\Form\Editor\Admin\Base\SimpleEntityEditorTypeTest;
+use Tests\AppBundle\Form\Editor\Admin\Base\SimpleEditorTypeTest;
 
-class LinkEditorTypeTest extends SimpleEntityEditorTypeTest {
+class LinkEditorTypeTest extends SimpleEditorTypeTest {
 	
 	const URL = 'http://krk-dev.com';
 	

@@ -3,9 +3,9 @@
 namespace AppBundle\Controller\Admin\Assignments;
 
 use AppBundle\Controller\Admin\Base\AssignmentController;
-use AppBundle\Entity\Category;
-use AppBundle\Entity\Term;
-use AppBundle\Entity\TermCategoryAssignment;
+use AppBundle\Entity\Main\Category;
+use AppBundle\Entity\Main\Term;
+use AppBundle\Entity\Assignments\TermCategoryAssignment;
 use AppBundle\Filter\Common\Assignments\TermCategoryAssignmentFilter;
 use AppBundle\Form\Editor\Admin\Assignments\TermCategoryAssignmentEditorType;
 use AppBundle\Form\Filter\Admin\Assignments\TermCategoryAssignmentFilterType;

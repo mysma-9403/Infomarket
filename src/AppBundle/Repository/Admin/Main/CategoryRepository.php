@@ -2,16 +2,16 @@
 
 namespace AppBundle\Repository\Admin\Main;
 
-use AppBundle\Entity\BranchCategoryAssignment;
-use AppBundle\Entity\Category;
-use AppBundle\Entity\ProductCategoryAssignment;
-use AppBundle\Filter\Common\Main\CategoryFilter;
+use AppBundle\Entity\Assignments\BranchCategoryAssignment;
+use AppBundle\Entity\Assignments\ProductCategoryAssignment;
+use AppBundle\Entity\Main\Category;
 use AppBundle\Filter\Base\Filter;
-use AppBundle\Repository\Admin\Base\ImageEntityRepository;
+use AppBundle\Filter\Common\Main\CategoryFilter;
+use AppBundle\Repository\Admin\Base\ImageRepository;
 use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\ORM\QueryBuilder;
 
-class CategoryRepository extends ImageEntityRepository {
+class CategoryRepository extends ImageRepository {
 
 	protected function getItemSelectFields(QueryBuilder &$builder) {
 		$fields = parent::getItemSelectFields($builder);
@@ -122,7 +122,8 @@ class CategoryRepository extends ImageEntityRepository {
 	protected function queryTreeItems() {
 		$builder = new QueryBuilder($this->getEntityManager());
 		
-		$builder->select("e.id, IDENTITY(e.parent) AS parent, e.name, e.subname, e.infomarket, e.infoprodukt, e.featured, e.preleaf");
+		$builder->select(
+				"e.id, IDENTITY(e.parent) AS parent, e.name, e.subname, e.infomarket, e.infoprodukt, e.featured, e.preleaf");
 		$builder->from($this->getEntityType(), "e");
 		
 		$builder->orderBy('e.treePath', 'ASC');

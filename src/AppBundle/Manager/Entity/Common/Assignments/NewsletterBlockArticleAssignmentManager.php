@@ -2,9 +2,9 @@
 
 namespace AppBundle\Manager\Entity\Common\Assignments;
 
-use AppBundle\Entity\Article;
-use AppBundle\Entity\NewsletterBlock;
-use AppBundle\Entity\NewsletterBlockArticleAssignment;
+use AppBundle\Entity\Assignments\NewsletterBlockArticleAssignment;
+use AppBundle\Entity\Main\Article;
+use AppBundle\Entity\Main\NewsletterBlock;
 use AppBundle\Manager\Entity\Base\AssignmentManager;
 use Symfony\Component\HttpFoundation\Request;
 

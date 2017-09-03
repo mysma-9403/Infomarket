@@ -2,7 +2,7 @@
 
 namespace AppBundle\Manager\Entity\Benchmark;
 
-use AppBundle\Entity\BenchmarkQuery;
+use AppBundle\Entity\Main\BenchmarkQuery;
 use AppBundle\Manager\Entity\Base\EntityManager;
 use Symfony\Component\HttpFoundation\Request;
 

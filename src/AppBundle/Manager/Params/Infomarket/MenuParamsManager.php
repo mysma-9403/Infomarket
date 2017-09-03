@@ -2,7 +2,7 @@
 
 namespace AppBundle\Manager\Params\Infomarket;
 
-use AppBundle\Entity\Menu;
+use AppBundle\Entity\Main\Menu;
 use AppBundle\Repository\Infomarket\MenuEntryRepository;
 use Symfony\Component\HttpFoundation\Request;
 

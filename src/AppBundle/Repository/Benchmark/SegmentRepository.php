@@ -2,10 +2,10 @@
 
 namespace AppBundle\Repository\Benchmark;
 
-use AppBundle\Entity\Category;
-use AppBundle\Entity\Product;
-use AppBundle\Entity\ProductCategoryAssignment;
-use AppBundle\Entity\Segment;
+use AppBundle\Entity\Assignments\ProductCategoryAssignment;
+use AppBundle\Entity\Main\Category;
+use AppBundle\Entity\Main\Product;
+use AppBundle\Entity\Main\Segment;
 use AppBundle\Repository\Admin\Main\SegmentRepository as BaseRepository;
 use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\ORM\QueryBuilder;

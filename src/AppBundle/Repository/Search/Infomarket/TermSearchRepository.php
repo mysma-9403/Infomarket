@@ -2,8 +2,8 @@
 
 namespace AppBundle\Repository\Search\Infomarket;
 
-use AppBundle\Entity\Term;
-use AppBundle\Entity\TermCategoryAssignment;
+use AppBundle\Entity\Assignments\TermCategoryAssignment;
+use AppBundle\Entity\Main\Term;
 use AppBundle\Filter\Base\Filter;
 use AppBundle\Filter\Common\Search\BrandCategorySearchFilter;
 use AppBundle\Repository\Search\Base\SearchRepository;

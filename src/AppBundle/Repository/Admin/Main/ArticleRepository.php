@@ -2,17 +2,17 @@
 
 namespace AppBundle\Repository\Admin\Main;
 
-use AppBundle\Entity\Article;
-use AppBundle\Entity\ArticleArticleCategoryAssignment;
-use AppBundle\Entity\ArticleBrandAssignment;
-use AppBundle\Entity\ArticleCategoryAssignment;
-use AppBundle\Filter\Common\Main\ArticleFilter;
+use AppBundle\Entity\Assignments\ArticleArticleCategoryAssignment;
+use AppBundle\Entity\Assignments\ArticleBrandAssignment;
+use AppBundle\Entity\Assignments\ArticleCategoryAssignment;
+use AppBundle\Entity\Main\Article;
 use AppBundle\Filter\Base\Filter;
-use AppBundle\Repository\Admin\Base\ImageEntityRepository;
+use AppBundle\Filter\Common\Main\ArticleFilter;
+use AppBundle\Repository\Admin\Base\ImageRepository;
 use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\ORM\QueryBuilder;
 
-class ArticleRepository extends ImageEntityRepository {
+class ArticleRepository extends ImageRepository {
 
 	/**
 	 *
@@ -33,7 +33,8 @@ class ArticleRepository extends ImageEntityRepository {
 		}
 		
 		if (count($filter->getArticleCategories()) > 0) {
-			$builder->leftJoin(ArticleArticleCategoryAssignment::class, 'aaca', Join::WITH, 'e.id = aaca.article');
+			$builder->leftJoin(ArticleArticleCategoryAssignment::class, 'aaca', Join::WITH, 
+					'e.id = aaca.article');
 		}
 	}
 
@@ -147,7 +148,8 @@ class ArticleRepository extends ImageEntityRepository {
 		
 		$expr = $builder->expr();
 		
-		$builder->select('e.id, e.name, e.subname, e.image, e.intro, e.content, e.layout, IDENTITY(e.parent) AS parent, e.imageSize');
+		$builder->select(
+				'e.id, e.name, e.subname, e.image, e.intro, e.content, e.layout, IDENTITY(e.parent) AS parent, e.imageSize');
 		$builder->from($this->getEntityType(), "e");
 		
 		$where = $expr->andX();

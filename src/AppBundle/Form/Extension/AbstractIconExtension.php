@@ -19,8 +19,7 @@ abstract class AbstractIconExtension extends AbstractTypeExtension {
 	}
 
 	public function configureOptions(OptionsResolver $resolver) {
-		$resolver->setDefaults(array (
-				'icon' => null 
+		$resolver->setDefaults(array ('icon' => null 
 		));
 	}
 }

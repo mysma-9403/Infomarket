@@ -2,7 +2,7 @@
 
 namespace Tests\AppBundle\Form\Other;
 
-use AppBundle\Entity\Other\ImportRatings;
+use AppBundle\Entity\Main\Other\ImportRatings;
 use AppBundle\Form\Other\ImportRatingsType;
 use Tests\AppBundle\Form\Base\BaseTypeTest;
 

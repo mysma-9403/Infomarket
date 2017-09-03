@@ -2,7 +2,7 @@
 
 namespace AppBundle\Form\Filter\Benchmark;
 
-use AppBundle\Entity\Product;
+use AppBundle\Entity\Main\Product;
 use AppBundle\Filter\Base\Filter;
 use AppBundle\Filter\Benchmark\ProductFilter;
 use AppBundle\Form\Base\FilterType;

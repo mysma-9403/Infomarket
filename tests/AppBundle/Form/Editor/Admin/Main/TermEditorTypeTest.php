@@ -2,12 +2,12 @@
 
 namespace Tests\AppBundle\Form\Editor\Admin\Main;
 
-use AppBundle\Entity\Term;
+use AppBundle\Entity\Main\Term;
 use AppBundle\Form\Editor\Admin\Main\TermEditorType;
 use Symfony\Component\Form\PreloadedExtension;
-use Tests\AppBundle\Form\Editor\Admin\Base\SimpleEntityEditorTypeTest;
+use Tests\AppBundle\Form\Editor\Admin\Base\SimpleEditorTypeTest;
 
-class TermEditorTypeTest extends SimpleEntityEditorTypeTest {
+class TermEditorTypeTest extends SimpleEditorTypeTest {
 	
 	const CONTENT = 'Test content';
 	

@@ -2,7 +2,7 @@
 
 namespace AppBundle\Manager\Entity\Base;
 
-use AppBundle\Entity\Base\Audit;
+use AppBundle\Entity\Base\Simple;
 use AppBundle\Repository\Base\BaseRepository;
 use Doctrine\ORM\Query\Expr\Base;
 use Symfony\Component\HttpFoundation\Request;
@@ -40,7 +40,7 @@ abstract class EntityManager {
 	 *
 	 * @param integer $id        	
 	 *
-	 * @return Audit
+	 * @return Simple
 	 */
 	public function getEntry($id) {
 		return $this->repository->find($id);
@@ -60,7 +60,7 @@ abstract class EntityManager {
 	 *
 	 * @param Request $request        	
 	 *
-	 * @return Audit
+	 * @return Simple
 	 */
 	public function createFromRequest(Request $request) {
 		return $this->create();
@@ -69,9 +69,9 @@ abstract class EntityManager {
 	/**
 	 * Create new entry with template parameters.
 	 *
-	 * @param Audit $template        	
+	 * @param Simple $template        	
 	 *
-	 * @return Audit
+	 * @return Simple
 	 */
 	public function createFromTemplate($template) {
 		return $this->create();

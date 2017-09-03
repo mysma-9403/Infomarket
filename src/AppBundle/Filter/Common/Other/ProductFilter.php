@@ -33,7 +33,8 @@ class ProductFilter extends Filter {
 	 */
 	protected $editorFields = [ ];
 
-	public function __construct(BenchmarkFieldsProvider $benchmarkFieldsProvider, BenchmarkFieldsInitializer $benchmarkFieldsInitializer) {
+	public function __construct(BenchmarkFieldsProvider $benchmarkFieldsProvider, 
+			BenchmarkFieldsInitializer $benchmarkFieldsInitializer) {
 		$this->benchmarkFieldsProvider = $benchmarkFieldsProvider;
 		$this->benchmarkFieldsInitializer = $benchmarkFieldsInitializer;
 	}

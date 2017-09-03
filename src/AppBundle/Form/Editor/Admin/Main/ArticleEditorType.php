@@ -2,12 +2,12 @@
 
 namespace AppBundle\Form\Editor\Admin\Main;
 
-use AppBundle\Entity\Article;
-use AppBundle\Form\Editor\Admin\Base\ImageEntityEditorType;
+use AppBundle\Entity\Main\Article;
+use AppBundle\Form\Editor\Admin\Base\ImageEditorType;
 use AppBundle\Form\Transformer\EntityToNumberTransformer;
 use Symfony\Component\Form\FormBuilderInterface;
 
-class ArticleEditorType extends ImageEntityEditorType {
+class ArticleEditorType extends ImageEditorType {
 
 	/**
 	 *
@@ -21,7 +21,8 @@ class ArticleEditorType extends ImageEntityEditorType {
 	 */
 	protected $userToNumberTransformer;
 
-	public function __construct(EntityToNumberTransformer $articleToNumberTransformer, EntityToNumberTransformer $userToNumberTransformer) {
+	public function __construct(EntityToNumberTransformer $articleToNumberTransformer, 
+			EntityToNumberTransformer $userToNumberTransformer) {
 		$this->articleToNumberTransformer = $articleToNumberTransformer;
 		$this->userToNumberTransformer = $userToNumberTransformer;
 	}

@@ -2,9 +2,9 @@
 
 namespace AppBundle\Manager\Entity\Common\Main;
 
-use AppBundle\Entity\Link;
-use AppBundle\Entity\MenuEntry;
-use AppBundle\Entity\Page;
+use AppBundle\Entity\Main\Link;
+use AppBundle\Entity\Main\MenuEntry;
+use AppBundle\Entity\Main\Page;
 use AppBundle\Manager\Entity\Base\EntityManager;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Repository\Base\BaseRepository;

@@ -3,7 +3,7 @@
 namespace AppBundle\Filter\Benchmark;
 
 use AppBundle;
-use AppBundle\Entity\BenchmarkField;
+use AppBundle\Entity\Main\BenchmarkField;
 use AppBundle\Filter\Base\Filter;
 use AppBundle\Logic\Common\BenchmarkField\Initializer\BenchmarkFieldsInitializer;
 use AppBundle\Logic\Common\BenchmarkField\Provider\BenchmarkFieldsProvider;
@@ -80,7 +80,9 @@ class ProductFilter extends Filter {
 
 	protected $benchmarkQuery = null;
 
-	public function __construct(BenchmarkFieldsProvider $benchmarkFieldsProvider, BenchmarkFieldsInitializer $showFieldsInitializer, BenchmarkFieldsInitializer $filterFieldsInitializer) {
+	public function __construct(BenchmarkFieldsProvider $benchmarkFieldsProvider, 
+			BenchmarkFieldsInitializer $showFieldsInitializer, 
+			BenchmarkFieldsInitializer $filterFieldsInitializer) {
 		$this->benchmarkFieldsProvider = $benchmarkFieldsProvider;
 		$this->showFieldsInitializer = $showFieldsInitializer;
 		$this->filterFieldsInitializer = $filterFieldsInitializer;
@@ -115,19 +117,24 @@ class ProductFilter extends Filter {
 				case BenchmarkField::DECIMAL_FIELD_TYPE:
 				case BenchmarkField::INTEGER_FIELD_TYPE:
 					$value = array ();
-					$value['min'] = $this->getRequestValue($request, StringUtils::getCleanName($field['filterName']) . '_min');
-					$value['max'] = $this->getRequestValue($request, StringUtils::getCleanName($field['filterName']) . '_max');
+					$value['min'] = $this->getRequestValue($request, 
+							StringUtils::getCleanName($field['filterName']) . '_min');
+					$value['max'] = $this->getRequestValue($request, 
+							StringUtils::getCleanName($field['filterName']) . '_max');
 					$this->filterFields[$key]['value'] = $value;
 					break;
 				case BenchmarkField::BOOLEAN_FIELD_TYPE:
-					$this->filterFields[$key]['value'] = $this->getRequestBool($request, StringUtils::getCleanName($field['filterName']));
+					$this->filterFields[$key]['value'] = $this->getRequestBool($request, 
+							StringUtils::getCleanName($field['filterName']));
 					break;
 				case BenchmarkField::SINGLE_ENUM_FIELD_TYPE:
 				case BenchmarkField::MULTI_ENUM_FIELD_TYPE:
-					$this->filterFields[$key]['value'] = $this->getRequestArray($request, StringUtils::getCleanName($field['filterName']));
+					$this->filterFields[$key]['value'] = $this->getRequestArray($request, 
+							StringUtils::getCleanName($field['filterName']));
 					break;
 				default:
-					$this->filterFields[$key]['value'] = $this->getRequestString($request, StringUtils::getCleanName($field['filterName']));
+					$this->filterFields[$key]['value'] = $this->getRequestString($request, 
+							StringUtils::getCleanName($field['filterName']));
 					break;
 			}
 		}
@@ -186,18 +193,23 @@ class ProductFilter extends Filter {
 			switch ($field['fieldType']) {
 				case BenchmarkField::DECIMAL_FIELD_TYPE:
 				case BenchmarkField::INTEGER_FIELD_TYPE:
-					$this->setRequestValue($values, StringUtils::getCleanName($field['filterName']) . '_min', $field['value']['min']);
-					$this->setRequestValue($values, StringUtils::getCleanName($field['filterName']) . '_max', $field['value']['max']);
+					$this->setRequestValue($values, StringUtils::getCleanName($field['filterName']) . '_min', 
+							$field['value']['min']);
+					$this->setRequestValue($values, StringUtils::getCleanName($field['filterName']) . '_max', 
+							$field['value']['max']);
 					break;
 				case BenchmarkField::BOOLEAN_FIELD_TYPE:
-					$this->setRequestBool($values, StringUtils::getCleanName($field['filterName']), $field['value']);
+					$this->setRequestBool($values, StringUtils::getCleanName($field['filterName']), 
+							$field['value']);
 					break;
 				case BenchmarkField::SINGLE_ENUM_FIELD_TYPE:
 				case BenchmarkField::MULTI_ENUM_FIELD_TYPE:
-					$this->setRequestArray($values, StringUtils::getCleanName($field['filterName']), $field['value']);
+					$this->setRequestArray($values, StringUtils::getCleanName($field['filterName']), 
+							$field['value']);
 					break;
 				default:
-					$this->setRequestString($values, StringUtils::getCleanName($field['filterName']), $field['value']);
+					$this->setRequestString($values, StringUtils::getCleanName($field['filterName']), 
+							$field['value']);
 					break;
 			}
 		}

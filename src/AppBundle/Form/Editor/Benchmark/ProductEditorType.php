@@ -2,15 +2,15 @@
 
 namespace AppBundle\Form\Editor\Benchmark;
 
-use AppBundle\Entity\Brand;
-use AppBundle\Entity\Product;
+use AppBundle\Entity\Main\Brand;
+use AppBundle\Entity\Main\Product;
 use AppBundle\Filter\Common\Other\ProductFilter;
-use AppBundle\Form\Editor\Admin\Base\ImageEntityEditorType;
+use AppBundle\Form\Editor\Admin\Base\ImageEditorType;
 use AppBundle\Form\FormBuilder\BenchmarkEditorFieldBuilder;
 use AppBundle\Form\Transformer\EntityToNumberTransformer;
 use Symfony\Component\Form\FormBuilderInterface;
 
-class ProductEditorType extends ImageEntityEditorType {
+class ProductEditorType extends ImageEditorType {
 
 	/**
 	 *
@@ -24,7 +24,8 @@ class ProductEditorType extends ImageEntityEditorType {
 	 */
 	protected $benchmarkEditorFieldBuilder;
 
-	public function __construct(EntityToNumberTransformer $brandToNumberTransformer, BenchmarkEditorFieldBuilder $benchmarkEditorFieldBuilder) {
+	public function __construct(EntityToNumberTransformer $brandToNumberTransformer, 
+			BenchmarkEditorFieldBuilder $benchmarkEditorFieldBuilder) {
 		$this->brandToNumberTransformer = $brandToNumberTransformer;
 		$this->benchmarkEditorFieldBuilder = $benchmarkEditorFieldBuilder;
 	}

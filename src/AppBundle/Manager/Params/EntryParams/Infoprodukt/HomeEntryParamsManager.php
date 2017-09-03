@@ -23,7 +23,8 @@ class HomeEntryParamsManager extends EntryParamsManager {
 	 */
 	protected $magazineRepository;
 
-	public function __construct(EntityManager $em, FilterManager $fm, CategoryRepository $categoryRepository, MagazineRepository $magazineRepository) {
+	public function __construct(EntityManager $em, FilterManager $fm, CategoryRepository $categoryRepository, 
+			MagazineRepository $magazineRepository) {
 		parent::__construct($em, $fm);
 		
 		$this->categoryRepository = $categoryRepository;

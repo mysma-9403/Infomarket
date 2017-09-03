@@ -2,13 +2,13 @@
 
 namespace AppBundle\Repository\Admin\Main;
 
-use AppBundle\Entity\Link;
+use AppBundle\Entity\Main\Link;
 use AppBundle\Filter\Common\Main\LinkFilter;
 use AppBundle\Filter\Base\Filter;
-use AppBundle\Repository\Admin\Base\SimpleEntityRepository;
+use AppBundle\Repository\Admin\Base\SimpleRepository;
 use Doctrine\ORM\QueryBuilder;
 
-class LinkRepository extends SimpleEntityRepository {
+class LinkRepository extends SimpleRepository {
 
 	protected function buildOrderBy(QueryBuilder &$builder, Filter $filter) {
 		parent::buildOrderBy($builder, $filter);

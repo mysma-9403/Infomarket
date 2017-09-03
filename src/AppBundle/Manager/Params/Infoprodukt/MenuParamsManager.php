@@ -2,7 +2,7 @@
 
 namespace AppBundle\Manager\Params\Infoprodukt;
 
-use AppBundle\Entity\Menu;
+use AppBundle\Entity\Main\Menu;
 use AppBundle\Repository\Infoprodukt\MenuEntryRepository;
 use Symfony\Component\HttpFoundation\Request;
 

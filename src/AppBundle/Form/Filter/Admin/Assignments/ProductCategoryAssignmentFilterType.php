@@ -3,10 +3,10 @@
 namespace AppBundle\Form\Filter\Admin\Assignments;
 
 use AppBundle\Filter\Common\Assignments\ProductCategoryAssignmentFilter;
-use AppBundle\Form\Filter\Admin\Base\SimpleEntityFilterType;
+use AppBundle\Form\Filter\Admin\Base\SimpleFilterType;
 use Symfony\Component\Form\FormBuilderInterface;
 
-class ProductCategoryAssignmentFilterType extends SimpleEntityFilterType {
+class ProductCategoryAssignmentFilterType extends SimpleFilterType {
 
 	protected function addFields(FormBuilderInterface $builder, array $options) {
 		parent::addFields($builder, $options);

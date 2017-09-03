@@ -6,7 +6,7 @@ use AppBundle\Filter\Common\Search\SearchFilter;
 use AppBundle\Filter\Base\Filter;
 use AppBundle\Repository\Search\Base\SearchRepository;
 use Doctrine\ORM\QueryBuilder;
-use AppBundle\Entity\Category;
+use AppBundle\Entity\Main\Category;
 
 class CategorySearchRepository extends SearchRepository {
 

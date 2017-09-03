@@ -2,15 +2,15 @@
 
 namespace AppBundle\Repository\Admin\Main;
 
-use AppBundle\Entity\NewsletterGroup;
-use AppBundle\Entity\NewsletterUserNewsletterGroupAssignment;
-use AppBundle\Filter\Common\Main\NewsletterGroupFilter;
+use AppBundle\Entity\Main\NewsletterGroup;
+use AppBundle\Entity\Assignments\NewsletterUserNewsletterGroupAssignment;
 use AppBundle\Filter\Base\Filter;
-use AppBundle\Repository\Admin\Base\AuditRepository;
+use AppBundle\Filter\Common\Main\NewsletterGroupFilter;
+use AppBundle\Repository\Admin\Base\SimpleRepository;
 use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\ORM\QueryBuilder;
 
-class NewsletterGroupRepository extends AuditRepository {
+class NewsletterGroupRepository extends SimpleRepository {
 
 	protected function buildOrderBy(QueryBuilder &$builder, Filter $filter) {
 		$builder->addOrderBy('e.name', 'ASC');
@@ -60,7 +60,8 @@ class NewsletterGroupRepository extends AuditRepository {
 		$builder->distinct();
 		$builder->from($this->getEntityType(), "e");
 		
-		$builder->innerJoin(NewsletterUserNewsletterGroupAssignment::class, 'nunga', Join::WITH, 'e.id = nunga.newsletterGroup');
+		$builder->innerJoin(NewsletterUserNewsletterGroupAssignment::class, 'nunga', Join::WITH, 
+				'e.id = nunga.newsletterGroup');
 		
 		$expr = $builder->expr();
 		

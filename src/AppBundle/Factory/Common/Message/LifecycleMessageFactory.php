@@ -7,20 +7,21 @@ use AppBundle\Utils\LabelUtils;
 use Symfony\Component\Translation\TranslatorInterface;
 
 class LifecycleMessageFactory implements ClassMessageFactory {
-	
+
 	const PRE_B = '<b>';
+
 	const POST_B = '</b>';
-	
+
 	/**
-	 * 
+	 *
 	 * @var TranslatorInterface
 	 */
 	protected $translator;
-	
+
 	public function __construct(TranslatorInterface $translator) {
 		$this->translator = $translator;
 	}
-	
+
 	public function getMessage($messageLabel, $type, $params = []) {
 		$message = $this->translator->trans($messageLabel);
 		

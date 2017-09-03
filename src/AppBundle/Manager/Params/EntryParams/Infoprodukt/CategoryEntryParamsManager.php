@@ -2,11 +2,11 @@
 
 namespace AppBundle\Manager\Params\EntryParams\Infoprodukt;
 
-use AppBundle\Entity\Advert;
-use AppBundle\Entity\Article;
-use AppBundle\Entity\ArticleCategory;
-use AppBundle\Entity\Category;
-use AppBundle\Entity\Segment;
+use AppBundle\Entity\Main\Advert;
+use AppBundle\Entity\Main\Article;
+use AppBundle\Entity\Main\ArticleCategory;
+use AppBundle\Entity\Main\Category;
+use AppBundle\Entity\Main\Segment;
 use AppBundle\Manager\Entity\Base\EntityManager;
 use AppBundle\Manager\Filter\Base\FilterManager;
 use AppBundle\Manager\Params\EntryParams\Infoprodukt\Base\EntryParamsManager;
@@ -89,7 +89,11 @@ class CategoryEntryParamsManager extends EntryParamsManager {
 	 */
 	protected $segmentRepository;
 
-	public function __construct(EntityManager $em, FilterManager $fm, AdvertRepository $advertRepository, ArticleRepository $articleRepository, ArticleCategoryRepository $articleCategoryRepository, BrandRepository $brandRepository, CategoryRepository $categoryRepository, ProductRepository $productRepository, SegmentRepository $segmentRepository, ArticleBrandAssignmentsManager $abaManager) {
+	public function __construct(EntityManager $em, FilterManager $fm, AdvertRepository $advertRepository, 
+			ArticleRepository $articleRepository, ArticleCategoryRepository $articleCategoryRepository, 
+			BrandRepository $brandRepository, CategoryRepository $categoryRepository, 
+			ProductRepository $productRepository, SegmentRepository $segmentRepository, 
+			ArticleBrandAssignmentsManager $abaManager) {
 		parent::__construct($em, $fm);
 		
 		$this->advertRepository = $advertRepository;
@@ -118,8 +122,7 @@ class CategoryEntryParamsManager extends EntryParamsManager {
 		if (! $topProducts && $entry->getPreleaf()) {
 			$advertLocations[] = Advert::FEATURED_LOCATION;
 			
-			$categories = [ 
-					$entry 
+			$categories = [ $entry 
 			];
 			// TODO repository->findBreadcrumbItems($entry);
 			// $categories = [$entry];
@@ -196,7 +199,8 @@ class CategoryEntryParamsManager extends EntryParamsManager {
 			$viewParams['productsArticles'] = $articles;
 			
 			// promotions articles
-			$viewParams['promotionsCategory'] = $this->getArticleCategory($articleCategories, self::PROMOTIONS_AC);
+			$viewParams['promotionsCategory'] = $this->getArticleCategory($articleCategories, 
+					self::PROMOTIONS_AC);
 			
 			$articles = $this->articleRepository->findCategoryItems($contextCategories, self::PROMOTIONS_AC, 6);
 			if (count($articles) > 0) {
@@ -211,19 +215,22 @@ class CategoryEntryParamsManager extends EntryParamsManager {
 			
 			$articleCategory = $this->getArticleCategory($articleCategories, self::REVIEWS_AC);
 			if ($articleCategory) {
-				$articleCategory['articles'] = $this->articleRepository->findCategoryItems($contextCategories, self::REVIEWS_AC, 1);
+				$articleCategory['articles'] = $this->articleRepository->findCategoryItems($contextCategories, 
+						self::REVIEWS_AC, 1);
 				$usefulArticleCategories[] = $articleCategory;
 			}
 			
 			$articleCategory = $this->getArticleCategory($articleCategories, self::HOME_LINKS_AC);
 			if ($articleCategory) {
-				$articleCategory['articles'] = $this->articleRepository->findCategoryItems($contextCategories, self::HOME_LINKS_AC, 1);
+				$articleCategory['articles'] = $this->articleRepository->findCategoryItems($contextCategories, 
+						self::HOME_LINKS_AC, 1);
 				$usefulArticleCategories[] = $articleCategory;
 			}
 			
 			$articleCategory = $this->getArticleCategory($articleCategories, self::FOREIGN_LINKS_AC);
 			if ($articleCategory) {
-				$articleCategory['articles'] = $this->articleRepository->findCategoryItems($contextCategories, self::FOREIGN_LINKS_AC, 1);
+				$articleCategory['articles'] = $this->articleRepository->findCategoryItems($contextCategories, 
+						self::FOREIGN_LINKS_AC, 1);
 				$usefulArticleCategories[] = $articleCategory;
 			}
 			

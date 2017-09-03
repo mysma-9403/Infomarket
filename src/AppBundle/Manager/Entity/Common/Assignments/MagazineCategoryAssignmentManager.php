@@ -2,9 +2,9 @@
 
 namespace AppBundle\Manager\Entity\Common\Assignments;
 
-use AppBundle\Entity\Category;
-use AppBundle\Entity\Magazine;
-use AppBundle\Entity\MagazineCategoryAssignment;
+use AppBundle\Entity\Assignments\MagazineCategoryAssignment;
+use AppBundle\Entity\Main\Category;
+use AppBundle\Entity\Main\Magazine;
 use AppBundle\Manager\Entity\Base\AssignmentManager;
 use Symfony\Component\HttpFoundation\Request;
 

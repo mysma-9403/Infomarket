@@ -2,12 +2,12 @@
 
 namespace AppBundle\Form\Editor\Admin\Assignments;
 
-use AppBundle\Entity\BrandCategoryAssignment;
-use AppBundle\Form\Editor\Admin\Base\BaseEntityEditorType;
+use AppBundle\Entity\Assignments\BrandCategoryAssignment;
+use AppBundle\Form\Editor\Admin\Base\BaseEditorType;
 use AppBundle\Form\Transformer\EntityToNumberTransformer;
 use Symfony\Component\Form\FormBuilderInterface;
 
-class BrandCategoryAssignmentEditorType extends BaseEntityEditorType {
+class BrandCategoryAssignmentEditorType extends BaseEditorType {
 
 	/**
 	 *
@@ -21,7 +21,8 @@ class BrandCategoryAssignmentEditorType extends BaseEntityEditorType {
 	 */
 	protected $categoryTransformer;
 
-	public function __construct(EntityToNumberTransformer $brandTransformer, EntityToNumberTransformer $categoryTransformer) {
+	public function __construct(EntityToNumberTransformer $brandTransformer, 
+			EntityToNumberTransformer $categoryTransformer) {
 		$this->brandTransformer = $brandTransformer;
 		$this->categoryTransformer = $categoryTransformer;
 	}

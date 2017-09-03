@@ -2,7 +2,7 @@
 
 namespace Tests\AppBundle\Repository\Manager;
 
-use AppBundle\Entity\Product;
+use AppBundle\Entity\Main\Product;
 use AppBundle\Repository\Benchmark\ProductRepository;
 use AppBundle\Repository\Manager\BenchmarkRepositoryManager;
 use Doctrine\Common\Persistence\ObjectManager;

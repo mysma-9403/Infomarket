@@ -2,12 +2,12 @@
 
 namespace AppBundle\Repository\Admin\Main;
 
-use AppBundle\Entity\Segment;
-use AppBundle\Repository\Admin\Base\ImageEntityRepository;
+use AppBundle\Entity\Main\Segment;
+use AppBundle\Repository\Admin\Base\ImageRepository;
 use Doctrine\ORM\QueryBuilder;
 use AppBundle\Filter\Base\Filter;
 
-class SegmentRepository extends ImageEntityRepository {
+class SegmentRepository extends ImageRepository {
 
 	protected function buildOrderBy(QueryBuilder &$builder, Filter $filter) {
 		$builder->addOrderBy('e.name', 'ASC');

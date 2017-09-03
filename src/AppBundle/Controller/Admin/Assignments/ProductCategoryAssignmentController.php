@@ -3,11 +3,11 @@
 namespace AppBundle\Controller\Admin\Assignments;
 
 use AppBundle\Controller\Admin\Base\AssignmentController;
-use AppBundle\Entity\Brand;
-use AppBundle\Entity\Category;
-use AppBundle\Entity\Product;
-use AppBundle\Entity\ProductCategoryAssignment;
-use AppBundle\Entity\Segment;
+use AppBundle\Entity\Main\Brand;
+use AppBundle\Entity\Main\Category;
+use AppBundle\Entity\Main\Product;
+use AppBundle\Entity\Assignments\ProductCategoryAssignment;
+use AppBundle\Entity\Main\Segment;
 use AppBundle\Factory\Common\Choices\Bool\FeaturedChoicesFactory;
 use AppBundle\Filter\Common\Assignments\ProductCategoryAssignmentFilter;
 use AppBundle\Form\Editor\Admin\Assignments\ProductCategoryAssignmentEditorType;
@@ -176,8 +176,8 @@ class ProductCategoryAssignmentController extends AssignmentController {
 	// Routes
 	// ---------------------------------------------------------------------------
 	
-	// TODO should be moved to FeaturedEntityController ???
-	// TODO copied from SimpleEntityController :/
+	// TODO should be moved to FeaturedController ???
+	// TODO copied from SimpleController :/
 	protected function getSetFeaturedRoute() {
 		return $this->getIndexRoute() . 'set_featured';
 	}

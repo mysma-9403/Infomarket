@@ -2,8 +2,8 @@
 
 namespace AppBundle\Repository\Benchmark;
 
-use AppBundle\Entity\Category;
-use AppBundle\Entity\UserCategoryAssignment;
+use AppBundle\Entity\Assignments\UserCategoryAssignment;
+use AppBundle\Entity\Main\Category;
 use AppBundle\Repository\Admin\Main\CategoryRepository as BaseRepository;
 use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\ORM\QueryBuilder;

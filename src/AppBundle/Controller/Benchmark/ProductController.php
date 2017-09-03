@@ -3,11 +3,11 @@
 namespace AppBundle\Controller\Benchmark;
 
 use AppBundle\Controller\Base\DummyController;
-use AppBundle\Entity\BenchmarkField;
-use AppBundle\Entity\BenchmarkQuery;
-use AppBundle\Entity\Brand;
-use AppBundle\Entity\Category;
-use AppBundle\Entity\Product;
+use AppBundle\Entity\Main\BenchmarkField;
+use AppBundle\Entity\Main\BenchmarkQuery;
+use AppBundle\Entity\Main\Brand;
+use AppBundle\Entity\Main\Category;
+use AppBundle\Entity\Main\Product;
 use AppBundle\Factory\Common\BenchmarkField\CompareBenchmarkFieldFactory;
 use AppBundle\Factory\Common\BenchmarkField\NoteBenchmarkFieldFactory;
 use AppBundle\Factory\Common\BenchmarkField\SimpleBenchmarkFieldFactory;
@@ -43,56 +43,56 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 use Symfony\Component\Validator\Constraints\Date;
+use AppBundle\Repository\Benchmark\BenchmarkMessageRepository;
 
 class ProductController extends DummyController {
 	
-	//---------------------------------------------------------------------------
+	// ---------------------------------------------------------------------------
 	// Actions
-	//---------------------------------------------------------------------------
-	
+	// ---------------------------------------------------------------------------
 	public function indexAction(Request $request, $page) {
 		return $this->indexActionInternal($request, $page);
 	}
-	
+
 	public function exportToImageAction(Request $request, $page) {
 		return $this->exportToImageActionInternal($request, $page);
 	}
-	
+
 	public function exportToPdfAction(Request $request, $page) {
 		return $this->exportToPdfActionInternal($request, $page);
 	}
-	
+
 	public function exportToCsvAction(Request $request, $page) {
 		return $this->exportToCsvActionInternal($request, $page);
 	}
-	
+
 	public function exportToHtmlAction(Request $request, $page) {
 		return $this->exportToHtmlActionInternal($request, $page);
 	}
-	
+
 	public function exportToExcelAction(Request $request, $page) {
 		return $this->exportToExcelActionInternal($request, $page);
 	}
-	
+
 	public function showAction(Request $request, $id) {
 		return $this->showActionInternal($request, $id);
 	}
-	
+
 	public function compareAction(Request $request, $id) {
 		return $this->compareActionInternal($request, $id);
 	}
 	
-	//---------------------------------------------------------------------------
+	// ---------------------------------------------------------------------------
 	// Internal actions
-	//---------------------------------------------------------------------------
+	// ---------------------------------------------------------------------------
 	
 	/**
 	 *
 	 * {@inheritDoc}
-	 * @see \AppBundle\Controller\Base\BaseEntityController::indexActionInternal()
+	 *
+	 * @see \AppBundle\Controller\Base\BaseController::indexActionInternal()
 	 */
-	protected function indexActionInternal(Request $request, $page)
-	{
+	protected function indexActionInternal(Request $request, $page) {
 		$this->denyAccessUnlessGranted($this->getShowRole(), null, 'Unable to access this page!');
 		
 		$params = $this->createParams($this->getIndexRoute());
@@ -104,32 +104,33 @@ class ProductController extends DummyController {
 		$am = $this->getAnalyticsManager();
 		$am->sendPageviewAnalytics($params['domain'], $params['route']);
 		
-		
 		$contextParams = $params['contextParams'];
 		$viewParams = $params['viewParams'];
 		
-		//TODO refactor forms like in other controllers
+		// TODO refactor forms like in other controllers
 		$category = $contextParams['category'];
 		$categoryFilter = new CategoryFilter();
 		$categoryFilter->setCategory($category);
 		
-		$categoryFilterForm = $this->createForm(CategoryFilterType::class, $categoryFilter, $this->getCategoryFormOptions($params));
+		$categoryFilterForm = $this->createForm(CategoryFilterType::class, $categoryFilter, 
+				$this->getCategoryFormOptions($params));
 		$categoryFilterForm->handleRequest($request);
-
+		
 		if ($categoryFilterForm->isSubmitted() && $categoryFilterForm->isValid()) {
 			if ($categoryFilterForm->get('submit')->isClicked()) {
 				return $this->redirectToRoute($this->getIndexRoute(), $categoryFilter->getRequestValues());
 			}
 		}
-		$viewParams['categoryFilter'] = $categoryFilterForm->createView();		
+		$viewParams['categoryFilter'] = $categoryFilterForm->createView();
 		
-		//----- other method
+		// ----- other method
 		
 		$subcategory = $contextParams['subcategory'];
 		$subcategoryFilter = new SubcategoryFilter();
 		$subcategoryFilter->setSubcategory($subcategory);
 		
-		$subcategoryFilterForm = $this->createForm(SubcategoryFilterType::class, $subcategoryFilter, $this->getSubcategoryFormOptions($params));
+		$subcategoryFilterForm = $this->createForm(SubcategoryFilterType::class, $subcategoryFilter, 
+				$this->getSubcategoryFormOptions($params));
 		$subcategoryFilterForm->handleRequest($request);
 		
 		if ($subcategoryFilterForm->isSubmitted() && $subcategoryFilterForm->isValid()) {
@@ -139,19 +140,19 @@ class ProductController extends DummyController {
 		}
 		$viewParams['subcategoryFilter'] = $subcategoryFilterForm->createView();
 		
-		
-		
 		$filter = $viewParams['entryFilter'];
 		
-		$filterForm = $this->createForm($this->getFilterFormType(), $filter, $this->getFilterFormOptions($params));
+		$filterForm = $this->createForm($this->getFilterFormType(), $filter, 
+				$this->getFilterFormOptions($params));
 		$filterForm->handleRequest($request);
-	
+		
 		if ($filterForm->isSubmitted() && $filterForm->isValid()) {
 			
 			if ($filterForm->get('saveQuery')->isClicked()) {
 				$params = $filter->getRequestValues();
 				$params['name'] = $this->getBenchmarkQueryName($subcategory);
-				return $this->redirectToRoute($this->getCreateQueryRoute(), array_merge($contextParams, $params));
+				return $this->redirectToRoute($this->getCreateQueryRoute(), 
+						array_merge($contextParams, $params));
 			}
 			
 			if ($filterForm->get('search')->isClicked()) {
@@ -170,7 +171,7 @@ class ProductController extends DummyController {
 		
 		return $this->render($this->getIndexView(), $viewParams);
 	}
-	
+
 	protected function exportToImageActionInternal(Request $request, $page) {
 		if ($this->container->has('profiler'))
 			$this->container->get('profiler')->disable();
@@ -181,15 +182,14 @@ class ProductController extends DummyController {
 		$html = $exportLogic->clean($html);
 		
 		$date = new \DateTime();
-		$response = new Response($this->get('knp_snappy.image')->getOutputFromHtml($html), 200,
-				array(
-						'Content-Type'          => 'image/jpg',
-						'Content-Disposition'   => 'filename="'. $date->format('Y-m-d') . '-benchmark.jpg"'
+		$response = new Response($this->get('knp_snappy.image')->getOutputFromHtml($html), 200, 
+				array ('Content-Type' => 'image/jpg',
+						'Content-Disposition' => 'filename="' . $date->format('Y-m-d') . '-benchmark.jpg"' 
 				));
 		
 		return $response;
 	}
-	
+
 	protected function exportToPdfActionInternal(Request $request, $page) {
 		if ($this->container->has('profiler'))
 			$this->container->get('profiler')->disable();
@@ -200,15 +200,14 @@ class ProductController extends DummyController {
 		$html = $exportLogic->clean($html);
 		
 		$date = new \DateTime();
-		$response = new Response($this->get('knp_snappy.pdf')->getOutputFromHtml($html), 200,
-				array(
-						'Content-Type'          => 'application/pdf',
-						'Content-Disposition'   => 'filename="'. $date->format('Y-m-d') . '-benchmark.pdf"'
+		$response = new Response($this->get('knp_snappy.pdf')->getOutputFromHtml($html), 200, 
+				array ('Content-Type' => 'application/pdf',
+						'Content-Disposition' => 'filename="' . $date->format('Y-m-d') . '-benchmark.pdf"' 
 				));
-	
+		
 		return $response;
 	}
-	
+
 	protected function exportToCsvActionInternal(Request $request, $page) {
 		$this->denyAccessUnlessGranted($this->getShowRole(), null, 'Unable to access this page!');
 		
@@ -221,109 +220,113 @@ class ProductController extends DummyController {
 		$entryFilter = $viewParams['entryFilter'];
 		
 		$response = new StreamedResponse();
-		$response->setCallback(function() use(&$entryFilter, &$entries) {
-			$logic = new CsvExportLogic();
-			$logic->export($entryFilter, $entries);
-		});
-	
+		$response->setCallback(
+				function () use (&$entryFilter, &$entries) {
+					$logic = new CsvExportLogic();
+					$logic->export($entryFilter, $entries);
+				});
+		
 		$date = new \DateTime();
 		$response->setStatusCode(200);
 		$response->headers->set('Content-Type', 'text/csv; charset=utf-8');
-		$response->headers->set('Content-Disposition', 'attachment; filename="'. $date->format('Y-m-d') . '-benchmark.csv"');
-
+		$response->headers->set('Content-Disposition', 
+				'attachment; filename="' . $date->format('Y-m-d') . '-benchmark.csv"');
+		
 		return $response;
 	}
-	
+
 	protected function exportToHtmlActionInternal(Request $request, $page) {
 		$this->denyAccessUnlessGranted($this->getShowRole(), null, 'Unable to access this page!');
-	
+		
 		$params = $this->createParams($this->getIndexRoute());
 		$params = $this->getIndexParams($request, $params, $page);
-	
+		
 		$viewParams = $params['viewParams'];
 		$entries = $viewParams['entries'];
 		/** @var ProductFilter $entryFilter */
 		$entryFilter = $viewParams['entryFilter'];
-	
+		
 		$response = new StreamedResponse();
-		$response->setCallback(function() use(&$entryFilter, &$entries) {
-			$logic = new HtmlExportLogic();
-			$logic->export($entryFilter, $entries);
-		});
-	
+		$response->setCallback(
+				function () use (&$entryFilter, &$entries) {
+					$logic = new HtmlExportLogic();
+					$logic->export($entryFilter, $entries);
+				});
+		
 		$date = new \DateTime();
 		$response->setStatusCode(200);
 		$response->headers->set('Content-Type', 'text/html; charset=utf-8');
-		$response->headers->set('Content-Disposition', 'attachment; filename="'. $date->format('Y-m-d') . '-benchmark.html"');
-
+		$response->headers->set('Content-Disposition', 
+				'attachment; filename="' . $date->format('Y-m-d') . '-benchmark.html"');
+		
 		return $response;
 	}
-	
+
 	protected function exportToExcelActionInternal(Request $request, $page) {
 		$this->denyAccessUnlessGranted($this->getShowRole(), null, 'Unable to access this page!');
-	
+		
 		$params = $this->createParams($this->getIndexRoute());
 		$params = $this->getIndexParams($request, $params, $page);
-	
+		
 		$viewParams = $params['viewParams'];
 		$entries = $viewParams['entries'];
 		/** @var ProductFilter $entryFilter */
 		$entryFilter = $viewParams['entryFilter'];
-	
+		
 		$response = new StreamedResponse();
-		$response->setCallback(function() use(&$entryFilter, &$entries) {
-			$logic = new ExcelExportLogic();
-			$logic->export($entryFilter, $entries);
-		});
-	
+		$response->setCallback(
+				function () use (&$entryFilter, &$entries) {
+					$logic = new ExcelExportLogic();
+					$logic->export($entryFilter, $entries);
+				});
+		
 		$date = new \DateTime();
 		$response->setStatusCode(200);
-		$response->headers->set('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-		$response->headers->set('Content-Disposition', 'attachment; filename="'. $date->format('Y-m-d') . '-benchmark.xlsx"');
-
+		$response->headers->set('Content-Type', 
+				'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+		$response->headers->set('Content-Disposition', 
+				'attachment; filename="' . $date->format('Y-m-d') . '-benchmark.xlsx"');
+		
 		return $response;
 	}
-	
-	protected function showActionInternal(Request $request, $id)
-	{
+
+	protected function showActionInternal(Request $request, $id) {
 		$this->denyAccessUnlessGranted($this->getShowRole(), null, 'Unable to access this page!');
-	
+		
 		$params = $this->createParams($this->getShowRoute());
 		$params = $this->getShowParams($request, $params, $id);
-	
+		
 		$rm = $this->getRouteManager();
 		$rm->register($request, $params['route'], $params['routeParams']);
-	
+		
 		$am = $this->getAnalyticsManager();
 		$am->sendPageviewAnalytics($params['domain'], $params['route']);
 		
 		$viewParams = $params['viewParams'];
-	
+		
 		return $this->render($this->getShowView(), $viewParams);
 	}
-	
-	protected function compareActionInternal(Request $request, $id)
-	{
+
+	protected function compareActionInternal(Request $request, $id) {
 		$this->denyAccessUnlessGranted($this->getCompareRole(), null, 'Unable to access this page!');
-	
+		
 		$params = $this->createParams($this->getCompareRoute());
 		$params = $this->getCompareParams($request, $params, $id);
-	
+		
 		$rm = $this->getRouteManager();
 		$rm->register($request, $params['route'], $params['routeParams']);
-	
+		
 		$am = $this->getAnalyticsManager();
 		$am->sendPageviewAnalytics($params['domain'], $params['route']);
 		
 		$viewParams = $params['viewParams'];
-	
+		
 		return $this->render($this->getCompareView(), $viewParams);
 	}
 	
-	//---------------------------------------------------------------------------
+	// ---------------------------------------------------------------------------
 	// Internal logic
-	//---------------------------------------------------------------------------
-	
+	// ---------------------------------------------------------------------------
 	protected function getBenchmarkQueryName($subcategoryId) {
 		$date = new \DateTime();
 		
@@ -335,43 +338,42 @@ class ProductController extends DummyController {
 		return $date->format('Y-m-d H:i ') . $subcategory->getDisplayName();
 	}
 	
-	//---------------------------------------------------------------------------
+	// ---------------------------------------------------------------------------
 	// Form options
-	//---------------------------------------------------------------------------
-	
+	// ---------------------------------------------------------------------------
 	protected function getCategoryFormOptions(array $params) {
-		$options = [];
-	
+		$options = [ ];
+		
 		$contextParams = $params['contextParams'];
 		$userId = $contextParams['user'];
-	
+		
 		$em = $this->getDoctrine()->getManager();
 		$categoryRepository = new CategoryRepository($em, $em->getClassMetadata(Category::class));
 		$choices = $categoryRepository->findFilterItemsByUser($userId);
-	
+		
 		$this->addChoicesFormOption($options, $choices, 'category');
-	
+		
 		return $options;
 	}
-	
+
 	protected function getSubcategoryFormOptions(array $params) {
-		$options = [];
-	
+		$options = [ ];
+		
 		$contextParams = $params['contextParams'];
 		$categoryId = $contextParams['category'];
 		$userId = $contextParams['user'];
-	
+		
 		$em = $this->getDoctrine()->getManager();
 		$categoryRepository = new CategoryRepository($em, $em->getClassMetadata(Category::class));
 		$choices = $categoryRepository->findFilterItemsByUserAndCategory($userId, $categoryId);
-	
+		
 		$this->addChoicesFormOption($options, $choices, 'subcategory');
-	
+		
 		return $options;
 	}
-	
+
 	protected function getFilterFormOptions(array $params) {
-		$options = [];
+		$options = [ ];
 		
 		$contextParams = $params['contextParams'];
 		$viewParams = $params['viewParams'];
@@ -396,7 +398,7 @@ class ProductController extends DummyController {
 		
 		$productRepository = $this->get(ProductRepository::class);
 		
-		$choices = [];
+		$choices = [ ];
 		foreach ($filter->getFilterFields() as $field) {
 			$valueField = $field['valueField'];
 			$choices[$valueField] = $productRepository->findFilterItemsByValue($subcategoryId, $valueField);
@@ -408,106 +410,110 @@ class ProductController extends DummyController {
 		return $options;
 	}
 	
-	//---------------------------------------------------------------------------
+	// ---------------------------------------------------------------------------
 	// Parameters
-	//---------------------------------------------------------------------------
-	
+	// ---------------------------------------------------------------------------
 	protected function getParams(Request $request, array $params) {
 		$params = parent::getParams($request, $params);
-	
+		
 		$cpm = $this->getContextParamsManager($request);
 		$params = $cpm->getParams($request, $params);
-	
+		
 		return $params;
 	}
-	
+
 	protected function getIndexParams(Request $request, array $params, $page) {
 		$params = $this->getParams($request, $params);
-	
+		
 		$em = $this->getEntryParamsManager();
 		$params = $em->getIndexParams($request, $params, $page);
-	
+		
 		return $params;
 	}
-	
+
 	protected function getShowParams(Request $request, array $params, $id) {
 		$params = $this->getParams($request, $params);
-	
+		
 		$em = $this->getEntryParamsManager();
 		$params = $em->getShowParams($request, $params, $id);
-	
+		
 		return $params;
 	}
-	
+
 	protected function getCompareParams(Request $request, array $params, $id) {
 		$params = $this->getParams($request, $params);
-	
+		
 		$em = $this->getEntryParamsManager();
 		$params = $em->getCompareParams($request, $params, $id);
-	
+		
 		return $params;
 	}
 	
-	//---------------------------------------------------------------------------
+	// ---------------------------------------------------------------------------
 	// Managers
-	//---------------------------------------------------------------------------
-	
+	// ---------------------------------------------------------------------------
 	protected function getContextParamsManager(Request $request) {
 		$doctrine = $this->getDoctrine();
-	
+		
 		$rm = new RouteManager();
 		$lastRoute = $rm->getLastRoute($request, $this->getHomeRoute());
 		$lastRouteParams = $lastRoute['routeParams'];
-	
-		if(!$lastRouteParams) {
-			$lastRouteParams = array();
+		
+		if (! $lastRouteParams) {
+			$lastRouteParams = array ();
 		}
 		
 		$tokenStorage = $this->get('security.token_storage');
 		return new ContextParamsManager($doctrine, $lastRouteParams, $tokenStorage);
 	}
-	
-	protected function getEntryParamsManager() { 
+
+	protected function getEntryParamsManager() {
 		$doctrine = $this->getDoctrine();
 		$paginator = $this->get('knp_paginator');
-	
+		
 		$em = $this->getEntityManager($doctrine, $paginator);
 		$fm = $this->getFilterManager($doctrine);
-	
+		
 		return $this->getInternalEntryParamsManager($em, $fm, $doctrine);
 	}
-	
+
 	protected function getInternalEntryParamsManager(EntityManager $em, FilterManager $fm, $doctrine) {
 		$tokenStorage = $this->get('security.token_storage');
 		$translator = $this->get('translator');
 		
 		/** @var ObjectManager $manager */
 		$manager = $doctrine->getManager();
-		$benchmarkFieldMetadataRepository = new BenchmarkFieldMetadataRepository($manager, $manager->getClassMetadata(BenchmarkField::class));
+		$benchmarkFieldMetadataRepository = new BenchmarkFieldMetadataRepository($manager, 
+				$manager->getClassMetadata(BenchmarkField::class));
 		$benchmarkFieldsProvider = new BenchmarkFieldsProvider($benchmarkFieldMetadataRepository, $translator);
 		
 		$benchmarkFieldDataBaseUtils = new BenchmarkFieldDataBaseUtils(); // TODO service
-		$productRepository = new ProductRepository($manager, $manager->getClassMetadata(Product::class));
+		$productRepository = $this->get(ProductRepository::class);
+		$benchmarkMessageRepository = $this->get(BenchmarkMessageRepository::class);
 		
-		$showBenchmarkFieldFactory = new NoteBenchmarkFieldFactory($benchmarkFieldDataBaseUtils, $productRepository);
+		$showBenchmarkFieldFactory = new NoteBenchmarkFieldFactory($benchmarkFieldDataBaseUtils, 
+				$productRepository);
 		$showBenchmarkFieldsInitializer = new BenchmarkFieldsInitializerImpl($showBenchmarkFieldFactory);
 		
-		$compareBenchmarkFieldFactory = new CompareBenchmarkFieldFactory($benchmarkFieldDataBaseUtils, $productRepository);
+		$compareBenchmarkFieldFactory = new CompareBenchmarkFieldFactory($benchmarkFieldDataBaseUtils, 
+				$productRepository);
 		$compareBenchmarkFieldsInitializer = new BenchmarkFieldsInitializerImpl($compareBenchmarkFieldFactory);
 		
-		return new ProductParamsManager($em, $fm, $doctrine, $tokenStorage,
-				$benchmarkFieldsProvider,
-				$showBenchmarkFieldsInitializer,
-				$compareBenchmarkFieldsInitializer);
+		return new ProductParamsManager($em, $fm, $tokenStorage,
+				$productRepository,
+				$benchmarkMessageRepository,
+				$benchmarkFieldsProvider, 
+				$showBenchmarkFieldsInitializer, $compareBenchmarkFieldsInitializer);
 	}
-	
+
 	protected function getEntityManager($doctrine, $paginator) {
 		return $this->get(ProductManager::class);
 	}
-	
+
 	protected function getFilterManager($doctrine) {
 		$em = $doctrine->getManager();
-		$benchmarkFieldMetadataRepository = new BenchmarkFieldMetadataRepository($em, $em->getClassMetadata(BenchmarkField::class));
+		$benchmarkFieldMetadataRepository = new BenchmarkFieldMetadataRepository($em, 
+				$em->getClassMetadata(BenchmarkField::class));
 		
 		$translator = $this->get('translator');
 		
@@ -517,84 +523,75 @@ class ProductController extends DummyController {
 		$benchmarkFieldFactory = new SimpleBenchmarkFieldFactory($benchmarkFieldDataBaseUtils);
 		$benchmarkFieldsInitializer = new BenchmarkFieldsInitializerImpl($benchmarkFieldFactory);
 		
-		return new FilterManager(new ProductFilter($benchmarkFieldsProvider, $benchmarkFieldsInitializer, $benchmarkFieldsInitializer));
+		return new FilterManager(
+				new ProductFilter($benchmarkFieldsProvider, $benchmarkFieldsInitializer, 
+						$benchmarkFieldsInitializer));
 	}
 	
-	//---------------------------------------------------------------------------
+	// ---------------------------------------------------------------------------
 	// EntityType related
-	//---------------------------------------------------------------------------
-	
+	// ---------------------------------------------------------------------------
 	protected function getFilterFormType() {
 		return ProductFilterType::class;
 	}
-	
+
 	protected function getEntityType() {
 		return Product::class;
 	}
 	
-	//---------------------------------------------------------------------------
+	// ---------------------------------------------------------------------------
 	// Roles
-	//---------------------------------------------------------------------------
-	
+	// ---------------------------------------------------------------------------
 	protected function getShowRole() {
 		return 'ROLE_BENCHMARK';
 	}
-	
+
 	protected function getCompareRole() {
 		return $this->getShowRole();
 	}
 	
-	//---------------------------------------------------------------------------
+	// ---------------------------------------------------------------------------
 	// Views
-	//---------------------------------------------------------------------------
-	
-	protected function getIndexView()
-	{
+	// ---------------------------------------------------------------------------
+	protected function getIndexView() {
 		return $this->getDomain() . '/' . $this->getEntityName() . '/index.html.twig';
 	}
-	
-	protected function getShowView()
-	{
+
+	protected function getShowView() {
 		return $this->getDomain() . '/' . $this->getEntityName() . '/show.html.twig';
 	}
-	
-	protected function getCompareView()
-	{
+
+	protected function getCompareView() {
 		return $this->getDomain() . '/' . $this->getEntityName() . '/compare.html.twig';
 	}
 	
-	//---------------------------------------------------------------------------
+	// ---------------------------------------------------------------------------
 	// Routes
-	//---------------------------------------------------------------------------
-	
-	protected function getIndexRoute()
-	{
+	// ---------------------------------------------------------------------------
+	protected function getIndexRoute() {
 		return $this->getDomain() . '_' . $this->getEntityName();
 	}
-	
-	protected function getShowRoute()
-	{
+
+	protected function getShowRoute() {
 		return $this->getIndexRoute() . '_show';
 	}
-	
-	protected function getCompareRoute()
-	{
+
+	protected function getCompareRoute() {
 		return $this->getIndexRoute() . '_compare';
 	}
-	
+
 	protected function getCreateQueryRoute() {
 		return $this->getDomain() . '_' . ClassUtils::getUnderscoreName(BenchmarkQuery::class) . '_new';
 	}
-	
+
 	protected function getHomeRoute() {
-		return array('route' => $this->getIndexRoute(), 'routeParams' => array());
+		return array ('route' => $this->getIndexRoute(),'routeParams' => array () 
+		);
 	}
 	
-	
-	//---------------------------------------------------------------------------
+	// ---------------------------------------------------------------------------
 	// Domain
-	//---------------------------------------------------------------------------
-	
+	// ---------------------------------------------------------------------------
 	protected function getDomain() {
 		return 'benchmark';
 	}

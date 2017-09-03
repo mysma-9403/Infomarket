@@ -2,16 +2,16 @@
 
 namespace AppBundle\Repository\Admin\Assignments;
 
-use AppBundle\Entity\Menu;
-use AppBundle\Entity\MenuEntry;
-use AppBundle\Entity\MenuMenuEntryAssignment;
-use AppBundle\Filter\Common\Assignments\MenuMenuEntryAssignmentFilter;
+use AppBundle\Entity\Assignments\MenuMenuEntryAssignment;
+use AppBundle\Entity\Main\Menu;
+use AppBundle\Entity\Main\MenuEntry;
 use AppBundle\Filter\Base\Filter;
-use AppBundle\Repository\Admin\Base\AuditRepository;
+use AppBundle\Filter\Common\Assignments\MenuMenuEntryAssignmentFilter;
+use AppBundle\Repository\Admin\Base\SimpleRepository;
 use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\ORM\QueryBuilder;
 
-class MenuMenuEntryAssignmentRepository extends AuditRepository {
+class MenuMenuEntryAssignmentRepository extends SimpleRepository {
 
 	protected function getSelectFields(QueryBuilder &$builder, Filter $filter) {
 		$fields = parent::getSelectFields($builder, $filter);

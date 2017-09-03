@@ -2,12 +2,12 @@
 
 namespace Tests\AppBundle\Form\Editor\Admin\Main;
 
-use AppBundle\Entity\Category;
+use AppBundle\Entity\Main\Category;
 use AppBundle\Form\Editor\Admin\Main\CategoryEditorType;
 use Symfony\Component\Form\PreloadedExtension;
-use Tests\AppBundle\Form\Editor\Admin\Base\ImageEntityEditorTypeTest;
+use Tests\AppBundle\Form\Editor\Admin\Base\ImageEditorTypeTest;
 
-class CategoryEditorTypeTest extends ImageEntityEditorTypeTest {
+class CategoryEditorTypeTest extends ImageEditorTypeTest {
 	
 	const SUBNAME = 'Test subname';
 	const ORDER_NUMBER = 76;

@@ -2,8 +2,8 @@
 
 namespace AppBundle\Manager\Entity\Benchmark;
 
-use AppBundle\Entity\BenchmarkMessage;
-use AppBundle\Entity\Product;
+use AppBundle\Entity\Main\BenchmarkMessage;
+use AppBundle\Entity\Main\Product;
 use AppBundle\Manager\Entity\Base\EntityManager;
 use AppBundle\Repository\Benchmark\BenchmarkMessageRepository;
 use Symfony\Component\HttpFoundation\Request;
@@ -24,7 +24,8 @@ class BenchmarkMessageManager extends EntityManager {
 	 */
 	protected $tokenStorage;
 
-	public function __construct(BaseRepository $repository, $paginator, ParamsManager $paramsManager, $tokenStorage) {
+	public function __construct(BaseRepository $repository, $paginator, ParamsManager $paramsManager, 
+			$tokenStorage) {
 		parent::__construct($repository, $paginator);
 		
 		$this->paramsManager = $paramsManager;

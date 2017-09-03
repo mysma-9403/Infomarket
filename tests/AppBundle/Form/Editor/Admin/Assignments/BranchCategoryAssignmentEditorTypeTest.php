@@ -2,14 +2,14 @@
 
 namespace Tests\AppBundle\Form\Editor\Admin\Assignments;
 
-use AppBundle\Entity\Branch;
-use AppBundle\Entity\BranchCategoryAssignment;
-use AppBundle\Entity\Category;
+use AppBundle\Entity\Assignments\Branch;
+use AppBundle\Entity\Assignments\BranchCategoryAssignment;
+use AppBundle\Entity\Assignments\Category;
 use AppBundle\Form\Editor\Admin\Assignments\BranchCategoryAssignmentEditorType;
 use Symfony\Component\Form\PreloadedExtension;
-use Tests\AppBundle\Form\Editor\Admin\Base\BaseEntityEditorTypeTest;
+use Tests\AppBundle\Form\Editor\Admin\Base\BaseEditorTypeTest;
 
-class BranchCategoryAssignmentEditorTypeTest extends BaseEntityEditorTypeTest {
+class BranchCategoryAssignmentEditorTypeTest extends BaseEditorTypeTest {
 		
 	const BRANCH_ID = 100;
 	const BRANCH_NAME = 'Test branch';

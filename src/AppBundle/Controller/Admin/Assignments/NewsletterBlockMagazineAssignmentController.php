@@ -3,9 +3,9 @@
 namespace AppBundle\Controller\Admin\Assignments;
 
 use AppBundle\Controller\Admin\Base\AssignmentController;
-use AppBundle\Entity\Magazine;
-use AppBundle\Entity\NewsletterBlock;
-use AppBundle\Entity\NewsletterBlockMagazineAssignment;
+use AppBundle\Entity\Main\Magazine;
+use AppBundle\Entity\Main\NewsletterBlock;
+use AppBundle\Entity\Assignments\NewsletterBlockMagazineAssignment;
 use AppBundle\Filter\Common\Assignments\NewsletterBlockMagazineAssignmentFilter;
 use AppBundle\Form\Editor\Admin\Assignments\NewsletterBlockMagazineAssignmentEditorType;
 use AppBundle\Form\Filter\Admin\Assignments\NewsletterBlockMagazineAssignmentFilterType;

@@ -2,10 +2,10 @@
 
 namespace AppBundle\Repository\Infomarket;
 
-use AppBundle\Entity\Article;
-use AppBundle\Entity\ArticleArticleCategoryAssignment;
-use AppBundle\Entity\ArticleCategoryAssignment;
-use AppBundle\Entity\Category;
+use AppBundle\Entity\Assignments\ArticleArticleCategoryAssignment;
+use AppBundle\Entity\Assignments\ArticleCategoryAssignment;
+use AppBundle\Entity\Main\Article;
+use AppBundle\Entity\Main\Category;
 use AppBundle\Filter\Base\Filter;
 use AppBundle\Filter\Infomarket\Main\ArticleFilter;
 use AppBundle\Repository\Common\ArticleRepository as BaseArticleRepository;
@@ -22,7 +22,8 @@ class ArticleRepository extends BaseArticleRepository {
 		}
 		
 		if (count($filter->getArticleCategories()) > 0 || count($filter->getContextArticleCategories()) > 0) {
-			$builder->innerJoin(ArticleArticleCategoryAssignment::class, 'aaca', Join::WITH, 'e.id = aaca.article');
+			$builder->innerJoin(ArticleArticleCategoryAssignment::class, 'aaca', Join::WITH, 
+					'e.id = aaca.article');
 		}
 	}
 
@@ -133,7 +134,8 @@ class ArticleRepository extends BaseArticleRepository {
 		
 		$builder = new QueryBuilder($this->getEntityManager());
 		
-		$builder->select("e.id, e.name, e.subname, e.image, e.mimeType, e.vertical, e.forcedWidth, e.forcedHeight");
+		$builder->select(
+				"e.id, e.name, e.subname, e.image, e.mimeType, e.vertical, e.forcedWidth, e.forcedHeight");
 		$builder->distinct();
 		$builder->from($this->getEntityType(), "e");
 		
@@ -143,7 +145,8 @@ class ArticleRepository extends BaseArticleRepository {
 		}
 		
 		if (count($articleCategories) > 0) {
-			$builder->innerJoin(ArticleArticleCategoryAssignment::class, 'aaca', Join::WITH, 'e.id = aaca.article');
+			$builder->innerJoin(ArticleArticleCategoryAssignment::class, 'aaca', Join::WITH, 
+					'e.id = aaca.article');
 		}
 		
 		$expr = $builder->expr();
@@ -189,7 +192,8 @@ class ArticleRepository extends BaseArticleRepository {
 		
 		$builder = new QueryBuilder($this->getEntityManager());
 		
-		$builder->select("e.id, e.name, e.subname, e.image, e.mimeType, e.vertical, e.forcedWidth, e.forcedHeight");
+		$builder->select(
+				"e.id, e.name, e.subname, e.image, e.mimeType, e.vertical, e.forcedWidth, e.forcedHeight");
 		$builder->distinct();
 		$builder->from($this->getEntityType(), "e");
 		
@@ -199,7 +203,8 @@ class ArticleRepository extends BaseArticleRepository {
 		}
 		
 		if ($articleCategory) {
-			$builder->innerJoin(ArticleArticleCategoryAssignment::class, 'aaca', Join::WITH, 'e.id = aaca.article');
+			$builder->innerJoin(ArticleArticleCategoryAssignment::class, 'aaca', Join::WITH, 
+					'e.id = aaca.article');
 		}
 		
 		$expr = $builder->expr();
@@ -254,7 +259,8 @@ class ArticleRepository extends BaseArticleRepository {
 		}
 		
 		if ($articleCategory) {
-			$builder->innerJoin(ArticleArticleCategoryAssignment::class, 'aaca', Join::WITH, 'e.id = aaca.article');
+			$builder->innerJoin(ArticleArticleCategoryAssignment::class, 'aaca', Join::WITH, 
+					'e.id = aaca.article');
 		}
 		
 		$expr = $builder->expr();

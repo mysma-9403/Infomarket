@@ -2,11 +2,11 @@
 
 namespace Tests\AppBundle\Form\Editor\Admin\Main;
 
-use AppBundle\Entity\ArticleCategory;
+use AppBundle\Entity\Main\ArticleCategory;
 use AppBundle\Form\Editor\Admin\Main\ArticleCategoryEditorType;
-use Tests\AppBundle\Form\Editor\Admin\Base\ImageEntityEditorTypeTest;
+use Tests\AppBundle\Form\Editor\Admin\Base\ImageEditorTypeTest;
 
-class ArticleCategoryEditorTypeTest extends ImageEntityEditorTypeTest {
+class ArticleCategoryEditorTypeTest extends ImageEditorTypeTest {
 	
 	const FEATURED = true;
 	const ORDER_NUMBER = 99;

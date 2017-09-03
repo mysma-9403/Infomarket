@@ -2,19 +2,19 @@
 
 namespace AppBundle\Repository\Admin\Main;
 
-use AppBundle\Entity\MenuEntry;
-use AppBundle\Repository\Admin\Base\SimpleEntityRepository;
+use AppBundle\Entity\Main\Link;
+use AppBundle\Entity\Main\MenuEntry;
+use AppBundle\Entity\Assignments\MenuEntryBranchAssignment;
+use AppBundle\Entity\Assignments\MenuEntryCategoryAssignment;
+use AppBundle\Entity\Assignments\MenuMenuEntryAssignment;
+use AppBundle\Entity\Main\Page;
 use AppBundle\Filter\Base\Filter;
-use AppBundle\Entity\MenuEntryBranchAssignment;
-use AppBundle\Entity\MenuEntryCategoryAssignment;
-use Doctrine\ORM\Query\Expr\Join;
 use AppBundle\Filter\Common\Main\MenuEntryFilter;
-use AppBundle\Entity\Page;
-use AppBundle\Entity\Link;
+use AppBundle\Repository\Admin\Base\SimpleRepository;
+use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\ORM\QueryBuilder;
-use AppBundle\Entity\MenuMenuEntryAssignment;
 
-class MenuEntryRepository extends SimpleEntityRepository {
+class MenuEntryRepository extends SimpleRepository {
 
 	protected function buildJoins(QueryBuilder &$builder, Filter $filter) {
 		parent::buildJoins($builder, $filter);

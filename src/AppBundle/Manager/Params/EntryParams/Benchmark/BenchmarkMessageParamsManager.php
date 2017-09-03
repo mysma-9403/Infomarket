@@ -4,12 +4,26 @@ namespace AppBundle\Manager\Params\EntryParams\Benchmark;
 
 use AppBundle\Manager\Params\EntryParams\Base\EntryParamsManager;
 use Symfony\Component\HttpFoundation\Request;
-use AppBundle\Entity\Product;
+use AppBundle\Entity\Main\Product;
 use AppBundle\Repository\Benchmark\ProductRepository;
-use AppBundle\Entity\BenchmarkMessage;
+use AppBundle\Entity\Main\BenchmarkMessage;
+use AppBundle\Manager\Entity\Base\EntityManager;
+use AppBundle\Manager\Filter\Base\FilterManager;
 
 class BenchmarkMessageParamsManager extends EntryParamsManager {
 
+	/**
+	 * 
+	 * @var ProductRepository
+	 */
+	protected $productRepository;
+	
+	public function __construct(EntityManager $em, FilterManager $fm, ProductRepository $productRepository) {
+		parent::__construct($em, $fm);
+		
+		$this->productRepository = $productRepository;
+	}
+	
 	public function getShowParams(Request $request, array $params, $id) {
 		$params = parent::getShowParams($request, $params, $id);
 		$viewParams = $params['viewParams'];
@@ -46,9 +60,7 @@ class BenchmarkMessageParamsManager extends EntryParamsManager {
 		
 		$productId = $request->get('product');
 		if ($productId) {
-			$em = $this->doctrine->getManager();
-			$productRepository = new ProductRepository($em, $em->getClassMetadata(Product::class));
-			$product = $productRepository->findItem($productId);
+			$product = $this->productRepository->findItem($productId);
 			$viewParams['product'] = $product;
 		}
 		

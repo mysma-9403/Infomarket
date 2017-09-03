@@ -2,15 +2,15 @@
 
 namespace Tests\AppBundle\Form\Editor\Admin\Main;
 
-use AppBundle\Entity\NewsletterBlock;
-use AppBundle\Entity\NewsletterBlockTemplate;
+use AppBundle\Entity\Main\NewsletterBlock;
+use AppBundle\Entity\Main\NewsletterBlockTemplate;
 use AppBundle\Form\Editor\Admin\Main\NewsletterBlockEditorType;
 use AppBundle\Form\Transformer\EntityToNumberTransformer;
 use Symfony\Component\Form\PreloadedExtension;
-use Tests\AppBundle\Form\Editor\Admin\Base\SimpleEntityEditorTypeTest;
-use AppBundle\Entity\NewsletterPage;
+use Tests\AppBundle\Form\Editor\Admin\Base\SimpleEditorTypeTest;
+use AppBundle\Entity\Main\NewsletterPage;
 
-class NewsletterBlockEditorTypeTest extends SimpleEntityEditorTypeTest {
+class NewsletterBlockEditorTypeTest extends SimpleEditorTypeTest {
 	
 	const SUBNAME = 'Test subname';
 	const ORDER_NUMBER = 99;

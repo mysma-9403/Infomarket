@@ -2,8 +2,8 @@
 
 namespace AppBundle\Manager\Entity\Common\Main;
 
-use AppBundle\Entity\NewsletterPage;
-use AppBundle\Entity\NewsletterPageTemplate;
+use AppBundle\Entity\Main\NewsletterPage;
+use AppBundle\Entity\Main\NewsletterPageTemplate;
 use AppBundle\Manager\Entity\Base\EntityManager;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Repository\Base\BaseRepository;
@@ -29,7 +29,8 @@ class NewsletterPageManager extends EntityManager {
 		$entry->setName($request->get('name'));
 		$entry->setSubname($request->get('subname'));
 		
-		$entry->setNewsletterPageTemplate($this->paramsManager->getParamByClass($request, NewsletterPageTemplate::class));
+		$entry->setNewsletterPageTemplate(
+				$this->paramsManager->getParamByClass($request, NewsletterPageTemplate::class));
 		
 		return $entry;
 	}

@@ -2,7 +2,7 @@
 
 namespace Tests\AppBundle\Factory\Common\Choices\Bool;
 
-use AppBundle\Entity\Advert;
+use AppBundle\Entity\Main\Advert;
 use AppBundle\Factory\Common\Choices\Enum\AdvertLocationsFactory;
 use PHPUnit\Framework\TestCase;
 

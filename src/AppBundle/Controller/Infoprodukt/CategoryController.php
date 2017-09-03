@@ -3,7 +3,7 @@
 namespace AppBundle\Controller\Infoprodukt;
 
 use AppBundle\Controller\Infoprodukt\Base\InfoproduktController;
-use AppBundle\Entity\Category;
+use AppBundle\Entity\Main\Category;
 use AppBundle\Manager\Entity\Base\EntityManager;
 use AppBundle\Manager\Entity\Infoprodukt\CategoryManager;
 use AppBundle\Manager\Filter\Base\FilterManager;
@@ -19,35 +19,32 @@ use AppBundle\Repository\Infoprodukt\CategoryRepository;
 use AppBundle\Repository\Infoprodukt\ProductRepository;
 use AppBundle\Repository\Infoprodukt\SegmentRepository;
 
-class CategoryController extends InfoproduktController
-{
-	//---------------------------------------------------------------------------
+class CategoryController extends InfoproduktController {
+	// ---------------------------------------------------------------------------
 	// Actions
-	//---------------------------------------------------------------------------
+	// ---------------------------------------------------------------------------
 	/**
-	 * 
+	 *
 	 * {@inheritDoc}
+	 *
 	 * @see \AppBundle\Controller\Infomarket\HomeController::indexAction()
 	 */
-	public function indexAction(Request $request, $page)
-	{
+	public function indexAction(Request $request, $page) {
 		return $this->indexActionInternal($request, $page);
 	}
-	
+
 	/**
-	 * 
-	 * @param Request $request
-	 * @param unknown $id
+	 *
+	 * @param Request $request        	
+	 * @param unknown $id        	
 	 */
-	public function showAction(Request $request, $id)
-	{
+	public function showAction(Request $request, $id) {
 		return $this->showActionInternal($request, $id);
 	}
 	
-	//---------------------------------------------------------------------------
+	// ---------------------------------------------------------------------------
 	// Managers
-	//---------------------------------------------------------------------------
-	
+	// ---------------------------------------------------------------------------
 	protected function getInternalEntryParamsManager(EntityManager $em, FilterManager $fm, $doctrine) {
 		$advertRepository = $this->get(AdvertRepository::class);
 		$articleRepository = $this->get(ArticleRepository::class);
@@ -60,20 +57,18 @@ class CategoryController extends InfoproduktController
 		$abaManager = $this->get(ArticleBrandAssignmentsManager::class);
 		
 		return new CategoryEntryParamsManager($em, $fm, $advertRepository, $articleRepository, 
-				$articleCategoryRepository, $brandRepository, $categoryRepository, 
-				$productRepository, $segmentRepository, $abaManager);
+				$articleCategoryRepository, $brandRepository, $categoryRepository, $productRepository, 
+				$segmentRepository, $abaManager);
 	}
-	
+
 	protected function getEntityManager($doctrine, $paginator) {
 		return $this->get(CategoryManager::class);
 	}
 	
-	//---------------------------------------------------------------------------
+	// ---------------------------------------------------------------------------
 	// EntityType related
-	//---------------------------------------------------------------------------
-	
-	protected function getEntityType()
-	{
+	// ---------------------------------------------------------------------------
+	protected function getEntityType() {
 		return Category::class;
 	}
 }

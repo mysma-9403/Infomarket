@@ -2,11 +2,11 @@
 
 namespace AppBundle\Form\Editor\Admin\Main;
 
-use AppBundle\Entity\Term;
-use AppBundle\Form\Editor\Admin\Base\SimpleEntityEditorType;
+use AppBundle\Entity\Main\Term;
+use AppBundle\Form\Editor\Admin\Base\SimpleEditorType;
 use Symfony\Component\Form\FormBuilderInterface;
 
-class TermEditorType extends SimpleEntityEditorType {
+class TermEditorType extends SimpleEditorType {
 
 	protected function addFields(FormBuilderInterface $builder, array $options) {
 		parent::addFields($builder, $options);

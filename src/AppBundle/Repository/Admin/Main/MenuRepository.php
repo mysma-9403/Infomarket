@@ -2,13 +2,13 @@
 
 namespace AppBundle\Repository\Admin\Main;
 
-use AppBundle\Entity\Menu;
+use AppBundle\Entity\Main\Menu;
 use AppBundle\Filter\Common\Main\MenuFilter;
 use AppBundle\Filter\Base\Filter;
-use AppBundle\Repository\Admin\Base\SimpleEntityRepository;
+use AppBundle\Repository\Admin\Base\SimpleRepository;
 use Doctrine\ORM\QueryBuilder;
 
-class MenuRepository extends SimpleEntityRepository {
+class MenuRepository extends SimpleRepository {
 
 	protected function buildOrderBy(QueryBuilder &$builder, Filter $filter) {
 		$builder->addOrderBy('e.name', 'ASC');

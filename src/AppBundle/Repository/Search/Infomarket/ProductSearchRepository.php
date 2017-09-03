@@ -2,14 +2,14 @@
 
 namespace AppBundle\Repository\Search\Infomarket;
 
-use AppBundle\Entity\Product;
-use AppBundle\Entity\ProductCategoryAssignment;
+use AppBundle\Entity\Assignments\ProductCategoryAssignment;
+use AppBundle\Entity\Main\Brand;
+use AppBundle\Entity\Main\Product;
 use AppBundle\Filter\Base\Filter;
 use AppBundle\Filter\Common\Search\BrandCategorySearchFilter;
 use AppBundle\Repository\Search\Base\SearchRepository;
 use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\ORM\QueryBuilder;
-use AppBundle\Entity\Brand;
 
 class ProductSearchRepository extends SearchRepository {
 

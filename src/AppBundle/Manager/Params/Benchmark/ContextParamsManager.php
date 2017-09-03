@@ -2,12 +2,12 @@
 
 namespace AppBundle\Manager\Params\Benchmark;
 
-use AppBundle\Entity\Category;
+use AppBundle\Entity\Main\Category;
 use AppBundle\Manager\Params\Base\ParamsManager;
 use AppBundle\Repository\Benchmark\CategoryRepository;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Repository\Benchmark\BenchmarkMessageRepository;
-use AppBundle\Entity\BenchmarkMessage;
+use AppBundle\Entity\Main\BenchmarkMessage;
 
 class ContextParamsManager extends ParamsManager {
 
@@ -28,7 +28,8 @@ class ContextParamsManager extends ParamsManager {
 		
 		$em = $this->doctrine->getManager();
 		
-		$this->benchmarkMessageRepository = new BenchmarkMessageRepository($em, $em->getClassMetadata(BenchmarkMessage::class));
+		$this->benchmarkMessageRepository = new BenchmarkMessageRepository($em, 
+				$em->getClassMetadata(BenchmarkMessage::class));
 	}
 
 	public function getParams(Request $request, array $params) {

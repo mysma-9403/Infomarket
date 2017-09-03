@@ -4,9 +4,9 @@ namespace Tests\AppBundle\Form\Filter\Benchmark;
 
 use AppBundle\Filter\Benchmark\BenchmarkQueryFilter;
 use AppBundle\Form\Filter\Benchmark\BenchmarkQueryFilterType;
-use Tests\AppBundle\Form\Filter\Admin\Base\BaseEntityFilterTypeTest;
+use Tests\AppBundle\Form\Filter\Admin\Base\BaseFilterTypeTest;
 
-class BenchmarkQueryFilterTypeTest extends BaseEntityFilterTypeTest {
+class BenchmarkQueryFilterTypeTest extends BaseFilterTypeTest {
 	
 	const NAME = '*name*';
 	

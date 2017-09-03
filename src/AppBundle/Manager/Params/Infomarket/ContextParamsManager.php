@@ -2,7 +2,7 @@
 
 namespace AppBundle\Manager\Params\Infomarket;
 
-use AppBundle\Entity\Branch;
+use AppBundle\Entity\Main\Branch;
 use AppBundle\Repository\Infomarket\ArticleCategoryRepository;
 use AppBundle\Repository\Infomarket\BranchRepository;
 use AppBundle\Repository\Infomarket\CategoryRepository;
@@ -42,7 +42,9 @@ class ContextParamsManager {
 	protected $paramsManager;
 	
 	// TODO lastRouteParams should be moved to function params or within params array -> then it will be possible to define service
-	public function __construct(ArticleCategoryRepository $articleCategoryRepository, BranchRepository $branchRepository, CategoryRepository $categoryRepository, ParamsManager $paramsManager, array $lastRouteParams) {
+	public function __construct(ArticleCategoryRepository $articleCategoryRepository, 
+			BranchRepository $branchRepository, CategoryRepository $categoryRepository, 
+			ParamsManager $paramsManager, array $lastRouteParams) {
 		$this->articleCategoryRepository = $articleCategoryRepository;
 		$this->branchRepository = $branchRepository;
 		$this->categoryRepository = $categoryRepository;

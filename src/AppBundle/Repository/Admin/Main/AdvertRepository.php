@@ -2,15 +2,15 @@
 
 namespace AppBundle\Repository\Admin\Main;
 
-use AppBundle\Entity\Advert;
-use AppBundle\Entity\AdvertCategoryAssignment;
-use AppBundle\Filter\Common\Main\AdvertFilter;
+use AppBundle\Entity\Main\Advert;
+use AppBundle\Entity\Assignments\AdvertCategoryAssignment;
 use AppBundle\Filter\Base\Filter;
-use AppBundle\Repository\Admin\Base\ImageEntityRepository;
+use AppBundle\Filter\Common\Main\AdvertFilter;
+use AppBundle\Repository\Admin\Base\ImageRepository;
 use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\ORM\QueryBuilder;
 
-class AdvertRepository extends ImageEntityRepository {
+class AdvertRepository extends ImageRepository {
 
 	protected function buildJoins(QueryBuilder &$builder, Filter $filter) {
 		/** @var AdvertFilter $filter */

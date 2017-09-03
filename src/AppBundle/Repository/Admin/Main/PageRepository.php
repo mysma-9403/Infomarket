@@ -2,13 +2,13 @@
 
 namespace AppBundle\Repository\Admin\Main;
 
-use AppBundle\Entity\Page;
+use AppBundle\Entity\Main\Page;
 use AppBundle\Filter\Common\Main\PageFilter;
 use AppBundle\Filter\Base\Filter;
-use AppBundle\Repository\Admin\Base\ImageEntityRepository;
+use AppBundle\Repository\Admin\Base\ImageRepository;
 use Doctrine\ORM\QueryBuilder;
 
-class PageRepository extends ImageEntityRepository {
+class PageRepository extends ImageRepository {
 
 	protected function buildOrderBy(QueryBuilder &$builder, Filter $filter) {
 		$builder->addOrderBy('e.name', 'ASC');

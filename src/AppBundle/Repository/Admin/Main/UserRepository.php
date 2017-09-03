@@ -2,7 +2,7 @@
 
 namespace AppBundle\Repository\Admin\Main;
 
-use AppBundle\Entity\User;
+use AppBundle\Entity\Main\User;
 use AppBundle\Filter\Common\Main\UserFilter;
 use AppBundle\Filter\Base\Filter;
 use Doctrine\ORM\QueryBuilder;

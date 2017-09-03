@@ -2,15 +2,15 @@
 
 namespace AppBundle\Repository\Admin\Main;
 
-use AppBundle\Entity\Brand;
-use AppBundle\Entity\Product;
-use AppBundle\Entity\ProductCategoryAssignment;
+use AppBundle\Entity\Main\Brand;
+use AppBundle\Entity\Main\Product;
+use AppBundle\Entity\Assignments\ProductCategoryAssignment;
 use AppBundle\Filter\Base\Filter;
-use AppBundle\Repository\Admin\Base\ImageEntityRepository;
+use AppBundle\Repository\Admin\Base\ImageRepository;
 use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\ORM\QueryBuilder;
 
-class ProductRepository extends ImageEntityRepository {
+class ProductRepository extends ImageRepository {
 
 	protected function buildJoins(QueryBuilder &$builder, Filter $filter) {
 		parent::buildJoins($builder, $filter);
@@ -90,10 +90,7 @@ class ProductRepository extends ImageEntityRepository {
 	}
 
 	protected function getFilterItemKeyFields($item) {
-		return [ 
-				$item['id'],
-				$item['brandName'],
-				$item['name'] 
+		return [ $item['id'],$item['brandName'],$item['name'] 
 		];
 	}
 

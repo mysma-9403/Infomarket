@@ -51,41 +51,32 @@ abstract class BaseType extends AbstractType {
 	}
 
 	protected function addTextField(FormBuilderInterface $builder, $field, $placeholder, $required = true) {
-		$builder->add($field, TextType::class, array (
-				'attr' => [ 
-						'placeholder' => $placeholder 
-				],
-				'required' => $required 
-		));
+		$builder->add($field, TextType::class, 
+				array ('attr' => [ 'placeholder' => $placeholder 
+				],'required' => $required 
+				));
 	}
 
 	protected function addRawTextField(FormBuilderInterface $builder, $field, $placeholder, $required = true) {
-		$builder->add($field, TextType::class, array (
-				'attr' => [ 
-						'placeholder' => $placeholder 
-				],
-				'required' => $required,
-				'trim' => false 
-		));
+		$builder->add($field, TextType::class, 
+				array ('attr' => [ 'placeholder' => $placeholder 
+				],'required' => $required,'trim' => false 
+				));
 	}
 
-	protected function addTextareaField(FormBuilderInterface $builder, $field, $placeholder, $required = true, $rows = 10) {
-		$builder->add($field, TextareaType::class, array (
-				'attr' => array (
-						'placeholder' => $placeholder,
-						'rows' => $rows 
-				),
-				'required' => $required 
-		));
+	protected function addTextareaField(FormBuilderInterface $builder, $field, $placeholder, $required = true, 
+			$rows = 10) {
+		$builder->add($field, TextareaType::class, 
+				array ('attr' => array ('placeholder' => $placeholder,'rows' => $rows 
+				),'required' => $required 
+				));
 	}
 
 	protected function addSearchField(FormBuilderInterface $builder, $field, $placeholder) {
-		$builder->add($field, SearchType::class, array (
-				'attr' => [ 
-						'placeholder' => $placeholder 
-				],
-				'required' => false 
-		));
+		$builder->add($field, SearchType::class, 
+				array ('attr' => [ 'placeholder' => $placeholder 
+				],'required' => false 
+				));
 	}
 
 	protected function addFilterNumberField(FormBuilderInterface $builder, $field, $placeholder) {
@@ -93,12 +84,10 @@ abstract class BaseType extends AbstractType {
 	}
 
 	protected function addNumberField(FormBuilderInterface $builder, $field, $placeholder, $required = true) {
-		$builder->add($field, NumberType::class, array (
-				'attr' => [ 
-						'placeholder' => $placeholder 
-				],
-				'required' => $required 
-		));
+		$builder->add($field, NumberType::class, 
+				array ('attr' => [ 'placeholder' => $placeholder 
+				],'required' => $required 
+				));
 	}
 
 	protected function addFilterIntegerField(FormBuilderInterface $builder, $field, $placeholder) {
@@ -106,52 +95,50 @@ abstract class BaseType extends AbstractType {
 	}
 
 	protected function addIntegerField(FormBuilderInterface $builder, $field, $placeholder, $required = true) {
-		$builder->add($field, IntegerType::class, array (
-				'attr' => [ 
-						'placeholder' => $placeholder 
-				],
-				'required' => $required 
-		));
+		$builder->add($field, IntegerType::class, 
+				array ('attr' => [ 'placeholder' => $placeholder 
+				],'required' => $required 
+				));
 	}
 
 	protected function addFileField(FormBuilderInterface $builder, $field, $placeholder, $required = true) {
-		$builder->add($field, FileType::class, array (
-				'required' => $required 
+		$builder->add($field, FileType::class, array ('required' => $required 
 		));
 	}
 
 	protected function addCheckboxField(FormBuilderInterface $builder, $field, $placeholder) {
-		$builder->add($field, CheckboxType::class, array (
-				'required' => false 
+		$builder->add($field, CheckboxType::class, array ('required' => false 
 		));
 	}
 
 	protected function addCKEditorField(FormBuilderInterface $builder, $field, $placeholder, $required = true) {
-		$builder->add($field, CKEditorType::class, array (
-				'config' => array (
-						'uiColor' => '#ffffff' 
-				),
-				'required' => $required 
-		));
+		$builder->add($field, CKEditorType::class, 
+				array ('config' => array ('uiColor' => '#ffffff' 
+				),'required' => $required 
+				));
 	}
 
 	protected function addIconImageField(FormBuilderInterface $builder, $field, $placeholder, $required = true) {
 		$this->addELFinderField($builder, 'icon', $field, $placeholder, $required);
 	}
 
-	protected function addFeaturedImageField(FormBuilderInterface $builder, $field, $placeholder, $required = true) {
+	protected function addFeaturedImageField(FormBuilderInterface $builder, $field, $placeholder, 
+			$required = true) {
 		$this->addELFinderField($builder, 'featured', $field, $placeholder, $required);
 	}
 
-	protected function addTopProduktImageField(FormBuilderInterface $builder, $field, $placeholder, $required = true) {
+	protected function addTopProduktImageField(FormBuilderInterface $builder, $field, $placeholder, 
+			$required = true) {
 		$this->addELFinderField($builder, 'topProdukt', $field, $placeholder, $required);
 	}
 
-	protected function addMagazineFileField(FormBuilderInterface $builder, $field, $placeholder, $required = true) {
+	protected function addMagazineFileField(FormBuilderInterface $builder, $field, $placeholder, 
+			$required = true) {
 		$this->addELFinderField($builder, 'magazine', $field, $placeholder, $required);
 	}
 
-	protected function addNewsletterUsersFileField(FormBuilderInterface $builder, $field, $placeholder, $required = true) {
+	protected function addNewsletterUsersFileField(FormBuilderInterface $builder, $field, $placeholder, 
+			$required = true) {
 		$this->addELFinderField($builder, 'newsletter_users', $field, $placeholder, $required);
 	}
 
@@ -159,11 +146,11 @@ abstract class BaseType extends AbstractType {
 		$this->addELFinderField($builder, 'ratings', $field, $placeholder, $required);
 	}
 
-	private function addELFinderField(FormBuilderInterface $builder, $type, $field, $placeholder, $required = true) {
-		$builder->add($field, ElFinderType::class, array (
-				'instance' => $type,
-				'required' => $required 
-		));
+	private function addELFinderField(FormBuilderInterface $builder, $type, $field, $placeholder, 
+			$required = true) {
+		$builder->add($field, ElFinderType::class, 
+				array ('instance' => $type,'required' => $required 
+				));
 	}
 
 	protected function addFilterDateTimeField(FormBuilderInterface $builder, $field, $placeholder) {
@@ -171,77 +158,73 @@ abstract class BaseType extends AbstractType {
 	}
 
 	protected function addDateTimeField(FormBuilderInterface $builder, $field, $placeholder, $required = true) {
-		$builder->add($field, DateTimeType::class, array (
-				'widget' => 'single_text',
-				'format' => 'dd/MM/yyyy HH:mm',
-				'required' => $required,
-				'attr' => [ 
-						'class' => 'form-control input-inline datetimepicker',
-						'data-provide' => 'datepicker',
-						'data-date-format' => 'DD/MM/YYYY HH:mm',
-						'placeholder' => $placeholder 
-				] 
-		));
+		$builder->add($field, DateTimeType::class, 
+				array ('widget' => 'single_text','format' => 'dd/MM/yyyy HH:mm','required' => $required,
+						'attr' => [ 'class' => 'form-control input-inline datetimepicker',
+								'data-provide' => 'datepicker','data-date-format' => 'DD/MM/YYYY HH:mm',
+								'placeholder' => $placeholder 
+						] 
+				));
 	}
 
-	protected function addNumberChoiceField(FormBuilderInterface $builder, array $options, $field, $required = true, $multiple = false, $expanded = false) {
+	protected function addNumberChoiceField(FormBuilderInterface $builder, array $options, $field, 
+			$required = true, $multiple = false, $expanded = false) {
 		$this->addChoiceField($builder, $options, $field, $required, $multiple, $expanded);
 	}
 
-	protected function addFilterNumberChoiceField(FormBuilderInterface $builder, array $options, $field, $expanded = false) {
+	protected function addFilterNumberChoiceField(FormBuilderInterface $builder, array $options, $field, 
+			$expanded = false) {
 		$this->addChoiceField($builder, $options, $field, false, true, $expanded);
 	}
 
-	protected function addFilterBooleanChoiceField(FormBuilderInterface $builder, array $options, $field, $expanded = false) {
+	protected function addFilterBooleanChoiceField(FormBuilderInterface $builder, array $options, $field, 
+			$expanded = false) {
 		$this->addChoiceField($builder, $options, $field, true, false, $expanded);
 	}
 
-	private function addChoiceField(FormBuilderInterface $builder, array $options, $field, $required, $multiple, $expanded) {
-		$params = [ 
-				'choices' => $options[self::getChoicesName($field)],
-				'required' => $required,
-				'multiple' => $multiple,
-				'expanded' => $expanded 
+	private function addChoiceField(FormBuilderInterface $builder, array $options, $field, $required, $multiple, 
+			$expanded) {
+		$params = [ 'choices' => $options[self::getChoicesName($field)],'required' => $required,
+				'multiple' => $multiple,'expanded' => $expanded 
 		];
 		if ($multiple && ! $expanded) {
-			$params['attr'] = [ 
-					'class' => 'multiple' 
+			$params['attr'] = [ 'class' => 'multiple' 
 			];
 		}
 		$builder->add($field, ChoiceType::class, $params);
 	}
 
-	protected function addTrueEntityChoiceField(FormBuilderInterface $builder, array $options, $transformer, $field, $required = true) {
+	protected function addTrueEntityChoiceField(FormBuilderInterface $builder, array $options, $transformer, 
+			$field, $required = true) {
 		$this->addTransformerChoiceField($builder, $options, $transformer, $field, $required, false, false);
 	}
 
-	private function addTransformerChoiceField(FormBuilderInterface $builder, array $options, $transformer, $field, $required, $multiple, $expanded) {
+	private function addTransformerChoiceField(FormBuilderInterface $builder, array $options, $transformer, 
+			$field, $required, $multiple, $expanded) {
 		$this->addEntityChoiceField($builder, $options, $field, $required, $multiple, $expanded);
 		$builder->get($field)->addModelTransformer($transformer);
 	}
 
-	protected function addTempEntityChoiceField(FormBuilderInterface $builder, array $options, $field, $required = true, $multiple = false, $expanded = false) {
+	protected function addTempEntityChoiceField(FormBuilderInterface $builder, array $options, $field, 
+			$required = true, $multiple = false, $expanded = false) {
 		$this->addEntityChoiceField($builder, $options, $field, $required, $multiple, $expanded);
 	}
 
-	protected function addFilterEntityChoiceField(FormBuilderInterface $builder, array $options, $field, $required = false, $multiple = true, $expanded = false) {
+	protected function addFilterEntityChoiceField(FormBuilderInterface $builder, array $options, $field, 
+			$required = false, $multiple = true, $expanded = false) {
 		$this->addEntityChoiceField($builder, $options, $field, $required, $multiple, $expanded);
 	}
 
-	private function addEntityChoiceField(FormBuilderInterface $builder, array $options, $field, $required, $multiple, $expanded) {
-		$params = [ 
-				'choices' => $options[self::getChoicesName($field)],
+	private function addEntityChoiceField(FormBuilderInterface $builder, array $options, $field, $required, 
+			$multiple, $expanded) {
+		$params = [ 'choices' => $options[self::getChoicesName($field)],
 				'choice_label' => function ($value, $key, $index) {
 					return FormUtils::getChoiceLabel($value, $key, $index);
-				},
-				'choice_translation_domain' => false,
-				'required' => $required,
-				'multiple' => $multiple,
+				},'choice_translation_domain' => false,'required' => $required,'multiple' => $multiple,
 				'expanded' => $expanded 
 		];
 		if ($multiple && ! $expanded) {
-			$params['attr'] = [ 
-					'class' => 'multiple' 
+			$params['attr'] = [ 'class' => 'multiple' 
 			];
 		}
 		$builder->add($field, ChoiceType::class, $params);

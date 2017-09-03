@@ -2,9 +2,9 @@
 
 namespace AppBundle\Manager\Entity\Common\Assignments;
 
-use AppBundle\Entity\Advert;
-use AppBundle\Entity\NewsletterBlock;
-use AppBundle\Entity\NewsletterBlockAdvertAssignment;
+use AppBundle\Entity\Assignments\NewsletterBlockAdvertAssignment;
+use AppBundle\Entity\Main\Advert;
+use AppBundle\Entity\Main\NewsletterBlock;
 use AppBundle\Manager\Entity\Base\AssignmentManager;
 use Symfony\Component\HttpFoundation\Request;
 

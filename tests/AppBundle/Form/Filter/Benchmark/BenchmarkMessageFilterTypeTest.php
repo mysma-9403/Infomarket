@@ -4,9 +4,9 @@ namespace Tests\AppBundle\Form\Filter\Benchmark;
 
 use AppBundle\Filter\Benchmark\BenchmarkMessageFilter;
 use AppBundle\Form\Filter\Benchmark\BenchmarkMessageFilterType;
-use Tests\AppBundle\Form\Filter\Admin\Base\BaseEntityFilterTypeTest;
+use Tests\AppBundle\Form\Filter\Admin\Base\BaseFilterTypeTest;
 
-class BenchmarkMessageFilterTypeTest extends BaseEntityFilterTypeTest {
+class BenchmarkMessageFilterTypeTest extends BaseFilterTypeTest {
 	
 	const NAME = '*name*';
 	

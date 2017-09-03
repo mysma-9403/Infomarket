@@ -2,7 +2,7 @@
 
 namespace AppBundle\Repository\Benchmark;
 
-use AppBundle\Entity\BenchmarkQuery;
+use AppBundle\Entity\Main\BenchmarkQuery;
 use AppBundle\Filter\Base\Filter;
 use AppBundle\Filter\Benchmark\BenchmarkQueryFilter;
 use AppBundle\Repository\Base\BaseRepository;

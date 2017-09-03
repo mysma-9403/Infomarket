@@ -2,14 +2,14 @@
 
 namespace AppBundle\Form\Editor\Admin\Main;
 
-use AppBundle\Entity\NewsletterBlock;
-use AppBundle\Entity\NewsletterBlockTemplate;
-use AppBundle\Entity\NewsletterPage;
-use AppBundle\Form\Editor\Admin\Base\SimpleEntityEditorType;
+use AppBundle\Entity\Main\NewsletterBlock;
+use AppBundle\Entity\Main\NewsletterBlockTemplate;
+use AppBundle\Entity\Main\NewsletterPage;
+use AppBundle\Form\Editor\Admin\Base\SimpleEditorType;
 use AppBundle\Form\Transformer\EntityToNumberTransformer;
 use Symfony\Component\Form\FormBuilderInterface;
 
-class NewsletterBlockEditorType extends SimpleEntityEditorType {
+class NewsletterBlockEditorType extends SimpleEditorType {
 
 	/**
 	 *
@@ -23,7 +23,8 @@ class NewsletterBlockEditorType extends SimpleEntityEditorType {
 	 */
 	protected $newsletterPageTransformer;
 
-	public function __construct(EntityToNumberTransformer $newsletterBlockTemplateTransformer, EntityToNumberTransformer $newsletterPageTransformer) {
+	public function __construct(EntityToNumberTransformer $newsletterBlockTemplateTransformer, 
+			EntityToNumberTransformer $newsletterPageTransformer) {
 		$this->newsletterBlockTemplateTransformer = $newsletterBlockTemplateTransformer;
 		$this->newsletterPageTransformer = $newsletterPageTransformer;
 	}
@@ -50,7 +51,8 @@ class NewsletterBlockEditorType extends SimpleEntityEditorType {
 		$this->addRawTextField($builder, 'articleSeparator', 'label.newsletterBlock.articleSeparator', false);
 		$this->addRawTextField($builder, 'magazineSeparator', 'label.newsletterBlock.magazineSeparator', false);
 		
-		$this->addTrueEntityChoiceField($builder, $options, $this->newsletterBlockTemplateTransformer, 'newsletterBlockTemplate');
+		$this->addTrueEntityChoiceField($builder, $options, $this->newsletterBlockTemplateTransformer, 
+				'newsletterBlockTemplate');
 		$this->addTrueEntityChoiceField($builder, $options, $this->newsletterPageTransformer, 'newsletterPage');
 	}
 

@@ -2,14 +2,14 @@
 
 namespace Tests\AppBundle\Form\Editor\Admin\Assignments;
 
-use AppBundle\Entity\NewsletterBlock;
-use AppBundle\Entity\NewsletterBlockMagazineAssignment;
-use AppBundle\Entity\Magazine;
+use AppBundle\Entity\Assignments\NewsletterBlock;
+use AppBundle\Entity\Assignments\NewsletterBlockMagazineAssignment;
+use AppBundle\Entity\Assignments\Magazine;
 use AppBundle\Form\Editor\Admin\Assignments\NewsletterBlockMagazineAssignmentEditorType;
 use Symfony\Component\Form\PreloadedExtension;
-use Tests\AppBundle\Form\Editor\Admin\Base\BaseEntityEditorTypeTest;
+use Tests\AppBundle\Form\Editor\Admin\Base\BaseEditorTypeTest;
 
-class NewsletterBlockMagazineAssignmentEditorTypeTest extends BaseEntityEditorTypeTest {
+class NewsletterBlockMagazineAssignmentEditorTypeTest extends BaseEditorTypeTest {
 		
 	const NEWSLETTER_BLOCK_ID = 100;
 	const NEWSLETTER_BLOCK_NAME = 'Test newsletterBlock';

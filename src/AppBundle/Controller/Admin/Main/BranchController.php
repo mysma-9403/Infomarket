@@ -2,19 +2,19 @@
 
 namespace AppBundle\Controller\Admin\Main;
 
-use AppBundle\Controller\Admin\Base\ImageEntityController;
-use AppBundle\Entity\Branch;
+use AppBundle\Controller\Admin\Base\ImageController;
+use AppBundle\Entity\Main\Branch;
 use AppBundle\Factory\Common\Choices\Bool\InfomarketChoicesFactory;
 use AppBundle\Factory\Common\Choices\Bool\InfoproduktChoicesFactory;
 use AppBundle\Filter\Common\Main\BranchFilter;
 use AppBundle\Form\Editor\Admin\Main\BranchEditorType;
 use AppBundle\Form\Filter\Admin\Main\BranchFilterType;
-use AppBundle\Form\Lists\Base\InfoMarketEntityListType;
+use AppBundle\Form\Lists\Base\InfoMarketListType;
 use AppBundle\Manager\Entity\Common\Main\BranchManager;
 use AppBundle\Manager\Filter\Base\FilterManager;
 use Symfony\Component\HttpFoundation\Request;
 
-class BranchController extends ImageEntityController {
+class BranchController extends ImageController {
 	
 	// ---------------------------------------------------------------------------
 	// Actions
@@ -160,6 +160,6 @@ class BranchController extends ImageEntityController {
 	}
 
 	protected function getListFormType() {
-		return InfoMarketEntityListType::class;
+		return InfoMarketListType::class;
 	}
 }

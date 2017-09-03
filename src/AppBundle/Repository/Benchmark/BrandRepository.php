@@ -2,13 +2,13 @@
 
 namespace AppBundle\Repository\Benchmark;
 
-use AppBundle\Entity\Brand;
-use Doctrine\ORM\QueryBuilder;
-use AppBundle\Entity\Product;
-use Doctrine\ORM\Query\Expr\Join;
-use AppBundle\Entity\ProductCategoryAssignment;
-use AppBundle\Entity\Category;
+use AppBundle\Entity\Assignments\ProductCategoryAssignment;
+use AppBundle\Entity\Main\Brand;
+use AppBundle\Entity\Main\Category;
+use AppBundle\Entity\Main\Product;
 use AppBundle\Repository\Admin\Main\BrandRepository as BaseRepository;
+use Doctrine\ORM\Query\Expr\Join;
+use Doctrine\ORM\QueryBuilder;
 
 class BrandRepository extends BaseRepository {
 

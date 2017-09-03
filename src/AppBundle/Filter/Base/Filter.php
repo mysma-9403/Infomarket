@@ -15,7 +15,7 @@ class Filter {
 	/**
 	 * Filter name e.g.
 	 * product_filter_
-	 * 
+	 *
 	 * @var string
 	 */
 	protected $filterName = '';

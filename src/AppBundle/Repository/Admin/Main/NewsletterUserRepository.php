@@ -2,15 +2,15 @@
 
 namespace AppBundle\Repository\Admin\Main;
 
-use AppBundle\Entity\NewsletterUser;
-use AppBundle\Entity\NewsletterUserNewsletterPageAssignment;
-use AppBundle\Filter\Common\Main\NewsletterUserFilter;
+use AppBundle\Entity\Assignments\NewsletterUserNewsletterPageAssignment;
+use AppBundle\Entity\Main\NewsletterUser;
 use AppBundle\Filter\Base\Filter;
-use AppBundle\Repository\Admin\Base\SimpleEntityRepository;
+use AppBundle\Filter\Common\Main\NewsletterUserFilter;
+use AppBundle\Repository\Admin\Base\SimpleRepository;
 use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\ORM\QueryBuilder;
 
-class NewsletterUserRepository extends SimpleEntityRepository {
+class NewsletterUserRepository extends SimpleRepository {
 
 	public function findItemsIdsByNewsletterPage($newsletterUsersIds, $newsletterPageId) {
 		$items = $this->queryItemsByNewsletterPage($newsletterUsersIds, $newsletterPageId)->getScalarResult();
@@ -24,7 +24,8 @@ class NewsletterUserRepository extends SimpleEntityRepository {
 		$builder->distinct();
 		$builder->from($this->getEntityType(), "e");
 		
-		$builder->innerJoin(NewsletterUserNewsletterPageAssignment::class, 'nunpa', Join::WITH, 'e.id = nunpa.newsletterUser');
+		$builder->innerJoin(NewsletterUserNewsletterPageAssignment::class, 'nunpa', Join::WITH, 
+				'e.id = nunpa.newsletterUser');
 		
 		$expr = $builder->expr();
 		

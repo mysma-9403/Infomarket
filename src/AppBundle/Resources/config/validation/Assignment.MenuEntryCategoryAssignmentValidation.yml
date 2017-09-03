@@ -1,0 +1,7 @@
+AppBundle\Entity\Assignments\MenuEntryCategoryAssignment:
+    constraints:
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
+            fields: [menuEntry, category]
+            ignoreNull: false
+            message: 'menuEntryCategoryAssignment.unique'
+                

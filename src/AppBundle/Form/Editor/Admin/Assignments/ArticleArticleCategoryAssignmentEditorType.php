@@ -2,12 +2,12 @@
 
 namespace AppBundle\Form\Editor\Admin\Assignments;
 
-use AppBundle\Entity\ArticleArticleCategoryAssignment;
-use AppBundle\Form\Editor\Admin\Base\BaseEntityEditorType;
+use AppBundle\Entity\Assignments\ArticleArticleCategoryAssignment;
+use AppBundle\Form\Editor\Admin\Base\BaseEditorType;
 use AppBundle\Form\Transformer\EntityToNumberTransformer;
 use Symfony\Component\Form\FormBuilderInterface;
 
-class ArticleArticleCategoryAssignmentEditorType extends BaseEntityEditorType {
+class ArticleArticleCategoryAssignmentEditorType extends BaseEditorType {
 
 	/**
 	 *
@@ -21,7 +21,8 @@ class ArticleArticleCategoryAssignmentEditorType extends BaseEntityEditorType {
 	 */
 	protected $articleCategoryTransformer;
 
-	public function __construct(EntityToNumberTransformer $articleTransformer, EntityToNumberTransformer $articleCategoryTransformer) {
+	public function __construct(EntityToNumberTransformer $articleTransformer, 
+			EntityToNumberTransformer $articleCategoryTransformer) {
 		$this->articleTransformer = $articleTransformer;
 		$this->articleCategoryTransformer = $articleCategoryTransformer;
 	}
@@ -30,7 +31,8 @@ class ArticleArticleCategoryAssignmentEditorType extends BaseEntityEditorType {
 		parent::addFields($builder, $options);
 		
 		$this->addTrueEntityChoiceField($builder, $options, $this->articleTransformer, 'article');
-		$this->addTrueEntityChoiceField($builder, $options, $this->articleCategoryTransformer, 'articleCategory');
+		$this->addTrueEntityChoiceField($builder, $options, $this->articleCategoryTransformer, 
+				'articleCategory');
 	}
 
 	protected function getDefaultOptions() {

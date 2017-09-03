@@ -2,15 +2,15 @@
 
 namespace AppBundle\Repository\Admin\Assignments;
 
-use AppBundle\Entity\Advert;
-use AppBundle\Entity\NewsletterBlock;
-use AppBundle\Entity\NewsletterBlockAdvertAssignment;
+use AppBundle\Entity\Assignments\NewsletterBlockAdvertAssignment;
+use AppBundle\Entity\Main\Advert;
+use AppBundle\Entity\Main\NewsletterBlock;
 use AppBundle\Filter\Base\Filter;
-use AppBundle\Repository\Admin\Base\AuditRepository;
+use AppBundle\Repository\Admin\Base\SimpleRepository;
 use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\ORM\QueryBuilder;
 
-class NewsletterBlockAdvertAssignmentRepository extends AuditRepository {
+class NewsletterBlockAdvertAssignmentRepository extends SimpleRepository {
 
 	protected function getSelectFields(QueryBuilder &$builder, Filter $filter) {
 		$fields = parent::getSelectFields($builder, $filter);

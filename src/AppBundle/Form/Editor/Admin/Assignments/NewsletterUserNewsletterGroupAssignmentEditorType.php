@@ -2,12 +2,12 @@
 
 namespace AppBundle\Form\Editor\Admin\Assignments;
 
-use AppBundle\Entity\NewsletterUserNewsletterGroupAssignment;
-use AppBundle\Form\Editor\Admin\Base\BaseEntityEditorType;
+use AppBundle\Entity\Assignments\NewsletterUserNewsletterGroupAssignment;
+use AppBundle\Form\Editor\Admin\Base\BaseEditorType;
 use AppBundle\Form\Transformer\EntityToNumberTransformer;
 use Symfony\Component\Form\FormBuilderInterface;
 
-class NewsletterUserNewsletterGroupAssignmentEditorType extends BaseEntityEditorType {
+class NewsletterUserNewsletterGroupAssignmentEditorType extends BaseEditorType {
 
 	/**
 	 *
@@ -21,7 +21,8 @@ class NewsletterUserNewsletterGroupAssignmentEditorType extends BaseEntityEditor
 	 */
 	protected $newsletterGroupTransformer;
 
-	public function __construct(EntityToNumberTransformer $newsletterUserTransformer, EntityToNumberTransformer $newsletterGroupTransformer) {
+	public function __construct(EntityToNumberTransformer $newsletterUserTransformer, 
+			EntityToNumberTransformer $newsletterGroupTransformer) {
 		$this->newsletterUserTransformer = $newsletterUserTransformer;
 		$this->newsletterGroupTransformer = $newsletterGroupTransformer;
 	}
@@ -30,7 +31,8 @@ class NewsletterUserNewsletterGroupAssignmentEditorType extends BaseEntityEditor
 		parent::addFields($builder, $options);
 		
 		$this->addTrueEntityChoiceField($builder, $options, $this->newsletterUserTransformer, 'newsletterUser');
-		$this->addTrueEntityChoiceField($builder, $options, $this->newsletterGroupTransformer, 'newsletterGroup');
+		$this->addTrueEntityChoiceField($builder, $options, $this->newsletterGroupTransformer, 
+				'newsletterGroup');
 	}
 
 	protected function getDefaultOptions() {

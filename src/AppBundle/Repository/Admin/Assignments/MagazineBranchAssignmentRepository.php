@@ -2,15 +2,15 @@
 
 namespace AppBundle\Repository\Admin\Assignments;
 
-use AppBundle\Entity\Branch;
-use AppBundle\Entity\Magazine;
-use AppBundle\Entity\MagazineBranchAssignment;
+use AppBundle\Entity\Assignments\MagazineBranchAssignment;
+use AppBundle\Entity\Main\Branch;
+use AppBundle\Entity\Main\Magazine;
 use AppBundle\Filter\Base\Filter;
-use AppBundle\Repository\Admin\Base\AuditRepository;
+use AppBundle\Repository\Admin\Base\SimpleRepository;
 use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\ORM\QueryBuilder;
 
-class MagazineBranchAssignmentRepository extends AuditRepository {
+class MagazineBranchAssignmentRepository extends SimpleRepository {
 
 	protected function getSelectFields(QueryBuilder &$builder, Filter $filter) {
 		$fields = parent::getSelectFields($builder, $filter);

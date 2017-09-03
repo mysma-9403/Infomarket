@@ -4,9 +4,9 @@ namespace Tests\AppBundle\Form\Filter\Admin\Assignments;
 
 use AppBundle\Filter\Common\Assignments\MenuMenuEntryAssignmentFilter;
 use AppBundle\Form\Filter\Admin\Assignments\MenuMenuEntryAssignmentFilterType;
-use Tests\AppBundle\Form\Filter\Admin\Base\BaseEntityFilterTypeTest;
+use Tests\AppBundle\Form\Filter\Admin\Base\BaseFilterTypeTest;
 
-class MenuMenuEntryAssignmentFilterTypeTest extends BaseEntityFilterTypeTest {
+class MenuMenuEntryAssignmentFilterTypeTest extends BaseFilterTypeTest {
 		
 	const MENU_1 = 101;
 	const MENU_2 = 102;

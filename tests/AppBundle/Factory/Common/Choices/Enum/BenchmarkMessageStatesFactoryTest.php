@@ -2,7 +2,7 @@
 
 namespace Tests\AppBundle\Factory\Common\Choices\Bool;
 
-use AppBundle\Entity\BenchmarkMessage;
+use AppBundle\Entity\Main\BenchmarkMessage;
 use AppBundle\Factory\Common\Choices\Enum\BenchmarkMessageStatesFactory;
 use PHPUnit\Framework\TestCase;
 

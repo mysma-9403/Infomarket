@@ -4,9 +4,9 @@ namespace Tests\AppBundle\Form\Filter\Admin\Assignments;
 
 use AppBundle\Filter\Common\Assignments\ArticleArticleCategoryAssignmentFilter;
 use AppBundle\Form\Filter\Admin\Assignments\ArticleArticleCategoryAssignmentFilterType;
-use Tests\AppBundle\Form\Filter\Admin\Base\BaseEntityFilterTypeTest;
+use Tests\AppBundle\Form\Filter\Admin\Base\BaseFilterTypeTest;
 
-class ArticleArticleCategoryAssignmentFilterTypeTest extends BaseEntityFilterTypeTest {
+class ArticleArticleCategoryAssignmentFilterTypeTest extends BaseFilterTypeTest {
 		
 	const ARTICLE_1 = 101;
 	const ARTICLE_2 = 102;

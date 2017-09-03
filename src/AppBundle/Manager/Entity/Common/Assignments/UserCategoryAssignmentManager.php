@@ -2,9 +2,9 @@
 
 namespace AppBundle\Manager\Entity\Common\Assignments;
 
-use AppBundle\Entity\Category;
-use AppBundle\Entity\User;
-use AppBundle\Entity\UserCategoryAssignment;
+use AppBundle\Entity\Assignments\UserCategoryAssignment;
+use AppBundle\Entity\Main\Category;
+use AppBundle\Entity\Main\User;
 use AppBundle\Manager\Entity\Base\AssignmentManager;
 use Symfony\Component\HttpFoundation\Request;
 

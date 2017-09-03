@@ -2,9 +2,9 @@
 
 namespace AppBundle\Manager\Params\EntryParams\Infomarket;
 
-use AppBundle\Entity\Article;
-use AppBundle\Entity\ArticleCategory;
-use AppBundle\Entity\Category;
+use AppBundle\Entity\Main\Article;
+use AppBundle\Entity\Main\ArticleCategory;
+use AppBundle\Entity\Main\Category;
 use AppBundle\Manager\Entity\Base\EntityManager;
 use AppBundle\Manager\Filter\Base\FilterManager;
 use AppBundle\Manager\Params\EntryParams\Infomarket\Base\EntryParamsManager;
@@ -68,7 +68,9 @@ class HomeEntryParamsManager extends EntryParamsManager {
 	 */
 	protected $abaManager;
 
-	public function __construct(EntityManager $em, FilterManager $fm, ArticleRepository $articleRepository, ArticleCategoryRepository $articleCategoryRepository, BrandRepository $brandRepository, MagazineRepository $magazineRepository, ArticleBrandAssignmentsManager $abaManager) {
+	public function __construct(EntityManager $em, FilterManager $fm, ArticleRepository $articleRepository, 
+			ArticleCategoryRepository $articleCategoryRepository, BrandRepository $brandRepository, 
+			MagazineRepository $magazineRepository, ArticleBrandAssignmentsManager $abaManager) {
 		parent::__construct($em, $fm);
 		
 		$this->articleRepository = $articleRepository;
@@ -174,19 +176,22 @@ class HomeEntryParamsManager extends EntryParamsManager {
 		
 		$articleCategory = $this->getArticleCategory($articleCategories, self::REVIEWS_AC);
 		if ($articleCategory) {
-			$articleCategory['articles'] = $this->articleRepository->findHomeListItems($categories, self::REVIEWS_AC, 0, 1);
+			$articleCategory['articles'] = $this->articleRepository->findHomeListItems($categories, 
+					self::REVIEWS_AC, 0, 1);
 			$usefulArticleCategories[] = $articleCategory;
 		}
 		
 		$articleCategory = $this->getArticleCategory($articleCategories, self::HOME_LINKS_AC);
 		if ($articleCategory) {
-			$articleCategory['articles'] = $this->articleRepository->findHomeListItems($categories, self::HOME_LINKS_AC, 0, 1);
+			$articleCategory['articles'] = $this->articleRepository->findHomeListItems($categories, 
+					self::HOME_LINKS_AC, 0, 1);
 			$usefulArticleCategories[] = $articleCategory;
 		}
 		
 		$articleCategory = $this->getArticleCategory($articleCategories, self::FOREIGN_LINKS_AC);
 		if ($articleCategory) {
-			$articleCategory['articles'] = $this->articleRepository->findHomeListItems($categories, self::FOREIGN_LINKS_AC, 0, 1);
+			$articleCategory['articles'] = $this->articleRepository->findHomeListItems($categories, 
+					self::FOREIGN_LINKS_AC, 0, 1);
 			$usefulArticleCategories[] = $articleCategory;
 		}
 		

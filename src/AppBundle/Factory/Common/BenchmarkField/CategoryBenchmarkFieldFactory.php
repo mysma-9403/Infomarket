@@ -2,17 +2,16 @@
 
 namespace AppBundle\Factory\Common\BenchmarkField;
 
-use AppBundle\Entity\BenchmarkField;
+use AppBundle\Entity\Main\BenchmarkField;
 
 class CategoryBenchmarkFieldFactory extends BenchmarkFieldFactoryRepositoryBase {
-	
-	
+
 	public function create(array $properties, $categoryId) {
-		if(!key_exists('valueField', $properties)) {
+		if (! key_exists('valueField', $properties)) {
 			$properties = $this->initValueFieldProperty($properties);
 		}
 		
-		switch($properties['fieldType']) {
+		switch ($properties['fieldType']) {
 			case BenchmarkField::DECIMAL_FIELD_TYPE:
 			case BenchmarkField::INTEGER_FIELD_TYPE:
 				$properties = $this->initMinMaxMeanProperties($properties, $categoryId);

@@ -2,9 +2,9 @@
 
 namespace AppBundle\Manager\Entity\Common\Assignments;
 
-use AppBundle\Entity\Category;
-use AppBundle\Entity\MenuEntry;
-use AppBundle\Entity\MenuEntryCategoryAssignment;
+use AppBundle\Entity\Assignments\MenuEntryCategoryAssignment;
+use AppBundle\Entity\Main\Category;
+use AppBundle\Entity\Main\MenuEntry;
 use AppBundle\Manager\Entity\Base\AssignmentManager;
 use Symfony\Component\HttpFoundation\Request;
 

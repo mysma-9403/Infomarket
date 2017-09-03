@@ -2,7 +2,7 @@
 
 namespace Tests\AppBundle\Logic\Common\BenchmarkField\Initializer;
 
-use AppBundle\Entity\BenchmarkField;
+use AppBundle\Entity\Main\BenchmarkField;
 use AppBundle\Factory\Common\BenchmarkField\BenchmarkFieldFactory;
 use AppBundle\Logic\Common\BenchmarkField\Initializer\BenchmarkFieldsInitializerImpl;
 use PHPUnit\Framework\TestCase;

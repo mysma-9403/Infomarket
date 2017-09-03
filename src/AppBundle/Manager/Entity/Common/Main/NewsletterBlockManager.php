@@ -2,9 +2,9 @@
 
 namespace AppBundle\Manager\Entity\Common\Main;
 
-use AppBundle\Entity\NewsletterBlock;
-use AppBundle\Entity\NewsletterBlockTemplate;
-use AppBundle\Entity\NewsletterPage;
+use AppBundle\Entity\Main\NewsletterBlock;
+use AppBundle\Entity\Main\NewsletterBlockTemplate;
+use AppBundle\Entity\Main\NewsletterPage;
 use AppBundle\Manager\Entity\Base\EntityManager;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Repository\Base\BaseRepository;
@@ -30,7 +30,8 @@ class NewsletterBlockManager extends EntityManager {
 		$entry->setSubname($request->get('name'));
 		$entry->setSubname($request->get('subname'));
 		
-		$entry->setNewsletterBlockTemplate($this->paramsManager->getParamByClass($request, NewsletterBlockTemplate::class));
+		$entry->setNewsletterBlockTemplate(
+				$this->paramsManager->getParamByClass($request, NewsletterBlockTemplate::class));
 		
 		$entry->setNewsletterPage($this->paramsManager->getParamByClass($request, NewsletterPage::class));
 		

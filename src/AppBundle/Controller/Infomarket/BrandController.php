@@ -3,7 +3,7 @@
 namespace AppBundle\Controller\Infomarket;
 
 use AppBundle\Controller\Infomarket\Base\InfomarketController;
-use AppBundle\Entity\Brand;
+use AppBundle\Entity\Main\Brand;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Manager\Entity\Infomarket\BrandManager;

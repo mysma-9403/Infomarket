@@ -1,9 +1,9 @@
-{% if article.layout == constant('AppBundle\\Entity\\Article::MID_LAYOUT') %}
+{% if article.layout == constant('AppBundle\\Entity\\Main\\Article::MID_LAYOUT') %}
 	{% include 'common/article/layouts/mid_layout.html.twig' %}
-{% elseif article.layout == constant('AppBundle\\Entity\\Article::RIGHT_LAYOUT') %}
+{% elseif article.layout == constant('AppBundle\\Entity\\Main\\Article::RIGHT_LAYOUT') %}
 	{% include 'common/article/layouts/right_layout.html.twig' %}
-{% elseif article.layout == constant('AppBundle\\Entity\\Article::LEFT_LAYOUT') %}
+{% elseif article.layout == constant('AppBundle\\Entity\\Main\\Article::LEFT_LAYOUT') %}
 	{% include 'common/article/layouts/left_layout.html.twig' %}
-{% elseif article.layout == constant('AppBundle\\Entity\\Article::BOTTOM_LAYOUT') %}
+{% elseif article.layout == constant('AppBundle\\Entity\\Main\\Article::BOTTOM_LAYOUT') %}
 	{% include 'common/article/layouts/bottom_layout.html.twig' %}
 {% endif %}

@@ -2,11 +2,11 @@
 
 namespace AppBundle\Form\Editor\Admin\Main;
 
-use AppBundle\Entity\Tag;
-use AppBundle\Form\Editor\Admin\Base\SimpleEntityEditorType;
+use AppBundle\Entity\Main\Tag;
+use AppBundle\Form\Editor\Admin\Base\SimpleEditorType;
 use Symfony\Component\Form\FormBuilderInterface;
 
-class TagEditorType extends SimpleEntityEditorType {
+class TagEditorType extends SimpleEditorType {
 
 	protected function addFields(FormBuilderInterface $builder, array $options) {
 		parent::addFields($builder, $options);

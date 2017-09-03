@@ -3,10 +3,10 @@
 namespace AppBundle\Form\Filter\Admin\Assignments;
 
 use AppBundle\Filter\Common\Assignments\NewsletterUserNewsletterPageAssignmentFilter;
-use AppBundle\Form\Filter\Admin\Base\SimpleEntityFilterType;
+use AppBundle\Form\Filter\Admin\Base\SimpleFilterType;
 use Symfony\Component\Form\FormBuilderInterface;
 
-class NewsletterUserNewsletterPageAssignmentFilterType extends SimpleEntityFilterType {
+class NewsletterUserNewsletterPageAssignmentFilterType extends SimpleFilterType {
 
 	protected function addFields(FormBuilderInterface $builder, array $options) {
 		parent::addFields($builder, $options);

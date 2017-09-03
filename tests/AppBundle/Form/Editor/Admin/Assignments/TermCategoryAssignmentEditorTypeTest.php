@@ -2,14 +2,14 @@
 
 namespace Tests\AppBundle\Form\Editor\Admin\Assignments;
 
-use AppBundle\Entity\Term;
-use AppBundle\Entity\TermCategoryAssignment;
-use AppBundle\Entity\Category;
+use AppBundle\Entity\Assignments\Term;
+use AppBundle\Entity\Assignments\TermCategoryAssignment;
+use AppBundle\Entity\Assignments\Category;
 use AppBundle\Form\Editor\Admin\Assignments\TermCategoryAssignmentEditorType;
 use Symfony\Component\Form\PreloadedExtension;
-use Tests\AppBundle\Form\Editor\Admin\Base\BaseEntityEditorTypeTest;
+use Tests\AppBundle\Form\Editor\Admin\Base\BaseEditorTypeTest;
 
-class TermCategoryAssignmentEditorTypeTest extends BaseEntityEditorTypeTest {
+class TermCategoryAssignmentEditorTypeTest extends BaseEditorTypeTest {
 		
 	const TERM_ID = 100;
 	const TERM_NAME = 'Test term';

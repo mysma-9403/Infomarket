@@ -2,15 +2,15 @@
 
 namespace Tests\AppBundle\Form\Editor\Admin\Main;
 
-use AppBundle\Entity\Product;
+use AppBundle\Entity\Main\Product;
 use AppBundle\Form\Editor\Admin\Main\ProductEditorType;
 use Symfony\Component\Form\PreloadedExtension;
-use Tests\AppBundle\Form\Editor\Admin\Base\ImageEntityEditorTypeTest;
-use AppBundle\Entity\Brand;
+use Tests\AppBundle\Form\Editor\Admin\Base\ImageEditorTypeTest;
+use AppBundle\Entity\Main\Brand;
 use AppBundle\Form\FormBuilder\BenchmarkEditorFieldBuilder;
 use AppBundle\Filter\Common\Other\ProductFilter;
 
-class ProductEditorTypeTest extends ImageEntityEditorTypeTest {
+class ProductEditorTypeTest extends ImageEditorTypeTest {
 	
 	const TOP_PRODUCT_IMAGE = 'web/img/product/top/test.png';
 	const PRICE = 1499.99;

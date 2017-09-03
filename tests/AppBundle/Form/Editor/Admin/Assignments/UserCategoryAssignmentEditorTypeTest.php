@@ -2,14 +2,14 @@
 
 namespace Tests\AppBundle\Form\Editor\Admin\Assignments;
 
-use AppBundle\Entity\Category;
-use AppBundle\Entity\User;
+use AppBundle\Entity\Assignments\Category;
+use AppBundle\Entity\Assignments\User;
 use AppBundle\Form\Editor\Admin\Assignments\UserCategoryAssignmentEditorType;
 use Symfony\Component\Form\PreloadedExtension;
-use Tests\AppBundle\Form\Editor\Admin\Base\BaseEntityEditorTypeTest;
-use AppBundle\Entity\UserCategoryAssignment;
+use Tests\AppBundle\Form\Editor\Admin\Base\BaseEditorTypeTest;
+use AppBundle\Entity\Assignments\UserCategoryAssignment;
 
-class UserCategoryAssignmentEditorTypeTest extends BaseEntityEditorTypeTest {
+class UserCategoryAssignmentEditorTypeTest extends BaseEditorTypeTest {
 		
 	const USER_ID = 100;
 	const USER_NAME = 'Test user';

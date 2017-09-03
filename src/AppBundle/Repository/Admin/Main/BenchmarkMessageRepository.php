@@ -2,17 +2,17 @@
 
 namespace AppBundle\Repository\Admin\Main;
 
-use AppBundle\Entity\BenchmarkMessage;
-use AppBundle\Entity\Brand;
-use AppBundle\Entity\Product;
-use AppBundle\Entity\User;
+use AppBundle\Entity\Main\BenchmarkMessage;
+use AppBundle\Entity\Main\Brand;
+use AppBundle\Entity\Main\Product;
+use AppBundle\Entity\Main\User;
 use AppBundle\Filter\Common\Main\BenchmarkMessageFilter;
 use AppBundle\Filter\Base\Filter;
-use AppBundle\Repository\Admin\Base\AuditRepository;
+use AppBundle\Repository\Admin\Base\SimpleRepository;
 use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\ORM\QueryBuilder;
 
-class BenchmarkMessageRepository extends AuditRepository {
+class BenchmarkMessageRepository extends SimpleRepository {
 
 	public function findUnreadItemsCount() {
 		return $this->queryUnreadItemsCount()->getSingleScalarResult();

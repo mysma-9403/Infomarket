@@ -1,9 +1,0 @@
-AppBundle\Entity\Menu:
-    properties:
-        name:
-            - NotBlank: ~
-        menuMenuEntryAssignments:
-            - Count:
-                groups: [removal]
-                max: 0
-                exactMessage: menu.usedIn.menuMenuEntryAssignments

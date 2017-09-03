@@ -2,9 +2,9 @@
 
 namespace AppBundle\Manager\Entity\Common\Assignments;
 
-use AppBundle\Entity\Advert;
-use AppBundle\Entity\AdvertCategoryAssignment;
-use AppBundle\Entity\Category;
+use AppBundle\Entity\Assignments\AdvertCategoryAssignment;
+use AppBundle\Entity\Main\Advert;
+use AppBundle\Entity\Main\Category;
 use AppBundle\Manager\Entity\Base\AssignmentManager;
 use Symfony\Component\HttpFoundation\Request;
 

@@ -2,12 +2,12 @@
 
 namespace Tests\AppBundle\Form\Editor\Admin\Main;
 
-use AppBundle\Entity\NewsletterBlockTemplate;
+use AppBundle\Entity\Main\NewsletterBlockTemplate;
 use AppBundle\Form\Editor\Admin\Main\NewsletterBlockTemplateEditorType;
 use Symfony\Component\Form\PreloadedExtension;
-use Tests\AppBundle\Form\Editor\Admin\Base\SimpleEntityEditorTypeTest;
+use Tests\AppBundle\Form\Editor\Admin\Base\SimpleEditorTypeTest;
 
-class NewsletterBlockTemplateEditorTypeTest extends SimpleEntityEditorTypeTest {
+class NewsletterBlockTemplateEditorTypeTest extends SimpleEditorTypeTest {
 	
 	const STYLE = 'Test style';
 	const CONTENT = 'Test content';

@@ -2,7 +2,7 @@
 
 namespace AppBundle\Manager\Params\Infoprodukt;
 
-use AppBundle\Entity\Category;
+use AppBundle\Entity\Main\Category;
 use AppBundle\Manager\Params\Base\ParamsManager;
 use AppBundle\Repository\Infoprodukt\CategoryRepository;
 use Symfony\Component\HttpFoundation\Request;
@@ -28,7 +28,8 @@ class ContextParamsManager extends ParamsManager {
 	protected $paramsManager;
 	
 	// TODO lastRouteParams should be moved to function params or within params array -> then it will be possible to define service
-	public function __construct(CategoryRepository $categoryRepository, ParamsManager $paramsManager, array $lastRouteParams) {
+	public function __construct(CategoryRepository $categoryRepository, ParamsManager $paramsManager, 
+			array $lastRouteParams) {
 		$this->categoryRepository = $categoryRepository;
 		
 		$this->paramsManager = $paramsManager;

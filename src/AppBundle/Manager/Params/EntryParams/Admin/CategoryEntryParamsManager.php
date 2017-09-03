@@ -17,7 +17,8 @@ class CategoryEntryParamsManager extends EntryParamsManager {
 	/** @var SegmentRepository */
 	protected $segmentRepository;
 
-	public function __construct(EntityManager $em, FilterManager $fm, CategoryRepository $categoryRepository, SegmentRepository $segmentRepository) {
+	public function __construct(EntityManager $em, FilterManager $fm, CategoryRepository $categoryRepository, 
+			SegmentRepository $segmentRepository) {
 		parent::__construct($em, $fm);
 		
 		$this->categoryRepository = $categoryRepository;

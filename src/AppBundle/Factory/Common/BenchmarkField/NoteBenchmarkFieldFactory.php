@@ -2,15 +2,15 @@
 
 namespace AppBundle\Factory\Common\BenchmarkField;
 
-use AppBundle\Entity\BenchmarkField;
+use AppBundle\Entity\Main\BenchmarkField;
 
 class NoteBenchmarkFieldFactory extends BenchmarkFieldFactoryRepositoryBase {
-	
+
 	public function create(array $properties, $categoryId) {
 		$field = $this->initValueFieldProperty($properties);
 		$field = $this->initNoteFieldProperty($field);
 		
-		switch($field['fieldType']) {
+		switch ($field['fieldType']) {
 			case BenchmarkField::DECIMAL_FIELD_TYPE:
 			case BenchmarkField::INTEGER_FIELD_TYPE:
 			case BenchmarkField::BOOLEAN_FIELD_TYPE:

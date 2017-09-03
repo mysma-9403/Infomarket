@@ -1,0 +1,8 @@
+AppBundle\Entity\Main\NewsletterBlockTemplate:
+    constraints:
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: name
+    properties:
+        name:
+            - NotBlank: ~
+        content:
+            - NotBlank: ~

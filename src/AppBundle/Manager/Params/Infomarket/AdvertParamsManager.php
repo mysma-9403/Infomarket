@@ -2,7 +2,7 @@
 
 namespace AppBundle\Manager\Params\Infomarket;
 
-use AppBundle\Entity\Advert;
+use AppBundle\Entity\Main\Advert;
 use AppBundle\Repository\Infomarket\AdvertRepository;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -40,7 +40,8 @@ class AdvertParamsManager {
 			$categories = $this->getContextCategories($request, $contextParams, $viewParams);
 			
 			foreach ($this->advertLocations as $advertLocation) {
-				$adverts = $this->advertRepository->findAdvertItems($advertLocation, $categories, $this->checkInRoots);
+				$adverts = $this->advertRepository->findAdvertItems($advertLocation, $categories, 
+						$this->checkInRoots);
 				$viewParams[Advert::getLocationParam($advertLocation)] = $adverts;
 				
 				if (count($adverts) > 0) {

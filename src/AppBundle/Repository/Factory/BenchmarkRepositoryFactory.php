@@ -2,16 +2,18 @@
 
 namespace AppBundle\Repository\Factory;
 
-use AppBundle\Entity\BenchmarkMessage;
-use AppBundle\Entity\BenchmarkQuery;
-use AppBundle\Entity\Category;
-use AppBundle\Entity\Product;
+use AppBundle\Entity\Main\BenchmarkMessage;
+use AppBundle\Entity\Main\BenchmarkQuery;
+use AppBundle\Entity\Main\Category;
+use AppBundle\Entity\Main\Product;
+use AppBundle\Entity\Main\Segment;
+use AppBundle\Repository\Benchmark\BenchmarkMessageRepository;
 use AppBundle\Repository\Benchmark\BenchmarkQueryRepository;
 use AppBundle\Repository\Benchmark\CategoryRepository;
 use AppBundle\Repository\Benchmark\CustomProductRepository;
 use AppBundle\Repository\Benchmark\ProductRepository;
+use AppBundle\Repository\Benchmark\SegmentRepository;
 use Doctrine\Common\Persistence\ObjectManager;
-use AppBundle\Repository\Benchmark\BenchmarkMessageRepository;
 
 class BenchmarkRepositoryFactory {
 
@@ -27,7 +29,8 @@ class BenchmarkRepositoryFactory {
 
 	public function getRepository($class) {
 		if ($class == BenchmarkMessageRepository::class) {
-			return new BenchmarkMessageRepository($this->em, $this->em->getClassMetadata(BenchmarkMessage::class));
+			return new BenchmarkMessageRepository($this->em, 
+					$this->em->getClassMetadata(BenchmarkMessage::class));
 		}
 		if ($class == BenchmarkQueryRepository::class) {
 			return new BenchmarkQueryRepository($this->em, $this->em->getClassMetadata(BenchmarkQuery::class));
@@ -40,6 +43,9 @@ class BenchmarkRepositoryFactory {
 		}
 		if ($class == ProductRepository::class) {
 			return new ProductRepository($this->em, $this->em->getClassMetadata(Product::class));
+		}
+		if ($class == SegmentRepository::class) {
+			return new SegmentRepository($this->em, $this->em->getClassMetadata(Segment::class));
 		}
 		
 		return null;

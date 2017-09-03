@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+        http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+	<entity name="AppBundle\Entity\Main\Branch" table="branches"
+		repository-class="AppBundle\Repository\Admin\Main\BranchRepository">
+
+		<field name="name" type="string" length="128" nullable="false" />
+
+		<field name="infomarket" type="boolean" nullable="false" default="0" />
+		<field name="infoprodukt" type="boolean" nullable="false" default="0" />
+
+		<field name="content" type="text" nullable="true" />
+
+		<field name="color" type="string" nullable="true" />
+		<field name="icon" type="string" nullable="true" />
+
+		<field name="orderNumber" type="integer" default="0" />
+
+		<one-to-many field="branchCategoryAssignments"
+			target-entity="AppBundle\Entity\Assignments\BranchCategoryAssignment"
+			mapped-by="branch">
+		</one-to-many>
+
+		<one-to-many field="magazineBranchAssignments"
+			target-entity="AppBundle\Entity\Assignments\MagazineBranchAssignment"
+			mapped-by="branch">
+		</one-to-many>
+
+		<one-to-many field="menuEntryBranchAssignments"
+			target-entity="AppBundle\Entity\Assignments\MenuEntryBranchAssignment"
+			mapped-by="branch">
+		</one-to-many>
+
+	</entity>
+
+</doctrine-mapping>

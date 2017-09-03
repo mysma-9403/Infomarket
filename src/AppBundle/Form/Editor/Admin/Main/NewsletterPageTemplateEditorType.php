@@ -2,11 +2,11 @@
 
 namespace AppBundle\Form\Editor\Admin\Main;
 
-use AppBundle\Entity\NewsletterPageTemplate;
-use AppBundle\Form\Editor\Admin\Base\SimpleEntityEditorType;
+use AppBundle\Entity\Main\NewsletterPageTemplate;
+use AppBundle\Form\Editor\Admin\Base\SimpleEditorType;
 use Symfony\Component\Form\FormBuilderInterface;
 
-class NewsletterPageTemplateEditorType extends SimpleEntityEditorType {
+class NewsletterPageTemplateEditorType extends SimpleEditorType {
 
 	protected function addFields(FormBuilderInterface $builder, array $options) {
 		parent::addFields($builder, $options);

@@ -2,13 +2,13 @@
 
 namespace Tests\AppBundle\Form\Editor\Admin\Main;
 
-use AppBundle\Entity\BenchmarkField;
-use AppBundle\Entity\Category;
+use AppBundle\Entity\Main\BenchmarkField;
+use AppBundle\Entity\Main\Category;
 use AppBundle\Form\Editor\Admin\Main\BenchmarkFieldEditorType;
 use Symfony\Component\Form\PreloadedExtension;
-use Tests\AppBundle\Form\Editor\Admin\Base\BaseEntityEditorTypeTest;
+use Tests\AppBundle\Form\Editor\Admin\Base\BaseEditorTypeTest;
 
-class BenchmarkFieldEditorTypeTest extends BaseEntityEditorTypeTest {
+class BenchmarkFieldEditorTypeTest extends BaseEditorTypeTest {
 	
 	const VALUE_NUMBER = 5;
 	const FIELD_NUMBER = 7;

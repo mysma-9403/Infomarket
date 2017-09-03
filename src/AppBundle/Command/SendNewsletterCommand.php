@@ -2,7 +2,7 @@
 
 namespace AppBundle\Command;
 
-use AppBundle\Entity\NewsletterUserNewsletterPageAssignment;
+use AppBundle\Entity\Assignments\NewsletterUserNewsletterPageAssignment;
 use AppBundle\Repository\Admin\Assignments\NewsletterUserNewsletterPageAssignmentRepository;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
@@ -10,25 +10,21 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Filesystem\LockHandler;
 
-class SendNewsletterCommand extends ContainerAwareCommand
-{	
-	protected function configure()
-	{
-		$this
-		->setName('krk:newsletter:send')
-		->setDescription('Send newsletter for not sent newsletter user - page assignments and update their states.')
-		->setHelp('Send newsletter for not sent newsletter user - page assignments and update their states. Possible assignments states:
+class SendNewsletterCommand extends ContainerAwareCommand {
+
+	protected function configure() {
+		$this->setName('krk:newsletter:send')->setDescription(
+				'Send newsletter for not sent newsletter user - page assignments and update their states.')->setHelp(
+				'Send newsletter for not sent newsletter user - page assignments and update their states. Possible assignments states:
 				- waiting
 				- sending
 				- sent
-				- error')
-		;
+				- error');
 	}
-	
-	protected function execute(InputInterface $input, OutputInterface $output)
-	{	
+
+	protected function execute(InputInterface $input, OutputInterface $output) {
 		$lockHandler = new LockHandler('newsletter.lock');
-		if (!$lockHandler->lock()) {
+		if (! $lockHandler->lock()) {
 			return 0;
 		}
 		
@@ -49,10 +45,12 @@ class SendNewsletterCommand extends ContainerAwareCommand
 		
 		/** @var NewsletterUserNewsletterPageAssignmentRepository $repository */
 		$repository = $doctrine->getRepository(NewsletterUserNewsletterPageAssignment::class);
-		$assignments = $repository->findBy(['state' => NewsletterUserNewsletterPageAssignment::WAITING_STATE], null, 100);
+		$assignments = $repository->findBy(
+				[ 'state' => NewsletterUserNewsletterPageAssignment::WAITING_STATE 
+				], null, 100);
 		
-		$assignmentsCount = count($assignments); 
-		if($assignmentsCount > 0) {
+		$assignmentsCount = count($assignments);
+		if ($assignmentsCount > 0) {
 			$output->writeln('//------------------------------------------------------------------------------');
 			$this->logMessage($output, 'Start sending mails: ' . $assignmentsCount . '.');
 			
@@ -71,59 +69,63 @@ class SendNewsletterCommand extends ContainerAwareCommand
 				$start = new \DateTime();
 				
 				try {
-					//create message
-					$message = \Swift_Message::newInstance()
-					->setSubject($page->getDisplayName())
-					->setFrom($sender, 'InfoMarket')
-					->setTo($user->getName());
-			
-					//embed images
+					// create message
+					$message = \Swift_Message::newInstance()->setSubject($page->getDisplayName())->setFrom(
+							$sender, 'InfoMarket')->setTo($user->getName());
+					
+					// embed images
 					$body = $assignment->getNewsletterPage()->getNewsletterCode();
-			
-					if($assignment->getEmbedImages()) {
+					
+					if ($assignment->getEmbedImages()) {
 						$newBody = $body;
-				
-						while(true) {
+						
+						while (true) {
 							$index = strpos($body, 'src="http://infomarket.edu.pl');
-							if($index == false) break;
-			
-							$body = substr($body, $index+5);
-			
+							if ($index == false)
+								break;
+							
+							$body = substr($body, $index + 5);
+							
 							$index = strpos($body, '"');
-							if($index == false) break;
-			
+							if ($index == false)
+								break;
+							
 							$path = substr($body, 0, $index);
-							$body = substr($body, $index+1);
+							$body = substr($body, $index + 1);
 							
 							$embededPath = $message->embed(\Swift_Image::fromPath($path));
 							$newBody = str_replace($path, $embededPath, $newBody);
 							$body = str_replace($path, '', $body);
 						}
-				
+						
 						$body = $newBody;
 					}
-			
+					
 					$message->setBody($body, 'text/html');
-		
-					//send
+					
+					// send
 					$mailer->send($message);
-					$sentCount++;
-				} catch(\Swift_TransportException $ex) {
-					$this->logMessage($output, 'Cannot send mail to \'' . $assignment->getNewsletterUser()->getName() . 
-							'\' due to Swiftmailer transport error: ' . $ex->getMessage() . '.');
-					$errorCount++;
-				} catch(\Swift_RfcComplianceException $ex) {
-					$this->logMessage($output, 'Cannot send mail to \'' . $assignment->getNewsletterUser()->getName() . 
-							'\' due to Swiftmailer RFC compliance error: ' . $ex->getMessage() . '.');
-					$errorCount++;
-				} catch(\Swift_SwiftException $ex) {
-					$this->logMessage($output, 'Cannot send mail to \'' . $assignment->getNewsletterUser()->getName() . 
-							'\' due to Swiftmailer error: ' . $ex->getMessage() . '.');
-					$errorCount++;
-				} catch(\Exception $ex) {
-					$this->logMessage($output, 'Cannot send mail to \'' . $assignment->getNewsletterUser()->getName() . 
-							'\' due to unknown error: ' . $ex->getMessage() . '.');
-					$errorCount++;
+					$sentCount ++;
+				} catch (\Swift_TransportException $ex) {
+					$this->logMessage($output, 
+							'Cannot send mail to \'' . $assignment->getNewsletterUser()->getName() .
+									 '\' due to Swiftmailer transport error: ' . $ex->getMessage() . '.');
+					$errorCount ++;
+				} catch (\Swift_RfcComplianceException $ex) {
+					$this->logMessage($output, 
+							'Cannot send mail to \'' . $assignment->getNewsletterUser()->getName() .
+									 '\' due to Swiftmailer RFC compliance error: ' . $ex->getMessage() . '.');
+					$errorCount ++;
+				} catch (\Swift_SwiftException $ex) {
+					$this->logMessage($output, 
+							'Cannot send mail to \'' . $assignment->getNewsletterUser()->getName() .
+									 '\' due to Swiftmailer error: ' . $ex->getMessage() . '.');
+					$errorCount ++;
+				} catch (\Exception $ex) {
+					$this->logMessage($output, 
+							'Cannot send mail to \'' . $assignment->getNewsletterUser()->getName() .
+									 '\' due to unknown error: ' . $ex->getMessage() . '.');
+					$errorCount ++;
 				}
 				
 				$end = new \DateTime();
@@ -137,29 +139,30 @@ class SendNewsletterCommand extends ContainerAwareCommand
 				$em->persist($assignment);
 				$em->flush();
 				
-				$commandInterval  = $end->getTimestamp() - $commandStart->getTimestamp();
+				$commandInterval = $end->getTimestamp() - $commandStart->getTimestamp();
 				
-				if($commandInterval > 280) {
+				if ($commandInterval > 280) {
 					break;
 				}
 				
 				sleep(1);
 			}
 			
-			$this->logMessage($output, 'Newsletter sending finished. Successfully sent: ' . $sentCount . 
-					' / Ended with error: ' . $errorCount . '.');
+			$this->logMessage($output, 
+					'Newsletter sending finished. Successfully sent: ' . $sentCount . ' / Ended with error: ' .
+							 $errorCount . '.');
 		}
 		
 		$lockHandler->release();
 	}
-	
+
 	protected function logMessage(OutputInterface $output, $message) {
 		$date = new \DateTime();
 		$output->writeln($date->format('Y-m-d H:i:s: ') . $message);
 	}
-	
+
 	public static function exception_error_handler($severity, $message, $file, $line) {
-		if (!(error_reporting() & $severity)) {
+		if (! (error_reporting() & $severity)) {
 			return;
 		}
 		throw new \ErrorException($message, 0, $severity, $file, $line);

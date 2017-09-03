@@ -2,8 +2,8 @@
 
 namespace AppBundle\Repository\Infomarket;
 
-use AppBundle\Entity\Magazine;
-use AppBundle\Entity\MagazineBranchAssignment;
+use AppBundle\Entity\Assignments\MagazineBranchAssignment;
+use AppBundle\Entity\Main\Magazine;
 use AppBundle\Filter\Base\Filter;
 use AppBundle\Filter\Infomarket\Base\BranchDependentFilter;
 use AppBundle\Repository\Base\BaseRepository;

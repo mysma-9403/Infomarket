@@ -2,12 +2,12 @@
 
 namespace AppBundle\Form\Editor\Admin\Assignments;
 
-use AppBundle\Entity\ArticleTagAssignment;
-use AppBundle\Form\Editor\Admin\Base\BaseEntityEditorType;
+use AppBundle\Entity\Assignments\ArticleTagAssignment;
+use AppBundle\Form\Editor\Admin\Base\BaseEditorType;
 use AppBundle\Form\Transformer\EntityToNumberTransformer;
 use Symfony\Component\Form\FormBuilderInterface;
 
-class ArticleTagAssignmentEditorType extends BaseEntityEditorType {
+class ArticleTagAssignmentEditorType extends BaseEditorType {
 
 	/**
 	 *
@@ -21,7 +21,8 @@ class ArticleTagAssignmentEditorType extends BaseEntityEditorType {
 	 */
 	protected $tagTransformer;
 
-	public function __construct(EntityToNumberTransformer $articleTransformer, EntityToNumberTransformer $tagTransformer) {
+	public function __construct(EntityToNumberTransformer $articleTransformer, 
+			EntityToNumberTransformer $tagTransformer) {
 		$this->articleTransformer = $articleTransformer;
 		$this->tagTransformer = $tagTransformer;
 	}

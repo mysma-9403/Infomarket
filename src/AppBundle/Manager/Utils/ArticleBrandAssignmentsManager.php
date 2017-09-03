@@ -2,7 +2,7 @@
 
 namespace AppBundle\Manager\Utils;
 
-use AppBundle\Entity\Article;
+use AppBundle\Entity\Main\Article;
 
 class ArticleBrandAssignmentsManager extends AssignmentsManager {
 

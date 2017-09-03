@@ -2,13 +2,13 @@
 
 namespace AppBundle\Form\Filter\Admin\Main;
 
-use AppBundle\Entity\BenchmarkField;
+use AppBundle\Entity\Main\BenchmarkField;
 use AppBundle\Filter\Common\Main\BenchmarkFieldFilter;
 use AppBundle\Filter\Base\Filter;
-use AppBundle\Form\Filter\Admin\Base\SimpleEntityFilterType;
+use AppBundle\Form\Filter\Admin\Base\SimpleFilterType;
 use Symfony\Component\Form\FormBuilderInterface;
 
-class BenchmarkFieldFilterType extends SimpleEntityFilterType {
+class BenchmarkFieldFilterType extends SimpleFilterType {
 
 	protected function addFields(FormBuilderInterface $builder, array $options) {
 		parent::addFields($builder, $options);

@@ -2,16 +2,16 @@
 
 namespace AppBundle\Repository\Admin\Assignments;
 
-use AppBundle\Entity\Advert;
-use AppBundle\Entity\AdvertCategoryAssignment;
-use AppBundle\Entity\Category;
+use AppBundle\Entity\Assignments\AdvertCategoryAssignment;
+use AppBundle\Entity\Main\Advert;
+use AppBundle\Entity\Main\Category;
 use AppBundle\Filter\Base\Filter;
-use AppBundle\Repository\Admin\Base\AuditRepository;
-use Doctrine\ORM\QueryBuilder;
-use Doctrine\ORM\Query\Expr\Join;
 use AppBundle\Filter\Common\Assignments\AdvertCategoryAssignmentFilter;
+use AppBundle\Repository\Admin\Base\SimpleRepository;
+use Doctrine\ORM\Query\Expr\Join;
+use Doctrine\ORM\QueryBuilder;
 
-class AdvertCategoryAssignmentRepository extends AuditRepository {
+class AdvertCategoryAssignmentRepository extends SimpleRepository {
 
 	protected function getSelectFields(QueryBuilder &$builder, Filter $filter) {
 		$fields = parent::getSelectFields($builder, $filter);

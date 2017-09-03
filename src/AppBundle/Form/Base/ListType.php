@@ -13,7 +13,8 @@ abstract class ListType extends BaseType {
 	}
 
 	protected function addActions(FormBuilderInterface $builder, array $options) {
-		$builder->add('selectAll', SubmitType::class)->add('selectNone', SubmitType::class)->add('deleteSelected', SubmitType::class);
+		$builder->add('selectAll', SubmitType::class)->add('selectNone', SubmitType::class)->add(
+				'deleteSelected', SubmitType::class);
 	}
 
 	protected function getDefaultOptions() {

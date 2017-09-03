@@ -2,13 +2,13 @@
 
 namespace AppBundle\Repository\Benchmark;
 
-use AppBundle\Entity\BenchmarkEnum;
-use AppBundle\Entity\BenchmarkField;
-use AppBundle\Entity\Brand;
-use AppBundle\Entity\Category;
-use AppBundle\Entity\Product;
-use AppBundle\Entity\ProductCategoryAssignment;
-use AppBundle\Entity\ProductNote;
+use AppBundle\Entity\Assignments\ProductCategoryAssignment;
+use AppBundle\Entity\Main\BenchmarkEnum;
+use AppBundle\Entity\Main\BenchmarkField;
+use AppBundle\Entity\Main\Brand;
+use AppBundle\Entity\Main\Category;
+use AppBundle\Entity\Main\Product;
+use AppBundle\Entity\Main\ProductNote;
 use AppBundle\Filter\Base\Filter;
 use AppBundle\Filter\Benchmark\ProductFilter;
 use AppBundle\Repository\Base\BaseRepository;
@@ -19,10 +19,7 @@ use Doctrine\ORM\QueryBuilder;
 class ProductRepository extends BaseRepository {
 
 	protected function getItemSelectFields(QueryBuilder &$builder) {
-		return [ 
-				'e.id',
-				'e.name',
-				'b.name AS brandName' 
+		return [ 'e.id','e.name','b.name AS brandName' 
 		];
 	}
 
@@ -122,7 +119,8 @@ class ProductRepository extends BaseRepository {
 	}
 
 	public function findMinMaxAvgValues($categoryId, $valueName) {
-		return $this->queryMinMaxAvgValues($categoryId, $valueName)->getSingleResult(AbstractQuery::HYDRATE_SCALAR);
+		return $this->queryMinMaxAvgValues($categoryId, $valueName)->getSingleResult(
+				AbstractQuery::HYDRATE_SCALAR);
 	}
 
 	protected function queryMinMaxAvgValues($categoryId, $valueName) {
@@ -130,7 +128,8 @@ class ProductRepository extends BaseRepository {
 		
 		$expr = $builder->expr();
 		
-		$builder->select($expr->min("e." . $valueName) . ' AS vmin', $expr->max("e." . $valueName) . ' AS vmax', $expr->avg("e." . $valueName) . ' AS vavg');
+		$builder->select($expr->min("e." . $valueName) . ' AS vmin', $expr->max("e." . $valueName) . ' AS vmax', 
+				$expr->avg("e." . $valueName) . ' AS vavg');
 		$builder->distinct();
 		$builder->from($this->getEntityType(), "e");
 		
@@ -161,7 +160,8 @@ class ProductRepository extends BaseRepository {
 		
 		$builder->innerJoin(ProductCategoryAssignment::class, 'pca', Join::WITH, 'e.id = pca.product');
 		$builder->innerJoin(Category::class, 'c', Join::WITH, 'c.id = pca.category');
-		$builder->leftJoin(BenchmarkEnum::class, 'be', Join::WITH, 'e.' . $valueName . ' LIKE CONCAT(\'%\', be.name, \'%\')');
+		$builder->leftJoin(BenchmarkEnum::class, 'be', Join::WITH, 
+				'e.' . $valueName . ' LIKE CONCAT(\'%\', be.name, \'%\')');
 		
 		$where = $expr->andX();
 		$where->add($expr->isNull('e.benchmarkQuery'));
@@ -192,7 +192,8 @@ class ProductRepository extends BaseRepository {
 		
 		$builder->innerJoin(ProductCategoryAssignment::class, 'pca', Join::WITH, 'e.id = pca.product');
 		$builder->innerJoin(Category::class, 'c', Join::WITH, 'c.id = pca.category');
-		$builder->leftJoin(BenchmarkEnum::class, 'be', Join::WITH, 'e.' . $valueName . ' LIKE CONCAT(\'%\', be.name, \'%\')');
+		$builder->leftJoin(BenchmarkEnum::class, 'be', Join::WITH, 
+				'e.' . $valueName . ' LIKE CONCAT(\'%\', be.name, \'%\')');
 		
 		$where = $expr->andX();
 		$where->add($expr->isNull('e.benchmarkQuery'));
@@ -221,7 +222,8 @@ class ProductRepository extends BaseRepository {
 		$builder->select("SUM(be.value) AS value");
 		$builder->from($this->getEntityType(), "e");
 		
-		$builder->innerJoin(BenchmarkEnum::class, 'be', Join::WITH, 'e.' . $valueName . ' LIKE CONCAT(\'%\', be.name, \'%\')');
+		$builder->innerJoin(BenchmarkEnum::class, 'be', Join::WITH, 
+				'e.' . $valueName . ' LIKE CONCAT(\'%\', be.name, \'%\')');
 		
 		$where = $expr->andX();
 		$where->add($expr->eq('e.id', $productId));
@@ -518,7 +520,9 @@ class ProductRepository extends BaseRepository {
 			if (count($filter->getCategories()) > 0) {
 				$where->add($expr->in('pca.category', $filter->getCategories()));
 			} else {
-				$where->add($expr->like('c.treePath', $builder->expr()->literal('%-' . $filter->getContextCategory() . '#%')));
+				$where->add(
+						$expr->like('c.treePath', 
+								$builder->expr()->literal('%-' . $filter->getContextCategory() . '#%')));
 			}
 			
 			if ($filter->getMinPrice()) {
@@ -559,7 +563,8 @@ class ProductRepository extends BaseRepository {
 							$where->add($or);
 							break;
 						default:
-							$where->add($this->buildStringsExpression($builder, 'e.' . $valueName, $value, true));
+							$where->add(
+									$this->buildStringsExpression($builder, 'e.' . $valueName, $value, true));
 							break;
 					}
 				}

@@ -2,7 +2,7 @@
 
 namespace AppBundle\Repository\Search\Infoprodukt;
 
-use AppBundle\Entity\Brand;
+use AppBundle\Entity\Main\Brand;
 use AppBundle\Filter\Base\Filter;
 use AppBundle\Filter\Common\Search\SearchFilter;
 use AppBundle\Repository\Search\Base\SearchRepository;

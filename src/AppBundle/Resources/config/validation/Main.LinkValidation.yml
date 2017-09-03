@@ -1,0 +1,6 @@
+AppBundle\Entity\Main\Link:
+    properties:
+        name:
+            - NotBlank: ~
+        url:
+            - NotBlank: ~

@@ -2,12 +2,12 @@
 
 namespace AppBundle\Form\Editor\Admin\Main;
 
-use AppBundle\Entity\Category;
-use AppBundle\Form\Editor\Admin\Base\ImageEntityEditorType;
+use AppBundle\Entity\Main\Category;
+use AppBundle\Form\Editor\Admin\Base\ImageEditorType;
 use AppBundle\Form\Transformer\EntityToNumberTransformer;
 use Symfony\Component\Form\FormBuilderInterface;
 
-class CategoryEditorType extends ImageEntityEditorType {
+class CategoryEditorType extends ImageEditorType {
 
 	/**
 	 *

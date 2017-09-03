@@ -2,14 +2,14 @@
 
 namespace Tests\AppBundle\Form\Editor\Admin\Assignments;
 
-use AppBundle\Entity\Menu;
-use AppBundle\Entity\MenuMenuEntryAssignment;
-use AppBundle\Entity\MenuEntry;
+use AppBundle\Entity\Assignments\Menu;
+use AppBundle\Entity\Assignments\MenuMenuEntryAssignment;
+use AppBundle\Entity\Assignments\MenuEntry;
 use AppBundle\Form\Editor\Admin\Assignments\MenuMenuEntryAssignmentEditorType;
 use Symfony\Component\Form\PreloadedExtension;
-use Tests\AppBundle\Form\Editor\Admin\Base\BaseEntityEditorTypeTest;
+use Tests\AppBundle\Form\Editor\Admin\Base\BaseEditorTypeTest;
 
-class MenuMenuEntryAssignmentEditorTypeTest extends BaseEntityEditorTypeTest {
+class MenuMenuEntryAssignmentEditorTypeTest extends BaseEditorTypeTest {
 		
 	const MENU_ID = 100;
 	const MENU_NAME = 'Test menu';

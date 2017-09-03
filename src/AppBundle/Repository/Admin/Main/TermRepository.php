@@ -2,15 +2,15 @@
 
 namespace AppBundle\Repository\Admin\Main;
 
-use AppBundle\Entity\Term;
-use AppBundle\Entity\TermCategoryAssignment;
-use AppBundle\Filter\Common\Main\TermFilter;
+use AppBundle\Entity\Assignments\TermCategoryAssignment;
+use AppBundle\Entity\Main\Term;
 use AppBundle\Filter\Base\Filter;
-use AppBundle\Repository\Admin\Base\SimpleEntityRepository;
+use AppBundle\Filter\Common\Main\TermFilter;
+use AppBundle\Repository\Admin\Base\SimpleRepository;
 use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\ORM\QueryBuilder;
 
-class TermRepository extends SimpleEntityRepository {
+class TermRepository extends SimpleRepository {
 
 	protected function buildJoins(QueryBuilder &$builder, Filter $filter) {
 		parent::buildJoins($builder, $filter);

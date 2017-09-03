@@ -1,8 +1,0 @@
-AppBundle\Entity\NewsletterBlockArticleAssignment:
-    constraints:
-        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
-            fields: [newsletterBlock, article]
-            errorPath: article
-            ignoreNull: false
-            message: 'newsletterBlockArticleAssignment.unique'
-                

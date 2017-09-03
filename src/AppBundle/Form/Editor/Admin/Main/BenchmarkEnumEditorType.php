@@ -2,11 +2,11 @@
 
 namespace AppBundle\Form\Editor\Admin\Main;
 
-use AppBundle\Entity\BenchmarkEnum;
-use AppBundle\Form\Editor\Admin\Base\BaseEntityEditorType;
+use AppBundle\Entity\Main\BenchmarkEnum;
+use AppBundle\Form\Editor\Admin\Base\BaseEditorType;
 use Symfony\Component\Form\FormBuilderInterface;
 
-class BenchmarkEnumEditorType extends BaseEntityEditorType {
+class BenchmarkEnumEditorType extends BaseEditorType {
 
 	protected function addFields(FormBuilderInterface $builder, array $options) {
 		parent::addFields($builder, $options);

@@ -2,7 +2,7 @@
 
 namespace AppBundle\Repository\Infoprodukt;
 
-use AppBundle\Entity\ArticleCategory;
+use AppBundle\Entity\Main\ArticleCategory;
 use AppBundle\Repository\Admin\Main\ArticleCategoryRepository as BaseRepository;
 use Doctrine\ORM\QueryBuilder;
 

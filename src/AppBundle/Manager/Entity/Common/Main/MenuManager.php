@@ -2,7 +2,7 @@
 
 namespace AppBundle\Manager\Entity\Common\Main;
 
-use AppBundle\Entity\Menu;
+use AppBundle\Entity\Main\Menu;
 use AppBundle\Manager\Entity\Base\EntityManager;
 
 class MenuManager extends EntityManager {

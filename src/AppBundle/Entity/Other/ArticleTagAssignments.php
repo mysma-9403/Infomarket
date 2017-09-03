@@ -2,97 +2,53 @@
 
 namespace AppBundle\Entity\Other;
 
+class ArticleTagAssignments {
 
+	/**
+	 *
+	 * @var integer
+	 */
+	private $article;
 
-/**
- * ArticleTagAssignments
- */
-class ArticleTagAssignments
-{
-    /**
-     * @var integer
-     */
-    private $article;
-    
-    /**
-     * @var array
-     */
-    private $tags;
-    
-    /**
-     * @var string
-     */
-    private $tagsString;
+	/**
+	 *
+	 * @var array
+	 */
+	private $tags;
 
-    /**
-     * Set article
-     *
-     * @param integer $article
-     *
-     * @return ArticleTagAssignments
-     */
-    public function setArticle($article)
-    {
-        $this->article = $article;
+	/**
+	 *
+	 * @var string
+	 */
+	private $tagsString;
 
-        return $this;
-    }
+	public function setArticle($article) {
+		$this->article = $article;
+		
+		return $this;
+	}
 
-    /**
-     * Get article
-     *
-     * @return integer
-     */
-    public function getArticle()
-    {
-        return $this->article;
-    }
-    
-    /**
-     * Set tags
-     *
-     * @param array $tags
-     *
-     * @return ArticleTagAssignments
-     */
-    public function setTags($tags)
-    {
-    	$this->tags = $tags;
-    
-    	return $this;
-    }
-    
-    /**
-     * Get tags
-     *
-     * @return array
-     */
-    public function getTags()
-    {
-    	return $this->tags;
-    }
-    
-    /**
-     * Set tagsString
-     *
-     * @param string $tagsString
-     *
-     * @return ArticleTagAssignments
-     */
-    public function setTagsString($tagsString)
-    {
-    	$this->tagsString = $tagsString;
-    
-    	return $this;
-    }
-    
-    /**
-     * Get tagsString
-     *
-     * @return string
-     */
-    public function getTagsString()
-    {
-    	return $this->tagsString;
-    }
+	public function getArticle() {
+		return $this->article;
+	}
+
+	public function setTags($tags) {
+		$this->tags = $tags;
+		
+		return $this;
+	}
+
+	public function getTags() {
+		return $this->tags;
+	}
+
+	public function setTagsString($tagsString) {
+		$this->tagsString = $tagsString;
+		
+		return $this;
+	}
+
+	public function getTagsString() {
+		return $this->tagsString;
+	}
 }

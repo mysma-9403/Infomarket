@@ -1,8 +1,0 @@
-AppBundle\Entity\NewsletterBlockAdvertAssignment:
-    constraints:
-        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
-            fields: [newsletterBlock, advert]
-            errorPath: advert
-            ignoreNull: false
-            message: 'newsletterBlockAdvertAssignment.unique'
-                

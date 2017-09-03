@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+        http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+	<entity name="AppBundle\Entity\Main\ProductNote" table="product_notes"
+		repository-class="AppBundle\Repository\Admin\Main\ProductNoteRepository">
+
+		<one-to-one field="product" target-entity="Product" inversed-by="productNote" />
+
+		<field name="overalNote" type="decimal" precision="2" scale="1"
+			nullable="true" />
+
+		<field name="decimalNote1" type="decimal" precision="2" scale="1"
+			nullable="true" />
+		<field name="decimalNote2" type="decimal" precision="2" scale="1"
+			nullable="true" />
+		<field name="decimalNote3" type="decimal" precision="2" scale="1"
+			nullable="true" />
+		<field name="decimalNote4" type="decimal" precision="2" scale="1"
+			nullable="true" />
+		<field name="decimalNote5" type="decimal" precision="2" scale="1"
+			nullable="true" />
+		<field name="decimalNote6" type="decimal" precision="2" scale="1"
+			nullable="true" />
+		<field name="decimalNote7" type="decimal" precision="2" scale="1"
+			nullable="true" />
+		<field name="decimalNote8" type="decimal" precision="2" scale="1"
+			nullable="true" />
+		<field name="decimalNote9" type="decimal" precision="2" scale="1"
+			nullable="true" />
+		<field name="decimalNote10" type="decimal" precision="2" scale="1"
+			nullable="true" />
+
+		<field name="decimalNote11" type="decimal" precision="2" scale="1"
+			nullable="true" />
+		<field name="decimalNote12" type="decimal" precision="2" scale="1"
+			nullable="true" />
+		<field name="decimalNote13" type="decimal" precision="2" scale="1"
+			nullable="true" />
+		<field name="decimalNote14" type="decimal" precision="2" scale="1"
+			nullable="true" />
+		<field name="decimalNote15" type="decimal" precision="2" scale="1"
+			nullable="true" />
+		<field name="decimalNote16" type="decimal" precision="2" scale="1"
+			nullable="true" />
+		<field name="decimalNote17" type="decimal" precision="2" scale="1"
+			nullable="true" />
+		<field name="decimalNote18" type="decimal" precision="2" scale="1"
+			nullable="true" />
+		<field name="decimalNote19" type="decimal" precision="2" scale="1"
+			nullable="true" />
+		<field name="decimalNote20" type="decimal" precision="2" scale="1"
+			nullable="true" />
+
+
+		<field name="integerNote1" type="decimal" precision="2" scale="1"
+			nullable="true" />
+		<field name="integerNote2" type="decimal" precision="2" scale="1"
+			nullable="true" />
+		<field name="integerNote3" type="decimal" precision="2" scale="1"
+			nullable="true" />
+		<field name="integerNote4" type="decimal" precision="2" scale="1"
+			nullable="true" />
+		<field name="integerNote5" type="decimal" precision="2" scale="1"
+			nullable="true" />
+		<field name="integerNote6" type="decimal" precision="2" scale="1"
+			nullable="true" />
+		<field name="integerNote7" type="decimal" precision="2" scale="1"
+			nullable="true" />
+		<field name="integerNote8" type="decimal" precision="2" scale="1"
+			nullable="true" />
+		<field name="integerNote9" type="decimal" precision="2" scale="1"
+			nullable="true" />
+		<field name="integerNote10" type="decimal" precision="2" scale="1"
+			nullable="true" />
+
+		<field name="integerNote11" type="decimal" precision="2" scale="1"
+			nullable="true" />
+		<field name="integerNote12" type="decimal" precision="2" scale="1"
+			nullable="true" />
+		<field name="integerNote13" type="decimal" precision="2" scale="1"
+			nullable="true" />
+		<field name="integerNote14" type="decimal" precision="2" scale="1"
+			nullable="true" />
+		<field name="integerNote15" type="decimal" precision="2" scale="1"
+			nullable="true" />
+		<field name="integerNote16" type="decimal" precision="2" scale="1"
+			nullable="true" />
+		<field name="integerNote17" type="decimal" precision="2" scale="1"
+			nullable="true" />
+		<field name="integerNote18" type="decimal" precision="2" scale="1"
+			nullable="true" />
+		<field name="integerNote19" type="decimal" precision="2" scale="1"
+			nullable="true" />
+		<field name="integerNote20" type="decimal" precision="2" scale="1"
+			nullable="true" />
+
+
+		<field name="stringNote1" type="decimal" precision="2" scale="1"
+			nullable="true" />
+		<field name="stringNote2" type="decimal" precision="2" scale="1"
+			nullable="true" />
+		<field name="stringNote3" type="decimal" precision="2" scale="1"
+			nullable="true" />
+		<field name="stringNote4" type="decimal" precision="2" scale="1"
+			nullable="true" />
+		<field name="stringNote5" type="decimal" precision="2" scale="1"
+			nullable="true" />
+		<field name="stringNote6" type="decimal" precision="2" scale="1"
+			nullable="true" />
+		<field name="stringNote7" type="decimal" precision="2" scale="1"
+			nullable="true" />
+		<field name="stringNote8" type="decimal" precision="2" scale="1"
+			nullable="true" />
+		<field name="stringNote9" type="decimal" precision="2" scale="1"
+			nullable="true" />
+		<field name="stringNote10" type="decimal" precision="2" scale="1"
+			nullable="true" />
+
+		<field name="stringNote11" type="decimal" precision="2" scale="1"
+			nullable="true" />
+		<field name="stringNote12" type="decimal" precision="2" scale="1"
+			nullable="true" />
+		<field name="stringNote13" type="decimal" precision="2" scale="1"
+			nullable="true" />
+		<field name="stringNote14" type="decimal" precision="2" scale="1"
+			nullable="true" />
+		<field name="stringNote15" type="decimal" precision="2" scale="1"
+			nullable="true" />
+		<field name="stringNote16" type="decimal" precision="2" scale="1"
+			nullable="true" />
+		<field name="stringNote17" type="decimal" precision="2" scale="1"
+			nullable="true" />
+		<field name="stringNote18" type="decimal" precision="2" scale="1"
+			nullable="true" />
+		<field name="stringNote19" type="decimal" precision="2" scale="1"
+			nullable="true" />
+		<field name="stringNote20" type="decimal" precision="2" scale="1"
+			nullable="true" />
+
+	</entity>
+
+</doctrine-mapping>

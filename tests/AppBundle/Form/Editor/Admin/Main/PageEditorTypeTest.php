@@ -2,12 +2,12 @@
 
 namespace Tests\AppBundle\Form\Editor\Admin\Main;
 
-use AppBundle\Entity\Page;
+use AppBundle\Entity\Main\Page;
 use AppBundle\Form\Editor\Admin\Main\PageEditorType;
 use Symfony\Component\Form\PreloadedExtension;
-use Tests\AppBundle\Form\Editor\Admin\Base\ImageEntityEditorTypeTest;
+use Tests\AppBundle\Form\Editor\Admin\Base\ImageEditorTypeTest;
 
-class PageEditorTypeTest extends ImageEntityEditorTypeTest {
+class PageEditorTypeTest extends ImageEditorTypeTest {
 	
 	const SUBNAME = 'Test subname';
 	const CONTENT = 'Test content';

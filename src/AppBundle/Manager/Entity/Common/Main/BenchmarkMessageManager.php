@@ -2,12 +2,12 @@
 
 namespace AppBundle\Manager\Entity\Common\Main;
 
-use AppBundle\Entity\BenchmarkMessage;
+use AppBundle\Entity\Main\BenchmarkMessage;
 use AppBundle\Manager\Entity\Base\EntityManager;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Repository\Base\BaseRepository;
 use AppBundle\Manager\Params\Base\ParamsManager;
-use AppBundle\Entity\Product;
+use AppBundle\Entity\Main\Product;
 
 class BenchmarkMessageManager extends EntityManager {
 
@@ -23,7 +23,8 @@ class BenchmarkMessageManager extends EntityManager {
 	 */
 	protected $tokenStorage;
 
-	public function __construct(BaseRepository $repository, $paginator, ParamsManager $paramsManager, $tokenStorage) {
+	public function __construct(BaseRepository $repository, $paginator, ParamsManager $paramsManager, 
+			$tokenStorage) {
 		parent::__construct($repository, $paginator);
 		$this->paramsManager = $paramsManager;
 		$this->tokenStorage = $tokenStorage;

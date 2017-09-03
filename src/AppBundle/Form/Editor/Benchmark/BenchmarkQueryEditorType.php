@@ -2,7 +2,7 @@
 
 namespace AppBundle\Form\Editor\Benchmark;
 
-use AppBundle\Entity\BenchmarkQuery;
+use AppBundle\Entity\Main\BenchmarkQuery;
 use AppBundle\Form\Base\EditorType;
 use Symfony\Component\Form\FormBuilderInterface;
 
