@@ -2,11 +2,11 @@
 
 namespace Tests\AppBundle\Form\Filter\Admin\Assignments;
 
-use AppBundle\Filter\Admin\Assignments\MagazineCategoryAssignmentFilter;
+use AppBundle\Filter\Common\Assignments\MagazineCategoryAssignmentFilter;
 use AppBundle\Form\Filter\Admin\Assignments\MagazineCategoryAssignmentFilterType;
-use Tests\AppBundle\Form\Filter\Admin\Base\BaseEntityFilterTypeTest;
+use Tests\AppBundle\Form\Filter\Admin\Base\BaseFilterTypeTest;
 
-class MagazineCategoryAssignmentFilterTypeTest extends BaseEntityFilterTypeTest {
+class MagazineCategoryAssignmentFilterTypeTest extends BaseFilterTypeTest {
 		
 	const MAGAZINE_1 = 101;
 	const MAGAZINE_2 = 102;

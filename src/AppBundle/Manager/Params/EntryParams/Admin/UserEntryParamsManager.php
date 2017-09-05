@@ -6,15 +6,15 @@ use AppBundle\Manager\Params\EntryParams\Base\EntryParamsManager;
 use Symfony\Component\HttpFoundation\Request;
 
 class UserEntryParamsManager extends EntryParamsManager {
-	
+
 	protected $tokenStorage;
-	
-	public function __construct($em, $fm, $doctrine, $tokenStorage) {
-		parent::__construct($em, $fm, $doctrine);
+
+	public function __construct($em, $fm, $tokenStorage) {
+		parent::__construct($em, $fm);
 		
 		$this->tokenStorage = $tokenStorage;
 	}
-	
+
 	public function getSettingsParams(Request $request, array $params) {
 		$viewParams = $params['viewParams'];
 		
@@ -22,6 +22,6 @@ class UserEntryParamsManager extends EntryParamsManager {
 		$viewParams['entry'] = $entry;
 		
 		$params['viewParams'] = $viewParams;
-    	return $params;
+		return $params;
 	}
 }

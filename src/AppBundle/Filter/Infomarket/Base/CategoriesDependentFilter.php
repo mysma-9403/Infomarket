@@ -7,23 +7,15 @@ use AppBundle\Filter\Base\Filter;
 class CategoriesDependentFilter extends Filter {
 
 	/**
-	 * 
+	 *
 	 * @var array
 	 */
-	protected $contextCategories = array();
-	
-	/**
-	 * 
-	 * {@inheritDoc}
-	 * @see \AppBundle\Filter\Base\Filter::initContextParams()
-	 */
+	protected $contextCategories = array ();
+
 	public function initContextParams(array $contextParams) {
 		$this->contextCategories = $contextParams['categories'];
 	}
-	
-	/**
-	 * @return array
-	 */
+
 	public function getContextCategories() {
 		return $this->contextCategories;
 	}

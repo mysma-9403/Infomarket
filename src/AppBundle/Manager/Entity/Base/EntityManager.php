@@ -2,93 +2,85 @@
 
 namespace AppBundle\Manager\Entity\Base;
 
-use AppBundle\Entity\Base\Audit;
-use AppBundle\Manager\Params\Base\ParamsManager;
+use AppBundle\Entity\Base\Simple;
+use AppBundle\Repository\Base\BaseRepository;
 use Doctrine\ORM\Query\Expr\Base;
 use Symfony\Component\HttpFoundation\Request;
 
-abstract class EntityManager extends ParamsManager {
-	
-	protected $paginator;
-	
-	protected $entriesPerPage;
-	
+abstract class EntityManager {
+
+	const DEFAULT_ENTRIES_PER_PAGE = 8;
+
 	/**
-	 * 
-	 * @param unknown $doctrine
+	 *
+	 * @var BaseRepository
 	 */
-	public function __construct($doctrine, $paginator) {
-		parent::__construct($doctrine);
-		
+	protected $repository;
+
+	/**
+	 *
+	 * @var unknown
+	 */
+	protected $paginator;
+
+	protected $entriesPerPage;
+
+	public function __construct(BaseRepository $repository, $paginator) {
+		$this->repository = $repository;
 		$this->paginator = $paginator;
-		$this->entriesPerPage = 8;
+		$this->entriesPerPage = self::DEFAULT_ENTRIES_PER_PAGE;
 	}
-	
+
 	public function setEntriesPerPage($entriesPerPage) {
 		$this->entriesPerPage = $entriesPerPage;
 	}
-	
+
 	/**
 	 * Get object from the repository.
-	 * @param integer $id
-	 * 
-	 * @return Audit
+	 *
+	 * @param integer $id        	
+	 *
+	 * @return Simple
 	 */
 	public function getEntry($id) {
-		$repository = $this->getRepository();
-		return $repository->find($id);
+		return $this->repository->find($id);
 	}
-	
+
 	public function getEntries($filter, $page) {
-		$repository = $this->getRepository();
-		if($this->entriesPerPage > 0) {
-			$query = $repository->queryItems($filter);
+		if ($this->entriesPerPage > 0) {
+			$query = $this->repository->queryItems($filter);
 			return $this->paginator->paginate($query, $page, $this->entriesPerPage);
 		} else {
-			return $repository->findItems($filter);
+			return $this->repository->findItems($filter);
 		}
 	}
-	
-	/**
-	 * 
-	 * @return BaseEntityRepository
-	 */
-	protected function getRepository() {
-		return $this->doctrine->getRepository($this->getEntityType());
-	}
-	
+
 	/**
 	 * Create new entry with request parameters.
-	 * 
-	 * @param Request $request
-	 * 
-	 * @return Audit
+	 *
+	 * @param Request $request        	
+	 *
+	 * @return Simple
 	 */
 	public function createFromRequest(Request $request) {
-		/** @var Audit $entry */
-		$entry = $this->create();
-		
-		return $entry;
+		return $this->create();
 	}
-	
+
 	/**
 	 * Create new entry with template parameters.
-	 * 
-	 * @param Audit $template
-	 * 
-	 * @return Audit
+	 *
+	 * @param Simple $template        	
+	 *
+	 * @return Simple
 	 */
 	public function createFromTemplate($template) {
-		/** @var Audit $entry */
-		$entry = $this->create();
-		
-		return $entry;
+		return $this->create();
 	}
-	
+
 	protected function create() {
 		$refClass = new \ReflectionClass($this->getEntityType());
 		return $refClass->newInstanceArgs();
 	}
-	
+
 	protected abstract function getEntityType();
 }

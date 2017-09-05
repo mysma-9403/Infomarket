@@ -2,7 +2,7 @@
 
 namespace Tests\AppBundle\Logic\Common\BenchmarkField\Provider;
 
-use AppBundle\Entity\BenchmarkField;
+use AppBundle\Entity\Main\BenchmarkField;
 use AppBundle\Logic\Common\BenchmarkField\Provider\BenchmarkFieldsProvider;
 use AppBundle\Repository\Common\BenchmarkFieldMetadataRepository;
 use PHPUnit\Framework\TestCase;

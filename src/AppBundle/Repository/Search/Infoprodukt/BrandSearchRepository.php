@@ -2,14 +2,14 @@
 
 namespace AppBundle\Repository\Search\Infoprodukt;
 
-use AppBundle\Entity\Brand;
+use AppBundle\Entity\Main\Brand;
 use AppBundle\Filter\Base\Filter;
-use AppBundle\Filter\Common\SearchFilter;
+use AppBundle\Filter\Common\Search\SearchFilter;
 use AppBundle\Repository\Search\Base\SearchRepository;
 use Doctrine\ORM\QueryBuilder;
 
-class BrandSearchRepository extends SearchRepository
-{
+class BrandSearchRepository extends SearchRepository {
+
 	protected function getSelectFields(QueryBuilder &$builder, Filter $filter) {
 		$fields = parent::getSelectFields($builder, $filter);
 		
@@ -18,19 +18,18 @@ class BrandSearchRepository extends SearchRepository
 		
 		return $fields;
 	}
-	
+
 	protected function getWhere(QueryBuilder &$builder, Filter $filter) {
-		/** @var SearchFilter $filter */
 		$where = parent::getWhere($builder, $filter);
+		/** @var SearchFilter $filter */
 		
 		$expr = $builder->expr();
 		$where->add($expr->eq('e.infoprodukt', 1));
 		
 		return $where;
 	}
-	
-	
+
 	protected function getEntityType() {
-		return Brand::class ;
+		return Brand::class;
 	}
 }

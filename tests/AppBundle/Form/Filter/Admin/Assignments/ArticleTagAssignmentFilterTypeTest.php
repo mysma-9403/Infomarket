@@ -2,11 +2,11 @@
 
 namespace Tests\AppBundle\Form\Filter\Admin\Assignments;
 
-use AppBundle\Filter\Admin\Assignments\ArticleTagAssignmentFilter;
+use AppBundle\Filter\Common\Assignments\ArticleTagAssignmentFilter;
 use AppBundle\Form\Filter\Admin\Assignments\ArticleTagAssignmentFilterType;
-use Tests\AppBundle\Form\Filter\Admin\Base\BaseEntityFilterTypeTest;
+use Tests\AppBundle\Form\Filter\Admin\Base\BaseFilterTypeTest;
 
-class ArticleTagAssignmentFilterTypeTest extends BaseEntityFilterTypeTest {
+class ArticleTagAssignmentFilterTypeTest extends BaseFilterTypeTest {
 		
 	const ARTICLE_1 = 101;
 	const ARTICLE_2 = 102;

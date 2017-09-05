@@ -2,21 +2,48 @@
 
 namespace AppBundle\Entity\Base;
 
-
-
 class Image extends Simple {
-	
+
+	/**
+	 *
+	 * @var UploadedFile
+	 */
+	private $file;
+
 	public function __construct() {
 		parent::__construct();
 		
 		$this->vertical = false;
 	}
-	
-	public function getUploadPath()
-	{
+
+	/**
+	 * Set file
+	 *
+	 * @param UploadedFile $file        	
+	 *
+	 * @return Image
+	 * @var integer
+	 */
+	public function setFile($file) {
+		$this->file = $file;
+		
+		return $this;
+	}
+
+	/**
+	 * Get file.
+	 *
+	 * @return UploadedFile
+	 * @var integer
+	 */
+	public function getFile() {
+		return $this->file;
+	}
+
+	public function getUploadPath() {
 		return 'upload/images/';
 	}
-	
+
 	public function removeImage() {
 		$this->file = null;
 		$this->image = null;
@@ -24,210 +51,172 @@ class Image extends Simple {
 		$this->size = 0;
 		$this->vertical = false;
 	}
-	
+
 	/**
-	 * @var UploadedFile
+	 *
+	 * @var string
 	 */
-	protected $file;
-	
-    /**
-     * @var string
-     */
-    protected $mimeType;
+	private $mimeType;
 
-    /**
-     * @var string
-     */
-    protected $size;
+	/**
+	 *
+	 * @var string
+	 */
+	private $size;
 
-    /**
-     * @var string
-     */
-    protected $image;
+	/**
+	 *
+	 * @var string
+	 */
+	private $image;
 
-    /**
-     * @var boolean
-     */
-    protected $vertical;
+	/**
+	 *
+	 * @var boolean
+	 */
+	private $vertical;
 
-    /**
-     * @var integer
-     */
-    protected $forcedWidth;
+	/**
+	 *
+	 * @var integer
+	 */
+	private $forcedWidth;
 
-    /**
-     * @var integer
-     */
-    protected $forcedHeight;
+	/**
+	 *
+	 * @var integer
+	 */
+	private $forcedHeight;
 
+	/**
+	 * Set mimeType
+	 *
+	 * @param string $mimeType        	
+	 *
+	 * @return Image
+	 */
+	public function setMimeType($mimeType) {
+		$this->mimeType = $mimeType;
+		
+		return $this;
+	}
 
-    /**
-     * Set file
-     *
-     * @param UploadedFile $file
-     *
-     * @return Image
-     * @var integer
-     */
-    public function setFile($file)
-    {
-    	$this->file = $file;
-    
-    	return $this;
-    }
-    
-    /**
-     * Get file.
-     *
-     * @return UploadedFile
-     * @var integer
-     */
-    public function getFile()
-    {
-    	return $this->file;
-    }
-    
-    /**
-     * Set mimeType
-     *
-     * @param string $mimeType
-     *
-     * @return Image
-     */
-    public function setMimeType($mimeType)
-    {
-        $this->mimeType = $mimeType;
+	/**
+	 * Get mimeType
+	 *
+	 * @return string
+	 */
+	public function getMimeType() {
+		return $this->mimeType;
+	}
 
-        return $this;
-    }
+	/**
+	 * Set size
+	 *
+	 * @param string $size        	
+	 *
+	 * @return Image
+	 */
+	public function setSize($size) {
+		$this->size = $size;
+		
+		return $this;
+	}
 
-    /**
-     * Get mimeType
-     *
-     * @return string
-     */
-    public function getMimeType()
-    {
-        return $this->mimeType;
-    }
+	/**
+	 * Get size
+	 *
+	 * @return string
+	 */
+	public function getSize() {
+		return $this->size;
+	}
 
-    /**
-     * Set size
-     *
-     * @param string $size
-     *
-     * @return Image
-     */
-    public function setSize($size)
-    {
-        $this->size = $size;
+	/**
+	 * Set image
+	 *
+	 * @param string $image        	
+	 *
+	 * @return Image
+	 */
+	public function setImage($image) {
+		$this->image = $image;
+		
+		return $this;
+	}
 
-        return $this;
-    }
+	/**
+	 * Get image
+	 *
+	 * @return string
+	 */
+	public function getImage() {
+		return $this->image;
+	}
 
-    /**
-     * Get size
-     *
-     * @return string
-     */
-    public function getSize()
-    {
-        return $this->size;
-    }
+	/**
+	 * Set vertical
+	 *
+	 * @param boolean $vertical        	
+	 *
+	 * @return Image
+	 */
+	public function setVertical($vertical) {
+		$this->vertical = $vertical;
+		
+		return $this;
+	}
 
-    /**
-     * Set image
-     *
-     * @param string $image
-     *
-     * @return Image
-     */
-    public function setImage($image)
-    {
-        $this->image = $image;
+	/**
+	 * Get vertical
+	 *
+	 * @return boolean
+	 */
+	public function getVertical() {
+		return $this->vertical;
+	}
 
-        return $this;
-    }
+	/**
+	 * Set forcedWidth
+	 *
+	 * @param integer $forcedWidth        	
+	 *
+	 * @return Image
+	 */
+	public function setForcedWidth($forcedWidth) {
+		$this->forcedWidth = $forcedWidth;
+		
+		return $this;
+	}
 
-    /**
-     * Get image
-     *
-     * @return string
-     */
-    public function getImage()
-    {
-        return $this->image;
-    }
+	/**
+	 * Get forcedWidth
+	 *
+	 * @return integer
+	 */
+	public function getForcedWidth() {
+		return $this->forcedWidth;
+	}
 
-    /**
-     * Set vertical
-     *
-     * @param boolean $vertical
-     *
-     * @return Image
-     */
-    public function setVertical($vertical)
-    {
-        $this->vertical = $vertical;
+	/**
+	 * Set forcedHeight
+	 *
+	 * @param integer $forcedHeight        	
+	 *
+	 * @return Image
+	 */
+	public function setForcedHeight($forcedHeight) {
+		$this->forcedHeight = $forcedHeight;
+		
+		return $this;
+	}
 
-        return $this;
-    }
-
-    /**
-     * Get vertical
-     *
-     * @return boolean
-     */
-    public function getVertical()
-    {
-        return $this->vertical;
-    }
-
-    /**
-     * Set forcedWidth
-     *
-     * @param integer $forcedWidth
-     *
-     * @return Image
-     */
-    public function setForcedWidth($forcedWidth)
-    {
-        $this->forcedWidth = $forcedWidth;
-
-        return $this;
-    }
-
-    /**
-     * Get forcedWidth
-     *
-     * @return integer
-     */
-    public function getForcedWidth()
-    {
-        return $this->forcedWidth;
-    }
-
-    /**
-     * Set forcedHeight
-     *
-     * @param integer $forcedHeight
-     *
-     * @return Image
-     */
-    public function setForcedHeight($forcedHeight)
-    {
-        $this->forcedHeight = $forcedHeight;
-
-        return $this;
-    }
-
-    /**
-     * Get forcedHeight
-     *
-     * @return integer
-     */
-    public function getForcedHeight()
-    {
-        return $this->forcedHeight;
-    }
+	/**
+	 * Get forcedHeight
+	 *
+	 * @return integer
+	 */
+	public function getForcedHeight() {
+		return $this->forcedHeight;
+	}
 }

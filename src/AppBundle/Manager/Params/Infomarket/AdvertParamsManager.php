@@ -2,42 +2,51 @@
 
 namespace AppBundle\Manager\Params\Infomarket;
 
-use AppBundle\Entity\Advert;
-use AppBundle\Manager\Params\Base\ParamsManager;
+use AppBundle\Entity\Main\Advert;
 use AppBundle\Repository\Infomarket\AdvertRepository;
 use Symfony\Component\HttpFoundation\Request;
 
-class AdvertParamsManager extends ParamsManager {
-	
+class AdvertParamsManager {
+
+	/**
+	 *
+	 * @var array
+	 */
 	protected $advertLocations;
-	
+
+	/**
+	 *
+	 * @var boolean
+	 */
 	protected $checkInRoots;
-	
-	public function __construct($doctrine, array $advertLocations) {
-		parent::__construct($doctrine);
+
+	/**
+	 *
+	 * @var AdvertRepository
+	 */
+	protected $advertRepository;
+
+	public function __construct(AdvertRepository $advertRepository, array $advertLocations) {
+		$this->advertRepository = $advertRepository;
 		$this->advertLocations = $advertLocations;
 		$this->checkInRoots = true;
 	}
-	
+
 	public function getParams(Request $request, array $params) {
 		$contextParams = $params['contextParams'];
 		$viewParams = $params['viewParams'];
 		
-		if(count($this->advertLocations) > 0) {
-			
-			$em = $this->doctrine->getManager();
-			
+		if (count($this->advertLocations) > 0) {
 			$categories = $this->getContextCategories($request, $contextParams, $viewParams);
 			
-			/** @var AdvertRepository $advertRepository */
-			$advertRepository = new AdvertRepository($em, $em->getClassMetadata(Advert::class));
-			foreach($this->advertLocations as $advertLocation) {
-				$adverts = $advertRepository->findAdvertItems($advertLocation, $categories, $this->checkInRoots);
+			foreach ($this->advertLocations as $advertLocation) {
+				$adverts = $this->advertRepository->findAdvertItems($advertLocation, $categories, 
+						$this->checkInRoots);
 				$viewParams[Advert::getLocationParam($advertLocation)] = $adverts;
-			
-				if(count($adverts) > 0) {
-					$advertsIds = $advertRepository->getIds($adverts);
-					$advertRepository->updateAdvertsShowCounts($advertsIds);
+				
+				if (count($adverts) > 0) {
+					$advertsIds = $this->advertRepository->getIds($adverts);
+					$this->advertRepository->updateAdvertsShowCounts($advertsIds);
 				}
 			}
 		}
@@ -46,7 +55,7 @@ class AdvertParamsManager extends ParamsManager {
 		$params['viewParams'] = $viewParams;
 		return $params;
 	}
-	
+
 	protected function getContextCategories(Request $request, $contextParams, $viewParams) {
 		return $contextParams['categories'];
 	}

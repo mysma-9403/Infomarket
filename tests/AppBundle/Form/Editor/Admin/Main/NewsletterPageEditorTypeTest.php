@@ -2,14 +2,14 @@
 
 namespace Tests\AppBundle\Form\Editor\Admin\Main;
 
-use AppBundle\Entity\NewsletterPage;
-use AppBundle\Entity\NewsletterPageTemplate;
+use AppBundle\Entity\Main\NewsletterPage;
+use AppBundle\Entity\Main\NewsletterPageTemplate;
 use AppBundle\Form\Editor\Admin\Main\NewsletterPageEditorType;
 use AppBundle\Form\Transformer\EntityToNumberTransformer;
 use Symfony\Component\Form\PreloadedExtension;
-use Tests\AppBundle\Form\Editor\Admin\Base\SimpleEntityEditorTypeTest;
+use Tests\AppBundle\Form\Editor\Admin\Base\SimpleEditorTypeTest;
 
-class NewsletterPageEditorTypeTest extends SimpleEntityEditorTypeTest {
+class NewsletterPageEditorTypeTest extends SimpleEditorTypeTest {
 	
 	const SUBNAME = 'Test subname';
 	

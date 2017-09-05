@@ -17,6 +17,14 @@ services:
         tags:
             - { name: form.type }
             
+    # Benchmark Editor Forms
+    AppBundle\Form\Editor\Benchmark\ProductEditorType:
+        arguments:
+            - "@app.form.transformer.brand_2_number"
+            - '@AppBundle\Form\FormBuilder\BenchmarkEditorFieldBuilder'
+        tags:
+            - { name: form.type }        
+            
     # Main Editor Forms
     AppBundle\Form\Editor\Admin\Main\ArticleEditorType:
         arguments:
@@ -48,8 +56,8 @@ services:
             - { name: form.type }
     AppBundle\Form\Editor\Admin\Main\NewsletterBlockEditorType:
         arguments:
-            - "@app.form.transformer.newsletter_page_2_number"
             - "@app.form.transformer.newsletter_block_template_2_number"
+            - "@app.form.transformer.newsletter_page_2_number"
         tags:
             - { name: form.type }
     AppBundle\Form\Editor\Admin\Main\NewsletterPageEditorType:

@@ -1,6 +1,7 @@
 imports:
     - { resource: services/factory_services.yml }
     - { resource: services/form_services.yml }
+    - { resource: services/manager_services.yml }
     - { resource: services/repository_services.yml }
     - { resource: services/transformer_services.yml }
 
@@ -49,11 +50,19 @@ services:
             - { name: 'twig.extension' }
     
     # Repository Managers
-    AppBundle\Repository\Manager\BenchmarkRepositoryManager:
+    AppBundle\Repository\Factory\AdminRepositoryFactory:
         arguments:
             - '@doctrine.orm.default_entity_manager'
-
-    
+    AppBundle\Repository\Factory\BenchmarkRepositoryFactory:
+        arguments:
+            - '@doctrine.orm.default_entity_manager'
+    AppBundle\Repository\Factory\InfomarketRepositoryFactory:
+        arguments:
+            - '@doctrine.orm.default_entity_manager'
+    AppBundle\Repository\Factory\InfoproduktRepositoryFactory:
+        arguments:
+            - '@doctrine.orm.default_entity_manager'
+            
     # FormBuilders
     AppBundle\Form\FormBuilder\BenchmarkEditorFieldBuilder:
         arguments: ['@AppBundle\Form\Transformer\NumberToBooleanTransformer']

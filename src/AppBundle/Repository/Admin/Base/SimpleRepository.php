@@ -2,53 +2,54 @@
 
 namespace AppBundle\Repository\Admin\Base;
 
-use AppBundle\Filter\Admin\Base\SimpleFilter;
+use AppBundle\Entity\Main\User;
 use AppBundle\Filter\Base\Filter;
+use AppBundle\Filter\Common\Base\BaseFilter;
+use AppBundle\Repository\Base\BaseRepository;
+use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\ORM\QueryBuilder;
 
-abstract class SimpleRepository extends AuditRepository
-{
+abstract class SimpleRepository extends BaseRepository {
+
 	protected function getSelectFields(QueryBuilder &$builder, Filter $filter) {
 		$fields = parent::getSelectFields($builder, $filter);
-	
-		$fields[] = 'e.infomarket';
-		$fields[] = 'e.infoprodukt';
-	
+		
+		$fields[] = 'e.createdAt';
+		$fields[] = 'e.updatedAt';
+		
+		$fields[] = 'cu.id AS createdById';
+		$fields[] = 'cu.surname AS createdBySurname';
+		$fields[] = 'cu.forename AS createdByForename';
+		
+		$fields[] = 'uu.id AS updatedById';
+		$fields[] = 'uu.surname AS updatedBySurname';
+		$fields[] = 'uu.forename AS updatedByForename';
+		
 		return $fields;
 	}
-	
+
+	protected function buildJoins(QueryBuilder &$builder, Filter $filter) {
+		$builder->leftJoin(User::class, 'cu', Join::WITH, 'e.createdBy = cu.id');
+		$builder->leftJoin(User::class, 'uu', Join::WITH, 'e.createdBy = uu.id');
+	}
+
 	protected function getWhere(QueryBuilder &$builder, Filter $filter) {
-		/** @var SimpleFilter $filter */
 		$where = parent::getWhere($builder, $filter);
+		/** @var BaseFilter $filter */
 		
-		if($filter->getInfomarket() != Filter::ALL_VALUES) {
-			$where->add($builder->expr()->eq('e.infomarket', $filter->getInfomarket()));
-		}
+		$this->addDateAfterWhere($builder, $where, 'e.updatedAt', $filter->getUpdatedAfter());
+		$this->addDateBeforeWhere($builder, $where, 'e.updatedAt', $filter->getUpdatedBefore());
 		
-		if($filter->getInfoprodukt() != Filter::ALL_VALUES) {
-			$where->add($builder->expr()->eq('e.infoprodukt', $filter->getInfoprodukt()));
-		}
+		$this->addDateAfterWhere($builder, $where, 'e.createdAt', $filter->getCreatedAfter());
+		$this->addDateBeforeWhere($builder, $where, 'e.createdAt', $filter->getCreatedBefore());
+		
+		$this->addArrayWhere($builder, $where, 'e.createdBy', $filter->getCreatedBy());
+		$this->addArrayWhere($builder, $where, 'e.updatedBy', $filter->getUpdatedBy());
 		
 		return $where;
 	}
-	
-	public function setIMPublished(array $items, $published) {
-		$builder = new QueryBuilder($this->getEntityManager());
-		
-		$builder->update($this->getEntityType(), 'e');
-		$builder->set('e.infomarket', $published);
-		$builder->where($builder->expr()->in('e.id', $items));
-		
-		$builder->getQuery()->execute();
-	}
-	
-	public function setIPPublished(array $items, $published) {
-		$builder = new QueryBuilder($this->getEntityManager());
-	
-		$builder->update($this->getEntityType(), 'e');
-		$builder->set('e.infoprodukt', $published);
-		$builder->where($builder->expr()->in('e.id', $items));
-	
-		$builder->getQuery()->execute();
+
+	protected function buildLimit(QueryBuilder &$builder, Filter $filter) {
+		$builder->setMaxResults(8);
 	}
 }

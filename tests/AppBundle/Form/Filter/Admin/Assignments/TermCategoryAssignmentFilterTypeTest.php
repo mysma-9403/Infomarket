@@ -2,11 +2,11 @@
 
 namespace Tests\AppBundle\Form\Filter\Admin\Assignments;
 
-use AppBundle\Filter\Admin\Assignments\TermCategoryAssignmentFilter;
+use AppBundle\Filter\Common\Assignments\TermCategoryAssignmentFilter;
 use AppBundle\Form\Filter\Admin\Assignments\TermCategoryAssignmentFilterType;
-use Tests\AppBundle\Form\Filter\Admin\Base\BaseEntityFilterTypeTest;
+use Tests\AppBundle\Form\Filter\Admin\Base\BaseFilterTypeTest;
 
-class TermCategoryAssignmentFilterTypeTest extends BaseEntityFilterTypeTest {
+class TermCategoryAssignmentFilterTypeTest extends BaseFilterTypeTest {
 		
 	const TERM_1 = 101;
 	const TERM_2 = 102;

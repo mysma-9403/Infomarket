@@ -1,8 +1,0 @@
-AppBundle\Entity\BenchmarkField:
-    constraints:
-        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
-            fields: [category, fieldType, valueNumber]
-            errorPath: category
-            ignoreNull: false
-            message: 'benchmarkField.unique'
-                

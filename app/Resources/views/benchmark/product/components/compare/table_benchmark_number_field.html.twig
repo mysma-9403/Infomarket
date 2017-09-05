@@ -1,4 +1,4 @@
-{% if field.betterThanType == constant('AppBundle\\Entity\\BenchmarkField::GT_BETTER_THAN_TYPE') %}
+{% if field.betterThanType == constant('AppBundle\\Entity\\Main\\BenchmarkField::GT_BETTER_THAN_TYPE') %}
 	{% if compared > value %}	
 		{% set color = 'text-success' %}
 		{% set icon = 'arrow-circle-up' %}
@@ -9,7 +9,7 @@
 		{% set color = 'text-primary' %}
 		{% set icon = 'minus-circle' %}
 	{% endif %}
-{% elseif field.betterThanType == constant('AppBundle\\Entity\\BenchmarkField::LT_BETTER_THAN_TYPE') %}
+{% elseif field.betterThanType == constant('AppBundle\\Entity\\Main\\BenchmarkField::LT_BETTER_THAN_TYPE') %}
 	{% if compared > value %}	
 		{% set color = 'text-danger' %}
 		{% set icon = 'arrow-circle-up' %}

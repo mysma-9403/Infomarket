@@ -2,71 +2,152 @@
 
 namespace AppBundle\Entity\Base;
 
+class Simple {
 
+	public function getDisplayName() {
+		return $this->id;
+	}
 
-class Simple extends Audit {
-	
+	public function __toString() {
+		return $this->getDisplayName();
+	}
+
 	public function __construct() {
-		$this->infomarket = false;
-		$this->infoprodukt = false;
 	}
 	
-    /**
-     * @var boolean
-     */
-    protected $infomarket;
+	public function clear() {
+		$this->id = null;
+		
+		$this->setCreatedAt(null);
+		$this->setCreatedBy(null);
+		$this->setUpdatedAt(null);
+		$this->setUpdatedBy(null);
+	}
 
-    /**
-     * @var boolean
-     */
-    protected $infoprodukt;
+	/**
+	 *
+	 * @var \DateTime
+	 */
+	private $createdAt;
 
+	/**
+	 *
+	 * @var \DateTime
+	 */
+	private $updatedAt;
 
-    /**
-     * Set infomarket
-     *
-     * @param boolean $infomarket
-     *
-     * @return Simple
-     */
-    public function setInfomarket($infomarket)
-    {
-        $this->infomarket = $infomarket;
+	/**
+	 *
+	 * @var integer
+	 */
+	private $id;
 
-        return $this;
-    }
+	/**
+	 *
+	 * @var \AppBundle\Entity\Main\User
+	 */
+	private $createdBy;
 
-    /**
-     * Get infomarket
-     *
-     * @return boolean
-     */
-    public function getInfomarket()
-    {
-        return $this->infomarket;
-    }
+	/**
+	 *
+	 * @var \AppBundle\Entity\Main\User
+	 */
+	private $updatedBy;
 
-    /**
-     * Set infoprodukt
-     *
-     * @param boolean $infoprodukt
-     *
-     * @return Simple
-     */
-    public function setInfoprodukt($infoprodukt)
-    {
-        $this->infoprodukt = $infoprodukt;
+	/**
+	 * Set createdAt
+	 *
+	 * @param \DateTime $createdAt        	
+	 *
+	 * @return Simple
+	 */
+	public function setCreatedAt($createdAt) {
+		$this->createdAt = $createdAt;
+		
+		return $this;
+	}
 
-        return $this;
-    }
+	/**
+	 * Get createdAt
+	 *
+	 * @return \DateTime
+	 */
+	public function getCreatedAt() {
+		return $this->createdAt;
+	}
 
-    /**
-     * Get infoprodukt
-     *
-     * @return boolean
-     */
-    public function getInfoprodukt()
-    {
-        return $this->infoprodukt;
-    }
+	/**
+	 * Set updatedAt
+	 *
+	 * @param \DateTime $updatedAt        	
+	 *
+	 * @return Simple
+	 */
+	public function setUpdatedAt($updatedAt) {
+		$this->updatedAt = $updatedAt;
+		
+		return $this;
+	}
+
+	/**
+	 * Get updatedAt
+	 *
+	 * @return \DateTime
+	 */
+	public function getUpdatedAt() {
+		return $this->updatedAt;
+	}
+
+	/**
+	 * Get id
+	 *
+	 * @return integer
+	 */
+	public function getId() {
+		return $this->id;
+	}
+
+	/**
+	 * Set createdBy
+	 *
+	 * @param \AppBundle\Entity\Main\User $createdBy        	
+	 *
+	 * @return Simple
+	 */
+	public function setCreatedBy(\AppBundle\Entity\Main\User $createdBy = null) {
+		$this->createdBy = $createdBy;
+		
+		return $this;
+	}
+
+	/**
+	 * Get createdBy
+	 *
+	 * @return \AppBundle\Entity\Main\User
+	 */
+	public function getCreatedBy() {
+		return $this->createdBy;
+	}
+
+	/**
+	 * Set updatedBy
+	 *
+	 * @param \AppBundle\Entity\Main\User $updatedBy        	
+	 *
+	 * @return Simple
+	 */
+	public function setUpdatedBy(\AppBundle\Entity\Main\User $updatedBy = null) {
+		$this->updatedBy = $updatedBy;
+		
+		return $this;
+	}
+
+	/**
+	 * Get updatedBy
+	 *
+	 * @return \AppBundle\Entity\Main\User
+	 */
+	public function getUpdatedBy() {
+		return $this->updatedBy;
+	}
 }

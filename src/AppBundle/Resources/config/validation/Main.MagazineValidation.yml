@@ -1,0 +1,15 @@
+AppBundle\Entity\Main\Magazine:
+    constraints:
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
+            fields: [name, date]
+            errorPath: name
+            ignoreNull: false
+            message: 'magazine.nameDate.unique'
+    properties:
+        name:
+            - NotBlank: ~
+        orderNumber:
+            - NotBlank: ~
+            - Range:
+                min: 0
+                max: 99

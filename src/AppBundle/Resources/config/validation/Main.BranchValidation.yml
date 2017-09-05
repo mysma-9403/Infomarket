@@ -1,0 +1,13 @@
+AppBundle\Entity\Main\Branch:
+    constraints:
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: name
+    properties:
+        name:
+            - NotBlank: ~
+        color:
+            - NotBlank: ~
+        branchCategoryAssignments:
+            - Count:
+                groups: [removal]
+                max: 0
+                exactMessage: branch.usedIn.branchCategoryAssignments

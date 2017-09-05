@@ -2,81 +2,54 @@
 
 namespace AppBundle\Form\Editor\Admin\Main;
 
-use AppBundle\Entity\Category;
-use AppBundle\Form\Editor\Admin\Base\ImageEntityEditorType;
+use AppBundle\Entity\Main\Category;
+use AppBundle\Form\Editor\Admin\Base\ImageEditorType;
 use AppBundle\Form\Transformer\EntityToNumberTransformer;
-use FM\ElfinderBundle\Form\Type\ElFinderType;
-use Ivory\CKEditorBundle\Form\Type\CKEditorType;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
-use Symfony\Component\Form\Extension\Core\Type\IntegerType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 
-class CategoryEditorType extends ImageEntityEditorType
-{
+class CategoryEditorType extends ImageEditorType {
+
 	/**
-	 * 
+	 *
 	 * @var EntityToNumberTransformer
 	 */
 	protected $categoryToNumberTransformer;
-	
+
 	public function __construct(EntityToNumberTransformer $categoryToNumberTransformer) {
 		$this->categoryToNumberTransformer = $categoryToNumberTransformer;
 	}
-	
-	/**
-	 * {@inheritDoc}
-	 */
-	protected function addMoreFields(FormBuilderInterface $builder, array $options) {
+
+	protected function addFields(FormBuilderInterface $builder, array $options) {
+		parent::addFields($builder, $options);
 		
-		$builder
-		->add('subname', TextType::class, array(
-				'required' => false
-		))
-		->add('orderNumber', IntegerType::class, array(
-				'required' => true
-		))
-		->add('icon', TextType::class, array(
-				'required' => false
-		))
-		->add('iconImage', ElFinderType::class, array(
-				'instance'=>'icon',
-				'required' => false
-		))
-		->add('featuredImage', ElFinderType::class, array(
-				'instance'=>'featured',
-				'required' => false
-		))
-		->add('benchmark', CheckboxType::class, array(
-				'required' => false
-		))
-		->add('featured', CheckboxType::class, array(
-				'required' => false
-		))
-		->add('preleaf', CheckboxType::class, array(
-				'required' => false
-		))
-		->add('content', CKEditorType::class, array(
-				'config' => array(
-						'uiColor' => '#ffffff'),
-				'required' => false
-		))
-		;
+		$this->addTextField($builder, 'name', 'label.name');
+		$this->addTextField($builder, 'subname', 'label.subname', false);
 		
-		$this->addTrueEntityChoiceEditorField($builder, $options, $this->categoryToNumberTransformer, 'parent', false);
+		$this->addCheckboxField($builder, 'infomarket', 'label.infomarket');
+		$this->addCheckboxField($builder, 'infoprodukt', 'label.infoprodukt');
+		$this->addCheckboxField($builder, 'featured', 'label.featured');
+		$this->addCheckboxField($builder, 'preleaf', 'label.preleaf');
+		$this->addCheckboxField($builder, 'benchmark', 'label.benchmark');
+		
+		$this->addIntegerField($builder, 'orderNumber', 'label.orderNumber');
+		
+		$this->addTextField($builder, 'icon', 'label.icon', false);
+		$this->addIconImageField($builder, 'iconImage', 'label.category.iconImage', false);
+		$this->addFeaturedImageField($builder, 'featuredImage', 'label.category.featuredImage', false);
+		
+		$this->addCKEditorField($builder, 'content', 'label.content', false);
+		
+		$this->addTrueEntityChoiceField($builder, $options, $this->categoryToNumberTransformer, 'parent', false);
 	}
-	
+
 	protected function getDefaultOptions() {
 		$options = parent::getDefaultOptions();
-	
-		$options[self::getChoicesName('parent')] = [];
-	
+		
+		$options[self::getChoicesName('parent')] = [ ];
+		
 		return $options;
 	}
-	
-	/**
-	 * {@inheritdoc}
-	 */
+
 	protected function getEntityType() {
 		return Category::class;
 	}

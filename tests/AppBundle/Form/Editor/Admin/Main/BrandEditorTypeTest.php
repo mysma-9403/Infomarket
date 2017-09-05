@@ -2,12 +2,12 @@
 
 namespace Tests\AppBundle\Form\Editor\Admin\Main;
 
-use AppBundle\Entity\Brand;
+use AppBundle\Entity\Main\Brand;
 use AppBundle\Form\Editor\Admin\Main\BrandEditorType;
 use Symfony\Component\Form\PreloadedExtension;
-use Tests\AppBundle\Form\Editor\Admin\Base\ImageEntityEditorTypeTest;
+use Tests\AppBundle\Form\Editor\Admin\Base\ImageEditorTypeTest;
 
-class BrandEditorTypeTest extends ImageEntityEditorTypeTest {
+class BrandEditorTypeTest extends ImageEditorTypeTest {
 	
 	const WWW = 'http://krk-dev.com';
 	const CONTENT = 'Test content';

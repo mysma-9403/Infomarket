@@ -2,7 +2,7 @@
 
 namespace Tests\AppBundle\Factory\Common\Message;
 
-use AppBundle\Entity\ArticleCategory;
+use AppBundle\Entity\Main\ArticleCategory;
 use AppBundle\Factory\Common\Message\ClassMessageFactory;
 use AppBundle\Factory\Common\Message\LifecycleMessageFactory;
 use PHPUnit\Framework\TestCase;

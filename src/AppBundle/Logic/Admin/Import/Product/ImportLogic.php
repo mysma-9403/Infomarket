@@ -2,13 +2,13 @@
 
 namespace AppBundle\Logic\Admin\Import\Product;
 
-use AppBundle\Entity\BenchmarkField;
-use AppBundle\Entity\Brand;
-use AppBundle\Entity\Category;
+use AppBundle\Entity\Assignments\ProductCategoryAssignment;
+use AppBundle\Entity\Main\BenchmarkField;
+use AppBundle\Entity\Main\Brand;
+use AppBundle\Entity\Main\Category;
+use AppBundle\Entity\Main\Product;
+use AppBundle\Entity\Main\Segment;
 use AppBundle\Entity\Other\ImportRatings;
-use AppBundle\Entity\Product;
-use AppBundle\Entity\ProductCategoryAssignment;
-use AppBundle\Entity\Segment;
 use AppBundle\Factory\Admin\ErrorFactory;
 use AppBundle\Factory\Admin\Import\Product\ImportErrorFactory;
 use AppBundle\Utils\Entity\DataBase\BenchmarkFieldDataBaseUtils;
@@ -16,40 +16,39 @@ use AppBundle\Utils\StringUtils;
 use Doctrine\Bundle\DoctrineBundle\Registry;
 
 class ImportLogic {
-	
+
 	/**
-	 * 
+	 *
 	 * @var Registry
 	 */
 	protected $doctrine;
-	
+
 	/**
 	 *
 	 * @var ImportErrorFactory
 	 */
 	protected $errorFactory;
-	
+
 	/**
-	 * 
+	 *
 	 * @var BenchmarkFieldDataBaseUtils
 	 */
 	protected $benchmarkFieldDataBaseUtils;
-	
-	public function __construct(Registry $doctrine, ImportErrorFactory $errorFactory, BenchmarkFieldDataBaseUtils $benchmarkFieldDataBaseUtils) {
+
+	public function __construct(Registry $doctrine, ImportErrorFactory $errorFactory, 
+			BenchmarkFieldDataBaseUtils $benchmarkFieldDataBaseUtils) {
 		$this->doctrine = $doctrine;
 		$this->errorFactory = $errorFactory;
 		$this->benchmarkFieldDataBaseUtils = $benchmarkFieldDataBaseUtils;
 	}
-	
-	
-	
+
 	/**
 	 *
-	 * @param ImportRatings $importRatings
+	 * @param ImportRatings $importRatings        	
 	 */
 	public function importRatings($importRatings, $category) {
-		$result = array();
-	
+		$result = array ();
+		
 		$fileEntries = $this->getFileEntries($importRatings);
 		
 		$errors = $this->validateCategory($fileEntries, $category);
@@ -80,40 +79,40 @@ class ImportLogic {
 			$result['errors'] = $errors;
 			return $result;
 		}
-	
+		
 		$preparedEntries = $this->checkDuplicates($preparedEntries);
 		$errors = $this->getEntriesErrors($preparedEntries);
 		if (count($errors) > 0) {
 			$result['errors'] = $errors;
 			return $result;
 		}
-	
+		
 		$dataBaseEntries = $this->getDataBaseEntries($preparedEntries, $category, $columns);
 		$errors = $this->getEntriesErrors($dataBaseEntries);
 		if (count($errors) > 0) {
 			$result['errors'] = $errors;
 			return $result;
 		}
-	
+		
 		$productsCounts = $this->getProductsCounts($dataBaseEntries);
-	
+		
 		$errors = $this->saveProducts($dataBaseEntries);
 		if (count($errors) > 0) {
 			$result['errors'] = $errors;
 			return $result;
 		}
-	
+		
 		$dataBaseEntries = $this->getPersistentProducts($dataBaseEntries);
 		$errors = $this->getEntriesErrors($dataBaseEntries);
 		if (count($errors) > 0) {
 			$result['errors'] = $errors;
 			return $result;
 		}
-	
+		
 		$dataBaseEntries = $this->getProductCategoryAssignments($dataBaseEntries);
-	
+		
 		$assignmentsCounts = $this->getAssignmentsCounts($dataBaseEntries);
-	
+		
 		$errors = $this->saveProductCategoryAssignments($dataBaseEntries);
 		if (count($errors) > 0) {
 			$result['errors'] = $errors;
@@ -143,50 +142,50 @@ class ImportLogic {
 			return $result;
 		}
 		
-		$result['errors'] = array();
+		$result['errors'] = array ();
 		$result['lines'] = count($fileEntries);
 		$result['brandsCounts'] = $brandsCounts;
 		$result['productsCounts'] = $productsCounts;
 		$result['assignmentsCounts'] = $assignmentsCounts;
 		$result['benchmarkFieldsCounts'] = $benchmarkFieldsCounts;
-	
+		
 		return $result;
 	}
-	
+
 	protected function getFileEntries($importRatings) {
-		$rows = array();
-	
+		$rows = array ();
+		
 		$fileName = urldecode($importRatings->getImportFile());
 		
 		$file = fopen('../web' . $fileName, 'r');
-	
-		while( ($row = fgetcsv($file, 2048, ';')) !== FALSE ) {
+		
+		while (($row = fgetcsv($file, 2048, ';')) !== FALSE) {
 			$rows[] = $row;
 		}
-	
+		
 		fclose($file);
-	
+		
 		return $rows;
 	}
-	
+
 	protected function validateCategory($fileEntries, $category) {
-		$errors = array();
-	
+		$errors = array ();
+		
 		$columns = $fileEntries[0];
 		$categoryName = $columns[0];
 		$categorySubname = $columns[1];
-		if($category->getName() != $categoryName || $category->getSubname() != $categorySubname) {
+		if ($category->getName() != $categoryName || $category->getSubname() != $categorySubname) {
 			$errors[] = $this->errorFactory->createInvalidCategoryError(
 					$category->getName() . ' ' . $category->getSubname(), $categoryName . ' ' . $categorySubname);
 		}
 		
 		return $errors;
 	}
-	
+
 	protected function getHeaderColumns($fileEntries) {
-		$errors = array();
-		$items = array();
-	
+		$errors = array ();
+		$items = array ();
+		
 		$columnNames = $fileEntries[1];
 		$fieldTypes = $fileEntries[2];
 		$fieldNumbers = $fileEntries[3];
@@ -197,10 +196,10 @@ class ImportLogic {
 		
 		$size = count($columnNames);
 		
-		for ($i = 0; $i < $size; $i++) {
+		for ($i = 0; $i < $size; $i ++) {
 			$columnName = $columnNames[$i];
-			if($columnName && strlen($columnName) > 0) {
-				$item = array();
+			if ($columnName && strlen($columnName) > 0) {
+				$item = array ();
 				
 				$item['index'] = $i;
 				$item['name'] = $columnName;
@@ -208,25 +207,25 @@ class ImportLogic {
 				$items[$item['name']] = $item;
 			} else {
 				$fieldTypeName = $fieldTypes[$i];
-				if($fieldTypeName && strlen($fieldTypeName) > 0) {
+				if ($fieldTypeName && strlen($fieldTypeName) > 0) {
 					
 					$fieldType = null;
 					
-					if($fieldTypeName == 'decimal') {
+					if ($fieldTypeName == 'decimal') {
 						$fieldType = BenchmarkField::DECIMAL_FIELD_TYPE;
-					} else if($fieldTypeName == 'integer') {
+					} else if ($fieldTypeName == 'integer') {
 						$fieldType = BenchmarkField::INTEGER_FIELD_TYPE;
-					} else if($fieldTypeName == 'boolean' || $fieldTypeName == 'bool') {
+					} else if ($fieldTypeName == 'boolean' || $fieldTypeName == 'bool') {
 						$fieldType = BenchmarkField::BOOLEAN_FIELD_TYPE;
-					} else if($fieldTypeName == 'string') {
+					} else if ($fieldTypeName == 'string') {
 						$fieldType = BenchmarkField::STRING_FIELD_TYPE;
-					} else if($fieldTypeName == 'single enum' || $fieldTypeName == 'singleenum') {
+					} else if ($fieldTypeName == 'single enum' || $fieldTypeName == 'singleenum') {
 						$fieldType = BenchmarkField::SINGLE_ENUM_FIELD_TYPE;
-					} else if($fieldTypeName == 'multi enum' || $fieldTypeName == 'multienum') {
+					} else if ($fieldTypeName == 'multi enum' || $fieldTypeName == 'multienum') {
 						$fieldType = BenchmarkField::MULTI_ENUM_FIELD_TYPE;
 					}
 					
-					if($fieldType) {
+					if ($fieldType) {
 						$valueNumber = $valueNumbers[$i];
 						
 						$fieldNumber = $fieldNumbers[$i];
@@ -235,15 +234,16 @@ class ImportLogic {
 						
 						$filterName = $fieldName;
 						$index = strpos($filterName, '[');
-						if($index !== false) {
+						if ($index !== false) {
 							$filterName = trim(substr($filterName, 0, $index));
 						}
 						$filterNumber = $fieldNumber;
 						$showFilter = $showFilters[$i];
 						
-						$item = array();
+						$item = array ();
 						
-						$itemName = $this->benchmarkFieldDataBaseUtils->getValueFieldProperty($fieldType, $valueNumber);
+						$itemName = $this->benchmarkFieldDataBaseUtils->getValueFieldProperty($fieldType, 
+								$valueNumber);
 						
 						$item['index'] = $i;
 						$item['name'] = $itemName;
@@ -259,8 +259,9 @@ class ImportLogic {
 						$item['filterNumber'] = $filterNumber;
 						$item['showFilter'] = $showFilter;
 						
-						if(key_exists($itemName, $items)) {
-							$errors[] = $this->errorFactory->createDuplicateColumnError($itemName, $i, $items[$itemName]['index']);
+						if (key_exists($itemName, $items)) {
+							$errors[] = $this->errorFactory->createDuplicateColumnError($itemName, $i, 
+									$items[$itemName]['index']);
 						} else {
 							$items[$item['name']] = $item;
 						}
@@ -268,95 +269,99 @@ class ImportLogic {
 				}
 			}
 		}
-	
-		return ['items' => $items, 'errors' => $errors];
-	}
-	
-	protected function validateColumns($columns) {
-		$errors = array();
 		
-		if(!key_exists('productName', $columns)) {
+		return [ 'items' => $items,'errors' => $errors 
+		];
+	}
+
+	protected function validateColumns($columns) {
+		$errors = array ();
+		
+		if (! key_exists('productName', $columns)) {
 			$errors[] = $this->errorFactory->createColumnNotExistsError('productName');
 		}
 		
-		if(!key_exists('brandName', $columns)) {
+		if (! key_exists('brandName', $columns)) {
 			$errors[] = $this->errorFactory->createColumnNotExistsError('brandName');
 		}
 		
 		return $errors;
 	}
-	
+
 	protected function removeHeaderColumns($fileEntries) {
 		return array_slice($fileEntries, 8);
 	}
-	
+
 	protected function getPreparedEntries($fileEntries, $columns) {
-		$entries = array();
-	
+		$entries = array ();
+		
 		$i = 0;
 		foreach ($fileEntries as $fileEntry) {
-			$i++;
-	
+			$i ++;
+			
 			$entry = $this->getPreparedEntry($fileEntry, $i, $columns);
-			if($entry) $entries[] = $entry;
+			if ($entry)
+				$entries[] = $entry;
 		}
-	
+		
 		return $entries;
 	}
-	
+
 	protected function getPreparedEntry($fileEntry, $i, $columns) {
-		$entry = array();
-		$errors = array();
-	
-		if(count($fileEntry) <= 0) return null;
-	
+		$entry = array ();
+		$errors = array ();
+		
+		if (count($fileEntry) <= 0)
+			return null;
+		
 		$productNameIndex = $columns['productName']['index'];
 		$productName = $fileEntry[$productNameIndex];
-		if(strlen($productName) <= 0) {
+		if (strlen($productName) <= 0) {
 			return null;
 		}
-	
+		
 		$brandNameIndex = $columns['brandName']['index'];
 		$brandName = $fileEntry[$brandNameIndex];
-		if(strlen($brandName) <= 0) {
+		if (strlen($brandName) <= 0) {
 			$errors[] = $this->errorFactory->createEmptyError($i, 'brand');
 		}
 		
 		$brandWww = null;
-		if(key_exists('brandWww', $columns)) {
+		if (key_exists('brandWww', $columns)) {
 			$brandWwwIndex = $columns['brandWww']['index'];
 			$brandWww = $fileEntry[$brandWwwIndex];
 		}
 		
 		$productPrice = null;
-		if(key_exists('productPrice', $columns)) {
+		if (key_exists('productPrice', $columns)) {
 			$productPriceIndex = $columns['productPrice']['index'];
 			$productPrice = $fileEntry[$productPriceIndex];
 		}
 		
 		$segmentName = null;
-		if(key_exists('segmentName', $columns)) {
+		if (key_exists('segmentName', $columns)) {
 			$segmentNameIndex = $columns['segmentName']['index'];
 			$segmentName = $fileEntry[$segmentNameIndex];
 		}
-	
+		
 		$imageName = strtolower($productName);
-		if(key_exists('imageName', $columns)) {
+		if (key_exists('imageName', $columns)) {
 			$imageNameIndex = $columns['imageName']['index'];
 			$value = $fileEntry[$imageNameIndex];
-			if(strlen($value) > 0) $imageName = $value;
+			if (strlen($value) > 0)
+				$imageName = $value;
 		}
 		
 		$imageType = 'png';
-		if(key_exists('imageType', $columns)) {
+		if (key_exists('imageType', $columns)) {
 			$imageTypeIndex = $columns['imageType']['index'];
 			$value = $fileEntry[$imageTypeIndex];
-			if(strlen($value) > 0) $imageType = $value;
-			
+			if (strlen($value) > 0)
+				$imageType = $value;
 		}
-	
+		
 		$featured = false;
-		if(key_exists('featured', $columns)) {
+		if (key_exists('featured', $columns)) {
 			$featuredIndex = $columns['featured']['index'];
 			$value = $fileEntry[$featuredIndex];
 			$featured = strlen($value) > 0 && $value ? true : false;
@@ -380,21 +385,21 @@ class ImportLogic {
 		$entry['errors'] = $errors;
 		
 		foreach ($columns as $column) {
-			if(key_exists('fieldType', $column)) {
+			if (key_exists('fieldType', $column)) {
 				$value = trim($fileEntry[$column['index']]);
-				if(strlen($value) < 1) {
+				if (strlen($value) < 1) {
 					$value = null;
 				} else {
 					switch ($column['fieldType']) {
 						case BenchmarkField::BOOLEAN_FIELD_TYPE:
-							if($value == '-' || $value == '0') {
+							if ($value == '-' || $value == '0') {
 								$value = false;
 							} else {
 								$value = true;
 							}
 							break;
 						default:
-							if($value == '-') {
+							if ($value == '-') {
 								$value = null;
 							}
 					}
@@ -403,124 +408,134 @@ class ImportLogic {
 				$entry[$column['name']] = $value;
 			}
 		}
-	
+		
 		return $entry;
 	}
-	
+
 	protected function checkDuplicates($preparedEntries) {
 		$count = count($preparedEntries);
-	
-		for($i = 0; $i < $count; $i++) {
-			$errors = array();
+		
+		for ($i = 0; $i < $count; $i ++) {
+			$errors = array ();
 			$prevEntry = $preparedEntries[$i];
-				
+			
 			$prevProductName = $prevEntry['productName'];
 			$prevBrandName = $prevEntry['brandName'];
-				
-			for($j = $i+1; $j < $count; $j++) {
+			
+			for ($j = $i + 1; $j < $count; $j ++) {
 				$nextEntry = $preparedEntries[$j];
-	
+				
 				$nextProductName = $nextEntry['productName'];
 				$nextBrandName = $nextEntry['brandName'];
-	
-				if($prevProductName == $nextProductName && $prevBrandName == $nextBrandName) {
-						
+				
+				if ($prevProductName == $nextProductName && $prevBrandName == $nextBrandName) {
+					
 					$prevImageName = $prevEntry['imageName'];
 					$nextImageName = $nextEntry['imageName'];
-						
+					
 					$prevImageType = $prevEntry['imageType'];
 					$nextImageType = $nextEntry['imageType'];
-						
-					if($prevImageName != $nextImageName || $prevImageType != $nextImageType) {
+					
+					if ($prevImageName != $nextImageName || $prevImageType != $nextImageType) {
 						$prevNumber = $prevEntry['lineNumber'];
 						$nextNumber = $nextEntry['lineNumber'];
-						$errors[] = $this->errorFactory->createInconsistentDataError($prevNumber, $nextNumber, $prevBrandName, $prevProductName);
+						$errors[] = $this->errorFactory->createInconsistentDataError($prevNumber, $nextNumber, 
+								$prevBrandName, $prevProductName);
 					}
-						
+					
 					$prevCategoryName = $prevEntry['categoryName'];
 					$nextCategoryName = $nextEntry['categoryName'];
-						
-					if($prevCategoryName == $nextCategoryName) {
+					
+					if ($prevCategoryName == $nextCategoryName) {
 						$prevCategorySubname = $prevEntry['categorySubname'];
 						$nextCategorySubname = $nextEntry['categorySubname'];
-	
-						if($prevCategorySubname == $nextCategorySubname) {
+						
+						if ($prevCategorySubname == $nextCategorySubname) {
 							$prevNumber = $prevEntry['lineNumber'];
 							$nextNumber = $nextEntry['lineNumber'];
-							$errors[] = $this->errorFactory->createSameCategoryError($prevNumber, $nextNumber, $prevBrandName, $prevProductName, $prevCategoryName, $prevCategorySubname);
+							$errors[] = $this->errorFactory->createSameCategoryError($prevNumber, $nextNumber, 
+									$prevBrandName, $prevProductName, $prevCategoryName, $prevCategorySubname);
 						}
 					}
-						
+					
 					$nextEntry['duplicate'] = true;
 					$preparedEntries[$j] = $nextEntry;
 				}
 			}
-				
+			
 			$prevEntry['errors'] = $errors;
 			$preparedEntries[$i] = $prevEntry;
 		}
-	
+		
 		return $preparedEntries;
 	}
-	
+
 	protected function getDataBaseEntries($preparedEntries, $category, $columns) {
-		$entries = array();
-	
+		$entries = array ();
+		
 		foreach ($preparedEntries as $preparedEntry) {
-			if(!$preparedEntry['duplicate']) {
+			if (! $preparedEntry['duplicate']) {
 				$entries[] = $this->getDataBaseEntry($preparedEntry, $category, $columns);
 			}
 		}
-	
+		
 		return $entries;
 	}
-	
+
 	protected function getDataBaseEntry($preparedEntry, $category, $columns) {
-		$entry = array();
-		$errors = array();
+		$entry = array ();
+		$errors = array ();
 		
 		$brandRepository = $this->doctrine->getRepository(Brand::class);
 		$segmentRepository = $this->doctrine->getRepository(Segment::class);
 		$productRepository = $this->doctrine->getRepository(Product::class);
-	
+		
 		$brandName = $preparedEntry['brandName'];
-		$brand = $brandRepository->findOneBy(['name' => $brandName]);
-		if(!$brand) $errors[] = $this->errorFactory->createNotExistsError($preparedEntry['lineNumber'], 'brand', $brandName);
+		$brand = $brandRepository->findOneBy([ 'name' => $brandName 
+		]);
+		if (! $brand)
+			$errors[] = $this->errorFactory->createNotExistsError($preparedEntry['lineNumber'], 'brand', 
+					$brandName);
 		else {
 			$entry['brand'] = $brand;
 			
 			$brandWww = $preparedEntry['brandWww'];
-			if($brandWww && strlen($brandWww) > 0 && $brandWww != $brand->getWww()) {
+			if ($brandWww && strlen($brandWww) > 0 && $brandWww != $brand->getWww()) {
 				$brand->setWww($brandWww);
 				$entry['brandForUpdate'] = true;
 			} else {
 				$entry['brandForUpdate'] = false;
 			}
 		}
-	
-	
+		
 		$segmentName = $preparedEntry['segmentName'];
-		if($segmentName) {
-			$segment = $segmentRepository->findOneBy(['name' => $segmentName]);
-			if(!$segment) $errors[] = $this->errorFactory->createNotExistsError($preparedEntry['lineNumber'], 'segment', $segmentName);
-			else $entry['segment'] = $segment;
+		if ($segmentName) {
+			$segment = $segmentRepository->findOneBy([ 'name' => $segmentName 
+			]);
+			if (! $segment)
+				$errors[] = $this->errorFactory->createNotExistsError($preparedEntry['lineNumber'], 'segment', 
+						$segmentName);
+			else
+				$entry['segment'] = $segment;
 		} else {
 			$entry['segment'] = null;
 		}
 		
 		$entry['category'] = $category;
-	
-	
-		if($brand) {
+		
+		if ($brand) {
 			$productName = $preparedEntry['productName'];
 			$imageName = $preparedEntry['imageName'];
 			$imageType = $preparedEntry['imageType'];
 			
 			$productPrice = null;
-			if(key_exists('productPrice', $preparedEntry)) $productPrice = $preparedEntry['productPrice'];
-				
-			$product = $productRepository->findOneBy(['name' => $productName, 'brand' => $brand]);
-			if(!$product) {
+			if (key_exists('productPrice', $preparedEntry))
+				$productPrice = $preparedEntry['productPrice'];
+			
+			$product = $productRepository->findOneBy(
+					[ 'name' => $productName,'brand' => $brand 
+					]);
+			if (! $product) {
 				$product = new Product();
 				$product->setName($productName);
 				
@@ -529,39 +544,39 @@ class ImportLogic {
 				
 				$product->setBrand($brand);
 				$product->setPrice($productPrice);
-	
+				
 				$image = $this->getImage($product, $imageName, $imageType);
-	
+				
 				$product->setImage($image);
 				$product->setMimeType('image/' . $imageType);
 				
 				foreach ($columns as $column) {
-					if(key_exists('fieldType', $column)) {
+					if (key_exists('fieldType', $column)) {
 						$columnName = $column['name'];
 						$product->offsetSet($columnName, $preparedEntry[$columnName]);
 					}
 				}
-	
-				$entry['productForUpdate'] = !$preparedEntry['duplicate'];
+				
+				$entry['productForUpdate'] = ! $preparedEntry['duplicate'];
 			} else {
 				$image = $this->getImage($product, $imageName, $imageType);
-	
+				
 				$forUpdate = false;
-				if($product->getImage() != $image) {
+				if ($product->getImage() != $image) {
 					$product->setImage($image);
 					$product->setMimeType('image/' . $imageType);
 					$forUpdate = true;
 				}
 				
-				if($productPrice != $product->getPrice()) {
+				if ($productPrice != $product->getPrice()) {
 					$product->setPrice($productPrice);
 					$forUpdate = true;
 				}
 				
 				foreach ($columns as $column) {
-					if(key_exists('fieldType', $column)) {
+					if (key_exists('fieldType', $column)) {
 						$columnName = $column['name'];
-						if($product->offsetGet($columnName) != $preparedEntry[$columnName]) {
+						if ($product->offsetGet($columnName) != $preparedEntry[$columnName]) {
 							$product->offsetSet($columnName, $preparedEntry[$columnName]);
 							$forUpdate = true;
 						}
@@ -570,39 +585,41 @@ class ImportLogic {
 				
 				$entry['productForUpdate'] = $forUpdate;
 			}
-				
+			
 			$entry['product'] = $product;
 		}
-	
+		
 		$entry['featured'] = $preparedEntry['featured'];
-	
+		
 		$entry['errors'] = $errors;
 		
 		return $entry;
 	}
-	
+
 	protected function getDataBaseColumns($category, $columns) {
-		$result = array();
-	
+		$result = array ();
+		
 		foreach ($columns as $column) {
-			if(key_exists('fieldType', $column)) {
+			if (key_exists('fieldType', $column)) {
 				$result[] = $this->getDataBaseColumn($category, $column);
 			}
 		}
-	
+		
 		return $result;
 	}
-	
+
 	protected function getDataBaseColumn($category, $column) {
-		$entry = array();
-		$errors = array();
-	
+		$entry = array ();
+		$errors = array ();
+		
 		$benchmarkFieldRepository = $this->doctrine->getRepository(BenchmarkField::class);
-	
+		
 		$fieldType = $column['fieldType'];
 		$valueNumber = $column['valueNumber'];
-		$benchmarkField = $benchmarkFieldRepository->findOneBy(['category' => $category->getId(), 'fieldType' => $fieldType, 'valueNumber' => $valueNumber]);
-		if(!$benchmarkField) {
+		$benchmarkField = $benchmarkFieldRepository->findOneBy(
+				[ 'category' => $category->getId(),'fieldType' => $fieldType,'valueNumber' => $valueNumber 
+				]);
+		if (! $benchmarkField) {
 			$benchmarkField = new BenchmarkField();
 			
 			$benchmarkField->setCategory($category);
@@ -618,7 +635,7 @@ class ImportLogic {
 			$benchmarkField->setFilterNumber($column['filterNumber']);
 			$benchmarkField->setShowFilter($column['showFilter']);
 			
-			if($column['fieldType'] == BenchmarkField::DECIMAL_VALUE_TYPE) {
+			if ($column['fieldType'] == BenchmarkField::DECIMAL_VALUE_TYPE) {
 				$benchmarkField->setDecimalPlaces(2);
 			} else {
 				$benchmarkField->setDecimalPlaces(0);
@@ -629,23 +646,23 @@ class ImportLogic {
 			$forUpdate = false;
 			
 			$fieldName = $column['fieldName'];
-			if($benchmarkField->getFieldName() != $fieldName) {
+			if ($benchmarkField->getFieldName() != $fieldName) {
 				$benchmarkField->setFieldName($fieldName);
 				$forUpdate = true;
 			}
 			
 			$fieldNumber = $column['fieldNumber'];
-			if($benchmarkField->getFieldNumber() != $fieldNumber) {
+			if ($benchmarkField->getFieldNumber() != $fieldNumber) {
 				$benchmarkField->setFieldNumber($fieldNumber);
 				$forUpdate = true;
 			}
 			
 			$fieldType = $column['fieldType'];
-			if($benchmarkField->getFieldType() != $fieldType) {
+			if ($benchmarkField->getFieldType() != $fieldType) {
 				$benchmarkField->setFieldType($fieldType);
 				$forUpdate = true;
 				
-				if($column['fieldType'] == BenchmarkField::DECIMAL_VALUE_TYPE) {
+				if ($column['fieldType'] == BenchmarkField::DECIMAL_VALUE_TYPE) {
 					$benchmarkField->setDecimalPlaces(2);
 				} else {
 					$benchmarkField->setDecimalPlaces(0);
@@ -653,51 +670,49 @@ class ImportLogic {
 			}
 			
 			$showField = $column['showField'];
-			if($benchmarkField->getShowField() != $showField) {
+			if ($benchmarkField->getShowField() != $showField) {
 				$benchmarkField->setShowField($showField);
 				$forUpdate = true;
 			}
 			
-			
 			$filterName = $column['filterName'];
-			if($benchmarkField->getFilterName() != $filterName) {
+			if ($benchmarkField->getFilterName() != $filterName) {
 				$benchmarkField->setFilterName($filterName);
 				$forUpdate = true;
 			}
-				
+			
 			$filterNumber = $column['filterNumber'];
-			if($benchmarkField->getFilterNumber() != $filterNumber) {
+			if ($benchmarkField->getFilterNumber() != $filterNumber) {
 				$benchmarkField->setFilterNumber($filterNumber);
 				$forUpdate = true;
 			}
-				
+			
 			$showFilter = $column['showFilter'];
-			if($benchmarkField->getShowFilter() != $showFilter) {
+			if ($benchmarkField->getShowFilter() != $showFilter) {
 				$benchmarkField->setShowFilter($showFilter);
 				$forUpdate = true;
 			}
 			
-			
 			$entry['benchmarkFieldForUpdate'] = $forUpdate;
 		}
 		$entry['benchmarkField'] = $benchmarkField;
-	
+		
 		$entry['errors'] = $errors;
-	
+		
 		return $entry;
 	}
-	
+
 	protected function saveProducts($dataBaseEntries) {
-		$errors = array();
-	
+		$errors = array ();
+		
 		$em = $this->doctrine->getManager();
 		$em->getConnection()->beginTransaction();
-	
+		
 		try {
 			foreach ($dataBaseEntries as $dataBaseEntry) {
 				$forUpdate = $dataBaseEntry['productForUpdate'];
-	
-				if($forUpdate) {
+				
+				if ($forUpdate) {
 					$product = $dataBaseEntry['product'];
 					$em->persist($product);
 				}
@@ -708,61 +723,68 @@ class ImportLogic {
 			$em->getConnection()->rollback();
 			$errors[] = $ex->getMessage();
 		}
-	
+		
 		return $errors;
 	}
-	
+
 	protected function getPersistentProducts($dataBaseEntries) {
 		$productRepository = $this->doctrine->getRepository(Product::class);
-	
+		
 		$count = count($dataBaseEntries);
-		for ($i = 0; $i < $count; $i++) {
+		for ($i = 0; $i < $count; $i ++) {
 			$dataBaseEntry = $dataBaseEntries[$i];
 			$product = $dataBaseEntry['product'];
-				
-			if($product->getId() <= 0) {
-				$errors = array();
+			
+			if ($product->getId() <= 0) {
+				$errors = array ();
 				$brand = $dataBaseEntry['brand'];
 				$productName = $product->getName();
-	
-				$product = $productRepository->findOneBy(['name' => $product->getName(), 'brand' => $brand]);
-				if(!$product) $errors[] = 'Produkt ' . $brand->getName() . ' ' . $productName . ' nie zosta� poprawnie zapisany.';
-				else $dataBaseEntry['product'] = $product;
-	
+				
+				$product = $productRepository->findOneBy(
+						[ 'name' => $product->getName(),'brand' => $brand 
+						]);
+				if (! $product)
+					$errors[] = 'Produkt ' . $brand->getName() . ' ' . $productName .
+							 ' nie zosta� poprawnie zapisany.';
+				else
+					$dataBaseEntry['product'] = $product;
+				
 				$dataBaseEntry['errors'] = $errors;
 				$dataBaseEntries[$i] = $dataBaseEntry;
 			}
 		}
-	
+		
 		return $dataBaseEntries;
 	}
-	
+
 	protected function getProductCategoryAssignments($dataBaseEntries) {
 		$assignmentRepository = $this->doctrine->getRepository(ProductCategoryAssignment::class);
-	
+		
 		$count = count($dataBaseEntries);
-		for ($i = 0; $i < $count; $i++) {
+		for ($i = 0; $i < $count; $i ++) {
 			$dataBaseEntry = $dataBaseEntries[$i];
-				
+			
 			$product = $dataBaseEntry['product'];
 			$segment = $dataBaseEntry['segment'];
 			$category = $dataBaseEntry['category'];
 			$featured = $dataBaseEntry['featured'];
-	
-			$assignment = $assignmentRepository->findOneBy(['product' => $product, 'category' => $category]);
-				
-			if(!$assignment) {
+			
+			$assignment = $assignmentRepository->findOneBy(
+					[ 'product' => $product,'category' => $category 
+					]);
+			
+			if (! $assignment) {
 				$assignment = new ProductCategoryAssignment();
-	
+				
 				$assignment->setProduct($product);
 				$assignment->setSegment($segment);
 				$assignment->setCategory($category);
 				$assignment->setFeatured($featured);
 				$assignment->setOrderNumber(99);
-	
+				
 				$dataBaseEntry['assignmentForUpdate'] = true;
-			} else if($segment) {
-				if($assignment->getSegment() && $assignment->getSegment()->getId() == $segment->getId()) {
+			} else if ($segment) {
+				if ($assignment->getSegment() && $assignment->getSegment()->getId() == $segment->getId()) {
 					$dataBaseEntry['assignmentForUpdate'] = false;
 				} else {
 					$assignment->setSegment($segment);
@@ -771,26 +793,26 @@ class ImportLogic {
 			} else {
 				$dataBaseEntry['assignmentForUpdate'] = false;
 			}
-				
+			
 			$dataBaseEntry['assignment'] = $assignment;
-				
+			
 			$dataBaseEntries[$i] = $dataBaseEntry;
 		}
-	
+		
 		return $dataBaseEntries;
 	}
-	
+
 	protected function saveProductCategoryAssignments($dataBaseEntries) {
-		$errors = array();
-	
+		$errors = array ();
+		
 		$em = $this->doctrine->getManager();
 		$em->getConnection()->beginTransaction();
-	
+		
 		try {
 			foreach ($dataBaseEntries as $dataBaseEntry) {
 				$forUpdate = $dataBaseEntry['assignmentForUpdate'];
-	
-				if($forUpdate) {
+				
+				if ($forUpdate) {
 					$assignment = $dataBaseEntry['assignment'];
 					$em->persist($assignment);
 				}
@@ -801,19 +823,19 @@ class ImportLogic {
 			$em->getConnection()->rollback();
 			$errors[] = $ex->getMessage();
 		}
-	
+		
 		return $errors;
 	}
-	
+
 	protected function saveBrands($dataBaseEntries) {
-		$errors = array();
-	
-		$brands = array();
+		$errors = array ();
+		
+		$brands = array ();
 		
 		foreach ($dataBaseEntries as $dataBaseEntry) {
-			if($dataBaseEntry['brandForUpdate']) {
+			if ($dataBaseEntry['brandForUpdate']) {
 				$brand = $dataBaseEntry['brand'];
-				if(!key_exists($brand->getName(), $brands)) {
+				if (! key_exists($brand->getName(), $brands)) {
 					$brands[$brand->getName()] = $brand;
 				}
 			}
@@ -821,7 +843,7 @@ class ImportLogic {
 		
 		$em = $this->doctrine->getManager();
 		$em->getConnection()->beginTransaction();
-	
+		
 		try {
 			foreach ($brands as $brand) {
 				$em->persist($brand);
@@ -832,21 +854,21 @@ class ImportLogic {
 			$em->getConnection()->rollback();
 			$errors[] = $ex->getMessage();
 		}
-	
+		
 		return $errors;
 	}
-	
+
 	protected function saveColumns($dataBaseColumns) {
-		$errors = array();
-	
+		$errors = array ();
+		
 		$em = $this->doctrine->getManager();
 		$em->getConnection()->beginTransaction();
-	
+		
 		try {
 			foreach ($dataBaseColumns as $dataBaseColumn) {
 				$forUpdate = $dataBaseColumn['benchmarkFieldForUpdate'];
-	
-				if($forUpdate) {
+				
+				if ($forUpdate) {
 					$benchmarkField = $dataBaseColumn['benchmarkField'];
 					$em->persist($benchmarkField);
 				}
@@ -857,130 +879,134 @@ class ImportLogic {
 			$em->getConnection()->rollback();
 			$errors[] = $ex->getMessage();
 		}
-	
+		
 		return $errors;
 	}
-	
+
 	protected function getImage($product, $imageName, $imageType) {
-		return StringUtils::getCleanPath($product->getUploadPath()) . '/' . StringUtils::getCleanName($imageName) . '.' . $imageType;
+		return StringUtils::getCleanPath($product->getUploadPath()) . '/' . StringUtils::getCleanName(
+				$imageName) . '.' . $imageType;
 	}
-	
-	
-	
+
 	protected function getProductsCounts($dataBaseEntries) {
-		$counts = array();
-	
+		$counts = array ();
+		
 		$all = 0;
 		$created = 0;
 		$updated = 0;
 		$duplicates = 0;
-	
+		
 		foreach ($dataBaseEntries as $dataBaseEntry) {
-			$all++;
-				
-			if($dataBaseEntry['productForUpdate']) {
+			$all ++;
+			
+			if ($dataBaseEntry['productForUpdate']) {
 				$product = $dataBaseEntry['product'];
-				if($product->getId() <= 0) $created++;
-				else $updated++;
+				if ($product->getId() <= 0)
+					$created ++;
+				else
+					$updated ++;
 			} else {
 				$product = $dataBaseEntry['product'];
-				if($product->getId() <= 0) $duplicates++;
+				if ($product->getId() <= 0)
+					$duplicates ++;
 			}
 		}
-	
+		
 		$counts['all'] = $all;
 		$counts['created'] = $created;
 		$counts['updated'] = $updated;
 		$counts['duplicates'] = $duplicates;
-	
+		
 		return $counts;
 	}
-	
+
 	protected function getAssignmentsCounts($dataBaseEntries) {
-		$counts = array();
-	
+		$counts = array ();
+		
 		$all = 0;
 		$created = 0;
 		$updated = 0;
-	
+		
 		foreach ($dataBaseEntries as $dataBaseEntry) {
-			$all++;
-	
-			if($dataBaseEntry['assignmentForUpdate']) {
+			$all ++;
+			
+			if ($dataBaseEntry['assignmentForUpdate']) {
 				$assignment = $dataBaseEntry['assignment'];
-				if($assignment->getId() <= 0) $created++;
-				else $updated++;
+				if ($assignment->getId() <= 0)
+					$created ++;
+				else
+					$updated ++;
 			}
 		}
-	
+		
 		$counts['all'] = $all;
 		$counts['created'] = $created;
 		$counts['updated'] = $updated;
-	
+		
 		return $counts;
 	}
-	
+
 	protected function getBrandsCounts($dataBaseEntries) {
-		$counts = array();
-	
+		$counts = array ();
+		
 		$all = 0;
 		$updated = 0;
-	
-		$brands = array();
+		
+		$brands = array ();
 		
 		foreach ($dataBaseEntries as $dataBaseEntry) {
 			$brand = $dataBaseEntry['brand'];
-			if(!key_exists($brand->getName(), $brands)) {
-				if($dataBaseEntry['brandForUpdate']) {
-					$updated++;
+			if (! key_exists($brand->getName(), $brands)) {
+				if ($dataBaseEntry['brandForUpdate']) {
+					$updated ++;
 				}
-				$all++;
+				$all ++;
 				$brands[$brand->getName()] = $brand;
 			}
 		}
-	
+		
 		$counts['all'] = $all;
 		$counts['updated'] = $updated;
-	
+		
 		return $counts;
 	}
-	
+
 	protected function getColumnsCounts($dataBaseColumns) {
-		$counts = array();
-	
+		$counts = array ();
+		
 		$all = 0;
 		$created = 0;
 		$updated = 0;
-	
+		
 		foreach ($dataBaseColumns as $dataBaseColumn) {
-			$all++;
-	
-			if($dataBaseColumn['benchmarkFieldForUpdate']) {
+			$all ++;
+			
+			if ($dataBaseColumn['benchmarkFieldForUpdate']) {
 				$benchmarkField = $dataBaseColumn['benchmarkField'];
-				if($benchmarkField->getId() <= 0) $created++;
-				else $updated++;
+				if ($benchmarkField->getId() <= 0)
+					$created ++;
+				else
+					$updated ++;
 			}
 		}
-	
+		
 		$counts['all'] = $all;
 		$counts['created'] = $created;
 		$counts['updated'] = $updated;
-	
+		
 		return $counts;
 	}
-	
-	
-	
+
 	protected function getEntriesErrors($entries) {
-		$errors = array();
-	
+		$errors = array ();
+		
 		foreach ($entries as $entry) {
 			$entryErrors = $entry['errors'];
-			if(count($entryErrors) > 0) {
+			if (count($entryErrors) > 0) {
 				$errors = array_merge($errors, $entryErrors);
 			}
 		}
-	
+		
 		return $errors;
 	}
 }

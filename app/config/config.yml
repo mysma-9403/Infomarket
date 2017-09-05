@@ -98,7 +98,7 @@ swiftmailer:
 fos_user:
     db_driver: orm
     firewall_name: main
-    user_class: AppBundle\Entity\User
+    user_class: AppBundle\Entity\Main\User
     registration:
         form:
             type: AppBundle\Form\Registration\UserRegistrationType
@@ -242,3 +242,7 @@ knp_snappy:
         binary:     "%wkhtmltoimage_binary%"
         options:    []
     temporary_folder: '%kernel.cache_dir%/snappy'
+
+# Google charts    
+cmen_google_charts:
+    version: "current"

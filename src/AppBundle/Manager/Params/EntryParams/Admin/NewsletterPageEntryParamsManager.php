@@ -2,15 +2,37 @@
 
 namespace AppBundle\Manager\Params\EntryParams\Admin;
 
-use AppBundle\Manager\Params\EntryParams\Base\EntryParamsManager;
-use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Filter\Admin\Other\SendNewsletterFilter;
+use AppBundle\Manager\Entity\Base\EntityManager;
+use AppBundle\Manager\Filter\Base\FilterManager;
+use AppBundle\Manager\Params\EntryParams\Base\EntryParamsManager;
+use AppBundle\Repository\Admin\Main\NewsletterGroupRepository;
 use AppBundle\Repository\Admin\Other\SendNewsletterRepository;
-use AppBundle\Entity\NewsletterUser;
-use AppBundle\Entity\NewsletterGroup;
+use Symfony\Component\HttpFoundation\Request;
 
 class NewsletterPageEntryParamsManager extends EntryParamsManager {
-	
+
+	/**
+	 *
+	 * @var NewsletterGroupRepository
+	 */
+	protected $newsletterGroupRepository;
+
+	/**
+	 *
+	 * @var SendNewsletterRepository
+	 */
+	protected $sendNewsletterRepository;
+
+	public function __construct(EntityManager $em, FilterManager $fm, 
+			NewsletterGroupRepository $newsletterGroupRepository, 
+			SendNewsletterRepository $sendNewsletterRepository) {
+		parent::__construct($em, $fm);
+		
+		$this->newsletterGroupRepository = $newsletterGroupRepository;
+		$this->sendNewsletterRepository = $sendNewsletterRepository;
+	}
+
 	public function getSendNewsletterFormParams(Request $request, array $params) {
 		$contextParams = $params['contextParams'];
 		$viewParams = $params['viewParams'];
@@ -22,13 +44,13 @@ class NewsletterPageEntryParamsManager extends EntryParamsManager {
 		$viewParams['sendNewsletterFilter'] = $sendNewsletterFilter;
 		
 		$params['viewParams'] = $viewParams;
-    	return $params;
+		return $params;
 	}
-	
+
 	public function getSendNewsletterListParams(Request $request, array $params) {
 		return $this->getSendNewsletterParams($request, $params);
 	}
-	
+
 	public function getSendNewsletterParams(Request $request, array $params) {
 		$contextParams = $params['contextParams'];
 		$viewParams = $params['viewParams'];
@@ -42,15 +64,12 @@ class NewsletterPageEntryParamsManager extends EntryParamsManager {
 		
 		$viewParams['sendNewsletterFilter'] = $sendNewsletterFilter;
 		
-		$newsletterGroupRepository = $this->doctrine->getRepository(NewsletterGroup::class);
-		$viewParams['newsletterGroups'] = $newsletterGroupRepository->findItemsByIds($sendNewsletterFilter->getNewsletterGroups());
+		$viewParams['newsletterGroups'] = $this->newsletterGroupRepository->findItemsByIds(
+				$sendNewsletterFilter->getNewsletterGroups());
 		
-		$em = $this->doctrine->getManager();
-		
-		$sendNewsletterRepository = new SendNewsletterRepository($em, $em->getClassMetadata(NewsletterUser::class));
-		$viewParams['recipients'] = $sendNewsletterRepository->findItems($sendNewsletterFilter);
+		$viewParams['recipients'] = $this->sendNewsletterRepository->findItems($sendNewsletterFilter);
 		
 		$params['viewParams'] = $viewParams;
-    	return $params;
+		return $params;
 	}
 }

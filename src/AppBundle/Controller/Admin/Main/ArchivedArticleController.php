@@ -2,20 +2,17 @@
 
 namespace AppBundle\Controller\Admin\Main;
 
-
-use AppBundle\Manager\Entity\Admin\ArchivedArticleManager;
+use AppBundle\Manager\Entity\Common\Main\ArchivedArticleManager;
 
 class ArchivedArticleController extends ArticleController {
 	
-	//---------------------------------------------------------------------------
+	// ---------------------------------------------------------------------------
 	// Managers
-	//---------------------------------------------------------------------------
-	
+	// ---------------------------------------------------------------------------
 	protected function getEntityManager($doctrine, $paginator) {
-		$tokenStorage = $this->get('security.token_storage');
-		return new ArchivedArticleManager($doctrine, $paginator, $tokenStorage);
+		return $this->get(ArchivedArticleManager::class);
 	}
-	
+
 	protected function getEntityName() {
 		return 'archived_article';
 	}

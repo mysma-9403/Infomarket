@@ -2,16 +2,16 @@
 
 namespace AppBundle\Repository\Infomarket;
 
-use AppBundle\Entity\Branch;
+use AppBundle\Entity\Main\Branch;
 use AppBundle\Repository\Base\BaseRepository;
 use Doctrine\ORM\QueryBuilder;
 
-class BranchRepository extends BaseRepository
-{	
+class BranchRepository extends BaseRepository {
+
 	public function findMenuItems() {
 		return $this->queryMenuItems()->getScalarResult();
 	}
-	
+
 	protected function queryMenuItems() {
 		$builder = new QueryBuilder($this->getEntityManager());
 		
@@ -27,10 +27,7 @@ class BranchRepository extends BaseRepository
 		
 		return $builder->getQuery();
 	}
-	
-    /**
-	 * {@inheritdoc}
-	 */
+
 	protected function getEntityType() {
 		return Branch::class;
 	}

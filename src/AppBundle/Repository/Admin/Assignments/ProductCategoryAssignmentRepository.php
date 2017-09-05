@@ -2,21 +2,21 @@
 
 namespace AppBundle\Repository\Admin\Assignments;
 
-use AppBundle\Entity\Product;
-use AppBundle\Entity\ProductCategoryAssignment;
-use AppBundle\Entity\Category;
+use AppBundle\Entity\Assignments\ProductCategoryAssignment;
+use AppBundle\Entity\Main\Brand;
+use AppBundle\Entity\Main\Category;
+use AppBundle\Entity\Main\Product;
+use AppBundle\Entity\Main\Segment;
 use AppBundle\Filter\Base\Filter;
-use AppBundle\Repository\Admin\Base\AuditRepository;
-use Doctrine\ORM\QueryBuilder;
+use AppBundle\Repository\Admin\Base\SimpleRepository;
 use Doctrine\ORM\Query\Expr\Join;
-use AppBundle\Entity\Segment;
-use AppBundle\Entity\Brand;
+use Doctrine\ORM\QueryBuilder;
 
-class ProductCategoryAssignmentRepository extends AuditRepository
-{
+class ProductCategoryAssignmentRepository extends SimpleRepository {
+
 	protected function getSelectFields(QueryBuilder &$builder, Filter $filter) {
 		$fields = parent::getSelectFields($builder, $filter);
-	
+		
 		$fields[] = 'p.id AS productId';
 		$fields[] = 'p.name AS productName';
 		
@@ -25,16 +25,16 @@ class ProductCategoryAssignmentRepository extends AuditRepository
 		
 		$fields[] = 's.id AS segmentId';
 		$fields[] = 's.name AS segmentName';
-	
+		
 		$fields[] = 'c.id AS categoryId';
 		$fields[] = 'c.name AS categoryName';
 		$fields[] = 'c.subname AS categorySubname';
 		
 		$fields[] = 'e.featured';
-	
+		
 		return $fields;
 	}
-	
+
 	protected function buildJoins(QueryBuilder &$builder, Filter $filter) {
 		parent::buildJoins($builder, $filter);
 		
@@ -43,30 +43,19 @@ class ProductCategoryAssignmentRepository extends AuditRepository
 		$builder->innerJoin(Segment::class, 's', Join::WITH, 's.id = e.segment');
 		$builder->innerJoin(Category::class, 'c', Join::WITH, 'c.id = e.category');
 	}
-	
+
 	protected function getWhere(QueryBuilder &$builder, Filter $filter) {
-		/** @var ProductCategoryAssignmentFilter $filter */
 		$where = parent::getWhere($builder, $filter);
-	
-		if(count($filter->getProducts()) > 0) {
-			$where->add($builder->expr()->in('e.product', $filter->getProducts()));
-		}
+		/** @var ProductCategoryAssignmentFilter $filter */
 		
-		if(count($filter->getBrands()) > 0) {
-			$where->add($builder->expr()->in('p.brand', $filter->getBrands()));
-		}
+		$this->addArrayWhere($builder, $where, 'e.product', $filter->getProducts());
+		$this->addArrayWhere($builder, $where, 'p.brand', $filter->getBrands());
+		$this->addArrayWhere($builder, $where, 'e.segment', $filter->getSegments());
+		$this->addArrayWhere($builder, $where, 'e.category', $filter->getCategories());
 		
-		if(count($filter->getSegments()) > 0) {
-			$where->add($builder->expr()->in('e.segment', $filter->getSegments()));
-		}
-	
-		if(count($filter->getCategories()) > 0) {
-			$where->add($builder->expr()->in('e.category', $filter->getCategories()));
-		}
-	
 		return $where;
 	}
-	
+
 	protected function buildOrderBy(QueryBuilder &$builder, Filter $filter) {
 		$builder->addOrderBy('c.name', 'ASC');
 		$builder->addOrderBy('c.subname', 'ASC');
@@ -74,11 +63,8 @@ class ProductCategoryAssignmentRepository extends AuditRepository
 		$builder->addOrderBy('b.name', 'ASC');
 		$builder->addOrderBy('p.name', 'ASC');
 	}
-	
-	/**
-	 * {@inheritdoc}
-	 */
+
 	protected function getEntityType() {
-		return ProductCategoryAssignment::class ;
+		return ProductCategoryAssignment::class;
 	}
 }

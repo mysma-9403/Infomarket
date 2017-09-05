@@ -2,11 +2,11 @@
 
 namespace Tests\AppBundle\Form\Filter\Admin\Assignments;
 
-use AppBundle\Filter\Admin\Assignments\BranchCategoryAssignmentFilter;
+use AppBundle\Filter\Common\Assignments\BranchCategoryAssignmentFilter;
 use AppBundle\Form\Filter\Admin\Assignments\BranchCategoryAssignmentFilterType;
-use Tests\AppBundle\Form\Filter\Admin\Base\BaseEntityFilterTypeTest;
+use Tests\AppBundle\Form\Filter\Admin\Base\BaseFilterTypeTest;
 
-class BranchCategoryAssignmentFilterTypeTest extends BaseEntityFilterTypeTest {
+class BranchCategoryAssignmentFilterTypeTest extends BaseFilterTypeTest {
 		
 	const BRANCH_1 = 101;
 	const BRANCH_2 = 102;

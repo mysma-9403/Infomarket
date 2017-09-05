@@ -2,11 +2,11 @@
 
 namespace Tests\AppBundle\Form\Filter\Admin\Assignments;
 
-use AppBundle\Filter\Admin\Assignments\NewsletterUserNewsletterPageAssignmentFilter;
+use AppBundle\Filter\Common\Assignments\NewsletterUserNewsletterPageAssignmentFilter;
 use AppBundle\Form\Filter\Admin\Assignments\NewsletterUserNewsletterPageAssignmentFilterType;
-use Tests\AppBundle\Form\Filter\Admin\Base\BaseEntityFilterTypeTest;
+use Tests\AppBundle\Form\Filter\Admin\Base\BaseFilterTypeTest;
 
-class NewsletterUserNewsletterPageAssignmentFilterTypeTest extends BaseEntityFilterTypeTest {
+class NewsletterUserNewsletterPageAssignmentFilterTypeTest extends BaseFilterTypeTest {
 		
 	const NEWSLETTER_USER_1 = 101;
 	const NEWSLETTER_USER_2 = 102;

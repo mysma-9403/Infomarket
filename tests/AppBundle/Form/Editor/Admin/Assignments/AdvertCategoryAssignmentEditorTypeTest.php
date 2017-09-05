@@ -2,14 +2,14 @@
 
 namespace Tests\AppBundle\Form\Editor\Admin\Assignments;
 
-use AppBundle\Entity\Advert;
-use AppBundle\Entity\AdvertCategoryAssignment;
-use AppBundle\Entity\Category;
+use AppBundle\Entity\Assignments\Advert;
+use AppBundle\Entity\Assignments\AdvertCategoryAssignment;
+use AppBundle\Entity\Assignments\Category;
 use AppBundle\Form\Editor\Admin\Assignments\AdvertCategoryAssignmentEditorType;
 use Symfony\Component\Form\PreloadedExtension;
-use Tests\AppBundle\Form\Editor\Admin\Base\BaseEntityEditorTypeTest;
+use Tests\AppBundle\Form\Editor\Admin\Base\BaseEditorTypeTest;
 
-class AdvertCategoryAssignmentEditorTypeTest extends BaseEntityEditorTypeTest {
+class AdvertCategoryAssignmentEditorTypeTest extends BaseEditorTypeTest {
 		
 	const ADVERT_ID = 100;
 	const ADVERT_NAME = 'Test advert';

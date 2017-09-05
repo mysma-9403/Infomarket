@@ -2,14 +2,14 @@
 
 namespace Tests\AppBundle\Form\Editor\Admin\Assignments;
 
-use AppBundle\Entity\Article;
-use AppBundle\Entity\ArticleBrandAssignment;
-use AppBundle\Entity\Brand;
+use AppBundle\Entity\Assignments\Article;
+use AppBundle\Entity\Assignments\ArticleBrandAssignment;
+use AppBundle\Entity\Assignments\Brand;
 use AppBundle\Form\Editor\Admin\Assignments\ArticleBrandAssignmentEditorType;
 use Symfony\Component\Form\PreloadedExtension;
-use Tests\AppBundle\Form\Editor\Admin\Base\BaseEntityEditorTypeTest;
+use Tests\AppBundle\Form\Editor\Admin\Base\BaseEditorTypeTest;
 
-class ArticleBrandAssignmentEditorTypeTest extends BaseEntityEditorTypeTest {
+class ArticleBrandAssignmentEditorTypeTest extends BaseEditorTypeTest {
 		
 	const ARTICLE_ID = 100;
 	const ARTICLE_NAME = 'Test article';

@@ -4,9 +4,9 @@ namespace Tests\AppBundle\Form\Filter\Benchmark;
 
 use AppBundle\Filter\Benchmark\CustomProductFilter;
 use AppBundle\Form\Filter\Benchmark\CustomProductFilterType;
-use Tests\AppBundle\Form\Filter\Admin\Base\SimpleEntityFilterTypeTest;
+use Tests\AppBundle\Form\Filter\Admin\Base\SimpleFilterTypeTest;
 
-class CustomProductFilterTypeTest extends SimpleEntityFilterTypeTest {
+class CustomProductFilterTypeTest extends SimpleFilterTypeTest {
 	
 	const NAME = '*name*';
 	

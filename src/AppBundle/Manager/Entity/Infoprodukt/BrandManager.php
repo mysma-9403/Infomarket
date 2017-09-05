@@ -2,17 +2,13 @@
 
 namespace AppBundle\Manager\Entity\Infoprodukt;
 
-use AppBundle\Manager\Entity\Common\BrandManager as CommonBrandManager;
-use AppBundle\Repository\Infomarket\BrandRepository;
+use AppBundle\Manager\Entity\Common\Main\BrandManager as CommonBrandManager;
+use AppBundle\Repository\Base\BaseRepository;
 
 class BrandManager extends CommonBrandManager {
-	
-	protected function getRepository() {
-		/** @var ObjectManager $em */
-		$em = $this->doctrine->getManager();
-		$type = $this->getEntityType();
-		$metadata = $em->getClassMetadata($type);
-	
-		return new BrandRepository($em, $metadata);
+
+	public function __construct(BaseRepository $repository, $paginator) {
+		parent::__construct($repository, $paginator);
+		$this->entriesPerPage = 12;
 	}
 }

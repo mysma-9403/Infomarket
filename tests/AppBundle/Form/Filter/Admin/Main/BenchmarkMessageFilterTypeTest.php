@@ -2,11 +2,11 @@
 
 namespace Tests\AppBundle\Form\Filter\Admin\Main;
 
-use AppBundle\Filter\Admin\Main\BenchmarkMessageFilter;
+use AppBundle\Filter\Common\Main\BenchmarkMessageFilter;
 use AppBundle\Form\Filter\Admin\Main\BenchmarkMessageFilterType;
-use Tests\AppBundle\Form\Filter\Admin\Base\BaseEntityFilterTypeTest;
+use Tests\AppBundle\Form\Filter\Admin\Base\BaseFilterTypeTest;
 
-class BenchmarkMessageFilterTypeTest extends BaseEntityFilterTypeTest {
+class BenchmarkMessageFilterTypeTest extends BaseFilterTypeTest {
 	
 	const READ_FALSE = 0;
 	const READ_TRUE = 1;

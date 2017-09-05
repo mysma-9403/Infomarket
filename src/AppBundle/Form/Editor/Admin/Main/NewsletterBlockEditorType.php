@@ -2,103 +2,69 @@
 
 namespace AppBundle\Form\Editor\Admin\Main;
 
-use AppBundle\Entity\NewsletterBlock;
-use AppBundle\Entity\NewsletterBlockTemplate;
-use AppBundle\Entity\NewsletterPage;
-use AppBundle\Form\Editor\Admin\Base\SimpleEntityEditorType;
+use AppBundle\Entity\Main\NewsletterBlock;
+use AppBundle\Entity\Main\NewsletterBlockTemplate;
+use AppBundle\Entity\Main\NewsletterPage;
+use AppBundle\Form\Editor\Admin\Base\SimpleEditorType;
 use AppBundle\Form\Transformer\EntityToNumberTransformer;
-use Symfony\Component\Form\Extension\Core\Type\IntegerType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 
-class NewsletterBlockEditorType extends SimpleEntityEditorType
-{
+class NewsletterBlockEditorType extends SimpleEditorType {
+
 	/**
-	 * 
+	 *
 	 * @var EntityToNumberTransformer
 	 */
 	protected $newsletterBlockTemplateTransformer;
-	
+
 	/**
 	 *
 	 * @var EntityToNumberTransformer
 	 */
 	protected $newsletterPageTransformer;
-	
-	
-	
-	public function __construct(
-			EntityToNumberTransformer $newsletterBlockTemplateTransformer, 
+
+	public function __construct(EntityToNumberTransformer $newsletterBlockTemplateTransformer, 
 			EntityToNumberTransformer $newsletterPageTransformer) {
-		
 		$this->newsletterBlockTemplateTransformer = $newsletterBlockTemplateTransformer;
 		$this->newsletterPageTransformer = $newsletterPageTransformer;
 	}
-	
-	/**
-	 * 
-	 * {@inheritDoc}
-	 * @see \AppBundle\Form\Base\SimpleEntityType::addMoreFields()
-	 */
-	protected function addMoreFields(FormBuilderInterface $builder, array $options) {
-		parent::addMoreFields($builder, $options);
+
+	protected function addFields(FormBuilderInterface $builder, array $options) {
+		parent::addFields($builder, $options);
 		
-		$builder
-		->add('subname', TextType::class, array(
-				'required' => false
-		))
-		->add('orderNumber', IntegerType::class, array(
-				'required' => true
-		))
-		->add('xAdvertRatio', IntegerType::class, array(
-				'required' => true
-		))
-		->add('yAdvertRatio', IntegerType::class, array(
-				'required' => true
-		))
-		->add('xArticleRatio', IntegerType::class, array(
-				'required' => true
-		))
-		->add('yArticleRatio', IntegerType::class, array(
-				'required' => true
-		))
-		->add('xMagazineRatio', IntegerType::class, array(
-				'required' => true
-		))
-		->add('yMagazineRatio', IntegerType::class, array(
-				'required' => true
-		))
-		->add('magazinePadding', IntegerType::class, array(
-				'required' => true
-		))
-		->add('articleSeparator', TextType::class, array(
-				'required' => false,
-				'trim' => false
-		))
-		->add('magazineSeparator', TextType::class, array(
-				'required' => false,
-				'trim' => false
-		))
-		;
+		$this->addTextField($builder, 'name', 'label.name');
+		$this->addTextField($builder, 'subname', 'label.subname', false);
 		
-		$this->addTrueEntityChoiceEditorField($builder, $options, $this->newsletterBlockTemplateTransformer, 'newsletterBlockTemplate');
-		$this->addTrueEntityChoiceEditorField($builder, $options, $this->newsletterPageTransformer, 'newsletterPage');
+		$this->addIntegerField($builder, 'orderNumber', 'label.orderNumber');
+		
+		$this->addIntegerField($builder, 'xAdvertRatio', 'label.newsletterBlock.xAdvertRatio');
+		$this->addIntegerField($builder, 'yAdvertRatio', 'label.newsletterBlock.yAdvertRatio');
+		
+		$this->addIntegerField($builder, 'xArticleRatio', 'label.newsletterBlock.xArticleRatio');
+		$this->addIntegerField($builder, 'yArticleRatio', 'label.newsletterBlock.yArticleRatio');
+		
+		$this->addIntegerField($builder, 'xMagazineRatio', 'label.newsletterBlock.xMagazineRatio');
+		$this->addIntegerField($builder, 'yMagazineRatio', 'label.newsletterBlock.yMagazineRatio');
+		
+		$this->addIntegerField($builder, 'magazinePadding', 'label.newsletterBlock.magazinePadding');
+		
+		$this->addRawTextField($builder, 'articleSeparator', 'label.newsletterBlock.articleSeparator', false);
+		$this->addRawTextField($builder, 'magazineSeparator', 'label.newsletterBlock.magazineSeparator', false);
+		
+		$this->addTrueEntityChoiceField($builder, $options, $this->newsletterBlockTemplateTransformer, 
+				'newsletterBlockTemplate');
+		$this->addTrueEntityChoiceField($builder, $options, $this->newsletterPageTransformer, 'newsletterPage');
 	}
-	
+
 	protected function getDefaultOptions() {
 		$options = parent::getDefaultOptions();
-	
-		$options[self::getChoicesName('newsletterBlockTemplate')] = [];
-		$options[self::getChoicesName('newsletterPage')] = [];
-	
+		
+		$options[self::getChoicesName('newsletterBlockTemplate')] = [ ];
+		$options[self::getChoicesName('newsletterPage')] = [ ];
+		
 		return $options;
 	}
-	
-	/**
-	 * 
-	 * {@inheritDoc}
-	 * @see \AppBundle\Form\Base\SimpleEntityType::getEntityType()
-	 */
+
 	protected function getEntityType() {
 		return NewsletterBlock::class;
 	}

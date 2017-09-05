@@ -2,7 +2,7 @@
 
 namespace Tests\AppBundle\Factory\Common\BenchmarkField;
 
-use AppBundle\Entity\BenchmarkField;
+use AppBundle\Entity\Main\BenchmarkField;
 use AppBundle\Form\FormBuilder\BenchmarkFilterFieldBuilder;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Form\FormBuilderInterface;

@@ -1,10 +1,10 @@
 {% for field in productFilter.editorFields %}
 	{% set key = field.valueField %}
 	
-	{% if field.fieldType == constant('AppBundle\\Entity\\BenchmarkField::BOOLEAN_FIELD_TYPE') %}
+	{% if field.fieldType == constant('AppBundle\\Entity\\Main\\BenchmarkField::BOOLEAN_FIELD_TYPE') %}
 		{% include 'common/fields/bool_field.html.twig' with 
 			{ label: field.fieldName, value: entry[key] } %}
-	{% elseif field.fieldType == constant('AppBundle\\Entity\\BenchmarkField::DECIMAL_FIELD_TYPE') %}
+	{% elseif field.fieldType == constant('AppBundle\\Entity\\Main\\BenchmarkField::DECIMAL_FIELD_TYPE') %}
 		{% include 'common/fields/number_field.html.twig' with 
 			{ label: field.fieldName, value: entry[key] } %}
 	{% else %}

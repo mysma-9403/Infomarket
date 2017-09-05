@@ -2,25 +2,14 @@
 
 namespace AppBundle\Manager\Entity\Benchmark;
 
-use AppBundle\Manager\Entity\Common\CategoryManager as CommonCategoryManager;
-use AppBundle\Repository\Benchmark\CategoryRepository;
+use AppBundle\Manager\Entity\Common\Main\CategoryManager as CommonCategoryManager;
+use AppBundle\Repository\Base\BaseRepository;
+use AppBundle\Manager\Params\Base\ParamsManager;
 
 class CategoryManager extends CommonCategoryManager {
-	
-	/**
-	 * 
-	 * @var CategoryRepository
-	 */
-	protected $repository;
-	
-	public function __construct($doctrine, $paginator, CategoryRepository $repository) {
-		parent::__construct($doctrine, $paginator);
-		
-		$this->repository = $repository;
+
+	public function __construct(BaseRepository $repository, $paginator, ParamsManager $paramsManager) {
+		parent::__construct($repository, $paginator, $paramsManager);
 		$this->entriesPerPage = 6;
-	}
-	
-	protected function getRepository() {
-		return $this->repository;
 	}
 }

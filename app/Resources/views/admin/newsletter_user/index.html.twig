@@ -30,20 +30,16 @@
 {% endblock %}
 
 {% block simpleEntryFields %}
+	{# TODO improve tooltips - subsribed here / not subsribed here #}
 	{% include 'common/fields/table/bool_action_field.html.twig' with
-		{ id: item.id, value: item.infomarket, extPath: '_set_im_published',
+		{ value: item.infomarket, canEdit: false, 
 			trueTooltip: 'label.infomarket', falseTooltip: 'label.notInfomarket' } %}
 	{% include 'common/fields/table/bool_action_field.html.twig' with
-		{ id: item.id, value: item.infoprodukt, extPath: '_set_ip_published',
+		{ value: item.infoprodukt, canEdit: false,
 			trueTooltip: 'label.infoprodukt', falseTooltip: 'label.notInfoprodukt' } %}
 			
 	{% include 'common/fields/table/bool_action_field.html.twig' with 
 		{ id: item.id, value: item.subscribed, extPath: '_set_subscribed',
 			trueTooltip: 'label.newsletter.subscribed', falseTooltip: 'label.newsletter.unsubscribed',
 			trueIcon: 'fa-eye', falseIcon: 'fa-eye-slash' } %}
-{% endblock %}
-
-
-{% block moreActions %}
-	{% include 'admin/newsletter_user/components/index/more_actions.twig' %}
 {% endblock %}

@@ -2,7 +2,7 @@
 
 namespace Tests\AppBundle\Form\Editor\Admin\Main;
 
-use AppBundle\Entity\BenchmarkMessage;
+use AppBundle\Entity\Main\BenchmarkMessage;
 use AppBundle\Form\Editor\Admin\Main\BenchmarkMessageEditorType;
 use Symfony\Component\Form\PreloadedExtension;
 use Tests\AppBundle\Form\Base\EditorTypeTest;

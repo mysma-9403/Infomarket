@@ -4,9 +4,11 @@
 {% set mainPath = 'newsletter_page' %}
 {% set gender = 'fm.' %}
 
-{% block moreJavascripts %}
-	{% include 'admin/newsletter_page/components/modal_script.twig' %}
+
+{% block javascript %}
+	{% include 'admin/newsletter_page/components/javascript.twig' %}
 {% endblock %}
+
 
 {% block headerFields %}
 	{% include 'common/editor/form_field.twig' with 

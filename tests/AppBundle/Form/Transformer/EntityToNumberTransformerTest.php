@@ -2,7 +2,7 @@
 
 namespace Tests\AppBundle\Form\Transformer;
 
-use AppBundle\Entity\Base\SimpleEntity;
+use AppBundle\Entity\Base\Simple;
 use AppBundle\Form\Transformer\EntityToNumberTransformer;
 use Doctrine\ORM\EntityRepository;
 use PHPUnit\Framework\TestCase;
@@ -75,7 +75,7 @@ class EntityToNumberTransformerTest extends TestCase {
 	}
 	
 	private function getEntity() {
-		$entity = new SimpleEntity();
+		$entity = new Simple();
 		$entity->setId(self::ENTITY_ID);
 		$entity->setName(self::ENTITY_NAME);
 		

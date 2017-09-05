@@ -2,7 +2,7 @@
 
 namespace Tests\AppBundle\Factory\Common\Choices\Bool;
 
-use AppBundle\Entity\Article;
+use AppBundle\Entity\Main\Article;
 use AppBundle\Factory\Common\Choices\Enum\ArticleImageSizesFactory;
 use PHPUnit\Framework\TestCase;
 

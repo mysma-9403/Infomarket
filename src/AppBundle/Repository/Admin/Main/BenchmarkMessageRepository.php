@@ -2,43 +2,39 @@
 
 namespace AppBundle\Repository\Admin\Main;
 
-use AppBundle\Entity\BenchmarkMessage;
-use AppBundle\Entity\Brand;
-use AppBundle\Entity\Product;
-use AppBundle\Entity\User;
-use AppBundle\Filter\Admin\Main\BenchmarkMessageFilter;
+use AppBundle\Entity\Main\BenchmarkMessage;
+use AppBundle\Entity\Main\Brand;
+use AppBundle\Entity\Main\Product;
+use AppBundle\Entity\Main\User;
+use AppBundle\Filter\Common\Main\BenchmarkMessageFilter;
 use AppBundle\Filter\Base\Filter;
-use AppBundle\Repository\Admin\Base\AuditRepository;
+use AppBundle\Repository\Admin\Base\SimpleRepository;
 use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\ORM\QueryBuilder;
 
-class BenchmarkMessageRepository extends AuditRepository
-{
+class BenchmarkMessageRepository extends SimpleRepository {
+
 	public function findUnreadItemsCount() {
 		return $this->queryUnreadItemsCount()->getSingleScalarResult();
 	}
-	
-	protected function queryUnreadItemsCount()
-	{
+
+	protected function queryUnreadItemsCount() {
 		$builder = new QueryBuilder($this->getEntityManager());
-	
+		
 		$expr = $builder->expr();
-	
+		
 		$builder->select($expr->count('e.id') . ' AS vcount');
 		$builder->from($this->getEntityType(), "e");
-	
+		
 		$where = $expr->andX();
 		$where->add($expr->isNull('e.parent'));
 		$where->add($expr->eq('e.readByAdmin', 0));
-	
+		
 		$builder->where($where);
-			
+		
 		return $builder->getQuery();
 	}
-	
-	
-	
-	
+
 	protected function getSelectFields(QueryBuilder &$builder, Filter $filter) {
 		$fields = parent::getSelectFields($builder, $filter);
 		
@@ -58,7 +54,7 @@ class BenchmarkMessageRepository extends AuditRepository
 		
 		return $fields;
 	}
-	
+
 	protected function buildJoins(QueryBuilder &$builder, Filter $filter) {
 		parent::buildJoins($builder, $filter);
 		
@@ -66,50 +62,38 @@ class BenchmarkMessageRepository extends AuditRepository
 		$builder->innerJoin(Product::class, 'p', Join::WITH, 'p.id = e.product');
 		$builder->innerJoin(Brand::class, 'b', Join::WITH, 'b.id = p.brand');
 	}
-	
+
 	protected function getWhere(QueryBuilder &$builder, Filter $filter) {
+		/** @var BenchmarkMessageFilter $filter */
 		$where = parent::getWhere($builder, $filter);
 		
-		$expr = $builder->expr();
+		$where->add($builder->expr()->isNull('e.parent'));
 		
-		$where->add($expr->isNull('e.parent'));
+		$this->addBooleanWhere($builder, $where, 'e.readByAdmin', $filter->getReadByAdmin());
 		
-		/** @var BenchmarkMessageFilter $filter */
-		if(count($filter->getProducts()) > 0) {
-			$where->add($expr->in('e.product', $filter->getProducts()));
-		}
-		
-		if(count($filter->getAuthors()) > 0) {
-			$where->add($expr->in('e.author', $filter->getAuthors()));
-		}
-		
-		if(count($filter->getStates()) > 0) {
-			$where->add($expr->in('e.state', $filter->getStates()));
-		}
-		
-		if($filter->getReadByAdmin() != Filter::ALL_VALUES) {
-			$where->add($expr->eq('e.readByAdmin', $filter->getReadByAdmin()));
-		}
+		$this->addArrayWhere($builder, $where, 'e.product', $filter->getProducts());
+		$this->addArrayWhere($builder, $where, 'e.author', $filter->getAuthors());
+		$this->addArrayWhere($builder, $where, 'e.state', $filter->getStates());
 		
 		return $where;
 	}
-	
-	
-	
-	
-	public function setRead(array $items, $read) {
-		$builder = new QueryBuilder($this->getEntityManager());
-	
-		$builder->update($this->getEntityType(), 'e');
-		$builder->set('e.readByAdmin', $read);
-		$builder->where($builder->expr()->in('e.id', $items));
-	
-		$builder->getQuery()->execute();
+
+	protected function getFilterSelectFields(QueryBuilder &$builder) {
+		$fields = parent::getFilterSelectFields($builder);
+		
+		$fields[] = 'e.name';
+		
+		return $fields;
 	}
-	
-    /**
-	 * {@inheritdoc}
-	 */
+
+	protected function getFilterItemKeyFields($item) {
+		$fields = parent::getFilterItemKeyFields($item);
+		
+		$fields[] = $item['name'];
+		
+		return $fields;
+	}
+
 	protected function getEntityType() {
 		return BenchmarkMessage::class;
 	}

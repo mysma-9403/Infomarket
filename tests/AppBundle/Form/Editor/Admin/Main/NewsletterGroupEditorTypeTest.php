@@ -2,11 +2,11 @@
 
 namespace Tests\AppBundle\Form\Editor\Admin\Main;
 
-use AppBundle\Entity\NewsletterGroup;
+use AppBundle\Entity\Main\NewsletterGroup;
 use AppBundle\Form\Editor\Admin\Main\NewsletterGroupEditorType;
-use Tests\AppBundle\Form\Editor\Admin\Base\SimpleEntityEditorTypeTest;
+use Tests\AppBundle\Form\Editor\Admin\Base\SimpleEditorTypeTest;
 
-class NewsletterGroupEditorTypeTest extends SimpleEntityEditorTypeTest {
+class NewsletterGroupEditorTypeTest extends SimpleEditorTypeTest {
 	
 	protected function getFormType() {
 		return NewsletterGroupEditorType::class;

@@ -3,31 +3,27 @@
 namespace AppBundle\Controller\Infomarket;
 
 use AppBundle\Controller\Base\DummyController;
-use AppBundle\Entity\Advert;
+use AppBundle\Entity\Main\Advert;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
-class AdvertController extends DummyController
-{   
-	//---------------------------------------------------------------------------
+class AdvertController extends DummyController {
+	// ---------------------------------------------------------------------------
 	// Actions
-	//---------------------------------------------------------------------------
-	
-	public function clickAction(Request $request, $id)
-	{
+	// ---------------------------------------------------------------------------
+	public function clickAction(Request $request, $id) {
 		return $this->clickActionInternal($request, $id);
 	}
-
-	//---------------------------------------------------------------------------
+	
+	// ---------------------------------------------------------------------------
 	// Internal actions
-	//---------------------------------------------------------------------------
-	protected function clickActionInternal(Request $request, $id)
-	{
+	// ---------------------------------------------------------------------------
+	protected function clickActionInternal(Request $request, $id) {
 		$am = $this->getAnalyticsManager();
 		$am->sendEventAnalytics($this->getEntityName(), 'click', $id);
 		
 		$entry = $this->getEntry($id);
-		$entry->setClickCount($entry->getClickCount()+1);
+		$entry->setClickCount($entry->getClickCount() + 1);
 		
 		$this->saveEntry($entry);
 		
@@ -39,32 +35,30 @@ class AdvertController extends DummyController
 		
 		return $this->redirect($scheme . $link);
 	}
-	
+
 	protected function saveEntry($entry) {
 		$em = $this->getDoctrine()->getManager();
-			
+		
 		$em->persist($entry);
 		$em->flush();
 	}
 	
-	//---------------------------------------------------------------------------
+	// ---------------------------------------------------------------------------
 	// EntityType related
-	//---------------------------------------------------------------------------
-    
-    protected function getEntityType()
-    {
-    	return Advert::class;
-    }
-    
-    //-----------------------------------------------------------------
-    // Domain
-    //---------------------------------------------------------------------------
-    
-    /**
-     * @return string domain - base part of the route
-     */
-    protected function getDomain() 
-    {
-    	return 'infomarket';
-    }
+	// ---------------------------------------------------------------------------
+	protected function getEntityType() {
+		return Advert::class;
+	}
+	
+	// -----------------------------------------------------------------
+	// Domain
+	// ---------------------------------------------------------------------------
+	
+	/**
+	 *
+	 * @return string domain - base part of the route
+	 */
+	protected function getDomain() {
+		return 'infomarket';
+	}
 }

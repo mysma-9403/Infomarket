@@ -4,7 +4,7 @@ namespace tests\AppBundle\Utils\Entity\DataBase;
 
 use AppBundle\Utils\Entity\DataBase\BenchmarkFieldDataBaseUtils;
 use PHPUnit\Framework\TestCase;
-use AppBundle\Entity\BenchmarkField;
+use AppBundle\Entity\Main\BenchmarkField;
 
 /**
  * BenchmarkFieldDataBaseUtilsTest

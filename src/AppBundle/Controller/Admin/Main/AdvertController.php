@@ -2,138 +2,129 @@
 
 namespace AppBundle\Controller\Admin\Main;
 
-use AppBundle\Controller\Admin\Base\ImageEntityController;
-use AppBundle\Controller\Admin\Base\SimpleEntityController;
-use AppBundle\Entity\Advert;
-use AppBundle\Entity\Category;
+use AppBundle\Controller\Admin\Base\ImageController;
+use AppBundle\Entity\Main\Advert;
+use AppBundle\Entity\Main\Category;
 use AppBundle\Factory\Common\Choices\Bool\InfomarketChoicesFactory;
 use AppBundle\Factory\Common\Choices\Bool\InfoproduktChoicesFactory;
 use AppBundle\Factory\Common\Choices\Enum\AdvertLocationsFactory;
-use AppBundle\Filter\Admin\Main\AdvertFilter;
+use AppBundle\Filter\Common\Main\AdvertFilter;
 use AppBundle\Form\Editor\Admin\Main\AdvertEditorType;
 use AppBundle\Form\Filter\Admin\Main\AdvertFilterType;
-use AppBundle\Manager\Entity\Common\AdvertManager;
+use AppBundle\Form\Lists\Base\InfoMarketListType;
+use AppBundle\Manager\Entity\Common\Main\AdvertManager;
 use AppBundle\Manager\Filter\Base\FilterManager;
 use phpDocumentor\Reflection\Location;
 use Symfony\Component\HttpFoundation\Request;
 
-class AdvertController extends ImageEntityController {
+class AdvertController extends ImageController {
 	
-	//---------------------------------------------------------------------------
+	// ---------------------------------------------------------------------------
 	// Actions
-	//---------------------------------------------------------------------------
+	// ---------------------------------------------------------------------------
 	/**
-	 * 
-	 * @param Request $request
-	 * @param integer $page
-	 * 
+	 *
+	 * @param Request $request        	
+	 * @param integer $page        	
+	 *
 	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
 	 */
-	public function indexAction(Request $request, $page)
-	{
+	public function indexAction(Request $request, $page) {
 		return $this->indexActionInternal($request, $page);
 	}
-	
+
 	/**
-	 * 
-	 * @param Request $request
-	 * @param integer $id
-	 * 
+	 *
+	 * @param Request $request        	
+	 * @param integer $id        	
+	 *
 	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
 	 */
-	public function showAction(Request $request, $id)
-	{
+	public function showAction(Request $request, $id) {
 		return $this->showActionInternal($request, $id);
 	}
-	
+
 	/**
-	 * 
-	 * @param Request $request
-	 * 
+	 *
+	 * @param Request $request        	
+	 *
 	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
 	 */
-	public function newAction(Request $request)
-	{
+	public function newAction(Request $request) {
 		return $this->newActionInternal($request);
 	}
-	
+
 	/**
-	 * 
-	 * @param Request $request
-	 * @param integer $id
-	 * 
+	 *
+	 * @param Request $request        	
+	 * @param integer $id        	
+	 *
 	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
 	 */
-	public function copyAction(Request $request, $id)
-	{
+	public function copyAction(Request $request, $id) {
 		return $this->copyActionInternal($request, $id);
 	}
-	
+
 	/**
-	 * 
-	 * @param Request $request
-	 * @param integer $id
-	 * 
+	 *
+	 * @param Request $request        	
+	 * @param integer $id        	
+	 *
 	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
 	 */
-	public function editAction(Request $request, $id)
-	{
+	public function editAction(Request $request, $id) {
 		return $this->editActionInternal($request, $id);
 	}
-	
+
 	/**
-	 * 
-	 * @param Request $request
-	 * @param integer $id
-	 * 
+	 *
+	 * @param Request $request        	
+	 * @param integer $id        	
+	 *
 	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
 	 */
-	public function deleteAction(Request $request, $id)
-	{
+	public function deleteAction(Request $request, $id) {
 		return $this->deleteActionInternal($request, $id);
 	}
-	
+
 	/**
-	 * 
-	 * @param Request $request
-	 * @param integer $id
-	 * 
+	 *
+	 * @param Request $request        	
+	 * @param integer $id        	
+	 *
 	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
 	 */
-	public function setIMPublishedAction(Request $request, $id)
-	{
+	public function setIMPublishedAction(Request $request, $id) {
 		return $this->setIMPublishedActionInternal($request, $id);
 	}
-	
+
 	/**
 	 *
-	 * @param Request $request
-	 * @param integer $id
+	 * @param Request $request        	
+	 * @param integer $id        	
 	 *
 	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
 	 */
-	public function setIPPublishedAction(Request $request, $id)
-	{
+	public function setIPPublishedAction(Request $request, $id) {
 		return $this->setIPPublishedActionInternal($request, $id);
 	}
 	
-	//------------------------------------------------------------------------
+	// ------------------------------------------------------------------------
 	// Internal logic
-	//------------------------------------------------------------------------
-	
+	// ------------------------------------------------------------------------
 	protected function getFilterFormOptions() {
 		$options = parent::getFilterFormOptions();
-	
+		
 		$this->addEntityChoicesFormOption($options, Category::class, 'categories');
 		
 		$this->addFactoryChoicesFormOption($options, AdvertLocationsFactory::class, 'locations');
 		
 		$this->addFactoryChoicesFormOption($options, InfomarketChoicesFactory::class, 'infomarket');
 		$this->addFactoryChoicesFormOption($options, InfoproduktChoicesFactory::class, 'infoprodukt');
-	
+		
 		return $options;
 	}
-	
+
 	protected function getEditorFormOptions() {
 		$options = parent::getEditorFormOptions();
 		
@@ -141,14 +132,14 @@ class AdvertController extends ImageEntityController {
 		
 		return $options;
 	}
-	
+
 	/**
 	 *
 	 * {@inheritDoc}
+	 *
 	 * @see \AppBundle\Controller\Admin\Base\AdminEntityController::deleteMore()
 	 */
-	protected function deleteMore($entry)
-	{
+	protected function deleteMore($entry) {
 		$em = $this->getDoctrine()->getManager();
 		
 		foreach ($entry->getAdvertCategoryAssignments() as $advertCategoryAssignment) {
@@ -156,54 +147,38 @@ class AdvertController extends ImageEntityController {
 		}
 		$em->flush();
 		
-		return array();
+		return array ();
 	}
-	//---------------------------------------------------------------------------
+	// ---------------------------------------------------------------------------
 	// Managers
-	//---------------------------------------------------------------------------
-	
+	// ---------------------------------------------------------------------------
 	protected function getEntityManager($doctrine, $paginator) {
-		return new AdvertManager($doctrine, $paginator);
+		return $this->get(AdvertManager::class);
 	}
-	
+
 	protected function getFilterManager($doctrine) {
 		return new FilterManager(new AdvertFilter());
 	}
 	
-	
-	//------------------------------------------------------------------------
+	// ------------------------------------------------------------------------
 	// EntityType related
-	//------------------------------------------------------------------------
-	
-	/**
-	 *
-	 * {@inheritDoc}
-	 * @see \AppBundle\Controller\Admin\Base\SimpleEntityController::getEntityType()
-	 */
+	// ------------------------------------------------------------------------
 	protected function getEntityType() {
 		return Advert::class;
 	}
 	
-	
-	//------------------------------------------------------------------------
+	// ------------------------------------------------------------------------
 	// Forms
-	//------------------------------------------------------------------------
-	
-	/**
-	 *
-	 * {@inheritDoc}
-	 * @see \AppBundle\Controller\Admin\Base\SimpleEntityController::getFormType()
-	 */
+	// ------------------------------------------------------------------------
 	protected function getEditorFormType() {
 		return AdvertEditorType::class;
 	}
-	
-	/**
-	 * 
-	 * {@inheritDoc}
-	 * @see \AppBundle\Controller\Admin\Base\SimpleEntityController::getFilterFormType()
-	 */
+
 	protected function getFilterFormType() {
 		return AdvertFilterType::class;
+	}
+
+	protected function getListFormType() {
+		return InfoMarketListType::class;
 	}
 }

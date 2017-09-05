@@ -2,28 +2,28 @@
 
 namespace AppBundle\Form\Filter\Admin\Assignments;
 
-use AppBundle\Filter\Admin\Assignments\NewsletterUserNewsletterGroupAssignmentFilter;
-use AppBundle\Form\Filter\Admin\Base\AdminFilterType;
+use AppBundle\Filter\Common\Assignments\NewsletterUserNewsletterGroupAssignmentFilter;
+use AppBundle\Form\Filter\Admin\Base\SimpleFilterType;
 use Symfony\Component\Form\FormBuilderInterface;
 
-class NewsletterUserNewsletterGroupAssignmentFilterType extends AdminFilterType
-{
-	protected function addMainFields(FormBuilderInterface $builder, array $options) {
-		parent::addMainFields($builder, $options);
+class NewsletterUserNewsletterGroupAssignmentFilterType extends SimpleFilterType {
+
+	protected function addFields(FormBuilderInterface $builder, array $options) {
+		parent::addFields($builder, $options);
 		
-		$this->addEntityChoiceFilterField($builder, $options, 'newsletterUsers');
-		$this->addEntityChoiceFilterField($builder, $options, 'newsletterGroups');
+		$this->addFilterEntityChoiceField($builder, $options, 'newsletterUsers');
+		$this->addFilterEntityChoiceField($builder, $options, 'newsletterGroups');
 	}
-	
+
 	protected function getDefaultOptions() {
 		$options = parent::getDefaultOptions();
 		
-		$options[$this->getChoicesName('newsletterUsers')] = [];
-		$options[$this->getChoicesName('newsletterGroups')] = [];
-	
+		$options[$this->getChoicesName('newsletterUsers')] = [ ];
+		$options[$this->getChoicesName('newsletterGroups')] = [ ];
+		
 		return $options;
 	}
-	
+
 	protected function getEntityType() {
 		return NewsletterUserNewsletterGroupAssignmentFilter::class;
 	}

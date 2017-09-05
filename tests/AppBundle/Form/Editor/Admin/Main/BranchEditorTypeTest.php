@@ -2,12 +2,12 @@
 
 namespace Tests\AppBundle\Form\Editor\Admin\Main;
 
-use AppBundle\Entity\Branch;
+use AppBundle\Entity\Main\Branch;
 use AppBundle\Form\Editor\Admin\Main\BranchEditorType;
 use Symfony\Component\Form\PreloadedExtension;
-use Tests\AppBundle\Form\Editor\Admin\Base\ImageEntityEditorTypeTest;
+use Tests\AppBundle\Form\Editor\Admin\Base\ImageEditorTypeTest;
 
-class BranchEditorTypeTest extends ImageEntityEditorTypeTest {
+class BranchEditorTypeTest extends ImageEditorTypeTest {
 	
 	const ICON = 'fa-camera';
 	const COLOR = 'fa0045';

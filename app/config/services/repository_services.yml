@@ -1,162 +1,451 @@
-services:
-    # Common Repositories
-    app.repository.advert:
-        class: Doctrine\ORM\EntityRepository
+services:   
+    # Benchmark Repositories
+    AppBundle\Repository\Benchmark\BenchmarkMessageRepository:
+        factory: ['@AppBundle\Repository\Factory\BenchmarkRepositoryFactory', getRepository]
+        arguments:
+            - AppBundle\Repository\Benchmark\BenchmarkMessageRepository
+    AppBundle\Repository\Benchmark\BenchmarkQueryRepository:
+        factory: ['@AppBundle\Repository\Factory\BenchmarkRepositoryFactory', getRepository]
+        arguments:
+            - AppBundle\Repository\Benchmark\BenchmarkQueryRepository
+    AppBundle\Repository\Benchmark\CategoryRepository:
+        factory: ['@AppBundle\Repository\Factory\BenchmarkRepositoryFactory', getRepository]
+        arguments:
+            - AppBundle\Repository\Benchmark\CategoryRepository
+    AppBundle\Repository\Benchmark\CustomProductRepository:
+        factory: ['@AppBundle\Repository\Factory\BenchmarkRepositoryFactory', getRepository]
+        arguments:
+            - AppBundle\Repository\Benchmark\CustomProductRepository
+    AppBundle\Repository\Benchmark\ProductRepository:
+        factory: ['@AppBundle\Repository\Factory\BenchmarkRepositoryFactory', getRepository]
+        arguments:
+            - AppBundle\Repository\Benchmark\ProductRepository
+    AppBundle\Repository\Benchmark\SegmentRepository:
+        factory: ['@AppBundle\Repository\Factory\BenchmarkRepositoryFactory', getRepository]
+        arguments:
+            - AppBundle\Repository\Benchmark\SegmentRepository
+
+    # Infomarket Repositories
+    AppBundle\Repository\Infomarket\AdvertRepository:
+        factory: ['@AppBundle\Repository\Factory\InfomarketRepositoryFactory', getRepository]
+        arguments:
+            - AppBundle\Repository\Infomarket\AdvertRepository
+    AppBundle\Repository\Infomarket\ArticleRepository:
+        factory: ['@AppBundle\Repository\Factory\InfomarketRepositoryFactory', getRepository]
+        arguments:
+            - AppBundle\Repository\Infomarket\ArticleRepository
+    AppBundle\Repository\Infomarket\ArticleCategoryRepository:
+        factory: ['@AppBundle\Repository\Factory\InfomarketRepositoryFactory', getRepository]
+        arguments:
+            - AppBundle\Repository\Infomarket\ArticleCategoryRepository
+    AppBundle\Repository\Infomarket\BranchRepository:
+        factory: ['@AppBundle\Repository\Factory\InfomarketRepositoryFactory', getRepository]
+        arguments:
+            - AppBundle\Repository\Infomarket\BranchRepository
+    AppBundle\Repository\Infomarket\BrandRepository:
+        factory: ['@AppBundle\Repository\Factory\InfomarketRepositoryFactory', getRepository]
+        arguments:
+            - AppBundle\Repository\Infomarket\BrandRepository
+    AppBundle\Repository\Infomarket\CategoryRepository:
+        factory: ['@AppBundle\Repository\Factory\InfomarketRepositoryFactory', getRepository]
+        arguments:
+            - AppBundle\Repository\Infomarket\CategoryRepository
+    AppBundle\Repository\Infomarket\MagazineRepository:
+        factory: ['@AppBundle\Repository\Factory\InfomarketRepositoryFactory', getRepository]
+        arguments:
+            - AppBundle\Repository\Infomarket\MagazineRepository
+    AppBundle\Repository\Infomarket\MenuEntryRepository:
+        factory: ['@AppBundle\Repository\Factory\InfomarketRepositoryFactory', getRepository]
+        arguments:
+            - AppBundle\Repository\Infomarket\MenuEntryRepository
+    AppBundle\Repository\Infomarket\ProductRepository:
+        factory: ['@AppBundle\Repository\Factory\InfomarketRepositoryFactory', getRepository]
+        arguments:
+            - AppBundle\Repository\Infomarket\ProductRepository
+    AppBundle\Repository\Infomarket\SegmentRepository:
+        factory: ['@AppBundle\Repository\Factory\InfomarketRepositoryFactory', getRepository]
+        arguments:
+            - AppBundle\Repository\Infomarket\SegmentRepository 
+    AppBundle\Repository\Infomarket\TagRepository:
+        factory: ['@AppBundle\Repository\Factory\InfomarketRepositoryFactory', getRepository]
+        arguments:
+            - AppBundle\Repository\Infomarket\TagRepository
+    AppBundle\Repository\Infomarket\TermRepository:
+        factory: ['@AppBundle\Repository\Factory\InfomarketRepositoryFactory', getRepository]
+        arguments:
+            - AppBundle\Repository\Infomarket\TermRepository
+    ## Infomarket Search Repositories        
+    AppBundle\Repository\Search\Infomarket\ArticleSearchRepository:
+        factory: ['@AppBundle\Repository\Factory\InfomarketRepositoryFactory', getRepository]
+        arguments:
+            - AppBundle\Repository\Search\Infomarket\ArticleSearchRepository
+    AppBundle\Repository\Search\Infomarket\BrandSearchRepository:
+        factory: ['@AppBundle\Repository\Factory\InfomarketRepositoryFactory', getRepository]
+        arguments:
+            - AppBundle\Repository\Search\Infomarket\BrandSearchRepository
+    AppBundle\Repository\Search\Infomarket\CategorySearchRepository:
+        factory: ['@AppBundle\Repository\Factory\InfomarketRepositoryFactory', getRepository]
+        arguments:
+            - AppBundle\Repository\Search\Infomarket\CategorySearchRepository
+    AppBundle\Repository\Search\Infomarket\ProductSearchRepository:
+        factory: ['@AppBundle\Repository\Factory\InfomarketRepositoryFactory', getRepository]
+        arguments:
+            - AppBundle\Repository\Search\Infomarket\ProductSearchRepository
+    AppBundle\Repository\Search\Infomarket\TermSearchRepository:
+        factory: ['@AppBundle\Repository\Factory\InfomarketRepositoryFactory', getRepository]
+        arguments:
+            - AppBundle\Repository\Search\Infomarket\TermSearchRepository
+
+    # Infoprodukt Repositories
+    AppBundle\Repository\Infoprodukt\AdvertRepository:
+        factory: ['@AppBundle\Repository\Factory\InfoproduktRepositoryFactory', getRepository]
+        arguments:
+            - AppBundle\Repository\Infoprodukt\AdvertRepository
+    AppBundle\Repository\Infoprodukt\ArticleRepository:
+        factory: ['@AppBundle\Repository\Factory\InfoproduktRepositoryFactory', getRepository]
+        arguments:
+            - AppBundle\Repository\Infoprodukt\ArticleRepository
+    AppBundle\Repository\Infoprodukt\ArticleCategoryRepository:
+        factory: ['@AppBundle\Repository\Factory\InfoproduktRepositoryFactory', getRepository]
+        arguments:
+            - AppBundle\Repository\Infoprodukt\ArticleCategoryRepository
+    AppBundle\Repository\Infoprodukt\BrandRepository:
+        factory: ['@AppBundle\Repository\Factory\InfoproduktRepositoryFactory', getRepository]
+        arguments:
+            - AppBundle\Repository\Infoprodukt\BrandRepository
+    AppBundle\Repository\Infoprodukt\CategoryRepository:
+        factory: ['@AppBundle\Repository\Factory\InfoproduktRepositoryFactory', getRepository]
+        arguments:
+            - AppBundle\Repository\Infoprodukt\CategoryRepository
+    AppBundle\Repository\Infoprodukt\MagazineRepository:
+        factory: ['@AppBundle\Repository\Factory\InfoproduktRepositoryFactory', getRepository]
+        arguments:
+            - AppBundle\Repository\Infoprodukt\MagazineRepository
+    AppBundle\Repository\Infoprodukt\MenuEntryRepository:
+        factory: ['@AppBundle\Repository\Factory\InfoproduktRepositoryFactory', getRepository]
+        arguments:
+            - AppBundle\Repository\Infoprodukt\MenuEntryRepository
+    AppBundle\Repository\Infoprodukt\ProductRepository:
+        factory: ['@AppBundle\Repository\Factory\InfoproduktRepositoryFactory', getRepository]
+        arguments:
+            - AppBundle\Repository\Infoprodukt\ProductRepository
+    AppBundle\Repository\Infoprodukt\SegmentRepository:
+        factory: ['@AppBundle\Repository\Factory\InfoproduktRepositoryFactory', getRepository]
+        arguments:
+            - AppBundle\Repository\Infoprodukt\SegmentRepository 
+    AppBundle\Repository\Infoprodukt\TagRepository:
+        factory: ['@AppBundle\Repository\Factory\InfoproduktRepositoryFactory', getRepository]
+        arguments:
+            - AppBundle\Repository\Infoprodukt\TagRepository
+    AppBundle\Repository\Infoprodukt\TermRepository:
+        factory: ['@AppBundle\Repository\Factory\InfoproduktRepositoryFactory', getRepository]
+        arguments:
+            - AppBundle\Repository\Infoprodukt\TermRepository
+    ## Infoprodukt Search Repositories        
+    AppBundle\Repository\Search\Infoprodukt\ArticleSearchRepository:
+        factory: ['@AppBundle\Repository\Factory\InfoproduktRepositoryFactory', getRepository]
+        arguments:
+            - AppBundle\Repository\Search\Infoprodukt\ArticleSearchRepository
+    AppBundle\Repository\Search\Infoprodukt\BrandSearchRepository:
+        factory: ['@AppBundle\Repository\Factory\InfoproduktRepositoryFactory', getRepository]
+        arguments:
+            - AppBundle\Repository\Search\Infoprodukt\BrandSearchRepository
+    AppBundle\Repository\Search\Infoprodukt\CategorySearchRepository:
+        factory: ['@AppBundle\Repository\Factory\InfoproduktRepositoryFactory', getRepository]
+        arguments:
+            - AppBundle\Repository\Search\Infoprodukt\CategorySearchRepository
+    AppBundle\Repository\Search\Infoprodukt\ProductSearchRepository:
+        factory: ['@AppBundle\Repository\Factory\InfoproduktRepositoryFactory', getRepository]
+        arguments:
+            - AppBundle\Repository\Search\Infoprodukt\ProductSearchRepository
+    AppBundle\Repository\Search\Infoprodukt\TermSearchRepository:
+        factory: ['@AppBundle\Repository\Factory\InfoproduktRepositoryFactory', getRepository]
+        arguments:
+            - AppBundle\Repository\Search\Infoprodukt\TermSearchRepository
+            
+                                                    
+    # Admin Repositories
+    
+    ## Main Repositories
+    AppBundle\Repository\Admin\Main\AdvertRepository:
         factory: ['@doctrine.orm.default_entity_manager', getRepository]
         arguments:
-            - AppBundle\Entity\Advert
+            - AppBundle\Entity\Main\Advert
         tags:
             - { name: app.repository }
-    app.repository.article:
-        class: Doctrine\ORM\EntityRepository
+    AppBundle\Repository\Admin\Main\ArticleCategoryRepository:
         factory: ['@doctrine.orm.default_entity_manager', getRepository]
         arguments:
-            - AppBundle\Entity\Article
+            - AppBundle\Entity\Main\ArticleCategory
         tags:
             - { name: app.repository }
-    app.repository.article_category:
-        class: Doctrine\ORM\EntityRepository
+    AppBundle\Repository\Admin\Main\ArticleRepository:
         factory: ['@doctrine.orm.default_entity_manager', getRepository]
         arguments:
-            - AppBundle\Entity\ArticleCategory
+            - AppBundle\Entity\Main\Article
         tags:
             - { name: app.repository }
-    app.repository.branch:
-        class: Doctrine\ORM\EntityRepository
+    AppBundle\Repository\Admin\Main\BenchmarkEnumRepository:
         factory: ['@doctrine.orm.default_entity_manager', getRepository]
         arguments:
-            - AppBundle\Entity\Branch
+            - AppBundle\Entity\Main\BenchmarkEnum
         tags:
             - { name: app.repository }
-    app.repository.brand:
-        class: Doctrine\ORM\EntityRepository
+    AppBundle\Repository\Admin\Main\BenchmarkFieldRepository:
         factory: ['@doctrine.orm.default_entity_manager', getRepository]
         arguments:
-            - AppBundle\Entity\Brand
+            - AppBundle\Entity\Main\BenchmarkField
         tags:
             - { name: app.repository }
-    app.repository.category:
-        class: Doctrine\ORM\EntityRepository
+    AppBundle\Repository\Admin\Main\BenchmarkMessageRepository:
         factory: ['@doctrine.orm.default_entity_manager', getRepository]
         arguments:
-            - AppBundle\Entity\Category
+            - AppBundle\Entity\Main\BenchmarkMessage
         tags:
             - { name: app.repository }
-    app.repository.link:
-        class: Doctrine\ORM\EntityRepository
+    AppBundle\Repository\Admin\Main\BranchRepository:
         factory: ['@doctrine.orm.default_entity_manager', getRepository]
         arguments:
-            - AppBundle\Entity\Link
+            - AppBundle\Entity\Main\Branch
         tags:
             - { name: app.repository }
-    app.repository.magazine:
-        class: Doctrine\ORM\EntityRepository
+    AppBundle\Repository\Admin\Main\BrandRepository:
         factory: ['@doctrine.orm.default_entity_manager', getRepository]
         arguments:
-            - AppBundle\Entity\Magazine
+            - AppBundle\Entity\Main\Brand
         tags:
             - { name: app.repository }
-    app.repository.menu:
-        class: Doctrine\ORM\EntityRepository
+    AppBundle\Repository\Admin\Main\CategoryRepository:
         factory: ['@doctrine.orm.default_entity_manager', getRepository]
         arguments:
-            - AppBundle\Entity\Menu
+            - AppBundle\Entity\Main\Category
         tags:
             - { name: app.repository }
-    app.repository.menu_entry:
-        class: Doctrine\ORM\EntityRepository
+    AppBundle\Repository\Admin\Main\LinkRepository:
         factory: ['@doctrine.orm.default_entity_manager', getRepository]
         arguments:
-            - AppBundle\Entity\MenuEntry
+            - AppBundle\Entity\Main\Link
         tags:
             - { name: app.repository }
-    app.repository.newsletter_block:
-        class: Doctrine\ORM\EntityRepository
+    AppBundle\Repository\Admin\Main\MagazineRepository:
         factory: ['@doctrine.orm.default_entity_manager', getRepository]
         arguments:
-            - AppBundle\Entity\NewsletterBlock
+            - AppBundle\Entity\Main\Magazine
         tags:
             - { name: app.repository }
-    app.repository.newsletter_block_template:
-        class: Doctrine\ORM\EntityRepository
+    AppBundle\Repository\Admin\Main\MenuEntryRepository:
         factory: ['@doctrine.orm.default_entity_manager', getRepository]
         arguments:
-            - AppBundle\Entity\NewsletterBlockTemplate
+            - AppBundle\Entity\Main\MenuEntry
         tags:
             - { name: app.repository }
-    app.repository.newsletter_group:
-        class: Doctrine\ORM\EntityRepository
+    AppBundle\Repository\Admin\Main\MenuRepository:
         factory: ['@doctrine.orm.default_entity_manager', getRepository]
         arguments:
-            - AppBundle\Entity\NewsletterGroup
+            - AppBundle\Entity\Main\Menu
         tags:
             - { name: app.repository }
-    app.repository.newsletter_page:
-        class: Doctrine\ORM\EntityRepository
+    AppBundle\Repository\Admin\Main\NewsletterBlockRepository:
         factory: ['@doctrine.orm.default_entity_manager', getRepository]
         arguments:
-            - AppBundle\Entity\NewsletterPage
+            - AppBundle\Entity\Main\NewsletterBlock
         tags:
             - { name: app.repository }
-    app.repository.newsletter_page_template:
-        class: Doctrine\ORM\EntityRepository
+    AppBundle\Repository\Admin\Main\NewsletterBlockTemplateRepository:
         factory: ['@doctrine.orm.default_entity_manager', getRepository]
         arguments:
-            - AppBundle\Entity\NewsletterPageTemplate
+            - AppBundle\Entity\Main\NewsletterBlockTemplate
         tags:
             - { name: app.repository }
-    app.repository.newsletter_user:
-        class: Doctrine\ORM\EntityRepository
+    AppBundle\Repository\Admin\Main\NewsletterGroupRepository:
         factory: ['@doctrine.orm.default_entity_manager', getRepository]
         arguments:
-            - AppBundle\Entity\NewsletterUser
+            - AppBundle\Entity\Main\NewsletterGroup
         tags:
             - { name: app.repository }
-    app.repository.page:
-        class: Doctrine\ORM\EntityRepository
+    AppBundle\Repository\Admin\Main\NewsletterPageRepository:
         factory: ['@doctrine.orm.default_entity_manager', getRepository]
         arguments:
-            - AppBundle\Entity\Page
+            - AppBundle\Entity\Main\NewsletterPage
         tags:
             - { name: app.repository }
-    app.repository.product:
-        class: Doctrine\ORM\EntityRepository
+    AppBundle\Repository\Admin\Main\NewsletterPageTemplateRepository:
         factory: ['@doctrine.orm.default_entity_manager', getRepository]
         arguments:
-            - AppBundle\Entity\Product
+            - AppBundle\Entity\Main\NewsletterPageTemplate
         tags:
             - { name: app.repository }
-    app.repository.segment:
-        class: Doctrine\ORM\EntityRepository
+    AppBundle\Repository\Admin\Main\NewsletterUserRepository:
         factory: ['@doctrine.orm.default_entity_manager', getRepository]
         arguments:
-            - AppBundle\Entity\Segment
+            - AppBundle\Entity\Main\NewsletterUser
         tags:
             - { name: app.repository }
-    app.repository.tag:
-        class: Doctrine\ORM\EntityRepository
+    AppBundle\Repository\Admin\Main\PageRepository:
         factory: ['@doctrine.orm.default_entity_manager', getRepository]
         arguments:
-            - AppBundle\Entity\Tag
+            - AppBundle\Entity\Main\Page
         tags:
             - { name: app.repository }
-    app.repository.term:
-        class: Doctrine\ORM\EntityRepository
+    AppBundle\Repository\Admin\Main\ProductRepository:
         factory: ['@doctrine.orm.default_entity_manager', getRepository]
         arguments:
-            - AppBundle\Entity\Term
+            - AppBundle\Entity\Main\Product
         tags:
             - { name: app.repository }
-    app.repository.user:
-        class: Doctrine\ORM\EntityRepository
+    AppBundle\Repository\Admin\Main\SegmentRepository:
         factory: ['@doctrine.orm.default_entity_manager', getRepository]
         arguments:
-            - AppBundle\Entity\User
+            - AppBundle\Entity\Main\Segment
+        tags:
+            - { name: app.repository }
+    AppBundle\Repository\Admin\Main\TagRepository:
+        factory: ['@doctrine.orm.default_entity_manager', getRepository]
+        arguments:
+            - AppBundle\Entity\Main\Tag
+        tags:
+            - { name: app.repository }
+    AppBundle\Repository\Admin\Main\TermRepository:
+        factory: ['@doctrine.orm.default_entity_manager', getRepository]
+        arguments:
+            - AppBundle\Entity\Main\Term
+        tags:
+            - { name: app.repository }
+    AppBundle\Repository\Admin\Main\UserRepository:
+        factory: ['@doctrine.orm.default_entity_manager', getRepository]
+        arguments:
+            - AppBundle\Entity\Main\User
+        tags:
+            - { name: app.repository }
+
+    ## Assignments Repositories
+    AppBundle\Repository\Admin\Assignments\AdvertCategoryAssignmentRepository:
+        factory: ['@doctrine.orm.default_entity_manager', getRepository]
+        arguments:
+            - AppBundle\Entity\Assignments\AdvertCategoryAssignment
+        tags:
+            - { name: app.repository }
+    AppBundle\Repository\Admin\Assignments\ArticleArticleCategoryAssignmentRepository:
+        factory: ['@doctrine.orm.default_entity_manager', getRepository]
+        arguments:
+            - AppBundle\Entity\Assignments\ArticleArticleCategoryAssignment
+        tags:
+            - { name: app.repository }
+    AppBundle\Repository\Admin\Assignments\ArticleBrandAssignmentRepository:
+        factory: ['@doctrine.orm.default_entity_manager', getRepository]
+        arguments:
+            - AppBundle\Entity\Assignments\ArticleBrandAssignment
+        tags:
+            - { name: app.repository }
+    AppBundle\Repository\Admin\Assignments\ArticleCategoryAssignmentRepository:
+        factory: ['@doctrine.orm.default_entity_manager', getRepository]
+        arguments:
+            - AppBundle\Entity\Assignments\ArticleCategoryAssignment
+        tags:
+            - { name: app.repository }
+    AppBundle\Repository\Admin\Assignments\ArticleTagAssignmentRepository:
+        factory: ['@doctrine.orm.default_entity_manager', getRepository]
+        arguments:
+            - AppBundle\Entity\Assignments\ArticleTagAssignment
+        tags:
+            - { name: app.repository }
+    AppBundle\Repository\Admin\Assignments\BranchCategoryAssignmentRepository:
+        factory: ['@doctrine.orm.default_entity_manager', getRepository]
+        arguments:
+            - AppBundle\Entity\Assignments\BranchCategoryAssignment
+        tags:
+            - { name: app.repository }
+    AppBundle\Repository\Admin\Assignments\BrandCategoryAssignmentRepository:
+        factory: ['@doctrine.orm.default_entity_manager', getRepository]
+        arguments:
+            - AppBundle\Entity\Assignments\BrandCategoryAssignment
+        tags:
+            - { name: app.repository }
+    AppBundle\Repository\Admin\Assignments\MagazineBranchAssignmentRepository:
+        factory: ['@doctrine.orm.default_entity_manager', getRepository]
+        arguments:
+            - AppBundle\Entity\Assignments\MagazineBranchAssignment
+        tags:
+            - { name: app.repository }
+    AppBundle\Repository\Admin\Assignments\MagazineCategoryAssignmentRepository:
+        factory: ['@doctrine.orm.default_entity_manager', getRepository]
+        arguments:
+            - AppBundle\Entity\Assignments\MagazineCategoryAssignment
+        tags:
+            - { name: app.repository }
+    AppBundle\Repository\Admin\Assignments\MenuEntryBranchAssignmentRepository:
+        factory: ['@doctrine.orm.default_entity_manager', getRepository]
+        arguments:
+            - AppBundle\Entity\Assignments\MenuEntryBranchAssignment
+        tags:
+            - { name: app.repository }
+    AppBundle\Repository\Admin\Assignments\MenuEntryCategoryAssignmentRepository:
+        factory: ['@doctrine.orm.default_entity_manager', getRepository]
+        arguments:
+            - AppBundle\Entity\Assignments\MenuEntryCategoryAssignment
+        tags:
+            - { name: app.repository }
+    AppBundle\Repository\Admin\Assignments\MenuMenuEntryAssignmentRepository:
+        factory: ['@doctrine.orm.default_entity_manager', getRepository]
+        arguments:
+            - AppBundle\Entity\Assignments\MenuMenuEntryAssignment
+        tags:
+            - { name: app.repository }
+    AppBundle\Repository\Admin\Assignments\NewsletterBlockAdvertAssignmentRepository:
+        factory: ['@doctrine.orm.default_entity_manager', getRepository]
+        arguments:
+            - AppBundle\Entity\Assignments\NewsletterBlockAdvertAssignment
+        tags:
+            - { name: app.repository }
+    AppBundle\Repository\Admin\Assignments\NewsletterBlockArticleAssignmentRepository:
+        factory: ['@doctrine.orm.default_entity_manager', getRepository]
+        arguments:
+            - AppBundle\Entity\Assignments\NewsletterBlockArticleAssignment
+        tags:
+            - { name: app.repository }
+    AppBundle\Repository\Admin\Assignments\NewsletterBlockMagazineAssignmentRepository:
+        factory: ['@doctrine.orm.default_entity_manager', getRepository]
+        arguments:
+            - AppBundle\Entity\Assignments\NewsletterBlockMagazineAssignment
+        tags:
+            - { name: app.repository }
+    AppBundle\Repository\Admin\Assignments\NewsletterUserNewsletterGroupAssignmentRepository:
+        factory: ['@doctrine.orm.default_entity_manager', getRepository]
+        arguments:
+            - AppBundle\Entity\Assignments\NewsletterUserNewsletterGroupAssignment
+        tags:
+            - { name: app.repository }
+    AppBundle\Repository\Admin\Assignments\NewsletterUserNewsletterPageAssignmentRepository:
+        factory: ['@doctrine.orm.default_entity_manager', getRepository]
+        arguments:
+            - AppBundle\Entity\Assignments\NewsletterUserNewsletterPageAssignment
+        tags:
+            - { name: app.repository }
+    AppBundle\Repository\Admin\Assignments\ProductCategoryAssignmentRepository:
+        factory: ['@doctrine.orm.default_entity_manager', getRepository]
+        arguments:
+            - AppBundle\Entity\Assignments\ProductCategoryAssignment
+        tags:
+            - { name: app.repository }
+    AppBundle\Repository\Admin\Assignments\TermCategoryAssignmentRepository:
+        factory: ['@doctrine.orm.default_entity_manager', getRepository]
+        arguments:
+            - AppBundle\Entity\Assignments\TermCategoryAssignment
+        tags:
+            - { name: app.repository }
+    AppBundle\Repository\Admin\Assignments\UserCategoryAssignmentRepository:
+        factory: ['@doctrine.orm.default_entity_manager', getRepository]
+        arguments:
+            - AppBundle\Entity\Assignments\UserCategoryAssignment
         tags:
             - { name: app.repository }
             
-    # Benchmark Repositories
-    AppBundle\Repository\Benchmark\ProductRepository:
-        factory: ['@AppBundle\Repository\Manager\BenchmarkRepositoryManager', getRepository]
+    ## Other Admin Repositories
+    AppBundle\Repository\Admin\Main\ArchivedArticleRepository:
+        factory: ['@AppBundle\Repository\Factory\AdminRepositoryFactory', getRepository]
         arguments:
-            - AppBundle\Entity\Product
+            - AppBundle\Repository\Admin\Main\ArchivedArticleRepository
+    AppBundle\Repository\Admin\Other\SendNewsletterRepository:
+        factory: ['@AppBundle\Repository\Factory\AdminRepositoryFactory', getRepository]
+        arguments:
+            - AppBundle\Repository\Admin\Other\SendNewsletterRepository

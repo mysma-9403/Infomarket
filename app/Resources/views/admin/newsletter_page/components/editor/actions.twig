@@ -5,9 +5,22 @@
 	
 	<div class="col-xs-6">
 		{% if entry.id %}
-			<a href="#" class="btn btn-primary pop">
-				<span class="fa fa-code"></span> {{ 'action.newsletterPage.showCode'|trans }}
-			</a>
+			{% include 'common/buttons/action_button.twig' with 
+			{ extPath: '_preview', routeParams: { id: entry.id }, 
+				tooltip: 'action.newsletterPage.preview', icon: 'fa-eye' } %}
+				
+			{% include 'common/buttons/action_button.twig' with 
+			{ href: '#', tooltip: 'action.newsletterPage.showCode', 
+				icon: 'fa-code', type: 'btn-primary pop' } %}
+			
+			{% include 'common/buttons/action_button.twig' with 
+			{ extPath: '_save_file', routeParams: { id: entry.id }, 
+				tooltip: 'action.newsletterPage.saveFile', icon: 'fa-save', type: 'btn-success' } %}
+				
+
+			{% include 'common/buttons/action_button.twig' with 
+			{ extPath: '_send_newsletter_form', routeParams: { id: entry.id }, 
+				tooltip: 'action.newsletterPage.sendNewsletter', icon: 'fa-send' } %}
 		{% endif %}
 	</div>
 </div>

@@ -60,9 +60,9 @@
 				<th class="text-right">{{ field.fieldName }}</th>
 				{% for entry in entries %}
 					<td class="text-center">
-						{% if field.fieldType == constant('AppBundle\\Entity\\BenchmarkField::BOOLEAN_FIELD_TYPE') %}
+						{% if field.fieldType == constant('AppBundle\\Entity\\Main\\BenchmarkField::BOOLEAN_FIELD_TYPE') %}
 					        {{ entry[key] ? '+' : '-' }}
-						{% elseif field.fieldType == constant('AppBundle\\Entity\\BenchmarkField::DECIMAL_FIELD_TYPE') %}
+						{% elseif field.fieldType == constant('AppBundle\\Entity\\Main\\BenchmarkField::DECIMAL_FIELD_TYPE') %}
 							{{ entry[key] ? entry[key]|number_format(field.decimalPlaces, '.', ' ') : '' }} {# &nbsp; #}
 				        {% else %}
 					        {{ entry[key] }}

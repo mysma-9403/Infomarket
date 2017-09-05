@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+        http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+	<entity name="AppBundle\Entity\Main\NewsletterBlock" table="newsletter_blocks"
+		repository-class="AppBundle\Repository\Admin\Main\NewsletterBlockRepository">
+
+		<field name="name" type="string" length="128" nullable="false" />
+		<field name="subname" type="string" length="128" nullable="true" />
+
+		<field name="orderNumber" type="integer" default="1" nullable="true" />
+
+		<field name="xAdvertRatio" type="integer" default="1" nullable="true" />
+		<field name="yAdvertRatio" type="integer" default="1" nullable="true" />
+
+		<field name="xArticleRatio" type="integer" default="1" nullable="true" />
+		<field name="yArticleRatio" type="integer" default="1" nullable="true" />
+
+		<field name="xMagazineRatio" type="integer" default="1" nullable="true" />
+		<field name="yMagazineRatio" type="integer" default="1" nullable="true" />
+
+		<field name="magazinePadding" type="integer" default="0" nullable="true" />
+
+		<field name="articleSeparator" type="string" length="64" nullable="true" />
+		<field name="magazineSeparator" type="string" length="64" nullable="true" />
+
+		<many-to-one field="newsletterPage" target-entity="NewsletterPage"
+			inversed-by="newsletterBlocks" nullable="false" />
+
+		<many-to-one field="newsletterBlockTemplate" target-entity="NewsletterBlockTemplate"
+			nullable="false" />
+
+		<one-to-many field="newsletterBlockAdvertAssignments"
+			target-entity="AppBundle\Entity\Assignments\NewsletterBlockAdvertAssignment"
+			mapped-by="newsletterBlock">
+		</one-to-many>
+
+		<one-to-many field="newsletterBlockArticleAssignments"
+			target-entity="AppBundle\Entity\Assignments\NewsletterBlockArticleAssignment"
+			mapped-by="newsletterBlock">
+		</one-to-many>
+
+		<one-to-many field="newsletterBlockMagazineAssignments"
+			target-entity="AppBundle\Entity\Assignments\NewsletterBlockMagazineAssignment"
+			mapped-by="newsletterBlock">
+		</one-to-many>
+	</entity>
+
+</doctrine-mapping>

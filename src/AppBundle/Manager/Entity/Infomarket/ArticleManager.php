@@ -2,37 +2,65 @@
 
 namespace AppBundle\Manager\Entity\Infomarket;
 
-use AppBundle\Entity\Brand;
-use AppBundle\Manager\Entity\Common\ArticleManager as CommonArticleManager;
-use AppBundle\Repository\Infomarket\ArticleRepository;
+use AppBundle\Manager\Entity\Common\Main\ArticleManager as CommonArticleManager;
+use AppBundle\Manager\Params\Base\ParamsManager;
+use AppBundle\Manager\Utils\ArticleBrandAssignmentsManager;
+use AppBundle\Repository\Base\BaseRepository;
 use AppBundle\Repository\Infomarket\BrandRepository;
-use AppBundle\Entity\Tag;
 use AppBundle\Repository\Infomarket\TagRepository;
+use AppBundle\Manager\Utils\ArticleTagAssignmentsManager;
 
 class ArticleManager extends CommonArticleManager {
-	
-	protected function getRepository() {
-		/** @var ObjectManager $em */
-		$em = $this->doctrine->getManager();
-		$type = $this->getEntityType();
-		$metadata = $em->getClassMetadata($type);
-	
-		return new ArticleRepository($em, $metadata);
+
+	/**
+	 *
+	 * @var BrandRepository
+	 */
+	protected $brandRepository;
+
+	/**
+	 *
+	 * @var TagRepository
+	 */
+	protected $tagRepository;
+
+	/**
+	 *
+	 * @var ArticleBrandAssignmentsManager
+	 */
+	protected $abaManager;
+
+	/**
+	 *
+	 * @var ArticleTagAssignmentsManager
+	 */
+	protected $ataManager;
+
+	public function __construct(BaseRepository $repository, $paginator, ParamsManager $paramsManager, 
+			BrandRepository $brandRepository, TagRepository $tagRepository, 
+			ArticleBrandAssignmentsManager $abaManager, ArticleTagAssignmentsManager $ataManager) {
+		parent::__construct($repository, $paginator, $paramsManager);
+		
+		$this->brandRepository = $brandRepository;
+		$this->tagRepository = $tagRepository;
+		
+		$this->abaManager = $abaManager;
+		$this->ataManager = $ataManager;
 	}
-	
-	protected function getBrandRepository() {
-		/** @var ObjectManager $em */
-		$em = $this->doctrine->getManager();
-		$metadata = $em->getClassMetadata(Brand::class);
-	
-		return new BrandRepository($em, $metadata);
-	}
-	
-	protected function getTagRepository() {
-		/** @var ObjectManager $em */
-		$em = $this->doctrine->getManager();
-		$metadata = $em->getClassMetadata(Tag::class);
-	
-		return new TagRepository($em, $metadata);
+
+	public function getEntries($filter, $page) {
+		$items = parent::getEntries($filter, $page);
+		
+		if (count($items) > 0) {
+			$ids = $this->repository->getIds($items);
+			
+			$brands = $this->brandRepository->findItemsByArticles($ids);
+			$items = $this->abaManager->assignToItems($items, $brands);
+			
+			$tags = $this->tagRepository->findItemsByArticles($ids);
+			$items = $this->ataManager->assignToItems($items, $tags);
+		}
+		
+		return $items;
 	}
 }

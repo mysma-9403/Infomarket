@@ -2,114 +2,75 @@
 
 namespace AppBundle\Manager\Params\Base;
 
+use AppBundle\Repository\Base\BaseRepository;
 use AppBundle\Utils\ClassUtils;
 use Symfony\Component\HttpFoundation\Request;
 
 class ParamsManager {
-	
-	//TODO replace by repository
+
 	protected $doctrine;
-	
+
 	public function __construct($doctrine) {
 		$this->doctrine = $doctrine;
 	}
-	
-	/**
-	 * 
-	 * @param Request $request
-	 * @param array $params
-	 * 
-	 * @return array
-	 */
-	public function getParams(Request $request, array $params) {}
-	
-	/**
-	 * 
-	 * @param Request $request
-	 * @param class $paramClass
-	 * @param object $template
-	 * 
-	 * @return object
-	 */
-	protected function getParam($request, $paramClass, $template = null) {
-		//TODO replace by repository
-		$repository = $this->doctrine->getRepository($paramClass);
-		$paramName = ClassUtils::getUnderscoreName($paramClass);
-		$id = $request->get($paramName, $template);
-		return $id ? $repository->find($id) : null;
-	}
-	
+
 	/**
 	 *
-	 * @param Request $request
-	 * @param class $paramClass
-	 * @param string $name
-	 * @param object $template
-	 * 
+	 * @param Request $request        	
+	 * @param class $paramClass        	
+	 * @param object $template        	
+	 *
 	 * @return object
 	 */
-	protected function getParamWithName($request, $paramClass, $name, $template = null)
-	{
-		//TODO replace by repository
-		$repository = $this->doctrine->getRepository($paramClass);
+	public function getParamByClass(Request $request, $class, $template = null) {
+		$name = ClassUtils::getUnderscoreName($class);
+		
+		return $this->getParamByName($request, $class, $name, $template);
+	}
+
+	/**
+	 *
+	 * @param Request $request        	
+	 * @param class $paramClass        	
+	 * @param string $name        	
+	 * @param object $template        	
+	 *
+	 * @return object
+	 */
+	public function getParamByName(Request $request, $class, $name, $template = null) {
+		/** @var BaseRepository $repository */
+		$repository = $this->doctrine->getRepository($class);
+		
 		$id = $request->get($name, $template);
+		
 		return $id ? $repository->find($id) : null;
 	}
-	
+
 	/**
 	 *
-	 * @param class $paramClass
-	 * @param BaseEntityFilter $filter
-	 * 
-	 * @return object[]
-	 */
-	protected function getParamList($paramClass, $filter)
-	{
-		//TODO replace by repository
-		$repository = $this->doctrine->getRepository($paramClass);
-		return $repository->findSelected($filter);
-	}
-	
-	/**
-	 *
-	 * @param Request $request
-	 * @param class $paramClass
-	 * @param mixed $template
+	 * @param Request $request        	
+	 * @param class $paramClass        	
+	 * @param mixed $template        	
 	 *
 	 * @return mixed
 	 */
-	protected function getParamId($request, $paramClass, $template = null)
-	{
-		$paramName = ClassUtils::getUnderscoreName($paramClass);
-		$id = $request->get($paramName, null);
+	public function getIdByClass(Request $request, $class, $template = null) {
+		$name = ClassUtils::getUnderscoreName($class);
 		
-		if($id !== null) return $id;
-		
-		if(array_key_exists($paramName, $this->lastRouteParams)) {
-			return $this->lastRouteParams[$paramName];
-		}
-		
-		return $template;
+		return $this->getIdByName($request, $name, $template);
 	}
-	
+
 	/**
 	 *
-	 * @param Request $request
-	 * @param string $paramName
-	 * @param mixed $template
+	 * @param Request $request        	
+	 * @param string $paramName        	
+	 * @param mixed $template        	
 	 *
 	 * @return mixed
 	 */
-	protected function getParamIdByName($request, $paramName, $template = null)
-	{
-		$id = $request->get($paramName, null);
-	
-		if($id !== null) return $id;
-	
-		if(array_key_exists($paramName, $this->lastRouteParams)) {
-			return $this->lastRouteParams[$paramName];
-		}
-	
-		return $template;
+	public function getIdByName(Request $request, $name, $template = null) {
+		$id = $request->get($name, null);
+		
+		return $id ? $id : $template;
 	}
 }

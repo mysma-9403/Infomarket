@@ -1,0 +1,11 @@
+AppBundle\Entity\Main\Product:
+    constraints:
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
+            fields: [benchmarkQuery, brand, name]
+            errorPath: name
+            ignoreNull: false
+    properties:
+        name:
+            - NotBlank: ~
+        brand:
+            - NotBlank: ~

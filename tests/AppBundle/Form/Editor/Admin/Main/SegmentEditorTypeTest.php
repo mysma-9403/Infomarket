@@ -2,11 +2,11 @@
 
 namespace Tests\AppBundle\Form\Editor\Admin\Main;
 
-use AppBundle\Entity\Segment;
+use AppBundle\Entity\Main\Segment;
 use AppBundle\Form\Editor\Admin\Main\SegmentEditorType;
-use Tests\AppBundle\Form\Editor\Admin\Base\ImageEntityEditorTypeTest;
+use Tests\AppBundle\Form\Editor\Admin\Base\ImageEditorTypeTest;
 
-class SegmentEditorTypeTest extends ImageEntityEditorTypeTest {
+class SegmentEditorTypeTest extends ImageEditorTypeTest {
 	
 	const SUBNAME = 'Test subname';
 	const COLOR = 'ff9900';

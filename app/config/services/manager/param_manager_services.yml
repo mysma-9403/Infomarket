@@ -1,0 +1,35 @@
+services:   
+    # Infomarket Param Managers
+    app.manager.param.infomarket.advert.featured:
+        class: AppBundle\Manager\Params\Infomarket\AdvertParamsManager
+        arguments:
+            - '@AppBundle\Repository\Infomarket\AdvertRepository'
+            - [3] #TODO: use Advert.FEATURED_LOCATION
+    app.manager.param.infomarket.advert.top-side:
+        class: AppBundle\Manager\Params\Infomarket\AdvertParamsManager
+        arguments:
+            - '@AppBundle\Repository\Infomarket\AdvertRepository'
+            - [0, 1] #TODO: use Advert.TOP_LOCATION, Advert.SIDE_LOCATION
+    AppBundle\Manager\Params\Infomarket\CategoryAdvertParamsManager:
+        arguments:
+            - '@AppBundle\Repository\Infomarket\AdvertRepository'
+            - [0, 1] #TODO: use Advert.TOP_LOCATION, Advert.SIDE_LOCATION 
+            - '@AppBundle\Repository\Infomarket\CategoryRepository'
+    AppBundle\Manager\Params\Infomarket\MenuParamsManager:
+        arguments:
+            - '@AppBundle\Repository\Infomarket\MenuEntryRepository'
+            
+    # Infoprodukt Param Managers
+    app.manager.param.infoprodukt.advert.featured:
+        class: AppBundle\Manager\Params\Infoprodukt\AdvertParamsManager
+        arguments:
+            - '@AppBundle\Repository\Infoprodukt\AdvertRepository'
+            - [3] #TODO: use Advert.FEATURED_LOCATION
+    app.manager.param.infoprodukt.advert.top-side:
+        class: AppBundle\Manager\Params\Infoprodukt\AdvertParamsManager
+        arguments:
+            - '@AppBundle\Repository\Infoprodukt\AdvertRepository'
+            - [0, 1] #TODO: use Advert.TOP_LOCATION, Advert.SIDE_LOCATION
+    AppBundle\Manager\Params\Infoprodukt\MenuParamsManager:
+        arguments:
+            - '@AppBundle\Repository\Infoprodukt\MenuEntryRepository'

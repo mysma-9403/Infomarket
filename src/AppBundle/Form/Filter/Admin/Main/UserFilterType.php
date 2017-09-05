@@ -2,39 +2,20 @@
 
 namespace AppBundle\Form\Filter\Admin\Main;
 
-use AppBundle\Filter\Admin\Main\UserFilter;
+use AppBundle\Filter\Common\Main\UserFilter;
 use AppBundle\Form\Base\FilterType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 
-class UserFilterType extends FilterType
-{
-	protected function addMainFields(FormBuilderInterface $builder, array $options) {
-		parent::addMainFields($builder, $options);
+class UserFilterType extends FilterType {
+
+	protected function addFields(FormBuilderInterface $builder, array $options) {
+		parent::addFields($builder, $options);
 		
-		$builder
-		->add('username', TextType::class, array(
-				'attr' => array(
-						'autofocus' => true,
-						'placeholder' => 'label.user.username'
-				),
-				'required' => false
-		))
-		->add('surname', TextType::class, array(
-				'attr' => array(
-						'placeholder' => 'label.user.surname'
-				),
-				'required' => false
-		))
-		->add('forename', TextType::class, array(
-				'attr' => array(
-						'placeholder' => 'label.user.forename'
-				),
-				'required' => false
-		))
-		;
+		$this->addFilterTextField($builder, 'username', 'label.user.username');
+		$this->addFilterTextField($builder, 'surname', 'label.user.surname');
+		$this->addFilterTextField($builder, 'forename', 'label.user.forename');
 	}
-	
+
 	protected function getEntityType() {
 		return UserFilter::class;
 	}

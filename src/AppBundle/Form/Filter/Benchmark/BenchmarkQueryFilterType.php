@@ -3,22 +3,17 @@
 namespace AppBundle\Form\Filter\Benchmark;
 
 use AppBundle\Filter\Benchmark\BenchmarkQueryFilter;
-use AppBundle\Form\Filter\Admin\Base\AdminFilterType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
+use AppBundle\Form\Base\FilterType;
 use Symfony\Component\Form\FormBuilderInterface;
 
-class BenchmarkQueryFilterType extends AdminFilterType {
-	
-	protected function addMainFields(FormBuilderInterface $builder, array $options) {
-		parent::addMainFields($builder, $options);
+class BenchmarkQueryFilterType extends FilterType {
+
+	protected function addFields(FormBuilderInterface $builder, array $options) {
+		parent::addFields($builder, $options);
 		
-		$builder
-		->add('name', TextType::class, array(
-				'required'		=> false
-		))
-		;
+		$this->addFilterTextField($builder, 'name', 'label.name');
 	}
-	
+
 	protected function getEntityType() {
 		return BenchmarkQueryFilter::class;
 	}

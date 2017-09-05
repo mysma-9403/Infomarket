@@ -2,13 +2,13 @@
 
 namespace Tests\AppBundle\Form\Editor\Admin\Main;
 
-use AppBundle\Entity\Article;
+use AppBundle\Entity\Main\Article;
 use AppBundle\Form\Editor\Admin\Main\ArticleEditorType;
 use Symfony\Component\Form\PreloadedExtension;
-use Tests\AppBundle\Form\Editor\Admin\Base\ImageEntityEditorTypeTest;
-use AppBundle\Entity\User;
+use Tests\AppBundle\Form\Editor\Admin\Base\ImageEditorTypeTest;
+use AppBundle\Entity\Main\User;
 
-class ArticleEditorTypeTest extends ImageEntityEditorTypeTest {
+class ArticleEditorTypeTest extends ImageEditorTypeTest {
 	
 	const SUBNAME = 'Test subname';
 	

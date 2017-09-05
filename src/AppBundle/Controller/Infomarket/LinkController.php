@@ -3,26 +3,22 @@
 namespace AppBundle\Controller\Infomarket;
 
 use AppBundle\Controller\Base\DummyController;
-use AppBundle\Entity\Link;
+use AppBundle\Entity\Main\Link;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
-class LinkController extends DummyController
-{   
-	//---------------------------------------------------------------------------
+class LinkController extends DummyController {
+	// ---------------------------------------------------------------------------
 	// Actions
-	//---------------------------------------------------------------------------
-	
-	public function showAction(Request $request, $id)
-	{
+	// ---------------------------------------------------------------------------
+	public function showAction(Request $request, $id) {
 		return $this->showActionInternal($request, $id);
 	}
-
-	//---------------------------------------------------------------------------
+	
+	// ---------------------------------------------------------------------------
 	// Internal actions
-	//---------------------------------------------------------------------------
-	protected function showActionInternal(Request $request, $id)
-	{
+	// ---------------------------------------------------------------------------
+	protected function showActionInternal(Request $request, $id) {
 		$am = $this->getAnalyticsManager();
 		$am->sendEventAnalytics($this->getEntityName(), 'show', $id);
 		
@@ -38,24 +34,22 @@ class LinkController extends DummyController
 		return $this->redirect($scheme . $link);
 	}
 	
-	//---------------------------------------------------------------------------
+	// ---------------------------------------------------------------------------
 	// EntityType related
-	//---------------------------------------------------------------------------
-    
-    protected function getEntityType()
-    {
-    	return Link::class;
-    }
-    
-    //-----------------------------------------------------------------
-    // Domain
-    //---------------------------------------------------------------------------
-    
-    /**
-     * @return string domain - base part of the route
-     */
-    protected function getDomain() 
-    {
-    	return 'infomarket';
-    }
+	// ---------------------------------------------------------------------------
+	protected function getEntityType() {
+		return Link::class;
+	}
+	
+	// -----------------------------------------------------------------
+	// Domain
+	// ---------------------------------------------------------------------------
+	
+	/**
+	 *
+	 * @return string domain - base part of the route
+	 */
+	protected function getDomain() {
+		return 'infomarket';
+	}
 }

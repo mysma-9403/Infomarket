@@ -2,11 +2,11 @@
 
 namespace Tests\AppBundle\Form\Editor\Admin\Main;
 
-use AppBundle\Entity\User;
+use AppBundle\Entity\Main\User;
 use AppBundle\Form\Editor\Admin\Main\UserEditorType;
-use Tests\AppBundle\Form\Editor\Admin\Base\BaseEntityEditorTypeTest;
+use Tests\AppBundle\Form\Editor\Admin\Base\BaseEditorTypeTest;
 
-class UserEditorTypeTest extends BaseEntityEditorTypeTest {
+class UserEditorTypeTest extends BaseEditorTypeTest {
 	
 	const USERNAME = 'Test username';
 	const FORENAME = 'Test forename';

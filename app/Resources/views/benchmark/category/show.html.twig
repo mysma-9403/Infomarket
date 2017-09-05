@@ -4,8 +4,8 @@
 {% set mainPath = 'category' %}
 {% set extPath = '_show' %}
 	
-{% block moreJavascripts %}
-	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+{% block javascript %}
+	{% include 'benchmark/category/components/show/javascript.twig' %}
 {% endblock %}
 	
 {% block content %}

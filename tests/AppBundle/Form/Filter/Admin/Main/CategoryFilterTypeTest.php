@@ -2,11 +2,11 @@
 
 namespace Tests\AppBundle\Form\Filter\Admin\Main;
 
-use AppBundle\Filter\Admin\Main\CategoryFilter;
+use AppBundle\Filter\Common\Main\CategoryFilter;
 use AppBundle\Form\Filter\Admin\Main\CategoryFilterType;
-use Tests\AppBundle\Form\Filter\Admin\Base\BaseEntityFilterTypeTest;
+use Tests\AppBundle\Form\Filter\Admin\Base\BaseFilterTypeTest;
 
-class CategoryFilterTypeTest extends BaseEntityFilterTypeTest {
+class CategoryFilterTypeTest extends BaseFilterTypeTest {
 		
 	const NAME = '*name*';
 	const SUBNAME = '*subname*';

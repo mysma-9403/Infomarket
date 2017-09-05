@@ -3,7 +3,7 @@
 namespace Tests\AppBundle\Form\Registration;
 
 
-use AppBundle\Entity\User;
+use AppBundle\Entity\Main\User;
 use FOS\UserBundle\Form\Type\RegistrationFormType;
 use Symfony\Component\Form\Tests\Extension\Core\Type\FormTypeTest;
 

@@ -1,7 +1,0 @@
-AppBundle\Entity\BrandCategoryAssignment:
-    constraints:
-        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
-            fields: [brand, category]
-            ignoreNull: false
-            message: 'brandCategoryAssignment.unique'
-                

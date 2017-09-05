@@ -2,42 +2,69 @@
 
 namespace AppBundle\Repository\Admin\Main;
 
-use AppBundle\Entity\Term;
-use AppBundle\Repository\Admin\Base\SimpleEntityRepository;
+use AppBundle\Entity\Assignments\TermCategoryAssignment;
+use AppBundle\Entity\Main\Term;
 use AppBundle\Filter\Base\Filter;
-use Doctrine\ORM\QueryBuilder;
-use AppBundle\Filter\Admin\Main\TermFilter;
-use AppBundle\Entity\TermCategoryAssignment;
+use AppBundle\Filter\Common\Main\TermFilter;
+use AppBundle\Repository\Admin\Base\SimpleRepository;
 use Doctrine\ORM\Query\Expr\Join;
+use Doctrine\ORM\QueryBuilder;
 
-class TermRepository extends SimpleEntityRepository
-{	
-	protected function  buildJoins(QueryBuilder &$builder, Filter $filter) {
+class TermRepository extends SimpleRepository {
+
+	protected function buildJoins(QueryBuilder &$builder, Filter $filter) {
 		parent::buildJoins($builder, $filter);
 		
-		if(count($filter->getCategories()) > 0) {
+		if (count($filter->getCategories()) > 0) {
 			$builder->leftJoin(TermCategoryAssignment::class, 'tca', Join::WITH, 'e.id = tca.term');
 		}
 	}
-	
-	
-	
-	protected function getWhere(QueryBuilder &$builder, Filter $filter) {
-		/** @var TermFilter $filter */
-		$where = parent::getWhere($builder, $filter);
+
+	protected function buildOrderBy(QueryBuilder &$builder, Filter $filter) {
+		$builder->addOrderBy('e.name', 'ASC');
+	}
+
+	protected function getSelectFields(QueryBuilder &$builder, Filter $filter) {
+		$fields = parent::getSelectFields($builder, $filter);
 		
-		if(count($filter->getCategories()) > 0) {
-			$where->add($builder->expr()->in('tca.category', $filter->getCategories()));
-		}
-	
+		$fields[] = 'e.name';
+		
+		$fields[] = 'e.infomarket';
+		$fields[] = 'e.infoprodukt';
+		
+		return $fields;
+	}
+
+	protected function getWhere(QueryBuilder &$builder, Filter $filter) {
+		$where = parent::getWhere($builder, $filter);
+		/** @var TermFilter $filter */
+		
+		$this->addStringWhere($builder, $where, 'e.name', $filter->getName());
+		
+		$this->addBooleanWhere($builder, $where, 'e.infomarket', $filter->getInfomarket());
+		$this->addBooleanWhere($builder, $where, 'e.infoprodukt', $filter->getInfoprodukt());
+		
+		$this->addArrayWhere($builder, $where, 'tca.category', $filter->getCategories());
+		
 		return $where;
 	}
-	
-	
-	
-    /**
-	 * {@inheritdoc}
-	 */
+
+	protected function getFilterSelectFields(QueryBuilder &$builder) {
+		$fields = parent::getFilterSelectFields($builder);
+		
+		$fields[] = 'e.name';
+		
+		return $fields;
+	}
+
+	protected function getFilterItemKeyFields($item) {
+		$fields = parent::getFilterItemKeyFields($item);
+		
+		$fields[] = $item['name'];
+		
+		return $fields;
+	}
+
 	protected function getEntityType() {
 		return Term::class;
 	}

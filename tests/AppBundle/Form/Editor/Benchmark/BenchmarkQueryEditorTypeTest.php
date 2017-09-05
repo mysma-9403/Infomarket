@@ -2,7 +2,7 @@
 
 namespace Tests\AppBundle\Form\Editor\Benchmark;
 
-use AppBundle\Entity\BenchmarkQuery;
+use AppBundle\Entity\Main\BenchmarkQuery;
 use AppBundle\Form\Editor\Benchmark\BenchmarkQueryEditorType;
 use Symfony\Component\Form\PreloadedExtension;
 use Tests\AppBundle\Form\Base\EditorTypeTest;

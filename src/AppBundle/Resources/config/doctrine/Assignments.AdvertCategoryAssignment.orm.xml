@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+        http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+	<entity name="AppBundle\Entity\Assignments\AdvertCategoryAssignment"
+		table="advert_category_assignments"
+		repository-class="AppBundle\Repository\Admin\Assignments\AdvertCategoryAssignmentRepository">
+
+		<many-to-one field="advert" target-entity="AppBundle\Entity\Main\Advert"
+			inversed-by="advertCategoryAssignments" />
+		<many-to-one field="category" target-entity="AppBundle\Entity\Main\Category"
+			inversed-by="advertCategoryAssignments" />
+
+	</entity>
+
+</doctrine-mapping>

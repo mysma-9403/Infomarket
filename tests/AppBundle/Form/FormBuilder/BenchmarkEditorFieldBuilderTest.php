@@ -2,7 +2,7 @@
 
 namespace Tests\AppBundle\Factory\Common\BenchmarkField;
 
-use AppBundle\Entity\BenchmarkField;
+use AppBundle\Entity\Main\BenchmarkField;
 use AppBundle\Form\FormBuilder\BenchmarkEditorFieldBuilder;
 use AppBundle\Form\Transformer\NumberToBooleanTransformer;
 use PHPUnit\Framework\TestCase;

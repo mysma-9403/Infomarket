@@ -2,49 +2,28 @@
 
 namespace AppBundle\Form\Editor\Admin\Main;
 
-use AppBundle\Entity\NewsletterBlockTemplate;
-use AppBundle\Form\Editor\Admin\Base\SimpleEntityEditorType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use AppBundle\Entity\Main\NewsletterBlockTemplate;
+use AppBundle\Form\Editor\Admin\Base\SimpleEditorType;
 use Symfony\Component\Form\FormBuilderInterface;
 
-class NewsletterBlockTemplateEditorType extends SimpleEntityEditorType
-{
-	/**
-	 * 
-	 * {@inheritDoc}
-	 * @see \AppBundle\Form\Base\SimpleEntityType::addMoreFields()
-	 */
-	protected function addMoreFields(FormBuilderInterface $builder, array $options) {
+class NewsletterBlockTemplateEditorType extends SimpleEditorType {
+
+	protected function addFields(FormBuilderInterface $builder, array $options) {
+		parent::addFields($builder, $options);
 		
-		$builder
-			->add('style', TextareaType::class, array(
-					'attr' => array('rows' => '9'),
-					'required' => false
-			))
-			->add('content', TextareaType::class, array(
-					'attr' => array('rows' => '10'),
-					'required' => true
-			))
-			->add('advertContent', TextareaType::class, array(
-					'attr' => array('rows' => '10'),
-					'required' => false
-			))
-			->add('articleContent', TextareaType::class, array(
-					'attr' => array('rows' => '10'),
-					'required' => false
-			))
-			->add('magazineContent', TextareaType::class, array(
-					'attr' => array('rows' => '10'),
-					'required' => false
-			))
-		;
+		$this->addTextField($builder, 'name', 'label.name');
+		
+		$this->addTextareaField($builder, 'style', 'label.newsletterBlockTemplate.style', false);
+		
+		$this->addTextareaField($builder, 'content', 'label.content');
+		
+		$this->addTextareaField($builder, 'advertContent', 'label.newsletterBlockTemplate.advertContent', false);
+		$this->addTextareaField($builder, 'articleContent', 'label.newsletterBlockTemplate.articleContent', 
+				false);
+		$this->addTextareaField($builder, 'magazineContent', 'label.newsletterBlockTemplate.magazineContent', 
+				false);
 	}
-	
-	/**
-	 * 
-	 * {@inheritDoc}
-	 * @see \AppBundle\Form\Base\SimpleEntityType::getEntityType()
-	 */
+
 	protected function getEntityType() {
 		return NewsletterBlockTemplate::class;
 	}

@@ -2,28 +2,28 @@
 
 namespace AppBundle\Form\Filter\Admin\Assignments;
 
-use AppBundle\Filter\Admin\Assignments\ArticleBrandAssignmentFilter;
-use AppBundle\Form\Filter\Admin\Base\AdminFilterType;
+use AppBundle\Filter\Common\Assignments\ArticleBrandAssignmentFilter;
+use AppBundle\Form\Filter\Admin\Base\SimpleFilterType;
 use Symfony\Component\Form\FormBuilderInterface;
 
-class ArticleBrandAssignmentFilterType extends AdminFilterType
-{
-	protected function addMainFields(FormBuilderInterface $builder, array $options) {
-		parent::addMainFields($builder, $options);
+class ArticleBrandAssignmentFilterType extends SimpleFilterType {
+
+	protected function addFields(FormBuilderInterface $builder, array $options) {
+		parent::addFields($builder, $options);
 		
-		$this->addEntityChoiceFilterField($builder, $options, 'articles');
-		$this->addEntityChoiceFilterField($builder, $options, 'brands');
+		$this->addFilterEntityChoiceField($builder, $options, 'articles');
+		$this->addFilterEntityChoiceField($builder, $options, 'brands');
 	}
-	
+
 	protected function getDefaultOptions() {
 		$options = parent::getDefaultOptions();
 		
-		$options[$this->getChoicesName('articles')] = [];
-		$options[$this->getChoicesName('brands')] = [];
-	
+		$options[$this->getChoicesName('articles')] = [ ];
+		$options[$this->getChoicesName('brands')] = [ ];
+		
 		return $options;
 	}
-	
+
 	protected function getEntityType() {
 		return ArticleBrandAssignmentFilter::class;
 	}

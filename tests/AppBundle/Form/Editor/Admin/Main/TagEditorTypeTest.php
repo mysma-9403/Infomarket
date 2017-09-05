@@ -2,11 +2,11 @@
 
 namespace Tests\AppBundle\Form\Editor\Admin\Main;
 
-use AppBundle\Entity\Tag;
+use AppBundle\Entity\Main\Tag;
 use AppBundle\Form\Editor\Admin\Main\TagEditorType;
-use Tests\AppBundle\Form\Editor\Admin\Base\SimpleEntityEditorTypeTest;
+use Tests\AppBundle\Form\Editor\Admin\Base\SimpleEditorTypeTest;
 
-class TagEditorTypeTest extends SimpleEntityEditorTypeTest {
+class TagEditorTypeTest extends SimpleEditorTypeTest {
 	
 	protected function getFormType() {
 		return TagEditorType::class;

@@ -2,15 +2,15 @@
 
 namespace Tests\AppBundle\Form\Editor\Admin\Assignments;
 
-use AppBundle\Entity\Category;
-use AppBundle\Entity\Product;
-use AppBundle\Entity\ProductCategoryAssignment;
+use AppBundle\Entity\Assignments\Category;
+use AppBundle\Entity\Assignments\Product;
+use AppBundle\Entity\Assignments\ProductCategoryAssignment;
 use AppBundle\Form\Editor\Admin\Assignments\ProductCategoryAssignmentEditorType;
 use Symfony\Component\Form\PreloadedExtension;
-use Tests\AppBundle\Form\Editor\Admin\Base\BaseEntityEditorTypeTest;
-use AppBundle\Entity\Segment;
+use Tests\AppBundle\Form\Editor\Admin\Base\BaseEditorTypeTest;
+use AppBundle\Entity\Assignments\Segment;
 
-class ProductCategoryAssignmentEditorTypeTest extends BaseEntityEditorTypeTest {
+class ProductCategoryAssignmentEditorTypeTest extends BaseEditorTypeTest {
 		
 	const PRODUCT_ID = 100;
 	const PRODUCT_NAME = 'Test product';

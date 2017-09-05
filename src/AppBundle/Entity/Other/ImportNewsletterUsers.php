@@ -2,68 +2,37 @@
 
 namespace AppBundle\Entity\Other;
 
+class ImportNewsletterUsers {
 
+	/**
+	 *
+	 * @var string
+	 */
+	private $importFile;
 
-/**
- * ImportNewsletterUsers
- */
-class ImportNewsletterUsers
-{
-    /**
-     * @var string
-     */
-    private $importFile;
-    
-    /**
-     * @var array
-     */
-    private $newsletterGroups;
+	/**
+	 *
+	 * @var array
+	 */
+	private $newsletterGroups;
 
-    /**
-     * Set importFile
-     *
-     * @param string $importFile
-     *
-     * @return ImportNewsletterUsers
-     */
-    public function setImportFile($importFile)
-    {
-        $this->importFile = $importFile;
+	public function setImportFile($importFile) {
+		$this->importFile = $importFile;
+		
+		return $this;
+	}
 
-        return $this;
-    }
+	public function getImportFile() {
+		return $this->importFile;
+	}
 
-    /**
-     * Get importFile
-     *
-     * @return string
-     */
-    public function getImportFile()
-    {
-        return $this->importFile;
-    }
-    
-    /**
-     * Set newsletterGroups
-     *
-     * @param array $newsletterGroups
-     *
-     * @return ImportNewsletterUsers
-     */
-    public function setNewsletterGroups($newsletterGroups)
-    {
-    	$this->newsletterGroups = $newsletterGroups;
-    
-    	return $this;
-    }
-    
-    /**
-     * Get newsletterGroups
-     *
-     * @return array
-     */
-    public function getNewsletterGroups()
-    {
-    	return $this->newsletterGroups;
-    }
+	public function setNewsletterGroups($newsletterGroups) {
+		$this->newsletterGroups = $newsletterGroups;
+		
+		return $this;
+	}
+
+	public function getNewsletterGroups() {
+		return $this->newsletterGroups;
+	}
 }

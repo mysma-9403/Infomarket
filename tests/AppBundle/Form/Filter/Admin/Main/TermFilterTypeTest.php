@@ -2,11 +2,11 @@
 
 namespace Tests\AppBundle\Form\Filter\Admin\Main;
 
-use AppBundle\Filter\Admin\Main\TermFilter;
+use AppBundle\Filter\Common\Main\TermFilter;
 use AppBundle\Form\Filter\Admin\Main\TermFilterType;
-use Tests\AppBundle\Form\Filter\Admin\Base\BaseEntityFilterTypeTest;
+use Tests\AppBundle\Form\Filter\Admin\Base\BaseFilterTypeTest;
 
-class TermFilterTypeTest extends BaseEntityFilterTypeTest {
+class TermFilterTypeTest extends BaseFilterTypeTest {
 		
 	const NAME = '*name*';
 	

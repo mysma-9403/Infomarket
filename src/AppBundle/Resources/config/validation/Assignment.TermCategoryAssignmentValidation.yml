@@ -1,0 +1,8 @@
+AppBundle\Entity\Assignments\TermCategoryAssignment:
+    constraints:
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
+            fields: [term, category]
+            errorPath: category
+            ignoreNull: false
+            message: 'termCategoryAssignment.unique'
+                

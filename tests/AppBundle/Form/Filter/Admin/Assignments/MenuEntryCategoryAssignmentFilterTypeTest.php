@@ -2,11 +2,11 @@
 
 namespace Tests\AppBundle\Form\Filter\Admin\Assignments;
 
-use AppBundle\Filter\Admin\Assignments\MenuEntryCategoryAssignmentFilter;
+use AppBundle\Filter\Common\Assignments\MenuEntryCategoryAssignmentFilter;
 use AppBundle\Form\Filter\Admin\Assignments\MenuEntryCategoryAssignmentFilterType;
-use Tests\AppBundle\Form\Filter\Admin\Base\BaseEntityFilterTypeTest;
+use Tests\AppBundle\Form\Filter\Admin\Base\BaseFilterTypeTest;
 
-class MenuEntryCategoryAssignmentFilterTypeTest extends BaseEntityFilterTypeTest {
+class MenuEntryCategoryAssignmentFilterTypeTest extends BaseFilterTypeTest {
 		
 	const MENU_ENTRY_1 = 101;
 	const MENU_ENTRY_2 = 102;

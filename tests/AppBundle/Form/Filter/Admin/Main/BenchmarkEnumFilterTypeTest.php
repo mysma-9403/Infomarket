@@ -2,11 +2,11 @@
 
 namespace Tests\AppBundle\Form\Filter\Admin\Main;
 
-use AppBundle\Filter\Admin\Main\BenchmarkEnumFilter;
+use AppBundle\Filter\Common\Main\BenchmarkEnumFilter;
 use AppBundle\Form\Filter\Admin\Main\BenchmarkEnumFilterType;
-use Tests\AppBundle\Form\Filter\Admin\Base\BaseEntityFilterTypeTest;
+use Tests\AppBundle\Form\Filter\Admin\Base\BaseFilterTypeTest;
 
-class BenchmarkEnumFilterTypeTest extends BaseEntityFilterTypeTest {
+class BenchmarkEnumFilterTypeTest extends BaseFilterTypeTest {
 		
 	const NAME = '*name*';
 	

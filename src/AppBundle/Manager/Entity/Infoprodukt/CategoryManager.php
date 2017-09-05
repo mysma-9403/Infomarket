@@ -2,17 +2,14 @@
 
 namespace AppBundle\Manager\Entity\Infoprodukt;
 
-use AppBundle\Manager\Entity\Common\CategoryManager as CommonCategoryManager;
-use AppBundle\Repository\Infoprodukt\CategoryRepository;
+use AppBundle\Manager\Entity\Common\Main\CategoryManager as CommonCategoryManager;
+use AppBundle\Repository\Base\BaseRepository;
+use AppBundle\Manager\Params\Base\ParamsManager;
 
 class CategoryManager extends CommonCategoryManager {
-	
-	protected function getRepository() {
-		/** @var ObjectManager $em */
-		$em = $this->doctrine->getManager();
-		$type = $this->getEntityType();
-		$metadata = $em->getClassMetadata($type);
-	
-		return new CategoryRepository($em, $metadata);
+
+	public function __construct(BaseRepository $repository, $paginator, ParamsManager $paramsManager) {
+		parent::__construct($repository, $paginator, $paramsManager);
+		$this->entriesPerPage = 0; // TODO should be set in services.yml
 	}
 }

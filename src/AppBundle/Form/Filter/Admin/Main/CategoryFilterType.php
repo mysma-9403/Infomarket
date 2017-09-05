@@ -2,47 +2,42 @@
 
 namespace AppBundle\Form\Filter\Admin\Main;
 
-use AppBundle\Filter\Admin\Main\CategoryFilter;
+use AppBundle\Filter\Common\Main\CategoryFilter;
 use AppBundle\Filter\Base\Filter;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
+use AppBundle\Form\Filter\Admin\Base\SimpleFilterType;
 use Symfony\Component\Form\FormBuilderInterface;
-use AppBundle\Form\Filter\Admin\Base\SimpleEntityFilterType;
 
-class CategoryFilterType extends SimpleEntityFilterType
-{
-	protected function addMainFields(FormBuilderInterface $builder, array $options) {
-		parent::addMainFields($builder, $options);
+class CategoryFilterType extends SimpleFilterType {
+
+	protected function addFields(FormBuilderInterface $builder, array $options) {
+		parent::addFields($builder, $options);
 		
-		$builder
-		->add('subname', TextType::class, array(
-				'attr' => array(
-						'placeholder' => 'label.subname'
-				),
-				'required' => false
-		))
-		;
+		$this->addFilterTextField($builder, 'name', 'label.name');
+		$this->addFilterTextField($builder, 'subname', 'label.subname');
 		
-		$this->addEntityChoiceFilterField($builder, $options, 'parents');
-		$this->addEntityChoiceFilterField($builder, $options, 'branches');
+		$this->addFilterBooleanChoiceField($builder, $options, 'infomarket');
+		$this->addFilterBooleanChoiceField($builder, $options, 'infoprodukt');
+		$this->addFilterBooleanChoiceField($builder, $options, 'featured');
+		$this->addFilterBooleanChoiceField($builder, $options, 'preleaf');
 		
-		$this->addBooleanChoiceFilterField($builder, $options, 'preleaf');
-		$this->addBooleanChoiceFilterField($builder, $options, 'featured');
+		$this->addFilterEntityChoiceField($builder, $options, 'parents');
+		$this->addFilterEntityChoiceField($builder, $options, 'branches');
 	}
-	
+
 	protected function getDefaultOptions() {
 		$options = parent::getDefaultOptions();
 		
-		$options[$this->getChoicesName('parents')] = [];
-		$options[$this->getChoicesName('branches')] = [];
+		$options[$this->getChoicesName('infomarket')] = [ ];
+		$options[$this->getChoicesName('infoprodukt')] = [ ];
+		$options[$this->getChoicesName('featured')] = [ ];
+		$options[$this->getChoicesName('preleaf')] = [ ];
 		
-		$options[$this->getChoicesName('preleaf')] = [];
-		$options[$this->getChoicesName('featured')] = [];
-		$options[$this->getChoicesName('infomarket')] = [];
-		$options[$this->getChoicesName('infoprodukt')] = [];
-	
+		$options[$this->getChoicesName('parents')] = [ ];
+		$options[$this->getChoicesName('branches')] = [ ];
+		
 		return $options;
 	}
-	
+
 	protected function getEntityType() {
 		return CategoryFilter::class;
 	}

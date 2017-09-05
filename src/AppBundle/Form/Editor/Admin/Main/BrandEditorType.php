@@ -2,38 +2,25 @@
 
 namespace AppBundle\Form\Editor\Admin\Main;
 
-use AppBundle\Entity\Brand;
-use AppBundle\Form\Editor\Admin\Base\ImageEntityEditorType;
-use Ivory\CKEditorBundle\Form\Type\CKEditorType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
+use AppBundle\Entity\Main\Brand;
+use AppBundle\Form\Editor\Admin\Base\ImageEditorType;
 use Symfony\Component\Form\FormBuilderInterface;
 
-class BrandEditorType extends ImageEntityEditorType
-{
-	/**
-	 * 
-	 * {@inheritDoc}
-	 * @see \AppBundle\Form\Base\SimpleEntityType::addMoreFields()
-	 */
-	protected function addMoreFields(FormBuilderInterface $builder, array $options) {
+class BrandEditorType extends ImageEditorType {
+
+	protected function addFields(FormBuilderInterface $builder, array $options) {
+		parent::addFields($builder, $options);
 		
-		$builder
-			->add('www', TextType::class, array(
-					'required' => false
-			))
-			->add('content', CKEditorType::class, array(
-					'config' => array(
-							'uiColor' => '#ffffff'),
-					'required' => false
-			))
-		;
+		$this->addTextField($builder, 'name', 'label.name');
+		
+		$this->addCheckboxField($builder, 'infomarket', 'label.infomarket');
+		$this->addCheckboxField($builder, 'infoprodukt', 'label.infoprodukt');
+		
+		$this->addTextField($builder, 'www', 'label.brand.www');
+		
+		$this->addCKEditorField($builder, 'content', 'label.content', false);
 	}
-	
-	/**
-	 * 
-	 * {@inheritDoc}
-	 * @see \AppBundle\Form\Base\SimpleEntityType::getEntityType()
-	 */
+
 	protected function getEntityType() {
 		return Brand::class;
 	}

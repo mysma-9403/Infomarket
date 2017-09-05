@@ -2,7 +2,7 @@
 
 namespace Tests\AppBundle\Factory\Common\Choices\Bool;
 
-use AppBundle\Entity\NewsletterUserNewsletterPageAssignment;
+use AppBundle\Entity\Assignments\NewsletterUserNewsletterPageAssignment;
 use AppBundle\Factory\Common\Choices\Enum\NewsletterUserNewsletterPageAssignmentStatesFactory;
 use PHPUnit\Framework\TestCase;
 

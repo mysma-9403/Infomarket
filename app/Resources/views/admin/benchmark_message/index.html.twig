@@ -51,6 +51,10 @@
 {% endblock %}
 
 
+{% block mainActions %}
+	{% include 'admin/_item/components/index/main_actions.twig' with { hidden: ' ' } %}
+{% endblock %}
+
 {% block moreActions %}
 	{% include 'admin/benchmark_message/components/index/more_actions.twig' %}
 {% endblock %}

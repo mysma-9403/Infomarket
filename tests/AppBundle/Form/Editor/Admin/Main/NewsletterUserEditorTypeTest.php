@@ -2,11 +2,11 @@
 
 namespace Tests\AppBundle\Form\Editor\Admin\Main;
 
-use AppBundle\Entity\NewsletterUser;
+use AppBundle\Entity\Main\NewsletterUser;
 use AppBundle\Form\Editor\Admin\Main\NewsletterUserEditorType;
-use Tests\AppBundle\Form\Editor\Admin\Base\SimpleEntityEditorTypeTest;
+use Tests\AppBundle\Form\Editor\Admin\Base\SimpleEditorTypeTest;
 
-class NewsletterUserEditorTypeTest extends SimpleEntityEditorTypeTest {
+class NewsletterUserEditorTypeTest extends SimpleEditorTypeTest {
 	
 	const SUBSCRIBED = true;
 	

@@ -2,7 +2,7 @@
 
 namespace Tests\AppBundle\Form\Filter\Admin\Main;
 
-use AppBundle\Filter\Admin\Main\UserFilter;
+use AppBundle\Filter\Common\Main\UserFilter;
 use AppBundle\Form\Filter\Admin\Main\UserFilterType;
 use Tests\AppBundle\Form\Base\FilterTypeTest;
 

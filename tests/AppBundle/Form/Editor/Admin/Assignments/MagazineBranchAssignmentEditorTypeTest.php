@@ -2,14 +2,14 @@
 
 namespace Tests\AppBundle\Form\Editor\Admin\Assignments;
 
-use AppBundle\Entity\Branch;
-use AppBundle\Entity\Magazine;
-use AppBundle\Entity\MagazineBranchAssignment;
+use AppBundle\Entity\Assignments\Branch;
+use AppBundle\Entity\Assignments\Magazine;
+use AppBundle\Entity\Assignments\MagazineBranchAssignment;
 use AppBundle\Form\Editor\Admin\Assignments\MagazineBranchAssignmentEditorType;
 use Symfony\Component\Form\PreloadedExtension;
-use Tests\AppBundle\Form\Editor\Admin\Base\BaseEntityEditorTypeTest;
+use Tests\AppBundle\Form\Editor\Admin\Base\BaseEditorTypeTest;
 
-class MagazineBranchAssignmentEditorTypeTest extends BaseEntityEditorTypeTest {
+class MagazineBranchAssignmentEditorTypeTest extends BaseEditorTypeTest {
 		
 	const MAGAZINE_ID = 100;
 	const MAGAZINE_NAME = 'Test magazine';

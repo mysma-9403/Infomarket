@@ -2,55 +2,42 @@
 
 namespace AppBundle\Form\Editor\Admin\Main;
 
-use AppBundle\Entity\NewsletterPage;
-use AppBundle\Entity\NewsletterPageTemplate;
-use AppBundle\Form\Editor\Admin\Base\SimpleEntityEditorType;
+use AppBundle\Entity\Main\NewsletterPage;
+use AppBundle\Entity\Main\NewsletterPageTemplate;
+use AppBundle\Form\Editor\Admin\Base\SimpleEditorType;
 use AppBundle\Form\Transformer\EntityToNumberTransformer;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 
-class NewsletterPageEditorType extends SimpleEntityEditorType
-{
+class NewsletterPageEditorType extends SimpleEditorType {
+
 	/**
-	 * 
+	 *
 	 * @var EntityToNumberTransformer
 	 */
 	protected $newsletterPageTemplateToNumberTransformer;
-	
+
 	public function __construct(EntityToNumberTransformer $newsletterPageTemplateToNumberTransformer) {
 		$this->newsletterPageTemplateToNumberTransformer = $newsletterPageTemplateToNumberTransformer;
 	}
-	
-	/**
-	 * 
-	 * {@inheritDoc}
-	 * @see \AppBundle\Form\Base\SimpleEntityType::addMoreFields()
-	 */
-	protected function addMoreFields(FormBuilderInterface $builder, array $options) {
-		parent::addMoreFields($builder, $options);
+
+	protected function addFields(FormBuilderInterface $builder, array $options) {
+		parent::addFields($builder, $options);
 		
-		$builder
-		->add('subname', TextType::class, array(
-				'required' => false
-		))
-		;
+		$this->addTextField($builder, 'name', 'label.name');
+		$this->addTextField($builder, 'subname', 'label.subname', false);
 		
-		$this->addTrueEntityChoiceEditorField($builder, $options, $this->newsletterPageTemplateToNumberTransformer, 'newsletterPageTemplate');
+		$this->addTrueEntityChoiceField($builder, $options, $this->newsletterPageTemplateToNumberTransformer, 
+				'newsletterPageTemplate');
 	}
-	
+
 	protected function getDefaultOptions() {
 		$options = parent::getDefaultOptions();
 		
-		$options[self::getChoicesName('newsletterPageTemplate')] = [];
+		$options[self::getChoicesName('newsletterPageTemplate')] = [ ];
 		
 		return $options;
 	}
-	
-	/**
-	 * 
-	 * {@inheritDoc}
-	 * @see \AppBundle\Form\Base\SimpleEntityType::getEntityType()
-	 */
+
 	protected function getEntityType() {
 		return NewsletterPage::class;
 	}

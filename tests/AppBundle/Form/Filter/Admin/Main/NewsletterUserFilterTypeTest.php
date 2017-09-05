@@ -2,11 +2,11 @@
 
 namespace Tests\AppBundle\Form\Filter\Admin\Main;
 
-use AppBundle\Filter\Admin\Main\NewsletterUserFilter;
+use AppBundle\Filter\Common\Main\NewsletterUserFilter;
 use AppBundle\Form\Filter\Admin\Main\NewsletterUserFilterType;
-use Tests\AppBundle\Form\Filter\Admin\Base\BaseEntityFilterTypeTest;
+use Tests\AppBundle\Form\Filter\Admin\Base\BaseFilterTypeTest;
 
-class NewsletterUserFilterTypeTest extends BaseEntityFilterTypeTest {
+class NewsletterUserFilterTypeTest extends BaseFilterTypeTest {
 		
 	const NAME = '*name*';
 	

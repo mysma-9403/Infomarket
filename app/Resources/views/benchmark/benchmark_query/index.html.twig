@@ -7,23 +7,6 @@
 {% block filterSmallFields %}
 	{% include 'common/fields/filter/simple_field.html.twig' with 
 	{ field: filter.name } %}
-	
-	{% include 'common/fields/filter/date_field.html.twig' with 
-	{ field: filter.createdAfter } %}
-	
-	{% include 'common/fields/filter/date_field.html.twig' with 
-	{ field: filter.createdBefore } %}
-{% endblock %}
-
-
-{% block headerFields %}
-	{% include 'common/fields/table_header/icon_field.html.twig' with 
-	{ icon: 'fa-calendar-plus-o', label: 'label.createdAt' } %}
-{% endblock %}
-
-{% block entryFields %}
-	{% include 'common/fields/table/date_field.html.twig' with 
-	{ value: item.createdAt } %}
 {% endblock %}
 
 

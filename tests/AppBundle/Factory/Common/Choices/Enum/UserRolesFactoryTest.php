@@ -2,7 +2,7 @@
 
 namespace Tests\AppBundle\Factory\Common\Choices\Bool;
 
-use AppBundle\Entity\User;
+use AppBundle\Entity\Main\User;
 use AppBundle\Factory\Common\Choices\Enum\UserRolesFactory;
 use PHPUnit\Framework\TestCase;
 

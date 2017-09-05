@@ -8,9 +8,9 @@
 	{% set secondaryTextClass = 'text-red' %}
 {% endif %}
 
-{% if article.imageSize == constant('AppBundle\\Entity\\Article::SMALL_IMAGE') %}
+{% if article.imageSize == constant('AppBundle\\Entity\\Main\\Article::SMALL_IMAGE') %}
 	{% set imageClass = 'img-sm-right-25' %}
-{% elseif article.imageSize == constant('AppBundle\\Entity\\Article::MEDIUM_IMAGE') %}
+{% elseif article.imageSize == constant('AppBundle\\Entity\\Main\\Article::MEDIUM_IMAGE') %}
 	{% set imageClass = 'img-sm-right-34' %}
 {% else %}
 	{% set imageClass = 'img-sm-right-50' %}

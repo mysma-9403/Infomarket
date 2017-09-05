@@ -2,11 +2,11 @@
 
 namespace Tests\AppBundle\Form\Filter\Admin\Assignments;
 
-use AppBundle\Filter\Admin\Assignments\AdvertCategoryAssignmentFilter;
+use AppBundle\Filter\Common\Assignments\AdvertCategoryAssignmentFilter;
 use AppBundle\Form\Filter\Admin\Assignments\AdvertCategoryAssignmentFilterType;
-use Tests\AppBundle\Form\Filter\Admin\Base\BaseEntityFilterTypeTest;
+use Tests\AppBundle\Form\Filter\Admin\Base\BaseFilterTypeTest;
 
-class AdvertCategoryAssignmentFilterTypeTest extends BaseEntityFilterTypeTest {
+class AdvertCategoryAssignmentFilterTypeTest extends BaseFilterTypeTest {
 		
 	const ADVERT_1 = 101;
 	const ADVERT_2 = 102;

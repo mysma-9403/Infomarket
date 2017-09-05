@@ -2,14 +2,14 @@
 
 namespace Tests\AppBundle\Form\Editor\Admin\Main;
 
-use AppBundle\Entity\Link;
-use AppBundle\Entity\MenuEntry;
-use AppBundle\Entity\Page;
+use AppBundle\Entity\Main\Link;
+use AppBundle\Entity\Main\MenuEntry;
+use AppBundle\Entity\Main\Page;
 use AppBundle\Form\Editor\Admin\Main\MenuEntryEditorType;
 use Symfony\Component\Form\PreloadedExtension;
-use Tests\AppBundle\Form\Editor\Admin\Base\SimpleEntityEditorTypeTest;
+use Tests\AppBundle\Form\Editor\Admin\Base\SimpleEditorTypeTest;
 
-class MenuEntryEditorTypeTest extends SimpleEntityEditorTypeTest {
+class MenuEntryEditorTypeTest extends SimpleEditorTypeTest {
 	
 	const ORDER_NUMBER = 76;
 	

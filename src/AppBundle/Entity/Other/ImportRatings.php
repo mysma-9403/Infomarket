@@ -2,39 +2,21 @@
 
 namespace AppBundle\Entity\Other;
 
+class ImportRatings {
 
+	/**
+	 *
+	 * @var string
+	 */
+	private $importFile;
 
-/**
- * ImportRatings
- */
-class ImportRatings
-{
-    /**
-     * @var string
-     */
-    private $importFile;
+	public function setImportFile($importFile) {
+		$this->importFile = $importFile;
+		
+		return $this;
+	}
 
-    /**
-     * Set importFile
-     *
-     * @param string $importFile
-     *
-     * @return ImportRatings
-     */
-    public function setImportFile($importFile)
-    {
-        $this->importFile = $importFile;
-
-        return $this;
-    }
-
-    /**
-     * Get importFile
-     *
-     * @return string
-     */
-    public function getImportFile()
-    {
-        return $this->importFile;
-    }
+	public function getImportFile() {
+		return $this->importFile;
+	}
 }

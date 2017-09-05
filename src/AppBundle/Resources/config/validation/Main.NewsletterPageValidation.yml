@@ -1,0 +1,6 @@
+AppBundle\Entity\Main\NewsletterPage:
+    properties:
+        name:
+            - NotBlank: ~
+        newsletterPageTemplate:
+            - NotBlank: ~

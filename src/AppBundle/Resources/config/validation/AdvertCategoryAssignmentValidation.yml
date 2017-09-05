@@ -1,8 +1,0 @@
-AppBundle\Entity\AdvertCategoryAssignment:
-    constraints:
-        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
-            fields: [advert, category]
-            errorPath: category
-            ignoreNull: false
-            message: 'advertCategoryAssignment.unique'
-                
