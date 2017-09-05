@@ -242,3 +242,7 @@ knp_snappy:
         binary:     "%wkhtmltoimage_binary%"
         options:    []
     temporary_folder: '%kernel.cache_dir%/snappy'
+
+# Google charts    
+cmen_google_charts:
+    version: "current"
