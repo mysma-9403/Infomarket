@@ -235,8 +235,9 @@ class CategoryEntryParamsManager extends EntryParamsManager {
 			}
 			
 			$articleCategory = $this->getArticleCategory($articleCategories, self::LAW_AC);
-			if($articleCategory) {
-				$articleCategory['articles'] = $articleRepository->findCategoryItems($contextCategories, self::LAW_AC, 1);
+			if ($articleCategory) {
+				$articleCategory['articles'] = $this->articleRepository->findCategoryItems($contextCategories, 
+						self::LAW_AC, 1);
 				$usefulArticleCategories[] = $articleCategory;
 			}
 			
