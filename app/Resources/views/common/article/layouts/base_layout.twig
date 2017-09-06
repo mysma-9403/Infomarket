@@ -1,0 +1,27 @@
+{% if article.parent %}
+	{% set header = 'h3' %}
+	{% set primaryTextClass = 'text-red' %}
+	{% set secondaryTextClass = 'text-brand' %}
+	{% set showTitle = article.showTitle %}
+{% else %}
+	{% set header = 'h2' %}
+	{% set primaryTextClass = 'text-brand' %}
+	{% set secondaryTextClass = 'text-red' %}
+	{% set showTitle = true %}
+{% endif %}
+
+{% block header %}
+	{% if showTitle %}
+		<div class="row">
+			<div class="col-xs-12">
+				<{{ header }}>
+					<span class="{{ primaryTextClass }}">{{ article.name | raw }}</span>
+					<span class="{{ secondaryTextClass }}">{{ article.subname | raw }}</span>
+				</{{ header }}>
+			</div>
+		</div>
+	{% endif %}
+{% endblock %}
+
+{% block content %}
+{% endblock %}

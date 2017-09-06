@@ -1,6 +1,7 @@
 {% if entry.parent == null %}
 	{% include 'admin/common/assignments/assignment_header.twig' with 
-	{ mainPath: 'article', extPath: '_new', routeParams: { parent: entry.id },
+	{ mainPath: 'article', extPath: '_new', 
+		routeParams: { parent: entry.id, name: entry.name, subname: entry.subname },
 		tooltip: 'action.createSubarticle', header: 'label.article.children' } %}
 	
 	{% include 'admin/common/assignments/item_assignment_table.twig' with 

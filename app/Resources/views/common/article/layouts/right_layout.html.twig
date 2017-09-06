@@ -1,12 +1,4 @@
-{% if article.parent %}
-	{% set header = 'h3' %}
-	{% set primaryTextClass = 'text-red' %}
-	{% set secondaryTextClass = 'text-brand' %}
-{% else %}
-	{% set header = 'h2' %}
-	{% set primaryTextClass = 'text-brand' %}
-	{% set secondaryTextClass = 'text-red' %}
-{% endif %}
+{% extends 'common/article/layouts/base_layout.twig' %}
 
 {% if article.imageSize == constant('AppBundle\\Entity\\Main\\Article::SMALL_IMAGE') %}
 	{% set imageClass = 'img-sm-right-25' %}
@@ -16,27 +8,20 @@
 	{% set imageClass = 'img-sm-right-50' %}
 {% endif %}
 
-<div class="row">
-	<div class="col-xs-12">
-		<{{ header }}>
-			<span class="{{ primaryTextClass }}">{{ article.name | raw }}</span>
-			<span class="{{ secondaryTextClass }}">{{ article.subname | raw }}</span>
-		</{{ header }}>
+{% block content %}
+	<div class="row">
+		<div class="col-xs-12">
+			{% if article.image %}
+				<img class="img-responsive {{ imageClass }}" alt="{{ article.name | raw }}" src="{{ asset(article.image) }}">
+			{% endif %}
+		
+			{% if article.intro %}
+				<p><strong>{{ article.intro | raw }}</strong></p>
+			{% endif %}
+		
+			{% if article.content %}
+				<p>{{ article.content | raw }}</p>
+			{% endif %}
+		</div>
 	</div>
-</div>
-
-<div class="row">
-	<div class="col-xs-12">
-		{% if article.image %}
-			<img class="img-responsive {{ imageClass }}" alt="{{ article.name | raw }}" src="{{ asset(article.image) }}">
-		{% endif %}
-	
-		{% if article.intro %}
-			<p><strong>{{ article.intro | raw }}</strong></p>
-		{% endif %}
-	
-		{% if article.content %}
-			<p>{{ article.content | raw }}</p>
-		{% endif %}
-	</div>
-</div>
+{% endblock %}

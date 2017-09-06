@@ -1148,6 +1148,10 @@
                 <source>label.content</source>
                 <target>Treść</target>
             </trans-unit>
+            <trans-unit id="label.showTitle">
+                <source>label.showTitle</source>
+                <target>Pokaż tytuł</target>
+            </trans-unit>
             <trans-unit id="label.actions">
                 <source>label.actions</source>
                 <target>Akcje</target>

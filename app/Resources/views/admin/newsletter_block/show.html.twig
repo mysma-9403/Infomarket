@@ -11,6 +11,11 @@
 {% endblock %}
 
 {% block contentFields %}
+	{% include 'common/fields/bool_field.html.twig' with 
+	{ label: 'label.showTitle', value: entry.showTitle } %}
+	
+	<div class="vr-space-40"></div>
+	
 	{% include 'common/fields/simple_field.html.twig' with 
 	{ label: 'label.newsletterPage', value: entry.newsletterPage, 
 		object: 'newsletter_page' } %}

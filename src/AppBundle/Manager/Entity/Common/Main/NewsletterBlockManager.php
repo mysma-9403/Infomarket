@@ -30,6 +30,8 @@ class NewsletterBlockManager extends EntityManager {
 		$entry->setSubname($request->get('name'));
 		$entry->setSubname($request->get('subname'));
 		
+		$entry->setShowTitle($request->get('show_title', true));
+		
 		$entry->setNewsletterBlockTemplate(
 				$this->paramsManager->getParamByClass($request, NewsletterBlockTemplate::class));
 		
@@ -65,6 +67,8 @@ class NewsletterBlockManager extends EntityManager {
 		
 		$entry->setName($template->getName());
 		$entry->setSubname($template->getSubname());
+		
+		$entry->setShowTitle($template->getShowTitle());
 		
 		$entry->setNewsletterBlockTemplate($template->getNewsletterBlockTemplate());
 		$entry->setNewsletterPage($template->getNewsletterPage());

@@ -10,6 +10,8 @@
 		<field name="name" type="string" length="128" nullable="false" />
 		<field name="subname" type="string" length="128" nullable="true" />
 
+		<field name="showTitle" type="boolean" nullable="false" default="1" />
+		
 		<field name="orderNumber" type="integer" default="1" nullable="true" />
 
 		<field name="xAdvertRatio" type="integer" default="1" nullable="true" />

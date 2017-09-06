@@ -1,5 +1,13 @@
 AppBundle\Entity\Main\Article:
+    constraints:
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
+            fields: [name, subname]
+            errorPath: name
+            ignoreNull: false
+        - Callback: validate
     properties:
+        name:
+            - NotBlank: ~
         page:
             - Range:
                 min: 1
@@ -7,6 +15,4 @@ AppBundle\Entity\Main\Article:
         orderNumber:
             - Range:
                 min: 0
-                max: 99   
-    constraints:
-        - Callback: validate
+                max: 99

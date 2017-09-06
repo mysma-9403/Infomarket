@@ -1,5 +1,12 @@
 AppBundle\Entity\Main\NewsletterBlock:
+    constraints:
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
+            fields: [name, subname]
+            errorPath: name
+            ignoreNull: false
     properties:
+        name:
+            - NotBlank: ~
         newsletterPage:
             - NotBlank: ~
         newsletterBlockTemplate:

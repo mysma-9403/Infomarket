@@ -14,6 +14,8 @@ class PageEditorType extends ImageEditorType {
 		$this->addTextField($builder, 'name', 'label.name');
 		$this->addTextField($builder, 'subname', 'label.subname', false);
 		
+		$this->addCheckboxField($builder, 'showTitle', 'label.showTitle');
+		
 		$this->addCheckboxField($builder, 'infomarket', 'label.infomarket');
 		$this->addCheckboxField($builder, 'infoprodukt', 'label.infoprodukt');
 		

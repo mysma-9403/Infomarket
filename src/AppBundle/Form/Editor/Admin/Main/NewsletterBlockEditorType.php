@@ -35,6 +35,8 @@ class NewsletterBlockEditorType extends SimpleEditorType {
 		$this->addTextField($builder, 'name', 'label.name');
 		$this->addTextField($builder, 'subname', 'label.subname', false);
 		
+		$this->addCheckboxField($builder, 'showTitle', 'label.showTitle');
+		
 		$this->addIntegerField($builder, 'orderNumber', 'label.orderNumber');
 		
 		$this->addIntegerField($builder, 'xAdvertRatio', 'label.newsletterBlock.xAdvertRatio');

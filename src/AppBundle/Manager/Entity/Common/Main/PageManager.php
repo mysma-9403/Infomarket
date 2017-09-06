@@ -15,6 +15,8 @@ class PageManager extends EntityManager {
 		$entry->setName($request->get('name'));
 		$entry->setSubname($request->get('subname'));
 		
+		$entry->setShowTitle($request->get('show_title', true));
+		
 		$entry->setInfomarket($request->get('infomarket'));
 		$entry->setInfoprodukt($request->get('infoprodukt'));
 		
@@ -37,6 +39,8 @@ class PageManager extends EntityManager {
 		
 		$entry->setName($template->getName());
 		$entry->setSubname($template->getSubname());
+		
+		$entry->setShowTitle($template->getShowTitle());
 		
 		$entry->setInfomarket($template->getInfomarket());
 		$entry->setInfoprodukt($template->getInfoprodukt());

@@ -1,7 +1,6 @@
 {% set categoryId = category is defined and category ? category.id : '' %}
 
 {% block content %}
-
 	{% block mainArticle %}
 		{% if entry.articleBrandAssignments | length > 0 %}
 			<h2>
@@ -53,34 +52,34 @@
 	{% endif %}
 	{% endblock %}
 
-<div class="row">
-	<div class="col-xs-6 text-muted">
-		{% if entry.date %}
-			<span class="fa fa-calendar"></span> {{ entry.date | date('Y-m-d') }}
-		{% endif %}
+	<div class="row">
+		<div class="col-xs-6 text-muted">
+			{% if entry.date %}
+				<span class="fa fa-calendar"></span> {{ entry.date | date('Y-m-d') }}
+			{% endif %}
+		</div>
+		
+		<div class="col-xs-6 text-muted">
+			{% if entry.author %}
+				<span class="fa fa-user"></span> {{ entry.author }}
+			{% endif %}
+		</div>
+		
+		<div class="col-xs-12 text-muted">
+			{% if entry.articleTagAssignments | length > 0 %}
+				<span class="fa fa-tags"></span> 
+				{% spaceless %}
+				{% for articleTagAssignment in entry.articleTagAssignments %}
+					{{- loop.index > 1 ? ', ' : '' -}}
+					<a href="{{ path(basePath ~ mainPath, { category: category is defined ? category.id : null, article_filter_tags: articleTagAssignment.tag.id }) }}">
+						{{- articleTagAssignment.tag.name -}}
+					</a>
+					 
+				{% endfor %}
+				{% endspaceless %}
+			{% endif %}
+		</div>
 	</div>
-	
-	<div class="col-xs-6 text-muted">
-		{% if entry.author %}
-			<span class="fa fa-user"></span> {{ entry.author }}
-		{% endif %}
-	</div>
-	
-	<div class="col-xs-12 text-muted">
-		{% if entry.articleTagAssignments | length > 0 %}
-			<span class="fa fa-tags"></span> 
-			{% spaceless %}
-			{% for articleTagAssignment in entry.articleTagAssignments %}
-				{{- loop.index > 1 ? ', ' : '' -}}
-				<a href="{{ path(basePath ~ mainPath, { category: category is defined ? category.id : null, article_filter_tags: articleTagAssignment.tag.id }) }}">
-					{{- articleTagAssignment.tag.name -}}
-				</a>
-				 
-			{% endfor %}
-			{% endspaceless %}
-		{% endif %}
-	</div>
-</div>
 {% endblock %}
 
 {% block back %}

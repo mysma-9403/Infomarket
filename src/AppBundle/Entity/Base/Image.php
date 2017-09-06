@@ -8,7 +8,7 @@ class Image extends Simple {
 	 *
 	 * @var UploadedFile
 	 */
-	private $file;
+	protected $file;
 
 	public function __construct() {
 		parent::__construct();
@@ -22,7 +22,6 @@ class Image extends Simple {
 	 * @param UploadedFile $file        	
 	 *
 	 * @return Image
-	 * @var integer
 	 */
 	public function setFile($file) {
 		$this->file = $file;
@@ -34,7 +33,6 @@ class Image extends Simple {
 	 * Get file.
 	 *
 	 * @return UploadedFile
-	 * @var integer
 	 */
 	public function getFile() {
 		return $this->file;
@@ -56,37 +54,37 @@ class Image extends Simple {
 	 *
 	 * @var string
 	 */
-	private $mimeType;
+	protected $mimeType;
 
 	/**
 	 *
 	 * @var string
 	 */
-	private $size;
+	protected $size;
 
 	/**
 	 *
 	 * @var string
 	 */
-	private $image;
+	protected $image;
 
 	/**
 	 *
 	 * @var boolean
 	 */
-	private $vertical;
+	protected $vertical;
 
 	/**
 	 *
 	 * @var integer
 	 */
-	private $forcedWidth;
+	protected $forcedWidth;
 
 	/**
 	 *
 	 * @var integer
 	 */
-	private $forcedHeight;
+	protected $forcedHeight;
 
 	/**
 	 * Set mimeType

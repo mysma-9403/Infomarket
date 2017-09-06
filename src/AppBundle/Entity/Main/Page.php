@@ -22,143 +22,178 @@ class Page extends Image {
 		return 'uploads/pages';
 	}
 
-	/**
-	 *
-	 * @var string
-	 */
-	private $name;
+    /**
+     * @var string
+     */
+    private $name;
 
-	/**
-	 *
-	 * @var string
-	 */
-	private $subname;
+    /**
+     * @var string
+     */
+    private $subname;
 
-	/**
-	 *
-	 * @var boolean
-	 */
-	private $infomarket;
+    /**
+     * @var boolean
+     */
+    private $showTitle;
 
-	/**
-	 *
-	 * @var boolean
-	 */
-	private $infoprodukt;
+    /**
+     * @var boolean
+     */
+    private $infomarket;
 
-	/**
-	 *
-	 * @var string
-	 */
-	private $content;
+    /**
+     * @var boolean
+     */
+    private $infoprodukt;
 
-	/**
-	 * Set name
-	 *
-	 * @param string $name        	
-	 *
-	 * @return Page
-	 */
-	public function setName($name) {
-		$this->name = $name;
-		
-		return $this;
-	}
+    /**
+     * @var string
+     */
+    private $content;
 
-	/**
-	 * Get name
-	 *
-	 * @return string
-	 */
-	public function getName() {
-		return $this->name;
-	}
 
-	/**
-	 * Set subname
-	 *
-	 * @param string $subname        	
-	 *
-	 * @return Page
-	 */
-	public function setSubname($subname) {
-		$this->subname = $subname;
-		
-		return $this;
-	}
+    /**
+     * Set name
+     *
+     * @param string $name
+     *
+     * @return Page
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
 
-	/**
-	 * Get subname
-	 *
-	 * @return string
-	 */
-	public function getSubname() {
-		return $this->subname;
-	}
+        return $this;
+    }
 
-	/**
-	 * Set infomarket
-	 *
-	 * @param boolean $infomarket        	
-	 *
-	 * @return Page
-	 */
-	public function setInfomarket($infomarket) {
-		$this->infomarket = $infomarket;
-		
-		return $this;
-	}
+    /**
+     * Get name
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
 
-	/**
-	 * Get infomarket
-	 *
-	 * @return boolean
-	 */
-	public function getInfomarket() {
-		return $this->infomarket;
-	}
+    /**
+     * Set subname
+     *
+     * @param string $subname
+     *
+     * @return Page
+     */
+    public function setSubname($subname)
+    {
+        $this->subname = $subname;
 
-	/**
-	 * Set infoprodukt
-	 *
-	 * @param boolean $infoprodukt        	
-	 *
-	 * @return Page
-	 */
-	public function setInfoprodukt($infoprodukt) {
-		$this->infoprodukt = $infoprodukt;
-		
-		return $this;
-	}
+        return $this;
+    }
 
-	/**
-	 * Get infoprodukt
-	 *
-	 * @return boolean
-	 */
-	public function getInfoprodukt() {
-		return $this->infoprodukt;
-	}
+    /**
+     * Get subname
+     *
+     * @return string
+     */
+    public function getSubname()
+    {
+        return $this->subname;
+    }
 
-	/**
-	 * Set content
-	 *
-	 * @param string $content        	
-	 *
-	 * @return Page
-	 */
-	public function setContent($content) {
-		$this->content = $content;
-		
-		return $this;
-	}
+    /**
+     * Set showTitle
+     *
+     * @param boolean $showTitle
+     *
+     * @return Page
+     */
+    public function setShowTitle($showTitle)
+    {
+        $this->showTitle = $showTitle;
 
-	/**
-	 * Get content
-	 *
-	 * @return string
-	 */
-	public function getContent() {
-		return $this->content;
-	}
+        return $this;
+    }
+
+    /**
+     * Get showTitle
+     *
+     * @return boolean
+     */
+    public function getShowTitle()
+    {
+        return $this->showTitle;
+    }
+
+    /**
+     * Set infomarket
+     *
+     * @param boolean $infomarket
+     *
+     * @return Page
+     */
+    public function setInfomarket($infomarket)
+    {
+        $this->infomarket = $infomarket;
+
+        return $this;
+    }
+
+    /**
+     * Get infomarket
+     *
+     * @return boolean
+     */
+    public function getInfomarket()
+    {
+        return $this->infomarket;
+    }
+
+    /**
+     * Set infoprodukt
+     *
+     * @param boolean $infoprodukt
+     *
+     * @return Page
+     */
+    public function setInfoprodukt($infoprodukt)
+    {
+        $this->infoprodukt = $infoprodukt;
+
+        return $this;
+    }
+
+    /**
+     * Get infoprodukt
+     *
+     * @return boolean
+     */
+    public function getInfoprodukt()
+    {
+        return $this->infoprodukt;
+    }
+
+    /**
+     * Set content
+     *
+     * @param string $content
+     *
+     * @return Page
+     */
+    public function setContent($content)
+    {
+        $this->content = $content;
+
+        return $this;
+    }
+
+    /**
+     * Get content
+     *
+     * @return string
+     */
+    public function getContent()
+    {
+        return $this->content;
+    }
 }

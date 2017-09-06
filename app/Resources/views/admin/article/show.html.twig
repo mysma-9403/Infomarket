@@ -15,6 +15,11 @@
 	<div class="vr-space-40"></div>
 	
 	{% include 'common/fields/bool_field.html.twig' with 
+	{ label: 'label.showTitle', value: entry.showTitle } %}
+	
+	<div class="vr-space-40"></div>
+	
+	{% include 'common/fields/bool_field.html.twig' with 
 	{ label: 'label.' ~ gender ~ 'infomarket', value: entry.infomarket } %}
 	{% include 'common/fields/bool_field.html.twig' with 
 	{ label: 'label.' ~ gender ~ 'infoprodukt', value: entry.infoprodukt } %}

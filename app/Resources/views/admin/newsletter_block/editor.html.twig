@@ -9,9 +9,16 @@
 	{ field: form.name, label: 'label.name' } %}
 	{% include 'common/editor/form_field.twig' with 
 	{ field: form.subname, label: 'label.subname' } %}
+	
+	<div class="row"></div>
+	
+	{% include 'common/editor/form_field.twig' with 
+	{ field: form.showTitle, label: 'label.showTitle', xs: 6, md: 3 } %}
+	
+	<div class="row"></div>
 {% endblock %}
 	
-{% block contentFields %}
+{% block contentFields %}	
 	{% include 'common/editor/form_field.twig' with 
 	{ field: form.newsletterPage, label: 'label.newsletterPage', sm: 6 } %}
 	{% include 'common/editor/form_field.twig' with 
