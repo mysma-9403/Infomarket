@@ -234,6 +234,12 @@ class CategoryEntryParamsManager extends EntryParamsManager {
 				$usefulArticleCategories[] = $articleCategory;
 			}
 			
+			$articleCategory = $this->getArticleCategory($articleCategories, self::LAW_AC);
+			if($articleCategory) {
+				$articleCategory['articles'] = $articleRepository->findCategoryItems($contextCategories, self::LAW_AC, 1);
+				$usefulArticleCategories[] = $articleCategory;
+			}
+			
 			$viewParams['usefulArticleCategories'] = $usefulArticleCategories;
 		} else if ($entry->getParent() && $entry->getParent()->getPreleaf()) {
 			$viewParams['topBrands'] = $this->brandRepository->findTopItems($entry->getId());
