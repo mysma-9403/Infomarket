@@ -28,6 +28,7 @@ use AppBundle\Repository\Admin\Main\TagRepository;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Entity\Assignments\ArticleTagAssignment;
+use AppBundle\Repository\Infomarket\ArticleRepository;
 
 class ArticleController extends FeaturedController {
 	
@@ -369,7 +370,8 @@ class ArticleController extends FeaturedController {
 	// Managers
 	// ---------------------------------------------------------------------------
 	protected function getInternalEntryParamsManager(EntityManager $em, FilterManager $fm, $doctrine) {
-		return new ArticleEntryParamsManager($em, $fm, $doctrine);
+		$articleRepository = $this->get(ArticleRepository::class);
+		return new ArticleEntryParamsManager($em, $fm, $articleRepository);
 	}
 
 	protected function getEntityManager($doctrine, $paginator) {

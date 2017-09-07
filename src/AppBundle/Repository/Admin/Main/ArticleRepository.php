@@ -19,6 +19,7 @@ class ArticleRepository extends ImageRepository {
 	 * @var boolean
 	 */
 	protected $archived = 0;
+	
 
 	protected function buildJoins(QueryBuilder &$builder, Filter $filter) {
 		/** @var ArticleFilter $filter */
