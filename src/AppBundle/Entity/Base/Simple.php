@@ -28,31 +28,31 @@ class Simple {
 	 *
 	 * @var \DateTime
 	 */
-	private $createdAt;
+	protected $createdAt;
 
 	/**
 	 *
 	 * @var \DateTime
 	 */
-	private $updatedAt;
+	protected $updatedAt;
 
 	/**
 	 *
 	 * @var integer
 	 */
-	private $id;
+	protected $id;
 
 	/**
 	 *
 	 * @var \AppBundle\Entity\Main\User
 	 */
-	private $createdBy;
+	protected $createdBy;
 
 	/**
 	 *
 	 * @var \AppBundle\Entity\Main\User
 	 */
-	private $updatedBy;
+	protected $updatedBy;
 
 	/**
 	 * Set createdAt

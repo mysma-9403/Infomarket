@@ -32,19 +32,19 @@ class ImageTree extends Image {
 	 *
 	 * @var string
 	 */
-	private $name;
+	protected $name;
 
 	/**
 	 *
 	 * @var integer
 	 */
-	private $level;
+	protected $level;
 
 	/**
 	 *
 	 * @var string
 	 */
-	private $treePath;
+	protected $treePath;
 
 	/**
 	 * Set name
