@@ -23,12 +23,14 @@ class NewsletterBlockRepository extends SimpleRepository {
 
 	protected function buildOrderBy(QueryBuilder &$builder, Filter $filter) {
 		$builder->addOrderBy('e.name', 'ASC');
+		$builder->addOrderBy('e.subname', 'ASC');
 	}
 
 	protected function getSelectFields(QueryBuilder &$builder, Filter $filter) {
 		$fields = parent::getSelectFields($builder, $filter);
 		
 		$fields[] = 'e.name';
+		$fields[] = 'e.subname';
 		
 		$fields[] = 'np.id AS newsletterPageId';
 		$fields[] = 'np.name AS newsletterPageName';
@@ -53,12 +55,14 @@ class NewsletterBlockRepository extends SimpleRepository {
 
 	protected function buildFilterOrderBy(QueryBuilder &$builder) {
 		$builder->addOrderBy('e.name', 'ASC');
+		$builder->addOrderBy('e.subname', 'ASC');
 	}
 
 	protected function getFilterSelectFields(QueryBuilder &$builder) {
 		$fields = parent::getFilterSelectFields($builder);
 		
 		$fields[] = 'e.name';
+		$fields[] = 'e.subname';
 		
 		return $fields;
 	}
@@ -67,6 +71,7 @@ class NewsletterBlockRepository extends SimpleRepository {
 		$fields = parent::getFilterItemKeyFields($item);
 		
 		$fields[] = $item['name'];
+		$fields[] = $item['subname'];
 		
 		return $fields;
 	}

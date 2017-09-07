@@ -127,6 +127,14 @@ class NewsletterBlockController extends SimpleController {
 		return $options;
 	}
 	
+	protected function getListItemKeyFields($item) {
+		$fields = parent::getListItemKeyFields($item);
+		
+		$fields[] = $item['subname']; //TODO same as repository!! should be managed in one component!!
+	
+		return $fields;
+	}
+	
 	// ---------------------------------------------------------------------------
 	// Managers
 	// ---------------------------------------------------------------------------
