@@ -57,13 +57,13 @@ class ProductFilterType extends FilterType {
 	protected function getDefaultOptions() {
 		$options = parent::getDefaultOptions();
 		
-		$options[self::getChoicesName('brands')] = [ ];
-		$options[self::getChoicesName('categories')] = [ ];
+		$options[self::getChoicesName('brands')] = [];
+		$options[self::getChoicesName('categories')] = [];
 		
-		$options[self::getChoicesName('boolean')] = [ ];
+		$options[self::getChoicesName('boolean')] = [];
 		
 		$options['filter'] = null;
-		$options['choices'] = [ ];
+		$options['choices'] = [];
 		
 		return $options;
 	}

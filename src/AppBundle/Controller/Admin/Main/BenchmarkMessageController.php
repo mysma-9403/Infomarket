@@ -178,9 +178,7 @@ class BenchmarkMessageController extends BaseController {
 				
 				$this->flashCreatedMessage();
 				
-				return $this->redirectToRoute($this->getShowRoute(), 
-						array ('id' => $entry->getId() 
-						));
+				return $this->redirectToRoute($this->getShowRoute(), array('id' => $entry->getId()));
 			}
 		}
 		

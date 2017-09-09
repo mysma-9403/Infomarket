@@ -23,7 +23,7 @@ class CategoryFilter extends Filter {
 	}
 
 	public function getRequestValues() {
-		$values = array ();
+		$values = array();
 		
 		$this->setRequestValue($values, 'category', $this->category);
 		

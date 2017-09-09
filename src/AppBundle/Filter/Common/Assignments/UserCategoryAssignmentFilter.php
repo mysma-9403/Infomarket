@@ -12,13 +12,13 @@ class UserCategoryAssignmentFilter extends SimpleFilter {
 	 *
 	 * @var array
 	 */
-	protected $users = array ();
+	protected $users = array();
 
 	/**
 	 *
 	 * @var array
 	 */
-	protected $categories = array ();
+	protected $categories = array();
 
 	public function initRequestValues(Request $request) {
 		parent::initRequestValues($request);
@@ -30,8 +30,8 @@ class UserCategoryAssignmentFilter extends SimpleFilter {
 	public function clearRequestValues() {
 		parent::clearRequestValues();
 		
-		$this->users = array ();
-		$this->categories = array ();
+		$this->users = array();
+		$this->categories = array();
 	}
 
 	public function getRequestValues() {

@@ -4,7 +4,7 @@ namespace AppBundle\Factory\Common\Choices\Base;
 
 class SimpleChoicesFactory implements ChoicesFactory {
 
-	protected $items = [ ];
+	protected $items = [];
 
 	public function getItems() {
 		return $this->items;

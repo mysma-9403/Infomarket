@@ -31,7 +31,7 @@ class ProductFilter extends Filter {
 	 *
 	 * @var array
 	 */
-	protected $editorFields = [ ];
+	protected $editorFields = [];
 
 	public function __construct(BenchmarkFieldsProvider $benchmarkFieldsProvider, 
 			BenchmarkFieldsInitializer $benchmarkFieldsInitializer) {

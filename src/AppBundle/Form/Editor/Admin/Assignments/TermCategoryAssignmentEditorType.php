@@ -37,8 +37,8 @@ class TermCategoryAssignmentEditorType extends BaseEditorType {
 	protected function getDefaultOptions() {
 		$options = parent::getDefaultOptions();
 		
-		$options[self::getChoicesName('term')] = [ ];
-		$options[self::getChoicesName('category')] = [ ];
+		$options[self::getChoicesName('term')] = [];
+		$options[self::getChoicesName('category')] = [];
 		
 		return $options;
 	}

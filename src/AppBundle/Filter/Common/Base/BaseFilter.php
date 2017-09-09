@@ -11,7 +11,7 @@ class BaseFilter extends Filter {
 	 *
 	 * @var array
 	 */
-	protected $selected = array ();
+	protected $selected = array();
 	
 	// TODO wgl tutaj nie pasuje!! powinno byc gdzie indziej!! :(
 	public function initRequestValues(Request $request) {
@@ -19,7 +19,7 @@ class BaseFilter extends Filter {
 	}
 
 	public function getRequestValues() {
-		$values = array ();
+		$values = array();
 		
 		$this->setRequestArray($values, 'selected', $this->selected);
 		
@@ -43,7 +43,7 @@ class BaseFilter extends Filter {
 	}
 
 	public function clearSelected() {
-		$this->selected = array ();
+		$this->selected = array();
 		
 		return $this;
 	}

@@ -18,8 +18,8 @@ class MenuEntryBranchAssignmentFilterType extends SimpleFilterType {
 	protected function getDefaultOptions() {
 		$options = parent::getDefaultOptions();
 		
-		$options[$this->getChoicesName('menuEntries')] = [ ];
-		$options[$this->getChoicesName('branches')] = [ ];
+		$options[$this->getChoicesName('menuEntries')] = [];
+		$options[$this->getChoicesName('branches')] = [];
 		
 		return $options;
 	}

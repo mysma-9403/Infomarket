@@ -55,13 +55,13 @@ class HomeController extends Controller {
 	 * @return array dummy params collection
 	 */
 	protected function createParams($route) {
-		$params = array ();
+		$params = array();
 		
 		$params['domain'] = $this->getDomain();
 		$params['route'] = $route;
-		$params['contextParams'] = array ();
-		$params['routeParams'] = array ();
-		$params['viewParams'] = array ();
+		$params['contextParams'] = array();
+		$params['routeParams'] = array();
+		$params['viewParams'] = array();
 		
 		return $params;
 	}
@@ -117,7 +117,7 @@ class HomeController extends Controller {
 		$lastRouteParams = $lastRoute['routeParams'];
 		
 		if (! $lastRouteParams) {
-			$lastRouteParams = array ();
+			$lastRouteParams = array();
 		}
 		
 		return new ContextParamsManager($doctrine, $lastRouteParams);
@@ -152,8 +152,7 @@ class HomeController extends Controller {
 	}
 
 	protected function getHomeRoute() {
-		return array ('route' => $this->getIndexView(),'routeParams' => array () 
-		);
+		return array('route' => $this->getIndexView(), 'routeParams' => array());
 	}
 
 	protected function getDomain() {

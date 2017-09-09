@@ -143,7 +143,7 @@ class BrandController extends ImageController {
 		}
 		$em->flush();
 		
-		return array ();
+		return array();
 	}
 	
 	// ---------------------------------------------------------------------------

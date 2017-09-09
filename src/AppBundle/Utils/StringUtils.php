@@ -33,7 +33,7 @@ class StringUtils extends \Twig_Extension {
 	}
 
 	public function getFilters() {
-		$filters = array ();
+		$filters = array();
 		
 		$filters['cleanName'] = new \Twig_SimpleFilter('cleanName', StringUtils::class . '::getCleanName');
 		

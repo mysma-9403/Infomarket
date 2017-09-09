@@ -58,7 +58,7 @@ class ContextParamsManager extends ParamsManager {
 			$contextParams['categories'] = $categories;
 		} else {
 			$contextParams['category'] = null;
-			$contextParams['categories'] = array ();
+			$contextParams['categories'] = array();
 		}
 		
 		$params['contextParams'] = $contextParams;
@@ -68,7 +68,7 @@ class ContextParamsManager extends ParamsManager {
 	}
 
 	protected function getMenuWidths(array $categories, $level = 1) {
-		$result = array ();
+		$result = array();
 		
 		foreach ($categories as $category) {
 			$max = 0;

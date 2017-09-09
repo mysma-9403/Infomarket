@@ -2,45 +2,44 @@
 
 namespace Tests\AppBundle\Form\Editor\Admin\Assignments;
 
-use AppBundle\Entity\Assignments\Branch;
-use AppBundle\Entity\Assignments\MenuEntry;
+use AppBundle\Entity\Main\Branch;
+use AppBundle\Entity\Main\MenuEntry;
 use AppBundle\Entity\Assignments\MenuEntryBranchAssignment;
 use AppBundle\Form\Editor\Admin\Assignments\MenuEntryBranchAssignmentEditorType;
 use Symfony\Component\Form\PreloadedExtension;
-use Tests\AppBundle\Form\Editor\Admin\Base\BaseEditorTypeTest;
+use Tests\AppBundle\Form\Editor\Admin\Base\SimpleEditorTypeTest;
 
-class MenuEntryBranchAssignmentEditorTypeTest extends BaseEditorTypeTest {
-		
+class MenuEntryBranchAssignmentEditorTypeTest extends SimpleEditorTypeTest {
+
 	const MENU_ENTRY_ID = 100;
+
 	const MENU_ENTRY_NAME = 'Test menuEntry';
+
 	const MENU_ENTRY_CHOICES = ['Test menuEntry' => self::MENU_ENTRY_ID];
-	
+
 	const BRANCH_ID = 100;
+
 	const BRANCH_NAME = 'Test branch';
+
 	const BRANCH_CHOICES = ['Test branch' => self::BRANCH_ID];
-	
-	
-	
+
 	private $menuEntryTransformer;
-	
+
 	private $branchTransformer;
-	
-	
-	
+
 	protected function setUp() {
-		$this->menuEntryTransformer = $this->getEntityTransformerMock($this->getMenuEntry(), self::MENU_ENTRY_ID);
+		$this->menuEntryTransformer = $this->getEntityTransformerMock($this->getMenuEntry(), 
+				self::MENU_ENTRY_ID);
 		$this->branchTransformer = $this->getEntityTransformerMock($this->getBranch(), self::BRANCH_ID);
 		
 		parent::setUp();
 	}
-	
+
 	protected function getExtensions() {
 		$type = new MenuEntryBranchAssignmentEditorType($this->menuEntryTransformer, $this->branchTransformer);
 		return array(new PreloadedExtension(array($type), array()));
 	}
-	
-	
-	
+
 	protected function assertEntity($entity) {
 		/** @var MenuEntryBranchAssignment $entity */
 		parent::assertEntity($entity);
@@ -51,35 +50,33 @@ class MenuEntryBranchAssignmentEditorTypeTest extends BaseEditorTypeTest {
 		$this->assertSame(self::BRANCH_ID, $entity->getBranch()->getId());
 		$this->assertSame(self::BRANCH_NAME, $entity->getBranch()->getName());
 	}
-	
+
 	protected function getFormData() {
 		$data = parent::getFormData();
-	
+		
 		$data['menuEntry'] = self::MENU_ENTRY_ID;
 		$data['branch'] = self::BRANCH_ID;
 		
 		return $data;
 	}
-	
+
 	protected function getFormOptions() {
 		$options = parent::getFormOptions();
-	
+		
 		$options[self::getChoicesName('menuEntry')] = self::MENU_ENTRY_CHOICES;
 		$options[self::getChoicesName('branch')] = self::BRANCH_CHOICES;
-	
+		
 		return $options;
 	}
-	
+
 	protected function getFormType() {
 		return MenuEntryBranchAssignmentEditorType::class;
 	}
-	
+
 	protected function getEntity() {
 		return new MenuEntryBranchAssignment();
 	}
-	
-	
-	
+
 	private function getMenuEntry() {
 		$mock = new MenuEntry();
 		$mock->setId(self::MENU_ENTRY_ID);
@@ -87,12 +84,12 @@ class MenuEntryBranchAssignmentEditorTypeTest extends BaseEditorTypeTest {
 		
 		return $mock;
 	}
-	
+
 	private function getBranch() {
 		$mock = new Branch();
 		$mock->setId(self::BRANCH_ID);
 		$mock->setName(self::BRANCH_NAME);
-	
+		
 		return $mock;
 	}
 }

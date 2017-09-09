@@ -51,10 +51,10 @@ class BenchmarkFieldEditorType extends BaseEditorType {
 	protected function getDefaultOptions() {
 		$options = parent::getDefaultOptions();
 		
-		$options[self::getChoicesName('category')] = [ ];
-		$options[self::getChoicesName('fieldType')] = [ ];
-		$options[self::getChoicesName('noteType')] = [ ];
-		$options[self::getChoicesName('betterThanType')] = [ ];
+		$options[self::getChoicesName('category')] = [];
+		$options[self::getChoicesName('fieldType')] = [];
+		$options[self::getChoicesName('noteType')] = [];
+		$options[self::getChoicesName('betterThanType')] = [];
 		
 		return $options;
 	}

@@ -2,74 +2,61 @@
 
 namespace Tests\AppBundle\Form\Filter\Admin\Base;
 
-
 use AppBundle\Filter\Common\Base\SimpleFilter;
-use AppBundle\Form\Filter\Admin\Base\AdminFilterType;
+use AppBundle\Form\Filter\Admin\Base\SimpleFilterType;
 use Tests\AppBundle\Form\Base\FilterTypeTest;
 
-class BaseFilterTypeTest extends FilterTypeTest {
+abstract class BaseFilterTypeTest extends FilterTypeTest {
 	
-	const CREATED_BY_1 = 101;
-	const CREATED_BY_2 = 102;
-	const CREATED_BY_3 = 103;
-	const CREATED_BY_CHOICES = [self::CREATED_BY_1, self::CREATED_BY_2, self::CREATED_BY_3];
-	const CREATED_BY_SELECTED = [self::CREATED_BY_1, self::CREATED_BY_3];
+	// const NAME = '*name*';
 	
-	const UPDATED_BY_1 = 101;
-	const UPDATED_BY_2 = 102;
-	const UPDATED_BY_3 = 103;
-	const UPDATED_BY_CHOICES = [self::UPDATED_BY_1, self::UPDATED_BY_2, self::UPDATED_BY_3];
-	const UPDATED_BY_SELECTED = [self::UPDATED_BY_1, self::UPDATED_BY_3];
+	// const INFOMARKET_FALSE = 0;
+	// const INFOMARKET_TRUE = 1;
+	// const INFOMARKET_ALL = 2;
+	// const INFOMARKET_CHOICES = [self::INFOMARKET_FALSE, self::INFOMARKET_TRUE, self::INFOMARKET_ALL];
+	// const INFOMARKET_SELECTED = self::INFOMARKET_TRUE;
 	
-	const CREATED_BEFORE = '10/01/2021 12:00';
-	const CREATED_AFTER = '21/07/2014 12:00';
+	// const INFOPRODUKT_FALSE = 0;
+	// const INFOPRODUKT_TRUE = 1;
+	// const INFOPRODUKT_ALL = 2;
+	// const INFOPRODUKT_CHOICES = [self::INFOPRODUKT_FALSE, self::INFOPRODUKT_TRUE, self::INFOPRODUKT_ALL];
+	// const INFOPRODUKT_SELECTED = self::INFOPRODUKT_TRUE;
 	
-	const UPDATED_BEFORE = '11/11/2027 12:00';
-	const UPDATED_AFTER = '05/02/2010 11:45';
+	// protected function assertEntity($entity) {
+	// /** @var SimpleFilter $entity */
+	// parent::assertEntity($entity);
 	
-	protected function assertEntity($entity) {
-		/** @var SimpleFilter $entity */
-		parent::assertEntity($entity);
+	// $this->assertSame(self::NAME, $entity->getName());
 	
-		$this->assertDateTime(self::CREATED_BEFORE, $entity->getCreatedBefore());
-		$this->assertDateTime(self::CREATED_AFTER, $entity->getCreatedAfter());
-		
-		$this->assertDateTime(self::UPDATED_BEFORE, $entity->getUpdatedBefore());
-		$this->assertDateTime(self::UPDATED_AFTER, $entity->getUpdatedAfter());
-		
-		$this->assertArray(self::CREATED_BY_SELECTED, $entity->getCreatedBy());
-		$this->assertArray(self::UPDATED_BY_SELECTED, $entity->getUpdatedBy());
-	}
+	// $this->assertSame(self::INFOMARKET_SELECTED, $entity->getInfomarket());
+	// $this->assertSame(self::INFOPRODUKT_SELECTED, $entity->getInfoprodukt());
+	// }
 	
-	protected function getFormData() {
-		$data = parent::getFormData();
+	// protected function getFormData() {
+	// $data = parent::getFormData();
 	
-		$data['createdBy'] = self::CREATED_BY_SELECTED;
-		$data['updatedBy'] = self::UPDATED_BY_SELECTED;
-		
-		$data['createdBefore'] = self::CREATED_BEFORE;
-		$data['createdAfter'] = self::CREATED_AFTER;
-		
-		$data['updatedBefore'] = self::UPDATED_BEFORE;
-		$data['updatedAfter'] = self::UPDATED_AFTER;
+	// $data['name'] = self::NAME;
 	
-		return $data;
-	}
+	// $data['infomarket'] = self::INFOMARKET_SELECTED;
+	// $data['infoprodukt'] = self::INFOPRODUKT_SELECTED;
 	
-	protected function getFormOptions() {
-		$options = parent::getFormOptions();
+	// return $data;
+	// }
 	
-		$options[self::getChoicesName('createdBy')] = self::CREATED_BY_CHOICES;
-		$options[self::getChoicesName('updatedBy')] = self::UPDATED_BY_CHOICES;
+	// protected function getFormOptions() {
+	// $options = parent::getFormOptions();
 	
-		return $options;
-	}
+	// $options[self::getChoicesName('infomarket')] = self::INFOMARKET_CHOICES;
+	// $options[self::getChoicesName('infoprodukt')] = self::INFOPRODUKT_CHOICES;
 	
-	protected function getFormType() {
-		return AdminFilterType::class;
-	}
+	// return $options;
+	// }
 	
-	protected function getEntity() {
-		return new SimpleFilter();
-	}
+	// protected function getFormType() {
+	// return SimpleFilterType::class;
+	// }
+	
+	// protected function getEntity() {
+	// return new SimpleFilter();
+	// }
 }

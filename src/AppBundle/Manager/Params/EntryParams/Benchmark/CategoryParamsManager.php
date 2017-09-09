@@ -103,8 +103,7 @@ class CategoryParamsManager extends EntryParamsManager {
 		
 		$userId = $this->tokenStorage->getToken()->getUser()->getId();
 		$subcategories = $this->categoryRepository->findFilterItemsByUserAndCategory($userId, $id);
-		$viewParams['subcategories'] = $this->categoryRepository->findBy([ 'id' => $subcategories 
-		]);
+		$viewParams['subcategories'] = $this->categoryRepository->findBy(['id' => $subcategories]);
 		
 		$params['viewParams'] = $viewParams;
 		
@@ -137,8 +136,7 @@ class CategoryParamsManager extends EntryParamsManager {
 				$this->benchmarkFieldsProvider->getBoolFields($categoryId), $categoryId);
 		
 		$viewParams['priceField'] = $this->benchmarkFieldsInitializer->init(
-				[ $this->benchmarkFieldsProvider->getPriceField() 
-				], $categoryId)[0];
+				[$this->benchmarkFieldsProvider->getPriceField()], $categoryId)[0];
 		
 		return $viewParams;
 	}

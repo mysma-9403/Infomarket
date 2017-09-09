@@ -18,8 +18,8 @@ class MagazineBranchAssignmentFilterType extends SimpleFilterType {
 	protected function getDefaultOptions() {
 		$options = parent::getDefaultOptions();
 		
-		$options[$this->getChoicesName('magazines')] = [ ];
-		$options[$this->getChoicesName('branches')] = [ ];
+		$options[$this->getChoicesName('magazines')] = [];
+		$options[$this->getChoicesName('branches')] = [];
 		
 		return $options;
 	}

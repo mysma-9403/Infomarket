@@ -18,7 +18,7 @@ class NewsletterPageFilter extends SimpleFilter {
 	 *
 	 * @var array
 	 */
-	protected $newsletterPageTemplates = array ();
+	protected $newsletterPageTemplates = array();
 
 	public function initRequestValues(Request $request) {
 		parent::initRequestValues($request);
@@ -33,7 +33,7 @@ class NewsletterPageFilter extends SimpleFilter {
 		
 		$this->name = null;
 		
-		$this->newsletterPageTemplates = array ();
+		$this->newsletterPageTemplates = array();
 	}
 
 	public function getRequestValues() {

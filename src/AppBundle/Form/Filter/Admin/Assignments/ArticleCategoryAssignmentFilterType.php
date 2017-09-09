@@ -18,8 +18,8 @@ class ArticleCategoryAssignmentFilterType extends SimpleFilterType {
 	protected function getDefaultOptions() {
 		$options = parent::getDefaultOptions();
 		
-		$options[$this->getChoicesName('articles')] = [ ];
-		$options[$this->getChoicesName('categories')] = [ ];
+		$options[$this->getChoicesName('articles')] = [];
+		$options[$this->getChoicesName('categories')] = [];
 		
 		return $options;
 	}

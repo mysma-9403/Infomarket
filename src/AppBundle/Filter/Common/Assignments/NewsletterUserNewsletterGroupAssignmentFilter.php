@@ -12,13 +12,13 @@ class NewsletterUserNewsletterGroupAssignmentFilter extends SimpleFilter {
 	 *
 	 * @var array
 	 */
-	protected $newsletterUsers = array ();
+	protected $newsletterUsers = array();
 
 	/**
 	 *
 	 * @var array
 	 */
-	protected $newsletterGroups = array ();
+	protected $newsletterGroups = array();
 
 	public function initRequestValues(Request $request) {
 		parent::initRequestValues($request);
@@ -30,8 +30,8 @@ class NewsletterUserNewsletterGroupAssignmentFilter extends SimpleFilter {
 	public function clearRequestValues() {
 		parent::clearRequestValues();
 		
-		$this->newsletterUsers = array ();
-		$this->newsletterGroups = array ();
+		$this->newsletterUsers = array();
+		$this->newsletterGroups = array();
 	}
 
 	public function getRequestValues() {

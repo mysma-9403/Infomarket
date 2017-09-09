@@ -93,7 +93,7 @@ abstract class BenchmarkFieldFactoryRepositoryBase extends BenchmarkFieldFactory
 		$values = $this->productRepository->findEnumValues($categoryId, $valueField);
 		$values = array_map('current', $values);
 		
-		$items = [ ];
+		$items = [];
 		foreach ($values as $value) {
 			$singleValues = explode(", ", $value);
 			foreach ($singleValues as $singleValue) {

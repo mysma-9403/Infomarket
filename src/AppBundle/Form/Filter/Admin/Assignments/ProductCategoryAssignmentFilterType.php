@@ -22,12 +22,12 @@ class ProductCategoryAssignmentFilterType extends SimpleFilterType {
 	protected function getDefaultOptions() {
 		$options = parent::getDefaultOptions();
 		
-		$options[$this->getChoicesName('products')] = [ ];
-		$options[$this->getChoicesName('brands')] = [ ];
-		$options[$this->getChoicesName('segments')] = [ ];
-		$options[$this->getChoicesName('categories')] = [ ];
+		$options[$this->getChoicesName('products')] = [];
+		$options[$this->getChoicesName('brands')] = [];
+		$options[$this->getChoicesName('segments')] = [];
+		$options[$this->getChoicesName('categories')] = [];
 		
-		$options[$this->getChoicesName('featured')] = [ ];
+		$options[$this->getChoicesName('featured')] = [];
 		
 		return $options;
 	}

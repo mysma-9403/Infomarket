@@ -37,8 +37,8 @@ class BranchCategoryAssignmentEditorType extends BaseEditorType {
 	protected function getDefaultOptions() {
 		$options = parent::getDefaultOptions();
 		
-		$options[self::getChoicesName('branch')] = [ ];
-		$options[self::getChoicesName('category')] = [ ];
+		$options[self::getChoicesName('branch')] = [];
+		$options[self::getChoicesName('category')] = [];
 		
 		return $options;
 	}

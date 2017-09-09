@@ -19,13 +19,13 @@ class CustomProductFilter extends SimpleFilter {
 	 *
 	 * @var array
 	 */
-	protected $brands = array ();
+	protected $brands = array();
 
 	/**
 	 *
 	 * @var array
 	 */
-	protected $categories = array ();
+	protected $categories = array();
 
 	/**
 	 *
@@ -47,8 +47,8 @@ class CustomProductFilter extends SimpleFilter {
 		
 		$this->name = null;
 		
-		$this->brands = array ();
-		$this->categories = array ();
+		$this->brands = array();
+		$this->categories = array();
 	}
 
 	public function getRequestValues() {

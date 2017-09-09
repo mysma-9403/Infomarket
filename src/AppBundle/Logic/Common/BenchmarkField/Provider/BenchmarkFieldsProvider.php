@@ -62,7 +62,7 @@ class BenchmarkFieldsProvider {
 	}
 
 	public function getPriceField() {
-		$field = [ ];
+		$field = [];
 		
 		$field['valueField'] = self::PRICE_FIELD;
 		$field['fieldType'] = BenchmarkField::DECIMAL_FIELD_TYPE;

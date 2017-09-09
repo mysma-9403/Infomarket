@@ -2,45 +2,43 @@
 
 namespace Tests\AppBundle\Form\Editor\Admin\Assignments;
 
-use AppBundle\Entity\Assignments\Branch;
-use AppBundle\Entity\Assignments\Magazine;
+use AppBundle\Entity\Main\Branch;
+use AppBundle\Entity\Main\Magazine;
 use AppBundle\Entity\Assignments\MagazineBranchAssignment;
 use AppBundle\Form\Editor\Admin\Assignments\MagazineBranchAssignmentEditorType;
 use Symfony\Component\Form\PreloadedExtension;
-use Tests\AppBundle\Form\Editor\Admin\Base\BaseEditorTypeTest;
+use Tests\AppBundle\Form\Editor\Admin\Base\SimpleEditorTypeTest;
 
-class MagazineBranchAssignmentEditorTypeTest extends BaseEditorTypeTest {
-		
+class MagazineBranchAssignmentEditorTypeTest extends SimpleEditorTypeTest {
+
 	const MAGAZINE_ID = 100;
+
 	const MAGAZINE_NAME = 'Test magazine';
+
 	const MAGAZINE_CHOICES = ['Test magazine' => self::MAGAZINE_ID];
-	
+
 	const BRANCH_ID = 100;
+
 	const BRANCH_NAME = 'Test branch';
+
 	const BRANCH_CHOICES = ['Test branch' => self::BRANCH_ID];
-	
-	
-	
+
 	private $magazineTransformer;
-	
+
 	private $branchTransformer;
-	
-	
-	
+
 	protected function setUp() {
 		$this->magazineTransformer = $this->getEntityTransformerMock($this->getMagazine(), self::MAGAZINE_ID);
 		$this->branchTransformer = $this->getEntityTransformerMock($this->getBranch(), self::BRANCH_ID);
 		
 		parent::setUp();
 	}
-	
+
 	protected function getExtensions() {
 		$type = new MagazineBranchAssignmentEditorType($this->magazineTransformer, $this->branchTransformer);
 		return array(new PreloadedExtension(array($type), array()));
 	}
-	
-	
-	
+
 	protected function assertEntity($entity) {
 		/** @var MagazineBranchAssignment $entity */
 		parent::assertEntity($entity);
@@ -51,35 +49,33 @@ class MagazineBranchAssignmentEditorTypeTest extends BaseEditorTypeTest {
 		$this->assertSame(self::BRANCH_ID, $entity->getBranch()->getId());
 		$this->assertSame(self::BRANCH_NAME, $entity->getBranch()->getName());
 	}
-	
+
 	protected function getFormData() {
 		$data = parent::getFormData();
-	
+		
 		$data['magazine'] = self::MAGAZINE_ID;
 		$data['branch'] = self::BRANCH_ID;
 		
 		return $data;
 	}
-	
+
 	protected function getFormOptions() {
 		$options = parent::getFormOptions();
-	
+		
 		$options[self::getChoicesName('magazine')] = self::MAGAZINE_CHOICES;
 		$options[self::getChoicesName('branch')] = self::BRANCH_CHOICES;
-	
+		
 		return $options;
 	}
-	
+
 	protected function getFormType() {
 		return MagazineBranchAssignmentEditorType::class;
 	}
-	
+
 	protected function getEntity() {
 		return new MagazineBranchAssignment();
 	}
-	
-	
-	
+
 	private function getMagazine() {
 		$mock = new Magazine();
 		$mock->setId(self::MAGAZINE_ID);
@@ -87,12 +83,12 @@ class MagazineBranchAssignmentEditorTypeTest extends BaseEditorTypeTest {
 		
 		return $mock;
 	}
-	
+
 	private function getBranch() {
 		$mock = new Branch();
 		$mock->setId(self::BRANCH_ID);
 		$mock->setName(self::BRANCH_NAME);
-	
+		
 		return $mock;
 	}
 }

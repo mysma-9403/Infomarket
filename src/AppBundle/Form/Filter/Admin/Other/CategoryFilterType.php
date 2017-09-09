@@ -23,7 +23,7 @@ class CategoryFilterType extends BaseType {
 	protected function getDefaultOptions() {
 		$options = parent::getDefaultOptions();
 		
-		$options[$this->getChoicesName('category')] = [ ];
+		$options[$this->getChoicesName('category')] = [];
 		
 		return $options;
 	}

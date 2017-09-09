@@ -45,7 +45,7 @@ class Filter {
 	 * @return array
 	 */
 	public function getRequestValues() {
-		return array ();
+		return array();
 	}
 
 	/**

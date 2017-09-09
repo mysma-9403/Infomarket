@@ -89,6 +89,19 @@ class User extends BaseUser {
 	private $userCategoryAssignments;
 
 	/**
+	 * Set id
+	 *
+	 * @param integer $id        	
+	 *
+	 * @return User
+	 */
+	public function setId($id) {
+		$this->id = $id;
+		
+		return $this;
+	}
+
+	/**
 	 * Set forename
 	 *
 	 * @param string $forename        	

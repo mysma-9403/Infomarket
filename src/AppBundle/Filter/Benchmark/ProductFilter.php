@@ -52,13 +52,13 @@ class ProductFilter extends Filter {
 	 *
 	 * @var array
 	 */
-	protected $brands = array ();
+	protected $brands = array();
 
 	/**
 	 *
 	 * @var array
 	 */
-	protected $categories = array ();
+	protected $categories = array();
 
 	/**
 	 *
@@ -116,7 +116,7 @@ class ProductFilter extends Filter {
 			switch ($field['fieldType']) {
 				case BenchmarkField::DECIMAL_FIELD_TYPE:
 				case BenchmarkField::INTEGER_FIELD_TYPE:
-					$value = array ();
+					$value = array();
 					$value['min'] = $this->getRequestValue($request, 
 							StringUtils::getCleanName($field['filterName']) . '_min');
 					$value['max'] = $this->getRequestValue($request, 
@@ -145,8 +145,8 @@ class ProductFilter extends Filter {
 	public function clearRequestValues() {
 		parent::clearRequestValues();
 		
-		$this->brands = array ();
-		$this->categories = array ();
+		$this->brands = array();
+		$this->categories = array();
 		
 		$this->name = null;
 		
@@ -157,7 +157,7 @@ class ProductFilter extends Filter {
 			switch ($field['fieldType']) {
 				case BenchmarkField::DECIMAL_FIELD_TYPE:
 				case BenchmarkField::INTEGER_FIELD_TYPE:
-					$value = array ();
+					$value = array();
 					$value['min'] = null;
 					$value['max'] = null;
 					$this->filterFields[$key]['value'] = $value;
@@ -167,7 +167,7 @@ class ProductFilter extends Filter {
 					break;
 				case BenchmarkField::SINGLE_ENUM_FIELD_TYPE:
 				case BenchmarkField::MULTI_ENUM_FIELD_TYPE:
-					$this->filterFields[$key]['value'] = array ();
+					$this->filterFields[$key]['value'] = array();
 					break;
 				default:
 					$this->filterFields[$key]['value'] = null;

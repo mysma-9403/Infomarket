@@ -22,8 +22,8 @@ class BenchmarkFieldFilterType extends SimpleFilterType {
 	protected function getDefaultOptions() {
 		$options = parent::getDefaultOptions();
 		
-		$options[$this->getChoicesName('categories')] = [ ];
-		$options[$this->getChoicesName('fieldTypes')] = [ ];
+		$options[$this->getChoicesName('categories')] = [];
+		$options[$this->getChoicesName('fieldTypes')] = [];
 		
 		return $options;
 	}

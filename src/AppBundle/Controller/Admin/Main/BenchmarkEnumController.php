@@ -85,8 +85,7 @@ class BenchmarkEnumController extends BaseController {
 	// Internal logic
 	// ------------------------------------------------------------------------
 	protected function getListItemKeyFields($item) {
-		return [ $item['id'],$item['name'] 
-		];
+		return [$item['id'], $item['name']];
 	}
 	
 	// ---------------------------------------------------------------------------

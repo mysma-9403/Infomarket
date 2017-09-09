@@ -24,7 +24,7 @@ class ImportValidator {
 			$prevEntry = $preparedEntries[$i];
 			
 			if (! $prevEntry['duplicate']) {
-				$errors = array ();
+				$errors = array();
 				$prevMail = $prevEntry['mail'];
 				
 				for ($j = $i + 1; $j < $count; $j ++) {

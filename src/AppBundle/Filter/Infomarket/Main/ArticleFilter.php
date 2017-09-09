@@ -24,7 +24,7 @@ class ArticleFilter extends CategoriesDependentFilter {
 	 *
 	 * @var array
 	 */
-	protected $contextArticleCategories = array ();
+	protected $contextArticleCategories = array();
 
 	public function __construct() {
 		$this->filterName = 'article_filter_';
@@ -42,12 +42,12 @@ class ArticleFilter extends CategoriesDependentFilter {
 	}
 
 	public function clearRequestValues() {
-		$this->articleCategories = array ();
-		$this->categories = array ();
+		$this->articleCategories = array();
+		$this->categories = array();
 	}
 
 	public function getRequestValues() {
-		$values = array ();
+		$values = array();
 		
 		$this->setRequestArray($values, 'article_categories', $this->articleCategories);
 		$this->setRequestArray($values, 'categories', $this->categories);

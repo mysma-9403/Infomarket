@@ -12,13 +12,13 @@ class MagazineBranchAssignmentFilter extends SimpleFilter {
 	 *
 	 * @var array
 	 */
-	protected $magazines = array ();
+	protected $magazines = array();
 
 	/**
 	 *
 	 * @var array
 	 */
-	protected $branches = array ();
+	protected $branches = array();
 
 	public function initRequestValues(Request $request) {
 		parent::initRequestValues($request);
@@ -30,8 +30,8 @@ class MagazineBranchAssignmentFilter extends SimpleFilter {
 	public function clearRequestValues() {
 		parent::clearRequestValues();
 		
-		$this->magazines = array ();
-		$this->branches = array ();
+		$this->magazines = array();
+		$this->branches = array();
 	}
 
 	public function getRequestValues() {

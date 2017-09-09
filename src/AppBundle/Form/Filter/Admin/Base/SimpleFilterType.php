@@ -24,8 +24,8 @@ class SimpleFilterType extends FilterType {
 	protected function getDefaultOptions() {
 		$options = parent::getDefaultOptions();
 		
-		$options[$this->getChoicesName('createdBy')] = [ ];
-		$options[$this->getChoicesName('updatedBy')] = [ ];
+		$options[$this->getChoicesName('createdBy')] = [];
+		$options[$this->getChoicesName('updatedBy')] = [];
 		
 		return $options;
 	}

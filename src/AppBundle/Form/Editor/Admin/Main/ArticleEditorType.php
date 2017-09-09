@@ -59,11 +59,11 @@ class ArticleEditorType extends ImageEditorType {
 	protected function getDefaultOptions() {
 		$options = parent::getDefaultOptions();
 		
-		$options[self::getChoicesName('parent')] = [ ];
-		$options[self::getChoicesName('author')] = [ ];
+		$options[self::getChoicesName('parent')] = [];
+		$options[self::getChoicesName('author')] = [];
 		
-		$options[self::getChoicesName('layout')] = [ ];
-		$options[self::getChoicesName('imageSize')] = [ ];
+		$options[self::getChoicesName('layout')] = [];
+		$options[self::getChoicesName('imageSize')] = [];
 		
 		return $options;
 	}

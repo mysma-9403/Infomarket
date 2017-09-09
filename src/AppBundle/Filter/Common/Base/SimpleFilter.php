@@ -35,13 +35,13 @@ class SimpleFilter extends BaseFilter {
 	 *
 	 * @var array
 	 */
-	protected $createdBy = array ();
+	protected $createdBy = array();
 
 	/**
 	 *
 	 * @var array
 	 */
-	protected $updatedBy = array ();
+	protected $updatedBy = array();
 
 	public function initRequestValues(Request $request) {
 		parent::initRequestValues($request);
@@ -65,8 +65,8 @@ class SimpleFilter extends BaseFilter {
 		$this->updatedAfter = null;
 		$this->updatedBefore = null;
 		
-		$this->createdBy = array ();
-		$this->updatedBy = array ();
+		$this->createdBy = array();
+		$this->updatedBy = array();
 	}
 
 	public function getRequestValues() {

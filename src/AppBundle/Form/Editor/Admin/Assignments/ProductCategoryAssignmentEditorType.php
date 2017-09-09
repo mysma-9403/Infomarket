@@ -43,9 +43,9 @@ class ProductCategoryAssignmentEditorType extends BaseEditorType {
 	protected function getDefaultOptions() {
 		$options = parent::getDefaultOptions();
 		
-		$options[self::getChoicesName('product')] = [ ];
-		$options[self::getChoicesName('segment')] = [ ];
-		$options[self::getChoicesName('category')] = [ ];
+		$options[self::getChoicesName('product')] = [];
+		$options[self::getChoicesName('segment')] = [];
+		$options[self::getChoicesName('category')] = [];
 		
 		return $options;
 	}

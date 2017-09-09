@@ -20,7 +20,7 @@ abstract class ListType extends BaseType {
 	protected function getDefaultOptions() {
 		$options = parent::getDefaultOptions();
 		
-		$options[$this->getChoicesName('entries')] = [ ];
+		$options[$this->getChoicesName('entries')] = [];
 		
 		return $options;
 	}

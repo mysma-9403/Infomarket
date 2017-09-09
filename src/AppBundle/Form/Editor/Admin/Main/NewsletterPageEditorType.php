@@ -33,7 +33,7 @@ class NewsletterPageEditorType extends SimpleEditorType {
 	protected function getDefaultOptions() {
 		$options = parent::getDefaultOptions();
 		
-		$options[self::getChoicesName('newsletterPageTemplate')] = [ ];
+		$options[self::getChoicesName('newsletterPageTemplate')] = [];
 		
 		return $options;
 	}

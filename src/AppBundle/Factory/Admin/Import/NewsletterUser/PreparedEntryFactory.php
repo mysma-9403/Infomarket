@@ -24,7 +24,7 @@ class PreparedEntryFactory {
 	}
 
 	public function getEntries($fileEntries) {
-		$entries = array ();
+		$entries = array();
 		
 		$lineNumber = 0;
 		foreach ($fileEntries as $fileEntry) {
@@ -43,7 +43,7 @@ class PreparedEntryFactory {
 	}
 
 	public function getRowEntries($fileEntry, $lineNumber) {
-		$entries = array ();
+		$entries = array();
 		
 		if (count($fileEntry) <= 0)
 			return null;
@@ -62,7 +62,7 @@ class PreparedEntryFactory {
 		}
 		
 		$temp = explode(';', $mail);
-		$mails = array ();
+		$mails = array();
 		foreach ($temp as $mail) {
 			$mail = trim($mail);
 			if ($mail && strlen($mail) > 0) {
@@ -71,8 +71,8 @@ class PreparedEntryFactory {
 		}
 		
 		foreach ($mails as $mail) {
-			$entry = array ();
-			$errors = array ();
+			$entry = array();
+			$errors = array();
 			
 			$mail = trim($mail);
 			$mail = strtolower($mail);

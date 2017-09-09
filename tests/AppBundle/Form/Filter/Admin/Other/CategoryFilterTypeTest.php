@@ -7,22 +7,24 @@ use AppBundle\Form\Filter\Admin\Other\CategoryFilterType;
 use Tests\AppBundle\Form\Base\BaseTypeTest;
 
 class CategoryFilterTypeTest extends BaseTypeTest {
-	
+
 	const CATEGORY_1 = 201;
+
 	const CATEGORY_2 = 202;
+
 	const CATEGORY_3 = 203;
+
 	const CATEGORY_CHOICES = [self::CATEGORY_1, self::CATEGORY_2, self::CATEGORY_3];
+
 	const CATEGORY_SELECTED = self::CATEGORY_2;
-	
-	
-	
+
 	protected function assertEntity($entity) {
-		/** @var CategoryFilter $entity */
 		parent::assertEntity($entity);
 		
+		/** @var CategoryFilter $entity */
 		$this->assertEquals(self::CATEGORY_SELECTED, $entity->getCategory());
 	}
-	
+
 	protected function getFormData() {
 		$data = parent::getFormData();
 		
@@ -30,7 +32,7 @@ class CategoryFilterTypeTest extends BaseTypeTest {
 		
 		return $data;
 	}
-	
+
 	protected function getFormActions() {
 		$actions = parent::getFormActions();
 		
@@ -38,19 +40,19 @@ class CategoryFilterTypeTest extends BaseTypeTest {
 		
 		return $actions;
 	}
-	
+
 	protected function getFormOptions() {
 		$options = parent::getFormOptions();
 		
 		$options[self::getChoicesName('category')] = self::CATEGORY_CHOICES;
-	
+		
 		return $options;
 	}
-	
+
 	protected function getFormType() {
 		return CategoryFilterType::class;
 	}
-	
+
 	protected function getEntity() {
 		return new CategoryFilter();
 	}

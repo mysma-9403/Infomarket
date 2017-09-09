@@ -10,7 +10,7 @@ class CategoriesDependentFilter extends Filter {
 	 *
 	 * @var array
 	 */
-	protected $contextCategories = array ();
+	protected $contextCategories = array();
 
 	public function initContextParams(array $contextParams) {
 		$this->contextCategories = $contextParams['categories'];

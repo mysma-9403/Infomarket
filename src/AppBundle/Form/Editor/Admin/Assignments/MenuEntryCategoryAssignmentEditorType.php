@@ -37,8 +37,8 @@ class MenuEntryCategoryAssignmentEditorType extends BaseEditorType {
 	protected function getDefaultOptions() {
 		$options = parent::getDefaultOptions();
 		
-		$options[self::getChoicesName('menuEntry')] = [ ];
-		$options[self::getChoicesName('category')] = [ ];
+		$options[self::getChoicesName('menuEntry')] = [];
+		$options[self::getChoicesName('category')] = [];
 		
 		return $options;
 	}

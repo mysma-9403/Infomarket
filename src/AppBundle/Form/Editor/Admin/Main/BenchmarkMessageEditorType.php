@@ -21,7 +21,7 @@ class BenchmarkMessageEditorType extends EditorType {
 	protected function getDefaultOptions() {
 		$options = parent::getDefaultOptions();
 		
-		$options[self::getChoicesName('state')] = [ ];
+		$options[self::getChoicesName('state')] = [];
 		
 		return $options;
 	}

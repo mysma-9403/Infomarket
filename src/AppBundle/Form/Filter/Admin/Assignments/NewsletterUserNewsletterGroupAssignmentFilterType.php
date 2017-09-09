@@ -18,8 +18,8 @@ class NewsletterUserNewsletterGroupAssignmentFilterType extends SimpleFilterType
 	protected function getDefaultOptions() {
 		$options = parent::getDefaultOptions();
 		
-		$options[$this->getChoicesName('newsletterUsers')] = [ ];
-		$options[$this->getChoicesName('newsletterGroups')] = [ ];
+		$options[$this->getChoicesName('newsletterUsers')] = [];
+		$options[$this->getChoicesName('newsletterGroups')] = [];
 		
 		return $options;
 	}

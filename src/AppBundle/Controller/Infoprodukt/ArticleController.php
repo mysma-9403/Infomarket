@@ -97,7 +97,7 @@ class ArticleController extends InfoproduktController {
 		/** @var Filter $itemFilter */
 		$itemFilter = $viewParams['entryFilter'];
 		
-		$options = [ ];
+		$options = [];
 		$this->addEntityChoicesFormOption($options, ArticleCategory::class, 'articleCategories');
 		
 		$articleFilterForm = $this->createForm(ArticleFilterType::class, $itemFilter, $options);
@@ -106,14 +106,14 @@ class ArticleController extends InfoproduktController {
 		if ($articleFilterForm->isSubmitted() && $articleFilterForm->isValid()) {
 			
 			if ($articleFilterForm->get('search')->isClicked()) {
-				$routingParams = array ();
+				$routingParams = array();
 				$routingParams = array_merge($routingParams, $itemFilter->getRequestValues());
 				
 				return $this->redirectToRoute($this->getIndexRoute(), $routingParams);
 			}
 			
 			if ($articleFilterForm->get('clear')->isClicked()) {
-				$routingParams = array ();
+				$routingParams = array();
 				
 				return $this->redirectToRoute($this->getIndexRoute(), $routingParams);
 			}

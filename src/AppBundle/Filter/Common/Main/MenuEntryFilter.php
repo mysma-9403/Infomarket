@@ -30,25 +30,25 @@ class MenuEntryFilter extends SimpleFilter {
 	 *
 	 * @var array
 	 */
-	protected $menus = array ();
+	protected $menus = array();
 
 	/**
 	 *
 	 * @var array
 	 */
-	protected $parents = array ();
+	protected $parents = array();
 
 	/**
 	 *
 	 * @var array
 	 */
-	protected $branches = array ();
+	protected $branches = array();
 
 	/**
 	 *
 	 * @var array
 	 */
-	protected $categories = array ();
+	protected $categories = array();
 
 	public function initRequestValues(Request $request) {
 		parent::initRequestValues($request);
@@ -72,10 +72,10 @@ class MenuEntryFilter extends SimpleFilter {
 		$this->infomarket = self::ALL_VALUES;
 		$this->infoprodukt = self::ALL_VALUES;
 		
-		$this->menus = array ();
-		$this->parents = array ();
-		$this->branches = array ();
-		$this->categories = array ();
+		$this->menus = array();
+		$this->parents = array();
+		$this->branches = array();
+		$this->categories = array();
 	}
 
 	public function getRequestValues() {

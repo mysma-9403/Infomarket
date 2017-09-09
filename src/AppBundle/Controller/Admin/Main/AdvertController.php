@@ -147,7 +147,7 @@ class AdvertController extends ImageController {
 		}
 		$em->flush();
 		
-		return array ();
+		return array();
 	}
 	// ---------------------------------------------------------------------------
 	// Managers

@@ -44,8 +44,7 @@ class SecurityController extends BaseController {
 		$csrfToken = $this->has('security.csrf.token_manager') ? $this->get('security.csrf.token_manager')->getToken(
 				'authenticate')->getValue() : null;
 		
-		$params = array ('last_username' => $lastUsername,'error' => $error,'csrf_token' => $csrfToken 
-		);
+		$params = array('last_username' => $lastUsername, 'error' => $error, 'csrf_token' => $csrfToken);
 		
 		$routeName = $request->get('_route');
 		

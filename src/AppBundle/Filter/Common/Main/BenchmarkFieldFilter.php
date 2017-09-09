@@ -39,8 +39,8 @@ class BenchmarkFieldFilter extends SimpleFilter {
 		
 		$this->fieldName = null;
 		
-		$this->categories = array ();
-		$this->fieldTypes = array ();
+		$this->categories = array();
+		$this->fieldTypes = array();
 	}
 
 	public function getRequestValues() {

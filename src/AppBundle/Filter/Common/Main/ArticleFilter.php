@@ -42,19 +42,19 @@ class ArticleFilter extends SimpleFilter {
 	 *
 	 * @var array
 	 */
-	protected $brands = array ();
+	protected $brands = array();
 
 	/**
 	 *
 	 * @var array
 	 */
-	protected $categories = array ();
+	protected $categories = array();
 
 	/**
 	 *
 	 * @var array
 	 */
-	protected $articleCategories = array ();
+	protected $articleCategories = array();
 
 	public function initRequestValues(Request $request) {
 		parent::initRequestValues($request);
@@ -74,9 +74,9 @@ class ArticleFilter extends SimpleFilter {
 	public function clearRequestValues() {
 		parent::clearRequestValues();
 		
-		$this->brands = array ();
-		$this->categories = array ();
-		$this->articleCategories = array ();
+		$this->brands = array();
+		$this->categories = array();
+		$this->articleCategories = array();
 		
 		$this->name = null;
 		$this->subname = null;

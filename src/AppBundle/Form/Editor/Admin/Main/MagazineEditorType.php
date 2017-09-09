@@ -33,7 +33,7 @@ class MagazineEditorType extends ImageEditorType {
 		
 		$this->addMagazineFileField($builder, 'magazineFile', 'label.magazine.magazineFile', false);
 		
-		$this->addDateTimeField($builder, 'date', 'label.magazine.date');
+		$this->addMonthField($builder, 'date', 'label.magazine.date');
 		
 		$this->addCKEditorField($builder, 'content', 'label.content', false);
 		
@@ -43,7 +43,7 @@ class MagazineEditorType extends ImageEditorType {
 	protected function getDefaultOptions() {
 		$options = parent::getDefaultOptions();
 		
-		$options[self::getChoicesName('parent')] = [ ];
+		$options[self::getChoicesName('parent')] = [];
 		
 		return $options;
 	}

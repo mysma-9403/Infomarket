@@ -216,7 +216,7 @@ class NewsletterPageController extends SimpleController {
 		
 		$viewParams = $params['viewParams'];
 		
-		$options = [ ];
+		$options = [];
 		
 		$this->addEntityChoicesFormOption($options, NewsletterGroup::class, 'newsletterGroups');
 		
@@ -277,7 +277,7 @@ class NewsletterPageController extends SimpleController {
 		$sendNewsletterFilter = $viewParams['sendNewsletterFilter'];
 		
 		$recipients = $viewParams['recipients'];
-		$bccIds = array ();
+		$bccIds = array();
 		foreach ($recipients as $recipient) {
 			$bccIds[] = $recipient['id'];
 		}
@@ -289,7 +289,7 @@ class NewsletterPageController extends SimpleController {
 			
 			$translator = $this->get('translator');
 			
-			$errors = array ();
+			$errors = array();
 			
 			while (true) {
 				$index = strpos($body, 'src="http://infomarket.edu.pl');

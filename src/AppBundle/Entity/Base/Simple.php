@@ -14,7 +14,7 @@ class Simple {
 
 	public function __construct() {
 	}
-	
+
 	public function clear() {
 		$this->id = null;
 		
@@ -96,6 +96,19 @@ class Simple {
 	 */
 	public function getUpdatedAt() {
 		return $this->updatedAt;
+	}
+
+	/**
+	 * Set id
+	 *
+	 * @param integer $id        	
+	 *
+	 * @return Simple
+	 */
+	public function setId($id) {
+		$this->id = $id;
+		
+		return $this;
 	}
 
 	/**

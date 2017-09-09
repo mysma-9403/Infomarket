@@ -69,8 +69,7 @@ class CategoryController extends DummyController {
 	}
 
 	protected function getHomeRoute() {
-		return array ('route' => $this->getIndexRoute(),'routeParams' => array () 
-		);
+		return array('route' => $this->getIndexRoute(), 'routeParams' => array());
 	}
 	
 	// ---------------------------------------------------------------------------

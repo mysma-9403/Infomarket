@@ -172,7 +172,7 @@ class HomeEntryParamsManager extends EntryParamsManager {
 		$viewParams['reviewsArticles'] = $articles;
 		
 		// useful article categories
-		$usefulArticleCategories = array ();
+		$usefulArticleCategories = array();
 		
 		$articleCategory = $this->getArticleCategory($articleCategories, self::REVIEWS_AC);
 		if ($articleCategory) {

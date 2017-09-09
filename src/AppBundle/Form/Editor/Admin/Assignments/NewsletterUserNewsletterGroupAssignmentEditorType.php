@@ -38,8 +38,8 @@ class NewsletterUserNewsletterGroupAssignmentEditorType extends BaseEditorType {
 	protected function getDefaultOptions() {
 		$options = parent::getDefaultOptions();
 		
-		$options[self::getChoicesName('newsletterUser')] = [ ];
-		$options[self::getChoicesName('newsletterGroup')] = [ ];
+		$options[self::getChoicesName('newsletterUser')] = [];
+		$options[self::getChoicesName('newsletterGroup')] = [];
 		
 		return $options;
 	}

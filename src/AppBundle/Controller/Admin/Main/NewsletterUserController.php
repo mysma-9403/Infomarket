@@ -246,7 +246,7 @@ class NewsletterUserController extends SimpleController {
 	}
 
 	protected function getImportFormOptions() {
-		$options = [ ];
+		$options = [];
 		
 		$this->addEntityChoicesFormOption($options, NewsletterGroup::class, 'newsletterGroups');
 		
@@ -266,7 +266,7 @@ class NewsletterUserController extends SimpleController {
 		}
 		$em->flush();
 		
-		return array ();
+		return array();
 	}
 	
 	// ---------------------------------------------------------------------------

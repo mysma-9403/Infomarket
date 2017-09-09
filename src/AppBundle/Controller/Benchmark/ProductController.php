@@ -183,9 +183,8 @@ class ProductController extends DummyController {
 		
 		$date = new \DateTime();
 		$response = new Response($this->get('knp_snappy.image')->getOutputFromHtml($html), 200, 
-				array ('Content-Type' => 'image/jpg',
-						'Content-Disposition' => 'filename="' . $date->format('Y-m-d') . '-benchmark.jpg"' 
-				));
+				array('Content-Type' => 'image/jpg', 
+						'Content-Disposition' => 'filename="' . $date->format('Y-m-d') . '-benchmark.jpg"'));
 		
 		return $response;
 	}
@@ -201,9 +200,8 @@ class ProductController extends DummyController {
 		
 		$date = new \DateTime();
 		$response = new Response($this->get('knp_snappy.pdf')->getOutputFromHtml($html), 200, 
-				array ('Content-Type' => 'application/pdf',
-						'Content-Disposition' => 'filename="' . $date->format('Y-m-d') . '-benchmark.pdf"' 
-				));
+				array('Content-Type' => 'application/pdf', 
+						'Content-Disposition' => 'filename="' . $date->format('Y-m-d') . '-benchmark.pdf"'));
 		
 		return $response;
 	}
@@ -342,7 +340,7 @@ class ProductController extends DummyController {
 	// Form options
 	// ---------------------------------------------------------------------------
 	protected function getCategoryFormOptions(array $params) {
-		$options = [ ];
+		$options = [];
 		
 		$contextParams = $params['contextParams'];
 		$userId = $contextParams['user'];
@@ -357,7 +355,7 @@ class ProductController extends DummyController {
 	}
 
 	protected function getSubcategoryFormOptions(array $params) {
-		$options = [ ];
+		$options = [];
 		
 		$contextParams = $params['contextParams'];
 		$categoryId = $contextParams['category'];
@@ -373,7 +371,7 @@ class ProductController extends DummyController {
 	}
 
 	protected function getFilterFormOptions(array $params) {
-		$options = [ ];
+		$options = [];
 		
 		$contextParams = $params['contextParams'];
 		$viewParams = $params['viewParams'];
@@ -398,7 +396,7 @@ class ProductController extends DummyController {
 		
 		$productRepository = $this->get(ProductRepository::class);
 		
-		$choices = [ ];
+		$choices = [];
 		foreach ($filter->getFilterFields() as $field) {
 			$valueField = $field['valueField'];
 			$choices[$valueField] = $productRepository->findFilterItemsByValue($subcategoryId, $valueField);
@@ -460,7 +458,7 @@ class ProductController extends DummyController {
 		$lastRouteParams = $lastRoute['routeParams'];
 		
 		if (! $lastRouteParams) {
-			$lastRouteParams = array ();
+			$lastRouteParams = array();
 		}
 		
 		$tokenStorage = $this->get('security.token_storage');
@@ -499,11 +497,8 @@ class ProductController extends DummyController {
 				$productRepository);
 		$compareBenchmarkFieldsInitializer = new BenchmarkFieldsInitializerImpl($compareBenchmarkFieldFactory);
 		
-		return new ProductParamsManager($em, $fm, $tokenStorage,
-				$productRepository,
-				$benchmarkMessageRepository,
-				$benchmarkFieldsProvider, 
-				$showBenchmarkFieldsInitializer, $compareBenchmarkFieldsInitializer);
+		return new ProductParamsManager($em, $fm, $tokenStorage, $productRepository, $benchmarkMessageRepository, 
+				$benchmarkFieldsProvider, $showBenchmarkFieldsInitializer, $compareBenchmarkFieldsInitializer);
 	}
 
 	protected function getEntityManager($doctrine, $paginator) {
@@ -585,8 +580,7 @@ class ProductController extends DummyController {
 	}
 
 	protected function getHomeRoute() {
-		return array ('route' => $this->getIndexRoute(),'routeParams' => array () 
-		);
+		return array('route' => $this->getIndexRoute(), 'routeParams' => array());
 	}
 	
 	// ---------------------------------------------------------------------------

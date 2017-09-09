@@ -151,13 +151,11 @@ class ProductController extends ImageController {
 							$path = '/uploads/products/top-produkt/' . substr($brandName, 0, 1) . '/' .
 									 $brandName;
 							
-							$fields = array ($productName,$path 
-							);
+							$fields = array($productName, $path);
 							fputs($handle, implode($fields, ';') . "\n");
 						}
 					} else {
-						fputcsv($handle, array ('' 
-						), ';');
+						fputcsv($handle, array(''), ';');
 					}
 					
 					fclose($handle);
@@ -238,8 +236,7 @@ class ProductController extends ImageController {
 			$this->flashCreatedMessage();
 			
 			if ($form->get('save')->isClicked()) {
-				return $this->redirectToRoute($this->getEditRoute(), array ('id' => $entry->getId() 
-				));
+				return $this->redirectToRoute($this->getEditRoute(), array('id' => $entry->getId()));
 			}
 		}
 		
@@ -304,7 +301,7 @@ class ProductController extends ImageController {
 	}
 
 	protected function getCategoryFormOptions(array $params) {
-		$options = [ ];
+		$options = [];
 		
 		$viewParams = $params['viewParams'];
 		$entry = $viewParams['entry'];
@@ -354,17 +351,17 @@ class ProductController extends ImageController {
 		}
 		$em->flush();
 		
-		return array ();
+		return array();
 	}
 
 	protected function deleteUnused() {
-		$result = array ();
-		$errors = array ();
+		$result = array();
+		$errors = array();
 		
 		$repository = $this->getDoctrine()->getRepository($this->getEntityType());
 		$all = $repository->findAll();
 		
-		$entries = array ();
+		$entries = array();
 		/** @var Product $entry */
 		foreach ($all as $entry) {
 			if (count($entry->getProductCategoryAssignments()) <= 0) {

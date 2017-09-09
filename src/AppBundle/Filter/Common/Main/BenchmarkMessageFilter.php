@@ -46,9 +46,9 @@ class BenchmarkMessageFilter extends SimpleFilter {
 		
 		$this->readByAdmin = self::ALL_VALUES;
 		
-		$this->products = array ();
-		$this->authors = array ();
-		$this->states = array ();
+		$this->products = array();
+		$this->authors = array();
+		$this->states = array();
 	}
 
 	public function getRequestValues() {

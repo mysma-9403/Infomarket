@@ -18,13 +18,13 @@ class NewsletterBlockFilter extends SimpleFilter {
 	 *
 	 * @var array
 	 */
-	protected $newsletterBlockTemplates = array ();
+	protected $newsletterBlockTemplates = array();
 
 	/**
 	 *
 	 * @var array
 	 */
-	protected $newsletterPages = array ();
+	protected $newsletterPages = array();
 
 	public function initRequestValues(Request $request) {
 		parent::initRequestValues($request);
@@ -40,7 +40,7 @@ class NewsletterBlockFilter extends SimpleFilter {
 		
 		$this->name = null;
 		
-		$this->newsletterBlockTemplates = array ();
+		$this->newsletterBlockTemplates = array();
 	}
 
 	public function getRequestValues() {

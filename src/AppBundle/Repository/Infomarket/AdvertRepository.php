@@ -22,7 +22,7 @@ class AdvertRepository extends BaseRepository {
 			return $this->queryAdvertsByIds($this->getIds($result))->getScalarResult();
 		}
 		
-		return array ();
+		return array();
 	}
 
 	protected function queryAdvertIds($location, $categories, $checkInRoots) {

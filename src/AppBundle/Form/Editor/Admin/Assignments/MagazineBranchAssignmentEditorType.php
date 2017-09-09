@@ -37,8 +37,8 @@ class MagazineBranchAssignmentEditorType extends BaseEditorType {
 	protected function getDefaultOptions() {
 		$options = parent::getDefaultOptions();
 		
-		$options[self::getChoicesName('magazine')] = [ ];
-		$options[self::getChoicesName('branch')] = [ ];
+		$options[self::getChoicesName('magazine')] = [];
+		$options[self::getChoicesName('branch')] = [];
 		
 		return $options;
 	}

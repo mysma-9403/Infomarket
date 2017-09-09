@@ -112,8 +112,7 @@ class BenchmarkFieldController extends BaseController {
 	}
 
 	protected function getListItemKeyFields($item) {
-		return [ $item['id'],$item['fieldName'] 
-		];
+		return [$item['id'], $item['fieldName']];
 	}
 	
 	// ---------------------------------------------------------------------------

@@ -6,7 +6,7 @@ use Doctrine\Common\Collections\Collection;
 
 class BaseList {
 
-	protected $entries = array ();
+	protected $entries = array();
 
 	/**
 	 * Add entry

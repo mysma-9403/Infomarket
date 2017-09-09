@@ -12,13 +12,13 @@ class TermCategoryAssignmentFilter extends SimpleFilter {
 	 *
 	 * @var array
 	 */
-	protected $terms = array ();
+	protected $terms = array();
 
 	/**
 	 *
 	 * @var array
 	 */
-	protected $categories = array ();
+	protected $categories = array();
 
 	public function initRequestValues(Request $request) {
 		parent::initRequestValues($request);
@@ -30,8 +30,8 @@ class TermCategoryAssignmentFilter extends SimpleFilter {
 	public function clearRequestValues() {
 		parent::clearRequestValues();
 		
-		$this->terms = array ();
-		$this->categories = array ();
+		$this->terms = array();
+		$this->categories = array();
 	}
 
 	public function getRequestValues() {

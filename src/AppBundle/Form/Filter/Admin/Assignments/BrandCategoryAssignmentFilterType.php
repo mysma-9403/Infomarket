@@ -18,8 +18,8 @@ class BrandCategoryAssignmentFilterType extends SimpleFilterType {
 	protected function getDefaultOptions() {
 		$options = parent::getDefaultOptions();
 		
-		$options[$this->getChoicesName('brands')] = [ ];
-		$options[$this->getChoicesName('categories')] = [ ];
+		$options[$this->getChoicesName('brands')] = [];
+		$options[$this->getChoicesName('categories')] = [];
 		
 		return $options;
 	}

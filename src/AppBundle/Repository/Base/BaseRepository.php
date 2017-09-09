@@ -34,8 +34,7 @@ abstract class BaseRepository extends EntityRepository {
 	}
 
 	protected function getItemSelectFields(QueryBuilder &$builder) {
-		return [ 'e.id' 
-		];
+		return ['e.id'];
 	}
 
 	public function findItems(Filter $filter) {
@@ -86,8 +85,7 @@ abstract class BaseRepository extends EntityRepository {
 	}
 
 	protected function getSelectFields(QueryBuilder &$builder, Filter $filter) {
-		return [ 'e.id' 
-		];
+		return ['e.id'];
 	}
 
 	protected function getWhere(QueryBuilder &$builder, Filter $filter) {
@@ -137,8 +135,7 @@ abstract class BaseRepository extends EntityRepository {
 	}
 
 	protected function getFilterSelectFields(QueryBuilder &$builder) {
-		return [ 'e.id' 
-		];
+		return ['e.id'];
 	}
 
 	protected function getFilterWhere(QueryBuilder &$builder) {
@@ -146,7 +143,7 @@ abstract class BaseRepository extends EntityRepository {
 	}
 
 	protected function getFilterItems(array $items) {
-		$listItems = array ();
+		$listItems = array();
 		
 		foreach ($items as $item) {
 			$key = implode(' ', $this->getFilterItemKeyFields($item));
@@ -157,8 +154,7 @@ abstract class BaseRepository extends EntityRepository {
 	}
 
 	protected function getFilterItemKeyFields($item) {
-		return [ $item['id'] 
-		];
+		return [$item['id']];
 	}
 
 	protected function addDateAfterWhere(QueryBuilder &$builder, &$where, $field, $date) {
@@ -239,7 +235,7 @@ abstract class BaseRepository extends EntityRepository {
 	}
 
 	public function getIds($items) {
-		$result = array ();
+		$result = array();
 		
 		foreach ($items as $item) {
 			$result[] = $item['id'];
@@ -260,7 +256,7 @@ abstract class BaseRepository extends EntityRepository {
 	
 	// TODO move to TreeRepository or Tree utils??
 	protected function getRootItems(&$items) {
-		$rootItems = array ();
+		$rootItems = array();
 		
 		$size = count($items);
 		for ($i = 0; $i < $size; $i ++) {
@@ -278,7 +274,7 @@ abstract class BaseRepository extends EntityRepository {
 	}
 
 	protected function getRootItemsWithLimit(&$items, $limit) {
-		$rootItems = array ();
+		$rootItems = array();
 		
 		$count = 0;
 		$size = count($items);
@@ -301,7 +297,7 @@ abstract class BaseRepository extends EntityRepository {
 	}
 
 	protected function assignChildren($rootItem, &$items, &$index) {
-		$children = array ();
+		$children = array();
 		
 		$size = count($items);
 		while ($index < $size) {
@@ -320,7 +316,7 @@ abstract class BaseRepository extends EntityRepository {
 	}
 
 	protected function assignChildrenWithLimit($rootItem, &$items, &$index, $limit) {
-		$children = array ();
+		$children = array();
 		
 		$count = 0;
 		$size = count($items);

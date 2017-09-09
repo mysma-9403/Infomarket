@@ -24,7 +24,7 @@ class SubcategoryFilterType extends BaseType {
 	protected function getDefaultOptions() {
 		$options = parent::getDefaultOptions();
 		
-		$options[$this->getChoicesName('subcategory')] = [ ];
+		$options[$this->getChoicesName('subcategory')] = [];
 		
 		return $options;
 	}

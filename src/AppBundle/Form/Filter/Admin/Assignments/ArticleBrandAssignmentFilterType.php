@@ -18,8 +18,8 @@ class ArticleBrandAssignmentFilterType extends SimpleFilterType {
 	protected function getDefaultOptions() {
 		$options = parent::getDefaultOptions();
 		
-		$options[$this->getChoicesName('articles')] = [ ];
-		$options[$this->getChoicesName('brands')] = [ ];
+		$options[$this->getChoicesName('articles')] = [];
+		$options[$this->getChoicesName('brands')] = [];
 		
 		return $options;
 	}

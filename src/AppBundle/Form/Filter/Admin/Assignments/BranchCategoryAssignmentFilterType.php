@@ -18,8 +18,8 @@ class BranchCategoryAssignmentFilterType extends SimpleFilterType {
 	protected function getDefaultOptions() {
 		$options = parent::getDefaultOptions();
 		
-		$options[$this->getChoicesName('branches')] = [ ];
-		$options[$this->getChoicesName('categories')] = [ ];
+		$options[$this->getChoicesName('branches')] = [];
+		$options[$this->getChoicesName('categories')] = [];
 		
 		return $options;
 	}

@@ -27,11 +27,11 @@ class AdvertFilterType extends SimpleFilterType {
 	protected function getDefaultOptions() {
 		$options = parent::getDefaultOptions();
 		
-		$options[$this->getChoicesName('infomarket')] = [ ];
-		$options[$this->getChoicesName('infoprodukt')] = [ ];
+		$options[$this->getChoicesName('infomarket')] = [];
+		$options[$this->getChoicesName('infoprodukt')] = [];
 		
-		$options[$this->getChoicesName('categories')] = [ ];
-		$options[$this->getChoicesName('locations')] = [ ];
+		$options[$this->getChoicesName('categories')] = [];
+		$options[$this->getChoicesName('locations')] = [];
 		
 		return $options;
 	}

@@ -111,8 +111,7 @@ class BenchmarkFieldMetadataRepository extends EntityRepository {
 
 	protected function queryNumberItemsByCategory($categoryId) {
 		return $this->queryItemsByTypesAndCategory($categoryId, 
-				[ BenchmarkField::DECIMAL_FIELD_TYPE,BenchmarkField::INTEGER_FIELD_TYPE 
-				]);
+				[BenchmarkField::DECIMAL_FIELD_TYPE, BenchmarkField::INTEGER_FIELD_TYPE]);
 	}
 
 	public function findEnumItemsByCategory($categoryId) {
@@ -121,8 +120,7 @@ class BenchmarkFieldMetadataRepository extends EntityRepository {
 
 	protected function queryEnumItemsByCategory($categoryId) {
 		return $this->queryItemsByTypesAndCategory($categoryId, 
-				[ BenchmarkField::SINGLE_ENUM_FIELD_TYPE,BenchmarkField::MULTI_ENUM_FIELD_TYPE 
-				]);
+				[BenchmarkField::SINGLE_ENUM_FIELD_TYPE, BenchmarkField::MULTI_ENUM_FIELD_TYPE]);
 	}
 
 	public function findBoolItemsByCategory($categoryId) {
@@ -130,9 +128,7 @@ class BenchmarkFieldMetadataRepository extends EntityRepository {
 	}
 
 	protected function queryBoolItemsByCategory($categoryId) {
-		return $this->queryItemsByTypesAndCategory($categoryId, 
-				[ BenchmarkField::BOOLEAN_FIELD_TYPE 
-				]);
+		return $this->queryItemsByTypesAndCategory($categoryId, [BenchmarkField::BOOLEAN_FIELD_TYPE]);
 	}
 
 	protected function queryItemsByTypesAndCategory($categoryId, $types) {

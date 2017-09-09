@@ -22,11 +22,11 @@ class BenchmarkMessageFilterType extends SimpleFilterType {
 	protected function getDefaultOptions() {
 		$options = parent::getDefaultOptions();
 		
-		$options[$this->getChoicesName('products')] = [ ];
-		$options[$this->getChoicesName('authors')] = [ ];
+		$options[$this->getChoicesName('products')] = [];
+		$options[$this->getChoicesName('authors')] = [];
 		
-		$options[$this->getChoicesName('states')] = [ ];
-		$options[$this->getChoicesName('readByAdmin')] = [ ];
+		$options[$this->getChoicesName('states')] = [];
+		$options[$this->getChoicesName('readByAdmin')] = [];
 		
 		return $options;
 	}

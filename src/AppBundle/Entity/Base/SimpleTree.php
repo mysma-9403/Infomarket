@@ -17,7 +17,7 @@ class SimpleTree extends Simple {
 	}
 
 	public function getParentChain() {
-		$chain = array ();
+		$chain = array();
 		
 		$parent = $this->getParent();
 		while ($parent) {

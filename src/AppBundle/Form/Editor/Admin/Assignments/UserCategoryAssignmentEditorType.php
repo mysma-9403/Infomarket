@@ -37,8 +37,8 @@ class UserCategoryAssignmentEditorType extends BaseEditorType {
 	protected function getDefaultOptions() {
 		$options = parent::getDefaultOptions();
 		
-		$options[self::getChoicesName('user')] = [ ];
-		$options[self::getChoicesName('category')] = [ ];
+		$options[self::getChoicesName('user')] = [];
+		$options[self::getChoicesName('category')] = [];
 		
 		return $options;
 	}

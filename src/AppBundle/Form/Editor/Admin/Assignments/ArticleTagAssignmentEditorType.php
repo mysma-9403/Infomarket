@@ -37,8 +37,8 @@ class ArticleTagAssignmentEditorType extends BaseEditorType {
 	protected function getDefaultOptions() {
 		$options = parent::getDefaultOptions();
 		
-		$options[self::getChoicesName('article')] = [ ];
-		$options[self::getChoicesName('tag')] = [ ];
+		$options[self::getChoicesName('article')] = [];
+		$options[self::getChoicesName('tag')] = [];
 		
 		return $options;
 	}

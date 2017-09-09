@@ -4,7 +4,7 @@ namespace AppBundle\Factory\Common\Choices\Base;
 
 abstract class TwigChoicesFactory extends \Twig_Extension implements ChoicesFactory {
 
-	protected $items = [ ];
+	protected $items = [];
 
 	public function getItems() {
 		return $this->items;
@@ -15,11 +15,9 @@ abstract class TwigChoicesFactory extends \Twig_Extension implements ChoicesFact
 	}
 
 	public function getFunctions() {
-		return [ 
+		return [
 				$this->getTwigFunctionName() => new \Twig_SimpleFunction($this->getTwigFunctionName(), 
-						array ($this,'getItemLabel' 
-						)) 
-		];
+						array($this, 'getItemLabel'))];
 	}
 
 	abstract protected function getTwigFunctionName();

@@ -12,13 +12,13 @@ class BrandCategoryAssignmentFilter extends SimpleFilter {
 	 *
 	 * @var array
 	 */
-	protected $brands = array ();
+	protected $brands = array();
 
 	/**
 	 *
 	 * @var array
 	 */
-	protected $categories = array ();
+	protected $categories = array();
 
 	public function initRequestValues(Request $request) {
 		parent::initRequestValues($request);
@@ -30,8 +30,8 @@ class BrandCategoryAssignmentFilter extends SimpleFilter {
 	public function clearRequestValues() {
 		parent::clearRequestValues();
 		
-		$this->brands = array ();
-		$this->categories = array ();
+		$this->brands = array();
+		$this->categories = array();
 	}
 
 	public function getRequestValues() {

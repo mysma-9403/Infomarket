@@ -37,13 +37,13 @@ abstract class DummyController extends Controller {
 	 * @return array dummy params collection
 	 */
 	protected function createParams($route) {
-		$params = array ();
+		$params = array();
 		
 		$params['domain'] = $this->getDomain();
 		$params['route'] = $route;
-		$params['contextParams'] = array ();
-		$params['routeParams'] = array ();
-		$params['viewParams'] = array ();
+		$params['contextParams'] = array();
+		$params['routeParams'] = array();
+		$params['viewParams'] = array();
 		
 		return $params;
 	}

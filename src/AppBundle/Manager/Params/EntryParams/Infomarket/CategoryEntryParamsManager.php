@@ -61,7 +61,7 @@ class CategoryEntryParamsManager extends EntryParamsManager {
 		
 		$viewParams['segments'] = $segments = $this->segmentRepository->findTopItems();
 		
-		$viewParams['products'] = array ();
+		$viewParams['products'] = array();
 		
 		foreach ($segments as $segment) {
 			$products = $this->productRepository->findTopItems($entry->getId(), $segment['id']);
@@ -71,10 +71,10 @@ class CategoryEntryParamsManager extends EntryParamsManager {
 		$categories = $this->categoryRepository->findSubcategories($entry->getId());
 		$viewParams['subcategories'] = $categories;
 		
-		$viewParams['subproducts'] = array ();
+		$viewParams['subproducts'] = array();
 		
 		foreach ($categories as $category) {
-			$viewParams['subproducts'][$category['id']] = array ();
+			$viewParams['subproducts'][$category['id']] = array();
 			
 			foreach ($segments as $segment) {
 				$products = $this->productRepository->findTopItems($category['id'], $segment['id']);

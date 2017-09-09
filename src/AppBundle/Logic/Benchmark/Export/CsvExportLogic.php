@@ -33,7 +33,7 @@ class CsvExportLogic {
 	}
 
 	protected function fillRow($handle, $entries, $label, $fieldName, $valuePrefix = null) {
-		$fields = array ();
+		$fields = array();
 		$show = false;
 		foreach ($entries as $entry) {
 			$value = $entry[$fieldName];
@@ -50,14 +50,12 @@ class CsvExportLogic {
 		}
 		
 		if ($show) {
-			$fields = array_merge([ $label 
-			], $fields);
+			$fields = array_merge([$label], $fields);
 			fputs($handle, implode($fields, ';') . "\n");
 		}
 	}
 
 	protected function fillEmptyContent($handle) {
-		fputcsv($handle, array ('No entries found.' 
-		), ';');
+		fputcsv($handle, array('No entries found.'), ';');
 	}
 }

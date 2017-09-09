@@ -20,8 +20,8 @@ class NewsletterBlockFilterType extends SimpleFilterType {
 	protected function getDefaultOptions() {
 		$options = parent::getDefaultOptions();
 		
-		$options[$this->getChoicesName('newsletterPages')] = [ ];
-		$options[$this->getChoicesName('newsletterBlockTemplates')] = [ ];
+		$options[$this->getChoicesName('newsletterPages')] = [];
+		$options[$this->getChoicesName('newsletterBlockTemplates')] = [];
 		
 		return $options;
 	}

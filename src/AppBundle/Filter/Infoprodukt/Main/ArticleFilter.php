@@ -23,11 +23,11 @@ class ArticleFilter extends CategoriesDependentFilter {
 	}
 
 	public function clearRequestValues() {
-		$this->articleCategories = array ();
+		$this->articleCategories = array();
 	}
 
 	public function getRequestValues() {
-		$values = array ();
+		$values = array();
 		
 		$this->setRequestArray($values, 'article_categories', $this->articleCategories);
 		

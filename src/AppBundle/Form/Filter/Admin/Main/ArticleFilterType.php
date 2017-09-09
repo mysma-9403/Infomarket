@@ -27,13 +27,13 @@ class ArticleFilterType extends SimpleFilterType {
 	protected function getDefaultOptions() {
 		$options = parent::getDefaultOptions();
 		
-		$options[$this->getChoicesName('infomarket')] = [ ];
-		$options[$this->getChoicesName('infoprodukt')] = [ ];
-		$options[$this->getChoicesName('featured')] = [ ];
+		$options[$this->getChoicesName('infomarket')] = [];
+		$options[$this->getChoicesName('infoprodukt')] = [];
+		$options[$this->getChoicesName('featured')] = [];
 		
-		$options[$this->getChoicesName('brands')] = [ ];
-		$options[$this->getChoicesName('categories')] = [ ];
-		$options[$this->getChoicesName('articleCategories')] = [ ];
+		$options[$this->getChoicesName('brands')] = [];
+		$options[$this->getChoicesName('categories')] = [];
+		$options[$this->getChoicesName('articleCategories')] = [];
 		
 		return $options;
 	}

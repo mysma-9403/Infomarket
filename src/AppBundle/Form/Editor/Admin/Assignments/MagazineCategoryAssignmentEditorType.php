@@ -37,8 +37,8 @@ class MagazineCategoryAssignmentEditorType extends BaseEditorType {
 	protected function getDefaultOptions() {
 		$options = parent::getDefaultOptions();
 		
-		$options[self::getChoicesName('magazine')] = [ ];
-		$options[self::getChoicesName('category')] = [ ];
+		$options[self::getChoicesName('magazine')] = [];
+		$options[self::getChoicesName('category')] = [];
 		
 		return $options;
 	}

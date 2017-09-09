@@ -12,7 +12,7 @@ class NewsletterPage extends Simple {
 		$styles = $this->newsletterPageTemplate->getStyle();
 		$blocks = '';
 		
-		$usedStyles = array ();
+		$usedStyles = array();
 		
 		if ($this->newsletterBlocks) {
 			foreach ($this->newsletterBlocks as $newsletterBlock) {

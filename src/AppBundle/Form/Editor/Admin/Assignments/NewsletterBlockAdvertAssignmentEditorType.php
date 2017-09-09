@@ -38,8 +38,8 @@ class NewsletterBlockAdvertAssignmentEditorType extends BaseEditorType {
 	protected function getDefaultOptions() {
 		$options = parent::getDefaultOptions();
 		
-		$options[self::getChoicesName('newsletterBlock')] = [ ];
-		$options[self::getChoicesName('advert')] = [ ];
+		$options[self::getChoicesName('newsletterBlock')] = [];
+		$options[self::getChoicesName('advert')] = [];
 		
 		return $options;
 	}

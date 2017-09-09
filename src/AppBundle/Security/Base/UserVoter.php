@@ -15,8 +15,7 @@ class UserVoter extends Voter {
 	const DELETE = 'delete';
 
 	protected function supports($attribute, $object) {
-		if (! in_array($attribute, array (self::SHOW,self::EDIT,self::DELETE 
-		))) {
+		if (! in_array($attribute, array(self::SHOW, self::EDIT, self::DELETE))) {
 			return false;
 		}
 		

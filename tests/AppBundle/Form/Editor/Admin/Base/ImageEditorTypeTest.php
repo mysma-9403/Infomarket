@@ -6,12 +6,15 @@ use AppBundle\Entity\Base\Image;
 use AppBundle\Form\Editor\Admin\Base\ImageEditorType;
 
 class ImageEditorTypeTest extends SimpleEditorTypeTest {
-	
+
 	const FILE = 'Test file';
+
 	const VERTICAL = true;
+
 	const FORCED_WIDTH = 130;
+
 	const FORCED_HEIGHT = 117;
-	
+
 	protected function assertEntity($entity) {
 		/** @var Image $entity */
 		$this->assertSame(self::FILE, $entity->getFile());
@@ -19,7 +22,7 @@ class ImageEditorTypeTest extends SimpleEditorTypeTest {
 		$this->assertSame(self::FORCED_WIDTH, $entity->getForcedWidth());
 		$this->assertSame(self::FORCED_HEIGHT, $entity->getForcedHeight());
 	}
-	
+
 	protected function getFormData() {
 		$data = parent::getFormData();
 		
@@ -30,11 +33,11 @@ class ImageEditorTypeTest extends SimpleEditorTypeTest {
 		
 		return $data;
 	}
-	
+
 	protected function getFormType() {
 		return ImageEditorType::class;
 	}
-	
+
 	protected function getEntity() {
 		return new Image();
 	}

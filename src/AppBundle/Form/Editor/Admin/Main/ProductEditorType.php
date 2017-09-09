@@ -62,7 +62,7 @@ class ProductEditorType extends ImageEditorType {
 	protected function getDefaultOptions() {
 		$options = parent::getDefaultOptions();
 		
-		$options[self::getChoicesName('brand')] = [ ];
+		$options[self::getChoicesName('brand')] = [];
 		$options['filter'] = null;
 		
 		return $options;

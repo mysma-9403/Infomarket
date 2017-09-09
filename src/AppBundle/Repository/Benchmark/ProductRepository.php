@@ -19,8 +19,7 @@ use Doctrine\ORM\QueryBuilder;
 class ProductRepository extends BaseRepository {
 
 	protected function getItemSelectFields(QueryBuilder &$builder) {
-		return [ 'e.id','e.name','b.name AS brandName' 
-		];
+		return ['e.id', 'e.name', 'b.name AS brandName'];
 	}
 
 	protected function buildItemJoins(QueryBuilder &$builder) {
@@ -56,7 +55,7 @@ class ProductRepository extends BaseRepository {
 	}
 
 	protected function getFilterItemsFromValues(array $items, $valueName) {
-		$result = array ();
+		$result = array();
 		
 		foreach ($items as $item) {
 			$multivalue = $item[$valueName];
@@ -390,7 +389,7 @@ class ProductRepository extends BaseRepository {
 		
 		$expr = $builder->expr();
 		
-		$selectFields = array ();
+		$selectFields = array();
 		
 		$selectFields[] = 'e.id';
 		
@@ -409,7 +408,7 @@ class ProductRepository extends BaseRepository {
 		
 		$selectFields[] = 'e.price';
 		
-		$distanceFields = array ();
+		$distanceFields = array();
 		
 		foreach ($fields as $field) {
 			$valueField = $field['valueField'];

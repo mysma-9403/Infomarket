@@ -176,7 +176,7 @@ abstract class InfoproduktController extends StandardController {
 		$lastRouteParams = $lastRoute['routeParams'];
 		
 		if (! $lastRouteParams) {
-			$lastRouteParams = array ();
+			$lastRouteParams = array();
 		}
 		
 		$categoryRepository = $this->get(CategoryRepository::class);
@@ -205,8 +205,7 @@ abstract class InfoproduktController extends StandardController {
 		$em = $this->getDoctrine()->getManager();
 		
 		$repository = $this->getDoctrine()->getRepository(NewsletterUser::class);
-		$persistent = $repository->findOneBy([ 'name' => $entry->getName() 
-		]);
+		$persistent = $repository->findOneBy(['name' => $entry->getName()]);
 		
 		if ($persistent) {
 			if (! $persistent->getSubscribed()) {
@@ -242,8 +241,7 @@ abstract class InfoproduktController extends StandardController {
 	// Routes
 	// ---------------------------------------------------------------------------
 	protected function getHomeRoute() {
-		return array ('route' => $this->getIndexView(),'routeParams' => array () 
-		);
+		return array('route' => $this->getIndexView(), 'routeParams' => array());
 	}
 
 	protected function getSearchRoute() {

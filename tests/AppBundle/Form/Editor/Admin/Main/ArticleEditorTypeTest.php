@@ -9,62 +9,81 @@ use Tests\AppBundle\Form\Editor\Admin\Base\ImageEditorTypeTest;
 use AppBundle\Entity\Main\User;
 
 class ArticleEditorTypeTest extends ImageEditorTypeTest {
-	
+
+	const NAME = 'Test name';
+
 	const SUBNAME = 'Test subname';
-	
+
+	const SHOW_TITLE = true;
+
+	const INFOMARKET = true;
+
+	const INFOPRODUKT = true;
+
 	const ARCHIVED = true;
+
 	const FEATURED = true;
-	
+
 	const PAGE = 2;
+
 	const ORDER_NUMBER = 76;
-	
+
 	const INTRO = 'Test intro';
+
 	const CONTENT = 'Test content';
-	
+
 	const DATE = '19/10/2015 11:09';
+
 	const END_DATE = '19/10/2016 11:11';
-	
+
 	const LAYOUT = 3;
+
 	const LAYOUT_CHOICES = ['Test layout' => self::LAYOUT];
-	
+
 	const IMAGE_SIZE = 1;
+
 	const IMAGE_SIZE_CHOICES = ['Test image size' => self::IMAGE_SIZE];
-	
+
 	const PARENT_ID = 1071;
+
 	const PARENT_NAME = 'Test name';
+
 	const PARENT_CHOICES = ['Parent' => self::PARENT_ID];
-	
+
 	const AUTHOR_ID = 5;
+
 	const AUTHOR_USERNAME = 'Test username';
+
 	const AUTHOR_CHOICES = ['AUTHOR' => self::AUTHOR_ID];
-	
-	
-	
+
 	private $parentTransformer;
-	
+
 	private $authorTransformer;
-	
-	
-	
+
 	protected function setUp() {
 		$this->parentTransformer = $this->getEntityTransformerMock($this->getParent(), self::PARENT_ID);
 		$this->authorTransformer = $this->getEntityTransformerMock($this->getAuthor(), self::AUTHOR_ID);
 		
 		parent::setUp();
 	}
-	
+
 	protected function getExtensions() {
 		$type = new ArticleEditorType($this->parentTransformer, $this->authorTransformer);
 		
 		return array(new PreloadedExtension(array($this->getCKEditor(), $type), array()));
 	}
-	
-	
-	
+
 	protected function assertEntity($entity) {
+		parent::assertEntity($entity);
+		
 		/** @var Article $entity */
+		$this->assertSame(self::NAME, $entity->getName());
 		$this->assertSame(self::SUBNAME, $entity->getSubname());
 		
+		$this->assertSame(self::SHOW_TITLE, $entity->getShowTitle());
+		
+		$this->assertSame(self::INFOMARKET, $entity->getInfomarket());
+		$this->assertSame(self::INFOPRODUKT, $entity->getInfoprodukt());
 		$this->assertSame(self::ARCHIVED, $entity->getArchived());
 		$this->assertSame(self::FEATURED, $entity->getFeatured());
 		
@@ -86,12 +105,17 @@ class ArticleEditorTypeTest extends ImageEditorTypeTest {
 		$this->assertSame(self::AUTHOR_ID, $entity->getAuthor()->getId());
 		$this->assertSame(self::AUTHOR_USERNAME, $entity->getAuthor()->getUsername());
 	}
-	
+
 	protected function getFormData() {
 		$data = parent::getFormData();
-	
+		
+		$data['name'] = self::NAME;
 		$data['subname'] = self::SUBNAME;
 		
+		$data['showTitle'] = self::SHOW_TITLE;
+		
+		$data['infomarket'] = self::INFOMARKET;
+		$data['infoprodukt'] = self::INFOPRODUKT;
 		$data['archived'] = self::ARCHIVED;
 		$data['featured'] = self::FEATURED;
 		
@@ -112,7 +136,7 @@ class ArticleEditorTypeTest extends ImageEditorTypeTest {
 		
 		return $data;
 	}
-	
+
 	protected function getFormOptions() {
 		$options = parent::getFormOptions();
 		
@@ -124,30 +148,28 @@ class ArticleEditorTypeTest extends ImageEditorTypeTest {
 		
 		return $options;
 	}
-	
+
 	protected function getFormType() {
 		return ArticleEditorType::class;
 	}
-	
+
 	protected function getEntity() {
 		return new Article();
 	}
-	
-	
-	
+
 	private function getParent() {
 		$mock = new Article();
 		$mock->setId(self::PARENT_ID);
 		$mock->setName(self::PARENT_NAME);
-	
+		
 		return $mock;
 	}
-	
+
 	private function getAuthor() {
 		$mock = new User();
 		$mock->setId(self::AUTHOR_ID);
 		$mock->setUsername(self::AUTHOR_USERNAME);
-	
+		
 		return $mock;
 	}
 }

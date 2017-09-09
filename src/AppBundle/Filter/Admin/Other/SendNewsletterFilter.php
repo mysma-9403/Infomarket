@@ -11,7 +11,7 @@ class SendNewsletterFilter extends Filter {
 	 *
 	 * @var array
 	 */
-	protected $newsletterGroups = array ();
+	protected $newsletterGroups = array();
 
 	/**
 	 *
@@ -49,7 +49,7 @@ class SendNewsletterFilter extends Filter {
 	public function clearRequestValues() {
 		parent::clearRequestValues();
 		
-		$this->newsletterGroups = array ();
+		$this->newsletterGroups = array();
 		
 		$this->embedImages = false;
 		$this->forceSend = false;

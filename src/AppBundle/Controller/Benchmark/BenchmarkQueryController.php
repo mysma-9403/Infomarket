@@ -83,7 +83,7 @@ class BenchmarkQueryController extends BaseController {
 	}
 
 	protected function getFilterFormOptions() {
-		return [ ];
+		return [];
 	}
 
 	protected function saveMore($request, $entry, $params) {

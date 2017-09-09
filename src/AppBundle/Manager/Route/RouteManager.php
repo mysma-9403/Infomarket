@@ -10,8 +10,7 @@ class RouteManager {
 		$session = $request->getSession();
 		
 		$currRoute = $session->get('curr_route', null);
-		$newRoute = array ('route' => $route,'routeParams' => $routeParams 
-		);
+		$newRoute = array('route' => $route, 'routeParams' => $routeParams);
 		
 		if ($currRoute != null && $this->isDuplicate($currRoute, $newRoute)) {
 			return;

@@ -13,17 +13,17 @@ use AppBundle\Manager\Filter\Base\FilterManager;
 class BenchmarkMessageParamsManager extends EntryParamsManager {
 
 	/**
-	 * 
+	 *
 	 * @var ProductRepository
 	 */
 	protected $productRepository;
-	
+
 	public function __construct(EntityManager $em, FilterManager $fm, ProductRepository $productRepository) {
 		parent::__construct($em, $fm);
 		
 		$this->productRepository = $productRepository;
 	}
-	
+
 	public function getShowParams(Request $request, array $params, $id) {
 		$params = parent::getShowParams($request, $params, $id);
 		$viewParams = $params['viewParams'];

@@ -45,7 +45,7 @@ class CategoryEditorType extends ImageEditorType {
 	protected function getDefaultOptions() {
 		$options = parent::getDefaultOptions();
 		
-		$options[self::getChoicesName('parent')] = [ ];
+		$options[self::getChoicesName('parent')] = [];
 		
 		return $options;
 	}

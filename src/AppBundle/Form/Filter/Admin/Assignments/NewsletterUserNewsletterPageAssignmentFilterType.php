@@ -20,10 +20,10 @@ class NewsletterUserNewsletterPageAssignmentFilterType extends SimpleFilterType 
 	protected function getDefaultOptions() {
 		$options = parent::getDefaultOptions();
 		
-		$options[$this->getChoicesName('newsletterPages')] = [ ];
-		$options[$this->getChoicesName('newsletterUsers')] = [ ];
+		$options[$this->getChoicesName('newsletterPages')] = [];
+		$options[$this->getChoicesName('newsletterUsers')] = [];
 		
-		$options[$this->getChoicesName('states')] = [ ];
+		$options[$this->getChoicesName('states')] = [];
 		
 		return $options;
 	}

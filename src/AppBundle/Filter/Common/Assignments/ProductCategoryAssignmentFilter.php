@@ -12,25 +12,25 @@ class ProductCategoryAssignmentFilter extends SimpleFilter {
 	 *
 	 * @var array
 	 */
-	protected $products = array ();
+	protected $products = array();
 
 	/**
 	 *
 	 * @var array
 	 */
-	protected $brands = array ();
+	protected $brands = array();
 
 	/**
 	 *
 	 * @var array
 	 */
-	protected $segments = array ();
+	protected $segments = array();
 
 	/**
 	 *
 	 * @var array
 	 */
-	protected $categories = array ();
+	protected $categories = array();
 
 	/**
 	 *
@@ -52,10 +52,10 @@ class ProductCategoryAssignmentFilter extends SimpleFilter {
 	public function clearRequestValues() {
 		parent::clearRequestValues();
 		
-		$this->products = array ();
-		$this->brands = array ();
-		$this->segments = array ();
-		$this->categories = array ();
+		$this->products = array();
+		$this->brands = array();
+		$this->segments = array();
+		$this->categories = array();
 		
 		$this->featured = self::ALL_VALUES;
 	}

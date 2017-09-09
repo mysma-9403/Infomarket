@@ -11,10 +11,8 @@ class SearchFilterType extends BaseType {
 
 	protected function addFields(FormBuilderInterface $builder, array $options) {
 		$builder->add('string', SearchType::class, 
-				array (
-						'attr' => array ('autofocus' => true,'placeholder' => 'label.search.string' 
-						),'required' => false 
-				));
+				array('attr' => array('autofocus' => true, 'placeholder' => 'label.search.string'), 
+						'required' => false));
 	}
 
 	protected function addActions(FormBuilderInterface $builder, array $options) {

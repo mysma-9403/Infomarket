@@ -36,19 +36,19 @@ class MagazineFilter extends SimpleFilter {
 	 *
 	 * @var array
 	 */
-	protected $parents = array ();
+	protected $parents = array();
 
 	/**
 	 *
 	 * @var array
 	 */
-	protected $branches = array ();
+	protected $branches = array();
 
 	/**
 	 *
 	 * @var array
 	 */
-	protected $categories = array ();
+	protected $categories = array();
 
 	public function initRequestValues(Request $request) {
 		parent::initRequestValues($request);
@@ -73,9 +73,9 @@ class MagazineFilter extends SimpleFilter {
 		$this->infoprodukt = self::ALL_VALUES;
 		$this->featured = self::ALL_VALUES;
 		
-		$this->parents = array ();
-		$this->branches = array ();
-		$this->categories = array ();
+		$this->parents = array();
+		$this->branches = array();
+		$this->categories = array();
 	}
 
 	public function getRequestValues() {

@@ -12,13 +12,13 @@ class MenuMenuEntryAssignmentFilter extends SimpleFilter {
 	 *
 	 * @var array
 	 */
-	protected $menus = array ();
+	protected $menus = array();
 
 	/**
 	 *
 	 * @var array
 	 */
-	protected $menuEntries = array ();
+	protected $menuEntries = array();
 
 	public function initRequestValues(Request $request) {
 		parent::initRequestValues($request);
@@ -30,8 +30,8 @@ class MenuMenuEntryAssignmentFilter extends SimpleFilter {
 	public function clearRequestValues() {
 		parent::clearRequestValues();
 		
-		$this->menus = array ();
-		$this->menuEntries = array ();
+		$this->menus = array();
+		$this->menuEntries = array();
 	}
 
 	public function getRequestValues() {

@@ -22,9 +22,9 @@ class BenchmarkMessageFilterType extends FilterType {
 	protected function getDefaultOptions() {
 		$options = parent::getDefaultOptions();
 		
-		$options[$this->getChoicesName('products')] = [ ];
-		$options[$this->getChoicesName('states')] = [ ];
-		$options[$this->getChoicesName('readByAuthor')] = [ ];
+		$options[$this->getChoicesName('products')] = [];
+		$options[$this->getChoicesName('states')] = [];
+		$options[$this->getChoicesName('readByAuthor')] = [];
 		
 		return $options;
 	}

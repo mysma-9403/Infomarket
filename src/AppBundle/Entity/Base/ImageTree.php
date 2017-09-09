@@ -17,7 +17,7 @@ class ImageTree extends Image {
 	}
 
 	public function getParentChain() {
-		$chain = array ();
+		$chain = array();
 		
 		$parent = $this->getParent();
 		while ($parent) {

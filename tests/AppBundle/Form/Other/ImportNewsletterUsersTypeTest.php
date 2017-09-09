@@ -2,23 +2,25 @@
 
 namespace Tests\AppBundle\Form\Other;
 
-use AppBundle\Entity\Main\Other\ImportNewsletterUsers;
+use AppBundle\Entity\Other\ImportNewsletterUsers;
 use AppBundle\Form\Other\ImportNewsletterUsersType;
 use Tests\AppBundle\Form\Base\BaseTypeTest;
 
 class ImportNewsletterUsersTypeTest extends BaseTypeTest {
-	
+
 	const IMPORT_FILE = 'c:/test/file/import.csv';
-	
+
 	const NEWSLETTER_GROUP_1 = 101;
+
 	const NEWSLETTER_GROUP_2 = 102;
+
 	const NEWSLETTER_GROUP_3 = 103;
-	
+
 	const NEWSLETTER_GROUP_SELECTED = [self::NEWSLETTER_GROUP_2, self::NEWSLETTER_GROUP_3];
-	const NEWSLETTER_GROUP_CHOICES = [self::NEWSLETTER_GROUP_1, self::NEWSLETTER_GROUP_2, self::NEWSLETTER_GROUP_3];
-	
-	
-	
+
+	const NEWSLETTER_GROUP_CHOICES = [self::NEWSLETTER_GROUP_1, self::NEWSLETTER_GROUP_2, 
+			self::NEWSLETTER_GROUP_3];
+
 	protected function assertEntity($entity) {
 		/** @var ImportNewsletterUsers $entity */
 		parent::assertEntity($entity);
@@ -27,7 +29,7 @@ class ImportNewsletterUsersTypeTest extends BaseTypeTest {
 		
 		$this->assertArray(self::NEWSLETTER_GROUP_SELECTED, $entity->getNewsletterGroups());
 	}
-	
+
 	protected function getFormData() {
 		$data = parent::getFormData();
 		
@@ -36,15 +38,15 @@ class ImportNewsletterUsersTypeTest extends BaseTypeTest {
 		
 		return $data;
 	}
-	
+
 	protected function getFormActions() {
 		$actions = parent::getFormActions();
-	
+		
 		$actions['submit'] = 'submit';
-	
+		
 		return $actions;
 	}
-	
+
 	protected function getFormOptions() {
 		$options = parent::getFormOptions();
 		
@@ -52,11 +54,11 @@ class ImportNewsletterUsersTypeTest extends BaseTypeTest {
 		
 		return $options;
 	}
-	
+
 	protected function getFormType() {
 		return ImportNewsletterUsersType::class;
 	}
-	
+
 	protected function getEntity() {
 		return new ImportNewsletterUsers();
 	}

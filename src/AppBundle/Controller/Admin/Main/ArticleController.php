@@ -230,13 +230,13 @@ class ArticleController extends FeaturedController {
 				$words = array_map('trim', explode(',', $words));
 				$words = array_map('strtolower', $words);
 				
-				$tagNames = array ();
+				$tagNames = array();
 				foreach ($words as $word) {
 					$tagNames[$word] = $word;
 				}
 				
 				$existingTags = $tagRepository->findItemsByNames($tagNames);
-				$assignedTags = array ();
+				$assignedTags = array();
 				if (count($existingTags) > 0) {
 					$existingTagsIds = $tagRepository->getIds($existingTags);
 					$assignedTags = $tagRepository->findAssignedIds($article->getId(), $existingTagsIds);
@@ -347,7 +347,7 @@ class ArticleController extends FeaturedController {
 	}
 
 	protected function getTagAssignmentsFormOptions() {
-		$options = [ ];
+		$options = [];
 		
 		$this->addEntityChoicesFormOption($options, Tag::class, 'tags');
 		
@@ -420,7 +420,7 @@ class ArticleController extends FeaturedController {
 		}
 		$em->flush();
 		
-		return array ();
+		return array();
 	}
 	
 	// ------------------------------------------------------------------------

@@ -30,7 +30,7 @@ class AdvertEditorType extends ImageEditorType {
 	protected function getDefaultOptions() {
 		$options = parent::getDefaultOptions();
 		
-		$options[self::getChoicesName('location')] = [ ];
+		$options[self::getChoicesName('location')] = [];
 		
 		return $options;
 	}

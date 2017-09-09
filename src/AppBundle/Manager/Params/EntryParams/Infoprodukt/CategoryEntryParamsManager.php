@@ -117,13 +117,12 @@ class CategoryEntryParamsManager extends EntryParamsManager {
 		$topProducts = $request->get('top_products', false);
 		$viewParams['topProducts'] = $topProducts;
 		
-		$advertLocations = array ();
+		$advertLocations = array();
 		
 		if (! $topProducts && $entry->getPreleaf()) {
 			$advertLocations[] = Advert::FEATURED_LOCATION;
 			
-			$categories = [ $entry 
-			];
+			$categories = [$entry];
 			// TODO repository->findBreadcrumbItems($entry);
 			// $categories = [$entry];
 			// $prev = $entry;
@@ -211,7 +210,7 @@ class CategoryEntryParamsManager extends EntryParamsManager {
 			$viewParams['promotionsArticles'] = $articles;
 			
 			// useful article categories
-			$usefulArticleCategories = array ();
+			$usefulArticleCategories = array();
 			
 			$articleCategory = $this->getArticleCategory($articleCategories, self::REVIEWS_AC);
 			if ($articleCategory) {
@@ -248,7 +247,7 @@ class CategoryEntryParamsManager extends EntryParamsManager {
 			
 			$viewParams['segments'] = $segments = $this->segmentRepository->findTopItems();
 			
-			$viewParams['products'] = array ();
+			$viewParams['products'] = array();
 			
 			foreach ($segments as $segment) {
 				$products = $this->productRepository->findTopItems($entry->getId(), $segment['id']);
@@ -258,10 +257,10 @@ class CategoryEntryParamsManager extends EntryParamsManager {
 			$categories = $this->categoryRepository->findSubcategories($entry->getId());
 			$viewParams['subcategories'] = $categories;
 			
-			$viewParams['subproducts'] = array ();
+			$viewParams['subproducts'] = array();
 			
 			foreach ($categories as $category) {
-				$viewParams['subproducts'][$category['id']] = array ();
+				$viewParams['subproducts'][$category['id']] = array();
 				
 				foreach ($segments as $segment) {
 					$products = $this->productRepository->findTopItems($category['id'], $segment['id']);

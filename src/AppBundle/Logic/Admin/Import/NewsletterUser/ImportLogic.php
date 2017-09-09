@@ -59,7 +59,7 @@ class ImportLogic {
 	 * @param ImportNewsletterUsers $importItem        	
 	 */
 	public function import($importItem) {
-		$result = array ();
+		$result = array();
 		
 		$fileEntries = $this->fileEntryFactory->getEntries($importItem->getImportFile());
 		$errors = $fileEntries['errors'];
@@ -114,7 +114,7 @@ class ImportLogic {
 		if (count($errors) > 0) {
 			$result['errors'] = $errors;
 		} else {
-			$result['errors'] = array ();
+			$result['errors'] = array();
 			$result['lines'] = count($fileEntries);
 			$result['itemsCounts'] = $itemsCounts;
 			$result['assignmentsCounts'] = $assignmentsCounts;
@@ -124,7 +124,7 @@ class ImportLogic {
 	}
 
 	protected function getDataBaseEntries($preparedEntries) {
-		$entries = array ();
+		$entries = array();
 		
 		foreach ($preparedEntries as $preparedEntry) {
 			if (! $preparedEntry['duplicate']) {
@@ -136,15 +136,14 @@ class ImportLogic {
 	}
 
 	protected function getDataBaseEntry($preparedEntry) {
-		$entry = array ();
-		$errors = array ();
+		$entry = array();
+		$errors = array();
 		
 		$newsletterUserRepository = $this->doctrine->getRepository(NewsletterUser::class);
 		
 		$mail = $preparedEntry['mail'];
 		
-		$item = $newsletterUserRepository->findOneBy([ 'name' => $mail 
-		]);
+		$item = $newsletterUserRepository->findOneBy(['name' => $mail]);
 		
 		if (! $item) {
 			$item = new NewsletterUser();
@@ -172,7 +171,7 @@ class ImportLogic {
 	}
 
 	protected function saveItems($dataBaseEntries) {
-		$errors = array ();
+		$errors = array();
 		
 		$em = $this->doctrine->getManager();
 		$em->getConnection()->beginTransaction();
@@ -208,11 +207,10 @@ class ImportLogic {
 			$id = $item->getId();
 			
 			if ($id <= 0) {
-				$errors = array ();
+				$errors = array();
 				$name = $item->getName();
 				
-				$item = $newsletterUserRepository->findOneBy([ 'name' => $name 
-				]);
+				$item = $newsletterUserRepository->findOneBy(['name' => $name]);
 				if (! $item)
 					$errors[] = $this->errorFactory->createSaveFailedError($id, $name);
 				else
@@ -227,14 +225,14 @@ class ImportLogic {
 	}
 
 	protected function getAssignments($dataBaseEntries, ImportNewsletterUsers $importItem) {
-		$newDataBaseEntries = array ();
+		$newDataBaseEntries = array();
 		
 		$assignmentRepository = $this->doctrine->getRepository(NewsletterUserNewsletterGroupAssignment::class);
 		
 		/** @var ObjectManager $em */
 		$em = $this->doctrine->getEntityManager();
 		
-		$newsletterGroups = array ();
+		$newsletterGroups = array();
 		foreach ($importItem->getNewsletterGroups() as $newsetterGroupId) {
 			$newsletterGroups[] = $em->getReference(NewsletterGroup::class, $newsetterGroupId);
 		}
@@ -247,8 +245,7 @@ class ImportLogic {
 			
 			foreach ($newsletterGroups as $newsetterGroup) {
 				$assignment = $assignmentRepository->findOneBy(
-						[ 'newsletterUser' => $item,'newsletterGroup' => $newsetterGroup 
-						]);
+						['newsletterUser' => $item, 'newsletterGroup' => $newsetterGroup]);
 				
 				if (! $assignment) {
 					$assignment = new NewsletterUserNewsletterGroupAssignment();
@@ -271,7 +268,7 @@ class ImportLogic {
 	}
 
 	protected function saveAssignments($dataBaseEntries) {
-		$errors = array ();
+		$errors = array();
 		
 		$em = $this->doctrine->getManager();
 		$em->getConnection()->beginTransaction();
@@ -296,7 +293,7 @@ class ImportLogic {
 	}
 
 	protected function getItemsCounts($preparedEntries, $dataBaseEntries) {
-		$counts = array ();
+		$counts = array();
 		
 		$all = count($preparedEntries);
 		
@@ -324,7 +321,7 @@ class ImportLogic {
 	}
 
 	protected function getAssignmentsCounts($dataBaseEntries) {
-		$counts = array ();
+		$counts = array();
 		
 		$all = 0;
 		$created = 0;
@@ -350,7 +347,7 @@ class ImportLogic {
 	}
 
 	protected function getEntriesErrors($entries) {
-		$errors = array ();
+		$errors = array();
 		
 		foreach ($entries as $entry) {
 			$entryErrors = $entry['errors'];

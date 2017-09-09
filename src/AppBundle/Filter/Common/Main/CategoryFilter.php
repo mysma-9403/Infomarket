@@ -48,13 +48,13 @@ class CategoryFilter extends SimpleFilter {
 	 *
 	 * @var array
 	 */
-	protected $parents = array ();
+	protected $parents = array();
 
 	/**
 	 *
 	 * @var array
 	 */
-	protected $branches = array ();
+	protected $branches = array();
 
 	public function initRequestValues(Request $request) {
 		parent::initRequestValues($request);
@@ -82,8 +82,8 @@ class CategoryFilter extends SimpleFilter {
 		$this->featured = self::ALL_VALUES;
 		$this->preleaf = self::ALL_VALUES;
 		
-		$this->parents = array ();
-		$this->branches = array ();
+		$this->parents = array();
+		$this->branches = array();
 	}
 
 	public function getRequestValues() {

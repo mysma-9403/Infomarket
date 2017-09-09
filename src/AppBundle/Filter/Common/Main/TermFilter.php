@@ -30,7 +30,7 @@ class TermFilter extends SimpleFilter {
 	 *
 	 * @var array
 	 */
-	protected $categories = array ();
+	protected $categories = array();
 
 	public function initRequestValues(Request $request) {
 		parent::initRequestValues($request);
@@ -51,7 +51,7 @@ class TermFilter extends SimpleFilter {
 		$this->infomarket = self::ALL_VALUES;
 		$this->infoprodukt = self::ALL_VALUES;
 		
-		$this->categories = array ();
+		$this->categories = array();
 	}
 
 	public function getRequestValues() {

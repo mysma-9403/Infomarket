@@ -55,9 +55,9 @@ class MenuEntryEditorType extends SimpleEditorType {
 	protected function getDefaultOptions() {
 		$options = parent::getDefaultOptions();
 		
-		$options[self::getChoicesName('parent')] = [ ];
-		$options[self::getChoicesName('page')] = [ ];
-		$options[self::getChoicesName('link')] = [ ];
+		$options[self::getChoicesName('parent')] = [];
+		$options[self::getChoicesName('page')] = [];
+		$options[self::getChoicesName('link')] = [];
 		
 		return $options;
 	}

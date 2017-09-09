@@ -97,7 +97,7 @@ class CategoryController extends DummyController {
 	// Form Options
 	// ---------------------------------------------------------------------------
 	protected function getCategoryFormOptions(array $params) {
-		$options = [ ];
+		$options = [];
 		
 		$contextParams = $params['contextParams'];
 		$userId = $contextParams['user'];
@@ -112,7 +112,7 @@ class CategoryController extends DummyController {
 	}
 
 	protected function getSubcategoryFormOptions(array $params) {
-		$options = [ ];
+		$options = [];
 		
 		$contextParams = $params['contextParams'];
 		$categoryId = $contextParams['category'];
@@ -159,7 +159,7 @@ class CategoryController extends DummyController {
 		$lastRouteParams = $lastRoute['routeParams'];
 		
 		if (! $lastRouteParams) {
-			$lastRouteParams = array ();
+			$lastRouteParams = array();
 		}
 		
 		$tokenStorage = $this->get('security.token_storage');
@@ -200,9 +200,8 @@ class CategoryController extends DummyController {
 		
 		$tokenStorage = $this->get('security.token_storage');
 		
-		return new CategoryParamsManager($em, $fm, $categoryRepository, $productRepository, 
-				$segmentRepository, $chartLogic, $benchmarkFieldsProvider, $benchmarkFieldsInitializer, 
-				$tokenStorage);
+		return new CategoryParamsManager($em, $fm, $categoryRepository, $productRepository, $segmentRepository, 
+				$chartLogic, $benchmarkFieldsProvider, $benchmarkFieldsInitializer, $tokenStorage);
 	}
 
 	protected function getEntityManager($doctrine, $paginator) {
@@ -254,8 +253,7 @@ class CategoryController extends DummyController {
 	}
 
 	protected function getHomeRoute() {
-		return array ('route' => $this->getIndexRoute(),'routeParams' => array () 
-		);
+		return array('route' => $this->getIndexRoute(), 'routeParams' => array());
 	}
 	
 	// ---------------------------------------------------------------------------

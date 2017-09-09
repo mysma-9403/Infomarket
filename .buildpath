@@ -58,6 +58,7 @@
 	<buildpathentry kind="src" path="vendor/myclabs/deep-copy/src/DeepCopy"/>
 	<buildpathentry kind="src" path="vendor/webmozart/assert/src"/>
 	<buildpathentry kind="src" path="vendor/sebastian/code-unit-reverse-lookup/src"/>
+	<buildpathentry kind="src" path="tests"/>
 	<buildpathentry excluding="ca-bundle/" kind="src" path="vendor/composer"/>
 	<buildpathentry kind="src" path="vendor/phpunit/php-token-stream/src"/>
 	<buildpathentry kind="src" path="vendor/phpdocumentor/reflection-common/src"/>

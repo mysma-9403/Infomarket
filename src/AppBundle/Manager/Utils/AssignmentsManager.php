@@ -87,7 +87,7 @@ class AssignmentsManager {
 	 * @see AssignmentsManager.setAssigneeKey
 	 */
 	public function assignToItem($item, array $assignees) {
-		$itemAssignments = array ();
+		$itemAssignments = array();
 		foreach ($assignees as $assignee) {
 			if ($assignee[$this->assigneeKey] == $item[$this->itemKey]) {
 				$itemAssignments[] = $assignee;

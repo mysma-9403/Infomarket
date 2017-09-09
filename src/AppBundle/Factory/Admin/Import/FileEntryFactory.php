@@ -18,8 +18,8 @@ class FileEntryFactory {
 	}
 
 	public function getEntries($fileName) {
-		$rows = array ();
-		$errors = array ();
+		$rows = array();
+		$errors = array();
 		
 		$fileName = urldecode($fileName);
 		

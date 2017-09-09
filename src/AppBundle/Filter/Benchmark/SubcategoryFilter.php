@@ -23,7 +23,7 @@ class SubcategoryFilter extends Filter {
 	}
 
 	public function getRequestValues() {
-		$values = array ();
+		$values = array();
 		
 		$this->setRequestValue($values, 'subcategory', $this->subcategory);
 		

@@ -134,8 +134,7 @@ class UpdateProductNotesCommand extends ContainerAwareCommand {
 
 	protected function getBenchmarkProducts($categoryId) {
 		$filter = new ProductFilter($this->benchmarkFieldRepository);
-		$filter->initContextParams([ 'subcategory' => $categoryId 
-		]);
+		$filter->initContextParams(['subcategory' => $categoryId]);
 		$filter->initRequestValues(new Request());
 		return $this->productRepository->findItems($filter);
 	}
@@ -223,8 +222,7 @@ class UpdateProductNotesCommand extends ContainerAwareCommand {
 	}
 
 	protected function getProductNote($productId) {
-		$productNote = $this->productNoteRepository->findOneBy([ 'product' => $productId 
-		]);
+		$productNote = $this->productNoteRepository->findOneBy(['product' => $productId]);
 		if (! $productNote) {
 			$productNote = new ProductNote();
 			$productNote->setProduct($this->productRepository->find($productId));

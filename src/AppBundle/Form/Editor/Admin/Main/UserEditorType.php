@@ -25,7 +25,7 @@ class UserEditorType extends BaseEditorType {
 	protected function getDefaultOptions() {
 		$options = parent::getDefaultOptions();
 		
-		$options[self::getChoicesName('roles')] = [ ];
+		$options[self::getChoicesName('roles')] = [];
 		
 		return $options;
 	}

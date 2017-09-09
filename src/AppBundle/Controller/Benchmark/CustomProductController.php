@@ -131,9 +131,7 @@ class CustomProductController extends ImageController {
 			$this->flashCreatedMessage();
 			
 			if ($form->get('save')->isClicked()) {
-				return $this->redirectToRoute($this->getEditRoute(), 
-						array ('id' => $entry->getId() 
-						));
+				return $this->redirectToRoute($this->getEditRoute(), array('id' => $entry->getId()));
 			}
 		}
 		
@@ -188,7 +186,7 @@ class CustomProductController extends ImageController {
 	}
 
 	protected function getFilterFormOptions() {
-		$options = [ ];
+		$options = [];
 		
 		$this->addEntityChoicesFormOption($options, Brand::class, 'brands');
 		$this->addEntityChoicesFormOption($options, Category::class, 'categories');
@@ -205,7 +203,7 @@ class CustomProductController extends ImageController {
 	}
 
 	protected function getCategoryFormOptions(array $params) {
-		$options = [ ];
+		$options = [];
 		
 		$contextParams = $params['contextParams'];
 		$userId = $contextParams['user'];
@@ -220,7 +218,7 @@ class CustomProductController extends ImageController {
 	}
 
 	protected function getSubcategoryFormOptions(array $params) {
-		$options = [ ];
+		$options = [];
 		
 		$contextParams = $params['contextParams'];
 		$categoryId = $contextParams['category'];
@@ -292,7 +290,7 @@ class CustomProductController extends ImageController {
 		}
 		$em->flush();
 		
-		return array ();
+		return array();
 	}
 	
 	// ---------------------------------------------------------------------------

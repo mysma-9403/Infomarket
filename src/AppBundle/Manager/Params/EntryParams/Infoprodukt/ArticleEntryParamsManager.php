@@ -48,7 +48,7 @@ class ArticleEntryParamsManager extends EntryParamsManager {
 			$articlesIds = $this->articleRepository->findItemsIds($contextCategories);
 			
 			$count = 0;
-			$lastArticlesIds = array ();
+			$lastArticlesIds = array();
 			
 			$prevArticleId = null;
 			$nextArticleId = null;
@@ -68,7 +68,7 @@ class ArticleEntryParamsManager extends EntryParamsManager {
 			}
 			
 			$viewParams['lastArticles'] = count($lastArticlesIds) > 0 ? $this->articleRepository->findItemsByIds(
-					$lastArticlesIds) : [ ];
+					$lastArticlesIds) : [];
 			if ($prevArticleId)
 				$viewParams['prevArticle'] = $this->articleRepository->findItem($prevArticleId);
 			if ($nextArticleId)

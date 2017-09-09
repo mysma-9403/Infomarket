@@ -2,49 +2,51 @@
 
 namespace Tests\AppBundle\Form\Editor\Admin\Assignments;
 
-use AppBundle\Entity\Assignments\NewsletterBlock;
+use AppBundle\Entity\Main\NewsletterBlock;
 use AppBundle\Entity\Assignments\NewsletterBlockArticleAssignment;
-use AppBundle\Entity\Assignments\Article;
+use AppBundle\Entity\Main\Article;
 use AppBundle\Form\Editor\Admin\Assignments\NewsletterBlockArticleAssignmentEditorType;
 use Symfony\Component\Form\PreloadedExtension;
-use Tests\AppBundle\Form\Editor\Admin\Base\BaseEditorTypeTest;
+use Tests\AppBundle\Form\Editor\Admin\Base\SimpleEditorTypeTest;
 
-class NewsletterBlockArticleAssignmentEditorTypeTest extends BaseEditorTypeTest {
-		
+class NewsletterBlockArticleAssignmentEditorTypeTest extends SimpleEditorTypeTest {
+
 	const NEWSLETTER_BLOCK_ID = 100;
+
 	const NEWSLETTER_BLOCK_NAME = 'Test newsletterBlock';
+
 	const NEWSLETTER_BLOCK_CHOICES = ['Test newsletterBlock' => self::NEWSLETTER_BLOCK_ID];
-	
+
 	const ARTICLE_ID = 100;
+
 	const ARTICLE_NAME = 'Test article';
+
 	const ARTICLE_CHOICES = ['Test article' => self::ARTICLE_ID];
-	
+
 	const ALTERNATIVE_NAME = 'Test name';
+
 	const ALTERNATIVE_SUBNAME = 'Test subname';
+
 	const ALTERNATIVE_BRANDS = 'Test brands';
-	
-	
-	
+
 	private $newsletterBlockTransformer;
-	
+
 	private $articleTransformer;
-	
-	
-	
+
 	protected function setUp() {
-		$this->newsletterBlockTransformer = $this->getEntityTransformerMock($this->getNewsletterBlock(), self::NEWSLETTER_BLOCK_ID);
+		$this->newsletterBlockTransformer = $this->getEntityTransformerMock($this->getNewsletterBlock(), 
+				self::NEWSLETTER_BLOCK_ID);
 		$this->articleTransformer = $this->getEntityTransformerMock($this->getArticle(), self::ARTICLE_ID);
 		
 		parent::setUp();
 	}
-	
+
 	protected function getExtensions() {
-		$type = new NewsletterBlockArticleAssignmentEditorType($this->newsletterBlockTransformer, $this->articleTransformer);
+		$type = new NewsletterBlockArticleAssignmentEditorType($this->newsletterBlockTransformer, 
+				$this->articleTransformer);
 		return array(new PreloadedExtension(array($type), array()));
 	}
-	
-	
-	
+
 	protected function assertEntity($entity) {
 		/** @var NewsletterBlockArticleAssignment $entity */
 		parent::assertEntity($entity);
@@ -59,10 +61,10 @@ class NewsletterBlockArticleAssignmentEditorTypeTest extends BaseEditorTypeTest 
 		$this->assertSame(self::ALTERNATIVE_SUBNAME, $entity->getAlternativeSubname());
 		$this->assertSame(self::ALTERNATIVE_BRANDS, $entity->getAlternativeBrands());
 	}
-	
+
 	protected function getFormData() {
 		$data = parent::getFormData();
-	
+		
 		$data['newsletterBlock'] = self::NEWSLETTER_BLOCK_ID;
 		$data['article'] = self::ARTICLE_ID;
 		
@@ -72,26 +74,24 @@ class NewsletterBlockArticleAssignmentEditorTypeTest extends BaseEditorTypeTest 
 		
 		return $data;
 	}
-	
+
 	protected function getFormOptions() {
 		$options = parent::getFormOptions();
-	
+		
 		$options[self::getChoicesName('newsletterBlock')] = self::NEWSLETTER_BLOCK_CHOICES;
 		$options[self::getChoicesName('article')] = self::ARTICLE_CHOICES;
-	
+		
 		return $options;
 	}
-	
+
 	protected function getFormType() {
 		return NewsletterBlockArticleAssignmentEditorType::class;
 	}
-	
+
 	protected function getEntity() {
 		return new NewsletterBlockArticleAssignment();
 	}
-	
-	
-	
+
 	private function getNewsletterBlock() {
 		$mock = new NewsletterBlock();
 		$mock->setId(self::NEWSLETTER_BLOCK_ID);
@@ -99,12 +99,12 @@ class NewsletterBlockArticleAssignmentEditorTypeTest extends BaseEditorTypeTest 
 		
 		return $mock;
 	}
-	
+
 	private function getArticle() {
 		$mock = new Article();
 		$mock->setId(self::ARTICLE_ID);
 		$mock->setName(self::ARTICLE_NAME);
-	
+		
 		return $mock;
 	}
 }

@@ -19,7 +19,7 @@ class NewsletterPageFilterType extends SimpleFilterType {
 	protected function getDefaultOptions() {
 		$options = parent::getDefaultOptions();
 		
-		$options[$this->getChoicesName('newsletterPageTemplates')] = [ ];
+		$options[$this->getChoicesName('newsletterPageTemplates')] = [];
 		
 		return $options;
 	}

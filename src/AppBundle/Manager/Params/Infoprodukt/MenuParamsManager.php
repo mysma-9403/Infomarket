@@ -22,7 +22,7 @@ class MenuParamsManager {
 		// $contextParams = $params['contextParams'];
 		$viewParams = $params['viewParams'];
 		
-		$categories = array (); // TODO improve context categories $contextParams['categories'];
+		$categories = array(); // TODO improve context categories $contextParams['categories'];
 		
 		$menuEntries = $this->menuEntryRepository->findMenuItems(Menu::FOOTER_MENU, $categories);
 		$viewParams['footerMenuEntries'] = $menuEntries;

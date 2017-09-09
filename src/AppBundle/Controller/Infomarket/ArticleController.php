@@ -110,7 +110,7 @@ class ArticleController extends InfomarketController {
 		$categoryRepository = new CategoryRepository($em, $em->getClassMetadata(Category::class));
 		$categories = $categoryRepository->findFilterItemsByBranch($branchId);
 		
-		$options = [ ];
+		$options = [];
 		
 		$this->addEntityChoicesFormOption($options, ArticleCategory::class, 'articleCategories');
 		$this->addChoicesFormOption($options, $categories, 'categories');
@@ -121,14 +121,14 @@ class ArticleController extends InfomarketController {
 		if ($articleFilterForm->isSubmitted() && $articleFilterForm->isValid()) {
 			
 			if ($articleFilterForm->get('search')->isClicked()) {
-				$routingParams = array ();
+				$routingParams = array();
 				$routingParams = array_merge($routingParams, $itemFilter->getRequestValues());
 				
 				return $this->redirectToRoute($this->getIndexRoute(), $routingParams);
 			}
 			
 			if ($articleFilterForm->get('clear')->isClicked()) {
-				$routingParams = array ();
+				$routingParams = array();
 				
 				return $this->redirectToRoute($this->getIndexRoute(), $routingParams);
 			}

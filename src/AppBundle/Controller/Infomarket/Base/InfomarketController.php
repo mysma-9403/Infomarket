@@ -177,7 +177,7 @@ abstract class InfomarketController extends StandardController {
 		$lastRouteParams = $lastRoute['routeParams'];
 		
 		if (! $lastRouteParams) {
-			$lastRouteParams = array ();
+			$lastRouteParams = array();
 		}
 		
 		$articleCategoryRepository = $this->get(ArticleCategoryRepository::class);
@@ -210,8 +210,7 @@ abstract class InfomarketController extends StandardController {
 		$em = $this->getDoctrine()->getManager();
 		
 		$repository = $this->getDoctrine()->getRepository(NewsletterUser::class);
-		$persistent = $repository->findOneBy([ 'name' => $entry->getName() 
-		]);
+		$persistent = $repository->findOneBy(['name' => $entry->getName()]);
 		
 		if ($persistent) {
 			if (! $persistent->getSubscribed()) {
@@ -247,8 +246,7 @@ abstract class InfomarketController extends StandardController {
 	// Routes
 	// ---------------------------------------------------------------------------
 	protected function getHomeRoute() {
-		return array ('route' => $this->getIndexView(),'routeParams' => array () 
-		);
+		return array('route' => $this->getIndexView(), 'routeParams' => array());
 	}
 
 	protected function getSearchRoute() {

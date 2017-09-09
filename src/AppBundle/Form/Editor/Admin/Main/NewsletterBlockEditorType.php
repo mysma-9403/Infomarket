@@ -61,8 +61,8 @@ class NewsletterBlockEditorType extends SimpleEditorType {
 	protected function getDefaultOptions() {
 		$options = parent::getDefaultOptions();
 		
-		$options[self::getChoicesName('newsletterBlockTemplate')] = [ ];
-		$options[self::getChoicesName('newsletterPage')] = [ ];
+		$options[self::getChoicesName('newsletterBlockTemplate')] = [];
+		$options[self::getChoicesName('newsletterPage')] = [];
 		
 		return $options;
 	}

@@ -27,13 +27,13 @@ class CategoryFilterType extends SimpleFilterType {
 	protected function getDefaultOptions() {
 		$options = parent::getDefaultOptions();
 		
-		$options[$this->getChoicesName('infomarket')] = [ ];
-		$options[$this->getChoicesName('infoprodukt')] = [ ];
-		$options[$this->getChoicesName('featured')] = [ ];
-		$options[$this->getChoicesName('preleaf')] = [ ];
+		$options[$this->getChoicesName('infomarket')] = [];
+		$options[$this->getChoicesName('infoprodukt')] = [];
+		$options[$this->getChoicesName('featured')] = [];
+		$options[$this->getChoicesName('preleaf')] = [];
 		
-		$options[$this->getChoicesName('parents')] = [ ];
-		$options[$this->getChoicesName('branches')] = [ ];
+		$options[$this->getChoicesName('parents')] = [];
+		$options[$this->getChoicesName('branches')] = [];
 		
 		return $options;
 	}

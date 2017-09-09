@@ -26,7 +26,7 @@ class SendNewsletterFilterType extends BaseType {
 	protected function getDefaultOptions() {
 		$options = parent::getDefaultOptions();
 		
-		$options[$this->getChoicesName('newsletterGroups')] = [ ];
+		$options[$this->getChoicesName('newsletterGroups')] = [];
 		
 		return $options;
 	}

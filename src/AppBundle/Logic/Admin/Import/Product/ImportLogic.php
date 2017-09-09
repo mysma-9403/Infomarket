@@ -47,7 +47,7 @@ class ImportLogic {
 	 * @param ImportRatings $importRatings        	
 	 */
 	public function importRatings($importRatings, $category) {
-		$result = array ();
+		$result = array();
 		
 		$fileEntries = $this->getFileEntries($importRatings);
 		
@@ -142,7 +142,7 @@ class ImportLogic {
 			return $result;
 		}
 		
-		$result['errors'] = array ();
+		$result['errors'] = array();
 		$result['lines'] = count($fileEntries);
 		$result['brandsCounts'] = $brandsCounts;
 		$result['productsCounts'] = $productsCounts;
@@ -153,7 +153,7 @@ class ImportLogic {
 	}
 
 	protected function getFileEntries($importRatings) {
-		$rows = array ();
+		$rows = array();
 		
 		$fileName = urldecode($importRatings->getImportFile());
 		
@@ -169,7 +169,7 @@ class ImportLogic {
 	}
 
 	protected function validateCategory($fileEntries, $category) {
-		$errors = array ();
+		$errors = array();
 		
 		$columns = $fileEntries[0];
 		$categoryName = $columns[0];
@@ -183,8 +183,8 @@ class ImportLogic {
 	}
 
 	protected function getHeaderColumns($fileEntries) {
-		$errors = array ();
-		$items = array ();
+		$errors = array();
+		$items = array();
 		
 		$columnNames = $fileEntries[1];
 		$fieldTypes = $fileEntries[2];
@@ -199,7 +199,7 @@ class ImportLogic {
 		for ($i = 0; $i < $size; $i ++) {
 			$columnName = $columnNames[$i];
 			if ($columnName && strlen($columnName) > 0) {
-				$item = array ();
+				$item = array();
 				
 				$item['index'] = $i;
 				$item['name'] = $columnName;
@@ -240,7 +240,7 @@ class ImportLogic {
 						$filterNumber = $fieldNumber;
 						$showFilter = $showFilters[$i];
 						
-						$item = array ();
+						$item = array();
 						
 						$itemName = $this->benchmarkFieldDataBaseUtils->getValueFieldProperty($fieldType, 
 								$valueNumber);
@@ -270,12 +270,11 @@ class ImportLogic {
 			}
 		}
 		
-		return [ 'items' => $items,'errors' => $errors 
-		];
+		return ['items' => $items, 'errors' => $errors];
 	}
 
 	protected function validateColumns($columns) {
-		$errors = array ();
+		$errors = array();
 		
 		if (! key_exists('productName', $columns)) {
 			$errors[] = $this->errorFactory->createColumnNotExistsError('productName');
@@ -293,7 +292,7 @@ class ImportLogic {
 	}
 
 	protected function getPreparedEntries($fileEntries, $columns) {
-		$entries = array ();
+		$entries = array();
 		
 		$i = 0;
 		foreach ($fileEntries as $fileEntry) {
@@ -308,8 +307,8 @@ class ImportLogic {
 	}
 
 	protected function getPreparedEntry($fileEntry, $i, $columns) {
-		$entry = array ();
-		$errors = array ();
+		$entry = array();
+		$errors = array();
 		
 		if (count($fileEntry) <= 0)
 			return null;
@@ -416,7 +415,7 @@ class ImportLogic {
 		$count = count($preparedEntries);
 		
 		for ($i = 0; $i < $count; $i ++) {
-			$errors = array ();
+			$errors = array();
 			$prevEntry = $preparedEntries[$i];
 			
 			$prevProductName = $prevEntry['productName'];
@@ -471,7 +470,7 @@ class ImportLogic {
 	}
 
 	protected function getDataBaseEntries($preparedEntries, $category, $columns) {
-		$entries = array ();
+		$entries = array();
 		
 		foreach ($preparedEntries as $preparedEntry) {
 			if (! $preparedEntry['duplicate']) {
@@ -483,16 +482,15 @@ class ImportLogic {
 	}
 
 	protected function getDataBaseEntry($preparedEntry, $category, $columns) {
-		$entry = array ();
-		$errors = array ();
+		$entry = array();
+		$errors = array();
 		
 		$brandRepository = $this->doctrine->getRepository(Brand::class);
 		$segmentRepository = $this->doctrine->getRepository(Segment::class);
 		$productRepository = $this->doctrine->getRepository(Product::class);
 		
 		$brandName = $preparedEntry['brandName'];
-		$brand = $brandRepository->findOneBy([ 'name' => $brandName 
-		]);
+		$brand = $brandRepository->findOneBy(['name' => $brandName]);
 		if (! $brand)
 			$errors[] = $this->errorFactory->createNotExistsError($preparedEntry['lineNumber'], 'brand', 
 					$brandName);
@@ -510,8 +508,7 @@ class ImportLogic {
 		
 		$segmentName = $preparedEntry['segmentName'];
 		if ($segmentName) {
-			$segment = $segmentRepository->findOneBy([ 'name' => $segmentName 
-			]);
+			$segment = $segmentRepository->findOneBy(['name' => $segmentName]);
 			if (! $segment)
 				$errors[] = $this->errorFactory->createNotExistsError($preparedEntry['lineNumber'], 'segment', 
 						$segmentName);
@@ -532,9 +529,7 @@ class ImportLogic {
 			if (key_exists('productPrice', $preparedEntry))
 				$productPrice = $preparedEntry['productPrice'];
 			
-			$product = $productRepository->findOneBy(
-					[ 'name' => $productName,'brand' => $brand 
-					]);
+			$product = $productRepository->findOneBy(['name' => $productName, 'brand' => $brand]);
 			if (! $product) {
 				$product = new Product();
 				$product->setName($productName);
@@ -597,7 +592,7 @@ class ImportLogic {
 	}
 
 	protected function getDataBaseColumns($category, $columns) {
-		$result = array ();
+		$result = array();
 		
 		foreach ($columns as $column) {
 			if (key_exists('fieldType', $column)) {
@@ -609,16 +604,15 @@ class ImportLogic {
 	}
 
 	protected function getDataBaseColumn($category, $column) {
-		$entry = array ();
-		$errors = array ();
+		$entry = array();
+		$errors = array();
 		
 		$benchmarkFieldRepository = $this->doctrine->getRepository(BenchmarkField::class);
 		
 		$fieldType = $column['fieldType'];
 		$valueNumber = $column['valueNumber'];
 		$benchmarkField = $benchmarkFieldRepository->findOneBy(
-				[ 'category' => $category->getId(),'fieldType' => $fieldType,'valueNumber' => $valueNumber 
-				]);
+				['category' => $category->getId(), 'fieldType' => $fieldType, 'valueNumber' => $valueNumber]);
 		if (! $benchmarkField) {
 			$benchmarkField = new BenchmarkField();
 			
@@ -703,7 +697,7 @@ class ImportLogic {
 	}
 
 	protected function saveProducts($dataBaseEntries) {
-		$errors = array ();
+		$errors = array();
 		
 		$em = $this->doctrine->getManager();
 		$em->getConnection()->beginTransaction();
@@ -736,13 +730,12 @@ class ImportLogic {
 			$product = $dataBaseEntry['product'];
 			
 			if ($product->getId() <= 0) {
-				$errors = array ();
+				$errors = array();
 				$brand = $dataBaseEntry['brand'];
 				$productName = $product->getName();
 				
 				$product = $productRepository->findOneBy(
-						[ 'name' => $product->getName(),'brand' => $brand 
-						]);
+						['name' => $product->getName(), 'brand' => $brand]);
 				if (! $product)
 					$errors[] = 'Produkt ' . $brand->getName() . ' ' . $productName .
 							 ' nie zosta� poprawnie zapisany.';
@@ -770,8 +763,7 @@ class ImportLogic {
 			$featured = $dataBaseEntry['featured'];
 			
 			$assignment = $assignmentRepository->findOneBy(
-					[ 'product' => $product,'category' => $category 
-					]);
+					['product' => $product, 'category' => $category]);
 			
 			if (! $assignment) {
 				$assignment = new ProductCategoryAssignment();
@@ -803,7 +795,7 @@ class ImportLogic {
 	}
 
 	protected function saveProductCategoryAssignments($dataBaseEntries) {
-		$errors = array ();
+		$errors = array();
 		
 		$em = $this->doctrine->getManager();
 		$em->getConnection()->beginTransaction();
@@ -828,9 +820,9 @@ class ImportLogic {
 	}
 
 	protected function saveBrands($dataBaseEntries) {
-		$errors = array ();
+		$errors = array();
 		
-		$brands = array ();
+		$brands = array();
 		
 		foreach ($dataBaseEntries as $dataBaseEntry) {
 			if ($dataBaseEntry['brandForUpdate']) {
@@ -859,7 +851,7 @@ class ImportLogic {
 	}
 
 	protected function saveColumns($dataBaseColumns) {
-		$errors = array ();
+		$errors = array();
 		
 		$em = $this->doctrine->getManager();
 		$em->getConnection()->beginTransaction();
@@ -889,7 +881,7 @@ class ImportLogic {
 	}
 
 	protected function getProductsCounts($dataBaseEntries) {
-		$counts = array ();
+		$counts = array();
 		
 		$all = 0;
 		$created = 0;
@@ -921,7 +913,7 @@ class ImportLogic {
 	}
 
 	protected function getAssignmentsCounts($dataBaseEntries) {
-		$counts = array ();
+		$counts = array();
 		
 		$all = 0;
 		$created = 0;
@@ -947,12 +939,12 @@ class ImportLogic {
 	}
 
 	protected function getBrandsCounts($dataBaseEntries) {
-		$counts = array ();
+		$counts = array();
 		
 		$all = 0;
 		$updated = 0;
 		
-		$brands = array ();
+		$brands = array();
 		
 		foreach ($dataBaseEntries as $dataBaseEntry) {
 			$brand = $dataBaseEntry['brand'];
@@ -972,7 +964,7 @@ class ImportLogic {
 	}
 
 	protected function getColumnsCounts($dataBaseColumns) {
-		$counts = array ();
+		$counts = array();
 		
 		$all = 0;
 		$created = 0;
@@ -998,7 +990,7 @@ class ImportLogic {
 	}
 
 	protected function getEntriesErrors($entries) {
-		$errors = array ();
+		$errors = array();
 		
 		foreach ($entries as $entry) {
 			$entryErrors = $entry['errors'];

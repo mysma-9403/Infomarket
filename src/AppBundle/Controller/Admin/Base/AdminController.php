@@ -107,8 +107,7 @@ abstract class AdminController extends StandardController {
 		
 		// TODO ValidationManager??
 		$validator = $this->get('validator');
-		$errors = $validator->validate($entry, null, array ('removal' 
-		));
+		$errors = $validator->validate($entry, null, array('removal'));
 		
 		if (count($errors) > 0) {
 			foreach ($errors as $error) {
@@ -145,8 +144,7 @@ abstract class AdminController extends StandardController {
 		$rm = $this->getRouteManager();
 		$rm->remove($request, $id);
 		$lastRoute = $rm->getLastRoute($request, 
-				[ 'route' => $this->getIndexRoute(),'routeParams' => array () 
-				]);
+				['route' => $this->getIndexRoute(), 'routeParams' => array()]);
 		
 		return $this->redirectToRoute($lastRoute['route'], $lastRoute['routeParams']);
 	}
@@ -280,9 +278,7 @@ abstract class AdminController extends StandardController {
 			$this->flashCreatedMessage();
 			
 			if ($form->get('save')->isClicked()) {
-				return $this->redirectToRoute($this->getEditRoute(), 
-						array ('id' => $entry->getId() 
-						));
+				return $this->redirectToRoute($this->getEditRoute(), array('id' => $entry->getId()));
 			}
 		}
 		
@@ -353,7 +349,7 @@ abstract class AdminController extends StandardController {
 		$lastRouteParams = $lastRoute['routeParams'];
 		
 		if (! $lastRouteParams) {
-			$lastRouteParams = array ();
+			$lastRouteParams = array();
 		}
 		
 		return $this->getInternalContextParamsManager($doctrine, $lastRouteParams);
@@ -367,7 +363,7 @@ abstract class AdminController extends StandardController {
 	// Form options
 	// ---------------------------------------------------------------------------
 	protected function getListFormOptions(array $listItems) {
-		$options = [ ];
+		$options = [];
 		
 		$this->addChoicesFormOption($options, $listItems, 'entries');
 		
@@ -375,18 +371,18 @@ abstract class AdminController extends StandardController {
 	}
 
 	protected function getFilterFormOptions() {
-		return array ();
+		return array();
 	}
 
 	protected function getEditorFormOptions() {
-		return array ();
+		return array();
 	}
 	
 	// ---------------------------------------------------------------------------
 	// Internal logic
 	// ---------------------------------------------------------------------------
 	protected function getListItems($items) {
-		$listItems = array ();
+		$listItems = array();
 		foreach ($items as $item) {
 			$key = implode(' ', $this->getListItemKeyFields($item));
 			$listItems[$key] = $item['id'];
@@ -395,8 +391,7 @@ abstract class AdminController extends StandardController {
 	}
 
 	protected function getListItemKeyFields($item) {
-		return [ $item['id'] 
-		];
+		return [$item['id']];
 	}
 
 	/**
@@ -433,8 +428,7 @@ abstract class AdminController extends StandardController {
 		foreach ($entries as $entry) {
 			$entry = $this->getEntry($entry);
 			
-			$entryErrors = $validator->validate($entry, null, array ('removal' 
-			));
+			$entryErrors = $validator->validate($entry, null, array('removal'));
 			
 			if (count($entryErrors) > 0) {
 				foreach ($entryErrors as $error) {
@@ -481,7 +475,7 @@ abstract class AdminController extends StandardController {
 	}
 
 	protected function deleteMore($entry) {
-		return array ();
+		return array();
 	}
 
 	/**
@@ -593,8 +587,7 @@ abstract class AdminController extends StandardController {
 	}
 
 	protected function getHomeRoute() {
-		return array ('route' => $this->getIndexView(),'routeParams' => array () 
-		);
+		return array('route' => $this->getIndexView(), 'routeParams' => array());
 	}
 	
 	// ---------------------------------------------------------------------------

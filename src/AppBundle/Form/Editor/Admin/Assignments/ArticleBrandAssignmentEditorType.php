@@ -37,8 +37,8 @@ class ArticleBrandAssignmentEditorType extends BaseEditorType {
 	protected function getDefaultOptions() {
 		$options = parent::getDefaultOptions();
 		
-		$options[self::getChoicesName('article')] = [ ];
-		$options[self::getChoicesName('brand')] = [ ];
+		$options[self::getChoicesName('article')] = [];
+		$options[self::getChoicesName('brand')] = [];
 		
 		return $options;
 	}

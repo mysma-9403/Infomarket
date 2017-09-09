@@ -90,8 +90,7 @@ class ProductRepository extends ImageRepository {
 	}
 
 	protected function getFilterItemKeyFields($item) {
-		return [ $item['id'],$item['brandName'],$item['name'] 
-		];
+		return [$item['id'], $item['brandName'], $item['name']];
 	}
 
 	protected function getEntityType() {

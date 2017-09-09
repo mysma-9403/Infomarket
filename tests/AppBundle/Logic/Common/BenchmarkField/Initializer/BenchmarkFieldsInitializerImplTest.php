@@ -8,13 +8,11 @@ use AppBundle\Logic\Common\BenchmarkField\Initializer\BenchmarkFieldsInitializer
 use PHPUnit\Framework\TestCase;
 
 class BenchmarkFieldsInitializerImplTest extends TestCase {
-	
+
 	const FIELDS = [[1], [2], [3]];
-	
+
 	const CATEGORY = 100;
-	
-	
-	
+
 	public function testGivenFieldsThenInitialized() {
 		$initializer = new BenchmarkFieldsInitializerImpl($this->getBenchmarkFieldFactoryMock());
 		
@@ -22,14 +20,12 @@ class BenchmarkFieldsInitializerImplTest extends TestCase {
 		
 		$this->assertNotEmpty($result);
 	}
-	
-	
-	
+
 	private function getBenchmarkFieldFactoryMock() {
-		$repository = $this->getMockBuilder ( BenchmarkFieldFactory::class )->disableOriginalConstructor ()->getMock ();
-	
+		$repository = $this->getMockBuilder(BenchmarkFieldFactory::class)->disableOriginalConstructor()->getMock();
+		
 		$repository->expects($this->exactly(count(self::FIELDS)))->method('create');
-	
+		
 		return $repository;
 	}
 }

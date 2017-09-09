@@ -67,8 +67,8 @@ class AdvertFilter extends SimpleFilter {
 		
 		$this->link = null;
 		
-		$this->categories = array ();
-		$this->locations = array ();
+		$this->categories = array();
+		$this->locations = array();
 	}
 
 	public function getRequestValues() {

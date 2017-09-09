@@ -402,8 +402,8 @@ class CategoryController extends FeaturedController {
 	 * @param Category $entry        	
 	 */
 	protected function clearRatings($entry) {
-		$result = array ();
-		$errors = array ();
+		$result = array();
+		$errors = array();
 		
 		$count = 0;
 		
@@ -494,7 +494,7 @@ class CategoryController extends FeaturedController {
 		}
 		$em->flush();
 		
-		return array ();
+		return array();
 	}
 	
 	// ---------------------------------------------------------------------------

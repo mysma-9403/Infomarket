@@ -18,8 +18,8 @@ class MenuEntryCategoryAssignmentFilterType extends SimpleFilterType {
 	protected function getDefaultOptions() {
 		$options = parent::getDefaultOptions();
 		
-		$options[$this->getChoicesName('menuEntries')] = [ ];
-		$options[$this->getChoicesName('categories')] = [ ];
+		$options[$this->getChoicesName('menuEntries')] = [];
+		$options[$this->getChoicesName('categories')] = [];
 		
 		return $options;
 	}

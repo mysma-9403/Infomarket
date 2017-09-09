@@ -34,10 +34,7 @@ class BenchmarkChartLogic {
 		$noLabel = $this->translator->trans('label.no');
 		$label = $this->translator->trans('label.benchmark.numOfProducts');
 		
-		$array = [ [ '',$yesLabel,$noLabel 
-		],[ $label,$trueCount,$falseCount 
-		] 
-		];
+		$array = [['', $yesLabel, $noLabel], [$label, $trueCount, $falseCount]];
 		
 		$field['chart'] = $this->createColumnChart($field['fieldName'], $array);
 		
@@ -50,14 +47,11 @@ class BenchmarkChartLogic {
 		
 		if (count($valueCounts) > 0) {
 			$countLabel = $this->translator->trans('label.benchmark.numOfProducts');
-			$array = [ [ 'label.value',$countLabel 
-			] 
-			];
+			$array = [['label.value', $countLabel]];
 			
 			foreach ($valueCounts as $valueCount) {
-				$array[] = [ number_format($valueCount[$valueField], $field['decimalPlaces']),
-						$valueCount['vcount'] 
-				];
+				$array[] = [number_format($valueCount[$valueField], $field['decimalPlaces']), 
+						$valueCount['vcount']];
 			}
 			
 			$field['chart'] = $this->createColumnChart($field['fieldName'], $array);
@@ -73,13 +67,10 @@ class BenchmarkChartLogic {
 		
 		if (count($valueCounts) > 0) {
 			$countLabel = $this->translator->trans('label.benchmark.numOfProducts');
-			$array = [ [ 'label.value',$countLabel 
-			] 
-			];
+			$array = [['label.value', $countLabel]];
 			
 			foreach ($valueCounts as $key => $value) {
-				$array[] = [ $key,$value 
-				];
+				$array[] = [$key, $value];
 			}
 			
 			$field['chart'] = $this->createColumnChart($field['fieldName'], $array);

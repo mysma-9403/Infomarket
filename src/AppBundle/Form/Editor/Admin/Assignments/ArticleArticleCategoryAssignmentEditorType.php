@@ -38,8 +38,8 @@ class ArticleArticleCategoryAssignmentEditorType extends BaseEditorType {
 	protected function getDefaultOptions() {
 		$options = parent::getDefaultOptions();
 		
-		$options[self::getChoicesName('article')] = [ ];
-		$options[self::getChoicesName('articleCategory')] = [ ];
+		$options[self::getChoicesName('article')] = [];
+		$options[self::getChoicesName('articleCategory')] = [];
 		
 		return $options;
 	}

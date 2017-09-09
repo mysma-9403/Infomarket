@@ -148,556 +148,541 @@ class NewsletterBlock extends Simple {
 		return $this->getName() . ' ' . $this->getSubname();
 	}
 
-    /**
-     * @var string
-     */
-    private $name;
-
-    /**
-     * @var string
-     */
-    private $subname;
-
-    /**
-     * @var boolean
-     */
-    private $showTitle;
-
-    /**
-     * @var integer
-     */
-    private $orderNumber;
-
-    /**
-     * @var integer
-     */
-    private $xAdvertRatio;
-
-    /**
-     * @var integer
-     */
-    private $yAdvertRatio;
-
-    /**
-     * @var integer
-     */
-    private $xArticleRatio;
-
-    /**
-     * @var integer
-     */
-    private $yArticleRatio;
-
-    /**
-     * @var integer
-     */
-    private $xMagazineRatio;
-
-    /**
-     * @var integer
-     */
-    private $yMagazineRatio;
-
-    /**
-     * @var integer
-     */
-    private $magazinePadding;
-
-    /**
-     * @var string
-     */
-    private $articleSeparator;
-
-    /**
-     * @var string
-     */
-    private $magazineSeparator;
-
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    private $newsletterBlockAdvertAssignments;
-
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    private $newsletterBlockArticleAssignments;
-
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    private $newsletterBlockMagazineAssignments;
-
-    /**
-     * @var \AppBundle\Entity\Main\NewsletterPage
-     */
-    private $newsletterPage;
-
-    /**
-     * @var \AppBundle\Entity\Main\NewsletterBlockTemplate
-     */
-    private $newsletterBlockTemplate;
-
-
-    /**
-     * Set name
-     *
-     * @param string $name
-     *
-     * @return NewsletterBlock
-     */
-    public function setName($name)
-    {
-        $this->name = $name;
-
-        return $this;
-    }
-
-    /**
-     * Get name
-     *
-     * @return string
-     */
-    public function getName()
-    {
-        return $this->name;
-    }
-
-    /**
-     * Set subname
-     *
-     * @param string $subname
-     *
-     * @return NewsletterBlock
-     */
-    public function setSubname($subname)
-    {
-        $this->subname = $subname;
-
-        return $this;
-    }
-
-    /**
-     * Get subname
-     *
-     * @return string
-     */
-    public function getSubname()
-    {
-        return $this->subname;
-    }
-
-    /**
-     * Set showTitle
-     *
-     * @param boolean $showTitle
-     *
-     * @return NewsletterBlock
-     */
-    public function setShowTitle($showTitle)
-    {
-        $this->showTitle = $showTitle;
-
-        return $this;
-    }
-
-    /**
-     * Get showTitle
-     *
-     * @return boolean
-     */
-    public function getShowTitle()
-    {
-        return $this->showTitle;
-    }
-
-    /**
-     * Set orderNumber
-     *
-     * @param integer $orderNumber
-     *
-     * @return NewsletterBlock
-     */
-    public function setOrderNumber($orderNumber)
-    {
-        $this->orderNumber = $orderNumber;
-
-        return $this;
-    }
-
-    /**
-     * Get orderNumber
-     *
-     * @return integer
-     */
-    public function getOrderNumber()
-    {
-        return $this->orderNumber;
-    }
-
-    /**
-     * Set xAdvertRatio
-     *
-     * @param integer $xAdvertRatio
-     *
-     * @return NewsletterBlock
-     */
-    public function setXAdvertRatio($xAdvertRatio)
-    {
-        $this->xAdvertRatio = $xAdvertRatio;
-
-        return $this;
-    }
-
-    /**
-     * Get xAdvertRatio
-     *
-     * @return integer
-     */
-    public function getXAdvertRatio()
-    {
-        return $this->xAdvertRatio;
-    }
-
-    /**
-     * Set yAdvertRatio
-     *
-     * @param integer $yAdvertRatio
-     *
-     * @return NewsletterBlock
-     */
-    public function setYAdvertRatio($yAdvertRatio)
-    {
-        $this->yAdvertRatio = $yAdvertRatio;
-
-        return $this;
-    }
-
-    /**
-     * Get yAdvertRatio
-     *
-     * @return integer
-     */
-    public function getYAdvertRatio()
-    {
-        return $this->yAdvertRatio;
-    }
-
-    /**
-     * Set xArticleRatio
-     *
-     * @param integer $xArticleRatio
-     *
-     * @return NewsletterBlock
-     */
-    public function setXArticleRatio($xArticleRatio)
-    {
-        $this->xArticleRatio = $xArticleRatio;
-
-        return $this;
-    }
-
-    /**
-     * Get xArticleRatio
-     *
-     * @return integer
-     */
-    public function getXArticleRatio()
-    {
-        return $this->xArticleRatio;
-    }
-
-    /**
-     * Set yArticleRatio
-     *
-     * @param integer $yArticleRatio
-     *
-     * @return NewsletterBlock
-     */
-    public function setYArticleRatio($yArticleRatio)
-    {
-        $this->yArticleRatio = $yArticleRatio;
-
-        return $this;
-    }
-
-    /**
-     * Get yArticleRatio
-     *
-     * @return integer
-     */
-    public function getYArticleRatio()
-    {
-        return $this->yArticleRatio;
-    }
-
-    /**
-     * Set xMagazineRatio
-     *
-     * @param integer $xMagazineRatio
-     *
-     * @return NewsletterBlock
-     */
-    public function setXMagazineRatio($xMagazineRatio)
-    {
-        $this->xMagazineRatio = $xMagazineRatio;
-
-        return $this;
-    }
-
-    /**
-     * Get xMagazineRatio
-     *
-     * @return integer
-     */
-    public function getXMagazineRatio()
-    {
-        return $this->xMagazineRatio;
-    }
-
-    /**
-     * Set yMagazineRatio
-     *
-     * @param integer $yMagazineRatio
-     *
-     * @return NewsletterBlock
-     */
-    public function setYMagazineRatio($yMagazineRatio)
-    {
-        $this->yMagazineRatio = $yMagazineRatio;
-
-        return $this;
-    }
-
-    /**
-     * Get yMagazineRatio
-     *
-     * @return integer
-     */
-    public function getYMagazineRatio()
-    {
-        return $this->yMagazineRatio;
-    }
-
-    /**
-     * Set magazinePadding
-     *
-     * @param integer $magazinePadding
-     *
-     * @return NewsletterBlock
-     */
-    public function setMagazinePadding($magazinePadding)
-    {
-        $this->magazinePadding = $magazinePadding;
-
-        return $this;
-    }
-
-    /**
-     * Get magazinePadding
-     *
-     * @return integer
-     */
-    public function getMagazinePadding()
-    {
-        return $this->magazinePadding;
-    }
-
-    /**
-     * Set articleSeparator
-     *
-     * @param string $articleSeparator
-     *
-     * @return NewsletterBlock
-     */
-    public function setArticleSeparator($articleSeparator)
-    {
-        $this->articleSeparator = $articleSeparator;
-
-        return $this;
-    }
-
-    /**
-     * Get articleSeparator
-     *
-     * @return string
-     */
-    public function getArticleSeparator()
-    {
-        return $this->articleSeparator;
-    }
-
-    /**
-     * Set magazineSeparator
-     *
-     * @param string $magazineSeparator
-     *
-     * @return NewsletterBlock
-     */
-    public function setMagazineSeparator($magazineSeparator)
-    {
-        $this->magazineSeparator = $magazineSeparator;
-
-        return $this;
-    }
-
-    /**
-     * Get magazineSeparator
-     *
-     * @return string
-     */
-    public function getMagazineSeparator()
-    {
-        return $this->magazineSeparator;
-    }
-
-    /**
-     * Add newsletterBlockAdvertAssignment
-     *
-     * @param \AppBundle\Entity\Assignments\NewsletterBlockAdvertAssignment $newsletterBlockAdvertAssignment
-     *
-     * @return NewsletterBlock
-     */
-    public function addNewsletterBlockAdvertAssignment(\AppBundle\Entity\Assignments\NewsletterBlockAdvertAssignment $newsletterBlockAdvertAssignment)
-    {
-        $this->newsletterBlockAdvertAssignments[] = $newsletterBlockAdvertAssignment;
-
-        return $this;
-    }
-
-    /**
-     * Remove newsletterBlockAdvertAssignment
-     *
-     * @param \AppBundle\Entity\Assignments\NewsletterBlockAdvertAssignment $newsletterBlockAdvertAssignment
-     */
-    public function removeNewsletterBlockAdvertAssignment(\AppBundle\Entity\Assignments\NewsletterBlockAdvertAssignment $newsletterBlockAdvertAssignment)
-    {
-        $this->newsletterBlockAdvertAssignments->removeElement($newsletterBlockAdvertAssignment);
-    }
-
-    /**
-     * Get newsletterBlockAdvertAssignments
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getNewsletterBlockAdvertAssignments()
-    {
-        return $this->newsletterBlockAdvertAssignments;
-    }
-
-    /**
-     * Add newsletterBlockArticleAssignment
-     *
-     * @param \AppBundle\Entity\Assignments\NewsletterBlockArticleAssignment $newsletterBlockArticleAssignment
-     *
-     * @return NewsletterBlock
-     */
-    public function addNewsletterBlockArticleAssignment(\AppBundle\Entity\Assignments\NewsletterBlockArticleAssignment $newsletterBlockArticleAssignment)
-    {
-        $this->newsletterBlockArticleAssignments[] = $newsletterBlockArticleAssignment;
-
-        return $this;
-    }
-
-    /**
-     * Remove newsletterBlockArticleAssignment
-     *
-     * @param \AppBundle\Entity\Assignments\NewsletterBlockArticleAssignment $newsletterBlockArticleAssignment
-     */
-    public function removeNewsletterBlockArticleAssignment(\AppBundle\Entity\Assignments\NewsletterBlockArticleAssignment $newsletterBlockArticleAssignment)
-    {
-        $this->newsletterBlockArticleAssignments->removeElement($newsletterBlockArticleAssignment);
-    }
-
-    /**
-     * Get newsletterBlockArticleAssignments
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getNewsletterBlockArticleAssignments()
-    {
-        return $this->newsletterBlockArticleAssignments;
-    }
-
-    /**
-     * Add newsletterBlockMagazineAssignment
-     *
-     * @param \AppBundle\Entity\Assignments\NewsletterBlockMagazineAssignment $newsletterBlockMagazineAssignment
-     *
-     * @return NewsletterBlock
-     */
-    public function addNewsletterBlockMagazineAssignment(\AppBundle\Entity\Assignments\NewsletterBlockMagazineAssignment $newsletterBlockMagazineAssignment)
-    {
-        $this->newsletterBlockMagazineAssignments[] = $newsletterBlockMagazineAssignment;
-
-        return $this;
-    }
-
-    /**
-     * Remove newsletterBlockMagazineAssignment
-     *
-     * @param \AppBundle\Entity\Assignments\NewsletterBlockMagazineAssignment $newsletterBlockMagazineAssignment
-     */
-    public function removeNewsletterBlockMagazineAssignment(\AppBundle\Entity\Assignments\NewsletterBlockMagazineAssignment $newsletterBlockMagazineAssignment)
-    {
-        $this->newsletterBlockMagazineAssignments->removeElement($newsletterBlockMagazineAssignment);
-    }
-
-    /**
-     * Get newsletterBlockMagazineAssignments
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getNewsletterBlockMagazineAssignments()
-    {
-        return $this->newsletterBlockMagazineAssignments;
-    }
-
-    /**
-     * Set newsletterPage
-     *
-     * @param \AppBundle\Entity\Main\NewsletterPage $newsletterPage
-     *
-     * @return NewsletterBlock
-     */
-    public function setNewsletterPage(\AppBundle\Entity\Main\NewsletterPage $newsletterPage = null)
-    {
-        $this->newsletterPage = $newsletterPage;
-
-        return $this;
-    }
-
-    /**
-     * Get newsletterPage
-     *
-     * @return \AppBundle\Entity\Main\NewsletterPage
-     */
-    public function getNewsletterPage()
-    {
-        return $this->newsletterPage;
-    }
-
-    /**
-     * Set newsletterBlockTemplate
-     *
-     * @param \AppBundle\Entity\Main\NewsletterBlockTemplate $newsletterBlockTemplate
-     *
-     * @return NewsletterBlock
-     */
-    public function setNewsletterBlockTemplate(\AppBundle\Entity\Main\NewsletterBlockTemplate $newsletterBlockTemplate = null)
-    {
-        $this->newsletterBlockTemplate = $newsletterBlockTemplate;
-
-        return $this;
-    }
-
-    /**
-     * Get newsletterBlockTemplate
-     *
-     * @return \AppBundle\Entity\Main\NewsletterBlockTemplate
-     */
-    public function getNewsletterBlockTemplate()
-    {
-        return $this->newsletterBlockTemplate;
-    }
+	/**
+	 *
+	 * @var string
+	 */
+	private $name;
+
+	/**
+	 *
+	 * @var string
+	 */
+	private $subname;
+
+	/**
+	 *
+	 * @var boolean
+	 */
+	private $showTitle;
+
+	/**
+	 *
+	 * @var integer
+	 */
+	private $orderNumber;
+
+	/**
+	 *
+	 * @var integer
+	 */
+	private $xAdvertRatio;
+
+	/**
+	 *
+	 * @var integer
+	 */
+	private $yAdvertRatio;
+
+	/**
+	 *
+	 * @var integer
+	 */
+	private $xArticleRatio;
+
+	/**
+	 *
+	 * @var integer
+	 */
+	private $yArticleRatio;
+
+	/**
+	 *
+	 * @var integer
+	 */
+	private $xMagazineRatio;
+
+	/**
+	 *
+	 * @var integer
+	 */
+	private $yMagazineRatio;
+
+	/**
+	 *
+	 * @var integer
+	 */
+	private $magazinePadding;
+
+	/**
+	 *
+	 * @var string
+	 */
+	private $articleSeparator;
+
+	/**
+	 *
+	 * @var string
+	 */
+	private $magazineSeparator;
+
+	/**
+	 *
+	 * @var \Doctrine\Common\Collections\Collection
+	 */
+	private $newsletterBlockAdvertAssignments;
+
+	/**
+	 *
+	 * @var \Doctrine\Common\Collections\Collection
+	 */
+	private $newsletterBlockArticleAssignments;
+
+	/**
+	 *
+	 * @var \Doctrine\Common\Collections\Collection
+	 */
+	private $newsletterBlockMagazineAssignments;
+
+	/**
+	 *
+	 * @var \AppBundle\Entity\Main\NewsletterPage
+	 */
+	private $newsletterPage;
+
+	/**
+	 *
+	 * @var \AppBundle\Entity\Main\NewsletterBlockTemplate
+	 */
+	private $newsletterBlockTemplate;
+
+	/**
+	 * Set name
+	 *
+	 * @param string $name        	
+	 *
+	 * @return NewsletterBlock
+	 */
+	public function setName($name) {
+		$this->name = $name;
+		
+		return $this;
+	}
+
+	/**
+	 * Get name
+	 *
+	 * @return string
+	 */
+	public function getName() {
+		return $this->name;
+	}
+
+	/**
+	 * Set subname
+	 *
+	 * @param string $subname        	
+	 *
+	 * @return NewsletterBlock
+	 */
+	public function setSubname($subname) {
+		$this->subname = $subname;
+		
+		return $this;
+	}
+
+	/**
+	 * Get subname
+	 *
+	 * @return string
+	 */
+	public function getSubname() {
+		return $this->subname;
+	}
+
+	/**
+	 * Set showTitle
+	 *
+	 * @param boolean $showTitle        	
+	 *
+	 * @return NewsletterBlock
+	 */
+	public function setShowTitle($showTitle) {
+		$this->showTitle = $showTitle;
+		
+		return $this;
+	}
+
+	/**
+	 * Get showTitle
+	 *
+	 * @return boolean
+	 */
+	public function getShowTitle() {
+		return $this->showTitle;
+	}
+
+	/**
+	 * Set orderNumber
+	 *
+	 * @param integer $orderNumber        	
+	 *
+	 * @return NewsletterBlock
+	 */
+	public function setOrderNumber($orderNumber) {
+		$this->orderNumber = $orderNumber;
+		
+		return $this;
+	}
+
+	/**
+	 * Get orderNumber
+	 *
+	 * @return integer
+	 */
+	public function getOrderNumber() {
+		return $this->orderNumber;
+	}
+
+	/**
+	 * Set xAdvertRatio
+	 *
+	 * @param integer $xAdvertRatio        	
+	 *
+	 * @return NewsletterBlock
+	 */
+	public function setXAdvertRatio($xAdvertRatio) {
+		$this->xAdvertRatio = $xAdvertRatio;
+		
+		return $this;
+	}
+
+	/**
+	 * Get xAdvertRatio
+	 *
+	 * @return integer
+	 */
+	public function getXAdvertRatio() {
+		return $this->xAdvertRatio;
+	}
+
+	/**
+	 * Set yAdvertRatio
+	 *
+	 * @param integer $yAdvertRatio        	
+	 *
+	 * @return NewsletterBlock
+	 */
+	public function setYAdvertRatio($yAdvertRatio) {
+		$this->yAdvertRatio = $yAdvertRatio;
+		
+		return $this;
+	}
+
+	/**
+	 * Get yAdvertRatio
+	 *
+	 * @return integer
+	 */
+	public function getYAdvertRatio() {
+		return $this->yAdvertRatio;
+	}
+
+	/**
+	 * Set xArticleRatio
+	 *
+	 * @param integer $xArticleRatio        	
+	 *
+	 * @return NewsletterBlock
+	 */
+	public function setXArticleRatio($xArticleRatio) {
+		$this->xArticleRatio = $xArticleRatio;
+		
+		return $this;
+	}
+
+	/**
+	 * Get xArticleRatio
+	 *
+	 * @return integer
+	 */
+	public function getXArticleRatio() {
+		return $this->xArticleRatio;
+	}
+
+	/**
+	 * Set yArticleRatio
+	 *
+	 * @param integer $yArticleRatio        	
+	 *
+	 * @return NewsletterBlock
+	 */
+	public function setYArticleRatio($yArticleRatio) {
+		$this->yArticleRatio = $yArticleRatio;
+		
+		return $this;
+	}
+
+	/**
+	 * Get yArticleRatio
+	 *
+	 * @return integer
+	 */
+	public function getYArticleRatio() {
+		return $this->yArticleRatio;
+	}
+
+	/**
+	 * Set xMagazineRatio
+	 *
+	 * @param integer $xMagazineRatio        	
+	 *
+	 * @return NewsletterBlock
+	 */
+	public function setXMagazineRatio($xMagazineRatio) {
+		$this->xMagazineRatio = $xMagazineRatio;
+		
+		return $this;
+	}
+
+	/**
+	 * Get xMagazineRatio
+	 *
+	 * @return integer
+	 */
+	public function getXMagazineRatio() {
+		return $this->xMagazineRatio;
+	}
+
+	/**
+	 * Set yMagazineRatio
+	 *
+	 * @param integer $yMagazineRatio        	
+	 *
+	 * @return NewsletterBlock
+	 */
+	public function setYMagazineRatio($yMagazineRatio) {
+		$this->yMagazineRatio = $yMagazineRatio;
+		
+		return $this;
+	}
+
+	/**
+	 * Get yMagazineRatio
+	 *
+	 * @return integer
+	 */
+	public function getYMagazineRatio() {
+		return $this->yMagazineRatio;
+	}
+
+	/**
+	 * Set magazinePadding
+	 *
+	 * @param integer $magazinePadding        	
+	 *
+	 * @return NewsletterBlock
+	 */
+	public function setMagazinePadding($magazinePadding) {
+		$this->magazinePadding = $magazinePadding;
+		
+		return $this;
+	}
+
+	/**
+	 * Get magazinePadding
+	 *
+	 * @return integer
+	 */
+	public function getMagazinePadding() {
+		return $this->magazinePadding;
+	}
+
+	/**
+	 * Set articleSeparator
+	 *
+	 * @param string $articleSeparator        	
+	 *
+	 * @return NewsletterBlock
+	 */
+	public function setArticleSeparator($articleSeparator) {
+		$this->articleSeparator = $articleSeparator;
+		
+		return $this;
+	}
+
+	/**
+	 * Get articleSeparator
+	 *
+	 * @return string
+	 */
+	public function getArticleSeparator() {
+		return $this->articleSeparator;
+	}
+
+	/**
+	 * Set magazineSeparator
+	 *
+	 * @param string $magazineSeparator        	
+	 *
+	 * @return NewsletterBlock
+	 */
+	public function setMagazineSeparator($magazineSeparator) {
+		$this->magazineSeparator = $magazineSeparator;
+		
+		return $this;
+	}
+
+	/**
+	 * Get magazineSeparator
+	 *
+	 * @return string
+	 */
+	public function getMagazineSeparator() {
+		return $this->magazineSeparator;
+	}
+
+	/**
+	 * Add newsletterBlockAdvertAssignment
+	 *
+	 * @param \AppBundle\Entity\Assignments\NewsletterBlockAdvertAssignment $newsletterBlockAdvertAssignment        	
+	 *
+	 * @return NewsletterBlock
+	 */
+	public function addNewsletterBlockAdvertAssignment(
+			\AppBundle\Entity\Assignments\NewsletterBlockAdvertAssignment $newsletterBlockAdvertAssignment) {
+		$this->newsletterBlockAdvertAssignments[] = $newsletterBlockAdvertAssignment;
+		
+		return $this;
+	}
+
+	/**
+	 * Remove newsletterBlockAdvertAssignment
+	 *
+	 * @param \AppBundle\Entity\Assignments\NewsletterBlockAdvertAssignment $newsletterBlockAdvertAssignment        	
+	 */
+	public function removeNewsletterBlockAdvertAssignment(
+			\AppBundle\Entity\Assignments\NewsletterBlockAdvertAssignment $newsletterBlockAdvertAssignment) {
+		$this->newsletterBlockAdvertAssignments->removeElement($newsletterBlockAdvertAssignment);
+	}
+
+	/**
+	 * Get newsletterBlockAdvertAssignments
+	 *
+	 * @return \Doctrine\Common\Collections\Collection
+	 */
+	public function getNewsletterBlockAdvertAssignments() {
+		return $this->newsletterBlockAdvertAssignments;
+	}
+
+	/**
+	 * Add newsletterBlockArticleAssignment
+	 *
+	 * @param \AppBundle\Entity\Assignments\NewsletterBlockArticleAssignment $newsletterBlockArticleAssignment        	
+	 *
+	 * @return NewsletterBlock
+	 */
+	public function addNewsletterBlockArticleAssignment(
+			\AppBundle\Entity\Assignments\NewsletterBlockArticleAssignment $newsletterBlockArticleAssignment) {
+		$this->newsletterBlockArticleAssignments[] = $newsletterBlockArticleAssignment;
+		
+		return $this;
+	}
+
+	/**
+	 * Remove newsletterBlockArticleAssignment
+	 *
+	 * @param \AppBundle\Entity\Assignments\NewsletterBlockArticleAssignment $newsletterBlockArticleAssignment        	
+	 */
+	public function removeNewsletterBlockArticleAssignment(
+			\AppBundle\Entity\Assignments\NewsletterBlockArticleAssignment $newsletterBlockArticleAssignment) {
+		$this->newsletterBlockArticleAssignments->removeElement($newsletterBlockArticleAssignment);
+	}
+
+	/**
+	 * Get newsletterBlockArticleAssignments
+	 *
+	 * @return \Doctrine\Common\Collections\Collection
+	 */
+	public function getNewsletterBlockArticleAssignments() {
+		return $this->newsletterBlockArticleAssignments;
+	}
+
+	/**
+	 * Add newsletterBlockMagazineAssignment
+	 *
+	 * @param \AppBundle\Entity\Assignments\NewsletterBlockMagazineAssignment $newsletterBlockMagazineAssignment        	
+	 *
+	 * @return NewsletterBlock
+	 */
+	public function addNewsletterBlockMagazineAssignment(
+			\AppBundle\Entity\Assignments\NewsletterBlockMagazineAssignment $newsletterBlockMagazineAssignment) {
+		$this->newsletterBlockMagazineAssignments[] = $newsletterBlockMagazineAssignment;
+		
+		return $this;
+	}
+
+	/**
+	 * Remove newsletterBlockMagazineAssignment
+	 *
+	 * @param \AppBundle\Entity\Assignments\NewsletterBlockMagazineAssignment $newsletterBlockMagazineAssignment        	
+	 */
+	public function removeNewsletterBlockMagazineAssignment(
+			\AppBundle\Entity\Assignments\NewsletterBlockMagazineAssignment $newsletterBlockMagazineAssignment) {
+		$this->newsletterBlockMagazineAssignments->removeElement($newsletterBlockMagazineAssignment);
+	}
+
+	/**
+	 * Get newsletterBlockMagazineAssignments
+	 *
+	 * @return \Doctrine\Common\Collections\Collection
+	 */
+	public function getNewsletterBlockMagazineAssignments() {
+		return $this->newsletterBlockMagazineAssignments;
+	}
+
+	/**
+	 * Set newsletterPage
+	 *
+	 * @param \AppBundle\Entity\Main\NewsletterPage $newsletterPage        	
+	 *
+	 * @return NewsletterBlock
+	 */
+	public function setNewsletterPage(\AppBundle\Entity\Main\NewsletterPage $newsletterPage = null) {
+		$this->newsletterPage = $newsletterPage;
+		
+		return $this;
+	}
+
+	/**
+	 * Get newsletterPage
+	 *
+	 * @return \AppBundle\Entity\Main\NewsletterPage
+	 */
+	public function getNewsletterPage() {
+		return $this->newsletterPage;
+	}
+
+	/**
+	 * Set newsletterBlockTemplate
+	 *
+	 * @param \AppBundle\Entity\Main\NewsletterBlockTemplate $newsletterBlockTemplate        	
+	 *
+	 * @return NewsletterBlock
+	 */
+	public function setNewsletterBlockTemplate(
+			\AppBundle\Entity\Main\NewsletterBlockTemplate $newsletterBlockTemplate = null) {
+		$this->newsletterBlockTemplate = $newsletterBlockTemplate;
+		
+		return $this;
+	}
+
+	/**
+	 * Get newsletterBlockTemplate
+	 *
+	 * @return \AppBundle\Entity\Main\NewsletterBlockTemplate
+	 */
+	public function getNewsletterBlockTemplate() {
+		return $this->newsletterBlockTemplate;
+	}
 }

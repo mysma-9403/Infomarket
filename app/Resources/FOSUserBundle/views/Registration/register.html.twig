@@ -1,53 +1,49 @@
-{% extends "FOSUserBundle::layout.html.twig" %}
+{% extends "FOSUserBundle::layout.html.twig" %} {% trans_default_domain
+'FOSUserBundle' %} {% set title = 'label.register' %} {% block
+fos_user_content %} {% form_theme form 'form/fields.html.twig' %}
 
-{% trans_default_domain 'FOSUserBundle' %}
+<div class="form-register">
+	{{ form_start(form, {'method': 'post', 'action':
+	path('fos_user_registration_register'), 'attr': {'class':
+	'fos_user_registration_register'}}) }}
 
-{% set title = 'label.register' %}
+	<h2 class="form-signin-heading">{{ 'layout.register'|trans }}</h2>
 
-{% block fos_user_content %}
-	{% form_theme form 'form/fields.html.twig' %}
-	
-	<div class="form-register">
-		{{ form_start(form, {'method': 'post', 'action': path('fos_user_registration_register'), 'attr': {'class': 'fos_user_registration_register'}}) }}
-			
-			<h2 class="form-signin-heading">{{ 'layout.register'|trans }}</h2>
-			
-			{{ form_row(form.username) }}
-			{{ form_row(form.email) }}
-			{{ form_row(form.plainPassword) }}
-			
-			<h3 class="form-signin-heading">{{ 'register.addressData'|trans }}</h3>
-			
-			<p>
-				{{ 'register.info1'|trans }}
-			</p>
-			<p>
-				<b>{{ 'register.info2'|trans }}</b>
-			</p>
-			
-			{{ form_row(form.forename, { 'label': 'label.user.forename' }) }}
-			{{ form_row(form.surname, { 'label': 'label.user.surname' }) }}
-			
-			{{ form_row(form.street, { 'label': 'label.user.street' }) }}
-			{{ form_row(form.zipCode, { 'label': 'label.user.zipCode' }) }}
-			{{ form_row(form.city, { 'label': 'label.user.city' }) }}
-			
-			{{ form_row(form.digitalSubscription, { 'label': 'label.user.digitalSubscription' }) }}
-			{{ form_row(form.physicalSubscription, { 'label': 'label.user.physicalSubscription' }) }}
-			{{ form_row(form.dataProcessingAgreement, { 'label': 'label.user.dataProcessingAgreement' }) }}
-		    
-		    <div>
-		        <input class="btn btn-success btn-block" type="submit" value="{{ 'registration.submit'|trans }}" />
-		    </div>
-		    
-		{{ form_end(form) }}
-	
-		<div class="row">
-			<div class="col-xs-12">
-				<a class="btn btn-primary btn-block lowered" href="{{ path('fos_user_security_login') }}">
-					{{ 'layout.login'|trans }}
-				</a>
-			</div>
+	{{ form_row(form.username) }} {{ form_row(form.email) }} {{
+	form_row(form.plainPassword) }}
+
+	<h3 class="form-signin-heading">{{ 'register.addressData'|trans }}</h3>
+
+	<p>{{ 'register.info1'|trans }}</p>
+	<p>
+		<b>{{ 'register.info2'|trans }}</b>
+	</p>
+
+	{{ form_row(form.forename, { 'label': 'label.user.forename' }) }} {{
+	form_row(form.surname, { 'label': 'label.user.surname' }) }} {{
+	form_row(form.street, { 'label': 'label.user.street' }) }} {{
+	form_row(form.zipCode, { 'label': 'label.user.zipCode' }) }} {{
+	form_row(form.city, { 'label': 'label.user.city' }) }} {{
+	form_row(form.digitalSubscription, { 'label':
+	'label.user.digitalSubscription' }) }} {{
+	form_row(form.physicalSubscription, { 'label':
+	'label.user.physicalSubscription' }) }} {{
+	form_row(form.dataProcessingAgreement, { 'label':
+	'label.user.dataProcessingAgreement' }) }}
+
+	<div>
+		<input class="btn btn-success btn-block" type="submit"
+			value="{{ 'registration.submit'|trans }}" />
+	</div>
+
+	{{ form_end(form) }}
+
+	<div class="row">
+		<div class="col-xs-12">
+			<a class="btn btn-primary btn-block lowered"
+				href="{{ path('fos_user_security_login') }}"> {{
+				'layout.login'|trans }} </a>
 		</div>
 	</div>
+</div>
 {% endblock %}

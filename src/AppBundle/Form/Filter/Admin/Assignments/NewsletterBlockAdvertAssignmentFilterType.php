@@ -18,8 +18,8 @@ class NewsletterBlockAdvertAssignmentFilterType extends SimpleFilterType {
 	protected function getDefaultOptions() {
 		$options = parent::getDefaultOptions();
 		
-		$options[$this->getChoicesName('newsletterBlocks')] = [ ];
-		$options[$this->getChoicesName('adverts')] = [ ];
+		$options[$this->getChoicesName('newsletterBlocks')] = [];
+		$options[$this->getChoicesName('adverts')] = [];
 		
 		return $options;
 	}

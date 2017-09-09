@@ -215,7 +215,7 @@ class CategoryRepository extends BaseRepository {
 	}
 
 	protected function getContextParents($treePath) {
-		$items = array ();
+		$items = array();
 		
 		$parts = explode('#', $treePath);
 		foreach ($parts as $part) {

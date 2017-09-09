@@ -4,55 +4,79 @@ namespace Tests\AppBundle\Form\Filter\Admin\Main;
 
 use AppBundle\Filter\Common\Main\ArticleFilter;
 use AppBundle\Form\Filter\Admin\Main\ArticleFilterType;
-use Tests\AppBundle\Form\Filter\Admin\Base\BaseFilterTypeTest;
+use Tests\AppBundle\Form\Filter\Admin\Base\SimpleFilterTypeTest;
 
-class ArticleFilterTypeTest extends BaseFilterTypeTest {
-		
+class ArticleFilterTypeTest extends SimpleFilterTypeTest {
+
 	const NAME = '*name*';
+
 	const SUBNAME = '*subname*';
-	
+
 	const INFOMARKET_FALSE = 0;
+
 	const INFOMARKET_TRUE = 1;
+
 	const INFOMARKET_ALL = 2;
+
 	const INFOMARKET_CHOICES = [self::INFOMARKET_FALSE, self::INFOMARKET_TRUE, self::INFOMARKET_ALL];
+
 	const INFOMARKET_SELECTED = self::INFOMARKET_TRUE;
-	
+
 	const INFOPRODUKT_FALSE = 0;
+
 	const INFOPRODUKT_TRUE = 1;
+
 	const INFOPRODUKT_ALL = 2;
+
 	const INFOPRODUKT_CHOICES = [self::INFOPRODUKT_FALSE, self::INFOPRODUKT_TRUE, self::INFOPRODUKT_ALL];
+
 	const INFOPRODUKT_SELECTED = self::INFOPRODUKT_TRUE;
-	
+
 	const FEATURED_FALSE = 0;
+
 	const FEATURED_TRUE = 1;
+
 	const FEATURED_ALL = 2;
+
 	const FEATURED_CHOICES = [self::FEATURED_FALSE, self::FEATURED_TRUE, self::FEATURED_ALL];
+
 	const FEATURED_SELECTED = self::FEATURED_TRUE;
-	
+
 	const BRAND_1 = 101;
+
 	const BRAND_2 = 102;
+
 	const BRAND_3 = 103;
+
 	const BRAND_CHOICES = [self::BRAND_1, self::BRAND_2, self::BRAND_3];
+
 	const BRAND_SELECTED = [self::BRAND_2, self::BRAND_3];
-	
+
 	const CATEGORY_1 = 201;
+
 	const CATEGORY_2 = 202;
+
 	const CATEGORY_3 = 203;
+
 	const CATEGORY_CHOICES = [self::CATEGORY_1, self::CATEGORY_2, self::CATEGORY_3];
+
 	const CATEGORY_SELECTED = [self::CATEGORY_2, self::CATEGORY_3];
-	
+
 	const ARTICLE_CATEGORY_1 = 101;
+
 	const ARTICLE_CATEGORY_2 = 102;
+
 	const ARTICLE_CATEGORY_3 = 103;
-	const ARTICLE_CATEGORY_CHOICES = [self::ARTICLE_CATEGORY_1, self::ARTICLE_CATEGORY_2, self::ARTICLE_CATEGORY_3];
+
+	const ARTICLE_CATEGORY_CHOICES = [self::ARTICLE_CATEGORY_1, self::ARTICLE_CATEGORY_2, 
+			self::ARTICLE_CATEGORY_3];
+
 	const ARTICLE_CATEGORY_SELECTED = [self::ARTICLE_CATEGORY_2, self::ARTICLE_CATEGORY_3];
-	
-	
-	
+
 	protected function assertEntity($entity) {
-		/** @var ArticleFilter $entity */
 		parent::assertEntity($entity);
 		
+		/** @var ArticleFilter $entity */
 		$this->assertSame(self::NAME, $entity->getName());
 		$this->assertSame(self::SUBNAME, $entity->getSubname());
 		
@@ -64,10 +88,10 @@ class ArticleFilterTypeTest extends BaseFilterTypeTest {
 		$this->assertArray(self::CATEGORY_SELECTED, $entity->getCategories());
 		$this->assertArray(self::ARTICLE_CATEGORY_SELECTED, $entity->getArticleCategories());
 	}
-	
+
 	protected function getFormData() {
 		$data = parent::getFormData();
-	
+		
 		$data['name'] = self::NAME;
 		$data['subname'] = self::SUBNAME;
 		
@@ -81,7 +105,7 @@ class ArticleFilterTypeTest extends BaseFilterTypeTest {
 		
 		return $data;
 	}
-	
+
 	protected function getFormOptions() {
 		$options = parent::getFormOptions();
 		
@@ -92,14 +116,14 @@ class ArticleFilterTypeTest extends BaseFilterTypeTest {
 		$options[self::getChoicesName('brands')] = self::BRAND_CHOICES;
 		$options[self::getChoicesName('categories')] = self::CATEGORY_CHOICES;
 		$options[self::getChoicesName('articleCategories')] = self::ARTICLE_CATEGORY_CHOICES;
-	
+		
 		return $options;
 	}
-	
+
 	protected function getFormType() {
 		return ArticleFilterType::class;
 	}
-	
+
 	protected function getEntity() {
 		return new ArticleFilter();
 	}
