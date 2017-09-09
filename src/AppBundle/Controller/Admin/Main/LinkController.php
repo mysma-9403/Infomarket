@@ -109,6 +109,10 @@ class LinkController extends SimpleController {
 	// ------------------------------------------------------------------------
 	// Internal logic
 	// ------------------------------------------------------------------------
+	protected function getListItemsProvider() {
+		return $this->get('app.misc.provider.name_list_items_provider');
+	}
+	
 	protected function getFilterFormOptions() {
 		$options = parent::getFilterFormOptions();
 		

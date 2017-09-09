@@ -364,6 +364,10 @@ class NewsletterPageController extends SimpleController {
 	// ---------------------------------------------------------------------------
 	// Internal logic
 	// ---------------------------------------------------------------------------
+	protected function getListItemsProvider() {
+		return $this->get('app.misc.provider.subname_list_items_provider');
+	}
+
 	protected function getSendNewsletterFormParams(Request $request, array $params, $id) {
 		$params = $this->getShowParams($request, $params, $id);
 		

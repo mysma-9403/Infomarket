@@ -94,17 +94,6 @@ abstract class SimpleController extends BaseController {
 	}
 	
 	// ---------------------------------------------------------------------------
-	// Internal logic
-	// ---------------------------------------------------------------------------
-	protected function getListItemKeyFields($item) {
-		$fields = parent::getListItemKeyFields($item);
-		
-		$fields[] = $item['name'];
-		
-		return $fields;
-	}
-	
-	// ---------------------------------------------------------------------------
 	// Managers
 	// ---------------------------------------------------------------------------
 	protected function getFilterManager($doctrine) {

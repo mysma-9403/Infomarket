@@ -21,6 +21,7 @@ class UserRepository extends BaseRepository {
 		$fields[] = 'e.username';
 		$fields[] = 'e.surname';
 		$fields[] = 'e.forename';
+		$fields[] = 'e.pseudonym';
 		
 		return $fields;
 	}

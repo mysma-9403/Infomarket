@@ -27,6 +27,7 @@ class NewsletterPageRepository extends SimpleRepository {
 		$fields = parent::getSelectFields($builder, $filter);
 		
 		$fields[] = 'e.name';
+		$fields[] = 'e.subname';
 		
 		$fields[] = 'npt.id AS newsletterPageTemplateId';
 		$fields[] = 'npt.name AS newsletterPageTemplateName';

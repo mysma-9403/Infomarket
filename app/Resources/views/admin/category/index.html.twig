@@ -51,7 +51,7 @@
 
 {% block simpleEntryFields %}
 	{% include 'common/fields/table/simple_link_field.html.twig' with
-		{ type: 'category', id: item.id, name: item.name } %}
+		{ type: 'category', id: item.parentId, name: item.parentName} %}
 			
 	{% include 'common/fields/table/image_field.html.twig' with 
 		{ item: item } %}

@@ -88,6 +88,10 @@ class BenchmarkFieldController extends BaseController {
 	// ------------------------------------------------------------------------
 	// Internal logic
 	// ------------------------------------------------------------------------
+	protected function getListItemsProvider() {
+		return $this->get('app.misc.provider.benchmark_field_list_items_provider');
+	}
+	
 	protected function getFilterFormOptions() {
 		$options = parent::getFilterFormOptions();
 		
@@ -109,10 +113,6 @@ class BenchmarkFieldController extends BaseController {
 		$this->addFactoryChoicesFormOption($options, BenchmarkFieldNoteTypesFactory::class, 'noteType');
 		
 		return $options;
-	}
-
-	protected function getListItemKeyFields($item) {
-		return [$item['id'], $item['fieldName']];
 	}
 	
 	// ---------------------------------------------------------------------------

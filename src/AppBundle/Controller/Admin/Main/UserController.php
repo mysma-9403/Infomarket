@@ -3,6 +3,7 @@
 namespace AppBundle\Controller\Admin\Main;
 
 use AppBundle\Controller\Admin\Base\AdminController;
+use AppBundle\Controller\Admin\Base\BaseController;
 use AppBundle\Entity\Lists\BaseList;
 use AppBundle\Entity\Main\User;
 use AppBundle\Factory\Common\Choices\Enum\UserRolesFactory;
@@ -16,7 +17,7 @@ use AppBundle\Manager\Filter\Base\FilterManager;
 use AppBundle\Manager\Params\EntryParams\Admin\UserEntryParamsManager;
 use Symfony\Component\HttpFoundation\Request;
 
-class UserController extends AdminController {
+class UserController extends AdminController { //TODO switch to BaseController when ready
 	// ---------------------------------------------------------------------------
 	// Actions
 	// ---------------------------------------------------------------------------
@@ -118,13 +119,8 @@ class UserController extends AdminController {
 	// ---------------------------------------------------------------------------
 	// Internal logic
 	// ---------------------------------------------------------------------------
-	protected function getListItemKeyFields($item) {
-		$fields = parent::getListItemKeyFields($item);
-		
-		$fields[] = $item['surname'];
-		$fields[] = $item['forename'];
-		
-		return $fields;
+	protected function getListItemsProvider() {
+		return $this->get('app.misc.provider.username_list_items_provider');
 	}
 
 	protected function getEditorFormOptions() {

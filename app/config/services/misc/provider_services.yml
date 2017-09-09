@@ -1,0 +1,66 @@
+services:
+    # Value Providers
+    AppBundle\Misc\ValueProvider\:
+        resource: '../../../../src/AppBundle/Misc/ValueProvider/*'
+
+    # Values Providers
+    app.misc.provider.id_values_provider:
+        class: AppBundle\Misc\ValuesProvider\SimpleValuesProvider
+        arguments:
+            - '@AppBundle\Misc\ValueProvider\MandatoryValueProvider'
+            - '@AppBundle\Misc\ValueProvider\OptionalValueProvider'
+            - ['id']
+    app.misc.provider.name_values_provider:
+        class: AppBundle\Misc\ValuesProvider\SimpleValuesProvider
+        arguments:
+            - '@AppBundle\Misc\ValueProvider\MandatoryValueProvider'
+            - '@AppBundle\Misc\ValueProvider\OptionalValueProvider'
+            - ['id', 'name']
+    app.misc.provider.subname_values_provider:
+        class: AppBundle\Misc\ValuesProvider\SimpleValuesProvider
+        arguments:
+            - '@AppBundle\Misc\ValueProvider\MandatoryValueProvider'
+            - '@AppBundle\Misc\ValueProvider\OptionalValueProvider'
+            - ['id', 'name']
+            - ['subname']
+    
+    app.misc.provider.benchmark_field_values_provider:
+        class: AppBundle\Misc\ValuesProvider\SimpleValuesProvider
+        arguments:
+            - '@AppBundle\Misc\ValueProvider\MandatoryValueProvider'
+            - '@AppBundle\Misc\ValueProvider\OptionalValueProvider'
+            - ['id', 'fieldName']
+    app.misc.provider.username_values_provider:
+        class: AppBundle\Misc\ValuesProvider\SimpleValuesProvider
+        arguments:
+            - '@AppBundle\Misc\ValueProvider\MandatoryValueProvider'
+            - '@AppBundle\Misc\ValueProvider\OptionalValueProvider'
+            - ['id', 'username']
+                                
+    # List Items Providers
+    app.misc.provider.id_list_items_provider:
+      class: AppBundle\Misc\ListItemsProvider\IdListItemsProvider
+      arguments:
+          - '@app.misc.provider.id_values_provider'
+          - '@AppBundle\Misc\ValueProvider\MandatoryValueProvider'
+    app.misc.provider.name_list_items_provider:
+      class: AppBundle\Misc\ListItemsProvider\IdListItemsProvider
+      arguments:
+          - '@app.misc.provider.name_values_provider'
+          - '@AppBundle\Misc\ValueProvider\MandatoryValueProvider'
+    app.misc.provider.subname_list_items_provider:
+      class: AppBundle\Misc\ListItemsProvider\IdListItemsProvider
+      arguments:
+          - '@app.misc.provider.subname_values_provider'
+          - '@AppBundle\Misc\ValueProvider\MandatoryValueProvider'
+    
+    app.misc.provider.benchmark_field_list_items_provider:
+      class: AppBundle\Misc\ListItemsProvider\IdListItemsProvider
+      arguments:
+          - '@app.misc.provider.benchmark_field_values_provider'
+          - '@AppBundle\Misc\ValueProvider\MandatoryValueProvider'
+    app.misc.provider.username_list_items_provider:
+      class: AppBundle\Misc\ListItemsProvider\IdListItemsProvider
+      arguments:
+          - '@app.misc.provider.username_values_provider'
+          - '@AppBundle\Misc\ValueProvider\MandatoryValueProvider'

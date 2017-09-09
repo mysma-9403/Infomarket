@@ -28,8 +28,8 @@ class ProductManager extends EntityManager {
 		
 		$entry->setName($request->get('name'));
 		
-		$entry->setInfomarket($request->get('infomarket'));
-		$entry->setInfoprodukt($request->get('infoprodukt'));
+		$entry->setInfomarket($request->get('infomarket', false));
+		$entry->setInfoprodukt($request->get('infoprodukt', false));
 		
 		$entry->setBrand($this->paramsManager->getParamByClass($request, Brand::class));
 		

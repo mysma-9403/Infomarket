@@ -195,6 +195,10 @@ class ProductController extends ImageController {
 	// ---------------------------------------------------------------------------
 	// Internal logic
 	// ---------------------------------------------------------------------------
+	protected function getListItemsProvider() {
+		return $this->get('app.misc.provider.name_list_items_provider');
+	}
+
 	protected function initShowForms(Request $request, array &$params) {
 		$response = parent::initShowForms($request, $params);
 		if ($response)

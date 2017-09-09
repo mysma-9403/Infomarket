@@ -118,9 +118,13 @@ class TagController extends SimpleController {
 		return $this->setFeaturedActionInternal($request, $id);
 	}
 	
-	// ------------------------------------------------------------------------
+	// ---------------------------------------------------------------------------
 	// Internal logic
-	// ------------------------------------------------------------------------
+	// ---------------------------------------------------------------------------
+	protected function getListItemsProvider() {
+		return $this->get('app.misc.provider.name_list_items_provider');
+	}
+
 	protected function getFilterFormOptions() {
 		$options = parent::getFilterFormOptions();
 		

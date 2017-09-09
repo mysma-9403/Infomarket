@@ -115,6 +115,13 @@ class NewsletterPageTemplateController extends SimpleController {
 	}
 	
 	// ---------------------------------------------------------------------------
+	// Internal logic
+	// ---------------------------------------------------------------------------
+	protected function getListItemsProvider() {
+		return $this->get('app.misc.provider.subname_list_items_provider');
+	}
+	
+	// ---------------------------------------------------------------------------
 	// Managers
 	// ---------------------------------------------------------------------------
 	protected function getEntityManager($doctrine, $paginator) {

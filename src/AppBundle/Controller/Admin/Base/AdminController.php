@@ -7,6 +7,7 @@ use AppBundle\Filter\Base\Filter;
 use AppBundle\Filter\Common\Base\BaseFilter;
 use AppBundle\Manager\Params\Admin\ContextParamsManager;
 use AppBundle\Manager\Route\RouteManager;
+use AppBundle\Misc\ListItemsProvider\ListItemsProvider;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -228,7 +229,8 @@ abstract class AdminController extends StandardController {
 		$items = $viewParams['entries'];
 		$selectedEntries = $this->getSelectedEntries($filter, $items);
 		
-		$listItems = $this->getListItems($items);
+		$listItemsProvider = $this->getListItemsProvider();
+		$listItems = $listItemsProvider->getListItems($items);
 		
 		$form = $this->createForm($this->getListFormType(), $selectedEntries, 
 				$this->getListFormOptions($listItems));
@@ -381,19 +383,11 @@ abstract class AdminController extends StandardController {
 	// ---------------------------------------------------------------------------
 	// Internal logic
 	// ---------------------------------------------------------------------------
-	protected function getListItems($items) {
-		$listItems = array();
-		foreach ($items as $item) {
-			$key = implode(' ', $this->getListItemKeyFields($item));
-			$listItems[$key] = $item['id'];
-		}
-		return $listItems;
-	}
-
-	protected function getListItemKeyFields($item) {
-		return [$item['id']];
-	}
-
+	/**
+	 * @return ListItemsProvider
+	 */
+	protected abstract function getListItemsProvider();
+	
 	/**
 	 * Get entries selected by the list checkboxes.
 	 *

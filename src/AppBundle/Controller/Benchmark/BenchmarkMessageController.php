@@ -174,6 +174,10 @@ class BenchmarkMessageController extends BaseController {
 	// ---------------------------------------------------------------------------
 	// Internal logic
 	// ---------------------------------------------------------------------------
+	protected function getListItemsProvider() {
+		return $this->get('app.misc.provider.name_list_items_provider');
+	}
+	
 	protected function getFilterFormOptions() {
 		$options = [];
 		
@@ -183,14 +187,6 @@ class BenchmarkMessageController extends BaseController {
 		$this->addFactoryChoicesFormOption($options, ReadChoicesFactory::class, 'readByAuthor');
 		
 		return $options;
-	}
-
-	protected function getListItemKeyFields($item) {
-		$fields = parent::getListItemKeyFields($item);
-		
-		$fields[] = $item['name'];
-		
-		return $fields;
 	}
 
 	protected function setReadEntry(Request $request, $entry, $read = false) {

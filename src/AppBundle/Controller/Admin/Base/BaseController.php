@@ -21,16 +21,14 @@ abstract class BaseController extends AdminController {
 		
 		return $options;
 	}
+
+	protected function getListItemsProvider() {
+		return $this->get('app.misc.provider.id_list_items_provider');
+	}
 	
 	// ---------------------------------------------------------------------------
 	// Managers
 	// ---------------------------------------------------------------------------
-	/**
-	 *
-	 * {@inheritDoc}
-	 *
-	 * @see \AppBundle\Controller\Base\BaseController::getFilterManager()
-	 */
 	protected function getFilterManager($doctrine) {
 		return new FilterManager(new BaseFilter());
 	}
@@ -42,10 +40,6 @@ abstract class BaseController extends AdminController {
 		return new BaseList();
 	}
 
-	/**
-	 *
-	 * @return BaseListType
-	 */
 	protected function getListFormType() {
 		return BaseListType::class;
 	}

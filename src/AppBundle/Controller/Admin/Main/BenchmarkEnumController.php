@@ -84,8 +84,8 @@ class BenchmarkEnumController extends BaseController {
 	// ------------------------------------------------------------------------
 	// Internal logic
 	// ------------------------------------------------------------------------
-	protected function getListItemKeyFields($item) {
-		return [$item['id'], $item['name']];
+	protected function getListItemsProvider() {
+		return $this->get('app.misc.provider.name_list_items_provider');
 	}
 	
 	// ---------------------------------------------------------------------------

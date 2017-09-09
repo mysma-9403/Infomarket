@@ -109,6 +109,10 @@ class NewsletterBlockController extends SimpleController {
 	// ---------------------------------------------------------------------------
 	// Internal logic
 	// ---------------------------------------------------------------------------
+	protected function getListItemsProvider() {
+		return $this->get('app.misc.provider.subname_list_items_provider');
+	}
+	
 	protected function getFilterFormOptions() {
 		$options = parent::getFilterFormOptions();
 		
@@ -125,14 +129,6 @@ class NewsletterBlockController extends SimpleController {
 		$this->addEntityChoicesFormOption($options, NewsletterBlockTemplate::class, 'newsletterBlockTemplate');
 		
 		return $options;
-	}
-
-	protected function getListItemKeyFields($item) {
-		$fields = parent::getListItemKeyFields($item);
-		
-		$fields[] = $item['subname']; // TODO same as repository!! should be managed in one component!!
-		
-		return $fields;
 	}
 	
 	// ---------------------------------------------------------------------------

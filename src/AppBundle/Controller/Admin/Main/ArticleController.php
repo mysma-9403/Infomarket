@@ -312,12 +312,8 @@ class ArticleController extends FeaturedController {
 	// ---------------------------------------------------------------------------
 	// Internal logic
 	// ---------------------------------------------------------------------------
-	protected function getListItemKeyFields($item) {
-		$fields = parent::getListItemKeyFields($item);
-		
-		$fields[] = $item['subname'];
-		
-		return $fields;
+	protected function getListItemsProvider() {
+		return $this->get('app.misc.provider.subname_list_items_provider');
 	}
 
 	protected function getFilterFormOptions() {

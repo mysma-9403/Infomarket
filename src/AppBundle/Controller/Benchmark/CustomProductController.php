@@ -98,6 +98,10 @@ class CustomProductController extends ImageController {
 	// ---------------------------------------------------------------------------
 	// Internal logic
 	// ---------------------------------------------------------------------------
+	protected function getListItemsProvider() {
+		return $this->get('app.misc.provider.name_list_items_provider');
+	}
+
 	protected function initNewForms(Request $request, array &$params) {
 		$response = $this->initUpdateForm($request, $params);
 		if ($response)
