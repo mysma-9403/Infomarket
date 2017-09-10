@@ -10,6 +10,7 @@ use AppBundle\Manager\Route\RouteManager;
 use AppBundle\Misc\ListItemsProvider\ListItemsProvider;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Misc\FormOptions\Lists\ListFormOptionsProvider;
 
 abstract class AdminController extends StandardController {
 	
@@ -232,8 +233,10 @@ abstract class AdminController extends StandardController {
 		$listItemsProvider = $this->getListItemsProvider();
 		$listItems = $listItemsProvider->getListItems($items);
 		
-		$form = $this->createForm($this->getListFormType(), $selectedEntries, 
-				$this->getListFormOptions($listItems));
+		$listFormOptionsProvider = $this->getListFormOptionsProvider();
+		$formOptions = $listFormOptionsProvider->getFormOptions($listItems);
+		
+		$form = $this->createForm($this->getListFormType(), $selectedEntries, $formOptions);
 		$form->handleRequest($request);
 		
 		if ($form->isSubmitted() && $form->isValid()) {
@@ -364,12 +367,11 @@ abstract class AdminController extends StandardController {
 	// ---------------------------------------------------------------------------
 	// Form options
 	// ---------------------------------------------------------------------------
-	protected function getListFormOptions(array $listItems) {
-		$options = [];
-		
-		$this->addChoicesFormOption($options, $listItems, 'entries');
-		
-		return $options;
+	/**
+	 * @return ListFormOptionsProvider
+	 */
+	protected function getListFormOptionsProvider() {
+		return $this->get(ListFormOptionsProvider::class);
 	}
 
 	protected function getFilterFormOptions() {

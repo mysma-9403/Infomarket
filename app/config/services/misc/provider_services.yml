@@ -64,3 +64,6 @@ services:
       arguments:
           - '@app.misc.provider.username_values_provider'
           - '@AppBundle\Misc\ValueProvider\MandatoryValueProvider'
+          
+    # Form Options Providers
+    AppBundle\Misc\FormOptions\Lists\ListFormOptionsProvider: ~
