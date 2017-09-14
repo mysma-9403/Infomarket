@@ -1,9 +1,10 @@
 AppBundle\Entity\Main\NewsletterBlock:
     constraints:
         - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
-            fields: [name, subname]
+            fields: [name, subname, orderNumber, newsletterPage]
             errorPath: name
             ignoreNull: false
+            message: 'newsletterBlock.name.unique'
     properties:
         name:
             - NotBlank: ~

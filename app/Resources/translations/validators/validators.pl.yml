@@ -1,9 +1,12 @@
 # Simple validation
 article.name.notnull: Tytuł głównego artykułu nie może być pusty.
+article.name.unique: Podany tytuł jest już wykorzystywany w innym artykule lub podartykule.
 
 category.name.unique: Podana nazwa jest już wykorzystywana w innej podkategorii wybranej kategorii głównej.
 
 magazine.nameDate.unique: Połączenie nazwy i daty magazynu musi być unikalne.
+
+newsletterBlock.name.unique: Podana nazwa i numer porządkowy są już wykorzystywane w innym bloku wybranej strony.
 
 # Assignment uniqueness
 articleArticleCategoryAssignment.unique: Artykuł jest już powiązany z wybraną kategorią artykułów.

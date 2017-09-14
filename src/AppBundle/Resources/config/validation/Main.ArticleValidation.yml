@@ -1,9 +1,10 @@
 AppBundle\Entity\Main\Article:
     constraints:
         - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
-            fields: [name, subname]
+            fields: [name, subname, parent]
             errorPath: name
             ignoreNull: false
+            message: 'article.name.unique'
         - Callback: validate
     properties:
         name:
