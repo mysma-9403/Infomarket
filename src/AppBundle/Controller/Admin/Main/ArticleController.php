@@ -3,18 +3,10 @@
 namespace AppBundle\Controller\Admin\Main;
 
 use AppBundle\Controller\Admin\Base\FeaturedController;
+use AppBundle\Entity\Assignments\ArticleTagAssignment;
 use AppBundle\Entity\Main\Article;
-use AppBundle\Entity\Main\ArticleCategory;
-use AppBundle\Entity\Main\Brand;
-use AppBundle\Entity\Main\Category;
 use AppBundle\Entity\Main\Tag;
-use AppBundle\Entity\Main\User;
 use AppBundle\Entity\Other\ArticleTagAssignments;
-use AppBundle\Factory\Common\Choices\Bool\FeaturedChoicesFactory;
-use AppBundle\Factory\Common\Choices\Bool\InfomarketChoicesFactory;
-use AppBundle\Factory\Common\Choices\Bool\InfoproduktChoicesFactory;
-use AppBundle\Factory\Common\Choices\Enum\ArticleImageSizesFactory;
-use AppBundle\Factory\Common\Choices\Enum\ArticleLayoutsFactory;
 use AppBundle\Filter\Common\Main\ArticleFilter;
 use AppBundle\Form\Editor\Admin\Main\ArticleEditorType;
 use AppBundle\Form\Filter\Admin\Main\ArticleFilterType;
@@ -24,11 +16,11 @@ use AppBundle\Manager\Entity\Base\EntityManager;
 use AppBundle\Manager\Entity\Common\Main\ArticleManager;
 use AppBundle\Manager\Filter\Base\FilterManager;
 use AppBundle\Manager\Params\EntryParams\Admin\ArticleEntryParamsManager;
+use AppBundle\Misc\FormOptions\FormOptionsProvider;
 use AppBundle\Repository\Admin\Main\TagRepository;
+use AppBundle\Repository\Infomarket\ArticleRepository;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\HttpFoundation\Request;
-use AppBundle\Entity\Assignments\ArticleTagAssignment;
-use AppBundle\Repository\Infomarket\ArticleRepository;
 
 class ArticleController extends FeaturedController {
 	
@@ -188,8 +180,10 @@ class ArticleController extends FeaturedController {
 		$entry = new ArticleTagAssignments();
 		$entry->setArticle($article);
 		
-		$form = $this->createForm(ArticleTagAssignmentsType::class, $entry, 
-				$this->getTagAssignmentsFormOptions());
+		$optionsProvider = $this->getTagAssignmentsFormOptionsProvider();
+		$options = $optionsProvider->getFormOptions();
+		
+		$form = $this->createForm(ArticleTagAssignmentsType::class, $entry, $options);
 		
 		$form->handleRequest($request);
 		
@@ -310,44 +304,29 @@ class ArticleController extends FeaturedController {
 	}
 	
 	// ---------------------------------------------------------------------------
+	// Form options
+	// ---------------------------------------------------------------------------
+	protected function getFilterFormOptionsProvider() {
+		return $this->get('app.misc.provider.form_options.filter.main.article');
+	}
+
+	protected function getEditorFormOptionsProvider() {
+		return $this->get('app.misc.provider.form_options.editor.main.article');
+	}
+
+	/**
+	 *
+	 * @return FormOptionsProvider
+	 */
+	protected function getTagAssignmentsFormOptionsProvider() {
+		return $this->get('app.misc.provider.form_options.other.article_tag_assignments');
+	}
+	
+	// ---------------------------------------------------------------------------
 	// Internal logic
 	// ---------------------------------------------------------------------------
 	protected function getListItemsProvider() {
 		return $this->get('app.misc.provider.subname_list_items_provider');
-	}
-
-	protected function getFilterFormOptions() {
-		$options = parent::getFilterFormOptions();
-		
-		$this->addEntityChoicesFormOption($options, Brand::class, 'brands');
-		$this->addEntityChoicesFormOption($options, Category::class, 'categories');
-		$this->addEntityChoicesFormOption($options, ArticleCategory::class, 'articleCategories');
-		
-		$this->addFactoryChoicesFormOption($options, InfomarketChoicesFactory::class, 'infomarket');
-		$this->addFactoryChoicesFormOption($options, InfoproduktChoicesFactory::class, 'infoprodukt');
-		$this->addFactoryChoicesFormOption($options, FeaturedChoicesFactory::class, 'featured');
-		
-		return $options;
-	}
-
-	protected function getEditorFormOptions() {
-		$options = parent::getEditorFormOptions();
-		
-		$this->addEntityChoicesFormOption($options, Article::class, 'parent');
-		$this->addEntityChoicesFormOption($options, User::class, 'author');
-		
-		$this->addFactoryChoicesFormOption($options, ArticleImageSizesFactory::class, 'imageSize');
-		$this->addFactoryChoicesFormOption($options, ArticleLayoutsFactory::class, 'layout');
-		
-		return $options;
-	}
-
-	protected function getTagAssignmentsFormOptions() {
-		$options = [];
-		
-		$this->addEntityChoicesFormOption($options, Tag::class, 'tags');
-		
-		return $options;
 	}
 	
 	// ---------------------------------------------------------------------------
@@ -381,12 +360,6 @@ class ArticleController extends FeaturedController {
 	// ---------------------------------------------------------------------------
 	// Internal logic
 	// ---------------------------------------------------------------------------
-	/**
-	 *
-	 * {@inheritDoc}
-	 *
-	 * @see \AppBundle\Controller\Admin\Base\AdminEntityController::deleteMore()
-	 */
 	protected function deleteMore($entry) {
 		$em = $this->getDoctrine()->getManager();
 		

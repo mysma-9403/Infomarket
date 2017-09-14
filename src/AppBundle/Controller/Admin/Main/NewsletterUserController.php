@@ -4,15 +4,11 @@ namespace AppBundle\Controller\Admin\Main;
 
 use AppBundle\Controller\Admin\Base\SimpleController;
 use AppBundle\Entity\Assignments\NewsletterUserNewsletterGroupAssignment;
-use AppBundle\Entity\Main\NewsletterGroup;
 use AppBundle\Entity\Main\NewsletterUser;
 use AppBundle\Entity\Other\ImportNewsletterUsers;
 use AppBundle\Factory\Admin\Import\FileEntryFactory;
 use AppBundle\Factory\Admin\Import\NewsletterUser\ImportErrorFactory;
 use AppBundle\Factory\Admin\Import\NewsletterUser\PreparedEntryFactory;
-use AppBundle\Factory\Common\Choices\Bool\InfomarketChoicesFactory;
-use AppBundle\Factory\Common\Choices\Bool\InfoproduktChoicesFactory;
-use AppBundle\Factory\Common\Choices\Bool\SubscribedChoicesFactory;
 use AppBundle\Filter\Common\Main\NewsletterUserFilter;
 use AppBundle\Form\Editor\Admin\Main\NewsletterUserEditorType;
 use AppBundle\Form\Filter\Admin\Main\NewsletterUserFilterType;
@@ -23,6 +19,7 @@ use AppBundle\Manager\Entity\Base\EntityManager;
 use AppBundle\Manager\Entity\Common\Main\NewsletterUserManager;
 use AppBundle\Manager\Filter\Base\FilterManager;
 use AppBundle\Manager\Params\EntryParams\Admin\NewsletterUserEntryParamsManager;
+use AppBundle\Misc\FormOptions\FormOptionsProvider;
 use AppBundle\Repository\Admin\Main\NewsletterGroupRepository;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -168,8 +165,10 @@ class NewsletterUserController extends SimpleController {
 		
 		$importItem = new ImportNewsletterUsers();
 		
-		$importForm = $this->createForm(ImportNewsletterUsersType::class, $importItem, 
-				$this->getImportFormOptions());
+		$optionsProvider = $this->getImportFormOptionsProvider();
+		$options = $optionsProvider->getFormOptions();
+		
+		$importForm = $this->createForm(ImportNewsletterUsersType::class, $importItem, $options);
 		$importForm->handleRequest($request);
 		
 		if ($importForm->isSubmitted() && $importForm->isValid()) {
@@ -232,29 +231,24 @@ class NewsletterUserController extends SimpleController {
 	}
 	
 	// ---------------------------------------------------------------------------
+	// Form options
+	// ---------------------------------------------------------------------------
+	protected function getFilterFormOptionsProvider() {
+		return $this->get('app.misc.provider.form_options.filter.main.newsletter_user');
+	}
+	
+	/**
+	 * @return FormOptionsProvider
+	 */
+	protected function getImportFormOptionsProvider() {
+		return $this->get('app.misc.provider.form_options.other.newsletter_user_import');
+	}
+	
+	// ---------------------------------------------------------------------------
 	// Internal logic
 	// ---------------------------------------------------------------------------
 	protected function getListItemsProvider() {
 		return $this->get('app.misc.provider.name_list_items_provider');
-	}
-
-	protected function getFilterFormOptions() {
-		$options = parent::getFilterFormOptions();
-		
-		$this->addFactoryChoicesFormOption($options, SubscribedChoicesFactory::class, 'subscribed');
-		
-		$this->addFactoryChoicesFormOption($options, InfomarketChoicesFactory::class, 'infomarket');
-		$this->addFactoryChoicesFormOption($options, InfoproduktChoicesFactory::class, 'infoprodukt');
-		
-		return $options;
-	}
-
-	protected function getImportFormOptions() {
-		$options = [];
-		
-		$this->addEntityChoicesFormOption($options, NewsletterGroup::class, 'newsletterGroups');
-		
-		return $options;
 	}
 
 	protected function deleteMore($entry) {

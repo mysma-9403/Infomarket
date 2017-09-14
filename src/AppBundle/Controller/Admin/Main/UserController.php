@@ -16,6 +16,7 @@ use AppBundle\Manager\Entity\Common\Main\UserManager;
 use AppBundle\Manager\Filter\Base\FilterManager;
 use AppBundle\Manager\Params\EntryParams\Admin\UserEntryParamsManager;
 use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Misc\FormOptions\ListFormOptionsProvider;
 
 class UserController extends AdminController { //TODO switch to BaseController when ready
 	// ---------------------------------------------------------------------------
@@ -114,6 +115,33 @@ class UserController extends AdminController { //TODO switch to BaseController w
 		$viewParams['form'] = $form->createView();
 		
 		return $this->render($this->getSettingsView(), $viewParams);
+	}
+	
+	// ---------------------------------------------------------------------------
+	// Form options //TODO remove when ready for extend BaseController
+	// ---------------------------------------------------------------------------
+	/**
+	 *
+	 * @return ListFormOptionsProvider
+	 */
+	protected function getListFormOptionsProvider() {
+		return $this->get(ListFormOptionsProvider::class);
+	}
+	
+	/**
+	 *
+	 * @return FormOptionsProvider
+	 */
+	protected function getFilterFormOptionsProvider() {
+		return $this->get('app.misc.provider.form_options.base');
+	}
+	
+	/**
+	 *
+	 * @return FormOptionsProvider
+	 */
+	protected function getEditorFormOptionsProvider() {
+		return $this->get('app.misc.provider.form_options.base');
 	}
 	
 	// ---------------------------------------------------------------------------

@@ -4,10 +4,6 @@ namespace AppBundle\Controller\Admin\Main;
 
 use AppBundle\Controller\Admin\Base\BaseController;
 use AppBundle\Entity\Main\BenchmarkField;
-use AppBundle\Entity\Main\Category;
-use AppBundle\Factory\Common\Choices\Enum\BenchmarkFieldBetterThanTypesFactory;
-use AppBundle\Factory\Common\Choices\Enum\BenchmarkFieldFieldTypesFactory;
-use AppBundle\Factory\Common\Choices\Enum\BenchmarkFieldNoteTypesFactory;
 use AppBundle\Filter\Common\Main\BenchmarkFieldFilter;
 use AppBundle\Form\Editor\Admin\Main\BenchmarkFieldEditorType;
 use AppBundle\Form\Filter\Admin\Main\BenchmarkFieldFilterType;
@@ -85,34 +81,22 @@ class BenchmarkFieldController extends BaseController {
 		return $this->deleteActionInternal($request, $id);
 	}
 	
+	// ---------------------------------------------------------------------------
+	// Form options
+	// ---------------------------------------------------------------------------
+	protected function getFilterFormOptionsProvider() {
+		return $this->get('app.misc.provider.form_options.filter.main.benchmark_field');
+	}
+	
+	protected function getEditorFormOptionsProvider() {
+		return $this->get('app.misc.provider.form_options.editor.main.benchmark_field');
+	}
+	
 	// ------------------------------------------------------------------------
 	// Internal logic
 	// ------------------------------------------------------------------------
 	protected function getListItemsProvider() {
 		return $this->get('app.misc.provider.benchmark_field_list_items_provider');
-	}
-	
-	protected function getFilterFormOptions() {
-		$options = parent::getFilterFormOptions();
-		
-		$this->addEntityChoicesFormOption($options, Category::class, 'categories');
-		
-		$this->addFactoryChoicesFormOption($options, BenchmarkFieldFieldTypesFactory::class, 'fieldTypes');
-		
-		return $options;
-	}
-
-	protected function getEditorFormOptions() {
-		$options = parent::getEditorFormOptions();
-		
-		$this->addEntityChoicesFormOption($options, Category::class, 'category');
-		
-		$this->addFactoryChoicesFormOption($options, BenchmarkFieldFieldTypesFactory::class, 'fieldType');
-		$this->addFactoryChoicesFormOption($options, BenchmarkFieldBetterThanTypesFactory::class, 
-				'betterThanType');
-		$this->addFactoryChoicesFormOption($options, BenchmarkFieldNoteTypesFactory::class, 'noteType');
-		
-		return $options;
 	}
 	
 	// ---------------------------------------------------------------------------

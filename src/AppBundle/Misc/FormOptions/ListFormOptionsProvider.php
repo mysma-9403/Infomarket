@@ -1,6 +1,6 @@
 <?php
 
-namespace AppBundle\Misc\FormOptions\Lists;
+namespace AppBundle\Misc\FormOptions;
 
 use AppBundle\Utils\ParamUtils;
 

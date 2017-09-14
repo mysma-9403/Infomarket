@@ -10,7 +10,8 @@ use AppBundle\Manager\Route\RouteManager;
 use AppBundle\Misc\ListItemsProvider\ListItemsProvider;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Request;
-use AppBundle\Misc\FormOptions\Lists\ListFormOptionsProvider;
+use AppBundle\Misc\FormOptions\ListFormOptionsProvider;
+use AppBundle\Misc\FormOptions\FormOptionsProvider;
 
 abstract class AdminController extends StandardController {
 	
@@ -200,7 +201,8 @@ abstract class AdminController extends StandardController {
 		$viewParams = $params['viewParams'];
 		$filter = $viewParams['entryFilter'];
 		
-		$options = $this->getFilterFormOptions();
+		$optionsProvider = $this->getFilterFormOptionsProvider();
+		$options = $optionsProvider->getFormOptions();
 		
 		$filterForm = $this->createForm($this->getFilterFormType(), $filter, $options);
 		$filterForm->handleRequest($request);
@@ -273,7 +275,10 @@ abstract class AdminController extends StandardController {
 		$viewParams = $params['viewParams'];
 		$entry = $viewParams['entry'];
 		
-		$form = $this->createForm($this->getEditorFormType(), $entry, $this->getEditorFormOptions());
+		$optionsProvider = $this->getEditorFormOptionsProvider();
+		$options = $optionsProvider->getFormOptions();
+		
+		$form = $this->createForm($this->getEditorFormType(), $entry, $options);
 		
 		$form->handleRequest($request);
 		
@@ -368,28 +373,32 @@ abstract class AdminController extends StandardController {
 	// Form options
 	// ---------------------------------------------------------------------------
 	/**
+	 *
 	 * @return ListFormOptionsProvider
 	 */
-	protected function getListFormOptionsProvider() {
-		return $this->get(ListFormOptionsProvider::class);
-	}
+	protected abstract function getListFormOptionsProvider();
 
-	protected function getFilterFormOptions() {
-		return array();
-	}
+	/**
+	 *
+	 * @return FormOptionsProvider
+	 */
+	protected abstract function getFilterFormOptionsProvider();
 
-	protected function getEditorFormOptions() {
-		return array();
-	}
+	/**
+	 *
+	 * @return FormOptionsProvider
+	 */
+	protected abstract function getEditorFormOptionsProvider();
 	
 	// ---------------------------------------------------------------------------
 	// Internal logic
 	// ---------------------------------------------------------------------------
 	/**
+	 *
 	 * @return ListItemsProvider
 	 */
 	protected abstract function getListItemsProvider();
-	
+
 	/**
 	 * Get entries selected by the list checkboxes.
 	 *

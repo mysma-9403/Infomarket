@@ -122,33 +122,44 @@ class MagazineController extends FeaturedController {
 	}
 	
 	// ---------------------------------------------------------------------------
+	// Form options
+	// ---------------------------------------------------------------------------
+	protected function getFilterFormOptionsProvider() {
+		return $this->get('app.misc.provider.form_options.filter.main.magazine');
+	}
+	
+	protected function getEditorFormOptionsProvider() {
+		return $this->get('app.misc.provider.form_options.editor.main.magazine');
+	}
+	
+	// ---------------------------------------------------------------------------
 	// Internal logic
 	// ---------------------------------------------------------------------------
 	protected function getListItemsProvider() {
 		return $this->get('app.misc.provider.name_list_items_provider');
 	}
 	
-	protected function getFilterFormOptions() {
-		$options = parent::getFilterFormOptions();
+// 	protected function getFilterFormOptions() {
+// 		$options = parent::getFilterFormOptions();
 		
-		$this->addEntityChoicesFormOption($options, Magazine::class, 'parents');
-		$this->addEntityChoicesFormOption($options, Branch::class, 'branches');
-		$this->addEntityChoicesFormOption($options, Category::class, 'categories');
+// 		$this->addEntityChoicesFormOption($options, Magazine::class, 'parents');
+// 		$this->addEntityChoicesFormOption($options, Branch::class, 'branches');
+// 		$this->addEntityChoicesFormOption($options, Category::class, 'categories');
 		
-		$this->addFactoryChoicesFormOption($options, InfomarketChoicesFactory::class, 'infomarket');
-		$this->addFactoryChoicesFormOption($options, InfoproduktChoicesFactory::class, 'infoprodukt');
-		$this->addFactoryChoicesFormOption($options, FeaturedChoicesFactory::class, 'featured');
+// 		$this->addFactoryChoicesFormOption($options, InfomarketChoicesFactory::class, 'infomarket');
+// 		$this->addFactoryChoicesFormOption($options, InfoproduktChoicesFactory::class, 'infoprodukt');
+// 		$this->addFactoryChoicesFormOption($options, FeaturedChoicesFactory::class, 'featured');
 		
-		return $options;
-	}
+// 		return $options;
+// 	}
 
-	protected function getEditorFormOptions() {
-		$options = parent::getEditorFormOptions();
+// 	protected function getEditorFormOptions() {
+// 		$options = parent::getEditorFormOptions();
 		
-		$this->addEntityChoicesFormOption($options, Magazine::class, 'parent');
+// 		$this->addEntityChoicesFormOption($options, Magazine::class, 'parent');
 		
-		return $options;
-	}
+// 		return $options;
+// 	}
 	
 	// ---------------------------------------------------------------------------
 	// Managers

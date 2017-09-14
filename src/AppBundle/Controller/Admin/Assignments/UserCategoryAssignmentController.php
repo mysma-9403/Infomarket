@@ -3,8 +3,6 @@
 namespace AppBundle\Controller\Admin\Assignments;
 
 use AppBundle\Controller\Admin\Base\AssignmentController;
-use AppBundle\Entity\Main\Category;
-use AppBundle\Entity\Main\User;
 use AppBundle\Entity\Assignments\UserCategoryAssignment;
 use AppBundle\Filter\Common\Assignments\UserCategoryAssignmentFilter;
 use AppBundle\Form\Editor\Admin\Assignments\UserCategoryAssignmentEditorType;
@@ -85,24 +83,14 @@ class UserCategoryAssignmentController extends AssignmentController {
 	}
 	
 	// ---------------------------------------------------------------------------
-	// Internal logic
+	// Form options
 	// ---------------------------------------------------------------------------
-	protected function getFilterFormOptions() {
-		$options = parent::getFilterFormOptions();
-		
-		$this->addEntityChoicesFormOption($options, User::class, 'users');
-		$this->addEntityChoicesFormOption($options, Category::class, 'categories');
-		
-		return $options;
+	protected function getFilterFormOptionsProvider() {
+		return $this->get('app.misc.provider.form_options.filter.assignment.user_category');
 	}
 
-	protected function getEditorFormOptions() {
-		$options = parent::getEditorFormOptions();
-		
-		$this->addEntityChoicesFormOption($options, User::class, 'user');
-		$this->addEntityChoicesFormOption($options, Category::class, 'category');
-		
-		return $options;
+	protected function getEditorFormOptionsProvider() {
+		return $this->get('app.misc.provider.form_options.editor.assignment.user_category');
 	}
 	
 	// ---------------------------------------------------------------------------

@@ -3,14 +3,8 @@
 namespace AppBundle\Controller\Admin\Main;
 
 use AppBundle\Controller\Admin\Base\SimpleController;
-use AppBundle\Entity\Main\Branch;
-use AppBundle\Entity\Main\Category;
-use AppBundle\Entity\Main\Link;
-use AppBundle\Entity\Main\Menu;
 use AppBundle\Entity\Main\MenuEntry;
 use AppBundle\Entity\Main\Page;
-use AppBundle\Factory\Common\Choices\Bool\InfomarketChoicesFactory;
-use AppBundle\Factory\Common\Choices\Bool\InfoproduktChoicesFactory;
 use AppBundle\Filter\Common\Main\MenuEntryFilter;
 use AppBundle\Form\Editor\Admin\Main\MenuEntryEditorType;
 use AppBundle\Form\Filter\Admin\Main\MenuEntryFilterType;
@@ -112,34 +106,21 @@ class MenuEntryController extends SimpleController {
 	}
 	
 	// ---------------------------------------------------------------------------
+	// Form options
+	// ---------------------------------------------------------------------------
+	protected function getFilterFormOptionsProvider() {
+		return $this->get('app.misc.provider.form_options.filter.main.menu_entry');
+	}
+	
+	protected function getEditorFormOptionsProvider() {
+		return $this->get('app.misc.provider.form_options.editor.main.menu_entry');
+	}
+	
+	// ---------------------------------------------------------------------------
 	// Internal logic
 	// ---------------------------------------------------------------------------
 	protected function getListItemsProvider() {
 		return $this->get('app.misc.provider.name_list_items_provider');
-	}
-	
-	protected function getFilterFormOptions() {
-		$options = parent::getFilterFormOptions();
-		
-		$this->addEntityChoicesFormOption($options, Menu::class, 'menus');
-		$this->addEntityChoicesFormOption($options, MenuEntry::class, 'parents');
-		$this->addEntityChoicesFormOption($options, Branch::class, 'branches');
-		$this->addEntityChoicesFormOption($options, Category::class, 'categories');
-		
-		$this->addFactoryChoicesFormOption($options, InfomarketChoicesFactory::class, 'infomarket');
-		$this->addFactoryChoicesFormOption($options, InfoproduktChoicesFactory::class, 'infoprodukt');
-		
-		return $options;
-	}
-
-	protected function getEditorFormOptions() {
-		$options = parent::getEditorFormOptions();
-		
-		$this->addEntityChoicesFormOption($options, MenuEntry::class, 'parent');
-		$this->addEntityChoicesFormOption($options, Page::class, 'page');
-		$this->addEntityChoicesFormOption($options, Link::class, 'link');
-		
-		return $options;
 	}
 	
 	// ---------------------------------------------------------------------------

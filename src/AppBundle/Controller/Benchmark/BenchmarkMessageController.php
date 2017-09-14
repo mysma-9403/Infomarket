@@ -172,6 +172,13 @@ class BenchmarkMessageController extends BaseController {
 	}
 	
 	// ---------------------------------------------------------------------------
+	// Form options
+	// ---------------------------------------------------------------------------
+	protected function getFilterFormOptionsProvider() {
+		return $this->get('app.misc.provider.form_options.filter.benchmark.benchmark_message');
+	}
+	
+	// ---------------------------------------------------------------------------
 	// Internal logic
 	// ---------------------------------------------------------------------------
 	protected function getListItemsProvider() {

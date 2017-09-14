@@ -3,8 +3,6 @@
 namespace AppBundle\Controller\Admin\Assignments;
 
 use AppBundle\Controller\Admin\Base\AssignmentController;
-use AppBundle\Entity\Main\Branch;
-use AppBundle\Entity\Main\Magazine;
 use AppBundle\Entity\Assignments\MagazineBranchAssignment;
 use AppBundle\Filter\Common\Assignments\MagazineBranchAssignmentFilter;
 use AppBundle\Form\Editor\Admin\Assignments\MagazineBranchAssignmentEditorType;
@@ -85,24 +83,14 @@ class MagazineBranchAssignmentController extends AssignmentController {
 	}
 	
 	// ---------------------------------------------------------------------------
-	// Internal logic
+	// Form options
 	// ---------------------------------------------------------------------------
-	protected function getFilterFormOptions() {
-		$options = parent::getFilterFormOptions();
-		
-		$this->addEntityChoicesFormOption($options, Magazine::class, 'magazines');
-		$this->addEntityChoicesFormOption($options, Branch::class, 'branches');
-		
-		return $options;
+	protected function getFilterFormOptionsProvider() {
+		return $this->get('app.misc.provider.form_options.filter.assignment.magazine_branch');
 	}
 
-	protected function getEditorFormOptions() {
-		$options = parent::getEditorFormOptions();
-		
-		$this->addEntityChoicesFormOption($options, Magazine::class, 'magazine');
-		$this->addEntityChoicesFormOption($options, Branch::class, 'branch');
-		
-		return $options;
+	protected function getEditorFormOptionsProvider() {
+		return $this->get('app.misc.provider.form_options.editor.assignment.magazine_branch');
 	}
 	
 	// ---------------------------------------------------------------------------

@@ -3,17 +3,14 @@
 namespace AppBundle\Controller\Admin\Main;
 
 use AppBundle\Controller\Admin\Base\SimpleController;
-use AppBundle\Entity\Main\Category;
 use AppBundle\Entity\Main\Term;
-use AppBundle\Factory\Common\Choices\Bool\InfomarketChoicesFactory;
-use AppBundle\Factory\Common\Choices\Bool\InfoproduktChoicesFactory;
 use AppBundle\Filter\Common\Main\TermFilter;
 use AppBundle\Form\Editor\Admin\Main\TermEditorType;
 use AppBundle\Form\Filter\Admin\Main\TermFilterType;
 use AppBundle\Form\Lists\Base\InfoMarketListType;
+use AppBundle\Manager\Entity\Common\Main\TermManager;
 use AppBundle\Manager\Filter\Base\FilterManager;
 use Symfony\Component\HttpFoundation\Request;
-use AppBundle\Manager\Entity\Common\Main\TermManager;
 
 class TermController extends SimpleController {
 	
@@ -120,21 +117,17 @@ class TermController extends SimpleController {
 	}
 	
 	// ---------------------------------------------------------------------------
+	// Form options
+	// ---------------------------------------------------------------------------
+	protected function getFilterFormOptionsProvider() {
+		return $this->get('app.misc.provider.form_options.filter.main.term');
+	}
+	
+	// ---------------------------------------------------------------------------
 	// Internal logic
 	// ---------------------------------------------------------------------------
 	protected function getListItemsProvider() {
 		return $this->get('app.misc.provider.name_list_items_provider');
-	}
-
-	protected function getFilterFormOptions() {
-		$options = parent::getFilterFormOptions();
-		
-		$this->addEntityChoicesFormOption($options, Category::class, 'categories');
-		
-		$this->addFactoryChoicesFormOption($options, InfomarketChoicesFactory::class, 'infomarket');
-		$this->addFactoryChoicesFormOption($options, InfoproduktChoicesFactory::class, 'infoprodukt');
-		
-		return $options;
 	}
 	
 	// ---------------------------------------------------------------------------

@@ -3,10 +3,7 @@
 namespace AppBundle\Controller\Admin\Assignments;
 
 use AppBundle\Controller\Admin\Base\AssignmentController;
-use AppBundle\Entity\Main\NewsletterPage;
-use AppBundle\Entity\Main\NewsletterUser;
 use AppBundle\Entity\Assignments\NewsletterUserNewsletterPageAssignment;
-use AppBundle\Factory\Common\Choices\Enum\NewsletterUserNewsletterPageAssignmentStatesFactory;
 use AppBundle\Filter\Common\Assignments\NewsletterUserNewsletterPageAssignmentFilter;
 use AppBundle\Form\Filter\Admin\Assignments\NewsletterUserNewsletterPageAssignmentFilterType;
 use AppBundle\Manager\Entity\Common\Assignments\NewsletterUserNewsletterPageAssignmentManager;
@@ -53,27 +50,14 @@ class NewsletterUserNewsletterPageAssignmentController extends AssignmentControl
 	}
 	
 	// ---------------------------------------------------------------------------
-	// Internal logic
+	// Form options
 	// ---------------------------------------------------------------------------
-	protected function getFilterFormOptions() {
-		$options = parent::getFilterFormOptions();
-		
-		$this->addEntityChoicesFormOption($options, NewsletterUser::class, 'newsletterUsers');
-		$this->addEntityChoicesFormOption($options, NewsletterPage::class, 'newsletterPages');
-		
-		$this->addFactoryChoicesFormOption($options, NewsletterUserNewsletterPageAssignmentStatesFactory::class, 
-				'states');
-		
-		return $options;
+	protected function getFilterFormOptionsProvider() {
+		return $this->get('app.misc.provider.form_options.filter.assignment.newsletter_user_newsletter_page');
 	}
 
-	protected function getEditorFormOptions() {
-		$options = parent::getEditorFormOptions();
-		
-		$this->addEntityChoicesFormOption($options, NewsletterUser::class, 'newsletterUser');
-		$this->addEntityChoicesFormOption($options, NewsletterPage::class, 'newsletterPage');
-		
-		return $options;
+	protected function getEditorFormOptionsProvider() {
+		return $this->get('app.misc.provider.form_options.editor.assignment.newsletter_user_newsletter_page');
 	}
 	
 	// ---------------------------------------------------------------------------

@@ -3,8 +3,6 @@
 namespace AppBundle\Controller\Admin\Assignments;
 
 use AppBundle\Controller\Admin\Base\AssignmentController;
-use AppBundle\Entity\Main\Magazine;
-use AppBundle\Entity\Main\NewsletterBlock;
 use AppBundle\Entity\Assignments\NewsletterBlockMagazineAssignment;
 use AppBundle\Filter\Common\Assignments\NewsletterBlockMagazineAssignmentFilter;
 use AppBundle\Form\Editor\Admin\Assignments\NewsletterBlockMagazineAssignmentEditorType;
@@ -85,24 +83,14 @@ class NewsletterBlockMagazineAssignmentController extends AssignmentController {
 	}
 	
 	// ---------------------------------------------------------------------------
-	// Internal logic
+	// Form options
 	// ---------------------------------------------------------------------------
-	protected function getFilterFormOptions() {
-		$options = parent::getFilterFormOptions();
-		
-		$this->addEntityChoicesFormOption($options, NewsletterBlock::class, 'newsletterBlocks');
-		$this->addEntityChoicesFormOption($options, Magazine::class, 'magazines');
-		
-		return $options;
+	protected function getFilterFormOptionsProvider() {
+		return $this->get('app.misc.provider.form_options.filter.assignment.newsletter_block_magazine');
 	}
 
-	protected function getEditorFormOptions() {
-		$options = parent::getEditorFormOptions();
-		
-		$this->addEntityChoicesFormOption($options, NewsletterBlock::class, 'newsletterBlock');
-		$this->addEntityChoicesFormOption($options, Magazine::class, 'magazine');
-		
-		return $options;
+	protected function getEditorFormOptionsProvider() {
+		return $this->get('app.misc.provider.form_options.editor.assignment.newsletter_block_magazine');
 	}
 	
 	// ---------------------------------------------------------------------------

@@ -12,10 +12,10 @@ use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Request;
 
 abstract class SimpleController extends BaseController {
+	
 	// ---------------------------------------------------------------------------
 	// Internal actions
 	// ---------------------------------------------------------------------------
-	
 	/**
 	 *
 	 * @param Request $request        	
@@ -91,6 +91,13 @@ abstract class SimpleController extends BaseController {
 		$em->flush();
 		
 		return $this->redirectToReferer($request);
+	}
+	
+	// ---------------------------------------------------------------------------
+	// Internal logic
+	// ---------------------------------------------------------------------------
+	protected function getFilterFormOptionsProvider() {
+		return $this->get('app.misc.provider.form_options.filter.simple');
 	}
 	
 	// ---------------------------------------------------------------------------

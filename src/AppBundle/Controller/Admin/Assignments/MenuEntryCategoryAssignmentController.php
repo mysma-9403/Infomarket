@@ -3,8 +3,6 @@
 namespace AppBundle\Controller\Admin\Assignments;
 
 use AppBundle\Controller\Admin\Base\AssignmentController;
-use AppBundle\Entity\Main\Category;
-use AppBundle\Entity\Main\MenuEntry;
 use AppBundle\Entity\Assignments\MenuEntryCategoryAssignment;
 use AppBundle\Filter\Common\Assignments\MenuEntryCategoryAssignmentFilter;
 use AppBundle\Form\Editor\Admin\Assignments\MenuEntryCategoryAssignmentEditorType;
@@ -85,24 +83,14 @@ class MenuEntryCategoryAssignmentController extends AssignmentController {
 	}
 	
 	// ---------------------------------------------------------------------------
-	// Internal logic
+	// Form options
 	// ---------------------------------------------------------------------------
-	protected function getFilterFormOptions() {
-		$options = parent::getFilterFormOptions();
-		
-		$this->addEntityChoicesFormOption($options, MenuEntry::class, 'menuEntries');
-		$this->addEntityChoicesFormOption($options, Category::class, 'categories');
-		
-		return $options;
+	protected function getFilterFormOptionsProvider() {
+		return $this->get('app.misc.provider.form_options.filter.assignment.menu_entry_category');
 	}
 
-	protected function getEditorFormOptions() {
-		$options = parent::getEditorFormOptions();
-		
-		$this->addEntityChoicesFormOption($options, MenuEntry::class, 'menuEntry');
-		$this->addEntityChoicesFormOption($options, Category::class, 'category');
-		
-		return $options;
+	protected function getEditorFormOptionsProvider() {
+		return $this->get('app.misc.provider.form_options.editor.assignment.menu_entry_category');
 	}
 	
 	// ---------------------------------------------------------------------------

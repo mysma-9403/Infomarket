@@ -107,29 +107,40 @@ class NewsletterBlockController extends SimpleController {
 	}
 	
 	// ---------------------------------------------------------------------------
+	// Form options
+	// ---------------------------------------------------------------------------
+	protected function getFilterFormOptionsProvider() {
+		return $this->get('app.misc.provider.form_options.filter.main.newsletter_block');
+	}
+	
+	protected function getEditorFormOptionsProvider() {
+		return $this->get('app.misc.provider.form_options.editor.main.newsletter_block');
+	}
+	
+	// ---------------------------------------------------------------------------
 	// Internal logic
 	// ---------------------------------------------------------------------------
 	protected function getListItemsProvider() {
 		return $this->get('app.misc.provider.subname_list_items_provider');
 	}
 	
-	protected function getFilterFormOptions() {
-		$options = parent::getFilterFormOptions();
+// 	protected function getFilterFormOptions() {
+// 		$options = parent::getFilterFormOptions();
 		
-		$this->addEntityChoicesFormOption($options, NewsletterPage::class, 'newsletterPages');
-		$this->addEntityChoicesFormOption($options, NewsletterBlockTemplate::class, 'newsletterBlockTemplates');
+// 		$this->addEntityChoicesFormOption($options, NewsletterPage::class, 'newsletterPages');
+// 		$this->addEntityChoicesFormOption($options, NewsletterBlockTemplate::class, 'newsletterBlockTemplates');
 		
-		return $options;
-	}
+// 		return $options;
+// 	}
 
-	protected function getEditorFormOptions() {
-		$options = parent::getEditorFormOptions();
+// 	protected function getEditorFormOptions() {
+// 		$options = parent::getEditorFormOptions();
 		
-		$this->addEntityChoicesFormOption($options, NewsletterPage::class, 'newsletterPage');
-		$this->addEntityChoicesFormOption($options, NewsletterBlockTemplate::class, 'newsletterBlockTemplate');
+// 		$this->addEntityChoicesFormOption($options, NewsletterPage::class, 'newsletterPage');
+// 		$this->addEntityChoicesFormOption($options, NewsletterBlockTemplate::class, 'newsletterBlockTemplate');
 		
-		return $options;
-	}
+// 		return $options;
+// 	}
 	
 	// ---------------------------------------------------------------------------
 	// Managers

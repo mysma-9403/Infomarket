@@ -1,9 +1,8 @@
 <?php
 
-namespace Tests\AppBundle\Misc\ValueProvider;
+namespace Tests\AppBundle\Misc\FormOptions;
 
-use AppBundle\Misc\FormOptions\Lists\ListFormOptionsProvider;
-use AppBundle\Misc\ValueProvider\ValueProvider;
+use AppBundle\Misc\FormOptions\ListFormOptionsProvider;
 use PHPUnit\Framework\TestCase;
 
 class ListFormOptionsProviderTest extends TestCase {

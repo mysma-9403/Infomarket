@@ -4,8 +4,6 @@ namespace AppBundle\Controller\Admin\Main;
 
 use AppBundle\Controller\Admin\Base\SimpleController;
 use AppBundle\Entity\Main\Link;
-use AppBundle\Factory\Common\Choices\Bool\InfomarketChoicesFactory;
-use AppBundle\Factory\Common\Choices\Bool\InfoproduktChoicesFactory;
 use AppBundle\Filter\Common\Main\LinkFilter;
 use AppBundle\Form\Editor\Admin\Main\LinkEditorType;
 use AppBundle\Form\Filter\Admin\Main\LinkFilterType;
@@ -106,20 +104,18 @@ class LinkController extends SimpleController {
 		return $this->setIPPublishedActionInternal($request, $id);
 	}
 	
+	// ---------------------------------------------------------------------------
+	// Form options
+	// ---------------------------------------------------------------------------
+	protected function getFilterFormOptionsProvider() {
+		return $this->get('app.misc.provider.form_options.filter.common.infomarket');
+	}
+	
 	// ------------------------------------------------------------------------
 	// Internal logic
 	// ------------------------------------------------------------------------
 	protected function getListItemsProvider() {
 		return $this->get('app.misc.provider.name_list_items_provider');
-	}
-	
-	protected function getFilterFormOptions() {
-		$options = parent::getFilterFormOptions();
-		
-		$this->addFactoryChoicesFormOption($options, InfomarketChoicesFactory::class, 'infomarket');
-		$this->addFactoryChoicesFormOption($options, InfoproduktChoicesFactory::class, 'infoprodukt');
-		
-		return $options;
 	}
 	
 	// ---------------------------------------------------------------------------
