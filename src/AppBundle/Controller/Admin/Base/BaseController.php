@@ -7,7 +7,6 @@ use AppBundle\Filter\Common\Base\BaseFilter;
 use AppBundle\Form\Lists\Base\BaseListType;
 use AppBundle\Manager\Filter\Base\FilterManager;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use AppBundle\Misc\FormOptions\ListFormOptionsProvider;
 
 abstract class BaseController extends AdminController {
 	
@@ -15,7 +14,7 @@ abstract class BaseController extends AdminController {
 	// Form options
 	// ---------------------------------------------------------------------------
 	protected function getListFormOptionsProvider() {
-		return $this->get(ListFormOptionsProvider::class);
+		return $this->get('app.misc.provider.form_options.list');
 	}
 
 	protected function getFilterFormOptionsProvider() {

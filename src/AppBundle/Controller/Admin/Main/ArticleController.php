@@ -181,7 +181,7 @@ class ArticleController extends FeaturedController {
 		$entry->setArticle($article);
 		
 		$optionsProvider = $this->getTagAssignmentsFormOptionsProvider();
-		$options = $optionsProvider->getFormOptions();
+		$options = $optionsProvider->getFormOptions($params);
 		
 		$form = $this->createForm(ArticleTagAssignmentsType::class, $entry, $options);
 		

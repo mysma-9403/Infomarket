@@ -16,7 +16,7 @@ class RepositoryItemsProvider implements ItemsProvider {
 		$this->repository = $repository;
 	}
 
-	public function getItems() {
+	public function getItems(array $params) {
 		return $this->repository->findFilterItems();
 	}
 }

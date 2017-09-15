@@ -13,6 +13,7 @@ use AppBundle\Filter\Base\Filter;
 use AppBundle\Filter\Benchmark\ProductFilter;
 use AppBundle\Repository\Base\BaseRepository;
 use Doctrine\ORM\AbstractQuery;
+use Doctrine\ORM\NoResultException;
 use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\ORM\QueryBuilder;
 
@@ -146,7 +147,11 @@ class ProductRepository extends BaseRepository {
 	}
 
 	public function findMaxEnumValue($categoryId, $valueName) {
-		return $this->queryMaxEnumValue($categoryId, $valueName)->getSingleScalarResult();
+		try {
+			return $this->queryMaxEnumValue($categoryId, $valueName)->getSingleScalarResult();
+		} catch (NoResultException $ex) {
+			return 1;
+		}
 	}
 
 	protected function queryMaxEnumValue($categoryId, $valueName) {
@@ -178,7 +183,11 @@ class ProductRepository extends BaseRepository {
 	}
 
 	public function findMinEnumValue($categoryId, $valueName) {
-		return $this->queryMinEnumValue($categoryId, $valueName)->getSingleScalarResult();
+		try {
+			return $this->queryMinEnumValue($categoryId, $valueName)->getSingleScalarResult();
+		} catch (NoResultException $ex) {
+			return 0;
+		}
 	}
 
 	protected function queryMinEnumValue($categoryId, $valueName) {

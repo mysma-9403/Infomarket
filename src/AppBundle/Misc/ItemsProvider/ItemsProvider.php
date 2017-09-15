@@ -4,5 +4,5 @@ namespace AppBundle\Misc\ItemsProvider;
 
 interface ItemsProvider {
 	
-	public function getItems();
+	public function getItems(array $params);
 }

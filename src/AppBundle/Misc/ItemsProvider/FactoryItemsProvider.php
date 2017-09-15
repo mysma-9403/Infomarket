@@ -16,7 +16,7 @@ class FactoryItemsProvider implements ItemsProvider {
 		$this->factory = $factory;
 	}
 
-	public function getItems() {
+	public function getItems(array $params) {
 		return $this->factory->getItems();
 	}
 }

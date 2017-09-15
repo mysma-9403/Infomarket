@@ -7,11 +7,10 @@ use AppBundle\Filter\Base\Filter;
 use AppBundle\Filter\Common\Base\BaseFilter;
 use AppBundle\Manager\Params\Admin\ContextParamsManager;
 use AppBundle\Manager\Route\RouteManager;
+use AppBundle\Misc\FormOptions\FormOptionsProvider;
 use AppBundle\Misc\ListItemsProvider\ListItemsProvider;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Request;
-use AppBundle\Misc\FormOptions\ListFormOptionsProvider;
-use AppBundle\Misc\FormOptions\FormOptionsProvider;
 
 abstract class AdminController extends StandardController {
 	
@@ -146,8 +145,9 @@ abstract class AdminController extends StandardController {
 		/** @var RouteManager $rm */
 		$rm = $this->getRouteManager();
 		$rm->remove($request, $id);
-		$lastRoute = $rm->getLastRoute($request, 
-				['route' => $this->getIndexRoute(), 'routeParams' => array()]);
+		$lastRoute = $rm->getLastRoute($request, [
+				'route' => $this->getIndexRoute(), 
+				'routeParams' => array()]);
 		
 		return $this->redirectToRoute($lastRoute['route'], $lastRoute['routeParams']);
 	}
@@ -202,7 +202,7 @@ abstract class AdminController extends StandardController {
 		$filter = $viewParams['entryFilter'];
 		
 		$optionsProvider = $this->getFilterFormOptionsProvider();
-		$options = $optionsProvider->getFormOptions();
+		$options = $optionsProvider->getFormOptions($params);
 		
 		$filterForm = $this->createForm($this->getFilterFormType(), $filter, $options);
 		$filterForm->handleRequest($request);
@@ -235,10 +235,13 @@ abstract class AdminController extends StandardController {
 		$listItemsProvider = $this->getListItemsProvider();
 		$listItems = $listItemsProvider->getListItems($items);
 		
-		$listFormOptionsProvider = $this->getListFormOptionsProvider();
-		$formOptions = $listFormOptionsProvider->getFormOptions($listItems);
+		$viewParams['listItems'] = $listItems;
+		$params['viewParams'] = $viewParams;
 		
-		$form = $this->createForm($this->getListFormType(), $selectedEntries, $formOptions);
+		$optionsProvider = $this->getListFormOptionsProvider();
+		$options = $optionsProvider->getFormOptions($params);
+		
+		$form = $this->createForm($this->getListFormType(), $selectedEntries, $options);
 		$form->handleRequest($request);
 		
 		if ($form->isSubmitted() && $form->isValid()) {
@@ -276,7 +279,7 @@ abstract class AdminController extends StandardController {
 		$entry = $viewParams['entry'];
 		
 		$optionsProvider = $this->getEditorFormOptionsProvider();
-		$options = $optionsProvider->getFormOptions();
+		$options = $optionsProvider->getFormOptions($params);
 		
 		$form = $this->createForm($this->getEditorFormType(), $entry, $options);
 		
@@ -374,7 +377,7 @@ abstract class AdminController extends StandardController {
 	// ---------------------------------------------------------------------------
 	/**
 	 *
-	 * @return ListFormOptionsProvider
+	 * @return FormOptionsProvider
 	 */
 	protected abstract function getListFormOptionsProvider();
 

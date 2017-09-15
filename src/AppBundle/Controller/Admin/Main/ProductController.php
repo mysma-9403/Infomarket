@@ -4,7 +4,6 @@ namespace AppBundle\Controller\Admin\Main;
 
 use AppBundle\Controller\Admin\Base\ImageController;
 use AppBundle\Entity\Main\BenchmarkField;
-use AppBundle\Entity\Main\Category;
 use AppBundle\Entity\Main\Product;
 use AppBundle\Entity\Main\ProductNote;
 use AppBundle\Factory\Common\BenchmarkField\SimpleBenchmarkFieldFactory;
@@ -222,9 +221,7 @@ class ProductController extends ImageController {
 		$entry = $viewParams['entry'];
 	
 		$optionsProvider = $this->getEditorFormOptionsProvider();
-		$options = $optionsProvider->getFormOptions();
-		
-		$options['filter'] = $viewParams['productFilter'];
+		$options = $optionsProvider->getFormOptions($params);
 	
 		$form = $this->createForm($this->getEditorFormType(), $entry, $options);
 	
@@ -251,8 +248,10 @@ class ProductController extends ImageController {
 		$categoryFilter = $viewParams['categoryFilter'];
 		$entry = $viewParams['entry'];
 	
-		$form = $this->createForm(CategoryFilterType::class, $categoryFilter,
-				$this->getCategoryFormOptions($params));
+		$optionsProvider = $this->getCategoryFormOptionsProvider();
+		$options = $optionsProvider->getFormOptions($params);
+		
+		$form = $this->createForm(CategoryFilterType::class, $categoryFilter, $options);
 	
 		$form->handleRequest($request);
 	
@@ -296,27 +295,11 @@ class ProductController extends ImageController {
 		return $this->get('app.misc.provider.form_options.editor.main.product');
 	}
 	
-	//TODO finish it! :)
-// 	/**
-// 	 * @var FormOptionsProvider
-// 	 */
-// 	protected function getCategoryFormOptionsProvider() {
-// 		return $this->get('app.misc.provider.form_options.other.product_category');
-// 	}
-	
-	protected function getCategoryFormOptions(array $params) {
-		$options = [];
-	
-		$viewParams = $params['viewParams'];
-		$entry = $viewParams['entry'];
-	
-		/** @var CategoryRepository $repository */
-		$repository = $this->getDoctrine()->getRepository(Category::class);
-		$choices = $repository->findFilterItemsByProduct($entry->getId());
-	
-		$this->addChoicesFormOption($options, $choices, 'category');
-	
-		return $options;
+	/**
+	 * @var FormOptionsProvider
+	 */
+	protected function getCategoryFormOptionsProvider() {
+		return $this->get('app.misc.provider.form_options.other.product_category');
 	}
 	
 	// ---------------------------------------------------------------------------

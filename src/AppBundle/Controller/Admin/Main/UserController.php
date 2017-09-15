@@ -6,7 +6,6 @@ use AppBundle\Controller\Admin\Base\AdminController;
 use AppBundle\Controller\Admin\Base\BaseController;
 use AppBundle\Entity\Lists\BaseList;
 use AppBundle\Entity\Main\User;
-use AppBundle\Factory\Common\Choices\Enum\UserRolesFactory;
 use AppBundle\Filter\Common\Main\UserFilter;
 use AppBundle\Form\Editor\Admin\Main\UserEditorType;
 use AppBundle\Form\Filter\Admin\Main\UserFilterType;
@@ -16,7 +15,6 @@ use AppBundle\Manager\Entity\Common\Main\UserManager;
 use AppBundle\Manager\Filter\Base\FilterManager;
 use AppBundle\Manager\Params\EntryParams\Admin\UserEntryParamsManager;
 use Symfony\Component\HttpFoundation\Request;
-use AppBundle\Misc\FormOptions\ListFormOptionsProvider;
 
 class UserController extends AdminController { //TODO switch to BaseController when ready
 	// ---------------------------------------------------------------------------
@@ -99,7 +97,10 @@ class UserController extends AdminController { //TODO switch to BaseController w
 		
 		$this->denyAccessUnlessGranted('edit', $entry);
 		
-		$form = $this->createForm($this->getEditorFormType(), $entry, $this->getEditorFormOptions());
+		$optionsProvider = $this->getEditorFormOptionsProvider();
+		$options = $optionsProvider->getFormOptions($params);
+		
+		$form = $this->createForm($this->getEditorFormType(), $entry, $options);
 		$form->handleRequest($request);
 		
 		if ($form->isSubmitted() && $form->isValid()) {
@@ -118,21 +119,21 @@ class UserController extends AdminController { //TODO switch to BaseController w
 	}
 	
 	// ---------------------------------------------------------------------------
-	// Form options //TODO remove when ready for extend BaseController
+	// Form options
 	// ---------------------------------------------------------------------------
 	/**
 	 *
-	 * @return ListFormOptionsProvider
+	 * @return FormOptionsProvider
 	 */
-	protected function getListFormOptionsProvider() {
-		return $this->get(ListFormOptionsProvider::class);
+	protected function getListFormOptionsProvider() { //TODO remove when ready for extend BaseController
+		return $this->get('app.misc.provider.form_options.list');
 	}
 	
 	/**
 	 *
 	 * @return FormOptionsProvider
 	 */
-	protected function getFilterFormOptionsProvider() {
+	protected function getFilterFormOptionsProvider() { //TODO remove when ready for extend BaseController
 		return $this->get('app.misc.provider.form_options.base');
 	}
 	
@@ -141,7 +142,7 @@ class UserController extends AdminController { //TODO switch to BaseController w
 	 * @return FormOptionsProvider
 	 */
 	protected function getEditorFormOptionsProvider() {
-		return $this->get('app.misc.provider.form_options.base');
+		return $this->get('app.misc.provider.form_options.editor.main.user');
 	}
 	
 	// ---------------------------------------------------------------------------
@@ -149,14 +150,6 @@ class UserController extends AdminController { //TODO switch to BaseController w
 	// ---------------------------------------------------------------------------
 	protected function getListItemsProvider() {
 		return $this->get('app.misc.provider.username_list_items_provider');
-	}
-
-	protected function getEditorFormOptions() {
-		$options = parent::getEditorFormOptions();
-		
-		$this->addFactoryChoicesFormOption($options, UserRolesFactory::class, 'roles');
-		
-		return $options;
 	}
 	
 	// ---------------------------------------------------------------------------

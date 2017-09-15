@@ -166,7 +166,7 @@ class NewsletterUserController extends SimpleController {
 		$importItem = new ImportNewsletterUsers();
 		
 		$optionsProvider = $this->getImportFormOptionsProvider();
-		$options = $optionsProvider->getFormOptions();
+		$options = $optionsProvider->getFormOptions($params);
 		
 		$importForm = $this->createForm(ImportNewsletterUsersType::class, $importItem, $options);
 		$importForm->handleRequest($request);

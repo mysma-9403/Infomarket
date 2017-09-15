@@ -4,8 +4,6 @@ namespace AppBundle\Controller\Admin\Main;
 
 use AppBundle\Controller\Admin\Base\SimpleController;
 use AppBundle\Entity\Main\NewsletterBlock;
-use AppBundle\Entity\Main\NewsletterBlockTemplate;
-use AppBundle\Entity\Main\NewsletterPage;
 use AppBundle\Filter\Common\Main\NewsletterBlockFilter;
 use AppBundle\Form\Editor\Admin\Main\NewsletterBlockEditorType;
 use AppBundle\Form\Filter\Admin\Main\NewsletterBlockFilterType;
@@ -123,24 +121,6 @@ class NewsletterBlockController extends SimpleController {
 	protected function getListItemsProvider() {
 		return $this->get('app.misc.provider.subname_list_items_provider');
 	}
-	
-// 	protected function getFilterFormOptions() {
-// 		$options = parent::getFilterFormOptions();
-		
-// 		$this->addEntityChoicesFormOption($options, NewsletterPage::class, 'newsletterPages');
-// 		$this->addEntityChoicesFormOption($options, NewsletterBlockTemplate::class, 'newsletterBlockTemplates');
-		
-// 		return $options;
-// 	}
-
-// 	protected function getEditorFormOptions() {
-// 		$options = parent::getEditorFormOptions();
-		
-// 		$this->addEntityChoicesFormOption($options, NewsletterPage::class, 'newsletterPage');
-// 		$this->addEntityChoicesFormOption($options, NewsletterBlockTemplate::class, 'newsletterBlockTemplate');
-		
-// 		return $options;
-// 	}
 	
 	// ---------------------------------------------------------------------------
 	// Managers

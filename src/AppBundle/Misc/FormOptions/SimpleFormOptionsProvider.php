@@ -3,9 +3,8 @@
 namespace AppBundle\Misc\FormOptions;
 
 use AppBundle\Misc\ItemsProvider\ItemsProvider;
-use AppBundle\Utils\ParamUtils;
 
-class FormOptionsProvider {
+class SimpleFormOptionsProvider {
 	
 	/**
 	 * 
@@ -22,7 +21,7 @@ class FormOptionsProvider {
 		
 		foreach ($this->itemsProviders as $option => $itemsProvider) {
 			/** @var ItemsProvider $itemsProvider */
-			$options[ParamUtils::getChoicesName($option)] = $itemsProvider->getItems($params);
+			$options[$option] = $itemsProvider->getItems($params);
 		}
 		
 		return $options;

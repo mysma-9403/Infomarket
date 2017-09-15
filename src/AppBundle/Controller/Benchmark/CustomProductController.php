@@ -5,7 +5,6 @@ namespace AppBundle\Controller\Benchmark;
 use AppBundle\Controller\Admin\Base\ImageController;
 use AppBundle\Entity\Assignments\ProductCategoryAssignment;
 use AppBundle\Entity\Main\BenchmarkField;
-use AppBundle\Entity\Main\Brand;
 use AppBundle\Entity\Main\Category;
 use AppBundle\Entity\Main\Product;
 use AppBundle\Entity\Main\ProductNote;
@@ -13,7 +12,9 @@ use AppBundle\Factory\Common\BenchmarkField\SimpleBenchmarkFieldFactory;
 use AppBundle\Filter\Benchmark\CustomProductFilter;
 use AppBundle\Filter\Common\Other\ProductFilter;
 use AppBundle\Form\Editor\Benchmark\ProductEditorType;
+use AppBundle\Form\Filter\Benchmark\CategoryFilterType;
 use AppBundle\Form\Filter\Benchmark\CustomProductFilterType;
+use AppBundle\Form\Filter\Benchmark\SubcategoryFilterType;
 use AppBundle\Logic\Common\BenchmarkField\Initializer\BenchmarkFieldsInitializerImpl;
 use AppBundle\Logic\Common\BenchmarkField\Provider\BenchmarkFieldsProvider;
 use AppBundle\Manager\Entity\Base\EntityManager;
@@ -21,12 +22,9 @@ use AppBundle\Manager\Entity\Benchmark\CustomProductManager;
 use AppBundle\Manager\Filter\Base\FilterManager;
 use AppBundle\Manager\Params\Benchmark\ContextParamsManager;
 use AppBundle\Manager\Params\EntryParams\Benchmark\CustomProductEntryParamsManager;
-use AppBundle\Repository\Benchmark\CategoryRepository;
 use AppBundle\Repository\Common\BenchmarkFieldMetadataRepository;
 use AppBundle\Utils\Entity\DataBase\BenchmarkFieldDataBaseUtils;
 use Symfony\Component\HttpFoundation\Request;
-use AppBundle\Form\Filter\Benchmark\SubcategoryFilterType;
-use AppBundle\Form\Filter\Benchmark\CategoryFilterType;
 
 class CustomProductController extends ImageController {
 	
@@ -102,139 +100,122 @@ class CustomProductController extends ImageController {
 		$response = $this->initUpdateForm($request, $params);
 		if ($response)
 			return $response;
-	
-			$response = $this->initCategoryForm($request, $params);
-			if ($response)
-				return $response;
-	
-				$response = $this->initSubcategoryForm($request, $params);
-				if ($response)
-					return $response;
-	
-					return null;
+		
+		$response = $this->initCategoryForm($request, $params);
+		if ($response)
+			return $response;
+		
+		$response = $this->initSubcategoryForm($request, $params);
+		if ($response)
+			return $response;
+		
+		return null;
 	}
-	
+
 	protected function initUpdateForm(Request $request, array &$params) {
 		$viewParams = $params['viewParams'];
 		$entry = $viewParams['entry'];
-	
-		$options = $this->getEditorFormOptions();
-		$options['filter'] = $viewParams['productFilter']; // TODO refactor -> move to: getEditorFormOptions($params)
-	
+		
+		$optionsProvider = $this->getEditorFormOptionsProvider();
+		$options = $optionsProvider->getFormOptions($params);
+		
 		$form = $this->createForm($this->getEditorFormType(), $entry, $options);
-	
+		
 		$form->handleRequest($request);
-	
+		
 		if ($form->isSubmitted() && $form->isValid()) {
 			$this->saveEntry($request, $entry, $params);
-				
+			
 			$this->flashCreatedMessage();
-				
+			
 			if ($form->get('save')->isClicked()) {
 				return $this->redirectToRoute($this->getEditRoute(), array('id' => $entry->getId()));
 			}
 		}
-	
+		
 		$viewParams['form'] = $form->createView();
 		$params['viewParams'] = $viewParams;
-	
+		
 		return null;
 	}
-	
+
 	protected function initCategoryForm(Request $request, array &$params) {
 		$viewParams = $params['viewParams'];
-	
-		$categoryFilter = $viewParams['categoryFilter'];
-	
-		$form = $this->createForm(CategoryFilterType::class, $categoryFilter,
-				$this->getCategoryFormOptions($params));
+		
+		$filter = $viewParams['categoryFilter'];
+		
+		$optionsProvider = $this->getCategoryFormOptionsProvider();
+		$options = $optionsProvider->getFormOptions($params);
+		
+		$form = $this->createForm(CategoryFilterType::class, $filter, $options);
 		$form->handleRequest($request);
-	
+		
 		if ($form->isSubmitted() && $form->isValid()) {
 			if ($form->get('submit')->isClicked()) {
-				$params = $categoryFilter->getRequestValues();
-				return $this->redirectToRoute($this->getNewRoute(), $params);
+				return $this->redirectToRoute($this->getNewRoute(), $filter->getRequestValues());
 			}
 		}
-	
+		
 		$viewParams['categoryFilterForm'] = $form->createView();
 		$params['viewParams'] = $viewParams;
-	
+		
 		return null;
 	}
-	
+
 	protected function initSubcategoryForm(Request $request, array &$params) {
 		$viewParams = $params['viewParams'];
-	
-		$subcategoryFilter = $viewParams['subcategoryFilter'];
-	
-		$form = $this->createForm(SubcategoryFilterType::class, $subcategoryFilter,
-				$this->getSubcategoryFormOptions($params));
+		
+		$filter = $viewParams['subcategoryFilter'];
+		
+		$optionsProvider = $this->getSubcategoryFormOptionsProvider();
+		$options = $optionsProvider->getFormOptions($params);
+		
+		$form = $this->createForm(SubcategoryFilterType::class, $filter, $options);
 		$form->handleRequest($request);
-	
+		
 		if ($form->isSubmitted() && $form->isValid()) {
 			if ($form->get('submit')->isClicked()) {
-				$params = $subcategoryFilter->getRequestValues();
-				return $this->redirectToRoute($this->getNewRoute(), $params);
+				return $this->redirectToRoute($this->getNewRoute(), $filter->getRequestValues());
 			}
 		}
-	
+		
 		$viewParams['subcategoryFilterForm'] = $form->createView();
 		$params['viewParams'] = $viewParams;
-	
+		
 		return null;
 	}
 	
 	// ---------------------------------------------------------------------------
 	// Form options
 	// ---------------------------------------------------------------------------
-	//TODO refactor!
-	protected function getFilterFormOptions() {
-		$options = [];
-	
-		$this->addEntityChoicesFormOption($options, Brand::class, 'brands');
-		$this->addEntityChoicesFormOption($options, Category::class, 'categories');
-	
-		return $options;
+	protected function getFilterFormOptionsProvider() {
+		return $this->get('app.misc.provider.form_options.filter.benchmark.product');
 	}
-	
-	protected function getEditorFormOptions() {
-		$options = parent::getEditorFormOptions();
-	
-		$this->addEntityChoicesFormOption($options, Brand::class, 'brand');
-	
-		return $options;
+
+	/**
+	 *
+	 * {@inheritDoc}
+	 *
+	 * @see \AppBundle\Controller\Admin\Base\BaseController::getEditorFormOptionsProvider()
+	 */
+	protected function getEditorFormOptionsProvider() {
+		return $this->get('app.misc.provider.form_options.editor.benchmark.product');
 	}
-	
-	protected function getCategoryFormOptions(array $params) {
-		$options = [];
-	
-		$contextParams = $params['contextParams'];
-		$userId = $contextParams['user'];
-	
-		$em = $this->getDoctrine()->getManager();
-		$categoryRepository = new CategoryRepository($em, $em->getClassMetadata(Category::class));
-		$choices = $categoryRepository->findFilterItemsByUser($userId);
-	
-		$this->addChoicesFormOption($options, $choices, 'category');
-	
-		return $options;
+
+	/**
+	 *
+	 * @var FormOptionsProvider
+	 */
+	protected function getCategoryFormOptionsProvider() {
+		return $this->get('app.misc.provider.form_options.benchmark.product_category');
 	}
-	
-	protected function getSubcategoryFormOptions(array $params) {
-		$options = [];
-	
-		$contextParams = $params['contextParams'];
-		$categoryId = $contextParams['category'];
-		$userId = $contextParams['user'];
-	
-		$em = $this->getDoctrine()->getManager();
-		$categoryRepository = new CategoryRepository($em, $em->getClassMetadata(Category::class));
-		$choices = $categoryRepository->findFilterItemsByUserAndCategory($userId, $categoryId);
-	
-		$this->addChoicesFormOption($options, $choices, 'subcategory');
-	
-		return $options;
+
+	/**
+	 *
+	 * @var FormOptionsProvider
+	 */
+	protected function getSubcategoryFormOptionsProvider() {
+		return $this->get('app.misc.provider.form_options.benchmark.product_subcategory');
 	}
 	
 	// ---------------------------------------------------------------------------

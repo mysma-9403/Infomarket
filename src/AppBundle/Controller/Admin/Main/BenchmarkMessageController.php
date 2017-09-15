@@ -161,7 +161,10 @@ class BenchmarkMessageController extends BaseController {
 		/** @var BenchmarkMessage $newEntry */
 		$newEntry = $viewParams['newEntry'];
 		
-		$form = $this->createForm($this->getEditorFormType(), $newEntry, $this->getEditorFormOptions());
+		$optionsProvider = $this->getEditorFormOptionsProvider();
+		$options = $optionsProvider->getFormOptions($params);
+		
+		$form = $this->createForm($this->getEditorFormType(), $newEntry, $options);
 		
 		$form->handleRequest($request);
 		

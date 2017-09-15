@@ -1,25 +1,25 @@
-{% form_theme filter 'form/fields.html.twig' %}
+{% form_theme filterForm 'form/fields.html.twig' %}
 	
-{{ form_start(filter) }}
-	{% set hidden = filter.categories.vars.choices|length > 0 ? '' : 'hidden' %}
+{{ form_start(filterForm) }}
+	{% set hidden = filterForm.categories.vars.choices|length > 0 ? '' : 'hidden' %}
 	<div class="col-xs-12 {{ hidden }}">
-		{{ form_row(filter.categories, { label: 'label.benchmark.categories' }) }}
+		{{ form_row(filterForm.categories, { label: 'label.benchmark.categories' }) }}
 	</div>
 	
-	{% set hidden = filter.brands.vars.choices|length > 0 ? '' : 'hidden' %}
+	{% set hidden = filterForm.brands.vars.choices|length > 0 ? '' : 'hidden' %}
 	<div class="col-xs-12 {{ hidden }}">
-		{{ form_row(filter.brands, { label: 'label.benchmark.brands' }) }}
+		{{ form_row(filterForm.brands, { label: 'label.benchmark.brands' }) }}
 	</div>
 	
 	<div class="col-xs-12 {{ hidden }}">
-		{{ form_row(filter.name, { label: 'label.benchmark.product.name' }) }}
+		{{ form_row(filterForm.name, { label: 'label.benchmark.product.name' }) }}
 	</div>
 	
 	<div class="col-xs-6">
-		{{ form_row(filter.minPrice, { label: 'label.benchmark.product.minPrice' }) }}
+		{{ form_row(filterForm.minPrice, { label: 'label.benchmark.product.minPrice' }) }}
 	</div>
 	<div class="col-xs-6">
-		{{ form_row(filter.maxPrice, { label: 'label.benchmark.product.maxPrice' }) }}
+		{{ form_row(filterForm.maxPrice, { label: 'label.benchmark.product.maxPrice' }) }}
 	</div>
 	
 	
@@ -41,16 +41,16 @@
 	
 	<div class="col-xs-10 padding-5">
 		<div class="btn-group">
-			{{ form_widget(filter.search, { 'icon': 'fa-search', 'label': ' ', 
+			{{ form_widget(filterForm.search, { 'icon': 'fa-search', 'label': ' ', 
 				'attr': { class: 'btn btn-primary', 'data-toggle': 'tooltip', title: 'action.search'} }) }}
-			{{ form_widget(filter.clear, { 'icon': 'fa-eraser', 'label': ' ', 
+			{{ form_widget(filterForm.clear, { 'icon': 'fa-eraser', 'label': ' ', 
 				'attr': { class: 'btn btn-warning', 'data-toggle': 'tooltip', title: 'action.clear'} }) }}
 		</div>
 	</div>
 	<div class="col-xs-2 padding-5 {{ entryFilter.benchmarkQuery ? "hidden" : "" }}">
-		{{ form_widget(filter.saveQuery, { 'icon': 'fa-save', 'label': ' ', 
+		{{ form_widget(filterForm.saveQuery, { 'icon': 'fa-save', 'label': ' ', 
 			'attr': { class: 'btn btn-success', 'data-toggle': 'tooltip', title: 'action.saveQuery' } }) }}
 	</div>
-{{ form_end(filter) }}
+{{ form_end(filterForm) }}
 
 <script type="text/javascript">$("#extendedFilter").collapse("hide");</script>

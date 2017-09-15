@@ -4,9 +4,6 @@ namespace AppBundle\Controller\Benchmark;
 
 use AppBundle\Controller\Admin\Base\BaseController;
 use AppBundle\Entity\Main\BenchmarkMessage;
-use AppBundle\Entity\Main\Product;
-use AppBundle\Factory\Common\Choices\Bool\ReadChoicesFactory;
-use AppBundle\Factory\Common\Choices\Enum\BenchmarkMessageStatesFactory;
 use AppBundle\Filter\Benchmark\BenchmarkMessageFilter;
 use AppBundle\Filter\Common\Base\BaseFilter;
 use AppBundle\Form\Editor\Benchmark\BenchmarkMessageEditorType;
@@ -18,9 +15,9 @@ use AppBundle\Manager\Filter\Base\FilterManager;
 use AppBundle\Manager\Params\Benchmark\ContextParamsManager;
 use AppBundle\Manager\Params\EntryParams\Benchmark\BenchmarkMessageParamsManager;
 use AppBundle\Repository\Benchmark\BenchmarkMessageRepository;
+use AppBundle\Repository\Benchmark\ProductRepository;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Request;
-use AppBundle\Repository\Benchmark\ProductRepository;
 
 class BenchmarkMessageController extends BaseController {
 	
@@ -183,17 +180,6 @@ class BenchmarkMessageController extends BaseController {
 	// ---------------------------------------------------------------------------
 	protected function getListItemsProvider() {
 		return $this->get('app.misc.provider.name_list_items_provider');
-	}
-	
-	protected function getFilterFormOptions() {
-		$options = [];
-		
-		$this->addEntityChoicesFormOption($options, Product::class, 'products');
-		
-		$this->addFactoryChoicesFormOption($options, BenchmarkMessageStatesFactory::class, 'states');
-		$this->addFactoryChoicesFormOption($options, ReadChoicesFactory::class, 'readByAuthor');
-		
-		return $options;
 	}
 
 	protected function setReadEntry(Request $request, $entry, $read = false) {

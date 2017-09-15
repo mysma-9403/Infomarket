@@ -77,7 +77,12 @@ services:
         class: AppBundle\Misc\FormOptions\FormOptionsProvider
         arguments:
             - []
-
+    app.misc.provider.form_options.list:
+        class: AppBundle\Misc\FormOptions\FormOptionsProvider
+        arguments:
+            -
+                entries: '@AppBundle\Misc\ItemsProvider\ListItemsProvider' 
+            
     ### Editor Form Options Providers
     app.misc.provider.form_options.editor.simple:
         class: AppBundle\Misc\FormOptions\FormOptionsProvider
@@ -263,11 +268,17 @@ services:
             -
                 newsletterPageTemplate: '@app.misc.provider.newsletter_page_template_items_provider'
     app.misc.provider.form_options.editor.main.product:
+        class: AppBundle\Misc\FormOptions\SimpleFormOptionsProvider
+        arguments: 
+            -
+                brandChoices: '@app.misc.provider.brand_items_provider'
+                filter: '@app.misc.provider.product_filter_provider'
+    app.misc.provider.form_options.editor.main.user:
         class: AppBundle\Misc\FormOptions\FormOptionsProvider
         arguments: 
             -
-                brand: '@app.misc.provider.brand_items_provider'
-                                                                
+                roles: '@app.misc.provider.user_role_items_provider'
+                                                                            
     #### Other Editor Form Options Providers
     app.misc.provider.form_options.other.article_tag_assignments:
         class: AppBundle\Misc\FormOptions\FormOptionsProvider
@@ -281,10 +292,44 @@ services:
                 newsletterGroups: '@app.misc.provider.newsletter_group_items_provider'
     app.misc.provider.form_options.other.product_category:
         class: AppBundle\Misc\FormOptions\FormOptionsProvider
+        arguments:
+            -
+                category: '@AppBundle\Misc\ItemsProvider\CategoryItemsProvider'
+    
+    #### Benchmark Editor Form Options Providers
+    app.misc.provider.form_options.benchmark.product_category:
+        class: AppBundle\Misc\FormOptions\FormOptionsProvider
+        arguments:
+            -
+                category: '@AppBundle\Misc\ItemsProvider\Benchmark\CategoryItemsProvider'
+    app.misc.provider.form_options.benchmark.product_subcategory:
+        class: AppBundle\Misc\FormOptions\FormOptionsProvider
+        arguments:
+            -
+                subcategory: '@AppBundle\Misc\ItemsProvider\Benchmark\SubcategoryItemsProvider'
+    app.misc.provider.form_options.benchmark.product_filter:
+        class: AppBundle\Misc\FormOptions\FormOptionsProvider
+        arguments:
+            -
+                subcategory: '@AppBundle\Misc\ItemsProvider\Benchmark\ProductFilterItemsProvider'
+    app.misc.provider.form_options.editor.benchmark.product:
+        class: AppBundle\Misc\FormOptions\SimpleFormOptionsProvider
         arguments: 
             -
-                newsletterGroups: '@app.misc.provider.newsletter_group_items_provider'
-                                                                                                                                                                
+                brandChoices: '@app.misc.provider.brand_items_provider'
+                filter: '@app.misc.provider.product_filter_provider'
+                
+    #### Benchmark Index Form Options Providers
+    app.misc.provider.form_options.benchmark.index.product:
+        class: AppBundle\Misc\FormOptions\SimpleFormOptionsProvider
+        arguments:
+            -
+                categoriesChoices: '@AppBundle\Misc\ItemsProvider\Benchmark\ProductCategoryItemsProvider'
+                brandsChoices: '@AppBundle\Misc\ItemsProvider\Benchmark\ProductBrandItemsProvider'
+                booleanChoices: '@app.misc.provider.boolean_items_provider'
+                choices: '@AppBundle\Misc\ItemsProvider\Benchmark\ProductFilterItemsProvider'
+                filter: '@app.misc.provider.entry_filter_provider'
+                                                                                                                                                                                                                        
     ### Filter Form Options Providers
     app.misc.provider.form_options.filter.simple:
         class: AppBundle\Misc\FormOptions\FormOptionsProvider
@@ -604,18 +649,38 @@ services:
         class: AppBundle\Misc\FormOptions\FormOptionsProvider
         arguments: 
             - 
-                createdBy: '@app.misc.provider.user_items_provider'
-                updatedBy: '@app.misc.provider.user_items_provider'
-                readByAdmin: '@app.misc.provider.read_items_provider'
+                readByAuthor: '@app.misc.provider.read_items_provider'
                 states: '@app.misc.provider.benchmark_message_state_items_provider'
-                products: '@app.misc.provider.product_items_provider'
-                authors: '@app.misc.provider.user_items_provider'
-                                                                                                                                                                                                                                                                
+                products: '@app.misc.provider.product_items_provider' 
+    app.misc.provider.form_options.filter.benchmark.product:
+        class: AppBundle\Misc\FormOptions\FormOptionsProvider
+        arguments: 
+            -
+                brands: '@app.misc.provider.brand_items_provider'
+                categories: '@app.misc.provider.category_items_provider'
+                                                                                                                                                                                                                                                                            
     # Items Providers
     
+    ## List Items Providers
+    AppBundle\Misc\ItemsProvider\ListItemsProvider: ~
+    
+    ## View Param Providers
+    app.misc.provider.entry_filter_provider:
+        class: AppBundle\Misc\ItemsProvider\ViewParamProvider
+        arguments:
+            - 'entryFilter'
+    app.misc.provider.product_filter_provider:
+        class: AppBundle\Misc\ItemsProvider\ViewParamProvider
+        arguments:
+            - 'productFilter'
+        
     ## Factory Items Providers
     
     ### Bool Factory Items Providers
+    app.misc.provider.boolean_items_provider:
+        class: AppBundle\Misc\ItemsProvider\FactoryItemsProvider
+        arguments:
+            - '@AppBundle\Factory\Common\Choices\Bool\BooleanChoicesFactory'
     app.misc.provider.featured_items_provider:
         class: AppBundle\Misc\ItemsProvider\FactoryItemsProvider
         arguments:
@@ -674,7 +739,11 @@ services:
         class: AppBundle\Misc\ItemsProvider\FactoryItemsProvider
         arguments:
             - '@AppBundle\Factory\Common\Choices\Enum\NewsletterUserNewsletterPageAssignmentStatesFactory'
-            
+    app.misc.provider.user_role_items_provider:
+        class: AppBundle\Misc\ItemsProvider\FactoryItemsProvider
+        arguments:
+            - '@AppBundle\Factory\Common\Choices\Enum\UserRolesFactory'
+                    
     ## Repository Items Providers
     app.misc.provider.advert_items_provider:
         class: AppBundle\Misc\ItemsProvider\RepositoryItemsProvider
@@ -764,5 +833,26 @@ services:
         class: AppBundle\Misc\ItemsProvider\RepositoryItemsProvider
         arguments:
             - '@AppBundle\Repository\Admin\Main\UserRepository'
+    
+    ### Other Repository Items Providers
+    AppBundle\Misc\ItemsProvider\CategoryItemsProvider:
+        arguments:
+            - '@AppBundle\Repository\Admin\Main\CategoryRepository'
         
-        
+    ### Benchmark Repository Items Providers
+    AppBundle\Misc\ItemsProvider\Benchmark\CategoryItemsProvider:
+        arguments:
+            - '@AppBundle\Repository\Benchmark\CategoryRepository'
+    AppBundle\Misc\ItemsProvider\Benchmark\SubcategoryItemsProvider:
+        arguments:
+            - '@AppBundle\Repository\Benchmark\CategoryRepository'            
+    AppBundle\Misc\ItemsProvider\Benchmark\ProductBrandItemsProvider:
+        arguments:
+            - '@AppBundle\Repository\Benchmark\BrandRepository'
+    AppBundle\Misc\ItemsProvider\Benchmark\ProductCategoryItemsProvider:
+        arguments:
+            - '@AppBundle\Repository\Benchmark\CategoryRepository'
+    AppBundle\Misc\ItemsProvider\Benchmark\ProductFilterItemsProvider:
+        arguments:
+            - '@AppBundle\Repository\Benchmark\ProductRepository'
+    AppBundle\Misc\ItemsProvider\Benchmark\ProductEntryFilterProvider: ~
