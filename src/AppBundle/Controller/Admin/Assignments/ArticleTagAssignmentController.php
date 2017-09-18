@@ -3,9 +3,7 @@
 namespace AppBundle\Controller\Admin\Assignments;
 
 use AppBundle\Controller\Admin\Base\AssignmentController;
-use AppBundle\Entity\Main\Article;
 use AppBundle\Entity\Assignments\ArticleTagAssignment;
-use AppBundle\Entity\Main\Tag;
 use AppBundle\Filter\Common\Assignments\ArticleTagAssignmentFilter;
 use AppBundle\Form\Editor\Admin\Assignments\ArticleTagAssignmentEditorType;
 use AppBundle\Form\Filter\Admin\Assignments\ArticleTagAssignmentFilterType;
@@ -85,24 +83,14 @@ class ArticleTagAssignmentController extends AssignmentController {
 	}
 	
 	// ---------------------------------------------------------------------------
-	// Internal logic
+	// Form options
 	// ---------------------------------------------------------------------------
-	protected function getFilterFormOptions() {
-		$options = parent::getFilterFormOptions();
-		
-		$this->addEntityChoicesFormOption($options, Article::class, 'articles');
-		$this->addEntityChoicesFormOption($options, Tag::class, 'tags');
-		
-		return $options;
+	protected function getFilterFormOptionsProvider() {
+		return $this->get('app.misc.provider.form_options.filter.assignment.article_tag');
 	}
 
-	protected function getEditorFormOptions() {
-		$options = parent::getEditorFormOptions();
-		
-		$this->addEntityChoicesFormOption($options, Article::class, 'article');
-		$this->addEntityChoicesFormOption($options, Tag::class, 'tag');
-		
-		return $options;
+	protected function getEditorFormOptionsProvider() {
+		return $this->get('app.misc.provider.form_options.editor.assignment.article_tag');
 	}
 	
 	// ---------------------------------------------------------------------------

@@ -3,12 +3,8 @@
 namespace AppBundle\Controller\Admin\Assignments;
 
 use AppBundle\Controller\Admin\Base\AssignmentController;
-use AppBundle\Entity\Main\Brand;
-use AppBundle\Entity\Main\Category;
-use AppBundle\Entity\Main\Product;
 use AppBundle\Entity\Assignments\ProductCategoryAssignment;
-use AppBundle\Entity\Main\Segment;
-use AppBundle\Factory\Common\Choices\Bool\FeaturedChoicesFactory;
+use AppBundle\Entity\Main\Product;
 use AppBundle\Filter\Common\Assignments\ProductCategoryAssignmentFilter;
 use AppBundle\Form\Editor\Admin\Assignments\ProductCategoryAssignmentEditorType;
 use AppBundle\Form\Filter\Admin\Assignments\ProductCategoryAssignmentFilterType;
@@ -136,29 +132,14 @@ class ProductCategoryAssignmentController extends AssignmentController {
 	}
 	
 	// ---------------------------------------------------------------------------
-	// Internal logic
+	// Form options
 	// ---------------------------------------------------------------------------
-	protected function getFilterFormOptions() {
-		$options = parent::getFilterFormOptions();
-		
-		$this->addEntityChoicesFormOption($options, Product::class, 'products');
-		$this->addEntityChoicesFormOption($options, Brand::class, 'brands');
-		$this->addEntityChoicesFormOption($options, Segment::class, 'segments');
-		$this->addEntityChoicesFormOption($options, Category::class, 'categories');
-		
-		$this->addFactoryChoicesFormOption($options, FeaturedChoicesFactory::class, 'featured');
-		
-		return $options;
+	protected function getFilterFormOptionsProvider() {
+		return $this->get('app.misc.provider.form_options.filter.assignment.product_category');
 	}
 
-	protected function getEditorFormOptions() {
-		$options = parent::getEditorFormOptions();
-		
-		$this->addEntityChoicesFormOption($options, Product::class, 'product');
-		$this->addEntityChoicesFormOption($options, Segment::class, 'segment');
-		$this->addEntityChoicesFormOption($options, Category::class, 'category');
-		
-		return $options;
+	protected function getEditorFormOptionsProvider() {
+		return $this->get('app.misc.provider.form_options.editor.assignment.product_category');
 	}
 	
 	// ---------------------------------------------------------------------------

@@ -7,6 +7,7 @@ use AppBundle\Filter\Base\Filter;
 use AppBundle\Filter\Common\Base\BaseFilter;
 use AppBundle\Manager\Params\Admin\ContextParamsManager;
 use AppBundle\Manager\Route\RouteManager;
+use AppBundle\Misc\FormOptions\FormOptionsProvider;
 use AppBundle\Misc\ListItemsProvider\ListItemsProvider;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Request;
@@ -144,8 +145,9 @@ abstract class AdminController extends StandardController {
 		/** @var RouteManager $rm */
 		$rm = $this->getRouteManager();
 		$rm->remove($request, $id);
-		$lastRoute = $rm->getLastRoute($request, 
-				['route' => $this->getIndexRoute(), 'routeParams' => array()]);
+		$lastRoute = $rm->getLastRoute($request, [
+				'route' => $this->getIndexRoute(), 
+				'routeParams' => array()]);
 		
 		return $this->redirectToRoute($lastRoute['route'], $lastRoute['routeParams']);
 	}
@@ -199,7 +201,8 @@ abstract class AdminController extends StandardController {
 		$viewParams = $params['viewParams'];
 		$filter = $viewParams['entryFilter'];
 		
-		$options = $this->getFilterFormOptions();
+		$optionsProvider = $this->getFilterFormOptionsProvider();
+		$options = $optionsProvider->getFormOptions($params);
 		
 		$filterForm = $this->createForm($this->getFilterFormType(), $filter, $options);
 		$filterForm->handleRequest($request);
@@ -232,8 +235,13 @@ abstract class AdminController extends StandardController {
 		$listItemsProvider = $this->getListItemsProvider();
 		$listItems = $listItemsProvider->getListItems($items);
 		
-		$form = $this->createForm($this->getListFormType(), $selectedEntries, 
-				$this->getListFormOptions($listItems));
+		$viewParams['listItems'] = $listItems;
+		$params['viewParams'] = $viewParams;
+		
+		$optionsProvider = $this->getListFormOptionsProvider();
+		$options = $optionsProvider->getFormOptions($params);
+		
+		$form = $this->createForm($this->getListFormType(), $selectedEntries, $options);
 		$form->handleRequest($request);
 		
 		if ($form->isSubmitted() && $form->isValid()) {
@@ -270,7 +278,10 @@ abstract class AdminController extends StandardController {
 		$viewParams = $params['viewParams'];
 		$entry = $viewParams['entry'];
 		
-		$form = $this->createForm($this->getEditorFormType(), $entry, $this->getEditorFormOptions());
+		$optionsProvider = $this->getEditorFormOptionsProvider();
+		$options = $optionsProvider->getFormOptions($params);
+		
+		$form = $this->createForm($this->getEditorFormType(), $entry, $options);
 		
 		$form->handleRequest($request);
 		
@@ -364,30 +375,33 @@ abstract class AdminController extends StandardController {
 	// ---------------------------------------------------------------------------
 	// Form options
 	// ---------------------------------------------------------------------------
-	protected function getListFormOptions(array $listItems) {
-		$options = [];
-		
-		$this->addChoicesFormOption($options, $listItems, 'entries');
-		
-		return $options;
-	}
+	/**
+	 *
+	 * @return FormOptionsProvider
+	 */
+	protected abstract function getListFormOptionsProvider();
 
-	protected function getFilterFormOptions() {
-		return array();
-	}
+	/**
+	 *
+	 * @return FormOptionsProvider
+	 */
+	protected abstract function getFilterFormOptionsProvider();
 
-	protected function getEditorFormOptions() {
-		return array();
-	}
+	/**
+	 *
+	 * @return FormOptionsProvider
+	 */
+	protected abstract function getEditorFormOptionsProvider();
 	
 	// ---------------------------------------------------------------------------
 	// Internal logic
 	// ---------------------------------------------------------------------------
 	/**
+	 *
 	 * @return ListItemsProvider
 	 */
 	protected abstract function getListItemsProvider();
-	
+
 	/**
 	 * Get entries selected by the list checkboxes.
 	 *

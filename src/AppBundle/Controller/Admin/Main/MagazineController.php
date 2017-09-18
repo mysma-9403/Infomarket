@@ -3,12 +3,7 @@
 namespace AppBundle\Controller\Admin\Main;
 
 use AppBundle\Controller\Admin\Base\FeaturedController;
-use AppBundle\Entity\Main\Branch;
-use AppBundle\Entity\Main\Category;
 use AppBundle\Entity\Main\Magazine;
-use AppBundle\Factory\Common\Choices\Bool\FeaturedChoicesFactory;
-use AppBundle\Factory\Common\Choices\Bool\InfomarketChoicesFactory;
-use AppBundle\Factory\Common\Choices\Bool\InfoproduktChoicesFactory;
 use AppBundle\Filter\Common\Main\MagazineFilter;
 use AppBundle\Form\Editor\Admin\Main\MagazineEditorType;
 use AppBundle\Form\Filter\Admin\Main\MagazineFilterType;
@@ -122,32 +117,21 @@ class MagazineController extends FeaturedController {
 	}
 	
 	// ---------------------------------------------------------------------------
+	// Form options
+	// ---------------------------------------------------------------------------
+	protected function getFilterFormOptionsProvider() {
+		return $this->get('app.misc.provider.form_options.filter.main.magazine');
+	}
+	
+	protected function getEditorFormOptionsProvider() {
+		return $this->get('app.misc.provider.form_options.editor.main.magazine');
+	}
+	
+	// ---------------------------------------------------------------------------
 	// Internal logic
 	// ---------------------------------------------------------------------------
 	protected function getListItemsProvider() {
 		return $this->get('app.misc.provider.name_list_items_provider');
-	}
-	
-	protected function getFilterFormOptions() {
-		$options = parent::getFilterFormOptions();
-		
-		$this->addEntityChoicesFormOption($options, Magazine::class, 'parents');
-		$this->addEntityChoicesFormOption($options, Branch::class, 'branches');
-		$this->addEntityChoicesFormOption($options, Category::class, 'categories');
-		
-		$this->addFactoryChoicesFormOption($options, InfomarketChoicesFactory::class, 'infomarket');
-		$this->addFactoryChoicesFormOption($options, InfoproduktChoicesFactory::class, 'infoprodukt');
-		$this->addFactoryChoicesFormOption($options, FeaturedChoicesFactory::class, 'featured');
-		
-		return $options;
-	}
-
-	protected function getEditorFormOptions() {
-		$options = parent::getEditorFormOptions();
-		
-		$this->addEntityChoicesFormOption($options, Magazine::class, 'parent');
-		
-		return $options;
 	}
 	
 	// ---------------------------------------------------------------------------

@@ -3,9 +3,7 @@
 namespace AppBundle\Controller\Admin\Assignments;
 
 use AppBundle\Controller\Admin\Base\AssignmentController;
-use AppBundle\Entity\Main\Brand;
 use AppBundle\Entity\Assignments\BrandCategoryAssignment;
-use AppBundle\Entity\Main\Category;
 use AppBundle\Filter\Common\Assignments\BrandCategoryAssignmentFilter;
 use AppBundle\Form\Editor\Admin\Assignments\BrandCategoryAssignmentEditorType;
 use AppBundle\Form\Filter\Admin\Assignments\BrandCategoryAssignmentFilterType;
@@ -85,24 +83,14 @@ class BrandCategoryAssignmentController extends AssignmentController {
 	}
 	
 	// ---------------------------------------------------------------------------
-	// Internal logic
+	// Form options
 	// ---------------------------------------------------------------------------
-	protected function getFilterFormOptions() {
-		$options = parent::getFilterFormOptions();
-		
-		$this->addEntityChoicesFormOption($options, Brand::class, 'brands');
-		$this->addEntityChoicesFormOption($options, Category::class, 'categories');
-		
-		return $options;
+	protected function getFilterFormOptionsProvider() {
+		return $this->get('app.misc.provider.form_options.filter.assignment.brand_category');
 	}
 
-	protected function getEditorFormOptions() {
-		$options = parent::getEditorFormOptions();
-		
-		$this->addEntityChoicesFormOption($options, Brand::class, 'brand');
-		$this->addEntityChoicesFormOption($options, Category::class, 'category');
-		
-		return $options;
+	protected function getEditorFormOptionsProvider() {
+		return $this->get('app.misc.provider.form_options.editor.assignment.brand_category');
 	}
 	
 	// ---------------------------------------------------------------------------

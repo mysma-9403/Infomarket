@@ -3,11 +3,10 @@
 namespace AppBundle\Controller\Admin\Main;
 
 use AppBundle\Controller\Admin\Base\SimpleController;
+use AppBundle\Entity\Assignments\NewsletterUserNewsletterPageAssignment;
 use AppBundle\Entity\Main\NewsletterGroup;
 use AppBundle\Entity\Main\NewsletterPage;
-use AppBundle\Entity\Main\NewsletterPageTemplate;
 use AppBundle\Entity\Main\NewsletterUser;
-use AppBundle\Entity\Assignments\NewsletterUserNewsletterPageAssignment;
 use AppBundle\Filter\Admin\Other\SendNewsletterFilter;
 use AppBundle\Filter\Common\Main\NewsletterPageFilter;
 use AppBundle\Form\Editor\Admin\Main\NewsletterPageEditorType;
@@ -362,6 +361,17 @@ class NewsletterPageController extends SimpleController {
 	}
 	
 	// ---------------------------------------------------------------------------
+	// Form options
+	// ---------------------------------------------------------------------------
+	protected function getFilterFormOptionsProvider() {
+		return $this->get('app.misc.provider.form_options.filter.main.newsletter_page');
+	}
+	
+	protected function getEditorFormOptionsProvider() {
+		return $this->get('app.misc.provider.form_options.editor.main.newsletter_page');
+	}
+	
+	// ---------------------------------------------------------------------------
 	// Internal logic
 	// ---------------------------------------------------------------------------
 	protected function getListItemsProvider() {
@@ -393,22 +403,6 @@ class NewsletterPageController extends SimpleController {
 		$params = $em->getSendNewsletterParams($request, $params, $id);
 		
 		return $params;
-	}
-
-	protected function getFilterFormOptions() {
-		$options = parent::getFilterFormOptions();
-		
-		$this->addEntityChoicesFormOption($options, NewsletterPageTemplate::class, 'newsletterPageTemplates');
-		
-		return $options;
-	}
-
-	protected function getEditorFormOptions() {
-		$options = parent::getEditorFormOptions();
-		
-		$this->addEntityChoicesFormOption($options, NewsletterPageTemplate::class, 'newsletterPageTemplate');
-		
-		return $options;
 	}
 	
 	// ---------------------------------------------------------------------------

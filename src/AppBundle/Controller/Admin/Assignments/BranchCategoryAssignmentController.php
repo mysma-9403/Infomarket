@@ -3,9 +3,7 @@
 namespace AppBundle\Controller\Admin\Assignments;
 
 use AppBundle\Controller\Admin\Base\AssignmentController;
-use AppBundle\Entity\Main\Branch;
 use AppBundle\Entity\Assignments\BranchCategoryAssignment;
-use AppBundle\Entity\Main\Category;
 use AppBundle\Filter\Common\Assignments\BranchCategoryAssignmentFilter;
 use AppBundle\Form\Editor\Admin\Assignments\BranchCategoryAssignmentEditorType;
 use AppBundle\Form\Filter\Admin\Assignments\BranchCategoryAssignmentFilterType;
@@ -85,24 +83,14 @@ class BranchCategoryAssignmentController extends AssignmentController {
 	}
 	
 	// ---------------------------------------------------------------------------
-	// Internal logic
+	// Form options
 	// ---------------------------------------------------------------------------
-	protected function getFilterFormOptions() {
-		$options = parent::getFilterFormOptions();
-		
-		$this->addEntityChoicesFormOption($options, Branch::class, 'branches');
-		$this->addEntityChoicesFormOption($options, Category::class, 'categories');
-		
-		return $options;
+	protected function getFilterFormOptionsProvider() {
+		return $this->get('app.misc.provider.form_options.filter.assignment.branch_category');
 	}
 
-	protected function getEditorFormOptions() {
-		$options = parent::getEditorFormOptions();
-		
-		$this->addEntityChoicesFormOption($options, Branch::class, 'branch');
-		$this->addEntityChoicesFormOption($options, Category::class, 'category');
-		
-		return $options;
+	protected function getEditorFormOptionsProvider() {
+		return $this->get('app.misc.provider.form_options.editor.assignment.branch_category');
 	}
 	
 	// ---------------------------------------------------------------------------

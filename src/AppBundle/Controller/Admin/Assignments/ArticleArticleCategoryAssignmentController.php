@@ -3,15 +3,13 @@
 namespace AppBundle\Controller\Admin\Assignments;
 
 use AppBundle\Controller\Admin\Base\AssignmentController;
-use AppBundle\Entity\Main\Article;
 use AppBundle\Entity\Assignments\ArticleArticleCategoryAssignment;
-use AppBundle\Entity\Main\ArticleCategory;
 use AppBundle\Filter\Common\Assignments\ArticleArticleCategoryAssignmentFilter;
 use AppBundle\Form\Editor\Admin\Assignments\ArticleArticleCategoryAssignmentEditorType;
 use AppBundle\Form\Filter\Admin\Assignments\ArticleArticleCategoryAssignmentFilterType;
+use AppBundle\Manager\Entity\Common\Assignments\ArticleArticleCategoryAssignmentManager;
 use AppBundle\Manager\Filter\Base\FilterManager;
 use Symfony\Component\HttpFoundation\Request;
-use AppBundle\Manager\Entity\Common\Assignments\ArticleArticleCategoryAssignmentManager;
 
 class ArticleArticleCategoryAssignmentController extends AssignmentController {
 	
@@ -85,24 +83,14 @@ class ArticleArticleCategoryAssignmentController extends AssignmentController {
 	}
 	
 	// ---------------------------------------------------------------------------
-	// Internal logic
+	// Form options
 	// ---------------------------------------------------------------------------
-	protected function getFilterFormOptions() {
-		$options = parent::getFilterFormOptions();
-		
-		$this->addEntityChoicesFormOption($options, Article::class, 'articles');
-		$this->addEntityChoicesFormOption($options, ArticleCategory::class, 'articleCategories');
-		
-		return $options;
+	protected function getFilterFormOptionsProvider() {
+		return $this->get('app.misc.provider.form_options.filter.assignment.article_article_category');
 	}
 
-	protected function getEditorFormOptions() {
-		$options = parent::getEditorFormOptions();
-		
-		$this->addEntityChoicesFormOption($options, Article::class, 'article');
-		$this->addEntityChoicesFormOption($options, ArticleCategory::class, 'articleCategory');
-		
-		return $options;
+	protected function getEditorFormOptionsProvider() {
+		return $this->get('app.misc.provider.form_options.editor.assignment.article_article_category');
 	}
 	
 	// ---------------------------------------------------------------------------

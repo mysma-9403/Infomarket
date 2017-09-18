@@ -82,7 +82,7 @@ abstract class DummyController extends Controller {
 	 *
 	 * @return object repository entry
 	 */
-	protected function getEntry($id) {
+	protected function getEntry($id) { //TODO could be done in EntityManager
 		$repository = $this->getEntityRepository();
 		$entry = $repository->find($id);
 		

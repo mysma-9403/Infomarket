@@ -8,6 +8,10 @@ services:
         factory: ['@AppBundle\Repository\Factory\BenchmarkRepositoryFactory', getRepository]
         arguments:
             - AppBundle\Repository\Benchmark\BenchmarkQueryRepository
+    AppBundle\Repository\Benchmark\BrandRepository:
+        factory: ['@AppBundle\Repository\Factory\BenchmarkRepositoryFactory', getRepository]
+        arguments:
+            - AppBundle\Repository\Benchmark\BrandRepository
     AppBundle\Repository\Benchmark\CategoryRepository:
         factory: ['@AppBundle\Repository\Factory\BenchmarkRepositoryFactory', getRepository]
         arguments:

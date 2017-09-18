@@ -4,17 +4,12 @@ namespace AppBundle\Controller\Admin\Main;
 
 use AppBundle\Controller\Admin\Base\ImageController;
 use AppBundle\Entity\Main\Advert;
-use AppBundle\Entity\Main\Category;
-use AppBundle\Factory\Common\Choices\Bool\InfomarketChoicesFactory;
-use AppBundle\Factory\Common\Choices\Bool\InfoproduktChoicesFactory;
-use AppBundle\Factory\Common\Choices\Enum\AdvertLocationsFactory;
 use AppBundle\Filter\Common\Main\AdvertFilter;
 use AppBundle\Form\Editor\Admin\Main\AdvertEditorType;
 use AppBundle\Form\Filter\Admin\Main\AdvertFilterType;
 use AppBundle\Form\Lists\Base\InfoMarketListType;
 use AppBundle\Manager\Entity\Common\Main\AdvertManager;
 use AppBundle\Manager\Filter\Base\FilterManager;
-use phpDocumentor\Reflection\Location;
 use Symfony\Component\HttpFoundation\Request;
 
 class AdvertController extends ImageController {
@@ -109,40 +104,24 @@ class AdvertController extends ImageController {
 		return $this->setIPPublishedActionInternal($request, $id);
 	}
 	
+	// ---------------------------------------------------------------------------
+	// Form options
+	// ---------------------------------------------------------------------------
+	protected function getFilterFormOptionsProvider() {
+		return $this->get('app.misc.provider.form_options.filter.main.advert');
+	}
+
+	protected function getEditorFormOptionsProvider() {
+		return $this->get('app.misc.provider.form_options.editor.main.advert');
+	}
+	
 	// ------------------------------------------------------------------------
 	// Internal logic
 	// ------------------------------------------------------------------------
 	protected function getListItemsProvider() {
 		return $this->get('app.misc.provider.name_list_items_provider');
 	}
-	
-	protected function getFilterFormOptions() {
-		$options = parent::getFilterFormOptions();
-		
-		$this->addEntityChoicesFormOption($options, Category::class, 'categories');
-		
-		$this->addFactoryChoicesFormOption($options, AdvertLocationsFactory::class, 'locations');
-		
-		$this->addFactoryChoicesFormOption($options, InfomarketChoicesFactory::class, 'infomarket');
-		$this->addFactoryChoicesFormOption($options, InfoproduktChoicesFactory::class, 'infoprodukt');
-		
-		return $options;
-	}
 
-	protected function getEditorFormOptions() {
-		$options = parent::getEditorFormOptions();
-		
-		$this->addFactoryChoicesFormOption($options, AdvertLocationsFactory::class, 'location');
-		
-		return $options;
-	}
-
-	/**
-	 *
-	 * {@inheritDoc}
-	 *
-	 * @see \AppBundle\Controller\Admin\Base\AdminEntityController::deleteMore()
-	 */
 	protected function deleteMore($entry) {
 		$em = $this->getDoctrine()->getManager();
 		

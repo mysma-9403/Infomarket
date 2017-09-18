@@ -3,9 +3,7 @@
 namespace AppBundle\Controller\Admin\Assignments;
 
 use AppBundle\Controller\Admin\Base\AssignmentController;
-use AppBundle\Entity\Main\Article;
 use AppBundle\Entity\Assignments\ArticleCategoryAssignment;
-use AppBundle\Entity\Main\Category;
 use AppBundle\Filter\Common\Assignments\ArticleCategoryAssignmentFilter;
 use AppBundle\Form\Editor\Admin\Assignments\ArticleCategoryAssignmentEditorType;
 use AppBundle\Form\Filter\Admin\Assignments\ArticleCategoryAssignmentFilterType;
@@ -85,24 +83,14 @@ class ArticleCategoryAssignmentController extends AssignmentController {
 	}
 	
 	// ---------------------------------------------------------------------------
-	// Internal logic
+	// Form options
 	// ---------------------------------------------------------------------------
-	protected function getFilterFormOptions() {
-		$options = parent::getFilterFormOptions();
-		
-		$this->addEntityChoicesFormOption($options, Article::class, 'articles');
-		$this->addEntityChoicesFormOption($options, Category::class, 'categories');
-		
-		return $options;
+	protected function getFilterFormOptionsProvider() {
+		return $this->get('app.misc.provider.form_options.filter.assignment.article_category');
 	}
-
-	protected function getEditorFormOptions() {
-		$options = parent::getEditorFormOptions();
-		
-		$this->addEntityChoicesFormOption($options, Article::class, 'article');
-		$this->addEntityChoicesFormOption($options, Category::class, 'category');
-		
-		return $options;
+	
+	protected function getEditorFormOptionsProvider() {
+		return $this->get('app.misc.provider.form_options.editor.assignment.article_category');
 	}
 	
 	// ---------------------------------------------------------------------------

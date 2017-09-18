@@ -3,9 +3,7 @@
 namespace AppBundle\Controller\Admin\Assignments;
 
 use AppBundle\Controller\Admin\Base\AssignmentController;
-use AppBundle\Entity\Main\Advert;
 use AppBundle\Entity\Assignments\AdvertCategoryAssignment;
-use AppBundle\Entity\Main\Category;
 use AppBundle\Filter\Common\Assignments\AdvertCategoryAssignmentFilter;
 use AppBundle\Form\Editor\Admin\Assignments\AdvertCategoryAssignmentEditorType;
 use AppBundle\Form\Filter\Admin\Assignments\AdvertCategoryAssignmentFilterType;
@@ -85,24 +83,14 @@ class AdvertCategoryAssignmentController extends AssignmentController {
 	}
 	
 	// ---------------------------------------------------------------------------
-	// Internal logic
+	// Form options
 	// ---------------------------------------------------------------------------
-	protected function getFilterFormOptions() {
-		$options = parent::getFilterFormOptions();
-		
-		$this->addEntityChoicesFormOption($options, Advert::class, 'adverts');
-		$this->addEntityChoicesFormOption($options, Category::class, 'categories');
-		
-		return $options;
+	protected function getFilterFormOptionsProvider() {
+		return $this->get('app.misc.provider.form_options.filter.assignment.advert_category');
 	}
-
-	protected function getEditorFormOptions() {
-		$options = parent::getEditorFormOptions();
-		
-		$this->addEntityChoicesFormOption($options, Advert::class, 'advert');
-		$this->addEntityChoicesFormOption($options, Category::class, 'category');
-		
-		return $options;
+	
+	protected function getEditorFormOptionsProvider() {
+		return $this->get('app.misc.provider.form_options.editor.assignment.advert_category');
 	}
 	
 	// ---------------------------------------------------------------------------

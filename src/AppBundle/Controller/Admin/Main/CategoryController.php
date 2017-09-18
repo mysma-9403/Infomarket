@@ -3,16 +3,10 @@
 namespace AppBundle\Controller\Admin\Main;
 
 use AppBundle\Controller\Admin\Base\FeaturedController;
-use AppBundle\Controller\Admin\Base\ImageController;
-use AppBundle\Entity\Main\Branch;
+use AppBundle\Entity\Assignments\ProductCategoryAssignment;
 use AppBundle\Entity\Main\Category;
 use AppBundle\Entity\Other\ImportRatings;
-use AppBundle\Entity\Assignments\ProductCategoryAssignment;
 use AppBundle\Factory\Admin\Import\Product\ImportErrorFactory;
-use AppBundle\Factory\Common\Choices\Bool\FeaturedChoicesFactory;
-use AppBundle\Factory\Common\Choices\Bool\InfomarketChoicesFactory;
-use AppBundle\Factory\Common\Choices\Bool\InfoproduktChoicesFactory;
-use AppBundle\Factory\Common\Choices\Bool\PreleafChoicesFactory;
 use AppBundle\Filter\Common\Main\CategoryFilter;
 use AppBundle\Form\Editor\Admin\Main\CategoryEditorType;
 use AppBundle\Form\Filter\Admin\Main\CategoryFilterType;
@@ -24,9 +18,9 @@ use AppBundle\Manager\Entity\Common\Main\CategoryManager;
 use AppBundle\Manager\Filter\Base\FilterManager;
 use AppBundle\Manager\Params\EntryParams\Admin\CategoryEntryParamsManager;
 use AppBundle\Repository\Admin\Main\CategoryRepository;
+use AppBundle\Repository\Admin\Main\SegmentRepository;
 use AppBundle\Utils\Entity\DataBase\BenchmarkFieldDataBaseUtils;
 use Symfony\Component\HttpFoundation\Request;
-use AppBundle\Repository\Admin\Main\SegmentRepository;
 
 class CategoryController extends FeaturedController {
 	
@@ -316,41 +310,23 @@ class CategoryController extends FeaturedController {
 	}
 	
 	// ---------------------------------------------------------------------------
+	// Form options
+	// ---------------------------------------------------------------------------
+	protected function getFilterFormOptionsProvider() {
+		return $this->get('app.misc.provider.form_options.filter.main.category');
+	}
+	
+	protected function getEditorFormOptionsProvider() {
+		return $this->get('app.misc.provider.form_options.editor.main.category');
+	}
+	
+	// ---------------------------------------------------------------------------
 	// Internal logic
 	// ---------------------------------------------------------------------------
 	protected function getListItemsProvider() {
 		return $this->get('app.misc.provider.subname_list_items_provider');
 	}
 
-	protected function getFilterFormOptions() {
-		$options = parent::getFilterFormOptions();
-		
-		$this->addEntityChoicesFormOption($options, Category::class, 'parents');
-		$this->addEntityChoicesFormOption($options, Branch::class, 'branches');
-		
-		$this->addFactoryChoicesFormOption($options, InfomarketChoicesFactory::class, 'infomarket');
-		$this->addFactoryChoicesFormOption($options, InfoproduktChoicesFactory::class, 'infoprodukt');
-		$this->addFactoryChoicesFormOption($options, FeaturedChoicesFactory::class, 'featured');
-		$this->addFactoryChoicesFormOption($options, PreleafChoicesFactory::class, 'preleaf');
-		
-		return $options;
-	}
-
-	protected function getEditorFormOptions() {
-		$options = parent::getEditorFormOptions();
-		
-		$this->addEntityChoicesFormOption($options, Category::class, 'parent');
-		
-		return $options;
-	}
-
-	/**
-	 *
-	 * {@inheritDoc}
-	 *
-	 * @see \AppBundle\Controller\Admin\Base\ImageController::prepareEntry()
-	 *
-	 */
 	protected function prepareEntry($request, &$entry, $params) {
 		parent::prepareEntry($request, $entry, $params);
 		

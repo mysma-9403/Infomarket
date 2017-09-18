@@ -3,8 +3,6 @@
 namespace AppBundle\Controller\Admin\Assignments;
 
 use AppBundle\Controller\Admin\Base\AssignmentController;
-use AppBundle\Entity\Main\NewsletterGroup;
-use AppBundle\Entity\Main\NewsletterUser;
 use AppBundle\Entity\Assignments\NewsletterUserNewsletterGroupAssignment;
 use AppBundle\Filter\Common\Assignments\NewsletterUserNewsletterGroupAssignmentFilter;
 use AppBundle\Form\Editor\Admin\Assignments\NewsletterUserNewsletterGroupAssignmentEditorType;
@@ -85,24 +83,14 @@ class NewsletterUserNewsletterGroupAssignmentController extends AssignmentContro
 	}
 	
 	// ---------------------------------------------------------------------------
-	// Internal logic
+	// Form options
 	// ---------------------------------------------------------------------------
-	protected function getFilterFormOptions() {
-		$options = parent::getFilterFormOptions();
-		
-		$this->addEntityChoicesFormOption($options, NewsletterUser::class, 'newsletterUsers');
-		$this->addEntityChoicesFormOption($options, NewsletterGroup::class, 'newsletterGroups');
-		
-		return $options;
+	protected function getFilterFormOptionsProvider() {
+		return $this->get('app.misc.provider.form_options.filter.assignment.newsletter_user_newsletter_group');
 	}
 
-	protected function getEditorFormOptions() {
-		$options = parent::getEditorFormOptions();
-		
-		$this->addEntityChoicesFormOption($options, NewsletterUser::class, 'newsletterUser');
-		$this->addEntityChoicesFormOption($options, NewsletterGroup::class, 'newsletterGroup');
-		
-		return $options;
+	protected function getEditorFormOptionsProvider() {
+		return $this->get('app.misc.provider.form_options.editor.assignment.newsletter_user_newsletter_group');
 	}
 	
 	// ---------------------------------------------------------------------------

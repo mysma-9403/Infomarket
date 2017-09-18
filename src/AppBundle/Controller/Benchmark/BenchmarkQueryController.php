@@ -78,10 +78,6 @@ class BenchmarkQueryController extends BaseController {
 		return $this->get('app.misc.provider.name_list_items_provider');
 	}
 
-	protected function getFilterFormOptions() {
-		return [];
-	}
-
 	protected function saveMore($request, $entry, $params) {
 		parent::saveMore($request, $entry, $params);
 		

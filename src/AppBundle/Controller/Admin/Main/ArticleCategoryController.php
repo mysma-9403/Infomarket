@@ -4,9 +4,6 @@ namespace AppBundle\Controller\Admin\Main;
 
 use AppBundle\Controller\Admin\Base\FeaturedController;
 use AppBundle\Entity\Main\ArticleCategory;
-use AppBundle\Factory\Common\Choices\Bool\FeaturedChoicesFactory;
-use AppBundle\Factory\Common\Choices\Bool\InfomarketChoicesFactory;
-use AppBundle\Factory\Common\Choices\Bool\InfoproduktChoicesFactory;
 use AppBundle\Filter\Common\Main\ArticleCategoryFilter;
 use AppBundle\Form\Editor\Admin\Main\ArticleCategoryEditorType;
 use AppBundle\Form\Filter\Admin\Main\ArticleCategoryFilterType;
@@ -119,22 +116,18 @@ class ArticleCategoryController extends FeaturedController {
 		return $this->setFeaturedActionInternal($request, $id);
 	}
 	
+	// ---------------------------------------------------------------------------
+	// Form options
+	// ---------------------------------------------------------------------------
+	protected function getFilterFormOptionsProvider() {
+		return $this->get('app.misc.provider.form_options.filter.common.featured');
+	}
+	
 	// ------------------------------------------------------------------------
 	// Internal logic
 	// ------------------------------------------------------------------------
 	protected function getListItemsProvider() {
 		return $this->get('app.misc.provider.subname_list_items_provider');
-	}
-
-	protected function getFilterFormOptions() {
-		$options = parent::getFilterFormOptions();
-		
-		$this->addFactoryChoicesFormOption($options, InfomarketChoicesFactory::class, 'infomarket');
-		$this->addFactoryChoicesFormOption($options, InfoproduktChoicesFactory::class, 'infoprodukt');
-		
-		$this->addFactoryChoicesFormOption($options, FeaturedChoicesFactory::class, 'featured');
-		
-		return $options;
 	}
 	
 	// ---------------------------------------------------------------------------

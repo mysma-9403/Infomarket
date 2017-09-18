@@ -39,28 +39,820 @@ services:
                                 
     # List Items Providers
     app.misc.provider.id_list_items_provider:
-      class: AppBundle\Misc\ListItemsProvider\IdListItemsProvider
-      arguments:
-          - '@app.misc.provider.id_values_provider'
-          - '@AppBundle\Misc\ValueProvider\MandatoryValueProvider'
+        class: AppBundle\Misc\ListItemsProvider\IdListItemsProvider
+        arguments:
+            - '@app.misc.provider.id_values_provider'
+            - '@AppBundle\Misc\ValueProvider\MandatoryValueProvider'
     app.misc.provider.name_list_items_provider:
-      class: AppBundle\Misc\ListItemsProvider\IdListItemsProvider
-      arguments:
-          - '@app.misc.provider.name_values_provider'
-          - '@AppBundle\Misc\ValueProvider\MandatoryValueProvider'
+        class: AppBundle\Misc\ListItemsProvider\IdListItemsProvider
+        arguments:
+            - '@app.misc.provider.name_values_provider'
+            - '@AppBundle\Misc\ValueProvider\MandatoryValueProvider'
     app.misc.provider.subname_list_items_provider:
-      class: AppBundle\Misc\ListItemsProvider\IdListItemsProvider
-      arguments:
-          - '@app.misc.provider.subname_values_provider'
-          - '@AppBundle\Misc\ValueProvider\MandatoryValueProvider'
+        class: AppBundle\Misc\ListItemsProvider\IdListItemsProvider
+        arguments:
+            - '@app.misc.provider.subname_values_provider'
+            - '@AppBundle\Misc\ValueProvider\MandatoryValueProvider'
     
     app.misc.provider.benchmark_field_list_items_provider:
-      class: AppBundle\Misc\ListItemsProvider\IdListItemsProvider
-      arguments:
-          - '@app.misc.provider.benchmark_field_values_provider'
-          - '@AppBundle\Misc\ValueProvider\MandatoryValueProvider'
+        class: AppBundle\Misc\ListItemsProvider\IdListItemsProvider
+        arguments:
+            - '@app.misc.provider.benchmark_field_values_provider'
+            - '@AppBundle\Misc\ValueProvider\MandatoryValueProvider'
     app.misc.provider.username_list_items_provider:
-      class: AppBundle\Misc\ListItemsProvider\IdListItemsProvider
-      arguments:
-          - '@app.misc.provider.username_values_provider'
-          - '@AppBundle\Misc\ValueProvider\MandatoryValueProvider'
+        class: AppBundle\Misc\ListItemsProvider\IdListItemsProvider
+        arguments:
+            - '@app.misc.provider.username_values_provider'
+            - '@AppBundle\Misc\ValueProvider\MandatoryValueProvider'
+        
+        
+          
+    # Form Options Providers
+    
+    ## List Form Options Providers
+    AppBundle\Misc\FormOptions\ListFormOptionsProvider: ~
+    
+    ## Form Options Providers
+    app.misc.provider.form_options.base:
+        class: AppBundle\Misc\FormOptions\FormOptionsProvider
+        arguments:
+            - []
+    app.misc.provider.form_options.list:
+        class: AppBundle\Misc\FormOptions\FormOptionsProvider
+        arguments:
+            -
+                entries: '@AppBundle\Misc\ItemsProvider\ListItemsProvider' 
+            
+    ### Editor Form Options Providers
+    app.misc.provider.form_options.editor.simple:
+        class: AppBundle\Misc\FormOptions\FormOptionsProvider
+        arguments: 
+            - []
+    
+    #### Assignment Editor Form Options Providers
+    app.misc.provider.form_options.editor.assignment.advert_category:
+        class: AppBundle\Misc\FormOptions\FormOptionsProvider
+        arguments: 
+            - 
+                advert: '@app.misc.provider.advert_items_provider'
+                category: '@app.misc.provider.category_items_provider'        
+    app.misc.provider.form_options.editor.assignment.article_article_category:
+        class: AppBundle\Misc\FormOptions\FormOptionsProvider
+        arguments: 
+            - 
+                article: '@app.misc.provider.article_items_provider'
+                articleCategory: '@app.misc.provider.article_category_items_provider'
+    app.misc.provider.form_options.editor.assignment.article_brand:
+        class: AppBundle\Misc\FormOptions\FormOptionsProvider
+        arguments: 
+            - 
+                article: '@app.misc.provider.article_items_provider'
+                brand: '@app.misc.provider.brand_items_provider'
+    app.misc.provider.form_options.editor.assignment.article_category:
+        class: AppBundle\Misc\FormOptions\FormOptionsProvider
+        arguments: 
+            - 
+                article: '@app.misc.provider.article_items_provider'
+                category: '@app.misc.provider.category_items_provider'
+    app.misc.provider.form_options.editor.assignment.article_tag:
+        class: AppBundle\Misc\FormOptions\FormOptionsProvider
+        arguments: 
+            - 
+                article: '@app.misc.provider.article_items_provider'
+                tag: '@app.misc.provider.tag_items_provider'                                        
+    app.misc.provider.form_options.editor.assignment.branch_category:
+        class: AppBundle\Misc\FormOptions\FormOptionsProvider
+        arguments: 
+            - 
+                branch: '@app.misc.provider.branch_items_provider'
+                category: '@app.misc.provider.category_items_provider'
+    app.misc.provider.form_options.editor.assignment.brand_category:
+        class: AppBundle\Misc\FormOptions\FormOptionsProvider
+        arguments: 
+            - 
+                brand: '@app.misc.provider.brand_items_provider'
+                category: '@app.misc.provider.category_items_provider'
+    app.misc.provider.form_options.editor.assignment.magazine_branch:
+        class: AppBundle\Misc\FormOptions\FormOptionsProvider
+        arguments: 
+            - 
+                magazine: '@app.misc.provider.magazine_items_provider'
+                branch: '@app.misc.provider.branch_items_provider'
+    app.misc.provider.form_options.editor.assignment.magazine_category:
+        class: AppBundle\Misc\FormOptions\FormOptionsProvider
+        arguments: 
+            - 
+                magazine: '@app.misc.provider.magazine_items_provider'
+                category: '@app.misc.provider.category_items_provider'
+    app.misc.provider.form_options.editor.assignment.menu_entry_branch:
+        class: AppBundle\Misc\FormOptions\FormOptionsProvider
+        arguments: 
+            - 
+                menuEntry: '@app.misc.provider.menu_entry_items_provider'
+                branch: '@app.misc.provider.branch_items_provider'
+    app.misc.provider.form_options.editor.assignment.menu_entry_category:
+        class: AppBundle\Misc\FormOptions\FormOptionsProvider
+        arguments: 
+            - 
+                menuEntry: '@app.misc.provider.menu_entry_items_provider'
+                category: '@app.misc.provider.category_items_provider'
+    app.misc.provider.form_options.editor.assignment.menu_menu_entry:
+        class: AppBundle\Misc\FormOptions\FormOptionsProvider
+        arguments: 
+            - 
+                menu: '@app.misc.provider.menu_items_provider'
+                menuEntry: '@app.misc.provider.menu_entry_items_provider'
+    app.misc.provider.form_options.editor.assignment.newsletter_block_advert:
+        class: AppBundle\Misc\FormOptions\FormOptionsProvider
+        arguments: 
+            - 
+                newsletterBlock: '@app.misc.provider.newsletter_block_items_provider'
+                advert: '@app.misc.provider.advert_items_provider'
+    app.misc.provider.form_options.editor.assignment.newsletter_block_article:
+        class: AppBundle\Misc\FormOptions\FormOptionsProvider
+        arguments: 
+            - 
+                newsletterBlock: '@app.misc.provider.newsletter_block_items_provider'
+                article: '@app.misc.provider.article_items_provider'
+    app.misc.provider.form_options.editor.assignment.newsletter_block_magazine:
+        class: AppBundle\Misc\FormOptions\FormOptionsProvider
+        arguments: 
+            - 
+                newsletterBlock: '@app.misc.provider.newsletter_block_items_provider'
+                magazine: '@app.misc.provider.magazine_items_provider'
+    app.misc.provider.form_options.editor.assignment.newsletter_user_newsletter_group:
+        class: AppBundle\Misc\FormOptions\FormOptionsProvider
+        arguments: 
+            - 
+                newsletterUser: '@app.misc.provider.newsletter_user_items_provider'
+                newsletterGroup: '@app.misc.provider.newsletter_group_items_provider'
+    app.misc.provider.form_options.editor.assignment.newsletter_user_newsletter_page:
+        class: AppBundle\Misc\FormOptions\FormOptionsProvider
+        arguments: 
+            - 
+                newsletterUser: '@app.misc.provider.newsletter_user_items_provider'
+                newsletterPage: '@app.misc.provider.newsletter_page_items_provider'
+    app.misc.provider.form_options.editor.assignment.product_category:
+        class: AppBundle\Misc\FormOptions\FormOptionsProvider
+        arguments: 
+            - 
+                product: '@app.misc.provider.product_items_provider'
+                segment: '@app.misc.provider.segment_items_provider'
+                category: '@app.misc.provider.category_items_provider'
+    app.misc.provider.form_options.editor.assignment.term_category:
+        class: AppBundle\Misc\FormOptions\FormOptionsProvider
+        arguments: 
+            - 
+                term: '@app.misc.provider.term_items_provider'
+                category: '@app.misc.provider.category_items_provider'
+    app.misc.provider.form_options.editor.assignment.user_category:
+        class: AppBundle\Misc\FormOptions\FormOptionsProvider
+        arguments: 
+            - 
+                user: '@app.misc.provider.user_items_provider'
+                category: '@app.misc.provider.category_items_provider'
+    
+    #### Main Editor Form Options Providers
+    app.misc.provider.form_options.editor.main.advert:
+        class: AppBundle\Misc\FormOptions\FormOptionsProvider
+        arguments: 
+            - 
+                location: '@app.misc.provider.advert_location_items_provider'
+    app.misc.provider.form_options.editor.main.article:
+        class: AppBundle\Misc\FormOptions\FormOptionsProvider
+        arguments: 
+            - 
+                parent: '@app.misc.provider.article_items_provider'
+                author: '@app.misc.provider.user_items_provider'
+                imageSize: '@app.misc.provider.article_image_size_items_provider'
+                layout: '@app.misc.provider.article_layout_items_provider'            
+    app.misc.provider.form_options.editor.main.benchmark_field:
+        class: AppBundle\Misc\FormOptions\FormOptionsProvider
+        arguments: 
+            - 
+                category: '@app.misc.provider.category_items_provider'
+                fieldType: '@app.misc.provider.benchmark_field_field_type_items_provider'
+                betterThanType: '@app.misc.provider.benchmark_field_better_than_type_items_provider'
+                noteType: '@app.misc.provider.benchmark_field_note_type_items_provider' 
+    app.misc.provider.form_options.editor.main.benchmark_message:
+        class: AppBundle\Misc\FormOptions\FormOptionsProvider
+        arguments: 
+            - 
+                state: '@app.misc.provider.benchmark_message_state_items_provider'
+    app.misc.provider.form_options.editor.main.category:
+        class: AppBundle\Misc\FormOptions\FormOptionsProvider
+        arguments: 
+            - 
+                parent: '@app.misc.provider.category_items_provider'
+    app.misc.provider.form_options.editor.main.magazine:
+        class: AppBundle\Misc\FormOptions\FormOptionsProvider
+        arguments: 
+            - 
+                parent: '@app.misc.provider.magazine_items_provider'
+    app.misc.provider.form_options.editor.main.menu_entry:
+        class: AppBundle\Misc\FormOptions\FormOptionsProvider
+        arguments: 
+            - 
+                parent: '@app.misc.provider.menu_entry_items_provider'
+                page: '@app.misc.provider.page_items_provider'
+                link: '@app.misc.provider.link_items_provider'
+    app.misc.provider.form_options.editor.main.newsletter_block:
+        class: AppBundle\Misc\FormOptions\FormOptionsProvider
+        arguments: 
+            - 
+                newsletterPage: '@app.misc.provider.newsletter_page_items_provider'
+                newsletterBlockTemplate: '@app.misc.provider.newsletter_block_template_items_provider'
+    app.misc.provider.form_options.editor.main.newsletter_page:
+        class: AppBundle\Misc\FormOptions\FormOptionsProvider
+        arguments: 
+            -
+                newsletterPageTemplate: '@app.misc.provider.newsletter_page_template_items_provider'
+    app.misc.provider.form_options.editor.main.product:
+        class: AppBundle\Misc\FormOptions\SimpleFormOptionsProvider
+        arguments: 
+            -
+                brandChoices: '@app.misc.provider.brand_items_provider'
+                filter: '@app.misc.provider.product_filter_provider'
+    app.misc.provider.form_options.editor.main.user:
+        class: AppBundle\Misc\FormOptions\FormOptionsProvider
+        arguments: 
+            -
+                roles: '@app.misc.provider.user_role_items_provider'
+                                                                            
+    #### Other Editor Form Options Providers
+    app.misc.provider.form_options.other.article_tag_assignments:
+        class: AppBundle\Misc\FormOptions\FormOptionsProvider
+        arguments: 
+            - 
+                tags: '@app.misc.provider.tag_items_provider'
+    app.misc.provider.form_options.other.newsletter_user_import:
+        class: AppBundle\Misc\FormOptions\FormOptionsProvider
+        arguments: 
+            -
+                newsletterGroups: '@app.misc.provider.newsletter_group_items_provider'
+    app.misc.provider.form_options.other.product_category:
+        class: AppBundle\Misc\FormOptions\FormOptionsProvider
+        arguments:
+            -
+                category: '@AppBundle\Misc\ItemsProvider\CategoryItemsProvider'
+    
+    #### Benchmark Editor Form Options Providers
+    app.misc.provider.form_options.benchmark.product_category:
+        class: AppBundle\Misc\FormOptions\FormOptionsProvider
+        arguments:
+            -
+                category: '@AppBundle\Misc\ItemsProvider\Benchmark\CategoryItemsProvider'
+    app.misc.provider.form_options.benchmark.product_subcategory:
+        class: AppBundle\Misc\FormOptions\FormOptionsProvider
+        arguments:
+            -
+                subcategory: '@AppBundle\Misc\ItemsProvider\Benchmark\SubcategoryItemsProvider'
+    app.misc.provider.form_options.benchmark.product_filter:
+        class: AppBundle\Misc\FormOptions\FormOptionsProvider
+        arguments:
+            -
+                subcategory: '@AppBundle\Misc\ItemsProvider\Benchmark\ProductFilterItemsProvider'
+    app.misc.provider.form_options.editor.benchmark.product:
+        class: AppBundle\Misc\FormOptions\SimpleFormOptionsProvider
+        arguments: 
+            -
+                brandChoices: '@app.misc.provider.brand_items_provider'
+                filter: '@app.misc.provider.product_filter_provider'
+                
+    #### Benchmark Index Form Options Providers
+    app.misc.provider.form_options.benchmark.index.product:
+        class: AppBundle\Misc\FormOptions\SimpleFormOptionsProvider
+        arguments:
+            -
+                categoriesChoices: '@AppBundle\Misc\ItemsProvider\Benchmark\ProductCategoryItemsProvider'
+                brandsChoices: '@AppBundle\Misc\ItemsProvider\Benchmark\ProductBrandItemsProvider'
+                booleanChoices: '@app.misc.provider.boolean_items_provider'
+                choices: '@AppBundle\Misc\ItemsProvider\Benchmark\ProductFilterItemsProvider'
+                filter: '@app.misc.provider.entry_filter_provider'
+                                                                                                                                                                                                                        
+    ### Filter Form Options Providers
+    app.misc.provider.form_options.filter.simple:
+        class: AppBundle\Misc\FormOptions\FormOptionsProvider
+        arguments: 
+            - 
+                createdBy: '@app.misc.provider.user_items_provider'
+                updatedBy: '@app.misc.provider.user_items_provider'
+    
+    #### Assignment Filter Form Options Providers
+    app.misc.provider.form_options.filter.assignment.advert_category:
+        class: AppBundle\Misc\FormOptions\FormOptionsProvider
+        arguments: 
+            - 
+                createdBy: '@app.misc.provider.user_items_provider'
+                updatedBy: '@app.misc.provider.user_items_provider'
+                adverts: '@app.misc.provider.article_items_provider'
+                categories: '@app.misc.provider.category_items_provider'
+    app.misc.provider.form_options.filter.assignment.article_article_category:
+        class: AppBundle\Misc\FormOptions\FormOptionsProvider
+        arguments: 
+            - 
+                createdBy: '@app.misc.provider.user_items_provider'
+                updatedBy: '@app.misc.provider.user_items_provider'
+                articles: '@app.misc.provider.article_items_provider'
+                articleCategories: '@app.misc.provider.article_category_items_provider'
+    app.misc.provider.form_options.filter.assignment.article_brand:
+        class: AppBundle\Misc\FormOptions\FormOptionsProvider
+        arguments: 
+            - 
+                createdBy: '@app.misc.provider.user_items_provider'
+                updatedBy: '@app.misc.provider.user_items_provider'
+                articles: '@app.misc.provider.article_items_provider'
+                brands: '@app.misc.provider.brand_items_provider'
+    app.misc.provider.form_options.filter.assignment.article_category:
+        class: AppBundle\Misc\FormOptions\FormOptionsProvider
+        arguments: 
+            - 
+                createdBy: '@app.misc.provider.user_items_provider'
+                updatedBy: '@app.misc.provider.user_items_provider'
+                articles: '@app.misc.provider.article_items_provider'
+                categories: '@app.misc.provider.category_items_provider'
+    app.misc.provider.form_options.filter.assignment.article_tag:
+        class: AppBundle\Misc\FormOptions\FormOptionsProvider
+        arguments: 
+            - 
+                createdBy: '@app.misc.provider.user_items_provider'
+                updatedBy: '@app.misc.provider.user_items_provider'
+                articles: '@app.misc.provider.article_items_provider'
+                tags: '@app.misc.provider.tag_items_provider'
+    app.misc.provider.form_options.filter.assignment.branch_category:
+        class: AppBundle\Misc\FormOptions\FormOptionsProvider
+        arguments: 
+            - 
+                createdBy: '@app.misc.provider.user_items_provider'
+                updatedBy: '@app.misc.provider.user_items_provider'
+                branches: '@app.misc.provider.branch_items_provider'
+                categories: '@app.misc.provider.category_items_provider'
+    app.misc.provider.form_options.filter.assignment.brand_category:
+        class: AppBundle\Misc\FormOptions\FormOptionsProvider
+        arguments: 
+            - 
+                createdBy: '@app.misc.provider.user_items_provider'
+                updatedBy: '@app.misc.provider.user_items_provider'
+                brands: '@app.misc.provider.brand_items_provider'
+                categories: '@app.misc.provider.category_items_provider'
+    app.misc.provider.form_options.filter.assignment.magazine_branch:
+        class: AppBundle\Misc\FormOptions\FormOptionsProvider
+        arguments: 
+            - 
+                createdBy: '@app.misc.provider.user_items_provider'
+                updatedBy: '@app.misc.provider.user_items_provider'
+                magazines: '@app.misc.provider.magazine_items_provider'
+                branches: '@app.misc.provider.branch_items_provider'
+    app.misc.provider.form_options.filter.assignment.magazine_category:
+        class: AppBundle\Misc\FormOptions\FormOptionsProvider
+        arguments: 
+            - 
+                createdBy: '@app.misc.provider.user_items_provider'
+                updatedBy: '@app.misc.provider.user_items_provider'
+                magazines: '@app.misc.provider.magazine_items_provider'
+                categories: '@app.misc.provider.category_items_provider'
+    app.misc.provider.form_options.filter.assignment.menu_entry_branch:
+        class: AppBundle\Misc\FormOptions\FormOptionsProvider
+        arguments: 
+            - 
+                createdBy: '@app.misc.provider.user_items_provider'
+                updatedBy: '@app.misc.provider.user_items_provider'
+                menuEntries: '@app.misc.provider.menu_entry_items_provider'
+                branches: '@app.misc.provider.branch_items_provider'
+    app.misc.provider.form_options.filter.assignment.menu_entry_category:
+        class: AppBundle\Misc\FormOptions\FormOptionsProvider
+        arguments: 
+            - 
+                createdBy: '@app.misc.provider.user_items_provider'
+                updatedBy: '@app.misc.provider.user_items_provider'
+                menuEntries: '@app.misc.provider.menu_entry_items_provider'
+                categories: '@app.misc.provider.category_items_provider'
+    app.misc.provider.form_options.filter.assignment.menu_menu_entry:
+        class: AppBundle\Misc\FormOptions\FormOptionsProvider
+        arguments: 
+            - 
+                createdBy: '@app.misc.provider.user_items_provider'
+                updatedBy: '@app.misc.provider.user_items_provider'
+                menus: '@app.misc.provider.menu_items_provider'
+                menuEntries: '@app.misc.provider.menu_entry_items_provider'
+    app.misc.provider.form_options.filter.assignment.newsletter_block_advert:
+        class: AppBundle\Misc\FormOptions\FormOptionsProvider
+        arguments: 
+            - 
+                createdBy: '@app.misc.provider.user_items_provider'
+                updatedBy: '@app.misc.provider.user_items_provider'
+                newsletterBlocks: '@app.misc.provider.newsletter_block_items_provider'
+                adverts: '@app.misc.provider.advert_items_provider'
+    app.misc.provider.form_options.filter.assignment.newsletter_block_article:
+        class: AppBundle\Misc\FormOptions\FormOptionsProvider
+        arguments: 
+            - 
+                createdBy: '@app.misc.provider.user_items_provider'
+                updatedBy: '@app.misc.provider.user_items_provider'
+                newsletterBlocks: '@app.misc.provider.newsletter_block_items_provider'
+                articles: '@app.misc.provider.article_items_provider'
+    app.misc.provider.form_options.filter.assignment.newsletter_block_magazine:
+        class: AppBundle\Misc\FormOptions\FormOptionsProvider
+        arguments: 
+            - 
+                createdBy: '@app.misc.provider.user_items_provider'
+                updatedBy: '@app.misc.provider.user_items_provider'
+                newsletterBlocks: '@app.misc.provider.newsletter_block_items_provider'
+                magazines: '@app.misc.provider.magazine_items_provider'
+    app.misc.provider.form_options.filter.assignment.newsletter_user_newsletter_group:
+        class: AppBundle\Misc\FormOptions\FormOptionsProvider
+        arguments: 
+            - 
+                createdBy: '@app.misc.provider.user_items_provider'
+                updatedBy: '@app.misc.provider.user_items_provider'
+                newsletterUsers: '@app.misc.provider.newsletter_user_items_provider'
+                newsletterGroups: '@app.misc.provider.newsletter_group_items_provider'
+    app.misc.provider.form_options.filter.assignment.newsletter_user_newsletter_page:
+        class: AppBundle\Misc\FormOptions\FormOptionsProvider
+        arguments: 
+            - 
+                createdBy: '@app.misc.provider.user_items_provider'
+                updatedBy: '@app.misc.provider.user_items_provider'
+                newsletterUsers: '@app.misc.provider.newsletter_user_items_provider'
+                newsletterPages: '@app.misc.provider.newsletter_page_items_provider'
+                states: '@app.misc.provider.newsletter_user_newsletter_page_assignment_state_items_provider'
+    app.misc.provider.form_options.filter.assignment.product_category:
+        class: AppBundle\Misc\FormOptions\FormOptionsProvider
+        arguments: 
+            - 
+                createdBy: '@app.misc.provider.user_items_provider'
+                updatedBy: '@app.misc.provider.user_items_provider'
+                brands: '@app.misc.provider.brand_items_provider'
+                products: '@app.misc.provider.product_items_provider'
+                segments: '@app.misc.provider.segment_items_provider'
+                categories: '@app.misc.provider.category_items_provider'
+                featured: '@app.misc.provider.featured_items_provider'
+    app.misc.provider.form_options.filter.assignment.term_category:
+        class: AppBundle\Misc\FormOptions\FormOptionsProvider
+        arguments: 
+            - 
+                createdBy: '@app.misc.provider.user_items_provider'
+                updatedBy: '@app.misc.provider.user_items_provider'
+                terms: '@app.misc.provider.term_items_provider'
+                categories: '@app.misc.provider.category_items_provider'
+    app.misc.provider.form_options.filter.assignment.user_category:
+        class: AppBundle\Misc\FormOptions\FormOptionsProvider
+        arguments: 
+            - 
+                createdBy: '@app.misc.provider.user_items_provider'
+                updatedBy: '@app.misc.provider.user_items_provider'
+                users: '@app.misc.provider.user_items_provider'
+                categories: '@app.misc.provider.category_items_provider'
+    
+    #### Common Filter Form Options Providers
+    app.misc.provider.form_options.filter.common.infomarket:
+        class: AppBundle\Misc\FormOptions\FormOptionsProvider
+        arguments: 
+            - 
+                createdBy: '@app.misc.provider.user_items_provider'
+                updatedBy: '@app.misc.provider.user_items_provider'
+                infomarket: '@app.misc.provider.infomarket_items_provider'
+                infoprodukt: '@app.misc.provider.infoprodukt_items_provider'
+    app.misc.provider.form_options.filter.common.featured:
+        class: AppBundle\Misc\FormOptions\FormOptionsProvider
+        arguments: 
+            - 
+                createdBy: '@app.misc.provider.user_items_provider'
+                updatedBy: '@app.misc.provider.user_items_provider'
+                infomarket: '@app.misc.provider.infomarket_items_provider'
+                infoprodukt: '@app.misc.provider.infoprodukt_items_provider'
+                featured: '@app.misc.provider.featured_items_provider'
+                
+    #### Main Filter Form Options Providers
+    app.misc.provider.form_options.filter.main.advert:
+        class: AppBundle\Misc\FormOptions\FormOptionsProvider
+        arguments: 
+            - 
+                createdBy: '@app.misc.provider.user_items_provider'
+                updatedBy: '@app.misc.provider.user_items_provider'
+                infomarket: '@app.misc.provider.infomarket_items_provider'
+                infoprodukt: '@app.misc.provider.infoprodukt_items_provider'
+                categories: '@app.misc.provider.category_items_provider'
+                locations: '@app.misc.provider.advert_location_items_provider'
+    app.misc.provider.form_options.filter.main.article:
+        class: AppBundle\Misc\FormOptions\FormOptionsProvider
+        arguments: 
+            - 
+                createdBy: '@app.misc.provider.user_items_provider'
+                updatedBy: '@app.misc.provider.user_items_provider'
+                infomarket: '@app.misc.provider.infomarket_items_provider'
+                infoprodukt: '@app.misc.provider.infoprodukt_items_provider'
+                featured: '@app.misc.provider.featured_items_provider'
+                articleCategories: '@app.misc.provider.article_category_items_provider'            
+                brands: '@app.misc.provider.brand_items_provider'
+                categories: '@app.misc.provider.category_items_provider'
+    app.misc.provider.form_options.filter.main.benchmark_field:
+        class: AppBundle\Misc\FormOptions\FormOptionsProvider
+        arguments: 
+            - 
+                createdBy: '@app.misc.provider.user_items_provider'
+                updatedBy: '@app.misc.provider.user_items_provider'
+                fieldTypes: '@app.misc.provider.benchmark_field_field_type_items_provider'
+                categories: '@app.misc.provider.category_items_provider'
+    app.misc.provider.form_options.filter.main.benchmark_message:
+        class: AppBundle\Misc\FormOptions\FormOptionsProvider
+        arguments: 
+            - 
+                createdBy: '@app.misc.provider.user_items_provider'
+                updatedBy: '@app.misc.provider.user_items_provider'
+                readByAdmin: '@app.misc.provider.read_items_provider'
+                states: '@app.misc.provider.benchmark_message_state_items_provider'
+                products: '@app.misc.provider.product_items_provider'
+                authors: '@app.misc.provider.user_items_provider'
+    app.misc.provider.form_options.filter.main.category:
+        class: AppBundle\Misc\FormOptions\FormOptionsProvider
+        arguments: 
+            - 
+                createdBy: '@app.misc.provider.user_items_provider'
+                updatedBy: '@app.misc.provider.user_items_provider'
+                infomarket: '@app.misc.provider.infomarket_items_provider'
+                infoprodukt: '@app.misc.provider.infoprodukt_items_provider'
+                featured: '@app.misc.provider.featured_items_provider'
+                preleaf: '@app.misc.provider.preleaf_items_provider'
+                parents: '@app.misc.provider.category_items_provider'
+                branches: '@app.misc.provider.branch_items_provider'
+    app.misc.provider.form_options.filter.main.magazine:
+        class: AppBundle\Misc\FormOptions\FormOptionsProvider
+        arguments: 
+            - 
+                createdBy: '@app.misc.provider.user_items_provider'
+                updatedBy: '@app.misc.provider.user_items_provider'
+                infomarket: '@app.misc.provider.infomarket_items_provider'
+                infoprodukt: '@app.misc.provider.infoprodukt_items_provider'
+                featured: '@app.misc.provider.featured_items_provider'
+                parents: '@app.misc.provider.magazine_items_provider'
+                branches: '@app.misc.provider.branch_items_provider'
+                categories: '@app.misc.provider.category_items_provider'
+    app.misc.provider.form_options.filter.main.menu_entry:
+        class: AppBundle\Misc\FormOptions\FormOptionsProvider
+        arguments: 
+            - 
+                createdBy: '@app.misc.provider.user_items_provider'
+                updatedBy: '@app.misc.provider.user_items_provider'
+                infomarket: '@app.misc.provider.infomarket_items_provider'
+                infoprodukt: '@app.misc.provider.infoprodukt_items_provider'
+                parents: '@app.misc.provider.menu_entry_items_provider'
+                menus: '@app.misc.provider.menu_items_provider'
+                branches: '@app.misc.provider.branch_items_provider'
+                categories: '@app.misc.provider.category_items_provider'
+    app.misc.provider.form_options.filter.main.newsletter_block:
+        class: AppBundle\Misc\FormOptions\FormOptionsProvider
+        arguments: 
+            - 
+                createdBy: '@app.misc.provider.user_items_provider'
+                updatedBy: '@app.misc.provider.user_items_provider'
+                newsletterPages: '@app.misc.provider.newsletter_page_items_provider'
+                newsletterBlockTemplates: '@app.misc.provider.newsletter_block_template_items_provider'
+    app.misc.provider.form_options.filter.main.newsletter_page:
+        class: AppBundle\Misc\FormOptions\FormOptionsProvider
+        arguments: 
+            - 
+                createdBy: '@app.misc.provider.user_items_provider'
+                updatedBy: '@app.misc.provider.user_items_provider'
+                newsletterPageTemplates: '@app.misc.provider.newsletter_page_template_items_provider'
+    app.misc.provider.form_options.filter.main.newsletter_user:
+        class: AppBundle\Misc\FormOptions\FormOptionsProvider
+        arguments: 
+            - 
+                createdBy: '@app.misc.provider.user_items_provider'
+                updatedBy: '@app.misc.provider.user_items_provider'
+                infomarket: '@app.misc.provider.infomarket_items_provider'
+                infoprodukt: '@app.misc.provider.infoprodukt_items_provider'
+                subscribed: '@app.misc.provider.subscribed_items_provider'
+    app.misc.provider.form_options.filter.main.product:
+        class: AppBundle\Misc\FormOptions\FormOptionsProvider
+        arguments: 
+            - 
+                createdBy: '@app.misc.provider.user_items_provider'
+                updatedBy: '@app.misc.provider.user_items_provider'
+                infomarket: '@app.misc.provider.infomarket_items_provider'
+                infoprodukt: '@app.misc.provider.infoprodukt_items_provider'
+                brands: '@app.misc.provider.brand_items_provider'
+                categories: '@app.misc.provider.category_items_provider'
+    app.misc.provider.form_options.filter.main.term:
+        class: AppBundle\Misc\FormOptions\FormOptionsProvider
+        arguments: 
+            - 
+                createdBy: '@app.misc.provider.user_items_provider'
+                updatedBy: '@app.misc.provider.user_items_provider'
+                infomarket: '@app.misc.provider.infomarket_items_provider'
+                infoprodukt: '@app.misc.provider.infoprodukt_items_provider'
+                categories: '@app.misc.provider.category_items_provider'
+    
+    #### Benchmark Filter Form Options Providers
+    app.misc.provider.form_options.filter.benchmark.benchmark_message:
+        class: AppBundle\Misc\FormOptions\FormOptionsProvider
+        arguments: 
+            - 
+                readByAuthor: '@app.misc.provider.read_items_provider'
+                states: '@app.misc.provider.benchmark_message_state_items_provider'
+                products: '@app.misc.provider.product_items_provider' 
+    app.misc.provider.form_options.filter.benchmark.product:
+        class: AppBundle\Misc\FormOptions\FormOptionsProvider
+        arguments: 
+            -
+                brands: '@app.misc.provider.brand_items_provider'
+                categories: '@app.misc.provider.category_items_provider'
+                                                                                                                                                                                                                                                                            
+    # Items Providers
+    
+    ## List Items Providers
+    AppBundle\Misc\ItemsProvider\ListItemsProvider: ~
+    
+    ## View Param Providers
+    app.misc.provider.entry_filter_provider:
+        class: AppBundle\Misc\ItemsProvider\ViewParamProvider
+        arguments:
+            - 'entryFilter'
+    app.misc.provider.product_filter_provider:
+        class: AppBundle\Misc\ItemsProvider\ViewParamProvider
+        arguments:
+            - 'productFilter'
+        
+    ## Factory Items Providers
+    
+    ### Bool Factory Items Providers
+    app.misc.provider.boolean_items_provider:
+        class: AppBundle\Misc\ItemsProvider\FactoryItemsProvider
+        arguments:
+            - '@AppBundle\Factory\Common\Choices\Bool\BooleanChoicesFactory'
+    app.misc.provider.featured_items_provider:
+        class: AppBundle\Misc\ItemsProvider\FactoryItemsProvider
+        arguments:
+            - '@AppBundle\Factory\Common\Choices\Bool\FeaturedChoicesFactory'
+    app.misc.provider.infomarket_items_provider:
+        class: AppBundle\Misc\ItemsProvider\FactoryItemsProvider
+        arguments:
+            - '@AppBundle\Factory\Common\Choices\Bool\InfomarketChoicesFactory'
+    app.misc.provider.infoprodukt_items_provider:
+        class: AppBundle\Misc\ItemsProvider\FactoryItemsProvider
+        arguments:
+            - '@AppBundle\Factory\Common\Choices\Bool\InfoproduktChoicesFactory'
+    app.misc.provider.preleaf_items_provider:
+        class: AppBundle\Misc\ItemsProvider\FactoryItemsProvider
+        arguments:
+            - '@AppBundle\Factory\Common\Choices\Bool\PreleafChoicesFactory'
+    app.misc.provider.subscribed_items_provider:
+        class: AppBundle\Misc\ItemsProvider\FactoryItemsProvider
+        arguments:
+            - '@AppBundle\Factory\Common\Choices\Bool\SubscribedChoicesFactory'
+    app.misc.provider.read_items_provider:
+        class: AppBundle\Misc\ItemsProvider\FactoryItemsProvider
+        arguments:
+            - '@AppBundle\Factory\Common\Choices\Bool\ReadChoicesFactory'
+            
+    ### Enum Factory Items Providers
+    app.misc.provider.advert_location_items_provider:
+        class: AppBundle\Misc\ItemsProvider\FactoryItemsProvider
+        arguments:
+            - '@AppBundle\Factory\Common\Choices\Enum\AdvertLocationsFactory'
+    app.misc.provider.article_image_size_items_provider:
+        class: AppBundle\Misc\ItemsProvider\FactoryItemsProvider
+        arguments:
+            - '@AppBundle\Factory\Common\Choices\Enum\ArticleImageSizesFactory'
+    app.misc.provider.article_layout_items_provider:
+        class: AppBundle\Misc\ItemsProvider\FactoryItemsProvider
+        arguments:
+            - '@AppBundle\Factory\Common\Choices\Enum\ArticleLayoutsFactory'
+    app.misc.provider.benchmark_field_field_type_items_provider:
+        class: AppBundle\Misc\ItemsProvider\FactoryItemsProvider
+        arguments:
+            - '@AppBundle\Factory\Common\Choices\Enum\BenchmarkFieldFieldTypesFactory'
+    app.misc.provider.benchmark_field_better_than_type_items_provider:
+        class: AppBundle\Misc\ItemsProvider\FactoryItemsProvider
+        arguments:
+            - '@AppBundle\Factory\Common\Choices\Enum\BenchmarkFieldBetterThanTypesFactory'
+    app.misc.provider.benchmark_field_note_type_items_provider:
+        class: AppBundle\Misc\ItemsProvider\FactoryItemsProvider
+        arguments:
+            - '@AppBundle\Factory\Common\Choices\Enum\BenchmarkFieldNoteTypesFactory'
+    app.misc.provider.benchmark_message_state_items_provider:
+        class: AppBundle\Misc\ItemsProvider\FactoryItemsProvider
+        arguments:
+            - '@AppBundle\Factory\Common\Choices\Enum\BenchmarkMessageStatesFactory'
+    app.misc.provider.newsletter_user_newsletter_page_assignment_state_items_provider:
+        class: AppBundle\Misc\ItemsProvider\FactoryItemsProvider
+        arguments:
+            - '@AppBundle\Factory\Common\Choices\Enum\NewsletterUserNewsletterPageAssignmentStatesFactory'
+    app.misc.provider.user_role_items_provider:
+        class: AppBundle\Misc\ItemsProvider\FactoryItemsProvider
+        arguments:
+            - '@AppBundle\Factory\Common\Choices\Enum\UserRolesFactory'
+                    
+    ## Repository Items Providers
+    app.misc.provider.advert_items_provider:
+        class: AppBundle\Misc\ItemsProvider\RepositoryItemsProvider
+        arguments:
+            - '@AppBundle\Repository\Admin\Main\AdvertRepository'
+    app.misc.provider.article_items_provider:
+        class: AppBundle\Misc\ItemsProvider\RepositoryItemsProvider
+        arguments:
+            - '@AppBundle\Repository\Admin\Main\ArticleRepository'
+    app.misc.provider.article_category_items_provider:
+        class: AppBundle\Misc\ItemsProvider\RepositoryItemsProvider
+        arguments:
+            - '@AppBundle\Repository\Admin\Main\ArticleCategoryRepository'
+    app.misc.provider.branch_items_provider:
+        class: AppBundle\Misc\ItemsProvider\RepositoryItemsProvider
+        arguments:
+            - '@AppBundle\Repository\Admin\Main\BranchRepository'
+    app.misc.provider.brand_items_provider:
+        class: AppBundle\Misc\ItemsProvider\RepositoryItemsProvider
+        arguments:
+            - '@AppBundle\Repository\Admin\Main\BrandRepository'
+    app.misc.provider.category_items_provider:
+        class: AppBundle\Misc\ItemsProvider\RepositoryItemsProvider
+        arguments:
+            - '@AppBundle\Repository\Admin\Main\CategoryRepository'
+    app.misc.provider.link_items_provider:
+        class: AppBundle\Misc\ItemsProvider\RepositoryItemsProvider
+        arguments:
+            - '@AppBundle\Repository\Admin\Main\LinkRepository'
+    app.misc.provider.magazine_items_provider:
+        class: AppBundle\Misc\ItemsProvider\RepositoryItemsProvider
+        arguments:
+            - '@AppBundle\Repository\Admin\Main\MagazineRepository'
+    app.misc.provider.menu_items_provider:
+        class: AppBundle\Misc\ItemsProvider\RepositoryItemsProvider
+        arguments:
+            - '@AppBundle\Repository\Admin\Main\MenuRepository'
+    app.misc.provider.menu_entry_items_provider:
+        class: AppBundle\Misc\ItemsProvider\RepositoryItemsProvider
+        arguments:
+            - '@AppBundle\Repository\Admin\Main\MenuEntryRepository'
+    app.misc.provider.newsletter_block_items_provider:
+        class: AppBundle\Misc\ItemsProvider\RepositoryItemsProvider
+        arguments:
+            - '@AppBundle\Repository\Admin\Main\NewsletterBlockRepository'
+    app.misc.provider.newsletter_block_template_items_provider:
+        class: AppBundle\Misc\ItemsProvider\RepositoryItemsProvider
+        arguments:
+            - '@AppBundle\Repository\Admin\Main\NewsletterBlockTemplateRepository'
+    app.misc.provider.newsletter_group_items_provider:
+        class: AppBundle\Misc\ItemsProvider\RepositoryItemsProvider
+        arguments:
+            - '@AppBundle\Repository\Admin\Main\NewsletterGroupRepository'
+    app.misc.provider.newsletter_page_items_provider:
+        class: AppBundle\Misc\ItemsProvider\RepositoryItemsProvider
+        arguments:
+            - '@AppBundle\Repository\Admin\Main\NewsletterPageRepository'
+    app.misc.provider.newsletter_page_template_items_provider:
+        class: AppBundle\Misc\ItemsProvider\RepositoryItemsProvider
+        arguments:
+            - '@AppBundle\Repository\Admin\Main\NewsletterPageTemplateRepository'
+    app.misc.provider.newsletter_user_items_provider:
+        class: AppBundle\Misc\ItemsProvider\RepositoryItemsProvider
+        arguments:
+            - '@AppBundle\Repository\Admin\Main\NewsletterUserRepository'
+    app.misc.provider.page_items_provider:
+        class: AppBundle\Misc\ItemsProvider\RepositoryItemsProvider
+        arguments:
+            - '@AppBundle\Repository\Admin\Main\PageRepository'
+    app.misc.provider.product_items_provider:
+        class: AppBundle\Misc\ItemsProvider\RepositoryItemsProvider
+        arguments:
+            - '@AppBundle\Repository\Admin\Main\ProductRepository'
+    app.misc.provider.segment_items_provider:
+        class: AppBundle\Misc\ItemsProvider\RepositoryItemsProvider
+        arguments:
+            - '@AppBundle\Repository\Admin\Main\SegmentRepository'
+    app.misc.provider.tag_items_provider:
+        class: AppBundle\Misc\ItemsProvider\RepositoryItemsProvider
+        arguments:
+            - '@AppBundle\Repository\Admin\Main\TagRepository'
+    app.misc.provider.term_items_provider:
+        class: AppBundle\Misc\ItemsProvider\RepositoryItemsProvider
+        arguments:
+            - '@AppBundle\Repository\Admin\Main\TermRepository'
+    app.misc.provider.user_items_provider:
+        class: AppBundle\Misc\ItemsProvider\RepositoryItemsProvider
+        arguments:
+            - '@AppBundle\Repository\Admin\Main\UserRepository'
+    
+    ### Other Repository Items Providers
+    AppBundle\Misc\ItemsProvider\CategoryItemsProvider:
+        arguments:
+            - '@AppBundle\Repository\Admin\Main\CategoryRepository'
+        
+    ### Benchmark Repository Items Providers
+    AppBundle\Misc\ItemsProvider\Benchmark\CategoryItemsProvider:
+        arguments:
+            - '@AppBundle\Repository\Benchmark\CategoryRepository'
+    AppBundle\Misc\ItemsProvider\Benchmark\SubcategoryItemsProvider:
+        arguments:
+            - '@AppBundle\Repository\Benchmark\CategoryRepository'            
+    AppBundle\Misc\ItemsProvider\Benchmark\ProductBrandItemsProvider:
+        arguments:
+            - '@AppBundle\Repository\Benchmark\BrandRepository'
+    AppBundle\Misc\ItemsProvider\Benchmark\ProductCategoryItemsProvider:
+        arguments:
+            - '@AppBundle\Repository\Benchmark\CategoryRepository'
+    AppBundle\Misc\ItemsProvider\Benchmark\ProductFilterItemsProvider:
+        arguments:
+            - '@AppBundle\Repository\Benchmark\ProductRepository'
+    AppBundle\Misc\ItemsProvider\Benchmark\ProductEntryFilterProvider: ~

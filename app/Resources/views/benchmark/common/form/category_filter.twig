@@ -1,11 +1,11 @@
-{% form_theme categoryFilter 'form/fields.html.twig' %}
+{% form_theme categoryFilterForm 'form/fields.html.twig' %}
 
-{{ form_start(categoryFilter) }}
+{{ form_start(categoryFilterForm) }}
 	<div class="col-xs-12">
-		{{ form_row(categoryFilter.category) }}
+		{{ form_row(categoryFilterForm.category) }}
 	</div>
 	<div class="col-xs-12">
-		{{ form_row(categoryFilter.submit, { 'icon': 'fa-check', 'label': 'action.submit', 
+		{{ form_row(categoryFilterForm.submit, { 'icon': 'fa-check', 'label': 'action.submit', 
 			'attr': {'class': 'btn btn-success'} }) }}
 	</div>		
-{{ form_end(categoryFilter) }}
+{{ form_end(categoryFilterForm) }}

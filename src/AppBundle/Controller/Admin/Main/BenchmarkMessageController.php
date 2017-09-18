@@ -4,10 +4,6 @@ namespace AppBundle\Controller\Admin\Main;
 
 use AppBundle\Controller\Admin\Base\BaseController;
 use AppBundle\Entity\Main\BenchmarkMessage;
-use AppBundle\Entity\Main\Product;
-use AppBundle\Entity\Main\User;
-use AppBundle\Factory\Common\Choices\Bool\ReadChoicesFactory;
-use AppBundle\Factory\Common\Choices\Enum\BenchmarkMessageStatesFactory;
 use AppBundle\Filter\Common\Base\BaseFilter;
 use AppBundle\Filter\Common\Main\BenchmarkMessageFilter;
 use AppBundle\Form\Editor\Admin\Main\BenchmarkMessageEditorType;
@@ -165,7 +161,10 @@ class BenchmarkMessageController extends BaseController {
 		/** @var BenchmarkMessage $newEntry */
 		$newEntry = $viewParams['newEntry'];
 		
-		$form = $this->createForm($this->getEditorFormType(), $newEntry, $this->getEditorFormOptions());
+		$optionsProvider = $this->getEditorFormOptionsProvider();
+		$options = $optionsProvider->getFormOptions($params);
+		
+		$form = $this->createForm($this->getEditorFormType(), $newEntry, $options);
 		
 		$form->handleRequest($request);
 		
@@ -188,31 +187,22 @@ class BenchmarkMessageController extends BaseController {
 		return null;
 	}
 	
+	// ---------------------------------------------------------------------------
+	// Form options
+	// ---------------------------------------------------------------------------
+	protected function getFilterFormOptionsProvider() {
+		return $this->get('app.misc.provider.form_options.filter.main.benchmark_message');
+	}
+	
+	protected function getEditorFormOptionsProvider() {
+		return $this->get('app.misc.provider.form_options.editor.main.benchmark_message');
+	}
+	
 	// ------------------------------------------------------------------------
 	// Internal logic
 	// ------------------------------------------------------------------------
 	protected function getListItemsProvider() {
 		return $this->get('app.misc.provider.name_list_items_provider');
-	}
-	
-	protected function getFilterFormOptions() {
-		$options = parent::getFilterFormOptions();
-		
-		$this->addEntityChoicesFormOption($options, Product::class, 'products');
-		$this->addEntityChoicesFormOption($options, User::class, 'authors');
-		
-		$this->addFactoryChoicesFormOption($options, BenchmarkMessageStatesFactory::class, 'states');
-		$this->addFactoryChoicesFormOption($options, ReadChoicesFactory::class, 'readByAdmin');
-		
-		return $options;
-	}
-
-	protected function getEditorFormOptions() {
-		$options = parent::getEditorFormOptions();
-		
-		$this->addFactoryChoicesFormOption($options, BenchmarkMessageStatesFactory::class, 'state');
-		
-		return $options;
 	}
 
 	protected function setReadEntry(Request $request, $entry, $read = false) {
