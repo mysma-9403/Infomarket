@@ -31,26 +31,32 @@ class UpdateProductNotesCommand extends ContainerAwareCommand {
 
 	protected $em;
 
-	/** @var CategoryRepository $categoryRepository */
+	/** @var CategoryRepository */
 	protected $categoryRepository;
 
-	/** @var ProductRepository $productRepository */
+	/** @var ProductRepository */
 	protected $productRepository;
 
-	/** @var ProductNoteRepository $productNoteRepository */
+	/** @var ProductNoteRepository */
 	protected $productNoteRepository;
 
 	/**
 	 *
-	 * @var BenchmarkFieldsProvider $benchmarkFieldsProvider
+	 * @var BenchmarkFieldsProvider
 	 */
 	protected $benchmarkFieldsProvider;
 
 	/**
 	 *
-	 * @var BenchmarkFieldsInitializer $benchmarkFieldsInitializer
+	 * @var BenchmarkFieldsInitializer
 	 */
-	protected $benchmarkFieldsInitializer;
+	protected $showFieldsInitializer;
+
+	/**
+	 *
+	 * @var BenchmarkFieldsInitializer
+	 */
+	protected $filterFieldsInitializer;
 
 	protected function configure() {
 		$this->setName('krk:product:note:update')->setDescription('Update products notes.')->setHelp(
@@ -101,7 +107,8 @@ class UpdateProductNotesCommand extends ContainerAwareCommand {
 		$benchmarkFieldDataBaseUtils = new BenchmarkFieldDataBaseUtils();
 		$benchmarkFieldFactory = new NoteBenchmarkFieldFactory($benchmarkFieldDataBaseUtils, 
 				$this->productRepository);
-		$this->benchmarkFieldsInitializer = new BenchmarkFieldsInitializerImpl($benchmarkFieldFactory);
+		$this->showFieldsInitializer = new BenchmarkFieldsInitializerImpl($benchmarkFieldFactory);
+		$this->filterFieldsInitializer = new BenchmarkFieldsInitializerImpl($benchmarkFieldFactory);
 	}
 
 	protected function updateNotes() {
@@ -127,13 +134,14 @@ class UpdateProductNotesCommand extends ContainerAwareCommand {
 
 	protected function getBenchmarkFields($categoryId) {
 		$fields = $this->benchmarkFieldsProvider->getAllFields($categoryId);
-		$fields = $this->benchmarkFieldsInitializer->init($fields, $categoryId);
+		$fields = $this->showFieldsInitializer->init($fields, $categoryId);
 		
 		return $fields;
 	}
 
 	protected function getBenchmarkProducts($categoryId) {
-		$filter = new ProductFilter($this->benchmarkFieldRepository);
+		$filter = new ProductFilter($this->benchmarkFieldsProvider, $this->showFieldsInitializer, 
+				$this->filterFieldsInitializer);
 		$filter->initContextParams(['subcategory' => $categoryId]);
 		$filter->initRequestValues(new Request());
 		return $this->productRepository->findItems($filter);
@@ -187,7 +195,7 @@ class UpdateProductNotesCommand extends ContainerAwareCommand {
 									$max = $value;
 								}
 							}
-							$value = $productRepository->findEnumValue($product['id'], $valueField);
+							$value = $this->productRepository->findEnumValue($product['id'], $valueField);
 							
 							$note = 2. + 3. * $value / $max;
 						} // TODO refactor if else logic!!
