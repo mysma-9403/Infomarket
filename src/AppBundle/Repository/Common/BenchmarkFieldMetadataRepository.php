@@ -43,6 +43,7 @@ class BenchmarkFieldMetadataRepository extends EntityRepository {
 		$builder->select(
 				"e.valueNumber, e.fieldType, e.fieldName, e.decimalPlaces, 
 							e.noteType, e.noteWeight, e.betterThanType, e.compareWeight, e.featuredField");
+		
 		$builder->from($this->getEntityType(), "e");
 		
 		$expr = $builder->expr();
@@ -134,6 +135,7 @@ class BenchmarkFieldMetadataRepository extends EntityRepository {
 	protected function queryItemsByTypesAndCategory($categoryId, $types) {
 		$builder = new QueryBuilder($this->getEntityManager());
 		
+		$builder->distinct();
 		$builder->select("e.valueNumber, e.fieldType, e.fieldName, e.decimalPlaces");
 		$builder->from($this->getEntityType(), "e");
 		
