@@ -18,7 +18,6 @@ use AppBundle\Manager\Entity\Benchmark\CategoryManager;
 use AppBundle\Manager\Filter\Base\FilterManager;
 use AppBundle\Manager\Params\Benchmark\ContextParamsManager;
 use AppBundle\Manager\Params\EntryParams\Benchmark\CategoryParamsManager;
-use AppBundle\Manager\Route\RouteManager;
 use AppBundle\Repository\Benchmark\CategoryRepository;
 use AppBundle\Repository\Benchmark\ProductRepository;
 use AppBundle\Repository\Benchmark\SegmentRepository;
@@ -177,18 +176,7 @@ class CategoryController extends DummyController {
 	// Managers
 	// ---------------------------------------------------------------------------
 	protected function getContextParamsManager(Request $request) {
-		$doctrine = $this->getDoctrine();
-		
-		$rm = new RouteManager();
-		$lastRoute = $rm->getLastRoute($request, $this->getHomeRoute());
-		$lastRouteParams = $lastRoute['routeParams'];
-		
-		if (! $lastRouteParams) {
-			$lastRouteParams = array();
-		}
-		
-		$tokenStorage = $this->get('security.token_storage');
-		return new ContextParamsManager($doctrine, $lastRouteParams, $tokenStorage);
+		return $this->get(ContextParamsManager::class);
 	}
 
 	protected function getEntryParamsManager() {

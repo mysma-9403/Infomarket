@@ -59,8 +59,7 @@ class CustomProductController extends ImageController {
 	// Managers
 	// ---------------------------------------------------------------------------
 	protected function getInternalContextParamsManager($doctrine, $lastRouteParams) {
-		$tokenStorage = $this->get('security.token_storage');
-		return new ContextParamsManager($doctrine, $lastRouteParams, $tokenStorage);
+		return $this->get(ContextParamsManager::class);
 	}
 
 	protected function getInternalEntryParamsManager(EntityManager $em, FilterManager $fm, $doctrine) {

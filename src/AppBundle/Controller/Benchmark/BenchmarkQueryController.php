@@ -139,9 +139,8 @@ class BenchmarkQueryController extends BaseController {
 	// ---------------------------------------------------------------------------
 	// Managers
 	// ---------------------------------------------------------------------------
-	protected function getInternalContextParamsManager($doctrine, $lastRouteParams) {
-		$tokenStorage = $this->get('security.token_storage');
-		return new ContextParamsManager($doctrine, $lastRouteParams, $tokenStorage);
+	protected function getContextParamsManager(Request $request) {
+		return $this->get(ContextParamsManager::class);
 	}
 
 	protected function getEntityManager($doctrine, $paginator) {

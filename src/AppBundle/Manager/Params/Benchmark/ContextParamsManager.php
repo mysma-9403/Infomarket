@@ -47,7 +47,7 @@ class ContextParamsManager {
 		$userId = $this->tokenStorage->getToken()->getUser()->getId();
 		$contextParams['user'] = $userId;
 		
-		$lastCategoryId = $lastRouteParams['category'];
+		$lastCategoryId = key_exists('category', $lastRouteParams) ? $lastRouteParams['category'] : null;
 		$category = $this->getCategory($request, $lastCategoryId, $userId);
 		
 		if ($category) {
@@ -56,7 +56,7 @@ class ContextParamsManager {
 			$viewParams['category'] = $category;
 		}
 		
-		$lastSubcategoryId = $lastRouteParams['subcategory'];
+		$lastSubcategoryId = key_exists('subcategory', $lastRouteParams) ? $lastRouteParams['subcategory'] : null;
 		$subcategory = $this->getSubcategory($request, $lastSubcategoryId, $category['id'], $userId);
 		
 		if($subcategory) {
