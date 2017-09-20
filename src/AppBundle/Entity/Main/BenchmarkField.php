@@ -31,6 +31,15 @@ class BenchmarkField extends Simple {
 	const LT_BETTER_THAN_TYPE = 10;
 
 	const GT_BETTER_THAN_TYPE = 20;
+	
+	public function __construct() {
+		parent::__construct();
+		
+		$this->showField = false;
+		$this->showFilter = false;
+		$this->featuredField = false;
+		$this->featuredFilter = false;
+	}
 
 	/**
 	 *

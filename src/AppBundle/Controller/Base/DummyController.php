@@ -18,6 +18,27 @@ abstract class DummyController extends Controller {
 	// ---------------------------------------------------------------------------
 	
 	/**
+	 * Creates dummy params which can be initialized further by getParams method.
+	 *
+	 * @param string $route
+	 *
+	 * @return array dummy params collection
+	 */
+	protected function createParams($route) {
+		$params = array();
+	
+		$params['domain'] = $this->getDomain();
+		$params['route'] = $route;
+	
+		$params['lastRouteParams'] = array();
+		$params['contextParams'] = array();
+		$params['routeParams'] = array();
+		$params['viewParams'] = array();
+	
+		return $params;
+	}
+	
+	/**
 	 * Extends params collection by the request attributes.
 	 *
 	 * @param array $params
@@ -26,26 +47,15 @@ abstract class DummyController extends Controller {
 	 * @return array params collection
 	 */
 	protected function getParams(Request $request, array $params) {
+		$params['lastRouteParams'] = $this->getLastRouteParams($request);
+		
 		return $params;
 	}
 
-	/**
-	 * Creates dummy params which can be initialized further by getParams method.
-	 *
-	 * @param string $route        	
-	 *
-	 * @return array dummy params collection
-	 */
-	protected function createParams($route) {
-		$params = array();
-		
-		$params['domain'] = $this->getDomain();
-		$params['route'] = $route;
-		$params['contextParams'] = array();
-		$params['routeParams'] = array();
-		$params['viewParams'] = array();
-		
-		return $params;
+	protected function getLastRouteParams(Request $request) {
+		$rm = new RouteManager(); //TODO DependencyInjection
+		$lastRoute = $rm->getLastRoute($request, $this->getHomeRoute());
+		return $lastRoute['routeParams'];
 	}
 	
 	// ---------------------------------------------------------------------------
@@ -82,7 +92,7 @@ abstract class DummyController extends Controller {
 	 *
 	 * @return object repository entry
 	 */
-	protected function getEntry($id) { //TODO could be done in EntityManager
+	protected function getEntry($id) { // TODO could be done in EntityManager
 		$repository = $this->getEntityRepository();
 		$entry = $repository->find($id);
 		

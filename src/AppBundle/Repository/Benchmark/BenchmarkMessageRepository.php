@@ -33,6 +33,28 @@ class BenchmarkMessageRepository extends BaseRepository {
 		
 		return $builder->getQuery();
 	}
+	
+	public function findUnreadItemsCountByAuthor($userId) {
+		return $this->queryUnreadItemsCountByAuthor($userId)->getSingleScalarResult();
+	}
+	
+	protected function queryUnreadItemsCountByAuthor($userId) {
+		$builder = new QueryBuilder($this->getEntityManager());
+	
+		$expr = $builder->expr();
+	
+		$builder->select($expr->count('e.id') . ' AS vcount');
+		$builder->from($this->getEntityType(), "e");
+	
+		$where = $expr->andX();
+		$where->add($expr->isNull('e.parent'));
+		$where->add($expr->eq('e.readByAuthor', 0));
+		$where->add($expr->eq('e.author', $userId));
+	
+		$builder->where($where);
+	
+		return $builder->getQuery();
+	}
 
 	public function findItemsByAuthorAndProduct($authorId, $productId) {
 		return $this->queryItemsByAuthorAndProduct($authorId, $productId)->getScalarResult();

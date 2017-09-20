@@ -4,16 +4,25 @@ namespace AppBundle\Manager\Params\Benchmark;
 
 use AppBundle\Entity\Main\Category;
 use AppBundle\Manager\Params\Base\ParamsManager;
+use AppBundle\Repository\Benchmark\BenchmarkMessageRepository;
 use AppBundle\Repository\Benchmark\CategoryRepository;
 use Symfony\Component\HttpFoundation\Request;
-use AppBundle\Repository\Benchmark\BenchmarkMessageRepository;
-use AppBundle\Entity\Main\BenchmarkMessage;
 
-class ContextParamsManager extends ParamsManager {
-
-	protected $lastRouteParams;
+class ContextParamsManager {
 
 	protected $tokenStorage;
+
+	/**
+	 *
+	 * @var ParamsManager
+	 */
+	protected $paramsManager;
+
+	/**
+	 *
+	 * @var CategoryRepository
+	 */
+	protected $categoryRepository;
 
 	/**
 	 *
@@ -21,61 +30,42 @@ class ContextParamsManager extends ParamsManager {
 	 */
 	protected $benchmarkMessageRepository;
 
-	public function __construct($doctrine, array $lastRouteParams, $tokenStorage) {
-		parent::__construct($doctrine);
-		$this->lastRouteParams = $lastRouteParams;
+	public function __construct(CategoryRepository $categoryRepository, 
+			BenchmarkMessageRepository $benchmarkMessageRepository, ParamsManager $paramsManager, $tokenStorage) {
+		$this->categoryRepository = $categoryRepository;
+		$this->benchmarkMessageRepository = $benchmarkMessageRepository;
+		$this->paramsManager = $paramsManager;
 		$this->tokenStorage = $tokenStorage;
-		
-		$em = $this->doctrine->getManager();
-		
-		$this->benchmarkMessageRepository = new BenchmarkMessageRepository($em, 
-				$em->getClassMetadata(BenchmarkMessage::class));
 	}
 
 	public function getParams(Request $request, array $params) {
+		$lastRouteParams = $params['lastRouteParams'];
 		$contextParams = $params['contextParams'];
 		$routeParams = $params['routeParams'];
 		$viewParams = $params['viewParams'];
 		
-		$em = $this->doctrine->getManager();
-		
 		$userId = $this->tokenStorage->getToken()->getUser()->getId();
 		$contextParams['user'] = $userId;
 		
-		$categoryRepository = new CategoryRepository($em, $em->getClassMetadata(Category::class));
+		$lastCategoryId = $lastRouteParams['category'];
+		$category = $this->getCategory($request, $lastCategoryId, $userId);
 		
-		$categories = $categoryRepository->findFilterItemsByUser($userId);
-		
-		$categoryId = 0;
-		$category = null;
-		
-		if (count($categories) > 0) {
-			$categoryId = $this->getIdByClass($request, Category::class, $categories[key($categories)]);
-			$category = $categoryRepository->findItem($categoryId);
+		if ($category) {
+			$contextParams['category'] = $category['id'];
+			$routeParams['category'] = $category['id'];
+			$viewParams['category'] = $category;
 		}
 		
-		$contextParams['category'] = $categoryId;
-		$routeParams['category'] = $categoryId;
-		$viewParams['category'] = $category;
+		$lastSubcategoryId = $lastRouteParams['subcategory'];
+		$subcategory = $this->getSubcategory($request, $lastSubcategoryId, $category['id'], $userId);
 		
-		$subcategoryId = 0;
-		$subcategory = null;
-		
-		$subcategories = $categoryRepository->findFilterItemsByUserAndCategory($userId, $categoryId);
-		
-		if (count($subcategories) > 0) {
-			$subcategoryId = $this->getIdByName($request, 'subcategory');
-			if (! in_array($subcategoryId, $subcategories)) {
-				$subcategoryId = $subcategories[key($subcategories)];
-			}
-			$subcategory = $categoryRepository->findItem($subcategoryId);
+		if($subcategory) {
+			$contextParams['subcategory'] = $subcategory['id'];
+			$routeParams['subcategory'] = $subcategory['id'];
+			$viewParams['subcategory'] = $subcategory;
 		}
 		
-		$contextParams['subcategory'] = $subcategoryId;
-		$routeParams['subcategory'] = $subcategoryId;
-		$viewParams['subcategory'] = $subcategory;
-		
-		$unreadMessagesCount = $this->getUnreadMessagesCount();
+		$unreadMessagesCount = $this->benchmarkMessageRepository->findUnreadItemsCountByAuthor($userId);
 		$viewParams['unreadMessagesCount'] = $unreadMessagesCount;
 		
 		$params['contextParams'] = $contextParams;
@@ -85,7 +75,33 @@ class ContextParamsManager extends ParamsManager {
 		return $params;
 	}
 
-	protected function getUnreadMessagesCount() {
-		return $this->benchmarkMessageRepository->findUnreadItemsCount();
+	protected function getCategory(Request $request, $lastCategoryId, $userId) {
+		$categories = $this->categoryRepository->findFilterItemsByUser($userId);
+		
+		if (count($categories) > 0) {
+			$categoryId = $this->paramsManager->getIdByClass($request, Category::class, $lastCategoryId);
+			
+			if (! in_array($categoryId, $categories)) {
+				$categoryId = $categories[key($categories)];
+			}
+			return $this->categoryRepository->findItem($categoryId);
+		}
+		
+		return null;
+	}
+
+	protected function getSubcategory(Request $request, $lastSubcategoryId, $categoryId, $userId) {
+		$subcategories = $this->categoryRepository->findFilterItemsByUserAndCategory($userId, $categoryId);
+		
+		if (count($subcategories) > 0) {
+			$subcategoryId = $this->paramsManager->getIdByName($request, 'subcategory', $lastSubcategoryId);
+			
+			if (! in_array($subcategoryId, $subcategories)) {
+				$subcategoryId = $subcategories[key($subcategories)];
+			}
+			return $this->categoryRepository->findItem($subcategoryId);
+		}
+		
+		return null;
 	}
 }

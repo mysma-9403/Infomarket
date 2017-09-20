@@ -1,0 +1,7 @@
+services:
+    AppBundle\Manager\Params\Benchmark\ContextParamsManager:
+        arguments:
+            - '@AppBundle\Repository\Benchmark\CategoryRepository'
+            - '@AppBundle\Repository\Benchmark\BenchmarkMessageRepository'
+            - '@AppBundle\Manager\Params\Base\ParamsManager'
+            - '@security.token_storage'

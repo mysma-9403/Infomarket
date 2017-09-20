@@ -1,5 +1,6 @@
 imports:
     - { resource: manager/param_manager_services.yml }
+    - { resource: manager/context_manager_services.yml }
     
 services:
     # Utils

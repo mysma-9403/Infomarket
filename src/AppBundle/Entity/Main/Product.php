@@ -55,6 +55,14 @@ class Product extends Image implements \ArrayAccess {
 		return $this;
 	}
 
+	public function __construct() {
+		parent::__construct();
+		
+		$this->infomarket = false;
+		$this->infoprodukt = false;
+		$this->custom = false;
+	}
+	
 	/**
 	 *
 	 * @var string
@@ -2025,4 +2033,584 @@ class Product extends Image implements \ArrayAccess {
 	public function getBenchmarkQuery() {
 		return $this->benchmarkQuery;
 	}
+    /**
+     * @var string
+     */
+    private $decimal21;
+
+    /**
+     * @var string
+     */
+    private $decimal22;
+
+    /**
+     * @var string
+     */
+    private $decimal23;
+
+    /**
+     * @var string
+     */
+    private $decimal24;
+
+    /**
+     * @var string
+     */
+    private $decimal25;
+
+    /**
+     * @var string
+     */
+    private $decimal26;
+
+    /**
+     * @var string
+     */
+    private $decimal27;
+
+    /**
+     * @var string
+     */
+    private $decimal28;
+
+    /**
+     * @var string
+     */
+    private $decimal29;
+
+    /**
+     * @var string
+     */
+    private $decimal30;
+
+    /**
+     * @var integer
+     */
+    private $integer21;
+
+    /**
+     * @var integer
+     */
+    private $integer22;
+
+    /**
+     * @var integer
+     */
+    private $integer23;
+
+    /**
+     * @var integer
+     */
+    private $integer24;
+
+    /**
+     * @var integer
+     */
+    private $integer25;
+
+    /**
+     * @var integer
+     */
+    private $integer26;
+
+    /**
+     * @var integer
+     */
+    private $integer27;
+
+    /**
+     * @var integer
+     */
+    private $integer28;
+
+    /**
+     * @var integer
+     */
+    private $integer29;
+
+    /**
+     * @var integer
+     */
+    private $integer30;
+
+
+    /**
+     * Set decimal21
+     *
+     * @param string $decimal21
+     *
+     * @return Product
+     */
+    public function setDecimal21($decimal21)
+    {
+        $this->decimal21 = $decimal21;
+
+        return $this;
+    }
+
+    /**
+     * Get decimal21
+     *
+     * @return string
+     */
+    public function getDecimal21()
+    {
+        return $this->decimal21;
+    }
+
+    /**
+     * Set decimal22
+     *
+     * @param string $decimal22
+     *
+     * @return Product
+     */
+    public function setDecimal22($decimal22)
+    {
+        $this->decimal22 = $decimal22;
+
+        return $this;
+    }
+
+    /**
+     * Get decimal22
+     *
+     * @return string
+     */
+    public function getDecimal22()
+    {
+        return $this->decimal22;
+    }
+
+    /**
+     * Set decimal23
+     *
+     * @param string $decimal23
+     *
+     * @return Product
+     */
+    public function setDecimal23($decimal23)
+    {
+        $this->decimal23 = $decimal23;
+
+        return $this;
+    }
+
+    /**
+     * Get decimal23
+     *
+     * @return string
+     */
+    public function getDecimal23()
+    {
+        return $this->decimal23;
+    }
+
+    /**
+     * Set decimal24
+     *
+     * @param string $decimal24
+     *
+     * @return Product
+     */
+    public function setDecimal24($decimal24)
+    {
+        $this->decimal24 = $decimal24;
+
+        return $this;
+    }
+
+    /**
+     * Get decimal24
+     *
+     * @return string
+     */
+    public function getDecimal24()
+    {
+        return $this->decimal24;
+    }
+
+    /**
+     * Set decimal25
+     *
+     * @param string $decimal25
+     *
+     * @return Product
+     */
+    public function setDecimal25($decimal25)
+    {
+        $this->decimal25 = $decimal25;
+
+        return $this;
+    }
+
+    /**
+     * Get decimal25
+     *
+     * @return string
+     */
+    public function getDecimal25()
+    {
+        return $this->decimal25;
+    }
+
+    /**
+     * Set decimal26
+     *
+     * @param string $decimal26
+     *
+     * @return Product
+     */
+    public function setDecimal26($decimal26)
+    {
+        $this->decimal26 = $decimal26;
+
+        return $this;
+    }
+
+    /**
+     * Get decimal26
+     *
+     * @return string
+     */
+    public function getDecimal26()
+    {
+        return $this->decimal26;
+    }
+
+    /**
+     * Set decimal27
+     *
+     * @param string $decimal27
+     *
+     * @return Product
+     */
+    public function setDecimal27($decimal27)
+    {
+        $this->decimal27 = $decimal27;
+
+        return $this;
+    }
+
+    /**
+     * Get decimal27
+     *
+     * @return string
+     */
+    public function getDecimal27()
+    {
+        return $this->decimal27;
+    }
+
+    /**
+     * Set decimal28
+     *
+     * @param string $decimal28
+     *
+     * @return Product
+     */
+    public function setDecimal28($decimal28)
+    {
+        $this->decimal28 = $decimal28;
+
+        return $this;
+    }
+
+    /**
+     * Get decimal28
+     *
+     * @return string
+     */
+    public function getDecimal28()
+    {
+        return $this->decimal28;
+    }
+
+    /**
+     * Set decimal29
+     *
+     * @param string $decimal29
+     *
+     * @return Product
+     */
+    public function setDecimal29($decimal29)
+    {
+        $this->decimal29 = $decimal29;
+
+        return $this;
+    }
+
+    /**
+     * Get decimal29
+     *
+     * @return string
+     */
+    public function getDecimal29()
+    {
+        return $this->decimal29;
+    }
+
+    /**
+     * Set decimal30
+     *
+     * @param string $decimal30
+     *
+     * @return Product
+     */
+    public function setDecimal30($decimal30)
+    {
+        $this->decimal30 = $decimal30;
+
+        return $this;
+    }
+
+    /**
+     * Get decimal30
+     *
+     * @return string
+     */
+    public function getDecimal30()
+    {
+        return $this->decimal30;
+    }
+
+    /**
+     * Set integer21
+     *
+     * @param integer $integer21
+     *
+     * @return Product
+     */
+    public function setInteger21($integer21)
+    {
+        $this->integer21 = $integer21;
+
+        return $this;
+    }
+
+    /**
+     * Get integer21
+     *
+     * @return integer
+     */
+    public function getInteger21()
+    {
+        return $this->integer21;
+    }
+
+    /**
+     * Set integer22
+     *
+     * @param integer $integer22
+     *
+     * @return Product
+     */
+    public function setInteger22($integer22)
+    {
+        $this->integer22 = $integer22;
+
+        return $this;
+    }
+
+    /**
+     * Get integer22
+     *
+     * @return integer
+     */
+    public function getInteger22()
+    {
+        return $this->integer22;
+    }
+
+    /**
+     * Set integer23
+     *
+     * @param integer $integer23
+     *
+     * @return Product
+     */
+    public function setInteger23($integer23)
+    {
+        $this->integer23 = $integer23;
+
+        return $this;
+    }
+
+    /**
+     * Get integer23
+     *
+     * @return integer
+     */
+    public function getInteger23()
+    {
+        return $this->integer23;
+    }
+
+    /**
+     * Set integer24
+     *
+     * @param integer $integer24
+     *
+     * @return Product
+     */
+    public function setInteger24($integer24)
+    {
+        $this->integer24 = $integer24;
+
+        return $this;
+    }
+
+    /**
+     * Get integer24
+     *
+     * @return integer
+     */
+    public function getInteger24()
+    {
+        return $this->integer24;
+    }
+
+    /**
+     * Set integer25
+     *
+     * @param integer $integer25
+     *
+     * @return Product
+     */
+    public function setInteger25($integer25)
+    {
+        $this->integer25 = $integer25;
+
+        return $this;
+    }
+
+    /**
+     * Get integer25
+     *
+     * @return integer
+     */
+    public function getInteger25()
+    {
+        return $this->integer25;
+    }
+
+    /**
+     * Set integer26
+     *
+     * @param integer $integer26
+     *
+     * @return Product
+     */
+    public function setInteger26($integer26)
+    {
+        $this->integer26 = $integer26;
+
+        return $this;
+    }
+
+    /**
+     * Get integer26
+     *
+     * @return integer
+     */
+    public function getInteger26()
+    {
+        return $this->integer26;
+    }
+
+    /**
+     * Set integer27
+     *
+     * @param integer $integer27
+     *
+     * @return Product
+     */
+    public function setInteger27($integer27)
+    {
+        $this->integer27 = $integer27;
+
+        return $this;
+    }
+
+    /**
+     * Get integer27
+     *
+     * @return integer
+     */
+    public function getInteger27()
+    {
+        return $this->integer27;
+    }
+
+    /**
+     * Set integer28
+     *
+     * @param integer $integer28
+     *
+     * @return Product
+     */
+    public function setInteger28($integer28)
+    {
+        $this->integer28 = $integer28;
+
+        return $this;
+    }
+
+    /**
+     * Get integer28
+     *
+     * @return integer
+     */
+    public function getInteger28()
+    {
+        return $this->integer28;
+    }
+
+    /**
+     * Set integer29
+     *
+     * @param integer $integer29
+     *
+     * @return Product
+     */
+    public function setInteger29($integer29)
+    {
+        $this->integer29 = $integer29;
+
+        return $this;
+    }
+
+    /**
+     * Get integer29
+     *
+     * @return integer
+     */
+    public function getInteger29()
+    {
+        return $this->integer29;
+    }
+
+    /**
+     * Set integer30
+     *
+     * @param integer $integer30
+     *
+     * @return Product
+     */
+    public function setInteger30($integer30)
+    {
+        $this->integer30 = $integer30;
+
+        return $this;
+    }
+
+    /**
+     * Get integer30
+     *
+     * @return integer
+     */
+    public function getInteger30()
+    {
+        return $this->integer30;
+    }
 }

@@ -64,6 +64,7 @@ class ContextParamsManager extends ParamsManager {
 		$params['contextParams'] = $contextParams;
 		$params['routeParams'] = $routeParams;
 		$params['viewParams'] = $viewParams;
+		
 		return $params;
 	}
 

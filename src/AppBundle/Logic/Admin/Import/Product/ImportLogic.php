@@ -629,7 +629,7 @@ class ImportLogic {
 			$benchmarkField->setFilterNumber($column['filterNumber']);
 			$benchmarkField->setShowFilter($column['showFilter']);
 			
-			if ($column['fieldType'] == BenchmarkField::DECIMAL_VALUE_TYPE) {
+			if ($column['fieldType'] == BenchmarkField::DECIMAL_FIELD_TYPE) {
 				$benchmarkField->setDecimalPlaces(2);
 			} else {
 				$benchmarkField->setDecimalPlaces(0);
@@ -656,7 +656,7 @@ class ImportLogic {
 				$benchmarkField->setFieldType($fieldType);
 				$forUpdate = true;
 				
-				if ($column['fieldType'] == BenchmarkField::DECIMAL_VALUE_TYPE) {
+				if ($column['fieldType'] == BenchmarkField::DECIMAL_FIELD_TYPE) {
 					$benchmarkField->setDecimalPlaces(2);
 				} else {
 					$benchmarkField->setDecimalPlaces(0);
@@ -700,7 +700,8 @@ class ImportLogic {
 		$errors = array();
 		
 		$em = $this->doctrine->getManager();
-		$em->getConnection()->beginTransaction();
+		$connection = $em->getConnection();
+		$connection->beginTransaction();
 		
 		try {
 			foreach ($dataBaseEntries as $dataBaseEntry) {
@@ -712,9 +713,9 @@ class ImportLogic {
 				}
 			}
 			$em->flush();
-			$em->getConnection()->commit();
+			$connection->commit();
 		} catch (Exception $ex) {
-			$em->getConnection()->rollback();
+			$connection->rollback();
 			$errors[] = $ex->getMessage();
 		}
 		

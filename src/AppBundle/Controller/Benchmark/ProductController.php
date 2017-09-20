@@ -450,18 +450,7 @@ class ProductController extends DummyController {
 	// Managers
 	// ---------------------------------------------------------------------------
 	protected function getContextParamsManager(Request $request) {
-		$doctrine = $this->getDoctrine();
-		
-		$rm = new RouteManager();
-		$lastRoute = $rm->getLastRoute($request, $this->getHomeRoute());
-		$lastRouteParams = $lastRoute['routeParams'];
-		
-		if (! $lastRouteParams) {
-			$lastRouteParams = array();
-		}
-		
-		$tokenStorage = $this->get('security.token_storage');
-		return new ContextParamsManager($doctrine, $lastRouteParams, $tokenStorage);
+		return $this->get(ContextParamsManager::class);
 	}
 
 	protected function getEntryParamsManager() {
