@@ -1,0 +1,8 @@
+AppBundle\Entity\Assignments\UserCategoryAssignment:
+    constraints:
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
+            fields: [user, category]
+            errorPath: category
+            ignoreNull: false
+            message: 'userCategoryAssignment.unique'
+                

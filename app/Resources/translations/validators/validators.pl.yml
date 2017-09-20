@@ -25,13 +25,15 @@ menuEntryBranchAssignment.unique: Pozycja menu jest już powiązana z wybraną b
 menuEntryCategoryAssignment.unique: Pozycja menu jest już powiązana z wybraną kategorią.
 menuMenuEntryAssignment.unique: Pozycja menu jest już powiązana z wybranym menu.
 
+newsletterBlockAdvertAssignment.unique: Reklama jest już powiązana z wybranym blokiem newslettera.
+newsletterBlockArticleAssignment.unique: Artykuł jest już powiązany z wybranym blokiem newslettera.
+newsletterBlockMagazineAssignment.unique: Magazyn jest już powiązany z wybranym blokiem newslettera.
+
 productCategoryAssignment.unique: Produkt jest już przypisany do ratingu produktów w danym segmencie dla wybranej kategorii.
 
 termCategoryAssignment.unique: Kategoria jest już powiązana z wybranym terminem.
 
-newsletterBlockAdvertAssignment.unique: Reklama jest już powiązana z wybranym blokiem newslettera.
-newsletterBlockArticleAssignment.unique: Artykuł jest już powiązany z wybranym blokiem newslettera.
-newsletterBlockMagazineAssignment.unique: Magazyn jest już powiązany z wybranym blokiem newslettera.
+userCategoryAssignment.unique: Kategoria jest już powiązana z wybranym użytkownikiem.
 
 # Assignment delete errors
 articleCategory.usedIn.articleArticleCategoryAssignments: Kategoria artykułów jest używana w niektórych artykułach i nie może być usunięta.
