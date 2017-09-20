@@ -25,5 +25,5 @@
 	{% include 'common/fields/table/simple_link_field.html.twig' with 
 		{ type: 'article', id: item.articleId, name: item.articleName } %}
 	{% include 'common/fields/table/simple_link_field.html.twig' with 
-		{ type: 'article_category', id: item.articleCategoryId, name: item.articleCategoryName } %}
+		{ type: 'category', id: item.categoryId, name: item.categoryName, subname: item.categorySubname } %}
 {% endblock %}
