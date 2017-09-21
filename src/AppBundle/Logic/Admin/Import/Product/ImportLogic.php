@@ -351,7 +351,7 @@ class ImportLogic {
 				$imageName = $value;
 		}
 		
-		$imageType = 'png';
+		$imageType = 'jpg';
 		if (key_exists('imageType', $columns)) {
 			$imageTypeIndex = $columns['imageType']['index'];
 			$value = $fileEntry[$imageTypeIndex];
