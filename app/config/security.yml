@@ -26,6 +26,18 @@ security:
                 target:         admin_login
             anonymous:        true
             context:          application
+        benchmark:
+            pattern: ^/benchmark
+            form_login:
+                provider:       fos_userbundle
+                login_path:     benchmark_login
+                check_path:     benchmark_login_check
+                default_target_path: benchmark
+            logout:
+                path:           benchmark_logout
+                target:         benchmark_login
+            anonymous:        true
+            context:          application
         main:
             pattern: ^/
             form_login:
@@ -43,6 +55,9 @@ security:
         
         # IP, IM sites
         # - { path: /magazines/open, role: IS_AUTHENTICATED_FULLY }
+        
+        # Benchmark site
+        - { path: ^/benchmark, role: IS_AUTHENTICATED_FULLY }
         
         # Admin site
         - { path: ^/admin/settings, role: ROLE_EDITOR }

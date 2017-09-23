@@ -17,43 +17,41 @@ use Symfony\Component\HttpFoundation\Request;
 
 class SecurityController extends BaseController {
 
+	/**
+	 * 
+	 * @var string
+	 */
+	protected $template;
+
+	/**
+	 * 
+	 * {@inheritDoc}
+	 * @see \FOS\UserBundle\Controller\SecurityController::loginAction()
+	 */
 	public function loginAction(Request $request) {
-		/** @var $session \Symfony\Component\HttpFoundation\Session\Session */
-		$session = $request->getSession();
-		
-		$authErrorKey = Security::AUTHENTICATION_ERROR;
-		$lastUsernameKey = Security::LAST_USERNAME;
-		
-		// get the error if any (works with forward and redirect -- see below)
-		if ($request->attributes->has($authErrorKey)) {
-			$error = $request->attributes->get($authErrorKey);
-		} elseif (null !== $session && $session->has($authErrorKey)) {
-			$error = $session->get($authErrorKey);
-			$session->remove($authErrorKey);
-		} else {
-			$error = null;
-		}
-		
-		if (! $error instanceof AuthenticationException) {
-			$error = null; // The value does not come from the security component.
-		}
-		
-		// last username entered by the user
-		$lastUsername = (null === $session) ? '' : $session->get($lastUsernameKey);
-		
-		$csrfToken = $this->has('security.csrf.token_manager') ? $this->get('security.csrf.token_manager')->getToken(
-				'authenticate')->getValue() : null;
-		
-		$params = array('last_username' => $lastUsername, 'error' => $error, 'csrf_token' => $csrfToken);
-		
+		$this->initTemplate($request);
+		return parent::loginAction($request);
+	}
+
+	/**
+	 *
+	 * {@inheritDoc}
+	 *
+	 * @see \FOS\UserBundle\Controller\SecurityController::renderLogin()
+	 */
+	protected function renderLogin(array $data) {
+		return $this->render($this->template, $data);
+	}
+
+	protected function initTemplate(Request $request) {
 		$routeName = $request->get('_route');
 		
-		if (strpos($routeName, 'admin') === false) {
-			$template = 'FOSUserBundle:Security:login.html.twig';
+		if (strpos($routeName, 'admin') !== false) {
+			$this->template = 'FOSUserBundle:Security:admin_login.html.twig';
+		} else if (strpos($routeName, 'benchmark') !== false) {
+			$this->template = 'FOSUserBundle:Security:benchmark_login.html.twig';
 		} else {
-			$template = 'FOSUserBundle:Security:admin_login.html.twig';
+			$this->template = 'FOSUserBundle:Security:login.html.twig';
 		}
-		
-		return $this->render($template, $params);
 	}
 }

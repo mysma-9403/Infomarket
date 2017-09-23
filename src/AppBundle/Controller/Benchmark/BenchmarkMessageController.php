@@ -45,7 +45,7 @@ class BenchmarkMessageController extends BaseController {
 	// ---------------------------------------------------------------------------
 	protected function showActionInternal(Request $request, $id) {
 		// TODO I don't like this override and duplicate actions -> maybe save should be moved to Manager?? or ActionInternal should be splitted?
-		$this->denyAccessUnlessGranted($this->getEditRole(), null, 'Unable to access this page!');
+		$this->denyAccessUnlessGranted($this->getShowRole(), null, 'Unable to access this page!');
 		
 		$params = $this->createParams($this->getSetReadRoute());
 		$params = $this->getEditParams($request, $params, $id);
@@ -58,7 +58,7 @@ class BenchmarkMessageController extends BaseController {
 	}
 
 	protected function setReadActionInternal(Request $request, $id) {
-		$this->denyAccessUnlessGranted($this->getEditRole(), null, 'Unable to access this page!');
+		$this->denyAccessUnlessGranted($this->getShowRole(), null, 'Unable to access this page!');
 		
 		$params = $this->createParams($this->getSetReadRoute());
 		$params = $this->getEditParams($request, $params, $id);
@@ -247,7 +247,11 @@ class BenchmarkMessageController extends BaseController {
 	// Roles
 	// ---------------------------------------------------------------------------
 	protected function getShowRole() {
-		return 'ROLE_BENCHMARK';
+		return 'ROLE_USER';
+	}
+	
+	protected function getEditRole() {
+		return $this->getShowRole();
 	}
 	
 	// ---------------------------------------------------------------------------

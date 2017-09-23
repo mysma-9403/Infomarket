@@ -1023,6 +1023,23 @@
             
             
             
+            <trans-unit id="title.benchmark.welcome">
+                <source>title.benchmark.welcome</source>
+                <target>Witamy</target>
+            </trans-unit>
+            <trans-unit id="message.benchmark.welcome">
+                <source>message.benchmark.welcome</source>
+                <target>Witamy w Benchmark InfoMarket - portalu stworzonym specjalnie dla klientów bizneswych,
+                którzy odnajdą tu wszelkie dane rynkowe dla ponad stu kategorii.</target>
+            </trans-unit>
+            <trans-unit id="message.benchmark.noCategory">
+                <source>message.benchmark.noCategory</source>
+                <target>Jeśli nie masz dostępu do żadnej kategorii, 
+                skontaktuj się z naszym działem moderatorskim:</target>
+            </trans-unit>
+            
+            
+            
             <trans-unit id="label.rating.brands">
                 <source>label.rating.brands</source>
                 <target>Zalecane marki</target>

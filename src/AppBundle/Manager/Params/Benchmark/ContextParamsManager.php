@@ -50,20 +50,18 @@ class ContextParamsManager {
 		$lastCategoryId = key_exists('category', $lastRouteParams) ? $lastRouteParams['category'] : null;
 		$category = $this->getCategory($request, $lastCategoryId, $userId);
 		
-		if ($category) {
-			$contextParams['category'] = $category['id'];
-			$routeParams['category'] = $category['id'];
-			$viewParams['category'] = $category;
-		}
+		$contextParams['category'] = $category['id'];
+		$routeParams['category'] = $category['id'];
+		$viewParams['category'] = $category;
+		
 		
 		$lastSubcategoryId = key_exists('subcategory', $lastRouteParams) ? $lastRouteParams['subcategory'] : null;
 		$subcategory = $this->getSubcategory($request, $lastSubcategoryId, $category['id'], $userId);
 		
-		if($subcategory) {
-			$contextParams['subcategory'] = $subcategory['id'];
-			$routeParams['subcategory'] = $subcategory['id'];
-			$viewParams['subcategory'] = $subcategory;
-		}
+		$contextParams['subcategory'] = $subcategory['id'];
+		$routeParams['subcategory'] = $subcategory['id'];
+		$viewParams['subcategory'] = $subcategory;
+		
 		
 		$unreadMessagesCount = $this->benchmarkMessageRepository->findUnreadItemsCountByAuthor($userId);
 		$viewParams['unreadMessagesCount'] = $unreadMessagesCount;
@@ -87,7 +85,7 @@ class ContextParamsManager {
 			return $this->categoryRepository->findItem($categoryId);
 		}
 		
-		return null;
+		return ['id' => -1];
 	}
 
 	protected function getSubcategory(Request $request, $lastSubcategoryId, $categoryId, $userId) {
@@ -102,6 +100,6 @@ class ContextParamsManager {
 			return $this->categoryRepository->findItem($subcategoryId);
 		}
 		
-		return null;
+		return ['id' => -1];
 	}
 }

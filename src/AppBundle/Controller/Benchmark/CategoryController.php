@@ -240,7 +240,7 @@ class CategoryController extends DummyController {
 	// Roles
 	// ---------------------------------------------------------------------------
 	protected function getShowRole() {
-		return 'ROLE_BENCHMARK';
+		return 'ROLE_USER';
 	}
 	
 	// ---------------------------------------------------------------------------

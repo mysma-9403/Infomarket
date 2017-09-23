@@ -122,7 +122,8 @@ class ProductController extends DummyController {
 		
 		$date = new \DateTime();
 		$response = new Response($this->get('knp_snappy.image')->getOutputFromHtml($html), 200, 
-				array('Content-Type' => 'image/jpg', 
+				array(
+						'Content-Type' => 'image/jpg', 
 						'Content-Disposition' => 'filename="' . $date->format('Y-m-d') . '-benchmark.jpg"'));
 		
 		return $response;
@@ -139,7 +140,8 @@ class ProductController extends DummyController {
 		
 		$date = new \DateTime();
 		$response = new Response($this->get('knp_snappy.pdf')->getOutputFromHtml($html), 200, 
-				array('Content-Type' => 'application/pdf', 
+				array(
+						'Content-Type' => 'application/pdf', 
 						'Content-Disposition' => 'filename="' . $date->format('Y-m-d') . '-benchmark.pdf"'));
 		
 		return $response;
@@ -264,13 +266,12 @@ class ProductController extends DummyController {
 	// ---------------------------------------------------------------------------
 	// Forms
 	// ---------------------------------------------------------------------------
-	
 	protected function initIndexForms(Request $request, array &$params) {
 		$response = $this->initCategoryForm($request, $params);
 		if ($response) {
 			return $response;
 		}
-
+		
 		$response = $this->initSubcategoryForm($request, $params);
 		if ($response) {
 			return $response;
@@ -283,12 +284,12 @@ class ProductController extends DummyController {
 		
 		return null;
 	}
-	
+
 	protected function initCategoryForm(Request $request, array &$params) {
 		$contextParams = $params['contextParams'];
 		$viewParams = $params['viewParams'];
 		
-		//TODO should be taken from params??
+		// TODO should be taken from params??
 		$category = $contextParams['category'];
 		$filter = new CategoryFilter();
 		$filter->setCategory($category);
@@ -299,81 +300,81 @@ class ProductController extends DummyController {
 		$form = $this->createForm(CategoryFilterType::class, $filter, $options);
 		
 		$form->handleRequest($request);
-	
+		
 		if ($form->isSubmitted() && $form->isValid()) {
 			if ($form->get('submit')->isClicked()) {
 				return $this->redirectToRoute($this->getIndexRoute(), $filter->getRequestValues());
 			}
 		}
-	
+		
 		$viewParams['categoryFilterForm'] = $form->createView();
 		$params['viewParams'] = $viewParams;
-	
+		
 		return null;
 	}
-	
+
 	protected function initSubcategoryForm(Request $request, array &$params) {
 		$contextParams = $params['contextParams'];
 		$viewParams = $params['viewParams'];
-	
-		//TODO should be taken from params??
+		
+		// TODO should be taken from params??
 		$subcategory = $contextParams['subcategory'];
 		$filter = new SubcategoryFilter();
 		$filter->setSubcategory($subcategory);
-	
+		
 		$optionsProvider = $this->getSubcategoryFormOptionsProvider();
 		$options = $optionsProvider->getFormOptions($params);
-	
+		
 		$form = $this->createForm(SubcategoryFilterType::class, $filter, $options);
-	
+		
 		$form->handleRequest($request);
-	
+		
 		if ($form->isSubmitted() && $form->isValid()) {
 			if ($form->get('submit')->isClicked()) {
 				return $this->redirectToRoute($this->getIndexRoute(), $filter->getRequestValues());
 			}
 		}
-	
+		
 		$viewParams['subcategoryFilterForm'] = $form->createView();
 		$params['viewParams'] = $viewParams;
-	
+		
 		return null;
 	}
-	
+
 	protected function initFilterForm(Request $request, array &$params) {
 		$viewParams = $params['viewParams'];
 		$contextParams = $params['contextParams'];
 		$filter = $viewParams['entryFilter'];
 		$subcategory = $contextParams['subcategory'];
-	
+		
 		$optionsProvider = $this->getFilterFormOptionsProvider();
 		$options = $optionsProvider->getFormOptions($params);
-	
+		
 		$form = $this->createForm($this->getFilterFormType(), $filter, $options);
-	
+		
 		$form->handleRequest($request);
-	
+		
 		if ($form->isSubmitted() && $form->isValid()) {
 			if ($form->get('saveQuery')->isClicked()) {
 				$params = $filter->getRequestValues();
 				$params['name'] = $this->getBenchmarkQueryName($subcategory);
-				return $this->redirectToRoute($this->getCreateQueryRoute(),
+				return $this->redirectToRoute($this->getCreateQueryRoute(), 
 						array_merge($contextParams, $params));
 			}
-				
+			
 			if ($form->get('search')->isClicked()) {
 				return $this->redirectToRoute($this->getIndexRoute(), $filter->getRequestValues());
 			}
-				
+			
 			if ($form->get('clear')->isClicked()) {
 				$filter->clearRequestValues();
 				return $this->redirectToRoute($this->getIndexRoute(), $filter->getRequestValues());
 			}
 		}
-	
+		
 		$viewParams['filterForm'] = $form->createView();
 		$params['viewParams'] = $viewParams;
-	
+		
 		return null;
 	}
 	
@@ -383,11 +384,11 @@ class ProductController extends DummyController {
 	protected function getCategoryFormOptionsProvider() {
 		return $this->get('app.misc.provider.form_options.benchmark.product_category');
 	}
-	
+
 	protected function getSubcategoryFormOptionsProvider() {
 		return $this->get('app.misc.provider.form_options.benchmark.product_subcategory');
 	}
-	
+
 	protected function getFilterFormOptionsProvider() {
 		return $this->get('app.misc.provider.form_options.benchmark.index.product');
 	}
@@ -525,7 +526,7 @@ class ProductController extends DummyController {
 	// Roles
 	// ---------------------------------------------------------------------------
 	protected function getShowRole() {
-		return 'ROLE_BENCHMARK';
+		return 'ROLE_USER';
 	}
 
 	protected function getCompareRole() {

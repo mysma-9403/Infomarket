@@ -168,15 +168,15 @@ class BenchmarkQueryController extends BaseController {
 	// Roles
 	// ---------------------------------------------------------------------------
 	protected function getShowRole() {
-		return 'ROLE_BENCHMARK';
+		return 'ROLE_USER';
 	}
 
 	protected function getEditRole() {
-		return 'ROLE_BENCHMARK';
+		return $this->getShowRole();
 	}
 
 	protected function getDeleteRole() {
-		return 'ROLE_BENCHMARK';
+		return $this->getEditRole();
 	}
 	
 	// ---------------------------------------------------------------------------

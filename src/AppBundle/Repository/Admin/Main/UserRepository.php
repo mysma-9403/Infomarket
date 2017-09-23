@@ -59,10 +59,12 @@ class UserRepository extends BaseRepository {
 		$expr = $builder->expr();
 		
 		$roles = $expr->orX();
+		$roles->add($expr->like('e.roles', $expr->literal('%BENCHMARK%')));
 		$roles->add($expr->like('e.roles', $expr->literal('%EDITOR%')));
 		$roles->add($expr->like('e.roles', $expr->literal('%ADMIN%')));
 		
-		$where->add($roles);
+		//TODO unlock when users are automatically added in registration form to proper role (BENCHMARK orEDITOR)
+// 		$where->add($roles);
 		
 		return $where;
 	}
@@ -72,6 +74,7 @@ class UserRepository extends BaseRepository {
 		
 		$fields[] = 'e.surname';
 		$fields[] = 'e.forename';
+		$fields[] = 'e.username';
 		
 		return $fields;
 	}
@@ -81,6 +84,7 @@ class UserRepository extends BaseRepository {
 		
 		$fields[] = $item['surname'];
 		$fields[] = $item['forename'];
+		$fields[] = '(' . $item['username'] . ')';
 		
 		return $fields;
 	}

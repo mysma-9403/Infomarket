@@ -2,7 +2,7 @@
 
 namespace AppBundle\Controller\Benchmark;
 
-use AppBundle\Controller\Admin\Base\ImageController;
+use AppBundle\Controller\Admin\Base\BaseController;
 use AppBundle\Entity\Assignments\ProductCategoryAssignment;
 use AppBundle\Entity\Main\BenchmarkField;
 use AppBundle\Entity\Main\Category;
@@ -26,7 +26,7 @@ use AppBundle\Repository\Common\BenchmarkFieldMetadataRepository;
 use AppBundle\Utils\Entity\DataBase\BenchmarkFieldDataBaseUtils;
 use Symfony\Component\HttpFoundation\Request;
 
-class CustomProductController extends ImageController {
+class CustomProductController extends BaseController {
 	
 	// ---------------------------------------------------------------------------
 	// Actions
@@ -288,15 +288,15 @@ class CustomProductController extends ImageController {
 	// Roles
 	// ---------------------------------------------------------------------------
 	protected function getShowRole() {
-		return 'ROLE_BENCHMARK';
+		return 'ROLE_USER';
 	}
 
 	protected function getEditRole() {
-		return 'ROLE_BENCHMARK';
+		return $this->getShowRole();
 	}
 
 	protected function getDeleteRole() {
-		return 'ROLE_BENCHMARK';
+		return $this->getEditRole();
 	}
 	
 	// ---------------------------------------------------------------------------

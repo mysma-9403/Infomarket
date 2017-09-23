@@ -1,20 +1,14 @@
 AppBundle\Entity\Main\User:
+    constraints:
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: username
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: email
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: pseudonym
     properties:
         forename:
             - NotBlank: ~
             - Regex:
                 pattern: '/^[^0-9!@#$%^&*(),.<>;:]+$/'
         surname:
-            - NotBlank: ~
-            - Regex:
-                pattern: '/^[^0-9!@#$%^&*(),.<>;:]+$/'
-        street:
-            - NotBlank: ~
-        zipCode:
-            - NotBlank: ~
-            - Regex:
-                pattern: '/^\d{2}(?:[-\s]\d{3})$/'
-        city:
             - NotBlank: ~
             - Regex:
                 pattern: '/^[^0-9!@#$%^&*(),.<>;:]+$/'

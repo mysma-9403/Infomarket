@@ -1,12 +1,12 @@
 <?php
 
-namespace AppBundle\Controller\Admin\Main;
+namespace AppBundle\Controller\Benchmark;
 
+use AppBundle\Manager\Analytics\AnalyticsManager;
+use AppBundle\Manager\Params\Benchmark\ContextParamsManager;
+use AppBundle\Manager\Route\RouteManager;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-use AppBundle\Manager\Route\RouteManager;
-use AppBundle\Manager\Params\Admin\ContextParamsManager;
-use AppBundle\Manager\Analytics\AnalyticsManager;
 
 class HomeController extends Controller {
 
@@ -21,9 +21,7 @@ class HomeController extends Controller {
 	/**
 	 *
 	 * @param Request $request        	
-	 * @param integer $page
-	 *        	current page number
-	 *        	
+	 * @param unknown $page        	
 	 * @return \Symfony\Component\HttpFoundation\Response
 	 */
 	protected function indexActionInternal(Request $request, $page) {
@@ -38,7 +36,10 @@ class HomeController extends Controller {
 		$am = $this->getAnalyticsManager();
 		$am->sendPageviewAnalytics($params['domain'], $params['route']);
 		
+		$routeParams = $params['routeParams'];
+		
 		$viewParams = $params['viewParams'];
+		$viewParams['routeParams'] = $routeParams;
 		
 		return $this->render($this->getIndexView(), $viewParams);
 	}
@@ -59,17 +60,18 @@ class HomeController extends Controller {
 		
 		$params['domain'] = $this->getDomain();
 		$params['route'] = $route;
+		$params['lastRouteParams'] = array();
 		$params['contextParams'] = array();
 		$params['routeParams'] = array();
 		$params['viewParams'] = array();
 		
 		return $params;
 	}
-
+	
 	protected function getParams(Request $request, array $params) {
 		$cpm = $this->getContextParamsManager($request);
 		$params = $cpm->getParams($request, $params);
-		
+	
 		$viewParams = $params['viewParams'];
 		$viewParams['isAdmin'] = $this->isAdmin();
 		$params['viewParams'] = $viewParams;
@@ -108,17 +110,7 @@ class HomeController extends Controller {
 	}
 
 	protected function getContextParamsManager(Request $request) {
-		$doctrine = $this->getDoctrine();
-		
-		$rm = new RouteManager();
-		$lastRoute = $rm->getLastRoute($request, $this->getHomeRoute());
-		$lastRouteParams = $lastRoute['routeParams'];
-		
-		if (! $lastRouteParams) {
-			$lastRouteParams = array();
-		}
-		
-		return new ContextParamsManager($doctrine, $lastRouteParams);
+		return $this->get(ContextParamsManager::class);
 	}
 	
 	// ---------------------------------------------------------------------------
@@ -139,14 +131,14 @@ class HomeController extends Controller {
 	// Views
 	// ---------------------------------------------------------------------------
 	protected function getIndexView() {
-		return $this->getDomain() . '/admin/index.html.twig';
+		return $this->getDomain() . '/home/index.html.twig';
 	}
 	
 	// ---------------------------------------------------------------------------
 	// Routes
 	// ---------------------------------------------------------------------------
 	protected function getIndexRoute() {
-		return $this->getDomain() . '_admin';
+		return $this->getDomain() . '_benchmark';
 	}
 
 	protected function getHomeRoute() {
@@ -154,6 +146,6 @@ class HomeController extends Controller {
 	}
 
 	protected function getDomain() {
-		return 'admin';
+		return 'benchmark';
 	}
 }

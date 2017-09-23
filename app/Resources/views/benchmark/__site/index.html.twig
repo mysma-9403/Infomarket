@@ -24,7 +24,7 @@
 	      		{% endblock %}
 	      		
 				{% block navigationBrand %}
-				<a class="navbar-brand" href="{{ path('infoprodukt_home') }}">
+				<a class="navbar-brand" href="{{ path('benchmark') }}">
 					<img class="brand-image" src="{{ asset('img/logo-infomarket.png') }}">
 				</a>
 				{% endblock %}
@@ -35,7 +35,7 @@
 		<div class="navbar-greet navbar-left hidden-xs hidden-sm">
 			<p>
 				{{ 'label.welcome'|trans }} {{ app.user.username }}, <br>
-				<a href="{{ path('admin_logout') }}"> {# TODO benchmark_logout ?? #}
+				<a href="{{ path('benchmark_logout') }}"> {# TODO benchmark_logout ?? #}
 					{{ 'label.logout'|trans }}
 				</a>
 			</p>
@@ -43,27 +43,44 @@
 		{% endblock %}
 		
 		{% block navigationLinks %}
-		<div class="collapse navbar-collapse" id="catbar">
-			<ul class="nav navbar-nav navbar-right">
-				{% include 'common/menu/simple_link.html.twig' with 
-					{ linkPath: "category_show", linkLabel: "label.categories" } %}
-		        {% include 'common/menu/simple_link.html.twig' with 
-		          { linkPath: "product", linkLabel: "label.products" } %}
-		        {% include 'common/menu/simple_link.html.twig' with 
-		          { linkPath: "custom_product", linkLabel: "label.customProducts" } %}
-		        {% include 'common/menu/simple_link.html.twig' with 
-		          { linkPath: "benchmark_query", linkLabel: "label.benchmarkQueries" } %}
-		        {% include 'common/menu/simple_link.html.twig' with 
-		          { linkPath: "benchmark_message", linkLabel: "label.benchmarkMessages", badge: unreadMessagesCount } %}
-			</ul>
-		</div>
+			{% if category.name is defined and subcategory.name is defined%}
+				<div class="collapse navbar-collapse" id="catbar">
+					<ul class="nav navbar-nav navbar-right">
+						{% include 'common/menu/simple_link.html.twig' with 
+							{ linkPath: "category_show", linkLabel: "label.categories" } %}
+				        {% include 'common/menu/simple_link.html.twig' with 
+				          { linkPath: "product", linkLabel: "label.products" } %}
+				        {% include 'common/menu/simple_link.html.twig' with 
+				          { linkPath: "custom_product", linkLabel: "label.customProducts" } %}
+				        {% include 'common/menu/simple_link.html.twig' with 
+				          { linkPath: "benchmark_query", linkLabel: "label.benchmarkQueries" } %}
+				        {% include 'common/menu/simple_link.html.twig' with 
+				          { linkPath: "benchmark_message", linkLabel: "label.benchmarkMessages", badge: unreadMessagesCount } %}
+					</ul>
+				</div>
+			{% endif %}
 		{% endblock %}
 	</nav>
 	{% endblock %}
 	
 	<div class="container-fluid content">
-		{% block content %}
-		{% endblock %}
+		{% if category.name is defined and subcategory.name is defined%}
+			{% block content %}
+			{% endblock %}
+        {% else %}
+        	<div class="container">
+        		<h1>{{ 'title.benchmark.welcome'|trans }}</h1>
+	        	<p>{{ 'message.benchmark.welcome'|trans }}</p>
+	        	
+	        	<h2>{{ 'label.categories'|trans }}</h2>
+	        	<p>
+		        	{{ 'message.benchmark.noCategory'|trans }}
+		        	<a href="mailto:r.wojcik@infomarket.edu.pl">
+		        		r.wojcik@infomarket.edu.pl
+		        	</a>
+	        	</p>
+        	</div>
+        {% endif %}
 	</div>
 	
 {% endblock %}

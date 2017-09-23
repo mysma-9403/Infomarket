@@ -50,6 +50,9 @@ services:
         tags:
             - { name: 'twig.extension' }
     
+    # Utils
+    AppBundle\Utils\RegexUtils: ~
+    
     # Repository Managers
     AppBundle\Repository\Factory\AdminRepositoryFactory:
         arguments:
