@@ -253,15 +253,11 @@ class CustomProductController extends BaseController {
 			
 			$em->persist($assignment);
 			$em->flush();
-		}
-		
-		if (! $entry->getProductNote()) {
-			$note = new ProductNote();
-			$note->setProduct($entry);
-			$note->setOveralNote(2.0); // TODO first note should be calculated here!
 			
-			/** @var \Doctrine\Common\Persistence\ObjectManager $em */
-			$em = $this->getDoctrine()->getManager();
+			$note = new ProductNote();
+			$note->setProductCategoryAssignment($assignment);
+			$note->setOveralNote(2.0); // TODO first note should be calculated here!
+			$note->setUpToDate(false);
 			
 			$em->persist($note);
 			$em->flush();
@@ -272,12 +268,8 @@ class CustomProductController extends BaseController {
 		/** @var Product $entry */
 		$em = $this->getDoctrine()->getManager();
 		foreach ($entry->getProductCategoryAssignments() as $productCategoryAssignment) {
+			$em->remove($productCategoryAssignment->getProductNote());
 			$em->remove($productCategoryAssignment);
-		}
-		$em->flush();
-		
-		if ($entry->getProductNote()) {
-			$em->remove($entry->getProductNote());
 		}
 		$em->flush();
 		

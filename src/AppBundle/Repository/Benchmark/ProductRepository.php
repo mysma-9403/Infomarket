@@ -591,13 +591,11 @@ class ProductRepository extends BaseRepository {
 		$expr = $builder->expr();
 		
 		$builder->select('e.id');
-		$builder->distinct();
 		$builder->from($this->getEntityType(), "e");
 		
 		$builder->innerJoin(ProductCategoryAssignment::class, 'pca', Join::WITH, 'e.id = pca.product');
 		$builder->innerJoin(Category::class, 'c', Join::WITH, 'c.id = pca.category');
-		
-		$builder->innerJoin(ProductNote::class, 'pn', Join::WITH, 'pn.product = e.id');
+		$builder->innerJoin(ProductNote::class, 'pn', Join::WITH, 'pn.productCategoryAssignment = pca.id');
 		
 		$where = $expr->andX();
 		$where->add($expr->isNull('e.benchmarkQuery'));
@@ -624,13 +622,11 @@ class ProductRepository extends BaseRepository {
 		$expr = $builder->expr();
 		
 		$builder->select('e.id');
-		$builder->distinct();
 		$builder->from($this->getEntityType(), "e");
 		
 		$builder->innerJoin(ProductCategoryAssignment::class, 'pca', Join::WITH, 'e.id = pca.product');
 		$builder->innerJoin(Category::class, 'c', Join::WITH, 'c.id = pca.category');
-		
-		$builder->innerJoin(ProductNote::class, 'pn', Join::WITH, 'pn.product = e.id');
+		$builder->innerJoin(ProductNote::class, 'pn', Join::WITH, 'pn.productCategoryAssignment = pca.id');
 		
 		$where = $expr->andX();
 		$where->add($expr->isNull('e.benchmarkQuery'));

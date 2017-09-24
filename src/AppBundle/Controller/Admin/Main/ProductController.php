@@ -313,15 +313,20 @@ class ProductController extends ImageController {
 		parent::saveMore($request, $entry, $params);
 		
 		// TODO copy-pasted in CustomProductController - should be unified
-		if (! $entry->getProductNote()) {
-			$note = new ProductNote();
-			$note->setProduct($entry);
-			$note->setOveralNote(2.0); // TODO first note should be calculated here!
-			
+		if($entry->getProductCategoryAssignments()) {
 			/** @var \Doctrine\Common\Persistence\ObjectManager $em */
 			$em = $this->getDoctrine()->getManager();
 			
-			$em->persist($note);
+			foreach ($entry->getProductCategoryAssignments() as $productCategoryAssignment) {
+				if (!$productCategoryAssignment->getProductNote()) {
+					$note = new ProductNote();
+					$note->setProductCategoryAssignment($productCategoryAssignment);
+					$note->setOveralNote(2.0); // TODO first note should be calculated here!
+					$note->setUpToDate(false);
+					
+					$em->persist($note);
+				}
+			}
 			$em->flush();
 		}
 	}
@@ -330,12 +335,8 @@ class ProductController extends ImageController {
 		/** @var Product $entry */
 		$em = $this->getDoctrine()->getManager();
 		foreach ($entry->getProductCategoryAssignments() as $productCategoryAssignment) {
+			$em->remove($productCategoryAssignment->getProductNote());
 			$em->remove($productCategoryAssignment);
-		}
-		$em->flush();
-		
-		if ($entry->getProductNote()) {
-			$em->remove($entry->getProductNote());
 		}
 		$em->flush();
 		

@@ -156,6 +156,10 @@ class UpdateProductNotesCommand extends ContainerAwareCommand {
 			$this->updateSummary($summary);
 			$done ++;
 			
+			if($done % 100 == 0) {
+				$this->em->flush();
+			}
+			
 			$end = new \DateTime();
 			
 			$commandInterval = $end->getTimestamp() - $start->getTimestamp();
@@ -165,6 +169,7 @@ class UpdateProductNotesCommand extends ContainerAwareCommand {
 			}
 		}
 		
+		$this->em->flush();
 		return ['total' => $total, 'done' => $done];
 	}
 
@@ -174,7 +179,6 @@ class UpdateProductNotesCommand extends ContainerAwareCommand {
 		$summary = $this->updateMinMaxValues($summary, $minMaxValues);
 		
 		$this->em->persist($summary);
-		$this->em->flush();
 	}
 
 	protected function updateMinMaxValues(CategorySummary $summary, $minMaxValues) {
@@ -248,6 +252,10 @@ class UpdateProductNotesCommand extends ContainerAwareCommand {
 		foreach ($productNotes as $productNote) {
 			$this->updateProductNote($productNote, $summary, $fields);
 			$done ++;
+			
+			if($done % 100 == 0) {
+				$this->em->flush();
+			}
 			
 			$end = new \DateTime();
 			

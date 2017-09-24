@@ -12,6 +12,7 @@ use AppBundle\Repository\Benchmark\BenchmarkMessageRepository;
 use AppBundle\Repository\Benchmark\ProductRepository;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Entity\Main\ProductNote;
+use AppBundle\Entity\Assignments\ProductCategoryAssignment;
 
 class ProductParamsManager extends EntryParamsManager {
 
@@ -188,11 +189,11 @@ class ProductParamsManager extends EntryParamsManager {
 		} else {
 			$overalNote = 5.;
 		}
-		//TODO make it better -> each product should have default note created while created/imported
-		$productNote = $entry->getProductNote();
-		if(!$productNote) {
-			$productNote = new ProductNote();
-		}
+		
+		
+		$assignment = $this->getProductCategoryAssignment($entry, $categoryId);
+		$productNote = $assignment->getProductNote();
+		
 		$overalNote = $productNote->getOveralNote();
 		$viewParams['overalNote'] = $overalNote;
 		
@@ -212,6 +213,23 @@ class ProductParamsManager extends EntryParamsManager {
 		$params['viewParams'] = $viewParams;
 		
 		return $params;
+	}
+	
+	/**
+	 * 
+	 * @param Product $entry
+	 * @param unknown $categoryId
+	 * 
+	 * @return ProductCategoryAssignment
+	 */
+	protected function getProductCategoryAssignment(Product $entry, $categoryId) {
+		$assignments = $entry->getProductCategoryAssignments();
+		foreach ($assignments as $assignment) {
+			if($assignment->getCategory()->getId() == $categoryId) {
+				return $assignment;
+			}
+		}
+		return null;
 	}
 
 	public function getCompareParams(Request $request, array $params, $id) {
