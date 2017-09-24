@@ -1,4 +1,10 @@
-services:   
+services:
+    # Common Repositories
+    AppBundle\Repository\Common\BenchmarkFieldMetadataRepository:
+        factory: ['@AppBundle\Repository\Factory\CommonRepositoryFactory', getRepository]
+        arguments:
+            - AppBundle\Repository\Common\BenchmarkFieldMetadataRepository
+       
     # Benchmark Repositories
     AppBundle\Repository\Benchmark\BenchmarkMessageRepository:
         factory: ['@AppBundle\Repository\Factory\BenchmarkRepositoryFactory', getRepository]
@@ -28,6 +34,7 @@ services:
         factory: ['@AppBundle\Repository\Factory\BenchmarkRepositoryFactory', getRepository]
         arguments:
             - AppBundle\Repository\Benchmark\SegmentRepository
+
 
     # Infomarket Repositories
     AppBundle\Repository\Infomarket\AdvertRepository:
@@ -225,6 +232,12 @@ services:
             - AppBundle\Entity\Main\Category
         tags:
             - { name: app.repository }
+    AppBundle\Repository\Admin\Main\CategorySummaryRepository:
+        factory: ['@doctrine.orm.default_entity_manager', getRepository]
+        arguments:
+            - AppBundle\Entity\Main\CategorySummary
+        tags:
+            - { name: app.repository }
     AppBundle\Repository\Admin\Main\LinkRepository:
         factory: ['@doctrine.orm.default_entity_manager', getRepository]
         arguments:
@@ -295,6 +308,12 @@ services:
         factory: ['@doctrine.orm.default_entity_manager', getRepository]
         arguments:
             - AppBundle\Entity\Main\Product
+        tags:
+            - { name: app.repository }
+    AppBundle\Repository\Admin\Main\ProductNoteRepository:
+        factory: ['@doctrine.orm.default_entity_manager', getRepository]
+        arguments:
+            - AppBundle\Entity\Main\ProductNote
         tags:
             - { name: app.repository }
     AppBundle\Repository\Admin\Main\SegmentRepository:

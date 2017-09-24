@@ -20,3 +20,8 @@ services:
         arguments:
             - '@AppBundle\Factory\Admin\Import\NewsletterUser\ImportErrorFactory'
             - '@AppBundle\Validation\MailValidation'
+    
+    # Benchmark Factories
+    AppBundle\Factory\Common\BenchmarkField\NoteBenchmarkFieldFactory:
+        - '@AppBundle\Utils\Entity\DataBase\BenchmarkFieldDataBaseUtils'
+        - '@AppBundle\Repository\Benchmark\ProductRepository'

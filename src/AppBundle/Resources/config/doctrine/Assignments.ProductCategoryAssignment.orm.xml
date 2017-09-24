@@ -19,6 +19,8 @@
 
 		<field name="featured" type="boolean" default="false" />
 
+		<one-to-one field="productNote" target-entity="AppBundle\Entity\Main\ProductNote"
+			mapped-by="productCategoryAssignment" />
 	</entity>
 
 </doctrine-mapping>

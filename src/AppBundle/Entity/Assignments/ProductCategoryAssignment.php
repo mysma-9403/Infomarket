@@ -10,143 +10,178 @@ class ProductCategoryAssignment extends Simple {
 		return $this->category->getDisplayName();
 	}
 
-	/**
-	 *
-	 * @var integer
-	 */
-	private $orderNumber;
+    /**
+     * @var integer
+     */
+    private $orderNumber;
 
-	/**
-	 *
-	 * @var boolean
-	 */
-	private $featured;
+    /**
+     * @var boolean
+     */
+    private $featured;
 
-	/**
-	 *
-	 * @var \AppBundle\Entity\Main\Product
-	 */
-	private $product;
+    /**
+     * @var \AppBundle\Entity\Main\ProductNote
+     */
+    private $productNote;
 
-	/**
-	 *
-	 * @var \AppBundle\Entity\Main\Segment
-	 */
-	private $segment;
+    /**
+     * @var \AppBundle\Entity\Main\Product
+     */
+    private $product;
 
-	/**
-	 *
-	 * @var \AppBundle\Entity\Main\Category
-	 */
-	private $category;
+    /**
+     * @var \AppBundle\Entity\Main\Segment
+     */
+    private $segment;
 
-	/**
-	 * Set orderNumber
-	 *
-	 * @param integer $orderNumber        	
-	 *
-	 * @return ProductCategoryAssignment
-	 */
-	public function setOrderNumber($orderNumber) {
-		$this->orderNumber = $orderNumber;
-		
-		return $this;
-	}
+    /**
+     * @var \AppBundle\Entity\Main\Category
+     */
+    private $category;
 
-	/**
-	 * Get orderNumber
-	 *
-	 * @return integer
-	 */
-	public function getOrderNumber() {
-		return $this->orderNumber;
-	}
 
-	/**
-	 * Set featured
-	 *
-	 * @param boolean $featured        	
-	 *
-	 * @return ProductCategoryAssignment
-	 */
-	public function setFeatured($featured) {
-		$this->featured = $featured;
-		
-		return $this;
-	}
+    /**
+     * Set orderNumber
+     *
+     * @param integer $orderNumber
+     *
+     * @return ProductCategoryAssignment
+     */
+    public function setOrderNumber($orderNumber)
+    {
+        $this->orderNumber = $orderNumber;
 
-	/**
-	 * Get featured
-	 *
-	 * @return boolean
-	 */
-	public function getFeatured() {
-		return $this->featured;
-	}
+        return $this;
+    }
 
-	/**
-	 * Set product
-	 *
-	 * @param \AppBundle\Entity\Main\Product $product        	
-	 *
-	 * @return ProductCategoryAssignment
-	 */
-	public function setProduct(\AppBundle\Entity\Main\Product $product = null) {
-		$this->product = $product;
-		
-		return $this;
-	}
+    /**
+     * Get orderNumber
+     *
+     * @return integer
+     */
+    public function getOrderNumber()
+    {
+        return $this->orderNumber;
+    }
 
-	/**
-	 * Get product
-	 *
-	 * @return \AppBundle\Entity\Main\Product
-	 */
-	public function getProduct() {
-		return $this->product;
-	}
+    /**
+     * Set featured
+     *
+     * @param boolean $featured
+     *
+     * @return ProductCategoryAssignment
+     */
+    public function setFeatured($featured)
+    {
+        $this->featured = $featured;
 
-	/**
-	 * Set segment
-	 *
-	 * @param \AppBundle\Entity\Main\Segment $segment        	
-	 *
-	 * @return ProductCategoryAssignment
-	 */
-	public function setSegment(\AppBundle\Entity\Main\Segment $segment = null) {
-		$this->segment = $segment;
-		
-		return $this;
-	}
+        return $this;
+    }
 
-	/**
-	 * Get segment
-	 *
-	 * @return \AppBundle\Entity\Main\Segment
-	 */
-	public function getSegment() {
-		return $this->segment;
-	}
+    /**
+     * Get featured
+     *
+     * @return boolean
+     */
+    public function getFeatured()
+    {
+        return $this->featured;
+    }
 
-	/**
-	 * Set category
-	 *
-	 * @param \AppBundle\Entity\Main\Category $category        	
-	 *
-	 * @return ProductCategoryAssignment
-	 */
-	public function setCategory(\AppBundle\Entity\Main\Category $category = null) {
-		$this->category = $category;
-		
-		return $this;
-	}
+    /**
+     * Set productNote
+     *
+     * @param \AppBundle\Entity\Main\ProductNote $productNote
+     *
+     * @return ProductCategoryAssignment
+     */
+    public function setProductNote(\AppBundle\Entity\Main\ProductNote $productNote = null)
+    {
+        $this->productNote = $productNote;
 
-	/**
-	 * Get category
-	 *
-	 * @return \AppBundle\Entity\Main\Category
-	 */
-	public function getCategory() {
-		return $this->category;
-	}
+        return $this;
+    }
+
+    /**
+     * Get productNote
+     *
+     * @return \AppBundle\Entity\Main\ProductNote
+     */
+    public function getProductNote()
+    {
+        return $this->productNote;
+    }
+
+    /**
+     * Set product
+     *
+     * @param \AppBundle\Entity\Main\Product $product
+     *
+     * @return ProductCategoryAssignment
+     */
+    public function setProduct(\AppBundle\Entity\Main\Product $product = null)
+    {
+        $this->product = $product;
+
+        return $this;
+    }
+
+    /**
+     * Get product
+     *
+     * @return \AppBundle\Entity\Main\Product
+     */
+    public function getProduct()
+    {
+        return $this->product;
+    }
+
+    /**
+     * Set segment
+     *
+     * @param \AppBundle\Entity\Main\Segment $segment
+     *
+     * @return ProductCategoryAssignment
+     */
+    public function setSegment(\AppBundle\Entity\Main\Segment $segment = null)
+    {
+        $this->segment = $segment;
+
+        return $this;
+    }
+
+    /**
+     * Get segment
+     *
+     * @return \AppBundle\Entity\Main\Segment
+     */
+    public function getSegment()
+    {
+        return $this->segment;
+    }
+
+    /**
+     * Set category
+     *
+     * @param \AppBundle\Entity\Main\Category $category
+     *
+     * @return ProductCategoryAssignment
+     */
+    public function setCategory(\AppBundle\Entity\Main\Category $category = null)
+    {
+        $this->category = $category;
+
+        return $this;
+    }
+
+    /**
+     * Get category
+     *
+     * @return \AppBundle\Entity\Main\Category
+     */
+    public function getCategory()
+    {
+        return $this->category;
+    }
 }

@@ -7,10 +7,16 @@
 	<entity name="AppBundle\Entity\Main\ProductNote" table="product_notes"
 		repository-class="AppBundle\Repository\Admin\Main\ProductNoteRepository">
 
-		<one-to-one field="product" target-entity="Product" inversed-by="productNote" />
+		<one-to-one field="productCategoryAssignment"
+			target-entity="AppBundle\Entity\Assignments\ProductCategoryAssignment"
+			inversed-by="productNote" />
+			
+			
+		<field name="upToDate" type="boolean" nullable="false" default="0" />
 
 		<field name="overalNote" type="decimal" precision="2" scale="1"
 			nullable="true" />
+
 
 		<field name="decimalNote1" type="decimal" precision="2" scale="1"
 			nullable="true" />
@@ -52,6 +58,27 @@
 		<field name="decimalNote19" type="decimal" precision="2" scale="1"
 			nullable="true" />
 		<field name="decimalNote20" type="decimal" precision="2" scale="1"
+			nullable="true" />
+			
+		<field name="decimalNote21" type="decimal" precision="2" scale="1"
+			nullable="true" />
+		<field name="decimalNote22" type="decimal" precision="2" scale="1"
+			nullable="true" />
+		<field name="decimalNote23" type="decimal" precision="2" scale="1"
+			nullable="true" />
+		<field name="decimalNote24" type="decimal" precision="2" scale="1"
+			nullable="true" />
+		<field name="decimalNote25" type="decimal" precision="2" scale="1"
+			nullable="true" />
+		<field name="decimalNote26" type="decimal" precision="2" scale="1"
+			nullable="true" />
+		<field name="decimalNote27" type="decimal" precision="2" scale="1"
+			nullable="true" />
+		<field name="decimalNote28" type="decimal" precision="2" scale="1"
+			nullable="true" />
+		<field name="decimalNote29" type="decimal" precision="2" scale="1"
+			nullable="true" />
+		<field name="decimalNote30" type="decimal" precision="2" scale="1"
 			nullable="true" />
 
 
@@ -96,6 +123,27 @@
 			nullable="true" />
 		<field name="integerNote20" type="decimal" precision="2" scale="1"
 			nullable="true" />
+			
+		<field name="integerNote21" type="decimal" precision="2" scale="1"
+			nullable="true" />
+		<field name="integerNote22" type="decimal" precision="2" scale="1"
+			nullable="true" />
+		<field name="integerNote23" type="decimal" precision="2" scale="1"
+			nullable="true" />
+		<field name="integerNote24" type="decimal" precision="2" scale="1"
+			nullable="true" />
+		<field name="integerNote25" type="decimal" precision="2" scale="1"
+			nullable="true" />
+		<field name="integerNote26" type="decimal" precision="2" scale="1"
+			nullable="true" />
+		<field name="integerNote27" type="decimal" precision="2" scale="1"
+			nullable="true" />
+		<field name="integerNote28" type="decimal" precision="2" scale="1"
+			nullable="true" />
+		<field name="integerNote29" type="decimal" precision="2" scale="1"
+			nullable="true" />
+		<field name="integerNote30" type="decimal" precision="2" scale="1"
+			nullable="true" />
 
 
 		<field name="stringNote1" type="decimal" precision="2" scale="1"
@@ -138,6 +186,27 @@
 		<field name="stringNote19" type="decimal" precision="2" scale="1"
 			nullable="true" />
 		<field name="stringNote20" type="decimal" precision="2" scale="1"
+			nullable="true" />
+			
+		<field name="stringNote21" type="decimal" precision="2" scale="1"
+			nullable="true" />
+		<field name="stringNote22" type="decimal" precision="2" scale="1"
+			nullable="true" />
+		<field name="stringNote23" type="decimal" precision="2" scale="1"
+			nullable="true" />
+		<field name="stringNote24" type="decimal" precision="2" scale="1"
+			nullable="true" />
+		<field name="stringNote25" type="decimal" precision="2" scale="1"
+			nullable="true" />
+		<field name="stringNote26" type="decimal" precision="2" scale="1"
+			nullable="true" />
+		<field name="stringNote27" type="decimal" precision="2" scale="1"
+			nullable="true" />
+		<field name="stringNote28" type="decimal" precision="2" scale="1"
+			nullable="true" />
+		<field name="stringNote29" type="decimal" precision="2" scale="1"
+			nullable="true" />
+		<field name="stringNote30" type="decimal" precision="2" scale="1"
 			nullable="true" />
 
 	</entity>

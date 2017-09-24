@@ -10,6 +10,7 @@ use AppBundle\Filter\Common\Main\CategoryFilter;
 use AppBundle\Repository\Admin\Base\ImageRepository;
 use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\ORM\QueryBuilder;
+use AppBundle\Entity\Main\CategorySummary;
 
 class CategoryRepository extends ImageRepository {
 
@@ -206,6 +207,29 @@ class CategoryRepository extends ImageRepository {
 		$where = $expr->andX();
 		$where->add($expr->eq('e.preleaf', 0));
 		$where->add($expr->eq('e.benchmark', 1));
+		
+		$builder->where($where);
+		
+		return $builder->getQuery();
+	}
+
+	public function findItemsWithoutSummary() {
+		return $this->queryItemsWithoutSummary()->getScalarResult();
+	}
+
+	protected function queryItemsWithoutSummary() {
+		$builder = new QueryBuilder($this->getEntityManager());
+		
+		$builder->select("e.id");
+		$builder->from($this->getEntityType(), "e");
+		$builder->leftJoin(CategorySummary::class, 'cs', Join::WITH, 'e.id = cs.category');
+		
+		$expr = $builder->expr();
+		
+		$where = $expr->andX();
+		$where->add($expr->eq('e.preleaf', 0));
+		$where->add($expr->eq('e.benchmark', 1));
+		$where->add($expr->isNull('cs.id'));
 		
 		$builder->where($where);
 		

@@ -13,6 +13,10 @@ class BenchmarkFieldDataBaseUtils {
 	const STRING_NAME = 'string';
 
 	const NOTE = 'Note';
+	
+	const MIN = 'Min';
+	
+	const MAX = 'Max';
 
 	public function getValueFieldProperty($fieldType, $valueNumber) {
 		return $this->getFieldTypeDataBaseName($fieldType) . $valueNumber;
@@ -20,6 +24,14 @@ class BenchmarkFieldDataBaseUtils {
 
 	public function getNoteFieldProperty($fieldType, $valueNumber) {
 		return $this->getFieldTypeDataBaseName($fieldType) . self::NOTE . $valueNumber;
+	}
+	
+	public function getMinFieldProperty($fieldType, $valueNumber) {
+		return $this->getFieldTypeDataBaseName($fieldType) . self::MIN . $valueNumber;
+	}
+	
+	public function getMaxFieldProperty($fieldType, $valueNumber) {
+		return $this->getFieldTypeDataBaseName($fieldType) . self::MAX . $valueNumber;
 	}
 
 	protected function getFieldTypeDataBaseName($fieldType) {

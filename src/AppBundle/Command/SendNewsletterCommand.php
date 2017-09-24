@@ -144,7 +144,7 @@ class SendNewsletterCommand extends ContainerAwareCommand {
 					break;
 				}
 				
-				sleep(1);
+				sleep(10);
 			}
 			
 			$this->logMessage($output, 

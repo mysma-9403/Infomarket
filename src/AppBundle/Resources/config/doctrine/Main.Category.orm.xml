@@ -100,6 +100,9 @@
 			mapped-by="category">
 		</one-to-many>
 
+		<one-to-one field="categorySummary" target-entity="CategorySummary"
+			mapped-by="category" />
+
 	</entity>
 
 </doctrine-mapping>

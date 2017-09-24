@@ -860,4 +860,33 @@ class Category extends ImageTree {
 	public function getParent() {
 		return $this->parent;
 	}
+    /**
+     * @var \AppBundle\Entity\Main\CategorySummary
+     */
+    private $categorySummary;
+
+
+    /**
+     * Set categorySummary
+     *
+     * @param \AppBundle\Entity\Main\CategorySummary $categorySummary
+     *
+     * @return Category
+     */
+    public function setCategorySummary(\AppBundle\Entity\Main\CategorySummary $categorySummary = null)
+    {
+        $this->categorySummary = $categorySummary;
+
+        return $this;
+    }
+
+    /**
+     * Get categorySummary
+     *
+     * @return \AppBundle\Entity\Main\CategorySummary
+     */
+    public function getCategorySummary()
+    {
+        return $this->categorySummary;
+    }
 }

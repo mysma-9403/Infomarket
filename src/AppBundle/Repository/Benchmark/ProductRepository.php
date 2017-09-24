@@ -102,7 +102,6 @@ class ProductRepository extends BaseRepository {
 		$expr = $builder->expr();
 		
 		$builder->select($expr->min("e." . $valueName) . ' AS vmin', $expr->max("e." . $valueName) . ' AS vmax');
-		$builder->distinct();
 		$builder->from($this->getEntityType(), "e");
 		
 		$builder->innerJoin(ProductCategoryAssignment::class, 'pca', Join::WITH, 'e.id = pca.product');
@@ -648,6 +647,56 @@ class ProductRepository extends BaseRepository {
 		return $builder->getQuery();
 	}
 
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	public function findAllMinMaxValues($categoryId) {
+		return $this->queryAllMinMaxValues($categoryId)->getSingleResult(AbstractQuery::HYDRATE_SCALAR);
+	}
+	
+	protected function queryAllMinMaxValues($categoryId) {
+		$builder = new QueryBuilder($this->getEntityManager());
+	
+		$expr = $builder->expr();
+		
+		$selectFields = [];
+		for($i = 1; $i <= 30; $i++) {
+			$selectFields[] = $expr->min('e.decimal' . $i) . ' AS decimalMin' . $i;
+			$selectFields[] = $expr->max('e.decimal' . $i) . ' AS decimalMax' . $i;
+			
+			$selectFields[] = $expr->min('e.integer' . $i) . ' AS integerMin' . $i;
+			$selectFields[] = $expr->max('e.integer' . $i) . ' AS integerMax' . $i;
+		}
+	
+		$builder->select($selectFields);
+		$builder->from($this->getEntityType(), "e");
+	
+		$builder->innerJoin(ProductCategoryAssignment::class, 'pca', Join::WITH, 'e.id = pca.product');
+		$builder->innerJoin(Category::class, 'c', Join::WITH, 'c.id = pca.category');
+	
+		$where = $expr->andX();
+		$where->add($expr->isNull('e.benchmarkQuery'));
+		$where->add($builder->expr()->like('c.treePath', $builder->expr()->literal('%-' . $categoryId . '#%')));
+	
+		$builder->where($where);
+	
+		return $builder->getQuery();
+	}
+	
+	
+	
+	
 	protected function getEntityType() {
 		return Product::class;
 	}

@@ -17,9 +17,6 @@
 
 		<field name="price" type="decimal" precision="12" scale="4" nullable="true" />
 
-		<one-to-one field="productNote" target-entity="ProductNote"
-			mapped-by="product" />
-
 		<many-to-one field="brand" target-entity="Brand" inversed-by="products"
 			nullable="false" />
 
@@ -115,6 +112,16 @@
 		<field name="string19" type="string" length="256" nullable="true" />
 		<field name="string20" type="string" length="256" nullable="true" />
 
+		<field name="string21" type="string" length="256" nullable="true" />
+		<field name="string22" type="string" length="256" nullable="true" />
+		<field name="string23" type="string" length="256" nullable="true" />
+		<field name="string24" type="string" length="256" nullable="true" />
+		<field name="string25" type="string" length="256" nullable="true" />
+		<field name="string26" type="string" length="256" nullable="true" />
+		<field name="string27" type="string" length="256" nullable="true" />
+		<field name="string28" type="string" length="256" nullable="true" />
+		<field name="string29" type="string" length="256" nullable="true" />
+		<field name="string30" type="string" length="256" nullable="true" />
 
 		<one-to-many field="productCategoryAssignments"
 			target-entity="AppBundle\Entity\Assignments\ProductCategoryAssignment"

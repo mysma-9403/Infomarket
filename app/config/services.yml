@@ -52,8 +52,12 @@ services:
     
     # Utils
     AppBundle\Utils\RegexUtils: ~
+    AppBundle\Utils\Entity\DataBase\BenchmarkFieldDataBaseUtils: ~
     
     # Repository Managers
+    AppBundle\Repository\Factory\CommonRepositoryFactory:
+        arguments:
+            - '@doctrine.orm.default_entity_manager'
     AppBundle\Repository\Factory\AdminRepositoryFactory:
         arguments:
             - '@doctrine.orm.default_entity_manager'

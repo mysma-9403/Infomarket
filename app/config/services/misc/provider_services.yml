@@ -1,4 +1,13 @@
 services:
+    # Benchmark Fields Providers
+    AppBundle\Logic\Common\BenchmarkField\Initializer\BenchmarkFieldsInitializerImpl:
+        arguments:
+            - '@AppBundle\Factory\Common\BenchmarkField\NoteBenchmarkFieldFactory'
+    AppBundle\Logic\Common\BenchmarkField\Provider\BenchmarkFieldsProvider:
+        arguments:
+            - '@AppBundle\Repository\Common\BenchmarkFieldMetadataRepository'
+            - '@translator'
+
     # Value Providers
     AppBundle\Misc\ValueProvider\:
         resource: '../../../../src/AppBundle/Misc/ValueProvider/*'
