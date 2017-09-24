@@ -17,8 +17,9 @@ class BenchmarkFieldMetadataRepository extends EntityRepository {
 	protected function queryItemsByCategory($categoryId) {
 		$builder = new QueryBuilder($this->getEntityManager());
 		
-		$builder->select(
-				"e.valueNumber, e.fieldType, e.fieldName, e.decimalPlaces, e.noteType, e.noteWeight, e.betterThanType, e.compareWeight");
+		$builder->select("e.valueNumber, e.fieldType, e.fieldName, e.decimalPlaces, e.noteType, 
+				e.noteWeight, e.betterThanType, e.compareWeight");
+		$builder->distinct();
 		$builder->from($this->getEntityType(), "e");
 		
 		$expr = $builder->expr();
@@ -40,10 +41,9 @@ class BenchmarkFieldMetadataRepository extends EntityRepository {
 	protected function queryShowItemsByCategory($categoryId) {
 		$builder = new QueryBuilder($this->getEntityManager());
 		
-		$builder->select(
-				"e.valueNumber, e.fieldType, e.fieldName, e.decimalPlaces, 
-							e.noteType, e.noteWeight, e.betterThanType, e.compareWeight, e.featuredField");
-		
+		$builder->select("e.valueNumber, e.fieldType, e.fieldName, e.decimalPlaces,
+				e.noteType, e.noteWeight, e.betterThanType, e.compareWeight, e.featuredField");
+		$builder->distinct();
 		$builder->from($this->getEntityType(), "e");
 		
 		$expr = $builder->expr();
@@ -67,6 +67,7 @@ class BenchmarkFieldMetadataRepository extends EntityRepository {
 		$builder = new QueryBuilder($this->getEntityManager());
 		
 		$builder->select("e.valueNumber, e.fieldType, e.filterName, e.featuredFilter");
+		$builder->distinct();
 		$builder->from($this->getEntityType(), "e");
 		
 		$expr = $builder->expr();
@@ -90,6 +91,7 @@ class BenchmarkFieldMetadataRepository extends EntityRepository {
 		$builder = new QueryBuilder($this->getEntityManager());
 		
 		$builder->select("e.valueNumber, e.fieldType");
+		$builder->distinct();
 		$builder->from($this->getEntityType(), "e");
 		
 		$expr = $builder->expr();
@@ -135,8 +137,8 @@ class BenchmarkFieldMetadataRepository extends EntityRepository {
 	protected function queryItemsByTypesAndCategory($categoryId, $types) {
 		$builder = new QueryBuilder($this->getEntityManager());
 		
-		$builder->distinct();
 		$builder->select("e.valueNumber, e.fieldType, e.fieldName, e.decimalPlaces");
+		$builder->distinct();
 		$builder->from($this->getEntityType(), "e");
 		
 		$builder->innerJoin(Category::class, 'c', Join::WITH, 'e.category = c.id');
