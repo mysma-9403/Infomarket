@@ -140,7 +140,8 @@ abstract class BaseType extends AbstractType {
 	}
 
 	protected function addDateTimeField(FormBuilderInterface $builder, $field, $placeholder, $required = true) {
-		$this->addDateFormatField($builder, 'dd/MM/yyyy HH:mm', $field, $placeholder, $required);
+		$this->addDateFormatField($builder, 'dd/MM/yyyy HH:mm', 'DD/MM/YYYY HH:mm', $field, $placeholder, 
+				$required);
 	}
 
 	protected function addFilterMonthField(FormBuilderInterface $builder, $field, $placeholder) {
@@ -148,15 +149,20 @@ abstract class BaseType extends AbstractType {
 	}
 
 	protected function addMonthField(FormBuilderInterface $builder, $field, $placeholder, $required = true) {
-		$this->addDateFormatField($builder, 'MM/yyyy', $field, $placeholder, $required);
+		$this->addDateFormatField($builder, 'MM/yyyy', 'MM/YYYY', $field, $placeholder, $required);
 	}
 
-	private function addDateFormatField(FormBuilderInterface $builder, $format, $field, $placeholder, 
-			$required = true) {
+	private function addDateFormatField(FormBuilderInterface $builder, $format, $datePickerFormat, $field, 
+			$placeholder, $required = true) {
 		$builder->add($field, DateTimeType::class, 
-				array('widget' => 'single_text', 'format' => $format, 'required' => $required, 
-						'attr' => ['class' => 'form-control input-inline datetimepicker', 
-								'data-provide' => 'datepicker', 'data-date-format' => 'DD/MM/YYYY HH:mm', 
+				array(
+						'widget' => 'single_text', 
+						'format' => $format, 
+						'required' => $required, 
+						'attr' => [
+								'class' => 'form-control input-inline datetimepicker', 
+								'data-provide' => 'datepicker', 
+								'data-date-format' => $datePickerFormat, 
 								'placeholder' => $placeholder]));
 	}
 
@@ -177,8 +183,11 @@ abstract class BaseType extends AbstractType {
 
 	private function addChoiceField(FormBuilderInterface $builder, array $options, $field, $required, $multiple, 
 			$expanded) {
-		$params = ['choices' => $options[self::getChoicesName($field)], 'required' => $required, 
-				'multiple' => $multiple, 'expanded' => $expanded];
+		$params = [
+				'choices' => $options[self::getChoicesName($field)], 
+				'required' => $required, 
+				'multiple' => $multiple, 
+				'expanded' => $expanded];
 		if ($multiple && ! $expanded) {
 			$params['attr'] = ['class' => 'multiple'];
 		}
@@ -208,10 +217,14 @@ abstract class BaseType extends AbstractType {
 
 	private function addEntityChoiceField(FormBuilderInterface $builder, array $options, $field, $required, 
 			$multiple, $expanded) {
-		$params = ['choices' => $options[self::getChoicesName($field)], 
+		$params = [
+				'choices' => $options[self::getChoicesName($field)], 
 				'choice_label' => function ($value, $key, $index) {
 					return FormUtils::getChoiceLabel($value, $key, $index);
-				}, 'choice_translation_domain' => false, 'required' => $required, 'multiple' => $multiple, 
+				}, 
+				'choice_translation_domain' => false, 
+				'required' => $required, 
+				'multiple' => $multiple, 
 				'expanded' => $expanded];
 		if ($multiple && ! $expanded) {
 			$params['attr'] = ['class' => 'multiple'];
