@@ -9,6 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Filesystem\LockHandler;
+use Symfony\Component\Console\Input\InputArgument;
 
 class SendNewsletterCommand extends ContainerAwareCommand {
 
@@ -20,12 +21,31 @@ class SendNewsletterCommand extends ContainerAwareCommand {
 				- sending
 				- sent
 				- error');
+		
+		$this->addArgument('package_size', InputArgument::OPTIONAL, 'Package size:');
+		$this->addArgument('timeout', InputArgument::OPTIONAL, 'Timeout [s]:');
+		$this->addArgument('sleep_time', InputArgument::OPTIONAL, 'Sleep time [us]:');
 	}
 
 	protected function execute(InputInterface $input, OutputInterface $output) {
 		$lockHandler = new LockHandler('newsletter.lock');
 		if (! $lockHandler->lock()) {
 			return 0;
+		}
+		
+		$packageSize = $input->getArgument('package_size');
+		if (! $packageSize) {
+			$packageSize = 100;
+		}
+		
+		$timeout = $input->getArgument('timeout');
+		if (! $timeout) {
+			$timeout = 280;
+		}
+		
+		$sleepTime = $input->getArgument('sleep_time');
+		if (! $sleepTime) {
+			$sleepTime = 50000;
 		}
 		
 		set_error_handler(self::class . '::exception_error_handler');
@@ -40,18 +60,18 @@ class SendNewsletterCommand extends ContainerAwareCommand {
 		/** @var \Swift_Mailer $mailer */
 		$mailer = $container->get('mailer');
 		
-		/** @var ObjectManager $em */
-		$em = $doctrine->getManager();
-		
 		/** @var NewsletterUserNewsletterPageAssignmentRepository $repository */
 		$repository = $doctrine->getRepository(NewsletterUserNewsletterPageAssignment::class);
-		$assignments = $repository->findBy(
-				['state' => NewsletterUserNewsletterPageAssignment::WAITING_STATE], null, 100);
+		$assignments = $repository->findBy([
+				'state' => NewsletterUserNewsletterPageAssignment::WAITING_STATE], null, $packageSize);
 		
 		$assignmentsCount = count($assignments);
 		if ($assignmentsCount > 0) {
 			$output->writeln('//------------------------------------------------------------------------------');
 			$this->logMessage($output, 'Start sending mails: ' . $assignmentsCount . '.');
+			
+			/** @var ObjectManager $em */
+			$em = $doctrine->getManager();
 			
 			$sentCount = 0;
 			$errorCount = 0;
@@ -60,7 +80,6 @@ class SendNewsletterCommand extends ContainerAwareCommand {
 				
 				$assignment->setState(NewsletterUserNewsletterPageAssignment::SENDING_STATE);
 				$em->persist($assignment);
-				$em->flush();
 				
 				$user = $assignment->getNewsletterUser();
 				$page = $assignment->getNewsletterPage();
@@ -136,16 +155,16 @@ class SendNewsletterCommand extends ContainerAwareCommand {
 				$assignment->setProcessingTime($processingTime);
 				$assignment->setState(NewsletterUserNewsletterPageAssignment::SENT_STATE);
 				$em->persist($assignment);
-				$em->flush();
 				
 				$commandInterval = $end->getTimestamp() - $commandStart->getTimestamp();
 				
-				if ($commandInterval > 280) {
+				if ($commandInterval > $timeout) {
 					break;
 				}
 				
-				sleep(1);
+				usleep($sleepTime);
 			}
+			$em->flush();
 			
 			$this->logMessage($output, 
 					'Newsletter sending finished. Successfully sent: ' . $sentCount . ' / Ended with error: ' .
