@@ -33,20 +33,9 @@ class SendNewsletterCommand extends ContainerAwareCommand {
 			return 0;
 		}
 		
-		$packageSize = $input->getArgument('package_size');
-		if (! $packageSize) {
-			$packageSize = 100;
-		}
-		
-		$timeout = $input->getArgument('timeout');
-		if (! $timeout) {
-			$timeout = 280;
-		}
-		
-		$sleepTime = $input->getArgument('sleep_time');
-		if (! $sleepTime) {
-			$sleepTime = 50000;
-		}
+		$packageSize = $input->getOption('package_size');
+		$timeout = $input->getOption('timeout');
+		$sleepTime = $input->getOption('sleep_time');
 		
 		set_error_handler(self::class . '::exception_error_handler');
 		
