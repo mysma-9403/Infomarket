@@ -7,9 +7,9 @@ use AppBundle\Repository\Admin\Assignments\NewsletterUserNewsletterPageAssignmen
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Filesystem\LockHandler;
-use Symfony\Component\Console\Input\InputArgument;
 
 class SendNewsletterCommand extends ContainerAwareCommand {
 
@@ -22,9 +22,9 @@ class SendNewsletterCommand extends ContainerAwareCommand {
 				- sent
 				- error');
 		
-		$this->addArgument('package_size', InputArgument::OPTIONAL, 'Package size:');
-		$this->addArgument('timeout', InputArgument::OPTIONAL, 'Timeout [s]:');
-		$this->addArgument('sleep_time', InputArgument::OPTIONAL, 'Sleep time [us]:');
+		$this->addOption('package_size', null, InputOption::VALUE_REQUIRED, 'Package size', 100);
+		$this->addOption('timeout', null, InputOption::VALUE_REQUIRED, 'Timeout [s]', 280);
+		$this->addOption('sleep_time', null, InputOption::VALUE_REQUIRED, 'Sleep time [us]', 50000);
 	}
 
 	protected function execute(InputInterface $input, OutputInterface $output) {
@@ -62,8 +62,8 @@ class SendNewsletterCommand extends ContainerAwareCommand {
 		
 		/** @var NewsletterUserNewsletterPageAssignmentRepository $repository */
 		$repository = $doctrine->getRepository(NewsletterUserNewsletterPageAssignment::class);
-		$assignments = $repository->findBy([
-				'state' => NewsletterUserNewsletterPageAssignment::WAITING_STATE], null, $packageSize);
+		$assignments = $repository->findBy(
+				['state' => NewsletterUserNewsletterPageAssignment::WAITING_STATE], null, $packageSize);
 		
 		$assignmentsCount = count($assignments);
 		if ($assignmentsCount > 0) {
