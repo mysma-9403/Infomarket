@@ -154,6 +154,18 @@ class ProductCategoryAssignmentController extends AssignmentController {
 	}
 	
 	// ---------------------------------------------------------------------------
+	// Internal logic
+	// ---------------------------------------------------------------------------
+	protected function deleteMore($entry) {
+		/** @var ProductCategoryAssignment $entry */
+		$em = $this->getDoctrine()->getManager();
+		$em->remove($entry->getProductNote());
+		$em->flush();
+	
+		return array();
+	}
+	
+	// ---------------------------------------------------------------------------
 	// Routes
 	// ---------------------------------------------------------------------------
 	

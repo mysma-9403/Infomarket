@@ -10,6 +10,7 @@ use AppBundle\Form\Filter\Admin\Main\BenchmarkFieldFilterType;
 use AppBundle\Manager\Entity\Common\Main\BenchmarkFieldManager;
 use AppBundle\Manager\Filter\Base\FilterManager;
 use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Repository\Admin\Main\ProductNoteRepository;
 
 class BenchmarkFieldController extends BaseController {
 	
@@ -87,7 +88,7 @@ class BenchmarkFieldController extends BaseController {
 	protected function getFilterFormOptionsProvider() {
 		return $this->get('app.misc.provider.form_options.filter.main.benchmark_field');
 	}
-	
+
 	protected function getEditorFormOptionsProvider() {
 		return $this->get('app.misc.provider.form_options.editor.main.benchmark_field');
 	}
@@ -97,6 +98,38 @@ class BenchmarkFieldController extends BaseController {
 	// ------------------------------------------------------------------------
 	protected function getListItemsProvider() {
 		return $this->get('app.misc.provider.benchmark_field_list_items_provider');
+	}
+
+	protected function prepareEntry($request, &$entry, $params) {
+		parent::prepareEntry($request, $entry, $params);
+		/** @var BenchmarkField $entry */
+		
+		if ($this->shouldInvalidateProductNotes($entry) && $this->isCreated($entry)) {
+			$this->invalidateProductNotes($entry);
+		}
+	}
+
+	protected function deleteMore($entry) {
+		$result = parent::deleteMore($entry);
+		/** @var BenchmarkField $entry */
+		
+		if ($this->shouldInvalidateProductNotes($entry)) {
+			$this->invalidateProductNotes($entry);
+		}
+		
+		return $result;
+	}
+	
+	protected function shouldInvalidateProductNotes($entry) {
+		return $entry->getNoteType() != BenchmarkField::NONE_NOTE_TYPE && $entry->getNoteWeight() > 0;
+	}
+
+	protected function invalidateProductNotes($entry) {
+		/** @var ProductNoteRepository $productNoteRepository */
+		$productNoteRepository = $this->get(ProductNoteRepository::class);
+		
+		$categories = [$entry->getCategory()->getId()];
+		$productNoteRepository->invalidateItemsByCategories($categories);
 	}
 	
 	// ---------------------------------------------------------------------------

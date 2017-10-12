@@ -83,7 +83,15 @@ services:
     # Validation
     AppBundle\Validation\:
         resource: '../../src/AppBundle/Validation/*'
-            
+        
+    # Flush Listeners
+    AppBundle\EventListener\BenchmarkEnumFlushListener:
+        tags:
+            -  {name: doctrine.event_listener, event: onFlush}
+    AppBundle\EventListener\BenchmarkFieldFlushListener:
+        tags:
+            -  {name: doctrine.event_listener, event: onFlush}
+                    
     # Washers //TODO change to one common Product filter
     app.benchmark.washer_filter:
         class: AppBundle\Form\Benchmark\Washer\WasherFilterType

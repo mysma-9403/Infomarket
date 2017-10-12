@@ -462,20 +462,15 @@ abstract class AdminController extends StandardController {
 	 * @param unknown $entry        	
 	 */
 	protected function saveEntry($request, $entry, $params) {
-		$em = $this->getDoctrine()->getManager();
-		
 		$this->prepareEntry($request, $entry, $params);
 		
+		$em = $this->getDoctrine()->getManager();
 		$em->persist($entry);
 		$em->flush();
 		
 		$this->saveMore($request, $entry, $params);
 	}
 
-	/**
-	 *
-	 * @param unknown $entry        	
-	 */
 	protected function prepareEntry($request, &$entry, $params) {
 	}
 
@@ -484,6 +479,10 @@ abstract class AdminController extends StandardController {
 
 	protected function deleteMore($entry) {
 		return array();
+	}
+	
+	protected function isCreated($entry) {
+		$entry->getId() <= 0;
 	}
 
 	/**

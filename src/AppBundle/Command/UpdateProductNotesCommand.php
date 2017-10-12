@@ -177,6 +177,7 @@ class UpdateProductNotesCommand extends ContainerAwareCommand {
 		$minMaxValues = $this->productRepository->findAllMinMaxValues($summary->getCategory()->getId());
 		
 		$summary = $this->updateMinMaxValues($summary, $minMaxValues);
+		$summary->setUpToDate(true);
 		
 		$this->em->persist($summary);
 	}
@@ -185,9 +186,6 @@ class UpdateProductNotesCommand extends ContainerAwareCommand {
 		foreach ($minMaxValues as $key => $value) {
 			$summary->offsetSet($key, $value);
 		}
-		
-		$summary->setUpToDate(true);
-		
 		return $summary;
 	}
 
