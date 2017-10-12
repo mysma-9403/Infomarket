@@ -5,7 +5,7 @@ namespace AppBundle\Utils;
 class StringUtils extends \Twig_Extension {
 
 	public static function getCleanName($string) {
-		$string = preg_replace('/[&\\s]/', '-', $string);
+		$string = preg_replace('/[&\\s.]/', '-', $string);
 		
 		$string = mb_convert_encoding($string, 'UTF-8', 'UTF-8');
 		$string = iconv('UTF-8', 'ASCII//TRANSLIT', $string);
