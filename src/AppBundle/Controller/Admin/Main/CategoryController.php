@@ -21,6 +21,8 @@ use AppBundle\Repository\Admin\Main\CategoryRepository;
 use AppBundle\Repository\Admin\Main\SegmentRepository;
 use AppBundle\Utils\Entity\DataBase\BenchmarkFieldDataBaseUtils;
 use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Logic\Admin\Import\Common\PersistenceManager;
+use AppBundle\Logic\Admin\Import\Common\CountManager;
 
 class CategoryController extends FeaturedController {
 	
@@ -220,7 +222,10 @@ class CategoryController extends FeaturedController {
 			$translator = $this->get('translator');
 			$errorFactory = new ImportErrorFactory($translator);
 			$benchmarkFieldDataBaseUtils = new BenchmarkFieldDataBaseUtils();
-			$importLogic = new ImportLogic($doctrine, $errorFactory, $benchmarkFieldDataBaseUtils);
+			$persistenceManager = $this->get(PersistenceManager::class);
+			$countManager = $this->get(CountManager::class);
+			$importLogic = new ImportLogic($doctrine, $errorFactory, $benchmarkFieldDataBaseUtils, 
+					$persistenceManager, $countManager);
 			
 			$result = $importLogic->importRatings($importRatings, $entry);
 			$errors = $result['errors'];
@@ -233,42 +238,20 @@ class CategoryController extends FeaturedController {
 				
 				$lines = $result['lines'];
 				
-				$createdProducts = $result['productsCounts']['created'];
-				$updatedProducts = $result['productsCounts']['updated'];
-				$duplicateProducts = $result['productsCounts']['duplicates'];
-				$allProducts = $result['productsCounts']['all'];
-				
-				$createdAssignments = $result['assignmentsCounts']['created'];
-				$updatedAssignments = $result['assignmentsCounts']['updated'];
-				$allAssignments = $result['assignmentsCounts']['all'];
-				
-				$updatedBrands = $result['brandsCounts']['updated'];
-				$allBrands = $result['brandsCounts']['all'];
-				
-				$createdBenchmarkFields = $result['benchmarkFieldsCounts']['created'];
-				$updatedBenchmarkFields = $result['benchmarkFieldsCounts']['updated'];
-				$allBenchmarkFields = $result['benchmarkFieldsCounts']['all'];
-				
 				$msg = $translator->trans('success.category.ratingsImported');
 				$msg = nl2br($msg);
 				
 				$msg = str_replace('%lines%', $lines, $msg);
 				
-				$msg = str_replace('%createdProducts%', $createdProducts, $msg);
-				$msg = str_replace('%updatedProducts%', $updatedProducts, $msg);
-				$msg = str_replace('%duplicateProducts%', $duplicateProducts, $msg);
-				$msg = str_replace('%allProducts%', $allProducts, $msg);
+				$msg = $this->replaceCounts($msg, $result, 'products');
+				$msg = $this->replaceCounts($msg, $result, 'productValues');
+				$msg = $this->replaceCounts($msg, $result, 'productScores');
+				$msg = $this->replaceCounts($msg, $result, 'productNotes');
 				
-				$msg = str_replace('%createdAssignments%', $createdAssignments, $msg);
-				$msg = str_replace('%updatedAssignments%', $updatedAssignments, $msg);
-				$msg = str_replace('%allAssignments%', $allAssignments, $msg);
+				$msg = $this->replaceCounts($msg, $result, 'assignments');
 				
-				$msg = str_replace('%updatedBrands%', $updatedBrands, $msg);
-				$msg = str_replace('%allBrands%', $allBrands, $msg);
-				
-				$msg = str_replace('%createdBenchmarkFields%', $createdBenchmarkFields, $msg);
-				$msg = str_replace('%updatedBenchmarkFields%', $updatedBenchmarkFields, $msg);
-				$msg = str_replace('%allBenchmarkFields%', $allBenchmarkFields, $msg);
+				$msg = $this->replaceCounts($msg, $result, 'brands');
+				$msg = $this->replaceCounts($msg, $result, 'benchmarkFields');
 				
 				$this->addFlash('success', $msg);
 			}
@@ -277,6 +260,19 @@ class CategoryController extends FeaturedController {
 		$viewParams['importRatingsForm'] = $importRatingsForm->createView();
 		
 		return $this->render($this->getRatingsView(), $viewParams);
+	}
+
+	protected function replaceCounts($message, array $result, $key) {
+		$message = $this->replaceCount($message, $result, $key, 'duplicated');
+		$message = $this->replaceCount($message, $result, $key, 'created');
+		$message = $this->replaceCount($message, $result, $key, 'updated');
+		$message = $this->replaceCount($message, $result, $key, 'all');
+		
+		return $message;
+	}
+
+	protected function replaceCount($message, array $result, $key, $countKey) {
+		return str_replace('%' . $countKey . '_' . $key . '%', $result[$key . 'Counts'][$countKey], $message);
 	}
 
 	protected function clearRatingsActionInternal(Request $request, $id) {
@@ -315,7 +311,7 @@ class CategoryController extends FeaturedController {
 	protected function getFilterFormOptionsProvider() {
 		return $this->get('app.misc.provider.form_options.filter.main.category');
 	}
-	
+
 	protected function getEditorFormOptionsProvider() {
 		return $this->get('app.misc.provider.form_options.editor.main.category');
 	}

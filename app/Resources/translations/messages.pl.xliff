@@ -2459,24 +2459,46 @@
                 	- Przetworzone wiersze: %lines% 
                 	
                 	- Produkty:
-                	-- dodane: %createdProducts% 
-                	-- zmienione: %updatedProducts%
-                	-- duplikaty: %duplicateProducts%  
-                	-- wszystkie: %allProducts%
+                	-- dodane: %created_products% 
+                	-- zmienione: %updated_products%  
+                	-- wszystkie: %all_products%
+                	-- duplikaty: %duplicated_products%
+                	
+                	- Produkty (wartości):
+                	-- dodane: %created_productValues% 
+                	-- zmienione: %updated_productValues%  
+                	-- wszystkie: %all_productValues%
+                	-- duplikaty: %duplicated_productValues%
+                	
+                	- Produkty (wartości wyliczeniowe):
+                	-- dodane: %created_productScores% 
+                	-- zmienione: %updated_productScores%  
+                	-- wszystkie: %all_productScores%
+                	-- duplikaty: %duplicated_productScores%
+                	
+                	- Produkty (oceny):
+                	-- dodane: %created_productNotes% 
+                	-- zmienione: %updated_productNotes%  
+                	-- wszystkie: %all_productNotes%
+                	-- duplikaty: %duplicated_productNotes%
                 	
                 	- Powiązania:
-                	-- dodane: %createdAssignments% 
-                	-- zmienione: %updatedAssignments% 
-                	-- wszystkie: %allAssignments%
+                	-- dodane: %created_assignments% 
+                	-- zmienione: %updated_assignments% 
+                	-- wszystkie: %all_assignments%
+                	-- duplikaty: %duplicated_assignments%
                 	
                 	- Marki: 
-                	-- zmienione: %updatedBrands% 
-                	-- wszystkie: %allBrands%
+                	-- dodane: %created_brands% 
+                	-- zmienione: %updated_brands% 
+                	-- wszystkie: %all_brands%
+                	-- duplikaty: %duplicated_brands%
                 	
                 	- Kolumny: 
-                	-- dodane: %createdBenchmarkFields%
-                	-- zmienione: %updatedBenchmarkFields% 
-                	-- wszystkie: %allBenchmarkFields%  
+                	-- dodane: %created_benchmarkFields% 
+                	-- zmienione: %updated_benchmarkFields% 
+                	-- wszystkie: %all_benchmarkFields%
+                	-- duplikaty: %duplicated_benchmarkFields%
                	</target>
             </trans-unit>
             

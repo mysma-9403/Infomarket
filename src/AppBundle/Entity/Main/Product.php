@@ -19,6 +19,7 @@ class Product extends Image implements \ArrayAccess {
 		return 'uploads/products/' . substr($brandName, 0, 1) . '/' . $brandName;
 	}
 
+	//TODO deprecated
 	public function offsetExists($offset) {
 		if (strpos($offset, 'decimal') !== false) {
 			return true;

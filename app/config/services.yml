@@ -4,6 +4,7 @@ imports:
     - { resource: services/manager_services.yml }
     - { resource: services/repository_services.yml }
     - { resource: services/transformer_services.yml }
+    - { resource: services/import_services.yml }
     - { resource: services/misc/provider_services.yml }
 
 # Learn more about services, parameters and containers at

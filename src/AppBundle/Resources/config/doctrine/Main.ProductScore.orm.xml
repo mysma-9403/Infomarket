@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+        http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+	<entity name="AppBundle\Entity\Main\ProductScore" table="product_scores"
+		repository-class="AppBundle\Repository\Admin\Main\ProductScoreRepository">
+
+		<one-to-one field="productCategoryAssignment"
+			target-entity="AppBundle\Entity\Assignments\ProductCategoryAssignment"
+			inversed-by="productScore" />
+
+
+		<field name="upToDate" type="boolean" nullable="false" default="0" />
+
+
+		<field name="stringScore1" type="integer" nullable="true" />
+		<field name="stringScore2" type="integer" nullable="true" />
+		<field name="stringScore3" type="integer" nullable="true" />
+		<field name="stringScore4" type="integer" nullable="true" />
+		<field name="stringScore5" type="integer" nullable="true" />
+		<field name="stringScore6" type="integer" nullable="true" />
+		<field name="stringScore7" type="integer" nullable="true" />
+		<field name="stringScore8" type="integer" nullable="true" />
+		<field name="stringScore9" type="integer" nullable="true" />
+		<field name="stringScore10" type="integer" nullable="true" />
+
+		<field name="stringScore11" type="integer" nullable="true" />
+		<field name="stringScore12" type="integer" nullable="true" />
+		<field name="stringScore13" type="integer" nullable="true" />
+		<field name="stringScore14" type="integer" nullable="true" />
+		<field name="stringScore15" type="integer" nullable="true" />
+		<field name="stringScore16" type="integer" nullable="true" />
+		<field name="stringScore17" type="integer" nullable="true" />
+		<field name="stringScore18" type="integer" nullable="true" />
+		<field name="stringScore19" type="integer" nullable="true" />
+		<field name="stringScore20" type="integer" nullable="true" />
+
+		<field name="stringScore21" type="integer" nullable="true" />
+		<field name="stringScore22" type="integer" nullable="true" />
+		<field name="stringScore23" type="integer" nullable="true" />
+		<field name="stringScore24" type="integer" nullable="true" />
+		<field name="stringScore25" type="integer" nullable="true" />
+		<field name="stringScore26" type="integer" nullable="true" />
+		<field name="stringScore27" type="integer" nullable="true" />
+		<field name="stringScore28" type="integer" nullable="true" />
+		<field name="stringScore29" type="integer" nullable="true" />
+		<field name="stringScore30" type="integer" nullable="true" />
+
+	</entity>
+
+</doctrine-mapping>

@@ -1,0 +1,5 @@
+services:
+    AppBundle\Logic\Admin\Import\Common\CountManager: ~
+    AppBundle\Logic\Admin\Import\Common\PersistenceManager:
+        arguments:
+            - '@doctrine'
