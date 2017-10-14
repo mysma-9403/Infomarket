@@ -12,6 +12,7 @@ use AppBundle\Form\Editor\Admin\Main\CategoryEditorType;
 use AppBundle\Form\Filter\Admin\Main\CategoryFilterType;
 use AppBundle\Form\Lists\Base\FeaturedListType;
 use AppBundle\Form\Other\ImportRatingsType;
+use AppBundle\Logic\Admin\Import\Common\CountManager;
 use AppBundle\Logic\Admin\Import\Product\ImportLogic;
 use AppBundle\Manager\Entity\Base\EntityManager;
 use AppBundle\Manager\Entity\Common\Main\CategoryManager;
@@ -21,8 +22,6 @@ use AppBundle\Repository\Admin\Main\CategoryRepository;
 use AppBundle\Repository\Admin\Main\SegmentRepository;
 use AppBundle\Utils\Entity\DataBase\BenchmarkFieldDataBaseUtils;
 use Symfony\Component\HttpFoundation\Request;
-use AppBundle\Logic\Admin\Import\Common\PersistenceManager;
-use AppBundle\Logic\Admin\Import\Common\CountManager;
 
 class CategoryController extends FeaturedController {
 	
@@ -222,10 +221,26 @@ class CategoryController extends FeaturedController {
 			$translator = $this->get('translator');
 			$errorFactory = new ImportErrorFactory($translator);
 			$benchmarkFieldDataBaseUtils = new BenchmarkFieldDataBaseUtils();
-			$persistenceManager = $this->get(PersistenceManager::class);
+			
+			$productManager = $this->get('app.import.persistence_manager.product');
+			$productCategoryAssignmentManager = $this->get(
+					'app.import.persistence_manager.product_category_assignment');
+			$productValueManager = $this->get('app.import.persistence_manager.product_value');
+			$productScoreManager = $this->get('app.import.persistence_manager.product_score');
+			$productNoteManager = $this->get('app.import.persistence_manager.product_note');
+			$brandManager = $this->get('app.import.persistence_manager.brand');
+			$benchmarkFieldManager = $this->get('app.import.persistence_manager.benchmark_field');
+			
 			$countManager = $this->get(CountManager::class);
 			$importLogic = new ImportLogic($doctrine, $errorFactory, $benchmarkFieldDataBaseUtils, 
-					$persistenceManager, $countManager);
+					$productManager,
+					$productCategoryAssignmentManager,
+					$productValueManager,
+					$productScoreManager,
+					$productNoteManager,
+					$brandManager,
+					$benchmarkFieldManager,
+					$countManager);
 			
 			$result = $importLogic->importRatings($importRatings, $entry);
 			$errors = $result['errors'];

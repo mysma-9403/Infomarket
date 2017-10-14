@@ -316,6 +316,18 @@ services:
             - AppBundle\Entity\Main\ProductNote
         tags:
             - { name: app.repository }
+    AppBundle\Repository\Admin\Main\ProductScoreRepository:
+        factory: ['@doctrine.orm.default_entity_manager', getRepository]
+        arguments:
+            - AppBundle\Entity\Main\ProductScore
+        tags:
+            - { name: app.repository }
+    AppBundle\Repository\Admin\Main\ProductValueRepository:
+        factory: ['@doctrine.orm.default_entity_manager', getRepository]
+        arguments:
+            - AppBundle\Entity\Main\ProductValue
+        tags:
+            - { name: app.repository }
     AppBundle\Repository\Admin\Main\SegmentRepository:
         factory: ['@doctrine.orm.default_entity_manager', getRepository]
         arguments:

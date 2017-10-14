@@ -6,10 +6,10 @@ class CountManager {
 
 	/**
 	 *
-	 * @param array $dataBaseEntries
+	 * @param array $entries
 	 *        	$param string $key entry key (e.g. product)
 	 */
-	public function getCounts(array $dataBaseEntries, $key) {
+	public function getCounts(array $entries, $key) {
 		$counts = array();
 		
 		$all = 0;
@@ -17,19 +17,19 @@ class CountManager {
 		$updated = 0;
 		$duplicated = 0;
 		
-		foreach ($dataBaseEntries as $dataBaseEntry) {
+		foreach ($entries as $entry) {
 			$all ++;
 			
-			if ($dataBaseEntry[$key . 'ForUpdate']) {
-				$product = $dataBaseEntry[$key];
-				if ($product->getId() <= 0) {
+			if ($entry[$key . 'ForUpdate']) {
+				$item = $entry[$key];
+				if ($item->getId() <= 0) {
 					$created ++;
 				} else {
 					$updated ++;
 				}
 			} else {
-				$product = $dataBaseEntry[$key];
-				if ($product->getId() <= 0) {
+				$item = $entry[$key];
+				if ($item->getId() <= 0) {
 					$duplicated ++;
 				}
 			}

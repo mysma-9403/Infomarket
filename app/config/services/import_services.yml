@@ -1,5 +1,69 @@
 services:
     AppBundle\Logic\Admin\Import\Common\CountManager: ~
-    AppBundle\Logic\Admin\Import\Common\PersistenceManager:
+    
+    # Item Providers
+    AppBundle\Logic\Admin\Import\Product\ItemProvider\ProductProvider:
+        arguments:
+            - '@AppBundle\Repository\Admin\Main\ProductRepository'
+    AppBundle\Logic\Admin\Import\Product\ItemProvider\ProductCategoryAssignmentProvider:
+        arguments:
+            - '@AppBundle\Repository\Admin\Assignments\ProductCategoryAssignmentRepository'
+    AppBundle\Logic\Admin\Import\Product\ItemProvider\ProductValueProvider:
+        arguments:
+            - '@AppBundle\Repository\Admin\Main\ProductValueRepository'
+    AppBundle\Logic\Admin\Import\Product\ItemProvider\ProductScoreProvider:
+        arguments:
+            - '@AppBundle\Repository\Admin\Main\ProductScoreRepository'
+    AppBundle\Logic\Admin\Import\Product\ItemProvider\ProductNoteProvider:
+        arguments:
+            - '@AppBundle\Repository\Admin\Main\ProductNoteRepository'
+    AppBundle\Logic\Admin\Import\Product\ItemProvider\BrandProvider:
+        arguments:
+            - '@AppBundle\Repository\Admin\Main\BrandRepository'
+    AppBundle\Logic\Admin\Import\Product\ItemProvider\BenchmarkFieldProvider:
+        arguments:
+            - '@AppBundle\Repository\Admin\Main\BenchmarkFieldRepository'
+            
+    # Persistence Managers
+    app.import.persistence_manager.product:
+        class: AppBundle\Logic\Admin\Import\Common\PersistenceManager
         arguments:
             - '@doctrine'
+            - '@AppBundle\Logic\Admin\Import\Product\ItemProvider\ProductProvider'
+            - 'product'
+    app.import.persistence_manager.product_category_assignment:
+        class: AppBundle\Logic\Admin\Import\Common\PersistenceManager
+        arguments:
+            - '@doctrine'
+            - '@AppBundle\Logic\Admin\Import\Product\ItemProvider\ProductCategoryAssignmentProvider'
+            - 'assignment'
+    app.import.persistence_manager.product_value:
+        class: AppBundle\Logic\Admin\Import\Common\PersistenceManager
+        arguments:
+            - '@doctrine'
+            - '@AppBundle\Logic\Admin\Import\Product\ItemProvider\ProductValueProvider'
+            - 'productValue'
+    app.import.persistence_manager.product_score:
+        class: AppBundle\Logic\Admin\Import\Common\PersistenceManager
+        arguments:
+            - '@doctrine'
+            - '@AppBundle\Logic\Admin\Import\Product\ItemProvider\ProductScoreProvider'
+            - 'productScore'
+    app.import.persistence_manager.product_note:
+        class: AppBundle\Logic\Admin\Import\Common\PersistenceManager
+        arguments:
+            - '@doctrine'
+            - '@AppBundle\Logic\Admin\Import\Product\ItemProvider\ProductNoteProvider'
+            - 'productNote'
+    app.import.persistence_manager.brand:
+        class: AppBundle\Logic\Admin\Import\Common\PersistenceManager
+        arguments:
+            - '@doctrine'
+            - '@AppBundle\Logic\Admin\Import\Product\ItemProvider\BrandProvider'
+            - 'brand'
+    app.import.persistence_manager.benchmark_field:
+        class: AppBundle\Logic\Admin\Import\Common\PersistenceManager
+        arguments:
+            - '@doctrine'
+            - '@AppBundle\Logic\Admin\Import\Product\ItemProvider\BenchmarkFieldProvider'
+            - 'benchmarkField'
