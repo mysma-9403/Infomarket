@@ -5,6 +5,7 @@ namespace AppBundle\Logic\Admin\Import\Product\ItemProvider;
 use AppBundle\Entity\Main\ProductValue;
 use AppBundle\Logic\Admin\Import\Common\ItemProvider;
 use AppBundle\Logic\Admin\Import\Common\PersistenceManager;
+use AppBundle\Entity\Main\Category;
 
 class ProductValueProvider extends ItemProvider {
 
@@ -14,7 +15,7 @@ class ProductValueProvider extends ItemProvider {
 	 *
 	 * @see \AppBundle\Logic\Admin\Import\Common\PersistenceManager::getSearchCriteria()
 	 */
-	protected function getSearchCriteria(array $entry) {
+	protected function getSearchCriteria(Category $category, array $entry) {
 		$assignment = $entry['assignment'];
 		
 		return ['productCategoryAssignment' => $assignment->getId()];
@@ -68,7 +69,7 @@ class ProductValueProvider extends ItemProvider {
 	 *
 	 * @param ProductValue $item        	
 	 */
-	public function createNewItem(array $entry) {
+	public function createNewItem(Category $category, array $entry) {
 		$item = new ProductValue();
 		
 		$assignment = $entry['assignment'];

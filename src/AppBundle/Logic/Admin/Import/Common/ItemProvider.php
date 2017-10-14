@@ -3,6 +3,7 @@
 namespace AppBundle\Logic\Admin\Import\Common;
 
 use AppBundle\Repository\Base\BaseRepository;
+use AppBundle\Entity\Main\Category;
 
 abstract class ItemProvider {
 	
@@ -16,11 +17,11 @@ abstract class ItemProvider {
 		$this->repository = $repository;
 	}
 	
-	public function getPersistentItem(array $entry) {
-		return $this->repository->findOneBy($this->getSearchCriteria($entry));
+	public function getPersistentItem(Category $category, array $entry) {
+		return $this->repository->findOneBy($this->getSearchCriteria($category, $entry));
 	}
 	
-	protected abstract function getSearchCriteria(array $entry);
+	protected abstract function getSearchCriteria(Category $category, array $entry);
 	
 	/**
 	 * @return boolean - return <b>true</b> if entry needs to be updated
@@ -32,5 +33,5 @@ abstract class ItemProvider {
 	/**
 	 * @return mixed - return new entry (e.g. <b>Product</b>)
 	 */
-	public abstract function createNewItem(array $entry);
+	public abstract function createNewItem(Category $category, array $entry);
 }

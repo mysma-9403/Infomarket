@@ -26,7 +26,7 @@ services:
             
     # Persistence Managers
     app.import.persistence_manager.product:
-        class: AppBundle\Logic\Admin\Import\Common\PersistenceManager
+        class: AppBundle\Logic\Admin\Import\Product\PersistenceManager\ProductManager
         arguments:
             - '@doctrine'
             - '@AppBundle\Logic\Admin\Import\Product\ItemProvider\ProductProvider'
@@ -62,7 +62,7 @@ services:
             - '@AppBundle\Logic\Admin\Import\Product\ItemProvider\BrandProvider'
             - 'brand'
     app.import.persistence_manager.benchmark_field:
-        class: AppBundle\Logic\Admin\Import\Common\PersistenceManager
+        class: AppBundle\Logic\Admin\Import\Product\PersistenceManager\BenchmarkFieldManager
         arguments:
             - '@doctrine'
             - '@AppBundle\Logic\Admin\Import\Product\ItemProvider\BenchmarkFieldProvider'

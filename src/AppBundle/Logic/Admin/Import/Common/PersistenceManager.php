@@ -2,20 +2,20 @@
 
 namespace AppBundle\Logic\Admin\Import\Common;
 
-
+use AppBundle\Entity\Main\Category;
 
 class PersistenceManager {
 
 	protected $em;
 
 	/**
-	 * 
+	 *
 	 * @var ItemProvider
 	 */
 	protected $itemProvider;
-	
+
 	/**
-	 * 
+	 *
 	 * @var string
 	 */
 	protected $type;
@@ -26,29 +26,29 @@ class PersistenceManager {
 		$this->type = $type;
 	}
 
-	public function getUpdatedEntries($entries) {
-		$count = count($entries);
-		for ($i = 0; $i < $count; $i ++) {
-			$entry = $entries[$i];
-			
-			$item = $this->itemProvider->getPersistentItem($entry);
-				
-			if ($item) {
-				$forUpdate = $this->itemProvider->updatePersistentItem($item, $entry);
-				$entry[$this->type . 'ForUpdate'] = $forUpdate;
-			} else {
-				$item = $this->itemProvider->createNewItem($entry);
-				$entry[$this->type . 'ForUpdate'] = true;
-			}
-				
-			$entry[$this->type] = $item;
-				
-			$entries[$i] = $entry;
+	public function getUpdatedEntries(Category $category, array $entries) {
+		foreach ($entries as $key => $entry) {
+			$entries[$key] = $this->getUpdatedEntry($category, $entry);
 		}
-	
 		return $entries;
 	}
-	
+
+	protected function getUpdatedEntry(Category $category, $entry) {
+		$item = $this->itemProvider->getPersistentItem($category, $entry);
+		
+		if ($item) {
+			$forUpdate = $this->itemProvider->updatePersistentItem($item, $entry);
+			$entry[$this->type . 'ForUpdate'] = $forUpdate;
+		} else {
+			$item = $this->itemProvider->createNewItem($category, $entry);
+			$entry[$this->type . 'ForUpdate'] = true;
+		}
+		
+		$entry[$this->type] = $item;
+		
+		return $entry;
+	}
+
 	/**
 	 *
 	 * @param array $entries        	
@@ -69,7 +69,7 @@ class PersistenceManager {
 			throw $ex;
 		}
 	}
-	
+
 	protected function saveEntry($entry) {
 		if ($entry[$this->type . 'ForUpdate']) {
 			$item = $entry[$this->type];

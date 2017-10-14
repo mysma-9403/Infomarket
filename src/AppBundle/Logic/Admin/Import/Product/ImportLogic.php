@@ -161,65 +161,36 @@ class ImportLogic {
 			return $result;
 		}
 		
-		$productsCounts = $this->countManager->getCounts($dataBaseEntries, 'product');
-		$errors = $this->productManager->saveEntries($dataBaseEntries);
-		if (count($errors) > 0) {
-			$result['errors'] = $errors;
-			return $result;
-		}
-		
-		$dataBaseEntries = $this->productCategoryAssignmentManager->getUpdatedEntries($dataBaseEntries);
-		$assignmentsCounts = $this->countManager->getCounts($dataBaseEntries, 'assignment');
-		$errors = $this->productCategoryAssignmentManager->saveEntries($dataBaseEntries);
-		if (count($errors) > 0) {
-			$result['errors'] = $errors;
-			return $result;
-		}
-		
-		$dataBaseEntries = $this->productValueManager->getUpdatedEntries($dataBaseEntries);
-		$productValuesCounts = $this->countManager->getCounts($dataBaseEntries, 'productValue');
-		$errors = $this->productValueManager->saveEntries($dataBaseEntries);
-		if (count($errors) > 0) {
-			$result['errors'] = $errors;
-			return $result;
-		}
-		
-		$dataBaseEntries = $this->productScoreManager->getUpdatedEntries($dataBaseEntries);
-		$productScoresCounts = $this->countManager->getCounts($dataBaseEntries, 'productScore');
-		$errors = $this->productScoreManager->saveEntries($dataBaseEntries);
-		if (count($errors) > 0) {
-			$result['errors'] = $errors;
-			return $result;
-		}
-		
-		$dataBaseEntries = $this->productNoteManager->getUpdatedEntries($dataBaseEntries);
-		$productNotesCounts = $this->countManager->getCounts($dataBaseEntries, 'productNote');
-		$errors = $this->productNoteManager->saveEntries($dataBaseEntries);
-		if (count($errors) > 0) {
-			$result['errors'] = $errors;
-			return $result;
-		}
-		
-		$brandsCounts = $this->countManager->getCounts($dataBaseEntries, 'brand');
-		$errors = $this->brandManager->saveEntries($dataBaseEntries);
-		if (count($errors) > 0) {
-			$result['errors'] = $errors;
-			return $result;
-		}
-		
-		$mainCategory = $this->getMainCategory($category);
-		$columns['category'] = $mainCategory;
-		$dataBaseColumns = $this->getDataBaseColumns($mainCategory, $columns);
-		$errors = $this->getEntriesErrors($dataBaseColumns);
-		if (count($errors) > 0) {
-			$result['errors'] = $errors;
-			return $result;
-		}
-		
-		$benchmarkFieldsCounts = $this->countManager->getCounts($dataBaseColumns, 'benchmarkField');
-		$errors = $this->benchmarkFieldManager->saveEntries($dataBaseColumns);
-		if (count($errors) > 0) {
-			$result['errors'] = $errors;
+		try {
+			$productsCounts = $this->countManager->getCounts($dataBaseEntries, 'product');
+			$this->productManager->saveEntries($dataBaseEntries);
+			
+			$dataBaseEntries = $this->productCategoryAssignmentManager->getUpdatedEntries($category, 
+					$dataBaseEntries);
+			$assignmentsCounts = $this->countManager->getCounts($dataBaseEntries, 'assignment');
+			$this->productCategoryAssignmentManager->saveEntries($dataBaseEntries);
+			
+			$dataBaseEntries = $this->productValueManager->getUpdatedEntries($category, $dataBaseEntries);
+			$productValuesCounts = $this->countManager->getCounts($dataBaseEntries, 'productValue');
+			$this->productValueManager->saveEntries($dataBaseEntries);
+			
+			$dataBaseEntries = $this->productScoreManager->getUpdatedEntries($category, $dataBaseEntries);
+			$productScoresCounts = $this->countManager->getCounts($dataBaseEntries, 'productScore');
+			$this->productScoreManager->saveEntries($dataBaseEntries);
+			
+			$dataBaseEntries = $this->productNoteManager->getUpdatedEntries($category, $dataBaseEntries);
+			$productNotesCounts = $this->countManager->getCounts($dataBaseEntries, 'productNote');
+			$this->productNoteManager->saveEntries($dataBaseEntries);
+			
+			$brandsCounts = $this->countManager->getCounts($dataBaseEntries, 'brand');
+			$this->brandManager->saveEntries($dataBaseEntries);
+			
+			$mainCategory = $this->getMainCategory($category);
+			$dataBaseColumns = $this->benchmarkFieldManager->getUpdatedEntries($mainCategory, $columns);
+			$benchmarkFieldsCounts = $this->countManager->getCounts($dataBaseColumns, 'benchmarkField');
+			$this->benchmarkFieldManager->saveEntries($dataBaseColumns);
+		} catch (\Exception $ex) {
+			$result['errors'] = [$ex->getMessage()];
 			return $result;
 		}
 		
@@ -674,111 +645,6 @@ class ImportLogic {
 		}
 		
 		$entry['featured'] = $preparedEntry['featured'];
-		
-		$entry['errors'] = $errors;
-		
-		return $entry;
-	}
-
-	protected function getDataBaseColumns($category, $columns) {
-		$result = array();
-		
-		foreach ($columns as $column) {
-			if (key_exists('fieldType', $column)) {
-				$result[] = $this->getDataBaseColumn($category, $column);
-			}
-		}
-		
-		return $result;
-	}
-
-	protected function getDataBaseColumn($category, $column) {
-		$entry = array();
-		$errors = array();
-		
-		$benchmarkFieldRepository = $this->doctrine->getRepository(BenchmarkField::class);
-		
-		$fieldType = $column['fieldType'];
-		$valueNumber = $column['valueNumber'];
-		$benchmarkField = $benchmarkFieldRepository->findOneBy(
-				['category' => $category->getId(), 'fieldType' => $fieldType, 'valueNumber' => $valueNumber]);
-		if (! $benchmarkField) {
-			$benchmarkField = new BenchmarkField();
-			
-			$benchmarkField->setCategory($category);
-			
-			$benchmarkField->setFieldType($column['fieldType']);
-			$benchmarkField->setValueNumber($valueNumber);
-			
-			$benchmarkField->setFieldName($column['fieldName']);
-			$benchmarkField->setFieldNumber($column['fieldNumber']);
-			$benchmarkField->setShowField($column['showField']);
-			
-			$benchmarkField->setFilterName($column['filterName']);
-			$benchmarkField->setFilterNumber($column['filterNumber']);
-			$benchmarkField->setShowFilter($column['showFilter']);
-			
-			if ($column['fieldType'] == BenchmarkField::DECIMAL_FIELD_TYPE) {
-				$benchmarkField->setDecimalPlaces(2);
-			} else {
-				$benchmarkField->setDecimalPlaces(0);
-			}
-			
-			$entry['benchmarkFieldForUpdate'] = true;
-		} else {
-			$forUpdate = false;
-			
-			$fieldName = $column['fieldName'];
-			if ($benchmarkField->getFieldName() != $fieldName) {
-				$benchmarkField->setFieldName($fieldName);
-				$forUpdate = true;
-			}
-			
-			$fieldNumber = $column['fieldNumber'];
-			if ($benchmarkField->getFieldNumber() != $fieldNumber) {
-				$benchmarkField->setFieldNumber($fieldNumber);
-				$forUpdate = true;
-			}
-			
-			$fieldType = $column['fieldType'];
-			if ($benchmarkField->getFieldType() != $fieldType) {
-				$benchmarkField->setFieldType($fieldType);
-				$forUpdate = true;
-				
-				if ($column['fieldType'] == BenchmarkField::DECIMAL_FIELD_TYPE) {
-					$benchmarkField->setDecimalPlaces(2);
-				} else {
-					$benchmarkField->setDecimalPlaces(0);
-				}
-			}
-			
-			$showField = $column['showField'];
-			if ($benchmarkField->getShowField() != $showField) {
-				$benchmarkField->setShowField($showField);
-				$forUpdate = true;
-			}
-			
-			$filterName = $column['filterName'];
-			if ($benchmarkField->getFilterName() != $filterName) {
-				$benchmarkField->setFilterName($filterName);
-				$forUpdate = true;
-			}
-			
-			$filterNumber = $column['filterNumber'];
-			if ($benchmarkField->getFilterNumber() != $filterNumber) {
-				$benchmarkField->setFilterNumber($filterNumber);
-				$forUpdate = true;
-			}
-			
-			$showFilter = $column['showFilter'];
-			if ($benchmarkField->getShowFilter() != $showFilter) {
-				$benchmarkField->setShowFilter($showFilter);
-				$forUpdate = true;
-			}
-			
-			$entry['benchmarkFieldForUpdate'] = $forUpdate;
-		}
-		$entry['benchmarkField'] = $benchmarkField;
 		
 		$entry['errors'] = $errors;
 		
