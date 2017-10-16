@@ -83,6 +83,12 @@ class ImportLogic {
 
 	/**
 	 *
+	 * @var PersistenceManager
+	 */
+	protected $categorySummaryManager;
+
+	/**
+	 *
 	 * @var CountManager $countManager
 	 */
 	protected $countManager;
@@ -92,7 +98,7 @@ class ImportLogic {
 			PersistenceManager $productCategoryAssignmentManager, PersistenceManager $productValueManager, 
 			PersistenceManager $productScoreManager, PersistenceManager $productNoteManager, 
 			PersistenceManager $brandManager, PersistenceManager $benchmarkFieldManager, 
-			CountManager $countManager) {
+			PersistenceManager $categorySummaryManager, CountManager $countManager) {
 		$this->doctrine = $doctrine;
 		$this->errorFactory = $errorFactory;
 		$this->benchmarkFieldDataBaseUtils = $benchmarkFieldDataBaseUtils;
@@ -104,6 +110,7 @@ class ImportLogic {
 		$this->productNoteManager = $productNoteManager;
 		$this->brandManager = $brandManager;
 		$this->benchmarkFieldManager = $benchmarkFieldManager;
+		$this->categorySummaryManager = $categorySummaryManager;
 		
 		$this->countManager = $countManager;
 	}
@@ -178,17 +185,22 @@ class ImportLogic {
 			$productScoresCounts = $this->countManager->getCounts($dataBaseEntries, 'productScore');
 			$this->productScoreManager->saveEntries($dataBaseEntries);
 			
+			$mainCategory = $this->getMainCategory($category);
+			$categorySummaries = [[]];
+			$categorySummaries = $this->categorySummaryManager->getUpdatedEntries($mainCategory, 
+					$categorySummaries);
+			$this->categorySummaryManager->saveEntries($categorySummaries);
+			
+			$dataBaseColumns = $this->benchmarkFieldManager->getUpdatedEntries($mainCategory, $columns);
+			$benchmarkFieldsCounts = $this->countManager->getCounts($dataBaseColumns, 'benchmarkField');
+			$this->benchmarkFieldManager->saveEntries($dataBaseColumns);
+			
 			$dataBaseEntries = $this->productNoteManager->getUpdatedEntries($category, $dataBaseEntries);
 			$productNotesCounts = $this->countManager->getCounts($dataBaseEntries, 'productNote');
 			$this->productNoteManager->saveEntries($dataBaseEntries);
 			
 			$brandsCounts = $this->countManager->getCounts($dataBaseEntries, 'brand');
 			$this->brandManager->saveEntries($dataBaseEntries);
-			
-			$mainCategory = $this->getMainCategory($category);
-			$dataBaseColumns = $this->benchmarkFieldManager->getUpdatedEntries($mainCategory, $columns);
-			$benchmarkFieldsCounts = $this->countManager->getCounts($dataBaseColumns, 'benchmarkField');
-			$this->benchmarkFieldManager->saveEntries($dataBaseColumns);
 		} catch (\Exception $ex) {
 			$result['errors'] = [$ex->getMessage()];
 			return $result;

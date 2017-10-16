@@ -23,7 +23,10 @@ services:
     AppBundle\Logic\Admin\Import\Product\ItemProvider\BenchmarkFieldProvider:
         arguments:
             - '@AppBundle\Repository\Admin\Main\BenchmarkFieldRepository'
-            
+    AppBundle\Logic\Admin\Import\Product\ItemProvider\CategorySummaryProvider:
+        arguments:
+            - '@AppBundle\Repository\Admin\Main\CategorySummaryRepository'
+                    
     # Persistence Managers
     app.import.persistence_manager.product:
         class: AppBundle\Logic\Admin\Import\Product\PersistenceManager\ProductManager
@@ -67,3 +70,9 @@ services:
             - '@doctrine'
             - '@AppBundle\Logic\Admin\Import\Product\ItemProvider\BenchmarkFieldProvider'
             - 'benchmarkField'
+    app.import.persistence_manager.category_summary:
+        class: AppBundle\Logic\Admin\Import\Common\PersistenceManager
+        arguments:
+            - '@doctrine'
+            - '@AppBundle\Logic\Admin\Import\Product\ItemProvider\CategorySummaryProvider'
+            - 'categorySummary'

@@ -230,6 +230,7 @@ class CategoryController extends FeaturedController {
 			$productNoteManager = $this->get('app.import.persistence_manager.product_note');
 			$brandManager = $this->get('app.import.persistence_manager.brand');
 			$benchmarkFieldManager = $this->get('app.import.persistence_manager.benchmark_field');
+			$categorySummaryManager = $this->get('app.import.persistence_manager.category_summary');
 			
 			$countManager = $this->get(CountManager::class);
 			$importLogic = new ImportLogic($doctrine, $errorFactory, $benchmarkFieldDataBaseUtils, 
@@ -240,6 +241,7 @@ class CategoryController extends FeaturedController {
 					$productNoteManager,
 					$brandManager,
 					$benchmarkFieldManager,
+					$categorySummaryManager,
 					$countManager);
 			
 			$result = $importLogic->importRatings($importRatings, $entry);
