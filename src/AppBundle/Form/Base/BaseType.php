@@ -19,6 +19,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use AppBundle\Utils\StringUtils;
 
 abstract class BaseType extends AbstractType {
 
@@ -153,10 +154,19 @@ abstract class BaseType extends AbstractType {
 
 	private function addDateFormatField(FormBuilderInterface $builder, $format, $field, $placeholder, 
 			$required = true) {
+		$attrFormat = $format;
+		$attrFormat = str_replace('d', 'D', $attrFormat);
+		$attrFormat = str_replace('y', 'Y', $attrFormat);
+		
 		$builder->add($field, DateTimeType::class, 
-				array('widget' => 'single_text', 'format' => $format, 'required' => $required, 
-						'attr' => ['class' => 'form-control input-inline datetimepicker', 
-								'data-provide' => 'datepicker', 'data-date-format' => 'DD/MM/YYYY HH:mm', 
+				array(
+						'widget' => 'single_text', 
+						'format' => $format, 
+						'required' => $required, 
+						'attr' => [
+								'class' => 'form-control input-inline datetimepicker', 
+								'data-provide' => 'datepicker', 
+								'data-date-format' => $attrFormat, 
 								'placeholder' => $placeholder]));
 	}
 
@@ -177,8 +187,11 @@ abstract class BaseType extends AbstractType {
 
 	private function addChoiceField(FormBuilderInterface $builder, array $options, $field, $required, $multiple, 
 			$expanded) {
-		$params = ['choices' => $options[self::getChoicesName($field)], 'required' => $required, 
-				'multiple' => $multiple, 'expanded' => $expanded];
+		$params = [
+				'choices' => $options[self::getChoicesName($field)], 
+				'required' => $required, 
+				'multiple' => $multiple, 
+				'expanded' => $expanded];
 		if ($multiple && ! $expanded) {
 			$params['attr'] = ['class' => 'multiple'];
 		}
@@ -208,10 +221,14 @@ abstract class BaseType extends AbstractType {
 
 	private function addEntityChoiceField(FormBuilderInterface $builder, array $options, $field, $required, 
 			$multiple, $expanded) {
-		$params = ['choices' => $options[self::getChoicesName($field)], 
+		$params = [
+				'choices' => $options[self::getChoicesName($field)], 
 				'choice_label' => function ($value, $key, $index) {
 					return FormUtils::getChoiceLabel($value, $key, $index);
-				}, 'choice_translation_domain' => false, 'required' => $required, 'multiple' => $multiple, 
+				}, 
+				'choice_translation_domain' => false, 
+				'required' => $required, 
+				'multiple' => $multiple, 
 				'expanded' => $expanded];
 		if ($multiple && ! $expanded) {
 			$params['attr'] = ['class' => 'multiple'];
