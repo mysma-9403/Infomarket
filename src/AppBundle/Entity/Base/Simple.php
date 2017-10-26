@@ -5,7 +5,7 @@ namespace AppBundle\Entity\Base;
 class Simple {
 
 	public function getDisplayName() {
-		return $this->id;
+		return '' . $this->id;
 	}
 
 	public function __toString() {

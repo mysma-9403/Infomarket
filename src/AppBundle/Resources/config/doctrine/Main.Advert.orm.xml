@@ -27,6 +27,9 @@
 		<one-to-many field="advertCategoryAssignments"
 			target-entity="AppBundle\Entity\Assignments\AdvertCategoryAssignment"
 			mapped-by="advert">
+			<cascade>
+            	<cascade-remove/>
+        	</cascade>
 		</one-to-many>
 
 		<one-to-many field="newsletterBlockAdvertAssignments"

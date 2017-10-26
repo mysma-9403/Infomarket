@@ -11,4 +11,7 @@
 {% block contentFields %}
 	{% include 'common/editor/form_field.twig' with 
 	{ field: form.value, label: 'label.benchmarkEnum.value' } %}
+	
+	{% include 'common/editor/form_field.twig' with 
+	{ field: form.category, label: 'label.category' } %}
 {%  endblock %}

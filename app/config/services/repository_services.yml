@@ -232,12 +232,6 @@ services:
             - AppBundle\Entity\Main\Category
         tags:
             - { name: app.repository }
-    AppBundle\Repository\Admin\Main\CategorySummaryRepository:
-        factory: ['@doctrine.orm.default_entity_manager', getRepository]
-        arguments:
-            - AppBundle\Entity\Main\CategorySummary
-        tags:
-            - { name: app.repository }
     AppBundle\Repository\Admin\Main\LinkRepository:
         factory: ['@doctrine.orm.default_entity_manager', getRepository]
         arguments:
@@ -308,24 +302,6 @@ services:
         factory: ['@doctrine.orm.default_entity_manager', getRepository]
         arguments:
             - AppBundle\Entity\Main\Product
-        tags:
-            - { name: app.repository }
-    AppBundle\Repository\Admin\Main\ProductNoteRepository:
-        factory: ['@doctrine.orm.default_entity_manager', getRepository]
-        arguments:
-            - AppBundle\Entity\Main\ProductNote
-        tags:
-            - { name: app.repository }
-    AppBundle\Repository\Admin\Main\ProductScoreRepository:
-        factory: ['@doctrine.orm.default_entity_manager', getRepository]
-        arguments:
-            - AppBundle\Entity\Main\ProductScore
-        tags:
-            - { name: app.repository }
-    AppBundle\Repository\Admin\Main\ProductValueRepository:
-        factory: ['@doctrine.orm.default_entity_manager', getRepository]
-        arguments:
-            - AppBundle\Entity\Main\ProductValue
         tags:
             - { name: app.repository }
     AppBundle\Repository\Admin\Main\SegmentRepository:
@@ -480,6 +456,30 @@ services:
         factory: ['@AppBundle\Repository\Factory\AdminRepositoryFactory', getRepository]
         arguments:
             - AppBundle\Repository\Admin\Main\ArchivedArticleRepository
+    AppBundle\Repository\Admin\Other\CategorySummaryRepository:
+        factory: ['@doctrine.orm.default_entity_manager', getRepository]
+        arguments:
+            - AppBundle\Entity\Other\CategorySummary
+        tags:
+            - { name: app.repository }
+    AppBundle\Repository\Admin\Other\ProductNoteRepository:
+        factory: ['@doctrine.orm.default_entity_manager', getRepository]
+        arguments:
+            - AppBundle\Entity\Other\ProductNote
+        tags:
+            - { name: app.repository }
+    AppBundle\Repository\Admin\Other\ProductScoreRepository:
+        factory: ['@doctrine.orm.default_entity_manager', getRepository]
+        arguments:
+            - AppBundle\Entity\Other\ProductScore
+        tags:
+            - { name: app.repository }
+    AppBundle\Repository\Admin\Other\ProductValueRepository:
+        factory: ['@doctrine.orm.default_entity_manager', getRepository]
+        arguments:
+            - AppBundle\Entity\Other\ProductValue
+        tags:
+            - { name: app.repository }
     AppBundle\Repository\Admin\Other\SendNewsletterRepository:
         factory: ['@AppBundle\Repository\Factory\AdminRepositoryFactory', getRepository]
         arguments:

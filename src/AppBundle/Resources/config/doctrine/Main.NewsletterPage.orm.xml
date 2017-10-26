@@ -18,6 +18,9 @@
 			<order-by>
 				<order-by-field name="orderNumber" direction="ASC" />
 			</order-by>
+			<cascade>
+            	<cascade-remove/>
+        	</cascade>
 		</one-to-many>
 
 		<one-to-many field="newsletterUserNewsletterPageAssignments"

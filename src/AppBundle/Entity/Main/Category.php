@@ -861,7 +861,7 @@ class Category extends ImageTree {
 		return $this->parent;
 	}
     /**
-     * @var \AppBundle\Entity\Main\CategorySummary
+     * @var \AppBundle\Entity\Other\CategorySummary
      */
     private $categorySummary;
 
@@ -869,11 +869,11 @@ class Category extends ImageTree {
     /**
      * Set categorySummary
      *
-     * @param \AppBundle\Entity\Main\CategorySummary $categorySummary
+     * @param \AppBundle\Entity\Other\CategorySummary $categorySummary
      *
      * @return Category
      */
-    public function setCategorySummary(\AppBundle\Entity\Main\CategorySummary $categorySummary = null)
+    public function setCategorySummary(\AppBundle\Entity\Other\CategorySummary $categorySummary = null)
     {
         $this->categorySummary = $categorySummary;
 
@@ -883,10 +883,49 @@ class Category extends ImageTree {
     /**
      * Get categorySummary
      *
-     * @return \AppBundle\Entity\Main\CategorySummary
+     * @return \AppBundle\Entity\Other\CategorySummary
      */
     public function getCategorySummary()
     {
         return $this->categorySummary;
+    }
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $benchmarkEnums;
+
+
+    /**
+     * Add benchmarkEnum
+     *
+     * @param \AppBundle\Entity\Main\BenchmarkEnum $benchmarkEnum
+     *
+     * @return Category
+     */
+    public function addBenchmarkEnum(\AppBundle\Entity\Main\BenchmarkEnum $benchmarkEnum)
+    {
+        $this->benchmarkEnums[] = $benchmarkEnum;
+
+        return $this;
+    }
+
+    /**
+     * Remove benchmarkEnum
+     *
+     * @param \AppBundle\Entity\Main\BenchmarkEnum $benchmarkEnum
+     */
+    public function removeBenchmarkEnum(\AppBundle\Entity\Main\BenchmarkEnum $benchmarkEnum)
+    {
+        $this->benchmarkEnums->removeElement($benchmarkEnum);
+    }
+
+    /**
+     * Get benchmarkEnums
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getBenchmarkEnums()
+    {
+        return $this->benchmarkEnums;
     }
 }

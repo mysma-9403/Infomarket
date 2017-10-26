@@ -3,11 +3,8 @@
 namespace AppBundle\Controller\Benchmark;
 
 use AppBundle\Controller\Admin\Base\BaseController;
-use AppBundle\Entity\Assignments\ProductCategoryAssignment;
 use AppBundle\Entity\Main\BenchmarkField;
-use AppBundle\Entity\Main\Category;
 use AppBundle\Entity\Main\Product;
-use AppBundle\Entity\Main\ProductNote;
 use AppBundle\Factory\Common\BenchmarkField\SimpleBenchmarkFieldFactory;
 use AppBundle\Filter\Benchmark\CustomProductFilter;
 use AppBundle\Filter\Common\Other\ProductFilter;
@@ -123,7 +120,7 @@ class CustomProductController extends BaseController {
 		$form->handleRequest($request);
 		
 		if ($form->isSubmitted() && $form->isValid()) {
-			$this->saveEntry($request, $entry, $params);
+			$this->saveItem($request, $entry, $params);
 			
 			$this->flashCreatedMessage();
 			
@@ -222,58 +219,6 @@ class CustomProductController extends BaseController {
 	// ---------------------------------------------------------------------------
 	protected function getListItemsProvider() {
 		return $this->get('app.misc.provider.name_list_items_provider');
-	}
-
-	protected function prepareEntry($request, &$entry, $params) {
-		/** @var Product $entry */
-		$entry->setCustom(true);
-		
-		return $entry;
-	}
-
-	protected function saveMore($request, $entry, $params) {
-		parent::saveMore($request, $entry, $params);
-		
-		/** @var Product $entry */
-		if (count($entry->getProductCategoryAssignments()) == 0) {
-			$contextParams = $params['contextParams'];
-			$subcategory = $contextParams['subcategory'];
-			
-			$repository = $this->getDoctrine()->getRepository(Category::class);
-			$category = $repository->find($subcategory);
-			
-			$assignment = new ProductCategoryAssignment();
-			$assignment->setProduct($entry);
-			$assignment->setCategory($category);
-			$assignment->setOrderNumber(99);
-			$assignment->setFeatured(false);
-			
-			/** @var \Doctrine\Common\Persistence\ObjectManager $em */
-			$em = $this->getDoctrine()->getManager();
-			
-			$em->persist($assignment);
-			$em->flush();
-			
-			$note = new ProductNote();
-			$note->setProductCategoryAssignment($assignment);
-			$note->setOveralNote(2.0); // TODO first note should be calculated here!
-			$note->setUpToDate(false);
-			
-			$em->persist($note);
-			$em->flush();
-		}
-	}
-
-	protected function deleteMore($entry) {
-		/** @var Product $entry */
-		$em = $this->getDoctrine()->getManager();
-		foreach ($entry->getProductCategoryAssignments() as $productCategoryAssignment) {
-			$em->remove($productCategoryAssignment->getProductNote());
-			$em->remove($productCategoryAssignment);
-		}
-		$em->flush();
-		
-		return array();
 	}
 	
 	// ---------------------------------------------------------------------------

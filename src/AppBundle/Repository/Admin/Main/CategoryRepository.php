@@ -10,7 +10,7 @@ use AppBundle\Filter\Common\Main\CategoryFilter;
 use AppBundle\Repository\Admin\Base\ImageRepository;
 use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\ORM\QueryBuilder;
-use AppBundle\Entity\Main\CategorySummary;
+use AppBundle\Entity\Other\CategorySummary;
 
 class CategoryRepository extends ImageRepository {
 
@@ -227,8 +227,8 @@ class CategoryRepository extends ImageRepository {
 		$expr = $builder->expr();
 		
 		$where = $expr->andX();
-		$where->add($expr->eq('e.preleaf', 0));
-		$where->add($expr->eq('e.benchmark', 1));
+// 		$where->add($expr->eq('e.preleaf', 0));
+// 		$where->add($expr->eq('e.benchmark', 1));
 		$where->add($expr->isNull('cs.id'));
 		
 		$builder->where($where);

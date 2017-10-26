@@ -37,16 +37,25 @@
 		<one-to-many field="newsletterBlockAdvertAssignments"
 			target-entity="AppBundle\Entity\Assignments\NewsletterBlockAdvertAssignment"
 			mapped-by="newsletterBlock">
+			<cascade>
+            	<cascade-remove/>
+        	</cascade>
 		</one-to-many>
 
 		<one-to-many field="newsletterBlockArticleAssignments"
 			target-entity="AppBundle\Entity\Assignments\NewsletterBlockArticleAssignment"
 			mapped-by="newsletterBlock">
+			<cascade>
+            	<cascade-remove/>
+        	</cascade>
 		</one-to-many>
 
 		<one-to-many field="newsletterBlockMagazineAssignments"
 			target-entity="AppBundle\Entity\Assignments\NewsletterBlockMagazineAssignment"
 			mapped-by="newsletterBlock">
+			<cascade>
+            	<cascade-remove/>
+        	</cascade>
 		</one-to-many>
 	</entity>
 

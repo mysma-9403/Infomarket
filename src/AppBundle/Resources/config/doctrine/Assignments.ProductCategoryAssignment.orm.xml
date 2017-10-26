@@ -19,12 +19,27 @@
 
 		<field name="featured" type="boolean" default="false" />
 
-		<one-to-one field="productValue" target-entity="AppBundle\Entity\Main\ProductValue"
-			mapped-by="productCategoryAssignment" />
-		<one-to-one field="productScore" target-entity="AppBundle\Entity\Main\ProductScore"
-			mapped-by="productCategoryAssignment" />
-		<one-to-one field="productNote" target-entity="AppBundle\Entity\Main\ProductNote"
-			mapped-by="productCategoryAssignment" />
+		<one-to-one field="productValue" target-entity="AppBundle\Entity\Other\ProductValue"
+			mapped-by="productCategoryAssignment">
+			<cascade>
+            	<cascade-persist/>
+            	<cascade-remove/>
+        	</cascade>
+		</one-to-one>
+		<one-to-one field="productScore" target-entity="AppBundle\Entity\Other\ProductScore"
+			mapped-by="productCategoryAssignment">
+			<cascade>
+            	<cascade-persist/>
+            	<cascade-remove/>
+        	</cascade>
+		</one-to-one>
+		<one-to-one field="productNote" target-entity="AppBundle\Entity\Other\ProductNote"
+			mapped-by="productCategoryAssignment">
+			<cascade>
+            	<cascade-persist/>
+            	<cascade-remove/>
+        	</cascade>
+		</one-to-one>
 	</entity>
 
 </doctrine-mapping>

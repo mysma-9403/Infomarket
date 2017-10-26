@@ -340,48 +340,6 @@ class CategoryController extends FeaturedController {
 		return $this->get('app.misc.provider.subname_list_items_provider');
 	}
 
-	protected function prepareEntry($request, &$entry, $params) {
-		parent::prepareEntry($request, $entry, $params);
-		
-		/** @var Category $entry */
-		$parent = $entry->getParent();
-		if ($parent) {
-			$rootId = $parent->getRootId();
-			if ($rootId) {
-				$entry->setRootId($rootId);
-			} else {
-				$entry->setRootId($parent->getId());
-			}
-		} else {
-			$entry->setRootId(null);
-		}
-	}
-
-	protected function saveMore($request, $entry, $params) {
-		$parent = $entry->getParent();
-		if ($parent) {
-			$rootId = $parent->getRootId();
-			if (! $rootId)
-				$rootId = $parent->getId();
-			
-			/** @var CategoryRepository $repository */
-			$repository = $this->getDoctrine()->getRepository(Category::class);
-			$items = $repository->findChildrenIds($entry->getId(), $rootId);
-			
-			if (count($items) > 0) {
-				$repository->setRootId($items, $rootId);
-			}
-		} else {
-			/** @var CategoryRepository $repository */
-			$repository = $this->getDoctrine()->getRepository(Category::class);
-			$items = $repository->findChildrenIds($entry->getId(), $entry->getId());
-			
-			if (count($items) > 0) {
-				$repository->setRootId($items, $entry->getId());
-			}
-		}
-	}
-
 	/**
 	 *
 	 * @param Category $entry        	
@@ -461,25 +419,6 @@ class CategoryController extends FeaturedController {
 		$params = $em->getRatingsParams($request, $params, $id);
 		
 		return $params;
-	}
-	
-	// ---------------------------------------------------------------------------
-	// Internal logic
-	// ---------------------------------------------------------------------------
-	/**
-	 *
-	 * {@inheritDoc}
-	 *
-	 * @see \AppBundle\Controller\Admin\Base\AdminEntityController::deleteMore()
-	 */
-	protected function deleteMore($entry) {
-		$em = $this->getDoctrine()->getManager();
-		foreach ($entry->getBranchCategoryAssignments() as $branchCategoryAssignment) {
-			$em->remove($branchCategoryAssignment);
-		}
-		$em->flush();
-		
-		return array();
 	}
 	
 	// ---------------------------------------------------------------------------

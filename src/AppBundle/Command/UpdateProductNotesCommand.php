@@ -3,15 +3,15 @@
 namespace AppBundle\Command;
 
 use AppBundle\Entity\Main\BenchmarkField;
-use AppBundle\Entity\Main\CategorySummary;
 use AppBundle\Entity\Main\Product;
-use AppBundle\Entity\Main\ProductNote;
+use AppBundle\Entity\Other\CategorySummary;
+use AppBundle\Entity\Other\ProductNote;
 use AppBundle\Logic\Common\BenchmarkField\Initializer\BenchmarkFieldsInitializerImpl;
 use AppBundle\Logic\Common\BenchmarkField\Provider\BenchmarkFieldsProvider;
 use AppBundle\Repository\Admin\Assignments\ProductCategoryAssignmentRepository;
 use AppBundle\Repository\Admin\Main\CategoryRepository;
-use AppBundle\Repository\Admin\Main\CategorySummaryRepository;
-use AppBundle\Repository\Admin\Main\ProductNoteRepository;
+use AppBundle\Repository\Admin\Other\CategorySummaryRepository;
+use AppBundle\Repository\Admin\Other\ProductNoteRepository;
 use AppBundle\Repository\Benchmark\ProductRepository;
 use AppBundle\Utils\Entity\DataBase\BenchmarkFieldDataBaseUtils;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -19,6 +19,8 @@ use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Filesystem\LockHandler;
+use AppBundle\Repository\Admin\Other\ProductValueRepository;
+use AppBundle\Repository\Admin\Other\ProductScoreRepository;
 
 class UpdateProductNotesCommand extends ContainerAwareCommand {
 
@@ -125,6 +127,9 @@ class UpdateProductNotesCommand extends ContainerAwareCommand {
 		
 		$this->productRepository = $container->get(ProductRepository::class);
 		$this->productCategoryAssignmentRepository = $container->get(ProductCategoryAssignmentRepository::class);
+		
+		$this->productValueRepository = $container->get(ProductValueRepository::class);
+		$this->productScoreRepository = $container->get(ProductScoreRepository::class);
 		$this->productNoteRepository = $container->get(ProductNoteRepository::class);
 		
 		$this->benchmarkFieldsProvider = $container->get(BenchmarkFieldsProvider::class);
@@ -196,6 +201,8 @@ class UpdateProductNotesCommand extends ContainerAwareCommand {
 		$done = 0;
 		
 		if ($total > 0) {
+			$this->productValueRepository->createItems($productCategoryAssignments);
+			$this->productScoreRepository->createItems($productCategoryAssignments);
 			$this->productNoteRepository->createItems($productCategoryAssignments);
 			$done = $total;
 		}
@@ -248,6 +255,7 @@ class UpdateProductNotesCommand extends ContainerAwareCommand {
 		$fields = $this->getBenchmarkFields($categoryId);
 		
 		foreach ($productNotes as $productNote) {
+			//TODO updateProductScore
 			$this->updateProductNote($productNote, $summary, $fields);
 			$done ++;
 			
@@ -364,11 +372,11 @@ class UpdateProductNotesCommand extends ContainerAwareCommand {
 	}
 
 	protected function logSummary(OutputInterface $output, $summaries, $notes) {
+		$nothingProcessed = true;
+		
+		
 		$summariesCreatedTotal = $summaries['created']['total'];
 		$summariesUpdatedTotal = $summaries['updated']['total'];
-		$notesCreatedTotal = $notes['created']['total'];
-		$notesUpdatedTotal = $notes['updated']['total'];
-		$nothingProcessed = true;
 		
 		if ($summariesCreatedTotal > 0) {
 			$createdDone = $summaries['created']['done'];
@@ -382,6 +390,11 @@ class UpdateProductNotesCommand extends ContainerAwareCommand {
 					'Category summaries updated: ' . $updatedDone . " / " . $summariesUpdatedTotal);
 			$nothingProcessed = false;
 		}
+		
+		
+		$notesCreatedTotal = $notes['created']['total'];
+		$notesUpdatedTotal = $notes['updated']['total'];
+		
 		if ($notesCreatedTotal > 0) {
 			$createdDone = $notes['created']['done'];
 			$this->logMessage($output, 'Product notes created: ' . $createdDone . " / " . $notesCreatedTotal);

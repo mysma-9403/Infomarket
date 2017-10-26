@@ -2,15 +2,15 @@
 
 namespace AppBundle\Controller\Base;
 
+use AppBundle\Factory\Common\Choices\Base\ChoicesFactory;
 use AppBundle\Factory\Common\Message\LifecycleMessageFactory;
 use AppBundle\Manager\Analytics\AnalyticsManager;
 use AppBundle\Manager\Route\RouteManager;
+use AppBundle\Repository\Base\BaseRepository;
 use AppBundle\Utils\ClassUtils;
 use AppBundle\Utils\ParamUtils;
-use Doctrine\Common\Persistence\ObjectRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-use AppBundle\Factory\Common\Choices\Base\ChoicesFactory;
 
 abstract class DummyController extends Controller {
 	// ---------------------------------------------------------------------------
@@ -147,7 +147,7 @@ abstract class DummyController extends Controller {
 	
 	/**
 	 *
-	 * @return ObjectRepository
+	 * @return BaseRepository
 	 */
 	protected function getEntityRepository() {
 		return $this->getDoctrine()->getRepository($this->getEntityType());

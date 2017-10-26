@@ -1644,7 +1644,7 @@ admin_product_get_top_products:
         
 admin_product:
     path:      /admin/products/{page}
-    defaults:  { _controller: "AppBundle:Admin/Main/Product:index", page: 1 }                
+    defaults:  { _controller: 'AppBundle:Admin/Main/Product:index', page: 1 }                
       
       
 # Admin ProductCategoryAssignments Routing    

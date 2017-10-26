@@ -3,7 +3,7 @@
 namespace AppBundle\Logic\Admin\Import\Product\ItemProvider;
 
 use AppBundle\Entity\Main\Category;
-use AppBundle\Entity\Main\CategorySummary;
+use AppBundle\Entity\Other\CategorySummary;
 use AppBundle\Logic\Admin\Import\Common\ItemProvider;
 use AppBundle\Logic\Admin\Import\Common\PersistenceManager;
 

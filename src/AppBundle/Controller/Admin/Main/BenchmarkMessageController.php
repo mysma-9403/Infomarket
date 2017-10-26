@@ -121,7 +121,8 @@ class BenchmarkMessageController extends BaseController {
 		return $this->redirectToReferer($request);
 	}
 
-	protected function listFormActionInternal(Request $request, Form $form, BaseFilter $filter, array $listItems) {
+	protected function listFormActionInternal(Request $request, Form $form, BaseFilter $filter, array $listItems, 
+			array $params) {
 		if ($form->get('setReadSelected')->isClicked()) {
 			$data = $form->getData();
 			$entries = $data->getEntries();
@@ -136,7 +137,7 @@ class BenchmarkMessageController extends BaseController {
 			$this->setValueForSelected($entries, 'readByAdmin', 0);
 		}
 		
-		return parent::listFormActionInternal($request, $form, $filter, $listItems);
+		return parent::listFormActionInternal($request, $form, $filter, $listItems, $params);
 	}
 	
 	// ---------------------------------------------------------------------------
@@ -170,10 +171,12 @@ class BenchmarkMessageController extends BaseController {
 		
 		if ($form->isSubmitted() && $form->isValid()) {
 			if ($form->get('save')->isClicked()) {
-				$this->saveEntry($request, $newEntry, $viewParams);
+				$newEntry = $this->getPreparedItem($request, $newEntry, $params);
+				$this->saveItem($request, $newEntry, $viewParams);
 				
+				$entry = $this->getPreparedItem($request, $entry, $params);
 				$entry->setState($newEntry->getState());
-				$this->saveEntry($request, $entry, $viewParams);
+				$this->saveItem($request, $entry, $viewParams);
 				
 				$this->flashCreatedMessage();
 				
@@ -193,7 +196,7 @@ class BenchmarkMessageController extends BaseController {
 	protected function getFilterFormOptionsProvider() {
 		return $this->get('app.misc.provider.form_options.filter.main.benchmark_message');
 	}
-	
+
 	protected function getEditorFormOptionsProvider() {
 		return $this->get('app.misc.provider.form_options.editor.main.benchmark_message');
 	}
@@ -213,17 +216,6 @@ class BenchmarkMessageController extends BaseController {
 		$entry->setReadByAdmin($read);
 		$em->persist($entry);
 		$em->flush();
-	}
-
-	/**
-	 *
-	 * @param BenchmarkMessage $entry        	
-	 */
-	protected function prepareEntry($request, &$entry, $params) {
-		parent::prepareEntry($request, $entry, $params);
-		
-		$entry->setReadByAdmin(true);
-		$entry->setReadByAuthor(false);
 	}
 	
 	// ---------------------------------------------------------------------------

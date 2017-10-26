@@ -16,11 +16,17 @@
 		<one-to-many field="newsletterUserNewsletterGroupAssignments"
 			target-entity="AppBundle\Entity\Assignments\NewsletterUserNewsletterGroupAssignment"
 			mapped-by="newsletterUser">
+			<cascade>
+            	<cascade-remove/>
+        	</cascade>
 		</one-to-many>
 
 		<one-to-many field="newsletterUserNewsletterPageAssignments"
 			target-entity="AppBundle\Entity\Assignments\NewsletterUserNewsletterPageAssignment"
 			mapped-by="newsletterUser">
+			<cascade>
+            	<cascade-remove/>
+        	</cascade>
 		</one-to-many>
 	</entity>
 

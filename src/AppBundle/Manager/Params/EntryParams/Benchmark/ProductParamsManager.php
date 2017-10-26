@@ -11,7 +11,7 @@ use AppBundle\Manager\Params\EntryParams\Base\EntryParamsManager;
 use AppBundle\Repository\Benchmark\BenchmarkMessageRepository;
 use AppBundle\Repository\Benchmark\ProductRepository;
 use Symfony\Component\HttpFoundation\Request;
-use AppBundle\Entity\Main\ProductNote;
+use AppBundle\Entity\Other\ProductNote;
 use AppBundle\Entity\Assignments\ProductCategoryAssignment;
 
 class ProductParamsManager extends EntryParamsManager {

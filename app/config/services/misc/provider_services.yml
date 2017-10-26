@@ -234,7 +234,12 @@ services:
                 parent: '@app.misc.provider.article_items_provider'
                 author: '@app.misc.provider.user_items_provider'
                 imageSize: '@app.misc.provider.article_image_size_items_provider'
-                layout: '@app.misc.provider.article_layout_items_provider'            
+                layout: '@app.misc.provider.article_layout_items_provider'   
+    app.misc.provider.form_options.editor.main.benchmark_enum:
+        class: AppBundle\Misc\FormOptions\FormOptionsProvider
+        arguments: 
+            - 
+                category: '@app.misc.provider.category_items_provider'         
     app.misc.provider.form_options.editor.main.benchmark_field:
         class: AppBundle\Misc\FormOptions\FormOptionsProvider
         arguments: 

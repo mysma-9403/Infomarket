@@ -27,6 +27,9 @@
 			<order-by>
 				<order-by-field name="treePath" direction="ASC" />
 			</order-by>
+			<cascade>
+            	<cascade-remove/>
+        	</cascade>
 		</one-to-many>
 
 		<many-to-one field="page" target-entity="Page" nullable="true" />
@@ -36,16 +39,25 @@
 		<one-to-many field="menuMenuEntryAssignments"
 			target-entity="AppBundle\Entity\Assignments\MenuMenuEntryAssignment"
 			mapped-by="menuEntry">
+			<cascade>
+            	<cascade-remove/>
+        	</cascade>
 		</one-to-many>
 
 		<one-to-many field="menuEntryBranchAssignments"
 			target-entity="AppBundle\Entity\Assignments\MenuEntryBranchAssignment"
 			mapped-by="menuEntry">
+			<cascade>
+            	<cascade-remove/>
+        	</cascade>
 		</one-to-many>
 
 		<one-to-many field="menuEntryCategoryAssignments"
 			target-entity="AppBundle\Entity\Assignments\MenuEntryCategoryAssignment"
 			mapped-by="menuEntry">
+			<cascade>
+            	<cascade-remove/>
+        	</cascade>
 		</one-to-many>
 	</entity>
 

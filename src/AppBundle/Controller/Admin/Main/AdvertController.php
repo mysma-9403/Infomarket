@@ -121,17 +121,7 @@ class AdvertController extends ImageController {
 	protected function getListItemsProvider() {
 		return $this->get('app.misc.provider.name_list_items_provider');
 	}
-
-	protected function deleteMore($entry) {
-		$em = $this->getDoctrine()->getManager();
-		
-		foreach ($entry->getAdvertCategoryAssignments() as $advertCategoryAssignment) {
-			$em->remove($advertCategoryAssignment);
-		}
-		$em->flush();
-		
-		return array();
-	}
+	
 	// ---------------------------------------------------------------------------
 	// Managers
 	// ---------------------------------------------------------------------------

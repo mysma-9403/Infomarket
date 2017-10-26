@@ -357,41 +357,6 @@ class ArticleController extends FeaturedController {
 		return new FilterManager(new ArticleFilter());
 	}
 	
-	// ---------------------------------------------------------------------------
-	// Internal logic
-	// ---------------------------------------------------------------------------
-	protected function deleteMore($entry) {
-		$em = $this->getDoctrine()->getManager();
-		
-		foreach ($entry->getArticleArticleCategoryAssignments() as $articleArticleCategoryAssignment) {
-			$em->remove($articleArticleCategoryAssignment);
-		}
-		$em->flush();
-		
-		foreach ($entry->getArticleCategoryAssignments() as $articleCategoryAssignment) {
-			$em->remove($articleCategoryAssignment);
-		}
-		$em->flush();
-		
-		foreach ($entry->getArticleBrandAssignments() as $articleBrandAssignment) {
-			$em->remove($articleBrandAssignment);
-		}
-		$em->flush();
-		
-		foreach ($entry->getArticleTagAssignments() as $articleTagAssignment) {
-			$em->remove($articleTagAssignment);
-		}
-		$em->flush();
-		
-		foreach ($entry->getChildren() as $subentry) {
-			$this->deleteMore($subentry);
-			$em->remove($subentry);
-		}
-		$em->flush();
-		
-		return array();
-	}
-	
 	// ------------------------------------------------------------------------
 	// Entity type related
 	// ------------------------------------------------------------------------

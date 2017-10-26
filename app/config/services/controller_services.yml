@@ -1,0 +1,360 @@
+services:
+
+    # Infomarket
+    AppBundle\Controller\Infomarket\:
+        resource: '../../../src/AppBundle/Controller/Infomarket/*'
+        arguments:
+            - '@AppBundle\Factory\Item\Infomarket\NewsletterUserFactory'
+    # Infoprodukt
+    AppBundle\Controller\Infoprodukt\:
+        resource: '../../../src/AppBundle/Controller/Infoprodukt/*'
+        arguments:
+            - '@AppBundle\Factory\Item\Infoprodukt\NewsletterUserFactory'
+                    
+    # Benchmark
+    AppBundle\Controller\Benchmark\BenchmarkMessageController:
+        arguments:
+            - '@AppBundle\Factory\Item\Main\BenchmarkMessageFactory'
+            - '@app.manager.transaction.common'
+            - '@AppBundle\Manager\Persistence\Base\PersistenceManager'
+            - '@AppBundle\Manager\Decorator\Benchmark\BenchmarkMessageDecorator'
+            - '@AppBundle\Validator\Base\BaseValidator'
+    AppBundle\Controller\Benchmark\BenchmarkQueryController:
+        arguments:
+            - '@AppBundle\Factory\Item\Main\BenchmarkQueryFactory'
+            - '@app.manager.transaction.main.benchmark_query'
+            - '@AppBundle\Manager\Persistence\Main\BenchmarkQueryManager'
+            - '@AppBundle\Manager\Decorator\Common\Base\ImageDecorator'
+            - '@AppBundle\Validator\Base\BaseValidator'
+    AppBundle\Controller\Benchmark\CustomProductController:
+        arguments:
+            - '@AppBundle\Factory\Item\Main\ProductFactory'
+            - '@app.manager.transaction.benchmark.custom_product'
+            - '@AppBundle\Manager\Persistence\Benchmark\CustomProductManager'
+            - '@AppBundle\Manager\Decorator\Benchmark\CustomProductDecorator'
+            - '@AppBundle\Validator\Base\BaseValidator'
+    # Main
+    AppBundle\Controller\Admin\Main\AdvertController:
+        arguments:
+            - '@AppBundle\Factory\Item\Main\AdvertFactory'
+            - '@app.manager.transaction.common'
+            - '@AppBundle\Manager\Persistence\Base\PersistenceManager'
+            - '@AppBundle\Manager\Decorator\Common\Base\ImageDecorator'
+            - '@AppBundle\Validator\Base\BaseValidator'
+    AppBundle\Controller\Admin\Main\ArticleCategoryController:
+        arguments:
+            - '@AppBundle\Factory\Item\Main\ArticleCategoryFactory'
+            - '@app.manager.transaction.common'
+            - '@AppBundle\Manager\Persistence\Base\PersistenceManager'
+            - '@AppBundle\Manager\Decorator\Common\Base\ImageDecorator'
+            - '@AppBundle\Validator\Base\BaseValidator'
+    AppBundle\Controller\Admin\Main\ArticleController:
+        arguments:
+            - '@AppBundle\Factory\Item\Main\ArticleFactory'
+            - '@app.manager.transaction.common'
+            - '@AppBundle\Manager\Persistence\Base\PersistenceManager'
+            - '@AppBundle\Manager\Decorator\Common\Base\ImageDecorator'
+            - '@AppBundle\Validator\Base\BaseValidator'
+    AppBundle\Controller\Admin\Main\ArchivedArticleController:
+        arguments:
+            - '@AppBundle\Factory\Item\Main\ArticleFactory'
+            - '@app.manager.transaction.common'
+            - '@AppBundle\Manager\Persistence\Base\PersistenceManager'
+            - '@AppBundle\Manager\Decorator\Common\Base\ImageDecorator'
+            - '@AppBundle\Validator\Base\BaseValidator'
+    AppBundle\Controller\Admin\Main\BenchmarkEnumController:
+        arguments:
+            - '@AppBundle\Factory\Item\Main\BenchmarkEnumFactory'
+            - '@app.manager.transaction.main.benchmark_enum'
+            - '@AppBundle\Manager\Persistence\Main\BenchmarkEnumManager'
+            - '@AppBundle\Manager\Decorator\Base\ItemDecorator'
+            - '@AppBundle\Validator\Base\BaseValidator'
+    AppBundle\Controller\Admin\Main\BenchmarkFieldController:
+        arguments:
+            - '@AppBundle\Factory\Item\Main\BenchmarkFieldFactory'
+            - '@app.manager.transaction.main.benchmark_field'
+            - '@AppBundle\Manager\Persistence\Main\BenchmarkFieldManager'
+            - '@AppBundle\Manager\Decorator\Base\ItemDecorator'
+            - '@AppBundle\Validator\Base\BaseValidator'
+    AppBundle\Controller\Admin\Main\BenchmarkMessageController:
+        arguments:
+            - '@AppBundle\Factory\Item\Main\BenchmarkMessageFactory'
+            - '@app.manager.transaction.common'
+            - '@AppBundle\Manager\Persistence\Base\PersistenceManager'
+            - '@AppBundle\Manager\Decorator\Admin\Main\BenchmarkMessageDecorator'
+            - '@AppBundle\Validator\Base\BaseValidator'
+    AppBundle\Controller\Admin\Main\BranchController:
+        arguments:
+            - '@AppBundle\Factory\Item\Main\BranchFactory'
+            - '@app.manager.transaction.common'
+            - '@AppBundle\Manager\Persistence\Base\PersistenceManager'
+            - '@AppBundle\Manager\Decorator\Common\Base\ImageDecorator'
+            - '@AppBundle\Validator\Base\BaseValidator'
+    AppBundle\Controller\Admin\Main\BrandController:
+        arguments:
+            - '@AppBundle\Factory\Item\Main\BrandFactory'
+            - '@app.manager.transaction.common'
+            - '@AppBundle\Manager\Persistence\Base\PersistenceManager'
+            - '@AppBundle\Manager\Decorator\Common\Base\ImageDecorator'
+            - '@AppBundle\Validator\Base\BaseValidator'
+    AppBundle\Controller\Admin\Main\CategoryController:
+        arguments:
+            - '@AppBundle\Factory\Item\Main\CategoryFactory'
+            - '@app.manager.transaction.main.category'
+            - '@AppBundle\Manager\Persistence\Main\CategoryManager'
+            - '@AppBundle\Manager\Decorator\Common\Main\CategoryDecorator'
+            - '@AppBundle\Validator\Base\BaseValidator'
+    AppBundle\Controller\Admin\Main\LinkController:
+        arguments:
+            - '@AppBundle\Factory\Item\Main\LinkFactory'
+            - '@app.manager.transaction.common'
+            - '@AppBundle\Manager\Persistence\Base\PersistenceManager'
+            - '@AppBundle\Manager\Decorator\Base\ItemDecorator'
+            - '@AppBundle\Validator\Base\BaseValidator'
+    AppBundle\Controller\Admin\Main\MagazineController:
+        arguments:
+            - '@AppBundle\Factory\Item\Main\MagazineFactory'
+            - '@app.manager.transaction.common'
+            - '@AppBundle\Manager\Persistence\Base\PersistenceManager'
+            - '@AppBundle\Manager\Decorator\Common\Base\ImageDecorator'
+            - '@AppBundle\Validator\Base\BaseValidator'
+    AppBundle\Controller\Admin\Main\MenuController:
+        arguments:
+            - '@AppBundle\Factory\Item\Main\MenuFactory'
+            - '@app.manager.transaction.common'
+            - '@AppBundle\Manager\Persistence\Base\PersistenceManager'
+            - '@AppBundle\Manager\Decorator\Base\ItemDecorator'
+            - '@AppBundle\Validator\Base\BaseValidator'
+    AppBundle\Controller\Admin\Main\MenuEntryController:
+        arguments:
+            - '@AppBundle\Factory\Item\Main\MenuEntryFactory'
+            - '@app.manager.transaction.common'
+            - '@AppBundle\Manager\Persistence\Base\PersistenceManager'
+            - '@AppBundle\Manager\Decorator\Base\ItemDecorator'
+            - '@AppBundle\Validator\Base\BaseValidator'
+    AppBundle\Controller\Admin\Main\NewsletterBlockController:
+        arguments:
+            - '@AppBundle\Factory\Item\Main\NewsletterBlockFactory'
+            - '@app.manager.transaction.common'
+            - '@AppBundle\Manager\Persistence\Base\PersistenceManager'
+            - '@AppBundle\Manager\Decorator\Base\ItemDecorator'
+            - '@AppBundle\Validator\Base\BaseValidator'
+    AppBundle\Controller\Admin\Main\NewsletterBlockTemplateController:
+        arguments:
+            - '@AppBundle\Factory\Item\Main\NewsletterBlockTemplateFactory'
+            - '@app.manager.transaction.common'
+            - '@AppBundle\Manager\Persistence\Base\PersistenceManager'
+            - '@AppBundle\Manager\Decorator\Base\ItemDecorator'
+            - '@AppBundle\Validator\Base\BaseValidator'
+    AppBundle\Controller\Admin\Main\NewsletterGroupController:
+        arguments:
+            - '@AppBundle\Factory\Item\Main\NewsletterGroupFactory'
+            - '@app.manager.transaction.common'
+            - '@AppBundle\Manager\Persistence\Base\PersistenceManager'
+            - '@AppBundle\Manager\Decorator\Base\ItemDecorator'
+            - '@AppBundle\Validator\Base\BaseValidator'
+    AppBundle\Controller\Admin\Main\NewsletterPageController:
+        arguments:
+            - '@AppBundle\Factory\Item\Main\NewsletterPageFactory'
+            - '@app.manager.transaction.common'
+            - '@AppBundle\Manager\Persistence\Base\PersistenceManager'
+            - '@AppBundle\Manager\Decorator\Base\ItemDecorator'
+            - '@AppBundle\Validator\Base\BaseValidator'
+    AppBundle\Controller\Admin\Main\NewsletterPageTemplateController:
+        arguments:
+            - '@AppBundle\Factory\Item\Main\NewsletterPageTemplateFactory'
+            - '@app.manager.transaction.common'
+            - '@AppBundle\Manager\Persistence\Base\PersistenceManager'
+            - '@AppBundle\Manager\Decorator\Base\ItemDecorator'
+            - '@AppBundle\Validator\Base\BaseValidator'
+    AppBundle\Controller\Admin\Main\NewsletterUserController:
+        arguments:
+            - '@AppBundle\Factory\Item\Main\NewsletterUserFactory'
+            - '@app.manager.transaction.common'
+            - '@AppBundle\Manager\Persistence\Base\PersistenceManager'
+            - '@AppBundle\Manager\Decorator\Base\ItemDecorator'
+            - '@AppBundle\Validator\Base\BaseValidator'
+    AppBundle\Controller\Admin\Main\PageController:
+        arguments:
+            - '@AppBundle\Factory\Item\Main\PageFactory'
+            - '@app.manager.transaction.common'
+            - '@AppBundle\Manager\Persistence\Base\PersistenceManager'
+            - '@AppBundle\Manager\Decorator\Common\Base\ImageDecorator'
+            - '@AppBundle\Validator\Base\BaseValidator'
+    AppBundle\Controller\Admin\Main\ProductController:
+        arguments:
+            - '@AppBundle\Factory\Item\Main\ProductFactory'
+            - '@app.manager.transaction.main.product'
+            - '@AppBundle\Manager\Persistence\Main\ProductManager'
+            - '@AppBundle\Manager\Decorator\Common\Base\ImageDecorator'
+            - '@AppBundle\Validator\Base\BaseValidator'
+    AppBundle\Controller\Admin\Main\SegmentController:
+        arguments:
+            - '@AppBundle\Factory\Item\Main\SegmentFactory'
+            - '@app.manager.transaction.common'
+            - '@AppBundle\Manager\Persistence\Base\PersistenceManager'
+            - '@AppBundle\Manager\Decorator\Common\Base\ImageDecorator'
+            - '@AppBundle\Validator\Base\BaseValidator'
+    AppBundle\Controller\Admin\Main\TagController:
+        arguments:
+            - '@AppBundle\Factory\Item\Main\TagFactory'
+            - '@app.manager.transaction.common'
+            - '@AppBundle\Manager\Persistence\Base\PersistenceManager'
+            - '@AppBundle\Manager\Decorator\Base\ItemDecorator'
+            - '@AppBundle\Validator\Base\BaseValidator'
+    AppBundle\Controller\Admin\Main\TermController:
+        arguments:
+            - '@AppBundle\Factory\Item\Main\TermFactory'
+            - '@app.manager.transaction.common'
+            - '@AppBundle\Manager\Persistence\Base\PersistenceManager'
+            - '@AppBundle\Manager\Decorator\Base\ItemDecorator'
+            - '@AppBundle\Validator\Base\BaseValidator'
+    AppBundle\Controller\Admin\Main\UserController:
+        arguments:
+            - '@AppBundle\Factory\Item\Main\UserFactory'
+            - '@app.manager.transaction.common'
+            - '@AppBundle\Manager\Persistence\Base\PersistenceManager'
+            - '@AppBundle\Manager\Decorator\Base\ItemDecorator'
+            - '@AppBundle\Validator\Base\BaseValidator'
+            
+    # Assignments
+    AppBundle\Controller\Admin\Assignments\AdvertCategoryAssignmentController:
+        arguments:
+            - '@AppBundle\Factory\Item\Assignments\AdvertCategoryAssignmentFactory'
+            - '@app.manager.transaction.common'
+            - '@AppBundle\Manager\Persistence\Base\PersistenceManager'
+            - '@AppBundle\Manager\Decorator\Base\ItemDecorator'
+            - '@AppBundle\Validator\Base\BaseValidator'
+    AppBundle\Controller\Admin\Assignments\ArticleArticleCategoryAssignmentController:
+        arguments:
+            - '@AppBundle\Factory\Item\Assignments\ArticleArticleCategoryAssignmentFactory'
+            - '@app.manager.transaction.common'
+            - '@AppBundle\Manager\Persistence\Base\PersistenceManager'
+            - '@AppBundle\Manager\Decorator\Base\ItemDecorator'
+            - '@AppBundle\Validator\Base\BaseValidator'
+    AppBundle\Controller\Admin\Assignments\ArticleBrandAssignmentController:
+        arguments:
+            - '@AppBundle\Factory\Item\Assignments\ArticleBrandAssignmentFactory'
+            - '@app.manager.transaction.common'
+            - '@AppBundle\Manager\Persistence\Base\PersistenceManager'
+            - '@AppBundle\Manager\Decorator\Base\ItemDecorator'
+            - '@AppBundle\Validator\Base\BaseValidator'
+    AppBundle\Controller\Admin\Assignments\ArticleCategoryAssignmentController:
+        arguments:
+            - '@AppBundle\Factory\Item\Assignments\ArticleCategoryAssignmentFactory'
+            - '@app.manager.transaction.common'
+            - '@AppBundle\Manager\Persistence\Base\PersistenceManager'
+            - '@AppBundle\Manager\Decorator\Base\ItemDecorator'
+            - '@AppBundle\Validator\Base\BaseValidator'
+    AppBundle\Controller\Admin\Assignments\ArticleTagAssignmentController:
+        arguments:
+            - '@AppBundle\Factory\Item\Assignments\ArticleTagAssignmentFactory'
+            - '@app.manager.transaction.common'
+            - '@AppBundle\Manager\Persistence\Base\PersistenceManager'
+            - '@AppBundle\Manager\Decorator\Base\ItemDecorator'
+            - '@AppBundle\Validator\Base\BaseValidator'
+    AppBundle\Controller\Admin\Assignments\BranchCategoryAssignmentController:
+        arguments:
+            - '@AppBundle\Factory\Item\Assignments\BranchCategoryAssignmentFactory'
+            - '@app.manager.transaction.common'
+            - '@AppBundle\Manager\Persistence\Base\PersistenceManager'
+            - '@AppBundle\Manager\Decorator\Base\ItemDecorator'
+            - '@AppBundle\Validator\Base\BaseValidator'
+    AppBundle\Controller\Admin\Assignments\BrandCategoryAssignmentController:
+        arguments:
+            - '@AppBundle\Factory\Item\Assignments\BrandCategoryAssignmentFactory'
+            - '@app.manager.transaction.common'
+            - '@AppBundle\Manager\Persistence\Base\PersistenceManager'
+            - '@AppBundle\Manager\Decorator\Base\ItemDecorator'
+            - '@AppBundle\Validator\Base\BaseValidator'
+    AppBundle\Controller\Admin\Assignments\MagazineBranchAssignmentController:
+        arguments:
+            - '@AppBundle\Factory\Item\Assignments\MagazineBranchAssignmentFactory'
+            - '@app.manager.transaction.common'
+            - '@AppBundle\Manager\Persistence\Base\PersistenceManager'
+            - '@AppBundle\Manager\Decorator\Base\ItemDecorator'
+            - '@AppBundle\Validator\Base\BaseValidator'
+    AppBundle\Controller\Admin\Assignments\MagazineCategoryAssignmentController:
+        arguments:
+            - '@AppBundle\Factory\Item\Assignments\MagazineCategoryAssignmentFactory'
+            - '@app.manager.transaction.common'
+            - '@AppBundle\Manager\Persistence\Base\PersistenceManager'
+            - '@AppBundle\Manager\Decorator\Base\ItemDecorator'
+            - '@AppBundle\Validator\Base\BaseValidator'
+    AppBundle\Controller\Admin\Assignments\MenuEntryBranchAssignmentController:
+        arguments:
+            - '@AppBundle\Factory\Item\Assignments\MenuEntryBranchAssignmentFactory'
+            - '@app.manager.transaction.common'
+            - '@AppBundle\Manager\Persistence\Base\PersistenceManager'
+            - '@AppBundle\Manager\Decorator\Base\ItemDecorator'
+            - '@AppBundle\Validator\Base\BaseValidator'
+    AppBundle\Controller\Admin\Assignments\MenuEntryCategoryAssignmentController:
+        arguments:
+            - '@AppBundle\Factory\Item\Assignments\MenuEntryCategoryAssignmentFactory'
+            - '@app.manager.transaction.common'
+            - '@AppBundle\Manager\Persistence\Base\PersistenceManager'
+            - '@AppBundle\Manager\Decorator\Base\ItemDecorator'
+            - '@AppBundle\Validator\Base\BaseValidator'
+    AppBundle\Controller\Admin\Assignments\MenuMenuEntryAssignmentController:
+        arguments:
+            - '@AppBundle\Factory\Item\Assignments\MenuMenuEntryAssignmentFactory'
+            - '@app.manager.transaction.common'
+            - '@AppBundle\Manager\Persistence\Base\PersistenceManager'
+            - '@AppBundle\Manager\Decorator\Base\ItemDecorator'
+            - '@AppBundle\Validator\Base\BaseValidator'
+    AppBundle\Controller\Admin\Assignments\NewsletterBlockAdvertAssignmentController:
+        arguments:
+            - '@AppBundle\Factory\Item\Assignments\NewsletterBlockAdvertAssignmentFactory'
+            - '@app.manager.transaction.common'
+            - '@AppBundle\Manager\Persistence\Base\PersistenceManager'
+            - '@AppBundle\Manager\Decorator\Base\ItemDecorator'
+            - '@AppBundle\Validator\Base\BaseValidator'
+    AppBundle\Controller\Admin\Assignments\NewsletterBlockArticleAssignmentController:
+        arguments:
+            - '@AppBundle\Factory\Item\Assignments\NewsletterBlockArticleAssignmentFactory'
+            - '@app.manager.transaction.common'
+            - '@AppBundle\Manager\Persistence\Base\PersistenceManager'
+            - '@AppBundle\Manager\Decorator\Base\ItemDecorator'
+            - '@AppBundle\Validator\Base\BaseValidator'
+    AppBundle\Controller\Admin\Assignments\NewsletterBlockMagazineAssignmentController:
+        arguments:
+            - '@AppBundle\Factory\Item\Assignments\NewsletterBlockMagazineAssignmentFactory'
+            - '@app.manager.transaction.common'
+            - '@AppBundle\Manager\Persistence\Base\PersistenceManager'
+            - '@AppBundle\Manager\Decorator\Base\ItemDecorator'
+            - '@AppBundle\Validator\Base\BaseValidator'
+    AppBundle\Controller\Admin\Assignments\NewsletterUserNewsletterGroupAssignmentController:
+        arguments:
+            - '@AppBundle\Factory\Item\Assignments\NewsletterUserNewsletterGroupAssignmentFactory'
+            - '@app.manager.transaction.common'
+            - '@AppBundle\Manager\Persistence\Base\PersistenceManager'
+            - '@AppBundle\Manager\Decorator\Base\ItemDecorator'
+            - '@AppBundle\Validator\Base\BaseValidator'
+    AppBundle\Controller\Admin\Assignments\NewsletterUserNewsletterPageAssignmentController:
+        arguments:
+            - '@AppBundle\Factory\Item\Assignments\NewsletterUserNewsletterPageAssignmentFactory'
+            - '@app.manager.transaction.common'
+            - '@AppBundle\Manager\Persistence\Base\PersistenceManager'
+            - '@AppBundle\Manager\Decorator\Base\ItemDecorator'
+            - '@AppBundle\Validator\Base\BaseValidator'
+    AppBundle\Controller\Admin\Assignments\ProductCategoryAssignmentController:
+        arguments:
+            - '@AppBundle\Factory\Item\Assignments\ProductCategoryAssignmentFactory'
+            - '@app.manager.transaction.assignments.product_category'
+            - '@AppBundle\Manager\Persistence\Assignments\ProductCategoryAssignmentManager'
+            - '@AppBundle\Manager\Decorator\Common\Assignments\ProductCategoryAssignmentDecorator'
+            - '@AppBundle\Validator\Base\BaseValidator'
+    AppBundle\Controller\Admin\Assignments\TermCategoryAssignmentController:
+        arguments:
+            - '@AppBundle\Factory\Item\Assignments\TermCategoryAssignmentFactory'
+            - '@app.manager.transaction.common'
+            - '@AppBundle\Manager\Persistence\Base\PersistenceManager'
+            - '@AppBundle\Manager\Decorator\Base\ItemDecorator'
+            - '@AppBundle\Validator\Base\BaseValidator'
+    AppBundle\Controller\Admin\Assignments\UserCategoryAssignmentController:
+        arguments:
+            - '@AppBundle\Factory\Item\Assignments\UserCategoryAssignmentFactory'
+            - '@app.manager.transaction.common'
+            - '@AppBundle\Manager\Persistence\Base\PersistenceManager'
+            - '@AppBundle\Manager\Decorator\Base\ItemDecorator'
+            - '@AppBundle\Validator\Base\BaseValidator'

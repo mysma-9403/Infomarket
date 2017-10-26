@@ -1,4 +1,7 @@
 imports:
+    - { resource: services/persistence_services.yml }
+    - { resource: services/transaction_services.yml }
+    - { resource: services/controller_services.yml }
     - { resource: services/factory_services.yml }
     - { resource: services/form_services.yml }
     - { resource: services/manager_services.yml }
@@ -6,6 +9,7 @@ imports:
     - { resource: services/transformer_services.yml }
     - { resource: services/import_services.yml }
     - { resource: services/misc/provider_services.yml }
+    - { resource: services/decorator_services.yml }
 
 # Learn more about services, parameters and containers at
 # http://symfony.com/doc/current/book/service_container.html
@@ -82,16 +86,12 @@ services:
             - { name: form.builder }
             
     # Validation
+    AppBundle\Validator\Base\BaseValidator:
+        arguments:
+            - '@validator'
+            - '@translator'
     AppBundle\Validation\:
         resource: '../../src/AppBundle/Validation/*'
-        
-    # Flush Listeners
-    AppBundle\EventListener\BenchmarkEnumFlushListener:
-        tags:
-            -  {name: doctrine.event_listener, event: onFlush}
-    AppBundle\EventListener\BenchmarkFieldFlushListener:
-        tags:
-            -  {name: doctrine.event_listener, event: onFlush}
                     
     # Washers //TODO change to one common Product filter
     app.benchmark.washer_filter:

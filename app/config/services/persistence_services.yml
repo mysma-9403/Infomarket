@@ -1,0 +1,20 @@
+services:
+    AppBundle\Manager\Persistence\:
+        resource: '../../../src/AppBundle/Manager/Persistence/*'
+        arguments:
+            - '@doctrine.orm.entity_manager'
+            
+    AppBundle\Manager\Persistence\Main\BenchmarkQueryManager:
+        arguments:
+            - '@doctrine.orm.entity_manager'
+            - '@Appbundle\Factory\Filter\ProductFilterFactory'
+            - '@Appbundle\Repository\Admin\Main\ProductRepository'
+    AppBundle\Manager\Persistence\Main\CategoryManager:
+        arguments:
+            - '@doctrine.orm.entity_manager'
+            - '@Appbundle\Repository\Admin\Main\CategoryRepository'
+            
+    AppBundle\Manager\Persistence\Benchmark\CustomProductManager:
+        arguments:
+            - '@doctrine.orm.entity_manager'
+            - '@Appbundle\Repository\Admin\Main\CategoryRepository'

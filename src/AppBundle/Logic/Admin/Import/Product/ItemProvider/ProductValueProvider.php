@@ -2,7 +2,7 @@
 
 namespace AppBundle\Logic\Admin\Import\Product\ItemProvider;
 
-use AppBundle\Entity\Main\ProductValue;
+use AppBundle\Entity\Other\ProductValue;
 use AppBundle\Logic\Admin\Import\Common\ItemProvider;
 use AppBundle\Logic\Admin\Import\Common\PersistenceManager;
 use AppBundle\Entity\Main\Category;

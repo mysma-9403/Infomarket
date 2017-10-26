@@ -10,13 +10,13 @@ services:
             - '@AppBundle\Repository\Admin\Assignments\ProductCategoryAssignmentRepository'
     AppBundle\Logic\Admin\Import\Product\ItemProvider\ProductValueProvider:
         arguments:
-            - '@AppBundle\Repository\Admin\Main\ProductValueRepository'
+            - '@AppBundle\Repository\Admin\Other\ProductValueRepository'
     AppBundle\Logic\Admin\Import\Product\ItemProvider\ProductScoreProvider:
         arguments:
-            - '@AppBundle\Repository\Admin\Main\ProductScoreRepository'
+            - '@AppBundle\Repository\Admin\Other\ProductScoreRepository'
     AppBundle\Logic\Admin\Import\Product\ItemProvider\ProductNoteProvider:
         arguments:
-            - '@AppBundle\Repository\Admin\Main\ProductNoteRepository'
+            - '@AppBundle\Repository\Admin\Other\ProductNoteRepository'
     AppBundle\Logic\Admin\Import\Product\ItemProvider\BrandProvider:
         arguments:
             - '@AppBundle\Repository\Admin\Main\BrandRepository'
@@ -25,7 +25,7 @@ services:
             - '@AppBundle\Repository\Admin\Main\BenchmarkFieldRepository'
     AppBundle\Logic\Admin\Import\Product\ItemProvider\CategorySummaryProvider:
         arguments:
-            - '@AppBundle\Repository\Admin\Main\CategorySummaryRepository'
+            - '@AppBundle\Repository\Admin\Other\CategorySummaryRepository'
                     
     # Persistence Managers
     app.import.persistence_manager.product:

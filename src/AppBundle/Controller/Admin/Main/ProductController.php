@@ -5,7 +5,6 @@ namespace AppBundle\Controller\Admin\Main;
 use AppBundle\Controller\Admin\Base\ImageController;
 use AppBundle\Entity\Main\BenchmarkField;
 use AppBundle\Entity\Main\Product;
-use AppBundle\Entity\Main\ProductNote;
 use AppBundle\Factory\Common\BenchmarkField\SimpleBenchmarkFieldFactory;
 use AppBundle\Filter\Common\Main\ProductFilter;
 use AppBundle\Form\Editor\Admin\Main\ProductEditorType;
@@ -228,7 +227,7 @@ class ProductController extends ImageController {
 		$form->handleRequest($request);
 	
 		if ($form->isSubmitted() && $form->isValid()) {
-			$this->saveEntry($request, $entry, $params);
+			$this->saveItem($request, $entry, $params);
 				
 			$this->flashCreatedMessage();
 				
@@ -308,41 +307,8 @@ class ProductController extends ImageController {
 	protected function getListItemsProvider() {
 		return $this->get('app.misc.provider.name_list_items_provider');
 	}
-
-	protected function saveMore($request, $entry, $params) {
-		parent::saveMore($request, $entry, $params);
-		
-		// TODO copy-pasted in CustomProductController - should be unified
-		if($entry->getProductCategoryAssignments()) {
-			/** @var \Doctrine\Common\Persistence\ObjectManager $em */
-			$em = $this->getDoctrine()->getManager();
-			
-			foreach ($entry->getProductCategoryAssignments() as $productCategoryAssignment) {
-				if (!$productCategoryAssignment->getProductNote()) {
-					$note = new ProductNote();
-					$note->setProductCategoryAssignment($productCategoryAssignment);
-					$note->setOveralNote(2.0); // TODO first note should be calculated here!
-					$note->setUpToDate(false);
-					
-					$em->persist($note);
-				}
-			}
-			$em->flush();
-		}
-	}
-
-	protected function deleteMore($entry) {
-		/** @var Product $entry */
-		$em = $this->getDoctrine()->getManager();
-		foreach ($entry->getProductCategoryAssignments() as $productCategoryAssignment) {
-			$em->remove($productCategoryAssignment->getProductNote());
-			$em->remove($productCategoryAssignment);
-		}
-		$em->flush();
-		
-		return array();
-	}
-
+	
+	//TODO needs to be checked after transaction manager was introduced
 	protected function deleteUnused() {
 		$result = array();
 		$errors = array();

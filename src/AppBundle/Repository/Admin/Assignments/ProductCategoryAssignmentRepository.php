@@ -11,7 +11,7 @@ use AppBundle\Filter\Base\Filter;
 use AppBundle\Repository\Admin\Base\SimpleRepository;
 use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\ORM\QueryBuilder;
-use AppBundle\Entity\Main\ProductNote;
+use AppBundle\Entity\Other\ProductNote;
 
 class ProductCategoryAssignmentRepository extends SimpleRepository {
 
