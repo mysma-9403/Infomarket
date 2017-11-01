@@ -14,7 +14,9 @@
 	{ label: 'label.benchmarkEnum.value', value: entry.value } %}
 	
 	{% include 'common/fields/simple_field.html.twig' with 
-	{ label: 'label.category', value: entry.category, object: 'category' } %}
+	{ label: 'label.benchmarkField', 
+		value: { id: entry.benchmarkField.id, name: entry.benchmarkField.fieldName }, 
+		object: 'benchmark_field' } %}
 	
 	<div class="vr-space-40"></div>
 	

@@ -6,6 +6,9 @@ use AppBundle\Manager\Persistence\Base\PersistenceManager;
 use AppBundle\Entity\Main\BenchmarkEnum;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Entity\Assignments\ProductCategoryAssignment;
+use AppBundle\Entity\Other\ProductScore;
+use AppBundle\Entity\Other\ProductNote;
+use AppBundle\Entity\Other\CategorySummary;
 
 class BenchmarkEnumManager extends PersistenceManager {
 	
@@ -18,12 +21,12 @@ class BenchmarkEnumManager extends PersistenceManager {
 	 */
 	protected function saveMore(Request $request, $item, array $params) {
 		/** @var ProductCategoryAssignment $assignment */
-		foreach ($item->getCategory()->getProductCategoryAssignments() as $assignment) {
+		foreach ($item->getBenchmarkField()->getCategory()->getProductCategoryAssignments() as $assignment) {
 			$this->invalidateProductScore($assignment->getProductScore());
 			$this->invalidateProductNote($assignment->getProductNote());
 		}
 	
-		$this->invalidateCategorySummary($item->getCategory()->getCategorySummary());
+		$this->invalidateCategorySummary($item->getBenchmarkField()->getCategory()->getCategorySummary());
 	}
 	
 	/**
@@ -35,12 +38,12 @@ class BenchmarkEnumManager extends PersistenceManager {
 	 */
 	protected function deleteMore(Request $request, $item, array $params) {
 		/** @var ProductCategoryAssignment $assignment */
-		foreach ($item->getCategory()->getProductCategoryAssignments() as $assignment) {
+		foreach ($item->getBenchmarkField()->getCategory()->getProductCategoryAssignments() as $assignment) {
 			$this->invalidateProductScore($assignment->getProductScore());
 			$this->invalidateProductNote($assignment->getProductNote());
 		}
 	
-		$this->invalidateCategorySummary($item->getCategory()->getCategorySummary());
+		$this->invalidateCategorySummary($item->getBenchmarkField()->getCategory()->getCategorySummary());
 	}
 	
 	/**

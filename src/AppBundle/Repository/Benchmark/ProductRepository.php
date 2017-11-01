@@ -16,6 +16,8 @@ use Doctrine\ORM\AbstractQuery;
 use Doctrine\ORM\NoResultException;
 use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\ORM\QueryBuilder;
+use AppBundle\Entity\Other\ProductScore;
+use AppBundle\Entity\Other\ProductValue;
 
 class ProductRepository extends BaseRepository {
 
@@ -668,17 +670,22 @@ class ProductRepository extends BaseRepository {
 		
 		$selectFields = [];
 		for($i = 1; $i <= 30; $i++) {
-			$selectFields[] = $expr->min('e.decimal' . $i) . ' AS decimalMin' . $i;
-			$selectFields[] = $expr->max('e.decimal' . $i) . ' AS decimalMax' . $i;
+			$selectFields[] = $expr->min('pv.decimal' . $i) . ' AS decimalMin' . $i;
+			$selectFields[] = $expr->max('pv.decimal' . $i) . ' AS decimalMax' . $i;
 			
-			$selectFields[] = $expr->min('e.integer' . $i) . ' AS integerMin' . $i;
-			$selectFields[] = $expr->max('e.integer' . $i) . ' AS integerMax' . $i;
+			$selectFields[] = $expr->min('pv.integer' . $i) . ' AS integerMin' . $i;
+			$selectFields[] = $expr->max('pv.integer' . $i) . ' AS integerMax' . $i;
+			
+			$selectFields[] = $expr->min('ps.stringScore' . $i) . ' AS stringMin' . $i;
+			$selectFields[] = $expr->max('ps.stringScore' . $i) . ' AS stringMax' . $i;
 		}
 	
 		$builder->select($selectFields);
 		$builder->from($this->getEntityType(), "e");
 	
 		$builder->innerJoin(ProductCategoryAssignment::class, 'pca', Join::WITH, 'e.id = pca.product');
+		$builder->innerJoin(ProductValue::class, 'pv', Join::WITH, 'pca.id = pv.productCategoryAssignment');
+		$builder->innerJoin(ProductScore::class, 'ps', Join::WITH, 'pca.id = ps.productCategoryAssignment');
 		$builder->innerJoin(Category::class, 'c', Join::WITH, 'c.id = pca.category');
 	
 		$where = $expr->andX();

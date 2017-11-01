@@ -2,18 +2,19 @@
 
 namespace AppBundle\Repository\Admin\Other;
 
+use AppBundle\Entity\Assignments\ProductCategoryAssignment;
+use AppBundle\Entity\Main\Product;
 use AppBundle\Entity\Other\ProductNote;
 use AppBundle\Repository\Base\BaseRepository;
-use Doctrine\ORM\QueryBuilder;
-use AppBundle\Entity\Assignments\ProductCategoryAssignment;
+use AppBundle\Repository\Logic\ProductNote\DependentItemsRepository;
 use Doctrine\ORM\Query\Expr\Join;
-use AppBundle\Entity\Main\Product;
+use Doctrine\ORM\QueryBuilder;
 
-class ProductNoteRepository extends BaseRepository {
+class ProductNoteRepository extends BaseRepository implements DependentItemsRepository {
 
 	const INSERT_ITEMS_SQL = "INSERT INTO product_notes (product_category_assignment_id, up_to_date) 
 			VALUES (?, 0)";
-	
+
 	const INVALIDATE_ITEMS_BY_CATEGORIES_SQL = "UPDATE product_notes pn
 			JOIN product_category_assignments pca ON pn.product_category_assignment_id = pca.id
 			SET pn.up_to_date = 0 WHERE pca.category_id IN (?)";
@@ -51,12 +52,12 @@ class ProductNoteRepository extends BaseRepository {
 		$stmt->execute();
 	}
 
-	public function createItems($productCategoryAssignments) {
+	public function createFrom(array $items) {
 		$conn = $this->getEntityManager()->getConnection();
 		$stmt = $conn->prepare(self::INSERT_ITEMS_SQL);
 		
-		foreach ($productCategoryAssignments as $productCategoryAssignment) {
-			$stmt->bindValue(1, $productCategoryAssignment['id']);
+		foreach ($items as $item) {
+			$stmt->bindValue(1, $item['id']);
 			$stmt->execute();
 		}
 	}

@@ -12,12 +12,6 @@ use AppBundle\Manager\Filter\Base\FilterManager;
 use Symfony\Component\HttpFoundation\Request;
 
 class BenchmarkEnumController extends BaseController {
-
-	/**
-	 *
-	 * @var BenchmarkEnum
-	 */
-	protected $oldEntry;
 	
 	// ---------------------------------------------------------------------------
 	// Actions

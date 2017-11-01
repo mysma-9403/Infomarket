@@ -36,7 +36,7 @@ services:
             - { name: form.type }
     AppBundle\Form\Editor\Admin\Main\BenchmarkEnumEditorType:
         arguments:
-            - "@app.form.transformer.category_2_number"
+            - "@app.form.transformer.benchmark_field_2_number"
         tags:
             - { name: form.type }
     AppBundle\Form\Editor\Admin\Main\BenchmarkFieldEditorType:

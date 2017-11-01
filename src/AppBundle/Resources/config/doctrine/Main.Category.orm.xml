@@ -102,10 +102,6 @@
 		<one-to-many field="benchmarkFields" target-entity="BenchmarkField"
 			mapped-by="category">
 		</one-to-many>
-		
-		<one-to-many field="benchmarkEnums" target-entity="BenchmarkEnum"
-			mapped-by="category">
-		</one-to-many>
 
 		<one-to-one field="categorySummary" target-entity="AppBundle\Entity\Other\CategorySummary"
 			mapped-by="category">

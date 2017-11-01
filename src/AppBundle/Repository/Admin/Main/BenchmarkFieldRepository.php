@@ -75,10 +75,18 @@ class BenchmarkFieldRepository extends SimpleRepository {
 		return $where;
 	}
 
+	protected function buildFilterJoins(QueryBuilder &$builder) {
+		parent::buildFilterJoins($builder);
+	
+		$builder->innerJoin(Category::class, 'c', Join::WITH, 'c.id = e.category');
+	}
+	
 	protected function getFilterSelectFields(QueryBuilder &$builder) {
 		$fields = parent::getFilterSelectFields($builder);
 		
-		$fields[] = 'e.name';
+		$fields[] = 'e.fieldName';
+		$fields[] = 'c.name AS categoryName';
+		$fields[] = 'c.subname AS categorySubname';
 		
 		return $fields;
 	}
@@ -86,7 +94,10 @@ class BenchmarkFieldRepository extends SimpleRepository {
 	protected function getFilterItemKeyFields($item) {
 		$fields = parent::getFilterItemKeyFields($item);
 		
-		$fields[] = $item['name'];
+		$fields[] = $item['categoryName'];
+		$fields[] = $item['categorySubname'];
+		$fields[] = '-';
+		$fields[] = $item['fieldName'];
 		
 		return $fields;
 	}

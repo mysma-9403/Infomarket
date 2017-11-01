@@ -34,6 +34,7 @@ class PersistenceManager {
 		$this->em->flush();
 		
 		$this->saveMore($request, $item, $params);
+		$this->em->flush();
 	}
 
 	/**

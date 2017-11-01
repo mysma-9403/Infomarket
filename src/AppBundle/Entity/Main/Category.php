@@ -124,6 +124,12 @@ class Category extends ImageTree {
 
 	/**
 	 *
+	 * @var \AppBundle\Entity\Other\CategorySummary
+	 */
+	private $categorySummary;
+
+	/**
+	 *
 	 * @var \Doctrine\Common\Collections\Collection
 	 */
 	private $children;
@@ -478,6 +484,28 @@ class Category extends ImageTree {
 	 */
 	public function getRootId() {
 		return $this->rootId;
+	}
+
+	/**
+	 * Set categorySummary
+	 *
+	 * @param \AppBundle\Entity\Other\CategorySummary $categorySummary        	
+	 *
+	 * @return Category
+	 */
+	public function setCategorySummary(\AppBundle\Entity\Other\CategorySummary $categorySummary = null) {
+		$this->categorySummary = $categorySummary;
+		
+		return $this;
+	}
+
+	/**
+	 * Get categorySummary
+	 *
+	 * @return \AppBundle\Entity\Other\CategorySummary
+	 */
+	public function getCategorySummary() {
+		return $this->categorySummary;
 	}
 
 	/**
@@ -860,72 +888,4 @@ class Category extends ImageTree {
 	public function getParent() {
 		return $this->parent;
 	}
-    /**
-     * @var \AppBundle\Entity\Other\CategorySummary
-     */
-    private $categorySummary;
-
-
-    /**
-     * Set categorySummary
-     *
-     * @param \AppBundle\Entity\Other\CategorySummary $categorySummary
-     *
-     * @return Category
-     */
-    public function setCategorySummary(\AppBundle\Entity\Other\CategorySummary $categorySummary = null)
-    {
-        $this->categorySummary = $categorySummary;
-
-        return $this;
-    }
-
-    /**
-     * Get categorySummary
-     *
-     * @return \AppBundle\Entity\Other\CategorySummary
-     */
-    public function getCategorySummary()
-    {
-        return $this->categorySummary;
-    }
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    private $benchmarkEnums;
-
-
-    /**
-     * Add benchmarkEnum
-     *
-     * @param \AppBundle\Entity\Main\BenchmarkEnum $benchmarkEnum
-     *
-     * @return Category
-     */
-    public function addBenchmarkEnum(\AppBundle\Entity\Main\BenchmarkEnum $benchmarkEnum)
-    {
-        $this->benchmarkEnums[] = $benchmarkEnum;
-
-        return $this;
-    }
-
-    /**
-     * Remove benchmarkEnum
-     *
-     * @param \AppBundle\Entity\Main\BenchmarkEnum $benchmarkEnum
-     */
-    public function removeBenchmarkEnum(\AppBundle\Entity\Main\BenchmarkEnum $benchmarkEnum)
-    {
-        $this->benchmarkEnums->removeElement($benchmarkEnum);
-    }
-
-    /**
-     * Get benchmarkEnums
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getBenchmarkEnums()
-    {
-        return $this->benchmarkEnums;
-    }
 }

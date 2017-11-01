@@ -13,29 +13,29 @@ class BenchmarkEnumEditorType extends BaseEditorType {
 	 *
 	 * @var EntityToNumberTransformer
 	 */
-	protected $categoryTransformer;
-	
-	public function __construct(EntityToNumberTransformer $categoryTransformer) {
-		$this->categoryTransformer = $categoryTransformer;
+	protected $benchmarkFieldTransformer;
+
+	public function __construct(EntityToNumberTransformer $benchmarkFieldTransformer) {
+		$this->benchmarkFieldTransformer = $benchmarkFieldTransformer;
 	}
-	
+
 	protected function addFields(FormBuilderInterface $builder, array $options) {
 		parent::addFields($builder, $options);
 		
 		$this->addTextField($builder, 'name', 'label.benchmarkEnum.name');
 		$this->addIntegerField($builder, 'value', 'label.benchmarkEnum.value');
 		
-		$this->addTrueEntityChoiceField($builder, $options, $this->categoryTransformer, 'category');
+		$this->addTrueEntityChoiceField($builder, $options, $this->benchmarkFieldTransformer, 'benchmarkField');
 	}
 
 	protected function getDefaultOptions() {
 		$options = parent::getDefaultOptions();
-	
-		$options[self::getChoicesName('category')] = [];
-	
+		
+		$options[self::getChoicesName('benchmarkField')] = [];
+		
 		return $options;
 	}
-	
+
 	protected function getEntityType() {
 		return BenchmarkEnum::class;
 	}
