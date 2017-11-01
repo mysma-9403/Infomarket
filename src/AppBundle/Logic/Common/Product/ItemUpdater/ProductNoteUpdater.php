@@ -90,7 +90,11 @@ class ProductNoteUpdater implements ItemUpdater {
 
 	private function calculateNote($min, $max, $value, $noteType) {
 		if($value < $min) {
-			return 2.;
+			return $noteType == BenchmarkField::DESC_NOTE_TYPE ? 5. : 2.;
+		}
+		
+		if($value > $max) {
+			return $noteType == BenchmarkField::DESC_NOTE_TYPE ? 2. : 5.;
 		}
 		
 		if ($max > $min) {
