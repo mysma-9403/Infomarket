@@ -195,6 +195,13 @@ class HomeEntryParamsManager extends EntryParamsManager {
 			$usefulArticleCategories[] = $articleCategory;
 		}
 		
+		$articleCategory = $this->getArticleCategory($articleCategories, self::LAW_AC);
+		if ($articleCategory) {
+			$articleCategory['articles'] = $this->articleRepository->findHomeListItems($categories,
+					self::LAW_AC, 0, 1);
+			$usefulArticleCategories[] = $articleCategory;
+		}
+		
 		$viewParams['usefulArticleCategories'] = $usefulArticleCategories;
 		
 		$magazines = $this->magazineRepository->findHomeItems($branchId);
