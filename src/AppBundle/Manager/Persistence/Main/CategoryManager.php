@@ -11,16 +11,16 @@ use Doctrine\ORM\EntityManager;
 class CategoryManager extends PersistenceManager {
 
 	/**
-	 * 
+	 *
 	 * @var CategoryRepository
 	 */
 	protected $repository;
-	
+
 	public function __construct(EntityManager $em, CategoryRepository $repository) {
-		parent::__construct($em);return 
+		parent::__construct($em);
 		$this->repository = $repository;
 	}
-	
+
 	/**
 	 *
 	 * {@inheritDoc}

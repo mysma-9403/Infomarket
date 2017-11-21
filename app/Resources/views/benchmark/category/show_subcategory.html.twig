@@ -4,8 +4,8 @@
 			<table class="table table-striped vert-align">
 				{% include 'benchmark/category/components/number_table_header.html.twig' %}
 				
-				{% include 'benchmark/category/components/number_table_row.html.twig' with 
-					{ field: priceField, decimalPlaces: 2 } %}
+{# 				{% include 'benchmark/category/components/number_table_row.html.twig' with #}
+{# 					{ field: priceField, decimalPlaces: 2 } %}#}
 					
 				{% for field in numberFields %}
 					{% include 'benchmark/category/components/number_table_row.html.twig' %}
@@ -59,9 +59,9 @@
 		{% endif %}
 	{% endfor %}
 	
-	{% if priceField.chart %}
-		{% include 'benchmark/category/components/field_chart.html.twig' with { field: priceField } %}
-	{% endif %}
+{# 	{% if priceField.chart %}#}
+{# 		{% include 'benchmark/category/components/field_chart.html.twig' with { field: priceField } %}#}
+{# 	{% endif %}#}
 {% endblock %}
 
 {% block enumCharts %}

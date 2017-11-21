@@ -3,7 +3,7 @@
 namespace AppBundle\Logic\Common\BenchmarkField\Provider;
 
 use AppBundle\Entity\Main\BenchmarkField;
-use AppBundle\Repository\Common\BenchmarkFieldMetadataRepository;
+use AppBundle\Entity\Main\Category;
 use Symfony\Component\Translation\Translator;
 use Symfony\Component\Translation\TranslatorInterface;
 
@@ -17,58 +17,97 @@ class BenchmarkFieldsProvider {
 
 	/**
 	 *
-	 * @var BenchmarkFieldMetadataRepository
-	 */
-	protected $repository;
-
-	/**
-	 *
 	 * @var TranslatorInterface
 	 */
 	protected $translator;
 
-	public function __construct(BenchmarkFieldMetadataRepository $benchmarkFieldMetadataRepository, 
-			TranslatorInterface $translator) {
-		$this->repository = $benchmarkFieldMetadataRepository;
+	public function __construct(TranslatorInterface $translator) {
 		$this->translator = $translator;
 	}
 
-	public function getAllFields($categoryId) {
-		return $this->repository->findItemsByCategory($categoryId);
+	public function getAllFields(Category $item) {
+		return $item->getBenchmarkFields();
 	}
 
-	public function getShowFields($categoryId) {
-		return $this->repository->findShowItemsByCategory($categoryId);
+	public function getShowFields(Category $item) {
+		$result = [];
+		
+		/** @var BenchmarkField $field */
+		foreach ($item->getBenchmarkFields() as $field) {
+			if ($field->getShowField()) {
+				$result[] = $field;
+			}
+		}
+		
+		return $result;
 	}
 
-	public function getFilterFields($categoryId) {
-		return $this->repository->findFilterItemsByCategory($categoryId);
+	public function getFilterFields(Category $item) {
+		$result = [];
+		
+		/** @var BenchmarkField $field */
+		foreach ($item->getBenchmarkFields() as $field) {
+			if ($field->getShowFilter()) {
+				$result[] = $field;
+			}
+		}
+		
+		return $result;
 	}
 
-	public function getNoteFields($categoryId) {
-		return $this->repository->findNoteItemsByCategory($categoryId);
+	public function getNoteFields(Category $item) {
+		$result = [];
+		
+		/** @var BenchmarkField $field */
+		foreach ($item->getBenchmarkFields() as $field) {
+			if ($field->getNoteType() != BenchmarkField::NONE_NOTE_TYPE) {
+				$result[] = $field;
+			}
+		}
+		
+		return $result;
 	}
 
-	public function getNumberFields($categoryId) {
-		return $this->repository->findNumberItemsByCategory($categoryId);
+	public function getNumberFields(Category $item) {
+		return $this->getFieldsByTypes($item, 
+				[BenchmarkField::DECIMAL_FIELD_TYPE, BenchmarkField::INTEGER_FIELD_TYPE]);
 	}
 
-	public function getEnumFields($categoryId) {
-		return $this->repository->findEnumItemsByCategory($categoryId);
+	public function getEnumFields(Category $item) {
+		return $this->getFieldsByTypes($item, 
+				[BenchmarkField::SINGLE_ENUM_FIELD_TYPE, BenchmarkField::MULTI_ENUM_FIELD_TYPE]);
 	}
 
-	public function getBoolFields($categoryId) {
-		return $this->repository->findBoolItemsByCategory($categoryId);
+	public function getBoolFields(Category $item) {
+		return $this->getFieldsByTypes($item, [BenchmarkField::BOOLEAN_FIELD_TYPE]);
 	}
 
 	public function getPriceField() {
-		$field = [];
+		$field = new BenchmarkField();
 		
-		$field['valueField'] = self::PRICE_FIELD;
-		$field['fieldType'] = BenchmarkField::DECIMAL_FIELD_TYPE;
-		$field['fieldName'] = $this->translator->trans(self::PRICE_LABEL);
-		$field['decimalPlaces'] = self::PRICE_DECIMAL_PLACES;
+		$field->setFieldName($this->translator->trans(self::PRICE_LABEL));
+		$field->setFieldType(BenchmarkField::DECIMAL_FIELD_TYPE);
+		$field->setDecimalPlaces(self::PRICE_DECIMAL_PLACES);
+		
+		//TODO another reason to make price filed like all others with special boolean flag -> price factor
+		// $field['valueField'] = self::PRICE_FIELD;
+		// $field['fieldType'] = BenchmarkField::DECIMAL_FIELD_TYPE;
+		// $field['fieldName'] = $this->translator->trans(self::PRICE_LABEL);
+		// $field['decimalPlaces'] = self::PRICE_DECIMAL_PLACES;
 		
 		return $field;
+	}
+
+	private function getFieldsByTypes(Category $item, array $types) {
+		$result = [];
+		
+		/** @var BenchmarkField $field */
+		foreach ($item->getBenchmarkFields() as $field) {
+			if (in_array($field->getFieldType(), $types)) {
+				$result[] = $field;
+			}
+		}
+		
+		return $result;
 	}
 }

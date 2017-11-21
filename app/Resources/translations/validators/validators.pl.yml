@@ -48,6 +48,7 @@ category.usedIn.articleCategoryAssignments: Kategoria jest używana w niektóryc
 category.usedIn.brandCategoryAssignments: Kategoria jest używana w niektórych ratingach marek i nie może być usunięta.
 category.usedIn.productCategoryAssignments: Kategoria jest używana w niektórych ratingach produktów i nie może być usunięta.
 category.usedIn.termCategoryAssignments: Kategoria jest używana w niektórych terminach (leksykon pojęć) i nie może być usunięta.
+category.usedIn.benchmarkFields: Kategoria jest używana w niektórych polach benchmarku i nie może być usunięta.
 
 segment.usedIn.brandCategoryAssignments: Segment jest używany w niektórych ratingach marek i nie może być usunięty.
 segment.usedIn.productCategoryAssignments: Segment jest używany w niektórych ratingach produktów i nie może być usunięty.

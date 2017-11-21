@@ -6,6 +6,7 @@ use AppBundle\Entity\Main\Category;
 use AppBundle\Factory\Item\Base\ItemFactory;
 use AppBundle\Entity\Other\CategorySummary;
 use AppBundle\Manager\Decorator\Base\ItemDecorator;
+use AppBundle\Entity\Other\CategoryDistribution;
 
 class CategoryDecorator extends ItemDecorator {
 
@@ -14,16 +15,31 @@ class CategoryDecorator extends ItemDecorator {
 	 * @var ItemFactory
 	 */
 	protected $categorySummaryFactory;
-	
+
 	/**
 	 *
 	 * @var ItemDecorator
 	 */
 	protected $categorySummaryDecorator;
-	
-	public function __construct(ItemFactory $categorySummaryFactory, ItemDecorator $categorySummaryDecorator) {
+
+	/**
+	 *
+	 * @var ItemFactory
+	 */
+	protected $categoryDistributionFactory;
+
+	/**
+	 *
+	 * @var ItemDecorator
+	 */
+	protected $categoryDistributionDecorator;
+
+	public function __construct(ItemFactory $categorySummaryFactory, ItemDecorator $categorySummaryDecorator, 
+			ItemFactory $categoryDistributionFactory, ItemDecorator $categoryDistributionDecorator) {
 		$this->categorySummaryFactory = $categorySummaryFactory;
 		$this->categorySummaryDecorator = $categorySummaryDecorator;
+		$this->categoryDistributionFactory = $categoryDistributionFactory;
+		$this->categoryDistributionDecorator = $categoryDistributionDecorator;
 	}
 
 	/**
@@ -32,7 +48,7 @@ class CategoryDecorator extends ItemDecorator {
 	 *
 	 * @see \AppBundle\Manager\Decorator\Base\ItemDecorator::getPrepared()
 	 *
-	 * @param Category $item
+	 * @param Category $item        	
 	 */
 	public function getPrepared($item) {
 		$item = $this->updateRoot($item);
@@ -41,12 +57,16 @@ class CategoryDecorator extends ItemDecorator {
 			$item->setCategorySummary($this->createCategorySummary($item));
 		}
 		
+		if (! $item->getCategoryDistribution()) {
+			$item->setCategoryDistribution($this->createCategoryDistribution($item));
+		}
+		
 		return $item;
 	}
-	
+
 	/**
-	 * 
-	 * @param Category $item
+	 *
+	 * @param Category $item        	
 	 */
 	protected function updateRoot(Category $item) {
 		$parent = $item->getParent();
@@ -62,18 +82,32 @@ class CategoryDecorator extends ItemDecorator {
 		}
 		return $item;
 	}
-	
+
 	/**
-	 * 
-	 * @param Category $item
+	 *
+	 * @param Category $item        	
 	 */
-	protected function createCategorySummary($item) {
+	protected function createCategorySummary(Category $item) {
 		/** @var CategorySummary $result */
 		$result = $this->categorySummaryFactory->create();
 		$result->setCategory($item);
-	
+		
 		$result = $this->categorySummaryDecorator->getPrepared($result);
-	
+		
+		return $result;
+	}
+
+	/**
+	 *
+	 * @param Category $item        	
+	 */
+	protected function createCategoryDistribution(Category $item) {
+		/** @var CategoryDistribution $result */
+		$result = $this->categoryDistributionFactory->create();
+		$result->setCategory($item);
+		
+		$result = $this->categoryDistributionDecorator->getPrepared($result);
+		
 		return $result;
 	}
 }

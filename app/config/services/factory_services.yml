@@ -21,11 +21,36 @@ services:
             - '@AppBundle\Factory\Admin\Import\NewsletterUser\ImportErrorFactory'
             - '@AppBundle\Validation\MailValidation'
     
+    # Chart Factories
+    AppBundle\Factory\Common\Chart\ColumnChartFactory:
+        arguments:
+            - 540
+            - 300
+    AppBundle\Factory\Common\Chart\Data\BooleanChartDataFactory:
+        arguments:
+            - '@translator'
+    AppBundle\Factory\Common\Chart\Data\SimpleChartDataFactory:
+        arguments:
+            - '@translator'
+    AppBundle\Factory\Common\Chart\Data\NumberChartDataFactory:
+        arguments:
+            - '@translator'
+                        
     # Benchmark Factories
+    AppBundle\Factory\Common\BenchmarkField\CategoryBenchmarkFieldFactory:
+        - '@AppBundle\Utils\Entity\BenchmarkFieldUtils'
+        - '@AppBundle\Factory\Common\Chart\ColumnChartFactory'
+        - '@AppBundle\Factory\Common\Chart\Data\BooleanChartDataFactory'
+        - '@AppBundle\Factory\Common\Chart\Data\NumberChartDataFactory' #TODO: ranges
+        - '@AppBundle\Factory\Common\Chart\Data\SimpleChartDataFactory' #TODO: most popular
+    AppBundle\Factory\Common\BenchmarkField\FilterBenchmarkFieldFactory:
+        - '@AppBundle\Utils\Entity\BenchmarkFieldUtils'
     AppBundle\Factory\Common\BenchmarkField\NoteBenchmarkFieldFactory:
         - '@AppBundle\Utils\Entity\DataBase\BenchmarkFieldDataBaseUtils'
         - '@AppBundle\Repository\Benchmark\ProductRepository'
-    
+    AppBundle\Factory\Common\BenchmarkField\SimpleBenchmarkFieldFactory:
+        - '@AppBundle\Utils\Entity\BenchmarkFieldUtils'
+        
     # Filter Factories
     Appbundle\Factory\Filter\ProductFilterFactory:
         arguments:
@@ -36,8 +61,7 @@ services:
     # Filter Factories - Other
     AppBundle\Logic\Common\BenchmarkField\Provider\BenchmarkFieldsProvider:
         arguments:
-            - '@AppBundle\Repository\Common\BenchmarkFieldMetadataRepository'
             - '@translator'
-    AppBundle\Logic\Common\BenchmarkField\Initializer\BenchmarkFieldsInitializerImpl:
+    AppBundle\Logic\Common\BenchmarkField\Initializer\BenchmarkFieldsInitializer:
         arguments:
-            - '@AppBundle\Factory\Common\BenchmarkField\BenchmarkFieldFactory'
+            - '@AppBundle\Factory\Common\BenchmarkField\SimpleBenchmarkFieldFactory'

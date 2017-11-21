@@ -11,6 +11,7 @@ use AppBundle\Repository\Admin\Base\ImageRepository;
 use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\ORM\QueryBuilder;
 use AppBundle\Entity\Other\CategorySummary;
+use AppBundle\Entity\Other\CategoryDistribution;
 
 class CategoryRepository extends ImageRepository {
 
@@ -213,6 +214,29 @@ class CategoryRepository extends ImageRepository {
 		return $builder->getQuery();
 	}
 
+	public function findItemsWithoutDistribution() {
+		return $this->queryItemsWithoutDistribution()->getScalarResult();
+	}
+	
+	protected function queryItemsWithoutDistribution() {
+		$builder = new QueryBuilder($this->getEntityManager());
+	
+		$builder->select("e.id");
+		$builder->from($this->getEntityType(), "e");
+		$builder->leftJoin(CategoryDistribution::class, 'cd', Join::WITH, 'e.id = cd.category');
+	
+		$expr = $builder->expr();
+	
+		$where = $expr->andX();
+		// 		$where->add($expr->eq('e.preleaf', 0));
+		// 		$where->add($expr->eq('e.benchmark', 1));
+		$where->add($expr->isNull('cd.id'));
+	
+		$builder->where($where);
+	
+		return $builder->getQuery();
+	}
+	
 	public function findItemsWithoutSummary() {
 		return $this->queryItemsWithoutSummary()->getScalarResult();
 	}

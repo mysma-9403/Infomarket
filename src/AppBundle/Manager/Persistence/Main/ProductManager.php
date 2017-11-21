@@ -3,11 +3,12 @@
 namespace AppBundle\Manager\Persistence\Main;
 
 use AppBundle\Entity\Assignments\ProductCategoryAssignment;
-use AppBundle\Entity\Other\CategorySummary;
 use AppBundle\Entity\Main\Product;
+use AppBundle\Entity\Other\CategoryDistribution;
+use AppBundle\Entity\Other\CategorySummary;
+use AppBundle\Entity\Other\ProductNote;
 use AppBundle\Manager\Persistence\Base\PersistenceManager;
 use Symfony\Component\HttpFoundation\Request;
-use AppBundle\Entity\Other\ProductNote;
 
 class ProductManager extends PersistenceManager {
 
@@ -23,11 +24,11 @@ class ProductManager extends PersistenceManager {
 		$persistent = $this->getPersistentItem($item);
 		if ($persistent) {
 			if ($this->shouldInvalidate($item, $persistent)) {
-				/** @var ProductCategoryAssignment $productCategoryAssignment */
-				foreach ($item->getProductCategoryAssignments() as $productCategoryAssignment) {
-					$this->invalidateProductNote($productCategoryAssignment->getProductNote());
-					$this->invalidateCategorySummary(
-							$productCategoryAssignment->getCategory()->getCategorySummary());
+				/** @var ProductCategoryAssignment $assignment */
+				foreach ($item->getProductCategoryAssignments() as $assignment) {
+					$this->invalidateProductNote($assignment->getProductNote());
+					$this->invalidateCategorySummary($assignment->getCategory()->getCategorySummary());
+					$this->invalidateCategoryDistribution($assignment->getCategory()->getCategoryDistribution());
 				}
 			}
 		}
@@ -45,6 +46,7 @@ class ProductManager extends PersistenceManager {
 		/** @var ProductCategoryAssignment $assignment */
 		foreach ($item->getProductCategoryAssignments() as $assignment) {
 			$this->invalidateCategorySummary($assignment->getCategory()->getCategorySummary());
+			$this->invalidateCategoryDistribution($assignment->getCategory()->getCategoryDistribution());
 		}
 	}
 
@@ -70,6 +72,15 @@ class ProductManager extends PersistenceManager {
 	 * @param CategorySummary $item        	
 	 */
 	protected function invalidateCategorySummary(CategorySummary $item) {
+		$item->setUpToDate(false);
+		$this->em->persist($item);
+	}
+
+	/**
+	 *
+	 * @param CategoryDistribution $item        	
+	 */
+	protected function invalidateCategoryDistribution(CategoryDistribution $item) {
 		$item->setUpToDate(false);
 		$this->em->persist($item);
 	}

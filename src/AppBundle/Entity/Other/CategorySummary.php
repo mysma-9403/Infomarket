@@ -48,6 +48,16 @@ class CategorySummary {
 		return $this;
 	}
 	
+	/**
+	 * @var integer
+	 */
+	private $id;
+	
+	/**
+	 * @var \AppBundle\Entity\Main\Category
+	 */
+	private $category;
+	
     /**
      * @var boolean
      */
@@ -268,10 +278,11 @@ class CategorySummary {
      */
     private $decimalMax13;
 
-    /**
-     * @var string
-     */
-    private $decimalMax14;
+	/**
+	 *
+	 * @var string
+	 */
+	private $decimalMax14;
 
     /**
      * @var string
@@ -352,7 +363,7 @@ class CategorySummary {
      * @var string
      */
     private $decimalMax30;
-
+    
     /**
      * @var integer
      */
@@ -652,7 +663,7 @@ class CategorySummary {
      * @var integer
      */
     private $integerMax30;
-
+    
     /**
      * @var integer
      */
@@ -952,17 +963,6 @@ class CategorySummary {
      * @var integer
      */
     private $stringMax30;
-
-    /**
-     * @var integer
-     */
-    private $id;
-
-    /**
-     * @var \AppBundle\Entity\Main\Category
-     */
-    private $category;
-
 
     /**
      * Set upToDate

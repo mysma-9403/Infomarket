@@ -5,7 +5,7 @@ namespace AppBundle\Factory\Common\BenchmarkField;
 use AppBundle\Entity\Main\BenchmarkField;
 use AppBundle\Utils\Entity\BenchmarkFieldUtils;
 
-class SimpleBenchmarkFieldFactory implements BenchmarkFieldFactory {
+class FilterBenchmarkFieldFactory implements BenchmarkFieldFactory {
 
 	/**
 	 *
@@ -20,10 +20,9 @@ class SimpleBenchmarkFieldFactory implements BenchmarkFieldFactory {
 	public function create(BenchmarkField $field) {
 		$result = [];
 		
-		$result['fieldName'] = $field->getFieldName();
 		$result['fieldType'] = $field->getFieldType();
-		$result['showField'] = $field->getShowField();
-		$result['decimalPlaces'] = $field->getDecimalPlaces();
+		$result['filterName'] = $field->getFilterName();
+		$result['featuredFilter'] = $field->getFeaturedFilter();
 		$result['valueField'] = $this->benchmarkFieldUtils->getValueField($field);
 		
 		return $result;

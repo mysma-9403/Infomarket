@@ -13,28 +13,52 @@ class BenchmarkFieldDataBaseUtils {
 	const STRING_NAME = 'string';
 
 	const NOTE = 'Note';
-	
+
 	const MIN = 'Min';
-	
+
 	const MAX = 'Max';
 
-	public function getValueFieldProperty($fieldType, $valueNumber) {
-		return $this->getFieldTypeDataBaseName($fieldType) . $valueNumber;
+	const MEAN = 'Mean';
+
+	const MODE = 'Mode';
+
+	const MEDIAN = 'Median';
+	
+	const DISTRIBUTION = 'Distribution';
+
+	public function getValueField(BenchmarkField $field) {
+		return $this->getDataBaseName($field->getFieldType()) . $field->getValueNumber();
 	}
 
-	public function getNoteFieldProperty($fieldType, $valueNumber) {
-		return $this->getFieldTypeDataBaseName($fieldType) . self::NOTE . $valueNumber;
-	}
-	
-	public function getMinFieldProperty($fieldType, $valueNumber) {
-		return $this->getFieldTypeDataBaseName($fieldType) . self::MIN . $valueNumber;
-	}
-	
-	public function getMaxFieldProperty($fieldType, $valueNumber) {
-		return $this->getFieldTypeDataBaseName($fieldType) . self::MAX . $valueNumber;
+	public function getNoteField(BenchmarkField $field) {
+		return $this->getDataBaseName($field->getFieldType()) . self::NOTE . $field->getValueNumber();
 	}
 
-	protected function getFieldTypeDataBaseName($fieldType) {
+	public function getMinField(BenchmarkField $field) {
+		return $this->getDataBaseName($field->getFieldType()) . self::MIN . $field->getValueNumber();
+	}
+
+	public function getMaxField(BenchmarkField $field) {
+		return $this->getDataBaseName($field->getFieldType()) . self::MAX . $field->getValueNumber();
+	}
+
+	public function getMeanField(BenchmarkField $field) {
+		return $this->getDataBaseName($field->getFieldType()) . self::MEAN . $field->getValueNumber();
+	}
+
+	public function getModeField(BenchmarkField $field) {
+		return $this->getDataBaseName($field->getFieldType()) . self::MODE . $field->getValueNumber();
+	}
+
+	public function getMedianField(BenchmarkField $field) {
+		return $this->getDataBaseName($field->getFieldType()) . self::MEDIAN . $field->getValueNumber();
+	}
+	
+	public function getDistributionField(BenchmarkField $field) {
+		return $this->getDataBaseName($field->getFieldType()) . self::DISTRIBUTION . $field->getValueNumber();
+	}
+
+	protected function getDataBaseName($fieldType) {
 		switch ($fieldType) {
 			case BenchmarkField::DECIMAL_FIELD_TYPE:
 				return self::DECIMAL_NAME;

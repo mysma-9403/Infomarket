@@ -59,6 +59,9 @@ services:
     
     # Utils
     AppBundle\Utils\RegexUtils: ~
+    AppBundle\Utils\Entity\BenchmarkFieldUtils:
+        arguments:
+            - '@AppBundle\Utils\Entity\DataBase\BenchmarkFieldDataBaseUtils'
     AppBundle\Utils\Entity\DataBase\BenchmarkFieldDataBaseUtils: ~
     
     # Repository Managers

@@ -110,6 +110,14 @@
             	<cascade-remove/>
         	</cascade>
 		</one-to-one>
+		
+		<one-to-one field="categoryDistribution" target-entity="AppBundle\Entity\Other\CategoryDistribution"
+			mapped-by="category">
+			<cascade>
+            	<cascade-persist/>
+            	<cascade-remove/>
+        	</cascade>
+		</one-to-one>
 
 	</entity>
 

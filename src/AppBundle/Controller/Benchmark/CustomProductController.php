@@ -3,7 +3,6 @@
 namespace AppBundle\Controller\Benchmark;
 
 use AppBundle\Controller\Admin\Base\BaseController;
-use AppBundle\Entity\Main\BenchmarkField;
 use AppBundle\Entity\Main\Product;
 use AppBundle\Factory\Common\BenchmarkField\SimpleBenchmarkFieldFactory;
 use AppBundle\Filter\Benchmark\CustomProductFilter;
@@ -12,14 +11,13 @@ use AppBundle\Form\Editor\Benchmark\ProductEditorType;
 use AppBundle\Form\Filter\Benchmark\CategoryFilterType;
 use AppBundle\Form\Filter\Benchmark\CustomProductFilterType;
 use AppBundle\Form\Filter\Benchmark\SubcategoryFilterType;
-use AppBundle\Logic\Common\BenchmarkField\Initializer\BenchmarkFieldsInitializerImpl;
+use AppBundle\Logic\Common\BenchmarkField\Initializer\BenchmarkFieldsInitializer;
 use AppBundle\Logic\Common\BenchmarkField\Provider\BenchmarkFieldsProvider;
 use AppBundle\Manager\Entity\Base\EntityManager;
 use AppBundle\Manager\Entity\Benchmark\CustomProductManager;
 use AppBundle\Manager\Filter\Base\FilterManager;
 use AppBundle\Manager\Params\Benchmark\ContextParamsManager;
 use AppBundle\Manager\Params\EntryParams\Benchmark\CustomProductEntryParamsManager;
-use AppBundle\Repository\Common\BenchmarkFieldMetadataRepository;
 use AppBundle\Utils\Entity\DataBase\BenchmarkFieldDataBaseUtils;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -60,15 +58,12 @@ class CustomProductController extends BaseController {
 	}
 
 	protected function getInternalEntryParamsManager(EntityManager $em, FilterManager $fm, $doctrine) {
-		$manager = $doctrine->getManager();
-		$benchmarkFieldMetadataRepository = new BenchmarkFieldMetadataRepository($manager, 
-				$manager->getClassMetadata(BenchmarkField::class));
 		$translator = $this->get('translator');
-		$benchmarkFieldsProvider = new BenchmarkFieldsProvider($benchmarkFieldMetadataRepository, $translator);
+		$benchmarkFieldsProvider = new BenchmarkFieldsProvider($translator);
 		
 		$benchmarkFieldDataBaseUtils = new BenchmarkFieldDataBaseUtils();
 		$benchmarkFieldFactory = new SimpleBenchmarkFieldFactory($benchmarkFieldDataBaseUtils);
-		$benchmarkFieldsInitializer = new BenchmarkFieldsInitializerImpl($benchmarkFieldFactory);
+		$benchmarkFieldsInitializer = new BenchmarkFieldsInitializer($benchmarkFieldFactory);
 		
 		$productFilter = new ProductFilter($benchmarkFieldsProvider, $benchmarkFieldsInitializer);
 		

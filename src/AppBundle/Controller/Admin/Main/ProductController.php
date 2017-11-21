@@ -3,7 +3,6 @@
 namespace AppBundle\Controller\Admin\Main;
 
 use AppBundle\Controller\Admin\Base\ImageController;
-use AppBundle\Entity\Main\BenchmarkField;
 use AppBundle\Entity\Main\Product;
 use AppBundle\Factory\Common\BenchmarkField\SimpleBenchmarkFieldFactory;
 use AppBundle\Filter\Common\Main\ProductFilter;
@@ -11,7 +10,7 @@ use AppBundle\Form\Editor\Admin\Main\ProductEditorType;
 use AppBundle\Form\Filter\Admin\Main\ProductFilterType;
 use AppBundle\Form\Filter\Admin\Other\CategoryFilterType;
 use AppBundle\Form\Lists\Base\InfoMarketListType;
-use AppBundle\Logic\Common\BenchmarkField\Initializer\BenchmarkFieldsInitializerImpl;
+use AppBundle\Logic\Common\BenchmarkField\Initializer\BenchmarkFieldsInitializer;
 use AppBundle\Logic\Common\BenchmarkField\Provider\BenchmarkFieldsProvider;
 use AppBundle\Manager\Entity\Base\EntityManager;
 use AppBundle\Manager\Entity\Common\Main\ProductManager;
@@ -19,7 +18,6 @@ use AppBundle\Manager\Filter\Base\FilterManager;
 use AppBundle\Manager\Params\EntryParams\Admin\ProductEntryParamsManager;
 use AppBundle\Misc\FormOptions\FormOptionsProvider;
 use AppBundle\Repository\Admin\Main\CategoryRepository;
-use AppBundle\Repository\Common\BenchmarkFieldMetadataRepository;
 use AppBundle\Utils\Entity\DataBase\BenchmarkFieldDataBaseUtils;
 use AppBundle\Utils\StringUtils;
 use Symfony\Component\HttpFoundation\Request;
@@ -354,14 +352,11 @@ class ProductController extends ImageController {
 		$translator = $this->get('translator');
 		
 		// TODO services.yml!!!
-		$manager = $doctrine->getManager();
-		$benchmarkFieldMetadataRepository = new BenchmarkFieldMetadataRepository($manager, 
-				$manager->getClassMetadata(BenchmarkField::class));
-		$benchmarkFieldsProvider = new BenchmarkFieldsProvider($benchmarkFieldMetadataRepository, $translator);
+		$benchmarkFieldsProvider = new BenchmarkFieldsProvider($translator);
 		
 		$benchmarkFieldDataBaseUtils = new BenchmarkFieldDataBaseUtils();
 		$benchmarkFieldFactory = new SimpleBenchmarkFieldFactory($benchmarkFieldDataBaseUtils);
-		$benchmarkFieldsInitializer = new BenchmarkFieldsInitializerImpl($benchmarkFieldFactory);
+		$benchmarkFieldsInitializer = new BenchmarkFieldsInitializer($benchmarkFieldFactory);
 		
 		$productFilter = new \AppBundle\Filter\Common\Other\ProductFilter($benchmarkFieldsProvider, 
 				$benchmarkFieldsInitializer);

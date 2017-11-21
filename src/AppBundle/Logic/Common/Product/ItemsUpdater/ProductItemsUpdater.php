@@ -22,6 +22,18 @@ class ProductItemsUpdater {
 	 *
 	 * @var BaseRepository
 	 */
+	private $categoryDistributionRepository;
+	
+	/**
+	 *
+	 * @var ItemsUpdater
+	 */
+	private $categoryDistributionsUpdater;
+	
+	/**
+	 *
+	 * @var BaseRepository
+	 */
 	private $categorySummaryRepository;
 
 	/**
@@ -42,11 +54,15 @@ class ProductItemsUpdater {
 	 */
 	private $productNotesUpdater;
 
-	public function __construct(BaseRepository $productScoreRepository, ItemsUpdater $productScoresUpdater, 
+	public function __construct(BaseRepository $productScoreRepository, ItemsUpdater $productScoresUpdater,
+			BaseRepository $categoryDistributionRepository, ItemsUpdater $categoryDistributionsUpdater,
 			BaseRepository $categorySummaryRepository, ItemsUpdater $categorySummariesUpdater, 
 			BaseRepository $productNoteRepository, ItemsUpdater $productNotesUpdater) {
 		$this->productScoreRepository = $productScoreRepository;
 		$this->productScoresUpdater = $productScoresUpdater;
+		
+		$this->categoryDistributionRepository = $categoryDistributionRepository;
+		$this->categoryDistributionsUpdater = $categoryDistributionsUpdater;
 		
 		$this->categorySummaryRepository = $categorySummaryRepository;
 		$this->categorySummariesUpdater = $categorySummariesUpdater;
@@ -59,6 +75,7 @@ class ProductItemsUpdater {
 		$result = [];
 		
 		$result['productScores'] = $this->updateProductScores($start);
+		$result['categoryDistributions'] = $this->updateCategoryDistributions($start);
 		$result['categorySummaries'] = $this->updateCategorySummaries($start);
 		$result['productNotes'] = $this->updateProductNotes($start);
 		
@@ -70,6 +87,11 @@ class ProductItemsUpdater {
 		return $this->productScoresUpdater->update($start, $items);
 	}
 
+	private function updateCategoryDistributions($start) {
+		$items = $this->categoryDistributionRepository->findBy(['upToDate' => false]);
+		return $this->categoryDistributionsUpdater->update($start, $items);
+	}
+	
 	private function updateCategorySummaries($start) {
 		$items = $this->categorySummaryRepository->findBy(['upToDate' => false]);
 		return $this->categorySummariesUpdater->update($start, $items);

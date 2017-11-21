@@ -87,112 +87,55 @@ class ProductParamsManager extends EntryParamsManager {
 	public function getShowParams(Request $request, array $params, $id) {
 		$params = parent::getShowParams($request, $params, $id);
 		$viewParams = $params['viewParams'];
+		$contextParams = $params['contextParams'];
 		
 		/** @var Product $entry */
 		$entry = $viewParams['entry'];
+		$categoryId = $contextParams['subcategory'];
 		
-		$assignment = $entry->getProductCategoryAssignments()->first();
-		$categoryId = $assignment->getCategory()->getId();
+		$assignment = $this->getProductCategoryAssignment($entry, $categoryId);
+		$productValue = $assignment->getProductValue();
+		$productNote = $assignment->getProductNote();
 		
-		$overalNote = 0.;
-		$overalCount = 0;
-		
-		$fields = $this->benchmarkFieldsProvider->getShowFields($categoryId);
-		$fields = $this->showBenchmarkFieldsInitializer->init($fields, $categoryId);
-		
-		// TODO entire loop could be done in benchmarkFieldsInitializer
-		for ($i = 0; $i < count($fields); $i ++) {
-			$field = $fields[$i];
+		$fields = [];
+		/** @var BenchmarkField $benchmarkField */
+		foreach ($assignment->getCategory()->getBenchmarkFields() as $benchmarkField) {
+			$field = [];
 			
-			$valueField = $field['valueField'];
-			$value = $entry->offsetGet($valueField);
+			$valueNumber = $benchmarkField->getValueNumber();
+			$fieldType = $benchmarkField->getFieldType();
 			
-			switch ($field['fieldType']) {
+			switch ($fieldType) {
 				case BenchmarkField::DECIMAL_FIELD_TYPE:
+					$field['value'] = $productValue->offsetGet('decimal' . $valueNumber);
+					$field['note'] = $productNote->offsetGet('decimalNote' . $valueNumber);
+					$field['betterThan'] = null; // TODO to implement
+					break;
 				case BenchmarkField::INTEGER_FIELD_TYPE:
 				case BenchmarkField::BOOLEAN_FIELD_TYPE:
-					$noteType = $fields[$i]['noteType'];
-					$noteWeight = $fields[$i]['noteWeight'];
-					if ($value && $noteType != BenchmarkField::NONE_NOTE_TYPE) {
-						$min = $field['min'];
-						$max = $field['max'];
-						
-						$note = 2.;
-						if ($max > $min) {
-							if ($noteType == BenchmarkField::ASC_NOTE_TYPE) {
-								$note = 2. + 3. * ($value - $min) / ($max - $min);
-							} else {
-								$note = 2. + 3. * (1. - ($value - $min) / ($max - $min));
-							}
-						} else {
-							$note = 5.;
-						}
-						$field['note'] = $note;
-						
-						$overalNote += $note * $noteWeight;
-						$overalCount += $noteWeight;
-					} else {
-						$field['note'] = null;
-					}
-					
-					$betterThanType = $fields[$i]['betterThanType'];
-					if ($value && $betterThanType != BenchmarkField::NONE_BETTER_THAN_TYPE) {
-						$totalCount = $this->productRepository->findItemsCount($categoryId, $valueField);
-						$betterThanCount = $this->productRepository->findBetterThanCount($categoryId, 
-								$valueField, $value, $betterThanType);
-						if ($totalCount > 0) {
-							$field['betterThan'] = 100. * $betterThanCount / $totalCount;
-						} else {
-							$field['betterThan'] = 100.;
-						}
-					} else {
-						$field['betterThan'] = null;
-					}
+					$field['value'] = $productValue->offsetGet('integer' . $valueNumber);
+					$field['note'] = $productNote->offsetGet('integerNote' . $valueNumber);
+					$field['betterThan'] = null; // TODO to implement
 					break;
 				case BenchmarkField::SINGLE_ENUM_FIELD_TYPE:
 				case BenchmarkField::MULTI_ENUM_FIELD_TYPE:
-					$noteType = $fields[$i]['noteType'];
-					$noteWeight = $fields[$i]['noteWeight'];
-					if ($value && $noteType == BenchmarkField::ENUM_NOTE_TYPE) {
-						$min = $field['min'];
-						$max = $field['max'];
-						
-						$value = $this->productRepository->findEnumValue($entry->getId(), $valueField);
-						
-						// TODO what if $value == null?? note = 2.0??
-						
-						$note = 2.;
-						if ($max > $min) {
-							if ($noteType == BenchmarkField::ASC_NOTE_TYPE) {
-								$note = 2. + 3. * ($value - $min) / ($max - $min);
-							} else {
-								$note = 5. - 3. * ($value - $min) / ($max - $min);
-							}
-						} else {
-							$note = 5.;
-						}
-						$field['note'] = $note;
-						
-						$overalNote += $note * $noteWeight;
-						$overalCount += $noteWeight;
-					} else {
-						$field['note'] = null;
-					}
+					$field['value'] = $productValue->offsetGet('string' . $valueNumber);
+					$field['note'] = $productNote->offsetGet('stringNote' . $valueNumber);
+					$field['betterThan'] = null; // TODO to implement
+					break;
+				case BenchmarkField::STRING_FIELD_TYPE:
+					$field['value'] = $productValue->offsetGet('string' . $valueNumber);
 					break;
 			}
-			$fields[$i] = $field;
+			
+			$field['fieldType'] = $fieldType;
+			$field['fieldName'] = $benchmarkField->getFieldName();
+			$field['decimalPlaces'] = $benchmarkField->getDecimalPlaces();
+			
+			$fields[] = $field;
 		}
+		
 		$viewParams['benchmarkFields'] = $fields;
-		
-		if ($overalCount > 0) {
-			$overalNote /= $overalCount;
-		} else {
-			$overalNote = 5.;
-		}
-		
-		
-		$assignment = $this->getProductCategoryAssignment($entry, $categoryId);
-		$productNote = $assignment->getProductNote();
 		
 		$overalNote = $productNote->getOveralNote();
 		$viewParams['overalNote'] = $overalNote;
@@ -214,18 +157,18 @@ class ProductParamsManager extends EntryParamsManager {
 		
 		return $params;
 	}
-	
+
 	/**
-	 * 
-	 * @param Product $entry
-	 * @param unknown $categoryId
-	 * 
+	 *
+	 * @param Product $entry        	
+	 * @param unknown $categoryId        	
+	 *
 	 * @return ProductCategoryAssignment
 	 */
 	protected function getProductCategoryAssignment(Product $entry, $categoryId) {
 		$assignments = $entry->getProductCategoryAssignments();
 		foreach ($assignments as $assignment) {
-			if($assignment->getCategory()->getId() == $categoryId) {
+			if ($assignment->getCategory()->getId() == $categoryId) {
 				return $assignment;
 			}
 		}
@@ -242,8 +185,8 @@ class ProductParamsManager extends EntryParamsManager {
 		$assignment = $entry->getProductCategoryAssignments()->first();
 		$categoryId = $assignment->getCategory()->getId();
 		
-		$fields = $this->benchmarkFieldsProvider->getShowFields($categoryId);
-		$fields = $this->compareBenchmarkFieldsInitializer->init($fields, $categoryId);
+		$fields = $this->benchmarkFieldsProvider->getShowFields($assignment->getCategory());
+		$fields = $this->compareBenchmarkFieldsInitializer->init($fields);
 		// TODO entire loop could be done in benchmarkFieldsInitializer
 		for ($i = 0; $i < count($fields); $i ++) {
 			$field = $fields[$i];

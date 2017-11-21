@@ -35,7 +35,6 @@ class CategorySummaryUpdater implements ItemUpdater {
 	 */
 	public function update($item) {
 		$minMaxValues = $this->productRepository->findAllMinMaxValues($item->getCategory()->getId());
-		
 		$item = $this->updateMinMaxValues($item, $minMaxValues);
 		$item->setUpToDate(true);
 		

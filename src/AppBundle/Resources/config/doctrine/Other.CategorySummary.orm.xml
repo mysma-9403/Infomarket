@@ -143,8 +143,8 @@
 			nullable="true" />
 		<field name="decimalMax30" type="decimal" precision="12" scale="4"
 			nullable="true" />
-
-
+		
+				
 		<field name="integerMin1" type="integer" nullable="true" />
 		<field name="integerMin2" type="integer" nullable="true" />
 		<field name="integerMin3" type="integer" nullable="true" />
@@ -210,8 +210,8 @@
 		<field name="integerMax28" type="integer" nullable="true" />
 		<field name="integerMax29" type="integer" nullable="true" />
 		<field name="integerMax30" type="integer" nullable="true" />
-
-
+		
+		
 		<field name="stringMin1" type="integer" nullable="true" />
 		<field name="stringMin2" type="integer" nullable="true" />
 		<field name="stringMin3" type="integer" nullable="true" />

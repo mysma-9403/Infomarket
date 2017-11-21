@@ -69,6 +69,9 @@ class UpdateProductNotesCommand extends Command {
 		$logged |= $this->logCounts($output, $created, 'productNotes', 'Product notes created');
 		$logged |= $this->logCounts($output, $updated, 'productNotes', 'Product notes updated');
 		
+		$logged |= $this->logCounts($output, $created, 'categoryDistributions', 'Category distributions created');
+		$logged |= $this->logCounts($output, $updated, 'categoryDistributions', 'Category distributions updated');
+		
 		$logged |= $this->logCounts($output, $created, 'categorySummaries', 'Category summaries created');
 		$logged |= $this->logCounts($output, $updated, 'categorySummaries', 'Category summaries updated');
 		

@@ -41,25 +41,36 @@ class ProductItemsCreator {
 	 *
 	 * @var DependentItemsCreator
 	 */
+	private $categoryDistributionsCreator;
+
+	/**
+	 *
+	 * @var DependentItemsCreator
+	 */
 	private $categorySummariesCreator;
 
 	public function __construct(CategoryRepository $categoryRepository, 
 			ProductCategoryAssignmentRepository $productCategoryAssignmentRepository, 
 			DependentItemsCreator $productValuesCreator, DependentItemsCreator $productScoresCreator, 
-			DependentItemsCreator $productNotesCreator, DependentItemsCreator $categorySummariesCreator) {
+			DependentItemsCreator $productNotesCreator, DependentItemsCreator $categoryDistributionsCreator, 
+			DependentItemsCreator $categorySummariesCreator) {
 		$this->productCategoryAssignmentRepository = $productCategoryAssignmentRepository;
 		$this->categoryRepository = $categoryRepository;
 		
 		$this->productValuesCreator = $productValuesCreator;
 		$this->productScoresCreator = $productScoresCreator;
 		$this->productNotesCreator = $productNotesCreator;
+		
+		$this->categoryDistributionsCreator = $categoryDistributionsCreator;
 		$this->categorySummariesCreator = $categorySummariesCreator;
 	}
 
 	public function createMissingItems() {
 		$result = [];
 		
+		$result['categoryDistributions'] = $this->createCategoryDistributions();
 		$result['categorySummaries'] = $this->createCategorySummaries();
+		
 		$result['productValues'] = $this->createProductValues();
 		$result['productScores'] = $this->createProductScores();
 		$result['productNotes'] = $this->createProductNotes();
@@ -67,6 +78,11 @@ class ProductItemsCreator {
 		return $result;
 	}
 
+	private function createCategoryDistributions() {
+		$categories = $this->categoryRepository->findItemsWithoutDistribution();
+		return $this->categoryDistributionsCreator->createFrom($categories);
+	}
+	
 	private function createCategorySummaries() {
 		$categories = $this->categoryRepository->findItemsWithoutSummary();
 		return $this->categorySummariesCreator->createFrom($categories);

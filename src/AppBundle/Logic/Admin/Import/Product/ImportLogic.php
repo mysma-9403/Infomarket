@@ -89,6 +89,12 @@ class ImportLogic {
 
 	/**
 	 *
+	 * @var PersistenceManager
+	 */
+	protected $categoryDistributionManager;
+
+	/**
+	 *
 	 * @var CountManager $countManager
 	 */
 	protected $countManager;
@@ -98,7 +104,8 @@ class ImportLogic {
 			PersistenceManager $productCategoryAssignmentManager, PersistenceManager $productValueManager, 
 			PersistenceManager $productScoreManager, PersistenceManager $productNoteManager, 
 			PersistenceManager $brandManager, PersistenceManager $benchmarkFieldManager, 
-			PersistenceManager $categorySummaryManager, CountManager $countManager) {
+			PersistenceManager $categorySummaryManager, PersistenceManager $categoryDistributionManager, 
+			CountManager $countManager) {
 		$this->doctrine = $doctrine;
 		$this->errorFactory = $errorFactory;
 		$this->benchmarkFieldDataBaseUtils = $benchmarkFieldDataBaseUtils;
@@ -111,6 +118,7 @@ class ImportLogic {
 		$this->brandManager = $brandManager;
 		$this->benchmarkFieldManager = $benchmarkFieldManager;
 		$this->categorySummaryManager = $categorySummaryManager;
+		$this->categoryDistributionManager = $categoryDistributionManager;
 		
 		$this->countManager = $countManager;
 	}
@@ -177,6 +185,7 @@ class ImportLogic {
 			$assignmentsCounts = $this->countManager->getCounts($dataBaseEntries, 'assignment');
 			$this->productCategoryAssignmentManager->saveEntries($dataBaseEntries);
 			
+			dump($dataBaseEntries);
 			$dataBaseEntries = $this->productValueManager->getUpdatedEntries($category, $dataBaseEntries);
 			$productValuesCounts = $this->countManager->getCounts($dataBaseEntries, 'productValue');
 			$this->productValueManager->saveEntries($dataBaseEntries);
@@ -186,10 +195,17 @@ class ImportLogic {
 			$this->productScoreManager->saveEntries($dataBaseEntries);
 			
 			$mainCategory = $this->getMainCategory($category);
+			
+			//TODO refactor - don't do this such hacky way!
 			$categorySummaries = [[]];
 			$categorySummaries = $this->categorySummaryManager->getUpdatedEntries($mainCategory, 
 					$categorySummaries);
 			$this->categorySummaryManager->saveEntries($categorySummaries);
+			
+			$categoryDistributions = [[]];
+			$categoryDistributions = $this->categoryDistributionManager->getUpdatedEntries($mainCategory, 
+					$categoryDistributions);
+			$this->categoryDistributionManager->saveEntries($categoryDistributions);
 			
 			$dataBaseColumns = $this->benchmarkFieldManager->getUpdatedEntries($mainCategory, $columns);
 			$benchmarkFieldsCounts = $this->countManager->getCounts($dataBaseColumns, 'benchmarkField');
@@ -322,8 +338,12 @@ class ImportLogic {
 						
 						$item = array();
 						
-						$itemName = $this->benchmarkFieldDataBaseUtils->getValueFieldProperty($fieldType, 
-								$valueNumber);
+						// TODO rethink this...
+						$field = new BenchmarkField();
+						$field->setFieldType($fieldType);
+						$field->setValueNumber($valueNumber);
+						
+						$itemName = $this->benchmarkFieldDataBaseUtils->getValueField($field);
 						
 						$item['index'] = $i;
 						$item['name'] = $itemName;
@@ -472,15 +492,16 @@ class ImportLogic {
 					switch ($column['fieldType']) {
 						case BenchmarkField::BOOLEAN_FIELD_TYPE:
 							if ($value == '-' || $value == '0') {
-								$value = false;
+								$value = 0;
 							} else {
-								$value = true;
+								$value = 1;
 							}
 							break;
 						default:
-							if ($value == '-') {
+							if ($value == '-' || $value == '') {
 								$value = null;
 							}
+							break;
 					}
 				}
 				
@@ -610,7 +631,6 @@ class ImportLogic {
 				$productPrice = $preparedEntry['productPrice'];
 			
 			$product = $productRepository->findOneBy(['name' => $productName, 'brand' => $brand]);
-			$productValue = null;
 			if (! $product) {
 				$product = new Product();
 				$product->setName($productName);
