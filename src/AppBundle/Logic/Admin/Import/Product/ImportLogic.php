@@ -177,6 +177,12 @@ class ImportLogic {
 		}
 		
 		try {
+			$mainCategory = $this->getMainCategory($category);
+			
+			$dataBaseColumns = $this->benchmarkFieldManager->getUpdatedEntries($mainCategory, $columns);
+			$benchmarkFieldsCounts = $this->countManager->getCounts($dataBaseColumns, 'benchmarkField');
+			$this->benchmarkFieldManager->saveEntries($dataBaseColumns);
+			
 			$productsCounts = $this->countManager->getCounts($dataBaseEntries, 'product');
 			$this->productManager->saveEntries($dataBaseEntries);
 			
@@ -185,7 +191,6 @@ class ImportLogic {
 			$assignmentsCounts = $this->countManager->getCounts($dataBaseEntries, 'assignment');
 			$this->productCategoryAssignmentManager->saveEntries($dataBaseEntries);
 			
-			dump($dataBaseEntries);
 			$dataBaseEntries = $this->productValueManager->getUpdatedEntries($category, $dataBaseEntries);
 			$productValuesCounts = $this->countManager->getCounts($dataBaseEntries, 'productValue');
 			$this->productValueManager->saveEntries($dataBaseEntries);
@@ -193,8 +198,6 @@ class ImportLogic {
 			$dataBaseEntries = $this->productScoreManager->getUpdatedEntries($category, $dataBaseEntries);
 			$productScoresCounts = $this->countManager->getCounts($dataBaseEntries, 'productScore');
 			$this->productScoreManager->saveEntries($dataBaseEntries);
-			
-			$mainCategory = $this->getMainCategory($category);
 			
 			//TODO refactor - don't do this such hacky way!
 			$categorySummaries = [[]];
@@ -206,10 +209,6 @@ class ImportLogic {
 			$categoryDistributions = $this->categoryDistributionManager->getUpdatedEntries($mainCategory, 
 					$categoryDistributions);
 			$this->categoryDistributionManager->saveEntries($categoryDistributions);
-			
-			$dataBaseColumns = $this->benchmarkFieldManager->getUpdatedEntries($mainCategory, $columns);
-			$benchmarkFieldsCounts = $this->countManager->getCounts($dataBaseColumns, 'benchmarkField');
-			$this->benchmarkFieldManager->saveEntries($dataBaseColumns);
 			
 			$dataBaseEntries = $this->productNoteManager->getUpdatedEntries($category, $dataBaseEntries);
 			$productNotesCounts = $this->countManager->getCounts($dataBaseEntries, 'productNote');

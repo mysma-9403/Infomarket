@@ -98,7 +98,7 @@ class CategoryBenchmarkFieldFactory implements BenchmarkFieldFactory {
 			$falseCount = array_key_exists(0, $distribution) ? $distribution[0] : 0;
 			
 			$result['count'] = $trueCount;
-			$result['percent'] = 100 * $trueCount / ($trueCount + $falseCount);
+			$result['percent'] = $trueCount && $falseCount ? 100 * $trueCount / ($trueCount + $falseCount) : 0;
 			$result['chart'] = $this->createChart($field, $this->booleanDataFactory, $distribution);
 		} else {
 			$result['count'] = 0;

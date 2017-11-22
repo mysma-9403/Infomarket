@@ -39,6 +39,7 @@ use Symfony\Component\HttpFoundation\StreamedResponse;
 use Symfony\Component\Validator\Constraints\Date;
 use AppBundle\Repository\Benchmark\CategoryRepository;
 use AppBundle\Factory\Common\BenchmarkField\FilterBenchmarkFieldFactory;
+use AppBundle\Utils\Entity\BenchmarkFieldUtils;
 
 class ProductController extends DummyController {
 	
@@ -479,12 +480,14 @@ class ProductController extends DummyController {
 				$productRepository);
 		$showBenchmarkFieldsInitializer = new BenchmarkFieldsInitializer($showBenchmarkFieldFactory);
 		
-		$compareBenchmarkFieldFactory = new CompareBenchmarkFieldFactory($benchmarkFieldDataBaseUtils, 
-				$productRepository);
+		$compareBenchmarkFieldFactory = $this->get(CompareBenchmarkFieldFactory::class);
 		$compareBenchmarkFieldsInitializer = new BenchmarkFieldsInitializer($compareBenchmarkFieldFactory);
 		
+		$benchmarkFieldUtils = $this->get(BenchmarkFieldUtils::class);
+		
 		return new ProductParamsManager($em, $fm, $tokenStorage, $productRepository, $benchmarkMessageRepository, 
-				$benchmarkFieldsProvider, $showBenchmarkFieldsInitializer, $compareBenchmarkFieldsInitializer);
+				$benchmarkFieldsProvider, $showBenchmarkFieldsInitializer, $compareBenchmarkFieldsInitializer, 
+				$benchmarkFieldUtils);
 	}
 
 	protected function getEntityManager($doctrine, $paginator) {

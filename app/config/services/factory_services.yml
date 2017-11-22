@@ -43,6 +43,8 @@ services:
         - '@AppBundle\Factory\Common\Chart\Data\BooleanChartDataFactory'
         - '@AppBundle\Factory\Common\Chart\Data\NumberChartDataFactory' #TODO: ranges
         - '@AppBundle\Factory\Common\Chart\Data\SimpleChartDataFactory' #TODO: most popular
+    AppBundle\Factory\Common\BenchmarkField\CompareBenchmarkFieldFactory:
+        - '@AppBundle\Utils\Entity\BenchmarkFieldUtils'
     AppBundle\Factory\Common\BenchmarkField\FilterBenchmarkFieldFactory:
         - '@AppBundle\Utils\Entity\BenchmarkFieldUtils'
     AppBundle\Factory\Common\BenchmarkField\NoteBenchmarkFieldFactory:
@@ -50,7 +52,7 @@ services:
         - '@AppBundle\Repository\Benchmark\ProductRepository'
     AppBundle\Factory\Common\BenchmarkField\SimpleBenchmarkFieldFactory:
         - '@AppBundle\Utils\Entity\BenchmarkFieldUtils'
-        
+            
     # Filter Factories
     Appbundle\Factory\Filter\ProductFilterFactory:
         arguments:

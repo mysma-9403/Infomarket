@@ -13,6 +13,8 @@ use AppBundle\Repository\Benchmark\ProductRepository;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Entity\Other\ProductNote;
 use AppBundle\Entity\Assignments\ProductCategoryAssignment;
+use AppBundle\Utils\Entity\BenchmarkFieldUtils;
+use AppBundle\Entity\Main\Category;
 
 class ProductParamsManager extends EntryParamsManager {
 
@@ -48,11 +50,18 @@ class ProductParamsManager extends EntryParamsManager {
 	 */
 	protected $compareBenchmarkFieldsInitializer;
 
+	/**
+	 *
+	 * @var BenchmarkFieldUtils
+	 */
+	protected $benchmarkFieldUtils;
+
 	public function __construct($em, $fm, $tokenStorage, ProductRepository $productRepository, 
 			BenchmarkMessageRepository $benchmarkMessageRepository, 
 			BenchmarkFieldsProvider $benchmarkFieldsProvider, 
 			BenchmarkFieldsInitializer $showBenchmarkFieldsInitializer, 
-			BenchmarkFieldsInitializer $compareBenchmarkFieldsInitializer) {
+			BenchmarkFieldsInitializer $compareBenchmarkFieldsInitializer, 
+			BenchmarkFieldUtils $benchmarkFieldUtils) {
 		parent::__construct($em, $fm);
 		
 		$this->productRepository = $productRepository;
@@ -64,6 +73,8 @@ class ProductParamsManager extends EntryParamsManager {
 		
 		$this->showBenchmarkFieldsInitializer = $showBenchmarkFieldsInitializer;
 		$this->compareBenchmarkFieldsInitializer = $compareBenchmarkFieldsInitializer;
+		
+		$this->benchmarkFieldUtils = $benchmarkFieldUtils;
 	}
 
 	public function getIndexParams(Request $request, array $params, $page) {
@@ -94,12 +105,16 @@ class ProductParamsManager extends EntryParamsManager {
 		$categoryId = $contextParams['subcategory'];
 		
 		$assignment = $this->getProductCategoryAssignment($entry, $categoryId);
+		$productScore = $assignment->getProductScore();
 		$productValue = $assignment->getProductValue();
 		$productNote = $assignment->getProductNote();
 		
 		$fields = [];
+		
+		$category = $this->getMainCategory($assignment->getCategory());
+		
 		/** @var BenchmarkField $benchmarkField */
-		foreach ($assignment->getCategory()->getBenchmarkFields() as $benchmarkField) {
+		foreach ($category->getBenchmarkFields() as $benchmarkField) {
 			$field = [];
 			
 			$valueNumber = $benchmarkField->getValueNumber();
@@ -107,21 +122,31 @@ class ProductParamsManager extends EntryParamsManager {
 			
 			switch ($fieldType) {
 				case BenchmarkField::DECIMAL_FIELD_TYPE:
-					$field['value'] = $productValue->offsetGet('decimal' . $valueNumber);
+					$value = $productValue->offsetGet('decimal' . $valueNumber);
+					$field['value'] = $value;
 					$field['note'] = $productNote->offsetGet('decimalNote' . $valueNumber);
-					$field['betterThan'] = null; // TODO to implement
+					
+					$distribution = $this->benchmarkFieldUtils->getDistributionArray($benchmarkField);
+					$field['betterThan'] = $this->getBetterThan($distribution, $value);
 					break;
 				case BenchmarkField::INTEGER_FIELD_TYPE:
 				case BenchmarkField::BOOLEAN_FIELD_TYPE:
-					$field['value'] = $productValue->offsetGet('integer' . $valueNumber);
+					$value = $productValue->offsetGet('integer' . $valueNumber);
+					$field['value'] = $value;
 					$field['note'] = $productNote->offsetGet('integerNote' . $valueNumber);
-					$field['betterThan'] = null; // TODO to implement
+					
+					$distribution = $this->benchmarkFieldUtils->getDistributionArray($benchmarkField);
+					$field['betterThan'] = $this->getBetterThan($distribution, $value);
 					break;
 				case BenchmarkField::SINGLE_ENUM_FIELD_TYPE:
 				case BenchmarkField::MULTI_ENUM_FIELD_TYPE:
 					$field['value'] = $productValue->offsetGet('string' . $valueNumber);
 					$field['note'] = $productNote->offsetGet('stringNote' . $valueNumber);
-					$field['betterThan'] = null; // TODO to implement
+					
+					$score = $productScore->offsetGet('stringScore' . $valueNumber);
+					$distribution = $this->benchmarkFieldUtils->getDistributionArray($benchmarkField);
+					// TODO distribution of scores, not values
+					$field['betterThan'] = $this->getBetterThan($distribution, $score);
 					break;
 				case BenchmarkField::STRING_FIELD_TYPE:
 					$field['value'] = $productValue->offsetGet('string' . $valueNumber);
@@ -158,6 +183,20 @@ class ProductParamsManager extends EntryParamsManager {
 		return $params;
 	}
 
+	protected function getBetterThan($distribution, $value) {
+		$better = 0;
+		$all = 0;
+		
+		foreach ($distribution as $key => $val) {
+			if ($value > $key) {
+				$better += $val;
+			}
+			$all += $val;
+		}
+		
+		return $all ? 100 * $better / $all : null;
+	}
+
 	/**
 	 *
 	 * @param Product $entry        	
@@ -171,7 +210,28 @@ class ProductParamsManager extends EntryParamsManager {
 			if ($assignment->getCategory()->getId() == $categoryId) {
 				return $assignment;
 			}
+			if ($assignment->getCategory()->getParent() &&
+					 $assignment->getCategory()->getParent()->getId() == $categoryId) {
+				return $assignment;
+			}
 		}
+		return null;
+	}
+
+	/**
+	 *
+	 * @param Category $category        	
+	 *
+	 * @return Category
+	 */
+	protected function getMainCategory(Category $category) {
+		while ($category->getParent()) {
+			if ($category->getParent()->getPreleaf()) {
+				return $category;
+			}
+			$category = $category->getParent();
+		}
+		
 		return null;
 	}
 
@@ -181,18 +241,19 @@ class ProductParamsManager extends EntryParamsManager {
 		
 		/** @var Product $entry */
 		$entry = $viewParams['entry'];
+		$viewParams['productValue'] = $entry->getProductCategoryAssignments()->first()->getProductValue();
 		
 		$assignment = $entry->getProductCategoryAssignments()->first();
 		$categoryId = $assignment->getCategory()->getId();
+		
+		$productValue = $assignment->getProductValue();
 		
 		$fields = $this->benchmarkFieldsProvider->getShowFields($assignment->getCategory());
 		$fields = $this->compareBenchmarkFieldsInitializer->init($fields);
 		// TODO entire loop could be done in benchmarkFieldsInitializer
 		for ($i = 0; $i < count($fields); $i ++) {
 			$field = $fields[$i];
-			
-			$valueField = $field['valueField'];
-			$value = $entry->offsetGet($valueField);
+			$value = $productValue->offsetGet($field['valueField']);
 			$weight = $field['compareWeight'];
 			
 			if ($value && $weight > 0) {
@@ -204,7 +265,7 @@ class ProductParamsManager extends EntryParamsManager {
 		$fields = array_filter($fields, 'self::removeNull');
 		$viewParams['benchmarkFields'] = $fields;
 		
-		$entries = $this->productRepository->findNeighbourItems($categoryId, $entry, $fields, 6);
+		$entries = $this->productRepository->findNeighbourItems($categoryId, $entry, $productValue, $fields, 6);
 		for ($i = 0; $i < count($entries); $i ++) {
 			$entry = $entries[$i];
 			

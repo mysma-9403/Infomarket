@@ -416,8 +416,8 @@ class ProductRepository extends BaseRepository {
 		return $builder->getQuery();
 	}
 
-	public function findNeighbourItems($categoryId, $entry, $fields, $limit) {
-		return $this->queryNeighbourItems($categoryId, $entry, $fields, $limit)->getScalarResult();
+	public function findNeighbourItems($categoryId, $entry, $productValue, $fields, $limit) {
+		return $this->queryNeighbourItems($categoryId, $entry, $productValue, $fields, $limit)->getScalarResult();
 	}
 
 	/**
@@ -427,7 +427,7 @@ class ProductRepository extends BaseRepository {
 	 * @param unknown $fields        	
 	 * @param unknown $limit        	
 	 */
-	protected function queryNeighbourItems($categoryId, $entry, $fields, $limit) {
+	protected function queryNeighbourItems($categoryId, $entry, $productValue, $fields, $limit) {
 		$builder = new QueryBuilder($this->getEntityManager());
 		
 		$expr = $builder->expr();
@@ -460,10 +460,10 @@ class ProductRepository extends BaseRepository {
 			$weight = $field['compareWeight'];
 			$min = key_exists('min', $field) ? $field['min'] : null;
 			$max = key_exists('max', $field) ? $field['max'] : null;
-			if ($weight > 0 && $min && $max) {
+			if ($weight > 0 && $min && $max > $min) {
 				$norm = $max - $min;
 				$value = $weight / $norm;
-				$diff = $expr->abs($expr->diff($selectField, $entry->offsetGet($valueField)));
+				$diff = $expr->abs($expr->diff($selectField, $productValue->offsetGet($valueField)));
 				$distanceFields[] = $expr->prod($value, $diff);
 			}
 		}
@@ -636,6 +636,7 @@ class ProductRepository extends BaseRepository {
 		
 		$where = $expr->andX();
 		$where->add($expr->isNull('e.benchmarkQuery'));
+		$where->add($expr->isNotNull('pn.overalNote'));
 		$where->add($builder->expr()->like('c.treePath', $builder->expr()->literal('%-' . $categoryId . '#%')));
 		
 		$builder->where($where);
@@ -664,6 +665,7 @@ class ProductRepository extends BaseRepository {
 		
 		$where = $expr->andX();
 		$where->add($expr->isNull('e.benchmarkQuery'));
+		$where->add($expr->isNotNull('pn.overalNote'));
 		$where->add($builder->expr()->like('c.treePath', $builder->expr()->literal('%-' . $categoryId . '#%')));
 		
 		$builder->where($where);

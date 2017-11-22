@@ -81,15 +81,15 @@ class ProductValueProvider extends ItemProvider {
 		for ($j = 1; $j <= 30; $j ++) {
 			$field = 'decimal' . $j;
 			$value = $productValue->offsetGet($field);
-			$productValue->offsetSet($field, $value);
+			$item->offsetSet($field, $value);
 			
 			$field = 'integer' . $j;
 			$value = $productValue->offsetGet($field);
-			$productValue->offsetSet($field, $value);
+			$item->offsetSet($field, $value);
 			
 			$field = 'string' . $j;
 			$value = $productValue->offsetGet($field);
-			$productValue->offsetSet($field, $value);
+			$item->offsetSet($field, $value);
 		}
 		
 		return $item;

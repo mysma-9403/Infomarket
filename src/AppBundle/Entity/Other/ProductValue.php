@@ -7,7 +7,7 @@ use AppBundle\Entity\Base\Simple;
 /**
  * ProductValue
  */
-class ProductValue extends Simple {
+class ProductValue extends Simple implements \ArrayAccess {
 
 	public function offsetExists($offset) {
 		if (strpos($offset, 'decimal') !== false) {
