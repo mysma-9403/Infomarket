@@ -15,6 +15,7 @@ use AppBundle\Repository\Search\Infoprodukt\ArticleSearchRepository;
 use AppBundle\Repository\Search\Infoprodukt\BrandSearchRepository;
 use AppBundle\Repository\Search\Infoprodukt\ProductSearchRepository;
 use AppBundle\Repository\Search\Infoprodukt\TermSearchRepository;
+use AppBundle\Utils\Lists\ItemListMerger;
 
 class SearchController extends InfoproduktController {
 	// ---------------------------------------------------------------------------
@@ -33,8 +34,10 @@ class SearchController extends InfoproduktController {
 		$productRepository = $this->get(ProductSearchRepository::class);
 		$termRepository = $this->get(TermSearchRepository::class);
 		
+		$listMerger = $this->get(ItemListMerger::class);
+		
 		return new SearchEntryParamsManager($em, $fm, $articleRepository, $brandRepository, $productRepository, 
-				$termRepository);
+				$termRepository, $listMerger);
 	}
 
 	protected function getEntityManager($doctrine, $paginator) {

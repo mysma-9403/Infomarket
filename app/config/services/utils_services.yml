@@ -1,0 +1,4 @@
+services:
+    # Common Utils
+    AppBundle\Utils\:
+        resource: '../../../src/AppBundle/Utils/*'

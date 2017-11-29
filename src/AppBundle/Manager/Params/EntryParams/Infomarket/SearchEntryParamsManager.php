@@ -11,6 +11,7 @@ use AppBundle\Repository\Search\Infomarket\BrandSearchRepository;
 use AppBundle\Repository\Search\Infomarket\ProductSearchRepository;
 use AppBundle\Repository\Search\Infomarket\TermSearchRepository;
 use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Utils\Lists\ListMerger;
 
 // TODO make common class for IM, IP with repository creation hooks
 class SearchEntryParamsManager extends EntryParamsManager {
@@ -38,16 +39,24 @@ class SearchEntryParamsManager extends EntryParamsManager {
 	 * @var TermSearchRepository
 	 */
 	protected $termRepository;
+	
+	/**
+	 * 
+	 * @var ListMerger
+	 */
+	protected $listMerger;
 
 	public function __construct(EntityManager $em, FilterManager $fm, ArticleSearchRepository $articleRepository, 
 			BrandSearchRepository $brandRepository, ProductSearchRepository $productRepository, 
-			TermSearchRepository $termRepository) {
+			TermSearchRepository $termRepository, ListMerger $listMerger) {
 		parent::__construct($em, $fm);
 		
 		$this->articleRepository = $articleRepository;
 		$this->brandRepository = $brandRepository;
 		$this->productRepository = $productRepository;
 		$this->termRepository = $termRepository;
+		
+		$this->listMerger = $listMerger;
 	}
 
 	public function getIndexParams(Request $request, array $params, $page) {
@@ -75,11 +84,11 @@ class SearchEntryParamsManager extends EntryParamsManager {
 			$filter->setBrands($brandsIds);
 			
 			if (count($articles) < 8) {
-				$articles = array_merge($articles, $this->articleRepository->findItems($filter));
+				$articles = $this->listMerger->merge($articles, $this->articleRepository->findItems($filter));
 			}
 			
 			if (count($products) < 8) {
-				$products = array_merge($products, $this->productRepository->findItems($filter));
+				$products = $this->listMerger->merge($products, $this->productRepository->findItems($filter));
 			}
 		}
 		
@@ -90,15 +99,15 @@ class SearchEntryParamsManager extends EntryParamsManager {
 			$filter->setCategories($categoriesIds);
 			
 			if (count($articles) < 8) {
-				$articles = array_merge($articles, $this->articleRepository->findItems($filter));
+				$articles = $this->listMerger->merge($articles, $this->articleRepository->findItems($filter));
 			}
 			
 			if (count($products) < 8) {
-				$products = array_merge($products, $this->productRepository->findItems($filter));
+				$products = $this->listMerger->merge($products, $this->productRepository->findItems($filter));
 			}
 			
 			if (count($terms) < 8) {
-				$terms = array_merge($terms, $this->termRepository->findItems($filter));
+				$terms = $this->listMerger->merge($terms, $this->termRepository->findItems($filter));
 			}
 		}
 		

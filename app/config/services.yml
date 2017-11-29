@@ -5,6 +5,7 @@ imports:
     - { resource: services/repository_services.yml }
     - { resource: services/transformer_services.yml }
     - { resource: services/misc/provider_services.yml }
+    - { resource: services/utils_services.yml }
 
 # Learn more about services, parameters and containers at
 # http://symfony.com/doc/current/book/service_container.html
