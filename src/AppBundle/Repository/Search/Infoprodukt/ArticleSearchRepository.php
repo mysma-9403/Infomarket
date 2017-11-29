@@ -58,6 +58,7 @@ class ArticleSearchRepository extends SearchRepository {
 		}
 		
 		$where->add($expr->eq('e.infoprodukt', 1));
+		$where->add($expr->isNull('e.parent'));
 		
 		return $where;
 	}
