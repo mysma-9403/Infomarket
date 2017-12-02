@@ -39,7 +39,7 @@ class ProductEditorType extends ImageEditorType {
 		
 		$this->addTrueEntityChoiceField($builder, $options, $this->brandToNumberTransformer, 'brand');
 		
-		$this->addFilterFields($builder, $options);
+// 		$this->addFilterFields($builder, $options);
 	}
 
 	protected function addFilterFields(FormBuilderInterface $builder, array $options) {

@@ -3,10 +3,9 @@
 namespace AppBundle\Manager\Decorator\Common\Main;
 
 use AppBundle\Entity\Main\Category;
-use AppBundle\Factory\Item\Base\ItemFactory;
 use AppBundle\Entity\Other\CategorySummary;
+use AppBundle\Factory\Item\Base\ItemFactory;
 use AppBundle\Manager\Decorator\Base\ItemDecorator;
-use AppBundle\Entity\Other\CategoryDistribution;
 
 class CategoryDecorator extends ItemDecorator {
 
@@ -22,24 +21,9 @@ class CategoryDecorator extends ItemDecorator {
 	 */
 	protected $categorySummaryDecorator;
 
-	/**
-	 *
-	 * @var ItemFactory
-	 */
-	protected $categoryDistributionFactory;
-
-	/**
-	 *
-	 * @var ItemDecorator
-	 */
-	protected $categoryDistributionDecorator;
-
-	public function __construct(ItemFactory $categorySummaryFactory, ItemDecorator $categorySummaryDecorator, 
-			ItemFactory $categoryDistributionFactory, ItemDecorator $categoryDistributionDecorator) {
+	public function __construct(ItemFactory $categorySummaryFactory, ItemDecorator $categorySummaryDecorator) {
 		$this->categorySummaryFactory = $categorySummaryFactory;
 		$this->categorySummaryDecorator = $categorySummaryDecorator;
-		$this->categoryDistributionFactory = $categoryDistributionFactory;
-		$this->categoryDistributionDecorator = $categoryDistributionDecorator;
 	}
 
 	/**
@@ -55,10 +39,6 @@ class CategoryDecorator extends ItemDecorator {
 		
 		if (! $item->getCategorySummary()) {
 			$item->setCategorySummary($this->createCategorySummary($item));
-		}
-		
-		if (! $item->getCategoryDistribution()) {
-			$item->setCategoryDistribution($this->createCategoryDistribution($item));
 		}
 		
 		return $item;
@@ -93,20 +73,6 @@ class CategoryDecorator extends ItemDecorator {
 		$result->setCategory($item);
 		
 		$result = $this->categorySummaryDecorator->getPrepared($result);
-		
-		return $result;
-	}
-
-	/**
-	 *
-	 * @param Category $item        	
-	 */
-	protected function createCategoryDistribution(Category $item) {
-		/** @var CategoryDistribution $result */
-		$result = $this->categoryDistributionFactory->create();
-		$result->setCategory($item);
-		
-		$result = $this->categoryDistributionDecorator->getPrepared($result);
 		
 		return $result;
 	}

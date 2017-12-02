@@ -6,6 +6,7 @@ use AppBundle;
 use AppBundle\Filter\Base\Filter;
 use AppBundle\Logic\Common\BenchmarkField\Initializer\BenchmarkFieldsInitializer;
 use AppBundle\Logic\Common\BenchmarkField\Provider\BenchmarkFieldsProvider;
+use AppBundle\Repository\Base\BaseRepository;
 
 class ProductFilter extends Filter {
 
@@ -29,14 +30,21 @@ class ProductFilter extends Filter {
 
 	/**
 	 *
+	 * @var BaseRepository
+	 */
+	protected $categoryRepository;
+	
+	/**
+	 *
 	 * @var array
 	 */
 	protected $editorFields = [];
 
 	public function __construct(BenchmarkFieldsProvider $benchmarkFieldsProvider, 
-			BenchmarkFieldsInitializer $benchmarkFieldsInitializer) {
+			BenchmarkFieldsInitializer $benchmarkFieldsInitializer, BaseRepository $categoryRepository) {
 		$this->benchmarkFieldsProvider = $benchmarkFieldsProvider;
 		$this->benchmarkFieldsInitializer = $benchmarkFieldsInitializer;
+		$this->categoryRepository = $categoryRepository;
 	}
 
 	public function initContextParams(array $contextParams) {
@@ -48,8 +56,10 @@ class ProductFilter extends Filter {
 		
 		// TODO check if it can be used to not recalculate fields in ProductManager index
 		if ($this->contextCategory) {
-			$fields = $this->benchmarkFieldsProvider->getAllFields($this->contextCategory);
-			$this->editorFields = $this->benchmarkFieldsInitializer->init($fields, $this->contextCategory);
+			$category = $this->categoryRepository->find($this->contextCategory);
+			
+			$fields = $this->benchmarkFieldsProvider->getAllFields($category);
+			$this->editorFields = $this->benchmarkFieldsInitializer->init($fields);
 		}
 	}
 

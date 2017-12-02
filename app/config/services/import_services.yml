@@ -26,9 +26,6 @@ services:
     AppBundle\Logic\Admin\Import\Product\ItemProvider\CategorySummaryProvider:
         arguments:
             - '@AppBundle\Repository\Admin\Other\CategorySummaryRepository'
-    AppBundle\Logic\Admin\Import\Product\ItemProvider\CategoryDistributionProvider:
-        arguments:
-            - '@AppBundle\Repository\Admin\Other\CategoryDistributionRepository'
                             
     # Persistence Managers
     app.import.persistence_manager.product:
@@ -79,9 +76,3 @@ services:
             - '@doctrine'
             - '@AppBundle\Logic\Admin\Import\Product\ItemProvider\CategorySummaryProvider'
             - 'categorySummary'
-    app.import.persistence_manager.category_distribution:
-        class: AppBundle\Logic\Admin\Import\Common\PersistenceManager
-        arguments:
-            - '@doctrine'
-            - '@AppBundle\Logic\Admin\Import\Product\ItemProvider\CategoryDistributionProvider'
-            - 'categoryDistribution'

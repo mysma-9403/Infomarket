@@ -14,6 +14,8 @@ class BenchmarkFieldDataBaseUtils {
 
 	const NOTE = 'Note';
 
+	const SCORE = 'Score';
+	
 	const MIN = 'Min';
 
 	const MAX = 'Max';
@@ -23,8 +25,6 @@ class BenchmarkFieldDataBaseUtils {
 	const MODE = 'Mode';
 
 	const MEDIAN = 'Median';
-	
-	const DISTRIBUTION = 'Distribution';
 
 	public function getValueField(BenchmarkField $field) {
 		return $this->getDataBaseName($field->getFieldType()) . $field->getValueNumber();
@@ -32,6 +32,10 @@ class BenchmarkFieldDataBaseUtils {
 
 	public function getNoteField(BenchmarkField $field) {
 		return $this->getDataBaseName($field->getFieldType()) . self::NOTE . $field->getValueNumber();
+	}
+	
+	public function getScoreField(BenchmarkField $field) {
+		return $this->getDataBaseName($field->getFieldType()) . self::SCORE . $field->getValueNumber();
 	}
 
 	public function getMinField(BenchmarkField $field) {
@@ -52,10 +56,6 @@ class BenchmarkFieldDataBaseUtils {
 
 	public function getMedianField(BenchmarkField $field) {
 		return $this->getDataBaseName($field->getFieldType()) . self::MEDIAN . $field->getValueNumber();
-	}
-	
-	public function getDistributionField(BenchmarkField $field) {
-		return $this->getDataBaseName($field->getFieldType()) . self::DISTRIBUTION . $field->getValueNumber();
 	}
 
 	protected function getDataBaseName($fieldType) {

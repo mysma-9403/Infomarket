@@ -2,19 +2,20 @@
 
 namespace AppBundle\Manager\Params\EntryParams\Benchmark;
 
+use AppBundle\Entity\Assignments\ProductCategoryAssignment;
 use AppBundle\Entity\Main\BenchmarkField;
 use AppBundle\Entity\Main\BenchmarkMessage;
+use AppBundle\Entity\Main\Category;
 use AppBundle\Entity\Main\Product;
+use AppBundle\Entity\Other\ProductNote;
+use AppBundle\Logic\Common\BenchmarkField\Distribution\DistributionCalculator;
+use AppBundle\Logic\Common\BenchmarkField\Distribution\ScoreDistributionCalculator;
 use AppBundle\Logic\Common\BenchmarkField\Initializer\BenchmarkFieldsInitializer;
 use AppBundle\Logic\Common\BenchmarkField\Provider\BenchmarkFieldsProvider;
 use AppBundle\Manager\Params\EntryParams\Base\EntryParamsManager;
 use AppBundle\Repository\Benchmark\BenchmarkMessageRepository;
 use AppBundle\Repository\Benchmark\ProductRepository;
 use Symfony\Component\HttpFoundation\Request;
-use AppBundle\Entity\Other\ProductNote;
-use AppBundle\Entity\Assignments\ProductCategoryAssignment;
-use AppBundle\Utils\Entity\BenchmarkFieldUtils;
-use AppBundle\Entity\Main\Category;
 
 class ProductParamsManager extends EntryParamsManager {
 
@@ -52,16 +53,23 @@ class ProductParamsManager extends EntryParamsManager {
 
 	/**
 	 *
-	 * @var BenchmarkFieldUtils
+	 * @var DistributionCalculator
 	 */
-	protected $benchmarkFieldUtils;
+	private $distributionCalculator;
+
+	/**
+	 *
+	 * @var ScoreDistributionCalculator
+	 */
+	private $scoreDistributionCalculator;
 
 	public function __construct($em, $fm, $tokenStorage, ProductRepository $productRepository, 
 			BenchmarkMessageRepository $benchmarkMessageRepository, 
 			BenchmarkFieldsProvider $benchmarkFieldsProvider, 
 			BenchmarkFieldsInitializer $showBenchmarkFieldsInitializer, 
 			BenchmarkFieldsInitializer $compareBenchmarkFieldsInitializer, 
-			BenchmarkFieldUtils $benchmarkFieldUtils) {
+			DistributionCalculator $distributionCalculator, 
+			ScoreDistributionCalculator $scoreDistributionCalculator) {
 		parent::__construct($em, $fm);
 		
 		$this->productRepository = $productRepository;
@@ -74,7 +82,8 @@ class ProductParamsManager extends EntryParamsManager {
 		$this->showBenchmarkFieldsInitializer = $showBenchmarkFieldsInitializer;
 		$this->compareBenchmarkFieldsInitializer = $compareBenchmarkFieldsInitializer;
 		
-		$this->benchmarkFieldUtils = $benchmarkFieldUtils;
+		$this->distributionCalculator = $distributionCalculator;
+		$this->scoreDistributionCalculator = $scoreDistributionCalculator;
 	}
 
 	public function getIndexParams(Request $request, array $params, $page) {
@@ -126,7 +135,7 @@ class ProductParamsManager extends EntryParamsManager {
 					$field['value'] = $value;
 					$field['note'] = $productNote->offsetGet('decimalNote' . $valueNumber);
 					
-					$distribution = $this->benchmarkFieldUtils->getDistributionArray($benchmarkField);
+					$distribution = $this->distributionCalculator->calculate($benchmarkField);
 					$field['betterThan'] = $this->getBetterThan($distribution, $value);
 					break;
 				case BenchmarkField::INTEGER_FIELD_TYPE:
@@ -135,7 +144,7 @@ class ProductParamsManager extends EntryParamsManager {
 					$field['value'] = $value;
 					$field['note'] = $productNote->offsetGet('integerNote' . $valueNumber);
 					
-					$distribution = $this->benchmarkFieldUtils->getDistributionArray($benchmarkField);
+					$distribution = $this->distributionCalculator->calculate($benchmarkField);
 					$field['betterThan'] = $this->getBetterThan($distribution, $value);
 					break;
 				case BenchmarkField::SINGLE_ENUM_FIELD_TYPE:
@@ -144,8 +153,7 @@ class ProductParamsManager extends EntryParamsManager {
 					$field['note'] = $productNote->offsetGet('stringNote' . $valueNumber);
 					
 					$score = $productScore->offsetGet('stringScore' . $valueNumber);
-					$distribution = $this->benchmarkFieldUtils->getDistributionArray($benchmarkField);
-					// TODO distribution of scores, not values
+					$distribution = $this->scoreDistributionCalculator->calculate($benchmarkField);
 					$field['betterThan'] = $this->getBetterThan($distribution, $score);
 					break;
 				case BenchmarkField::STRING_FIELD_TYPE:
@@ -210,12 +218,14 @@ class ProductParamsManager extends EntryParamsManager {
 			if ($assignment->getCategory()->getId() == $categoryId) {
 				return $assignment;
 			}
-			if ($assignment->getCategory()->getParent() &&
-					 $assignment->getCategory()->getParent()->getId() == $categoryId) {
+		}
+		foreach ($assignments as $assignment) {
+			$mainCategory = $this->getMainCategory($assignment->getCategory());
+			if ($mainCategory->getId() == $categoryId) {
 				return $assignment;
 			}
 		}
-		return null;
+		return $assignments->first();
 	}
 
 	/**

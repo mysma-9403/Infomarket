@@ -7,6 +7,7 @@ use AppBundle\Entity\Main\BenchmarkQuery;
 use AppBundle\Entity\Main\Category;
 use AppBundle\Entity\Main\Product;
 use AppBundle\Factory\Common\BenchmarkField\CompareBenchmarkFieldFactory;
+use AppBundle\Factory\Common\BenchmarkField\FilterBenchmarkFieldFactory;
 use AppBundle\Factory\Common\BenchmarkField\NoteBenchmarkFieldFactory;
 use AppBundle\Factory\Common\BenchmarkField\SimpleBenchmarkFieldFactory;
 use AppBundle\Filter\Base\Filter;
@@ -20,6 +21,8 @@ use AppBundle\Logic\Benchmark\Export\CsvExportLogic;
 use AppBundle\Logic\Benchmark\Export\ExcelExportLogic;
 use AppBundle\Logic\Benchmark\Export\HtmlExportLogic;
 use AppBundle\Logic\Benchmark\Export\ImageExportLogic;
+use AppBundle\Logic\Common\BenchmarkField\Distribution\DistributionCalculator;
+use AppBundle\Logic\Common\BenchmarkField\Distribution\ScoreDistributionCalculator;
 use AppBundle\Logic\Common\BenchmarkField\Initializer\BenchmarkFieldsInitializer;
 use AppBundle\Logic\Common\BenchmarkField\Provider\BenchmarkFieldsProvider;
 use AppBundle\Manager\Entity\Base\EntityManager;
@@ -29,6 +32,7 @@ use AppBundle\Manager\Params\Benchmark\ContextParamsManager;
 use AppBundle\Manager\Params\EntryParams\Benchmark\ProductParamsManager;
 use AppBundle\Repository\Base\BaseRepository;
 use AppBundle\Repository\Benchmark\BenchmarkMessageRepository;
+use AppBundle\Repository\Benchmark\CategoryRepository;
 use AppBundle\Repository\Benchmark\ProductRepository;
 use AppBundle\Utils\ClassUtils;
 use AppBundle\Utils\Entity\DataBase\BenchmarkFieldDataBaseUtils;
@@ -37,9 +41,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 use Symfony\Component\Validator\Constraints\Date;
-use AppBundle\Repository\Benchmark\CategoryRepository;
-use AppBundle\Factory\Common\BenchmarkField\FilterBenchmarkFieldFactory;
-use AppBundle\Utils\Entity\BenchmarkFieldUtils;
 
 class ProductController extends DummyController {
 	
@@ -483,11 +484,12 @@ class ProductController extends DummyController {
 		$compareBenchmarkFieldFactory = $this->get(CompareBenchmarkFieldFactory::class);
 		$compareBenchmarkFieldsInitializer = new BenchmarkFieldsInitializer($compareBenchmarkFieldFactory);
 		
-		$benchmarkFieldUtils = $this->get(BenchmarkFieldUtils::class);
+		$distributionCalculator = $this->get(DistributionCalculator::class);
+		$scoreDistributionCalculator = $this->get(ScoreDistributionCalculator::class);
 		
 		return new ProductParamsManager($em, $fm, $tokenStorage, $productRepository, $benchmarkMessageRepository, 
 				$benchmarkFieldsProvider, $showBenchmarkFieldsInitializer, $compareBenchmarkFieldsInitializer, 
-				$benchmarkFieldUtils);
+				$distributionCalculator, $scoreDistributionCalculator);
 	}
 
 	protected function getEntityManager($doctrine, $paginator) {

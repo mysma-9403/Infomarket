@@ -456,12 +456,6 @@ services:
         factory: ['@AppBundle\Repository\Factory\AdminRepositoryFactory', getRepository]
         arguments:
             - AppBundle\Repository\Admin\Main\ArchivedArticleRepository
-    AppBundle\Repository\Admin\Other\CategoryDistributionRepository:
-        factory: ['@doctrine.orm.default_entity_manager', getRepository]
-        arguments:
-            - AppBundle\Entity\Other\CategoryDistribution
-        tags:
-            - { name: app.repository }
     AppBundle\Repository\Admin\Other\CategorySummaryRepository:
         factory: ['@doctrine.orm.default_entity_manager', getRepository]
         arguments:

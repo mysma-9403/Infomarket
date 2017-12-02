@@ -40,9 +40,7 @@ class BenchmarkQueryManager extends PersistenceManager {
 	 *
 	 * @param BenchmarkQuery $item        	
 	 */
-	protected function saveMore(Request $request, $item, array $params) {
-		$persistent = $this->getPersistentItem($item);
-		
+	protected function saveMore(Request $request, $item, $persistent, array $params) {
 		if (! $persistent && $item->getArchived()) {
 			$this->productFilterFactory->create($request, $params);
 			$products = $this->productRepository->findItems($this->productFilter);

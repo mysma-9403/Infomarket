@@ -89,12 +89,6 @@ class ImportLogic {
 
 	/**
 	 *
-	 * @var PersistenceManager
-	 */
-	protected $categoryDistributionManager;
-
-	/**
-	 *
 	 * @var CountManager $countManager
 	 */
 	protected $countManager;
@@ -104,8 +98,7 @@ class ImportLogic {
 			PersistenceManager $productCategoryAssignmentManager, PersistenceManager $productValueManager, 
 			PersistenceManager $productScoreManager, PersistenceManager $productNoteManager, 
 			PersistenceManager $brandManager, PersistenceManager $benchmarkFieldManager, 
-			PersistenceManager $categorySummaryManager, PersistenceManager $categoryDistributionManager, 
-			CountManager $countManager) {
+			PersistenceManager $categorySummaryManager, CountManager $countManager) {
 		$this->doctrine = $doctrine;
 		$this->errorFactory = $errorFactory;
 		$this->benchmarkFieldDataBaseUtils = $benchmarkFieldDataBaseUtils;
@@ -118,7 +111,6 @@ class ImportLogic {
 		$this->brandManager = $brandManager;
 		$this->benchmarkFieldManager = $benchmarkFieldManager;
 		$this->categorySummaryManager = $categorySummaryManager;
-		$this->categoryDistributionManager = $categoryDistributionManager;
 		
 		$this->countManager = $countManager;
 	}
@@ -199,7 +191,7 @@ class ImportLogic {
 			$productScoresCounts = $this->countManager->getCounts($dataBaseEntries, 'productScore');
 			$this->productScoreManager->saveEntries($dataBaseEntries);
 			
-			//TODO refactor - don't do this such hacky way!
+			// TODO refactor - don't do this such hacky way!
 			$categorySummaries = [[]];
 			$categorySummaries = $this->categorySummaryManager->getUpdatedEntries($mainCategory, 
 					$categorySummaries);

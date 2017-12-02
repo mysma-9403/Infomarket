@@ -24,7 +24,7 @@ class SimpleChartDataFactory implements ChartDataFactory {
 		$data = [['label.value', $countLabel]];
 		
 		foreach ($distribution as $key => $value) {
-			$data[] = [$key, $value];
+			$data[] = ["" . $key, $value];
 		}
 		
 		return $data;

@@ -44,13 +44,13 @@
 	
 	<div class="row"></div>
 
-	{% if productFilter is defined %}
-		{% for field in productFilter.editorFields %}
-			<div class="col-xs-12">
-				{{ form_row(form[field.valueField], { label: field.fieldName }) }}
-			</div>
-		{% endfor %}
-	{% endif %}
+{# 	{% if productFilter is defined %}#}
+{# 		{% for field in productFilter.editorFields %}#}
+{# 			<div class="col-xs-12">#}
+{# 				{{ form_row(form[field.valueField], { label: field.fieldName }) }}#}
+{# 			</div>#}
+{# 		{% endfor %}#}
+{# 	{% endif %}#}
 {%  endblock %}
 
 {% block actions %}

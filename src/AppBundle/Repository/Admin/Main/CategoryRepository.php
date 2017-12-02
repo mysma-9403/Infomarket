@@ -5,13 +5,12 @@ namespace AppBundle\Repository\Admin\Main;
 use AppBundle\Entity\Assignments\BranchCategoryAssignment;
 use AppBundle\Entity\Assignments\ProductCategoryAssignment;
 use AppBundle\Entity\Main\Category;
+use AppBundle\Entity\Other\CategorySummary;
 use AppBundle\Filter\Base\Filter;
 use AppBundle\Filter\Common\Main\CategoryFilter;
 use AppBundle\Repository\Admin\Base\ImageRepository;
 use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\ORM\QueryBuilder;
-use AppBundle\Entity\Other\CategorySummary;
-use AppBundle\Entity\Other\CategoryDistribution;
 
 class CategoryRepository extends ImageRepository {
 
@@ -214,29 +213,6 @@ class CategoryRepository extends ImageRepository {
 		return $builder->getQuery();
 	}
 
-	public function findItemsWithoutDistribution() {
-		return $this->queryItemsWithoutDistribution()->getScalarResult();
-	}
-	
-	protected function queryItemsWithoutDistribution() {
-		$builder = new QueryBuilder($this->getEntityManager());
-	
-		$builder->select("e.id");
-		$builder->from($this->getEntityType(), "e");
-		$builder->leftJoin(CategoryDistribution::class, 'cd', Join::WITH, 'e.id = cd.category');
-	
-		$expr = $builder->expr();
-	
-		$where = $expr->andX();
-		// 		$where->add($expr->eq('e.preleaf', 0));
-		// 		$where->add($expr->eq('e.benchmark', 1));
-		$where->add($expr->isNull('cd.id'));
-	
-		$builder->where($where);
-	
-		return $builder->getQuery();
-	}
-	
 	public function findItemsWithoutSummary() {
 		return $this->queryItemsWithoutSummary()->getScalarResult();
 	}
@@ -251,8 +227,8 @@ class CategoryRepository extends ImageRepository {
 		$expr = $builder->expr();
 		
 		$where = $expr->andX();
-// 		$where->add($expr->eq('e.preleaf', 0));
-// 		$where->add($expr->eq('e.benchmark', 1));
+		// $where->add($expr->eq('e.preleaf', 0));
+		// $where->add($expr->eq('e.benchmark', 1));
 		$where->add($expr->isNull('cs.id'));
 		
 		$builder->where($where);

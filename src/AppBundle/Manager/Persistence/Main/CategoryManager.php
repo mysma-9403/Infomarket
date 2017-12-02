@@ -29,7 +29,7 @@ class CategoryManager extends PersistenceManager {
 	 *
 	 * @param Category $item        	
 	 */
-	protected function saveMore(Request $request, $item, array $params) {
+	protected function saveMore(Request $request, $item, $persistent, array $params) {
 		$parent = $item->getParent();
 		if ($parent) {
 			$rootId = $parent->getRootId();

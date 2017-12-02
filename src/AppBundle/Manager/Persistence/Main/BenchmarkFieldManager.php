@@ -4,7 +4,6 @@ namespace AppBundle\Manager\Persistence\Main;
 
 use AppBundle\Entity\Assignments\ProductCategoryAssignment;
 use AppBundle\Entity\Main\BenchmarkField;
-use AppBundle\Entity\Other\CategoryDistribution;
 use AppBundle\Entity\Other\CategorySummary;
 use AppBundle\Entity\Other\ProductNote;
 use AppBundle\Manager\Persistence\Base\PersistenceManager;
@@ -20,14 +19,13 @@ class BenchmarkFieldManager extends PersistenceManager {
 	 *
 	 * @param BenchmarkField $item        	
 	 */
-	protected function saveMore(Request $request, $item, array $params) {
+	protected function saveMore(Request $request, $item, $persistent, array $params) {
 		/** @var ProductCategoryAssignment $assignment */
 		foreach ($item->getCategory()->getProductCategoryAssignments() as $assignment) {
 			$this->invalidateProductNote($assignment->getProductNote());
 		}
 		
 		$this->invalidateCategorySummary($item->getCategory()->getCategorySummary());
-		$this->invalidateCategoryDistribution($item->getCategory()->getCategoryDistribution());
 	}
 
 	/**
@@ -45,7 +43,6 @@ class BenchmarkFieldManager extends PersistenceManager {
 		}
 		
 		$this->invalidateCategorySummary($item->getCategory()->getCategorySummary());
-		$this->invalidateCategoryDistribution($item->getCategory()->getCategoryDistribution());
 	}
 
 	/**
@@ -62,15 +59,6 @@ class BenchmarkFieldManager extends PersistenceManager {
 	 * @param CategorySummary $item        	
 	 */
 	protected function invalidateCategorySummary(CategorySummary $item) {
-		$item->setUpToDate(false);
-		$this->em->persist($item);
-	}
-	
-	/**
-	 *
-	 * @param CategoryDistribution $item
-	 */
-	protected function invalidateCategoryDistribution(CategoryDistribution $item) {
 		$item->setUpToDate(false);
 		$this->em->persist($item);
 	}

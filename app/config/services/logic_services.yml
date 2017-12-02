@@ -7,24 +7,17 @@ services:
             - '@app.logic.common.product.creator.items.product_values_creator'
             - '@app.logic.common.product.creator.items.product_scores_creator'
             - '@app.logic.common.product.creator.items.product_notes_creator'
-            - '@app.logic.common.product.creator.items.category_distributions_creator'
             - '@app.logic.common.product.creator.items.category_summaries_creator'
     AppBundle\Logic\Common\Product\ItemsUpdater\ProductItemsUpdater:
         arguments:
             - '@AppBundle\Repository\Admin\Other\ProductScoreRepository'
             - '@app.logic.common.product.updater.items.product_scores_updater'
-            - '@AppBundle\Repository\Admin\Other\CategoryDistributionRepository'
-            - '@app.logic.common.product.updater.items.category_distributions_updater'
             - '@AppBundle\Repository\Admin\Other\CategorySummaryRepository'
             - '@app.logic.common.product.updater.items.category_summaries_updater'
             - '@AppBundle\Repository\Admin\Other\ProductNoteRepository'
             - '@app.logic.common.product.updater.items.product_notes_updater'
 
     # Items Creators
-    app.logic.common.product.creator.items.category_distributions_creator:
-        class: AppBundle\Logic\Common\Product\ItemsCreator\DependentItemsCreator
-        arguments:
-            - '@AppBundle\Repository\Admin\Other\CategoryDistributionRepository'
     app.logic.common.product.creator.items.category_summaries_creator:
         class: AppBundle\Logic\Common\Product\ItemsCreator\DependentItemsCreator
         arguments:
@@ -43,12 +36,6 @@ services:
             - '@AppBundle\Repository\Admin\Other\ProductValueRepository'
                             
     # Items Updaters
-    app.logic.common.product.updater.items.category_distributions_updater:
-        class: AppBundle\Logic\Common\Product\ItemsUpdater\ItemsUpdater
-        arguments:
-            - '@doctrine.orm.entity_manager'
-            - '@AppBundle\Logic\Common\Product\ItemUpdater\CategoryDistributionUpdater'
-            - 240
     app.logic.common.product.updater.items.category_summaries_updater:
         class: AppBundle\Logic\Common\Product\ItemsUpdater\ItemsUpdater
         arguments:
@@ -69,17 +56,26 @@ services:
             - 240
                         
     # Item Updaters
-    AppBundle\Logic\Common\Product\ItemUpdater\CategoryDistributionUpdater:
-        arguments:
-            - '@doctrine.orm.entity_manager'
-            - '@AppBundle\Utils\Entity\DataBase\BenchmarkFieldDataBaseUtils'
     AppBundle\Logic\Common\Product\ItemUpdater\CategorySummaryUpdater:
         arguments:
             - '@doctrine.orm.entity_manager'
-            - '@AppBundle\Repository\Benchmark\ProductRepository'
+            - '@AppBundle\Utils\Entity\DataBase\BenchmarkFieldDataBaseUtils'
+            - '@AppBundle\Logic\Common\BenchmarkField\Distribution\DistributionCalculator'
+            - '@AppBundle\Logic\Common\BenchmarkField\Distribution\ScoreDistributionCalculator'
     AppBundle\Logic\Common\Product\ItemUpdater\ProductNoteUpdater:
         arguments:
             - '@doctrine.orm.entity_manager'
     AppBundle\Logic\Common\Product\ItemUpdater\ProductScoreUpdater:
         arguments:
             - '@doctrine.orm.entity_manager'
+            
+    # BenchmarkField Distributions
+    AppBundle\Logic\Common\BenchmarkField\Distribution\DistributionCalculator:
+        arguments:
+            - '@AppBundle\Utils\Entity\DataBase\BenchmarkFieldDataBaseUtils'
+            - '@AppBundle\Logic\Common\BenchmarkField\Distribution\DistributionMerger'
+    AppBundle\Logic\Common\BenchmarkField\Distribution\ScoreDistributionCalculator:
+        arguments:
+            - '@AppBundle\Utils\Entity\DataBase\BenchmarkFieldDataBaseUtils'
+            - '@AppBundle\Logic\Common\BenchmarkField\Distribution\DistributionMerger'
+    AppBundle\Logic\Common\BenchmarkField\Distribution\DistributionMerger: ~

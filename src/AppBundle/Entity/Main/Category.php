@@ -121,12 +121,6 @@ class Category extends ImageTree {
 	 * @var integer
 	 */
 	private $rootId;
-
-	/**
-	 *
-	 * @var \AppBundle\Entity\Other\CategoryDistribution
-	 */
-	private $categoryDistribution;
 	
 	/**
 	 *
@@ -894,28 +888,4 @@ class Category extends ImageTree {
 	public function getParent() {
 		return $this->parent;
 	}
-
-    /**
-     * Set categoryDistribution
-     *
-     * @param \AppBundle\Entity\Other\CategoryDistribution $categoryDistribution
-     *
-     * @return Category
-     */
-    public function setCategoryDistribution(\AppBundle\Entity\Other\CategoryDistribution $categoryDistribution = null)
-    {
-        $this->categoryDistribution = $categoryDistribution;
-
-        return $this;
-    }
-
-    /**
-     * Get categoryDistribution
-     *
-     * @return \AppBundle\Entity\Other\CategoryDistribution
-     */
-    public function getCategoryDistribution()
-    {
-        return $this->categoryDistribution;
-    }
 }

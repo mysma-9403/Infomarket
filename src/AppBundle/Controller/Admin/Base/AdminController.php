@@ -5,26 +5,19 @@ namespace AppBundle\Controller\Admin\Base;
 use AppBundle\Controller\Base\StandardController;
 use AppBundle\Filter\Base\Filter;
 use AppBundle\Filter\Common\Base\BaseFilter;
+use AppBundle\Manager\Decorator\Base\ItemDecorator;
 use AppBundle\Manager\Params\Admin\ContextParamsManager;
+use AppBundle\Manager\Persistence\Base\PersistenceManager;
 use AppBundle\Manager\Route\RouteManager;
 use AppBundle\Manager\Transaction\Base\TransactionManager;
 use AppBundle\Misc\FormOptions\FormOptionsProvider;
 use AppBundle\Misc\ListItemsProvider\ListItemsProvider;
+use AppBundle\Validator\Base\BaseValidator;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Request;
-use AppBundle\Manager\Persistence\Base\PersistenceManager;
-use AppBundle\Validator\Base\BaseValidator;
-use AppBundle\Factory\Item\Base\ItemFactory;
-use AppBundle\Manager\Decorator\Base\ItemDecorator;
 
 abstract class AdminController extends StandardController {
 
-	/**
-	 * 
-	 * @var ItemFactory
-	 */
-	protected $itemFactory;
-	
 	/**
 	 *
 	 * @var TransactionManager
@@ -42,16 +35,15 @@ abstract class AdminController extends StandardController {
 	 * @var ItemDecorator
 	 */
 	protected $decorator;
-	
+
 	/**
 	 *
 	 * @var BaseValidator
 	 */
 	protected $validator;
 
-	public function __construct(ItemFactory $itemFactory, TransactionManager $transactionManager, PersistenceManager $persistenceManager, 
+	public function __construct(TransactionManager $transactionManager, PersistenceManager $persistenceManager, 
 			ItemDecorator $decorator, BaseValidator $validator) {
-		$this->itemFactory = $itemFactory;
 		$this->transactionManager = $transactionManager;
 		$this->persistenceManager = $persistenceManager;
 		$this->decorator = $decorator;
@@ -164,9 +156,8 @@ abstract class AdminController extends StandardController {
 		/** @var RouteManager $rm */
 		$rm = $this->getRouteManager();
 		$rm->remove($request, $id);
-		$lastRoute = $rm->getLastRoute($request, [
-				'route' => $this->getIndexRoute(), 
-				'routeParams' => array()]);
+		$lastRoute = $rm->getLastRoute($request, 
+				['route' => $this->getIndexRoute(), 'routeParams' => array()]);
 		
 		return $this->redirectToRoute($lastRoute['route'], $lastRoute['routeParams']);
 	}
@@ -506,7 +497,7 @@ abstract class AdminController extends StandardController {
 			$repository->setValue($items, $field, $published);
 		}
 	}
-	
+
 	protected function getItemsByIds(array $ids) {
 		/** @var BaseRepository $repository */
 		$repository = $this->getEntityRepository();

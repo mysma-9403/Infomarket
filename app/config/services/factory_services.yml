@@ -43,6 +43,7 @@ services:
         - '@AppBundle\Factory\Common\Chart\Data\BooleanChartDataFactory'
         - '@AppBundle\Factory\Common\Chart\Data\NumberChartDataFactory' #TODO: ranges
         - '@AppBundle\Factory\Common\Chart\Data\SimpleChartDataFactory' #TODO: most popular
+        - '@AppBundle\Logic\Common\BenchmarkField\Distribution\DistributionCalculator'
     AppBundle\Factory\Common\BenchmarkField\CompareBenchmarkFieldFactory:
         - '@AppBundle\Utils\Entity\BenchmarkFieldUtils'
     AppBundle\Factory\Common\BenchmarkField\FilterBenchmarkFieldFactory:

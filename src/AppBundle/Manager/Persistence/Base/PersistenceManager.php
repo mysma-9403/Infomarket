@@ -30,10 +30,11 @@ class PersistenceManager {
 	 * @param array $params        	
 	 */
 	public function saveItem(Request $request, $item, array $params) {
+		$persistent = $this->getPersistentItem($item);
 		$this->em->persist($item);
 		$this->em->flush();
 		
-		$this->saveMore($request, $item, $params);
+		$this->saveMore($request, $item, $persistent, $params);
 		$this->em->flush();
 	}
 
@@ -43,7 +44,7 @@ class PersistenceManager {
 	 * @param Simple $item        	
 	 * @param array $params        	
 	 */
-	protected function saveMore(Request $request, $item, array $params) {
+	protected function saveMore(Request $request, $item, $persistent, array $params) {
 	}
 
 	/**
@@ -76,11 +77,7 @@ class PersistenceManager {
 	protected function deleteMore(Request $request, $item, array $params) {
 	}
 
-	/**
-	 *
-	 * @param Simple $id        	
-	 */
-	protected function getPersistentItem($item) {
+	private function getPersistentItem($item) {
 		return $this->em->getUnitOfWork()->getOriginalEntityData($item);
 	}
 }

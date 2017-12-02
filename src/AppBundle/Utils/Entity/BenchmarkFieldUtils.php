@@ -33,43 +33,16 @@ class BenchmarkFieldUtils {
 
 	public function getMean(BenchmarkField $field) {
 		$offset = $this->benchmarkFieldDataBaseUtils->getMeanField($field);
-		return $field->getCategory()->getCategoryDistribution()->offsetGet($offset);
+		return $field->getCategory()->getCategorySummary()->offsetGet($offset);
 	}
 
 	public function getMode(BenchmarkField $field) {
 		$offset = $this->benchmarkFieldDataBaseUtils->getModeField($field);
-		return $field->getCategory()->getCategoryDistribution()->offsetGet($offset);
+		return $field->getCategory()->getCategorySummary()->offsetGet($offset);
 	}
 
 	public function getMedian(BenchmarkField $field) {
 		$offset = $this->benchmarkFieldDataBaseUtils->getMedianField($field);
-		return $field->getCategory()->getCategoryDistribution()->offsetGet($offset);
-	}
-
-	public function getDistributionString(BenchmarkField $field) {
-		$offset = $this->benchmarkFieldDataBaseUtils->getDistributionField($field);
-		return $field->getCategory()->getCategoryDistribution()->offsetGet($offset);
-	}
-
-	public function getDistributionArray(BenchmarkField $field) {
-		$result = [];
-		
-		$string = $this->getDistributionString($field);
-		if ($string) {
-			$pairs = explode(";", $string);
-			foreach ($pairs as $pair) {
-				$keyValue = explode(":", $pair);
-				if (count($keyValue) == 2) {
-					$result[$keyValue[0]] = (int) $keyValue[1];
-				}
-			}
-		}
-		
-		return $result;
-	}
-
-	public function getDistributionValuesString(BenchmarkField $field) {
-		$values = $this->getDistributionArray($field);
-		return join(", ", array_keys($values));
+		return $field->getCategory()->getCategorySummary()->offsetGet($offset);
 	}
 }

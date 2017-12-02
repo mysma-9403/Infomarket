@@ -6,6 +6,7 @@ use AppBundle\Entity\Main\BenchmarkField;
 use AppBundle\Utils\Entity\BenchmarkFieldUtils;
 use AppBundle\Factory\Common\Chart\ChartFactory;
 use AppBundle\Factory\Common\Chart\Data\ChartDataFactory;
+use AppBundle\Logic\Common\BenchmarkField\Distribution\DistributionCalculator;
 
 class CategoryBenchmarkFieldFactory implements BenchmarkFieldFactory {
 
@@ -38,15 +39,24 @@ class CategoryBenchmarkFieldFactory implements BenchmarkFieldFactory {
 	 * @var ChartDataFactory
 	 */
 	private $enumDataFactory;
+	
+	/**
+	 * 
+	 * @var DistributionCalculator
+	 */
+	private $distributionCalculator;
 
 	public function __construct(BenchmarkFieldUtils $benchmarkFieldUtils, ChartFactory $chartFactory, 
 			ChartDataFactory $booleanDataFactory, ChartDataFactory $numberDataFactory, 
-			ChartDataFactory $enumDataFactory) {
+			ChartDataFactory $enumDataFactory, DistributionCalculator $distributionCalculator) {
 		$this->benchmarkFieldUtils = $benchmarkFieldUtils;
+		
 		$this->chartFactory = $chartFactory;
 		$this->booleanDataFactory = $booleanDataFactory;
 		$this->numberDataFactory = $numberDataFactory;
 		$this->enumDataFactory = $enumDataFactory;
+		
+		$this->distributionCalculator = $distributionCalculator;
 	}
 
 	public function create(BenchmarkField $field) {
@@ -69,7 +79,7 @@ class CategoryBenchmarkFieldFactory implements BenchmarkFieldFactory {
 		
 		$result['decimalPlaces'] = $field->getDecimalPlaces();
 		
-		$distribution = $this->benchmarkFieldUtils->getDistributionArray($field);
+		$distribution = $this->distributionCalculator->calculate($field);
 		if (count($distribution) > 0) {
 			$result['min'] = $this->benchmarkFieldUtils->getMin($field);
 			$result['max'] = $this->benchmarkFieldUtils->getMax($field);
@@ -92,13 +102,13 @@ class CategoryBenchmarkFieldFactory implements BenchmarkFieldFactory {
 	private function createBooleanField(BenchmarkField $field) {
 		$result = $this->createField($field);
 		
-		$distribution = $this->benchmarkFieldUtils->getDistributionArray($field);
+		$distribution = $this->distributionCalculator->calculate($field);
 		if (count($distribution) > 0) {
 			$trueCount = array_key_exists(1, $distribution) ? $distribution[1] : 0;
 			$falseCount = array_key_exists(0, $distribution) ? $distribution[0] : 0;
 			
 			$result['count'] = $trueCount;
-			$result['percent'] = $trueCount && $falseCount ? 100 * $trueCount / ($trueCount + $falseCount) : 0;
+			$result['percent'] = $trueCount || $falseCount ? 100 * $trueCount / ($trueCount + $falseCount) : 0;
 			$result['chart'] = $this->createChart($field, $this->booleanDataFactory, $distribution);
 		} else {
 			$result['count'] = 0;
@@ -112,9 +122,9 @@ class CategoryBenchmarkFieldFactory implements BenchmarkFieldFactory {
 	private function createEnumField(BenchmarkField $field) {
 		$result = $this->createField($field);
 		
-		$distribution = $this->benchmarkFieldUtils->getDistributionArray($field);
+		$distribution = $this->distributionCalculator->calculate($field);
 		if (count($distribution) > 0) {
-			$result['values'] = $this->benchmarkFieldUtils->getDistributionValuesString($field);
+			$result['values'] = join(", ", array_keys($distribution));
 			$result['chart'] = $this->createChart($field, $this->enumDataFactory, $distribution);
 		} else {
 			$result['values'] = '';

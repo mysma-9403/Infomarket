@@ -19,7 +19,7 @@ class BenchmarkEnumManager extends PersistenceManager {
 	 *
 	 * @param BenchmarkEnum $item
 	 */
-	protected function saveMore(Request $request, $item, array $params) {
+	protected function saveMore(Request $request, $item, $persistent, array $params) {
 		/** @var ProductCategoryAssignment $assignment */
 		foreach ($item->getBenchmarkField()->getCategory()->getProductCategoryAssignments() as $assignment) {
 			$this->invalidateProductScore($assignment->getProductScore());

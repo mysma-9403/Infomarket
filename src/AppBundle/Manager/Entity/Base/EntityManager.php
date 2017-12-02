@@ -30,7 +30,7 @@ abstract class EntityManager {
 		$this->paginator = $paginator;
 		$this->entriesPerPage = self::DEFAULT_ENTRIES_PER_PAGE;
 	}
-	
+
 	public function setEntriesPerPage($entriesPerPage) {
 		$this->entriesPerPage = $entriesPerPage;
 	}
@@ -54,8 +54,8 @@ abstract class EntityManager {
 			return $this->repository->findItems($filter);
 		}
 	}
-
-	//TODO use ItemFactory instead
+	
+	// TODO use ItemFactory instead
 	/**
 	 * Create new entry with request parameters.
 	 *
@@ -66,8 +66,8 @@ abstract class EntityManager {
 	public function createFromRequest(Request $request) {
 		return $this->create();
 	}
-
-	//TODO use ItemFactory instead
+	
+	// TODO use ItemFactory instead
 	/**
 	 * Create new entry with template parameters.
 	 *
@@ -78,8 +78,8 @@ abstract class EntityManager {
 	public function createFromTemplate($template) {
 		return $this->create();
 	}
-
-	//TODO use ItemFactory instead
+	
+	// TODO use ItemFactory instead
 	protected function create() {
 		$refClass = new \ReflectionClass($this->getEntityType());
 		return $refClass->newInstanceArgs();

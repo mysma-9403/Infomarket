@@ -18,6 +18,8 @@ use AppBundle\Manager\Entity\Benchmark\CustomProductManager;
 use AppBundle\Manager\Filter\Base\FilterManager;
 use AppBundle\Manager\Params\Benchmark\ContextParamsManager;
 use AppBundle\Manager\Params\EntryParams\Benchmark\CustomProductEntryParamsManager;
+use AppBundle\Repository\Benchmark\CategoryRepository;
+use AppBundle\Utils\Entity\BenchmarkFieldUtils;
 use AppBundle\Utils\Entity\DataBase\BenchmarkFieldDataBaseUtils;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -62,10 +64,14 @@ class CustomProductController extends BaseController {
 		$benchmarkFieldsProvider = new BenchmarkFieldsProvider($translator);
 		
 		$benchmarkFieldDataBaseUtils = new BenchmarkFieldDataBaseUtils();
-		$benchmarkFieldFactory = new SimpleBenchmarkFieldFactory($benchmarkFieldDataBaseUtils);
+		$benchmarkFieldUtils = new BenchmarkFieldUtils($benchmarkFieldDataBaseUtils);
+		$benchmarkFieldFactory = new SimpleBenchmarkFieldFactory($benchmarkFieldUtils);
 		$benchmarkFieldsInitializer = new BenchmarkFieldsInitializer($benchmarkFieldFactory);
 		
-		$productFilter = new ProductFilter($benchmarkFieldsProvider, $benchmarkFieldsInitializer);
+		$categoryRepository = $this->get(CategoryRepository::class);
+		
+		$productFilter = new ProductFilter($benchmarkFieldsProvider, $benchmarkFieldsInitializer, 
+				$categoryRepository);
 		
 		return new CustomProductEntryParamsManager($em, $fm, $productFilter);
 	}
@@ -99,33 +105,6 @@ class CustomProductController extends BaseController {
 		$response = $this->initSubcategoryForm($request, $params);
 		if ($response)
 			return $response;
-		
-		return null;
-	}
-
-	protected function initUpdateForm(Request $request, array &$params) {
-		$viewParams = $params['viewParams'];
-		$entry = $viewParams['entry'];
-		
-		$optionsProvider = $this->getEditorFormOptionsProvider();
-		$options = $optionsProvider->getFormOptions($params);
-		
-		$form = $this->createForm($this->getEditorFormType(), $entry, $options);
-		
-		$form->handleRequest($request);
-		
-		if ($form->isSubmitted() && $form->isValid()) {
-			$this->saveItem($request, $entry, $params);
-			
-			$this->flashCreatedMessage();
-			
-			if ($form->get('save')->isClicked()) {
-				return $this->redirectToRoute($this->getEditRoute(), array('id' => $entry->getId()));
-			}
-		}
-		
-		$viewParams['form'] = $form->createView();
-		$params['viewParams'] = $viewParams;
 		
 		return null;
 	}

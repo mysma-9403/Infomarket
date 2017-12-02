@@ -20,5 +20,3 @@ services:
         arguments:
             - '@AppBundle\Factory\Item\Other\CategorySummaryFactory'
             - '@AppBundle\Manager\Decorator\Base\ItemDecorator'
-            - '@AppBundle\Factory\Item\Other\CategoryDistributionFactory'
-            - '@AppBundle\Manager\Decorator\Base\ItemDecorator'

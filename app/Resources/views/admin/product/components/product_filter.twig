@@ -3,12 +3,12 @@
 	
 	{% if field.fieldType == constant('AppBundle\\Entity\\Main\\BenchmarkField::BOOLEAN_FIELD_TYPE') %}
 		{% include 'common/fields/bool_field.html.twig' with 
-			{ label: field.fieldName, value: entry[key] } %}
+			{ label: field.fieldName, value: productValue[key] } %}
 	{% elseif field.fieldType == constant('AppBundle\\Entity\\Main\\BenchmarkField::DECIMAL_FIELD_TYPE') %}
 		{% include 'common/fields/number_field.html.twig' with 
-			{ label: field.fieldName, value: entry[key] } %}
+			{ label: field.fieldName, value: productValue[key] } %}
 	{% else %}
 		{% include 'common/fields/text_field.html.twig' with 
-			{ label: field.fieldName, value: entry[key] } %}
+			{ label: field.fieldName, value: productValue[key] } %}
 	{% endif %}
 {% endfor %}

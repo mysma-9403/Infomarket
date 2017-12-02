@@ -35,10 +35,12 @@ class CustomProductEntryParamsManager extends EntryParamsManager {
 		$entry = $viewParams['entry'];
 		
 		$assignment = $entry->getProductCategoryAssignments()->first();
-		$contextParams['subcategory'] = $assignment ? $assignment->getCategory()->getId() : null;
+		$contextParams['subcategory'] = $assignment->getCategory()->getId();
 		
 		$this->productFilter->initContextParams($contextParams);
 		$viewParams['productFilter'] = $this->productFilter;
+		
+		$viewParams['productValue'] = $assignment->getProductValue();
 		
 		$params['viewParams'] = $viewParams;
 		$params['contextParams'] = $contextParams;
