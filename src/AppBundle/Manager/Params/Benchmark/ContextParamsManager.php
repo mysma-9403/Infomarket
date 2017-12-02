@@ -132,7 +132,6 @@ class ContextParamsManager {
 	}
 	
 	private function findUserCategory(User $user, $id) {
-		dump($id);
 		/** @var UserCategoryAssignment $assignment */
 		foreach ($user->getUserCategoryAssignments() as $assignment) {
 			$category = $assignment->getCategory();

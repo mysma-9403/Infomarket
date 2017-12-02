@@ -247,19 +247,21 @@ class ProductParamsManager extends EntryParamsManager {
 
 	public function getCompareParams(Request $request, array $params, $id) {
 		$params = parent::getShowParams($request, $params, $id);
+		$contextParams = $params['contextParams'];
 		$viewParams = $params['viewParams'];
 		
 		/** @var Product $entry */
 		$entry = $viewParams['entry'];
 		$viewParams['productValue'] = $entry->getProductCategoryAssignments()->first()->getProductValue();
+		$categoryId = $contextParams['subcategory'];
 		
-		$assignment = $entry->getProductCategoryAssignments()->first();
-		$categoryId = $assignment->getCategory()->getId();
-		
+		$assignment = $this->getProductCategoryAssignment($entry, $categoryId);
 		$productValue = $assignment->getProductValue();
 		
-		$fields = $this->benchmarkFieldsProvider->getShowFields($assignment->getCategory());
+		$fields = $this->benchmarkFieldsProvider->getShowFields($this->getMainCategory($assignment->getCategory()));
 		$fields = $this->compareBenchmarkFieldsInitializer->init($fields);
+		$categoryId = $assignment->getCategory()->getId();
+		
 		// TODO entire loop could be done in benchmarkFieldsInitializer
 		for ($i = 0; $i < count($fields); $i ++) {
 			$field = $fields[$i];
