@@ -41,6 +41,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 use Symfony\Component\Validator\Constraints\Date;
+use AppBundle\Logic\Common\Product\NeighboursFinder\NeighboursFinder;
 
 class ProductController extends DummyController {
 	
@@ -487,9 +488,11 @@ class ProductController extends DummyController {
 		$distributionCalculator = $this->get(DistributionCalculator::class);
 		$scoreDistributionCalculator = $this->get(ScoreDistributionCalculator::class);
 		
+		$neighboursFinder = $this->get(NeighboursFinder::class);
+		
 		return new ProductParamsManager($em, $fm, $tokenStorage, $productRepository, $benchmarkMessageRepository, 
 				$benchmarkFieldsProvider, $showBenchmarkFieldsInitializer, $compareBenchmarkFieldsInitializer, 
-				$distributionCalculator, $scoreDistributionCalculator);
+				$distributionCalculator, $scoreDistributionCalculator, $neighboursFinder);
 	}
 
 	protected function getEntityManager($doctrine, $paginator) {

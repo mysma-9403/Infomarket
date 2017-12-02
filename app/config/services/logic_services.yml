@@ -79,3 +79,8 @@ services:
             - '@AppBundle\Utils\Entity\DataBase\BenchmarkFieldDataBaseUtils'
             - '@AppBundle\Logic\Common\BenchmarkField\Distribution\DistributionMerger'
     AppBundle\Logic\Common\BenchmarkField\Distribution\DistributionMerger: ~
+    
+    # Neighbours
+    AppBundle\Logic\Common\Product\NeighboursFinder\NeighboursFinder:
+        arguments:
+            - '@AppBundle\Utils\Entity\DataBase\BenchmarkFieldDataBaseUtils'

@@ -4,7 +4,7 @@
 	{% for entry in entries|slice(0,half) %}
 		<td class="text-center">
 			{% include 'benchmark/product/components/compare/table_action.html.twig' with 
-			{ benchmarkMessage: entry.benchmarkMessage, showIssue: entry.custom ? 0 : 1 } %}
+			{ benchmarkMessage: benchmarkMessages[entry.id], showIssue: entry.custom ? 0 : 1 } %}
 		</td>
 	{% endfor %}
 	<td class="text-center selected">
@@ -14,7 +14,7 @@
 	{% for entry in entries|slice(half) %}
 		<td class="text-center">
 			{% include 'benchmark/product/components/compare/table_action.html.twig' with 
-			{ benchmarkMessage: entry.benchmarkMessage, showIssue: entry.custom ? 0 : 1 } %}
+			{ benchmarkMessage: benchmarkMessages[entry.id], showIssue: entry.custom ? 0 : 1 } %}
 		</td>
 	{% endfor %}
 	

@@ -16,6 +16,7 @@ use AppBundle\Manager\Params\EntryParams\Base\EntryParamsManager;
 use AppBundle\Repository\Benchmark\BenchmarkMessageRepository;
 use AppBundle\Repository\Benchmark\ProductRepository;
 use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Logic\Common\Product\NeighboursFinder\NeighboursFinder;
 
 class ProductParamsManager extends EntryParamsManager {
 
@@ -62,6 +63,12 @@ class ProductParamsManager extends EntryParamsManager {
 	 * @var ScoreDistributionCalculator
 	 */
 	private $scoreDistributionCalculator;
+	
+	/**
+	 * 
+	 * @var NeighboursFinder
+	 */
+	private $neighboursFinder;
 
 	public function __construct($em, $fm, $tokenStorage, ProductRepository $productRepository, 
 			BenchmarkMessageRepository $benchmarkMessageRepository, 
@@ -69,7 +76,8 @@ class ProductParamsManager extends EntryParamsManager {
 			BenchmarkFieldsInitializer $showBenchmarkFieldsInitializer, 
 			BenchmarkFieldsInitializer $compareBenchmarkFieldsInitializer, 
 			DistributionCalculator $distributionCalculator, 
-			ScoreDistributionCalculator $scoreDistributionCalculator) {
+			ScoreDistributionCalculator $scoreDistributionCalculator,
+			NeighboursFinder $neighboursFinder) {
 		parent::__construct($em, $fm);
 		
 		$this->productRepository = $productRepository;
@@ -84,6 +92,8 @@ class ProductParamsManager extends EntryParamsManager {
 		
 		$this->distributionCalculator = $distributionCalculator;
 		$this->scoreDistributionCalculator = $scoreDistributionCalculator;
+		
+		$this->neighboursFinder = $neighboursFinder;
 	}
 
 	public function getIndexParams(Request $request, array $params, $page) {
@@ -173,6 +183,7 @@ class ProductParamsManager extends EntryParamsManager {
 		$overalNote = $productNote->getOveralNote();
 		$viewParams['overalNote'] = $overalNote;
 		
+		//TODO replace by some non DB logic
 		$minMaxPrice = $this->productRepository->findMinMaxValues($categoryId, 'price');
 		$minPrice = $minMaxPrice['vmin'];
 		$maxPrice = $minMaxPrice['vmax'];
@@ -252,15 +263,17 @@ class ProductParamsManager extends EntryParamsManager {
 		
 		/** @var Product $entry */
 		$entry = $viewParams['entry'];
-		$viewParams['productValue'] = $entry->getProductCategoryAssignments()->first()->getProductValue();
 		$categoryId = $contextParams['subcategory'];
 		
 		$assignment = $this->getProductCategoryAssignment($entry, $categoryId);
-		$productValue = $assignment->getProductValue();
 		
-		$fields = $this->benchmarkFieldsProvider->getShowFields($this->getMainCategory($assignment->getCategory()));
+		$productValue = $assignment->getProductValue();
+		$viewParams['productValue'] = $productValue;
+		
+		$category = $assignment->getCategory();
+		
+		$fields = $this->benchmarkFieldsProvider->getShowFields($this->getMainCategory($category));
 		$fields = $this->compareBenchmarkFieldsInitializer->init($fields);
-		$categoryId = $assignment->getCategory()->getId();
 		
 		// TODO entire loop could be done in benchmarkFieldsInitializer
 		for ($i = 0; $i < count($fields); $i ++) {
@@ -277,21 +290,41 @@ class ProductParamsManager extends EntryParamsManager {
 		$fields = array_filter($fields, 'self::removeNull');
 		$viewParams['benchmarkFields'] = $fields;
 		
-		$entries = $this->productRepository->findNeighbourItems($categoryId, $entry, $productValue, $fields, 6);
-		for ($i = 0; $i < count($entries); $i ++) {
-			$entry = $entries[$i];
-			
-			$entry['benchmarkMessage'] = $this->getBenchmarkMessage($entry['id']);
-			
-			$entries[$i] = $entry;
-		}
+		$entries = $this->neighboursFinder->find($entry, $category, 6);
 		$viewParams['entries'] = $entries;
+		$viewParams['productValues'] = $this->getProductValues($entries, $category);
 		
 		$viewParams['benchmarkMessage'] = $this->getBenchmarkMessage($id);
+		$viewParams['benchmarkMessages'] = $this->getBenchmarkMessages($entries);
 		
 		$params['viewParams'] = $viewParams;
 		
 		return $params;
+	}
+	
+	private function getBenchmarkMessages(array $entries) {
+		$result = [];
+		
+		/** @var Product $entry */
+		foreach ($entries as $entry) {
+			$id = $entry->getId();
+			$result[$id] = $this->getBenchmarkMessage($id);
+		}
+		
+		return $result;
+	}
+	
+	private function getProductValues(array $entries, Category $category) {
+		$result = [];
+	
+		/** @var Product $entry */
+		foreach ($entries as $entry) {
+			$id = $entry->getId();
+			$assignment = $this->getProductCategoryAssignment($entry, $category->getId());
+			$result[$id] = $assignment->getProductValue();
+		}
+	
+		return $result;
 	}
 
 	protected function removeNull($value) {
