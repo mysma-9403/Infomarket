@@ -69,8 +69,6 @@ class ParamsManager {
 	 * @return mixed
 	 */
 	public function getIdByName(Request $request, $name, $template = null) {
-		$id = $request->get($name, null);
-		
-		return $id ? $id : $template;
+		return $request->get($name, $template);
 	}
 }

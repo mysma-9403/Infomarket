@@ -7,6 +7,8 @@ use AppBundle\Manager\Params\Base\ParamsManager;
 use AppBundle\Repository\Benchmark\BenchmarkMessageRepository;
 use AppBundle\Repository\Benchmark\CategoryRepository;
 use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Entity\Main\User;
+use AppBundle\Entity\Assignments\UserCategoryAssignment;
 
 class ContextParamsManager {
 
@@ -44,26 +46,56 @@ class ContextParamsManager {
 		$routeParams = $params['routeParams'];
 		$viewParams = $params['viewParams'];
 		
-		$userId = $this->tokenStorage->getToken()->getUser()->getId();
-		$contextParams['user'] = $userId;
+		/** @var \AppBundle\Entity\Main\User $user */
+		$user = $this->tokenStorage->getToken()->getUser();
+		$contextParams['user'] = $user->getId();
 		
-		$lastCategoryId = key_exists('category', $lastRouteParams) ? $lastRouteParams['category'] : null;
-		$category = $this->getCategory($request, $lastCategoryId, $userId);
+		$subcategory = $this->getRequestCategory($request, $user, 'subcategory');
+		if ($subcategory) {
+			$category = $subcategory->getParent();
+		} else {
+			$category = $this->getRequestCategory($request, $user);
+			$lastSubcategoryId = key_exists('subcategory', $lastRouteParams) ? $lastRouteParams['subcategory'] : null;
+			
+			if ($category) {
+				if ($lastSubcategoryId) {
+					$subcategory = $this->findUserCategory($user, $lastSubcategoryId);
+					
+					if (! $subcategory || $subcategory->getParent()->getId() !== $category->getId()) {
+						$subcategory = $this->findFirstUserChildCategory($user, $category);
+					}
+				} else {
+					$subcategory = $this->findFirstUserChildCategory($user, $category);
+				}
+			} else {
+				if ($lastSubcategoryId) {
+					$subcategory = $this->findUserCategory($user, $lastSubcategoryId);
+					$category = $subcategory->getParent();
+				} else {
+					$lastCategoryId = key_exists('category', $lastRouteParams) ? $lastRouteParams['category'] : null;
+					if ($lastCategoryId) {
+						$category = $this->findUserCategory($user, $lastCategoryId);
+						if ($category) {
+							$subcategory = $this->findFirstUserChildCategory($user, $category);
+						}
+					} else {
+						$category = $this->findFirstUserMainCategory($user);
+					}
+				}
+			}
+		}
 		
-		$contextParams['category'] = $category['id'];
-		$routeParams['category'] = $category['id'];
+		$categoryId = $category ? $category->getId() : null;
+		$contextParams['category'] = $categoryId;
+		$routeParams['category'] = $categoryId;
 		$viewParams['category'] = $category;
 		
-		
-		$lastSubcategoryId = key_exists('subcategory', $lastRouteParams) ? $lastRouteParams['subcategory'] : null;
-		$subcategory = $this->getSubcategory($request, $lastSubcategoryId, $category['id'], $userId);
-		
-		$contextParams['subcategory'] = $subcategory['id'];
-		$routeParams['subcategory'] = $subcategory['id'];
+		$subcategoryId = $subcategory ? $subcategory->getId() : null;
+		$contextParams['subcategory'] = $subcategoryId;
+		$routeParams['subcategory'] = $subcategoryId;
 		$viewParams['subcategory'] = $subcategory;
 		
-		
-		$unreadMessagesCount = $this->benchmarkMessageRepository->findUnreadItemsCountByAuthor($userId);
+		$unreadMessagesCount = $this->benchmarkMessageRepository->findUnreadItemsCountByAuthor($user->getId());
 		$viewParams['unreadMessagesCount'] = $unreadMessagesCount;
 		
 		$params['contextParams'] = $contextParams;
@@ -73,33 +105,41 @@ class ContextParamsManager {
 		return $params;
 	}
 
-	protected function getCategory(Request $request, $lastCategoryId, $userId) {
-		$categories = $this->categoryRepository->findFilterItemsByUser($userId);
-		
-		if (count($categories) > 0) {
-			$categoryId = $this->paramsManager->getIdByClass($request, Category::class, $lastCategoryId);
-			
-			if (! in_array($categoryId, $categories)) {
-				$categoryId = $categories[key($categories)];
-			}
-			return $this->categoryRepository->findItem($categoryId);
-		}
-		
-		return ['id' => -1];
+	private function getRequestCategory(Request $request, User $user, $name = 'category') {
+		$id = $this->paramsManager->getIdByName($request, $name, null);
+		return $id ? $this->findUserCategory($user, $id) : null;
 	}
-
-	protected function getSubcategory(Request $request, $lastSubcategoryId, $categoryId, $userId) {
-		$subcategories = $this->categoryRepository->findFilterItemsByUserAndCategory($userId, $categoryId);
-		
-		if (count($subcategories) > 0) {
-			$subcategoryId = $this->paramsManager->getIdByName($request, 'subcategory', $lastSubcategoryId);
-			
-			if (! in_array($subcategoryId, $subcategories)) {
-				$subcategoryId = $subcategories[key($subcategories)];
+	
+	private function findFirstUserMainCategory(User $user) {
+		/** @var UserCategoryAssignment $assignment */
+		foreach ($user->getUserCategoryAssignments() as $assignment) {
+			$category = $assignment->getCategory();
+			if ($category->getPreleaf()) {
+				return $category;
 			}
-			return $this->categoryRepository->findItem($subcategoryId);
 		}
-		
-		return ['id' => -1];
+		return null;
+	}
+	
+	private function findFirstUserChildCategory(User $user, Category $category) {
+		/** @var Category $child */
+		foreach ($category->getChildren() as $child) {
+			if ($this->findUserCategory($user, $child->getId())) {
+				return $child;
+			}
+		}
+		return null;
+	}
+	
+	private function findUserCategory(User $user, $id) {
+		dump($id);
+		/** @var UserCategoryAssignment $assignment */
+		foreach ($user->getUserCategoryAssignments() as $assignment) {
+			$category = $assignment->getCategory();
+			if ($category->getId() == $id) {
+				return $category;
+			}
+		}
+		return null;
 	}
 }
