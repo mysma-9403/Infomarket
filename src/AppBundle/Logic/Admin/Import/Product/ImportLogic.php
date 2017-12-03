@@ -197,11 +197,6 @@ class ImportLogic {
 					$categorySummaries);
 			$this->categorySummaryManager->saveEntries($categorySummaries);
 			
-			$categoryDistributions = [[]];
-			$categoryDistributions = $this->categoryDistributionManager->getUpdatedEntries($mainCategory, 
-					$categoryDistributions);
-			$this->categoryDistributionManager->saveEntries($categoryDistributions);
-			
 			$dataBaseEntries = $this->productNoteManager->getUpdatedEntries($category, $dataBaseEntries);
 			$productNotesCounts = $this->countManager->getCounts($dataBaseEntries, 'productNote');
 			$this->productNoteManager->saveEntries($dataBaseEntries);
