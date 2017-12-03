@@ -4,6 +4,7 @@ namespace AppBundle\Logic\Common\Product\ItemsUpdater;
 
 use AppBundle\Logic\Common\Product\ItemUpdater\ItemUpdater;
 use Doctrine\Common\Persistence\ObjectManager;
+use AppBundle\Repository\Base\BaseRepository;
 
 class ItemsUpdater {
 
@@ -12,7 +13,13 @@ class ItemsUpdater {
 	 * @var ObjectManager
 	 */
 	private $em;
-	
+
+	/**
+	 *
+	 * @var BaseRepository
+	 */
+	private $repository;
+
 	/**
 	 *
 	 * @var ItemUpdater
@@ -31,8 +38,10 @@ class ItemsUpdater {
 	 */
 	private $packSize;
 
-	public function __construct(ObjectManager $em, ItemUpdater $itemUpdater, $duration, $packSize) {
+	public function __construct(ObjectManager $em, BaseRepository $repository, ItemUpdater $itemUpdater, 
+			$duration, $packSize) {
 		$this->em = $em;
+		$this->repository = $repository;
 		$this->itemUpdater = $itemUpdater;
 		$this->duration = $duration;
 		$this->packSize = $packSize;
@@ -42,26 +51,26 @@ class ItemsUpdater {
 		$total = count($items);
 		$done = 0;
 		
-		if ($total) {
-			$class = get_class($items[0]);
-			foreach ($items as $item) {
-				$this->em->refresh($item);
-				$this->itemUpdater->update($item);
-				$done ++;
-				
-				if ($this->shouldFinish($start)) {
-					break;
-				}
-				if ($this->shouldFlush($done)) {
-					$this->em->flush();
-					//TODO make loop together with repository while(true) {findBy->flush->clear}
-// 					$this->em->clear($class); 
-				}
+		while (true) {
+			if ($this->shouldFinish($start)) {
+				break;
 			}
 			
+			$items = $this->repository->findBy(['upToDate' => false], null, $this->packSize);
+			
+			if (count($items) <= 0) {
+				break;
+			}
+			
+			foreach ($items as $item) {
+				$this->itemUpdater->update($item);
+				$done ++;
+			}
+				
 			$this->em->flush();
-			$this->em->clear($class);
+			$this->em->clear();
 		}
+		
 		return ['total' => $total, 'done' => $done];
 	}
 
@@ -69,9 +78,5 @@ class ItemsUpdater {
 		$end = new \DateTime();
 		$interval = $end->getTimestamp() - $start->getTimestamp();
 		return $interval > $this->duration;
-	}
-
-	private function shouldFlush($count) {
-		return $count % $this->packSize == 0;
 	}
 }
