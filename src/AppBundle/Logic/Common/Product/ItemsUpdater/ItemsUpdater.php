@@ -51,10 +51,12 @@ class ItemsUpdater {
 			}
 			if ($this->shouldFlush($done)) {
 				$this->em->flush();
+				$this->em->clear();
 			}
 		}
 		
 		$this->em->flush();
+		$this->em->clear();
 		return ['total' => $total, 'done' => $done];
 	}
 
