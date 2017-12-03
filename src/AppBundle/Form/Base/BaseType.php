@@ -140,7 +140,8 @@ abstract class BaseType extends AbstractType {
 	}
 
 	protected function addDateTimeField(FormBuilderInterface $builder, $field, $placeholder, $required = true) {
-		$this->addDateFormatField($builder, 'dd/MM/yyyy HH:mm', $field, $placeholder, $required);
+		$this->addDateFormatField($builder, 'dd/MM/yyyy HH:mm', 'DD/MM/YYYY HH:mm', $field, $placeholder, 
+				$required);
 	}
 
 	protected function addFilterMonthField(FormBuilderInterface $builder, $field, $placeholder) {
@@ -148,15 +149,11 @@ abstract class BaseType extends AbstractType {
 	}
 
 	protected function addMonthField(FormBuilderInterface $builder, $field, $placeholder, $required = true) {
-		$this->addDateFormatField($builder, 'MM/yyyy', $field, $placeholder, $required);
+		$this->addDateFormatField($builder, 'MM/yyyy', 'MM/YYYY', $field, $placeholder, $required);
 	}
 
-	private function addDateFormatField(FormBuilderInterface $builder, $format, $field, $placeholder, 
-			$required = true) {
-		$attrFormat = $format;
-		$attrFormat = str_replace('d', 'D', $attrFormat);
-		$attrFormat = str_replace('y', 'Y', $attrFormat);
-		
+	private function addDateFormatField(FormBuilderInterface $builder, $format, $datePickerFormat, $field, 
+			$placeholder, $required = true) {
 		$builder->add($field, DateTimeType::class, 
 				array(
 						'widget' => 'single_text', 
@@ -165,7 +162,7 @@ abstract class BaseType extends AbstractType {
 						'attr' => [
 								'class' => 'form-control input-inline datetimepicker', 
 								'data-provide' => 'datepicker', 
-								'data-date-format' => $attrFormat, 
+								'data-date-format' => $datePickerFormat, 
 								'placeholder' => $placeholder]));
 	}
 

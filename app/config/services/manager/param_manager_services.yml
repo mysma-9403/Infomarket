@@ -18,7 +18,7 @@ services:
     AppBundle\Manager\Params\Infomarket\MenuParamsManager:
         arguments:
             - '@AppBundle\Repository\Infomarket\MenuEntryRepository'
-            
+                        
     # Infoprodukt Param Managers
     app.manager.param.infoprodukt.advert.featured:
         class: AppBundle\Manager\Params\Infoprodukt\AdvertParamsManager

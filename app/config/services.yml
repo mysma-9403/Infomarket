@@ -12,6 +12,7 @@ imports:
     - { resource: services/decorator_services.yml }
     - { resource: services/logic_services.yml }
     - { resource: services/command_services.yml }
+    - { resource: services/utils_services.yml }
 
 # Learn more about services, parameters and containers at
 # http://symfony.com/doc/current/book/service_container.html

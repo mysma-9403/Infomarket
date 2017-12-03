@@ -1029,7 +1029,7 @@
             </trans-unit>
             <trans-unit id="message.benchmark.welcome">
                 <source>message.benchmark.welcome</source>
-                <target>Witamy w Benchmark InfoMarket - portalu stworzonym specjalnie dla klientów bizneswych,
+                <target>Witamy w Benchmark InfoMarket - portalu stworzonym specjalnie dla klientów biznesowych,
                 którzy odnajdą tu wszelkie dane rynkowe dla ponad stu kategorii.</target>
             </trans-unit>
             <trans-unit id="message.benchmark.noCategory">
