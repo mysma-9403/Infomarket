@@ -24,6 +24,24 @@ class ProductCategoryAssignment extends Simple {
 
 	/**
 	 *
+	 * @var \AppBundle\Entity\Other\ProductValue
+	 */
+	private $productValue;
+
+	/**
+	 *
+	 * @var \AppBundle\Entity\Other\ProductScore
+	 */
+	private $productScore;
+
+	/**
+	 *
+	 * @var \AppBundle\Entity\Other\ProductNote
+	 */
+	private $productNote;
+
+	/**
+	 *
 	 * @var \AppBundle\Entity\Main\Product
 	 */
 	private $product;
@@ -82,6 +100,72 @@ class ProductCategoryAssignment extends Simple {
 	 */
 	public function getFeatured() {
 		return $this->featured;
+	}
+
+	/**
+	 * Set productValue
+	 *
+	 * @param \AppBundle\Entity\Other\ProductValue $productValue        	
+	 *
+	 * @return ProductCategoryAssignment
+	 */
+	public function setProductValue(\AppBundle\Entity\Other\ProductValue $productValue = null) {
+		$this->productValue = $productValue;
+		
+		return $this;
+	}
+
+	/**
+	 * Get productValue
+	 *
+	 * @return \AppBundle\Entity\Other\ProductValue
+	 */
+	public function getProductValue() {
+		return $this->productValue;
+	}
+
+	/**
+	 * Set productScore
+	 *
+	 * @param \AppBundle\Entity\Other\ProductScore $productScore        	
+	 *
+	 * @return ProductCategoryAssignment
+	 */
+	public function setProductScore(\AppBundle\Entity\Other\ProductScore $productScore = null) {
+		$this->productScore = $productScore;
+		
+		return $this;
+	}
+
+	/**
+	 * Get productScore
+	 *
+	 * @return \AppBundle\Entity\Other\ProductScore
+	 */
+	public function getProductScore() {
+		return $this->productScore;
+	}
+
+	/**
+	 * Set productNote
+	 *
+	 * @param \AppBundle\Entity\Other\ProductNote $productNote        	
+	 *
+	 * @return ProductCategoryAssignment
+	 */
+	public function setProductNote(\AppBundle\Entity\Other\ProductNote $productNote = null) {
+		$this->productNote = $productNote;
+		
+		return $this;
+	}
+
+	/**
+	 * Get productNote
+	 *
+	 * @return \AppBundle\Entity\Other\ProductNote
+	 */
+	public function getProductNote() {
+		return $this->productNote;
 	}
 
 	/**

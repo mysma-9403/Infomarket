@@ -5,6 +5,7 @@ namespace AppBundle\Repository\Admin\Main;
 use AppBundle\Entity\Assignments\BranchCategoryAssignment;
 use AppBundle\Entity\Assignments\ProductCategoryAssignment;
 use AppBundle\Entity\Main\Category;
+use AppBundle\Entity\Other\CategorySummary;
 use AppBundle\Filter\Base\Filter;
 use AppBundle\Filter\Common\Main\CategoryFilter;
 use AppBundle\Repository\Admin\Base\ImageRepository;
@@ -206,6 +207,29 @@ class CategoryRepository extends ImageRepository {
 		$where = $expr->andX();
 		$where->add($expr->eq('e.preleaf', 0));
 		$where->add($expr->eq('e.benchmark', 1));
+		
+		$builder->where($where);
+		
+		return $builder->getQuery();
+	}
+
+	public function findItemsWithoutSummary() {
+		return $this->queryItemsWithoutSummary()->getScalarResult();
+	}
+
+	protected function queryItemsWithoutSummary() {
+		$builder = new QueryBuilder($this->getEntityManager());
+		
+		$builder->select("e.id");
+		$builder->from($this->getEntityType(), "e");
+		$builder->leftJoin(CategorySummary::class, 'cs', Join::WITH, 'e.id = cs.category');
+		
+		$expr = $builder->expr();
+		
+		$where = $expr->andX();
+		// $where->add($expr->eq('e.preleaf', 0));
+		// $where->add($expr->eq('e.benchmark', 1));
+		$where->add($expr->isNull('cs.id'));
 		
 		$builder->where($where);
 		

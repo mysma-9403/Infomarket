@@ -1,0 +1,7 @@
+services:
+    AppBundle\Command\UpdateProductNotesCommand:
+        arguments:
+            - '@AppBundle\Logic\Common\Product\ItemsCreator\ProductItemsCreator'
+            - '@AppBundle\Logic\Common\Product\ItemsUpdater\ProductItemsUpdater'
+        tags:
+            - { name: console.command }

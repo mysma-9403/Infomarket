@@ -3,7 +3,6 @@
 namespace AppBundle\Controller\Admin\Base;
 
 use AppBundle\Controller\Admin\Base\SimpleController;
-use Stof\DoctrineExtensionsBundle\Uploadable\UploadedFileInfo;
 use Symfony\Component\HttpFoundation\Request;
 
 abstract class ImageController extends SimpleController {
@@ -35,20 +34,6 @@ abstract class ImageController extends SimpleController {
 		$rm = $this->getRouteManager();
 		$lastRoute = $rm->getLastRoute($request, $this->getIndexRoute());
 		return $this->redirectToRoute($lastRoute['route'], $lastRoute['routeParams']);
-	}
-
-	/**
-	 *
-	 * {@inheritDoc}
-	 *
-	 * @see \AppBundle\Controller\Admin\Base\SimpleController::prepareEntry()
-	 */
-	protected function prepareEntry($request, &$entry, $params) {
-		parent::prepareEntry($request, $entry, $params);
-		if ($entry->getFile()) {
-			$uploadableManager = $this->get('stof_doctrine_extensions.uploadable.manager');
-			$uploadableManager->markEntityToUpload($entry, new UploadedFileInfo($entry->getFile()));
-		}
 	}
 	
 	// TODO move to ImageManager

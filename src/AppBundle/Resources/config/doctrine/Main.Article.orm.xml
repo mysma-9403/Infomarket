@@ -39,25 +39,40 @@
 				<order-by-field name="orderNumber" direction="ASC" />
 				<order-by-field name="name" direction="ASC" />
 			</order-by>
+			<cascade>
+            	<cascade-remove/>
+        	</cascade>
 		</one-to-many>
 
 		<one-to-many field="articleArticleCategoryAssignments"
 			target-entity="AppBundle\Entity\Assignments\ArticleArticleCategoryAssignment"
 			mapped-by="article">
+			<cascade>
+            	<cascade-remove/>
+        	</cascade>
 		</one-to-many>
 
 		<one-to-many field="articleCategoryAssignments"
 			target-entity="AppBundle\Entity\Assignments\ArticleCategoryAssignment"
 			mapped-by="article">
+			<cascade>
+            	<cascade-remove/>
+        	</cascade>
 		</one-to-many>
 
 		<one-to-many field="articleBrandAssignments"
 			target-entity="AppBundle\Entity\Assignments\ArticleBrandAssignment"
 			mapped-by="article">
+			<cascade>
+            	<cascade-remove/>
+        	</cascade>
 		</one-to-many>
 
 		<one-to-many field="articleTagAssignments"
 			target-entity="AppBundle\Entity\Assignments\ArticleTagAssignment" mapped-by="article">
+			<cascade>
+            	<cascade-remove/>
+        	</cascade>
 		</one-to-many>
 
 		<one-to-many field="newsletterBlockArticleAssignments"

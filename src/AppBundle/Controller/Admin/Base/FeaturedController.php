@@ -18,7 +18,7 @@ abstract class FeaturedController extends ImageController {
 	 * @param Request $request        	
 	 * @param BaseFormType $form        	
 	 */
-	protected function listFormActionInternal(Request $request, Form $form, BaseFilter $filter, array $listItems) {
+	protected function listFormActionInternal(Request $request, Form $form, BaseFilter $filter, array $listItems, array $params) {
 		if ($form->get('setFeaturedSelected')->isClicked()) {
 			$data = $form->getData();
 			$entries = $data->getEntries();
@@ -33,7 +33,7 @@ abstract class FeaturedController extends ImageController {
 			$this->setValueForSelected($entries, 'featured', 0);
 		}
 		
-		return parent::listFormActionInternal($request, $form, $filter, $listItems);
+		return parent::listFormActionInternal($request, $form, $filter, $listItems, $params);
 	}
 
 	protected function setFeaturedActionInternal(Request $request, $id) {

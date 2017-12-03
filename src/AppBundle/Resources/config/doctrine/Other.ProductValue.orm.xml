@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+        http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+	<entity name="AppBundle\Entity\Other\ProductValue" table="product_values"
+		repository-class="AppBundle\Repository\Admin\Other\ProductValueRepository">
+
+		<one-to-one field="productCategoryAssignment"
+			target-entity="AppBundle\Entity\Assignments\ProductCategoryAssignment"
+			inversed-by="productValue" />
+			
+		<field name="decimal1" type="decimal" precision="12" scale="4" nullable="true" />
+		<field name="decimal2" type="decimal" precision="12" scale="4" nullable="true" />
+		<field name="decimal3" type="decimal" precision="12" scale="4" nullable="true" />
+		<field name="decimal4" type="decimal" precision="12" scale="4" nullable="true" />
+		<field name="decimal5" type="decimal" precision="12" scale="4" nullable="true" />
+		<field name="decimal6" type="decimal" precision="12" scale="4" nullable="true" />
+		<field name="decimal7" type="decimal" precision="12" scale="4" nullable="true" />
+		<field name="decimal8" type="decimal" precision="12" scale="4" nullable="true" />
+		<field name="decimal9" type="decimal" precision="12" scale="4" nullable="true" />
+		<field name="decimal10" type="decimal" precision="12" scale="4" nullable="true" />
+
+		<field name="decimal11" type="decimal" precision="12" scale="4" nullable="true" />
+		<field name="decimal12" type="decimal" precision="12" scale="4" nullable="true" />
+		<field name="decimal13" type="decimal" precision="12" scale="4" nullable="true" />
+		<field name="decimal14" type="decimal" precision="12" scale="4" nullable="true" />
+		<field name="decimal15" type="decimal" precision="12" scale="4" nullable="true" />
+		<field name="decimal16" type="decimal" precision="12" scale="4" nullable="true" />
+		<field name="decimal17" type="decimal" precision="12" scale="4" nullable="true" />
+		<field name="decimal18" type="decimal" precision="12" scale="4" nullable="true" />
+		<field name="decimal19" type="decimal" precision="12" scale="4" nullable="true" />
+		<field name="decimal20" type="decimal" precision="12" scale="4" nullable="true" />
+
+		<field name="decimal21" type="decimal" precision="12" scale="4" nullable="true" />
+		<field name="decimal22" type="decimal" precision="12" scale="4" nullable="true" />
+		<field name="decimal23" type="decimal" precision="12" scale="4" nullable="true" />
+		<field name="decimal24" type="decimal" precision="12" scale="4" nullable="true" />
+		<field name="decimal25" type="decimal" precision="12" scale="4" nullable="true" />
+		<field name="decimal26" type="decimal" precision="12" scale="4" nullable="true" />
+		<field name="decimal27" type="decimal" precision="12" scale="4" nullable="true" />
+		<field name="decimal28" type="decimal" precision="12" scale="4" nullable="true" />
+		<field name="decimal29" type="decimal" precision="12" scale="4" nullable="true" />
+		<field name="decimal30" type="decimal" precision="12" scale="4" nullable="true" />
+
+
+		<field name="integer1" type="integer" nullable="true" />
+		<field name="integer2" type="integer" nullable="true" />
+		<field name="integer3" type="integer" nullable="true" />
+		<field name="integer4" type="integer" nullable="true" />
+		<field name="integer5" type="integer" nullable="true" />
+		<field name="integer6" type="integer" nullable="true" />
+		<field name="integer7" type="integer" nullable="true" />
+		<field name="integer8" type="integer" nullable="true" />
+		<field name="integer9" type="integer" nullable="true" />
+		<field name="integer10" type="integer" nullable="true" />
+
+		<field name="integer11" type="integer" nullable="true" />
+		<field name="integer12" type="integer" nullable="true" />
+		<field name="integer13" type="integer" nullable="true" />
+		<field name="integer14" type="integer" nullable="true" />
+		<field name="integer15" type="integer" nullable="true" />
+		<field name="integer16" type="integer" nullable="true" />
+		<field name="integer17" type="integer" nullable="true" />
+		<field name="integer18" type="integer" nullable="true" />
+		<field name="integer19" type="integer" nullable="true" />
+		<field name="integer20" type="integer" nullable="true" />
+
+		<field name="integer21" type="integer" nullable="true" />
+		<field name="integer22" type="integer" nullable="true" />
+		<field name="integer23" type="integer" nullable="true" />
+		<field name="integer24" type="integer" nullable="true" />
+		<field name="integer25" type="integer" nullable="true" />
+		<field name="integer26" type="integer" nullable="true" />
+		<field name="integer27" type="integer" nullable="true" />
+		<field name="integer28" type="integer" nullable="true" />
+		<field name="integer29" type="integer" nullable="true" />
+		<field name="integer30" type="integer" nullable="true" />
+
+
+		<field name="string1" type="string" length="256" nullable="true" />
+		<field name="string2" type="string" length="256" nullable="true" />
+		<field name="string3" type="string" length="256" nullable="true" />
+		<field name="string4" type="string" length="256" nullable="true" />
+		<field name="string5" type="string" length="256" nullable="true" />
+		<field name="string6" type="string" length="256" nullable="true" />
+		<field name="string7" type="string" length="256" nullable="true" />
+		<field name="string8" type="string" length="256" nullable="true" />
+		<field name="string9" type="string" length="256" nullable="true" />
+		<field name="string10" type="string" length="256" nullable="true" />
+
+		<field name="string11" type="string" length="256" nullable="true" />
+		<field name="string12" type="string" length="256" nullable="true" />
+		<field name="string13" type="string" length="256" nullable="true" />
+		<field name="string14" type="string" length="256" nullable="true" />
+		<field name="string15" type="string" length="256" nullable="true" />
+		<field name="string16" type="string" length="256" nullable="true" />
+		<field name="string17" type="string" length="256" nullable="true" />
+		<field name="string18" type="string" length="256" nullable="true" />
+		<field name="string19" type="string" length="256" nullable="true" />
+		<field name="string20" type="string" length="256" nullable="true" />
+
+		<field name="string21" type="string" length="256" nullable="true" />
+		<field name="string22" type="string" length="256" nullable="true" />
+		<field name="string23" type="string" length="256" nullable="true" />
+		<field name="string24" type="string" length="256" nullable="true" />
+		<field name="string25" type="string" length="256" nullable="true" />
+		<field name="string26" type="string" length="256" nullable="true" />
+		<field name="string27" type="string" length="256" nullable="true" />
+		<field name="string28" type="string" length="256" nullable="true" />
+		<field name="string29" type="string" length="256" nullable="true" />
+		<field name="string30" type="string" length="256" nullable="true" />
+
+	</entity>
+
+</doctrine-mapping>

@@ -1,0 +1,46 @@
+services:
+    # Common
+    app.manager.transaction.common:
+        class: AppBundle\Manager\Transaction\Base\TransactionManager
+        arguments:
+            - '@doctrine.orm.entity_manager'
+            - '@AppBundle\Manager\Persistence\Base\PersistenceManager'
+    # Assignments
+    app.manager.transaction.assignments.product_category:
+        class: AppBundle\Manager\Transaction\Base\TransactionManager
+        arguments:
+            - '@doctrine.orm.entity_manager'
+            - '@AppBundle\Manager\Persistence\Assignments\ProductCategoryAssignmentManager'
+    # Main
+    app.manager.transaction.main.benchmark_enum:
+        class: AppBundle\Manager\Transaction\Base\TransactionManager
+        arguments:
+            - '@doctrine.orm.entity_manager'
+            - '@AppBundle\Manager\Persistence\Main\BenchmarkEnumManager'
+    app.manager.transaction.main.benchmark_field:
+        class: AppBundle\Manager\Transaction\Base\TransactionManager
+        arguments:
+            - '@doctrine.orm.entity_manager'
+            - '@AppBundle\Manager\Persistence\Main\BenchmarkFieldManager'
+    app.manager.transaction.main.benchmark_query:
+        class: AppBundle\Manager\Transaction\Base\TransactionManager
+        arguments:
+            - '@doctrine.orm.entity_manager'
+            - '@AppBundle\Manager\Persistence\Main\BenchmarkQueryManager'
+    app.manager.transaction.main.category:
+        class: AppBundle\Manager\Transaction\Base\TransactionManager
+        arguments:
+            - '@doctrine.orm.entity_manager'
+            - '@AppBundle\Manager\Persistence\Main\CategoryManager'
+    app.manager.transaction.main.product:
+        class: AppBundle\Manager\Transaction\Base\TransactionManager
+        arguments:
+            - '@doctrine.orm.entity_manager'
+            - '@AppBundle\Manager\Persistence\Main\ProductManager'
+            
+    # Benchmark
+    app.manager.transaction.benchmark.custom_product:
+        class: AppBundle\Manager\Transaction\Base\TransactionManager
+        arguments:
+            - '@doctrine.orm.entity_manager'
+            - '@AppBundle\Manager\Persistence\Benchmark\CustomProductManager'

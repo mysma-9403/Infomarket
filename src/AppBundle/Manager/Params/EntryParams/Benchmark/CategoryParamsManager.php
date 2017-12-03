@@ -4,7 +4,6 @@ namespace AppBundle\Manager\Params\EntryParams\Benchmark;
 
 use AppBundle\Entity\Main\Category;
 use AppBundle\Entity\Main\Product;
-use AppBundle\Logic\Benchmark\Fields\BenchmarkChartLogic;
 use AppBundle\Logic\Common\BenchmarkField\Initializer\BenchmarkFieldsInitializer;
 use AppBundle\Logic\Common\BenchmarkField\Provider\BenchmarkFieldsProvider;
 use AppBundle\Manager\Entity\Base\EntityManager;
@@ -17,8 +16,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
 
 class CategoryParamsManager extends EntryParamsManager {
-
-	protected $chartLogic;
 
 	/**
 	 *
@@ -38,23 +35,29 @@ class CategoryParamsManager extends EntryParamsManager {
 	 */
 	protected $segmentRepository;
 
+	/**
+	 *
+	 * @var BenchmarkFieldsProvider
+	 */
 	protected $benchmarkFieldsProvider;
 
+	/**
+	 *
+	 * @var BenchmarkFieldsInitializer
+	 */
 	protected $benchmarkFieldsInitializer;
 
 	protected $tokenStorage;
 
 	public function __construct(EntityManager $em, FilterManager $fm, CategoryRepository $categoryRepository, 
 			ProductRepository $productRepository, SegmentRepository $segmentRepository, 
-			BenchmarkChartLogic $chartLogic, BenchmarkFieldsProvider $benchmarkFieldsProvider, 
+			BenchmarkFieldsProvider $benchmarkFieldsProvider, 
 			BenchmarkFieldsInitializer $benchmarkFieldsInitializer, TokenStorage $tokenStorage) {
 		parent::__construct($em, $fm);
 		
 		$this->productRepository = $productRepository;
 		$this->categoryRepository = $categoryRepository;
 		$this->segmentRepository = $segmentRepository;
-		
-		$this->chartLogic = $chartLogic;
 		
 		$this->benchmarkFieldsProvider = $benchmarkFieldsProvider;
 		$this->benchmarkFieldsInitializer = $benchmarkFieldsInitializer;
@@ -113,11 +116,12 @@ class CategoryParamsManager extends EntryParamsManager {
 	protected function getShowSubcategoryParams(Request $request, array $params, $id) {
 		$viewParams = $params['viewParams'];
 		
+		$item = $viewParams['entry'];
+		
 		$viewParams['segments'] = $this->segmentRepository->findItemsByCategory($id);
 		$viewParams['numOfProducts'] = $this->productRepository->findItemsCount($id, 'id');
 		
-		$viewParams = $this->initBenchmarkFields($viewParams, $id);
-		$viewParams = $this->initCharts($viewParams);
+		$viewParams = array_merge($viewParams, $this->initBenchmarkFields($item));
 		
 		$viewParams['bestProduct'] = $this->getBestProduct($id);
 		$viewParams['worstProduct'] = $this->getWorstProduct($id);
@@ -127,69 +131,21 @@ class CategoryParamsManager extends EntryParamsManager {
 		return $params;
 	}
 
-	protected function initBenchmarkFields($viewParams, $categoryId) {
-		$viewParams['numberFields'] = $this->benchmarkFieldsInitializer->init(
-				$this->benchmarkFieldsProvider->getNumberFields($categoryId), $categoryId);
-		$viewParams['enumFields'] = $this->benchmarkFieldsInitializer->init(
-				$this->benchmarkFieldsProvider->getEnumFields($categoryId), $categoryId);
-		$viewParams['boolFields'] = $this->benchmarkFieldsInitializer->init(
-				$this->benchmarkFieldsProvider->getBoolFields($categoryId), $categoryId);
+	protected function initBenchmarkFields(Category $item) {
+		$result = [];
 		
-		$viewParams['priceField'] = $this->benchmarkFieldsInitializer->init(
-				[$this->benchmarkFieldsProvider->getPriceField()], $categoryId)[0];
+		// TODO make price field one of the others???
+		// $result['priceField'] = $this->benchmarkFieldsInitializer->init(
+		// [$this->benchmarkFieldsProvider->getPriceField()])[0];
 		
-		return $viewParams;
-	}
-
-	protected function initCharts($viewParams) {
-		$viewParams = $this->initBoolCharts($viewParams);
-		$viewParams = $this->initNumberCharts($viewParams);
-		$viewParams = $this->initEnumCharts($viewParams);
+		$result['numberFields'] = $this->benchmarkFieldsInitializer->init(
+				$this->benchmarkFieldsProvider->getNumberFields($item));
+		$result['enumFields'] = $this->benchmarkFieldsInitializer->init(
+				$this->benchmarkFieldsProvider->getEnumFields($item));
+		$result['boolFields'] = $this->benchmarkFieldsInitializer->init(
+				$this->benchmarkFieldsProvider->getBoolFields($item));
 		
-		$viewParams = $this->initPriceChart($viewParams);
-		
-		return $viewParams;
-	}
-
-	protected function initBoolCharts($viewParams) {
-		$numOfProducts = $viewParams['numOfProducts'];
-		
-		$boolFields = $viewParams['boolFields'];
-		foreach ($boolFields as $key => $field) {
-			$boolFields[$key] = $this->chartLogic->initChartForBooleanField($field, $numOfProducts);
-		}
-		$viewParams['boolFields'] = $boolFields;
-		
-		return $viewParams;
-	}
-
-	protected function initNumberCharts($viewParams) {
-		$numberFields = $viewParams['numberFields'];
-		foreach ($numberFields as $key => $field) {
-			$numberFields[$key] = $this->chartLogic->initChartForNumberField($field);
-		}
-		$viewParams['numberFields'] = $numberFields;
-		
-		return $viewParams;
-	}
-
-	protected function initEnumCharts($viewParams) {
-		$enumFields = $viewParams['enumFields'];
-		foreach ($enumFields as $key => $field) {
-			$enumFields[$key] = $this->chartLogic->initChartForEnumField($field);
-		}
-		$viewParams['enumFields'] = $enumFields;
-		
-		return $viewParams;
-	}
-
-	protected function initPriceChart($viewParams) {
-		$priceField = $viewParams['priceField'];
-		$priceField = $this->chartLogic->initChartForNumberField($priceField);
-		
-		$viewParams['priceField'] = $priceField;
-		
-		return $viewParams;
+		return $result;
 	}
 
 	protected function getBestProduct($categoryId) {

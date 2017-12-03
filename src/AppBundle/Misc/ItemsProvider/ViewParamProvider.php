@@ -18,6 +18,6 @@ class ViewParamProvider implements ItemsProvider {
 	
 	public function getItems(array $params) {
 		$viewParams = $params['viewParams'];
-		return $viewParams[$this->paramName];
+		return key_exists($this->paramName, $viewParams) ? $viewParams[$this->paramName] : null;
 	}
 }

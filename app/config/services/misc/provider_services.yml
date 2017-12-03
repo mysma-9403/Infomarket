@@ -1,4 +1,12 @@
 services:
+    # Benchmark Fields Providers
+    AppBundle\Logic\Common\BenchmarkField\Initializer\BenchmarkFieldsInitializerImpl:
+        arguments:
+            - '@AppBundle\Factory\Common\BenchmarkField\NoteBenchmarkFieldFactory'
+    AppBundle\Logic\Common\BenchmarkField\Provider\BenchmarkFieldsProvider:
+        arguments:
+            - '@translator'
+
     # Value Providers
     AppBundle\Misc\ValueProvider\:
         resource: '../../../../src/AppBundle/Misc/ValueProvider/*'
@@ -225,7 +233,12 @@ services:
                 parent: '@app.misc.provider.article_items_provider'
                 author: '@app.misc.provider.user_items_provider'
                 imageSize: '@app.misc.provider.article_image_size_items_provider'
-                layout: '@app.misc.provider.article_layout_items_provider'            
+                layout: '@app.misc.provider.article_layout_items_provider'   
+    app.misc.provider.form_options.editor.main.benchmark_enum:
+        class: AppBundle\Misc\FormOptions\FormOptionsProvider
+        arguments: 
+            - 
+                benchmarkField: '@app.misc.provider.benchmark_field_items_provider'         
     app.misc.provider.form_options.editor.main.benchmark_field:
         class: AppBundle\Misc\FormOptions\FormOptionsProvider
         arguments: 
@@ -757,6 +770,10 @@ services:
         class: AppBundle\Misc\ItemsProvider\RepositoryItemsProvider
         arguments:
             - '@AppBundle\Repository\Admin\Main\ArticleCategoryRepository'
+    app.misc.provider.benchmark_field_items_provider:
+        class: AppBundle\Misc\ItemsProvider\RepositoryItemsProvider
+        arguments:
+            - '@AppBundle\Repository\Admin\Main\BenchmarkFieldRepository'
     app.misc.provider.branch_items_provider:
         class: AppBundle\Misc\ItemsProvider\RepositoryItemsProvider
         arguments:

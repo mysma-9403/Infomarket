@@ -31,6 +31,10 @@
 		<field name="betterThanType" type="integer" nullable="true" />
 
 		<field name="compareWeight" type="integer" nullable="true" />
+		
+		<one-to-many field="benchmarkEnums" target-entity="BenchmarkEnum"
+			mapped-by="benchmarkField">
+		</one-to-many>
 	</entity>
 
 </doctrine-mapping>

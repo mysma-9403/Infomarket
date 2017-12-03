@@ -3,24 +3,15 @@
 namespace AppBundle\Controller\Benchmark;
 
 use AppBundle\Controller\Admin\Base\BaseController;
-use AppBundle\Entity\Main\BenchmarkField;
 use AppBundle\Entity\Main\BenchmarkQuery;
 use AppBundle\Entity\Main\Product;
-use AppBundle\Factory\Common\BenchmarkField\SimpleBenchmarkFieldFactory;
 use AppBundle\Filter\Benchmark\BenchmarkQueryFilter;
-use AppBundle\Filter\Benchmark\ProductFilter;
 use AppBundle\Form\Editor\Benchmark\BenchmarkQueryEditorType;
 use AppBundle\Form\Filter\Benchmark\BenchmarkQueryFilterType;
-use AppBundle\Logic\Common\BenchmarkField\Initializer\BenchmarkFieldsInitializerImpl;
-use AppBundle\Logic\Common\BenchmarkField\Provider\BenchmarkFieldsProvider;
 use AppBundle\Manager\Entity\Benchmark\BenchmarkQueryManager;
 use AppBundle\Manager\Filter\Base\FilterManager;
 use AppBundle\Manager\Params\Benchmark\ContextParamsManager;
-use AppBundle\Repository\Benchmark\ProductRepository;
-use AppBundle\Repository\Common\BenchmarkFieldMetadataRepository;
 use AppBundle\Utils\ClassUtils;
-use AppBundle\Utils\Entity\DataBase\BenchmarkFieldDataBaseUtils;
-use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\HttpFoundation\Request;
 
 class BenchmarkQueryController extends BaseController {
@@ -76,64 +67,6 @@ class BenchmarkQueryController extends BaseController {
 	// ---------------------------------------------------------------------------
 	protected function getListItemsProvider() {
 		return $this->get('app.misc.provider.name_list_items_provider');
-	}
-
-	protected function saveMore($request, $entry, $params) {
-		parent::saveMore($request, $entry, $params);
-		
-		/** @var BenchmarkQuery $entry */
-		if ($entry->getArchived() && count($entry->getProducts()) <= 0) {
-			$contextParams = $params['contextParams'];
-			
-			/** @var \Doctrine\Common\Persistence\ObjectManager $em */
-			$em = $this->getDoctrine()->getManager();
-			$benchmarkFieldMetadataRepository = new BenchmarkFieldMetadataRepository($em, 
-					$em->getClassMetadata(BenchmarkField::class));
-			
-			$translator = $this->get('translator');
-			
-			$benchmarkFieldsProvider = new BenchmarkFieldsProvider($benchmarkFieldMetadataRepository, 
-					$translator);
-			
-			$benchmarkFieldDataBaseUtils = new BenchmarkFieldDataBaseUtils();
-			$benchmarkFieldFactory = new SimpleBenchmarkFieldFactory($benchmarkFieldDataBaseUtils);
-			$benchmarkFieldsInitializer = new BenchmarkFieldsInitializerImpl($benchmarkFieldFactory);
-			
-			$productFilter = new ProductFilter($benchmarkFieldsProvider, $benchmarkFieldsInitializer, 
-					$benchmarkFieldsInitializer);
-			$productFilter->initContextParams($contextParams);
-			$productFilter->initRequestValues($request);
-			
-			$productRepository = new ProductRepository($em, $em->getClassMetadata(Product::class));
-			$products = $productRepository->findItems($productFilter);
-			
-			foreach ($products as $product) {
-				/** @var Product $archived */
-				$archived = $productRepository->find($product['id']);
-				
-				$em->detach($archived);
-				
-				$archived->clear();
-				$archived->setBenchmarkQuery($entry);
-				
-				$em->persist($archived);
-			}
-			$em->flush();
-		}
-	}
-
-	protected function deleteMore($entry) {
-		/** @var BenchmarkQuery $entry */
-		parent::deleteMore($entry);
-		
-		/** @var ObjectManager $em */
-		$em = $this->getDoctrine()->getManager();
-		
-		foreach ($entry->getProducts() as $product) {
-			$em->remove($product);
-		}
-		
-		$em->flush();
 	}
 	
 	// ---------------------------------------------------------------------------

@@ -14,7 +14,9 @@ class NewsletterUserManager extends EntityManager {
 		
 		$entry->setName($request->get('name'));
 		
-		$entry->setSubscribed($request->get('subscribed'));
+		$entry->setInfomarket($request->get('infomarket', false));
+		$entry->setInfoprodukt($request->get('infoprodukt', false));
+		$entry->setSubscribed($request->get('subscribed', false));
 		
 		return $entry;
 	}
@@ -33,6 +35,8 @@ class NewsletterUserManager extends EntityManager {
 		
 		$entry->setName($template->getName());
 		
+		$entry->setInfomarket($template->getInfomarket());
+		$entry->setInfoprodukt($template->getInfoprodukt());
 		$entry->setSubscribed($template->getSubscribed());
 		
 		return $entry;

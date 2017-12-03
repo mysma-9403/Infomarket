@@ -31,7 +31,6 @@ services:
             - '@knp_paginator'
             - '@AppBundle\Manager\Params\Base\ParamsManager'
     AppBundle\Manager\Entity\Benchmark\CustomProductManager:
-        class: AppBundle\Manager\Entity\Benchmark\ProductManager
         arguments:
             - '@AppBundle\Repository\Benchmark\CustomProductRepository'
             - '@knp_paginator'

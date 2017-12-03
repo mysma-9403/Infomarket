@@ -9,6 +9,7 @@ use AppBundle\Logic\Common\BenchmarkField\Initializer\BenchmarkFieldsInitializer
 use AppBundle\Logic\Common\BenchmarkField\Provider\BenchmarkFieldsProvider;
 use AppBundle\Utils\StringUtils;
 use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Repository\Base\BaseRepository;
 
 class ProductFilter extends Filter {
 
@@ -79,13 +80,21 @@ class ProductFilter extends Filter {
 	protected $maxPrice = null;
 
 	protected $benchmarkQuery = null;
+	
+	/**
+	 * 
+	 * @var BaseRepository
+	 */
+	protected $categoryRepository;
 
 	public function __construct(BenchmarkFieldsProvider $benchmarkFieldsProvider, 
 			BenchmarkFieldsInitializer $showFieldsInitializer, 
-			BenchmarkFieldsInitializer $filterFieldsInitializer) {
+			BenchmarkFieldsInitializer $filterFieldsInitializer,
+			BaseRepository $categoryRepository) {
 		$this->benchmarkFieldsProvider = $benchmarkFieldsProvider;
 		$this->showFieldsInitializer = $showFieldsInitializer;
 		$this->filterFieldsInitializer = $filterFieldsInitializer;
+		$this->categoryRepository = $categoryRepository;
 		
 		$this->filterName = 'product_';
 	}
@@ -93,12 +102,15 @@ class ProductFilter extends Filter {
 	public function initContextParams(array $contextParams) {
 		$this->contextCategory = $contextParams['subcategory'];
 		
-		// TODO check if it can be used to not recalculate fields in ProductManager index
-		$fields = $this->benchmarkFieldsProvider->getShowFields($this->contextCategory);
-		$this->showFields = $this->showFieldsInitializer->init($fields, $this->contextCategory);
+		//TODO or maybe those show / filter fields should be added from the outside?? setShowFields($fields)??
+		$category = $this->categoryRepository->find($this->contextCategory);
 		
-		$fields = $this->benchmarkFieldsProvider->getFilterFields($this->contextCategory);
-		$this->filterFields = $this->filterFieldsInitializer->init($fields, $this->contextCategory);
+		// TODO check if it can be used to not recalculate fields in ProductManager index
+		$fields = $this->benchmarkFieldsProvider->getShowFields($category);
+		$this->showFields = $this->showFieldsInitializer->init($fields);
+		
+		$fields = $this->benchmarkFieldsProvider->getFilterFields($category);
+		$this->filterFields = $this->filterFieldsInitializer->init($fields);
 	}
 
 	public function initRequestValues(Request $request) {

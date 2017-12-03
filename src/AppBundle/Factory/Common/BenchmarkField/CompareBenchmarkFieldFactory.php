@@ -3,20 +3,34 @@
 namespace AppBundle\Factory\Common\BenchmarkField;
 
 use AppBundle\Entity\Main\BenchmarkField;
+use AppBundle\Utils\Entity\BenchmarkFieldUtils;
 
-class CompareBenchmarkFieldFactory extends BenchmarkFieldFactoryRepositoryBase {
+class CompareBenchmarkFieldFactory implements BenchmarkFieldFactory {
 
-	public function create(array $properties, $categoryId) {
-		$field = $this->initValueFieldProperty($properties);
+	/**
+	 *
+	 * @var BenchmarkFieldUtils
+	 */
+	protected $benchmarkFieldUtils;
+
+	public function __construct(BenchmarkFieldUtils $benchmarkFieldUtils) {
+		$this->benchmarkFieldUtils = $benchmarkFieldUtils;
+	}
+
+	public function create(BenchmarkField $field) {
+		$result = [];
 		
-		switch ($field['fieldType']) {
-			case BenchmarkField::DECIMAL_FIELD_TYPE:
-			case BenchmarkField::INTEGER_FIELD_TYPE:
-			case BenchmarkField::BOOLEAN_FIELD_TYPE:
-				$field = $this->initMinMaxProperties($field, $categoryId);
-				break;
-		}
+		$result['fieldName'] = $field->getFieldName();
+		$result['fieldType'] = $field->getFieldType();
+		$result['showField'] = $field->getShowField();
+		$result['decimalPlaces'] = $field->getDecimalPlaces();
+		$result['valueField'] = $this->benchmarkFieldUtils->getValueField($field);
+		$result['compareWeight'] = $field->getCompareWeight();
+		$result['betterThanType'] = $field->getBetterThanType();
 		
-		return $field;
+		$result['min'] = $this->benchmarkFieldUtils->getMin($field);
+		$result['max'] = $this->benchmarkFieldUtils->getMax($field);
+		
+		return $result;
 	}
 }

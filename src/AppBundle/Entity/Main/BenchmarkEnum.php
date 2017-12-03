@@ -19,6 +19,12 @@ class BenchmarkEnum extends Simple {
 	private $value;
 
 	/**
+	 *
+	 * @var \AppBundle\Entity\Main\BenchmarkField
+	 */
+	private $benchmarkField;
+
+	/**
 	 * Set name
 	 *
 	 * @param string $name        	
@@ -60,5 +66,27 @@ class BenchmarkEnum extends Simple {
 	 */
 	public function getValue() {
 		return $this->value;
+	}
+
+	/**
+	 * Set benchmarkField
+	 *
+	 * @param \AppBundle\Entity\Main\BenchmarkField $benchmarkField        	
+	 *
+	 * @return BenchmarkEnum
+	 */
+	public function setBenchmarkField(\AppBundle\Entity\Main\BenchmarkField $benchmarkField = null) {
+		$this->benchmarkField = $benchmarkField;
+		
+		return $this;
+	}
+
+	/**
+	 * Get benchmarkField
+	 *
+	 * @return \AppBundle\Entity\Main\BenchmarkField
+	 */
+	public function getBenchmarkField() {
+		return $this->benchmarkField;
 	}
 }

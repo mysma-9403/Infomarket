@@ -24,8 +24,20 @@ use AppBundle\Repository\Infomarket\ArticleCategoryRepository;
 use AppBundle\Repository\Infomarket\BranchRepository;
 use AppBundle\Repository\Infomarket\CategoryRepository;
 use AppBundle\Manager\Params\Base\ParamsManager;
+use AppBundle\Factory\Item\Base\ItemFactory;
 
 abstract class InfomarketController extends StandardController {
+	
+	/**
+	 *
+	 * @var ItemFactory
+	 */
+	protected $newsletterUserFactory;
+	
+	public function __construct(ItemFactory $newsletterUserFactory) {
+		$this->newsletterUserFactory = $newsletterUserFactory;
+	}
+	
 	// ---------------------------------------------------------------------------
 	// Internal actions
 	// ---------------------------------------------------------------------------
@@ -133,14 +145,14 @@ abstract class InfomarketController extends StandardController {
 	protected function initNewsletterForm(Request $request, array &$params) {
 		$viewParams = $params['viewParams'];
 		
-		$newsletter = new NewsletterUser();
+		$newsletterUser = $this->newsletterUserFactory->create();
 		
-		$newsletterForm = $this->createForm(NewsletterUserEditorType::class, $newsletter);
+		$newsletterForm = $this->createForm(NewsletterUserEditorType::class, $newsletterUser);
 		$newsletterForm->handleRequest($request);
 		
 		if ($newsletterForm->isSubmitted() && $newsletterForm->isValid()) {
 			if ($newsletterForm->get('save')->isClicked()) {
-				$this->subscribe($newsletter);
+				$this->subscribe($newsletterUser);
 			}
 		}
 		

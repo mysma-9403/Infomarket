@@ -3,7 +3,6 @@
 namespace AppBundle\Controller\Admin\Main;
 
 use AppBundle\Controller\Admin\Base\SimpleController;
-use AppBundle\Entity\Assignments\NewsletterUserNewsletterGroupAssignment;
 use AppBundle\Entity\Main\NewsletterUser;
 use AppBundle\Entity\Other\ImportNewsletterUsers;
 use AppBundle\Factory\Admin\Import\FileEntryFactory;
@@ -249,22 +248,6 @@ class NewsletterUserController extends SimpleController {
 	// ---------------------------------------------------------------------------
 	protected function getListItemsProvider() {
 		return $this->get('app.misc.provider.name_list_items_provider');
-	}
-
-	protected function deleteMore($entry) {
-		$em = $this->getDoctrine()->getManager();
-		
-		foreach ($entry->getNewsletterUserNewsletterGroupAssignments() as $newsletterUserNewsletterGroupAssignment) {
-			$em->remove($newsletterUserNewsletterGroupAssignment);
-		}
-		$em->flush();
-		
-		foreach ($entry->getNewsletterUserNewsletterPageAssignments() as $newsletterUserNewsletterPageAssignment) {
-			$em->remove($newsletterUserNewsletterPageAssignment);
-		}
-		$em->flush();
-		
-		return array();
 	}
 	
 	// ---------------------------------------------------------------------------

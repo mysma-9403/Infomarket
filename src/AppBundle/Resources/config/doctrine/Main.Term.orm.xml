@@ -20,6 +20,9 @@
 			<order-by>
 				<order-by-field name="category" direction="ASC" />
 			</order-by>
+			<cascade>
+            	<cascade-remove/>
+        	</cascade>
 		</one-to-many>
 
 	</entity>

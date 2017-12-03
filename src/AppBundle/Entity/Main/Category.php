@@ -121,6 +121,12 @@ class Category extends ImageTree {
 	 * @var integer
 	 */
 	private $rootId;
+	
+	/**
+	 *
+	 * @var \AppBundle\Entity\Other\CategorySummary
+	 */
+	private $categorySummary;
 
 	/**
 	 *
@@ -478,6 +484,28 @@ class Category extends ImageTree {
 	 */
 	public function getRootId() {
 		return $this->rootId;
+	}
+
+	/**
+	 * Set categorySummary
+	 *
+	 * @param \AppBundle\Entity\Other\CategorySummary $categorySummary        	
+	 *
+	 * @return Category
+	 */
+	public function setCategorySummary(\AppBundle\Entity\Other\CategorySummary $categorySummary = null) {
+		$this->categorySummary = $categorySummary;
+		
+		return $this;
+	}
+
+	/**
+	 * Get categorySummary
+	 *
+	 * @return \AppBundle\Entity\Other\CategorySummary
+	 */
+	public function getCategorySummary() {
+		return $this->categorySummary;
 	}
 
 	/**

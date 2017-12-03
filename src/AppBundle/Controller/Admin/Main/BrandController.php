@@ -130,16 +130,6 @@ class BrandController extends ImageController {
 		return $this->get('app.misc.provider.name_list_items_provider');
 	}
 	
-	protected function deleteMore($entry) {
-		$em = $this->getDoctrine()->getManager();
-		foreach ($entry->getBrandCategoryAssignments() as $brandCategoryAssignment) {
-			$em->remove($brandCategoryAssignment);
-		}
-		$em->flush();
-		
-		return array();
-	}
-	
 	// ---------------------------------------------------------------------------
 	// Managers
 	// ---------------------------------------------------------------------------

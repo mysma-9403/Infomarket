@@ -87,7 +87,7 @@ class BenchmarkFieldController extends BaseController {
 	protected function getFilterFormOptionsProvider() {
 		return $this->get('app.misc.provider.form_options.filter.main.benchmark_field');
 	}
-	
+
 	protected function getEditorFormOptionsProvider() {
 		return $this->get('app.misc.provider.form_options.editor.main.benchmark_field');
 	}

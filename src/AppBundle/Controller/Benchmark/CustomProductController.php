@@ -3,11 +3,7 @@
 namespace AppBundle\Controller\Benchmark;
 
 use AppBundle\Controller\Admin\Base\BaseController;
-use AppBundle\Entity\Assignments\ProductCategoryAssignment;
-use AppBundle\Entity\Main\BenchmarkField;
-use AppBundle\Entity\Main\Category;
 use AppBundle\Entity\Main\Product;
-use AppBundle\Entity\Main\ProductNote;
 use AppBundle\Factory\Common\BenchmarkField\SimpleBenchmarkFieldFactory;
 use AppBundle\Filter\Benchmark\CustomProductFilter;
 use AppBundle\Filter\Common\Other\ProductFilter;
@@ -15,14 +11,15 @@ use AppBundle\Form\Editor\Benchmark\ProductEditorType;
 use AppBundle\Form\Filter\Benchmark\CategoryFilterType;
 use AppBundle\Form\Filter\Benchmark\CustomProductFilterType;
 use AppBundle\Form\Filter\Benchmark\SubcategoryFilterType;
-use AppBundle\Logic\Common\BenchmarkField\Initializer\BenchmarkFieldsInitializerImpl;
+use AppBundle\Logic\Common\BenchmarkField\Initializer\BenchmarkFieldsInitializer;
 use AppBundle\Logic\Common\BenchmarkField\Provider\BenchmarkFieldsProvider;
 use AppBundle\Manager\Entity\Base\EntityManager;
 use AppBundle\Manager\Entity\Benchmark\CustomProductManager;
 use AppBundle\Manager\Filter\Base\FilterManager;
 use AppBundle\Manager\Params\Benchmark\ContextParamsManager;
 use AppBundle\Manager\Params\EntryParams\Benchmark\CustomProductEntryParamsManager;
-use AppBundle\Repository\Common\BenchmarkFieldMetadataRepository;
+use AppBundle\Repository\Benchmark\CategoryRepository;
+use AppBundle\Utils\Entity\BenchmarkFieldUtils;
 use AppBundle\Utils\Entity\DataBase\BenchmarkFieldDataBaseUtils;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -63,17 +60,18 @@ class CustomProductController extends BaseController {
 	}
 
 	protected function getInternalEntryParamsManager(EntityManager $em, FilterManager $fm, $doctrine) {
-		$manager = $doctrine->getManager();
-		$benchmarkFieldMetadataRepository = new BenchmarkFieldMetadataRepository($manager, 
-				$manager->getClassMetadata(BenchmarkField::class));
 		$translator = $this->get('translator');
-		$benchmarkFieldsProvider = new BenchmarkFieldsProvider($benchmarkFieldMetadataRepository, $translator);
+		$benchmarkFieldsProvider = new BenchmarkFieldsProvider($translator);
 		
 		$benchmarkFieldDataBaseUtils = new BenchmarkFieldDataBaseUtils();
-		$benchmarkFieldFactory = new SimpleBenchmarkFieldFactory($benchmarkFieldDataBaseUtils);
-		$benchmarkFieldsInitializer = new BenchmarkFieldsInitializerImpl($benchmarkFieldFactory);
+		$benchmarkFieldUtils = new BenchmarkFieldUtils($benchmarkFieldDataBaseUtils);
+		$benchmarkFieldFactory = new SimpleBenchmarkFieldFactory($benchmarkFieldUtils);
+		$benchmarkFieldsInitializer = new BenchmarkFieldsInitializer($benchmarkFieldFactory);
 		
-		$productFilter = new ProductFilter($benchmarkFieldsProvider, $benchmarkFieldsInitializer);
+		$categoryRepository = $this->get(CategoryRepository::class);
+		
+		$productFilter = new ProductFilter($benchmarkFieldsProvider, $benchmarkFieldsInitializer, 
+				$categoryRepository);
 		
 		return new CustomProductEntryParamsManager($em, $fm, $productFilter);
 	}
@@ -107,33 +105,6 @@ class CustomProductController extends BaseController {
 		$response = $this->initSubcategoryForm($request, $params);
 		if ($response)
 			return $response;
-		
-		return null;
-	}
-
-	protected function initUpdateForm(Request $request, array &$params) {
-		$viewParams = $params['viewParams'];
-		$entry = $viewParams['entry'];
-		
-		$optionsProvider = $this->getEditorFormOptionsProvider();
-		$options = $optionsProvider->getFormOptions($params);
-		
-		$form = $this->createForm($this->getEditorFormType(), $entry, $options);
-		
-		$form->handleRequest($request);
-		
-		if ($form->isSubmitted() && $form->isValid()) {
-			$this->saveEntry($request, $entry, $params);
-			
-			$this->flashCreatedMessage();
-			
-			if ($form->get('save')->isClicked()) {
-				return $this->redirectToRoute($this->getEditRoute(), array('id' => $entry->getId()));
-			}
-		}
-		
-		$viewParams['form'] = $form->createView();
-		$params['viewParams'] = $viewParams;
 		
 		return null;
 	}
@@ -222,66 +193,6 @@ class CustomProductController extends BaseController {
 	// ---------------------------------------------------------------------------
 	protected function getListItemsProvider() {
 		return $this->get('app.misc.provider.name_list_items_provider');
-	}
-
-	protected function prepareEntry($request, &$entry, $params) {
-		/** @var Product $entry */
-		$entry->setCustom(true);
-		
-		return $entry;
-	}
-
-	protected function saveMore($request, $entry, $params) {
-		parent::saveMore($request, $entry, $params);
-		
-		/** @var Product $entry */
-		if (count($entry->getProductCategoryAssignments()) == 0) {
-			$contextParams = $params['contextParams'];
-			$subcategory = $contextParams['subcategory'];
-			
-			$repository = $this->getDoctrine()->getRepository(Category::class);
-			$category = $repository->find($subcategory);
-			
-			$assignment = new ProductCategoryAssignment();
-			$assignment->setProduct($entry);
-			$assignment->setCategory($category);
-			$assignment->setOrderNumber(99);
-			$assignment->setFeatured(false);
-			
-			/** @var \Doctrine\Common\Persistence\ObjectManager $em */
-			$em = $this->getDoctrine()->getManager();
-			
-			$em->persist($assignment);
-			$em->flush();
-		}
-		
-		if (! $entry->getProductNote()) {
-			$note = new ProductNote();
-			$note->setProduct($entry);
-			$note->setOveralNote(2.0); // TODO first note should be calculated here!
-			
-			/** @var \Doctrine\Common\Persistence\ObjectManager $em */
-			$em = $this->getDoctrine()->getManager();
-			
-			$em->persist($note);
-			$em->flush();
-		}
-	}
-
-	protected function deleteMore($entry) {
-		/** @var Product $entry */
-		$em = $this->getDoctrine()->getManager();
-		foreach ($entry->getProductCategoryAssignments() as $productCategoryAssignment) {
-			$em->remove($productCategoryAssignment);
-		}
-		$em->flush();
-		
-		if ($entry->getProductNote()) {
-			$em->remove($entry->getProductNote());
-		}
-		$em->flush();
-		
-		return array();
 	}
 	
 	// ---------------------------------------------------------------------------

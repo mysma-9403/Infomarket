@@ -31,7 +31,7 @@ class BenchmarkField extends Simple {
 	const LT_BETTER_THAN_TYPE = 10;
 
 	const GT_BETTER_THAN_TYPE = 20;
-	
+
 	public function __construct() {
 		parent::__construct();
 		
@@ -130,6 +130,12 @@ class BenchmarkField extends Simple {
 	 * @var integer
 	 */
 	private $compareWeight;
+
+	/**
+	 *
+	 * @var \Doctrine\Common\Collections\Collection
+	 */
+	private $benchmarkEnums;
 
 	/**
 	 *
@@ -465,6 +471,37 @@ class BenchmarkField extends Simple {
 	 */
 	public function getCompareWeight() {
 		return $this->compareWeight;
+	}
+
+	/**
+	 * Add benchmarkEnum
+	 *
+	 * @param \AppBundle\Entity\Main\BenchmarkEnum $benchmarkEnum        	
+	 *
+	 * @return BenchmarkField
+	 */
+	public function addBenchmarkEnum(\AppBundle\Entity\Main\BenchmarkEnum $benchmarkEnum) {
+		$this->benchmarkEnums[] = $benchmarkEnum;
+		
+		return $this;
+	}
+
+	/**
+	 * Remove benchmarkEnum
+	 *
+	 * @param \AppBundle\Entity\Main\BenchmarkEnum $benchmarkEnum        	
+	 */
+	public function removeBenchmarkEnum(\AppBundle\Entity\Main\BenchmarkEnum $benchmarkEnum) {
+		$this->benchmarkEnums->removeElement($benchmarkEnum);
+	}
+
+	/**
+	 * Get benchmarkEnums
+	 *
+	 * @return \Doctrine\Common\Collections\Collection
+	 */
+	public function getBenchmarkEnums() {
+		return $this->benchmarkEnums;
 	}
 
 	/**

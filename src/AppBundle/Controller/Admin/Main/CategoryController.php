@@ -12,6 +12,7 @@ use AppBundle\Form\Editor\Admin\Main\CategoryEditorType;
 use AppBundle\Form\Filter\Admin\Main\CategoryFilterType;
 use AppBundle\Form\Lists\Base\FeaturedListType;
 use AppBundle\Form\Other\ImportRatingsType;
+use AppBundle\Logic\Admin\Import\Common\CountManager;
 use AppBundle\Logic\Admin\Import\Product\ImportLogic;
 use AppBundle\Manager\Entity\Base\EntityManager;
 use AppBundle\Manager\Entity\Common\Main\CategoryManager;
@@ -220,7 +221,28 @@ class CategoryController extends FeaturedController {
 			$translator = $this->get('translator');
 			$errorFactory = new ImportErrorFactory($translator);
 			$benchmarkFieldDataBaseUtils = new BenchmarkFieldDataBaseUtils();
-			$importLogic = new ImportLogic($doctrine, $errorFactory, $benchmarkFieldDataBaseUtils);
+			
+			$productManager = $this->get('app.import.persistence_manager.product');
+			$productCategoryAssignmentManager = $this->get(
+					'app.import.persistence_manager.product_category_assignment');
+			$productValueManager = $this->get('app.import.persistence_manager.product_value');
+			$productScoreManager = $this->get('app.import.persistence_manager.product_score');
+			$productNoteManager = $this->get('app.import.persistence_manager.product_note');
+			$brandManager = $this->get('app.import.persistence_manager.brand');
+			$benchmarkFieldManager = $this->get('app.import.persistence_manager.benchmark_field');
+			$categorySummaryManager = $this->get('app.import.persistence_manager.category_summary');
+			
+			$countManager = $this->get(CountManager::class);
+			$importLogic = new ImportLogic($doctrine, $errorFactory, $benchmarkFieldDataBaseUtils, 
+					$productManager,
+					$productCategoryAssignmentManager,
+					$productValueManager,
+					$productScoreManager,
+					$productNoteManager,
+					$brandManager,
+					$benchmarkFieldManager,
+					$categorySummaryManager,
+					$countManager);
 			
 			$result = $importLogic->importRatings($importRatings, $entry);
 			$errors = $result['errors'];
@@ -233,42 +255,20 @@ class CategoryController extends FeaturedController {
 				
 				$lines = $result['lines'];
 				
-				$createdProducts = $result['productsCounts']['created'];
-				$updatedProducts = $result['productsCounts']['updated'];
-				$duplicateProducts = $result['productsCounts']['duplicates'];
-				$allProducts = $result['productsCounts']['all'];
-				
-				$createdAssignments = $result['assignmentsCounts']['created'];
-				$updatedAssignments = $result['assignmentsCounts']['updated'];
-				$allAssignments = $result['assignmentsCounts']['all'];
-				
-				$updatedBrands = $result['brandsCounts']['updated'];
-				$allBrands = $result['brandsCounts']['all'];
-				
-				$createdBenchmarkFields = $result['benchmarkFieldsCounts']['created'];
-				$updatedBenchmarkFields = $result['benchmarkFieldsCounts']['updated'];
-				$allBenchmarkFields = $result['benchmarkFieldsCounts']['all'];
-				
 				$msg = $translator->trans('success.category.ratingsImported');
 				$msg = nl2br($msg);
 				
 				$msg = str_replace('%lines%', $lines, $msg);
 				
-				$msg = str_replace('%createdProducts%', $createdProducts, $msg);
-				$msg = str_replace('%updatedProducts%', $updatedProducts, $msg);
-				$msg = str_replace('%duplicateProducts%', $duplicateProducts, $msg);
-				$msg = str_replace('%allProducts%', $allProducts, $msg);
+				$msg = $this->replaceCounts($msg, $result, 'products');
+				$msg = $this->replaceCounts($msg, $result, 'productValues');
+				$msg = $this->replaceCounts($msg, $result, 'productScores');
+				$msg = $this->replaceCounts($msg, $result, 'productNotes');
 				
-				$msg = str_replace('%createdAssignments%', $createdAssignments, $msg);
-				$msg = str_replace('%updatedAssignments%', $updatedAssignments, $msg);
-				$msg = str_replace('%allAssignments%', $allAssignments, $msg);
+				$msg = $this->replaceCounts($msg, $result, 'assignments');
 				
-				$msg = str_replace('%updatedBrands%', $updatedBrands, $msg);
-				$msg = str_replace('%allBrands%', $allBrands, $msg);
-				
-				$msg = str_replace('%createdBenchmarkFields%', $createdBenchmarkFields, $msg);
-				$msg = str_replace('%updatedBenchmarkFields%', $updatedBenchmarkFields, $msg);
-				$msg = str_replace('%allBenchmarkFields%', $allBenchmarkFields, $msg);
+				$msg = $this->replaceCounts($msg, $result, 'brands');
+				$msg = $this->replaceCounts($msg, $result, 'benchmarkFields');
 				
 				$this->addFlash('success', $msg);
 			}
@@ -277,6 +277,19 @@ class CategoryController extends FeaturedController {
 		$viewParams['importRatingsForm'] = $importRatingsForm->createView();
 		
 		return $this->render($this->getRatingsView(), $viewParams);
+	}
+
+	protected function replaceCounts($message, array $result, $key) {
+		$message = $this->replaceCount($message, $result, $key, 'duplicated');
+		$message = $this->replaceCount($message, $result, $key, 'created');
+		$message = $this->replaceCount($message, $result, $key, 'updated');
+		$message = $this->replaceCount($message, $result, $key, 'all');
+		
+		return $message;
+	}
+
+	protected function replaceCount($message, array $result, $key, $countKey) {
+		return str_replace('%' . $countKey . '_' . $key . '%', $result[$key . 'Counts'][$countKey], $message);
 	}
 
 	protected function clearRatingsActionInternal(Request $request, $id) {
@@ -315,7 +328,7 @@ class CategoryController extends FeaturedController {
 	protected function getFilterFormOptionsProvider() {
 		return $this->get('app.misc.provider.form_options.filter.main.category');
 	}
-	
+
 	protected function getEditorFormOptionsProvider() {
 		return $this->get('app.misc.provider.form_options.editor.main.category');
 	}
@@ -325,48 +338,6 @@ class CategoryController extends FeaturedController {
 	// ---------------------------------------------------------------------------
 	protected function getListItemsProvider() {
 		return $this->get('app.misc.provider.subname_list_items_provider');
-	}
-
-	protected function prepareEntry($request, &$entry, $params) {
-		parent::prepareEntry($request, $entry, $params);
-		
-		/** @var Category $entry */
-		$parent = $entry->getParent();
-		if ($parent) {
-			$rootId = $parent->getRootId();
-			if ($rootId) {
-				$entry->setRootId($rootId);
-			} else {
-				$entry->setRootId($parent->getId());
-			}
-		} else {
-			$entry->setRootId(null);
-		}
-	}
-
-	protected function saveMore($request, $entry, $params) {
-		$parent = $entry->getParent();
-		if ($parent) {
-			$rootId = $parent->getRootId();
-			if (! $rootId)
-				$rootId = $parent->getId();
-			
-			/** @var CategoryRepository $repository */
-			$repository = $this->getDoctrine()->getRepository(Category::class);
-			$items = $repository->findChildrenIds($entry->getId(), $rootId);
-			
-			if (count($items) > 0) {
-				$repository->setRootId($items, $rootId);
-			}
-		} else {
-			/** @var CategoryRepository $repository */
-			$repository = $this->getDoctrine()->getRepository(Category::class);
-			$items = $repository->findChildrenIds($entry->getId(), $entry->getId());
-			
-			if (count($items) > 0) {
-				$repository->setRootId($items, $entry->getId());
-			}
-		}
 	}
 
 	/**
@@ -448,25 +419,6 @@ class CategoryController extends FeaturedController {
 		$params = $em->getRatingsParams($request, $params, $id);
 		
 		return $params;
-	}
-	
-	// ---------------------------------------------------------------------------
-	// Internal logic
-	// ---------------------------------------------------------------------------
-	/**
-	 *
-	 * {@inheritDoc}
-	 *
-	 * @see \AppBundle\Controller\Admin\Base\AdminEntityController::deleteMore()
-	 */
-	protected function deleteMore($entry) {
-		$em = $this->getDoctrine()->getManager();
-		foreach ($entry->getBranchCategoryAssignments() as $branchCategoryAssignment) {
-			$em->remove($branchCategoryAssignment);
-		}
-		$em->flush();
-		
-		return array();
 	}
 	
 	// ---------------------------------------------------------------------------

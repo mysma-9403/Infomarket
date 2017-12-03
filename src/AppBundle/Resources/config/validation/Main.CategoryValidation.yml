@@ -39,4 +39,8 @@ AppBundle\Entity\Main\Category:
                 groups: [removal]
                 max: 0
                 exactMessage: category.usedIn.termCategoryAssignments
-                
+        benchmarkFields:
+            - Count:
+                groups: [removal]
+                max: 0
+                exactMessage: category.usedIn.benchmarkFields        

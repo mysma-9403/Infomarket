@@ -19,6 +19,11 @@ services:
         arguments: ['@AppBundle\Repository\Admin\Main\ArticleRepository']
         tags:
             - { name: form.transformer }
+    app.form.transformer.benchmark_field_2_number:
+        class: AppBundle\Form\Transformer\EntityToNumberTransformer
+        arguments: ['@AppBundle\Repository\Admin\Main\BenchmarkFieldRepository']
+        tags:
+            - { name: form.transformer }
     app.form.transformer.branch_2_number:
         class: AppBundle\Form\Transformer\EntityToNumberTransformer
         arguments: ['@AppBundle\Repository\Admin\Main\BranchRepository']

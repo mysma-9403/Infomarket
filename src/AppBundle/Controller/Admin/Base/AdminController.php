@@ -5,14 +5,50 @@ namespace AppBundle\Controller\Admin\Base;
 use AppBundle\Controller\Base\StandardController;
 use AppBundle\Filter\Base\Filter;
 use AppBundle\Filter\Common\Base\BaseFilter;
+use AppBundle\Manager\Decorator\Base\ItemDecorator;
 use AppBundle\Manager\Params\Admin\ContextParamsManager;
+use AppBundle\Manager\Persistence\Base\PersistenceManager;
 use AppBundle\Manager\Route\RouteManager;
+use AppBundle\Manager\Transaction\Base\TransactionManager;
 use AppBundle\Misc\FormOptions\FormOptionsProvider;
 use AppBundle\Misc\ListItemsProvider\ListItemsProvider;
+use AppBundle\Validator\Base\BaseValidator;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Request;
 
 abstract class AdminController extends StandardController {
+
+	/**
+	 *
+	 * @var TransactionManager
+	 */
+	protected $transactionManager;
+
+	/**
+	 *
+	 * @var PersistenceManager
+	 */
+	protected $persistenceManager;
+
+	/**
+	 *
+	 * @var ItemDecorator
+	 */
+	protected $decorator;
+
+	/**
+	 *
+	 * @var BaseValidator
+	 */
+	protected $validator;
+
+	public function __construct(TransactionManager $transactionManager, PersistenceManager $persistenceManager, 
+			ItemDecorator $decorator, BaseValidator $validator) {
+		$this->transactionManager = $transactionManager;
+		$this->persistenceManager = $persistenceManager;
+		$this->decorator = $decorator;
+		$this->validator = $validator;
+	}
 	
 	// ---------------------------------------------------------------------------
 	// Internal actions
@@ -105,49 +141,23 @@ abstract class AdminController extends StandardController {
 		$params = $this->getEditParams($request, $params, $id);
 		
 		$viewParams = $params['viewParams'];
-		$entry = $viewParams['entry'];
+		$item = $viewParams['entry'];
 		
-		// TODO ValidationManager??
-		$validator = $this->get('validator');
-		$errors = $validator->validate($entry, null, array('removal'));
-		
+		$errors = $this->validator->validateDeletedItem($item);
 		if (count($errors) > 0) {
 			foreach ($errors as $error) {
 				$this->addFlash('error', $error->getMessage());
 			}
 			return $this->redirectToReferer($request);
 		} else {
-			$em = $this->getDoctrine()->getManager();
-			$em->getConnection()->beginTransaction();
-			
-			try {
-				$errors = $this->deleteMore($entry);
-				if (count($errors) > 0) {
-					foreach ($errors as $error) {
-						$this->addFlash('error', $error->getMessage());
-					}
-					
-					$em->getConnection()->rollback();
-					return $this->redirectToReferer($request);
-				} else {
-					$em->remove($entry);
-					$em->flush();
-					
-					$em->getConnection()->commit();
-				}
-			} catch (Exception $ex) {
-				$em->getConnection()->rollback();
-				$this->addFlash('error', $ex->getMessage());
-				return $this->redirectToReferer($request);
-			}
+			$this->deleteItem($request, $item, $params);
 		}
 		
 		/** @var RouteManager $rm */
 		$rm = $this->getRouteManager();
 		$rm->remove($request, $id);
-		$lastRoute = $rm->getLastRoute($request, [
-				'route' => $this->getIndexRoute(), 
-				'routeParams' => array()]);
+		$lastRoute = $rm->getLastRoute($request, 
+				['route' => $this->getIndexRoute(), 'routeParams' => array()]);
 		
 		return $this->redirectToRoute($lastRoute['route'], $lastRoute['routeParams']);
 	}
@@ -157,7 +167,8 @@ abstract class AdminController extends StandardController {
 	 * @param Request $request        	
 	 * @param BaseFormType $form        	
 	 */
-	protected function listFormActionInternal(Request $request, Form $form, BaseFilter $filter, array $listItems) {
+	protected function listFormActionInternal(Request $request, Form $form, BaseFilter $filter, array $listItems, 
+			array $params) {
 		if ($form->get('selectAll')->isClicked()) {
 			foreach ($listItems as $item) {
 				$filter->addSelected($item);
@@ -170,9 +181,9 @@ abstract class AdminController extends StandardController {
 		
 		if ($form->get('deleteSelected')->isClicked()) {
 			$data = $form->getData();
-			$entries = $data->getEntries();
+			$ids = $data->getEntries();
 			$filter->clearSelected();
-			$this->deleteSelected($entries);
+			$this->deleteSelected($request, $ids, $params);
 		}
 		
 		return $this->redirectToRoute($this->getIndexRoute(), $filter->getRequestValues());
@@ -245,7 +256,7 @@ abstract class AdminController extends StandardController {
 		$form->handleRequest($request);
 		
 		if ($form->isSubmitted() && $form->isValid()) {
-			return $this->listFormActionInternal($request, $form, $filter, $listItems);
+			return $this->listFormActionInternal($request, $form, $filter, $listItems, $params);
 		}
 		
 		$viewParams['form'] = $form->createView();
@@ -276,22 +287,26 @@ abstract class AdminController extends StandardController {
 
 	protected function initUpdateForm(Request $request, array &$params) {
 		$viewParams = $params['viewParams'];
-		$entry = $viewParams['entry'];
+		$item = $viewParams['entry'];
 		
 		$optionsProvider = $this->getEditorFormOptionsProvider();
 		$options = $optionsProvider->getFormOptions($params);
 		
-		$form = $this->createForm($this->getEditorFormType(), $entry, $options);
+		$form = $this->createForm($this->getEditorFormType(), $item, $options);
 		
 		$form->handleRequest($request);
 		
 		if ($form->isSubmitted() && $form->isValid()) {
-			$this->saveEntry($request, $entry, $params);
+			$item = $this->getPreparedItem($request, $item, $params);
+			$result = $this->saveItem($request, $item, $params);
+			if ($result) {
+				return $result;
+			}
 			
 			$this->flashCreatedMessage();
 			
 			if ($form->get('save')->isClicked()) {
-				return $this->redirectToRoute($this->getEditRoute(), array('id' => $entry->getId()));
+				return $this->redirectToRoute($this->getEditRoute(), array('id' => $item->getId()));
 			}
 		}
 		
@@ -422,73 +437,55 @@ abstract class AdminController extends StandardController {
 		return $result;
 	}
 
-	/**
-	 *
-	 * @param unknown $entries        	
-	 */
-	protected function deleteSelected($entries) {
-		$this->denyAccessUnlessGranted($this->getDeleteRole(), null, 'Unable to access this page!');
+	protected function deleteSelected(Request $request, array $ids, array $params) {
+		$errors = [];
 		
-		$em = $this->getDoctrine()->getManager();
+		$items = $this->getItemsByIds($ids);
+		$errors = $this->validator->validateDeletedItems($items);
 		
-		$validator = $this->get('validator');
-		
-		foreach ($entries as $entry) {
-			$entry = $this->getEntry($entry);
-			
-			$entryErrors = $validator->validate($entry, null, array('removal'));
-			
-			if (count($entryErrors) > 0) {
-				foreach ($entryErrors as $error) {
-					$this->addFlash('error', $error->getMessage());
-				}
-			} else {
-				$errors = $this->deleteMore($entry);
-				if (count($errors) > 0) {
-					foreach ($errors as $error) {
-						$this->addFlash('error', $error->getMessage());
-					}
-				} else {
-					$em->remove($entry);
-				}
+		if (count($errors) > 0) {
+			foreach ($errors as $error) {
+				$this->addFlash('error', $error->getMessage());
 			}
+		} else if (count($items) > 0) {
+			$this->deleteItems($request, $items, $params);
 		}
-		
-		$em->flush();
+	}
+
+	protected function saveItem(Request $request, $item, array $params) {
+		try {
+			$this->transactionManager->saveItem($request, $item, $params);
+		} catch (Exception $ex) {
+			$this->addFlash('error', $ex->getMessage());
+			return $this->redirectToReferer($request);
+		}
+	}
+
+	protected function deleteItem(Request $request, $item, array $params) {
+		try {
+			$this->transactionManager->deleteItem($request, $item, $params);
+		} catch (Exception $ex) {
+			$this->addFlash('error', $ex->getMessage());
+			return $this->redirectToReferer($request);
+		}
+	}
+
+	protected function deleteItems(Request $request, array $items, array $params) {
+		try {
+			$this->transactionManager->deleteItems($request, $items, $params);
+		} catch (Exception $ex) {
+			$this->addFlash('error', $ex->getMessage());
+			return $this->redirectToReferer($request);
+		}
+	}
+
+	protected function getPreparedItem(Request $request, $item, array $params) {
+		return $this->decorator->getPrepared($item);
 	}
 
 	/**
 	 *
-	 * @param unknown $entry        	
-	 */
-	protected function saveEntry($request, $entry, $params) {
-		$em = $this->getDoctrine()->getManager();
-		
-		$this->prepareEntry($request, $entry, $params);
-		
-		$em->persist($entry);
-		$em->flush();
-		
-		$this->saveMore($request, $entry, $params);
-	}
-
-	/**
-	 *
-	 * @param unknown $entry        	
-	 */
-	protected function prepareEntry($request, &$entry, $params) {
-	}
-
-	protected function saveMore($request, $entry, $params) {
-	}
-
-	protected function deleteMore($entry) {
-		return array();
-	}
-
-	/**
-	 *
-	 * @param array $entries        	
+	 * @param array $items        	
 	 * @param boolean $published        	
 	 */
 	protected function setValueForSelected($items, $field, $published) {
@@ -499,6 +496,12 @@ abstract class AdminController extends StandardController {
 			$repository = $this->getEntityRepository();
 			$repository->setValue($items, $field, $published);
 		}
+	}
+
+	protected function getItemsByIds(array $ids) {
+		/** @var BaseRepository $repository */
+		$repository = $this->getEntityRepository();
+		return $repository->findBy(['id' => $ids]);
 	}
 	
 	// ---------------------------------------------------------------------------

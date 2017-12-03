@@ -12,7 +12,11 @@
 
 		<field name="archived" type="boolean" nullable="false" default="0" />
 
-		<one-to-many field="products" target-entity="Product" mapped-by="benchmarkQuery" />
+		<one-to-many field="products" target-entity="Product" mapped-by="benchmarkQuery">
+			<cascade>
+            	<cascade-remove/>
+        	</cascade>
+		</one-to-many>
 
 	</entity>
 

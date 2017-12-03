@@ -21,7 +21,7 @@ abstract class SimpleController extends BaseController {
 	 * @param Request $request        	
 	 * @param BaseFormType $form        	
 	 */
-	protected function listFormActionInternal(Request $request, Form $form, BaseFilter $filter, array $listItems) {
+	protected function listFormActionInternal(Request $request, Form $form, BaseFilter $filter, array $listItems, array $params) {
 		if ($form->get('imPublishSelected')->isClicked()) {
 			$data = $form->getData();
 			$entries = $data->getEntries();
@@ -50,7 +50,7 @@ abstract class SimpleController extends BaseController {
 			$this->setValueForSelected($entries, 'infoprodukt', 0);
 		}
 		
-		return parent::listFormActionInternal($request, $form, $filter, $listItems);
+		return parent::listFormActionInternal($request, $form, $filter, $listItems, $params);
 	}
 
 	protected function setIMPublishedActionInternal(Request $request, $id) {

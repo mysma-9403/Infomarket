@@ -1,0 +1,22 @@
+services:
+    AppBundle\Manager\Decorator\:
+        resource: '../../../src/AppBundle/Manager/Decorator/*'
+        
+    AppBundle\Manager\Decorator\Common\Base\ImageDecorator:
+        arguments:
+            - '@stof_doctrine_extensions.uploadable.manager'
+            - '@AppBundle\Factory\Common\Image\UploadedFileInfoFactory'
+    
+    AppBundle\Manager\Decorator\Common\Assignments\ProductCategoryAssignmentDecorator:
+        arguments:
+            - '@AppBundle\Factory\Item\Other\ProductValueFactory'
+            - '@AppBundle\Manager\Decorator\Base\ItemDecorator'
+            - '@AppBundle\Factory\Item\Other\ProductScoreFactory'
+            - '@AppBundle\Manager\Decorator\Base\ItemDecorator'
+            - '@AppBundle\Factory\Item\Other\ProductNoteFactory'
+            - '@AppBundle\Manager\Decorator\Base\ItemDecorator'
+            
+    AppBundle\Manager\Decorator\Common\Main\CategoryDecorator:
+        arguments:
+            - '@AppBundle\Factory\Item\Other\CategorySummaryFactory'
+            - '@AppBundle\Manager\Decorator\Base\ItemDecorator'

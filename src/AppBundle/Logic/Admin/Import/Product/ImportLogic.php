@@ -2,15 +2,19 @@
 
 namespace AppBundle\Logic\Admin\Import\Product;
 
-use AppBundle\Entity\Assignments\ProductCategoryAssignment;
 use AppBundle\Entity\Main\BenchmarkField;
 use AppBundle\Entity\Main\Brand;
 use AppBundle\Entity\Main\Category;
 use AppBundle\Entity\Main\Product;
+use AppBundle\Entity\Other\ProductNote;
+use AppBundle\Entity\Other\ProductScore;
+use AppBundle\Entity\Other\ProductValue;
 use AppBundle\Entity\Main\Segment;
 use AppBundle\Entity\Other\ImportRatings;
 use AppBundle\Factory\Admin\ErrorFactory;
 use AppBundle\Factory\Admin\Import\Product\ImportErrorFactory;
+use AppBundle\Logic\Admin\Import\Common\CountManager;
+use AppBundle\Logic\Admin\Import\Common\PersistenceManager;
 use AppBundle\Utils\Entity\DataBase\BenchmarkFieldDataBaseUtils;
 use AppBundle\Utils\StringUtils;
 use Doctrine\Bundle\DoctrineBundle\Registry;
@@ -35,16 +39,86 @@ class ImportLogic {
 	 */
 	protected $benchmarkFieldDataBaseUtils;
 
+	/**
+	 *
+	 * @var PersistenceManager
+	 */
+	protected $productManager;
+
+	/**
+	 *
+	 * @var PersistenceManager
+	 */
+	protected $productCategoryAssignmentManager;
+
+	/**
+	 *
+	 * @var PersistenceManager
+	 */
+	protected $productValueManager;
+
+	/**
+	 *
+	 * @var PersistenceManager
+	 */
+	protected $productScoreManager;
+
+	/**
+	 *
+	 * @var PersistenceManager
+	 */
+	protected $productNoteManager;
+
+	/**
+	 *
+	 * @var PersistenceManager
+	 */
+	protected $brandManager;
+
+	/**
+	 *
+	 * @var PersistenceManager
+	 */
+	protected $benchmarkFieldManager;
+
+	/**
+	 *
+	 * @var PersistenceManager
+	 */
+	protected $categorySummaryManager;
+
+	/**
+	 *
+	 * @var CountManager $countManager
+	 */
+	protected $countManager;
+
 	public function __construct(Registry $doctrine, ImportErrorFactory $errorFactory, 
-			BenchmarkFieldDataBaseUtils $benchmarkFieldDataBaseUtils) {
+			BenchmarkFieldDataBaseUtils $benchmarkFieldDataBaseUtils, PersistenceManager $productManager, 
+			PersistenceManager $productCategoryAssignmentManager, PersistenceManager $productValueManager, 
+			PersistenceManager $productScoreManager, PersistenceManager $productNoteManager, 
+			PersistenceManager $brandManager, PersistenceManager $benchmarkFieldManager, 
+			PersistenceManager $categorySummaryManager, CountManager $countManager) {
 		$this->doctrine = $doctrine;
 		$this->errorFactory = $errorFactory;
 		$this->benchmarkFieldDataBaseUtils = $benchmarkFieldDataBaseUtils;
+		
+		$this->productManager = $productManager;
+		$this->productCategoryAssignmentManager = $productCategoryAssignmentManager;
+		$this->productValueManager = $productValueManager;
+		$this->productScoreManager = $productScoreManager;
+		$this->productNoteManager = $productNoteManager;
+		$this->brandManager = $brandManager;
+		$this->benchmarkFieldManager = $benchmarkFieldManager;
+		$this->categorySummaryManager = $categorySummaryManager;
+		
+		$this->countManager = $countManager;
 	}
 
 	/**
 	 *
 	 * @param ImportRatings $importRatings        	
+	 * @param Category $category        	
 	 */
 	public function importRatings($importRatings, $category) {
 		$result = array();
@@ -94,51 +168,48 @@ class ImportLogic {
 			return $result;
 		}
 		
-		$productsCounts = $this->getProductsCounts($dataBaseEntries);
-		
-		$errors = $this->saveProducts($dataBaseEntries);
-		if (count($errors) > 0) {
-			$result['errors'] = $errors;
-			return $result;
-		}
-		
-		$dataBaseEntries = $this->getPersistentProducts($dataBaseEntries);
-		$errors = $this->getEntriesErrors($dataBaseEntries);
-		if (count($errors) > 0) {
-			$result['errors'] = $errors;
-			return $result;
-		}
-		
-		$dataBaseEntries = $this->getProductCategoryAssignments($dataBaseEntries);
-		
-		$assignmentsCounts = $this->getAssignmentsCounts($dataBaseEntries);
-		
-		$errors = $this->saveProductCategoryAssignments($dataBaseEntries);
-		if (count($errors) > 0) {
-			$result['errors'] = $errors;
-			return $result;
-		}
-		
-		$brandsCounts = $this->getBrandsCounts($dataBaseEntries);
-		
-		$errors = $this->saveBrands($dataBaseEntries);
-		if (count($errors) > 0) {
-			$result['errors'] = $errors;
-			return $result;
-		}
-		
-		$dataBaseColumns = $this->getDataBaseColumns($category, $columns);
-		$errors = $this->getEntriesErrors($dataBaseColumns);
-		if (count($errors) > 0) {
-			$result['errors'] = $errors;
-			return $result;
-		}
-		
-		$benchmarkFieldsCounts = $this->getColumnsCounts($dataBaseColumns);
-		
-		$errors = $this->saveColumns($dataBaseColumns);
-		if (count($errors) > 0) {
-			$result['errors'] = $errors;
+		try {
+			$mainCategory = $this->getMainCategory($category);
+			
+			$dataBaseColumns = $this->benchmarkFieldManager->getUpdatedEntries($mainCategory, $columns);
+			$benchmarkFieldsCounts = $this->countManager->getCounts($dataBaseColumns, 'benchmarkField');
+			$this->benchmarkFieldManager->saveEntries($dataBaseColumns);
+			
+			$productsCounts = $this->countManager->getCounts($dataBaseEntries, 'product');
+			$this->productManager->saveEntries($dataBaseEntries);
+			
+			$dataBaseEntries = $this->productCategoryAssignmentManager->getUpdatedEntries($category, 
+					$dataBaseEntries);
+			$assignmentsCounts = $this->countManager->getCounts($dataBaseEntries, 'assignment');
+			$this->productCategoryAssignmentManager->saveEntries($dataBaseEntries);
+			
+			$dataBaseEntries = $this->productValueManager->getUpdatedEntries($category, $dataBaseEntries);
+			$productValuesCounts = $this->countManager->getCounts($dataBaseEntries, 'productValue');
+			$this->productValueManager->saveEntries($dataBaseEntries);
+			
+			$dataBaseEntries = $this->productScoreManager->getUpdatedEntries($category, $dataBaseEntries);
+			$productScoresCounts = $this->countManager->getCounts($dataBaseEntries, 'productScore');
+			$this->productScoreManager->saveEntries($dataBaseEntries);
+			
+			// TODO refactor - don't do this such hacky way!
+			$categorySummaries = [[]];
+			$categorySummaries = $this->categorySummaryManager->getUpdatedEntries($mainCategory, 
+					$categorySummaries);
+			$this->categorySummaryManager->saveEntries($categorySummaries);
+			
+			$categoryDistributions = [[]];
+			$categoryDistributions = $this->categoryDistributionManager->getUpdatedEntries($mainCategory, 
+					$categoryDistributions);
+			$this->categoryDistributionManager->saveEntries($categoryDistributions);
+			
+			$dataBaseEntries = $this->productNoteManager->getUpdatedEntries($category, $dataBaseEntries);
+			$productNotesCounts = $this->countManager->getCounts($dataBaseEntries, 'productNote');
+			$this->productNoteManager->saveEntries($dataBaseEntries);
+			
+			$brandsCounts = $this->countManager->getCounts($dataBaseEntries, 'brand');
+			$this->brandManager->saveEntries($dataBaseEntries);
+		} catch (\Exception $ex) {
+			$result['errors'] = [$ex->getMessage()];
 			return $result;
 		}
 		
@@ -147,9 +218,25 @@ class ImportLogic {
 		$result['brandsCounts'] = $brandsCounts;
 		$result['productsCounts'] = $productsCounts;
 		$result['assignmentsCounts'] = $assignmentsCounts;
+		$result['productNotesCounts'] = $productNotesCounts;
+		$result['productScoresCounts'] = $productScoresCounts;
+		$result['productValuesCounts'] = $productValuesCounts;
 		$result['benchmarkFieldsCounts'] = $benchmarkFieldsCounts;
 		
 		return $result;
+	}
+
+	protected function getMainCategory(Category $category) {
+		while (true) {
+			$parent = $category->getParent();
+			if (! $parent) {
+				return null;
+			}
+			if ($parent->getPreleaf()) {
+				return $category;
+			}
+			$category = $parent;
+		}
 	}
 
 	protected function getFileEntries($importRatings) {
@@ -242,8 +329,12 @@ class ImportLogic {
 						
 						$item = array();
 						
-						$itemName = $this->benchmarkFieldDataBaseUtils->getValueFieldProperty($fieldType, 
-								$valueNumber);
+						// TODO rethink this...
+						$field = new BenchmarkField();
+						$field->setFieldType($fieldType);
+						$field->setValueNumber($valueNumber);
+						
+						$itemName = $this->benchmarkFieldDataBaseUtils->getValueField($field);
 						
 						$item['index'] = $i;
 						$item['name'] = $itemName;
@@ -392,15 +483,16 @@ class ImportLogic {
 					switch ($column['fieldType']) {
 						case BenchmarkField::BOOLEAN_FIELD_TYPE:
 							if ($value == '-' || $value == '0') {
-								$value = false;
+								$value = 0;
 							} else {
-								$value = true;
+								$value = 1;
 							}
 							break;
 						default:
-							if ($value == '-') {
+							if ($value == '-' || $value == '') {
 								$value = null;
 							}
+							break;
 					}
 				}
 				
@@ -545,13 +637,6 @@ class ImportLogic {
 				$product->setImage($image);
 				$product->setMimeType('image/' . $imageType);
 				
-				foreach ($columns as $column) {
-					if (key_exists('fieldType', $column)) {
-						$columnName = $column['name'];
-						$product->offsetSet($columnName, $preparedEntry[$columnName]);
-					}
-				}
-				
 				$entry['productForUpdate'] = ! $preparedEntry['duplicate'];
 			} else {
 				$image = $this->getImage($product, $imageName, $imageType);
@@ -568,20 +653,18 @@ class ImportLogic {
 					$forUpdate = true;
 				}
 				
-				foreach ($columns as $column) {
-					if (key_exists('fieldType', $column)) {
-						$columnName = $column['name'];
-						if ($product->offsetGet($columnName) != $preparedEntry[$columnName]) {
-							$product->offsetSet($columnName, $preparedEntry[$columnName]);
-							$forUpdate = true;
-						}
-					}
-				}
-				
 				$entry['productForUpdate'] = $forUpdate;
 			}
-			
 			$entry['product'] = $product;
+			
+			$productValue = new ProductValue();
+			foreach ($columns as $column) {
+				if (key_exists('fieldType', $column)) {
+					$columnName = $column['name'];
+					$productValue->offsetSet($columnName, $preparedEntry[$columnName]);
+				}
+			}
+			$entry['productValue'] = $productValue;
 		}
 		
 		$entry['featured'] = $preparedEntry['featured'];
@@ -591,403 +674,9 @@ class ImportLogic {
 		return $entry;
 	}
 
-	protected function getDataBaseColumns($category, $columns) {
-		$result = array();
-		
-		foreach ($columns as $column) {
-			if (key_exists('fieldType', $column)) {
-				$result[] = $this->getDataBaseColumn($category, $column);
-			}
-		}
-		
-		return $result;
-	}
-
-	protected function getDataBaseColumn($category, $column) {
-		$entry = array();
-		$errors = array();
-		
-		$benchmarkFieldRepository = $this->doctrine->getRepository(BenchmarkField::class);
-		
-		$fieldType = $column['fieldType'];
-		$valueNumber = $column['valueNumber'];
-		$benchmarkField = $benchmarkFieldRepository->findOneBy(
-				['category' => $category->getId(), 'fieldType' => $fieldType, 'valueNumber' => $valueNumber]);
-		if (! $benchmarkField) {
-			$benchmarkField = new BenchmarkField();
-			
-			$benchmarkField->setCategory($category);
-			
-			$benchmarkField->setFieldType($column['fieldType']);
-			$benchmarkField->setValueNumber($valueNumber);
-			
-			$benchmarkField->setFieldName($column['fieldName']);
-			$benchmarkField->setFieldNumber($column['fieldNumber']);
-			$benchmarkField->setShowField($column['showField']);
-			
-			$benchmarkField->setFilterName($column['filterName']);
-			$benchmarkField->setFilterNumber($column['filterNumber']);
-			$benchmarkField->setShowFilter($column['showFilter']);
-			
-			if ($column['fieldType'] == BenchmarkField::DECIMAL_FIELD_TYPE) {
-				$benchmarkField->setDecimalPlaces(2);
-			} else {
-				$benchmarkField->setDecimalPlaces(0);
-			}
-			
-			$entry['benchmarkFieldForUpdate'] = true;
-		} else {
-			$forUpdate = false;
-			
-			$fieldName = $column['fieldName'];
-			if ($benchmarkField->getFieldName() != $fieldName) {
-				$benchmarkField->setFieldName($fieldName);
-				$forUpdate = true;
-			}
-			
-			$fieldNumber = $column['fieldNumber'];
-			if ($benchmarkField->getFieldNumber() != $fieldNumber) {
-				$benchmarkField->setFieldNumber($fieldNumber);
-				$forUpdate = true;
-			}
-			
-			$fieldType = $column['fieldType'];
-			if ($benchmarkField->getFieldType() != $fieldType) {
-				$benchmarkField->setFieldType($fieldType);
-				$forUpdate = true;
-				
-				if ($column['fieldType'] == BenchmarkField::DECIMAL_FIELD_TYPE) {
-					$benchmarkField->setDecimalPlaces(2);
-				} else {
-					$benchmarkField->setDecimalPlaces(0);
-				}
-			}
-			
-			$showField = $column['showField'];
-			if ($benchmarkField->getShowField() != $showField) {
-				$benchmarkField->setShowField($showField);
-				$forUpdate = true;
-			}
-			
-			$filterName = $column['filterName'];
-			if ($benchmarkField->getFilterName() != $filterName) {
-				$benchmarkField->setFilterName($filterName);
-				$forUpdate = true;
-			}
-			
-			$filterNumber = $column['filterNumber'];
-			if ($benchmarkField->getFilterNumber() != $filterNumber) {
-				$benchmarkField->setFilterNumber($filterNumber);
-				$forUpdate = true;
-			}
-			
-			$showFilter = $column['showFilter'];
-			if ($benchmarkField->getShowFilter() != $showFilter) {
-				$benchmarkField->setShowFilter($showFilter);
-				$forUpdate = true;
-			}
-			
-			$entry['benchmarkFieldForUpdate'] = $forUpdate;
-		}
-		$entry['benchmarkField'] = $benchmarkField;
-		
-		$entry['errors'] = $errors;
-		
-		return $entry;
-	}
-
-	protected function saveProducts($dataBaseEntries) {
-		$errors = array();
-		
-		$em = $this->doctrine->getManager();
-		$connection = $em->getConnection();
-		$connection->beginTransaction();
-		
-		try {
-			foreach ($dataBaseEntries as $dataBaseEntry) {
-				$forUpdate = $dataBaseEntry['productForUpdate'];
-				
-				if ($forUpdate) {
-					$product = $dataBaseEntry['product'];
-					$em->persist($product);
-				}
-			}
-			$em->flush();
-			$connection->commit();
-		} catch (Exception $ex) {
-			$connection->rollback();
-			$errors[] = $ex->getMessage();
-		}
-		
-		return $errors;
-	}
-
-	protected function getPersistentProducts($dataBaseEntries) {
-		$productRepository = $this->doctrine->getRepository(Product::class);
-		
-		$count = count($dataBaseEntries);
-		for ($i = 0; $i < $count; $i ++) {
-			$dataBaseEntry = $dataBaseEntries[$i];
-			$product = $dataBaseEntry['product'];
-			
-			if ($product->getId() <= 0) {
-				$errors = array();
-				$brand = $dataBaseEntry['brand'];
-				$productName = $product->getName();
-				
-				$product = $productRepository->findOneBy(
-						['name' => $product->getName(), 'brand' => $brand]);
-				if (! $product)
-					$errors[] = 'Produkt ' . $brand->getName() . ' ' . $productName .
-							 ' nie zosta� poprawnie zapisany.';
-				else
-					$dataBaseEntry['product'] = $product;
-				
-				$dataBaseEntry['errors'] = $errors;
-				$dataBaseEntries[$i] = $dataBaseEntry;
-			}
-		}
-		
-		return $dataBaseEntries;
-	}
-
-	protected function getProductCategoryAssignments($dataBaseEntries) {
-		$assignmentRepository = $this->doctrine->getRepository(ProductCategoryAssignment::class);
-		
-		$count = count($dataBaseEntries);
-		for ($i = 0; $i < $count; $i ++) {
-			$dataBaseEntry = $dataBaseEntries[$i];
-			
-			$product = $dataBaseEntry['product'];
-			$segment = $dataBaseEntry['segment'];
-			$category = $dataBaseEntry['category'];
-			$featured = $dataBaseEntry['featured'];
-			
-			$assignment = $assignmentRepository->findOneBy(
-					['product' => $product, 'category' => $category]);
-			
-			if (! $assignment) {
-				$assignment = new ProductCategoryAssignment();
-				
-				$assignment->setProduct($product);
-				$assignment->setSegment($segment);
-				$assignment->setCategory($category);
-				$assignment->setFeatured($featured);
-				$assignment->setOrderNumber(99);
-				
-				$dataBaseEntry['assignmentForUpdate'] = true;
-			} else if ($segment) {
-				if ($assignment->getSegment() && $assignment->getSegment()->getId() == $segment->getId()) {
-					$dataBaseEntry['assignmentForUpdate'] = false;
-				} else {
-					$assignment->setSegment($segment);
-					$dataBaseEntry['assignmentForUpdate'] = true;
-				}
-			} else {
-				$dataBaseEntry['assignmentForUpdate'] = false;
-			}
-			
-			$dataBaseEntry['assignment'] = $assignment;
-			
-			$dataBaseEntries[$i] = $dataBaseEntry;
-		}
-		
-		return $dataBaseEntries;
-	}
-
-	protected function saveProductCategoryAssignments($dataBaseEntries) {
-		$errors = array();
-		
-		$em = $this->doctrine->getManager();
-		$em->getConnection()->beginTransaction();
-		
-		try {
-			foreach ($dataBaseEntries as $dataBaseEntry) {
-				$forUpdate = $dataBaseEntry['assignmentForUpdate'];
-				
-				if ($forUpdate) {
-					$assignment = $dataBaseEntry['assignment'];
-					$em->persist($assignment);
-				}
-			}
-			$em->flush();
-			$em->getConnection()->commit();
-		} catch (Exception $ex) {
-			$em->getConnection()->rollback();
-			$errors[] = $ex->getMessage();
-		}
-		
-		return $errors;
-	}
-
-	protected function saveBrands($dataBaseEntries) {
-		$errors = array();
-		
-		$brands = array();
-		
-		foreach ($dataBaseEntries as $dataBaseEntry) {
-			if ($dataBaseEntry['brandForUpdate']) {
-				$brand = $dataBaseEntry['brand'];
-				if (! key_exists($brand->getName(), $brands)) {
-					$brands[$brand->getName()] = $brand;
-				}
-			}
-		}
-		
-		$em = $this->doctrine->getManager();
-		$em->getConnection()->beginTransaction();
-		
-		try {
-			foreach ($brands as $brand) {
-				$em->persist($brand);
-			}
-			$em->flush();
-			$em->getConnection()->commit();
-		} catch (Exception $ex) {
-			$em->getConnection()->rollback();
-			$errors[] = $ex->getMessage();
-		}
-		
-		return $errors;
-	}
-
-	protected function saveColumns($dataBaseColumns) {
-		$errors = array();
-		
-		$em = $this->doctrine->getManager();
-		$em->getConnection()->beginTransaction();
-		
-		try {
-			foreach ($dataBaseColumns as $dataBaseColumn) {
-				$forUpdate = $dataBaseColumn['benchmarkFieldForUpdate'];
-				
-				if ($forUpdate) {
-					$benchmarkField = $dataBaseColumn['benchmarkField'];
-					$em->persist($benchmarkField);
-				}
-			}
-			$em->flush();
-			$em->getConnection()->commit();
-		} catch (Exception $ex) {
-			$em->getConnection()->rollback();
-			$errors[] = $ex->getMessage();
-		}
-		
-		return $errors;
-	}
-
 	protected function getImage($product, $imageName, $imageType) {
 		return StringUtils::getCleanPath($product->getUploadPath()) . '/' . StringUtils::getCleanName(
 				$imageName) . '.' . $imageType;
-	}
-
-	protected function getProductsCounts($dataBaseEntries) {
-		$counts = array();
-		
-		$all = 0;
-		$created = 0;
-		$updated = 0;
-		$duplicates = 0;
-		
-		foreach ($dataBaseEntries as $dataBaseEntry) {
-			$all ++;
-			
-			if ($dataBaseEntry['productForUpdate']) {
-				$product = $dataBaseEntry['product'];
-				if ($product->getId() <= 0)
-					$created ++;
-				else
-					$updated ++;
-			} else {
-				$product = $dataBaseEntry['product'];
-				if ($product->getId() <= 0)
-					$duplicates ++;
-			}
-		}
-		
-		$counts['all'] = $all;
-		$counts['created'] = $created;
-		$counts['updated'] = $updated;
-		$counts['duplicates'] = $duplicates;
-		
-		return $counts;
-	}
-
-	protected function getAssignmentsCounts($dataBaseEntries) {
-		$counts = array();
-		
-		$all = 0;
-		$created = 0;
-		$updated = 0;
-		
-		foreach ($dataBaseEntries as $dataBaseEntry) {
-			$all ++;
-			
-			if ($dataBaseEntry['assignmentForUpdate']) {
-				$assignment = $dataBaseEntry['assignment'];
-				if ($assignment->getId() <= 0)
-					$created ++;
-				else
-					$updated ++;
-			}
-		}
-		
-		$counts['all'] = $all;
-		$counts['created'] = $created;
-		$counts['updated'] = $updated;
-		
-		return $counts;
-	}
-
-	protected function getBrandsCounts($dataBaseEntries) {
-		$counts = array();
-		
-		$all = 0;
-		$updated = 0;
-		
-		$brands = array();
-		
-		foreach ($dataBaseEntries as $dataBaseEntry) {
-			$brand = $dataBaseEntry['brand'];
-			if (! key_exists($brand->getName(), $brands)) {
-				if ($dataBaseEntry['brandForUpdate']) {
-					$updated ++;
-				}
-				$all ++;
-				$brands[$brand->getName()] = $brand;
-			}
-		}
-		
-		$counts['all'] = $all;
-		$counts['updated'] = $updated;
-		
-		return $counts;
-	}
-
-	protected function getColumnsCounts($dataBaseColumns) {
-		$counts = array();
-		
-		$all = 0;
-		$created = 0;
-		$updated = 0;
-		
-		foreach ($dataBaseColumns as $dataBaseColumn) {
-			$all ++;
-			
-			if ($dataBaseColumn['benchmarkFieldForUpdate']) {
-				$benchmarkField = $dataBaseColumn['benchmarkField'];
-				if ($benchmarkField->getId() <= 0)
-					$created ++;
-				else
-					$updated ++;
-			}
-		}
-		
-		$counts['all'] = $all;
-		$counts['created'] = $created;
-		$counts['updated'] = $updated;
-		
-		return $counts;
 	}
 
 	protected function getEntriesErrors($entries) {

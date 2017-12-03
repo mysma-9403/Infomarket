@@ -1,0 +1,11 @@
+{% if field.fieldType == constant('AppBundle\\Entity\\Main\\BenchmarkField::DECIMAL_FIELD_TYPE') or 
+		field.fieldType == constant('AppBundle\\Entity\\Main\\BenchmarkField::INTEGER_FIELD_TYPE') %}
+	{% include 'benchmark/product/components/show/number_table_row.html.twig' %}
+{% elseif field.fieldType == constant('AppBundle\\Entity\\Main\\BenchmarkField::BOOLEAN_FIELD_TYPE') %}
+	{% include 'benchmark/product/components/show/bool_table_row.html.twig' %}
+{% elseif field.fieldType == constant('AppBundle\\Entity\\Main\\BenchmarkField::SINGLE_ENUM_FIELD_TYPE') or
+			field.fieldType == constant('AppBundle\\Entity\\Main\\BenchmarkField::MULTI_ENUM_FIELD_TYPE') %}
+	{% include 'benchmark/product/components/show/enum_table_row.html.twig' %}
+{% else %}
+	{% include 'benchmark/product/components/show/text_table_row.html.twig' %}
+{% endif %}

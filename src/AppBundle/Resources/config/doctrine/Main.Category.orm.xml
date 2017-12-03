@@ -57,6 +57,9 @@
 		<one-to-many field="branchCategoryAssignments"
 			target-entity="AppBundle\Entity\Assignments\BranchCategoryAssignment"
 			mapped-by="category">
+			<cascade>
+            	<cascade-remove/>
+        	</cascade>
 		</one-to-many>
 
 		<one-to-many field="brandCategoryAssignments"
@@ -100,6 +103,13 @@
 			mapped-by="category">
 		</one-to-many>
 
+		<one-to-one field="categorySummary" target-entity="AppBundle\Entity\Other\CategorySummary"
+			mapped-by="category">
+			<cascade>
+            	<cascade-persist/>
+            	<cascade-remove/>
+        	</cascade>
+		</one-to-one>
 	</entity>
 
 </doctrine-mapping>

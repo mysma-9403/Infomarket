@@ -2,69 +2,43 @@
 
 namespace AppBundle\Command;
 
-use AppBundle\Entity\Main\BenchmarkField;
-use AppBundle\Entity\Main\Category;
 use AppBundle\Entity\Main\Product;
-use AppBundle\Entity\Main\ProductNote;
-use AppBundle\Factory\Common\BenchmarkField\NoteBenchmarkFieldFactory;
-use AppBundle\Filter\Benchmark\ProductFilter;
-use AppBundle\Logic\Common\BenchmarkField\Initializer\BenchmarkFieldsInitializer;
-use AppBundle\Logic\Common\BenchmarkField\Initializer\BenchmarkFieldsInitializerImpl;
-use AppBundle\Logic\Common\BenchmarkField\Provider\BenchmarkFieldsProvider;
-use AppBundle\Repository\Admin\Main\CategoryRepository;
-use AppBundle\Repository\Admin\Main\ProductNoteRepository;
-use AppBundle\Repository\Benchmark\ProductRepository;
-use AppBundle\Repository\Common\BenchmarkFieldMetadataRepository;
-use AppBundle\Utils\Entity\DataBase\BenchmarkFieldDataBaseUtils;
-use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
+use AppBundle\Logic\Common\Product\ItemsCreator\ProductItemsCreator;
+use AppBundle\Logic\Common\Product\ItemsUpdater\ProductItemsUpdater;
+use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\Filesystem\LockHandler;
-use Symfony\Component\HttpFoundation\Request;
 
-class UpdateProductNotesCommand extends ContainerAwareCommand {
-
-	protected $container;
-
-	protected $doctrine;
-
-	protected $em;
-
-	/** @var CategoryRepository */
-	protected $categoryRepository;
-
-	/** @var ProductRepository */
-	protected $productRepository;
-
-	/** @var ProductNoteRepository */
-	protected $productNoteRepository;
+class UpdateProductNotesCommand extends Command {
 
 	/**
 	 *
-	 * @var BenchmarkFieldsProvider
+	 * @var ProductItemsCreator
 	 */
-	protected $benchmarkFieldsProvider;
+	protected $productItemsCreator;
 
 	/**
 	 *
-	 * @var BenchmarkFieldsInitializer
+	 * @var ProductItemsUpdater
 	 */
-	protected $showFieldsInitializer;
+	protected $productItemsUpdater;
 
-	/**
-	 *
-	 * @var BenchmarkFieldsInitializer
-	 */
-	protected $filterFieldsInitializer;
+	public function __construct(ProductItemsCreator $productItemsCreator, 
+			ProductItemsUpdater $productItemsUpdater) {
+		parent::__construct();
+		
+		$this->productItemsCreator = $productItemsCreator;
+		$this->productItemsUpdater = $productItemsUpdater;
+	}
 
 	protected function configure() {
-		$this->setName('krk:product:note:update')->setDescription('Update products notes.')->setHelp(
-				'Update products notes.');
+		$this->setName('krk:product:notes:update')->setDescription('Update product notes.')->setHelp(
+				'Update product notes');
 	}
 
 	protected function execute(InputInterface $input, OutputInterface $output) {
-		$lockHandler = new LockHandler('product.lock');
+		$lockHandler = new LockHandler('product.note.lock');
 		if (! $lockHandler->lock()) {
 			return 0;
 		}
@@ -73,174 +47,70 @@ class UpdateProductNotesCommand extends ContainerAwareCommand {
 		
 		$start = new \DateTime();
 		
-		$this->init();
-		$this->updateNotes();
+		$created = $this->productItemsCreator->createMissingItems();
+		$updated = $this->productItemsUpdater->updateProductItems($start);
 		
-		$end = new \DateTime();
-		
-		$interval = date_diff($start, $end);
-		$processingTime = new \DateTime('0000-01-01');
-		$processingTime->add($interval);
-		
+		$processingTime = $this->getProcessingTime($start);
 		$this->logMessage($output, 'Products notes updated in: ' . $processingTime->format('i:s') . '.');
+		
+		$this->logSummary($output, $created, $updated);
 		
 		$lockHandler->release();
 	}
 
-	protected function init() {
-		$this->container = $this->getContainer();
-		$this->doctrine = $this->container->get('doctrine');
-		$this->em = $this->doctrine->getManager();
+	protected function logSummary(OutputInterface $output, $created, $updated) {
+		$logged = false;
 		
-		$this->categoryRepository = $this->doctrine->getRepository(Category::class);
+		$logged |= $this->logCounts($output, $created, 'productValues', 'Product values created');
 		
-		$this->productRepository = new ProductRepository($this->em, $this->em->getClassMetadata(Product::class));
-		$this->productNoteRepository = new ProductNoteRepository($this->em, 
-				$this->em->getClassMetadata(ProductNote::class));
+		$logged |= $this->logCounts($output, $created, 'productScores', 'Product scores created');
+		$logged |= $this->logCounts($output, $updated, 'productScores', 'Product scores updated');
 		
-		$benchmarkFieldMetadataRepository = new BenchmarkFieldMetadataRepository($this->em, 
-				$this->em->getClassMetadata(BenchmarkField::class));
-		$translator = $this->container->get('translator');
-		$this->benchmarkFieldsProvider = new BenchmarkFieldsProvider($benchmarkFieldMetadataRepository, 
-				$translator);
+		$logged |= $this->logCounts($output, $created, 'productNotes', 'Product notes created');
+		$logged |= $this->logCounts($output, $updated, 'productNotes', 'Product notes updated');
 		
-		$benchmarkFieldDataBaseUtils = new BenchmarkFieldDataBaseUtils();
-		$benchmarkFieldFactory = new NoteBenchmarkFieldFactory($benchmarkFieldDataBaseUtils, 
-				$this->productRepository);
-		$this->showFieldsInitializer = new BenchmarkFieldsInitializerImpl($benchmarkFieldFactory);
-		$this->filterFieldsInitializer = new BenchmarkFieldsInitializerImpl($benchmarkFieldFactory);
-	}
-
-	protected function updateNotes() {
-		$categories = $this->getBenchmarkCategories();
+		$logged |= $this->logCounts($output, $created, 'categorySummaries', 'Category summaries created');
+		$logged |= $this->logCounts($output, $updated, 'categorySummaries', 'Category summaries updated');
 		
-		foreach ($categories as $category) {
-			$this->updateCategoryNotes($category['id']);
+		if (! $logged) {
+			$this->logMessage($output, 'Nothing to process.'); // TODO translator
 		}
 	}
 
-	protected function getBenchmarkCategories() {
-		return $this->categoryRepository->findBenchmarkItems();
-	}
-
-	protected function updateCategoryNotes($categoryId) {
-		$fields = $this->getBenchmarkFields($categoryId);
-		$products = $this->getBenchmarkProducts($categoryId);
+	/**
+	 *
+	 * @param OutputInterface $output        	
+	 * @param unknown $counts        	
+	 * @param unknown $countNames        	
+	 * @param unknown $updateType        	
+	 *
+	 * @return <code>true</code> when message was logged
+	 */
+	private function logCounts(OutputInterface $output, $counts, $type, $message) {
+		$total = $counts[$type]['total'];
 		
-		foreach ($products as $product) {
-			$this->updateProductNotes($product, $fields);
+		if ($total > 0) {
+			$done = $counts[$type]['done'];
+			// TODO translator
+			$this->logMessage($output, $message . ': ' . $done . " / " . $total);
+			return true;
 		}
+		return false;
 	}
 
-	protected function getBenchmarkFields($categoryId) {
-		$fields = $this->benchmarkFieldsProvider->getAllFields($categoryId);
-		$fields = $this->showFieldsInitializer->init($fields, $categoryId);
-		
-		return $fields;
-	}
-
-	protected function getBenchmarkProducts($categoryId) {
-		$filter = new ProductFilter($this->benchmarkFieldsProvider, $this->showFieldsInitializer, 
-				$this->filterFieldsInitializer);
-		$filter->initContextParams(['subcategory' => $categoryId]);
-		$filter->initRequestValues(new Request());
-		return $this->productRepository->findItems($filter);
-	}
-
-	protected function updateProductNotes($product, $fields) {
-		$productNote = $this->getProductNote($product['id']);
-		
-		$overalNote = 0.;
-		$overalCount = 0.;
-		
-		foreach ($fields as $field) {
-			$valueField = $field['valueField'];
-			$fieldType = $field['fieldType'];
-			$noteField = $field['noteField'];
-			$noteType = $field['noteType'];
-			$noteWeight = $field['noteWeight'];
-			
-			if ($noteType != BenchmarkField::NONE_NOTE_TYPE) {
-				$value = $product[$valueField];
-				$note = 5.;
-				
-				switch ($fieldType) {
-					case BenchmarkField::DECIMAL_FIELD_TYPE:
-					case BenchmarkField::INTEGER_FIELD_TYPE:
-					case BenchmarkField::BOOLEAN_FIELD_TYPE:
-						$min = $field['min'];
-						$max = $field['max'];
-						
-						if ($min && $max && $max > $min) {
-							if ($value) {
-								if ($noteType == BenchmarkField::ASC_NOTE_TYPE) {
-									$note = 2. + 3. * ($value - $min) / ($max - $min);
-								} else {
-									$note = 5. - 3. * ($value - $min) / ($max - $min);
-								}
-							} else {
-								$note = 2.;
-							}
-						}
-						break;
-					case BenchmarkField::SINGLE_ENUM_FIELD_TYPE:
-					case BenchmarkField::MULTI_ENUM_FIELD_TYPE:
-						if ($value && $noteType == BenchmarkField::ENUM_NOTE_TYPE) {
-							$enums = $field['enums'];
-							
-							$max = 0;
-							foreach ($enums as $enum) {
-								$value = $enum['value'];
-								if ($max < $value) {
-									$max = $value;
-								}
-							}
-							$value = $this->productRepository->findEnumValue($product['id'], $valueField);
-							
-							$note = 2. + 3. * $value / $max;
-						} // TODO refactor if else logic!!
-				}
-				$productNote->offsetSet($noteField, $note);
-				
-				// TODO factory
-				if ($note > 5)
-					dump(
-							"Error: Invalid note (" . $note . ") for field '" . $field['fieldName'] .
-									 "' in product: " . $product['id'] . ". Values: min=" . $min . ", max=" .
-									 $max . ", value=" . $value . ".");
-				
-				$overalNote += $note * $noteWeight;
-				$overalCount += $noteWeight;
-			}
-		}
-		
-		if ($overalCount > 0) {
-			$overalNote /= $overalCount;
-			$productNote->setOveralNote($overalNote);
-			
-			// TODO factory
-			if ($overalNote > 5)
-				dump(
-						"Error: Invalid overal note (" . $overalNote . ") for field '" . $field['fieldName'] .
-								 "' in product: " . $product['id'] . ".");
-		}
-		
-		$this->em->persist($productNote);
-		$this->em->flush();
-	}
-
-	protected function getProductNote($productId) {
-		$productNote = $this->productNoteRepository->findOneBy(['product' => $productId]);
-		if (! $productNote) {
-			$productNote = new ProductNote();
-			$productNote->setProduct($this->productRepository->find($productId));
-		}
-		return $productNote;
-	}
-
-	protected function logMessage(OutputInterface $output, $message) {
+	private function logMessage(OutputInterface $output, $message) {
 		$date = new \DateTime();
 		$output->writeln($date->format('Y-m-d H:i:s: ') . $message);
+	}
+
+	private function getProcessingTime(\DateTime $start) {
+		$end = new \DateTime();
+		$interval = date_diff($start, $end);
+		
+		$processingTime = new \DateTime('0000-01-01');
+		$processingTime->add($interval);
+		
+		return $processingTime;
 	}
 
 	public static function exception_error_handler($severity, $message, $file, $line) {
