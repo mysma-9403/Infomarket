@@ -24,11 +24,18 @@ class ItemsUpdater {
 	 * @var integer
 	 */
 	private $duration;
+	
+	/**
+	 * 
+	 * @var integer
+	 */
+	private $packSize;
 
-	public function __construct(ObjectManager $em, ItemUpdater $itemUpdater, $duration) {
+	public function __construct(ObjectManager $em, ItemUpdater $itemUpdater, $duration, $packSize) {
 		$this->em = $em;
 		$this->itemUpdater = $itemUpdater;
 		$this->duration = $duration;
+		$this->packSize = $packSize;
 	}
 
 	public function update(\DateTime $start, array $items) {
@@ -42,6 +49,9 @@ class ItemsUpdater {
 			if ($this->shouldFinish($start)) {
 				break;
 			}
+			if ($this->shouldFlush($done)) {
+				$this->em->flush();
+			}
 		}
 		
 		$this->em->flush();
@@ -52,5 +62,9 @@ class ItemsUpdater {
 		$end = new \DateTime();
 		$interval = $end->getTimestamp() - $start->getTimestamp();
 		return $interval > $this->duration;
+	}
+	
+	private function shouldFlush($count) {
+		return $count % $this->packSize == 0;
 	}
 }
