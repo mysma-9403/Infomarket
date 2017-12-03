@@ -2,8 +2,8 @@
 
 namespace AppBundle\Logic\Common\Product\ItemsUpdater;
 
-use Doctrine\Common\Persistence\ObjectManager;
 use AppBundle\Logic\Common\Product\ItemUpdater\ItemUpdater;
+use Doctrine\Common\Persistence\ObjectManager;
 
 class ItemsUpdater {
 
@@ -12,7 +12,7 @@ class ItemsUpdater {
 	 * @var ObjectManager
 	 */
 	private $em;
-
+	
 	/**
 	 *
 	 * @var ItemUpdater
@@ -24,9 +24,9 @@ class ItemsUpdater {
 	 * @var integer
 	 */
 	private $duration;
-	
+
 	/**
-	 * 
+	 *
 	 * @var integer
 	 */
 	private $packSize;
@@ -37,26 +37,31 @@ class ItemsUpdater {
 		$this->duration = $duration;
 		$this->packSize = $packSize;
 	}
-
+	
 	public function update(\DateTime $start, array $items) {
 		$total = count($items);
 		$done = 0;
 		
-		foreach ($items as $item) {
-			$this->itemUpdater->update($item);
-			$done ++;
+		if ($total) {
+			$class = get_class($items[0]);
+			foreach ($items as $item) {
+				$this->em->refresh($item);
+				$this->itemUpdater->update($item);
+				$done ++;
+				
+				if ($this->shouldFinish($start)) {
+					break;
+				}
+				if ($this->shouldFlush($done)) {
+					$this->em->flush();
+					//TODO make loop together with repository while(true) {findBy->flush->clear}
+// 					$this->em->clear($class); 
+				}
+			}
 			
-			if ($this->shouldFinish($start)) {
-				break;
-			}
-			if ($this->shouldFlush($done)) {
-				$this->em->flush();
-				$this->em->clear();
-			}
+			$this->em->flush();
+			$this->em->clear($class);
 		}
-		
-		$this->em->flush();
-		$this->em->clear();
 		return ['total' => $total, 'done' => $done];
 	}
 
@@ -65,7 +70,7 @@ class ItemsUpdater {
 		$interval = $end->getTimestamp() - $start->getTimestamp();
 		return $interval > $this->duration;
 	}
-	
+
 	private function shouldFlush($count) {
 		return $count % $this->packSize == 0;
 	}

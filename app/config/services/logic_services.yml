@@ -42,21 +42,21 @@ services:
             - '@doctrine.orm.entity_manager'
             - '@AppBundle\Logic\Common\Product\ItemUpdater\CategorySummaryUpdater'
             - 240
-            - 50
+            - 100
     app.logic.common.product.updater.items.product_notes_updater:
         class: AppBundle\Logic\Common\Product\ItemsUpdater\ItemsUpdater
         arguments:
             - '@doctrine.orm.entity_manager'
             - '@AppBundle\Logic\Common\Product\ItemUpdater\ProductNoteUpdater'
             - 240
-            - 50
+            - 100
     app.logic.common.product.updater.items.product_scores_updater:
         class: AppBundle\Logic\Common\Product\ItemsUpdater\ItemsUpdater
         arguments:
             - '@doctrine.orm.entity_manager'
             - '@AppBundle\Logic\Common\Product\ItemUpdater\ProductScoreUpdater'
             - 240
-            - 50
+            - 100
                         
     # Item Updaters
     AppBundle\Logic\Common\Product\ItemUpdater\CategorySummaryUpdater:
