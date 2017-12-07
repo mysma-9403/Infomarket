@@ -11,17 +11,19 @@
 	<nav class="navbar navbar-fixed-top">
 		{% block navigationHeader %}
 			<div class="navbar-header">
-				{% block navigationButton %}
-				<button type="button" class="navbar-toggle collapsed" 
-						data-toggle="collapse" 
-						data-target="#catbar" 
-						aria-expanded="false">
-			        <span class="sr-only">Toggle navigation</span>
-			        <span class="icon-bar"></span>
-			        <span class="icon-bar"></span>
-			        <span class="icon-bar"></span>
-		      	</button>
-	      		{% endblock %}
+				{% if user is defined %}
+					{% block navigationButton %}
+					<button type="button" class="navbar-toggle collapsed" 
+							data-toggle="collapse" 
+							data-target="#catbar" 
+							aria-expanded="false">
+				        <span class="sr-only">Toggle navigation</span>
+				        <span class="icon-bar"></span>
+				        <span class="icon-bar"></span>
+				        <span class="icon-bar"></span>
+			      	</button>
+		      		{% endblock %}
+	      		{% endif %}
 	      		
 				{% block navigationBrand %}
 				<a class="navbar-brand" href="{{ path('benchmark') }}">
@@ -31,56 +33,43 @@
 	    	</div>
     	{% endblock %}
 		
-		{% block navigationSearch %}
-		<div class="navbar-greet navbar-left hidden-xs hidden-sm">
-			<p>
-				{{ 'label.welcome'|trans }} {{ app.user.username }}, <br>
-				<a href="{{ path('benchmark_logout') }}"> {# TODO benchmark_logout ?? #}
-					{{ 'label.logout'|trans }}
-				</a>
-			</p>
-		</div>
-		{% endblock %}
+		{% if user is defined %}
+			{% block navigationSearch %}
+			<div class="navbar-greet navbar-left hidden-xs hidden-sm">
+				<p>
+					{{ 'label.welcome'|trans }} {{ app.user.username }}, <br>
+					<a href="{{ path('benchmark_logout') }}"> {# TODO benchmark_logout ?? #}
+						{{ 'label.logout'|trans }}
+					</a>
+				</p>
+			</div>
+			{% endblock %}
 		
-		{% block navigationLinks %}
-			{% if category.name is defined and subcategory.name is defined%}
-				<div class="collapse navbar-collapse" id="catbar">
-					<ul class="nav navbar-nav navbar-right">
-						{% include 'common/menu/simple_link.html.twig' with 
-							{ linkPath: "category_show", linkLabel: "label.categories" } %}
-				        {% include 'common/menu/simple_link.html.twig' with 
-				          { linkPath: "product", linkLabel: "label.products" } %}
-				        {% include 'common/menu/simple_link.html.twig' with 
-				          { linkPath: "custom_product", linkLabel: "label.customProducts" } %}
-				        {% include 'common/menu/simple_link.html.twig' with 
-				          { linkPath: "benchmark_query", linkLabel: "label.benchmarkQueries" } %}
-				        {% include 'common/menu/simple_link.html.twig' with 
-				          { linkPath: "benchmark_message", linkLabel: "label.benchmarkMessages", badge: unreadMessagesCount } %}
-					</ul>
-				</div>
-			{% endif %}
-		{% endblock %}
+			{% block navigationLinks %}
+				{% if category.name is defined and subcategory.name is defined%}
+					<div class="collapse navbar-collapse" id="catbar">
+						<ul class="nav navbar-nav navbar-right">
+							{% include 'common/menu/simple_link.html.twig' with 
+								{ linkPath: "category_show", linkLabel: "label.categories" } %}
+					        {% include 'common/menu/simple_link.html.twig' with 
+					          { linkPath: "product", linkLabel: "label.products" } %}
+					        {% include 'common/menu/simple_link.html.twig' with 
+					          { linkPath: "custom_product", linkLabel: "label.customProducts" } %}
+					        {% include 'common/menu/simple_link.html.twig' with 
+					          { linkPath: "benchmark_query", linkLabel: "label.benchmarkQueries" } %}
+					        {% include 'common/menu/simple_link.html.twig' with 
+					          { linkPath: "benchmark_message", linkLabel: "label.benchmarkMessages", badge: unreadMessagesCount } %}
+						</ul>
+					</div>
+				{% endif %}
+			{% endblock %}
+		{% endif %}
 	</nav>
 	{% endblock %}
 	
 	<div class="container-fluid content">
-		{% if category.name is defined and subcategory.name is defined%}
-			{% block content %}
-			{% endblock %}
-        {% else %}
-        	<div class="container">
-        		<h1>{{ 'title.benchmark.welcome'|trans }}</h1>
-	        	<p>{{ 'message.benchmark.welcome'|trans }}</p>
-	        	
-	        	<h2>{{ 'label.categories'|trans }}</h2>
-	        	<p>
-		        	{{ 'message.benchmark.noCategory'|trans }}
-		        	<a href="mailto:r.wojcik@infomarket.edu.pl">
-		        		r.wojcik@infomarket.edu.pl
-		        	</a>
-	        	</p>
-        	</div>
-        {% endif %}
+		{% block content %}
+		{% endblock %}
 	</div>
 	
 {% endblock %}

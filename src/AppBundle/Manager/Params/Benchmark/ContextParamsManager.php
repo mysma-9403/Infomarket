@@ -41,67 +41,70 @@ class ContextParamsManager {
 	}
 
 	public function getParams(Request $request, array $params) {
-		$lastRouteParams = $params['lastRouteParams'];
-		$contextParams = $params['contextParams'];
-		$routeParams = $params['routeParams'];
-		$viewParams = $params['viewParams'];
-		
 		/** @var \AppBundle\Entity\Main\User $user */
 		$user = $this->tokenStorage->getToken()->getUser();
-		$contextParams['user'] = $user->getId();
 		
-		$subcategory = $this->getRequestCategory($request, $user, 'subcategory');
-		if ($subcategory) {
-			$category = $subcategory->getParent();
-		} else {
-			$category = $this->getRequestCategory($request, $user);
-			$lastSubcategoryId = key_exists('subcategory', $lastRouteParams) ? $lastRouteParams['subcategory'] : null;
+		if($user instanceof User) {
+			$lastRouteParams = $params['lastRouteParams'];
+			$contextParams = $params['contextParams'];
+			$routeParams = $params['routeParams'];
+			$viewParams = $params['viewParams'];
+		
+			$contextParams['user'] = $user->getId();
 			
-			if ($category) {
-				if ($lastSubcategoryId) {
-					$subcategory = $this->findUserCategory($user, $lastSubcategoryId);
-					
-					if (! $subcategory || $subcategory->getParent()->getId() !== $category->getId()) {
-						$subcategory = $this->findFirstUserChildCategory($user, $category);
-					}
-				} else {
-					$subcategory = $this->findFirstUserChildCategory($user, $category);
-				}
+			$subcategory = $this->getRequestCategory($request, $user, 'subcategory');
+			if ($subcategory) {
+				$category = $subcategory->getParent();
 			} else {
-				if ($lastSubcategoryId) {
-					$subcategory = $this->findUserCategory($user, $lastSubcategoryId);
-					$category = $subcategory->getParent();
-				} else {
-					$lastCategoryId = key_exists('category', $lastRouteParams) ? $lastRouteParams['category'] : null;
-					if ($lastCategoryId) {
-						$category = $this->findUserCategory($user, $lastCategoryId);
-						if ($category) {
+				$category = $this->getRequestCategory($request, $user);
+				$lastSubcategoryId = key_exists('subcategory', $lastRouteParams) ? $lastRouteParams['subcategory'] : null;
+				
+				if ($category) {
+					if ($lastSubcategoryId) {
+						$subcategory = $this->findUserCategory($user, $lastSubcategoryId);
+						
+						if (! $subcategory || $subcategory->getParent()->getId() !== $category->getId()) {
 							$subcategory = $this->findFirstUserChildCategory($user, $category);
 						}
 					} else {
-						$category = $this->findFirstUserMainCategory($user);
 						$subcategory = $this->findFirstUserChildCategory($user, $category);
+					}
+				} else {
+					if ($lastSubcategoryId) {
+						$subcategory = $this->findUserCategory($user, $lastSubcategoryId);
+						$category = $subcategory->getParent();
+					} else {
+						$lastCategoryId = key_exists('category', $lastRouteParams) ? $lastRouteParams['category'] : null;
+						if ($lastCategoryId) {
+							$category = $this->findUserCategory($user, $lastCategoryId);
+							if ($category) {
+								$subcategory = $this->findFirstUserChildCategory($user, $category);
+							}
+						} else {
+							$category = $this->findFirstUserMainCategory($user);
+							$subcategory = $this->findFirstUserChildCategory($user, $category);
+						}
 					}
 				}
 			}
+			
+			$categoryId = $category->getId();
+			$contextParams['category'] = $categoryId;
+			$routeParams['category'] = $categoryId;
+			$viewParams['category'] = $category;
+			
+			$subcategoryId = $subcategory->getId();
+			$contextParams['subcategory'] = $subcategoryId;
+			$routeParams['subcategory'] = $subcategoryId;
+			$viewParams['subcategory'] = $subcategory;
+			
+			$unreadMessagesCount = $this->benchmarkMessageRepository->findUnreadItemsCountByAuthor($user->getId());
+			$viewParams['unreadMessagesCount'] = $unreadMessagesCount;
+			
+			$params['contextParams'] = $contextParams;
+			$params['routeParams'] = $routeParams;
+			$params['viewParams'] = $viewParams;
 		}
-		
-		$categoryId = $category->getId();
-		$contextParams['category'] = $categoryId;
-		$routeParams['category'] = $categoryId;
-		$viewParams['category'] = $category;
-		
-		$subcategoryId = $subcategory->getId();
-		$contextParams['subcategory'] = $subcategoryId;
-		$routeParams['subcategory'] = $subcategoryId;
-		$viewParams['subcategory'] = $subcategory;
-		
-		$unreadMessagesCount = $this->benchmarkMessageRepository->findUnreadItemsCountByAuthor($user->getId());
-		$viewParams['unreadMessagesCount'] = $unreadMessagesCount;
-		
-		$params['contextParams'] = $contextParams;
-		$params['routeParams'] = $routeParams;
-		$params['viewParams'] = $viewParams;
 		
 		return $params;
 	}

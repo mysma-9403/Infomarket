@@ -16,6 +16,7 @@ security:
     firewalls:
         admin:
             pattern: ^/admin
+            anonymous: true
             form_login:
                 provider:       fos_userbundle
                 login_path:     admin_login
@@ -24,10 +25,9 @@ security:
             logout:
                 path:           admin_logout
                 target:         admin_login
-            anonymous:        true
-            context:          application
         benchmark:
             pattern: ^/benchmark
+            anonymous: true
             form_login:
                 provider:       fos_userbundle
                 login_path:     benchmark_login
@@ -36,16 +36,14 @@ security:
             logout:
                 path:           benchmark_logout
                 target:         benchmark_login
-            anonymous:        true
-            context:          application
         main:
             pattern: ^/
+            anonymous: true
             form_login:
                 provider: fos_userbundle
                 csrf_token_generator: security.csrf.token_manager
             logout:       true
-            anonymous:    true
-
+            
     access_control:
         # Registration
         - { path: /login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
@@ -53,11 +51,11 @@ security:
         - { path: /register, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: /resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
         
+        # Benchmark site
+        - { path: ^/benchmark, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        
         # IP, IM sites
         # - { path: /magazines/open, role: IS_AUTHENTICATED_FULLY }
-        
-        # Benchmark site
-        - { path: ^/benchmark, role: IS_AUTHENTICATED_FULLY }
         
         # Admin site
         - { path: ^/admin/settings, role: ROLE_EDITOR }

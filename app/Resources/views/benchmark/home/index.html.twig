@@ -4,10 +4,73 @@
 {% set title = 'label.benchmark'|trans %}
 
 {% block content %}
+	
+	{% block images %}
+		<div class="row">
+			<div id="myCarousel" class="carousel slide carousel-fade" data-ride="carousel">
+				<ol class="carousel-indicators">
+					{% for category in categories | slice(0, 4) %}
+				    	<li data-target="#myCarousel" data-slide-to="{{ loop.index-1 }}" class="{{ loop.index == 1 ? 'active' : '' }}"></li>
+			    	{% endfor %}
+			  	</ol>
+			  	
+			  	<div class="align-right carousel-inner">
+			  		{% for category in categories | slice(0, 4) %}
+				    	<div class="rect-3x1 item {{ loop.index == 1 ? 'active' : '' }}">
+				    		<img class="div-center img-responsive" 
+				    			alt="image" src="{{ asset(category.featuredImage) }}">
+				    			
+		    				<div class="col-xs-12 div-bottom bkg-black-50 text-white">
+								<div class="container home-lifted-bottom">
+									<div class="row">
+										<h3 class="padding-5">
+											{{ category.name | raw }} {{ category.subname | raw }}
+										</h3>
+									</div>
+								</div>
+							</div>
+				    	</div>
+			    	{% endfor %}
+			  	</div>
+		  	</div>
+		</div>
+	{% endblock %}
+	
 	<div class="container">
+	
+		<div class="vr-space-40"></div>
+		
 		<h1>{{ 'title.benchmark.welcome'|trans }}</h1>
 		<p>{{ 'message.benchmark.welcome'|trans }}</p>
 		
-		{# TODO widok kategorii #}
+		<div class="vr-space-40"></div>
+		
+		<div class="row">
+			<div class="col-sm-6">
+				<h1>
+					<a class="text-brand" href="{{ path('benchmark_category_show') }}">
+						{{ 'label.categories'|trans }}
+					</a>
+				</h1>
+				<a href="{{ path('benchmark_category_show') }}">
+					<img class="img-responsive" src="{{ asset('img/benchmark/categories.jpg') }}">
+				</a>
+			</div>
+			
+			<div class="col-sm-6">
+				<h1>
+					<a class="text-red" href="{{ path('benchmark_product') }}">
+						{{ 'label.products'|trans }}
+					</a>
+				</h1>
+				<a href="{{ path('benchmark_product') }}">
+					<img class="img-responsive" src="{{ asset('img/benchmark/products.jpg') }}">
+				</a>
+			</div>
+		</div>
+		
+		<div class="vr-space-40"></div>
+		<div class="vr-space-40"></div>
+		<div class="vr-space-40"></div>
 	</div>
 {% endblock %}
