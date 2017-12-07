@@ -17,10 +17,9 @@ class BenchmarkFieldProvider extends ItemProvider {
 	 * @see \AppBundle\Logic\Admin\Import\Common\PersistenceManager::getSearchCriteria()
 	 */
 	protected function getSearchCriteria(Category $category, array $entry) {
-		$fieldType = $entry['fieldType'];
-		$valueNumber = $entry['valueNumber'];
+		$fieldNumber = $entry['fieldNumber'];
 		
-		return ['category' => $category, 'fieldType' => $fieldType, 'valueNumber' => $valueNumber];
+		return ['category' => $category, 'fieldNumber' => $fieldNumber];
 	}
 
 	/**
@@ -40,9 +39,9 @@ class BenchmarkFieldProvider extends ItemProvider {
 			$forUpdate = true;
 		}
 			
-		$fieldNumber = $entry['fieldNumber'];
-		if ($item->getFieldNumber() != $fieldNumber) {
-			$item->setFieldNumber($fieldNumber);
+		$valueNumber = $entry['valueNumber'];
+		if ($item->getFieldNumber() != $valueNumber) {
+			$item->setFieldNumber($valueNumber);
 			$forUpdate = true;
 		}
 			
