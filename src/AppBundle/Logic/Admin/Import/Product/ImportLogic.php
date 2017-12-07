@@ -254,11 +254,12 @@ class ImportLogic {
 		$errors = array();
 		
 		$columns = $fileEntries[0];
-		$categoryName = $columns[0];
-		$categorySubname = $columns[1];
-		if ($category->getName() != $categoryName || $category->getSubname() != $categorySubname) {
-			$errors[] = $this->errorFactory->createInvalidCategoryError(
-					$category->getName() . ' ' . $category->getSubname(), $categoryName . ' ' . $categorySubname);
+		$importName = trim(trim($columns[0]) . ' ' . trim($columns[1]));
+		$categoryName = trim(trim($category->getName()) . ' ' . trim($category->getSubname()));
+		if ($importName != $categoryName) {
+			dump($importName);
+			dump($categoryName);
+			$errors[] = $this->errorFactory->createInvalidCategoryError($importName, $categoryName);
 		}
 		
 		return $errors;
