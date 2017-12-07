@@ -80,17 +80,18 @@ class ContextParamsManager {
 						}
 					} else {
 						$category = $this->findFirstUserMainCategory($user);
+						$subcategory = $this->findFirstUserChildCategory($user, $category);
 					}
 				}
 			}
 		}
 		
-		$categoryId = $category ? $category->getId() : null;
+		$categoryId = $category->getId();
 		$contextParams['category'] = $categoryId;
 		$routeParams['category'] = $categoryId;
 		$viewParams['category'] = $category;
 		
-		$subcategoryId = $subcategory ? $subcategory->getId() : null;
+		$subcategoryId = $subcategory->getId();
 		$contextParams['subcategory'] = $subcategoryId;
 		$routeParams['subcategory'] = $subcategoryId;
 		$viewParams['subcategory'] = $subcategory;

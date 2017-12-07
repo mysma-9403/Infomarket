@@ -346,8 +346,8 @@ class ImportLogic {
 						$item['showFilter'] = $showFilter;
 						
 						if (key_exists($itemName, $items)) {
-							$errors[] = $this->errorFactory->createDuplicateColumnError($itemName, $i, 
-									$items[$itemName]['index']);
+							$errors[] = $this->errorFactory->createColumnDuplicateError($itemName, $fieldNumber, 
+									$items[$itemName]['fieldNumber']);
 						} else {
 							$items[$item['name']] = $item;
 						}
@@ -421,6 +421,7 @@ class ImportLogic {
 		if (key_exists('productPrice', $columns)) {
 			$productPriceIndex = $columns['productPrice']['index'];
 			$productPrice = $fileEntry[$productPriceIndex];
+			$productPrice = str_replace(",", ".", $productPrice);
 		}
 		
 		$segmentName = null;
@@ -481,6 +482,12 @@ class ImportLogic {
 								$value = 0;
 							} else {
 								$value = 1;
+							}
+							break;
+						case BenchmarkField::DECIMAL_FIELD_TYPE:
+							$value = str_replace(",", ".", $value);
+							if ($value == '-' || $value == '') {
+								$value = null;
 							}
 							break;
 						default:
