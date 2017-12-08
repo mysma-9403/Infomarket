@@ -371,6 +371,16 @@ class ImportLogic {
 			$errors[] = $this->errorFactory->createColumnNotExistsError('brandName');
 		}
 		
+		foreach ($columns as $column) {
+			if (key_exists('valueNumber', $column)) {
+				$valueNumber = $column['valueNumber'];
+				if ($valueNumber < 1 || $valueNumber > 30) {
+					$name = $column['fieldName'];
+					$errors[] = $this->errorFactory->createInvalidColumnValueNumberError($name, $valueNumber);
+				}
+			}
+		}
+		
 		return $errors;
 	}
 

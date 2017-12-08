@@ -2564,6 +2564,10 @@
                 <source>error.importRatings.column.notExists</source>
                 <target>Kolumna %name% nie istnieje.</target>
             </trans-unit>
+            <trans-unit id="error.importRatings.column.invalidValueNumber">
+                <source>error.importRatings.column.invalidValueNumber</source>
+                <target>Kolumna %name% posiada nieprawidłowy numer pola: %number%.</target>
+            </trans-unit>
             <trans-unit id="error.importRatings.column.duplicate">
                 <source>error.importRatings.column.duplicate</source>
                 <target>Kolumna %currIndex% odnosi się do tego samego pola (%name%) co kolumna %prevIndex%.</target>

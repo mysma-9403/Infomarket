@@ -5,4 +5,12 @@ AppBundle\Entity\Main\BenchmarkField:
             errorPath: category
             ignoreNull: false
             message: 'benchmarkField.unique'
+    properties:
+        fieldName:
+            - NotBlank: ~
+        valueNumber:
+            - NotBlank: ~
+            - Range:
+                min: 1
+                max: 30
                 

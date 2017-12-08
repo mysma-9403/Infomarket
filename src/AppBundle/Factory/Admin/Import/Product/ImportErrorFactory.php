@@ -22,6 +22,15 @@ class ImportErrorFactory extends ErrorFactory {
 		
 		return $errorMsg;
 	}
+	
+	public function createInvalidColumnValueNumberError($name, $number) {
+		$errorMsg = $this->translator->trans('error.importRatings.column.invalidValueNumber');
+	
+		$errorMsg = str_replace('%name%', '<strong>' . $name . '</strong>', $errorMsg);
+		$errorMsg = str_replace('%number%', '<strong>' . $number . '</strong>', $errorMsg);
+	
+		return $errorMsg;
+	}
 
 	public function createColumnDuplicateError($name, $currIndex, $prevIndex) {
 		$errorMsg = $this->translator->trans('error.importRatings.column.duplicate');

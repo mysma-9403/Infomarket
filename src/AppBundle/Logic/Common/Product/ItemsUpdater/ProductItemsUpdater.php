@@ -57,7 +57,6 @@ class ProductItemsUpdater {
 
 	public function updateProductItems($start) {
 		$result = [];
-		
 		$result['productScores'] = $this->updateProductScores($start);
 		$result['categorySummaries'] = $this->updateCategorySummaries($start);
 		$result['productNotes'] = $this->updateProductNotes($start);
