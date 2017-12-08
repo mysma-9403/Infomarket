@@ -10,7 +10,7 @@ use AppBundle\Factory\Admin\Import\Product\ImportErrorFactory;
 use AppBundle\Filter\Common\Main\CategoryFilter;
 use AppBundle\Form\Editor\Admin\Main\CategoryEditorType;
 use AppBundle\Form\Filter\Admin\Main\CategoryFilterType;
-use AppBundle\Form\Lists\Base\FeaturedListType;
+use AppBundle\Form\Lists\CategoryListType;
 use AppBundle\Form\Other\ImportRatingsType;
 use AppBundle\Logic\Admin\Import\Common\CountManager;
 use AppBundle\Logic\Admin\Import\Product\ImportLogic;
@@ -22,6 +22,8 @@ use AppBundle\Repository\Admin\Main\CategoryRepository;
 use AppBundle\Repository\Admin\Main\SegmentRepository;
 use AppBundle\Utils\Entity\DataBase\BenchmarkFieldDataBaseUtils;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Form\Form;
+use AppBundle\Filter\Common\Base\BaseFilter;
 
 class CategoryController extends FeaturedController {
 	
@@ -117,6 +119,17 @@ class CategoryController extends FeaturedController {
 
 	/**
 	 *
+	 * @param Request $request
+	 * @param integer $id
+	 *
+	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
+	 */
+	public function setBMPublishedAction(Request $request, $id) {
+		return $this->setBMPublishedActionInternal($request, $id);
+	}
+	
+	/**
+	 *
 	 * @param Request $request        	
 	 * @param integer $id        	
 	 *
@@ -165,6 +178,30 @@ class CategoryController extends FeaturedController {
 	// ---------------------------------------------------------------------------
 	// Internal actions
 	// ---------------------------------------------------------------------------
+	/**
+	 *
+	 * @param Request $request
+	 * @param BaseFormType $form
+	 */
+	protected function listFormActionInternal(Request $request, Form $form, BaseFilter $filter, array $listItems,
+			array $params) {
+				if ($form->get('bmPublishSelected')->isClicked()) {
+					$data = $form->getData();
+					$entries = $data->getEntries();
+					$filter->setSelected($entries);
+					$this->setValueForSelected($entries, 'benchmark', 1);
+				}
+	
+				if ($form->get('bmUnpublishSelected')->isClicked()) {
+					$data = $form->getData();
+					$entries = $data->getEntries();
+					$filter->setSelected($entries);
+					$this->setValueForSelected($entries, 'benchmark', 0);
+				}
+	
+				return parent::listFormActionInternal($request, $form, $filter, $listItems, $params);
+	}
+	
 	protected function setPreleafActionInternal(Request $request, $id) {
 		$this->denyAccessUnlessGranted('ROLE_EDITOR', null, 'Unable to access this page!');
 		
@@ -184,7 +221,27 @@ class CategoryController extends FeaturedController {
 		
 		return $this->redirectToReferer($request);
 	}
-
+	
+	protected function setBMPublishedActionInternal(Request $request, $id) {
+		$this->denyAccessUnlessGranted($this->getEditRole(), null, 'Unable to access this page!');
+	
+		$params = $this->createParams($this->getSetBenchmarkRoute());
+		$params = $this->getEditParams($request, $params, $id);
+	
+		$viewParams = $params['viewParams'];
+		$entry = $viewParams['entry'];
+	
+		$benchmark = $request->get('value', false);
+	
+		$em = $this->getDoctrine()->getManager();
+	
+		$entry->setBenchmark($benchmark);
+		$em->persist($entry);
+		$em->flush();
+	
+		return $this->redirectToReferer($request);
+	}
+	
 	protected function treeActionInternal(Request $request) {
 		$params = $this->createParams($this->getTreeRoute());
 		$params = $this->getTreeParams($request, $params);
@@ -234,15 +291,9 @@ class CategoryController extends FeaturedController {
 			
 			$countManager = $this->get(CountManager::class);
 			$importLogic = new ImportLogic($doctrine, $errorFactory, $benchmarkFieldDataBaseUtils, 
-					$productManager,
-					$productCategoryAssignmentManager,
-					$productValueManager,
-					$productScoreManager,
-					$productNoteManager,
-					$brandManager,
-					$benchmarkFieldManager,
-					$categorySummaryManager,
-					$countManager);
+					$productManager, $productCategoryAssignmentManager, $productValueManager, 
+					$productScoreManager, $productNoteManager, $brandManager, $benchmarkFieldManager, 
+					$categorySummaryManager, $countManager);
 			
 			$result = $importLogic->importRatings($importRatings, $entry);
 			$errors = $result['errors'];
@@ -440,7 +491,7 @@ class CategoryController extends FeaturedController {
 	}
 
 	protected function getListFormType() {
-		return FeaturedListType::class;
+		return CategoryListType::class;
 	}
 	
 	// ---------------------------------------------------------------------------
@@ -464,7 +515,11 @@ class CategoryController extends FeaturedController {
 	protected function getRatingsRoute() {
 		return $this->getIndexRoute() . '_ratings';
 	}
-
+	
+	protected function getSetBenchmarkRoute() {
+		return $this->getIndexRoute() . '_set_bm_published';
+	}
+	
 	protected function getSetPreleafRoute() {
 		return $this->getIndexRoute() . '_set_preleaf';
 	}

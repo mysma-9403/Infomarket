@@ -289,4 +289,33 @@ class Product extends Image {
 	public function getBenchmarkQuery() {
 		return $this->benchmarkQuery;
 	}
+    /**
+     * @var boolean
+     */
+    private $benchmark;
+
+
+    /**
+     * Set benchmark
+     *
+     * @param boolean $benchmark
+     *
+     * @return Product
+     */
+    public function setBenchmark($benchmark)
+    {
+        $this->benchmark = $benchmark;
+
+        return $this;
+    }
+
+    /**
+     * Get benchmark
+     *
+     * @return boolean
+     */
+    public function getBenchmark()
+    {
+        return $this->benchmark;
+    }
 }

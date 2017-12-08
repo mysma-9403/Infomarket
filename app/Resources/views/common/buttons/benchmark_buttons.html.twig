@@ -1,0 +1,9 @@
+<div class="btn-group {{ hidden }} padding-5">
+	{% include 'common/buttons/widget_button.html.twig' with
+		{ action: form.bmPublishSelected, icon: 'fa-check', 
+			tooltip: 'action.bmPublishSelected' } %}
+	
+	{% include 'common/buttons/widget_button.html.twig' with
+		{ action: form.bmUnpublishSelected, icon: 'fa-remove', 
+			tooltip: 'action.bmUnpublishSelected' } %}
+</div>

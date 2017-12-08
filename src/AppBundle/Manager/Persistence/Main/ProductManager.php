@@ -8,6 +8,8 @@ use AppBundle\Entity\Other\CategorySummary;
 use AppBundle\Entity\Other\ProductNote;
 use AppBundle\Manager\Persistence\Base\PersistenceManager;
 use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Entity\Other\ProductValue;
+use AppBundle\Entity\Other\ProductScore;
 
 class ProductManager extends PersistenceManager {
 
@@ -23,7 +25,13 @@ class ProductManager extends PersistenceManager {
 		if (! $persistent || $this->shouldInvalidate($item, $persistent)) {
 			/** @var ProductCategoryAssignment $assignment */
 			foreach ($item->getProductCategoryAssignments() as $assignment) {
-				$this->invalidateProductNote($assignment->getProductNote());
+				if (! $assignment->getProductValue()) {
+					$this->createProductValue($assignment);
+					$this->createProductScore($assignment);
+					$this->createProductNote($assignment);
+				} else {
+					$this->invalidateProductNote($assignment->getProductNote());
+				}
 				$this->invalidateCategorySummary($assignment->getCategory()->getCategorySummary());
 			}
 		}
@@ -44,12 +52,36 @@ class ProductManager extends PersistenceManager {
 		}
 	}
 
+	protected function createProductValue(ProductCategoryAssignment $assignment) {
+		$value = new ProductValue();
+		$value->setProductCategoryAssignment($assignment);
+		
+		return $value;
+	}
+
+	protected function createProductScore(ProductCategoryAssignment $assignment) {
+		$score = new ProductScore();
+		$score->setProductCategoryAssignment($assignment);
+		$score->setUpToDate(false);
+		
+		return $score;
+	}
+
+	protected function createProductNote(ProductCategoryAssignment $assignment) {
+		$note = new ProductNote();
+		$note->setProductCategoryAssignment($assignment);
+		$note->setOveralNote(2.0); // TODO first note should be calculated here!
+		$note->setUpToDate(false);
+		
+		return $note;
+	}
+
 	/**
 	 *
 	 * @param Product $item        	
 	 */
 	protected function shouldInvalidate(Product $item, $persistent) {
-		return $item->getPrice() != $persistent['price'];
+		return $item->getPrice() != $persistent['price'] || $item->getBenchmark() != $persistent['benchmark'];
 	}
 
 	/**

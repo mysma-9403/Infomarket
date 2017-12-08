@@ -5,11 +5,12 @@ namespace AppBundle\Controller\Admin\Main;
 use AppBundle\Controller\Admin\Base\ImageController;
 use AppBundle\Entity\Main\Product;
 use AppBundle\Factory\Common\BenchmarkField\SimpleBenchmarkFieldFactory;
+use AppBundle\Filter\Common\Base\BaseFilter;
 use AppBundle\Filter\Common\Main\ProductFilter;
 use AppBundle\Form\Editor\Admin\Main\ProductEditorType;
 use AppBundle\Form\Filter\Admin\Main\ProductFilterType;
 use AppBundle\Form\Filter\Admin\Other\CategoryFilterType;
-use AppBundle\Form\Lists\Base\InfoMarketListType;
+use AppBundle\Form\Lists\ProductListType;
 use AppBundle\Logic\Common\BenchmarkField\Initializer\BenchmarkFieldsInitializer;
 use AppBundle\Logic\Common\BenchmarkField\Provider\BenchmarkFieldsProvider;
 use AppBundle\Manager\Entity\Base\EntityManager;
@@ -18,8 +19,10 @@ use AppBundle\Manager\Filter\Base\FilterManager;
 use AppBundle\Manager\Params\EntryParams\Admin\ProductEntryParamsManager;
 use AppBundle\Misc\FormOptions\FormOptionsProvider;
 use AppBundle\Repository\Admin\Main\CategoryRepository;
+use AppBundle\Utils\Entity\BenchmarkFieldUtils;
 use AppBundle\Utils\Entity\DataBase\BenchmarkFieldDataBaseUtils;
 use AppBundle\Utils\StringUtils;
+use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 
@@ -116,6 +119,17 @@ class ProductController extends ImageController {
 		return $this->setIPPublishedActionInternal($request, $id);
 	}
 
+	/**
+	 *
+	 * @param Request $request        	
+	 * @param integer $id        	
+	 *
+	 * @return \Symfony\Component\HttpFoundation\RedirectResponse
+	 */
+	public function setBMPublishedAction(Request $request, $id) {
+		return $this->setBMPublishedActionInternal($request, $id);
+	}
+
 	public function deleteUnusedAction(Request $request) {
 		return $this->deleteUnusedActionInternal($request);
 	}
@@ -127,6 +141,50 @@ class ProductController extends ImageController {
 	// ---------------------------------------------------------------------------
 	// Internal actions
 	// ---------------------------------------------------------------------------
+	protected function setBMPublishedActionInternal(Request $request, $id) {
+		$this->denyAccessUnlessGranted($this->getEditRole(), null, 'Unable to access this page!');
+		
+		$params = $this->createParams($this->getSetBenchmarkRoute());
+		$params = $this->getEditParams($request, $params, $id);
+		
+		$viewParams = $params['viewParams'];
+		$entry = $viewParams['entry'];
+		
+		$benchmark = $request->get('value', false);
+		
+		$em = $this->getDoctrine()->getManager();
+		
+		$entry->setBenchmark($benchmark);
+		$em->persist($entry);
+		$em->flush();
+		
+		return $this->redirectToReferer($request);
+	}
+
+	/**
+	 *
+	 * @param Request $request        	
+	 * @param BaseFormType $form        	
+	 */
+	protected function listFormActionInternal(Request $request, Form $form, BaseFilter $filter, array $listItems, 
+			array $params) {
+		if ($form->get('bmPublishSelected')->isClicked()) {
+			$data = $form->getData();
+			$entries = $data->getEntries();
+			$filter->setSelected($entries);
+			$this->setValueForSelected($entries, 'benchmark', 1);
+		}
+		
+		if ($form->get('bmUnpublishSelected')->isClicked()) {
+			$data = $form->getData();
+			$entries = $data->getEntries();
+			$filter->setSelected($entries);
+			$this->setValueForSelected($entries, 'benchmark', 0);
+		}
+		
+		return parent::listFormActionInternal($request, $form, $filter, $listItems, $params);
+	}
+
 	protected function getTopProductsActionInternal(Request $request) {
 		$response = new StreamedResponse();
 		$response->setCallback(
@@ -193,75 +251,75 @@ class ProductController extends ImageController {
 		$response = parent::initShowForms($request, $params);
 		if ($response)
 			return $response;
-	
-			$response = $this->initCategoryForm($request, $params);
-			if ($response)
-				return $response;
-	
-				return null;
+		
+		$response = $this->initCategoryForm($request, $params);
+		if ($response)
+			return $response;
+		
+		return null;
 	}
-	
+
 	protected function initEditForms(Request $request, array &$params) {
 		$response = $this->initEditorForm($request, $params);
 		if ($response)
 			return $response;
-	
-			$response = $this->initCategoryForm($request, $params);
-			if ($response)
-				return $response;
-	
-				return null;
+		
+		$response = $this->initCategoryForm($request, $params);
+		if ($response)
+			return $response;
+		
+		return null;
 	}
-	
+
 	protected function initEditorForm(Request $request, array &$params) {
 		$viewParams = $params['viewParams'];
 		$entry = $viewParams['entry'];
-	
+		
 		$optionsProvider = $this->getEditorFormOptionsProvider();
 		$options = $optionsProvider->getFormOptions($params);
-	
+		
 		$form = $this->createForm($this->getEditorFormType(), $entry, $options);
-	
+		
 		$form->handleRequest($request);
-	
+		
 		if ($form->isSubmitted() && $form->isValid()) {
 			$this->saveItem($request, $entry, $params);
-				
+			
 			$this->flashCreatedMessage();
-				
+			
 			if ($form->get('save')->isClicked()) {
 				return $this->redirectToRoute($this->getEditRoute(), array('id' => $entry->getId()));
 			}
 		}
-	
+		
 		$viewParams['form'] = $form->createView();
 		$params['viewParams'] = $viewParams;
-	
+		
 		return null;
 	}
-	
+
 	protected function initCategoryForm(Request $request, array &$params) {
 		$viewParams = $params['viewParams'];
 		$categoryFilter = $viewParams['categoryFilter'];
 		$entry = $viewParams['entry'];
-	
+		
 		$optionsProvider = $this->getCategoryFormOptionsProvider();
 		$options = $optionsProvider->getFormOptions($params);
 		
 		$form = $this->createForm(CategoryFilterType::class, $categoryFilter, $options);
-	
+		
 		$form->handleRequest($request);
-	
+		
 		if ($form->isSubmitted() && $form->isValid()) {
 			if ($form->get('submit')->isClicked()) {
 				$params = $categoryFilter->getRequestValues();
 				$params['id'] = $entry->getId();
-	
+				
 				$lastRoute = $this->getRouteManager()->getLastRoute($request);
 				$route = $lastRoute['route'];
 				$size = strlen($route);
 				$ending = substr($route, $size - 5, 5);
-	
+				
 				if ($ending == '_show') {
 					return $this->redirectToRoute($this->getShowRoute(), $params);
 				} else {
@@ -269,10 +327,10 @@ class ProductController extends ImageController {
 				}
 			}
 		}
-	
+		
 		$viewParams['categoryFilterForm'] = $form->createView();
 		$params['viewParams'] = $viewParams;
-	
+		
 		return null;
 	}
 	
@@ -282,17 +340,19 @@ class ProductController extends ImageController {
 	protected function getFilterFormOptionsProvider() {
 		return $this->get('app.misc.provider.form_options.filter.main.product');
 	}
-	
+
 	/**
-	 * 
+	 *
 	 * {@inheritDoc}
+	 *
 	 * @see \AppBundle\Controller\Admin\Base\BaseController::getEditorFormOptionsProvider()
 	 */
 	protected function getEditorFormOptionsProvider() {
 		return $this->get('app.misc.provider.form_options.editor.main.product');
 	}
-	
+
 	/**
+	 *
 	 * @var FormOptionsProvider
 	 */
 	protected function getCategoryFormOptionsProvider() {
@@ -306,7 +366,7 @@ class ProductController extends ImageController {
 		return $this->get('app.misc.provider.name_list_items_provider');
 	}
 	
-	//TODO needs to be checked after transaction manager was introduced
+	// TODO needs to be checked after transaction manager was introduced
 	protected function deleteUnused() {
 		$result = array();
 		$errors = array();
@@ -355,13 +415,15 @@ class ProductController extends ImageController {
 		$benchmarkFieldsProvider = new BenchmarkFieldsProvider($translator);
 		
 		$benchmarkFieldDataBaseUtils = new BenchmarkFieldDataBaseUtils();
-		$benchmarkFieldFactory = new SimpleBenchmarkFieldFactory($benchmarkFieldDataBaseUtils);
+		$benchmarkFieldUtils = new BenchmarkFieldUtils($benchmarkFieldDataBaseUtils);
+		$benchmarkFieldFactory = new SimpleBenchmarkFieldFactory($benchmarkFieldUtils);
 		$benchmarkFieldsInitializer = new BenchmarkFieldsInitializer($benchmarkFieldFactory);
 		
-		$productFilter = new \AppBundle\Filter\Common\Other\ProductFilter($benchmarkFieldsProvider, 
-				$benchmarkFieldsInitializer);
-		
 		$categoryRepository = $this->get(CategoryRepository::class);
+		
+		$productFilter = new \AppBundle\Filter\Common\Other\ProductFilter($benchmarkFieldsProvider, 
+				$benchmarkFieldsInitializer, $categoryRepository);
+		
 		return new ProductEntryParamsManager($em, $fm, $productFilter, $categoryRepository);
 	}
 
@@ -392,6 +454,13 @@ class ProductController extends ImageController {
 	}
 
 	protected function getListFormType() {
-		return InfoMarketListType::class;
+		return ProductListType::class;
+	}
+	
+	// ---------------------------------------------------------------------------
+	// Routes
+	// ---------------------------------------------------------------------------
+	protected function getSetBenchmarkRoute() {
+		return $this->getIndexRoute() . '_set_bm_published';
 	}
 }

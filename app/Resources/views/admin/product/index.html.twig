@@ -12,6 +12,8 @@
 		{ field: filter.infomarket, label: 'label.infomarket' } %}
 	{% include 'common/fields/filter/simple_field.html.twig' with 
 		{ field: filter.infoprodukt, label: 'label.infoprodukt' } %}
+	{% include 'common/fields/filter/simple_field.html.twig' with 
+		{ field: filter.benchmark, label: 'label.publishedBenchmark' } %}
 {% endblock %}
 
 {% block filterLargeFields %}
@@ -34,6 +36,8 @@
 		{ icon: 'fa-check', tooltip: 'label.infomarket' } %}
 	{% include 'common/fields/table_header/icon_field.html.twig' with 
 		{ icon: 'fa-check', tooltip: 'label.infoprodukt' } %}
+	{% include 'common/fields/table_header/icon_field.html.twig' with 
+		{ icon: 'fa-check', tooltip: 'label.publishedBenchmark' } %}
 {% endblock %}
 
 {% block simpleEntryFields %}
@@ -49,6 +53,9 @@
 	{% include 'common/fields/table/bool_action_field.html.twig' with
 		{ id: item.id, value: item.infoprodukt, extPath: '_set_ip_published',
 			trueTooltip: 'label.infoprodukt', falseTooltip: 'label.notInfoprodukt' } %}
+	{% include 'common/fields/table/bool_action_field.html.twig' with
+		{ id: item.id, value: item.benchmark, extPath: '_set_bm_published',
+			trueTooltip: 'label.publishedBenchmark', falseTooltip: 'label.notPublishedBenchmark' } %}
 {% endblock %}
 
 

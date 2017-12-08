@@ -35,6 +35,7 @@ class ProductRepository extends ImageRepository {
 		
 		$fields[] = 'e.infomarket';
 		$fields[] = 'e.infoprodukt';
+		$fields[] = 'e.benchmark';
 		
 		$fields[] = 'b.id AS brandId';
 		$fields[] = 'b.name AS brandName';

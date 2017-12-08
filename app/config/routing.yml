@@ -938,6 +938,10 @@ admin_category_set_ip_published:
     path:      /admin/categories/set_ip_published/{id}
     defaults:  { _controller: "AppBundle:Admin/Main/Category:setIPPublished" }
     
+admin_category_set_bm_published:
+    path:      /admin/categories/set_bm_published/{id}
+    defaults:  { _controller: "AppBundle:Admin/Main/Category:setBMPublished" }
+    
 admin_category_set_featured:
     path:      /admin/categories/set_featured/{id}
     defaults:  { _controller: "AppBundle:Admin/Main/Category:setFeatured" }
@@ -1633,7 +1637,11 @@ admin_product_set_im_published:
 admin_product_set_ip_published:
     path:      /admin/products/set_ip_published/{id}
     defaults:  { _controller: "AppBundle:Admin/Main/Product:setIPPublished" }
-    
+
+admin_product_set_bm_published:
+    path:      /admin/products/set_bm_published/{id}
+    defaults:  { _controller: "AppBundle:Admin/Main/Product:setBMPublished" }
+        
 admin_product_delete_unused:
     path:      /admin/products/delete_unused/
     defaults:  { _controller: "AppBundle:Admin/Main/Product:deleteUnused" }

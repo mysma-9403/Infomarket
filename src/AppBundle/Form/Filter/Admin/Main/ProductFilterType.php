@@ -16,6 +16,7 @@ class ProductFilterType extends SimpleFilterType {
 		
 		$this->addFilterBooleanChoiceField($builder, $options, 'infomarket');
 		$this->addFilterBooleanChoiceField($builder, $options, 'infoprodukt');
+		$this->addFilterBooleanChoiceField($builder, $options, 'benchmark');
 		
 		$this->addFilterEntityChoiceField($builder, $options, 'brands');
 		$this->addFilterEntityChoiceField($builder, $options, 'categories');
@@ -26,6 +27,7 @@ class ProductFilterType extends SimpleFilterType {
 		
 		$options[$this->getChoicesName('infomarket')] = [];
 		$options[$this->getChoicesName('infoprodukt')] = [];
+		$options[$this->getChoicesName('benchmark')] = [];
 		
 		$options[$this->getChoicesName('brands')] = [];
 		$options[$this->getChoicesName('categories')] = [];

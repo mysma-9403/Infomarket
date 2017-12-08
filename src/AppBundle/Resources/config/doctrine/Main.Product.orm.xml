@@ -11,6 +11,7 @@
 
 		<field name="infomarket" type="boolean" nullable="false" default="0" />
 		<field name="infoprodukt" type="boolean" nullable="false" default="0" />
+		<field name="benchmark" type="boolean" nullable="false" default="0" />
 		<field name="custom" type="boolean" nullable="false" default="0" />
 
 		<field name="topProduktImage" type="string" length="256" nullable="true" />

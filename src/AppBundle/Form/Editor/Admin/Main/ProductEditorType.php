@@ -37,6 +37,7 @@ class ProductEditorType extends ImageEditorType {
 		
 		$this->addCheckboxField($builder, 'infomarket', 'label.infomarket');
 		$this->addCheckboxField($builder, 'infoprodukt', 'label.infoprodukt');
+		$this->addCheckboxField($builder, 'benchmark', 'label.benchmark');
 		
 		$this->addTopProduktImageField($builder, 'topProduktImage', 'label.product.topProduktImage', false);
 		

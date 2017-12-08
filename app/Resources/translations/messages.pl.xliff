@@ -1468,6 +1468,35 @@
                 <target>IP</target>
             </trans-unit>
             
+            <trans-unit id="label.publishedBenchmark">
+                <source>label.publishedBenchmark</source>
+                <target>Opublikowane (BM)</target>
+            </trans-unit>
+            <trans-unit id="label.m.publishedBenchmark">
+                <source>label.m.publishedBenchmark</source>
+                <target>Opublikowany (BM)</target>
+            </trans-unit>
+            <trans-unit id="label.fm.publishedBenchmark">
+                <source>label.fm.publishedBenchmark</source>
+                <target>Opublikowana (BM)</target>
+            </trans-unit>
+            <trans-unit id="label.notPublishedBenchmark">
+                <source>label.notPublishedBenchmark</source>
+                <target>Nie opublikowane (BM)</target>
+            </trans-unit>
+            <trans-unit id="label.m.notPublishedBenchmark">
+                <source>label.m.notPublishedBenchmark</source>
+                <target>Nie opublikowany (BM)</target>
+            </trans-unit>
+            <trans-unit id="label.fm.notPublishedBenchmark">
+                <source>label.fm.notPublishedBenchmark</source>
+                <target>Nie opublikowana (BM)</target>
+            </trans-unit>
+            <trans-unit id="label.short.publishedBenchmark">
+                <source>label.short.publishedBenchmark</source>
+                <target>BM</target>
+            </trans-unit>
+            
             
             
             <trans-unit id="label.article.parent">
@@ -2195,6 +2224,14 @@
             <trans-unit id="action.ipUnpublishSelected">
                 <source>action.ipUnpublishSelected</source>
                 <target>Nie publikuj zaznaczonych (IP)</target>
+            </trans-unit>
+            <trans-unit id="action.bmPublishSelected">
+                <source>action.bmPublishSelected</source>
+                <target>Publikuj zaznaczone (BM)</target>
+            </trans-unit>
+            <trans-unit id="action.bmUnpublishSelected">
+                <source>action.bmUnpublishSelected</source>
+                <target>Nie publikuj zaznaczonych (BM)</target>
             </trans-unit>
             <trans-unit id="action.setFeaturedSelected">
                 <source>action.setFeaturedSelected</source>

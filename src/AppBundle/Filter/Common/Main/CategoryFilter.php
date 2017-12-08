@@ -36,6 +36,12 @@ class CategoryFilter extends SimpleFilter {
 	 *
 	 * @var integer
 	 */
+	protected $benchmark = self::ALL_VALUES;
+	
+	/**
+	 *
+	 * @var integer
+	 */
 	protected $featured = self::ALL_VALUES;
 
 	/**
@@ -64,6 +70,7 @@ class CategoryFilter extends SimpleFilter {
 		
 		$this->infomarket = $this->getRequestBool($request, 'infomarket');
 		$this->infoprodukt = $this->getRequestBool($request, 'infoprodukt');
+		$this->benchmark = $this->getRequestBool($request, 'benchmark');
 		$this->featured = $this->getRequestBool($request, 'featured');
 		$this->preleaf = $this->getRequestBool($request, 'preleaf');
 		
@@ -79,6 +86,7 @@ class CategoryFilter extends SimpleFilter {
 		
 		$this->infomarket = self::ALL_VALUES;
 		$this->infoprodukt = self::ALL_VALUES;
+		$this->benchmark = self::ALL_VALUES;
 		$this->featured = self::ALL_VALUES;
 		$this->preleaf = self::ALL_VALUES;
 		
@@ -94,6 +102,7 @@ class CategoryFilter extends SimpleFilter {
 		
 		$this->setRequestBool($values, 'infomarket', $this->infomarket);
 		$this->setRequestBool($values, 'infoprodukt', $this->infoprodukt);
+		$this->setRequestBool($values, 'benchmark', $this->benchmark);
 		$this->setRequestBool($values, 'featured', $this->featured);
 		$this->setRequestBool($values, 'preleaf', $this->preleaf);
 		
@@ -141,6 +150,16 @@ class CategoryFilter extends SimpleFilter {
 
 	public function getInfoprodukt() {
 		return $this->infoprodukt;
+	}
+	
+	public function setBenchmark($benchmark) {
+		$this->benchmark = $benchmark;
+	
+		return $this;
+	}
+	
+	public function getBenchmark() {
+		return $this->benchmark;
 	}
 
 	public function setFeatured($featured) {

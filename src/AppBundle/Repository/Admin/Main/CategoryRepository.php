@@ -42,6 +42,7 @@ class CategoryRepository extends ImageRepository {
 		
 		$fields[] = 'e.infomarket';
 		$fields[] = 'e.infoprodukt';
+		$fields[] = 'e.benchmark';
 		$fields[] = 'e.featured';
 		$fields[] = 'e.preleaf';
 		

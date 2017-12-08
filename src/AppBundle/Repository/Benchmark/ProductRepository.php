@@ -117,6 +117,7 @@ class ProductRepository extends BaseRepository {
 		$where = $expr->andX();
 		$where->add($expr->isNull('e.benchmarkQuery'));
 		$where->add($expr->isNotNull($value));
+		$where->add($expr->eq('e.benchmark', 1));
 		$where->add($builder->expr()->like('c.treePath', $builder->expr()->literal('%-' . $categoryId . '#%')));
 		
 		$builder->where($where);
@@ -150,6 +151,7 @@ class ProductRepository extends BaseRepository {
 		$where = $expr->andX();
 		$where->add($expr->isNull('e.benchmarkQuery'));
 		$where->add($expr->isNotNull($value));
+		$where->add($expr->eq('e.benchmark', 1));
 		$where->add($builder->expr()->like('c.treePath', $builder->expr()->literal('%-' . $categoryId . '#%')));
 		
 		$builder->where($where);
@@ -182,6 +184,7 @@ class ProductRepository extends BaseRepository {
 		$where = $expr->andX();
 		$where->add($expr->isNull('e.benchmarkQuery'));
 		$where->add($expr->isNotNull('pv.' . $valueName));
+		$where->add($expr->eq('e.benchmark', 1));
 		$where->add($builder->expr()->like('c.treePath', $builder->expr()->literal('%-' . $categoryId . '#%')));
 		
 		$builder->where($where);
@@ -219,6 +222,7 @@ class ProductRepository extends BaseRepository {
 		$where = $expr->andX();
 		$where->add($expr->isNull('e.benchmarkQuery'));
 		$where->add($expr->isNotNull('pv.' . $valueName));
+		$where->add($expr->eq('e.benchmark', 1));
 		$where->add($builder->expr()->like('c.treePath', $builder->expr()->literal('%-' . $categoryId . '#%')));
 		
 		$builder->where($where);
@@ -250,6 +254,7 @@ class ProductRepository extends BaseRepository {
 		
 		$where = $expr->andX();
 		$where->add($expr->eq('e.id', $productId));
+		$where->add($expr->eq('e.benchmark', 1));
 		
 		$builder->where($where);
 		
@@ -278,6 +283,7 @@ class ProductRepository extends BaseRepository {
 		$where = $expr->andX();
 		$where->add($expr->isNull('e.benchmarkQuery'));
 		$where->add($expr->isNotNull($value));
+		$where->add($expr->eq('e.benchmark', 1));
 		$where->add($builder->expr()->like('c.treePath', $builder->expr()->literal('%-' . $categoryId . '#%')));
 		
 		$builder->where($where);
@@ -310,6 +316,7 @@ class ProductRepository extends BaseRepository {
 		$where = $expr->andX();
 		$where->add($expr->isNull('e.benchmarkQuery'));
 		$where->add($expr->isNotNull($value));
+		$where->add($expr->eq('e.benchmark', 1));
 		$where->add($builder->expr()->like('c.treePath', $builder->expr()->literal('%-' . $categoryId . '#%')));
 		
 		$builder->where($where);
@@ -340,6 +347,7 @@ class ProductRepository extends BaseRepository {
 		$where = $expr->andX();
 		$where->add($expr->isNull('e.benchmarkQuery'));
 		$where->add($expr->isNotNull($value));
+		$where->add($expr->eq('e.benchmark', 1));
 		$where->add($builder->expr()->like('c.treePath', $builder->expr()->literal('%-' . $categoryId . '#%')));
 		
 		$builder->where($where);
@@ -370,6 +378,7 @@ class ProductRepository extends BaseRepository {
 		$where = $expr->andX();
 		$where->add($expr->isNull('e.benchmarkQuery'));
 		$where->add($expr->isNotNull($value));
+		$where->add($expr->eq('e.benchmark', 1));
 		$where->add($builder->expr()->like('c.treePath', $builder->expr()->literal('%-' . $categoryId . '#%')));
 		
 		$builder->where($where);
@@ -400,6 +409,7 @@ class ProductRepository extends BaseRepository {
 		$where = $expr->andX();
 		$where->add($expr->isNull('e.benchmarkQuery'));
 		$where->add($expr->isNotNull($valueName));
+		$where->add($expr->eq('e.benchmark', 1));
 		$where->add($builder->expr()->like('c.treePath', $builder->expr()->literal('%-' . $categoryId . '#%')));
 		
 		switch ($betterThanType) {
@@ -482,6 +492,7 @@ class ProductRepository extends BaseRepository {
 		$where = $expr->andX();
 		$where->add($builder->expr()->like('c.treePath', $builder->expr()->literal('%-' . $categoryId . '#%')));
 		$where->add($expr->neq('e.id', $entry->getId()));
+		$where->add($expr->eq('e.benchmark', 1));
 		
 		foreach ($fields as $field) {
 			$valueField = $field['valueField'];
@@ -556,6 +567,7 @@ class ProductRepository extends BaseRepository {
 			$where->add($expr->eq('e.benchmarkQuery', $filter->getBenchmarkQuery()));
 		} else {
 			$where->add($expr->isNull('e.benchmarkQuery'));
+			$where->add($expr->eq('e.benchmark', 1));
 			
 			$this->addStringWhere($builder, $where, 'e.name', $filter->getName(), true);
 			
@@ -637,6 +649,7 @@ class ProductRepository extends BaseRepository {
 		$where = $expr->andX();
 		$where->add($expr->isNull('e.benchmarkQuery'));
 		$where->add($expr->isNotNull('pn.overalNote'));
+		$where->add($expr->eq('e.benchmark', 1));
 		$where->add($builder->expr()->like('c.treePath', $builder->expr()->literal('%-' . $categoryId . '#%')));
 		
 		$builder->where($where);
@@ -666,6 +679,7 @@ class ProductRepository extends BaseRepository {
 		$where = $expr->andX();
 		$where->add($expr->isNull('e.benchmarkQuery'));
 		$where->add($expr->isNotNull('pn.overalNote'));
+		$where->add($expr->eq('e.benchmark', 1));
 		$where->add($builder->expr()->like('c.treePath', $builder->expr()->literal('%-' . $categoryId . '#%')));
 		
 		$builder->where($where);
@@ -707,6 +721,7 @@ class ProductRepository extends BaseRepository {
 		
 		$where = $expr->andX();
 		$where->add($expr->isNull('e.benchmarkQuery'));
+		$where->add($expr->eq('e.benchmark', 1));
 		$where->add($builder->expr()->like('c.treePath', $builder->expr()->literal('%-' . $categoryId . '#%')));
 		
 		$builder->where($where);

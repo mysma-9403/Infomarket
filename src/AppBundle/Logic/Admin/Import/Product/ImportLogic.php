@@ -639,8 +639,9 @@ class ImportLogic {
 				$product = new Product();
 				$product->setName($productName);
 				
-				$product->setInfomarket(true);
-				$product->setInfoprodukt(true);
+				$product->setInfomarket(false);
+				$product->setInfoprodukt(false);
+				$product->setBenchmark(true);
 				
 				$product->setBrand($brand);
 				$product->setPrice($productPrice);
@@ -663,6 +664,11 @@ class ImportLogic {
 				
 				if ($productPrice != $product->getPrice()) {
 					$product->setPrice($productPrice);
+					$forUpdate = true;
+				}
+				
+				if (! $product->getBenchmark()) {
+					$product->setBenchmark(true);
 					$forUpdate = true;
 				}
 				

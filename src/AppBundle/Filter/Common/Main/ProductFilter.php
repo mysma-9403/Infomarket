@@ -28,6 +28,12 @@ class ProductFilter extends SimpleFilter {
 
 	/**
 	 *
+	 * @var integer
+	 */
+	protected $benchmark = self::ALL_VALUES;
+
+	/**
+	 *
 	 * @var array
 	 */
 	protected $brands = array();
@@ -45,6 +51,7 @@ class ProductFilter extends SimpleFilter {
 		
 		$this->infomarket = $this->getRequestBool($request, 'infomarket');
 		$this->infoprodukt = $this->getRequestBool($request, 'infoprodukt');
+		$this->benchmark = $this->getRequestBool($request, 'benchmark');
 		
 		$this->brands = $this->getRequestArray($request, 'brands');
 		$this->categories = $this->getRequestArray($request, 'categories');
@@ -57,6 +64,7 @@ class ProductFilter extends SimpleFilter {
 		
 		$this->infomarket = self::ALL_VALUES;
 		$this->infoprodukt = self::ALL_VALUES;
+		$this->benchmark = self::ALL_VALUES;
 		
 		$this->brands = array();
 		$this->categories = array();
@@ -69,6 +77,7 @@ class ProductFilter extends SimpleFilter {
 		
 		$this->setRequestBool($values, 'infomarket', $this->infomarket);
 		$this->setRequestBool($values, 'infoprodukt', $this->infoprodukt);
+		$this->setRequestBool($values, 'benchmark', $this->benchmark);
 		
 		$this->setRequestArray($values, 'brands', $this->brands);
 		$this->setRequestArray($values, 'categories', $this->categories);
@@ -104,6 +113,16 @@ class ProductFilter extends SimpleFilter {
 
 	public function getInfoprodukt() {
 		return $this->infoprodukt;
+	}
+
+	public function setBenchmark($benchmark) {
+		$this->benchmark = $benchmark;
+		
+		return $this;
+	}
+
+	public function getBenchmark() {
+		return $this->benchmark;
 	}
 
 	public function setBrands($brands) {

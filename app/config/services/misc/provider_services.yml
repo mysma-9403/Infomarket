@@ -636,6 +636,7 @@ services:
                 updatedBy: '@app.misc.provider.user_items_provider'
                 infomarket: '@app.misc.provider.infomarket_items_provider'
                 infoprodukt: '@app.misc.provider.infoprodukt_items_provider'
+                benchmark: '@app.misc.provider.benchmark_items_provider'
                 subscribed: '@app.misc.provider.subscribed_items_provider'
     app.misc.provider.form_options.filter.main.product:
         class: AppBundle\Misc\FormOptions\FormOptionsProvider
@@ -706,6 +707,10 @@ services:
         class: AppBundle\Misc\ItemsProvider\FactoryItemsProvider
         arguments:
             - '@AppBundle\Factory\Common\Choices\Bool\InfoproduktChoicesFactory'
+    app.misc.provider.benchmark_items_provider:
+        class: AppBundle\Misc\ItemsProvider\FactoryItemsProvider
+        arguments:
+            - '@AppBundle\Factory\Common\Choices\Bool\BenchmarkChoicesFactory'
     app.misc.provider.preleaf_items_provider:
         class: AppBundle\Misc\ItemsProvider\FactoryItemsProvider
         arguments:
