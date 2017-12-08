@@ -66,7 +66,7 @@ class CategoryParamsManager extends EntryParamsManager {
 	}
 
 	public function getShowParams(Request $request, array $params, $id) {
-		$id = $this->getCategoryId($request, $id);
+		$id = $this->getCategoryId($request, $params, $id);
 		
 		$params = parent::getShowParams($request, $params, $id);
 		
@@ -81,7 +81,7 @@ class CategoryParamsManager extends EntryParamsManager {
 		}
 	}
 
-	protected function getCategoryId(Request $request, $id) {
+	protected function getCategoryId(Request $request, array $params, $id) {
 		if ($id <= 0) {
 			$id = $request->get('category', 0);
 			
@@ -89,11 +89,7 @@ class CategoryParamsManager extends EntryParamsManager {
 				$id = $request->get('subcategory', 0);
 				
 				if ($id <= 0) {
-					$userId = $this->tokenStorage->getToken()->getUser()->getId();
-					$items = $this->categoryRepository->findFilterItemsByUser($userId);
-					if (count($items) > 0) {
-						$id = $items[key($items)];
-					}
+					$id = $params['contextParams']['category'];
 				}
 			}
 		}
