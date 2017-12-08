@@ -7,9 +7,50 @@ use AppBundle\Entity\Main\Category;
 use AppBundle\Repository\Base\BaseRepository;
 use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\ORM\QueryBuilder;
+use AppBundle\Filter\Base\Filter;
 
 class CategoryRepository extends BaseRepository {
 
+	protected function buildOrderBy(QueryBuilder &$builder, Filter $filter) {
+		$builder->addOrderBy('e.name', 'ASC');
+		$builder->addOrderBy('e.subname', 'ASC');
+	}
+	
+	protected function getSelectFields(QueryBuilder &$builder, Filter $filter) {
+		$fields = parent::getSelectFields($builder, $filter);
+	
+		$fields[] = 'e.name';
+		$fields[] = 'e.subname';
+	
+		return $fields;
+	}
+	
+	protected function getWhere(QueryBuilder &$builder, Filter $filter) {
+		$where = parent::getWhere($builder, $filter);
+	
+		$expr = $builder->expr();
+	
+		$where->add($expr->eq('e.benchmark', 1));
+		$where->add('e.parent IS NULL');
+	
+		$builder->where($where);
+	
+		return $where;
+	}
+	
+	protected function getFilterItemKeyFields($item) {
+		$fields = parent::getFilterItemKeyFields($item);
+	
+		$fields[] = $item['name'];
+		$fields[] = $item['subname'];
+		if (key_exists('parentName', $item) && $item['parentName']) {
+			$fields[] = '(' . $item['parentName'];
+			$fields[] = $item['parentSubname'] . ')';
+		}
+	
+		return $fields;
+	}
+	
 	public function findFilterItemsByUser($userId) {
 		$items = $this->queryFilterItemsByUser($userId)->getScalarResult();
 		return $this->getFilterItems($items);
@@ -32,7 +73,8 @@ class CategoryRepository extends BaseRepository {
 		
 		$builder->where($where);
 		
-		$builder->orderBy('e.treePath', 'ASC');
+		$builder->addOrderBy('e.name', 'ASC');
+		$builder->addOrderBy('e.subname', 'ASC');
 		
 		return $builder->getQuery();
 	}
