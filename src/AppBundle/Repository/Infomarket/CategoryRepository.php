@@ -147,6 +147,32 @@ class CategoryRepository extends BaseRepository {
 		
 		return $builder->getQuery();
 	}
+	
+	public function findBranchMainItems($branchId, $limit) {
+		return $this->queryBranchMainItems($branchId, $limit)->getScalarResult();
+	}
+	
+	protected function queryBranchMainItems($branchId, $limit) {
+		$builder = new QueryBuilder($this->getEntityManager());
+	
+		$builder->select("e.name, e.subname");
+		$builder->from($this->getEntityType(), "e");
+	
+		$builder->join(BranchCategoryAssignment::class, 'bca', Join::WITH, 'bca.category = e.id');
+	
+		$where = $builder->expr()->andX();
+		$where->add($builder->expr()->isNull('e.parent'));
+		$where->add($builder->expr()->eq('bca.branch', $branchId));
+	
+		$builder->where($where);
+	
+		$builder->addOrderBy('e.name', 'ASC');
+		$builder->addOrderBy('e.subname', 'ASC');
+		
+		$builder->setMaxResults($limit);
+	
+		return $builder->getQuery();
+	}
 
 	public function findSubcategories($category) {
 		return $this->queryTopItems($category)->getScalarResult();

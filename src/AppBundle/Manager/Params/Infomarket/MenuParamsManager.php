@@ -23,12 +23,13 @@ class MenuParamsManager {
 		$viewParams = $params['viewParams'];
 		
 		$branchId = $contextParams['branch'];
-		
-		$menuEntries = $this->menuEntryRepository->findMenuItems(Menu::FOOTER_MENU, $branchId);
-		$viewParams['footerMenuEntries'] = $menuEntries;
-		
-		$menuEntries = $this->menuEntryRepository->findMenuItems(Menu::MAIN_MENU, $branchId);
-		$viewParams['mainMenuEntries'] = $menuEntries;
+		if ($branchId) {
+			$menuEntries = $this->menuEntryRepository->findMenuItems(Menu::FOOTER_MENU, $branchId);
+			$viewParams['footerMenuEntries'] = $menuEntries;
+			
+			$menuEntries = $this->menuEntryRepository->findMenuItems(Menu::MAIN_MENU, $branchId);
+			$viewParams['mainMenuEntries'] = $menuEntries;
+		}
 		
 		$params['viewParams'] = $viewParams;
 		return $params;
