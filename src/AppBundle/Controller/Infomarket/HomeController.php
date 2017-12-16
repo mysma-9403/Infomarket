@@ -16,6 +16,8 @@ use AppBundle\Repository\Infomarket\BrandRepository;
 use AppBundle\Repository\Infomarket\MagazineRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Repository\Infomarket\BranchRepository;
+use AppBundle\Repository\Infomarket\CategoryRepository;
 
 class HomeController extends InfomarketController {
 	// ---------------------------------------------------------------------------
@@ -38,12 +40,14 @@ class HomeController extends InfomarketController {
 	protected function getInternalEntryParamsManager(EntityManager $em, FilterManager $fm, $doctrine) {
 		$articleRepository = $this->get(ArticleRepository::class);
 		$articleCategoryRepository = $this->get(ArticleCategoryRepository::class);
+		$branchRepository = $this->get(BranchRepository::class);
 		$brandRepository = $this->get(BrandRepository::class);
+		$categoryRepository = $this->get(CategoryRepository::class);
 		$magazineRepository = $this->get(MagazineRepository::class);
 		$abaManager = $this->get(ArticleBrandAssignmentsManager::class);
 		
 		return new HomeEntryParamsManager($em, $fm, $articleRepository, $articleCategoryRepository, 
-				$brandRepository, $magazineRepository, $abaManager);
+				$branchRepository, $brandRepository, $categoryRepository, $magazineRepository, $abaManager);
 	}
 
 	protected function getAdvertParamsManager() {

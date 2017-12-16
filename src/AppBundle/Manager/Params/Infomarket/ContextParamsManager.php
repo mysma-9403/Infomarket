@@ -62,23 +62,26 @@ class ContextParamsManager {
 		$branches = $this->getMenuBranches($contextParams, $viewParams);
 		$viewParams['menuBranches'] = $branches;
 		
-		$templateId = null;
-		if (array_key_exists('branch', $this->lastRouteParams)) {
-			$templateId = $this->lastRouteParams['branch'];
-		} else {
-			$templateId = $branches[0]['id'];
+		$branch = $this->paramsManager->getIdByClass($request, Branch::class);
+		
+		if ($branch === null) {
+			if (array_key_exists('branch', $this->lastRouteParams)) {
+				$branch = $this->lastRouteParams['branch'];
+			}
 		}
 		
-		$branch = $this->paramsManager->getIdByClass($request, Branch::class, $templateId);
 		$contextParams['branch'] = $branch;
 		$routeParams['branch'] = $branch;
 		$viewParams['contextBranchId'] = $branch;
 		
-		$contextParams['categories'] = $this->getContextCategories($contextParams, $viewParams);
-		$viewParams['menuCategories'] = $this->getMenuCategories($contextParams, $viewParams);
-		
-		$viewParams['menuArticleCategories'] = $this->getMenuArticleCategories($contextParams, $viewParams);
-		$contextParams['articleCategories'] = $this->getContextArticleCategories($contextParams, $viewParams);
+		if ($branch > 0) {	
+			$contextParams['categories'] = $this->getContextCategories($contextParams, $viewParams);
+			$viewParams['menuCategories'] = $this->getMenuCategories($contextParams, $viewParams);
+			
+			$viewParams['menuArticleCategories'] = $this->getMenuArticleCategories($contextParams, $viewParams);
+			$contextParams['articleCategories'] = $this->getContextArticleCategories($contextParams, 
+					$viewParams);
+		}
 		
 		$params['contextParams'] = $contextParams;
 		$params['routeParams'] = $routeParams;

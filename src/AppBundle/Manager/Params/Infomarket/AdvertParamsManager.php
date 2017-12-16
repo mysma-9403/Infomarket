@@ -36,7 +36,7 @@ class AdvertParamsManager {
 		$contextParams = $params['contextParams'];
 		$viewParams = $params['viewParams'];
 		
-		if (count($this->advertLocations) > 0) {
+		if (count($this->advertLocations) > 0 && array_key_exists('categories', $contextParams)) {
 			$categories = $this->getContextCategories($request, $contextParams, $viewParams);
 			
 			foreach ($this->advertLocations as $advertLocation) {

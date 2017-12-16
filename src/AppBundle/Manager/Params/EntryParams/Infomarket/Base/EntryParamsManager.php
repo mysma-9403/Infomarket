@@ -28,14 +28,15 @@ class EntryParamsManager extends BaseEntryParamsManager {
 	}
 
 	protected function getRoute(Request $request, array $params, $page) {
+		$route = $request->getRequestUri();
+		
 		$contextParams = $params['contextParams'];
 		$branch = $contextParams['branch'];
-		
-		// $route = $request->getPathInfo();
-		$route = $request->getRequestUri();
-		if (strpos($route, 'branch') === false) {
-			$route .= strpos($route, '?') === false ? '?' : '&';
-			$route .= 'branch=' . $branch;
+		if ($branch > 0) {
+			if (strpos($route, 'branch') === false) {
+				$route .= strpos($route, '?') === false ? '?' : '&';
+				$route .= 'branch=' . $branch;
+			}
 		}
 		
 		return $route;
