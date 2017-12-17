@@ -1,0 +1,114 @@
+.navbar {
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    
+	margin: 0px;
+	padding: 0px;
+    
+    height: 52px;
+	
+	border: none;
+}
+
+#nav.affix {
+    position: fixed;
+    top: 0;
+    width: 100%;
+  	z-index: 10;
+}
+
+.navbar-default {
+	color: @brand-primary;
+    background-color: white;
+}
+
+
+//Brand
+.navbar a.navbar-brand {
+	margin: 0px;
+	padding: 0px;
+	
+	height: 52px;
+}
+
+.navbar a.navbar-brand:hover,
+.navbar a.navbar-brand:focus {
+	background-color: @gray-light;
+}
+
+.navbar a.navbar-brand > img.brand-image {
+	margin: 0px;
+	padding: 0px;
+	
+	height: 100%;
+	width: auto;
+}
+
+
+
+.navbar-nav {
+    margin: 0 auto;
+    padding: 0px;
+    
+    height: 52px;
+    
+    display: table;
+    table-layout: fixed;
+    float: none;
+}
+
+.navbar-nav > li {
+	margin: 0px;
+	padding: 0px;
+    
+    height: 100%;
+}
+
+.navbar-nav > li > a {
+	margin: 0px;
+	padding: 16px;
+	padding-bottom: 0px;
+	
+	height: 100%;
+}
+
+
+
+
+.navbar-default .navbar-nav li > a {
+    color: @brand-primary;
+}
+
+.navbar-default .navbar-nav li > a:hover,
+.navbar-default .navbar-nav li > a:active {
+    color: @brand-primary;
+    background-color: @gray-light;
+}
+
+.navbar-form {
+	margin: 0px;
+	padding: 0px;
+	padding-top: 12px;
+}
+
+
+
+
+nav.sidebar .navbar-nav .open .dropdown-menu {
+	position: static;
+	float: none;
+	width: auto;
+	margin-top: 0;
+	background-color: transparent;
+	border: 0;
+	-webkit-box-shadow: none;
+	box-shadow: none;
+}
+
+nav.sidebar .navbar-nav > li:first-child {
+	border-top: 5px @red solid;
+}
+
+nav.sidebar .navbar-nav > li {
+	border-bottom: 5px @blue solid;
+}

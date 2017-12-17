@@ -1,16 +1,32 @@
 //Navbar
 .navbar {
-	padding-bottom: 0px !important;
-    margin-bottom: 0px !important;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    
+    border-bottom: 10px solid @red;
+    
+	margin: 0px;
+	padding: 0px;
+    
+    height: 62px;
 	
 	color: @gray-lighter;
     background-color: @brand-primary;
 }
 
+.navbar .navbar-collapse {
+    border: 0;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
 
 //Brand
 .navbar a.navbar-brand {
-	margin-left: 15px;
+	margin-left: 50px;
+	padding: 0px;
+	
+	height: 100%;
+	
 	background-color: @white;
 }
 
@@ -20,9 +36,10 @@
 }
 
 .navbar a.navbar-brand > img.brand-image {
-	margin-top: -24px;
+	margin: 0px;
+	padding: 4px;
 	
-	height: 60px;
+	height: 52px;
 	width: auto;
 }
 
