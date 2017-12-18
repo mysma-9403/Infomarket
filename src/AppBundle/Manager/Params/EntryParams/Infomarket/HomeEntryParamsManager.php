@@ -231,7 +231,7 @@ class HomeEntryParamsManager extends EntryParamsManager {
 			$ratingsCategory = $this->getFirstRatingsCategory($categories);
 			$viewParams['ratingsCategory'] = $ratingsCategory;
 		} else {
-			$branches = $this->branchRepository->findAll();
+			$branches = $this->branchRepository->findBy([], ['orderNumber' => 'ASC']);
 			$viewParams['branches'] = $branches;
 			
 			$categories = [];
