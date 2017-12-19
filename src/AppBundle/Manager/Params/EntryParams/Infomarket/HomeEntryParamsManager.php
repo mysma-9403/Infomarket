@@ -231,15 +231,15 @@ class HomeEntryParamsManager extends EntryParamsManager {
 			$ratingsCategory = $this->getFirstRatingsCategory($categories);
 			$viewParams['ratingsCategory'] = $ratingsCategory;
 		} else {
-			$branches = $this->branchRepository->findBy([], ['orderNumber' => 'ASC']);
+			$branches = $this->branchRepository->findBy(['infomarket' => true], ['orderNumber' => 'ASC']);
 			$viewParams['branches'] = $branches;
 			
-			$categories = [];
-			foreach ($branches as $branch) {
-				$branchCategories = $this->categoryRepository->findBranchMainItems($branch->getId(), 5);
-				$categories[$branch->getId()] = $branchCategories;
-			}
-			$viewParams['categories'] = $categories;
+// 			$categories = [];
+// 			foreach ($branches as $branch) {
+// 				$branchCategories = $this->categoryRepository->findBranchMainItems($branch->getId(), 5);
+// 				$categories[$branch->getId()] = $branchCategories;
+// 			}
+// 			$viewParams['categories'] = $categories;
 		}
 		
 		$params['viewParams'] = $viewParams;
