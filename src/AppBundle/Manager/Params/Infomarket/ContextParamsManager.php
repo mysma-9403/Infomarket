@@ -70,6 +70,10 @@ class ContextParamsManager {
 			}
 		}
 		
+		if($branch === null) {
+			$branch = $this->initBranch($branches, $branch);
+		}
+		
 		$contextParams['branch'] = $branch;
 		$routeParams['branch'] = $branch;
 		$viewParams['contextBranchId'] = $branch;
@@ -88,6 +92,11 @@ class ContextParamsManager {
 		$params['viewParams'] = $viewParams;
 		
 		return $params;
+	}
+	
+	//TODO refine - quick fix...
+	protected function initBranch($branches, $branch) {
+		return $branch ? $branch : $branches[0]['id'];
 	}
 
 	protected function getMenuBranches($contextParams, $viewParams) {
