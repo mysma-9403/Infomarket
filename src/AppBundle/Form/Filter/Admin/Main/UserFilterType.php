@@ -14,6 +14,7 @@ class UserFilterType extends FilterType {
 		$this->addFilterTextField($builder, 'username', 'label.user.username');
 		$this->addFilterTextField($builder, 'surname', 'label.user.surname');
 		$this->addFilterTextField($builder, 'forename', 'label.user.forename');
+		$this->addFilterTextField($builder, 'email', 'label.user.email');
 	}
 
 	protected function getEntityType() {
