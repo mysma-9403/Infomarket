@@ -18,6 +18,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Repository\Infomarket\BranchRepository;
 use AppBundle\Repository\Infomarket\CategoryRepository;
+use AppBundle\Manager\Route\RouteManager;
+use AppBundle\Manager\Params\Base\ParamsManager;
+use AppBundle\Manager\Params\Infomarket\HomeContextParamsManager;
 
 class HomeController extends InfomarketController {
 	// ---------------------------------------------------------------------------
@@ -37,6 +40,25 @@ class HomeController extends InfomarketController {
 	// ---------------------------------------------------------------------------
 	// Managers
 	// ---------------------------------------------------------------------------
+	protected function getContextParamsManager(Request $request) {
+		$rm = new RouteManager();
+		$lastRoute = $rm->getLastRoute($request, $this->getHomeRoute());
+		$lastRouteParams = $lastRoute['routeParams'];
+		
+		if (! $lastRouteParams) {
+			$lastRouteParams = array();
+		}
+		
+		$articleCategoryRepository = $this->get(ArticleCategoryRepository::class);
+		$branchRepository = $this->get(BranchRepository::class);
+		$categoryRepository = $this->get(CategoryRepository::class);
+		
+		$paramManager = $this->get(ParamsManager::class);
+		
+		return new HomeContextParamsManager($articleCategoryRepository, $branchRepository, $categoryRepository, 
+				$paramManager, $lastRouteParams);
+	}
+
 	protected function getInternalEntryParamsManager(EntityManager $em, FilterManager $fm, $doctrine) {
 		$articleRepository = $this->get(ArticleRepository::class);
 		$articleCategoryRepository = $this->get(ArticleCategoryRepository::class);

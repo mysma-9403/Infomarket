@@ -10,6 +10,8 @@
 	{% include 'common/fields/filter/simple_field.html.twig' with 
 		{ field: filter.username, label: 'label.user.username' } %}
 	{% include 'common/fields/filter/simple_field.html.twig' with 
+		{ field: filter.email, label: 'label.user.email' } %}
+	{% include 'common/fields/filter/simple_field.html.twig' with 
 		{ field: filter.surname, label: 'label.user.surname' } %}
 	{% include 'common/fields/filter/simple_field.html.twig' with 
 		{ field: filter.forename, label: 'label.user.forename' } %}
@@ -19,12 +21,16 @@
 
 {% block headerFields %}
 	{% include 'common/fields/table_header/icon_field.html.twig' with 
+		{ icon: 'fa-envelope-o', label: 'label.user.email' } %}
+	{% include 'common/fields/table_header/icon_field.html.twig' with 
 		{ icon: 'fa-user', label: 'label.user.surname' } %}
 	{% include 'common/fields/table_header/icon_field.html.twig' with 
 		{ icon: 'fa-user', label: 'label.user.forename' } %}
 {% endblock %}
 
 {% block entryFields %}
+	{% include 'common/fields/table/simple_field.html.twig' with 
+		{ value: item.email } %}
 	{% include 'common/fields/table/simple_field.html.twig' with 
 		{ value: item.surname } %}
 	{% include 'common/fields/table/simple_field.html.twig' with 

@@ -18,6 +18,7 @@ class UserRepository extends BaseRepository {
 	protected function getSelectFields(QueryBuilder &$builder, Filter $filter) {
 		$fields = parent::getSelectFields($builder, $filter);
 		
+		$fields[] = 'e.email';
 		$fields[] = 'e.username';
 		$fields[] = 'e.surname';
 		$fields[] = 'e.forename';
@@ -30,17 +31,10 @@ class UserRepository extends BaseRepository {
 		$where = parent::getWhere($builder, $filter);
 		/** @var UserFilter $filter */
 		
-		$expr = $builder->expr();
-		
 		$this->addStringWhere($builder, $where, 'e.username', $filter->getUsername());
 		$this->addStringWhere($builder, $where, 'e.surname', $filter->getSurname());
 		$this->addStringWhere($builder, $where, 'e.forename', $filter->getForename());
-		
-		$roles = $expr->orX();
-		$roles->add($expr->like('e.roles', $expr->literal('%EDITOR%')));
-		$roles->add($expr->like('e.roles', $expr->literal('%ADMIN%')));
-		
-		$where->add($roles);
+		$this->addStringWhere($builder, $where, 'e.email', $filter->getEmail());
 		
 		return $where;
 	}
