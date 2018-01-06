@@ -97,6 +97,7 @@ class MagazineRepository extends BaseRepository {
 		
 		$builder->where($where);
 		
+		$builder->addOrderBy('e.date', 'DESC');
 		$builder->addOrderBy('e.orderNumber', 'ASC');
 		$builder->addOrderBy('e.name', 'DESC');
 		
