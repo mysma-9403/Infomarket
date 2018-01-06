@@ -66,18 +66,18 @@
 					      		
 								{% block navigationBrand %}
 								<a class="navbar-brand" href="{{ path('infoprodukt_home') }}">
-									<img class="brand-image" src="{{ asset('img/logo-infoprodukt.png') }}">
+									<img class="brand-image" src="{{ asset('img/logo-infoprodukt-mini.png') }}">
 								</a>
 								{% endblock %}
 					    	</div>
 				    	{% endblock %}
 						
 						{% block navigationSearch %}
-						<div class="navbar-search navbar-form navbar-right navbar-input-group hidden-xs hidden-sm" role="search">
+						<div class="navbar-search navbar-right navbar-input-group hidden-xs hidden-sm" role="search">
 							{% form_theme menuSearchFilterForm 'form/fields.html.twig' %}
 						
 							{{ form_start(menuSearchFilterForm) }}
-								<ul class="list-inline">
+								<ul class="list-inline navbar-form">
 									<li>
 										<div class='input-group input-sm search'>
 											{{ form_widget(menuSearchFilterForm.string, { 'label': 'label.search.string', 'attr': { 'class': 'input-sm' }  }) }}

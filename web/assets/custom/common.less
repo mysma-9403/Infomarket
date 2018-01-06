@@ -225,11 +225,11 @@ a:focus .text-white {
 
 
 
-ul {
+ul.side {
 	margin-left: 1em;
 }
 
-ul li {
+ul.side li {
     position: relative;
     left: 1em;
     padding-right: 1em;
@@ -602,35 +602,15 @@ body {
 .lowered-35 {
 	margin-top: 35px;
 }
-				
-				
-.navbar-header {
-	margin: 0px;
-	padding: 0px;
-	
-	height: 100%;
-	overflow: hidden;
-}
 
 .nav-horizontal > li {
 	margin: 5px;
     display: inline-block;
 }
 
-.navbar-nav {
-    margin: 0 auto;
-    display: table;
-    table-layout: fixed;
-    float: none;
-}
-
 .navbar-default {
 	color: @gray-lighter;
     background-color: @brand-primary;
-}
-
-.navbar-default .navbar-nav li > a {
-    color: @gray-lighter;
 }
 
 .navbar-inverse {
@@ -662,34 +642,6 @@ div.tile .tile-heading {
 
 .breadcrumb {
 	background-color: transparent;
-}
-
-
-
-
-@media (max-width: 992px) {
-	.navbar-collapse ul.navbar-nav {
-		width: 100%;
-	}
-}
-
-nav.sidebar .navbar-nav .open .dropdown-menu {
-	position: static;
-	float: none;
-	width: auto;
-	margin-top: 0;
-	background-color: transparent;
-	border: 0;
-	-webkit-box-shadow: none;
-	box-shadow: none;
-}
-
-nav.sidebar .navbar-nav > li:first-child {
-	border-top: 5px @red solid;
-}
-
-nav.sidebar .navbar-nav > li {
-	border-bottom: 5px @blue solid;
 }
 
 ul.nav-tree
