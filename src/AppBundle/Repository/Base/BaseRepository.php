@@ -169,21 +169,21 @@ abstract class BaseRepository extends EntityRepository {
 		}
 	}
 
-	protected function addStringWhere(QueryBuilder &$builder, &$where, $field, $value, $addDecorators = false) {
-		if ($value && strlen($value) > 0) {
-			$where->add($this->buildStringsExpression($builder, $field, $value, $addDecorators));
-		}
-	}
-
 	protected function addBooleanWhere(QueryBuilder &$builder, &$where, $field, $value) {
 		if ($value != Filter::ALL_VALUES) {
 			$where->add($builder->expr()->eq($field, $value));
 		}
 	}
-
+	
 	protected function addArrayWhere(QueryBuilder &$builder, &$where, $field, array $array) {
 		if (count($array) > 0) {
 			$where->add($builder->expr()->in($field, $array));
+		}
+	}
+	
+	protected function addStringWhere(QueryBuilder &$builder, &$where, $field, $value, $addDecorators = false) {
+		if ($value && strlen($value) > 0) {
+			$where->add($this->buildStringsExpression($builder, $field, $value, $addDecorators));
 		}
 	}
 
@@ -231,6 +231,67 @@ abstract class BaseRepository extends EntityRepository {
 			return $builder->expr()->notLike($name, $string);
 		} else {
 			return $builder->expr()->like($name, $string);
+		}
+	}
+	
+	protected function addConcatStringWhere(QueryBuilder &$builder, &$where, array $fields, $value, $addDecorators = false) {
+		if ($value && strlen($value) > 0) {
+			$where->add($this->buildConcatStringsExpression($builder, $fields, $value, $addDecorators));
+		}
+	}
+	
+	protected function buildConcatStringsExpression(QueryBuilder &$builder, array $fields, $string, $addDecorators = false) {
+		$ors = explode(',', $string);
+	
+		$orExpr = $builder->expr()->orX();
+		foreach ($ors as $or) {
+			$ands = explode('+', $or);
+				
+			$andExpr = $builder->expr()->andX();
+			foreach ($ands as $and) {
+				$andExpr->add($this->buildConcatStringExpression($builder, $fields, $and, $addDecorators));
+			}
+				
+			$orExpr->add($andExpr);
+		}
+	
+		return $orExpr;
+	}
+	
+	protected function buildConcatStringExpression(QueryBuilder &$builder, array $fields, $string, $addDecorators = false) {
+		$not = false;
+	
+		$string = trim($string);
+	
+		if (substr($string, 0, 2) == '<>') {
+			$string = str_replace('<>', '', $string);
+			$not = true;
+		}
+	
+		$string = str_replace('*', '%', $string);
+	
+		if ($addDecorators) {
+			if (substr($string, 0, 1) != '%') {
+				$string = '%' . $string;
+			}
+			if (substr($string, strlen($string - 1), 1) != '%') {
+				$string = $string . '%';
+			}
+		}
+	
+		$phrase = $fields[0];
+		if(count($fields) > 1) {
+			for($i = 1; $i < count($fields); $i++) {
+				$phrase = $builder->expr()->concat($phrase, "' '");
+				$phrase = $builder->expr()->concat($phrase, $fields[$i]);
+			}
+		}
+		
+		$string = $builder->expr()->literal($string);
+		if ($not) {
+			return $builder->expr()->notLike($phrase, $string);
+		} else {
+			return $builder->expr()->like($phrase, $string);
 		}
 	}
 

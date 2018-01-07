@@ -2,7 +2,7 @@
 
 namespace AppBundle\Controller\Benchmark;
 
-use AppBundle\Controller\Base\DummyController;
+use AppBundle\Controller\Benchmark\Base\BenchmarkStandardController;
 use AppBundle\Entity\Main\BenchmarkQuery;
 use AppBundle\Entity\Main\Category;
 use AppBundle\Entity\Main\Product;
@@ -25,10 +25,10 @@ use AppBundle\Logic\Common\BenchmarkField\Distribution\DistributionCalculator;
 use AppBundle\Logic\Common\BenchmarkField\Distribution\ScoreDistributionCalculator;
 use AppBundle\Logic\Common\BenchmarkField\Initializer\BenchmarkFieldsInitializer;
 use AppBundle\Logic\Common\BenchmarkField\Provider\BenchmarkFieldsProvider;
+use AppBundle\Logic\Common\Product\NeighboursFinder\NeighboursFinder;
 use AppBundle\Manager\Entity\Base\EntityManager;
 use AppBundle\Manager\Entity\Benchmark\ProductManager;
 use AppBundle\Manager\Filter\Base\FilterManager;
-use AppBundle\Manager\Params\Benchmark\ContextParamsManager;
 use AppBundle\Manager\Params\EntryParams\Benchmark\ProductParamsManager;
 use AppBundle\Repository\Base\BaseRepository;
 use AppBundle\Repository\Benchmark\BenchmarkMessageRepository;
@@ -41,9 +41,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 use Symfony\Component\Validator\Constraints\Date;
-use AppBundle\Logic\Common\Product\NeighboursFinder\NeighboursFinder;
 
-class ProductController extends DummyController {
+class ProductController extends BenchmarkStandardController {
 	
 	// ---------------------------------------------------------------------------
 	// Actions
@@ -83,18 +82,13 @@ class ProductController extends DummyController {
 	// ---------------------------------------------------------------------------
 	// Internal actions
 	// ---------------------------------------------------------------------------
-	
-	/**
-	 *
-	 * {@inheritDoc}
-	 *
-	 * @see \AppBundle\Controller\Base\BaseController::indexActionInternal()
-	 */
-	protected function indexActionInternal(Request $request, $page) {
-		$this->denyAccessUnlessGranted($this->getShowRole(), null, 'Unable to access this page!');
+	protected function compareActionInternal(Request $request, $id) {
+		if ($this->getShowRole() != 'ROLE_GUEST') {
+			$this->denyAccessUnlessGranted($this->getCompareRole(), null, 'Unable to access this page!');
+		}
 		
-		$params = $this->createParams($this->getIndexRoute());
-		$params = $this->getIndexParams($request, $params, $page);
+		$params = $this->createParams($this->getCompareRoute());
+		$params = $this->getCompareParams($request, $params, $id);
 		
 		$rm = $this->getRouteManager();
 		$rm->register($request, $params['route'], $params['routeParams']);
@@ -102,7 +96,9 @@ class ProductController extends DummyController {
 		$am = $this->getAnalyticsManager();
 		$am->sendPageviewAnalytics($params['domain'], $params['route']);
 		
-		$response = $this->initIndexForms($request, $params);
+		$viewParams = $params['viewParams'];
+		
+		$response = $this->initCompareForms($request, $params);
 		if ($response)
 			return $response;
 		
@@ -111,7 +107,7 @@ class ProductController extends DummyController {
 		$viewParams = $params['viewParams'];
 		$viewParams['routeParams'] = $routeParams;
 		
-		return $this->render($this->getIndexView(), $viewParams);
+		return $this->render($this->getCompareView(), $viewParams);
 	}
 
 	protected function exportToImageActionInternal(Request $request, $page) {
@@ -231,45 +227,16 @@ class ProductController extends DummyController {
 		
 		return $response;
 	}
-
-	protected function showActionInternal(Request $request, $id) {
-		$this->denyAccessUnlessGranted($this->getShowRole(), null, 'Unable to access this page!');
-		
-		$params = $this->createParams($this->getShowRoute());
-		$params = $this->getShowParams($request, $params, $id);
-		
-		$rm = $this->getRouteManager();
-		$rm->register($request, $params['route'], $params['routeParams']);
-		
-		$am = $this->getAnalyticsManager();
-		$am->sendPageviewAnalytics($params['domain'], $params['route']);
-		
-		$viewParams = $params['viewParams'];
-		
-		return $this->render($this->getShowView(), $viewParams);
-	}
-
-	protected function compareActionInternal(Request $request, $id) {
-		$this->denyAccessUnlessGranted($this->getCompareRole(), null, 'Unable to access this page!');
-		
-		$params = $this->createParams($this->getCompareRoute());
-		$params = $this->getCompareParams($request, $params, $id);
-		
-		$rm = $this->getRouteManager();
-		$rm->register($request, $params['route'], $params['routeParams']);
-		
-		$am = $this->getAnalyticsManager();
-		$am->sendPageviewAnalytics($params['domain'], $params['route']);
-		
-		$viewParams = $params['viewParams'];
-		
-		return $this->render($this->getCompareView(), $viewParams);
-	}
 	
 	// ---------------------------------------------------------------------------
 	// Forms
 	// ---------------------------------------------------------------------------
 	protected function initIndexForms(Request $request, array &$params) {
+		$response = parent::initIndexForms($request, $params);
+		if ($response) {
+			return $response;
+		}
+		
 		$response = $this->initCategoryForm($request, $params);
 		if ($response) {
 			return $response;
@@ -288,6 +255,10 @@ class ProductController extends DummyController {
 		return null;
 	}
 
+	protected function initCompareForms(Request $request, array &$params) {
+		return $this->initForms($request, $params);
+	}
+	
 	protected function initCategoryForm(Request $request, array &$params) {
 		$contextParams = $params['contextParams'];
 		$viewParams = $params['viewParams'];
@@ -413,15 +384,6 @@ class ProductController extends DummyController {
 	// ---------------------------------------------------------------------------
 	// Parameters
 	// ---------------------------------------------------------------------------
-	protected function getParams(Request $request, array $params) {
-		$params = parent::getParams($request, $params);
-		
-		$cpm = $this->getContextParamsManager($request);
-		$params = $cpm->getParams($request, $params);
-		
-		return $params;
-	}
-
 	protected function getIndexParams(Request $request, array $params, $page) {
 		$params = $this->getParams($request, $params);
 		
@@ -452,10 +414,6 @@ class ProductController extends DummyController {
 	// ---------------------------------------------------------------------------
 	// Managers
 	// ---------------------------------------------------------------------------
-	protected function getContextParamsManager(Request $request) {
-		return $this->get(ContextParamsManager::class);
-	}
-
 	protected function getEntryParamsManager() {
 		$doctrine = $this->getDoctrine();
 		$paginator = $this->get('knp_paginator');
@@ -533,10 +491,6 @@ class ProductController extends DummyController {
 	// ---------------------------------------------------------------------------
 	// Roles
 	// ---------------------------------------------------------------------------
-	protected function getShowRole() {
-		return 'ROLE_USER';
-	}
-
 	protected function getCompareRole() {
 		return $this->getShowRole();
 	}
@@ -573,16 +527,5 @@ class ProductController extends DummyController {
 
 	protected function getCreateQueryRoute() {
 		return $this->getDomain() . '_' . ClassUtils::getUnderscoreName(BenchmarkQuery::class) . '_new';
-	}
-
-	protected function getHomeRoute() {
-		return array('route' => $this->getIndexRoute(), 'routeParams' => array());
-	}
-	
-	// ---------------------------------------------------------------------------
-	// Domain
-	// ---------------------------------------------------------------------------
-	protected function getDomain() {
-		return 'benchmark';
 	}
 }

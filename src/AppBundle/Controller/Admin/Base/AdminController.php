@@ -278,6 +278,10 @@ abstract class AdminController extends StandardController {
 	}
 
 	protected function initUpdateForms(Request $request, array &$params) {
+		$response = $this->initForms($request, $params);
+		if ($response)
+			return $response;
+		
 		$response = $this->initUpdateForm($request, $params);
 		if ($response)
 			return $response;

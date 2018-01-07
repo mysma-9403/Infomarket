@@ -51,6 +51,30 @@ class CategoryRepository extends BaseRepository {
 		return $fields;
 	}
 	
+	public function findIdsByUser($userId) {
+		$items = $this->queryIdsByUser($userId)->getScalarResult();
+		return $this->getIds($items);
+	}
+	
+	protected function queryIdsByUser($userId) {
+		$builder = new QueryBuilder($this->getEntityManager());
+	
+		$builder->select("e.id");
+		$builder->from($this->getEntityType(), "e");
+	
+		$builder->join(UserCategoryAssignment::class, 'uca', Join::WITH, 'e.id = uca.category');
+	
+		$expr = $builder->expr();
+	
+		$where = $expr->andX();
+		$where->add($expr->eq('e.benchmark', 1));
+		$where->add($expr->eq('uca.user', $userId));
+	
+		$builder->where($where);
+	
+		return $builder->getQuery();
+	}
+	
 	public function findFilterItemsByUser($userId) {
 		$items = $this->queryFilterItemsByUser($userId)->getScalarResult();
 		return $this->getFilterItems($items);

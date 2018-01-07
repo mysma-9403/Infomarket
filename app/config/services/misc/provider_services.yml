@@ -1,6 +1,6 @@
 services:
     # Benchmark Fields Providers
-    AppBundle\Logic\Common\BenchmarkField\Initializer\BenchmarkFieldsInitializerImpl:
+    AppBundle\Logic\Common\BenchmarkField\Initializer\BenchmarkFieldsInitializer:
         arguments:
             - '@AppBundle\Factory\Common\BenchmarkField\NoteBenchmarkFieldFactory'
     AppBundle\Logic\Common\BenchmarkField\Provider\BenchmarkFieldsProvider:

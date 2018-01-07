@@ -10,19 +10,22 @@ use AppBundle\Manager\Entity\Base\EntityManager;
 use AppBundle\Filter\Base\Filter;
 
 abstract class StandardController extends DummyController {
+	
 	// ---------------------------------------------------------------------------
 	// Internal actions
 	// ---------------------------------------------------------------------------
 	
 	/**
 	 *
-	 * @param Request $request        	
-	 * @param integer $page
-	 *        	current page number
-	 *        	
-	 * @return \Symfony\Component\HttpFoundation\Response
+	 * {@inheritDoc}
+	 *
+	 * @see \AppBundle\Controller\Base\BaseController::indexActionInternal()
 	 */
 	protected function indexActionInternal(Request $request, $page) {
+		if ($this->getShowRole() != 'ROLE_GUEST') {
+			$this->denyAccessUnlessGranted($this->getShowRole(), null, 'Unable to access this page!');
+		}
+		
 		$params = $this->createParams($this->getIndexRoute());
 		$params = $this->getIndexParams($request, $params, $page);
 		
@@ -36,20 +39,19 @@ abstract class StandardController extends DummyController {
 		if ($response)
 			return $response;
 		
+		$routeParams = $params['routeParams'];
+		
 		$viewParams = $params['viewParams'];
+		$viewParams['routeParams'] = $routeParams;
 		
 		return $this->render($this->getIndexView(), $viewParams);
 	}
 
-	/**
-	 *
-	 * @param Request $request        	
-	 * @param integer $id
-	 *        	current entry ID
-	 *        	
-	 * @return \Symfony\Component\HttpFoundation\Response
-	 */
 	protected function showActionInternal(Request $request, $id) {
+		if ($this->getShowRole() != 'ROLE_GUEST') {
+			$this->denyAccessUnlessGranted($this->getShowRole(), null, 'Unable to access this page!');
+		}
+		
 		$params = $this->createParams($this->getShowRoute());
 		$params = $this->getShowParams($request, $params, $id);
 		
@@ -58,13 +60,15 @@ abstract class StandardController extends DummyController {
 		
 		$am = $this->getAnalyticsManager();
 		$am->sendPageviewAnalytics($params['domain'], $params['route']);
-		$am->sendEventAnalytics($this->getEntityName(), 'show', $id);
 		
 		$response = $this->initShowForms($request, $params);
 		if ($response)
 			return $response;
 		
+		$routeParams = $params['routeParams'];
+		
 		$viewParams = $params['viewParams'];
+		$viewParams['routeParams'] = $routeParams;
 		
 		return $this->render($this->getShowView(), $viewParams);
 	}
@@ -159,5 +163,12 @@ abstract class StandardController extends DummyController {
 
 	protected function getIndexRoute() {
 		return $this->getDomain() . '_' . $this->getEntityName();
+	}
+	
+	// ---------------------------------------------------------------------------
+	// Roles
+	// ---------------------------------------------------------------------------
+	protected function getShowRole() {
+		return 'ROLE_USER';
 	}
 }

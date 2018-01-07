@@ -1395,7 +1395,7 @@
             
             <trans-unit id="label.noEntries">
                 <source>label.noEntries</source>
-                <target>Brak wyników.</target>
+                <target>Nie znaleziono żadnego wpisu spełniającego kryteria wyszukiwania.</target>
             </trans-unit>
             
             

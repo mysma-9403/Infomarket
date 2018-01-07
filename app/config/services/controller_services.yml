@@ -22,7 +22,7 @@ services:
         arguments:
             - '@app.manager.transaction.main.benchmark_query'
             - '@AppBundle\Manager\Persistence\Main\BenchmarkQueryManager'
-            - '@AppBundle\Manager\Decorator\Common\Base\ImageDecorator'
+            - '@AppBundle\Manager\Decorator\Base\ItemDecorator'
             - '@AppBundle\Validator\Base\BaseValidator'
     AppBundle\Controller\Benchmark\CustomProductController:
         arguments:

@@ -2,7 +2,7 @@
 
 namespace AppBundle\Controller\Benchmark;
 
-use AppBundle\Controller\Admin\Base\BaseController;
+use AppBundle\Controller\Benchmark\Base\BenchmarkAdminController;
 use AppBundle\Entity\Main\BenchmarkQuery;
 use AppBundle\Entity\Main\Product;
 use AppBundle\Filter\Benchmark\BenchmarkQueryFilter;
@@ -10,11 +10,10 @@ use AppBundle\Form\Editor\Benchmark\BenchmarkQueryEditorType;
 use AppBundle\Form\Filter\Benchmark\BenchmarkQueryFilterType;
 use AppBundle\Manager\Entity\Benchmark\BenchmarkQueryManager;
 use AppBundle\Manager\Filter\Base\FilterManager;
-use AppBundle\Manager\Params\Benchmark\ContextParamsManager;
 use AppBundle\Utils\ClassUtils;
 use Symfony\Component\HttpFoundation\Request;
 
-class BenchmarkQueryController extends BaseController {
+class BenchmarkQueryController extends BenchmarkAdminController {
 	
 	// ---------------------------------------------------------------------------
 	// Actions
@@ -72,10 +71,6 @@ class BenchmarkQueryController extends BaseController {
 	// ---------------------------------------------------------------------------
 	// Managers
 	// ---------------------------------------------------------------------------
-	protected function getContextParamsManager(Request $request) {
-		return $this->get(ContextParamsManager::class);
-	}
-
 	protected function getEntityManager($doctrine, $paginator) {
 		return $this->get(BenchmarkQueryManager::class);
 	}
@@ -100,10 +95,6 @@ class BenchmarkQueryController extends BaseController {
 	// ---------------------------------------------------------------------------
 	// Roles
 	// ---------------------------------------------------------------------------
-	protected function getShowRole() {
-		return 'ROLE_USER';
-	}
-
 	protected function getEditRole() {
 		return $this->getShowRole();
 	}
@@ -136,12 +127,5 @@ class BenchmarkQueryController extends BaseController {
 
 	protected function getEntityType() {
 		return BenchmarkQuery::class;
-	}
-	
-	// ---------------------------------------------------------------------------
-	// Domain
-	// ---------------------------------------------------------------------------
-	protected function getDomain() {
-		return 'benchmark';
 	}
 }

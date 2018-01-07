@@ -16,6 +16,8 @@ use AppBundle\Repository\Benchmark\SegmentRepository;
 use Doctrine\Common\Persistence\ObjectManager;
 use AppBundle\Repository\Benchmark\BrandRepository;
 use AppBundle\Entity\Main\Brand;
+use AppBundle\Repository\Search\Benchmark\BrandSearchRepository;
+use AppBundle\Repository\Search\Benchmark\ProductSearchRepository;
 
 class BenchmarkRepositoryFactory {
 
@@ -51,6 +53,13 @@ class BenchmarkRepositoryFactory {
 		}
 		if ($class == SegmentRepository::class) {
 			return new SegmentRepository($this->em, $this->em->getClassMetadata(Segment::class));
+		}
+		
+		if ($class == BrandSearchRepository::class) {
+			return new BrandSearchRepository($this->em, $this->em->getClassMetadata(Segment::class));
+		}
+		if ($class == ProductSearchRepository::class) {
+			return new ProductSearchRepository($this->em, $this->em->getClassMetadata(Segment::class));
 		}
 		
 		return null;

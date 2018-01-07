@@ -9,7 +9,8 @@
 {% block body %}
 	{% block navigationBar %}
 	<nav class="navbar navbar-fixed-top">
-		{% block navigationHeader %}
+		
+	{% block navigationHeader %}
 			<div class="navbar-header">
 				{% if app.user %}
 					{% block navigationButton %}
@@ -34,7 +35,7 @@
     	{% endblock %}
 		
 		{% if app.user %}
-			{% block navigationSearch %}
+			{% block navigationGreet %}
 			<div class="navbar-greet navbar-left hidden-xs hidden-sm">
 				<p>
 					{{ 'label.welcome'|trans }} {{ app.user.username }}, <br>
@@ -44,10 +45,29 @@
 				</p>
 			</div>
 			{% endblock %}
+			
+			{% block navigationSearch %}
+			<div class="navbar-search navbar-right navbar-input-group hidden-xs hidden-sm" role="search">
+				{% form_theme menuSearchFilterForm 'form/fields.html.twig' %}
+			
+				{{ form_start(menuSearchFilterForm) }}
+					<ul class="list-inline navbar-form">
+						<li>
+							<div class='input-group input-sm search'>
+								{{ form_widget(menuSearchFilterForm.string, { 'label': 'label.search.string', 'attr': { 'class': 'input-sm' }  }) }}
+								<span class="input-group-btn">
+									{{ form_widget(menuSearchFilterForm.search, { 'icon': 'fa fa-search', 'label': ' ', 'attr': { 'class': 'input-sm btn-danger' }  }) }}
+						      	</span>
+							</div>
+						</li>
+					</ul>			
+				{{ form_end(menuSearchFilterForm) }}
+			</div>
+			{% endblock %}
 		
 			{% block navigationLinks %}
 				{% if category.name is defined and subcategory.name is defined%}
-					<div class="collapse navbar-collapse" id="catbar">
+					<div class="collapse navbar-collapse no-padding" id="bs-example-navbar-collapse-1">
 						<ul class="nav navbar-nav navbar-right">
 							{% include 'common/menu/simple_link.html.twig' with 
 								{ linkPath: "category_show", linkLabel: "label.categories" } %}

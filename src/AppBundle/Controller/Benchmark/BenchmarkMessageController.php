@@ -2,7 +2,7 @@
 
 namespace AppBundle\Controller\Benchmark;
 
-use AppBundle\Controller\Admin\Base\BaseController;
+use AppBundle\Controller\Benchmark\Base\BenchmarkAdminController;
 use AppBundle\Entity\Main\BenchmarkMessage;
 use AppBundle\Filter\Benchmark\BenchmarkMessageFilter;
 use AppBundle\Filter\Common\Base\BaseFilter;
@@ -12,14 +12,13 @@ use AppBundle\Form\Lists\BenchmarkMessageListType;
 use AppBundle\Manager\Entity\Base\EntityManager;
 use AppBundle\Manager\Entity\Benchmark\BenchmarkMessageManager;
 use AppBundle\Manager\Filter\Base\FilterManager;
-use AppBundle\Manager\Params\Benchmark\ContextParamsManager;
 use AppBundle\Manager\Params\EntryParams\Benchmark\BenchmarkMessageParamsManager;
 use AppBundle\Repository\Benchmark\BenchmarkMessageRepository;
 use AppBundle\Repository\Benchmark\ProductRepository;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Request;
 
-class BenchmarkMessageController extends BaseController {
+class BenchmarkMessageController extends BenchmarkAdminController {
 	
 	// ---------------------------------------------------------------------------
 	// Actions
@@ -43,20 +42,6 @@ class BenchmarkMessageController extends BaseController {
 	// ---------------------------------------------------------------------------
 	// Internal actions
 	// ---------------------------------------------------------------------------
-	protected function showActionInternal(Request $request, $id) {
-		// TODO I don't like this override and duplicate actions -> maybe save should be moved to Manager?? or ActionInternal should be splitted?
-		$this->denyAccessUnlessGranted($this->getShowRole(), null, 'Unable to access this page!');
-		
-		$params = $this->createParams($this->getSetReadRoute());
-		$params = $this->getEditParams($request, $params, $id);
-		
-		$viewParams = $params['viewParams'];
-		$entry = $viewParams['entry'];
-		$this->setReadEntry($request, $entry, true);
-		
-		return parent::showActionInternal($request, $id);
-	}
-
 	protected function setReadActionInternal(Request $request, $id) {
 		$this->denyAccessUnlessGranted($this->getShowRole(), null, 'Unable to access this page!');
 		
@@ -147,10 +132,6 @@ class BenchmarkMessageController extends BaseController {
 	// ---------------------------------------------------------------------------
 	// Managers
 	// ---------------------------------------------------------------------------
-	protected function getInternalContextParamsManager($doctrine, $lastRouteParams) {
-		return $this->get(ContextParamsManager::class);
-	}
-
 	protected function getInternalEntryParamsManager(EntityManager $em, FilterManager $fm, $doctrine) {
 		$productRepository = $this->get(ProductRepository::class);
 		return new BenchmarkMessageParamsManager($em, $fm, $productRepository);
@@ -236,10 +217,6 @@ class BenchmarkMessageController extends BaseController {
 	// ---------------------------------------------------------------------------
 	// Roles
 	// ---------------------------------------------------------------------------
-	protected function getShowRole() {
-		return 'ROLE_USER';
-	}
-
 	protected function getEditRole() {
 		return $this->getShowRole();
 	}
@@ -253,12 +230,5 @@ class BenchmarkMessageController extends BaseController {
 
 	protected function getSetReadRoute() {
 		return $this->getIndexRoute() . '_set_read';
-	}
-	
-	// ---------------------------------------------------------------------------
-	// Domain
-	// ---------------------------------------------------------------------------
-	protected function getDomain() {
-		return 'benchmark';
 	}
 }

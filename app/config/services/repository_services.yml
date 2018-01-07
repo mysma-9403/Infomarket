@@ -34,7 +34,16 @@ services:
         factory: ['@AppBundle\Repository\Factory\BenchmarkRepositoryFactory', getRepository]
         arguments:
             - AppBundle\Repository\Benchmark\SegmentRepository
-
+    
+    ## Benchmark Search Repositories
+    AppBundle\Repository\Search\Benchmark\BrandSearchRepository:
+        factory: ['@AppBundle\Repository\Factory\BenchmarkRepositoryFactory', getRepository]
+        arguments:
+            - AppBundle\Repository\Search\Benchmark\BrandSearchRepository
+    AppBundle\Repository\Search\Benchmark\ProductSearchRepository:
+        factory: ['@AppBundle\Repository\Factory\BenchmarkRepositoryFactory', getRepository]
+        arguments:
+            - AppBundle\Repository\Search\Benchmark\ProductSearchRepository
 
     # Infomarket Repositories
     AppBundle\Repository\Infomarket\AdvertRepository:

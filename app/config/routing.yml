@@ -32,10 +32,6 @@ benchmark_logout:
 benchmark_register:
     path:     /benchmark/register
     defaults: { _controller: "FOSUserBundle:Security:register" }
-    
-benchmark:
-    path:      /benchmark/
-    defaults:  { _controller: "AppBundle:Benchmark/Home:index" }
              
 # Benchmark Main Routing
 benchmark_benchmark_message_new:
@@ -137,7 +133,15 @@ benchmark_custom_product_delete:
 benchmark_custom_product:
     path:      /benchmark/custom-products/{page}
     defaults:  { _controller: "AppBundle:Benchmark/CustomProduct:index", page: 1 }
-                     
+
+benchmark_search:
+    path:      /benchmark/search
+    defaults:  { _controller: "AppBundle:Benchmark/Search:index" }
+        
+benchmark:
+    path:      /benchmark/
+    defaults:  { _controller: "AppBundle:Benchmark/Home:index" }
+                         
 # Infoprodukt Routing
 infoprodukt_advert_click:
     path:      /adverts/click/{id}

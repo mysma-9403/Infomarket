@@ -3,6 +3,7 @@
 namespace AppBundle\Controller\Benchmark;
 
 use AppBundle\Controller\Admin\Base\BaseController;
+use AppBundle\Controller\Benchmark\Base\BenchmarkAdminController;
 use AppBundle\Entity\Main\Product;
 use AppBundle\Factory\Common\BenchmarkField\SimpleBenchmarkFieldFactory;
 use AppBundle\Filter\Benchmark\CustomProductFilter;
@@ -16,14 +17,13 @@ use AppBundle\Logic\Common\BenchmarkField\Provider\BenchmarkFieldsProvider;
 use AppBundle\Manager\Entity\Base\EntityManager;
 use AppBundle\Manager\Entity\Benchmark\CustomProductManager;
 use AppBundle\Manager\Filter\Base\FilterManager;
-use AppBundle\Manager\Params\Benchmark\ContextParamsManager;
 use AppBundle\Manager\Params\EntryParams\Benchmark\CustomProductEntryParamsManager;
 use AppBundle\Repository\Benchmark\CategoryRepository;
 use AppBundle\Utils\Entity\BenchmarkFieldUtils;
 use AppBundle\Utils\Entity\DataBase\BenchmarkFieldDataBaseUtils;
 use Symfony\Component\HttpFoundation\Request;
 
-class CustomProductController extends BaseController {
+class CustomProductController extends BenchmarkAdminController {
 	
 	// ---------------------------------------------------------------------------
 	// Actions
@@ -55,10 +55,6 @@ class CustomProductController extends BaseController {
 	// ---------------------------------------------------------------------------
 	// Managers
 	// ---------------------------------------------------------------------------
-	protected function getInternalContextParamsManager($doctrine, $lastRouteParams) {
-		return $this->get(ContextParamsManager::class);
-	}
-
 	protected function getInternalEntryParamsManager(EntityManager $em, FilterManager $fm, $doctrine) {
 		$translator = $this->get('translator');
 		$benchmarkFieldsProvider = new BenchmarkFieldsProvider($translator);
@@ -94,6 +90,10 @@ class CustomProductController extends BaseController {
 	// Forms
 	// ---------------------------------------------------------------------------
 	protected function initNewForms(Request $request, array &$params) {
+		$response = parent::initNewForms($request, $params);
+		if ($response)
+			return $response;
+		
 		$response = $this->initUpdateForm($request, $params);
 		if ($response)
 			return $response;
@@ -198,10 +198,6 @@ class CustomProductController extends BaseController {
 	// ---------------------------------------------------------------------------
 	// Roles
 	// ---------------------------------------------------------------------------
-	protected function getShowRole() {
-		return 'ROLE_USER';
-	}
-
 	protected function getEditRole() {
 		return $this->getShowRole();
 	}
@@ -234,12 +230,5 @@ class CustomProductController extends BaseController {
 
 	protected function getEntityName() {
 		return 'custom_' . parent::getEntityName();
-	}
-	
-	// ---------------------------------------------------------------------------
-	// Domain
-	// ---------------------------------------------------------------------------
-	protected function getDomain() {
-		return 'benchmark';
 	}
 }

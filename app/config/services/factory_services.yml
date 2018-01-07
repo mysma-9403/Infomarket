@@ -58,8 +58,8 @@ services:
     Appbundle\Factory\Filter\ProductFilterFactory:
         arguments:
             - '@AppBundle\Logic\Common\BenchmarkField\Provider\BenchmarkFieldsProvider'
-            - '@AppBundle\Logic\Common\BenchmarkField\Initializer\BenchmarkFieldsInitializerImpl'
-            - '@AppBundle\Logic\Common\BenchmarkField\Initializer\BenchmarkFieldsInitializerImpl'
+            - '@AppBundle\Logic\Common\BenchmarkField\Initializer\BenchmarkFieldsInitializer'
+            - '@AppBundle\Logic\Common\BenchmarkField\Initializer\BenchmarkFieldsInitializer'
             
     # Filter Factories - Other
     AppBundle\Logic\Common\BenchmarkField\Provider\BenchmarkFieldsProvider:

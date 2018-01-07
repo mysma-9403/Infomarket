@@ -2,7 +2,7 @@
 
 namespace AppBundle\Controller\Benchmark;
 
-use AppBundle\Controller\Base\DummyController;
+use AppBundle\Controller\Benchmark\Base\BenchmarkStandardController;
 use AppBundle\Entity\Main\Category;
 use AppBundle\Factory\Common\BenchmarkField\CategoryBenchmarkFieldFactory;
 use AppBundle\Filter\Benchmark\CategoryFilter;
@@ -14,7 +14,6 @@ use AppBundle\Logic\Common\BenchmarkField\Provider\BenchmarkFieldsProvider;
 use AppBundle\Manager\Entity\Base\EntityManager;
 use AppBundle\Manager\Entity\Benchmark\CategoryManager;
 use AppBundle\Manager\Filter\Base\FilterManager;
-use AppBundle\Manager\Params\Benchmark\ContextParamsManager;
 use AppBundle\Manager\Params\EntryParams\Benchmark\CategoryParamsManager;
 use AppBundle\Repository\Benchmark\CategoryRepository;
 use AppBundle\Repository\Benchmark\ProductRepository;
@@ -22,7 +21,7 @@ use AppBundle\Repository\Benchmark\SegmentRepository;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\HttpFoundation\Request;
 
-class CategoryController extends DummyController {
+class CategoryController extends BenchmarkStandardController {
 	
 	// ---------------------------------------------------------------------------
 	// Actions
@@ -32,38 +31,14 @@ class CategoryController extends DummyController {
 	}
 	
 	// ---------------------------------------------------------------------------
-	// Internal actions
-	// ---------------------------------------------------------------------------
-	
-	// TODO maybe should be moved to some common controller, if forms are not needed, can be empty :)
-	protected function showActionInternal(Request $request, $id) {
-		$this->denyAccessUnlessGranted($this->getShowRole(), null, 'Unable to access this page!');
-		
-		$params = $this->createParams($this->getShowRoute());
-		$params = $this->getShowParams($request, $params, $id);
-		
-		$rm = $this->getRouteManager();
-		$rm->register($request, $params['route'], $params['routeParams']);
-		
-		$am = $this->getAnalyticsManager();
-		$am->sendPageviewAnalytics($params['domain'], $params['route']);
-		
-		$response = $this->initShowForms($request, $params);
-		if ($response)
-			return $response;
-		
-		$routeParams = $params['routeParams'];
-		
-		$viewParams = $params['viewParams'];
-		$viewParams['routeParams'] = $routeParams;
-		
-		return $this->render($this->getShowView(), $viewParams);
-	}
-	
-	// ---------------------------------------------------------------------------
 	// Forms
 	// ---------------------------------------------------------------------------
 	protected function initShowForms(Request $request, array &$params) {
+		$response = parent::initShowForms($request, $params);
+		if ($response) {
+			return $response;
+		}
+		
 		$response = $this->initCategoryForm($request, $params);
 		if ($response) {
 			return $response;
@@ -147,43 +122,8 @@ class CategoryController extends DummyController {
 	}
 	
 	// ---------------------------------------------------------------------------
-	// Parameters
-	// ---------------------------------------------------------------------------
-	protected function getParams(Request $request, array $params) {
-		$params = parent::getParams($request, $params);
-		
-		$cpm = $this->getContextParamsManager($request);
-		$params = $cpm->getParams($request, $params);
-		
-		return $params;
-	}
-
-	protected function getShowParams(Request $request, array $params, $id) {
-		$params = $this->getParams($request, $params);
-		
-		$em = $this->getEntryParamsManager();
-		$params = $em->getShowParams($request, $params, $id);
-		
-		return $params;
-	}
-	
-	// ---------------------------------------------------------------------------
 	// Managers
 	// ---------------------------------------------------------------------------
-	protected function getContextParamsManager(Request $request) {
-		return $this->get(ContextParamsManager::class);
-	}
-
-	protected function getEntryParamsManager() {
-		$doctrine = $this->getDoctrine();
-		$paginator = $this->get('knp_paginator');
-		
-		$em = $this->getEntityManager($doctrine, $paginator);
-		$fm = $this->getFilterManager($doctrine);
-		
-		return $this->getInternalEntryParamsManager($em, $fm, $doctrine);
-	}
-
 	protected function getInternalEntryParamsManager(EntityManager $em, FilterManager $fm, $doctrine) {
 		$categoryRepository = $this->get(CategoryRepository::class);
 		$productRepository = $this->get(ProductRepository::class);
@@ -223,45 +163,5 @@ class CategoryController extends DummyController {
 
 	protected function getEntityType() {
 		return Category::class;
-	}
-	
-	// ---------------------------------------------------------------------------
-	// Roles
-	// ---------------------------------------------------------------------------
-	protected function getShowRole() {
-		return 'ROLE_USER';
-	}
-	
-	// ---------------------------------------------------------------------------
-	// Views
-	// ---------------------------------------------------------------------------
-	protected function getIndexView() {
-		return $this->getDomain() . '/' . $this->getEntityName() . '/index.html.twig';
-	}
-
-	protected function getShowView() {
-		return $this->getDomain() . '/' . $this->getEntityName() . '/show.html.twig';
-	}
-	
-	// ---------------------------------------------------------------------------
-	// Routes
-	// ---------------------------------------------------------------------------
-	protected function getIndexRoute() {
-		return $this->getDomain() . '_' . $this->getEntityName();
-	}
-
-	protected function getShowRoute() {
-		return $this->getIndexRoute() . '_show';
-	}
-
-	protected function getHomeRoute() {
-		return array('route' => $this->getIndexRoute(), 'routeParams' => array());
-	}
-	
-	// ---------------------------------------------------------------------------
-	// Domain
-	// ---------------------------------------------------------------------------
-	protected function getDomain() {
-		return 'benchmark';
 	}
 }
