@@ -7,7 +7,6 @@ use AppBundle\Filter\Base\Filter;
 use AppBundle\Filter\Common\Base\BaseFilter;
 use AppBundle\Manager\Decorator\Base\ItemDecorator;
 use AppBundle\Manager\Params\Admin\ContextParamsManager;
-use AppBundle\Manager\Persistence\Base\PersistenceManager;
 use AppBundle\Manager\Route\RouteManager;
 use AppBundle\Manager\Transaction\Base\TransactionManager;
 use AppBundle\Misc\FormOptions\FormOptionsProvider;
@@ -26,12 +25,6 @@ abstract class AdminController extends StandardController {
 
 	/**
 	 *
-	 * @var PersistenceManager
-	 */
-	protected $persistenceManager;
-
-	/**
-	 *
 	 * @var ItemDecorator
 	 */
 	protected $decorator;
@@ -42,10 +35,9 @@ abstract class AdminController extends StandardController {
 	 */
 	protected $validator;
 
-	public function __construct(TransactionManager $transactionManager, PersistenceManager $persistenceManager, 
-			ItemDecorator $decorator, BaseValidator $validator) {
+	public function __construct(TransactionManager $transactionManager, ItemDecorator $decorator, 
+			BaseValidator $validator) {
 		$this->transactionManager = $transactionManager;
-		$this->persistenceManager = $persistenceManager;
 		$this->decorator = $decorator;
 		$this->validator = $validator;
 	}
@@ -156,8 +148,9 @@ abstract class AdminController extends StandardController {
 		/** @var RouteManager $rm */
 		$rm = $this->getRouteManager();
 		$rm->remove($request, $id);
-		$lastRoute = $rm->getLastRoute($request, 
-				['route' => $this->getIndexRoute(), 'routeParams' => array()]);
+		$lastRoute = $rm->getLastRoute($request, [
+				'route' => $this->getIndexRoute(), 
+				'routeParams' => array()]);
 		
 		return $this->redirectToRoute($lastRoute['route'], $lastRoute['routeParams']);
 	}

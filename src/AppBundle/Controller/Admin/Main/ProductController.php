@@ -8,25 +8,42 @@ use AppBundle\Factory\Common\BenchmarkField\SimpleBenchmarkFieldFactory;
 use AppBundle\Filter\Common\Base\BaseFilter;
 use AppBundle\Filter\Common\Main\ProductFilter;
 use AppBundle\Form\Editor\Admin\Main\ProductEditorType;
+use AppBundle\Form\Editor\Admin\Other\ProductValueEditorType;
 use AppBundle\Form\Filter\Admin\Main\ProductFilterType;
 use AppBundle\Form\Filter\Admin\Other\CategoryFilterType;
 use AppBundle\Form\Lists\ProductListType;
 use AppBundle\Logic\Common\BenchmarkField\Initializer\BenchmarkFieldsInitializer;
 use AppBundle\Logic\Common\BenchmarkField\Provider\BenchmarkFieldsProvider;
+use AppBundle\Manager\Decorator\Base\ItemDecorator;
 use AppBundle\Manager\Entity\Base\EntityManager;
 use AppBundle\Manager\Entity\Common\Main\ProductManager;
 use AppBundle\Manager\Filter\Base\FilterManager;
 use AppBundle\Manager\Params\EntryParams\Admin\ProductEntryParamsManager;
+use AppBundle\Manager\Transaction\Base\TransactionManager;
 use AppBundle\Misc\FormOptions\FormOptionsProvider;
 use AppBundle\Repository\Admin\Main\CategoryRepository;
 use AppBundle\Utils\Entity\BenchmarkFieldUtils;
 use AppBundle\Utils\Entity\DataBase\BenchmarkFieldDataBaseUtils;
 use AppBundle\Utils\StringUtils;
+use AppBundle\Validator\Base\BaseValidator;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class ProductController extends ImageController {
+
+	/**
+	 *
+	 * @var TransactionManager
+	 */
+	protected $productValueTransactionManager;
+
+	public function __construct(TransactionManager $transactionManager, ItemDecorator $decorator, 
+			BaseValidator $validator, TransactionManager $productValueTransactionManager) {
+		parent::__construct($transactionManager, $decorator, $validator);
+		
+		$this->productValueTransactionManager = $productValueTransactionManager;
+	}
 	
 	// ---------------------------------------------------------------------------
 	// Actions
@@ -264,6 +281,10 @@ class ProductController extends ImageController {
 		if ($response)
 			return $response;
 		
+		$response = $this->initProductValueEditorForm($request, $params);
+		if ($response)
+			return $response;
+		
 		$response = $this->initCategoryForm($request, $params);
 		if ($response)
 			return $response;
@@ -293,6 +314,34 @@ class ProductController extends ImageController {
 		}
 		
 		$viewParams['form'] = $form->createView();
+		$params['viewParams'] = $viewParams;
+		
+		return null;
+	}
+
+	protected function initProductValueEditorForm(Request $request, array &$params) {
+		$viewParams = $params['viewParams'];
+		$entry = $viewParams['entry'];
+		$productValue = $viewParams['productValue'];
+		
+		$optionsProvider = $this->getProductValueEditorFormOptionsProvider();
+		$options = $optionsProvider->getFormOptions($params);
+		
+		$form = $this->createForm(ProductValueEditorType::class, $productValue, $options);
+		
+		$form->handleRequest($request);
+		
+		if ($form->isSubmitted() && $form->isValid()) {
+			$this->saveProductValue($request, $productValue, $params);
+			
+			$this->flashCreatedMessage();
+			
+			if ($form->get('save')->isClicked()) {
+				return $this->redirectToRoute($this->getEditRoute(), array('id' => $entry->getId()));
+			}
+		}
+		
+		$viewParams['productValueForm'] = $form->createView();
 		$params['viewParams'] = $viewParams;
 		
 		return null;
@@ -351,6 +400,10 @@ class ProductController extends ImageController {
 		return $this->get('app.misc.provider.form_options.editor.main.product');
 	}
 
+	protected function getProductValueEditorFormOptionsProvider() {
+		return $this->get('app.misc.provider.form_options.editor.other.productValue');
+	}
+
 	/**
 	 *
 	 * @var FormOptionsProvider
@@ -403,6 +456,15 @@ class ProductController extends ImageController {
 		$result['count'] = $count;
 		$result['errors'] = $errors;
 		return $result;
+	}
+
+	protected function saveProductValue(Request $request, $item, array $params) {
+		try {
+			$this->productValueTransactionManager->saveItem($request, $item, $params);
+		} catch (Exception $ex) {
+			$this->addFlash('error', $ex->getMessage());
+			return $this->redirectToReferer($request);
+		}
 	}
 	
 	// ---------------------------------------------------------------------------

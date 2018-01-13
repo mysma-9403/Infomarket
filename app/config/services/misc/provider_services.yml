@@ -285,7 +285,6 @@ services:
         arguments: 
             -
                 brandChoices: '@app.misc.provider.brand_items_provider'
-                filter: '@app.misc.provider.product_filter_provider'
     app.misc.provider.form_options.editor.main.user:
         class: AppBundle\Misc\FormOptions\FormOptionsProvider
         arguments: 
@@ -308,6 +307,11 @@ services:
         arguments:
             -
                 category: '@AppBundle\Misc\ItemsProvider\CategoryItemsProvider'
+    app.misc.provider.form_options.editor.other.productValue:
+        class: AppBundle\Misc\FormOptions\SimpleFormOptionsProvider
+        arguments: 
+            -
+                filter: '@app.misc.provider.product_filter_provider'
     
     #### Benchmark Editor Form Options Providers
     app.misc.provider.form_options.benchmark.product_category:

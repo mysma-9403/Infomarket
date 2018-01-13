@@ -568,6 +568,7 @@ class ProductRepository extends BaseRepository {
 		} else {
 			$where->add($expr->isNull('e.benchmarkQuery'));
 			$where->add($expr->eq('e.benchmark', 1));
+			$where->add($expr->eq('c.inProgress', 0));
 			
 			$this->addStringWhere($builder, $where, 'e.name', $filter->getName(), true);
 			

@@ -75,10 +75,15 @@ services:
     AppBundle\Form\Editor\Admin\Main\ProductEditorType:
         arguments:
             - "@app.form.transformer.brand_2_number"
-            - '@AppBundle\Form\FormBuilder\BenchmarkEditorFieldBuilder'
         tags:
             - { name: form.type }
-            
+    
+    # Other Editor Forms
+    AppBundle\Form\Editor\Admin\Other\ProductValueEditorType:
+        arguments:
+            - '@AppBundle\Form\FormBuilder\BenchmarkEditorFieldBuilder'
+        tags:
+            - { name: form.type }        
             
     # Assignment Editor Forms
     AppBundle\Form\Editor\Admin\Assignments\AdvertCategoryAssignmentEditorType:

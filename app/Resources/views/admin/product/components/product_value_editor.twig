@@ -1,0 +1,17 @@
+{% if productValueForm is defined %}	
+	{% form_theme productValueForm 'form/fields.html.twig' %}
+	
+	{{ form_start(productValueForm) }}
+		
+	{% if productFilter is defined %}
+		{% for field in productFilter.editorFields %}
+			<div class="col-xs-12">
+				{{ form_row(productValueForm[field.valueField], { label: field.fieldName }) }}
+			</div>
+		{% endfor %}
+	{% endif %}
+	
+	{{ form_row(productValueForm.save, { label: 'action.save', 'attr': {'class': 'btn btn-success'} }) }}
+		
+	{{ form_end(productValueForm) }}
+{% endif %}
