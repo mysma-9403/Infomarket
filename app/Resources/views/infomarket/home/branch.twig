@@ -147,52 +147,54 @@
 		{% endblock %}
 			
 		{% block interviewsBlock %}
-			<div class="row">
-				<div class="col-xs-12">
-					<h4 class="section title">
-						<span class="branch-color-{{ contextBranchId }}">{{ interviewsCategory.name | raw }}</span>
-						<span class="text-brand">{{ interviewsCategory.subname | raw }}</span>
-					</h4>
+			{% if interviewsArticles|length > 0 %}
+				<div class="row">
+					<div class="col-xs-12">
+						<h4 class="section title">
+							<span class="branch-color-{{ contextBranchId }}">{{ interviewsCategory.name | raw }}</span>
+							<span class="text-brand">{{ interviewsCategory.subname | raw }}</span>
+						</h4>
+					</div>
 				</div>
-			</div>
-			
-			<div class="row">
-				{% for article in interviewsArticles | slice(0,6) %}
-					<div class="col-sm-2 padding-5">
-						<a class="branch-color-{{ contextBranchId }}" href="{{ path(basePath ~ 'article_show', 
-							{ id: article.id, article_filter_article_categories: [interviewsCategory.id] }) }}">
-							<div class="rect bkg-white">
-								{% if article.image %}
-									<img class="div-center img-{{ article.vertical ? '' : 'v' }}responsive" 
-										alt="{{ article.name | raw }}" src="{{ asset(article.image) }}">
-								{% endif %}
-							</div>
-							<div class="col-xs-12 tile bottom-rect bkg-branch-{{ contextBranchId }}">
-								<p class="text-white title">
-									{% for brand in article.brands %}
-										{{ brand.name }}
-									{% endfor %}
-									&nbsp
-								</p>
-							</div>
-							<div class="col-xs-12 tile bottom-rect-3 bkg-brand">
-								<p class="text-white text-center">
-									{{ article.name | raw }} {{ article.subname | raw }}&nbsp
-								</p>
-							</div>
+				
+				<div class="row">
+					{% for article in interviewsArticles | slice(0,6) %}
+						<div class="col-sm-2 padding-5">
+							<a class="branch-color-{{ contextBranchId }}" href="{{ path(basePath ~ 'article_show', 
+								{ id: article.id, article_filter_article_categories: [interviewsCategory.id] }) }}">
+								<div class="rect bkg-white">
+									{% if article.image %}
+										<img class="div-center img-{{ article.vertical ? '' : 'v' }}responsive" 
+											alt="{{ article.name | raw }}" src="{{ asset(article.image) }}">
+									{% endif %}
+								</div>
+								<div class="col-xs-12 tile bottom-rect bkg-branch-{{ contextBranchId }}">
+									<p class="text-white title">
+										{% for brand in article.brands %}
+											{{ brand.name }}
+										{% endfor %}
+										&nbsp
+									</p>
+								</div>
+								<div class="col-xs-12 tile bottom-rect-3 bkg-brand">
+									<p class="text-white text-center">
+										{{ article.name | raw }} {{ article.subname | raw }}&nbsp
+									</p>
+								</div>
+							</a>
+						</div>
+					{% endfor %}
+				</div>
+				
+				<div class="row">
+					<div class="col-xs-12 col-sm-3 col-sm-offset-9">
+						<a class="branch-color-{{ contextBranchId }} title no-padding" href={{ path(basePath ~ 'article', 
+							{ article_filter_article_categories: [interviewsCategory.id] }) }}>
+							{{ 'label.more'|trans }}
 						</a>
 					</div>
-				{% endfor %}
-			</div>
-			
-			<div class="row">
-				<div class="col-xs-12 col-sm-3 col-sm-offset-9">
-					<a class="branch-color-{{ contextBranchId }} title no-padding" href={{ path(basePath ~ 'article', 
-						{ article_filter_article_categories: [interviewsCategory.id] }) }}>
-						{{ 'label.more'|trans }}
-					</a>
 				</div>
-			</div>
+			{% endif %}
 		{% endblock %}
 		
 		{% block featuredAdsBlock %}
@@ -223,236 +225,246 @@
 		{% endblock %}
 		
 		{% block eventsBlock %}
-			<div class="row">
-				<div class="col-xs-12">
-					<h4 class="section title">
-						<span class="branch-color-{{ contextBranchId }}">{{ eventsCategory.name | raw }}</span>
-						<span class="text-brand">{{ eventsCategory.subname | raw }}</span>
-					</h4>
+			{% if eventsArticles|length > 0 %}
+				<div class="row">
+					<div class="col-xs-12">
+						<h4 class="section title">
+							<span class="branch-color-{{ contextBranchId }}">{{ eventsCategory.name | raw }}</span>
+							<span class="text-brand">{{ eventsCategory.subname | raw }}</span>
+						</h4>
+					</div>
 				</div>
-			</div>
-			
-			<div class="row">
-				{% for article in eventsArticles | slice(0,3) %}
-					<div class="col-sm-4 padding-5">
-						<a class="text-white" href="{{ path(basePath ~ 'article_show', 
-							{ id: article.id, article_filter_article_categories: [eventsCategory.id] }) }}">
-							<div class="rect col-bottom bkg-white">
-								{% if article.image %}
-									<img class="div-center img-{{ article.vertical ? '' : 'v' }}responsive" 
-										alt="{{ article.name | raw }}" src="{{ asset(article.image) }}">
-								{% endif %}
-								
-								<div class="col-xs-12 div-bottom bkg-black-50">
-									<div class="tile default">
-										<h4 class="title">
-											{% for brand in article.brands %}
-												{{ brand.name }}
-											{% endfor %}
-											&nbsp
-						      			</h4>
-										<h5 class="title">
-											{{ article.name | raw }} {{ article.subname | raw }}
-										</h5>
+				
+				<div class="row">
+					{% for article in eventsArticles | slice(0,3) %}
+						<div class="col-sm-4 padding-5">
+							<a class="text-white" href="{{ path(basePath ~ 'article_show', 
+								{ id: article.id, article_filter_article_categories: [eventsCategory.id] }) }}">
+								<div class="rect col-bottom bkg-white">
+									{% if article.image %}
+										<img class="div-center img-{{ article.vertical ? '' : 'v' }}responsive" 
+											alt="{{ article.name | raw }}" src="{{ asset(article.image) }}">
+									{% endif %}
+									
+									<div class="col-xs-12 div-bottom bkg-black-50">
+										<div class="tile default">
+											<h4 class="title">
+												{% for brand in article.brands %}
+													{{ brand.name }}
+												{% endfor %}
+												&nbsp
+							      			</h4>
+											<h5 class="title">
+												{{ article.name | raw }} {{ article.subname | raw }}
+											</h5>
+										</div>
 									</div>
 								</div>
-							</div>
+							</a>
+						</div>
+					{% endfor %}
+				</div>
+				
+				<div class="row">
+					<div class="col-xs-12 col-sm-3 col-sm-offset-9">
+						<a class="branch-color-{{ contextBranchId }} title no-padding" href={{ path(basePath ~ 'article', 
+							{ article_filter_article_categories: [eventsCategory.id] }) }}>
+							{{ 'label.more'|trans }}
 						</a>
 					</div>
-				{% endfor %}
-			</div>
-			
-			<div class="row">
-				<div class="col-xs-12 col-sm-3 col-sm-offset-9">
-					<a class="branch-color-{{ contextBranchId }} title no-padding" href={{ path(basePath ~ 'article', 
-						{ article_filter_article_categories: [eventsCategory.id] }) }}>
-						{{ 'label.more'|trans }}
-					</a>
 				</div>
-			</div>
+			{% endif %}
 		{% endblock %}
 		
 		{% block promotionsBlock %}
-			<div class="row">
-				<div class="col-xs-12">
-					<h4 class="section title">
-						<span class="branch-color-{{ contextBranchId }}">{{ promotionsCategory.name | raw }}</span>
-						<span class="text-brand">{{ promotionsCategory.subname | raw }}</span>
-					</h4>
+			{% if promotionsArticles|length > 0 %}
+				<div class="row">
+					<div class="col-xs-12">
+						<h4 class="section title">
+							<span class="branch-color-{{ contextBranchId }}">{{ promotionsCategory.name | raw }}</span>
+							<span class="text-brand">{{ promotionsCategory.subname | raw }}</span>
+						</h4>
+					</div>
 				</div>
-			</div>
-			
-			<div class="row">
-				{% for article in promotionsArticles | slice(0,8) %}
-					<div class="col-sm-3 padding-5">
-						<a class="text-white" href="{{ path(basePath ~ 'article_show', 
-							{ id: article.id, article_filter_article_categories: [promotionsCategory.id] }) }}">
-							<div class="rect col-bottom bkg-white">
-								{% if article.image %}
-									<img class="div-center img-{{ article.vertical ? '' : 'v' }}responsive" 
-										alt="{{ article.name | raw }}" src="{{ asset(article.image) }}">
-								{% endif %}
-								
-								<div class="col-xs-12 div-bottom bkg-black-50">
-									<div class="tile default">
-										<h4 class="title">
-											{% for brand in article.brands %}
-												{{ brand.name }}
-											{% endfor %}
-											&nbsp
-						      			</h4>
-										<h5 class="title">
-											{{ article.name | raw }} {{ article.subname | raw }}
-										</h5>
+				
+				<div class="row">
+					{% for article in promotionsArticles | slice(0,8) %}
+						<div class="col-sm-3 padding-5">
+							<a class="text-white" href="{{ path(basePath ~ 'article_show', 
+								{ id: article.id, article_filter_article_categories: [promotionsCategory.id] }) }}">
+								<div class="rect col-bottom bkg-white">
+									{% if article.image %}
+										<img class="div-center img-{{ article.vertical ? '' : 'v' }}responsive" 
+											alt="{{ article.name | raw }}" src="{{ asset(article.image) }}">
+									{% endif %}
+									
+									<div class="col-xs-12 div-bottom bkg-black-50">
+										<div class="tile default">
+											<h4 class="title">
+												{% for brand in article.brands %}
+													{{ brand.name }}
+												{% endfor %}
+												&nbsp
+							      			</h4>
+											<h5 class="title">
+												{{ article.name | raw }} {{ article.subname | raw }}
+											</h5>
+										</div>
 									</div>
 								</div>
-							</div>
+							</a>
+						</div>
+					{% endfor %}
+				</div>
+				
+				<div class="row">
+					<div class="col-xs-12 col-sm-3 col-sm-offset-9">
+						<a class="branch-color-{{ contextBranchId }} title no-padding" href={{ path(basePath ~ 'article', 
+							{ article_filter_article_categories: [promotionsCategory.id] }) }}>
+							{{ 'label.more'|trans }}
 						</a>
 					</div>
-				{% endfor %}
-			</div>
-			
-			<div class="row">
-				<div class="col-xs-12 col-sm-3 col-sm-offset-9">
-					<a class="branch-color-{{ contextBranchId }} title no-padding" href={{ path(basePath ~ 'article', 
-						{ article_filter_article_categories: [promotionsCategory.id] }) }}>
-						{{ 'label.more'|trans }}
-					</a>
 				</div>
-			</div>
+			{% endif %}
 		{% endblock %}
 		
 		{% block magazinesBlock %}
-			<div class="row">
-				<div class="col-xs-12">
-					<h4 class="section title">
-						<span class="branch-color-{{ contextBranchId }}">{{ 'header.currentMagazines.1'|trans }}</span>
-						<span class="text-brand">{{ 'header.currentMagazines.2'|trans }}</span>
-					</h4>
-				</div>
-			</div>
-			
-			<div class="row">
-				{% for magazine in magazines %}
-					<div class="col-sm-3 padding-5">
-						{% include 'common/tiles/magazine_tile.html.twig' with { 
-							entry: magazine, 
-							magazineLink: path(basePath ~ 'magazine_show', { id: magazine.id }),
-							magazineTitle: 'label.magazine.download'|trans
-						} %}
+		{% if magazines|length > 0 %}
+				<div class="row">
+					<div class="col-xs-12">
+						<h4 class="section title">
+							<span class="branch-color-{{ contextBranchId }}">{{ 'header.currentMagazines.1'|trans }}</span>
+							<span class="text-brand">{{ 'header.currentMagazines.2'|trans }}</span>
+						</h4>
 					</div>
-				{% endfor %}
-			</div>
-			
-			<div class="row">
-				<div class="col-xs-12 col-sm-3 col-sm-offset-9">
-					<a class="branch-color-{{ contextBranchId }} title no-padding" href="{{ path(basePath ~ 'magazine') }}">
-						{{ 'label.more'|trans }}
-					</a>
 				</div>
-			</div>
+				
+				<div class="row">
+					{% for magazine in magazines %}
+						<div class="col-sm-3 padding-5">
+							{% include 'common/tiles/magazine_tile.html.twig' with { 
+								entry: magazine, 
+								magazineLink: path(basePath ~ 'magazine_show', { id: magazine.id }),
+								magazineTitle: 'label.magazine.download'|trans
+							} %}
+						</div>
+					{% endfor %}
+				</div>
+				
+				<div class="row">
+					<div class="col-xs-12 col-sm-3 col-sm-offset-9">
+						<a class="branch-color-{{ contextBranchId }} title no-padding" href="{{ path(basePath ~ 'magazine') }}">
+							{{ 'label.more'|trans }}
+						</a>
+					</div>
+				</div>
+			{% endif %}
 		{% endblock %}
 		
 		{% block productsBlock %}
-			<div class="row">
-				<div class="col-xs-12">
-					<h4 class="section title">
-						<span class="branch-color-{{ contextBranchId }}">{{ productsCategory.name | raw }}</span>
-						<span class="text-brand">{{ productsCategory.subname | raw }}</span>
-					</h4>
+			{% if productsArticles|length > 0 %}
+				<div class="row">
+					<div class="col-xs-12">
+						<h4 class="section title">
+							<span class="branch-color-{{ contextBranchId }}">{{ productsCategory.name | raw }}</span>
+							<span class="text-brand">{{ productsCategory.subname | raw }}</span>
+						</h4>
+					</div>
 				</div>
-			</div>
-			
-			<div class="row">
-				{% for article in productsArticles | slice(0,8)%}
-					<div class="col-sm-3 padding-5">
-						<a class="text-white" href="{{ path(basePath ~ 'article_show', 
-							{ id: article.id, article_filter_article_categories: [productsCategory.id] }) }}">
-							<div class="rect col-bottom bkg-white">
-								{% if article.image %}
-									<img class="div-center img-{{ article.vertical ? '' : 'v' }}responsive" 
-										alt="{{ article.name | raw }}" src="{{ asset(article.image) }}">
-								{% endif %}
-								
-								<div class="col-xs-12 div-bottom bkg-black-50">
-									<div class="tile default">
-										<h4 class="title">
-											{% for brand in article.brands %}
-												{{ brand.name }}
-											{% endfor %}
-											&nbsp
-						      			</h4>
-										<h5 class="title">
-											{{ article.name | raw }} {{ article.subname | raw }}
-										</h5>
+				
+				<div class="row">
+					{% for article in productsArticles | slice(0,8)%}
+						<div class="col-sm-3 padding-5">
+							<a class="text-white" href="{{ path(basePath ~ 'article_show', 
+								{ id: article.id, article_filter_article_categories: [productsCategory.id] }) }}">
+								<div class="rect col-bottom bkg-white">
+									{% if article.image %}
+										<img class="div-center img-{{ article.vertical ? '' : 'v' }}responsive" 
+											alt="{{ article.name | raw }}" src="{{ asset(article.image) }}">
+									{% endif %}
+									
+									<div class="col-xs-12 div-bottom bkg-black-50">
+										<div class="tile default">
+											<h4 class="title">
+												{% for brand in article.brands %}
+													{{ brand.name }}
+												{% endfor %}
+												&nbsp
+							      			</h4>
+											<h5 class="title">
+												{{ article.name | raw }} {{ article.subname | raw }}
+											</h5>
+										</div>
 									</div>
 								</div>
-							</div>
+							</a>
+						</div>
+					{% endfor %}
+				</div>
+				
+				<div class="row">
+					<div class="col-xs-12 col-sm-3 col-sm-offset-9">
+						<a class="branch-color-{{ contextBranchId }} title no-padding" href={{ path(basePath ~ 'article', 
+							{ article_filter_article_categories: [productsCategory.id] }) }}>
+							{{ 'label.more'|trans }}
 						</a>
 					</div>
-				{% endfor %}
-			</div>
-			
-			<div class="row">
-				<div class="col-xs-12 col-sm-3 col-sm-offset-9">
-					<a class="branch-color-{{ contextBranchId }} title no-padding" href={{ path(basePath ~ 'article', 
-						{ article_filter_article_categories: [productsCategory.id] }) }}>
-						{{ 'label.more'|trans }}
-					</a>
 				</div>
-			</div>
+			{% endif %}
 		{% endblock %}
 		
 		
 		
 		{% block reviewsBlock %}
-			<div class="row">
-				<div class="col-xs-12">
-					<h4 class="section title">
-						<span class="branch-color-{{ contextBranchId }}">{{ reviewsCategory.name | raw }}</span>
-						<span class="text-brand">{{ reviewsCategory.subname | raw }}</span>
-					</h4>
+			{% if reviewsArticles|length > 0 %}
+				<div class="row">
+					<div class="col-xs-12">
+						<h4 class="section title">
+							<span class="branch-color-{{ contextBranchId }}">{{ reviewsCategory.name | raw }}</span>
+							<span class="text-brand">{{ reviewsCategory.subname | raw }}</span>
+						</h4>
+					</div>
 				</div>
-			</div>
-			
-			<div class="row">
-				{% for article in reviewsArticles  | slice(0,4)%}
-					<div class="col-sm-3 padding-5">
-						<a class="text-white" href="{{ path(basePath ~ 'article_show', 
-							{ id: article.id, article_filter_article_categories: [reviewsCategory.id] }) }}">
-							<div class="rect col-bottom bkg-white">
-								{% if article.image %}
-									<img class="div-center img-{{ article.vertical ? '' : 'v' }}responsive" 
-										alt="{{ article.name | raw }}" src="{{ asset(article.image) }}">
-								{% endif %}
-								
-								<div class="col-xs-12 div-bottom bkg-black-50">
-									<div class="tile default">
-										<h4 class="title">
-											{% for brand in article.brands %}
-												{{ brand.name }}
-											{% endfor %}
-											&nbsp
-						      			</h4>
-										<h5 class="title">
-											{{ article.name | raw }} {{ article.subname | raw }}
-										</h5>
+				
+				<div class="row">
+					{% for article in reviewsArticles  | slice(0,4)%}
+						<div class="col-sm-3 padding-5">
+							<a class="text-white" href="{{ path(basePath ~ 'article_show', 
+								{ id: article.id, article_filter_article_categories: [reviewsCategory.id] }) }}">
+								<div class="rect col-bottom bkg-white">
+									{% if article.image %}
+										<img class="div-center img-{{ article.vertical ? '' : 'v' }}responsive" 
+											alt="{{ article.name | raw }}" src="{{ asset(article.image) }}">
+									{% endif %}
+									
+									<div class="col-xs-12 div-bottom bkg-black-50">
+										<div class="tile default">
+											<h4 class="title">
+												{% for brand in article.brands %}
+													{{ brand.name }}
+												{% endfor %}
+												&nbsp
+							      			</h4>
+											<h5 class="title">
+												{{ article.name | raw }} {{ article.subname | raw }}
+											</h5>
+										</div>
 									</div>
 								</div>
-							</div>
+							</a>
+						</div>
+					{% endfor %}
+				</div>
+				
+				<div class="row">
+					<div class="col-xs-12 col-sm-3 col-sm-offset-9">
+						<a class="branch-color-{{ contextBranchId }} title no-padding" href={{ path(basePath ~ 'article', 
+							{ article_filter_article_categories: [reviewsCategory.id] }) }}>
+							{{ 'label.more'|trans }}
 						</a>
 					</div>
-				{% endfor %}
-			</div>
-			
-			<div class="row">
-				<div class="col-xs-12 col-sm-3 col-sm-offset-9">
-					<a class="branch-color-{{ contextBranchId }} title no-padding" href={{ path(basePath ~ 'article', 
-						{ article_filter_article_categories: [reviewsCategory.id] }) }}>
-						{{ 'label.more'|trans }}
-					</a>
 				</div>
-			</div>
+			{% endif %}
 		{% endblock %}
 		
 		{% set show = false %}
