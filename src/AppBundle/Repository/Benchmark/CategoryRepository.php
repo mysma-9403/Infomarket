@@ -104,12 +104,12 @@ class CategoryRepository extends BaseRepository {
 		return $builder->getQuery();
 	}
 
-	public function findFilterItemsByUserAndCategory($userId, $categoryId) {
-		$items = $this->queryFilterItemsByUserAndCategory($userId, $categoryId)->getScalarResult();
+	public function findFilterItemsByUserAndCategory($userId, $categoryId, $includeInProgress = false) {
+		$items = $this->queryFilterItemsByUserAndCategory($userId, $categoryId, $includeInProgress)->getScalarResult();
 		return $this->getFilterItems($items);
 	}
 
-	protected function queryFilterItemsByUserAndCategory($userId, $categoryId) {
+	protected function queryFilterItemsByUserAndCategory($userId, $categoryId, $includeInProgress = false) {
 		$builder = new QueryBuilder($this->getEntityManager());
 		
 		$builder->select("e.id, e.name, e.subname");
@@ -121,7 +121,7 @@ class CategoryRepository extends BaseRepository {
 		$where = $expr->andX();
 		$where->add($expr->eq('e.preleaf', 0));
 		$where->add($expr->eq('e.benchmark', 1));
-		$where->add($expr->eq('e.inProgress', 0));
+		if(!$includeInProgress) $where->add($expr->eq('e.inProgress', 0));
 		$where->add($expr->eq('e.parent', $categoryId));
 		$where->add($expr->eq('uca.user', $userId));
 		

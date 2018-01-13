@@ -101,7 +101,7 @@ class CategoryParamsManager extends EntryParamsManager {
 		$viewParams = $params['viewParams'];
 		
 		$userId = $this->tokenStorage->getToken()->getUser()->getId();
-		$subcategories = $this->categoryRepository->findFilterItemsByUserAndCategory($userId, $id);
+		$subcategories = $this->categoryRepository->findFilterItemsByUserAndCategory($userId, $id, true);
 		$viewParams['subcategories'] = $this->categoryRepository->findBy(['id' => $subcategories]);
 		
 		$params['viewParams'] = $viewParams;
