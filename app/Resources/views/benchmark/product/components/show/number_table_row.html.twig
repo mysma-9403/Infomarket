@@ -1,9 +1,15 @@
 <tr>
 	<th class="text-right">{{ field.fieldName }}</th>
 	
-	<td class="text-center">{{ field.value|number_format(field.decimalPlaces, '.', ' ') }}</td> {# &nbsp; #}
-	<td class="text-center text-success">{{ field.betterThan ? field.betterThan|number_format(0, '.', ' ') ~ '%' : '-' }}</td> {# &nbsp; #}
-	<td class="text-center">{{ field.note ? field.note|number_format(1, '.', ' ') : '-' }}</td> {# &nbsp; #}
+	<td class="text-center">
+		{{ field.value is not null ? field.value|number_format(field.decimalPlaces, '.', ' ') : field.nullReplacement }}
+	</td>
+	<td class="text-center text-success">
+		{{ field.betterThan ? field.betterThan|number_format(0, '.', ' ') ~ '%' : '-' }}
+	</td>
+	<td class="text-center">
+		{{ field.note ? field.note|number_format(1, '.', ' ') : '-' }}
+	</td>
 	
 	<td></td>
 </tr>

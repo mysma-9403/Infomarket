@@ -87,6 +87,12 @@ class BenchmarkField extends Simple {
 	 *
 	 * @var string
 	 */
+	private $nullReplacement;
+	
+	/**
+	 *
+	 * @var string
+	 */
 	private $filterName;
 
 	/**
@@ -525,4 +531,28 @@ class BenchmarkField extends Simple {
 	public function getCategory() {
 		return $this->category;
 	}
+
+    /**
+     * Set nullReplacement
+     *
+     * @param string $nullReplacement
+     *
+     * @return BenchmarkField
+     */
+    public function setNullReplacement($nullReplacement)
+    {
+        $this->nullReplacement = $nullReplacement;
+
+        return $this;
+    }
+
+    /**
+     * Get nullReplacement
+     *
+     * @return string
+     */
+    public function getNullReplacement()
+    {
+        return $this->nullReplacement;
+    }
 }

@@ -54,5 +54,7 @@
 	<div class="row"></div>
 	
 	{% include 'common/editor/form_field.twig' with 
+	{ field: form.nullReplacement, label: 'label.benchmarkField.nullReplacement' } %}
+	{% include 'common/editor/form_field.twig' with 
 	{ field: form.decimalPlaces, label: 'label.benchmarkField.decimalPlaces' } %}
 {%  endblock %}

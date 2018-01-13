@@ -24,6 +24,7 @@ class SimpleBenchmarkFieldFactory implements BenchmarkFieldFactory {
 		$result['fieldType'] = $field->getFieldType();
 		$result['showField'] = $field->getShowField();
 		$result['decimalPlaces'] = $field->getDecimalPlaces();
+		$result['nullReplacement'] = $field->getNullReplacement();
 		$result['valueField'] = $this->benchmarkFieldUtils->getValueField($field);
 		
 		return $result;

@@ -24,6 +24,7 @@ class CompareBenchmarkFieldFactory implements BenchmarkFieldFactory {
 		$result['fieldType'] = $field->getFieldType();
 		$result['showField'] = $field->getShowField();
 		$result['decimalPlaces'] = $field->getDecimalPlaces();
+		$result['nullReplacement'] = $field->getNullReplacement();
 		$result['valueField'] = $this->benchmarkFieldUtils->getValueField($field);
 		$result['compareWeight'] = $field->getCompareWeight();
 		$result['betterThanType'] = $field->getBetterThanType();

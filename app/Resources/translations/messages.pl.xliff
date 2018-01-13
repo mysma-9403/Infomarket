@@ -708,6 +708,10 @@
                 <target>Wyróżniony filtr</target>
             </trans-unit>
             
+            <trans-unit id="label.benchmarkField.nullReplacement">
+                <source>label.benchmarkField.nullReplacement</source>
+                <target>Pokaż puste wartości jako</target>
+            </trans-unit>
             <trans-unit id="label.benchmarkField.decimalPlaces">
                 <source>label.benchmarkField.decimalPlaces</source>
                 <target>Liczba miejsc po przecinku</target>

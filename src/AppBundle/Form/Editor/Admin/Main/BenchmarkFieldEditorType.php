@@ -36,6 +36,7 @@ class BenchmarkFieldEditorType extends BaseEditorType {
 		$this->addCheckboxField($builder, 'featuredField', 'label.benchmarkField.featuredField');
 		$this->addCheckboxField($builder, 'featuredFilter', 'label.benchmarkField.featuredFilter');
 		
+		$this->addTextField($builder, 'nullReplacement', 'label.benchmarkField.nullReplacement', false);
 		$this->addIntegerField($builder, 'decimalPlaces', 'label.benchmarkField.decimalPlaces', false);
 		
 		$this->addNumberField($builder, 'noteWeight', 'label.benchmarkField.noteWeight', false);

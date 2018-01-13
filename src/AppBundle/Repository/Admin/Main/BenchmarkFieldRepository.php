@@ -19,7 +19,7 @@ class BenchmarkFieldRepository extends SimpleRepository {
 	protected function queryItemsByCategory($categoryId) {
 		$builder = new QueryBuilder($this->getEntityManager());
 		
-		$builder->select("e.valueNumber, e.fieldType, e.fieldName, e.decimalPlaces");
+		$builder->select("e.valueNumber, e.fieldType, e.fieldName, e.nullReplacement, e.decimalPlaces");
 		$builder->from($this->getEntityType(), "e");
 		
 		$expr = $builder->expr();
@@ -59,6 +59,7 @@ class BenchmarkFieldRepository extends SimpleRepository {
 		$fields[] = 'e.valueNumber';
 		$fields[] = 'e.showField';
 		$fields[] = 'e.decimalPlaces';
+		$fields[] = 'e.nullReplacement';
 		
 		return $fields;
 	}

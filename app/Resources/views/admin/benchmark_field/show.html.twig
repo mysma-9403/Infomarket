@@ -55,7 +55,9 @@
 	{ label: 'label.benchmarkField.compareWeight', value: entry.compareWeight } %}
 	
 	<div class="vr-space-40"></div>
-		
+	
+	{% include 'common/fields/text_field.html.twig' with 
+	{ label: 'label.benchmarkField.nullReplacement', value: entry.nullReplacement } %}	
 	{% include 'common/fields/text_field.html.twig' with 
 	{ label: 'label.benchmarkField.decimalPlaces', value: entry.decimalPlaces } %}
 	

@@ -173,6 +173,7 @@ class ProductParamsManager extends EntryParamsManager {
 			
 			$field['fieldType'] = $fieldType;
 			$field['fieldName'] = $benchmarkField->getFieldName();
+			$field['nullReplacement'] = $benchmarkField->getNullReplacement();
 			$field['decimalPlaces'] = $benchmarkField->getDecimalPlaces();
 			
 			$fields[] = $field;

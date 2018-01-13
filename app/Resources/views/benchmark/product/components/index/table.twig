@@ -61,11 +61,15 @@
 				{% for entry in entries %}
 					<td class="text-center">
 						{% if field.fieldType == constant('AppBundle\\Entity\\Main\\BenchmarkField::BOOLEAN_FIELD_TYPE') %}
-					        {{ entry[key] ? '+' : '-' }}
+					        {% if entry[key] is null %}
+					        	{{ field.nullReplacement }}
+					        {% else %}
+								{{ entry[key] ? '+' : '-' }}
+							{% endif %}
 						{% elseif field.fieldType == constant('AppBundle\\Entity\\Main\\BenchmarkField::DECIMAL_FIELD_TYPE') %}
-							{{ entry[key] ? entry[key]|number_format(field.decimalPlaces, '.', ' ') : '' }} {# &nbsp; #}
+							{{ entry[key] is not null ? entry[key]|number_format(field.decimalPlaces, '.', ' ') : field.nullReplacement }}
 				        {% else %}
-					        {{ entry[key] }}
+					        {{ entry[key] is not null ? entry[key] : field.nullReplacement }}
 						{% endif%}
 					</td>
 				{% endfor %}
