@@ -389,7 +389,7 @@
             
             <trans-unit id="label.footer.copyright">
                 <source>label.footer.copyright</source>
-                <target>2017 InfoMarket</target>
+                <target>InfoMarket</target>
             </trans-unit>
             <trans-unit id="label.footer.office">
                 <source>label.footer.office</source>
