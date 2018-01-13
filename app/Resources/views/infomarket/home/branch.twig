@@ -95,7 +95,7 @@
 							{% for article in newsListArticles|slice(0, 6) %}
 								<li>
 									<a href="{{ path(basePath ~ 'article_show', { id: article.id }) }}">
-										<span class="text-red">
+										<span class="branch-color-{{ contextBranchId }}">
 											{% for brand in article.brands %}
 												{{ brand.name }}
 											{% endfor %}
@@ -108,7 +108,7 @@
 							{% for article in newsListArticles|slice(6, 6) %}
 								<li>
 									<a href="{{ path(basePath ~ 'article_show', { id: article.id }) }}">
-										<span class="text-red">
+										<span class="branch-color-{{ contextBranchId }}">
 											{% for brand in article.brands %}
 												{{ brand.name }}
 											{% endfor %}
@@ -121,7 +121,7 @@
 							{% for article in newsListArticles|slice(12, 2) %}
 								<li>
 									<a href="{{ path(basePath ~ 'article_show', { id: article.id }) }}">
-										<span class="text-red">
+										<span class="branch-color-{{ contextBranchId }}">
 											{% for brand in article.brands %}
 												{{ brand.name }}
 											{% endfor %}

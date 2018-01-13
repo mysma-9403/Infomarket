@@ -15,7 +15,7 @@ class BranchRepository extends BaseRepository {
 	protected function queryMenuItems() {
 		$builder = new QueryBuilder($this->getEntityManager());
 		
-		$builder->select('e.id, e.name, e.color, e.icon');
+		$builder->select('e.id, e.name, e.color, e.activeColor, e.icon');
 		$builder->from(Branch::class, 'e');
 		
 		$expr = $builder->expr();

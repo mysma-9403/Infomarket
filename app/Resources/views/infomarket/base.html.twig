@@ -37,6 +37,18 @@
 						border-color: {{ entry.color }} !important;
 					}
 					
+					a.branch-color-{{ entry.id }},
+					a .branch-color-{{ entry.id }} {
+						color: {{ entry.color }};
+					}
+					
+					a:hover.branch-color-{{ entry.id }},
+					a:focus.branch-color-{{ entry.id }},
+					a:hover .branch-color-{{ entry.id }},
+					a:focus .branch-color-{{ entry.id }} {
+						color: {{ entry.activeColor }};
+					}
+					
 					.bkg-branch-{{ entry.id }} {
 						background-color: {{ entry.color }};
 					}

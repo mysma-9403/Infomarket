@@ -17,6 +17,7 @@ class BranchEditorType extends ImageEditorType {
 		$this->addCheckboxField($builder, 'infoprodukt', 'label.infoprodukt');
 		
 		$this->addTextField($builder, 'icon', 'label.icon', false);
+		$this->addTextField($builder, 'activeColor', 'label.activeColor');
 		$this->addTextField($builder, 'color', 'label.color');
 		
 		$this->addIntegerField($builder, 'orderNumber', 'label.orderNumber');

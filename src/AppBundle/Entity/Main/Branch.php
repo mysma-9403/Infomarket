@@ -322,4 +322,33 @@ class Branch extends Image {
 	public function getMenuEntryBranchAssignments() {
 		return $this->menuEntryBranchAssignments;
 	}
+    /**
+     * @var string
+     */
+    private $activeColor;
+
+
+    /**
+     * Set activeColor
+     *
+     * @param string $activeColor
+     *
+     * @return Branch
+     */
+    public function setActiveColor($activeColor)
+    {
+        $this->activeColor = $activeColor;
+
+        return $this;
+    }
+
+    /**
+     * Get activeColor
+     *
+     * @return string
+     */
+    public function getActiveColor()
+    {
+        return $this->activeColor;
+    }
 }

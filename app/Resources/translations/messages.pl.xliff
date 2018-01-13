@@ -1261,6 +1261,10 @@
                 <source>label.color</source>
                 <target>Kolor</target>
             </trans-unit>
+            <trans-unit id="label.activeColor">
+                <source>label.activeColor</source>
+                <target>Aktywny kolor</target>
+            </trans-unit>
             <trans-unit id="label.www">
                 <source>label.www</source>
                 <target>www</target>

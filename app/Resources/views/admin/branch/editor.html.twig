@@ -23,9 +23,11 @@
 	<div class="row"></div>
 	
 	{% include 'common/editor/form_field.twig' with 
-	{ field: form.icon, label: 'label.icon', sm: 6 } %}
-	{% include 'common/editor/form_field.twig' with 
 	{ field: form.color, label: 'label.color', sm: 6 } %}
+	{% include 'common/editor/form_field.twig' with 
+	{ field: form.activeColor, label: 'label.activeColor', sm: 6 } %}
+	{% include 'common/editor/form_field.twig' with 
+	{ field: form.icon, label: 'label.icon', sm: 6 } %}
 	
 	<div class="row"></div>
 	

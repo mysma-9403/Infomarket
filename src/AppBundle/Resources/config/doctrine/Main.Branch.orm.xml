@@ -15,6 +15,7 @@
 		<field name="content" type="text" nullable="true" />
 
 		<field name="color" type="string" nullable="true" />
+		<field name="activeColor" type="string" nullable="true" />
 		<field name="icon" type="string" nullable="true" />
 
 		<field name="orderNumber" type="integer" default="0" />

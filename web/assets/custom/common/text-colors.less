@@ -5,28 +5,34 @@
 	color: @blue;
 }
 
-a.text-brand {
-	color: @blue-darker;
+a.text-brand,
+a .text-brand {
+	color: @blue;
 }
 
 a:hover.text-brand,
-a:focus.text-brand {
-	color: @blue;
+a:focus.text-brand,
+a:hover .text-brand,
+a:focus .text-brand {
+	color: @blue-darker;
 }
 
 // ---------------------------------------
 // Red
 // ---------------------------------------
 .text-red {
-	color: @red-darker;
+	color: @red;
 }
 
-a.text-red {
+a.text-red,
+a .text-red {
 	color: @red;
 }
 
 a:hover.text-red,
-a:focus.text-red {
+a:focus.text-red,
+a:hover .text-red,
+a:focus .text-red {
 	color: @red-darker;
 }
 
@@ -48,12 +54,15 @@ a:focus.text-red {
 	color: @white;
 }
 
-a.text-white {
+a.text-white,
+a .text-white {
 	color: @gray-lighter;
 }
 
 a:hover.text-white,
-a:focus.text-white {
+a:focus.text-white,
+a:hover .text-white,
+a:focus .text-white {
 	color: @white;
 }
 
