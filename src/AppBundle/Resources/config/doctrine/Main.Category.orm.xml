@@ -15,6 +15,7 @@
 		<field name="benchmark" type="boolean" nullable="false" default="0" />
 		<field name="featured" type="boolean" default="0" />
 		<field name="preleaf" type="boolean" default="0" />
+		<field name="inProgress" type="boolean" default="0" />
 
 		<field name="orderNumber" type="integer" default="1" />
 

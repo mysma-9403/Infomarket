@@ -1,0 +1,61 @@
+{% if alternate is not defined %}
+	{% set alternate = false %}
+{% endif %}
+
+{% if routeParams is not defined %}
+	{% set routeParams = { 'id': entry.id } %}
+{% else %}
+	{% set routeParams = routeParams|merge({ 'id': entry.id }) %}
+{% endif %}
+
+{% if entryPath is not defined %}
+	{% set entryPath = mainPath %}
+{% endif %}
+
+{% if bkgPrimary is not defined %}
+	{% set bkgPrimary = 'bkg-brand' %}
+{% endif %}
+{% if bkgSecondary is not defined %}
+	{% set bkgSecondary = 'bkg-red' %}
+{% endif %}
+
+{% if entry.inProgress %}
+	<div class="col-xs-12 bottom-rect-tile text-gray">
+		<div class="rect bkg-white">
+			{% if entry.image %}
+				<img class="div-center img-{{ entry.vertical ? '' : 'v' }}responsive" 
+					alt="{{ entry.name | raw }}" src="{{ asset(entry.image) }}">
+			{% endif %}
+			<div class="div-center rect bkg-black-50">
+				<h3 class="div-center text-red">{{ 'label.category.availableSoon'|trans }}</h3>
+			</div>
+		</div>
+		
+		<div class="title {{ alternate and loop.index % 2 ? bkgSecondary : bkgPrimary }}">
+			<h3>{{ entry.name | raw }}</h3>
+		</div>
+		
+		<div class="subtitle {{ alternate and loop.index % 2 ? bkgPrimary : bkgSecondary }}">
+			<h4>{{ entry.subname | raw }}</h4>
+		</div>
+	</div>
+{% else %}
+	<a class="text-white" href="{{ path(basePath ~ entryPath ~ '_show', routeParams) }}">
+		<div class="col-xs-12 bottom-rect-tile">
+			<div class="rect bkg-white">
+				{% if entry.image %}
+					<img class="div-center img-{{ entry.vertical ? '' : 'v' }}responsive" 
+						alt="{{ entry.name | raw }}" src="{{ asset(entry.image) }}">
+				{% endif %}
+			</div>
+			
+			<div class="title {{ alternate and loop.index % 2 ? bkgSecondary : bkgPrimary }}">
+				<h3>{{ entry.name | raw }}</h3>
+			</div>
+			
+			<div class="subtitle {{ alternate and loop.index % 2 ? bkgPrimary : bkgSecondary }}">
+				<h4>{{ entry.subname | raw }}</h4>
+			</div>
+		</div>
+	</a>
+{% endif %}

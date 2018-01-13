@@ -30,6 +30,7 @@ class CategoryEditorType extends ImageEditorType {
 		$this->addCheckboxField($builder, 'featured', 'label.featured');
 		$this->addCheckboxField($builder, 'preleaf', 'label.preleaf');
 		$this->addCheckboxField($builder, 'benchmark', 'label.benchmark');
+		$this->addCheckboxField($builder, 'inProgress', 'label.category.inProgress');
 		
 		$this->addIntegerField($builder, 'orderNumber', 'label.orderNumber');
 		

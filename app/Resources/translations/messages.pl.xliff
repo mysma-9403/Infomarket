@@ -1582,6 +1582,14 @@
                 <source>label.category.benchmark</source>
                 <target>Benchmarkowa</target>
             </trans-unit>
+            <trans-unit id="label.category.inProgress">
+                <source>label.category.inProgress</source>
+                <target>Praca w toku</target>
+            </trans-unit>
+            <trans-unit id="label.category.availableSoon">
+                <source>label.category.availableSoon</source>
+                <target>Już wkrótce</target>
+            </trans-unit>
             
             
             <trans-unit id="label.link.url">

@@ -93,6 +93,7 @@ class CategoryRepository extends BaseRepository {
 		$where = $expr->andX();
 		$where->add($expr->eq('e.preleaf', 1));
 		$where->add($expr->eq('e.benchmark', 1));
+		$where->add($expr->eq('e.inProgress', 0));
 		$where->add($expr->eq('uca.user', $userId));
 		
 		$builder->where($where);
@@ -120,6 +121,7 @@ class CategoryRepository extends BaseRepository {
 		$where = $expr->andX();
 		$where->add($expr->eq('e.preleaf', 0));
 		$where->add($expr->eq('e.benchmark', 1));
+		$where->add($expr->eq('e.inProgress', 0));
 		$where->add($expr->eq('e.parent', $categoryId));
 		$where->add($expr->eq('uca.user', $userId));
 		

@@ -118,6 +118,12 @@ class Category extends ImageTree {
 
 	/**
 	 *
+	 * @var boolean
+	 */
+	private $inProgress;
+	
+	/**
+	 *
 	 * @var integer
 	 */
 	private $rootId;
@@ -888,4 +894,28 @@ class Category extends ImageTree {
 	public function getParent() {
 		return $this->parent;
 	}
+
+    /**
+     * Set inProgress
+     *
+     * @param boolean $inProgress
+     *
+     * @return Category
+     */
+    public function setInProgress($inProgress)
+    {
+        $this->inProgress = $inProgress;
+
+        return $this;
+    }
+
+    /**
+     * Get inProgress
+     *
+     * @return boolean
+     */
+    public function getInProgress()
+    {
+        return $this->inProgress;
+    }
 }
