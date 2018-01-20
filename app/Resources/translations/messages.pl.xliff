@@ -2607,6 +2607,29 @@
             </trans-unit>
             
             
+            
+            <trans-unit id="text.benchmark.noAccessToCategory">
+                <source>text.benchmark.noAccessToCategory</source>
+                <target>Nie masz dostępu do kategorii</target>
+            </trans-unit>
+            <trans-unit id="text.benchmark.noAccessToSubcategory">
+                <source>text.benchmark.noAccessToSubcategory</source>
+                <target>Nie masz dostępu do podkategorii</target>
+            </trans-unit>
+            <trans-unit id="text.benchmark.noAccessToAnyCategory">
+                <source>text.benchmark.noAccessToAnyCategory</source>
+                <target>Nie masz dostępu do żadnej kategorii.</target>
+            </trans-unit>
+            <trans-unit id="text.benchmark.noAccessToAnySubcategory">
+                <source>text.benchmark.noAccessToAnySubcategory</source>
+                <target>Nie masz dostępu do żadnej podkategorii w kategorii</target>
+            </trans-unit>
+            <trans-unit id="text.benchmark.contactWith">
+                <source>text.benchmark.contactWith</source>
+                <target>W celu uzyskania dostępu skontaktuj się z </target>
+            </trans-unit>
+            
+            
             <trans-unit id="error.item.notExists">
                 <source>error.item.notExists</source>
                 <target>Obiekt o podanym id (%id%) nie istnieje.</target>

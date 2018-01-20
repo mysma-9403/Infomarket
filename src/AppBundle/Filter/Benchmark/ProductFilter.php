@@ -103,14 +103,19 @@ class ProductFilter extends Filter {
 		$this->contextCategory = $contextParams['subcategory'];
 		
 		//TODO or maybe those show / filter fields should be added from the outside?? setShowFields($fields)??
-		$category = $this->categoryRepository->find($this->contextCategory);
-		
-		// TODO check if it can be used to not recalculate fields in ProductManager index
-		$fields = $this->benchmarkFieldsProvider->getShowFields($category);
-		$this->showFields = $this->showFieldsInitializer->init($fields);
-		
-		$fields = $this->benchmarkFieldsProvider->getFilterFields($category);
-		$this->filterFields = $this->filterFieldsInitializer->init($fields);
+		if($this->contextCategory) {
+			$category = $this->categoryRepository->find($this->contextCategory);
+			
+			// TODO check if it can be used to not recalculate fields in ProductManager index
+			$fields = $this->benchmarkFieldsProvider->getShowFields($category);
+			$this->showFields = $this->showFieldsInitializer->init($fields);
+			
+			$fields = $this->benchmarkFieldsProvider->getFilterFields($category);
+			$this->filterFields = $this->filterFieldsInitializer->init($fields);
+		} else {
+			$this->showFields = [];
+			$this->filterFields = [];
+		}
 	}
 
 	public function initRequestValues(Request $request) {

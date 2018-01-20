@@ -66,22 +66,20 @@
 			{% endblock %}
 		
 			{% block navigationLinks %}
-				{% if category.name is defined and subcategory.name is defined%}
-					<div class="collapse navbar-collapse no-padding" id="bs-example-navbar-collapse-1">
-						<ul class="nav navbar-nav navbar-right">
-							{% include 'common/menu/simple_link.html.twig' with 
-								{ linkPath: "category_show", linkLabel: "label.categories" } %}
-					        {% include 'common/menu/simple_link.html.twig' with 
-					          { linkPath: "product", linkLabel: "label.products" } %}
-					        {% include 'common/menu/simple_link.html.twig' with 
-					          { linkPath: "custom_product", linkLabel: "label.customProducts" } %}
-					        {% include 'common/menu/simple_link.html.twig' with 
-					          { linkPath: "benchmark_query", linkLabel: "label.benchmarkQueries" } %}
-					        {% include 'common/menu/simple_link.html.twig' with 
-					          { linkPath: "benchmark_message", linkLabel: "label.benchmarkMessages", badge: unreadMessagesCount } %}
-						</ul>
-					</div>
-				{% endif %}
+				<div class="collapse navbar-collapse no-padding" id="bs-example-navbar-collapse-1">
+					<ul class="nav navbar-nav navbar-right">
+						{% include 'common/menu/simple_link.html.twig' with 
+							{ linkPath: "category_show", linkLabel: "label.categories" } %}
+				        {% include 'common/menu/simple_link.html.twig' with 
+				          { linkPath: "product", linkLabel: "label.products" } %}
+				        {% include 'common/menu/simple_link.html.twig' with 
+				          { linkPath: "custom_product", linkLabel: "label.customProducts" } %}
+				        {% include 'common/menu/simple_link.html.twig' with 
+				          { linkPath: "benchmark_query", linkLabel: "label.benchmarkQueries" } %}
+				        {% include 'common/menu/simple_link.html.twig' with 
+				          { linkPath: "benchmark_message", linkLabel: "label.benchmarkMessages", badge: unreadMessagesCount } %}
+					</ul>
+				</div>
 			{% endblock %}
 		{% endif %}
 	</nav>

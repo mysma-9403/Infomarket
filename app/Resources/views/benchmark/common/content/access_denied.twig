@@ -1,0 +1,36 @@
+<div class="container">
+	<div class="vr-space-40"></div>
+	
+	<div class="row">
+		<div class="col-xs-12 padding-5">
+			<p>
+				{% if not hasCategoryAccess %}
+					{% if category %}
+						{{ 'text.benchmark.noAccessToCategory'|trans }} 
+						<strong>
+							{{ category.name }} {{ category.subname }}
+						</strong>.
+					{% else %}
+						{{ 'text.benchmark.noAccessToAnyCategory'|trans }}.
+					{% endif %}
+				{% elseif not hasSubcategoryAccess %}
+					{% if subcategory %}
+						{{ 'text.benchmark.noAccessToSubcategory'|trans }} 
+						<strong>
+							{{ subcategory.name }} {{ subcategory.subname }}
+						</strong>.
+					{% else %}
+						{{ 'text.benchmark.noAccessToAnySubcategory'|trans }}
+						<strong>
+							{{ category.name }} {{ category.subname }}
+						</strong>.
+					{% endif %}
+				{% endif %}
+				{{ 'text.benchmark.contactWith'|trans }} 
+				<a href="mailto:k.galicki@infomarket.edu.pl">Kamil Galicki</a>.
+			</p>
+		</div>
+	</div>
+	
+	<div class="vr-space-40"></div>
+</div>

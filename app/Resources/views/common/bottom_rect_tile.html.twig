@@ -2,14 +2,18 @@
 	{% set alternate = false %}
 {% endif %}
 
-{% if routeParams is not defined %}
-	{% set routeParams = { 'id': entry.id } %}
-{% else %}
-	{% set routeParams = routeParams|merge({ 'id': entry.id }) %}
-{% endif %}
-
 {% if entryPath is not defined %}
 	{% set entryPath = mainPath %}
+{% endif %}
+
+{% if extPath is not defined %}
+	{% set extPath = '_show' %}
+{% endif %}
+
+{% if routeParams is not defined %}
+	{% set routeParams = { 'id': entry.id } %}
+{% elseif extPath %}
+	{% set routeParams = routeParams|merge({ 'id': entry.id }) %}
 {% endif %}
 
 {% if bkgPrimary is not defined %}
@@ -19,7 +23,7 @@
 	{% set bkgSecondary = 'bkg-red' %}
 {% endif %}
 
-<a class="text-white" href="{{ path(basePath ~ entryPath ~ '_show', routeParams) }}">
+<a class="text-white" href="{{ path(basePath ~ entryPath ~ extPath, routeParams) }}">
 	<div class="col-xs-12 bottom-rect-tile">
 		<div class="rect bkg-white">
 			{% if entry.image %}

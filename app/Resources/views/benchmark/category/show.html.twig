@@ -11,20 +11,24 @@
 {% block content %}
 	<div class="container-fluid">
 
-		<div class="row equal">
-			<div class="col-xs-12 col-sm-4 col-md-3 col-lg-2 side-filter">
-				{% block sidebar %}
-					{% include 'benchmark/category/components/sidebar.twig' %}
-				{% endblock %}
+		{% if hasCategoryAccess and hasSubcategoryAccess %}
+			<div class="row equal">
+				<div class="col-xs-12 col-sm-4 col-md-3 col-lg-2 side-filter">
+					{% block sidebar %}
+						{% include 'benchmark/category/components/sidebar.twig' %}
+					{% endblock %}
+				</div>
+				
+				<div class="col-xs-12 col-sm-8 col-md-9 col-lg-10 main-content">
+					{% if entry.preleaf %}
+						{% include 'benchmark/category/show_category.html.twig' %}
+					{% else %}
+						{% include 'benchmark/category/show_subcategory.html.twig' %}
+					{% endif %}
+				</div>	
 			</div>
-			
-			<div class="col-xs-12 col-sm-8 col-md-9 col-lg-10 main-content">
-				{% if entry.preleaf %}
-					{% include 'benchmark/category/show_category.html.twig' %}
-				{% else %}
-					{% include 'benchmark/category/show_subcategory.html.twig' %}
-				{% endif %}
-			</div>	
-		</div>
+		{% else %}
+			{% include 'benchmark/common/content/access_denied.twig' %}
+		{% endif %}
 	</div>
 {% endblock %}

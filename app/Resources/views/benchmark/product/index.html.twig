@@ -5,20 +5,25 @@
 	
 {% block content %}
 	<div class="container-fluid">
-		<div class="row equal">
-			<div class="col-xs-12 col-sm-4 col-md-3 col-lg-2 side-filter">
-				{% block sidebar %}
-					{% include 'benchmark/product/components/index/sidebar.html.twig' %}
-				{% endblock %}
-			</div>
-			
-			<div class="col-xs-12 col-sm-8 col-md-9 col-lg-10 main-content">
-				{% block mainContent %}
-					{% include 'benchmark/product/components/index/main_content.html.twig' %}
-				{% endblock %}
+	
+		{% if hasCategoryAccess and hasSubcategoryAccess %}
+			<div class="row equal">
+				<div class="col-xs-12 col-sm-4 col-md-3 col-lg-2 side-filter">
+					{% block sidebar %}
+						{% include 'benchmark/product/components/index/sidebar.html.twig' %}
+					{% endblock %}
+				</div>
 				
-				<div class="vr-space-40"></div>
-			</div>	
-		</div>
+				<div class="col-xs-12 col-sm-8 col-md-9 col-lg-10 main-content">
+					{% block mainContent %}
+						{% include 'benchmark/product/components/index/main_content.html.twig' %}
+					{% endblock %}
+					
+					<div class="vr-space-40"></div>
+				</div>	
+			</div>
+		{% else %}
+			{% include 'benchmark/common/content/access_denied.twig' %}
+		{% endif %}
 	</div>
 {% endblock %}

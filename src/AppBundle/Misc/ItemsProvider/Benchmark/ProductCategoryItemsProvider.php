@@ -23,6 +23,9 @@ class ProductCategoryItemsProvider implements ItemsProvider {
 		$subcategoryId = $contextParams['subcategory'];
 		$userId = $contextParams['user'];
 		
-		return $this->repository->findFilterItemsByUserAndCategory($userId, $subcategoryId);
+		if ($userId && $subcategoryId)
+			return $this->repository->findFilterItemsByUserAndCategory($userId, $subcategoryId);
+		else
+			return [];
 	}
 }
