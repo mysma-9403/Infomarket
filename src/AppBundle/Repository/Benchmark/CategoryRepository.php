@@ -127,7 +127,8 @@ class CategoryRepository extends BaseRepository {
 		
 		$builder->where($where);
 		
-		$builder->orderBy('e.treePath', 'ASC');
+		$builder->orderBy('e.inProgress', 'ASC');
+		$builder->addOrderBy('e.treePath', 'ASC');
 		
 		return $builder->getQuery();
 	}

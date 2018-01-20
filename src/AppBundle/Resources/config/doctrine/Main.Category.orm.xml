@@ -40,6 +40,7 @@
 
 		<one-to-many field="children" target-entity="Category" mapped-by="parent">
 			<order-by>
+				<order-by-field name="inProgress" direction="ASC" />
 				<order-by-field name="treePath" direction="ASC" />
 			</order-by>
 		</one-to-many>
