@@ -73,6 +73,8 @@ class ArticleRepository extends BaseArticleRepository {
 			$rootWhere->add($builder->expr()->in('c.id', $filter->getContextCategories()));
 			
 			$where->add($rootWhere);
+		} else {
+			$where->add($expr->eq(1, 0));
 		}
 		
 		if (count($filter->getArticleCategories()) > 0) {

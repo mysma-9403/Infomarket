@@ -70,7 +70,7 @@ class ContextParamsManager {
 			}
 		}
 		
-		if($branch === null) {
+		if ($branch === null) {
 			$branch = $this->initBranch($branches, $branch);
 		}
 		
@@ -78,7 +78,7 @@ class ContextParamsManager {
 		$routeParams['branch'] = $branch;
 		$viewParams['contextBranchId'] = $branch;
 		
-		if ($branch > 0) {	
+		if ($branch > 0) {
 			$contextParams['categories'] = $this->getContextCategories($contextParams, $viewParams);
 			$viewParams['menuCategories'] = $this->getMenuCategories($contextParams, $viewParams);
 			
@@ -94,7 +94,7 @@ class ContextParamsManager {
 		return $params;
 	}
 	
-	//TODO refine - quick fix...
+	// TODO refine - quick fix...
 	protected function initBranch($branches, $branch) {
 		return $branch ? $branch : $branches[0]['id'];
 	}
@@ -114,7 +114,11 @@ class ContextParamsManager {
 
 	protected function getMenuCategories($contextParams, $viewParams) {
 		$categories = $contextParams['categories'];
-		return $this->categoryRepository->findMenuItems($categories);
+		if (count($categories) > 0) {
+			return $this->categoryRepository->findMenuItems($categories);
+		} else {
+			return [];
+		}
 	}
 
 	protected function getMenuArticleCategories($contextParams, $viewParams) {

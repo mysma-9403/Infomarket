@@ -134,26 +134,28 @@
 												</li>
 											</ul>
 										</li>
-										<li class="{% if mainPath == 'category' %}active{% endif %} branch-{{ contextBranchId }}">
-											<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-												<span class="fa fa-camera-retro"></span> {{ 'label.products'|trans }} <span class="caret">
-											</a>
-											<ul class="dropdown-menu category-menu">
-												{% for category in menuCategories | slice(0,10) %}
-													{% include 'common/category/menu_entry.html.twig' with
-														{ 'entry': category, 'caretClass': 'branch-color-' ~ contextBranchId } %}
-												{% endfor %}
-												
-												{% if menuCategories | length > 10 %}
-													<li role="separator" class="divider"></li>
-													<li>
-														<a href="{{ path(basePath ~ 'category') }}">
-															<span class="text-red">{{ 'label.more' | trans }}</span>
-														</a>
-													</li>
-												{% endif %}
-											</ul>
-										</li>
+										{% if menuCategories | length > 0 %}
+											<li class="{% if mainPath == 'category' %}active{% endif %} branch-{{ contextBranchId }}">
+												<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+													<span class="fa fa-camera-retro"></span> {{ 'label.products'|trans }} <span class="caret">
+												</a>
+												<ul class="dropdown-menu category-menu">
+													{% for category in menuCategories | slice(0,10) %}
+														{% include 'common/category/menu_entry.html.twig' with
+															{ 'entry': category, 'caretClass': 'branch-color-' ~ contextBranchId } %}
+													{% endfor %}
+													
+													{% if menuCategories | length > 10 %}
+														<li role="separator" class="divider"></li>
+														<li>
+															<a href="{{ path(basePath ~ 'category') }}">
+																<span class="text-red">{{ 'label.more' | trans }}</span>
+															</a>
+														</li>
+													{% endif %}
+												</ul>
+											</li>
+										{% endif %}
 										<li class="{% if mainPath == 'magazine' %}active{% endif %} branch-{{ contextBranchId }}">
 											<a href="{{ path(basePath ~ 'magazine') }}">
 												<span class="fa fa-newspaper-o"></span> {{ 'label.magazines'|trans }}</a>

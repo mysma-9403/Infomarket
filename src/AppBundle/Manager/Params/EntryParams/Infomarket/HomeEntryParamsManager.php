@@ -114,7 +114,11 @@ class HomeEntryParamsManager extends EntryParamsManager {
 			$articleCategories = $this->articleCategoryRepository->findHomeItems();
 			$articleCategoriesIds = $this->articleCategoryRepository->getIds($articleCategories);
 			
-			$articles = $this->articleRepository->findHomeFeaturedItems($categories, $articleCategoriesIds, 3);
+			$articles = [];
+			if (count($categories) > 0 && count($articleCategoriesIds)) {
+				$articles = $this->articleRepository->findHomeFeaturedItems($categories, $articleCategoriesIds, 
+						3);
+			}
 			if (count($articles) > 0) {
 				$articlesIds = $this->articleRepository->getIds($articles);
 				$brands = $this->brandRepository->findItemsByArticles($articlesIds);
@@ -124,7 +128,10 @@ class HomeEntryParamsManager extends EntryParamsManager {
 			
 			$viewParams['newsCategory'] = $this->getArticleCategory($articleCategories, self::NEWS_AC);
 			
-			$articles = $this->articleRepository->findHomeTileItems($categories, self::NEWS_AC, 2);
+			$articles = [];
+			if (count($categories) > 0) {
+				$articles = $this->articleRepository->findHomeTileItems($categories, self::NEWS_AC, 2);
+			}
 			if (count($articles) > 0) {
 				$articlesIds = $this->articleRepository->getIds($articles);
 				$brands = $this->brandRepository->findItemsByArticles($articlesIds);
@@ -132,7 +139,10 @@ class HomeEntryParamsManager extends EntryParamsManager {
 			}
 			$viewParams['newsArticles'] = $articles;
 			
-			$articles = $this->articleRepository->findHomeListItems($categories, self::NEWS_AC, 2, 14);
+			$articles = [];
+			if (count($categories) > 0) {
+				$articles = $this->articleRepository->findHomeListItems($categories, self::NEWS_AC, 2, 14);
+			}
 			if (count($articles) > 0) {
 				$articlesIds = $this->articleRepository->getIds($articles);
 				$brands = $this->brandRepository->findItemsByArticles($articlesIds);
@@ -143,7 +153,10 @@ class HomeEntryParamsManager extends EntryParamsManager {
 			$viewParams['interviewsCategory'] = $this->getArticleCategory($articleCategories, 
 					self::INTERVIEWS_AC);
 			
-			$articles = $this->articleRepository->findHomeTileItems($categories, self::INTERVIEWS_AC, 6);
+			$articles = [];
+			if (count($categories) > 0) {
+				$articles = $this->articleRepository->findHomeTileItems($categories, self::INTERVIEWS_AC, 6);
+			}
 			if (count($articles) > 0) {
 				$articlesIds = $this->articleRepository->getIds($articles);
 				$brands = $this->brandRepository->findItemsByArticles($articlesIds);
@@ -153,7 +166,10 @@ class HomeEntryParamsManager extends EntryParamsManager {
 			
 			$viewParams['eventsCategory'] = $this->getArticleCategory($articleCategories, self::EVENTS_AC);
 			
-			$articles = $this->articleRepository->findHomeTileItems($categories, self::EVENTS_AC, 3);
+			$articles = [];
+			if (count($categories) > 0) {
+				$articles = $this->articleRepository->findHomeTileItems($categories, self::EVENTS_AC, 3);
+			}
 			if (count($articles) > 0) {
 				$articlesIds = $this->articleRepository->getIds($articles);
 				$brands = $this->brandRepository->findItemsByArticles($articlesIds);
@@ -164,7 +180,10 @@ class HomeEntryParamsManager extends EntryParamsManager {
 			$viewParams['promotionsCategory'] = $this->getArticleCategory($articleCategories, 
 					self::PROMOTIONS_AC);
 			
-			$articles = $this->articleRepository->findHomeTileItems($categories, self::PROMOTIONS_AC, 8);
+			$articles = [];
+			if (count($categories) > 0) {
+				$articles = $this->articleRepository->findHomeTileItems($categories, self::PROMOTIONS_AC, 8);
+			}
 			if (count($articles) > 0) {
 				$articlesIds = $this->articleRepository->getIds($articles);
 				$brands = $this->brandRepository->findItemsByArticles($articlesIds);
@@ -174,7 +193,10 @@ class HomeEntryParamsManager extends EntryParamsManager {
 			
 			$viewParams['productsCategory'] = $this->getArticleCategory($articleCategories, self::PRODUCTS_AC);
 			
-			$articles = $this->articleRepository->findHomeTileItems($categories, self::PRODUCTS_AC, 8);
+			$articles = [];
+			if (count($categories) > 0) {
+				$articles = $this->articleRepository->findHomeTileItems($categories, self::PRODUCTS_AC, 8);
+			}
 			if (count($articles) > 0) {
 				$articlesIds = $this->articleRepository->getIds($articles);
 				$brands = $this->brandRepository->findItemsByArticles($articlesIds);
@@ -184,7 +206,10 @@ class HomeEntryParamsManager extends EntryParamsManager {
 			
 			$viewParams['reviewsCategory'] = $this->getArticleCategory($articleCategories, self::REVIEWS_AC);
 			
-			$articles = $this->articleRepository->findHomeTileItems($categories, self::REVIEWS_AC, 4);
+			$articles = [];
+			if (count($categories) > 0) {
+				$articles = $this->articleRepository->findHomeTileItems($categories, self::REVIEWS_AC, 4);
+			}
 			if (count($articles) > 0) {
 				$articlesIds = $this->articleRepository->getIds($articles);
 				$brands = $this->brandRepository->findItemsByArticles($articlesIds);
@@ -195,32 +220,34 @@ class HomeEntryParamsManager extends EntryParamsManager {
 			// useful article categories
 			$usefulArticleCategories = array();
 			
-			$articleCategory = $this->getArticleCategory($articleCategories, self::REVIEWS_AC);
-			if ($articleCategory) {
-				$articleCategory['articles'] = $this->articleRepository->findHomeListItems($categories, 
-						self::REVIEWS_AC, 0, 1);
-				$usefulArticleCategories[] = $articleCategory;
-			}
-			
-			$articleCategory = $this->getArticleCategory($articleCategories, self::HOME_LINKS_AC);
-			if ($articleCategory) {
-				$articleCategory['articles'] = $this->articleRepository->findHomeListItems($categories, 
-						self::HOME_LINKS_AC, 0, 1);
-				$usefulArticleCategories[] = $articleCategory;
-			}
-			
-			$articleCategory = $this->getArticleCategory($articleCategories, self::FOREIGN_LINKS_AC);
-			if ($articleCategory) {
-				$articleCategory['articles'] = $this->articleRepository->findHomeListItems($categories, 
-						self::FOREIGN_LINKS_AC, 0, 1);
-				$usefulArticleCategories[] = $articleCategory;
-			}
-			
-			$articleCategory = $this->getArticleCategory($articleCategories, self::LAW_AC);
-			if ($articleCategory) {
-				$articleCategory['articles'] = $this->articleRepository->findHomeListItems($categories, 
-						self::LAW_AC, 0, 1);
-				$usefulArticleCategories[] = $articleCategory;
+			if (count($categories) > 0) {
+				$articleCategory = $this->getArticleCategory($articleCategories, self::REVIEWS_AC);
+				if ($articleCategory) {
+					$articleCategory['articles'] = $this->articleRepository->findHomeListItems($categories, 
+							self::REVIEWS_AC, 0, 1);
+					$usefulArticleCategories[] = $articleCategory;
+				}
+				
+				$articleCategory = $this->getArticleCategory($articleCategories, self::HOME_LINKS_AC);
+				if ($articleCategory) {
+					$articleCategory['articles'] = $this->articleRepository->findHomeListItems($categories, 
+							self::HOME_LINKS_AC, 0, 1);
+					$usefulArticleCategories[] = $articleCategory;
+				}
+				
+				$articleCategory = $this->getArticleCategory($articleCategories, self::FOREIGN_LINKS_AC);
+				if ($articleCategory) {
+					$articleCategory['articles'] = $this->articleRepository->findHomeListItems($categories, 
+							self::FOREIGN_LINKS_AC, 0, 1);
+					$usefulArticleCategories[] = $articleCategory;
+				}
+				
+				$articleCategory = $this->getArticleCategory($articleCategories, self::LAW_AC);
+				if ($articleCategory) {
+					$articleCategory['articles'] = $this->articleRepository->findHomeListItems($categories, 
+							self::LAW_AC, 0, 1);
+					$usefulArticleCategories[] = $articleCategory;
+				}
 			}
 			
 			$viewParams['usefulArticleCategories'] = $usefulArticleCategories;
@@ -231,15 +258,16 @@ class HomeEntryParamsManager extends EntryParamsManager {
 			$ratingsCategory = $this->getFirstRatingsCategory($categories);
 			$viewParams['ratingsCategory'] = $ratingsCategory;
 		} else {
-			$branches = $this->branchRepository->findBy(['infomarket' => true], ['orderNumber' => 'ASC']);
+			$branches = $this->branchRepository->findBy(['infomarket' => true], [
+					'orderNumber' => 'ASC']);
 			$viewParams['branches'] = $branches;
 			
-// 			$categories = [];
-// 			foreach ($branches as $branch) {
-// 				$branchCategories = $this->categoryRepository->findBranchMainItems($branch->getId(), 5);
-// 				$categories[$branch->getId()] = $branchCategories;
-// 			}
-// 			$viewParams['categories'] = $categories;
+			// $categories = [];
+			// foreach ($branches as $branch) {
+			// $branchCategories = $this->categoryRepository->findBranchMainItems($branch->getId(), 5);
+			// $categories[$branch->getId()] = $branchCategories;
+			// }
+			// $viewParams['categories'] = $categories;
 		}
 		
 		$params['viewParams'] = $viewParams;
