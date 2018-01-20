@@ -18,5 +18,7 @@ services:
             
     AppBundle\Manager\Decorator\Common\Main\CategoryDecorator:
         arguments:
+            - '@stof_doctrine_extensions.uploadable.manager'
+            - '@AppBundle\Factory\Common\Image\UploadedFileInfoFactory'
             - '@AppBundle\Factory\Item\Other\CategorySummaryFactory'
             - '@AppBundle\Manager\Decorator\Base\ItemDecorator'

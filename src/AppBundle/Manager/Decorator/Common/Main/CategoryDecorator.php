@@ -4,10 +4,13 @@ namespace AppBundle\Manager\Decorator\Common\Main;
 
 use AppBundle\Entity\Main\Category;
 use AppBundle\Entity\Other\CategorySummary;
+use AppBundle\Factory\Common\Image\UploadedFileInfoFactory;
 use AppBundle\Factory\Item\Base\ItemFactory;
 use AppBundle\Manager\Decorator\Base\ItemDecorator;
+use AppBundle\Manager\Decorator\Common\Base\ImageDecorator;
+use Stof\DoctrineExtensionsBundle\Uploadable\UploadableManager;
 
-class CategoryDecorator extends ItemDecorator {
+class CategoryDecorator extends ImageDecorator {
 
 	/**
 	 *
@@ -21,7 +24,10 @@ class CategoryDecorator extends ItemDecorator {
 	 */
 	protected $categorySummaryDecorator;
 
-	public function __construct(ItemFactory $categorySummaryFactory, ItemDecorator $categorySummaryDecorator) {
+	public function __construct(UploadableManager $uploadableManager, 
+			UploadedFileInfoFactory $uploadedFileInfoFactory, ItemFactory $categorySummaryFactory, 
+			ItemDecorator $categorySummaryDecorator) {
+		parent::__construct($uploadableManager, $uploadedFileInfoFactory);
 		$this->categorySummaryFactory = $categorySummaryFactory;
 		$this->categorySummaryDecorator = $categorySummaryDecorator;
 	}
@@ -35,6 +41,8 @@ class CategoryDecorator extends ItemDecorator {
 	 * @param Category $item        	
 	 */
 	public function getPrepared($item) {
+		$item = parent::getPrepared($item);
+		
 		$item = $this->updateRoot($item);
 		
 		if (! $item->getCategorySummary()) {
