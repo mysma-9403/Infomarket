@@ -25,15 +25,16 @@ use AppBundle\Repository\Infomarket\BranchRepository;
 use AppBundle\Repository\Infomarket\CategoryRepository;
 use AppBundle\Manager\Params\Base\ParamsManager;
 use AppBundle\Factory\Item\Base\ItemFactory;
+use AppBundle\Repository\Admin\Assignments\ProductCategoryAssignmentRepository;
 
 abstract class InfomarketController extends StandardController {
-	
+
 	/**
 	 *
 	 * @var ItemFactory
 	 */
 	protected $newsletterUserFactory;
-	
+
 	public function __construct(ItemFactory $newsletterUserFactory) {
 		$this->newsletterUserFactory = $newsletterUserFactory;
 	}
@@ -195,11 +196,12 @@ abstract class InfomarketController extends StandardController {
 		$articleCategoryRepository = $this->get(ArticleCategoryRepository::class);
 		$branchRepository = $this->get(BranchRepository::class);
 		$categoryRepository = $this->get(CategoryRepository::class);
+		$productCategoryAsignmentRepository = $this->get(ProductCategoryAssignmentRepository::class);
 		
 		$paramManager = $this->get(ParamsManager::class);
 		
 		return new ContextParamsManager($articleCategoryRepository, $branchRepository, $categoryRepository, 
-				$paramManager, $lastRouteParams);
+				$productCategoryAsignmentRepository, $paramManager, $lastRouteParams);
 	}
 
 	protected function getAdvertParamsManager() {

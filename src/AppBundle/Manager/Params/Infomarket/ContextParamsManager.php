@@ -3,11 +3,12 @@
 namespace AppBundle\Manager\Params\Infomarket;
 
 use AppBundle\Entity\Main\Branch;
+use AppBundle\Manager\Params\Base\ParamsManager;
+use AppBundle\Repository\Admin\Assignments\ProductCategoryAssignmentRepository;
 use AppBundle\Repository\Infomarket\ArticleCategoryRepository;
 use AppBundle\Repository\Infomarket\BranchRepository;
 use AppBundle\Repository\Infomarket\CategoryRepository;
 use Symfony\Component\HttpFoundation\Request;
-use AppBundle\Manager\Params\Base\ParamsManager;
 
 class ContextParamsManager {
 
@@ -37,6 +38,12 @@ class ContextParamsManager {
 
 	/**
 	 *
+	 * @var ProductCategoryAssignmentRepository
+	 */
+	protected $productCategoryAssignmentRepository;
+
+	/**
+	 *
 	 * @var ParamsManager
 	 */
 	protected $paramsManager;
@@ -44,10 +51,12 @@ class ContextParamsManager {
 	// TODO lastRouteParams should be moved to function params or within params array -> then it will be possible to define service
 	public function __construct(ArticleCategoryRepository $articleCategoryRepository, 
 			BranchRepository $branchRepository, CategoryRepository $categoryRepository, 
+			ProductCategoryAssignmentRepository $productCategoryAssignmentRepository, 
 			ParamsManager $paramsManager, array $lastRouteParams) {
 		$this->articleCategoryRepository = $articleCategoryRepository;
 		$this->branchRepository = $branchRepository;
 		$this->categoryRepository = $categoryRepository;
+		$this->productCategoryAssignmentRepository = $productCategoryAssignmentRepository;
 		
 		$this->paramsManager = $paramsManager;
 		
@@ -115,10 +124,28 @@ class ContextParamsManager {
 	protected function getMenuCategories($contextParams, $viewParams) {
 		$categories = $contextParams['categories'];
 		if (count($categories) > 0) {
-			return $this->categoryRepository->findMenuItems($categories);
+			$result = [];
+			$menuCategories = $this->categoryRepository->findMenuItems($categories);
+			foreach ($menuCategories as $menuCategory) {
+				$ids = $this->getAllCategoryIds($menuCategory);
+				$item = $this->productCategoryAssignmentRepository->findOneBy(['category' => $ids]);
+				if ($item)
+					$result[] = $menuCategory;
+			}
+			return $result;
 		} else {
 			return [];
 		}
+	}
+
+	private function getAllCategoryIds($category) {
+		$result = [$category['id']];
+		
+		foreach ($category['children'] as $category) {
+			$result = array_merge($result, $this->getAllCategoryIds($category));
+		}
+		
+		return $result;
 	}
 
 	protected function getMenuArticleCategories($contextParams, $viewParams) {

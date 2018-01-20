@@ -21,6 +21,7 @@ use AppBundle\Repository\Infomarket\CategoryRepository;
 use AppBundle\Manager\Route\RouteManager;
 use AppBundle\Manager\Params\Base\ParamsManager;
 use AppBundle\Manager\Params\Infomarket\HomeContextParamsManager;
+use AppBundle\Repository\Admin\Assignments\ProductCategoryAssignmentRepository;
 
 class HomeController extends InfomarketController {
 	// ---------------------------------------------------------------------------
@@ -52,11 +53,12 @@ class HomeController extends InfomarketController {
 		$articleCategoryRepository = $this->get(ArticleCategoryRepository::class);
 		$branchRepository = $this->get(BranchRepository::class);
 		$categoryRepository = $this->get(CategoryRepository::class);
+		$productCategoryAssignmentRepository = $this->get(ProductCategoryAssignmentRepository::class);
 		
 		$paramManager = $this->get(ParamsManager::class);
 		
 		return new HomeContextParamsManager($articleCategoryRepository, $branchRepository, $categoryRepository, 
-				$paramManager, $lastRouteParams);
+				$productCategoryAssignmentRepository, $paramManager, $lastRouteParams);
 	}
 
 	protected function getInternalEntryParamsManager(EntityManager $em, FilterManager $fm, $doctrine) {
