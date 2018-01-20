@@ -94,7 +94,11 @@ swiftmailer:
 #    spool:
 #        type: file
 #        path: '%kernel.root_dir%/spool'
-
+    stream_options:
+      ssl:
+        allow_self_signed: true
+        verify_peer: false
+        
 # Friends of Symfony User Configuration    
 fos_user:
     db_driver: orm
