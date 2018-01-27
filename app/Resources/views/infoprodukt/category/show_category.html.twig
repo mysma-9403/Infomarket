@@ -170,7 +170,7 @@
 				
 				{% if questionsArticles | length > 0 %}
 					{% include 'infoprodukt/category/article_category_tile.html.twig' with 
-						{ articleCategory: questionsCategory, articles: questionsArticles } %}
+						{ entry: questionsCategory, category: entry, articles: questionsArticles } %}
 				{% endif %}
 				
 				{% if subcategories | length > 0 %}
@@ -179,22 +179,22 @@
 				
 				{% if buildsArticles | length > 0 %}	
 					{% include 'infoprodukt/category/article_category_tile.html.twig' with 
-						{ articleCategory: buildsCategory, articles: buildsArticles } %}
+						{ entry: buildsCategory, category: entry, articles: buildsArticles } %}
 				{% endif %}
 					
 				{% if schemasArticles | length > 0 %}
 					{% include 'infoprodukt/category/article_category_tile.html.twig' with 
-						{ articleCategory: schemasCategory, articles: schemasArticles } %}
+						{ entry: schemasCategory, category: entry, articles: schemasArticles } %}
 				{% endif %}
 					
 				{% if moviesArticles | length > 0 %}
 					{% include 'infoprodukt/category/article_category_tile.html.twig' with 
-						{ articleCategory: moviesCategory, articles: moviesArticles } %}
+						{ entry: moviesCategory, category: entry, articles: moviesArticles } %}
 				{% endif %}
 					
 				{% if reviewsArticles | length > 0 %}
 					{% include 'infoprodukt/category/article_category_tile.html.twig' with 
-						{ articleCategory: reviewsCategory, articles: reviewsArticles } %}
+						{ entry: reviewsCategory, category: entry, articles: reviewsArticles } %}
 				{% endif %}
 			</div>
 			
