@@ -484,27 +484,15 @@ class ImportLogic {
 		foreach ($columns as $column) {
 			if (key_exists('fieldType', $column)) {
 				$value = trim($fileEntry[$column['index']]);
-				if (strlen($value) < 1) {
+				if ($this->isNull($value)) {
 					$value = null;
 				} else {
 					switch ($column['fieldType']) {
 						case BenchmarkField::BOOLEAN_FIELD_TYPE:
-							if ($value == '-' || $value == '0') {
-								$value = 0;
-							} else {
-								$value = 1;
-							}
+							$value = $this->isFalse($value) ? 0 : 1;
 							break;
 						case BenchmarkField::DECIMAL_FIELD_TYPE:
 							$value = str_replace(",", ".", $value);
-							if ($value == '-' || $value == '') {
-								$value = null;
-							}
-							break;
-						default:
-							if ($value == '-' || $value == '') {
-								$value = null;
-							}
 							break;
 					}
 				}
@@ -514,6 +502,14 @@ class ImportLogic {
 		}
 		
 		return $entry;
+	}
+
+	private function isNull($value) {
+		return strlen($value) < 1 || $value == '' || $value == 'bd' || $value == 'nd';
+	}
+
+	private function isFalse($value) {
+		return $value == '-' || $value == '0';
 	}
 
 	protected function checkDuplicates($preparedEntries) {
