@@ -277,7 +277,7 @@ class ProductController extends ImageController {
 	}
 
 	protected function initEditForms(Request $request, array &$params) {
-		$response = $this->initEditorForm($request, $params);
+		$response = $this->initUpdateForm($request, $params);
 		if ($response)
 			return $response;
 		
@@ -288,33 +288,6 @@ class ProductController extends ImageController {
 		$response = $this->initCategoryForm($request, $params);
 		if ($response)
 			return $response;
-		
-		return null;
-	}
-
-	protected function initEditorForm(Request $request, array &$params) {
-		$viewParams = $params['viewParams'];
-		$entry = $viewParams['entry'];
-		
-		$optionsProvider = $this->getEditorFormOptionsProvider();
-		$options = $optionsProvider->getFormOptions($params);
-		
-		$form = $this->createForm($this->getEditorFormType(), $entry, $options);
-		
-		$form->handleRequest($request);
-		
-		if ($form->isSubmitted() && $form->isValid()) {
-			$this->saveItem($request, $entry, $params);
-			
-			$this->flashCreatedMessage();
-			
-			if ($form->get('save')->isClicked()) {
-				return $this->redirectToRoute($this->getEditRoute(), array('id' => $entry->getId()));
-			}
-		}
-		
-		$viewParams['form'] = $form->createView();
-		$params['viewParams'] = $viewParams;
 		
 		return null;
 	}

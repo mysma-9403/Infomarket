@@ -1,4 +1,4 @@
-{% if productValueForm is defined %}	
+{% if productValueForm and productValue %}	
 	{% form_theme productValueForm 'form/fields.html.twig' %}
 	
 	{{ form_start(productValueForm) }}

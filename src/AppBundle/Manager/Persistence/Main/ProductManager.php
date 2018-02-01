@@ -23,16 +23,19 @@ class ProductManager extends PersistenceManager {
 	 */
 	protected function saveMore(Request $request, $item, $persistent, array $params) {
 		if (! $persistent || $this->shouldInvalidate($item, $persistent)) {
-			/** @var ProductCategoryAssignment $assignment */
-			foreach ($item->getProductCategoryAssignments() as $assignment) {
-				if (! $assignment->getProductValue()) {
-					$this->createProductValue($assignment);
-					$this->createProductScore($assignment);
-					$this->createProductNote($assignment);
-				} else {
-					$this->invalidateProductNote($assignment->getProductNote());
+			
+			if ($item->getProductCategoryAssignments()) {
+				/** @var ProductCategoryAssignment $assignment */
+				foreach ($item->getProductCategoryAssignments() as $assignment) {
+					if (! $assignment->getProductValue()) {
+						$this->createProductValue($assignment);
+						$this->createProductScore($assignment);
+						$this->createProductNote($assignment);
+					} else {
+						$this->invalidateProductNote($assignment->getProductNote());
+					}
+					$this->invalidateCategorySummary($assignment->getCategory()->getCategorySummary());
 				}
-				$this->invalidateCategorySummary($assignment->getCategory()->getCategorySummary());
 			}
 		}
 	}

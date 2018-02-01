@@ -53,8 +53,12 @@ class ProductEntryParamsManager extends EntryParamsManager {
 		}
 		
 		$assignment = $this->getProductCategoryAssignment($entry, $category);
-		$productValue = $assignment->getProductValue();
-		$viewParams['productValue'] = $productValue;
+		if ($assignment) {
+			$productValue = $assignment->getProductValue();
+			$viewParams['productValue'] = $productValue;
+		} else {
+			$viewParams['productValue'] = null;
+		}
 		
 		$categoryFilter = new CategoryFilter();
 		$categoryFilter->setCategory($category);
@@ -70,11 +74,11 @@ class ProductEntryParamsManager extends EntryParamsManager {
 		
 		return $params;
 	}
-	
+
 	/**
 	 *
-	 * @param Product $entry
-	 * @param unknown $categoryId
+	 * @param Product $entry        	
+	 * @param unknown $categoryId        	
 	 *
 	 * @return ProductCategoryAssignment
 	 */
@@ -93,10 +97,10 @@ class ProductEntryParamsManager extends EntryParamsManager {
 		}
 		return $assignments->first();
 	}
-	
+
 	/**
 	 *
-	 * @param Category $category
+	 * @param Category $category        	
 	 *
 	 * @return Category
 	 */
@@ -107,7 +111,7 @@ class ProductEntryParamsManager extends EntryParamsManager {
 			}
 			$category = $category->getParent();
 		}
-	
+		
 		return null;
 	}
 }

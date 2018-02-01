@@ -22,3 +22,8 @@ services:
             - '@AppBundle\Factory\Common\Image\UploadedFileInfoFactory'
             - '@AppBundle\Factory\Item\Other\CategorySummaryFactory'
             - '@AppBundle\Manager\Decorator\Base\ItemDecorator'
+            
+    AppBundle\Manager\Decorator\Benchmark\CustomProductDecorator:
+        arguments:
+            - '@stof_doctrine_extensions.uploadable.manager'
+            - '@AppBundle\Factory\Common\Image\UploadedFileInfoFactory'
