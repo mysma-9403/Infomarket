@@ -55,7 +55,8 @@ class DistributionCalculator {
 					$offset = $this->benchmarkFieldDataBaseUtils->getValueField($field);
 					$value = $productValue->offsetGet($offset);
 					
-					if ($value !== null) {
+					if ($value !== null && $value != BenchmarkField::NO_DATA_VALUE &&
+							 $value != BenchmarkField::NOT_RELEVANT_VALUE) {
 						if ($field->getFieldType() == BenchmarkField::MULTI_ENUM_FIELD_TYPE) {
 							$enums = explode(",", $value);
 							$enums = array_filter($enums, 'trim');

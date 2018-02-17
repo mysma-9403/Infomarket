@@ -19,7 +19,7 @@
 			<p>{{ 'label.benchmark.note'|trans }}</p>
 		</div>
 		<div class="col-xs-6 padding-5">
-			<h1 class="text-success">{{ priceFactor|number_format(1, '.', '  ') }}</h1> {# &nbsp; #}
+			<h1 class="text-success">{{ priceFactor ? priceFactor|number_format(1, '.', '  ') : '-' }}</h1> {# &nbsp; #}
 			<p>{{ 'label.benchmark.priceFactor'|trans }}</p>
 		</div>
 	{% endblock %}
