@@ -26,6 +26,7 @@
 {% endif %}
 
 <span class="{{ color }}">
-	{{ compared ? compared|number_format(field.decimalPlaces, '.', ' ') : '' }} {# &nbsp; #} 
+	{% include 'benchmark/common/value/product_value.twig' with { value: compared, field: field } %} 
+	{# &nbsp; #} 
 	<span class="fa fa-{{ icon }}"></span>
 </span>

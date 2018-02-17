@@ -1,0 +1,45 @@
+{% if value is not null and 
+	value != constant('AppBundle\\Entity\\Main\\BenchmarkField::NO_DATA_VALUE') and 
+	value != constant('AppBundle\\Entity\\Main\\BenchmarkField::NOT_RELEVANT_VALUE') %}
+	
+	{% if compared == constant('AppBundle\\Entity\\Main\\BenchmarkField::NO_DATA_VALUE') %}
+		{{ 'bd' }}
+	{% elseif compared == constant('AppBundle\\Entity\\Main\\BenchmarkField::NOT_RELEVANT_VALUE') %}
+		{{ 'nd' }}
+	{% else %}
+		{% if field.betterThanType == constant('AppBundle\\Entity\\Main\\BenchmarkField::GT_BETTER_THAN_TYPE') %}
+			{% if compared > value %}	
+				{% set color = 'text-success' %}
+				{% set icon = 'arrow-circle-up' %}
+			{% elseif compared < value %}	
+				{% set color = 'text-danger' %}
+				{% set icon = 'arrow-circle-down' %}
+			{% else %}
+				{% set color = 'text-primary' %}
+				{% set icon = 'minus-circle' %}
+			{% endif %}
+		{% elseif field.betterThanType == constant('AppBundle\\Entity\\Main\\BenchmarkField::LT_BETTER_THAN_TYPE') %}
+			{% if compared > value %}	
+				{% set color = 'text-danger' %}
+				{% set icon = 'arrow-circle-up' %}
+			{% elseif compared < value %}	
+				{% set color = 'text-success' %}
+				{% set icon = 'arrow-circle-down' %}
+			{% else %}
+				{% set color = 'text-primary' %}
+				{% set icon = 'minus-circle' %}
+			{% endif %}
+		{% else %}
+			{% set color = '' %}
+			{% set icon = '' %}
+		{% endif %}
+		
+		<span class="{{ color }}">
+			{{ compared }} 
+			{# &nbsp; #}
+			<span class="fa fa-{{ icon }}"></span>
+		</span>
+	{% endif %}
+{% else %}
+	{% include 'benchmark/product/components/compare/value/product_value.twig' with { value: compared, field: field } %}
+{% endif %}

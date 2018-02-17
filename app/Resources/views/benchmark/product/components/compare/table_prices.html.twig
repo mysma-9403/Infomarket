@@ -2,11 +2,19 @@
 	<th class="text-right">{{ 'label.benchmark.product.price'|trans }}</th>
 	
 	{% for compared in entries|slice(0,half) %}
-		{% include 'benchmark/product/components/compare/table_price.html.twig' %}
+		<td class="text-center">
+			{% include 'benchmark/product/components/compare/table_price.html.twig' %}
+		</td>
 	{% endfor %}
-	<td class="selected text-center">{{ entry.price|number_format(2, '.', ' ') }}</td> {# &nbsp; #}
+	
+	<td class="selected text-center">
+		{{ entry.price is not null ? entry.price|number_format(2, '.', ' ') : '' }}
+	</td> {# &nbsp; #}
+	
 	{% for compared in entries|slice(half) %}
-		{% include 'benchmark/product/components/compare/table_price.html.twig' %}
+		<td class="text-center">
+			{% include 'benchmark/product/components/compare/table_price.html.twig' %}
+		</td>
 	{% endfor %}
 	
 	<td></td>

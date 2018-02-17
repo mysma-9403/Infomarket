@@ -42,7 +42,9 @@
 	<tr>
 		<th class="text-right">{{ 'label.benchmark.product.price'|trans }}</th>
 		{% for entry in entries %}
-			<td class="text-center">{{ entry.price|number_format(2, '.', ' ') }}</td> {# &nbsp; #}
+			<td class="text-center">
+				{{ entry.price is not null ? entry.price|number_format(2, '.', ' ') : '' }}
+			</td> {# &nbsp; #}
 		{% endfor %}
 		<td></td>
 	</tr>
@@ -51,7 +53,10 @@
 		{% set key = field.valueField %}
 		{% set show = false %}
 		{% for entry in entries if show == false %}
-			{% if entry[key] %}
+			{% if entry[key] and
+				entry[key] != 'nd' and entry[key] != 'bd' and 
+				entry[key] != constant('AppBundle\\Entity\\Main\\BenchmarkField::NO_DATA_VALUE') and 
+				entry[key] != constant('AppBundle\\Entity\\Main\\BenchmarkField::NOT_RELEVANT_VALUE') %}
 				{% set show = true %}
 			{% endif %}
 		{% endfor %}
@@ -60,17 +65,7 @@
 				<th class="text-right">{{ field.fieldName }}</th>
 				{% for entry in entries %}
 					<td class="text-center">
-						{% if field.fieldType == constant('AppBundle\\Entity\\Main\\BenchmarkField::BOOLEAN_FIELD_TYPE') %}
-					        {% if entry[key] is null %}
-					        	{{ field.nullReplacement }}
-					        {% else %}
-								{{ entry[key] ? '+' : '-' }}
-							{% endif %}
-						{% elseif field.fieldType == constant('AppBundle\\Entity\\Main\\BenchmarkField::DECIMAL_FIELD_TYPE') %}
-							{{ entry[key] is not null ? entry[key]|number_format(field.decimalPlaces, '.', ' ') : field.nullReplacement }}
-				        {% else %}
-					        {{ entry[key] is not null ? entry[key] : field.nullReplacement }}
-						{% endif%}
+						{% include 'benchmark/common/value/product_value.twig' with { value: entry[key], field: field } %}
 					</td>
 				{% endfor %}
 				<td></td>
