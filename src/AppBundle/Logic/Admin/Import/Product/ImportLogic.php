@@ -6,11 +6,11 @@ use AppBundle\Entity\Main\BenchmarkField;
 use AppBundle\Entity\Main\Brand;
 use AppBundle\Entity\Main\Category;
 use AppBundle\Entity\Main\Product;
+use AppBundle\Entity\Main\Segment;
+use AppBundle\Entity\Other\ImportRatings;
 use AppBundle\Entity\Other\ProductNote;
 use AppBundle\Entity\Other\ProductScore;
 use AppBundle\Entity\Other\ProductValue;
-use AppBundle\Entity\Main\Segment;
-use AppBundle\Entity\Other\ImportRatings;
 use AppBundle\Factory\Admin\ErrorFactory;
 use AppBundle\Factory\Admin\Import\Product\ImportErrorFactory;
 use AppBundle\Logic\Admin\Import\Common\CountManager;
@@ -18,7 +18,6 @@ use AppBundle\Logic\Admin\Import\Common\PersistenceManager;
 use AppBundle\Utils\Entity\DataBase\BenchmarkFieldDataBaseUtils;
 use AppBundle\Utils\StringUtils;
 use Doctrine\Bundle\DoctrineBundle\Registry;
-use Cache\Adapter\Common\Exception\InvalidArgumentException;
 
 class ImportLogic {
 
@@ -433,7 +432,7 @@ class ImportLogic {
 		if (key_exists('productPrice', $columns)) {
 			$productPriceIndex = $columns['productPrice']['index'];
 			$value = $fileEntry[$productPriceIndex];
-			if ($this->isNull($value)) { //TODO the same as for decimal field --> make some common class
+			if ($this->isNull($value)) { // TODO the same as for decimal field --> make some common class
 				$value = null;
 			} else {
 				if ($this->isNoData($value)) {
