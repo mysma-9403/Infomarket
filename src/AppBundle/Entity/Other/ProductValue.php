@@ -43,181 +43,181 @@ class ProductValue extends Simple implements \ArrayAccess {
 
 	/**
 	 *
-	 * @var string
+	 * @var float
 	 */
 	private $decimal1;
 
 	/**
 	 *
-	 * @var string
+	 * @var float
 	 */
 	private $decimal2;
 
 	/**
 	 *
-	 * @var string
+	 * @var float
 	 */
 	private $decimal3;
 
 	/**
 	 *
-	 * @var string
+	 * @var float
 	 */
 	private $decimal4;
 
 	/**
 	 *
-	 * @var string
+	 * @var float
 	 */
 	private $decimal5;
 
 	/**
 	 *
-	 * @var string
+	 * @var float
 	 */
 	private $decimal6;
 
 	/**
 	 *
-	 * @var string
+	 * @var float
 	 */
 	private $decimal7;
 
 	/**
 	 *
-	 * @var string
+	 * @var float
 	 */
 	private $decimal8;
 
 	/**
 	 *
-	 * @var string
+	 * @var float
 	 */
 	private $decimal9;
 
 	/**
 	 *
-	 * @var string
+	 * @var float
 	 */
 	private $decimal10;
 
 	/**
 	 *
-	 * @var string
+	 * @var float
 	 */
 	private $decimal11;
 
 	/**
 	 *
-	 * @var string
+	 * @var float
 	 */
 	private $decimal12;
 
 	/**
 	 *
-	 * @var string
+	 * @var float
 	 */
 	private $decimal13;
 
 	/**
 	 *
-	 * @var string
+	 * @var float
 	 */
 	private $decimal14;
 
 	/**
 	 *
-	 * @var string
+	 * @var float
 	 */
 	private $decimal15;
 
 	/**
 	 *
-	 * @var string
+	 * @var float
 	 */
 	private $decimal16;
 
 	/**
 	 *
-	 * @var string
+	 * @var float
 	 */
 	private $decimal17;
 
 	/**
 	 *
-	 * @var string
+	 * @var float
 	 */
 	private $decimal18;
 
 	/**
 	 *
-	 * @var string
+	 * @var float
 	 */
 	private $decimal19;
 
 	/**
 	 *
-	 * @var string
+	 * @var float
 	 */
 	private $decimal20;
 
 	/**
 	 *
-	 * @var string
+	 * @var float
 	 */
 	private $decimal21;
 
 	/**
 	 *
-	 * @var string
+	 * @var float
 	 */
 	private $decimal22;
 
 	/**
 	 *
-	 * @var string
+	 * @var float
 	 */
 	private $decimal23;
 
 	/**
 	 *
-	 * @var string
+	 * @var float
 	 */
 	private $decimal24;
 
 	/**
 	 *
-	 * @var string
+	 * @var float
 	 */
 	private $decimal25;
 
 	/**
 	 *
-	 * @var string
+	 * @var float
 	 */
 	private $decimal26;
 
 	/**
 	 *
-	 * @var string
+	 * @var float
 	 */
 	private $decimal27;
 
 	/**
 	 *
-	 * @var string
+	 * @var float
 	 */
 	private $decimal28;
 
 	/**
 	 *
-	 * @var string
+	 * @var float
 	 */
 	private $decimal29;
 
 	/**
 	 *
-	 * @var string
+	 * @var float
 	 */
 	private $decimal30;
 

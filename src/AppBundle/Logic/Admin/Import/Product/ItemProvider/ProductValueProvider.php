@@ -37,15 +37,15 @@ class ProductValueProvider extends ItemProvider {
 		
 		for ($j = 1; $j <= 30; $j ++) {
 			$field = 'decimal' . $j;
-			$value = $productValue->offsetGet($field);
-			if ($item->offsetGet($field) !== $value) {
+			$value = (float)$productValue->offsetGet($field);
+			if ((float)$item->offsetGet($field) !== $value) {
 				$item->offsetSet($field, $value);
 				$forUpdate = true;
 			}
 			
 			$field = 'integer' . $j;
-			$value = $productValue->offsetGet($field);
-			if ($item->offsetGet($field) !== $value) {
+			$value = (int)$productValue->offsetGet($field);
+			if ((int)$item->offsetGet($field) !== $value) {
 				$item->offsetSet($field, $value);
 				$forUpdate = true;
 			}
