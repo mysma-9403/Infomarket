@@ -1,0 +1,7 @@
+{% if value == constant('AppBundle\\Entity\\Main\\BenchmarkField::NO_DATA_VALUE') %}
+	{{ 'bd' }}
+{% elseif value == constant('AppBundle\\Entity\\Main\\BenchmarkField::NOT_RELEVANT_VALUE') %}
+	{{ 'nd' }}
+{% else %}
+	{{ value|number_format(field.decimalPlaces, '.', ' ') }}
+{% endif %}

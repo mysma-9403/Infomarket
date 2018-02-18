@@ -1,0 +1,13 @@
+{% if value is not null %}
+	{% if field.fieldType == constant('AppBundle\\Entity\\Main\\BenchmarkField::BOOLEAN_FIELD_TYPE') %}
+	    {% include 'benchmark/product/components/compare/value/boolean_value.twig' %}
+	{% elseif field.fieldType == constant('AppBundle\\Entity\\Main\\BenchmarkField::DECIMAL_FIELD_TYPE') %}
+		{% include 'benchmark/common/value/decimal_value.twig' %}
+	{% elseif field.fieldType == constant('AppBundle\\Entity\\Main\\BenchmarkField::INTEGER_FIELD_TYPE') %}
+		{% include 'benchmark/common/value/integer_value.twig' %}
+	{% else %}
+		{% include 'benchmark/common/value/simple_value.twig' %}
+	{% endif%}
+{% else %}
+	{{ field.nullReplacement }}
+{% endif %}

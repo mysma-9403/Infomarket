@@ -6,11 +6,11 @@ use AppBundle\Entity\Main\BenchmarkField;
 use AppBundle\Entity\Main\Brand;
 use AppBundle\Entity\Main\Category;
 use AppBundle\Entity\Main\Product;
+use AppBundle\Entity\Main\Segment;
+use AppBundle\Entity\Other\ImportRatings;
 use AppBundle\Entity\Other\ProductNote;
 use AppBundle\Entity\Other\ProductScore;
 use AppBundle\Entity\Other\ProductValue;
-use AppBundle\Entity\Main\Segment;
-use AppBundle\Entity\Other\ImportRatings;
 use AppBundle\Factory\Admin\ErrorFactory;
 use AppBundle\Factory\Admin\Import\Product\ImportErrorFactory;
 use AppBundle\Logic\Admin\Import\Common\CountManager;
@@ -431,8 +431,19 @@ class ImportLogic {
 		$productPrice = null;
 		if (key_exists('productPrice', $columns)) {
 			$productPriceIndex = $columns['productPrice']['index'];
-			$productPrice = $fileEntry[$productPriceIndex];
-			$productPrice = str_replace(",", ".", $productPrice);
+			$value = $fileEntry[$productPriceIndex];
+			if ($this->isNull($value)) { // TODO the same as for decimal field --> make some common class
+				$value = null;
+			} else {
+				if ($this->isNoData($value)) {
+					$value = BenchmarkField::NO_DATA_VALUE;
+				} else if ($this->isNotRelevant($value)) {
+					$value = BenchmarkField::NOT_RELEVANT_VALUE;
+				} else {
+					$value = str_replace(",", ".", $value);
+				}
+			}
+			$productPrice = $value;
 		}
 		
 		$segmentName = null;
@@ -489,10 +500,29 @@ class ImportLogic {
 				} else {
 					switch ($column['fieldType']) {
 						case BenchmarkField::BOOLEAN_FIELD_TYPE:
-							$value = $this->isFalse($value) ? 0 : 1;
+							if ($this->isNoData($value)) {
+								$value = BenchmarkField::NO_DATA_VALUE;
+							} else if ($this->isNotRelevant($value)) {
+								$value = BenchmarkField::NOT_RELEVANT_VALUE;
+							} else {
+								$value = $this->isFalse($value) ? 0 : 1;
+							}
 							break;
 						case BenchmarkField::DECIMAL_FIELD_TYPE:
-							$value = str_replace(",", ".", $value);
+							if ($this->isNoData($value)) {
+								$value = BenchmarkField::NO_DATA_VALUE;
+							} else if ($this->isNotRelevant($value)) {
+								$value = BenchmarkField::NOT_RELEVANT_VALUE;
+							} else {
+								$value = str_replace(",", ".", $value);
+							}
+							break;
+						case BenchmarkField::INTEGER_FIELD_TYPE:
+							if ($this->isNoData($value)) {
+								$value = BenchmarkField::NO_DATA_VALUE;
+							} else if ($this->isNotRelevant($value)) {
+								$value = BenchmarkField::NOT_RELEVANT_VALUE;
+							}
 							break;
 					}
 				}
@@ -505,7 +535,15 @@ class ImportLogic {
 	}
 
 	private function isNull($value) {
-		return strlen($value) < 1 || $value == '' || $value == 'bd' || $value == 'nd';
+		return strlen($value) < 1 || $value == '';
+	}
+
+	private function isNotRelevant($value) {
+		return $value == 'nd'; // nie dotyczy
+	}
+
+	private function isNoData($value) {
+		return $value == 'bd'; // brak danych
 	}
 
 	private function isFalse($value) {

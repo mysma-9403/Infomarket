@@ -1,15 +1,31 @@
-{% if compared.price > entry.price %}	
-	{% set color = 'text-success' %}
-	{% set icon = 'arrow-circle-up' %}
-{% elseif compared.price < entry.price %}	
-	{% set color = 'text-danger' %}
-	{% set icon = 'arrow-circle-down' %}
+{% if entry.price is not null and 
+	entry.price != constant('AppBundle\\Entity\\Main\\BenchmarkField::NO_DATA_VALUE') and 
+	entry.price != constant('AppBundle\\Entity\\Main\\BenchmarkField::NOT_RELEVANT_VALUE') %}
+	
+	{% if compared.price is not null %}
+		{% if compared.price == constant('AppBundle\\Entity\\Main\\BenchmarkField::NO_DATA_VALUE') %}
+			{{ 'bd' }}
+		{% elseif compared.price == constant('AppBundle\\Entity\\Main\\BenchmarkField::NOT_RELEVANT_VALUE') %}
+			{{ 'nd' }}
+		{% else %}
+			{% if compared.price > entry.price %}	
+				{% set color = 'text-danger' %}
+				{% set icon = 'arrow-circle-up' %}
+			{% elseif compared.price < entry.price %}	
+				{% set color = 'text-success' %}
+				{% set icon = 'arrow-circle-down' %}
+			{% else %}
+				{% set color = 'text-primary' %}
+				{% set icon = 'minus-circle' %}
+			{% endif %}
+			
+			<span class="{{ color }}">
+				{{ compared.price|number_format(2, '.', ' ') }} 
+				{# &nbsp; #}
+				<span class="fa fa-{{ icon }}"></span>
+			</span>
+		{% endif %}
+	{% endif %}
 {% else %}
-	{% set color = 'text-primary' %}
-	{% set icon = 'stop-circle' %}
+	{{ compared.price|number_format(2, '.', ' ') }}
 {% endif %}
-
-<td class="text-center {{ color }}">
-	{{ compared.price|number_format(2, '.', ' ') }} {# &nbsp; #}
-	<span class="fa fa-{{ icon }}"></span>
-</td>

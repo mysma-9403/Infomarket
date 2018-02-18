@@ -63,9 +63,9 @@ class ProductParamsManager extends EntryParamsManager {
 	 * @var ScoreDistributionCalculator
 	 */
 	private $scoreDistributionCalculator;
-	
+
 	/**
-	 * 
+	 *
 	 * @var NeighboursFinder
 	 */
 	private $neighboursFinder;
@@ -76,8 +76,7 @@ class ProductParamsManager extends EntryParamsManager {
 			BenchmarkFieldsInitializer $showBenchmarkFieldsInitializer, 
 			BenchmarkFieldsInitializer $compareBenchmarkFieldsInitializer, 
 			DistributionCalculator $distributionCalculator, 
-			ScoreDistributionCalculator $scoreDistributionCalculator,
-			NeighboursFinder $neighboursFinder) {
+			ScoreDistributionCalculator $scoreDistributionCalculator, NeighboursFinder $neighboursFinder) {
 		parent::__construct($em, $fm);
 		
 		$this->productRepository = $productRepository;
@@ -146,7 +145,7 @@ class ProductParamsManager extends EntryParamsManager {
 					$field['note'] = $productNote->offsetGet('decimalNote' . $valueNumber);
 					
 					$distribution = $this->distributionCalculator->calculate($benchmarkField);
-					$field['betterThan'] = $this->getBetterThan($distribution, $value);
+					$field['betterThan'] = $this->getBetterThan($distribution, $value, $benchmarkField);
 					break;
 				case BenchmarkField::INTEGER_FIELD_TYPE:
 				case BenchmarkField::BOOLEAN_FIELD_TYPE:
@@ -155,7 +154,7 @@ class ProductParamsManager extends EntryParamsManager {
 					$field['note'] = $productNote->offsetGet('integerNote' . $valueNumber);
 					
 					$distribution = $this->distributionCalculator->calculate($benchmarkField);
-					$field['betterThan'] = $this->getBetterThan($distribution, $value);
+					$field['betterThan'] = $this->getBetterThan($distribution, $value, $benchmarkField);
 					break;
 				case BenchmarkField::SINGLE_ENUM_FIELD_TYPE:
 				case BenchmarkField::MULTI_ENUM_FIELD_TYPE:
@@ -164,7 +163,7 @@ class ProductParamsManager extends EntryParamsManager {
 					
 					$score = $productScore->offsetGet('stringScore' . $valueNumber);
 					$distribution = $this->scoreDistributionCalculator->calculate($benchmarkField);
-					$field['betterThan'] = $this->getBetterThan($distribution, $score);
+					$field['betterThan'] = $this->getBetterThan($distribution, $score, $benchmarkField);
 					break;
 				case BenchmarkField::STRING_FIELD_TYPE:
 					$field['value'] = $productValue->offsetGet('string' . $valueNumber);
@@ -184,16 +183,20 @@ class ProductParamsManager extends EntryParamsManager {
 		$overalNote = $productNote->getOveralNote();
 		$viewParams['overalNote'] = $overalNote;
 		
-		//TODO replace by some non DB logic
-		$minMaxPrice = $this->productRepository->findMinMaxValues($categoryId, 'price');
-		$minPrice = $minMaxPrice['vmin'];
-		$maxPrice = $minMaxPrice['vmax'];
-		
-		if ($maxPrice > $minPrice) {
-			$viewParams['priceFactor'] = 2. +
-					 ($overalNote - 2.) * (1. - ($entry->getPrice() - $minPrice) / ($maxPrice - $minPrice));
+		if ($entry->getPrice() > 0) {
+			// TODO replace by some non DB logic
+			$minMaxPrice = $this->productRepository->findMinMaxValues($categoryId, 'price');
+			$minPrice = $minMaxPrice['vmin'];
+			$maxPrice = $minMaxPrice['vmax'];
+			
+			if ($maxPrice > $minPrice) {
+				$viewParams['priceFactor'] = 2. +
+						 ($overalNote - 2.) * (1. - ($entry->getPrice() - $minPrice) / ($maxPrice - $minPrice));
+			} else {
+				$viewParams['priceFactor'] = 5.;
+			}
 		} else {
-			$viewParams['priceFactor'] = 5.;
+			$viewParams['priceFactor'] = null;
 		}
 		
 		$viewParams['benchmarkMessage'] = $this->getBenchmarkMessage($id);
@@ -203,18 +206,32 @@ class ProductParamsManager extends EntryParamsManager {
 		return $params;
 	}
 
-	protected function getBetterThan($distribution, $value) {
+	protected function getBetterThan($distribution, $value, BenchmarkField $benchmarkField) {
 		$better = 0;
 		$all = 0;
 		
-		foreach ($distribution as $key => $val) {
-			if ($value > $key) {
-				$better += $val;
-			}
-			$all += $val;
+		switch ($benchmarkField->getBetterThanType()) {
+			case BenchmarkField::GT_BETTER_THAN_TYPE:
+				foreach ($distribution as $key => $val) {
+					if ($value > $key) {
+						$better += $val;
+					}
+					$all += $val;
+				}
+				break;
+			case BenchmarkField::LT_BETTER_THAN_TYPE:
+				foreach ($distribution as $key => $val) {
+					if ($value < $key) {
+						$better += $val;
+					}
+					$all += $val;
+				}
+				break;
+			default:
+				return null;
 		}
 		
-		return $all ? 100 * $better / $all : null;
+		return 100 * $better / $all;
 	}
 
 	/**
@@ -302,7 +319,7 @@ class ProductParamsManager extends EntryParamsManager {
 		
 		return $params;
 	}
-	
+
 	private function getBenchmarkMessages(array $entries) {
 		$result = [];
 		
@@ -314,17 +331,17 @@ class ProductParamsManager extends EntryParamsManager {
 		
 		return $result;
 	}
-	
+
 	private function getProductValues(array $entries, Category $category) {
 		$result = [];
-	
+		
 		/** @var Product $entry */
 		foreach ($entries as $entry) {
 			$id = $entry->getId();
 			$assignment = $this->getProductCategoryAssignment($entry, $category->getId());
 			$result[$id] = $assignment->getProductValue();
 		}
-	
+		
 		return $result;
 	}
 

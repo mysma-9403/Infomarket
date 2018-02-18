@@ -9,7 +9,6 @@ use AppBundle\Entity\Main\Brand;
 use AppBundle\Entity\Main\Category;
 use AppBundle\Entity\Main\Product;
 use AppBundle\Entity\Other\ProductNote;
-use AppBundle\Entity\Other\ProductScore;
 use AppBundle\Entity\Other\ProductValue;
 use AppBundle\Filter\Base\Filter;
 use AppBundle\Filter\Benchmark\ProductFilter;
@@ -120,6 +119,10 @@ class ProductRepository extends BaseRepository {
 		$where->add($expr->eq('e.benchmark', 1));
 		$where->add($builder->expr()->like('c.treePath', $builder->expr()->literal('%-' . $categoryId . '#%')));
 		
+		$where->add($expr->neq($value, 0));
+		$where->add($expr->neq($value, BenchmarkField::NO_DATA_VALUE));
+		$where->add($expr->neq($value, BenchmarkField::NOT_RELEVANT_VALUE));
+		
 		$builder->where($where);
 		
 		return $builder->getQuery();
@@ -153,6 +156,10 @@ class ProductRepository extends BaseRepository {
 		$where->add($expr->isNotNull($value));
 		$where->add($expr->eq('e.benchmark', 1));
 		$where->add($builder->expr()->like('c.treePath', $builder->expr()->literal('%-' . $categoryId . '#%')));
+		
+		$where->add($expr->neq($value, 0));
+		$where->add($expr->neq($value, BenchmarkField::NO_DATA_VALUE));
+		$where->add($expr->neq($value, BenchmarkField::NOT_RELEVANT_VALUE));
 		
 		$builder->where($where);
 		
@@ -687,45 +694,6 @@ class ProductRepository extends BaseRepository {
 		
 		$builder->orderBy('pn.overalNote', 'ASC');
 		$builder->setMaxResults(1);
-		
-		return $builder->getQuery();
-	}
-
-	public function findAllMinMaxValues($categoryId) {
-		return $this->queryAllMinMaxValues($categoryId)->getSingleResult(AbstractQuery::HYDRATE_SCALAR);
-	}
-
-	protected function queryAllMinMaxValues($categoryId) {
-		$builder = new QueryBuilder($this->getEntityManager());
-		
-		$expr = $builder->expr();
-		
-		$selectFields = [];
-		for ($i = 1; $i <= 30; $i ++) {
-			$selectFields[] = $expr->min('pv.decimal' . $i) . ' AS decimalMin' . $i;
-			$selectFields[] = $expr->max('pv.decimal' . $i) . ' AS decimalMax' . $i;
-			
-			$selectFields[] = $expr->min('pv.integer' . $i) . ' AS integerMin' . $i;
-			$selectFields[] = $expr->max('pv.integer' . $i) . ' AS integerMax' . $i;
-			
-			$selectFields[] = $expr->min('ps.stringScore' . $i) . ' AS stringMin' . $i;
-			$selectFields[] = $expr->max('ps.stringScore' . $i) . ' AS stringMax' . $i;
-		}
-		
-		$builder->select($selectFields);
-		$builder->from($this->getEntityType(), "e");
-		
-		$builder->innerJoin(ProductCategoryAssignment::class, 'pca', Join::WITH, 'e.id = pca.product');
-		$builder->innerJoin(ProductValue::class, 'pv', Join::WITH, 'pca.id = pv.productCategoryAssignment');
-		$builder->innerJoin(ProductScore::class, 'ps', Join::WITH, 'pca.id = ps.productCategoryAssignment');
-		$builder->innerJoin(Category::class, 'c', Join::WITH, 'c.id = pca.category');
-		
-		$where = $expr->andX();
-		$where->add($expr->isNull('e.benchmarkQuery'));
-		$where->add($expr->eq('e.benchmark', 1));
-		$where->add($builder->expr()->like('c.treePath', $builder->expr()->literal('%-' . $categoryId . '#%')));
-		
-		$builder->where($where);
 		
 		return $builder->getQuery();
 	}

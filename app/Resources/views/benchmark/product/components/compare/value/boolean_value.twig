@@ -1,0 +1,11 @@
+{% if value == constant('AppBundle\\Entity\\Main\\BenchmarkField::NO_DATA_VALUE') %}
+	{{ 'bd' }}
+{% elseif value == constant('AppBundle\\Entity\\Main\\BenchmarkField::NOT_RELEVANT_VALUE') %}
+	{{ 'nd' }}
+{% else %}
+	{% if value %}
+		<span class="text-success fa fa-check-circle"></span>
+	{% else %}
+		<span class="text-danger fa fa-minus-circle"></span>
+	{% endif %}
+{% endif %}

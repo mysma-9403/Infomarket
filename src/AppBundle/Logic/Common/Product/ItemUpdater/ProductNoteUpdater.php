@@ -35,9 +35,10 @@ class ProductNoteUpdater implements ItemUpdater {
 		
 		/** @var BenchmarkField $benchmarkField */
 		foreach ($benchmarkFields as $benchmarkField) {
+			$offset = $benchmarkField->getValueNumber();
+			
 			if ($benchmarkField->getNoteType() != BenchmarkField::NONE_NOTE_TYPE) {
 				$categorySummary = $item->getProductCategoryAssignment()->getCategory()->getCategorySummary();
-				$offset = $benchmarkField->getValueNumber();
 				
 				switch ($benchmarkField->getFieldType()) {
 					case BenchmarkField::DECIMAL_FIELD_TYPE:
@@ -48,8 +49,10 @@ class ProductNoteUpdater implements ItemUpdater {
 						$note = $this->calculateNote($min, $max, $value, $benchmarkField->getNoteType());
 						$item->offsetSet('decimalNote' . $offset, $note);
 						
-						$overalNote += $note * $benchmarkField->getNoteWeight();
-						$count += $benchmarkField->getNoteWeight();
+						if ($note) {
+							$overalNote += $note * $benchmarkField->getNoteWeight();
+							$count += $benchmarkField->getNoteWeight();
+						}
 						break;
 					case BenchmarkField::INTEGER_FIELD_TYPE:
 					case BenchmarkField::BOOLEAN_FIELD_TYPE:
@@ -60,8 +63,10 @@ class ProductNoteUpdater implements ItemUpdater {
 						$note = $this->calculateNote($min, $max, $value, $benchmarkField->getNoteType());
 						$item->offsetSet('integerNote' . $offset, $note);
 						
-						$overalNote += $note * $benchmarkField->getNoteWeight();
-						$count += $benchmarkField->getNoteWeight();
+						if ($note) {
+							$overalNote += $note * $benchmarkField->getNoteWeight();
+							$count += $benchmarkField->getNoteWeight();
+						}
 						break;
 					case BenchmarkField::SINGLE_ENUM_FIELD_TYPE:
 					case BenchmarkField::MULTI_ENUM_FIELD_TYPE:
@@ -72,11 +77,28 @@ class ProductNoteUpdater implements ItemUpdater {
 						$note = $this->calculateNote($min, $max, $value, $benchmarkField->getNoteType());
 						$item->offsetSet('stringNote' . $offset, $note);
 						
-						$overalNote += $note * $benchmarkField->getNoteWeight();
-						$count += $benchmarkField->getNoteWeight();
+						if ($note) {
+							$overalNote += $note * $benchmarkField->getNoteWeight();
+							$count += $benchmarkField->getNoteWeight();
+						}
 						break;
 					case BenchmarkField::STRING_FIELD_TYPE:
-						$item->offsetSet('stringNote' . $offset, 0);
+						$item->offsetSet('stringNote' . $offset, null);
+						break;
+				}
+			} else {
+				switch ($benchmarkField->getFieldType()) {
+					case BenchmarkField::DECIMAL_FIELD_TYPE:
+						$item->offsetSet('decimalNote' . $offset, null);
+						break;
+					case BenchmarkField::INTEGER_FIELD_TYPE:
+					case BenchmarkField::BOOLEAN_FIELD_TYPE:
+						$item->offsetSet('integerNote' . $offset, null);
+						break;
+					case BenchmarkField::SINGLE_ENUM_FIELD_TYPE:
+					case BenchmarkField::MULTI_ENUM_FIELD_TYPE:
+					case BenchmarkField::STRING_FIELD_TYPE:
+						$item->offsetSet('stringNote' . $offset, null);
 						break;
 				}
 			}
@@ -89,13 +111,11 @@ class ProductNoteUpdater implements ItemUpdater {
 	}
 
 	private function calculateNote($min, $max, $value, $noteType) {
-		if($value < $min) {
-			return $noteType == BenchmarkField::DESC_NOTE_TYPE ? 5. : 2.;
-		}
+		if ($value == BenchmarkField::NO_DATA_VALUE)
+			return 2.;
 		
-		if($value > $max) {
-			return $noteType == BenchmarkField::DESC_NOTE_TYPE ? 2. : 5.;
-		}
+		if ($value == BenchmarkField::NOT_RELEVANT_VALUE)
+			return null;
 		
 		if ($max > $min) {
 			if ($noteType == BenchmarkField::DESC_NOTE_TYPE) {

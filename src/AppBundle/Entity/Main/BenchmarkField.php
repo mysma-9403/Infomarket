@@ -32,6 +32,10 @@ class BenchmarkField extends Simple {
 
 	const GT_BETTER_THAN_TYPE = 20;
 
+	const NO_DATA_VALUE = - 1000601;
+
+	const NOT_RELEVANT_VALUE = - 1000602;
+
 	public function __construct() {
 		parent::__construct();
 		
@@ -88,7 +92,7 @@ class BenchmarkField extends Simple {
 	 * @var string
 	 */
 	private $nullReplacement;
-	
+
 	/**
 	 *
 	 * @var string
@@ -532,27 +536,25 @@ class BenchmarkField extends Simple {
 		return $this->category;
 	}
 
-    /**
-     * Set nullReplacement
-     *
-     * @param string $nullReplacement
-     *
-     * @return BenchmarkField
-     */
-    public function setNullReplacement($nullReplacement)
-    {
-        $this->nullReplacement = $nullReplacement;
+	/**
+	 * Set nullReplacement
+	 *
+	 * @param string $nullReplacement        	
+	 *
+	 * @return BenchmarkField
+	 */
+	public function setNullReplacement($nullReplacement) {
+		$this->nullReplacement = $nullReplacement;
+		
+		return $this;
+	}
 
-        return $this;
-    }
-
-    /**
-     * Get nullReplacement
-     *
-     * @return string
-     */
-    public function getNullReplacement()
-    {
-        return $this->nullReplacement;
-    }
+	/**
+	 * Get nullReplacement
+	 *
+	 * @return string
+	 */
+	public function getNullReplacement() {
+		return $this->nullReplacement;
+	}
 }

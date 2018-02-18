@@ -1,22 +1,33 @@
 {% for field in benchmarkFields %}
 	{% set key = field.valueField %}
-	<tr>
-		<th class="text-right">{{ field.fieldName }}</th>
-		
-		{% for compared in entries|slice(0,half) %}
-			<td class="text-center">
-				{% include 'benchmark/product/components/compare/table_benchmark_field.html.twig' %}
+	
+		{% if productValue[key] and
+			productValue[key] != 'nd' and productValue[key] != 'bd' and 
+			productValue[key] != constant('AppBundle\\Entity\\Main\\BenchmarkField::NO_DATA_VALUE') and 
+			productValue[key] != constant('AppBundle\\Entity\\Main\\BenchmarkField::NOT_RELEVANT_VALUE') %}
+		<tr>
+			<th class="text-right">{{ field.fieldName }}</th>
+			
+			{% for compared in entries|slice(0,half) %}
+				<td class="text-center">
+					{% include 'benchmark/product/components/compare/compared/product_value.twig' 
+						with { value: productValue[key], compared: productValues[compared.id][key] } %}
+				</td>
+			{% endfor %}
+			
+			<td class="selected text-center">
+				{% include 'benchmark/product/components/compare/value/product_value.twig' 
+					with { value: productValue[key] } %}
 			</td>
-		{% endfor %}
-		<td class="selected text-center">
-			{% include 'benchmark/product/components/compare/table_benchmark_selected_field.html.twig' %}
-		</td>
-		{% for compared in entries|slice(half) %}
-			<td class="text-center">
-				{% include 'benchmark/product/components/compare/table_benchmark_field.html.twig' %}
-			</td>
-		{% endfor %}
-		
-		<td></td>
-	</tr>
+			
+			{% for compared in entries|slice(half) %}
+				<td class="text-center">
+					{% include 'benchmark/product/components/compare/compared/product_value.twig' 
+						with { value: productValue[key], compared: productValues[compared.id][key] } %}
+				</td>
+			{% endfor %}
+			
+			<td></td>
+		</tr>
+	{% endif %}
 {% endfor %}
