@@ -2745,6 +2745,48 @@
             </trans-unit>
             
             
+            <trans-unit id="info.rodo.header">
+                <source>info.rodo.header</source>
+                <target>Witamy na naszej stronie internetowej!</target>
+            </trans-unit>
+            <trans-unit id="info.rodo.paragraph1">
+                <source>info.rodo.paragraph1</source>
+                <target>Od 25 maja 2018 roku obowiązuje Rozporządzenie Parlamentu Europejskiego i Rady (UE) 2016/679 z dnia 27 kwietnia 2016 r. w sprawie ochrony osób fizycznych w związku z przetwarzaniem danych osobowych i w sprawie swobodnego przepływu takich danych oraz uchylenia dyrektywy 95/46/WE.</target>
+            </trans-unit>
+            <trans-unit id="info.rodo.paragraph2">
+                <source>info.rodo.paragraph2</source>
+                <target>W związku z tym chcielibyśmy poinformować Cię o Twoich uprawnieniach oraz innych kwestiach związanych z przetwarzaniem przez nas Twoich danych osobowych.</target>
+            </trans-unit>
+            <trans-unit id="info.rodo.paragraph3">
+                <source>info.rodo.paragraph3</source>
+                <target>Przetwarzamy dane osobowe, które są zbierane w ramach korzystania przez Ciebie z naszych usług internetowych. Wyżej wymienione dane osobowe są zapisywane w plikach cookies.</target>
+            </trans-unit>
+            <trans-unit id="info.rodo.paragraph4">
+                <source>info.rodo.paragraph4</source>
+                <target>Administratorem Pani/Pana danych osobowych jest InfoMarket Sp. z o.o. z siedzibą w Warszawie, 01-982, ul Trylogii 2/16, KRS: 0000301943.</target>
+            </trans-unit>
+            <trans-unit id="info.rodo.paragraph5">
+                <source>info.rodo.paragraph5</source>
+                <target>Przetwarzamy te dane w celu dopasowania treści naszych stron internetowych i ich tematyki do Twoich zainteresowań.</target>
+            </trans-unit>
+            <trans-unit id="info.rodo.paragraph6">
+                <source>info.rodo.paragraph6</source>
+                <target>Twoje dane możemy przekazywać podmiotom przetwarzającym je na nasze zlecenie oraz podmiotom uprawnionym do uzyskania danych na podstawie obowiązującego prawa.</target>
+            </trans-unit>
+            <trans-unit id="info.rodo.paragraph7">
+                <source>info.rodo.paragraph7</source>
+                <target>Posiada Pani/Pan prawo dostępu do treści swoich danych oraz prawo ich sprostowania, usunięcia, ograniczenia przetwarzania, prawo do przenoszenia danych, prawo wniesienia sprzeciwu oraz prawo do cofnięcia zgody w dowolnym momencie.</target>
+            </trans-unit>
+            <trans-unit id="info.rodo.paragraph8">
+                <source>info.rodo.paragraph8</source>
+                <target>Ma Pan/Pani prawo wniesienia skargi do GIODO gdy uzna Pani/Pan, iż przetwarzanie danych osobowych Pani/Pana dotyczących narusza przepisy ogólnego rozporządzenia o ochronie danych osobowych z dnia 27 kwietnia 2016 r.</target>
+            </trans-unit>
+            <trans-unit id="info.rodo.paragraph9">
+                <source>info.rodo.paragraph9</source>
+                <target>Jeśli wyrażasz zgodę na przetwarzanie przez nas danych osobowych w zakresie wskazanym powyżej zaznacz przycisk „wyrażam zgodę”.</target>
+            </trans-unit>
+            
+            
             
             <trans-unit id="knp.label.next">
                 <source>Next</source>
