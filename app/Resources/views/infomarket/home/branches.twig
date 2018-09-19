@@ -23,7 +23,7 @@
 					
 					{% if branch.infomarket %}
 						<div class="col-xs-6 padding-5">
-							<div class="rect-2x1 no-padding">
+							<div class="rect-3x1 no-padding">
 								<a href="{{ path(basePath ~ mainPath, { branch: branch.id }) }}">
 									<img class="div-center img-responsive" src="{{ asset(branch.image) }}" />
 {# 									<div class="col-xs-6 rect div-top no-side-padding {{ left ? 'col-xs-push-6' : 'col-xs-pull-6' }} #}
@@ -41,7 +41,7 @@
 						</div>
 					{% else %}
 						<div class="col-xs-6 padding-5">
-								<div class="rect-2x1 no-padding">
+								<div class="rect-3x1 no-padding">
 									<img class="div-center img-responsive" src="{{ asset(branch.image) }}" />
 {# 									<div class="col-xs-6 rect div-top no-side-padding {{ left ? 'col-xs-push-6' : 'col-xs-pull-6' }} #}
 {# 										bkg-black-50">#}
