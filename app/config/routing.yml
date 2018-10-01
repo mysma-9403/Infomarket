@@ -316,8 +316,8 @@ infoprodukt_home_subdomain:
     
 # Infomarket Routing
 infomarket_advert_click:
-    path:      /adverts/click/{id}
-    defaults:  { _controller: "AppBundle:Infomarket/Advert:click" }
+    path:      /adverts/click/{id}/{replaceScheme}
+    defaults:  { _controller: "AppBundle:Infomarket/Advert:click", replaceScheme: 1 }
     
 infomarket_article:
     path:      /articles/{page}
