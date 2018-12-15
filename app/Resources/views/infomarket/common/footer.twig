@@ -1,0 +1,39 @@
+<div class="footer navbar-inverse">
+  	<div class="container-fluid">
+	   	<div class="container">
+	    	<div class="row">		
+	      		<div class="col-sm-3">
+		      		<h3>{{ 'label.infomarket.footer.title'|trans }}</h3>
+	      			<hr>
+	      			<p>
+	      				{{ 'label.infomarket.footer.address1'|trans }}<br>
+	      				{{ 'label.infomarket.footer.address2'|trans }}<br>
+	      				{{ 'label.infomarket.footer.phone'|trans }}<br>
+	      				e-mail: <a href="mailto:{{ 'label.infomarket.footer.mail'|trans }}">{{ 'label.infomarket.footer.mail'|trans }}</a>
+      				</p>
+	      		</div>
+	      		<div class="col-sm-9">
+	      			<div class="row">
+		      			{% for menuEntry in footerMenuEntries %}
+		      				<div class="col-xs-6 col-sm-3">
+			      				<h3>{{ menuEntry.name }}</h3>
+			      				<hr>
+		      					{% for subentry in menuEntry.children %}
+						      		<div>
+						      			{% if subentry.page %}
+						      				<a href="{{ path(basePath ~ 'page_show', { id: subentry.page }) }}">{{ subentry.name }}</a>
+						      			{% elseif subentry.link %}
+						      				<a href="{{ path(basePath ~ 'link_show', { id: subentry.link }) }}">{{ subentry.name }}</a>
+					      				{% else %}
+					      					{{ subentry.name }}
+						      			{% endif %}
+					      			</div>
+				      			{% endfor %}
+			      			</div>
+			      		{% endfor %}
+		      		</div>
+	      		</div>
+      		</div>
+    	</div>
+  	</div>
+</div>

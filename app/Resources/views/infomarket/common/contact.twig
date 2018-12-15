@@ -1,0 +1,57 @@
+<div class="container contact">
+	<div class="row">
+		<div class="col-sm-8">
+			<h4 class="title padding-5">
+				<span class="branch-color-{{ contextBranchId }}">{{ 'header.contact.1'|trans }}</span> 
+				<span class="text-brand">{{ 'header.contact.2'|trans }}</span>
+			</h4>
+			<p>
+				<a href="https://www.instagram.com/explore/locations/1033038631/infomarket">
+					<img class="logo" src="{{ asset('img/contact-instagram.png') }}">
+				</a>
+				<a href="http://www.facebook.com/infomarket1">
+					<img class="logo" src="{{ asset('img/contact-facebook.png') }}">
+				</a>
+				<a href="https://www.youtube.com/channel/UCpH2PHKAxnNlX-zSgJXyjpA">
+					<img class="logo" src="{{ asset('img/contact-youtube.png') }}">
+				</a>
+			</p>
+		</div>
+		<div class="col-sm-4">
+			<h4 class="title padding-5">
+				<span class="branch-color-{{ contextBranchId }}">{{ 'header.newsletter.1'|trans }}</span> 
+				<span class="text-brand">{{ 'header.newsletter.2'|trans }}</span>
+			</h4>
+			
+			{% form_theme newsletterForm 'form/fields.html.twig' %}
+			
+			{{ form_start(newsletterForm) }}
+				<ul class="list-inline no-padding">
+					<li class=" no-padding">
+						<div class='input-group input-sm no-padding'>
+							{{ form_widget(newsletterForm.name, { 'label': 'label.name', 'attr': { 'class': 'input-sm' }  }) }}
+							<span class="input-group-btn">
+								{{ form_widget(newsletterForm.save, { 'label': 'action.save', 'attr': { 'class': 'input-sm btn-danger' }  }) }}
+					      	</span>
+						</div>
+					</li>
+					<li class="hidden"> {{ form_widget(newsletterForm.subscribed) }} </li>
+				</ul>
+			{{ form_end(newsletterForm) }}
+		</div>
+	</div>
+	
+	<div class="row">
+		<div class="col-xs-12">
+			{% block errorsBlock %}
+				{% include 'common/errors.html.twig' %}
+			{% endblock %}
+		</div>
+	</div>
+			
+	<div class="row">
+		<div class="col-xs-12">
+			<h5 class="text-right text-brand title padding-5">&copy; {{ 'now'|date('Y') }} {{ 'label.footer.copyright'|trans }}</h5>
+		</div>
+	</div>
+</div>    

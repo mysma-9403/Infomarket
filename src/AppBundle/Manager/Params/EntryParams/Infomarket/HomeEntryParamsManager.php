@@ -2,7 +2,6 @@
 
 namespace AppBundle\Manager\Params\EntryParams\Infomarket;
 
-use AppBundle\Entity\Main\Article;
 use AppBundle\Entity\Main\ArticleCategory;
 use AppBundle\Entity\Main\Category;
 use AppBundle\Manager\Entity\Base\EntityManager;
@@ -11,11 +10,11 @@ use AppBundle\Manager\Params\EntryParams\Infomarket\Base\EntryParamsManager;
 use AppBundle\Manager\Utils\ArticleBrandAssignmentsManager;
 use AppBundle\Repository\Infomarket\ArticleCategoryRepository;
 use AppBundle\Repository\Infomarket\ArticleRepository;
+use AppBundle\Repository\Infomarket\BranchRepository;
 use AppBundle\Repository\Infomarket\BrandRepository;
+use AppBundle\Repository\Infomarket\CategoryRepository;
 use AppBundle\Repository\Infomarket\MagazineRepository;
 use Symfony\Component\HttpFoundation\Request;
-use AppBundle\Repository\Infomarket\BranchRepository;
-use AppBundle\Repository\Infomarket\CategoryRepository;
 
 class HomeEntryParamsManager extends EntryParamsManager {
 
@@ -29,16 +28,8 @@ class HomeEntryParamsManager extends EntryParamsManager {
 
 	const PRODUCTS_AC = 2;
 	
-	// useful section
 	const REVIEWS_AC = 15;
-
-	const LAW_AC = 12;
-
-	const HOME_LINKS_AC = 22;
-
-	const FOREIGN_LINKS_AC = 23;
-
-	const MOVIES_AC = 11;
+	
 
 	/**
 	 *
@@ -217,41 +208,6 @@ class HomeEntryParamsManager extends EntryParamsManager {
 			}
 			$viewParams['reviewsArticles'] = $articles;
 			
-			// useful article categories
-			$usefulArticleCategories = array();
-			
-			if (count($categories) > 0) {
-				$articleCategory = $this->getArticleCategory($articleCategories, self::REVIEWS_AC);
-				if ($articleCategory) {
-					$articleCategory['articles'] = $this->articleRepository->findHomeListItems($categories, 
-							self::REVIEWS_AC, 0, 1);
-					$usefulArticleCategories[] = $articleCategory;
-				}
-				
-				$articleCategory = $this->getArticleCategory($articleCategories, self::HOME_LINKS_AC);
-				if ($articleCategory) {
-					$articleCategory['articles'] = $this->articleRepository->findHomeListItems($categories, 
-							self::HOME_LINKS_AC, 0, 1);
-					$usefulArticleCategories[] = $articleCategory;
-				}
-				
-				$articleCategory = $this->getArticleCategory($articleCategories, self::FOREIGN_LINKS_AC);
-				if ($articleCategory) {
-					$articleCategory['articles'] = $this->articleRepository->findHomeListItems($categories, 
-							self::FOREIGN_LINKS_AC, 0, 1);
-					$usefulArticleCategories[] = $articleCategory;
-				}
-				
-				$articleCategory = $this->getArticleCategory($articleCategories, self::LAW_AC);
-				if ($articleCategory) {
-					$articleCategory['articles'] = $this->articleRepository->findHomeListItems($categories, 
-							self::LAW_AC, 0, 1);
-					$usefulArticleCategories[] = $articleCategory;
-				}
-			}
-			
-			$viewParams['usefulArticleCategories'] = $usefulArticleCategories;
-			
 			$magazines = $this->magazineRepository->findHomeItems($branchId);
 			$viewParams['magazines'] = $magazines;
 			
@@ -261,13 +217,6 @@ class HomeEntryParamsManager extends EntryParamsManager {
 			$branches = $this->branchRepository->findBy(['infomarket' => true], [
 					'orderNumber' => 'ASC']);
 			$viewParams['branches'] = $branches;
-			
-			// $categories = [];
-			// foreach ($branches as $branch) {
-			// $branchCategories = $this->categoryRepository->findBranchMainItems($branch->getId(), 5);
-			// $categories[$branch->getId()] = $branchCategories;
-			// }
-			// $viewParams['categories'] = $categories;
 		}
 		
 		$params['viewParams'] = $viewParams;

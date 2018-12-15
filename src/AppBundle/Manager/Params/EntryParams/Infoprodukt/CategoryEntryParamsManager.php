@@ -3,7 +3,6 @@
 namespace AppBundle\Manager\Params\EntryParams\Infoprodukt;
 
 use AppBundle\Entity\Main\Advert;
-use AppBundle\Entity\Main\Article;
 use AppBundle\Entity\Main\ArticleCategory;
 use AppBundle\Entity\Main\Category;
 use AppBundle\Entity\Main\Segment;
@@ -39,14 +38,8 @@ class CategoryEntryParamsManager extends EntryParamsManager {
 	const PRODUCTS_AC = 2;
 
 	const PROMOTIONS_AC = 1;
+
 	
-	// useful section
-	const LAW_AC = 12;
-
-	const HOME_LINKS_AC = 22;
-
-	const FOREIGN_LINKS_AC = 23;
-
 	/**
 	 *
 	 * @var AdvertRepository
@@ -209,38 +202,6 @@ class CategoryEntryParamsManager extends EntryParamsManager {
 			}
 			$viewParams['promotionsArticles'] = $articles;
 			
-			// useful article categories
-			$usefulArticleCategories = array();
-			
-			$articleCategory = $this->getArticleCategory($articleCategories, self::REVIEWS_AC);
-			if ($articleCategory) {
-				$articleCategory['articles'] = $this->articleRepository->findCategoryItems($contextCategories, 
-						self::REVIEWS_AC, 1);
-				$usefulArticleCategories[] = $articleCategory;
-			}
-			
-			$articleCategory = $this->getArticleCategory($articleCategories, self::HOME_LINKS_AC);
-			if ($articleCategory) {
-				$articleCategory['articles'] = $this->articleRepository->findCategoryItems($contextCategories, 
-						self::HOME_LINKS_AC, 1);
-				$usefulArticleCategories[] = $articleCategory;
-			}
-			
-			$articleCategory = $this->getArticleCategory($articleCategories, self::FOREIGN_LINKS_AC);
-			if ($articleCategory) {
-				$articleCategory['articles'] = $this->articleRepository->findCategoryItems($contextCategories, 
-						self::FOREIGN_LINKS_AC, 1);
-				$usefulArticleCategories[] = $articleCategory;
-			}
-			
-			$articleCategory = $this->getArticleCategory($articleCategories, self::LAW_AC);
-			if ($articleCategory) {
-				$articleCategory['articles'] = $this->articleRepository->findCategoryItems($contextCategories, 
-						self::LAW_AC, 1);
-				$usefulArticleCategories[] = $articleCategory;
-			}
-			
-			$viewParams['usefulArticleCategories'] = $usefulArticleCategories;
 		} else if ($entry->getParent() && $entry->getParent()->getPreleaf()) {
 			$viewParams['topBrands'] = $this->brandRepository->findTopItems($entry->getId());
 			$viewParams['brands'] = $this->brandRepository->findRecommendedItems($entry->getId());

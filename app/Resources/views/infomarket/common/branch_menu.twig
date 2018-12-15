@@ -1,0 +1,28 @@
+<nav class="navbar navbar-default navbar-fixed-bottom">
+	<div class="container-fluid">
+    	{% block branchBarList %}
+      			<ul class="nav navbar-nav navbar-center nav-horizontal">
+					{% block branchMenu %}
+					{% for entry in menuBranches %}
+						{% if entry.id == contextBranchId %}
+							{% set active='active' %}
+						{% else %}
+							{% set active='' %}
+						{% endif %}
+							<li class="branch-{{ entry.id }} {{ active }}">
+								{% if redirectToMainPath %}
+									<a href="{{ path(basePath ~ mainPath, { 'branch': entry.id }) }}">
+								{% else %}
+									<a href="{{ path(basePath ~ 'home', { 'branch': entry.id }) }}">
+								{% endif %}
+									<i class="fa {{ entry.icon }}"></i><span class="hidden-xs"> {{ entry.name }}</span>
+								</a>
+							</li>
+					{% else %}
+						{{ 'label.noEntries'|trans }}
+					{% endfor %}
+				{% endblock %}
+			</ul>
+		{% endblock %}
+  	</div>
+</nav>

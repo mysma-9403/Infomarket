@@ -1,0 +1,61 @@
+<div class="container contact">
+	<div class="row">
+		<div class="col-sm-8 no-padding">
+			<h4 class="title padding-5">
+				<span class="text-red">{{ 'header.contact.1'|trans }}</span> 
+				<span class="text-brand">{{ 'header.contact.2'|trans }}</span>
+			</h4>
+			
+			<p class="padding-5">
+				<a href="https://www.instagram.com/explore/locations/1033038631/infomarket">
+					<img class="logo" src="{{ asset('img/contact-instagram.png') }}">
+				</a>
+				<a href="http://www.facebook.com/infomarket1">
+					<img class="logo" src="{{ asset('img/contact-facebook.png') }}">
+				</a>
+				<a href="https://www.youtube.com/channel/UCpH2PHKAxnNlX-zSgJXyjpA">
+					<img class="logo" src="{{ asset('img/contact-youtube.png') }}">
+				</a>
+			</p>
+		</div>
+		
+		<div class="col-sm-4 no-padding">
+			<h4 class="title">
+				<span class="text-red">{{ 'header.newsletter.1'|trans }}</span> 
+				<span class="text-brand">{{ 'header.newsletter.2'|trans }}</span>
+			</h4>
+			
+			<div class="row">
+				<div class="col-xs-12 padding-5">
+					{% form_theme newsletterForm 'form/fields.html.twig' %}
+					
+					{{ form_start(newsletterForm) }}
+						<ul class="list-inline">
+							<li>
+								<div class='input-group input-sm'>
+									{{ form_widget(newsletterForm.name, { 'label': 'label.name', 'attr': { 'class': 'input-sm' }  }) }}
+									<span class="input-group-btn">
+										{{ form_widget(newsletterForm.save, { 'label': 'action.save', 'attr': { 'class': 'input-sm btn-danger' }  }) }}
+							      	</span>
+								</div>
+							</li>
+							<li class="hidden"> {{ form_widget(newsletterForm.subscribed) }} </li>
+						</ul>
+					{{ form_end(newsletterForm) }}
+				</div>
+	  		</div>
+		</div>
+	</div>
+	
+	<div class="row">
+		<div class="col-xs-12 padding-5">
+		{% block errorsBlock %}
+			{% include 'common/errors.html.twig' %}
+		{% endblock %}
+		</div>
+	</div>
+	
+	<div class="row">
+		<h5 class="text-right text-brand title padding-5">&copy; {{ 'now'|date('Y') }} {{ 'label.footer.copyright'|trans }}</h5>
+	</div>
+</div>    
