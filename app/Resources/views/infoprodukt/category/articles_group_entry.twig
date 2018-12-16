@@ -1,0 +1,27 @@
+{% set bkgColor = bkgColor | default('bkg-black-50') %}
+{% set showTitle = showTitle | default(false) %}
+
+<a class="text-white" href="{{ path(basePath ~ 'article_show', 
+	{ id: article.id, category: entry.id, article_filter_article_categories: [category.id] }) }}">
+	<div class="rect col-bottom bkg-white">
+		{% include "common/image/image_entry.html.twig" with { entry: article } %}
+		
+		<div class="col-xs-12 div-bottom padding-5 {{ bkgColor }}">
+			<div class="default-tile">
+				{% if showTitle %}
+					<h5 class="title">
+						{% for brand in article.brands %}
+		      				{{ brand.name }}  
+	      				{% endfor %}
+	      				&nbsp
+      				</h5>
+      			{% endif %}
+      				
+				<h5 class="subtitle">
+					{{ article.name | raw }}
+					{{ article.subname | raw }}
+				</h5>
+			</div>
+		</div>
+	</div>
+</a>

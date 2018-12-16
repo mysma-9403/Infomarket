@@ -59,18 +59,18 @@
 		{% block main %}				
 			<div class="col-sm-9 col-sm-pull-3">
 				<div class="col-xs-12 well">
+					<h2>
+						<span class="text-brand">{{ entry.name }}</span> 
+						<span class="text-red">{{ entry.subname }}</span>
+					</h2>
+					
 					{% for subcategory in entry.children %}
 						{% if subcategory.infoprodukt %}
-							<div class="col-sm-3">
-								{% if topProducts and subcategory.preleaf == false %}
-									{% include 'common/bottom_rect_tile.html.twig' with 
-										{'entry': subcategory, routeParams: { category: subcategory.id, top_products: topProducts } } %}
-								{% else %}
-									{% include 'common/bottom_rect_tile.html.twig' with 
-										{'entry': subcategory, routeParams: { category: subcategory.id }  } %}
-								{% endif %}
-							</div>
+							{% include 'common/category/subcategory_entry.twig' with 
+								{'entry': subcategory, routeParams: { category: subcategory.id }  } %}
 						{% endif %}
+					{% else %}
+						<p>{{ 'label.noEntries'|trans }}</p>
 					{% endfor %}
 				</div>
 			</div>

@@ -1,0 +1,10 @@
+{% set bkgColor = bkgColor | default('bkg-black-50') %}
+{% set numOfArticles = numOfArticles | default(6) %}
+{% set showTitle = showTitle | default(false) %}
+
+{% for article in articles | slice(0, numOfArticles) %}
+	<div class="col-sm-2 padding-5">
+		{% include "infoprodukt/category/articles_group_entry.twig" with
+			{ bkgColor: bkgColor, showTitle: showTitle } %}
+	</div>
+{% endfor %}

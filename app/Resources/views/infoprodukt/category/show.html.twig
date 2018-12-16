@@ -7,10 +7,12 @@
 
 {% block content %}
 	
-	{% if topProducts == false and entry.preleaf %}
-		{% include 'infoprodukt/category/show_category.html.twig' %}
-	{% elseif entry.parent and entry.parent.preleaf %}
-		{% include 'infoprodukt/category/show_ratings.html.twig' %}
+	{% if entry.preleaf %}
+		{% if topProducts == false %}
+			{% include 'infoprodukt/category/show_category.html.twig' %}
+		{% else %}
+			{% include 'infoprodukt/category/show_ratings.twig' %}
+		{% endif %}
 	{% else %}
 		{% include 'infoprodukt/category/show_subcategories.html.twig' %}
 	{% endif %}

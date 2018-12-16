@@ -112,7 +112,7 @@ class CategoryEntryParamsManager extends EntryParamsManager {
 		
 		$advertLocations = array();
 		
-		if (! $topProducts && $entry->getPreleaf()) {
+		if ($entry->getPreleaf() && !$topProducts) {
 			$advertLocations[] = Advert::FEATURED_LOCATION;
 			
 			$categories = [$entry];
@@ -202,7 +202,7 @@ class CategoryEntryParamsManager extends EntryParamsManager {
 			}
 			$viewParams['promotionsArticles'] = $articles;
 			
-		} else if ($entry->getParent() && $entry->getParent()->getPreleaf()) {
+		} else {
 			$viewParams['topBrands'] = $this->brandRepository->findTopItems($entry->getId());
 			$viewParams['brands'] = $this->brandRepository->findRecommendedItems($entry->getId());
 			

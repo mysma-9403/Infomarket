@@ -1,0 +1,38 @@
+{% set bkgColor = bkgColor | default('bkg-black-50') %}
+{% set showTitle = showTitle | default(false) %}
+
+{% if entry.magazineCategoryAssignments|length > 0 %}	
+	{% set magazine = entry.magazineCategoryAssignments|first.magazine %}
+	
+	<div class="container">
+		<div class="row lifted-top">
+			{% block magazineBlock %}
+				<div class="col-sm-2 col-sm-push-10 padding-5">
+					{% include 'common/tiles/magazine_tile.html.twig' with { entry: magazine, 
+						magazineTitle: 'label.magazine.download'|trans, magazineSubtitle: 'label.magazine.currentNumber'|trans } %}
+				</div>
+			{% endblock %}
+			
+			{% for article in mainArticles | slice(0,10) %}
+				<div class="col-sm-2 col-sm-pull-2 padding-5">
+					{% include "infoprodukt/category/articles_group_entry.twig" with
+						{ bkgColor: bkgColor, showTitle: showTitle } %}
+				</div>
+			{% endfor %}
+		</div>
+		
+		{% include 'infoprodukt/category/articles_more.twig' with 
+			{ category: mainCategory, articles: mainArticles, numOfArticles: 10 } %}
+	</div>
+{% else %}
+	<div class="container">
+		<div class="row lifted-top">
+			{% include 'infoprodukt/category/articles_group.twig' with 
+				{ category: mainCategory, articles: mainArticles, numOfArticles: 12 } %}
+		</div>
+		
+		
+		{% include 'infoprodukt/category/articles_more.twig' with 
+			{ category: mainCategory, articles: mainArticles, numOfArticles: 12 } %}
+	</div>
+{% endif %}
