@@ -17,46 +17,26 @@
 		
 		{% block branches %}
 			<div class="row">
-				{% set i = 0 %}
 				{% for branch in branches %}
-					{% set left = i % 2 == 0 %}
-					
-					{% if branch.infomarket %}
-						<div class="col-xs-6 padding-5">
-							<div class="rect-3x1 no-padding">
+					<div class="col-xs-12 padding-5 no-side-padding">
+						<div class="rect-3x1 no-padding">
+							{% if branch.infomarket %}
 								<a href="{{ path(basePath ~ mainPath, { branch: branch.id }) }}">
-									<img class="div-center img-responsive" src="{{ asset(branch.image) }}" />
-{# 									<div class="col-xs-6 rect div-top no-side-padding {{ left ? 'col-xs-push-6' : 'col-xs-pull-6' }} #}
-{# 										opacity-50 bkg-branch-{{ branch.id }}">#}
-{# 									</div>#}
-{# 									<div class="col-xs-6 div-top padding-5 {{ left ? 'col-xs-push-6' : 'col-xs-pull-6' }}">#}
-{# 										{% for category in categories[branch.id] %}#}
-{# 											<h3 class="text-white {{ left ? 'text-right' : '' }}">#}
-{# 												{{ category.name }} {{ category.subname }}#}
-{# 											</h3>#}
-{# 										{% endfor %}#}
-{# 									</div>#}
+							{% endif %}
+							
+							<img class="div-center img-responsive" src="{{ asset(branch.image) }}" />
+							
+							<div class="col-xs-12 bkg-black-50">
+								<h2 class="text-center text-white">
+									{{ branch.name | upper }}
+								</h2>
+							</div>
+							
+							{% if branch.infomarket %}
 								</a>
-							</div>
+							{% endif %}
 						</div>
-					{% else %}
-						<div class="col-xs-6 padding-5">
-								<div class="rect-3x1 no-padding">
-									<img class="div-center img-responsive" src="{{ asset(branch.image) }}" />
-{# 									<div class="col-xs-6 rect div-top no-side-padding {{ left ? 'col-xs-push-6' : 'col-xs-pull-6' }} #}
-{# 										bkg-black-50">#}
-{# 									</div>#}
-{# 									<div class="col-xs-6 div-top padding-5 {{ left ? 'col-xs-push-6' : 'col-xs-pull-6' }}">#}
-{# 										{% for category in categories[branch.id] %}#}
-{# 											<h3 class="text-white {{ left ? 'text-right' : '' }}">#}
-{# 												{{ category.name }} {{ category.subname }}#}
-{# 											</h3>#}
-{# 										{% endfor %}#}
-{# 									</div>#}
-								</div>
-							</div>
-					{% endif %}
-					{% set i = i+1 %}
+					</div>
 				{% endfor %}
 			</div>
 		{% endblock %}
