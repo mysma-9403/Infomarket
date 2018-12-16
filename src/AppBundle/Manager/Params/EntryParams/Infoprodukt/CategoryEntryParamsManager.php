@@ -112,7 +112,7 @@ class CategoryEntryParamsManager extends EntryParamsManager {
 		
 		$advertLocations = array();
 		
-		if ($entry->getPreleaf() && !$topProducts) {
+		if (!$topProducts && $entry->getPreleaf()) {
 			$advertLocations[] = Advert::FEATURED_LOCATION;
 			
 			$categories = [$entry];

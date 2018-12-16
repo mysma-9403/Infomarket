@@ -1,0 +1,13 @@
+{% set tileTitle = "" %}
+{% set tileSubtitle = entry.name ~ " " ~ entry.subname %}
+
+{% if entry.brands is defined %}
+	{% for brand in entry.brands %}
+		{% set tileTitle = tileTitle ~ " " ~ brand.name %}  
+	{% endfor %}
+{% else %}
+	{% set hideTitle = true %}
+{% endif %}
+
+{% include 'common/tiles/bottom_rect_tile.twig' with { routeParams: {id: entry.id, category: categoryId, 
+		article_filter_article_categories: [articleCategoryId] } } %}

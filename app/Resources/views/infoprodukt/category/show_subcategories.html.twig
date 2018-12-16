@@ -32,12 +32,12 @@
 				<div class="col-xs-12 well">
 					{% for subcategory in entry.children %}
 						{% if subcategory.infoprodukt %}
-							<div class="col-sm-3">
+							<div class="col-sm-3 padding-5">
 								{% if topProducts and subcategory.preleaf == false %}
-									{% include 'common/bottom_rect_tile.html.twig' with 
+									{% include 'common/tiles/bottom_rect_tile.twig' with 
 										{'entry': subcategory, routeParams: { category: subcategory.id, top_products: topProducts } } %}
 								{% else %}
-									{% include 'common/bottom_rect_tile.html.twig' with 
+									{% include 'common/tiles/bottom_rect_tile.twig' with 
 										{'entry': subcategory, routeParams: { category: subcategory.id }  } %}
 								{% endif %}
 							</div>

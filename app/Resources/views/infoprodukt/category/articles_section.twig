@@ -4,17 +4,15 @@
 
 <div class="container">
 	<div class="row">
-		<h4 class="title padding-5">
+		<h4 class="title left-padding-5 no-more-padding">
 			<span class="text-red">{{ category.name }}</span> 
 			<span class="text-brand">{{ category.subname }}</span>
 		</h4>
 	</div>
 	
 	<div class="row">
-		{% include "infoprodukt/category/articles_group.twig" with 
-			{ numOfArticles: numOfArticles, bkgColor: bkgColor, showTitle: showTitle } %}
+		{% include "infoprodukt/category/articles_group.twig" %}
 	</div>
 	
-	{% include 'infoprodukt/category/articles_more.twig' with 
-		{ numOfArticles: numOfArticles } %}
+	{% include 'infoprodukt/category/articles_more.twig' %}
 </div>

@@ -16,6 +16,8 @@
 
 @import "common\signin.less";
 
+@import "common\forms.less";
+
 
 
 html, body {
@@ -137,17 +139,7 @@ h2.title {
 	margin-top: -10px;
 }
 
-.title {
-	padding-top: 0px;
-	margin-top: 0px;
-	padding-bottom: 0px;
-	margin-bottom: 0px;
-}
 
-.subtitle {
-	padding-top: 0px;
-	margin-top: 0px;
-}
 
 
 
@@ -168,6 +160,14 @@ ul.side li {
 .no-padding {
 	margins: 0 !important;
 	padding: 0 !important;
+}
+
+.no-vertical-padding {
+	margin-top: 0 !important;
+	margin-bottom: 0 !important;
+	
+	padding-top: 0 !important;
+	padding-bottom: 0 !important;
 }
 
 .no-side-padding {
@@ -192,8 +192,29 @@ ul.side li {
 }
 
 .padding-5 {
-	margins: 5px;
+	margins: 0px;
 	padding: 5px;
+}
+
+.left-padding-5 {
+	margin-left: 0px;
+	padding-left: 5px;
+}
+
+.horizontal-padding-5 {
+	margin-left: 0px;
+	margin-right: 0px;
+	
+	padding-left: 5px;
+	padding-right: 5px;
+}
+
+.vertical-padding-5 {
+	margin-top: 0px;
+	margin-bottom: 0px;
+	
+	padding-top: 5px;
+	padding-bottom: 5px;
 }
 
 

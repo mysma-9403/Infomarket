@@ -1,10 +1,9 @@
-{% set bkgColor = bkgColor | default('bkg-black-50') %}
 {% set numOfArticles = numOfArticles | default(6) %}
-{% set showTitle = showTitle | default(false) %}
+{% set colMoreClass = colMoreClass | default("") %}
 
 {% for article in articles | slice(0, numOfArticles) %}
-	<div class="col-sm-2 padding-5">
-		{% include "infoprodukt/category/articles_group_entry.twig" with
-			{ bkgColor: bkgColor, showTitle: showTitle } %}
+	<div class="col-sm-2 padding-5 {{ colMoreClass }}">
+		{% include 'common/tiles/article_bottom_rect_tile.twig' with { entryPath: "article",  
+			entry: article, categoryId: entry.id, articleCategoryId: category.id } %}
 	</div>
 {% endfor %}

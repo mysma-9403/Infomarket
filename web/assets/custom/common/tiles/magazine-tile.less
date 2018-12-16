@@ -1,10 +1,22 @@
 .magazine-tile {
+	margin: 0px;
+	padding: 0px;
 }
 
 .magazine-img-tile {
 	padding: 4px;
 	
 	background-color: @blue;
+}
+
+.magazine-img-rect {
+	position: relative;
+	overflow: hidden;
+	width: 100%;
+	height: auto;
+	padding-top: 135%;
+	
+	background-color: @white;
 }
 
 .magazine-title-tile {
@@ -23,6 +35,22 @@
 	background-color: @red;
 }
 
+.magazine-tile h4 {
+	margin: 0px;
+	padding: 2px;
+	
+	text-align: center;
+}
+
+.magazine-title-tile h4 {
+	font-size: 18px;
+	font-weight: bold;
+}
+
+.magazine-subtitle-tile h4 {
+	font-size: 16px;
+}
+
 .magazine-tile a {
 	color: @white;
 }
@@ -30,33 +58,4 @@
 .magazine-tile a:hover,
 .magazine-tile a:active {
 	color: @gray-light;
-}
-
-.magazine-img-rect {
-	position: relative;
-	overflow: hidden;
-	width: 100%;
-	height: auto;
-	padding-top: 135%;
-	
-	background-color: @white;
-}
-
-.magazine-title-tile h3 {
-	margin: 0px;
-	padding: 2px;
-	
-	font-size: 18px;
-	font-weight: bold;
-	
-	text-align: center;
-}
-
-.magazine-subtitle-tile h4 {
-	margin: 0px;
-	padding: 2px;
-	
-	font-size: 16px;
-	
-	text-align: center;
 }

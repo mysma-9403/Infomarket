@@ -1,17 +1,23 @@
 {% set numOfArticles = numOfArticles | default(6) %}
-{% set colPush = colPush | default("col-sm-push-10") %}
+
+{% set entriesPerRow = entriesPerRow | default(6) %}
+{% set lastRowArticles = numOfArticles % entriesPerRow %}
+{% if lastRowArticles <= 0 %}
+	{% set lastRowArticles = entriesPerRow %}
+{% endif %}
+
+{% set colPushValue = 2 * lastRowArticles - 2 %}
+{% set colPush = "col-sm-push-" ~ colPushValue %}
 
 <div class="row">
 	<div class="col-sm-2 padding-5 {{ colPush }}">
-		<h5 class="title">
-			{% if articles|length >= numOfArticles %}
-				<a href={{ path('infoprodukt_article', { category: entry.id, 
-					article_filter_article_categories: [category.id] }) }} class="text-red">
-					{{ 'label.more'|trans }}
-				</a>
-			{% else %}
-				&nbsp
-			{% endif %}
-		</h5>
+		{% if articles|length >= numOfArticles %}
+			<a class="text-bold" href={{ path('infoprodukt_article', { category: entry.id, 
+				article_filter_article_categories: [category.id] }) }} class="text-red">
+				{{ 'label.more'|trans }}
+			</a>
+		{% else %}
+			&nbsp
+		{% endif %}
 	</div>
 </div>

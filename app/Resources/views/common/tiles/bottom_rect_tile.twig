@@ -1,0 +1,43 @@
+{% set entryPath = entryPath | default(mainPath) %}
+{% set extPath = extPath | default('_show') %}
+
+{% if routeParams is not defined %}
+	{% set routeParams = { 'id': entry.id } %}
+{% elseif extPath %}
+	{% set routeParams = routeParams|merge({ 'id': entry.id }) %}
+{% endif %}
+
+{% set alternate = alternate | default(false) %}
+{% set bkgPrimary = bkgPrimary | default('bkg-brand') %}
+{% set bkgSecondary = bkgSecondary | default('bkg-red') %}
+
+{% set hideTitle = hideTitle | default(false) %}
+{% set hideSubtitle = hideSubtitle | default(false) %}
+
+{% set tileTitle = tileTitle | default(entry.name | raw) %}
+{% set tileSubtitle = tileSubtitle | default(entry.subname | raw) %}
+
+<div class="bottom-rect-tile">
+	<a class="text-white" href="{{ path(basePath ~ entryPath ~ extPath, routeParams) }}">
+		<div class="rect bkg-white">
+			{% if entry.image %}
+				<img class="div-center img-{{ entry.vertical ? '' : 'v' }}responsive" 
+					alt="{{ entry.name | raw }}" src="{{ asset(entry.image) }}">
+			{% endif %}
+		</div>
+		
+		{% if not hideTitle %}
+			<div class="col-xs-12 bottom-title-tile 
+				{{ alternate and loop.index % 2 ? bkgSecondary : bkgPrimary }}">
+				<h4>{{ tileTitle }}&nbsp</h4>
+			</div>
+		{% endif %}
+		
+		{% if not hideSubtitle %}
+			<div class="col-xs-12 bottom-subtitle-tile 
+				{{ alternate and loop.index % 2 ? bkgPrimary : bkgSecondary }}">
+				<h4>{{ tileSubtitle }}&nbsp</h4>
+			</div>
+		{% endif %}
+	</a>
+</div>
