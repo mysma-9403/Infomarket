@@ -23,36 +23,7 @@
 	<div class="row">
 		{% block sidebar %}
 			<div class="col-sm-3 col-sm-push-9">
-				<div class="col-xs-12 well">
-					{% block sidebarContent %}
-					
-						{% block userBlock %}
-							<h3>{{ 'label.user'|trans }}</h3>
-							{% include 'common/menu/user_menu.html.twig' %}
-						{% endblock %}
-						
-						{% block sectionsBlock %}
-							<h3>{{ 'label.sections'|trans }}</h3>
-							
-							{% include 'infoprodukt/common/sections.html.twig' with { 'category': entry } %}
-						{% endblock %}
-						
-					{% endblock %}
-				</div>
-				
-				<div class="col-xs-12 no-padding">
-					{% block sidebarAds %}
-						<div id="sideAdsCarousel" class="carousel slide sidebar-carousel" data-ride="carousel">
-						  	<div class="carousel-inner" role="listbox">
-								{% for advert in sideAds %}
-						    		<div class="item rect-1x2 {{ loop.index == 1 ? 'active' : '' }}">
-							    		{% include 'common/advert/advert_entry.html.twig' with { 'entry': advert } %}
-								    </div>
-							    {% endfor %}
-						  	</div>
-					  	</div>
-					{% endblock %}
-				</div>
+				{% include "infoprodukt/common/sidebar.twig" %}
 			</div>
 		{% endblock %}
 	

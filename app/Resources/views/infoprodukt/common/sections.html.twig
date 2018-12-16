@@ -17,7 +17,7 @@
 	
 	<li role="presentation" class="{{ mainPath == 'category' ? 'active' : ''}}">
 		<a href="{{ path(basePath ~ 'category' ~ (preleafCategoryId ? '_show' : ''), { id: preleafCategoryId, category: preleafCategoryId, top_products: 1 }) }}">
-			{{ childCategoryId ? 'label.rating.topProducts'|trans : 'label.categories'|trans }}
+			{{ childCategoryId ? 'label.subcategories'|trans : 'label.categories'|trans }}
 		</a>
 	</li>
 	

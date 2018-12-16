@@ -1,0 +1,9 @@
+<div id="sideAdsCarousel" class="carousel slide sidebar-carousel" data-ride="carousel">
+  	<div class="carousel-inner" role="listbox">
+		{% for advert in sideAds %}
+    		<div class="item rect-1x2 {{ loop.index == 1 ? 'active' : '' }}">
+	    		{% include 'common/advert/advert_entry.html.twig' with { 'entry': advert } %}
+		    </div>
+	    {% endfor %}
+	</div>
+</div>

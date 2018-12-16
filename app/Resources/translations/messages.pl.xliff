@@ -120,6 +120,10 @@
                 <source>label.categories</source>
                 <target>Kategorie</target>
             </trans-unit>
+            <trans-unit id="label.subcategories">
+                <source>label.subcategories</source>
+                <target>Podkategorie</target>
+            </trans-unit>
            	<trans-unit id="label.link">
                 <source>label.link</source>
                 <target>Link</target>
