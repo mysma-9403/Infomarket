@@ -26,6 +26,7 @@ use AppBundle\Repository\Infomarket\CategoryRepository;
 use AppBundle\Manager\Params\Base\ParamsManager;
 use AppBundle\Factory\Item\Base\ItemFactory;
 use AppBundle\Repository\Admin\Assignments\ProductCategoryAssignmentRepository;
+use Symfony\Component\HttpFoundation\Response;
 
 abstract class InfomarketController extends StandardController {
 
@@ -67,7 +68,8 @@ abstract class InfomarketController extends StandardController {
 		
 		$viewParams = $params['viewParams'];
 		
-		return $this->render($this->getIndexView(), $viewParams);
+		$response = $this->render($this->getIndexView(), $viewParams);
+		return $this->getCachedResponse($response);
 	}
 
 	/**
@@ -95,7 +97,18 @@ abstract class InfomarketController extends StandardController {
 		
 		$viewParams = $params['viewParams'];
 		
-		return $this->render($this->getShowView(), $viewParams);
+		$response = $this->render($this->getShowView(), $viewParams);
+		return $this->getCachedResponse($response);
+	}
+	
+	protected function getCachedResponse(Response $response)
+	{
+		$response->setPublic();
+		$response->setMaxAge(604800);
+		$response->setSharedMaxAge(604800);
+		$response->headers->addCacheControlDirective('must-revalidate', true);
+		
+		return $response;
 	}
 	
 	// ---------------------------------------------------------------------------

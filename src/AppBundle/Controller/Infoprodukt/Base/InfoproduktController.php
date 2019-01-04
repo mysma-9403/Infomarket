@@ -22,6 +22,7 @@ use AppBundle\Repository\Infoprodukt\CategoryRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Factory\Item\Base\ItemFactory;
+use Symfony\Component\HttpFoundation\Response;
 
 abstract class InfoproduktController extends StandardController {
 	
@@ -63,7 +64,8 @@ abstract class InfoproduktController extends StandardController {
 		
 		$viewParams = $params['viewParams'];
 		
-		return $this->render($this->getIndexView(), $viewParams);
+		$response = $this->render($this->getIndexView(), $viewParams);
+		return $this->getCachedResponse($response);
 	}
 
 	/**
@@ -91,7 +93,18 @@ abstract class InfoproduktController extends StandardController {
 		
 		$viewParams = $params['viewParams'];
 		
-		return $this->render($this->getShowView(), $viewParams);
+		$response = $this->render($this->getShowView(), $viewParams);
+		return $this->getCachedResponse($response); 
+	}
+	
+	protected function getCachedResponse(Response $response)
+	{
+		$response->setPublic();
+		$response->setMaxAge(604800);
+		$response->setSharedMaxAge(604800);
+		$response->headers->addCacheControlDirective('must-revalidate', true);
+	
+		return $response;
 	}
 	
 	// ---------------------------------------------------------------------------

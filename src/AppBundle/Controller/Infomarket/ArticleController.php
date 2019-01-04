@@ -75,7 +75,8 @@ class ArticleController extends InfomarketController {
 		
 		$viewParams = $params['viewParams'];
 		
-		return $this->render($this->getShowView(), $viewParams);
+		$response = $this->render($this->getShowView(), $viewParams);
+		return $this->getCachedResponse($response);
 	}
 	
 	// ---------------------------------------------------------------------------
