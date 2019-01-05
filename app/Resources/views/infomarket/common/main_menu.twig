@@ -19,7 +19,14 @@
 			      		
 			      		{% block navigationBrand %}
 						<a class="navbar-brand" href="{{ path('infomarket_home') }}">
-							<img class="brand-image" src="{{ asset('img/logo-infomarket-mini.png') }}">
+							<img class="brand-image" src="{{ asset('img/logo-infomarket.png') }}"
+								srcset="{{ asset('img/logo-infomarket-64.png') }} 0.5x,
+										{{ asset('img/logo-infomarket-128.png') }} 1x,
+										{{ asset('img/logo-infomarket-258.png') }} 2x,
+										{{ asset('img/logo-infomarket-512.png') }} 4x,
+										{{ asset('img/logo-infomarket-768.png') }} 6x,
+										{{ asset('img/logo-infomarket-992.png') }} 7.75x,
+		             					{{ asset('img/logo-infomarket-1200.png') }} 9.375x">
 						</a>
 						{% endblock %}
 			    	</div>
