@@ -51,7 +51,7 @@
 							{% for category in menuCategories %}
 							<li>
 								<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-									<img style="vertical-align: bottom;" alt="{{ 'label.category.icon'|trans }}" 
+									<img class="align-bottom" alt="{{ 'label.category.icon'|trans }}" 
 										src="{{ asset(category.iconImage ? category.iconImage : 'img/icon.png') }}">
 									<span class="text-red"> {{ category.name }} {{ category.subname }}</span>
 									<span class="caret"></span>
@@ -74,7 +74,7 @@
 							{% endfor %}
 							<li>
 								<a href="{{ path(basePath ~ 'category') }}">
-									<img style="vertical-align: bottom;" alt="{{ 'label.category.icon'|trans }}" 
+									<img class="align-bottom" alt="{{ 'label.category.icon'|trans }}" 
 										src="{{ asset('img/icon-all.png') }}">
 									<span class="text-brand"> {{ 'label.all'|trans }}</span>
 								</a>

@@ -21,8 +21,7 @@
 	<a class="text-white" href="{{ path(basePath ~ entryPath ~ extPath, routeParams) }}">
 		<div class="rect bkg-white">
 			{% if entry.image %}
-				<img class="div-center img-{{ entry.vertical ? '' : 'v' }}responsive" 
-					alt="{{ entry.name | raw }}" src="{{ asset(entry.image) }}">
+				{% include 'common/image/image_entry.html.twig' %}
 			{% endif %}
 		</div>
 		

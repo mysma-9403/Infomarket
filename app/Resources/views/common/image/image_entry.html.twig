@@ -2,36 +2,38 @@
 	{% set tile = tile|default(false) %}
 	
 	{% if entry.forcedWidth and entry.forcedWidth > 0 %}
-		{% set forcedWidth = 'width:' ~ entry.forcedWidth ~ '%;' %}
+		{% set forcedWidth = 'width:' ~ entry.forcedWidth ~ 'px;' %}
 	{% else %}
 		{% set forcedWidth = '' %}
 	{% endif %}
 
 	{% if entry.forcedHeight and entry.forcedHeight > 0 %}
-		{% set forcedHeight = 'height:' ~ entry.forcedHeight ~ '%;' %}
+		{% set forcedHeight = 'height:' ~ entry.forcedHeight ~ 'px;' %}
 	{% else %}
 		{% set forcedHeight = '' %}
 	{% endif %}
 	
 	{% if forcedWidth|length == 0 and forcedHeight|length == 0 %}
+		{% set forcedStyle = '' %}
 		{% if tile %}
 			{% set responsive = 'img-' ~ (entry.vertical ? '' : 'v') ~ 'responsive' %}
 		{% else %}
 			{% set responsive = 'img-' ~ (entry.vertical ? 'v' : '') ~ 'responsive' %}
 		{% endif %}
 	{% else %}
+		{% set forcedStyle = 'style=' ~ forcedWidth ~ forcedHeight %}
 		{% set responsive = '' %}
 	{% endif %}
 
 	
 	{% if entry.mimeType == "application/x-shockwave-flash" %}
 		<object type="application/x-shockwave-flash" data="{{ asset(entry.image) }}"
-		class="div-center {{ responsive }}" style="{{ forcedWidth }}{{ forcedHeight }}">
+		class="div-center {{ responsive }}" {{ forcedStyle }}>
 			<param name="movie" value="{{ asset(entry.image) }}" />
 			<param name="quality" value="high"/>
 		</object>	
 	{% else %}
-		<img class="div-center {{ responsive }}" style="{{ forcedWidth }}{{ forcedHeight }}"
+		<img class="div-center {{ responsive }}" {{ forcedStyle }}
 			alt="{{ entry.name | raw }}" src="{{ asset(entry.image) }}" />
 	{% endif %}
 {% endif %}
