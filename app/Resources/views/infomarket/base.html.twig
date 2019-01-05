@@ -13,9 +13,9 @@
 		{% endblock %}
 		
 		{% if menuBranches is defined %}
-			{% for entry in menuBranches %}
-				<style>
-					<!--
+			<style>
+				<!--
+				{% for entry in menuBranches %}
 					.navbar-default .navbar-nav > .active.branch-{{ entry.id }} > a {
 						color: {{ entry.color }};
 						background-color: #f2f2f2;
@@ -27,34 +27,36 @@
 						color: {{ entry.color }};
 						background-color: #f2f2f2;
 					}
-					
-					.home-link.branch-{{ entry.id }} a {
-						color: {{ entry.color }};
-					}
-					
-					.branch-color-{{ entry.id }} {
-						color: {{ entry.color }};
-						border-color: {{ entry.color }} !important;
-					}
-					
-					a.branch-color-{{ entry.id }},
-					a .branch-color-{{ entry.id }} {
-						color: {{ entry.color }};
-					}
-					
-					a:hover.branch-color-{{ entry.id }},
-					a:focus.branch-color-{{ entry.id }},
-					a:hover .branch-color-{{ entry.id }},
-					a:focus .branch-color-{{ entry.id }} {
-						color: {{ entry.activeColor }};
-					}
-					
-					.bkg-branch-{{ entry.id }} {
-						background-color: {{ entry.color }};
-					}
-					-->
-				</style>
-			{% endfor %}
+						
+					{% if entry.id == contextBranchId %}
+						.home-link.branch-{{ entry.id }} a {
+							color: {{ entry.color }};
+						}
+						
+						.branch-color-{{ entry.id }} {
+							color: {{ entry.color }};
+							border-color: {{ entry.color }} !important;
+						}
+						
+						a.branch-color-{{ entry.id }},
+						a .branch-color-{{ entry.id }} {
+							color: {{ entry.color }};
+						}
+						
+						a:hover.branch-color-{{ entry.id }},
+						a:focus.branch-color-{{ entry.id }},
+						a:hover .branch-color-{{ entry.id }},
+						a:focus .branch-color-{{ entry.id }} {
+							color: {{ entry.activeColor }};
+						}
+						
+						.bkg-branch-{{ entry.id }} {
+							background-color: {{ entry.color }};
+						}
+					{% endif %}
+				{% endfor %}	
+				-->
+			</style>
 		{% endif %}
 
     </head>
@@ -97,6 +99,5 @@
 		
 		{% block body %}
         {% endblock %}
-        <p id="demo"></p>
     </body>
 </html>
