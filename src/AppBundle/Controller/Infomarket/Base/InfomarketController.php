@@ -69,7 +69,7 @@ abstract class InfomarketController extends StandardController {
 		$viewParams = $params['viewParams'];
 		
 		$response = $this->render($this->getIndexView(), $viewParams);
-		return $this->getCachedResponse($response);
+		return $response; //return $this->getCachedResponse($response);
 	}
 
 	/**
@@ -98,7 +98,7 @@ abstract class InfomarketController extends StandardController {
 		$viewParams = $params['viewParams'];
 		
 		$response = $this->render($this->getShowView(), $viewParams);
-		return $this->getCachedResponse($response);
+		return $response; //return $this->getCachedResponse($response);
 	}
 	
 	protected function getCachedResponse(Response $response)
