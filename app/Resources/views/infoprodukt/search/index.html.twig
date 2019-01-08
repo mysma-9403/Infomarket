@@ -3,6 +3,10 @@
 {% set title = 'label.search'|trans %}
 {% set mainPath = 'search' %}
 		
+{% block moreMeta %}
+	<meta name="robots" content="noindex, nofollow">
+{% endblock %}
+
 {% block mainContent %}
 		
 	{% block categories %}

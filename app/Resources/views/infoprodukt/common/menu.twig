@@ -50,7 +50,8 @@
 						
 							{% for category in menuCategories %}
 							<li>
-								<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+								<a rel="nofollow" href="#" class="dropdown-toggle" data-toggle="dropdown" 
+									role="button" aria-haspopup="true" aria-expanded="false">
 									<img class="align-bottom" alt="{{ 'label.category.icon'|trans }}" 
 										src="{{ asset(category.iconImage ? category.iconImage : 'img/icon.png') }}">
 									<span class="text-red"> {{ category.name }} {{ category.subname }}</span>

@@ -3,6 +3,9 @@
     <head>
     	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" charset="UTF-8" />
     	
+    	{% block moreMeta %}
+    	{% endblock %}
+    	
         <title>{% block title %}Welcome!{% endblock %}</title>
         
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
@@ -11,53 +14,6 @@
 			<link rel="stylesheet" href="{{ asset('css/infoprodukt.min.css') }}">
 			<link rel="stylesheet" href="{{ asset('css/font-awesome.min.css') }}">
 		{% endblock %}
-		
-		{% block styles %}
-			<style>
-			<!--
-				{% if branches is defined %}
-					{% for entry in branches %}
-						.navbar-default .navbar-nav > .active.branch-{{ entry.id }} a {
-							color: {{ entry.color }};
-							background: #f2f2f2;
-						}
-						
-						.navbar-default .navbar-nav > .branch-{{ entry.id }} a:hover,
-						.navbar-default .navbar-nav > .branch-{{ entry.id }} a:focus {
-							color: {{ entry.color }};
-							background: #f2f2f2;
-						}
-						
-						.active.branch-{{ entry.id }} a {
-							color: {{ entry.color }};
-							background: #f2f2f2;
-						}
-						
-						
-						.home-link.branch-{{ entry.id }} a {
-							color: {{ entry.color }};
-						}
-						
-						.branch-color-{{ entry.id }} {
-							color: {{ entry.color }};
-						}
-						
-						.branch-white-{{ entry.id }} a:hover {
-							color: {{ entry.color }};
-						}
-						
-						.tile.branch-{{ entry.id }} {
-							background-color: {{ entry.color }};
-						}
-					{% endfor %}
-				{% endif %}
-				
-				{% block baseMoreStyles %}
-				{% endblock %}
-			-->
-			</style>
-		{% endblock %}
-
     </head>
     <body>
     	{% block javascript %}

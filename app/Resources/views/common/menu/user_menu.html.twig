@@ -1,15 +1,15 @@
 {% if app.user %}
 	<p>
 		{{ 'label.welcome'|trans }} {{ app.user.username }},<br> 
-		<a href="{{ path('fos_user_security_logout') }}">
+		<a rel="nofollow" href="{{ path('fos_user_security_logout') }}">
 			{{ 'action.logout'|trans }}
 		</a>
 	</p>
 {% else %}
 	<p>
-		<a href="{{ path('fos_user_security_login') }}">{{ 'action.login'|trans }}</a>
+		<a rel="nofollow" href="{{ path('fos_user_security_login') }}">{{ 'action.login'|trans }}</a>
 	</p>
 	<p>
-		<a href="{{ path('fos_user_registration_register') }}">{{ 'action.register'|trans }}</a>
+		<a rel="nofollow" href="{{ path('fos_user_registration_register') }}">{{ 'action.register'|trans }}</a>
 	</p>
 {% endif %}

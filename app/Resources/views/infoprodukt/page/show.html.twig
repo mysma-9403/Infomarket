@@ -5,7 +5,7 @@
 {% block moreBreadcrumbs %}
 	{% if category is defined %}
 		/ 
-		<a href="{{ path(basePath ~ 'category_show', { id: category.id, category: category.preleaf ? category.id : category.parent.id }) }}">{{ category.name }}</a>
+		<a rel="nofollow" href="{{ path(basePath ~ 'category_show', { id: category.id, category: category.preleaf ? category.id : category.parent.id }) }}">{{ category.name }}</a>
 	{% endif %}
 	/ 
 	{{ entry.name }}
@@ -46,12 +46,5 @@
 		{% endblock %}
 	</div>
 	
-	{% block back %}
-	<div class="row">
-		<div class="col-xs-12">
-			<a class="btn btn-primary fa fa-arrow-circle-o-left" href="{{ path('infoprodukt_home') }}"></a>
-			<a class="btn btn-primary fa fa-arrow-circle-o-up pull-right" href="#"></a>
-		</div>
-	</div>	
-	{% endblock %}
+	{% include 'common/show/back.twig' %}
 {% endblock %}

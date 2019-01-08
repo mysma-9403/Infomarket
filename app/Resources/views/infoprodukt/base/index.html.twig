@@ -6,7 +6,7 @@
 	{% if category is defined %}
 		{% set category = category.parent and category.parent.preleaf ? category.parent : category %}
 		/ 
-		<a href="{{ path(basePath ~ 'category_show', { id: category.id, category: category.id }) }}">
+		<a rel="nofollow" href="{{ path(basePath ~ 'category_show', { id: category.id, category: category.id }) }}">
 			{{ category.name }} {{ category.subname }}
 		</a>
 	{% endif %}
