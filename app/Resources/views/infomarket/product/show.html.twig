@@ -30,12 +30,5 @@
 	</div>
 	{% endblock %}
 	
-	{% block back %}
-	<div class="row">
-		<div class="col-xs-12">
-			<a class="btn btn-primary fa fa-arrow-circle-o-left" href="{{ path('infoprodukt_' ~ mainPath) }}"></a>
-			<a class="btn btn-primary fa fa-arrow-circle-o-up pull-right" href="#"></a>
-		</div>
-	</div>	
-	{% endblock %}
+	{% include 'common/show/back.twig' %}
 {% endblock %}

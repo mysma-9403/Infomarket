@@ -6,13 +6,13 @@
 			<h2>
 				{% set assignment = entry.articleBrandAssignments|first %}
 {# 				<a class="text-red" href="{{ path(basePath ~ 'brand_show', { id: assignment.brand.id }) }}">#}
-				<a class="text-red" href="#">
+				<a rel="nofollow" class="text-red" href="#">
 					{{ assignment.brand.name }}
 				</a>
 				{% for assignment in entry.articleBrandAssignments | slice(1) %}
 					,
 {# 					<a class="text-red" href="{{ path(basePath ~ 'brand_show', { id: assignment.brand.id }) }}"> #}
-					<a class="text-red" href="#">
+					<a rel="nofollow" class="text-red" href="#">
 						{{ assignment.brand.name }}
 					</a>
 				{% endfor %}
@@ -83,14 +83,8 @@
 {% endblock %}
 
 {% block back %}
-<div class="vr-space-40"></div>
-
-<div class="row">
-	<div class="col-xs-12">
-		<a class="btn btn-primary" href="{{ path(basePath ~ mainPath) }}"><span class="fa fa-arrow-circle-o-left"></span> {{ 'action.back' | trans }}</a>
-		<a class="btn btn-primary pull-right" href="#"><span class="fa fa-arrow-circle-o-up"></span> {{ 'action.toTop' | trans }}</a>
-	</div>
-</div>
+	<div class="vr-space-40"></div>
+	{% include 'common/show/back.twig' %}
 {% endblock %}
 
 {% block moreJavascripts %}

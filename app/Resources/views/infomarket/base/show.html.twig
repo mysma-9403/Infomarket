@@ -7,13 +7,13 @@
 {% block moreBreadcrumbs %}
 
 	/ 
-	<a href="{{ path(basePath ~ mainPath) }}">
+	<a rel="nofollow" href="{{ path(basePath ~ mainPath) }}">
 		{{ type|trans }}
 	</a>
 	{% block baseMoreBreadcrumbs%}
 	{% endblock %}
 	/ 
-	<a href="{{ path(basePath ~ mainPath ~ '_show', { id: entry.id }) }}">
+	<a rel="nofollow" href="{{ path(basePath ~ mainPath ~ '_show', { id: entry.id }) }}">
 		{{ title|trans }}
 	</a>
 	

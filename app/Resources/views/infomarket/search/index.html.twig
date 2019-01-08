@@ -3,9 +3,13 @@
 {% set title = 'label.search'|trans %}
 {% set mainPath = 'search' %}
 
+{% block moreMeta %}
+	<meta name="robots" content="noindex, nofollow">
+{% endblock %}
+    	
 {% block moreBreadcrumbs %}
 	/ 
-	<a href="{{ path(basePath ~ 'search') }}">
+	<a rel="nofollow" href="{{ path(basePath ~ 'search') }}">
 		{{ 'label.search'|trans }}
 	</a>
 {% endblock %}

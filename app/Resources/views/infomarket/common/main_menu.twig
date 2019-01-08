@@ -56,7 +56,8 @@
 		      			<ul class="nav navbar-nav navbar-center">
 							{% block navigationMenu %}
 								<li class="{% if mainPath == 'home' %}active{% endif %} branch-{{ contextBranchId }}">
-									<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+									<a rel="nofollow" href="#" class="dropdown-toggle" data-toggle="dropdown" 
+										role="button" aria-haspopup="true" aria-expanded="false">
 										<span class="fa fa-search"></span> 
 										{{ 'label.infomarket.home'|trans }} 
 										<span class="caret" />
@@ -73,7 +74,8 @@
 									</ul>
 								</li>
 								<li class="{% if mainPath == 'article' %}active{% endif %} branch-{{ contextBranchId }}">
-									<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+									<a rel="nofollow" href="#" class="dropdown-toggle" data-toggle="dropdown" 
+										role="button" aria-haspopup="true" aria-expanded="false">
 										<span class="fa fa-file-text-o"></span> {{ 'label.articles'|trans }} <span class="caret">
 									</a>
 									<ul class="dropdown-menu">
@@ -98,7 +100,8 @@
 								</li>
 								
 								<li class="{% if mainPath == 'advertisement' or mainPath == 'brand' %}active{% endif %} branch-{{ contextBranchId }}">
-									<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+									<a rel="nofollow" href="#" class="dropdown-toggle" data-toggle="dropdown" 
+										role="button" aria-haspopup="true" aria-expanded="false">
 										<span class="fa fa-globe"></span> {{ 'label.more'|trans }} <span class="caret">
 									</a>
 									<ul class="dropdown-menu category-menu">

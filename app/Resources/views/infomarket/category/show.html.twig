@@ -9,7 +9,7 @@
 	
 	{% for chainEntry in entry.getParentChain %}
 		/
-		<a href="{{ path(basePath ~ mainPath ~ '_show', { id: chainEntry.id }) }}">
+		<a rel="nofollow" href="{{ path(basePath ~ mainPath ~ '_show', { id: chainEntry.id }) }}">
 			{{ chainEntry.name }} {{ chainEntry.subname }}
 		</a>
 	{% endfor %}
