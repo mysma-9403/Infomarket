@@ -24,6 +24,8 @@ class AdvertEditorType extends ImageEditorType {
 		$this->addIntegerField($builder, 'showLimit', 'label.advert.showLimit', false);
 		$this->addIntegerField($builder, 'clickLimit', 'label.advert.clickLimit', false);
 		
+		$this->addCheckboxField($builder, 'forceScheme', 'label.advert.forceScheme');
+		
 		$this->addNumberChoiceField($builder, $options, 'location');
 	}
 

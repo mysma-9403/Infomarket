@@ -38,6 +38,7 @@ class AdvertRepository extends ImageRepository {
 		$fields[] = 'e.showLimit';
 		$fields[] = 'e.clickCount';
 		$fields[] = 'e.clickLimit';
+		$fields[] = 'e.forceScheme';
 		
 		return $fields;
 	}

@@ -587,6 +587,10 @@
                 <source>label.advert.clickLimit</source>
                 <target>Limit kliknięć</target>
             </trans-unit>
+            <trans-unit id="label.advert.forceScheme">
+                <source>label.advert.forceScheme</source>
+                <target>Wymuś protokół http(s)</target>
+            </trans-unit>
             
             <trans-unit id="label.advert.short.showCount">
                 <source>label.advert.short.showCount</source>

@@ -52,6 +52,9 @@
 	{% include 'common/fields/text_field.html.twig' with 
 	{ label: 'label.advert.clickLimit'|trans, value: entry.clickLimit } %}
 	
+	{% include 'common/fields/bool_field.html.twig' with 
+	{ label: 'label.advert.forceScheme'|trans, value: entry.forceScheme } %}
+	
 	<div class="vr-space-40"></div>
 	
 	{% include 'admin/_simple/components/show/audit_fields.twig' %}

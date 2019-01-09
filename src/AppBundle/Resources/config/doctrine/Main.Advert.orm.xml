@@ -23,6 +23,8 @@
 		<field name="showLimit" type="integer" nullable="true" />
 		<field name="clickCount" type="integer" nullable="true" />
 		<field name="clickLimit" type="integer" nullable="true" />
+		
+		<field name="forceScheme" type="boolean" default="0" />
 
 		<one-to-many field="advertCategoryAssignments"
 			target-entity="AppBundle\Entity\Assignments\AdvertCategoryAssignment"

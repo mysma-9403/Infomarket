@@ -418,4 +418,33 @@ class Advert extends Image {
 	public function getNewsletterBlockAdvertAssignments() {
 		return $this->newsletterBlockAdvertAssignments;
 	}
+    /**
+     * @var boolean
+     */
+    private $forceScheme;
+
+
+    /**
+     * Set forceScheme
+     *
+     * @param boolean $forceScheme
+     *
+     * @return Advert
+     */
+    public function setForceScheme($forceScheme)
+    {
+        $this->forceScheme = $forceScheme;
+
+        return $this;
+    }
+
+    /**
+     * Get forceScheme
+     *
+     * @return boolean
+     */
+    public function getForceScheme()
+    {
+        return $this->forceScheme;
+    }
 }

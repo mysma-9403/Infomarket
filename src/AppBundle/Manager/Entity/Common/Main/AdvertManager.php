@@ -30,6 +30,8 @@ class AdvertManager extends EntityManager {
 		$entry->setShowCount($request->get('show_count'));
 		$entry->setShowLimit($request->get('show_limit'));
 		
+		$entry->setForceScheme($request->get('force_scheme'));
+		
 		return $entry;
 	}
 
@@ -62,6 +64,8 @@ class AdvertManager extends EntityManager {
 		
 		$entry->setShowCount($template->getShowCount());
 		$entry->setShowLimit($template->getShowLimit());
+		
+		$entry->setForceScheme($template->getForceScheme());
 		
 		return $entry;
 	}

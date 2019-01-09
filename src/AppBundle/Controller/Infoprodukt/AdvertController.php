@@ -27,13 +27,17 @@ class AdvertController extends DummyController {
 		
 		$this->saveEntry($entry);
 		
-		$scheme = $request->getScheme() . '://';
+		if (!$entry->getForceScheme()) {
+			$scheme = $request->getScheme() . '://';
+			
+			$link = $entry->getLink();
+			$link = str_replace('http://', '', $link);
+			$link = str_replace('https://', '', $link);
+			
+			return $this->redirect($scheme . $link);
+		}
 		
-		$link = $entry->getLink();
-		$link = str_replace('http://', '', $link);
-		$link = str_replace('https://', '', $link);
-		
-		return $this->redirect($scheme . $link);
+		return $this->redirect($entry->getLink());
 	}
 
 	protected function saveEntry($entry) {

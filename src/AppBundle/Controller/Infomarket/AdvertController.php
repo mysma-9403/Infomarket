@@ -11,14 +11,14 @@ class AdvertController extends DummyController {
 	// ---------------------------------------------------------------------------
 	// Actions
 	// ---------------------------------------------------------------------------
-	public function clickAction(Request $request, $id, $replaceScheme) {
-		return $this->clickActionInternal($request, $id, $replaceScheme);
+	public function clickAction(Request $request, $id) {
+		return $this->clickActionInternal($request, $id);
 	}
 	
 	// ---------------------------------------------------------------------------
 	// Internal actions
 	// ---------------------------------------------------------------------------
-	protected function clickActionInternal(Request $request, $id, $replaceScheme) {
+	protected function clickActionInternal(Request $request, $id) {
 		$am = $this->getAnalyticsManager();
 		$am->sendEventAnalytics($this->getEntityName(), 'click', $id);
 		
@@ -27,7 +27,7 @@ class AdvertController extends DummyController {
 		
 		$this->saveEntry($entry);
 		
-		if ($replaceScheme == 1) {
+		if (!$entry->getForceScheme()) {
 			$scheme = $request->getScheme() . '://';
 			
 			$link = $entry->getLink();
