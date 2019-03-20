@@ -1,13 +1,13 @@
 {% if entry.image %}
 	{% set tile = tile|default(false) %}
 	
-	{% if entry.forcedWidth and entry.forcedWidth > 0 %}
+	{% if entry.forcedWidth is defined and entry.forcedWidth > 0 %}
 		{% set forcedWidth = 'width:' ~ entry.forcedWidth ~ 'px;' %}
 	{% else %}
 		{% set forcedWidth = '' %}
 	{% endif %}
 
-	{% if entry.forcedHeight and entry.forcedHeight > 0 %}
+	{% if entry.forcedHeight is defined and entry.forcedHeight > 0 %}
 		{% set forcedHeight = 'height:' ~ entry.forcedHeight ~ 'px;' %}
 	{% else %}
 		{% set forcedHeight = '' %}
@@ -26,7 +26,7 @@
 	{% endif %}
 
 	
-	{% if entry.mimeType == "application/x-shockwave-flash" %}
+	{% if entry.mimeType is defined and entry.mimeType == "application/x-shockwave-flash" %}
 		<object type="application/x-shockwave-flash" data="{{ asset(entry.image) }}"
 		class="div-center {{ responsive }}" {{ forcedStyle }}>
 			<param name="movie" value="{{ asset(entry.image) }}" />
