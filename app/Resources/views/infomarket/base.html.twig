@@ -19,18 +19,6 @@
 			<style>
 				<!--
 				{% for entry in menuBranches %}
-					.navbar-default .navbar-nav > .active.branch-{{ entry.id }} > a {
-						color: {{ entry.color }};
-						background-color: #f2f2f2;
-					}
-					
-					.navbar-default .navbar-nav > .branch-{{ entry.id }} a:hover,
-					.navbar-default .navbar-nav > .branch-{{ entry.id }} a:focus,
-					.navbar-default .navbar-nav li.branch-{{ entry.id }}.active > a {
-						color: {{ entry.color }};
-						background-color: #f2f2f2;
-					}
-						
 					{% if entry.id == contextBranchId %}
 						.home-link.branch-{{ entry.id }} a {
 							color: {{ entry.color }};
@@ -56,7 +44,33 @@
 						.bkg-branch-{{ entry.id }} {
 							background-color: {{ entry.color }};
 						}
+
+						.navbar-default .navbar-nav li.branch-{{ entry.id }}.active > a,
+						.navbar-default .navbar-nav li.branch-{{ entry.id }}.open > a {
+							color: {{ entry.color }};
+						}
+
+						.dropdown-menu > li.branch-{{ entry.id }} > a:hover,
+						.dropdown-menu > li.branch-{{ entry.id }} > a:focus,
+						.dropdown-menu > li.branch-{{ entry.id }}.active > a, 
+						.dropdown-menu > li.branch-{{ entry.id }}.active > a:hover,
+						.dropdown-menu > li.branch-{{ entry.id }}.active > a:focus {
+							color: {{ entry.color }};
+						}
+						
+						.branch-color-{{ entry.id }}.right-caret:after,
+						.branch-color-{{ entry.id }}.left-caret:after {
+							border-right-color: {{ entry.color }};
+							border-left-color: {{ entry.color }};
+						}
 					{% endif %}
+					
+					.navbar-default .navbar-nav li.branch-{{ entry.id }} a:hover,
+					.navbar-default .navbar-nav li.branch-{{ entry.id }} a:focus,
+					.navbar-default .navbar-nav li li.branch-{{ entry.id }} a:hover,
+					.navbar-default .navbar-nav li li.branch-{{ entry.id }} a:focus {
+						color: {{ entry.color }};
+					}
 				{% endfor %}	
 				-->
 			</style>

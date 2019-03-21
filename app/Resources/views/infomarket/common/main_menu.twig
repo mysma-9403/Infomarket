@@ -65,7 +65,7 @@
 									<ul class="dropdown-menu">
 										{% for menuBranch in menuBranches %}
 											{% set active = menuBranch.id == contextBranchId ? 'active' : '' %}
-											<li class="{{ active }} branch-{{ contextBranchId }}">
+											<li class="{{ active }} branch-{{ menuBranch.id }}">
 												<a href="{{ path(basePath ~ 'home', { branch: menuBranch.id }) }}">
 													{{ menuBranch.name }}
 												</a>
@@ -106,7 +106,8 @@
 									</a>
 									<ul class="dropdown-menu category-menu">
 										{% for menuEntry in mainMenuEntries %}
-											{% include 'common/menu/menu_entry.html.twig' with { 'entry': menuEntry, infomarket: true } %}
+											{% include 'common/menu/menu_entry.html.twig' with 
+											{ 'entry': menuEntry, infomarket: true, caretClass: 'branch-color-' ~ contextBranchId } %}
 										{% endfor %}
 									</ul>
 								</li>
