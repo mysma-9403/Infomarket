@@ -34,11 +34,13 @@
 						{% if subcategory.infoprodukt %}
 							<div class="col-sm-3 padding-5">
 								{% if topProducts and subcategory.preleaf == false %}
-									{% include 'common/tiles/bottom_rect_tile.twig' with 
-										{'entry': subcategory, routeParams: { category: subcategory.id, top_products: topProducts } } %}
+									{% include 'common/tiles/bottom_rect_tile.twig' with { 
+										entry: subcategory, extPath: '_show', 
+										routeParams: { category: subcategory.id, top_products: topProducts } } %}
 								{% else %}
-									{% include 'common/tiles/bottom_rect_tile.twig' with 
-										{'entry': subcategory, routeParams: { category: subcategory.id }  } %}
+									{% include 'common/tiles/bottom_rect_tile.twig' with { 
+										entry: subcategory, extPath: '_show',
+										routeParams: { category: subcategory.id }  } %}
 								{% endif %}
 							</div>
 						{% endif %}

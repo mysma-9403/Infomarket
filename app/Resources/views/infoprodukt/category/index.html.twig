@@ -8,9 +8,9 @@
 		<div class="col-xs-12">
 			{% for category in entries %}
 				<div class="col-sm-3 padding-5">
-					{% include 'common/tiles/bottom_rect_tile.twig' with 
-						{'entry': category, 'entryPath': mainPath, 
-							routeParams: { category: category.id, top_products: 1 } } %}
+					{% include 'common/tiles/bottom_rect_tile.twig' with {
+						entry: category, entryPath: mainPath, extPath: '_show', 
+						routeParams: { category: category.id, top_products: 1 } } %}
 				</div>
 			{% endfor %}
 		</div>

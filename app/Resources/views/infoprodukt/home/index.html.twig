@@ -70,14 +70,15 @@
 			{% for category in categories|slice(0,6) %}
 				<div class="col-sm-2 padding-5">
 					{% include 'common/tiles/bottom_rect_tile.twig' with { hideSubtitle: true, 
-						entry: category, entryPath: 'category', routeParams: { category: category.id } } %}
+						entry: category, entryPath: 'category', extPath: '_show', 
+						routeParams: { category: category.id } } %}
 				</div>
 			{% endfor %}
 			
 			{% for category in categories|slice(6,6) %}
 				<div class="col-sm-2 padding-5">
 					{% include 'common/tiles/bottom_rect_tile.twig' with { hideSubtitle: true, 
-						bkgPrimary: "bkg-red", entry: category, entryPath: 'category', 
+						bkgPrimary: "bkg-red", entry: category, entryPath: 'category', extPath: '_show',
 						routeParams: { category: category.id } } %}
 				</div>
 			{% endfor %}

@@ -31,7 +31,8 @@
 		
 		<div class="col-sm-2 padding-5 {{ colPush > 0 ? "col-sm-push-" ~ colPush : "" }}">
 			{% include 'common/tiles/bottom_rect_tile.twig' with { 
-				entry: category, entryPath: 'category', tileSubtitle: "label.subcategories" | trans, 
+				entry: category, entryPath: 'category', extPath: '_show', 
+				tileSubtitle: "label.subcategories" | trans, 
 				routeParams: { category: category.id, top_products: 1 } } %}
 		</div>
 	</div>

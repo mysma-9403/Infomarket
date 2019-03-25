@@ -1,5 +1,5 @@
 {% set entryPath = entryPath | default(mainPath) %}
-{% set extPath = extPath | default('_show') %}
+{% set extPath = extPath | default('') %}
 
 {% if routeParams is not defined %}
 	{% set routeParams = { 'id': entry.id } %}

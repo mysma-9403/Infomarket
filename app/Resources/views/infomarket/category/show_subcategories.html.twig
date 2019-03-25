@@ -3,7 +3,8 @@
 		{% for category in entry.children %}
 			{% if category.infomarket %}
 				<div class="col-sm-3">
-					{% include 'common/tiles/bottom_rect_tile.twig' with {'entry': category } %}
+					{% include 'common/tiles/bottom_rect_tile.twig' with {
+						entry: category, extPath: '_show' } %}
 				</div>
 			{% endif %}
 		{% endfor %}

@@ -9,5 +9,6 @@
 	{% set hideTitle = true %}
 {% endif %}
 
-{% include 'common/tiles/bottom_rect_tile.twig' with { routeParams: {id: entry.id, category: categoryId, 
-		article_filter_article_categories: [articleCategoryId] } } %}
+{% include 'common/tiles/bottom_rect_tile.twig' with { extPath: '_show', 
+	routeParams: { id: entry.id, category: categoryId, 
+	article_filter_article_categories: [articleCategoryId] } } %}
