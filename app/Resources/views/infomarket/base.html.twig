@@ -47,7 +47,7 @@
 
 						.navbar-default .navbar-nav li.branch-{{ entry.id }}.active > a,
 						.navbar-default .navbar-nav li.branch-{{ entry.id }}.open > a {
-							color: {{ entry.color }};
+							color: {{ entry.color }} !important;
 						}
 
 						.dropdown-menu > li.branch-{{ entry.id }} > a:hover,
@@ -55,7 +55,7 @@
 						.dropdown-menu > li.branch-{{ entry.id }}.active > a, 
 						.dropdown-menu > li.branch-{{ entry.id }}.active > a:hover,
 						.dropdown-menu > li.branch-{{ entry.id }}.active > a:focus {
-							color: {{ entry.color }};
+							color: {{ entry.color }} !important;
 						}
 						
 						.branch-color-{{ entry.id }}.right-caret:after,
@@ -69,7 +69,7 @@
 					.navbar-default .navbar-nav li.branch-{{ entry.id }} a:focus,
 					.navbar-default .navbar-nav li li.branch-{{ entry.id }} a:hover,
 					.navbar-default .navbar-nav li li.branch-{{ entry.id }} a:focus {
-						color: {{ entry.color }};
+						color: {{ entry.color }} !important;
 					}
 				{% endfor %}	
 				-->
