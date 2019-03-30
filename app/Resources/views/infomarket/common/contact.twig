@@ -5,30 +5,39 @@
 				<span class="branch-color-{{ contextBranchId }}">{{ 'header.contact.1'|trans }}</span> 
 				<span class="text-brand">{{ 'header.contact.2'|trans }}</span>
 			</h4>
-			<p>
-				<a href="https://www.instagram.com/explore/locations/1033038631/infomarket">
-					<img class="logo" src="{{ asset('img/contact-instagram.png') }}"
-							srcset="{{ asset('img/contact-instagram-64.png') }} 0.5x,
-									{{ asset('img/contact-instagram-128.png') }} 1x,
-									{{ asset('img/contact-instagram-256.png') }} 2x,
-									{{ asset('img/contact-instagram.png') }} 3.75x">
-				</a>
-				<a href="http://www.facebook.com/infomarket1">
-					<img class="logo" src="{{ asset('img/contact-facebook.png') }}"
-							srcset="{{ asset('img/contact-facebook-64.png') }} 0.5x,
-									{{ asset('img/contact-facebook-128.png') }} 1x,
-									{{ asset('img/contact-facebook-256.png') }} 2x,
-									{{ asset('img/contact-facebook.png') }} 2.75x">
-				</a>
-				<a href="https://www.youtube.com/channel/UCpH2PHKAxnNlX-zSgJXyjpA">
-					<img class="logo" src="{{ asset('img/contact-youtube.png') }}"
-							srcset="{{ asset('img/contact-youtube-64.png') }} 0.5x,
-									{{ asset('img/contact-youtube-128.png') }} 1x,
-									{{ asset('img/contact-youtube-256.png') }} 2x,
-									{{ asset('img/contact-youtube.png') }} 2.03x">
-				</a>
-			</p>
+			
+			<a href="https://instagram.com/infomarket_edu_pl/">
+				<div class="social-button">
+					<span class="div-center fa fa-instagram"></span>
+				</div>
+			</a>
+			<a href="https://pinterest.com/kamilgalicki/">
+				<div class="social-button red">
+					<span class="div-center fa fa-pinterest"></span>
+				</div>
+			</a>
+			<a href="https://facebook.com/infomarket1">
+				<div class="social-button">
+					<span class="div-center fa fa-facebook"></span>
+				</div>
+			</a>
+			<a href="https://youtube.com/channel/UCpH2PHKAxnNlX-zSgJXyjpA">
+				<div class="social-button red">
+					<span class="div-center fa fa-youtube"></span>
+				</div>
+			</a>
+			<a href="https://infoprodukt.pl">
+				<div class="social-button">
+					<span class="div-center"><span class="text-red">I</span>P</span>
+				</div>
+			</a>
+			<a href="{{ path(basePath ~ 'article', { article_filter_article_categories: [12] }) }}">
+				<div class="social-button red">
+					<span class="div-center fa fa-balance-scale"></span>
+				</div>
+			</a>
 		</div>
+		
 		<div class="col-sm-4">
 			<h4 class="title padding-5">
 				<span class="branch-color-{{ contextBranchId }}">{{ 'header.newsletter.1'|trans }}</span> 
