@@ -4,7 +4,7 @@
 <a class="text-white" href="{{ path(basePath ~ 'article_show', 
 	{ id: article.id, category: entry.id, article_filter_article_categories: [category.id] }) }}">
 	<div class="rect col-bottom bkg-white">
-		{% include "common/image/image_entry.html.twig" with { entry: article } %}
+		{% include "common/image/image_entry.html.twig" with { entry: article, tile: true } %}
 		
 		<div class="col-xs-12 div-bottom padding-5 {{ bkgColor }}">
 			<div class="default-tile">

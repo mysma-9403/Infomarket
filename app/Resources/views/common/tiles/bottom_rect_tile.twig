@@ -21,7 +21,7 @@
 	<a class="text-white" href="{{ path(basePath ~ entryPath ~ extPath, routeParams) }}">
 		<div class="rect bkg-white">
 			{% if entry.image %}
-				{% include 'common/image/image_entry.html.twig' %}
+				{% include 'common/image/image_entry.html.twig' with { tile: true } %}
 			{% endif %}
 		</div>
 		
