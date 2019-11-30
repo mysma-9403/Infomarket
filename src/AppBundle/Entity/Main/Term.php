@@ -6,6 +6,10 @@ use AppBundle\Entity\Base\Simple;
 
 class Term extends Simple {
 
+	public function getDisplayName() {
+		return $this->name;
+	}
+	
 	/**
 	 *
 	 * @var string

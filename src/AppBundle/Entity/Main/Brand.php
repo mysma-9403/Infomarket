@@ -7,7 +7,7 @@ use AppBundle\Entity\Base\Image;
 class Brand extends Image {
 
 	public function getDisplayName() {
-		return '' . $this->name;
+		return $this->name;
 	}
 	
 	public function getUploadPath() {
