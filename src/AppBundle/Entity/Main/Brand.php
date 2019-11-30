@@ -6,6 +6,10 @@ use AppBundle\Entity\Base\Image;
 
 class Brand extends Image {
 
+	public function getDisplayName() {
+		return '' . $this->name;
+	}
+	
 	public function getUploadPath() {
 		return 'uploads/brands/' . substr($this->name, 0, 1);
 	}
