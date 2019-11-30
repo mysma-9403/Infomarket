@@ -1,5 +1,6 @@
 parameters:
     secure_scheme: http
+    infoprodukt_host: infoprodukt.loc
     
 imports:
     - { resource: config.yml }
