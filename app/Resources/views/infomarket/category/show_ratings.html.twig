@@ -1,11 +1,30 @@
-{% block main %}
-	{% include 'common/ratings/ratings_header.html.twig' %}
-{% endblock %}
+{% block header %}
+<div class="row">
+	<div class="col-xs-12">
+		<h2 class="text-red">{{ entry.name | raw }}</h2>
+	</div>
+</div>
+<div class="row">
+	{% block logo %}
+	<div class="col-sm-6 col-sm-offset-3">
+		<div class="rect-2x1">
+			{% if entry.image %}
+				<img class="div-center img-{{ entry.vertical ? 'v' : '' }}responsive" 
+					alt="{{ entry.name | raw }}" src="{{ asset(entry.image) }}">
+			{% endif %}
+		</div>	
+	</div>
+	{% endblock %}
 	
-{% block brandsRank %}
-	{% include 'common/ratings/brands_rating.html.twig' %}
+</div>
 {% endblock %}
 
-{% block productsRank %}
-	{% include 'common/ratings/products_rating.html.twig' %}
+{% block description %}
+<div class="row">
+	<div class="col-xs-12">
+		<p>{{ entry.content | raw }}</p>
+	</div>
+</div>
 {% endblock %}
+
+{% include 'common/show/back.twig' %}
