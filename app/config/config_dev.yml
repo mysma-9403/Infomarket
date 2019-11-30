@@ -1,3 +1,6 @@
+parameters:
+    secure_scheme: http
+    
 imports:
     - { resource: config.yml }
 

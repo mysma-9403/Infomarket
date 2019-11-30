@@ -45,39 +45,40 @@ security:
             logout:       true
             
     access_control:
-        # - { path: ^/, roles: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https }
-        
         # Registration
-        - { path: /login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: /logout$, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: /register, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: /resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: /login$, role: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: '%secure_scheme%' }
+        - { path: /logout$, role: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: '%secure_scheme%' }
+        - { path: /register, role: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: '%secure_scheme%' }
+        - { path: /resetting, role: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: '%secure_scheme%' }
         
         # Benchmark site
-        - { path: ^/benchmark, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/benchmark, role: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: '%secure_scheme%' }
         
         # IP, IM sites
-        # - { path: /magazines/open, role: IS_AUTHENTICATED_FULLY }
+        # - { path: /magazines/open, role: IS_AUTHENTICATED_FULLY, requires_channel: '%secure_scheme%' }
         
         # Admin site
-        - { path: ^/admin/settings, role: ROLE_EDITOR }
-        - { path: ^/admin/users, role: ROLE_ADMIN }
+        - { path: ^/admin/settings, role: ROLE_EDITOR, requires_channel: '%secure_scheme%' }
+        - { path: ^/admin/users, role: ROLE_ADMIN, requires_channel: '%secure_scheme%' }
         
-        - { path: ^/admin/newsletter, role: ROLE_ADMIN }
+        - { path: ^/admin/newsletter, role: ROLE_ADMIN, requires_channel: '%secure_scheme%' }
         
-        - { path: _assignments/delete, role: ROLE_EDITOR }
-        - { path: articles/delete, role: ROLE_EDITOR }
-        - { path: /delete, role: ROLE_ADMIN }
+        - { path: _assignments/delete, role: ROLE_EDITOR, requires_channel: '%secure_scheme%' }
+        - { path: articles/delete, role: ROLE_EDITOR, requires_channel: '%secure_scheme%' }
+        - { path: /delete, role: ROLE_ADMIN, requires_channel: '%secure_scheme%' }
         
-        - { path: /new, role: ROLE_EDITOR }
-        - { path: /copy, role: ROLE_EDITOR }
-        - { path: /edit, role: ROLE_EDITOR }
-        - { path: /set_published, role: ROLE_EDITOR }
-        - { path: /set_featured, role: ROLE_EDITOR }
+        - { path: /new, role: ROLE_EDITOR, requires_channel: '%secure_scheme%' }
+        - { path: /copy, role: ROLE_EDITOR, requires_channel: '%secure_scheme%' }
+        - { path: /edit, role: ROLE_EDITOR, requires_channel: '%secure_scheme%' }
+        - { path: /set_published, role: ROLE_EDITOR, requires_channel: '%secure_scheme%' }
+        - { path: /set_featured, role: ROLE_EDITOR, requires_channel: '%secure_scheme%' }
         
-        - { path: ^/admin, role: ROLE_EDITOR }
+        - { path: ^/admin, role: ROLE_EDITOR, requires_channel: '%secure_scheme%' }
         
         # Uploads
-        - { path: ^/efconnect, role: ROLE_EDITOR }
-        - { path: ^/elfinder, role: ROLE_EDITOR }
+        - { path: ^/efconnect, role: ROLE_EDITOR, requires_channel: '%secure_scheme%' }
+        - { path: ^/elfinder, role: ROLE_EDITOR, requires_channel: '%secure_scheme%' }
+        
+        # Other
+        - { path: ^/, roles: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: '%secure_scheme%' }
         
