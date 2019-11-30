@@ -145,173 +145,173 @@ benchmark:
 # Infoprodukt Routing
 infoprodukt_advert_click:
     path:      /adverts/click/{id}
-    host:      infoprodukt.loc
+    host:      '%infoprodukt_host%'
     defaults:  { _controller: "AppBundle:Infoprodukt/Advert:click" }
     
 infoprodukt_article:
     path:      /articles/{page}
-    host:      infoprodukt.loc
+    host:      '%infoprodukt_host%'
     defaults:  { _controller: "AppBundle:Infoprodukt/Article:index", page: 1 }
     
 infoprodukt_article_show:
     path:      /articles/show/{id}/{page}
-    host:      infoprodukt.loc
+    host:      '%infoprodukt_host%'
     defaults:  { _controller: "AppBundle:Infoprodukt/Article:show", page: '1' }
     
 infoprodukt_brand:
     path:      /brands/{page}
-    host:      infoprodukt.loc
+    host:      '%infoprodukt_host%'
     defaults:  { _controller: "AppBundle:Infoprodukt/Brand:index", page: 1 }
     
 infoprodukt_brand_show:
     path:      /brands/show/{id}
-    host:      infoprodukt.loc
+    host:      '%infoprodukt_host%'
     defaults:  { _controller: "AppBundle:Infoprodukt/Brand:show" }
     
 infoprodukt_category:
     path:      /categories/{page}
-    host:      infoprodukt.loc
+    host:      '%infoprodukt_host%'
     defaults:  { _controller: "AppBundle:Infoprodukt/Category:index", page: 1 }
     
 infoprodukt_category_show:
     path:      /categories/show/{id}
-    host:      infoprodukt.loc
+    host:      '%infoprodukt_host%'
     defaults:  { _controller: "AppBundle:Infoprodukt/Category:show" }
 
 infoprodukt_link_show:
     path:      /links/show/{id}
-    host:      infoprodukt.loc
+    host:      '%infoprodukt_host%'
     defaults:  { _controller: "AppBundle:Infoprodukt/Link:show" }
     
 infoprodukt_magazine_open:
     path:      /magazines/open/{id}
-    host:      infoprodukt.loc
+    host:      '%infoprodukt_host%'
     defaults:  { _controller: "AppBundle:Infoprodukt/Magazine:open" }
         
 infoprodukt_magazine:
     path:      /magazines/{page}
-    host:      infoprodukt.loc
+    host:      '%infoprodukt_host%'
     defaults:  { _controller: "AppBundle:Infoprodukt/Magazine:index", page: 1 }
         
 infoprodukt_page_show:
     path:      /pages/show/{id}
-    host:      infoprodukt.loc
+    host:      '%infoprodukt_host%'
     defaults:  { _controller: "AppBundle:Infoprodukt/Page:show" }
     
 infoprodukt_product:
     path:      /products/{page}
-    host:      infoprodukt.loc
+    host:      '%infoprodukt_host%'
     defaults:  { _controller: "AppBundle:Infoprodukt/Product:index", page: 1 }
     
 infoprodukt_product_show:
     path:      /products/show/{id}
-    host:      infoprodukt.loc
+    host:      '%infoprodukt_host%'
     defaults:  { _controller: "AppBundle:Infoprodukt/Product:show" }
         
 infoprodukt_term:
     path:      /terms/{page}
-    host:      infoprodukt.loc
+    host:      '%infoprodukt_host%'
     defaults:  { _controller: "AppBundle:Infoprodukt/Term:index", page: 1 }
     
 infoprodukt_term_show:
     path:      /terms/show/{id}
-    host:      infoprodukt.loc
+    host:      '%infoprodukt_host%'
     defaults:  { _controller: "AppBundle:Infoprodukt/Term:show" }
     
 infoprodukt_search:
     path:      /search
-    host:      infoprodukt.loc
+    host:      '%infoprodukt_host%'
     defaults:  { _controller: "AppBundle:Infoprodukt/Search:index" }
 
 infoprodukt_home:
     path:      /
-    host:      infoprodukt.loc
+    host:      '%infoprodukt_host%'
     defaults:  { _controller: "AppBundle:Infoprodukt/Home:index" }
 
 # Infoprodukt subdomain routing
 infoprodukt_advert_click_subdomain:
     path:      /adverts/click/{id}
-    host:      "{subdomain}.infoprodukt.loc"
+    host:      "{subdomain}.%infoprodukt_host%"
     defaults:  { _controller: "AppBundle:Infoprodukt/Advert:click", subdomain: "" }
     
 infoprodukt_article_subdomain:
     path:      /articles/{page}
-    host:      "{subdomain}.infoprodukt.loc"
+    host:      "{subdomain}.%infoprodukt_host%"
     defaults:  { _controller: "AppBundle:Infoprodukt/Article:index", page: 1, subdomain: "" }
     
 infoprodukt_article_show_subdomain:
     path:      /articles/show/{id}/{page}
-    host:      "{subdomain}.infoprodukt.loc"
+    host:      "{subdomain}.%infoprodukt_host%"
     defaults:  { _controller: "AppBundle:Infoprodukt/Article:show", page: '1', subdomain: "" }
     
 infoprodukt_brand_subdomain:
     path:      /brands/{page}
-    host:      "{subdomain}.infoprodukt.loc"
+    host:      "{subdomain}.%infoprodukt_host%"
     defaults:  { _controller: "AppBundle:Infoprodukt/Brand:index", page: 1, subdomain: "" }
     
 infoprodukt_brand_show_subdomain:
     path:      /brands/show/{id}
-    host:      "{subdomain}.infoprodukt.loc"
+    host:      "{subdomain}.%infoprodukt_host%"
     defaults:  { _controller: "AppBundle:Infoprodukt/Brand:show", subdomain: "" }
     
 infoprodukt_category_subdomain:
     path:      /categories/{page}
-    host:      "{subdomain}.infoprodukt.loc"
+    host:      "{subdomain}.%infoprodukt_host%"
     defaults:  { _controller: "AppBundle:Infoprodukt/Category:index", page: 1, subdomain: "" }
     
 infoprodukt_category_show_subdomain:
     path:      /categories/show/{id}
-    host:      "{subdomain}.infoprodukt.loc"
+    host:      "{subdomain}.%infoprodukt_host%"
     defaults:  { _controller: "AppBundle:Infoprodukt/Category:show", subdomain: "" }
 
 infoprodukt_link_show_subdomain:
     path:      /links/show/{id}
-    host:      "{subdomain}.infoprodukt.loc"
+    host:      "{subdomain}.%infoprodukt_host%"
     defaults:  { _controller: "AppBundle:Infoprodukt/Link:show", subdomain: "" }
         
 infoprodukt_magazine_open_subdomain:
     path:      /magazines/open/{id}
-    host:      "{subdomain}.infoprodukt.loc"
+    host:      "{subdomain}.%infoprodukt_host%"
     defaults:  { _controller: "AppBundle:Infoprodukt/Magazine:open", subdomain: "" }
     
 infoprodukt_magazine_subdomain:
     path:      /magazines/{page}
-    host:      "{subdomain}.infoprodukt.loc"
+    host:      "{subdomain}.%infoprodukt_host%"
     defaults:  { _controller: "AppBundle:Infoprodukt/Magazine:index", page: 1, subdomain: "" }
     
 infoprodukt_page_show_subdomain:
     path:      /pages/show/{id}
-    host:      "{subdomain}.infoprodukt.loc"
+    host:      "{subdomain}.%infoprodukt_host%"
     defaults:  { _controller: "AppBundle:Infoprodukt/Page:show", subdomain: "" }
     
 infoprodukt_product_subdomain:
     path:      /products/{page}
-    host:      "{subdomain}.infoprodukt.loc"
+    host:      "{subdomain}.%infoprodukt_host%"
     defaults:  { _controller: "AppBundle:Infoprodukt/Product:index", page: 1, subdomain: "" }
     
 infoprodukt_product_show_subdomain:
     path:      /products/show/{id}
-    host:      "{subdomain}.infoprodukt.loc"
+    host:      "{subdomain}.%infoprodukt_host%"
     defaults:  { _controller: "AppBundle:Infoprodukt/Product:show", subdomain: "" }
         
 infoprodukt_term_subdomain:
     path:      /terms/{page}
-    host:      "{subdomain}.infoprodukt.loc"
+    host:      "{subdomain}.%infoprodukt_host%"
     defaults:  { _controller: "AppBundle:Infoprodukt/Term:index", page: 1, subdomain: "" }
     
 infoprodukt_term_show_subdomain:
     path:      /terms/show/{id}
-    host:      "{subdomain}.infoprodukt.loc"
+    host:      "{subdomain}.%infoprodukt_host%"
     defaults:  { _controller: "AppBundle:Infoprodukt/Term:show", subdomain: "" }
     
 infoprodukt_search_subdomain:
     path:      /search
-    host:      "{subdomain}.infoprodukt.loc"
+    host:      "{subdomain}.%infoprodukt_host%"
     defaults:  { _controller: "AppBundle:Infoprodukt/Search:index", subdomain: "" }
             
 infoprodukt_home_subdomain:
     path:      /
-    host:      "{subdomain}.infoprodukt.loc"
+    host:      "{subdomain}.%infoprodukt_host%"
     defaults:  { _controller: "AppBundle:Infoprodukt/Home:index", subdomain: "" }
     
 # Infomarket Routing
