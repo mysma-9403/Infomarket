@@ -17,7 +17,7 @@
 
 		<field name="location" type="integer" nullable="false" />
 
-		<field name="link" type="string" length="256" nullable="false" />
+		<field name="link" type="string" length="2048" nullable="false" />
 
 		<field name="showCount" type="integer" nullable="true" />
 		<field name="showLimit" type="integer" nullable="true" />
