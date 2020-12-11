@@ -21,6 +21,7 @@
 /web/js/*
 !/web/js/*.min.js
 /node_modules/
+/.idea
 
 # Backup entities generated with doctrine:generate:entities command
 **/Entity/*~

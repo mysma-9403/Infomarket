@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller\Admin\Main;
 
+use Happyr\GoogleAnalyticsBundle\Service\Tracker;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Manager\Route\RouteManager;
@@ -103,7 +104,7 @@ class HomeController extends Controller {
 	/**
 	 */
 	protected function getAnalyticsManager() {
-		$tracker = $this->get('happyr.google_analytics.tracker');
+		$tracker = $this->get(Tracker::class);
 		return new AnalyticsManager($tracker, 1);
 	}
 

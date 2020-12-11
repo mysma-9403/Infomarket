@@ -6,7 +6,6 @@ use AppBundle\Utils\ClassUtils;
 use AppBundle\Utils\FormUtils;
 use AppBundle\Utils\ParamUtils;
 use FM\ElfinderBundle\Form\Type\ElFinderType;
-use Ivory\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -98,7 +97,7 @@ abstract class BaseType extends AbstractType {
 	}
 
 	protected function addCKEditorField(FormBuilderInterface $builder, $field, $placeholder, $required = true) {
-		$builder->add($field, CKEditorType::class, 
+		$builder->add($field, \FOS\CKEditorBundle\Form\Type\CKEditorType::class,
 				array('config' => array('uiColor' => '#ffffff'), 'required' => $required));
 	}
 

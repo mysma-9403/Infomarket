@@ -92,8 +92,9 @@ abstract class InfomarketController extends StandardController {
 		$am->sendEventAnalytics($this->getEntityName(), 'show', $id);
 		
 		$response = $this->initShowForms($request, $params);
-		if ($response)
-			return $response;
+		if ($response) {
+            return $response;
+        }
 		
 		$viewParams = $params['viewParams'];
 		

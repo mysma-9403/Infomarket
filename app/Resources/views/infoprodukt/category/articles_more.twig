@@ -10,7 +10,7 @@
 {% set colPush = "col-sm-push-" ~ colPushValue %}
 
 <div class="row">
-	<div class="col-sm-2 padding-5 {{ colPush }}">
+	<div class="col-sm-2 padding-5 {{ colPush }} text-right">
 		{% if articles|length >= numOfArticles %}
 			<a class="text-bold" href={{ path('infoprodukt_article', { category: entry.id, 
 				article_filter_article_categories: [category.id] }) }} class="text-red">

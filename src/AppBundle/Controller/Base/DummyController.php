@@ -9,15 +9,16 @@ use AppBundle\Manager\Route\RouteManager;
 use AppBundle\Repository\Base\BaseRepository;
 use AppBundle\Utils\ClassUtils;
 use AppBundle\Utils\ParamUtils;
+use Happyr\GoogleAnalyticsBundle\Service\Tracker;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
-abstract class DummyController extends Controller {
+abstract class DummyController extends AbstractController {
 	// ---------------------------------------------------------------------------
 	// Params
 	// ---------------------------------------------------------------------------
-	
-	/**
+    /**
 	 * Creates dummy params which can be initialized further by getParams method.
 	 *
 	 * @param string $route
@@ -27,7 +28,7 @@ abstract class DummyController extends Controller {
 	protected function createParams($route) {
 		$params = array();
 	
-		$params['domain'] = $this->getDomain();
+		$params['domain'] = 'infoprodukt';
 		$params['route'] = $route;
 	
 		$params['lastRouteParams'] = array();
@@ -127,7 +128,7 @@ abstract class DummyController extends Controller {
 	/**
 	 */
 	protected function getAnalyticsManager() {
-		$tracker = $this->get('happyr.google_analytics.tracker');
+		$tracker = $this->get(Tracker::class);
 		return new AnalyticsManager($tracker, 1);
 	}
 	

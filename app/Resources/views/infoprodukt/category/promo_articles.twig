@@ -1,5 +1,6 @@
 {% set bkgColor = bkgColor | default('bkg-black-50') %}
 {% set showTitle = showTitle | default(false) %}
+{% set revertedColors = revertedColors | default(0) %}
 
 <div class="container">
 	<div class="row">
@@ -21,19 +22,18 @@
 	
 	<div class="row">
 		{% if promotionsArticles|length > 0 %}
-			{% include 'infoprodukt/category/articles_group.twig' with 
-				{ category: promotionsCategory, articles: promotionsArticles, numOfArticles: 5 } %}
-				
+			{% include 'infoprodukt/category/articles_group.twig' with
+				{ category: promotionsCategory, articles: promotionsArticles, numOfArticles: 5, revertedColors: revertedColors } %}
+
 			{% set colPush = 2 * (5 - promotionsArticles|length) %}
 		{% else %}
 			{% set colPush = 0 %}
 		{% endif %}
-		
 		<div class="col-sm-2 padding-5 {{ colPush > 0 ? "col-sm-push-" ~ colPush : "" }}">
-			{% include 'common/tiles/bottom_rect_tile.twig' with { 
-				entry: category, entryPath: 'category', extPath: '_show', 
-				tileSubtitle: "label.subcategories" | trans, 
-				routeParams: { category: category.id, top_products: 1 } } %}
+			{% include 'common/tiles/bottom_rect_tile.twig' with {
+				entry: category, entryPath: 'category', extPath: '_show',
+				tileSubtitle: "label.subcategories" | trans,
+				routeParams: { slug: category.parent.id|get_category, category: category.slugUrl, top_products: 1 } } %}
 		</div>
 	</div>
 	

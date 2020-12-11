@@ -25,7 +25,6 @@ class ArticleEntryParamsManager extends EntryParamsManager {
 
 	public function getPreviewParams(Request $request, array $params, $id, $page) {
 		$params = parent::getShowParams($request, $params, $id);
-		
 		$contextParams = $params['contextParams'];
 		$viewParams = $params['viewParams'];
 		

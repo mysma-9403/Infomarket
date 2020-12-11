@@ -1,5 +1,7 @@
+{% set menuSearchFilterForm = searchForm.searchForm %}
+{% set menuCategories = searchForm.categories %}
 <nav class="navbar navbar-fixed-top">
-	<div class="navbar-default">
+	<div class="navbar-default" style="height: 100px;">
 		<div class="container">
 			<div class="row">
 				<div class="col-xs-12">
@@ -16,12 +18,6 @@
 						        <span class="icon-bar"></span>
 					      	</button>
 				      		{% endblock %}
-				      		
-							{% block navigationBrand %}
-							<a class="navbar-brand" href="{{ path('infoprodukt_home') }}">
-								<img class="brand-image" src="{{ asset('img/logo-infoprodukt-mini.png') }}">
-							</a>
-							{% endblock %}
 				    	</div>
 			    	{% endblock %}
 					
@@ -43,6 +39,11 @@
 						{{ form_end(menuSearchFilterForm) }}
 					</div>
 					{% endblock %}
+					{% block navigationBrand %}
+						<a class="navbar-brand" href="{{ path('infoprodukt_home') }}">
+							<img class="brand-image" src="{{ asset('img/logo-infoprodukt-mini.png') }}">
+						</a>
+					{% endblock %}
 					
 					{% block navigationLinks %}
 					<div class="collapse navbar-collapse" id="catbar">
@@ -52,35 +53,29 @@
 							<li>
 								<a rel="nofollow" href="#" class="dropdown-toggle" data-toggle="dropdown" 
 									role="button" aria-haspopup="true" aria-expanded="false">
-									<img class="align-bottom" alt="{{ 'label.category.icon'|trans }}" 
-										src="{{ asset(category.iconImage ? category.iconImage : 'img/icon.png') }}">
-									<span class="text-red"> {{ category.name }} {{ category.subname }}</span>
-									<span class="caret"></span>
+									{#<img class="align-bottom" alt="{{ 'label.category.icon'|trans }}" #}
+										{#src="{{ asset(category.iconImage ? category.iconImage : 'img/icon.png') }}">#}
+									{% set splittedName = category.name|split(' ') %}
+									<div class="text-red"> {{ splittedName[0] }}</div>
+									{% if splittedName[1] is defined %}
+										<div class="text-brand" style="line-height: 10px;"> {{ splittedName[1] }} <span class="caret"></span></div>
+									{% endif %}
 								</a>
 								<ul class="dropdown-menu category-menu-{{ category.id }}">
 									{% for subcategory in category.children | slice(0, 10) %}
-										{% include 'common/category/menu_entry.html.twig' with { 'entry': subcategory } %}
+										{% include 'common/category/menu_entry.html.twig' with { 'entry': subcategory, 'category': category } %}
 									{% endfor %}
 									
-									{% if category.children|length > 10 %}
+
 										<li role="separator" class="divider"></li>
 										<li>
-											<a href="{{ path(basePath ~ 'category_show', { id: category.id }) }}">
+											<a href="{{ path(basePath ~ 'category_show', { slug: category.slugUrl }) }}">
 												<span class="text-red">{{ 'label.more' | trans }}</span>
 											</a>
 										</li>
-									{% endif %}
 								</ul>
 							</li>
 							{% endfor %}
-							<li>
-								<a href="{{ path(basePath ~ 'category') }}">
-									<img class="align-bottom" alt="{{ 'label.category.icon'|trans }}" 
-										src="{{ asset('img/icon-all.png') }}">
-									<span class="text-brand"> {{ 'label.all'|trans }}</span>
-								</a>
-							</li>
-							
 						</ul>
 					</div>
 					{% endblock %}

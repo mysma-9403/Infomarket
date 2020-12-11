@@ -1,12 +1,17 @@
 {% set entryPath = entryPath | default(mainPath) %}
 {% set extPath = extPath | default('') %}
-
 {% if routeParams is not defined %}
-	{% set routeParams = { 'id': entry.id } %}
+	{% set routeParams = { 'slug': entry.slugUrl } %}
 {% elseif extPath %}
-	{% set routeParams = routeParams|merge({ 'id': entry.id }) %}
+	{% if  routeParams.slug is not defined %}
+		{% if entry.slugUrl is defined and routeParams.slug is not defined %}
+			{% set routeParams = routeParams|merge({ 'slug': entry.slugUrl }) %}
+		{% else %}
+			{% set id = entry.slugUrl is defined ? {'id': entry.id} : {'slug': entry.id} %}
+			{% set routeParams = routeParams|merge(id) %}
+		{% endif %}
+	{% endif %}
 {% endif %}
-
 {% set alternate = alternate | default(false) %}
 {% set bkgPrimary = bkgPrimary | default('bkg-brand') %}
 {% set bkgSecondary = bkgSecondary | default('bkg-red') %}
@@ -16,9 +21,10 @@
 
 {% set tileTitle = tileTitle | default(entry.name | raw) %}
 {% set tileSubtitle = tileSubtitle | default(entry.subname | raw) %}
+{% set revertedColors = revertedColors | default(0) %}
 
 <div class="bottom-rect-tile">
-	<a class="text-white" href="{{ path(basePath ~ entryPath ~ extPath, routeParams) }}">
+	<a class="text-white" href="{{ path(basePath ~ entryPath ~ extPath, routeParams|reverse) }}">
 		<div class="rect bkg-white">
 			{% if entry.image %}
 				{% include 'common/image/image_entry.html.twig' with { tile: true } %}
@@ -26,15 +32,20 @@
 		</div>
 		
 		{% if not hideTitle %}
-			<div class="col-xs-12 bottom-title-tile 
-				{{ alternate and loop.index % 2 ? bkgSecondary : bkgPrimary }}">
+			{% set bg = alternate and loop.index % 2 ? (revertedColors == 0 ? bkgSecondary : bkgPrimary) : (revertedColors == 0 ? bkgPrimary : bkgSecondary) %}
+			<div class="col-xs-12 bottom-title-tile
+				{{ bg }}">
 				<h4>{{ tileTitle }}&nbsp</h4>
 			</div>
 		{% endif %}
 		
 		{% if not hideSubtitle %}
-			<div class="col-xs-12 bottom-subtitle-tile 
-				{{ alternate and loop.index % 2 ? bkgPrimary : bkgSecondary }}">
+			<div class="col-xs-12 bottom-subtitle-tile
+			{% if backgroundFlag is defined %}
+				{{ backgroundFlag % 2 ? (revertedColors == 0 ? bkgPrimary : bkgSecondary) : (revertedColors == 0 ? bkgSecondary : bkgPrimary) }}
+			{% else %}
+				{{ alternate and loop.index % 2 ? revertedColors == 0 ? bkgPrimary : bkgSecondary : revertedColors == 0 ? bkgSecondary : bkgPrimary }}
+			{% endif %}">
 				<h4>{{ tileSubtitle }}&nbsp</h4>
 			</div>
 		{% endif %}

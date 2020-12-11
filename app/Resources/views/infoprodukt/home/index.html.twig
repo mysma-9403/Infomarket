@@ -17,18 +17,20 @@
 		<div class="row">
 			<div id="myCarousel" class="carousel slide carousel-fade" data-ride="carousel">
 				<ol class="carousel-indicators">
-					{% for category in categories | slice(0, 8) %}
-				    	<li data-target="#myCarousel" data-slide-to="{{ loop.index-1 }}" class="{{ loop.index == 1 ? 'active' : '' }}"></li>
+					{% set iter = 0 %}
+					{% for category in sliderCategories %}
+						<li data-target="#myCarousel" data-slide-to="{{ loop.index-1 }}" class="{{ loop.index == 1 ? 'active' : '' }}"></li>
 			    	{% endfor %}
 			  	</ol>
 			  	
 			  	<div class="align-right carousel-inner">
-			  		{% for category in categories | slice(0, 8) %}
-				    	<div class="rect-3x1 item {{ loop.index == 1 ? 'active' : '' }}">
-				    		<img class="div-center img-responsive" 
-				    			alt="image" src="{{ asset(category.featuredImage) }}">
-				    			
-		    				<div class="col-xs-12 div-bottom bkg-black-50 text-white">
+					{% set iter = 0 %}
+			  		{% for category in sliderCategories %}
+						<div class="rect-3x1 item {{ loop.index == 1 ? 'active' : '' }}">
+							<img class="div-center img-responsive"
+								 alt="image" src="{{ asset(category.featuredImage) }}">
+
+							<div class="col-xs-12 div-bottom bkg-black-50 text-white">
 								<div class="container home-lifted-bottom">
 									<div class="row">
 										<h3 class="padding-5">
@@ -37,7 +39,7 @@
 									</div>
 								</div>
 							</div>
-				    	</div>
+						</div>
 			    	{% endfor %}
 			  	</div>
 		  	</div>
@@ -57,40 +59,40 @@
 	
 	<div class="vr-space-40"></div>
 	
-	{% block featuredCategories %}
-	<div class="container">
-		<div class="row">
-			<h4 class="text-center title">
-				<span class="text-brand">{{ 'header.categories.1'|trans }}</span> 
-				<span class="text-red">{{ 'header.categories.2'|trans }}</span>
-			</h4>
-		</div>
-		
-		<div class="row">
-			{% for category in categories|slice(0,6) %}
-				<div class="col-sm-2 padding-5">
-					{% include 'common/tiles/bottom_rect_tile.twig' with { hideSubtitle: true, 
-						entry: category, entryPath: 'category', extPath: '_show', 
-						routeParams: { category: category.id } } %}
-				</div>
-			{% endfor %}
-			
-			{% for category in categories|slice(6,6) %}
-				<div class="col-sm-2 padding-5">
-					{% include 'common/tiles/bottom_rect_tile.twig' with { hideSubtitle: true, 
-						bkgPrimary: "bkg-red", entry: category, entryPath: 'category', extPath: '_show',
-						routeParams: { category: category.id } } %}
-				</div>
-			{% endfor %}
-		</div>
-		
-		<div class="row text-center">
-			<a href={{ path(basePath ~ 'category') }} class="btn btn-primary">{{ 'label.showAll'|trans }}</a>
-		</div>
-	</div>
-	{% endblock %}
-	
-	<div class="vr-space-40"></div>
+	{#{% block featuredCategories %}#}
+	{#<div class="container">#}
+		{#<div class="row">#}
+			{#<h4 class="text-center title">#}
+				{#<span class="text-brand">{{ 'header.categories.1'|trans }}</span> #}
+				{#<span class="text-red">{{ 'header.categories.2'|trans }}</span>#}
+			{#</h4>#}
+		{#</div>#}
+		{##}
+		{#<div class="row">#}
+			{#{% for category in categories|slice(0,6) %}#}
+				{#<div class="col-sm-2 padding-5">#}
+					{#{% include 'common/tiles/bottom_rect_tile.twig' with { hideSubtitle: true, #}
+						{#entry: category, entryPath: 'category', extPath: '_show', #}
+						{#routeParams: { slug: category.slugUrl } } %}#}
+				{#</div>#}
+			{#{% endfor %}#}
+			{##}
+			{#{% for category in categories|slice(6,6) %}#}
+				{#<div class="col-sm-2 padding-5">#}
+					{#{% include 'common/tiles/bottom_rect_tile.twig' with { hideSubtitle: true, #}
+						{#bkgPrimary: "bkg-red", entry: category, entryPath: 'category', extPath: '_show',#}
+						{#routeParams: { slug: category.slugUrl } } %}#}
+				{#</div>#}
+			{#{% endfor %}#}
+		{#</div>#}
+		{##}
+		{#<div class="row text-center">#}
+			{#<a href={{ path(basePath ~ 'category') }} class="btn btn-primary">{{ 'label.showAll'|trans }}</a>#}
+		{#</div>#}
+	{#</div>#}
+	{#{% endblock %}#}
+	{##}
+	{#<div class="vr-space-40"></div>#}
 	
 	{% block magazines %}
 		<div class="container">
@@ -114,7 +116,7 @@
 		  	</div>
 		  	
 		  	<div class="row text-center">
-				<a href={{ path(basePath ~ 'magazine') }} class="btn btn-danger">{{ 'label.showAll'|trans }}</a>
+				<a href="{{ path(basePath ~ 'magazine') }}" class="btn btn-danger">{{ 'label.showAll'|trans }}</a>
 			</div>
 	  	</div>
 	{% endblock %}

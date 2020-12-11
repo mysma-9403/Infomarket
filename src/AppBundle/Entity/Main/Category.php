@@ -86,6 +86,11 @@ class Category extends ImageTree {
 	 */
 	private $slug;
 
+    /**
+     * @var string|null
+     */
+	private $slugUrl;
+
 	/**
 	 *
 	 * @var string
@@ -917,5 +922,15 @@ class Category extends ImageTree {
     public function getInProgress()
     {
         return $this->inProgress;
+    }
+
+    public function getSlugUrl(): ?string
+    {
+        return $this->slugUrl;
+    }
+
+    public function setSlugUrl(?string $slugUrl)
+    {
+        $this->slugUrl = $slugUrl;
     }
 }

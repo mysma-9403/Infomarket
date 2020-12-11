@@ -25,7 +25,6 @@
 		{% set responsive = '' %}
 	{% endif %}
 
-	
 	{% if entry.mimeType is defined and entry.mimeType == "application/x-shockwave-flash" %}
 		<object type="application/x-shockwave-flash" data="{{ asset(entry.image) }}"
 		class="div-center {{ responsive }}" {{ forcedStyle }}>

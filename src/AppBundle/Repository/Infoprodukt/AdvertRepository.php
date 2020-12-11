@@ -33,8 +33,8 @@ class AdvertRepository extends BaseRepository {
 		$builder->select("e.id");
 		$builder->distinct();
 		$builder->from($this->getEntityType(), "e");
-		
-		if (count($categories) > 0) {
+
+		if (is_array($categories) && count($categories) > 0) {
 			$builder->innerJoin(AdvertCategoryAssignment::class, 'aca', Join::WITH, 'e.id = aca.advert');
 		}
 		
@@ -47,7 +47,7 @@ class AdvertRepository extends BaseRepository {
 		$where->add('e.dateFrom IS NULL OR e.dateFrom <= \'' . $date->format('Y-m-d H:i') . "\'");
 		$where->add('e.dateTo IS NULL OR e.dateTo >= \'' . $date->format('Y-m-d H:i') . "\'");
 		
-		if (count($categories) > 0) {
+		if (is_array($categories) && count($categories) > 0) {
 			$where->add($builder->expr()->in('aca.category', $categories));
 		}
 		

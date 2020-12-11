@@ -100,7 +100,7 @@ class CategoryEntryParamsManager extends EntryParamsManager {
 		$this->abaManager = $abaManager;
 	}
 
-	public function getShowParams(Request $request, array $params, $id) {
+	public function getShowParams(Request $request, array $params, $id, $category = null) {
 		$params = parent::getShowParams($request, $params, $id);
 		
 		$viewParams = $params['viewParams'];
@@ -139,7 +139,7 @@ class CategoryEntryParamsManager extends EntryParamsManager {
 			
 			// main articles //TODO refactoring if method is such big that needs comments -> make smaller submethods instead of comments :P
 			$viewParams['mainCategory'] = $this->getArticleCategory($articleCategories, self::MAIN_AC);
-			
+
 			$articles = $this->articleRepository->findCategoryItems($contextCategories, self::MAIN_AC, 12);
 			$viewParams['mainArticles'] = $articles;
 			

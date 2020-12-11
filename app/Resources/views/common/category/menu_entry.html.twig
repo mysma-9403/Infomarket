@@ -1,7 +1,6 @@
 <li>
 	{% set caretClass = caretClass|default('') %}
-	
-	{% if entry.preleaf != true and entry.children|length > 0 %}
+	{% if entry.preleaf != true and entry.children is defined and entry.children|length > 0 %}
 		<a class="trigger right-caret {{ caretClass }}">
 			{{ entry.name | raw }} {{ entry.subname | raw }}
 		</a>
@@ -13,14 +12,14 @@
 			{% if entry.children|length > 10 %}
 				<li role="separator" class="divider"></li>
 				<li>
-					<a href="{{ path(basePath ~ 'category_show', { id: entry.id, category: entry.id }) }}">
+					<a href="{{ path(basePath ~ 'category_show', { slug: entry.slugUrl, category: category.slugUrl }) }}">
 						<span class="text-red">{{ 'label.more' | trans }}</span>
 					</a>
 				</li>
 			{% endif %}
 		</ul>
 	{% else %}
-		<a href="{{ path(basePath ~ 'category_show', { id: entry.id, category: entry.id }) }}">
+		<a href="{{ path(basePath ~ 'category_show', { slug: category.slugUrl, category: entry.slugUrl }) }}">
 			{{ entry.name | raw }} {{ entry.subname | raw }}
 		</a>
 	{% endif %}

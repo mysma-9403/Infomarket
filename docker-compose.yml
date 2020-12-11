@@ -1,0 +1,93 @@
+version: '3'
+services:
+  market-web:
+    image: imweb
+    build: ./docker/web/
+    container_name: imweb
+    restart: unless-stopped
+    links:
+     # - market-redis
+      - market-db
+    ports:
+      - "80:80"
+    volumes:
+      - ./:/var/www/infomarket
+      - ./docker/web/sites-enabled:/etc/apache2/sites-enabled
+      - /tmp:/tmp
+    depends_on:
+   #   - market-redis
+      - market-db
+    environment:
+      CONTAINER_ROLE: app
+      APP_ENV: dev
+      TZ: "Europe/Warsaw"
+  market-scheduler:
+    image: imweb
+    container_name: imscheduler
+    restart: unless-stopped
+    depends_on:
+      - market-web
+    links:
+    #  - market-redis
+      - market-db
+    volumes:
+      - .:/var/www/infomarket
+    environment:
+      CONTAINER_ROLE: scheduler
+      TZ: "Europe/Warsaw"
+  queue-mailing:
+    image: imweb
+    container_name: imqueue-mails
+    restart: unless-stopped
+    depends_on:
+      - market-web
+    links:
+    #  - market-redis
+      - market-db
+    volumes:
+      - .:/var/www/infomarket
+    environment:
+      CONTAINER_ROLE: queue
+      QUEUE_TYPE: mails
+      TZ: "Europe/Warsaw"
+  queue-job:
+    image: imweb
+    container_name: imqueue-jobs
+    restart: unless-stopped
+    depends_on:
+      - market-web
+    links:
+   #   - market-redis
+      - market-db
+    volumes:
+      - .:/var/www/infomarket
+    environment:
+      CONTAINER_ROLE: queue
+      QUEUE_TYPE: jobs
+      TZ: "Europe/Warsaw"
+#  market-redis:
+#    image: redis:5-stretch
+#    container_name: imredis
+#    restart: unless-stopped
+#    command: ["redis-server", "--requirepass", "s3redisPassword", "--port", "6379}"]
+#    hostname: redis
+#    ports:
+#      - "6378:6379"
+  market-db:
+    image: mysql:5.7
+    container_name: imdb
+    restart: unless-stopped
+    volumes:
+      - IMdbdata:/var/lib/mysql
+      - ./docker/db/conf.d:/etc/mysql/conf.d:ro
+    ports:
+      - 8344:3306
+    environment:
+      MYSQL_DATABASE: infoprodukt
+      MYSQL_USER: root
+      MYSQL_PASSWORD: root
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+      TZ: "Europe/Warsaw"
+volumes:
+  IMdbdata:

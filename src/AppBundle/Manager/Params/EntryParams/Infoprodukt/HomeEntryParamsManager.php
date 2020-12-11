@@ -38,6 +38,7 @@ class HomeEntryParamsManager extends EntryParamsManager {
 		
 		$viewParams['categories'] = $this->categoryRepository->findHomeItems();
 		$viewParams['magazines'] = $this->magazineRepository->findHomeItems();
+		$viewParams['sliderCategories'] = $this->categoryRepository->findSliderMainCategories();
 		
 		$params['viewParams'] = $viewParams;
 		return $params;

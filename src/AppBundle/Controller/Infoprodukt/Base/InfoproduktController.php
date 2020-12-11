@@ -51,10 +51,10 @@ abstract class InfoproduktController extends StandardController {
 	protected function indexActionInternal(Request $request, $page) {
 		$params = $this->createParams($this->getIndexRoute());
 		$params = $this->getIndexParams($request, $params, $page);
-		
+
 		$rm = $this->getRouteManager();
 		$rm->register($request, $params['route'], $params['routeParams']);
-		
+
 		$am = $this->getAnalyticsManager();
 		$am->sendPageviewAnalytics($params['domain'], $params['route']);
 		
@@ -76,9 +76,9 @@ abstract class InfoproduktController extends StandardController {
 	 *        	
 	 * @return \Symfony\Component\HttpFoundation\Response
 	 */
-	protected function showActionInternal(Request $request, $id) {
+	protected function showActionInternal(Request $request, $id, $category = null) {
 		$params = $this->createParams($this->getShowRoute());
-		$params = $this->getShowParams($request, $params, $id);
+		$params = $this->getShowParams($request, $params, $id, $category);
 		
 		$rm = $this->getRouteManager();
 		$rm->register($request, $params['route'], $params['routeParams']);

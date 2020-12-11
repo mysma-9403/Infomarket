@@ -67,11 +67,11 @@
 								{% if topProducts and subcategory.preleaf == false %}
 									{% include 'common/tiles/bottom_rect_tile.twig' with { 
 										entry: subcategory, extPath: '_show', 
-										routeParams: { category: subcategory.id, top_products: topProducts } } %}
+										routeParams: { slug: entry.slugUrl, category: subcategory.slugUrl, top_products: topProducts } } %}
 								{% else %}
 									{% include 'common/tiles/bottom_rect_tile.twig' with { 
 										entry: subcategory, extPath: '_show',
-										routeParams: { category: subcategory.id }  } %}
+										routeParams: { slug: entry.slugUrl, category: subcategory.slugUrl }  } %}
 								{% endif %}
 							</div>
 						{% endif %}

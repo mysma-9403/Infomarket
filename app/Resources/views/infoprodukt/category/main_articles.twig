@@ -1,35 +1,43 @@
 {% set bkgColor = bkgColor | default('bkg-black-50') %}
 {% set showTitle = showTitle | default(false) %}
 
-{% if entry.magazineCategoryAssignments|length > 0 %}	
-	{% set magazine = entry.magazineCategoryAssignments|first.magazine %}
-	
+{% if entry.magazineCategoryAssignments|length > 0 %}
 	<div class="container">
 		<div class="row lifted-top">
 			{% block magazineBlock %}
-				<div class="col-sm-2 col-sm-push-10 padding-5">
-					{% include 'common/tiles/magazine_tile.twig' with { entry: magazine, 
-						magazineTitle: 'label.magazine.download'|trans, 
-						magazineSubtitle: 'label.magazine.currentNumber'|trans } %}
-				</div>
+				{% for magazineObj in entry.magazineCategoryAssignments %}
+					{% set magazine = magazineObj.magazine %}
+					<div class="col-sm-2 {{ entry.magazineCategoryAssignments|length > 1 ? 'col-sm-push-8' : 'col-sm-push-10' }} padding-5">
+						{% include 'common/tiles/magazine_tile.twig' with { entry: magazine,
+							magazineTitle: 'label.magazine.download'|trans,
+							magazineSubtitle: 'label.magazine.currentNumber'|trans } %}
+					</div>
+				{% endfor %}
 			{% endblock %}
-			
-			{% include 'infoprodukt/category/articles_group.twig' with { colMoreClass: "col-sm-pull-2", 
-				alternate: true, category: mainCategory, articles: mainArticles, numOfArticles: 10 } %}
+			{% if entry.magazineCategoryAssignments|length > 1 %}
+				{% set colMoreClass = 'col-sm-pull-4' %}
+			{% elseif entry.magazineCategoryAssignments|length <= 1 %}
+				{% set colMoreClass = 'col-sm-pull-2' %}
+			{% endif %}
+			{% include 'infoprodukt/category/articles_group.twig' with { colMoreClass: colMoreClass,
+				alternate: true, category: mainCategory, articles: mainArticles, numOfArticles: 8, articlesPerRow: 4} %}
 		</div>
 		
 		{% include 'infoprodukt/category/articles_more.twig' with 
-			{ category: mainCategory, articles: mainArticles, numOfArticles: 10, entriesPerRow: 5 } %}
+			{ category: mainCategory, articles: mainArticles, numOfArticles: 8, entriesPerRow: 4 } %}
 	</div>
 {% else %}
 	<div class="container">
+		<div class="row">
+
+		</div>
 		<div class="row lifted-top">
 			{% include 'infoprodukt/category/articles_group.twig' with 
-				{ alternate: true, category: mainCategory, articles: mainArticles, numOfArticles: 12 } %}
+				{ alternate: true, category: mainCategory, articles: mainArticles, numOfArticles: 8, articlesPerRow: 4} %}
 		</div>
 		
 		
-		{% include 'infoprodukt/category/articles_more.twig' with 
-			{ category: mainCategory, articles: mainArticles, numOfArticles: 12 } %}
+		{% include 'infoprodukt/category/articles_more.twig' with
+			{ category: mainCategory, articles: mainArticles, numOfArticles: 8 } %}
 	</div>
 {% endif %}

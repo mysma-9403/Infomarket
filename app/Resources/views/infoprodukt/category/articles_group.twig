@@ -1,9 +1,19 @@
 {% set numOfArticles = numOfArticles | default(6) %}
 {% set colMoreClass = colMoreClass | default("") %}
+{% set artInRow = articlesPerRow | default(6) %}
+{% set revertedColors = revertedColors | default(0) %}
 
-{% for article in articles | slice(0, numOfArticles) %}
-	<div class="col-sm-2 padding-5 {{ colMoreClass }}">
-		{% include 'common/tiles/article_bottom_rect_tile.twig' with { entryPath: "article",  
-			entry: article, categoryId: entry.id, articleCategoryId: category.id } %}
-	</div>
+{% for key, articless in articles | slice(0, numOfArticles) | batch(artInRow) %}
+    {% if articlesPerRow is defined %}
+        <div class="row" style="display: initial">
+    {% endif %}
+    {% for article in articless %}
+        <div class="col-sm-2 padding-5 {{ key == 0 ? colMoreClass : 'col-sm-pull-0' }}">
+            {% include 'common/tiles/article_bottom_rect_tile.twig' with { entryPath: "article",
+                entry: article, categoryId: entry.slugUrl, articleCategoryId: category.id, backgroundFlag: key, revertedColors: revertedColors  } %}
+        </div>
+    {% endfor %}
+    {% if articlesPerRow is defined %}
+        </div>
+    {% endif %}
 {% endfor %}

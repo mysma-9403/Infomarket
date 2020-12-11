@@ -17,7 +17,7 @@ class EntryParamsManager extends BaseEntryParamsManager {
 		return $params;
 	}
 
-	public function getShowParams(Request $request, array $params, $id) {
+	public function getShowParams(Request $request, array $params, $id, $category = null) {
 		$params = parent::getShowParams($request, $params, $id);
 		$viewParams = $params['viewParams'];
 		

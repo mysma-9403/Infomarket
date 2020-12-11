@@ -172,11 +172,11 @@ infoprodukt_category:
     path:      /categories/{page}
     host:      '%infoprodukt_host%'
     defaults:  { _controller: "AppBundle:Infoprodukt/Category:index", page: 1 }
-    
+
 infoprodukt_category_show:
-    path:      /categories/show/{id}
+    path:      /kategoria/{slug}/{category}
     host:      '%infoprodukt_host%'
-    defaults:  { _controller: "AppBundle:Infoprodukt/Category:show" }
+    defaults:  { _controller: "AppBundle:Infoprodukt/Category:show", category: null }
 
 infoprodukt_link_show:
     path:      /links/show/{id}
@@ -257,7 +257,7 @@ infoprodukt_brand_show_subdomain:
 infoprodukt_category_subdomain:
     path:      /categories/{page}
     host:      "{subdomain}.%infoprodukt_host%"
-    defaults:  { _controller: "AppBundle:Infoprodukt/Category:index", page: 1, subdomain: "" }
+    defaults:  { _controller: "AppBundle:Infoprodukt/CategoryBis:index", page: 1, subdomain: "" }
     
 infoprodukt_category_show_subdomain:
     path:      /categories/show/{id}
@@ -1867,5 +1867,9 @@ admin_user_category_assignment:
 fos_user:
     resource: "@FOSUserBundle/Resources/config/routing/all.xml"
     
+ef_connect:
+    path:  /efconnect/{instance}/{homeFolder}
+    defaults: { _controller: FMElfinderBundle:ElFinder:load, instance: default, homeFolder: '' }
 elfinder:
-    resource: "@FMElfinderBundle/Resources/config/routing.yml"
+    path: /elfinder/{instance}/{homeFolder}
+    defaults: { _controller: FMElfinderBundle:ElFinder:show, instance: default, homeFolder: '' }

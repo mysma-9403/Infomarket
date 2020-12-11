@@ -1,70 +1,165 @@
 {% block sidebarSearchBlock %}
-	<div class="row padding-5 hidden-lg hidden-md bkg-white">
-		<div class="col-xs-12">
-			{% include 'common/form/search_form.html.twig' %}
-		</div>
-	</div>
+    <div class="row padding-5 hidden-lg hidden-md bkg-white">
+        {#<div class="col-xs-12">#}
+        {#{% include 'common/form/search_form.html.twig' %}#}
+        {#</div>#}
+    </div>
 {% endblock %}
 
 {% block headerBlock %}
-	<div class="row">
-		<div class="rect-3x1 bkg-white">
-			{% if entry.featuredImage %}
-				<img class="div-center img-responsive" 
-					src="{{ asset(entry.featuredImage) }}">
-			{% endif %}
-			
-			<div class="col-xs-12 div-bottom bkg-black-50 text-white">
-				<div class="container category-lifted-bottom">
-					<div class="row">
-						<h3 class="left-padding-5 no-more-padding">
-							{{ entry.name | raw}} {{ entry.subname | raw }}
-						</h3>
-					</div>
-				</div>
-			</div>
-		</div>
-		
-		{% block mainArticles %}
-			{% include 'infoprodukt/category/main_articles.twig' %}
-		{% endblock %}
-	</div>
+    <div class="row">
+        <div class="rect-3x1 bkg-white">
+            {% if entry.featuredImage %}
+                <img class="div-center img-responsive"
+                     src="{{ asset(entry.featuredImage) }}">
+            {% endif %}
+
+            <div class="col-xs-12 div-bottom bkg-black-50 text-white">
+                <div class="container category-lifted-bottom">
+                    <div class="row">
+                        <h3 class="left-padding-5 no-more-padding">
+                            <span class="text-red">Artykuły</span> <span class="text-brand">i porady</span>
+                        </h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {% block mainArticles %}
+            {% include 'infoprodukt/category/main_articles.twig' %}
+        {% endblock %}
+    </div>
 {% endblock %}
 
 {% block productsArticlesBlock %}
-	{% if productsArticles|length > 0 %}
-		{% include 'infoprodukt/category/articles_section.twig' with 
-			{ category: productsCategory, articles: productsArticles } %}
-	{% endif %}
+    {% if productsArticles|length > 0 %}
+        {% include 'infoprodukt/category/articles_section.twig' with
+            { category: productsCategory, articles: productsArticles } %}
+    {% endif %}
+{% endblock %}
+
+{% block newsBlock %}
+    {% if reviewsArticles|length > 0 %}
+        <div class="container">
+            <div class="row">
+                <h4 class="left-padding-5 no-more-padding ">
+                    <strong>
+                        <span class="text-red">Wydarzenia</span>
+                        <span class="text-brand"> i aktualności</span>
+                    </strong>
+                </h4>
+            </div>
+            <div class="row">
+                {% for article in reviewsArticles %}
+                    <div class="col-sm-4 col-4 padding-5">
+                        <a class="text-white" href="{{ path(basePath ~ 'article_show',
+                            { id: article.id, article_filter_article_categories: [reviewsCategory.id] }) }}">
+                            <div class="rect col-bottom bkg-white">
+                                {% if article.image %}
+                                    <img class="div-center img-{{ article.vertical ? '' : 'v' }}responsive"
+                                         alt="{{ article.name | raw }}" src="{{ asset(article.image) }}">
+                                {% endif %}
+
+                                <div class="col-xs-12 div-bottom bkg-black-50">
+                                    <div class="default-tile">
+                                        <div class="tile default">
+                                            <h4 class="title">
+                                                {#											{% for brand in article.brands %}#}
+                                                {#												{{ brand.name }}#}
+                                                {#											{% endfor %}#}
+                                            </h4>
+                                            <h5>
+                                                {{ article.name }} {{ article.subname }}
+                                            </h5>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                {% endfor %}
+
+                {% if productsArticles | length > 0 %}
+                    <div class="col-sm-4 padding-5">
+                        <ul class="news">
+                            {% for article in productsArticles|slice(0, 6) %}
+                                <li>
+                                    <a href="{{ path(basePath ~ 'article_show', { id: article.id }) }}">
+											<span class="text-red">
+												{% for brand in article.brands %}
+                                                    {{ brand.name }}
+                                                {% endfor %}
+												&nbsp
+											</span>
+                                        <span>{{ article.name | raw }} {{ article.subname | raw }}</span>
+                                    </a>
+                                </li>
+                            {% endfor %}
+                            {% for article in productsArticles|slice(6, 6) %}
+                                <li>
+                                    <a href="{{ path(basePath ~ 'article_show', { id: article.id }) }}">
+											<span class="text-red">
+												{% for brand in article.brands %}
+                                                    {{ brand.name }}
+                                                {% endfor %}
+												&nbsp
+											</span>
+                                        <span>{{ article.name | raw }} {{ article.subname | raw }}</span>
+                                    </a>
+                                </li>
+                            {% endfor %}
+                            {% for article in productsArticles|slice(12, 2) %}
+                                <li>
+                                    <a href="{{ path(basePath ~ 'article_show', { id: article.id }) }}">
+											<span class="text-red">
+												{% for brand in article.brands %}
+                                                    {{ brand.name }}
+                                                {% endfor %}
+												&nbsp
+											</span>
+                                        <span>{{ article.name | raw }} {{ article.subname | raw }}</span>
+                                    </a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                {% endif %}
+            </div>
+
+            <div class="row">
+                <div class="col-xs-12 col-sm-3 col-sm-offset-9">
+                    <a class="branch-color- title no-padding" href={{ path(basePath ~ 'article',
+                        { article_filter_article_categories: [productsCategory.id] }) }}>
+                        {{ 'label.more'|trans }}
+                    </a>
+                </div>
+            </div>
+        </div>
+    {% endif %}
 {% endblock %}
 
 {% block featuredAds %}
-	{% if featuredAds | length > 0 %}
-		<div class="container">
-			<div class="row">
-				<h4 class="title left-padding-5 no-more-padding">
-					<span class="text-red">{{ 'header.featuredAds.1'|trans }}</span> 
-					<span class="text-brand">{{ 'header.featuredAds.2'|trans }}</span>
-				</h4>
-			</div>
-			
-			<div class="row">
-				<div class="col-xs-12 padding-5">
-					<div id="featuredAdsCarousel" class="carousel slide carousel-fade" data-ride="carousel">
-					  	<div class="carousel-inner" role="listbox">
-							{% for advert in featuredAds %}
-					    		<div class="item rect-3x1 {{ loop.index == 1 ? 'active' : '' }}">
-						    		{% include 'common/advert/advert_entry.html.twig' with { 'entry': advert } %}
-							    </div>
-						    {% endfor %}
-					  	</div>
-				  	</div>
-			  	</div>
-		  	</div>
-		</div>
-	{% endif %}
-{% endblock %}
+    {% if featuredAds | length > 0 %}
+        <div class="container">
+            <div class="row">
+            </div>
 
+            <div class="row">
+                <div class="col-xs-12 padding-5">
+                    <div id="featuredAdsCarousel" class="carousel slide carousel-fade" data-ride="carousel">
+                        <div class="carousel-inner" role="listbox">
+                            {% for advert in featuredAds %}
+                                <div class="item rect-3x1 {{ loop.index == 1 ? 'active' : '' }}">
+                                    {% include 'common/advert/advert_entry.html.twig' with { 'entry': advert } %}
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}
 {% block promotionsArticlesBlock %}
-	{% include 'infoprodukt/category/promo_articles.twig' %}
+    {% include 'infoprodukt/category/promo_articles.twig' with { 'revertedColors': 1} %}
 {% endblock %}

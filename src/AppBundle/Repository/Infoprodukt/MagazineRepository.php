@@ -83,8 +83,8 @@ class MagazineRepository extends BaseRepository {
 		
 		$builder->where($where);
 		
-		$builder->addOrderBy('e.orderNumber', 'ASC');
-		$builder->addOrderBy('e.name', 'DESC');
+		$builder->addOrderBy('e.createdAt', 'DESC');
+		//$builder->addOrderBy('e.name', 'DESC');
 		
 		$builder->setMaxResults(6);
 		

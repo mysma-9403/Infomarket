@@ -42,23 +42,23 @@
 {% endblock %}
 
 {% block moreSidebar %}
-	<div class="col-xs-12 well">
-		<h3>{{ 'label.latestArticles'|trans }}</h3>
-		
-		<div id="myCarousel" class="carousel slide" data-ride="carousel">
-			<ol class="carousel-indicators">
-				{% for article in lastArticles %}
-			    	<li data-target="#myCarousel" data-slide-to="{{ loop.index-1 }}" class="{{ loop.index == 1 ? 'active' : '' }}"></li>
-		    	{% endfor %}
-		  	</ol>
-		  	
-		  	<div class="carousel-inner">
-		  		{% for article in lastArticles | slice(0, 4) %}
-			    	<div class="item {{ loop.index == 1 ? 'active' : '' }}">
-						{% include 'common/default_tile.html.twig' with {'entry': article } %}			    		
-			    	</div>
-		    	{% endfor %}
-		  	</div>
-	  	</div>
-	</div>
+	{#<div class="col-xs-12 well">#}
+		{#<h3>{{ 'label.latestArticles'|trans }}</h3>#}
+		{##}
+		{#<div id="myCarousel" class="carousel slide" data-ride="carousel">#}
+			{#<ol class="carousel-indicators">#}
+				{#{% for article in lastArticles %}#}
+			    	{#<li data-target="#myCarousel" data-slide-to="{{ loop.index-1 }}" class="{{ loop.index == 1 ? 'active' : '' }}"></li>#}
+		    	{#{% endfor %}#}
+		  	{#</ol>#}
+		  	{##}
+		  	{#<div class="carousel-inner">#}
+		  		{#{% for article in lastArticles | slice(0, 4) %}#}
+			    	{#<div class="item {{ loop.index == 1 ? 'active' : '' }}">#}
+						{#{% include 'common/default_tile.html.twig' with {'entry': article } %}			    		#}
+			    	{#</div>#}
+		    	{#{% endfor %}#}
+		  	{#</div>#}
+	  	{#</div>#}
+	{#</div>#}
 {% endblock %}

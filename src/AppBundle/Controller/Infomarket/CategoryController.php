@@ -10,6 +10,8 @@ use AppBundle\Manager\Entity\Infomarket\CategoryManager;
 use AppBundle\Manager\Filter\Base\FilterManager;
 use AppBundle\Manager\Params\EntryParams\Infomarket\CategoryEntryParamsManager;
 use AppBundle\Manager\Params\Infomarket\CategoryAdvertParamsManager;
+use AppBundle\Repository\Infoprodukt\ArticleCategoryRepository;
+use AppBundle\Repository\Infoprodukt\ArticleRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Repository\Infomarket\BrandRepository;
@@ -48,8 +50,10 @@ class CategoryController extends InfomarketController {
 		$categoryRepository = $this->get(CategoryRepository::class);
 		$productRepository = $this->get(ProductRepository::class);
 		$segmentRepository = $this->get(SegmentRepository::class);
+        $articleRepository = $this->get(ArticleRepository::class);
+        $articleCategoryRepository = $this->get(ArticleCategoryRepository::class);
 		return new CategoryEntryParamsManager($em, $fm, $brandRepository, $categoryRepository, 
-				$productRepository, $segmentRepository);
+				$productRepository, $segmentRepository, $articleRepository, $articleCategoryRepository);
 	}
 
 	protected function getEntityManager($doctrine, $paginator) {

@@ -24,6 +24,8 @@
 			<gedmo:tree-path-source />
 		</field>
 
+		<field name="slugUrl" type="string" length="64" nullable="true" />
+
 		<field name="icon" type="string" length="64" nullable="true" />
 
 		<field name="featuredImage" type="string" length="256" nullable="true" />

@@ -43,7 +43,6 @@ class ContextParamsManager extends ParamsManager {
 		$viewParams = $params['viewParams'];
 		
 		$categories = $this->categoryRepository->findMenuItems();
-		
 		$viewParams['menuCategories'] = $categories;
 		$viewParams['menuWidths'] = $this->getMenuWidths($categories);
 		
@@ -51,8 +50,8 @@ class ContextParamsManager extends ParamsManager {
 		if ($categoryId) {
 			$contextParams['category'] = $categoryId;
 			$routeParams['category'] = $categoryId;
-			$viewParams['category'] = $this->categoryRepository->find($categoryId);
-			
+			$viewParams['category'] = $this->categoryRepository->findOneBy(['slugUrl' => $categoryId]);
+
 			$categories = $this->categoryRepository->findContextParents($categoryId);
 			$categories = array_merge($categories, $this->categoryRepository->findContextChildren($categoryId));
 			$contextParams['categories'] = $categories;
@@ -70,27 +69,27 @@ class ContextParamsManager extends ParamsManager {
 
 	protected function getMenuWidths(array $categories, $level = 1) {
 		$result = array();
-		
 		foreach ($categories as $category) {
 			$max = 0;
-			
-			foreach ($category['children'] as $child) {
-				$length = $level * 50 + (strlen($child['name']) + strlen($child['subname']) + 1) * 7;
-				if ($max < $length) {
-					$max = $length;
-				}
-			}
-			
-			if ($max > 0) {
-				$subresults = $this->getMenuWidths($category['children'], $level + 1);
-				foreach ($subresults as $subresult) {
-					if ($max < $subresult) {
-						$max = $subresult;
-					}
-				}
-				
-				$result[$category['id']] = $max;
-			}
+			if (isset($category['children'])) {
+                foreach ($category['children'] as $child) {
+                    $length = $level * 50 + (strlen($child['name']) + strlen($child['subname']) + 1) * 7;
+                    if ($max < $length) {
+                        $max = $length;
+                    }
+                }
+
+                if ($max > 0) {
+                    $subresults = $this->getMenuWidths($category['children'], $level + 1);
+                    foreach ($subresults as $subresult) {
+                        if ($max < $subresult) {
+                            $max = $subresult;
+                        }
+                    }
+
+                    $result[$category['id']] = $max;
+                }
+            }
 		}
 		
 		return $result;

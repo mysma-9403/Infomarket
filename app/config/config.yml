@@ -42,6 +42,8 @@ twig:
         - bootstrap_3_layout.html.twig
         #- bootstrap_3_horizontal_layout.html.twig
         #- "%kernel.root_dir%/Resources/views/form/fields.html.twig"
+    globals:
+        searchForm: '@AppBundle\Manager\Globals\Manager'
 
 # Doctrine Configuration
 doctrine:
@@ -62,7 +64,7 @@ doctrine:
 
     orm:
         auto_generate_proxy_classes: "%kernel.debug%"
-        naming_strategy: doctrine.orm.naming_strategy.underscore
+        naming_strategy: doctrine.orm.naming_strategy.underscore_number_aware
         auto_mapping: true
         mappings:
             gedmo_tree:
@@ -122,7 +124,7 @@ knp_paginator:
          pagination: KnpPaginatorBundle:Pagination:twitter_bootstrap_v3_pagination.html.twig
          
 # CKEditor
-ivory_ck_editor:
+fos_ck_editor:
     default_config: default
     configs:
         default:
@@ -135,7 +137,6 @@ fm_elfinder:
     instances:
         ratings:
             editor: form
-            include_assets: true
             visible_mime_types: ['text', 'csv', 'text/csv', 'application/csv']
             connector:
                 roots:
@@ -147,7 +148,6 @@ fm_elfinder:
                         upload_max_size: 512K
         newsletter_users:
             editor: form
-            include_assets: true
             visible_mime_types: ['text', 'csv', 'text/csv', 'application/csv']
             connector:
                 roots:
@@ -159,7 +159,6 @@ fm_elfinder:
                         upload_max_size: 512K
         icon:
             editor: form
-            include_assets: true
             visible_mime_types: ['image/png', 'image/jpg', 'image/jpeg']
             connector:
                 roots:
@@ -171,7 +170,6 @@ fm_elfinder:
                         upload_max_size: 512K
         featured:
             editor: form
-            include_assets: true
             visible_mime_types: ['image/png', 'image/jpg', 'image/jpeg']
             connector:
                 roots:
@@ -183,7 +181,6 @@ fm_elfinder:
                         upload_max_size: 2M
         topProdukt:
             editor: form
-            include_assets: true
             visible_mime_types: ['image/png', 'image/jpg', 'image/jpeg']
             connector:
                 roots:
@@ -195,7 +192,6 @@ fm_elfinder:
                         upload_max_size: 2M
         magazine:
             editor: form
-            include_assets: true
             visible_mime_types: ['application/pdf']
             connector:
                 roots:
@@ -207,7 +203,6 @@ fm_elfinder:
                         upload_max_size: 256M
         default:
             editor: ckeditor
-            include_assets: true
             visible_mime_types: ['all']
             connector:
                 roots:
@@ -221,20 +216,16 @@ fm_elfinder:
 # Google Analytics
 happyr_google_analytics:
     tracking_id: 'UA-83994037-1'
-    http_client: 'httplug.client'
-    http_message_factory: 'httplug.message_factory'
+    http_client: 'httplug.client.happyr_analytics'
+    http_message_factory: 'httplug.psr17_request_factory.default'
 
 # HTTPlug    
 httplug:
+    clients:
+        happyr_analytics:
+            http_methods_client: true
     plugins:
         logger: ~
-    clients:
-        acme:
-            factory: 'httplug.factory.guzzle5'
-            plugins: ['httplug.plugin.logger']
-            config:
-                verify: false
-                timeout: 2
 
 # Knp Snappy bundle - screenshots                
 knp_snappy:
@@ -251,3 +242,12 @@ knp_snappy:
 # Google charts    
 cmen_google_charts:
     version: "current"
+
+doctrine_migrations:
+    # Connection to use for the migrations
+    dir_name: '%kernel.project_dir%/src/AppBundle/Migrations'
+        # namespace is arbitrary but should be different from App\Migrations
+        # as migrations classes should NOT be autoloaded
+    namespace: App\Migrations
+
+

@@ -1,5 +1,6 @@
 {% set tileTitle = "" %}
 {% set tileSubtitle = entry.name ~ " " ~ entry.subname %}
+{% set revertedColors = revertedColors | default(0) %}
 
 {% if entry.brands is defined %}
 	{% for brand in entry.brands %}
@@ -8,7 +9,8 @@
 {% else %}
 	{% set hideTitle = true %}
 {% endif %}
+{% set backgroundFlag = backgroundFlag | default(null) %}
 
-{% include 'common/tiles/bottom_rect_tile.twig' with { extPath: '_show', 
-	routeParams: { id: entry.id, category: categoryId, 
+{% include 'common/tiles/bottom_rect_tile.twig' with { extPath: '_show', backgroundFlag: backgroundFlag,
+	routeParams: { id: entry.id, category: categoryId,
 	article_filter_article_categories: [articleCategoryId] } } %}

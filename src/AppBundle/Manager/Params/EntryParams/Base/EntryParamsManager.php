@@ -43,13 +43,29 @@ class EntryParamsManager {
 		return $params;
 	}
 
-	public function getShowParams(Request $request, array $params, $id) {
+	public function getShowParams(Request $request, array $params, $id, $category = null) {
 		$viewParams = $params['viewParams'];
 		$routeParams = $params['routeParams'];
-		
 		$routeParams['id'] = $id;
-		
-		$entry = $this->em->getEntry($id);
+
+		$category = isset($params['category_url']) ? $params['category_url'] : null;
+		if (is_string($id)) {
+		    if ($category) {
+		        if ((int) $category !== 0) {
+                    $entry = $this->em->getEntry($category);
+                } else {
+                    $entry = $this->em->getEntry(['slugUrl' => $category]);
+                }
+            } else {
+                if ((int) $category !== 0) {
+                    $entry = $this->em->getEntry($id);
+                } else {
+                    $entry = $this->em->getEntry(['slugUrl' => $id]);
+                }
+            }
+        } else {
+            $entry = $this->em->getEntry($id);
+        }
 		$viewParams['entry'] = $entry;
 		
 		$params['viewParams'] = $viewParams;

@@ -4,11 +4,15 @@ namespace AppBundle\Controller\Infoprodukt;
 
 use AppBundle\Controller\Infoprodukt\Base\InfoproduktController;
 use AppBundle\Entity\Main\Category;
+use AppBundle\Manager\Analytics\AnalyticsManager;
 use AppBundle\Manager\Entity\Base\EntityManager;
 use AppBundle\Manager\Entity\Infoprodukt\CategoryManager;
 use AppBundle\Manager\Filter\Base\FilterManager;
+use AppBundle\Manager\Params\EntryParams\Base\EntryParamsManager;
 use AppBundle\Manager\Params\EntryParams\Infoprodukt\CategoryEntryParamsManager;
 use AppBundle\Manager\Utils\ArticleBrandAssignmentsManager;
+use Happyr\GoogleAnalyticsBundle\Service\Tracker;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Repository\Infoprodukt\AdvertRepository;
@@ -19,28 +23,26 @@ use AppBundle\Repository\Infoprodukt\CategoryRepository;
 use AppBundle\Repository\Infoprodukt\ProductRepository;
 use AppBundle\Repository\Infoprodukt\SegmentRepository;
 
-class CategoryController extends InfoproduktController {
-	// ---------------------------------------------------------------------------
-	// Actions
-	// ---------------------------------------------------------------------------
-	/**
-	 *
-	 * {@inheritDoc}
-	 *
-	 * @see \AppBundle\Controller\Infomarket\HomeController::indexAction()
-	 */
-	public function indexAction(Request $request, $page) {
-		return $this->indexActionInternal($request, $page);
-	}
+class CategoryController extends InfoproduktController
+{
+    /**
+     *
+     * {@inheritDoc}
+     *
+     * @see \AppBundle\Controller\Infomarket\HomeController::indexAction()
+     */
+    public function indexAction(Request $request, $page) {
+        return $this->indexActionInternal($request, $page);
+    }
 
-	/**
-	 *
-	 * @param Request $request        	
-	 * @param unknown $id        	
-	 */
-	public function showAction(Request $request, $id) {
-		return $this->showActionInternal($request, $id);
-	}
+    /**
+     *
+     * @param Request $request
+     * @param unknown $id
+     */
+    public function showAction(Request $request, $slug, $category = null) {
+        return $this->showActionInternal($request, $slug, $category);
+    }
 	
 	// ---------------------------------------------------------------------------
 	// Managers

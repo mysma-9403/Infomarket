@@ -6,7 +6,7 @@
 {% block moreBreadcrumbs %}
 	{% if category is defined %}
 		/ 
-		<a rel="nofollow" href="{{ path(basePath ~ 'category_show', { id: category.id, category: category.preleaf ? category.id : category.parent.id }) }}">{{ category.name }}</a>
+		<a rel="nofollow" href="{{ path(basePath ~ 'category_show', { slug: entry.id, category: category.preleaf ? category.preleaf : category.parent ? category.parent.slugUrl : category.slugUrl }) }}">{{ category.name }}</a>
 	{% endif %}
 	/ 
 	<a rel="nofollow" href="{{ path(basePath ~ mainPath, { category: category is defined ? category.id : null }) }}">{{ listName }}</a>

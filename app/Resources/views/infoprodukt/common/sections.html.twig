@@ -10,13 +10,13 @@
 		{% set childCategory = category.preleaf ? category.getDefaultIPChildCategory() : category %}
 		{% set childCategoryId = childCategory ? childCategory.id : null %}
 	{% endif %}
-	
+
 	<li role="presentation" class="{{ mainPath == 'article' ? 'active' : ''}}">
 		<a href="{{ path(basePath ~ 'article', { category: preleafCategoryId }) }}">{{ 'label.articles'|trans }}</a>
 	</li>
 	
 	<li role="presentation" class="{{ mainPath == 'category' ? 'active' : ''}}">
-		<a href="{{ path(basePath ~ 'category' ~ (preleafCategoryId ? '_show' : ''), { id: preleafCategoryId, category: preleafCategoryId, top_products: 1 }) }}">
+		<a href="{{ path(basePath ~ 'category' ~ (preleafCategoryId ? '_show' : ''), { slug: preleafCategoryId, category: preleafCategoryId, top_products: 1 }) }}">
 			{{ childCategoryId ? 'label.subcategories'|trans : 'label.categories'|trans }}
 		</a>
 	</li>

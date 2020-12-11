@@ -152,6 +152,64 @@ class ArticleRepository extends BaseArticleRepository {
 		return $builder->getQuery();
 	}
 
+    public function findHomeFeaturedItems($categories, $articleCategories, $limit) {
+        return $this->queryHomeFeaturedItems($categories, $articleCategories, $limit)->getScalarResult();
+    }
+
+    protected function queryHomeFeaturedItems($categories, $articleCategories, $limit) {
+        $date = new \DateTime();
+
+        $builder = new QueryBuilder($this->getEntityManager());
+
+        $builder->select(
+            "e.id, e.name, e.subname, e.image, e.mimeType, e.vertical, e.forcedWidth, e.forcedHeight");
+        $builder->distinct();
+        $builder->from($this->getEntityType(), "e");
+
+        if (count($categories) > 0) {
+            $builder->innerJoin(ArticleCategoryAssignment::class, 'aca', Join::WITH, 'e.id = aca.article');
+            $builder->innerJoin(Category::class, 'c', Join::WITH, 'c.id = aca.category');
+        }
+
+        if (count($articleCategories) > 0) {
+            $builder->innerJoin(ArticleArticleCategoryAssignment::class, 'aaca', Join::WITH,
+                'e.id = aaca.article');
+        }
+
+        $expr = $builder->expr();
+
+        $where = $builder->expr()->andX();
+        $where->add($builder->expr()->eq('e.infomarket', 1));
+        $where->add($builder->expr()->eq('e.archived', 0));
+        $where->add($builder->expr()->eq('e.featured', 1));
+        $where->add('e.parent IS NULL');
+
+        $where->add('e.date IS NULL OR e.date <= \'' . $date->format('Y-m-d H:i') . "\'");
+        $where->add('e.endDate IS NULL OR e.endDate >= \'' . $date->format('Y-m-d H:i') . "\'");
+
+        if (count($categories) > 0) {
+            $rootWhere = $builder->expr()->orX();
+            $rootWhere->add($builder->expr()->in('c.rootId', $categories));
+            $rootWhere->add($builder->expr()->in('c.id', $categories));
+
+            $where->add($rootWhere);
+        }
+
+        if (count($articleCategories) > 0) {
+            $where->add($expr->in('aaca.articleCategory', $articleCategories));
+        }
+
+        $builder->where($where);
+
+        $builder->addOrderBy('e.date', 'DESC');
+        $builder->addOrderBy('e.name', 'ASC');
+        $builder->addOrderBy('e.subname', 'ASC');
+
+        $builder->setMaxResults($limit);
+
+        return $builder->getQuery();
+    }
+
 	protected function getEntityType() {
 		return Article::class;
 	}

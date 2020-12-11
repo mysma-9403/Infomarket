@@ -62,22 +62,24 @@ class CategoryRepository extends BaseRepository {
 		return $builder->getQuery();
 	}
 
-	public function findContextParents($categoryId) {
-		$treePath = $this->queryContextTreePath($categoryId)->getSingleResult(
+	public function findContextParents($urlSlug) {
+		$treePath = $this->queryContextTreePath($urlSlug)->getSingleResult(
 				AbstractQuery::HYDRATE_SINGLE_SCALAR);
 		return $this->getContextParents($treePath);
 	}
 
-	protected function queryContextTreePath($categoryId) {
+	protected function queryContextTreePath($urlSlug) {
 		$builder = new QueryBuilder($this->getEntityManager());
 		
 		$builder->select("e.treePath");
 		$builder->from($this->getEntityType(), "e");
-		
-		$expr = $builder->expr();
-		
-		$builder->where($expr->eq('e.id', $categoryId));
-		
+
+		if ((int) $urlSlug !== 0) {
+            $expr = $builder->expr();
+            $builder->where($expr->eq('e.id', $urlSlug));
+        } else {
+            $builder->where('e.slugUrl = :urlSlug')->setParameter('urlSlug', $urlSlug);
+        }
 		return $builder->getQuery();
 	}
 
@@ -90,29 +92,29 @@ class CategoryRepository extends BaseRepository {
 			$id = substr($part, $index + 1);
 			$items[] = $id;
 		}
-		
+
 		return $items;
 	}
 
 	public function findMenuItems() {
 		$items = $this->queryMenuItems()->getScalarResult();
 		
-		$rootItems = $this->getRootItemsWithLimit($items, 11);
+		$rootItems = $this->getRootItemsWithLimit($items, 1000);
 		
 		$index = 0;
 		$size = count($rootItems);
 		for ($i = 0; $i < $size; $i ++) {
 			$rootItem = $rootItems[$i];
-			$rootItems[$i] = $this->assignChildrenWithLimit($rootItem, $items, $index, 11);
+			$rootItems[$i] = $this->assignChildrenWithLimit($rootItem, $items, $index, 1000);
 		}
-		
+
 		return $rootItems;
 	}
 
 	protected function queryMenuItems() {
 		$builder = new QueryBuilder($this->getEntityManager());
 		
-		$builder->select("e.id, IDENTITY(e.parent) AS parent, e.preleaf, e.name, e.subname, e.iconImage");
+		$builder->select("e.id, IDENTITY(e.parent) AS parent, e.preleaf, e.name, e.subname, e.iconImage, e.slugUrl");
 		$builder->from($this->getEntityType(), "e");
 		
 		$builder->leftJoin(Category::class, 'p', Join::WITH, 'p.id = e.parent');
@@ -127,7 +129,7 @@ class CategoryRepository extends BaseRepository {
 		$builder->where($where);
 		
 		$builder->orderBy('e.treePath', 'ASC');
-		
+
 		return $builder->getQuery();
 	}
 
@@ -138,7 +140,7 @@ class CategoryRepository extends BaseRepository {
 	protected function queryHomeItems() {
 		$builder = new QueryBuilder($this->getEntityManager());
 		
-		$builder->select("e.id, e.name, e.subname, e.image, e.vertical, e.featuredImage");
+		$builder->select("e.id, e.name, e.subname, e.image, e.vertical, e.featuredImage, e.rootId, e.slugUrl");
 		$builder->from($this->getEntityType(), "e");
 		
 		$where = $builder->expr()->andX();
@@ -147,7 +149,7 @@ class CategoryRepository extends BaseRepository {
 		$where->add($builder->expr()->eq('e.preleaf', 1));
 		
 		$builder->where($where);
-		
+
 		$builder->addOrderBy('e.orderNumber', 'ASC');
 		$builder->addOrderBy('e.name', 'ASC');
 		$builder->addOrderBy('e.subname', 'ASC');
@@ -156,6 +158,26 @@ class CategoryRepository extends BaseRepository {
 		
 		return $builder->getQuery();
 	}
+
+	public function findSliderMainCategories()
+    {
+        $builder = new QueryBuilder($this->getEntityManager());
+
+        $builder->select("e.id, e.name, e.subname, e.image, e.vertical, e.featuredImage, e.rootId, e.slugUrl");
+        $builder->from($this->getEntityType(), "e");
+
+        $where = $builder->expr()->andX();
+        $where->add($builder->expr()->eq('e.infoprodukt', 1));
+        $where->add($builder->expr()->eq('e.featured', 1));
+        $where->add('(e.rootId IS NULL)');
+
+        $builder->where($where);
+
+        $builder->addOrderBy('e.name', 'ASC');
+        $builder->addOrderBy('e.subname', 'ASC');
+
+        return $builder->getQuery()->getScalarResult();
+    }
 
 	public function findSubcategories($category) {
 		return $this->queryTopItems($category)->getScalarResult();

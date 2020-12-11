@@ -393,7 +393,7 @@ class ProductController extends BenchmarkStandardController {
 		return $params;
 	}
 
-	protected function getShowParams(Request $request, array $params, $id) {
+	protected function getShowParams(Request $request, array $params, $id, $category = null) {
 		$params = $this->getParams($request, $params);
 		
 		$em = $this->getEntryParamsManager();

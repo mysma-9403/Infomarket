@@ -41,7 +41,7 @@
 		{{ entry.name | raw }} <span class="text-red">{{ entry.subname | raw }}</span>
 	</a>
 	
-	{% if entry.children | length > 0 %}
+	{% if entry.children is defined and entry.children | length > 0 %}
 		&nbsp &nbsp &nbsp
 		<a data-toggle="collapse" data-target="#{{ entry.id }}">
 			<span class="fa fa-caret-square-o-right"></span> 

@@ -10,7 +10,7 @@ services:
         resource: '../../../src/AppBundle/Controller/Infoprodukt/*'
         arguments:
             - '@AppBundle\Factory\Item\Infoprodukt\NewsletterUserFactory'
-                    
+
     # Benchmark
     AppBundle\Controller\Benchmark\BenchmarkMessageController:
         arguments:
@@ -261,3 +261,12 @@ services:
             - '@app.manager.transaction.common'
             - '@AppBundle\Manager\Decorator\Base\ItemDecorator'
             - '@AppBundle\Validator\Base\BaseValidator'
+
+    AppBundle\Controller\Infoprodukt\CategoryInfoProduktController:
+        arguments:
+            - '@doctrine.orm.entity_manager'
+            - '@AppBundle\Manager\Route\RouteManager'
+            - '@AppBundle\Repository\Infoprodukt\ArticleCategoryRepository'
+            - '@AppBundle\Repository\Infoprodukt\CategoryRepository'
+            - '@AppBundle\Repository\Infoprodukt\ArticleRepository'
+            - '@AppBundle\Manager\Params\EntryParams\Infoprodukt\CategoryEntryParamsManager'

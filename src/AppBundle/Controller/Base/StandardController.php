@@ -99,9 +99,9 @@ abstract class StandardController extends DummyController {
 	 */
 	protected function getIndexParams(Request $request, array $params, $page) {
 		$params = $this->getParams($request, $params);
-		
 		$em = $this->getEntryParamsManager();
 		$params = $em->getIndexParams($request, $params, $page);
+        $params['domain'] = 'infoprodukt';
 		
 		return $params;
 	}
@@ -111,10 +111,10 @@ abstract class StandardController extends DummyController {
 	 * @param array $params        	
 	 * @return array
 	 */
-	protected function getShowParams(Request $request, array $params, $id) {
+	protected function getShowParams(Request $request, array $params, $id, $category = null) {
 		$params = $this->getParams($request, $params);
-		
 		$em = $this->getEntryParamsManager();
+		$params['category_url'] = $category;
 		$params = $em->getShowParams($request, $params, $id);
 		
 		return $params;

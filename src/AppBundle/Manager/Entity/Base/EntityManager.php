@@ -40,10 +40,17 @@ abstract class EntityManager {
 	 *
 	 * @param integer $id        	
 	 *
-	 * @return Simple
+	 * @return object
 	 */
 	public function getEntry($id) {
-		return $this->repository->find($id);
+	    if (isset($id['slugUrl']) && (int)$id['slugUrl'] !== 0) {
+	        $id = $id['slugUrl'];
+        }
+	    if (!is_array($id)) {
+            return $this->repository->find($id);
+        } else {
+	        return $this->repository->findOneBy($id);
+        }
 	}
 
 	public function getEntries($filter, $page) {

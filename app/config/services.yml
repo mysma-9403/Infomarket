@@ -81,6 +81,7 @@ services:
     AppBundle\Repository\Factory\InfoproduktRepositoryFactory:
         arguments:
             - '@doctrine.orm.default_entity_manager'
+
             
     # FormBuilders
     AppBundle\Form\FormBuilder\BenchmarkEditorFieldBuilder:
@@ -115,3 +116,42 @@ services:
         arguments: ["@doctrine.orm.entity_manager"]
         tags:
             - { name: form.type }
+
+    AppBundle\Manager\Transaction\Base\TransactionManager:
+        class: AppBundle\Manager\Transaction\Base\TransactionManager
+        arguments: ["@doctrine.orm.entity_manager"]
+
+    AppBundle\Manager\Globals\Manager:
+        class: AppBundle\Manager\Globals\Manager
+        arguments: ["@request_stack", "@form.factory", "@AppBundle\\Repository\\Infoprodukt\\CategoryRepository"]
+
+    AppBundle\Manager\Route\RouteManager:
+        class: AppBundle\Manager\Route\RouteManager
+
+    AppBundle\Filter\Base\Filter:
+        class: AppBundle\Filter\Base\Filter
+
+    AppBundle\Manager\Filter\Base\FilterManager:
+        class: AppBundle\Manager\Filter\Base\FilterManager
+        arguments: ['@AppBundle\Filter\Base\Filter']
+
+    AppBundle\Manager\Params\EntryParams\Infoprodukt\CategoryEntryParamsManager:
+        class: AppBundle\Manager\Params\EntryParams\Infoprodukt\CategoryEntryParamsManager
+        arguments:
+            - '@AppBundle\Repository\Infoprodukt\AdvertRepository'
+            - '@AppBundle\Repository\Infoprodukt\ArticleRepository'
+            - '@AppBundle\Repository\Infoprodukt\ArticleCategoryRepository'
+            - '@AppBundle\Repository\Infoprodukt\BrandRepository'
+            - '@AppBundle\Repository\Infoprodukt\CategoryRepository'
+            - '@AppBundle\Repository\Infoprodukt\ProductRepository'
+            - '@AppBundle\Repository\Infoprodukt\SegmentRepository'
+            - '@AppBundle\Manager\Utils\ArticleBrandAssignmentsManager'
+
+    AppBundle\Twig\GetCategoryByIdExtension:
+        class: AppBundle\Twig\GetCategoryByIdExtension
+        public: false
+        arguments: ['@doctrine.orm.entity_manager']
+        tags:
+            - { name: twig.extension }
+
+

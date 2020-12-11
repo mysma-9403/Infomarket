@@ -221,7 +221,7 @@ abstract class BaseRepository extends EntityRepository {
 			if (substr($string, 0, 1) != '%') {
 				$string = '%' . $string;
 			}
-			if (substr($string, strlen($string - 1), 1) != '%') {
+			if (substr($string, strlen($string) - 1, 1) != '%') {
 				$string = $string . '%';
 			}
 		}
@@ -336,68 +336,64 @@ abstract class BaseRepository extends EntityRepository {
 
 	protected function getRootItemsWithLimit(&$items, $limit) {
 		$rootItems = array();
-		
+
 		$count = 0;
 		$size = count($items);
 		for ($i = 0; $i < $size; $i ++) {
 			$item = $items[$i];
-			
+
 			if ($item['parent'] === null) {
 				if ($count < $limit) {
 					$rootItems[] = $item;
 					$count ++;
 				}
-				
+
 				array_splice($items, $i, 1);
-				$size --;
-				$i --;
+				$size--;
+				$i--;
 			}
 		}
-		
+
 		return $rootItems;
 	}
 
-	protected function assignChildren($rootItem, &$items, &$index) {
-		$children = array();
-		
-		$size = count($items);
-		while ($index < $size) {
-			$item = $items[$index];
-			
-			if ($item['parent'] === $rootItem['id']) {
-				$children[] = $this->assignChildren($item, $items, ++ $index);
-			} else {
-				break; // because of: ORDER BY treePath!
-			}
-		}
-		
-		$rootItem['children'] = $children;
-		
-		return $rootItem;
+	protected function assignChildren($rootItem, $items, $index) {
+        $children = [];
+        foreach ($items as $item) {
+            if ($item['parent'] === $rootItem['id']) {
+                $children[] = $item;
+            }
+        }
+        $rootItem['children'] = $children;
+        return $rootItem;
 	}
 
 	protected function assignChildrenWithLimit($rootItem, &$items, &$index, $limit) {
-		$children = array();
-		
-		$count = 0;
-		$size = count($items);
-		while ($index < $size) {
-			$item = $items[$index];
-			
-			if ($item['parent'] === $rootItem['id']) {
-				$index ++;
-				if ($count < $limit) {
-					$children[] = $this->assignChildrenWithLimit($item, $items, $index, $limit);
-					$count ++;
-				}
-			} else {
-				break; // because of: ORDER BY treePath!
-			}
-		}
-		
-		$rootItem['children'] = $children;
-		
+		$children = [];
+		foreach ($items as $item) {
+		    if ($item['parent'] === $rootItem['id']) {
+		        $children[] = $item;
+            }
+        }
+        $rootItem['children'] = $children;
 		return $rootItem;
+//		$size = count($items);
+//		while ($index < $size) {
+//			$item = $items[$index];
+//
+//			if ($item['parent'] === $rootItem['id']) {
+//				$index ++;
+//				if ($count < $limit) {
+//					$children[] = $this->assignChildrenWithLimit($item, $items, $index, $limit);
+//					$count ++;
+//				}
+//			} else {
+//				break; // because of: ORDER BY treePath!
+//			}
+//		}
+//		$rootItem['children'] = $children;
+//
+//		return $rootItem;
 	}
 
 	/**
